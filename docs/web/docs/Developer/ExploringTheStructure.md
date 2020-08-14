@@ -6,7 +6,7 @@ permalink: /Developer/Exploring the structure/
 # Introduction
 
 Each night a documentation of the C++ source code is generated with the tool [Doxygen](http://www.doxygen.nl/).
-The result is acessible via [inline code documentation
+The result is accessible via [inline code documentation
   (doxygen)](http://sumo.dlr.de/daily/doxygen/).
 
 # Looking for a class by name
@@ -19,9 +19,9 @@ Select e.g. first M and then the class MSCFModel.
 
 For a selected class the following information is shown
 
-## Inheritance and collaboration diagramm
+## Inheritance and collaboration diagram
 
-For a select class you will see first the inheritance and collaboration diagramm.
+For a select class you will see first the inheritance and collaboration diagram.
 In these diagrams you can navigate to other classes by clicking on the box with the class name.
 ![Image:DevDoxygenClassDiagrams.png](../images/DevDoxygenClassDiagrams.png "DevDoxygenClassDiagrams.png")
 

@@ -18,7 +18,7 @@ will produce 4 [plain-XML network](../Networks/PlainXML.md) files
 - diff.con.xml
 - diff.tll.xml
 
-These files contain groups of xml elemens (i.e. nodes) that have been
+These files contain groups of xml elements (i.e. nodes) that have been
 delete, created or modified and can be used to investigate differences
 between the two networks *A* and *B*. Furthermore these files be used to
 maintain change-sets for making repeatable modifications:

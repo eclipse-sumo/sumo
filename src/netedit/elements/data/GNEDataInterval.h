@@ -25,6 +25,8 @@
 // ===========================================================================
 #include <config.h>
 
+#include <netedit/elements/GNEHierarchicalElement.h>
+
 #include "GNEDataSet.h"
 
 // ===========================================================================
@@ -42,7 +44,7 @@ class GNEGenericData;
  * @class GNEDataInterval
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDataInterval : public GNEAttributeCarrier {
+class GNEDataInterval : public GNEHierarchicalElement {
 
 public:
     /**@brief Constructor

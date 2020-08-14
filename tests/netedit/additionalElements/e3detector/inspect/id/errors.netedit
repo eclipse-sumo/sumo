@@ -1,4 +1,3 @@
-Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
@@ -10,41 +9,33 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Debug: Selected item 'detEntry' in TagSelector
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
 Debug: Selected item 'detExit' in TagSelector
-Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Value 'e3Detector_1' for attribute id of e3Detector isn't valid
 Debug: Value ';;;;;;;;;;;;;;;;;' for attribute id of e3Detector isn't valid
 Debug: Setting new attribute id 'Id with spaces' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute id 'Id with spacesdetEntry2' into detEntry 'e3Detector_0detEntry0'
-Debug: Setting new attribute id 'Id with spacesdetExit2' into detExit 'e3Detector_0detExit1'
 Debug: Setting new attribute id 'correctID' into e3Detector 'Id with spaces'
-Debug: Setting new attribute id 'correctIDdetEntry2' into detEntry 'Id with spacesdetEntry2'
-Debug: Setting new attribute id 'correctIDdetExit2' into detExit 'Id with spacesdetExit2'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'Id with spacesdetExit2' into detExit 'correctIDdetExit2'
-Debug: Setting previous attribute id 'Id with spacesdetEntry2' into detEntry 'correctIDdetEntry2'
 Debug: Setting previous attribute id 'Id with spaces' into e3Detector 'correctID'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute id 'e3Detector_0detExit1' into detExit 'Id with spacesdetExit2'
-Debug: Setting previous attribute id 'e3Detector_0detEntry0' into detEntry 'Id with spacesdetEntry2'
 Debug: Setting previous attribute id 'e3Detector_0' into e3Detector 'Id with spaces'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detExit 'e3Detector_1detExit1' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
@@ -60,26 +51,22 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detExit 'e3Detector_1detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute id 'Id with spaces' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute id 'Id with spacesdetEntry2' into detEntry 'e3Detector_0detEntry0'
-Debug: Setting new attribute id 'Id with spacesdetExit2' into detExit 'e3Detector_0detExit1'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute id 'correctID' into e3Detector 'Id with spaces'
-Debug: Setting new attribute id 'correctIDdetEntry2' into detEntry 'Id with spacesdetEntry2'
-Debug: Setting new attribute id 'correctIDdetExit2' into detExit 'Id with spacesdetExit2'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -89,13 +76,13 @@ Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit1'
+Debug: Deleting unreferenced detExit 'e3Detector_1'
+Debug: Deleting unreferenced detExit 'correctID'
+Debug: Deleting unreferenced detEntry 'e3Detector_1'
+Debug: Deleting unreferenced detEntry 'correctID'
+Debug: Deleting unreferenced e3Detector 'e3Detector_1'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced detExit 'correctIDdetExit2'
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
-Debug: Deleting unreferenced detEntry 'correctIDdetEntry2'
-Debug: Deleting unreferenced e3Detector 'e3Detector_1'
 Debug: Deleting unreferenced e3Detector 'correctID'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

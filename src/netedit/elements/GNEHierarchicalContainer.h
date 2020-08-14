@@ -25,7 +25,6 @@
 // class declarations
 // ===========================================================================
 
-class GNEAttributeCarrier;
 class GNENetworkElement;
 class GNEJunction;
 class GNEEdge;
@@ -48,7 +47,7 @@ public:
     /// @brief default constructor
     GNEHierarchicalContainer();
 
-    /// @brief parameter constructor
+    /// @brief parameter constructor (only for parents)
     GNEHierarchicalContainer(
         const std::vector<GNEJunction*>& parentJunctions,
         const std::vector<GNEEdge*>& parentEdges,
@@ -64,19 +63,19 @@ public:
 
     /// @brief add parent element
     template<typename T>
-    void addParentElement(const GNEAttributeCarrier* AC, T* element);
+    void addParentElement(const GNEHierarchicalElement* hierarchicalElement, T* element);
 
     /// @brief remove parent element
     template<typename T>
-    void removeParentElement(const GNEAttributeCarrier* AC, T* element);
+    void removeParentElement(const GNEHierarchicalElement* hierarchicalElement, T* element);
 
     /// @brief add child element
     template<typename T>
-    void addChildElement(const GNEAttributeCarrier* AC, T* element);
+    void addChildElement(const GNEHierarchicalElement* hierarchicalElement, T* element);
 
     /// @brief remove child element
     template<typename T>
-    void removeChildElement(const GNEAttributeCarrier* AC, T* element);
+    void removeChildElement(const GNEHierarchicalElement* hierarchicalElement, T* element);
 
     /// @brief get parents
     template<typename T>

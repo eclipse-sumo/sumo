@@ -36,7 +36,7 @@ permalink: /FAQ/
   outline
   [SUMO User Documentation](index.md). If
   you do not find the topic of interest listed there use the site search.
-  Alterantively, use a general purpose search engine as this will also include the mailing list archives.
+  Alternatively, use a general purpose search engine as this will also include the mailing list archives.
 
 ### How can I contribute to SUMO?
 
@@ -68,7 +68,7 @@ permalink: /FAQ/
 
 - Create a GitHub account
 - Configure the git client on your computer to use the email address
-  that you used when registering for your acount:
+  that you used when registering for your account:
 
 ```
 git config --global user.email "email@example.com"
@@ -134,7 +134,7 @@ email address to unsubscribe it from the list.
 ### An application crashed. What should I do?
 
 The applications in the SUMO suite may crash when running out of memory.
-Monitor the memory usage of your applicatons to check whether that may
+Monitor the memory usage of your applications to check whether that may
 be your problem. 32bit-applications may only use 2GB of RAM. Use the
 64bit version and ensure sufficient memory on your machine in order to
 work with larger files. If this does not fix the crash, please report
@@ -145,7 +145,7 @@ this as a bug [as explained below](#how_do_i_report_erroneous_behavior_of_a_sumo
 This wiki documents the behavior of the [latest development version](Downloads.md#nightly_snapshots). This is usually quite
 close the the [latest release](Downloads.md) (differences are
 explicitly listed in the [ChangeLog](ChangeLog.md). If you are
-using an older version of SUMO, you need to refert to [the documentation that is packaged with that version](Downloads.md#sumo_-_older_releases). Note that we do
+using an older version of SUMO, you need to refer to [the documentation that is packaged with that version](Downloads.md#sumo_-_older_releases). Note that we do
 not back-port bugfixes to older version of SUMO. If possible you should
 always use the latest version of SUMO.
 
@@ -264,7 +264,7 @@ of error can be safely handled by the script with *try/except*
 - It is a good idea to run [sumo](sumo.md) with the option **--log** {{DT_FILE}} to
 figure out what went wrong in a simulation run or why the simulation
 aborted.
-- If SUMO crashes (just stops instead of quiting with an error
+- If SUMO crashes (just stops instead of quitting with an error
 message) here is how to debug it:
   - in the options to *traci.start()* add *\['--save-configuration',
     'debug.sumocfg'\]*
@@ -279,7 +279,7 @@ gdb --args sumoD -c debug.sumocfg
 
 ### Error: tcpip::Storage::readIsSafe: want to read 8 bytes from Storage, but only 4 remaining
 
-The TraCI protocal changed in version 1.0.0. Please make sure that TraCI
+The TraCI protocol changed in version 1.0.0. Please make sure that TraCI
 client version and SUMO version match. When using SUMO version 1.0.0 or larger you cannot use traci version 17 or lower (check by calling `traci.getVersion()`)
 
 ## Features
@@ -337,7 +337,7 @@ client version and SUMO version match. When using SUMO version 1.0.0 or larger y
   The simulation itself runs on a single core. However, routing
   in [sumo](sumo.md) or [duarouter](duarouter.md) can
   be parallelized by setting the option **--device.rerouting.threads** {{DT_INT}} and **--routing-threads** {{DT_INT}} respectively.
-  When these optionsare are used, multiple cores on the machine are used.
+  When these options are are used, multiple cores on the machine are used.
   
   There is no support for multi-node parallelization.
   
@@ -654,9 +654,9 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   example with a simple circle see [{{SUMO}}/tests/sumo/cf_model/drive_in_circles]({{Source}}tests/sumo/cf_model/drive_in_circles)
   - The tool [generateContinuousRerouters.py](Tools/Misc.md#generatecontinuousrerouterspy) can be used to generate
     rerouters for continuous operation with configurable turning ratios.
-  - If the networks is not circular to begin with (i.e a single
+  - If the network is not circular to begin with (i.e a single
     road) you can make the network circular in a non-geometrical way
-    by adding a return edge that and declaring it's length to be very
+    by adding a return edge and declaring it's length to be very
     short (minimum 0.1m). The return edge should have a sensible geometry (i.e. a detour loop) but the length can be made very short so that it does not affect vehicle routes.
 - You can generate long trips going around the network with lots of
   detours. This can be accomplished using
@@ -790,7 +790,7 @@ registered
 
   Vehicles are entering the network earlier with decreasing time step
   lengths.
-  The reason for this behaviour is that a vehicle is emitted at the
+  The reason for this behavior is that a vehicle is emitted at the
   end of a time step. For one second time steps, this means that a
   vehicle which has the depart time of 0 will be inserted into the
   network at the end of the time step between 0 and 1, this means
@@ -946,7 +946,7 @@ Some examples on an average desktop PC:
 - vehicles on a long four-lane road: 240k UPS
 - complex grid network: 80k UPS
 
-In a city simulation of one day running with 80k UPS where a vehicle spends on average 30 minutes driving, 3.8 million vehicles can be simulated in 24h wall-clock time. However, the simulation would run slower than real-time whenver there are more than 80k Vehicles in the network at the same time because rush hours and low-traffic times would average out.
+In a city simulation of one day running with 80k UPS where a vehicle spends on average 30 minutes driving, 3.8 million vehicles can be simulated in 24h wall-clock time. However, the simulation would run slower than real-time whenever there are more than 80k Vehicles in the network at the same time because rush hours and low-traffic times would average out.
 
 Calculated as ` 24 * 3600 * 80000 / 1800 = 3840000 `
 
@@ -1031,12 +1031,14 @@ during the execution, DisplayLink drivers must be uninstalled.
 
 ### How do I upgrade SUMO?
 
-  The easiest way is to download the latest sumo release to a
+  The easiest way is to download the [latest sumo release](https://sumo.dlr.de/docs/Downloads.php) or the [latest development version](https://sumo.dlr.de/docs/Downloads.php#sumo_-_latest_development_version) to a
   directory of your choices and start using it from there. You may
   have to update the environment variables *PATH* and *SUMO_HOME* to
   ensure that the correct version of the application is called from
   the command line (see
   [Basics/Basic_Computer_Skills\#Configuring_Path_Settings](Basics/Basic_Computer_Skills.md#configuring_path_settings)).
+  Confirm that the values are update correctly by calling `echo %SUMO_HOME%` (Linux: `echo $SUMO_HOME`) 
+  from a command line that you wish to use for calling applications and traci scripts.
 
 ### [sumo](sumo.md) warns about deprecated networks or fails to load them
 

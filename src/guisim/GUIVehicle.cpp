@@ -563,11 +563,17 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
         case 30:
             return getLaneChangeModel().getSpeedLat();
         case 31: // by numerical param value
+            std::string error;
+            std::string val = getPrefixedParameter(s.vehicleParam, error);
             try {
-                return StringUtils::toDouble(myParameter->getParameter(s.vehicleParam, "0"));
+                if (val == "") {
+                    return 0;
+                } else {
+                    return StringUtils::toDouble(val);
+                }
             } catch (NumberFormatException&) {
                 try {
-                    return StringUtils::toBool(myParameter->getParameter(s.vehicleParam, "0"));
+                    return StringUtils::toBool(val);
                 } catch (BoolFormatException&) {
                     WRITE_WARNING("Vehicle parameter '" + myParameter->getParameter(s.vehicleParam, "0") + "' key '" + s.vehicleParam + "' is not a number for vehicle '" + getID() + "'");
                     return -1;

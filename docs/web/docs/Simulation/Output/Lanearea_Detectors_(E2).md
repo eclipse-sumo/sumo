@@ -75,7 +75,7 @@ The complete list of attributes is:
 | **lanes**      | referenced lane id list | A space-seperated list of lane-ids which are to be covered by the detector. All lanes must be a part of the network and form a continuous sequence. This argument excludes the arguments **lane** and **length**. |
 | **pos**        | float                   | The position on the first lane covered by the detector. See information about the same attribute within the detector loop description for further information. Per default, the start position is placed at the first lane's begin.   |
 | **endPos**     | float                   | The end position on the last lane covered by the detector. Per default the end position is placed at the last lane's end.    |
-| **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceeding / consecutive lanes.   |
+| **length**     | float                   | The length of the detector in meters. If the detector reaches over the lane's end, it is extended to preceding / consecutive lanes.   |
 | **file**       | filename                | The path to the output file. The path may be relative.   |
 | freq           | int                     | The aggregation period the values the detector collects shall be summed up. Either *freq* or *tl* must be specified      |
 | tl             | id                      | The [traffic light that triggers aggregation when switching](../../Simulation/Output/Traffic_Lights.md#coupled_areal_detectors). Either *freq* or *tl* must be specified   |
@@ -101,7 +101,7 @@ looks as following (the line is not broken within the output):
 ```
 
 To explain this vast amount of measures, a short note about how a lane
-area detector works is needfull. A lane area detector takes note about
+area detector works is needful. A lane area detector takes note about
 each vehicle that enters the area. As long as the vehicle does not leave
 the area completely, its state is collected in each time step during the
 interval. Each vehicle state in this case is called a "data sample" and

@@ -12,7 +12,22 @@ within_route
 within_route_onRoad
 
 # move person within the current route but on the road (off the sidewalk)
-within_route_yaywalk
+within_route_jaywalk
 
 # move person outside the road network
 outside_network
+
+# move person within the current route across a walkingarea and crossing
+keepRoute1_junction
+
+# move person within the current route across a walkingarea and crossing
+keepRoute2_junction
+
+# move person within the current route across a walkingarea and crossing
+keepRoute2_junction_offroad
+
+# move person to an edge not on it's route
+leaveRoute
+
+# move person accross a busy road between junctions
+leaveRoute_jaywalk

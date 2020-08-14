@@ -31,6 +31,7 @@
 #include <utils/common/RandHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/SystemFrame.h>
 #include "ROFrame.h"
 
 
@@ -75,6 +76,9 @@ ROFrame::fillOptions(OptionsCont& oc) {
 
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
     oc.addDescription("phemlight-path", "Input", "Determines where to load PHEMlight definitions from.");
+
+    // need to do this here to be able to check for network and route input options
+    SystemFrame::addReportOptions(oc);
 
     // register the time settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));

@@ -45,6 +45,7 @@
 #include <microsim/traffic_lights/MSSimpleTrafficLightLogic.h>
 #include <utils/common/RGBColor.h>
 #include <utils/geom/PositionVector.h>
+#include <utils/shapes/ShapeContainer.h>
 #include "GUISUMOViewParent.h"
 #include "GUIViewTraffic.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>
@@ -309,6 +310,17 @@ GUIViewTraffic::getVehicleParamKeys(bool /*vTypeKeys*/) const {
     return std::vector<std::string>(keys.begin(), keys.end());
 }
 
+std::vector<std::string>
+GUIViewTraffic::getPOIParamKeys() const {
+    std::set<std::string> keys;
+    const ShapeContainer::POIs& pois = static_cast<ShapeContainer&>(GUINet::getInstance()->getShapeContainer()).getPOIs();
+    for (auto item : pois) {
+        for (auto kv : item.second->getParametersMap()) {
+            keys.insert(kv.first);
+        }
+    }
+    return std::vector<std::string>(keys.begin(), keys.end());
+}
 
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {

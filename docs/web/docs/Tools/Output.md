@@ -111,7 +111,7 @@ about usage and available options.
 
 ## accelerations.py
 
-Script for computing aggregate statistics about vehicle acclerations
+Script for computing aggregate statistics about vehicle accelerations
 based on [--netstate-dump](../Simulation/Output/RawDump.md) output.
 
 ## vehLanes.py
@@ -202,7 +202,7 @@ generated.
 
 ## computeCoordination.py
 
-This tool reads fcd-outut and a cooridor definition. It computes the fraction of vehicles that passed the corridor without significant slow-dow.
+This tool reads fcd-outut and a corridor definition. It computes the fraction of vehicles that passed the corridor without significant slow-dow.
 
 Example:
 ```
@@ -210,4 +210,4 @@ python tools/output/computeCoordination.py --fcd-file fcd.xml --filter-route B
 ```
 This computes the fraction of vehicles that passed the edges *B,C,D,E* in order (possibly with gaps) and were delayed after passing edge *C* to less then 5m/s.
 
-With option **--full-output** {{DT_FILE}} Each vehicle that passed the corridor is recored with entry time and the time at which it was delayd (-1 it it was not delayed).
+With option **--full-output** {{DT_FILE}} Each vehicle that passed the corridor is recorded with entry time and the time at which it was delayed (-1 it it was not delayed).

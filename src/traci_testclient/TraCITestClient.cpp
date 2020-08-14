@@ -855,6 +855,8 @@ TraCITestClient::testAPI() {
     answerLog << "    getShapeClass: " << vehicle.getShapeClass("0") << "\n";
     std::pair<std::string, double> leader = vehicle.getLeader("1", 1000);
     answerLog << "    getLeader: " << leader.first << ", " << leader.second << "\n";
+    std::pair<std::string, double> follower = vehicle.getFollower("1", 1000);
+    answerLog << "    getFollower: " << follower.first << ", " << follower.second << "\n";
     std::pair<int, int> state = vehicle.getLaneChangeState("1", 1);
     answerLog << "    getLaneChangeState (left): " << state.first << ", " << state.second << "\n";
     state = vehicle.getLaneChangeState("1", -1);
@@ -960,6 +962,7 @@ TraCITestClient::testAPI() {
     person.setType("p0", "stilts");
     answerLog << "    getIDList: " << joinToString(person.getIDList(), " ") << "\n";
     answerLog << "    getRoadID: " << person.getRoadID("p0") << "\n";
+    answerLog << "    getLaneID: " << person.getLaneID("p0") << "\n";
     answerLog << "    getTypeID: " << person.getTypeID("p0") << "\n";
     answerLog << "    getWaitingTime: " << person.getWaitingTime("p0") << "\n";
     answerLog << "    getNextEdge: " << person.getNextEdge("p0") << "\n";

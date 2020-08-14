@@ -176,7 +176,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
-| **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rathern than seconds; *default:* **false** |
+| **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | The generated net will be written to FILE |
 | **--plain-output-prefix** {{DT_FILE}} | Prefix of files to write plain xml nodes, edges and connections to |
 | **--junctions.join-output** {{DT_FILE}} | Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins |
@@ -193,7 +193,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--ptline-output** {{DT_FILE}} | Writes public transport lines to FILE |
 | **--ptline-clean-up** {{DT_BOOL}} | Clean-up pt stops that are not served by any line; *default:* **false** |
 | **--parking-output** {{DT_FILE}} | Writes parking areas to FILE |
-| **--railway.topology.output** {{DT_FILE}} | Analyse topology of the railway network |
+| **--railway.topology.output** {{DT_FILE}} | Analyze topology of the railway network |
 | **--polygon-output** {{DT_FILE}} | Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE) |
 | **--opendrive-output.straight-threshold** {{DT_FLOAT}} | Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees; *default:* **1e-08** |
 

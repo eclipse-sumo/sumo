@@ -1,4 +1,4 @@
-<trips>
+<routes>
     <person id="ped0" depart="0.00"  departPos="random">
         <walk from="NC" to="CS" arrivalPos="random"/>
     </person>
@@ -5240,4 +5240,4 @@
     <person id="ped3513" depart="3598.00"  departPos="random">
         <walk from="NC" to="CS" arrivalPos="random"/>
     </person>
-</trips>
+</routes>

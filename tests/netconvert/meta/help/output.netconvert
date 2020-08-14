@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_6_0+1429-e369bc3108
+Eclipse SUMO netconvert Version v1_6_0+1462-a775417066
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -578,9 +578,6 @@ Report Options:
                                          inputs ("never", "auto" or "always")
   --xml-validation.net STR             Set schema validation scheme of SUMO
                                          network inputs ("never", "auto" or
-                                         "always")
-  --xml-validation.routes STR          Set schema validation scheme of SUMO
-                                         route inputs ("never", "auto" or
                                          "always")
   -W, --no-warnings                    Disables output of warnings
   --aggregate-warnings INT             Aggregate warnings of the same type

@@ -60,13 +60,13 @@ FXDEFMAP(GNEFrameModuls::DemandElementSelector) DemandElementSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_SET_TYPE,    GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement),
 };
 
-FXDEFMAP(GNEFrameModuls::AttributeCarrierHierarchy) AttributeCarrierHierarchyMap[] = {
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEFrameModuls::AttributeCarrierHierarchy::onCmdCenterItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEFrameModuls::AttributeCarrierHierarchy::onCmdInspectItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEFrameModuls::AttributeCarrierHierarchy::onCmdMoveItemUp),
-    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEFrameModuls::AttributeCarrierHierarchy::onCmdMoveItemDown),
-    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEFrameModuls::AttributeCarrierHierarchy::onCmdShowChildMenu)
+FXDEFMAP(GNEFrameModuls::HierarchicalElementTree) HierarchicalElementTreeMap[] = {
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_CENTER,                     GNEFrameModuls::HierarchicalElementTree::onCmdCenterItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_INSPECT,                    GNEFrameModuls::HierarchicalElementTree::onCmdInspectItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_DELETE,                     GNEFrameModuls::HierarchicalElementTree::onCmdDeleteItem),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEUP,         GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemUp),
+    FXMAPFUNC(SEL_COMMAND,              MID_GNE_ACHIERARCHY_MOVEDOWN,       GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemDown),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,   MID_GNE_ACHIERARCHY_SHOWCHILDMENU,  GNEFrameModuls::HierarchicalElementTree::onCmdShowChildMenu)
 };
 
 FXDEFMAP(GNEFrameModuls::DrawingShape) DrawingShapeMap[] = {
@@ -94,7 +94,7 @@ FXDEFMAP(GNEFrameModuls::PathCreator) PathCreatorMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEFrameModuls::TagSelector,                FXGroupBox,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
 FXIMPLEMENT(GNEFrameModuls::DemandElementSelector,      FXGroupBox,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
-FXIMPLEMENT(GNEFrameModuls::AttributeCarrierHierarchy,  FXGroupBox,     AttributeCarrierHierarchyMap,   ARRAYNUMBER(AttributeCarrierHierarchyMap))
+FXIMPLEMENT(GNEFrameModuls::HierarchicalElementTree,  FXGroupBox,     HierarchicalElementTreeMap,   ARRAYNUMBER(HierarchicalElementTreeMap))
 FXIMPLEMENT(GNEFrameModuls::DrawingShape,               FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrameModuls::OverlappedInspection,       FXGroupBox,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
 FXIMPLEMENT(GNEFrameModuls::PathCreator,                FXGroupBox,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))
@@ -171,15 +171,15 @@ GNEFrameModuls::TagSelector::TagSelector(GNEFrame* frameParent, GNETagProperties
         // Set visible items
         myTagTypesMatchBox->setNumVisible((int)myTagTypesMatchBox->getNumItems());
         // fill myListOfTags with personTrips (the first Tag Type)
-        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, onlyDrawables);
+        myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, onlyDrawables);
     } else {
         myTagTypesMatchBox->hide();
         // fill myListOfTags
-        myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(type, onlyDrawables);
+        myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(type, onlyDrawables);
     }
     // fill myTypeMatchBox with list of tags
-    for (const auto& i : myListOfTags) {
-        myTagsMatchBox->appendItem(toString(i).c_str());
+    for (const auto& tag : myListOfTags) {
+        myTagsMatchBox->appendItem(tag.second.c_str());
     }
     // Set visible items
     myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -218,12 +218,12 @@ GNEFrameModuls::TagSelector::setCurrentTagType(GNETagProperties::TagType tagType
         if (myTagsMatchBox->getItem(i).text() == toString(tagType)) {
             myTagsMatchBox->setCurrentItem(i);
             // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, true);
+            myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::PERSONTRIP, true);
             // clear myTagsMatchBox
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& j : myListOfTags) {
-                myTagsMatchBox->appendItem(toString(j).c_str());
+            for (const auto& tag : myListOfTags) {
+                myTagsMatchBox->appendItem(tag.second.c_str());
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -265,13 +265,13 @@ long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void
             // set color of myTagTypesMatchBox to black (valid)
             myTagTypesMatchBox->setTextColor(FXRGB(0, 0, 0));
             // fill myListOfTags with personTrips (the first Tag Type)
-            myListOfTags = GNEAttributeCarrier::allowedTagsByCategory(i.second, true);
+            myListOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(i.second, true);
             // show and clear myTagsMatchBox
             myTagsMatchBox->show();
             myTagsMatchBox->clearItems();
             // fill myTypeMatchBox with list of tags
-            for (const auto& j : myListOfTags) {
-                myTagsMatchBox->appendItem(toString(j).c_str());
+            for (const auto& tag : myListOfTags) {
+                myTagsMatchBox->appendItem(tag.second.c_str());
             }
             // Set visible items
             myTagsMatchBox->setNumVisible((int)myTagsMatchBox->getNumItems());
@@ -298,12 +298,12 @@ long GNEFrameModuls::TagSelector::onCmdSelectTagType(FXObject*, FXSelector, void
 long
 GNEFrameModuls::TagSelector::onCmdSelectTag(FXObject*, FXSelector, void*) {
     // Check if value of myTypeMatchBox correspond of an allowed additional tags
-    for (const auto& i : myListOfTags) {
-        if (toString(i) == myTagsMatchBox->getText().text()) {
+    for (const auto& tag : myListOfTags) {
+        if (tag.second == myTagsMatchBox->getText().text()) {
             // set color of myTypeMatchBox to black (valid)
             myTagsMatchBox->setTextColor(FXRGB(0, 0, 0));
             // Set new current type
-            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(i);
+            myCurrentTagProperties = GNEAttributeCarrier::getTagProperties(tag.first);
             // call tag selected function
             myFrameParent->tagSelected();
             // Write Warning in console if we're in testing mode
@@ -345,9 +345,11 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
     myFrameParent(frameParent),
     myCurrentDemandElement(nullptr) {
     // fill myDemandElementTags
-    for (const auto& i : tagTypes) {
-        auto tags = GNEAttributeCarrier::allowedTagsByCategory(i, false);
-        myDemandElementTags.insert(myDemandElementTags.end(), tags.begin(), tags.end());
+    for (const auto& tagType : tagTypes) {
+        const auto tagsByCategory = GNEAttributeCarrier::getAllowedTagsByCategory(tagType, false);
+        for (const auto &tagByCategory : tagsByCategory) {
+            myDemandElementTags.push_back(tagByCategory.first);
+        }
     }
     // Create FXComboBox
     myDemandElementsMatchBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_TYPE, GUIDesignComboBox);
@@ -371,6 +373,7 @@ const std::vector<SumoXMLTag>&
 GNEFrameModuls::DemandElementSelector::getAllowedTags() const {
     return myDemandElementTags;
 }
+
 
 void
 GNEFrameModuls::DemandElementSelector::setDemandElement(GNEDemandElement* demandElement) {
@@ -551,13 +554,13 @@ GNEFrameModuls::DemandElementSelector::onCmdSelectDemandElement(FXObject*, FXSel
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameModuls::AttributeCarrierHierarchy - methods
+// GNEFrameModuls::HierarchicalElementTree - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameModuls::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* frameParent) :
+GNEFrameModuls::HierarchicalElementTree::HierarchicalElementTree(GNEFrame* frameParent) :
     FXGroupBox(frameParent->myContentFrame, "Hierarchy", GUIDesignGroupBoxFrame),
     myFrameParent(frameParent),
-    myAC(nullptr),
+    myHE(nullptr),
     myClickedAC(nullptr),
     myClickedJunction(nullptr),
     myClickedEdge(nullptr),
@@ -577,24 +580,24 @@ GNEFrameModuls::AttributeCarrierHierarchy::AttributeCarrierHierarchy(GNEFrame* f
 }
 
 
-GNEFrameModuls::AttributeCarrierHierarchy::~AttributeCarrierHierarchy() {}
+GNEFrameModuls::HierarchicalElementTree::~HierarchicalElementTree() {}
 
 
 void
-GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierHierarchy(GNEAttributeCarrier* AC) {
-    myAC = AC;
-    // show AttributeCarrierHierarchy and refresh AttributeCarrierHierarchy
-    if (myAC) {
+GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementTree(GNEAttributeCarrier* AC) {
+    myHE = dynamic_cast<GNEHierarchicalElement*>(AC);
+    // show HierarchicalElementTree and refresh HierarchicalElementTree
+    if (myHE) {
         show();
-        refreshAttributeCarrierHierarchy();
+        refreshHierarchicalElementTree();
     }
 }
 
 
 void
-GNEFrameModuls::AttributeCarrierHierarchy::hideAttributeCarrierHierarchy() {
+GNEFrameModuls::HierarchicalElementTree::hideHierarchicalElementTree() {
     // set all pointers null
-    myAC = nullptr;
+    myHE = nullptr;
     myClickedAC = nullptr;
     myClickedJunction = nullptr;
     myClickedEdge = nullptr;
@@ -614,29 +617,29 @@ GNEFrameModuls::AttributeCarrierHierarchy::hideAttributeCarrierHierarchy() {
 
 
 void
-GNEFrameModuls::AttributeCarrierHierarchy::refreshAttributeCarrierHierarchy() {
+GNEFrameModuls::HierarchicalElementTree::refreshHierarchicalElementTree() {
     // clear items
     myTreelist->clearItems();
     myTreeItemToACMap.clear();
     myTreeItemsConnections.clear();
-    // show ACChildren of myAC
-    if (myAC) {
-        showAttributeCarrierChildren(myAC, showAttributeCarrierParents());
+    // show children of myHE
+    if (myHE) {
+        showHierarchicalElementChildren(myHE, showAttributeCarrierParents());
     }
 }
 
 
 void
-GNEFrameModuls::AttributeCarrierHierarchy::removeCurrentEditedAttribute(const GNEAttributeCarrier* AC) {
-    // simply check if AC is the same of myAC
-    if (AC == myAC) {
-        myAC = nullptr;
+GNEFrameModuls::HierarchicalElementTree::removeCurrentEditedAttributeCarrier(const GNEAttributeCarrier* AC) {
+    // simply check if AC is the same of myHE
+    if (AC == myHE) {
+        myHE = nullptr;
     }
 }
 
 
 long
-GNEFrameModuls::AttributeCarrierHierarchy::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
+GNEFrameModuls::HierarchicalElementTree::onCmdShowChildMenu(FXObject*, FXSelector, void* eventData) {
     // Obtain event
     FXEvent* e = (FXEvent*)eventData;
     // obtain FXTreeItem in the given position
@@ -650,7 +653,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdShowChildMenu(FXObject*, FXSelec
 
 
 long
-GNEFrameModuls::AttributeCarrierHierarchy::onCmdCenterItem(FXObject*, FXSelector, void*) {
+GNEFrameModuls::HierarchicalElementTree::onCmdCenterItem(FXObject*, FXSelector, void*) {
     // Center item
     if (myClickedJunction) {
         myFrameParent->myViewNet->centerTo(myClickedJunction->getGlID(), true, -1);
@@ -680,16 +683,16 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdCenterItem(FXObject*, FXSelector
 
 
 long
-GNEFrameModuls::AttributeCarrierHierarchy::onCmdInspectItem(FXObject*, FXSelector, void*) {
-    if ((myAC != nullptr) && (myClickedAC != nullptr)) {
-        myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myClickedAC, myAC);
+GNEFrameModuls::HierarchicalElementTree::onCmdInspectItem(FXObject*, FXSelector, void*) {
+    if ((myHE != nullptr) && (myClickedAC != nullptr)) {
+        myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectChild(myClickedAC, myHE);
     }
     return 1;
 }
 
 
 long
-GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector, void*) {
+GNEFrameModuls::HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
     // check if Inspector frame was opened before removing
     const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs();
     // Remove Attribute Carrier
@@ -745,7 +748,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
     // update net
     myFrameParent->myViewNet->updateViewNet();
     // refresh AC Hierarchy
-    refreshAttributeCarrierHierarchy();
+    refreshHierarchicalElementTree();
     // check if inspector frame has to be shown again
     if (currentInspectedACs.size() == 1) {
         if (currentInspectedACs.front() != myClickedAC) {
@@ -760,7 +763,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdDeleteItem(FXObject*, FXSelector
 
 
 long
-GNEFrameModuls::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
+GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemUp(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
         myFrameParent->myViewNet->getUndoList()->p_begin(("moving up " + myClickedDemandElement->getTagStr()).c_str());
@@ -770,13 +773,13 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdMoveItemUp(FXObject*, FXSelector
         myFrameParent->myViewNet->getUndoList()->p_end();
     }
     // refresh after moving child
-    refreshAttributeCarrierHierarchy();
+    refreshHierarchicalElementTree();
     return 1;
 }
 
 
 long
-GNEFrameModuls::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
+GNEFrameModuls::HierarchicalElementTree::onCmdMoveItemDown(FXObject*, FXSelector, void*) {
     // currently only children of demand elements can be moved
     if (myClickedDemandElement) {
         myFrameParent->myViewNet->getUndoList()->p_begin(("moving down " + myClickedDemandElement->getTagStr()).c_str());
@@ -786,13 +789,13 @@ GNEFrameModuls::AttributeCarrierHierarchy::onCmdMoveItemDown(FXObject*, FXSelect
         myFrameParent->myViewNet->getUndoList()->p_end();
     }
     // refresh after moving child
-    refreshAttributeCarrierHierarchy();
+    refreshHierarchicalElementTree();
     return 1;
 }
 
 
 void
-GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
+GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttributeCarrier* clickedAC) {
     // first check that AC exist
     if (clickedAC) {
         // set current clicked AC
@@ -831,8 +834,8 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
             inspectMenuCommand->disable();
             deleteMenuCommand->disable();
         }
-        // now chec if given AC support manually moving of their item up and down (Currently only for demand elements
-        if (myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()) {
+        // now chec if given AC support manually moving of their item up and down (Currently only for certain demand elements)
+        if (false /*myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()*/) {
             // insert separator
             new FXMenuSeparator(pane);
             // create both moving menu commands
@@ -841,7 +844,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
             // check if both commands has to be disabled
             if (myClickedDemandElement->getTagProperty().isPersonStop()) {
                 moveUpMenuCommand->setText("Move up (Stops cannot be moved)");
-                moveDownMenuCommand->setText("Move diwb (Stops cannot be moved)");
+                moveDownMenuCommand->setText("Move down (Stops cannot be moved)");
                 moveUpMenuCommand->disable();
                 moveDownMenuCommand->disable();
             } else {
@@ -888,13 +891,13 @@ GNEFrameModuls::AttributeCarrierHierarchy::createPopUpMenu(int X, int Y, GNEAttr
 
 
 FXTreeItem*
-GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
-    if (myAC->getTagProperty().isNetworkElement()) {
+GNEFrameModuls::HierarchicalElementTree::showAttributeCarrierParents() {
+    if (myHE->getTagProperty().isNetworkElement()) {
         // check demand element type
-        switch (myAC->getTagProperty().getTag()) {
+        switch (myHE->getTagProperty().getTag()) {
             case SUMO_TAG_EDGE: {
                 // obtain Edge
-                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(myAC->getID(), false);
+                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(myHE->getID(), false);
                 if (edge) {
                     // insert Junctions of edge in tree (Pararell because a edge has always two Junctions)
                     FXTreeItem* junctionSourceItem = myTreelist->insertItem(nullptr, nullptr, (edge->getParentJunctions().front()->getHierarchyName() + " origin").c_str(), edge->getParentJunctions().front()->getIcon(), edge->getParentJunctions().front()->getIcon());
@@ -911,7 +914,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             }
             case SUMO_TAG_LANE: {
                 // obtain lane
-                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(myAC->getID(), false);
+                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(myHE->getID(), false);
                 if (lane) {
                     // obtain parent edge
                     GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(lane->getParentEdge()->getID());
@@ -934,7 +937,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             }
             case SUMO_TAG_CROSSING: {
                 // obtain Crossing
-                GNECrossing* crossing = myFrameParent->myViewNet->getNet()->retrieveCrossing(myAC->getID(), false);
+                GNECrossing* crossing = myFrameParent->myViewNet->getNet()->retrieveCrossing(myHE->getID(), false);
                 if (crossing) {
                     // obtain junction
                     GNEJunction* junction = crossing->getParentJunction();
@@ -951,7 +954,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             }
             case SUMO_TAG_CONNECTION: {
                 // obtain Connection
-                GNEConnection* connection = myFrameParent->myViewNet->getNet()->retrieveConnection(myAC->getID(), false);
+                GNEConnection* connection = myFrameParent->myViewNet->getNet()->retrieveConnection(myHE->getID(), false);
                 if (connection) {
                     // create edge from item
                     FXTreeItem* edgeFromItem = myTreelist->insertItem(nullptr, nullptr, connection->getEdgeFrom()->getHierarchyName().c_str(), connection->getEdgeFrom()->getIcon(), connection->getEdgeFrom()->getIcon());
@@ -975,9 +978,9 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             default:
                 break;
         }
-    } else if (myAC->getTagProperty().getTag() == SUMO_TAG_POILANE) {
+    } else if (myHE->getTagProperty().getTag() == SUMO_TAG_POILANE) {
         // Obtain POILane
-        GNEShape* POILane = myFrameParent->myViewNet->getNet()->retrieveShape(SUMO_TAG_POILANE, myAC->getID(), false);
+        GNEShape* POILane = myFrameParent->myViewNet->getNet()->retrieveShape(SUMO_TAG_POILANE, myHE->getID(), false);
         if (POILane) {
             // obtain parent lane
             GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(POILane->getParentLanes().at(0)->getID());
@@ -1003,9 +1006,9 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
         } else {
             return nullptr;
         }
-    } else if (myAC->getTagProperty().isAdditionalElement()) {
+    } else if (myHE->getTagProperty().isAdditionalElement()) {
         // Obtain Additional
-        GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(myAC->getTagProperty().getTag(), myAC->getID(), false);
+        GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(myHE->getTagProperty().getTag(), myHE->getID(), false);
         if (additional) {
             // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
             FXTreeItem* root = nullptr;
@@ -1068,9 +1071,9 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
-    } else if (myAC->getTagProperty().isTAZElement()) {
+    } else if (myHE->getTagProperty().isTAZElement()) {
         // Obtain TAZElement
-        GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->retrieveTAZElement(myAC->getTagProperty().getTag(), myAC->getID(), false);
+        GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->retrieveTAZElement(myHE->getTagProperty().getTag(), myHE->getID(), false);
         if (TAZElement) {
             // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
             FXTreeItem* root = nullptr;
@@ -1133,9 +1136,9 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             // return last inserted list item
             return root;
         }
-    } else if (myAC->getTagProperty().isDemandElement()) {
+    } else if (myHE->getTagProperty().isDemandElement()) {
         // Obtain DemandElement
-        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(myAC->getTagProperty().getTag(), myAC->getID(), false);
+        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(myHE->getTagProperty().getTag(), myHE->getID(), false);
         if (demandElement) {
             // declare auxiliar FXTreeItem, due a demand element can have multiple "roots"
             FXTreeItem* root = nullptr;
@@ -1199,15 +1202,15 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
             return root;
         }
 
-    } else if (myAC->getTagProperty().isDataElement()) {
+    } else if (myHE->getTagProperty().isDataElement()) {
         // check if is a GNEDataInterval or a GNEGenericData
-        if (myAC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
+        if (myHE->getTagProperty().getTag() == SUMO_TAG_DATASET) {
             return nullptr;
-        } else if (myAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
-            return addListItem(myFrameParent->myViewNet->getNet()->retrieveDataSet(myAC->getID()));
+        } else if (myHE->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+            return addListItem(myFrameParent->myViewNet->getNet()->retrieveDataSet(myHE->getID()));
         } else {
             // Obtain DataElement
-            GNEGenericData* dataElement = dynamic_cast<GNEGenericData*>(myAC);
+            GNEGenericData* dataElement = dynamic_cast<GNEGenericData*>(myHE);
             if (dataElement) {
                 // declare auxiliar FXTreeItem, due a data element can have multiple "roots"
                 FXTreeItem* root = nullptr;
@@ -1290,93 +1293,96 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierParents() {
 
 
 void
-GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttributeCarrier* AC, FXTreeItem* itemParent) {
-    if (AC->getTagProperty().isNetworkElement()) {
+GNEFrameModuls::HierarchicalElementTree::showHierarchicalElementChildren(GNEHierarchicalElement* HE, FXTreeItem* itemParent) {
+    if (HE->getTagProperty().isNetworkElement()) {
         // Switch gl type of ac
-        switch (AC->getTagProperty().getTag()) {
+        switch (HE->getTagProperty().getTag()) {
             case SUMO_TAG_JUNCTION: {
                 // retrieve junction
-                GNEJunction* junction = myFrameParent->myViewNet->getNet()->retrieveJunction(AC->getID(), false);
+                GNEJunction* junction = myFrameParent->myViewNet->getNet()->retrieveJunction(HE->getID(), false);
                 if (junction) {
                     // insert junction item
-                    FXTreeItem* junctionItem = addListItem(AC, itemParent);
+                    FXTreeItem* junctionItem = addListItem(HE, itemParent);
                     // insert edges
                     for (auto i : junction->getChildEdges()) {
-                        showAttributeCarrierChildren(i, junctionItem);
+                        showHierarchicalElementChildren(i, junctionItem);
                     }
                     // insert crossings
                     for (auto i : junction->getGNECrossings()) {
-                        showAttributeCarrierChildren(i, junctionItem);
+                        showHierarchicalElementChildren(i, junctionItem);
                     }
                 }
                 break;
             }
             case SUMO_TAG_EDGE: {
                 // retrieve edge
-                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(AC->getID(), false);
+                GNEEdge* edge = myFrameParent->myViewNet->getNet()->retrieveEdge(HE->getID(), false);
                 if (edge) {
                     // insert edge item
-                    FXTreeItem* edgeItem = addListItem(AC, itemParent);
+                    FXTreeItem* edgeItem = addListItem(HE, itemParent);
                     // insert lanes
                     for (const auto& i : edge->getLanes()) {
-                        showAttributeCarrierChildren(i, edgeItem);
+                        showHierarchicalElementChildren(i, edgeItem);
                     }
                     // insert child additional
                     for (const auto& i : edge->getChildAdditionals()) {
-                        showAttributeCarrierChildren(i, edgeItem);
+                        showHierarchicalElementChildren(i, edgeItem);
                     }
                     // insert child shapes
                     for (const auto& i : edge->getChildShapes()) {
-                        showAttributeCarrierChildren(i, edgeItem);
+                        showHierarchicalElementChildren(i, edgeItem);
                     }
                     // insert child TAZElements
                     for (const auto& i : edge->getChildTAZElements()) {
-                        showAttributeCarrierChildren(i, edgeItem);
+                        showHierarchicalElementChildren(i, edgeItem);
                     }
                     // insert child demand elements
                     for (const auto& i : edge->getChildDemandElements()) {
-                        showAttributeCarrierChildren(i, edgeItem);
+                        showHierarchicalElementChildren(i, edgeItem);
                     }
                     /*
+
+                    CHECK THIS
+
                     // insert demand elements children (note: use getChildDemandElementsSortedByType to avoid duplicated elements)
                     for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_ROUTE)) {
-                        showAttributeCarrierChildren(i, edgeItem);
+                        showHierarchicalElementChildren(i, edgeItem);
                     }
                     for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_TRIP)) {
-                        showAttributeCarrierChildren(i, edgeItem);
+                        showHierarchicalElementChildren(i, edgeItem);
                     }
                     for (const auto& i : edge->getChildDemandElementsByType(SUMO_TAG_FLOW)) {
-                        showAttributeCarrierChildren(i, edgeItem);
+                        showHierarchicalElementChildren(i, edgeItem);
                     }
                     */
                     // show data elements
                     for (const auto& i : edge->getChildGenericDatas()) {
-                        showAttributeCarrierChildren(i, edgeItem);
+                        showHierarchicalElementChildren(i, edgeItem);
                     }
                 }
                 break;
             }
             case SUMO_TAG_LANE: {
                 // retrieve lane
-                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(AC->getID(), false);
+                GNELane* lane = myFrameParent->myViewNet->getNet()->retrieveLane(HE->getID(), false);
                 if (lane) {
                     // insert lane item
-                    FXTreeItem* laneItem = addListItem(AC, itemParent);
+                    FXTreeItem* laneItem = addListItem(HE, itemParent);
                     // insert child additional
                     for (const auto& i : lane->getChildAdditionals()) {
-                        showAttributeCarrierChildren(i, laneItem);
+                        showHierarchicalElementChildren(i, laneItem);
                     }
                     // insert child shapes
                     for (const auto& i : lane->getChildShapes()) {
-                        showAttributeCarrierChildren(i, laneItem);
+                        showHierarchicalElementChildren(i, laneItem);
                     }
                     // insert child TAZElements
                     for (const auto& i : lane->getChildTAZElements()) {
-                        showAttributeCarrierChildren(i, laneItem);
+                        showHierarchicalElementChildren(i, laneItem);
                     }
                     // insert demand elements children
                     for (const auto& i : lane->getChildDemandElements()) {
-                        showAttributeCarrierChildren(i, laneItem);
+                        showHierarchicalElementChildren(i, laneItem);
                     }
                     // insert incoming connections of lanes (by default isn't expanded)
                     if (lane->getGNEIncomingConnections().size() > 0) {
@@ -1385,7 +1391,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                         FXTreeItem* incomingConnections = addListItem(laneItem, "Incomings", incomingLaneConnections.front()->getIcon(), false);
                         // insert incoming connections
                         for (auto i : incomingLaneConnections) {
-                            showAttributeCarrierChildren(i, incomingConnections);
+                            showHierarchicalElementChildren(i, incomingConnections);
                         }
                     }
                     // insert outcoming connections of lanes (by default isn't expanded)
@@ -1395,7 +1401,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
                         FXTreeItem* outgoingConnections = addListItem(laneItem, "Outgoing", outcomingLaneConnections.front()->getIcon(), false);
                         // insert outcoming connections
                         for (auto i : outcomingLaneConnections) {
-                            showAttributeCarrierChildren(i, outgoingConnections);
+                            showHierarchicalElementChildren(i, outgoingConnections);
                         }
                     }
                 }
@@ -1404,125 +1410,54 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
             case SUMO_TAG_CROSSING:
             case SUMO_TAG_CONNECTION: {
                 // insert connection item
-                addListItem(AC, itemParent);
+                addListItem(HE, itemParent);
                 break;
             }
             default:
                 break;
         }
-    } else if (AC->getTagProperty().isShape()) {
-        // insert shape item
-        addListItem(AC, itemParent);
-    } else if (AC->getTagProperty().isAdditionalElement()) {
-        // retrieve additional
-        GNEAdditional* additional = myFrameParent->myViewNet->getNet()->retrieveAdditional(AC->getTagProperty().getTag(), AC->getID(), false);
-        if (additional) {
-            // insert additional item
-            FXTreeItem* additionalItem = addListItem(AC, itemParent);
-            // insert child edges
-            for (const auto& i : additional->getChildEdges()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-            // insert child lanes
-            for (const auto& i : additional->getChildLanes()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-            // insert additional children
-            for (const auto& i : additional->getChildAdditionals()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-            // insert child shapes
-            for (const auto& i : additional->getChildShapes()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-            // insert TAZElements children
-            for (const auto& i : additional->getChildTAZElements()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
-            // insert child demand elements
-            for (const auto& i : additional->getChildDemandElements()) {
-                showAttributeCarrierChildren(i, additionalItem);
-            }
+    } else if (HE->getTagProperty().isAdditionalElement() || HE->getTagProperty().isShape() || HE->getTagProperty().isTAZElement() || HE->getTagProperty().isDemandElement()) {
+        // insert additional item
+        FXTreeItem* treeItem = addListItem(HE, itemParent);
+        // insert child edges
+        for (const auto& i : HE->getChildEdges()) {
+            showHierarchicalElementChildren(i, treeItem);
         }
-
-    } else if (AC->getTagProperty().isTAZElement()) {
-        // retrieve TAZElement
-        GNETAZElement* TAZElement = myFrameParent->myViewNet->getNet()->retrieveTAZElement(AC->getTagProperty().getTag(), AC->getID(), false);
-        if (TAZElement) {
-            // insert TAZElement item
-            FXTreeItem* TAZElementItem = addListItem(AC, itemParent);
-            // insert child edges
-            for (const auto& i : TAZElement->getChildEdges()) {
-                showAttributeCarrierChildren(i, TAZElementItem);
-            }
-            // insert child lanes
-            for (const auto& i : TAZElement->getChildLanes()) {
-                showAttributeCarrierChildren(i, TAZElementItem);
-            }
-            // insert additional children
-            for (const auto& i : TAZElement->getChildAdditionals()) {
-                showAttributeCarrierChildren(i, TAZElementItem);
-            }
-            // insert child shapes
-            for (const auto& i : TAZElement->getChildShapes()) {
-                showAttributeCarrierChildren(i, TAZElementItem);
-            }
-            // insert TAZElements children
-            for (const auto& i : TAZElement->getChildTAZElements()) {
-                showAttributeCarrierChildren(i, TAZElementItem);
-            }
-            // insert child demand elements
-            for (const auto& i : TAZElement->getChildDemandElements()) {
-                showAttributeCarrierChildren(i, TAZElementItem);
-            }
+        // insert child lanes
+        for (const auto& i : HE->getChildLanes()) {
+            showHierarchicalElementChildren(i, treeItem);
         }
-
-    } else if (AC->getTagProperty().isDemandElement()) {
-        // retrieve demandElement
-        GNEDemandElement* demandElement = myFrameParent->myViewNet->getNet()->retrieveDemandElement(AC->getTagProperty().getTag(), AC->getID(), false);
-        if (demandElement) {
-            // insert demandElement item
-            FXTreeItem* demandElementItem = addListItem(AC, itemParent);
-            // insert child edges
-            for (const auto& i : demandElement->getChildEdges()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-            // insert child lanes
-            for (const auto& i : demandElement->getChildLanes()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-            // insert additional children
-            for (const auto& i : demandElement->getChildAdditionals()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-            // insert child shapes
-            for (const auto& i : demandElement->getChildShapes()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-            // insert TAZElements children
-            for (const auto& i : demandElement->getChildTAZElements()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
-            // insert child demand elements
-            for (const auto& i : demandElement->getChildDemandElements()) {
-                showAttributeCarrierChildren(i, demandElementItem);
-            }
+        // insert additional children
+        for (const auto& i : HE->getChildAdditionals()) {
+            showHierarchicalElementChildren(i, treeItem);
         }
-    } else if (AC->getTagProperty().isDataElement()) {
+        // insert child shapes
+        for (const auto& i : HE->getChildShapes()) {
+            showHierarchicalElementChildren(i, treeItem);
+        }
+        // insert TAZElements children
+        for (const auto& i : HE->getChildTAZElements()) {
+            showHierarchicalElementChildren(i, treeItem);
+        }
+        // insert child demand elements
+        for (const auto& i : HE->getChildDemandElements()) {
+            showHierarchicalElementChildren(i, treeItem);
+        }
+    } else if (HE->getTagProperty().isDataElement()) {
         // insert data item
-        FXTreeItem* dataElementItem = addListItem(AC, itemParent);
+        FXTreeItem* dataElementItem = addListItem(HE, itemParent);
         // insert intervals
-        if (AC->getTagProperty().getTag() == SUMO_TAG_DATASET) {
-            GNEDataSet* dataSet = myFrameParent->myViewNet->getNet()->retrieveDataSet(AC->getID());
+        if (HE->getTagProperty().getTag() == SUMO_TAG_DATASET) {
+            GNEDataSet* dataSet = myFrameParent->myViewNet->getNet()->retrieveDataSet(HE->getID());
             // iterate over intevals
             for (const auto& interval : dataSet->getDataIntervalChildren()) {
-                showAttributeCarrierChildren(interval.second, dataElementItem);
+                showHierarchicalElementChildren(interval.second, dataElementItem);
             }
-        } else if (AC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
-            GNEDataInterval* dataInterval = dynamic_cast<GNEDataInterval*>(AC);
+        } else if (HE->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL) {
+            GNEDataInterval* dataInterval = dynamic_cast<GNEDataInterval*>(HE);
             // iterate over generic datas
             for (const auto& genericData : dataInterval->getGenericDataChildren()) {
-                showAttributeCarrierChildren(genericData, dataElementItem);
+                showHierarchicalElementChildren(genericData, dataElementItem);
             }
         }
     }
@@ -1530,7 +1465,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::showAttributeCarrierChildren(GNEAttri
 
 
 FXTreeItem*
-GNEFrameModuls::AttributeCarrierHierarchy::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
+GNEFrameModuls::HierarchicalElementTree::addListItem(GNEAttributeCarrier* AC, FXTreeItem* itemParent, std::string prefix, std::string sufix) {
     // insert item in Tree list
     FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, (prefix + AC->getHierarchyName() + sufix).c_str(), AC->getIcon(), AC->getIcon());
     // insert item in map
@@ -1543,7 +1478,7 @@ GNEFrameModuls::AttributeCarrierHierarchy::addListItem(GNEAttributeCarrier* AC, 
 
 
 FXTreeItem*
-GNEFrameModuls::AttributeCarrierHierarchy::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
+GNEFrameModuls::HierarchicalElementTree::addListItem(FXTreeItem* itemParent, const std::string& text, FXIcon* icon, bool expanded) {
     // insert item in Tree list
     FXTreeItem* item = myTreelist->insertItem(nullptr, itemParent, text.c_str(), icon, icon);
     // expand item depending of flag expanded
@@ -1752,11 +1687,11 @@ GNEFrameModuls::SelectorParent::setIDSelected(const std::string& id) {
 bool
 GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
     // make sure that we're editing an additional tag
-    auto listOfTags = GNEAttributeCarrier::allowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
-    for (auto i : listOfTags) {
-        if (i == additionalType) {
+    const auto listOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
+    for (const auto tag : listOfTags) {
+        if (tag.first == additionalType) {
             myParentTag = additionalType;
-            myParentsLabel->setText(("Parent type: " + toString(additionalType)).c_str());
+            myParentsLabel->setText(("Parent type: " + tag.second).c_str());
             refreshSelectorParentModul();
             show();
             return true;

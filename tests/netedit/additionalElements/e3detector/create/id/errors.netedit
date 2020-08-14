@@ -1,4 +1,3 @@
-Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
@@ -10,15 +9,15 @@ Debug: Adding e3Detector 'customID' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'detEntry' in TagSelector
-Debug: Adding detEntry 'customIDdetEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'customID' in GNEChange_Additional
 Debug: Selected item 'detExit' in TagSelector
-Debug: Adding detExit 'customIDdetExit1' in GNEChange_Additional
+Debug: Adding detExit 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detExit 'customIDdetExit1' in GNEChange_Additional
+Debug: Removing detExit 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing detEntry 'customIDdetEntry0' in GNEChange_Additional
+Debug: Removing detEntry 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'customID' in GNEChange_Additional
@@ -27,18 +26,18 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detEntry 'customIDdetEntry0' in GNEChange_Additional
+Debug: Adding detEntry 'customID' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding detExit 'customIDdetExit1' in GNEChange_Additional
+Debug: Adding detExit 'customID' in GNEChange_Additional
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_6togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_6' in retrieveGNEConnection()
-Debug: Deleting unreferenced detExit 'customIDdetExit1'
+Debug: Deleting unreferenced detExit 'customID'
+Debug: Deleting unreferenced detEntry 'customID'
+Debug: Deleting unreferenced e3Detector 'customID'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced detEntry 'customIDdetEntry0'
-Debug: Deleting unreferenced e3Detector 'customID'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane 'gneE0_1' in GNEEdge destructor

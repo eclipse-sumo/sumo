@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Mar 12 11:12:27 2020 by Eclipse SUMO Version v1_5_0+0671-ab1576c
+<!-- generated on Thu Aug 13 12:28:35 2020 by Eclipse SUMO sumo Version v1_6_0+1550-df1692c0ae
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -27,7 +27,7 @@
     </report>
 
     <traci_server>
-        <remote-port value="34129"/>
+        <remote-port value="57455"/>
     </traci_server>
 
 </configuration>
@@ -35,5 +35,5 @@
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="1" depart="6.00" departLane="2fi_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="19.00" arrivalLane="2fi_0" arrivalPos="49.99" arrivalPosLat="0.00" arrivalSpeed="0.06" duration="13.00" routeLength="49.99" waitingTime="2.00" waitingCount="1" stopTime="3.00" timeLoss="5.51" rerouteNo="1" devices="vehroute_1 tripinfo_1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="traci"/>
-    <tripinfo id="movedVeh" depart="125.00" departLane="3fi_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="131.00" arrivalLane="1si_0" arrivalPos="250.00" arrivalPosLat="0.00" arrivalSpeed="13.42" duration="6.00" routeLength="750.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.11" rerouteNo="1" devices="vehroute_movedVeh tripinfo_movedVeh" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="movedVeh" depart="125.00" departLane="3fi_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="130.00" arrivalLane="1si_0" arrivalPos="250.00" arrivalPosLat="0.00" arrivalSpeed="12.62" duration="5.00" routeLength="750.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.07" rerouteNo="1" devices="vehroute_movedVeh tripinfo_movedVeh" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

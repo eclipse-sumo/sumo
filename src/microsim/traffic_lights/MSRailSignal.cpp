@@ -92,7 +92,9 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
 
 void
 MSRailSignal::init(NLDetectorBuilder&) {
-    assert(myLanes.size() > 0);
+    if (myLanes.size() == 0) {
+        WRITE_WARNINGF("Rail signal at junction '%' does not control any links", getID());
+    }
     for (LinkVector& links : myLinks) { //for every link index
         if (links.size() != 1) {
             throw ProcessError("At railSignal '" + getID() + "' found " + toString(links.size())

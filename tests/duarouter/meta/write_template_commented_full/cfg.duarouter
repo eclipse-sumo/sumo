@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug  6 15:03:52 2020 by Eclipse SUMO duarouter Version v1_6_0+1428-688e592900
+<!-- generated on Thu Aug 13 12:36:10 2020 by Eclipse SUMO duarouter Version v1_6_0+1520-cb474809f6
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -51,6 +51,15 @@
     </input>
 
     <output>
+        <!-- Write generated routes to FILE -->
+        <output-file value="" synonymes="o output" type="FILE"/>
+
+        <!-- Write used vehicle types into separate FILE -->
+        <vtype-output value="" synonymes="vtype" type="FILE"/>
+
+        <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
+        <keep-vtype-distributions value="false" type="BOOL"/>
+
         <!-- Include license info into every output file -->
         <write-license value="false" type="BOOL"/>
 
@@ -65,15 +74,6 @@
 
         <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
-
-        <!-- Write generated routes to FILE -->
-        <output-file value="" synonymes="o output" type="FILE"/>
-
-        <!-- Write used vehicle types into separate FILE -->
-        <vtype-output value="" synonymes="vtype" type="FILE"/>
-
-        <!-- Keep vTypeDistribution ids when writing vehicles and their types -->
-        <keep-vtype-distributions value="false" type="BOOL"/>
 
         <!-- Write generated route alternatives to FILE -->
         <alternatives-output value="" synonymes="alternatives" type="FILE"/>
@@ -271,7 +271,7 @@
         <xml-validation.net value="never" type="STR"/>
 
         <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.routes value="always" type="STR"/>
+        <xml-validation.routes value="auto" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>

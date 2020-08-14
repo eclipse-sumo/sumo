@@ -41,7 +41,7 @@ the "domain" - the type of the structure:
 
 The subscription for a structure's variables is initiated using a
 "Subscribe ... Variable" command (0xd0-0xde). The command is evaluated
-immediately on request, verifing it this way. It returns a "Subscribe
+immediately on request, verifying it this way. It returns a "Subscribe
 ... Variable" response (0xe0-0xee). In the case of vehicles, the
 subscription is descheduled as soon as the vehicle leaves the
 simulation.

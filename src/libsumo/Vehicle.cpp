@@ -294,6 +294,20 @@ Vehicle::getLeader(const std::string& vehicleID, double dist) {
 }
 
 
+std::pair<std::string, double>
+Vehicle::getFollower(const std::string& vehicleID, double dist) {
+    MSBaseVehicle* veh = Helper::getVehicle(vehicleID);
+    if (veh->isOnRoad()) {
+        std::pair<const MSVehicle* const, double> leaderInfo = veh->getFollower(dist);
+        return std::make_pair(
+                   leaderInfo.first != nullptr ? leaderInfo.first->getID() : "",
+                   leaderInfo.second);
+    } else {
+        return std::make_pair("", -1);
+    }
+}
+
+
 double
 Vehicle::getWaitingTime(const std::string& vehicleID) {
     return STEPS2TIME(Helper::getVehicle(vehicleID)->getWaitingTime());
@@ -652,46 +666,12 @@ Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
 std::string
 Vehicle::getParameter(const std::string& vehicleID, const std::string& key) {
     MSBaseVehicle* veh = Helper::getVehicle(vehicleID);
-    MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
-    if (StringUtils::startsWith(key, "device.")) {
-        StringTokenizer tok(key, ".");
-        if (tok.size() < 3) {
-            throw TraCIException("Invalid device parameter '" + key + "' for vehicle '" + vehicleID + "'.");
-        }
-        try {
-            return veh->getDeviceParameter(tok.get(1), key.substr(tok.get(0).size() + tok.get(1).size() + 2));
-        } catch (InvalidArgument& e) {
-            throw TraCIException("Vehicle '" + vehicleID + "' does not support device parameter '" + key + "' (" + e.what() + ").");
-        }
-    } else if (StringUtils::startsWith(key, "laneChangeModel.")) {
-        if (microVeh == nullptr) {
-            throw TraCIException("Meso Vehicle '" + vehicleID + "' does not support laneChangeModel parameters.");
-        }
-        const std::string attrName = key.substr(16);
-        try {
-            return microVeh->getLaneChangeModel().getParameter(attrName);
-        } catch (InvalidArgument& e) {
-            throw TraCIException("Vehicle '" + vehicleID + "' does not support laneChangeModel parameter '" + key + "' (" + e.what() + ").");
-        }
-    } else if (StringUtils::startsWith(key, "carFollowModel.")) {
-        if (microVeh == nullptr) {
-            throw TraCIException("Meso Vehicle '" + vehicleID + "' does not support carFollowModel parameters.");
-        }
-        const std::string attrName = key.substr(15);
-        try {
-            return microVeh->getCarFollowModel().getParameter(microVeh, attrName);
-        } catch (InvalidArgument& e) {
-            throw TraCIException("Vehicle '" + vehicleID + "' does not support carFollowModel parameter '" + key + "' (" + e.what() + ").");
-        }
-    } else if (StringUtils::startsWith(key, "has.") && StringUtils::endsWith(key, ".device")) {
-        StringTokenizer tok(key, ".");
-        if (tok.size() != 3) {
-            throw TraCIException("Invalid check for device. Expected format is 'has.DEVICENAME.device'.");
-        }
-        return veh->hasDevice(tok.get(1)) ? "true" : "false";
-    } else {
-        return veh->getParameter().getParameter(key, "");
+    std::string error;
+    std::string result = veh->getPrefixedParameter(key, error);
+    if (error != "") {
+        throw TraCIException(error);
     }
+    return result;
 }
 
 
@@ -2287,6 +2267,19 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             TraCIRoadPosition rp;
             rp.edgeID = lead.first;
             rp.pos = lead.second;
+            return wrapper->wrapRoadPosition(objID, variable, rp);
+        }
+        case VAR_FOLLOWER: {
+            double dist = 0.;
+            // this fallback is needed since the very first call right on subscribing has no parameters set
+            if (wrapper->getParams() != nullptr) {
+                const std::vector<unsigned char>& param = *wrapper->getParams();
+                memcpy(&dist, param.data(), sizeof(dist));
+            }
+            const auto& follower = getFollower(objID, dist);
+            TraCIRoadPosition rp;
+            rp.edgeID = follower.first;
+            rp.pos = follower.second;
             return wrapper->wrapRoadPosition(objID, variable, rp);
         }
         case VAR_TAXI_FLEET:

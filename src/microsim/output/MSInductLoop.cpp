@@ -125,7 +125,7 @@ MSInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
                 const double entryTime = it->second;
                 const double leaveTime = SIMTIME + MSCFModel::passingTime(oldBackPos, myPosition, newBackPos, oldSpeed, newSpeed);
                 myVehiclesOnDet.erase(it);
-                assert(entryTime < leaveTime);
+                assert(entryTime <= leaveTime);
                 myVehicleDataCont.push_back(VehicleData(veh, entryTime, leaveTime, false));
                 myLastLeaveTime = leaveTime;
             }

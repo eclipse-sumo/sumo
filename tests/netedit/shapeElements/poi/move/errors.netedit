@@ -1,4 +1,3 @@
-Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
@@ -8,20 +7,18 @@ Debug: Adding poi 'poi_0' into viewNet
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poi 'poi_1' into viewNet
-Debug: Setting new attribute pos '22.00,14.00' into poi 'poi_0'
-Debug: Setting new attribute pos '22.00,-6.00' into poi 'poi_1'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '1.00,-12.00' into poi 'poi_1'
+Debug: Removing poi 'poi_1' from viewNet
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '1.00,15.00' into poi 'poi_0'
+Debug: Removing poi 'poi_0' from viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '22.00,14.00' into poi 'poi_0'
+Debug: Adding poi 'poi_0' into viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute pos '22.00,-6.00' into poi 'poi_1'
+Debug: Adding poi 'poi_1' into viewNet
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

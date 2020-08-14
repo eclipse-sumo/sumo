@@ -10,7 +10,7 @@ permalink: /Installing/Windows_CMake/
 - installed [cmake for windows](https://cmake.org/download)
 - fresh sumo sources (either an unpacked src zip or a git clone, see
   [Installing/Linux_Build\#Getting_the_source_code](../Installing/Linux_Build.md#getting_the_source_code))
-- installed libraries (Xerces-C, Proj, Fox) preferrably by cloning
+- installed libraries (Xerces-C, Proj, Fox) preferably by cloning
   <https://github.com/DLR-TS/SUMOLibraries/>.
   - Make sure that the SUMO_LIBRARIES environment variable points
     to your cloned directory

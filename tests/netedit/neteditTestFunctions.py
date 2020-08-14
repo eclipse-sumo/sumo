@@ -29,7 +29,8 @@ import pyperclip
 
 # define delay before every operation
 DELAY_KEY = 0.2
-DELAY_KEY_TAB = 0.01
+DELAY_KEY_TAB = 0.1
+DELAY_MOVE = 0.1
 DELAY_MOUSE = 0.5
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
@@ -174,8 +175,12 @@ def leftClick(referencePosition, positionx, positiony):
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click relative to offset
-    pyautogui.click(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait
+    time.sleep(DELAY_MOVE)
+    # click over position
+    pyautogui.click(button='left')
     # wait after every operation
     time.sleep(DELAY_MOUSE)
     print("TestFunctions: Clicked over position", clickedPosition[0], '-', clickedPosition[1])
@@ -191,8 +196,13 @@ def leftClickShift(referencePosition, positionx, positiony):
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click relative to offset
-    pyautogui.click(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait
+    time.sleep(DELAY_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # show debug
     print("TestFunctions: Clicked with Shift key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
     pyautogui.keyUp('shift')
@@ -210,8 +220,13 @@ def leftClickControl(referencePosition, positionx, positiony):
     time.sleep(DELAY_MOUSE)
     # obtain clicked position
     clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
-    # click relative to offset
-    pyautogui.click(clickedPosition)
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait
+    time.sleep(DELAY_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # show debug
     print("TestFunctions: Clicked with Control key pressed over position", clickedPosition[0], '-', clickedPosition[1])
     # Release Shift key
     pyautogui.keyUp('ctrl')
@@ -1489,7 +1504,7 @@ def selectDefault():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(19):
+    for _ in range(20):
         typeTab()
     # type enter to select it
     typeEnter()
@@ -1503,7 +1518,7 @@ def saveSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(24):
+    for _ in range(25):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1519,7 +1534,7 @@ def loadSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(25):
+    for _ in range(26):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1538,7 +1553,7 @@ def selectItems(elementClass, elementType, attribute, value):
     # focus current frame
     focusOnFrame()
     # jump to elementClass
-    for _ in range(13):
+    for _ in range(14):
         typeTab()
     # paste the new elementClass
     pasteIntoTextField(elementClass)
@@ -1579,7 +1594,7 @@ def modificationModeAdd():
     # focus current frame
     focusOnFrame()
     # jump to mode "add"
-    for _ in range(9):
+    for _ in range(10):
         typeTab()
     # select it
     typeSpace()
@@ -1592,7 +1607,7 @@ def modificationModeRemove():
     # focus current frame
     focusOnFrame()
     # jump to mode "remove"
-    for _ in range(10):
+    for _ in range(11):
         typeTab()
     # select it
     typeSpace()
@@ -1605,7 +1620,7 @@ def modificationModeKeep():
     # focus current frame
     focusOnFrame()
     # jump to mode "keep"
-    for _ in range(11):
+    for _ in range(12):
         typeTab()
     # select it
     typeSpace()
@@ -1618,7 +1633,7 @@ def modificationModeReplace():
     # focus current frame
     focusOnFrame()
     # jump to mode "replace"
-    for _ in range(12):
+    for _ in range(13):
         typeTab()
     # select it
     typeSpace()
@@ -1648,7 +1663,7 @@ def selectionClear():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(22):
+    for _ in range(23):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1662,7 +1677,7 @@ def selectionInvert():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(23):
+    for _ in range(24):
         typeTab()
     # type space to select invert operation
     typeSpace()

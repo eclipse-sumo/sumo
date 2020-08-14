@@ -60,7 +60,7 @@ Collisions from lane-changing can be caused by unsafe lateral movements (side co
 
 Side collosions can be caused by
 - configuring lateral imperfection with vType parameter *lcSigma*
-- allowing lateral enchroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
+- allowing lateral encroachment with vType parameter *lcPushy* (but this parameter itself will not cause collisions, only reduce lateral gaps in some situations, requires the sublane model)
 - *lcImpatience* (growing impatience permits lower lateral gaps when using the sublane model)
 
 Unsafe changing can be caused by configuringlower gap acceptance with parameter
@@ -125,12 +125,12 @@ ahead.
 ## Action Step Length
 
 By default, vehicles recompute their speed and lane-changing decisions
-every simulation step. When running with sub-second time resultion (i.e.
+every simulation step. When running with sub-second time resolution (i.e.
 **--step-length 0.1**), this also gives very low effective reaction times.
 
 To decouple the decision interval from the simulation step length, the
 vehicle *action-step-length* can be defined as the duration between
-subsequent vehicle decisions. Decision-making starts direclty after
+subsequent vehicle decisions. Decision-making starts directly after
 insertion which means vehicles inserted at different times may take
 decisions during different simulation steps. During simulation steps
 without decision-making, vehicle positions are updated according to the

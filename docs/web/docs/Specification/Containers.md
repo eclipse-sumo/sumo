@@ -31,7 +31,7 @@ below. Each container must have at least one stage in its plan.
 | --------- | --------- | ------------------- | ------- | ------ |
 | id        | string    | valid XML ids       | \-      |        |
 | depart    | float(s)  | ≥0                  | \-      |        |
-| type      | string    | any decelared vType |         |        |
+| type      | string    | any declared vType  |         |        |
 | color     | rgb color |                     |         |        |
 
 ## Visualization
@@ -104,7 +104,7 @@ the next step of its plan.
 The container checks whether a vehicle with a line from the given list
 is stopping at the given edge. If such a vehicle exists and the
 container is positioned between the start and end position of the
-vehicle's stop, the container will be laoded onto the vehicle. If such a
+vehicle's stop, the container will be loaded onto the vehicle. If such a
 vehicle exists but the container is not positioned between the start and
 end position of the vehicle's stop, the container will still be loaded
 if the vehicle is triggered by the a container and the distance between
@@ -157,7 +157,7 @@ transported again.
 </routes>
 ```
 
-# Planned featues
+# Planned features
 
 The following features are not yet implemented.
 

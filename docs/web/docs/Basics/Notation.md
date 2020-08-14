@@ -28,7 +28,7 @@ netconvert --visum=MyVisumNet.inp \
 
 ## Application Options
 
-Command line option names are normally coloured **this way**. Their values ** *<LIKE THIS\>* **.
+Command line option names are normally colored **this way**. Their values ** *<LIKE THIS\>* **.
 
 ## XML Examples
 

@@ -23,7 +23,7 @@ add some more lanes to the edge by right clicking on it and selecting
 "Duplicate lane". Now enter the inspect mode (press `i`) and click on
 the edge. For the "speed" enter 36.11 (recall that SUMO always uses m/s
 as the unit for speed, 36.11m/s \~ 130km/h). Then split a short (about
-onehundred meters long) initial segment (right click on edge -\> context
+one hundred meters long) initial segment (right click on edge -\> context
 menu -\> Split edge here) of the edge and name it "entry" (press `i` and
 click on the edge, then find the right textfield in the left panel). Do
 the same at the end of the long edge and call the shorter edge at the

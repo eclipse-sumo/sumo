@@ -73,7 +73,7 @@ the traffic light is switched into the next phase and then continues its
 cycle automatically. The only traffic light related TraCI functions used
 are *traci.trafficlights.getPhase()* and traci.trafficlights.setPhase().
 
-## Person related traci functions
+## Person related TraCI functions
 
 To simulate the push button it must be known whether pedestrians are
 waiting to cross the intersection. The following TraCI functions are

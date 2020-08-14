@@ -19,7 +19,7 @@ the future.
   - Vehicles on the leftmost lane move towards the left side (latAlignment="left")
   - Vehicles on all other lanes move towards the right side (latAlignment="right")
   - Vehicles do not currently change their speed in response to the bluelight device
-  - After the emergency vehicle has passed the vehicles resume normal driving (with their previous  lateral Alignement).  
+  - After the emergency vehicle has passed the vehicles resume normal driving (with their previous  lateral Alignment).  
 - Disregarding right-of-way and traffic lights: 
   - supported by using the [TraCI 'speed mode'
   command](../TraCI/Change_Vehicle_State.md#speed_mode_0xb3) to disable intersection related safety checks.
@@ -28,7 +28,7 @@ the future.
   vType-attribute [*speedFactor*](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicle_types)
   (a value of 1.5 allows driving with 150% of the road speed limit).
 - Overtaking on the right: This is always permitted for vehicles with `vClass="emergency"`
-- [Overtaking on the opposite side](OppositeDirectionDriving.md) on a mult-lane road is the exlusive privilege of vehicles with `vClass="emergency"`
+- [Overtaking on the opposite side](OppositeDirectionDriving.md) on a multi-lane road is the exclusive privilege of vehicles with `vClass="emergency"`
 
 
 # Visualization

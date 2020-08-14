@@ -1,7 +1,7 @@
 <routes>
     <vType id="defaultPed" vClass="pedestrian"/>
     <vType id="slowPed" maxSpeed="0.2" vClass="pedestrian"/>
-    <vType id="slowPedFactor" speeFactor="0.5" vClass="pedestrian"/>
+    <vType id="slowPedFactor" speedFactor="0.5" vClass="pedestrian"/>
     <vType id="fastPed" maxSpeed="3" vClass="pedestrian"/>
     <vType id="fastPedFactor" speedFactor="2" vClass="pedestrian"/>
 

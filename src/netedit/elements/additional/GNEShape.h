@@ -28,7 +28,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEAttributeCarrier, public GNEHierarchicalElement {
+class GNEShape : public GNEHierarchicalElement {
 
 public:
     /**@brief Constructor.

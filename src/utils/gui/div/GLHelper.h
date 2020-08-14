@@ -279,7 +279,9 @@ public:
 
     /* @brief draw Text with given parameters
      * when width is not given (negative) the font is scaled proportionally in
-     * height and with according to size.
+     * height and width according to size.
+     *
+     * align: see foreign/fontstash/fontstash.h for flags
     */
     static void drawText(const std::string& text, const Position& pos,
                          const double layer, const double size,
@@ -293,7 +295,8 @@ public:
         const std::string& text, const Position& pos,
         const double scale,
         const double angle = 0,
-        const double layer = 2048); // GLO_MAX
+        const double layer = 2048, // GLO_MAX
+        const int align = 0); // centered
 
     /// @brief draw Text box with given parameters
     static void drawTextBox(const std::string& text, const Position& pos,
@@ -303,7 +306,8 @@ public:
                             const RGBColor& borderColor = RGBColor::BLACK,
                             const double angle = 0,
                             const double relBorder = 0.05,
-                            const double relMargin = 0.5);
+                            const double relMargin = 0.5,
+                            const int align = 0);
 
     /// @brief draw text and the end of shape
     static void drawTextAtEnd(const std::string& text, const PositionVector& shape, double x,

@@ -98,7 +98,7 @@ meso-tauff is lower than meso-taujf.
 
 For each queue (also called segment in the GUI) an occupancy threshold
 value determines whether that queue is *jammed* or *free*. The following
-nmerical values are supported for option **--meso-jam-treshold** {{DT_FLOAT}}:
+numerical values are supported for option **--meso-jam-treshold** {{DT_FLOAT}}:
 
 - value = -1: Threshold is computed so that vehicles driving at the
   speed limit do not jam. This is the default behavior which is
@@ -223,6 +223,6 @@ vehicles. And from the fact that vehicles appear to *jump* in 100m
 increments (which is the default segment length). When right-clicking on
 vehicles or edges and selecting 'Show parameters' the set of values is
 different between the microscopic and mesoscopic model. For larger
-simulations the speed difference will also be noticable. Due to being
+simulations the speed difference will also be noticeable. Due to being
 based on edges rather than lanes, some of the visualization options are
 different when running the mesoscopic model as well.

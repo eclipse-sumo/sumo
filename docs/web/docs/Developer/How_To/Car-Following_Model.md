@@ -5,8 +5,7 @@ permalink: /Developer/How_To/Car-Following_Model/
 
 This short document describes how a new car-following model can be added
 to SUMO. We'll do this by implementing a test model named "smartSK".
-When implementing your own model, you should also grep (look for)
-occurences of the name we use, here.
+When implementing your own model, you should also grep (look for) occurrences of the name we use, here.
 
 ## The car-following model's class
 
@@ -22,7 +21,7 @@ MSCFModel_KraussOrig1.cpp and rename them. The name should be
 !!! convention
     A car-following class' name should start with "MSCFModel_".
 
-Now, open both files and rename all occurences of MSCFModel_KraussOrig1
+Now, open both files and rename all occurrences of MSCFModel_KraussOrig1
 into your class' name.
 
 Add the files to the [{{SUMO}}/src/microsim/cfmodels/CMakeLists.txt]({{Source}}src/microsim/cfmodels/CMakeLists.txt).

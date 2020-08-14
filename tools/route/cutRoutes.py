@@ -191,43 +191,55 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, startEndEdgeMap=Non
                 newDepart = None
                 remaining = set()
                 newPlan = []
+                numParts = 0
                 for planItem in moving.getChildList():
                     if planItem.name == "walk":
                         disco = "keep" if options.disconnected_action == "keep.walk" else options.disconnected_action
                         routeParts = _cutEdgeList(areaEdges, oldDepart, None,
                                                   planItem.edges.split(), orig_net, options, stats, disco)
-                        if busStopEdges.get(planItem.busStop) not in areaEdges:
-                            planItem.busStop = None
                         walkEdges = []
                         for depart, edges in routeParts:
                             if newDepart is None:
                                 newDepart = depart
                             walkEdges += edges
                         if walkEdges:
+                            if walkEdges[-1] != planItem.edges.split()[-1]:
+                                planItem.busStop = None
+                                numParts += 1
+                            if walkEdges[0] != planItem.edges.split()[0] and len(newPlan) > 0:
+                                numParts += 1
                             remaining.update(walkEdges)
                             planItem.edges = " ".join(walkEdges)
-                            newPlan.append(planItem)
+                        else:
+                            planItem = None
                     elif planItem.name == "ride":
                         keep = True
                         if busStopEdges.get(planItem.busStop) not in areaEdges:
                             if planItem.lines in startEndEdgeMap:
                                 planItem.busStop = None
                                 planItem.setAttribute("to", startEndEdgeMap[planItem.lines][1])
+                                numParts += 1
                             else:
                                 keep = False
                         if planItem.attr_from and planItem.attr_from not in areaEdges:
                             if planItem.lines in startEndEdgeMap:
                                 planItem.attr_from = startEndEdgeMap[planItem.lines][0]
+                                if len(newPlan) > 0:
+                                    numParts += 1
                             else:
                                 keep = False
                         if newDepart is None:
                             newDepart = float(planItem.depart)
                             planItem.lines = planItem.intended
-                        if keep:
-                            newPlan.append(planItem)
-                        if planItem.to:
-                            break
+                        if not keep:
+                            planItem = None
+                    if planItem is None:
+                        if len(newPlan) > 0:
+                            numParts += 1
                     else:
+                        if numParts > 1 and options.disconnected_action == "discard":
+                            newPlan = []
+                            break
                         newPlan.append(planItem)
                 moving.setChildList(newPlan)
                 cut_stops(moving, busStopEdges, remaining)

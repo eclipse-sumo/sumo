@@ -11,7 +11,7 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
   - Fixed emergency braking and collisions related to
     [opposite-direction driving](../Simulation/OppositeDirectionDriving.md). #2652
   - Fixed crashing related to [opposite-direction driving](../Simulation/OppositeDirectionDriving.md). #2664
-  - Fixed implausible behaviour related to [opposite-direction driving](../Simulation/OppositeDirectionDriving.md). #2665
+  - Fixed implausible behavior related to [opposite-direction driving](../Simulation/OppositeDirectionDriving.md). #2665
   - Fixed error where vehicles could not stop at the end of a lane
     for numerical reasons. #2670
   - [Generic parameters](../Simulation/GenericParameters.md) of
@@ -54,10 +54,10 @@ permalink: /Z/Changes_from_Version_0.28.0_to_Version_0.29.0/
   - Fixed slow operation when move junctions in large networks. #2699
   - Selecting objects by [matching against attributes](../netedit.md#match_attribute) now works on
     windows. #2675
-  - Fixed crash when setting custom geometry endpoinds. #2693
+  - Fixed crash when setting custom geometry endpoints. #2693
   - Fixed shortcuts #2694
   - Fixed crash when using option **--numerical-ids**.
-  - Fixed visualization errors when using **--offset.disable-normalizaton *false* **
+  - Fixed visualization errors when using **--offset.disable-normalization *false* **
   - When adding sidewalks to selected lanes, pedestrians are now
     automatically forbidden on the other lanes. #2708
   - Fixed an inconsistency with the definition of SUMO Time in

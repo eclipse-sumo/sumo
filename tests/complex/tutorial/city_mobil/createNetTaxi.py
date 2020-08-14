@@ -1,14 +1,18 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    createNet.py
+# @file    createNetTaxi.py
 # @author  Michael Behrisch
 # @author  Daniel Krajzewicz
 # @author  Melanie Weber
@@ -18,33 +22,33 @@
 Create the XML input files for the generation of the SUMO network
 of the CityMobil parking lot.
 """
-#from __future__ import absolute_import
-#from __future__ import print_function
+from __future__ import absolute_import
+from __future__ import print_function
 import random
 import subprocess
 import os
 import sys
-##Me: Wo kommen die constants her und was beinhalten sie??
-from constants import PREFIX, DOUBLE_ROWS, ROW_DIST, STOP_POS, SLOTS_PER_ROW, SLOT_WIDTH
-from constants import SLOT_LENGTH, SLOT_FOOT_LENGTH, CAR_CAPACITY, CYBER_CAPACITY, BUS_CAPACITY, TOTAL_CAPACITY
-from constants import CYBER_SPEED, CYBER_LENGTH, OCCUPATION_PROBABILITY
-
+from constants import PREFIX, DOUBLE_ROWS, ROW_DIST, SLOTS_PER_ROW, SLOT_WIDTH
+from constants import CAR_CAPACITY, CYBER_CAPACITY, BUS_CAPACITY, TOTAL_CAPACITY
+from constants import CYBER_SPEED, CYBER_LENGTH
+sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
+import sumolib  # noqa
 
 occupied = 0
 nodes = open("%s.nod.xml" % PREFIX, "w")
 print("<nodes>", file=nodes)
 edges = open("%s.edg.xml" % PREFIX, "w")
 print("<edges>", file=edges)
-routes = open("%s.rou.xml" % PREFIX, "w")
-
-print(("""<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="car" length="3" minGap=".5" guiShape="passenger" maxSpeed="50" color="0.7,0.7,0.7"/>
+with open("%s_vtypes.rou.xml" % PREFIX, "w") as vtypes:
+    sumolib.xml.writeHeader(vtypes, root="routes")
+    print(("""    <vType id="car" color="0.7,0.7,0.7"/>
     <vType id="ped_pedestrian" vClass="pedestrian" color="1,0.2,0.2"/>
-    <vType id="cybercar" vClass="taxi" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s" color="green" emissionClass="HBEFA2/P_7_7" personCapacity="%s">
+    <vType id="cybercar" vClass="taxi" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s"
+           color="green" emissionClass="HBEFA2/P_7_7" personCapacity="%s">
         <param key="has.taxi.device" value="true"/>
     </vType>
     <vType id="bus" vClass="bus" color="blue" personCapacity="%s"/>
-</routes>""") % (CYBER_LENGTH, CYBER_SPEED, CYBER_CAPACITY, BUS_CAPACITY), file=routes)
+</routes>""") % (CYBER_LENGTH, CYBER_SPEED, CYBER_CAPACITY, BUS_CAPACITY), file=vtypes)
 
 # streets
 nodeID = "main-0"
@@ -55,7 +59,7 @@ print('<edge id="mainin" from="in" to="%s" priority="-1" numLanes="2" speed="13.
 for row in range(DOUBLE_ROWS):
     nextNodeID = "main%s-%s" % (row, row + 1)
     if row + 1 == DOUBLE_ROWS:
-        nextNodeID = "main%s-%s" % (row,row+1)
+        nextNodeID = "main%s-%s" % (row, row+1)
     x = (row + 1) * ROW_DIST
     print('<node id="%s" x="%s" y="0"/>' % (nextNodeID, x), file=nodes)
     print('<edge id="main%s" from="%s" to="%s" priority="-1" numLanes="2" speed="13.89"/>' % (
@@ -64,13 +68,13 @@ for row in range(DOUBLE_ROWS):
 print('<node id="out" x="%s" y="0"/>' % (x + 100), file=nodes)
 print('<edge id="mainout" from="%s" to="out" priority="-1" numLanes="2" speed="13.89"/>' %
       nodeID, file=edges)
-      
-#parking area (road)
+
+# parking area (road)
 for row in range(DOUBLE_ROWS):
     print("""<edge id="road%s" from="main%s-%s" to="cyber%s" priority="-1" numLanes="2" speed="13.89">
     <lane index="0" allow="pedestrian" width="2.00"/>
     <lane index="1" disallow="pedestrian"/>
-</edge>"""%(row, row, row+1, row), file=edges)
+</edge>""" % (row, row, row+1, row), file=edges)
     print("""<edge id="-road%s" from="cyber%s" to="main%s-%s" priority="-1" numLanes="2" speed="13.89">
     <lane index="0" allow="pedestrian" width="2.00"/>
     <lane index="1" disallow="pedestrian"/>
@@ -121,41 +125,41 @@ nodes.close()
 print("</edges>", file=edges)
 edges.close()
 
-NETCONVERT = os.environ.get(
-    "NETCONVERT_BINARY", os.path.join(os.environ["SUMO_HOME"], 'bin', 'netconvert'))
-subprocess.call([NETCONVERT,
+subprocess.call([sumolib.checkBinary('netconvert'),
                  '--no-internal-links',
                  '-n', '%s.nod.xml' % PREFIX,
                  '-e', '%s.edg.xml' % PREFIX,
                  '-o', '%s.net.xml' % PREFIX])
 
 # routes cybercar and bus
-routes = open("%s_cyber.rou.xml" % PREFIX, "w")
-print("""<routes>
-    <flow id="c" type="cybercar" begin="50" period="100" number="%s" line="taxi">
+with open("%s_cyber.rou.xml" % PREFIX, "w") as routes:
+    sumolib.xml.writeHeader(routes, root="routes")
+    print("""    <flow id="c" type="cybercar" begin="50" period="100" number="%s" line="taxi">
         <route edges="cyberin cyber0to1"/>
     </flow>
 </routes>""" % (TOTAL_CAPACITY // CYBER_CAPACITY), file=routes)
-routes.close()
 
-routes = open("%s_bus.rou.xml" % PREFIX, "w")
-print("""<routes>
-    <flow id="b" from="cyberin" to="cyberout" type="bus" begin="50" period="100" number="%s" line="taxi">""" % (TOTAL_CAPACITY // BUS_CAPACITY), file=routes)
-for row in range(DOUBLE_ROWS-1):
-    edgeID = "cyber%sto%s" % (row, row + 1)
-    print('    <stop busStop="%sstop" duration="10"/>' % edgeID, file=routes)
-print("    </flow>\n</routes>", file=routes)
-routes.close()
+with open("%s_bus.rou.xml" % PREFIX, "w") as routes:
+    sumolib.xml.writeHeader(routes, root="routes")
+    print("""    <flow id="b" from="cyberin" to="cyberout" type="bus"
+          begin="50" period="100" number="%s" line="taxi">""" %
+          (TOTAL_CAPACITY // BUS_CAPACITY), file=routes)
+    for row in range(DOUBLE_ROWS-1):
+        edgeID = "cyber%sto%s" % (row, row + 1)
+        print('    <stop busStop="%sstop" duration="10"/>' % edgeID, file=routes)
+    print("    </flow>\n</routes>", file=routes)
 
 # Bus Stops / Parking Areas
 stops = open("%s.add.xml" % PREFIX, "w")
 print("<additional>", file=stops)
 for row in range(DOUBLE_ROWS):
-    print('    <parkingArea id="ParkArea%s" lane="road%s_1" roadsideCapacity="10" angle="90" length="10"/> \n\t<parkingArea id="ParkArea-%s" lane="-road%s_1" roadsideCapacity="10" angle="90" length="10"/>'%(row,row,row,row), file=stops)
-    
+    print("""    <parkingArea id="ParkArea%s" lane="road%s_1" roadsideCapacity="10" angle="90" length="10"/>
+    <parkingArea id="ParkArea-%s" lane="-road%s_1" roadsideCapacity="10" angle="90" length="10"/>""" %
+          (row, row, row, row), file=stops)
+
 for row in range(DOUBLE_ROWS-1):
     edgeID = "cyber%sto%s" % (row, row + 1)
-    print('    <busStop id="%sstop" lane="%s_1" startPos="5" endPos="30"/>' %(edgeID, edgeID), file=stops)
+    print('    <busStop id="%sstop" lane="%s_1" startPos="5" endPos="30"/>' % (edgeID, edgeID), file=stops)
 print("</additional>", file=stops)
 stops.close()
 
@@ -190,7 +194,7 @@ for period in range(5, 50, 5):
     print("""<configuration>
     <input>
         <net-file value="%s.net.xml"/>
-        <route-files value="%s.rou.xml,%s_bus.rou.xml,%s_demand%02i.rou.xml"/>
+        <route-files value="%s_vtypes.rou.xml,%s_bus.rou.xml,%s_demand%02i.rou.xml"/>
         <additional-files value="%s.add.xml"/>
         <no-step-log value="True"/>
         <time-to-teleport value="0"/>
@@ -202,11 +206,11 @@ for period in range(5, 50, 5):
     print("""<configuration>
     <input>
         <net-file value="%s.net.xml"/>
-        <route-files value="%s.rou.xml,%s_cyber.rou.xml,%s_demand%02i.rou.xml"/>
+        <route-files value="%s_vtypes.rou.xml,%s_cyber.rou.xml,%s_demand%02i.rou.xml"/>
         <additional-files value="%s.add.xml"/>
         <no-step-log value="True"/>
         <time-to-teleport value="0"/>
-        <device.taxi.dispatch-algorithm value="greedyShared"/>
+        <device.taxi.dispatch-algorithm value="routeExtension"/>
     </input>
 </configuration>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PREFIX), file=config)
     config.close()

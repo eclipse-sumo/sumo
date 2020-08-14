@@ -49,7 +49,7 @@ fleet = traci.vehicle.getTaxiFleet(0)
 print("taxiFleet", fleet)
 reservations = traci.person.getTaxiReservations(0)
 print("reservations", reservations)
-traci.vehicle.dispatchTaxi(fleet[0], [reservations[0].destStop])
+traci.vehicle.dispatchTaxi(fleet[0], [reservations[0].id])
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()

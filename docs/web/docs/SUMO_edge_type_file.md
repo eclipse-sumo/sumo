@@ -19,7 +19,7 @@ descriptions](Networks/PlainXML.md),
 files](Networks/Import/ArcView.md). The type configuration is
 saved in an XML structure. It is always possible to load multiple type
 maps and redefining types partly or completely when loading an
-additoinal file.
+additional file.
 
 This article introduces the file format first. After that, it discusses
 the application of the SUMO edge type file on certain types of map files

@@ -268,6 +268,10 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
     myLastEdgeEntryTime = currentTime;
     //std::cout << SIMTIME << " moveToNextEdge person=" << person->getID() << "\n";
     if (arrived) {
+        MSPerson* p = dynamic_cast<MSPerson*>(person);
+        if (p->hasInfluencer() && p->getInfluencer().isRemoteControlled()) {
+            return false;
+        }
         if (myDestinationStop != nullptr) {
             myDestinationStop->addTransportable(person);
         }
@@ -296,7 +300,7 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
 
 double
 MSPerson::MSPersonStage_Walking::getMaxSpeed(const MSTransportable* const person) const {
-    return mySpeed > 0 ? mySpeed : person->getVehicleType().getMaxSpeed() * person->getSpeedFactor();
+    return mySpeed >= 0 ? mySpeed : person->getVehicleType().getMaxSpeed() * person->getSpeedFactor();
 }
 
 std::string

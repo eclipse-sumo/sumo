@@ -36,7 +36,7 @@
 // ===========================================================================
 
 SUMORouteHandler::SUMORouteHandler(const std::string& file, const std::string& expectedRoot, const bool hardFail) :
-    SUMOSAXHandler(file, XMLSubSys::isValidating() ? expectedRoot : ""),
+    SUMOSAXHandler(file, expectedRoot),
     myHardFail(hardFail),
     myVehicleParameter(nullptr),
     myLastDepart(-1),
@@ -115,16 +115,16 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // parse vehicle parameters
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myHardFail, myBeginDefault, myEndDefault);
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_FLOW, attrs, myHardFail, myBeginDefault, myEndDefault);
             // check if myVehicleParameter was sucesfully created
             if (myVehicleParameter) {
                 // check tag
-                if ((myVehicleParameter->routeid.empty()) || (myVehicleParameter->tag == GNE_TAG_FLOW_ROUTE)) {
-                    // open a route flow
-                    openRouteFlow(attrs);
+                if (myVehicleParameter->routeid.empty()) {
+                    // open a route flow (It could be a flow with embebbed route)
+                    openFlow(attrs);
                 } else {
                     // open a route flow
-                    openFlow(attrs);
+                    openRouteFlow(attrs);
                 }
             }
             break;
@@ -134,7 +134,7 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 delete myVehicleParameter;
             }
             // create a new flow
-            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(attrs, myHardFail, myBeginDefault, myEndDefault, true);
+            myVehicleParameter = SUMOVehicleParserHelper::parseFlowAttributes(SUMO_TAG_PERSONFLOW, attrs, myHardFail, myBeginDefault, myEndDefault, true);
             break;
         case SUMO_TAG_VTYPE:
             // delete if myCurrentVType isn't null

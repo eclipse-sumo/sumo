@@ -1045,6 +1045,9 @@ TRACI_CONST int VAR_BUS_STOP_WAITING_IDS = 0xef;
 // current leader together with gap (get: vehicle)
 TRACI_CONST int VAR_LEADER = 0x68;
 
+// current leader together with gap (get: vehicle)
+TRACI_CONST int VAR_FOLLOWER = 0x78;
+
 // edge index in current route (get: vehicle)
 TRACI_CONST int VAR_ROUTE_INDEX = 0x69;
 

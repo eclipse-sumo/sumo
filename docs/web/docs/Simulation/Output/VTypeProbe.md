@@ -37,7 +37,7 @@ This file is then loaded in [sumo](../../sumo.md) using the option **--additiona
 
 ## Generated Output
 
-The output is devided into timestep-sections:
+The output is divided into timestep-sections:
 
 ```
 <timestep time="<COLLECTION_TIME>" id="<DETECTOR_ID>" vtype="<OBSERVED_TYPE>">

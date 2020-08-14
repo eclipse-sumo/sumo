@@ -56,7 +56,7 @@ done using the **--tls.guess**-option.
 
 You may also set junctions as tls-controlled using **--tls.set** or as uncontrolled
 using **--tls.unset**. Both options assume to get a list of node names divided by ','
-as parameter. The behaviour when a node is in both lists is undefined.
+as parameter. The behavior when a node is in both lists is undefined.
 
 During the computation of tls-logics among other information we have to
 guess the duration of the phases. The options **--tls.greent.time** and **--tls.yellow.time** allow you to give
@@ -72,7 +72,7 @@ There is yet no possibility to compute or estimate a "green wave"
 You have only the options to shift the computed phases by half of their
 duration or by a quarter of their duration. The options for this are: **--tls.half-offset**
 and **--tls.quarter-offset**. Both options assume to get a list of node names divided by ',' as
-parameter. The behaviour when a node is in both lists or if the node is
+parameter. The behavior when a node is in both lists or if the node is
 not meant to be controlled by a tls is undefined. Of course you can also
 edit the offsets within the generated network file (see
 [Simulation/Traffic Lights](../Simulation/Traffic_Lights.md)).
@@ -102,7 +102,7 @@ long the added ramp shall be in meters.
 
 If you already know SUMO or if you have taken a look at some of the
 examples you may have noticed that vehicles used to "jump" over a
-junction instead of driving over them. This behaviour was quite
+junction instead of driving over them. This behavior was quite
 appropriate for simulating large scenarios as in these cases the
 simulation error could be neglected (at least we have neglected it).
 Since version 0.10.0 SUMO will by default simulate traffic over the
@@ -119,7 +119,7 @@ The first possibility to constrain the input is to name all the edges
 you want to keep. You can either do this on the command line/within your
 configuration directly using **--keep-edges.explicit** {{DT_IDList}}[,{{DT_IDList}}\]\* where each {{DT_IDList}} represents the id of an edge
 you want to keep separated by a ',' or you can save this list into a
-file where each id is stored in a seperate line and then let
+file where each id is stored in a separate line and then let
 [netconvert](../netconvert.md) read this file using **--keep-edges.input-file** {{DT_FILE}}. In the case
 you are joining edges using **--geometry.remove** (see "Removing Geometry Nodes"), you may
 also be interested in the option **--keep-edges.postload** which forces

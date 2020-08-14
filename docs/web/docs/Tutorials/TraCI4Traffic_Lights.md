@@ -8,7 +8,7 @@ TraCI)](../TraCI.md) on a simple example. TraCI gives the
 possibility to control a running road traffic simulation. TraCI uses a
 TCP-based client/server architecture where SUMO acts as a server and the
 external script (the “controller”) is the client. In this tutorial the
-“controller” is a Python-Script which receives informations about the
+“controller” is a Python-Script which receives information about the
 simulation state from the server and then sends instructions back.
 
 It is assumed that road network building and routes definition is known

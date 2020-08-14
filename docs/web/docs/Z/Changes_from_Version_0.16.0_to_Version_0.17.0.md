@@ -14,7 +14,7 @@ permalink: /Z/Changes_from_Version_0.16.0_to_Version_0.17.0/
   - fixed collision bug for simulations that were running with
     option **--no-internal-links**
   - fixed bug that caused vehicles to sometimes use the wrong lane
-    and occasonaly lead to collisions
+    and occasionally lead to collisions
     ([\#586](https://sourceforge.net/apps/trac/sumo/ticket/586),
     [\#836](https://sourceforge.net/apps/trac/sumo/ticket/836))
   - fixed bug in the default car-following model which lead to

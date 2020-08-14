@@ -416,4 +416,4 @@ vehicle types).
 - (37):
   <http://www.rettungsdienst.brk.de/technik/rtw/rtw_by_2010/daten>
 - (\*): estimated
-- (\*\*): need to be revisited to fit to model behaviour
+- (\*\*): need to be revisited to fit to model behavior

@@ -56,7 +56,7 @@ public:
      *
      * @param[in] file The name of the processed file
      */
-    SUMOSAXReader(GenericSAXHandler& handler, const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme);
+    SUMOSAXReader(GenericSAXHandler& handler, const XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes validationScheme, XERCES_CPP_NAMESPACE::XMLGrammarPool* grammarPool);
 
     /// Destructor
     ~SUMOSAXReader();
@@ -106,6 +106,9 @@ private:
 
     /// @brief Information whether built reader/parser shall validate XML-documents against schemata
     XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myValidationScheme;
+
+    /// @brief Schema cache to be used for grammars which are not declared
+    XERCES_CPP_NAMESPACE::XMLGrammarPool* myGrammarPool;
 
     XERCES_CPP_NAMESPACE::XMLPScanToken myToken;
 

@@ -50,7 +50,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # Change parameter 5 with a valid value
-netedit.modifyBoolAttribute(7, False)
+netedit.modifyBoolAttribute(7, True)
 
 # recompute
 netedit.rebuildNetwork()

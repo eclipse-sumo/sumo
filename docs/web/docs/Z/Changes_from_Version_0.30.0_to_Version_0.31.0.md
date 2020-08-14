@@ -31,7 +31,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
   - Lane-changing
     - Fixed behavior problems in regard to the rule that prohibits
       overtaking on the right under some circumstances (by default
-      this is prohibited in free-flowing motoroway traffic).
+      this is prohibited in free-flowing motorway traffic).
       Vehicles now avoid overtaking whenever braking is possible
       and they overtake on the left instead if there is a third
       lane. #1214, #2547, #3115, #3379
@@ -152,7 +152,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
     connection-mode.
   - Fixed invalid edge shape after setting a custom node shape. #3276
   - Function *replace by geometry node* now preserves connections,
-    crossings and custom geometry endpoinds. If the function is
+    crossings and custom geometry endpoints. If the function is
     disabled, the reason is shown in the menu. #3287
   - Joining junctions now always preserves edge endpoints. #3257
   - Fixed invalid network after deleting traffic light and a
@@ -330,7 +330,7 @@ permalink: /Z/Changes_from_Version_0.30.0_to_Version_0.31.0/
     resolve ambiguities](../Tools/Detector.md#ambiguity).
   - When setting
     [randomTrips.py](../Tools/Trip.md#randomtripspy) option **--vehicle-class**,
-    vType attributes from option **-t** are recognized and writen to the
+    vType attributes from option **-t** are recognized and written to the
     generated vType. #3335
 
 ### Other

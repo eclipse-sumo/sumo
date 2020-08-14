@@ -58,8 +58,6 @@ class SUMOSAXReader;
  * In addition to initialisation and shutdown, this module allows to build
  *  SAXReaders and/or running a given handler on a given file without
  *  dealing with the reader at all.
- *
- * @todo make schema checking optional
  */
 class XMLSubSys {
 public:
@@ -86,12 +84,6 @@ public:
 
 
     /**
-    * @brief Returns whether validation is enabled.
-    */
-    static bool isValidating();
-
-
-    /**
      * @brief Closes the xml-subsystem
      *
      * Deletes the built reader and calls XMLPlatformUtils::Terminate();
@@ -107,10 +99,13 @@ public:
      *  to the reader as the current DefaultHandler and ErrorHandler.
      *
      * @param[in] handler The handler to assign to the built reader
+     * @param[in] isNet   whether a network gets loaded
+     * @param[in] isRoute whether routes get loaded
      * @return The built Xerces-SAX-reader, 0 if something failed
      * @see getSAXReader()
      */
-    static SUMOSAXReader* getSAXReader(SUMOSAXHandler& handler);
+    static SUMOSAXReader* getSAXReader(SUMOSAXHandler& handler,
+                                       const bool isNet = false, const bool isRoute = false);
 
 
     /**

@@ -33,7 +33,7 @@ The turn-count data must be provided in the format:
 
 # routeSampler.py
 The script generates routes from turn-count data, edge-count and even origin-destination-count data. It requires a route file as input that defines possible routes. Routes are sampled (heuristically) from the input so that
-the resulting routes fullfill the turn-count data.
+the resulting routes fulfill the turn-count data.
 
 ```
 <SUMO_HOME>/tools/routeSampler.py -r <input-route-file> -t <turn-files. -o <output-file>
@@ -71,7 +71,7 @@ When setting option **--turn-max-gap 2**, the edgeRelation `<edgeRelation from="
         
 ## Origin-Destination restrictions
 When loading an edgeRelation file with the option **--od-files**, origin-destination counts will be added.
-This can be used to combine (edge-based) OD-relations with other couting data.
+This can be used to combine (edge-based) OD-relations with other counting data.
         
 ## Output Styles
 By default, routeSampler will generate individual vehicles with embedded routes. This can be changed with the following options (which can also be combined):
@@ -84,7 +84,7 @@ By default, routeSampler will generate individual vehicles with embedded routes.
 ## Optimization
 By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values. At this point an ILP-Solver can be used to swap out routes and get closer to the target values or even reach the exact numbers.
 By setting option **--optimize <INT>**. The number of times that a route is used can be changed by up to **<INT>** times. This defines a trade-off between using routes in the same distribution as found in the input and optimizing the counts.
-When setting option **--optimze full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
+When setting option **--optimize full**. No constraints on the route distribution are set and any route can be used as often as needed to reach the counts.
 
 ## Further Calibration
 It is possible to load the resulting output into routeSampler.py for another round of optimization. By setting the option **--optimize-input** the sampling step is skipped and the optimizer is run directly on the input route set.

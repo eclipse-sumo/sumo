@@ -249,8 +249,6 @@ Parameterised::isParameterValid(const std::string& value, ParameterisedAttrType 
         // check if key and value contains valid characters
         if (SUMOXMLDefinitions::isValidParameterKey(keyValueStr.front()) == false) {
             return false;
-        } else if (SUMOXMLDefinitions::isValidParameterValue(keyValueStr.back()) == false) {
-            return false;
         } else if (attrType == ParameterisedAttrType::DOUBLE) {
             // check if can be parsed to double
             try {

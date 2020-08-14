@@ -18,7 +18,7 @@ TraaS provides three things which are explained below.
   clients to a running TraCI instance in a language-agnostic way.
 - A web service client
 
-In constrast to the native TraCI [multi-client
+In contrast to the native TraCI [multi-client
 support](../TraCI.md#multiple_clients), TraaS does not require the
 number of clients to be known beforehand. It also cannot impose any
 ordering on client command execution which leaves client synchronization

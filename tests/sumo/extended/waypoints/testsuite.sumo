@@ -1,2 +1,8 @@
 # Tests whether stop speed can be handled
 simple_waypoint
+
+# only speed no other attrs
+default_positions
+
+# only speed no other attrs
+default_positions_slow

@@ -20,8 +20,61 @@ from .domain import Domain
 from . import constants as tc
 from . import _simulation as simulation
 
+class Reservation(object):
 
-_RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage}
+    def __init__(self, id, persons, group, fromEdge, toEdge, departPos, arrivalPos,
+            depart, reservationTime):
+        self.id = id
+        self.persons = persons
+        self.group = group
+        self.fromEdge = fromEdge
+        self.toEdge = toEdge
+        self.arrivalPos = arrivalPos
+        self.departPos = departPos
+        self.depart = depart
+        self.reservationTime = reservationTime
+
+    def __attr_repr__(self, attrname, default=""):
+        if getattr(self, attrname) == default:
+            return ""
+        else:
+            val = getattr(self, attrname)
+            if val == tc.INVALID_DOUBLE_VALUE:
+                val = "INVALID"
+            return "%s=%s" % (attrname, val)
+
+    def __repr__(self):
+        return "Reservation(%s)" % ', '.join([v for v in [
+            self.__attr_repr__("id"),
+            self.__attr_repr__("persons"),
+            self.__attr_repr__("group"),
+            self.__attr_repr__("fromEdge"),
+            self.__attr_repr__("toEdge"),
+            self.__attr_repr__("departPos"),
+            self.__attr_repr__("arrivalPos"),
+            self.__attr_repr__("depart"),
+            self.__attr_repr__("reservationTime"),
+        ] if v != ""])
+
+
+def _readReservation(result):
+    # compound size and type
+    assert(result.read("!i")[0] == 9)
+    id = result.readTypedString()
+    persons = result.readTypedStringList()
+    group = result.readTypedString()
+    fromEdge = result.readTypedString()
+    toEdge = result.readTypedString()
+    departPos = result.readTypedDouble()
+    arrivalPos = result.readTypedDouble()
+    depart = result.readTypedDouble()
+    reservationTime = result.readTypedDouble()
+    return Reservation(id, persons, group, fromEdge, toEdge, departPos, arrivalPos, depart, reservationTime)
+
+
+
+_RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage,
+        }
 
 
 class PersonDomain(Domain):
@@ -72,6 +125,14 @@ class PersonDomain(Domain):
         Returns the id of the edge the named person was at within the last step.
         """
         return self._getUniversal(tc.VAR_ROAD_ID, personID)
+
+    def getLaneID(self, personID):
+        """getLaneID(string) -> string
+
+        Returns the id of the lane the named person was at within the last step.
+        If the current person stage does not provide a lane, "" is returned.
+        """
+        return self._getUniversal(tc.VAR_LANE_ID, personID)
 
     def getTypeID(self, personID):
         """getTypeID(string) -> string
@@ -182,7 +243,7 @@ class PersonDomain(Domain):
         result = []
         for _ in range(answer.readInt()):
             answer.read("!B")                   # Type
-            result.append(simulation._readStage(answer))
+            result.append(_readReservation(answer))
         return tuple(result)
 
     def removeStages(self, personID):

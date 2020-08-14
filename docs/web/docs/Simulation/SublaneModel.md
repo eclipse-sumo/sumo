@@ -37,7 +37,7 @@ SUMO2016](http://elib.dlr.de/106342/1/SUMOconference_proceedings_2016.pdf)
 ## Lateral Resolution and Vehicle Position
 When the sublane model is activated, the lateral vehicle position (measured as offset from the centerline of the lane) can take on any value between [-laneWidth/2, laneWidth/2] regardless of the lateral resolution value.
 
-The resolution wich implicitly divides a lane into one or more sublanes, defines the granularity of decision making and collision detection. Each vehicle may occupy multiple sublanes (according to it's width).
+The resolution which implicitly divides a lane into one or more sublanes, defines the granularity of decision making and collision detection. Each vehicle may occupy multiple sublanes (according to it's width).
 During normal simulation behavior two vehicles will never occupy the same stripe while having an overlap in the longitudinal direction of the lane. Consequently, the value of **--lateral-resoluton** should be low enough to account for the space requirements of the least wide traffic member.
 If three bicycles should be able to ride side by side on a 3.6m wide lane, the lateral resolution must not be higher than 1.2m.
 
@@ -45,7 +45,7 @@ If three bicycles should be able to ride side by side on a 3.6m wide lane, the l
     Vehicles move **continously** between the sublanes. This means, even when the lateral resolution is set equal to the lane width, vehicles will occupy many intermediate positions while changing between lanes (whenever it takes multiple simulation steps to achieve the desired maneuver).
 
 !!! note
-    It is recommended to set the lateral resolution to a valude that divides the lane width evenly to avoid artefacts from varyings stripe width (stripes end at the lane border).
+    It is recommended to set the lateral resolution to a value that divides the lane width evenly to avoid artefacts from varyings stripe width (stripes end at the lane border).
 
 !!! caution
     The smaller the value of **--lateral-resolution**, the higher the running time for computing the simulation state.
@@ -75,7 +75,7 @@ attributes are used:
 - lateral speed: the lateral velocity in the current simulation step
 - lane change maneuver distance: the absolute lateral distance to be
   covered in the current lane change maneuver in m (overtaking another
-  vehicle is considered to consist of two maneuveres: 1. leaving the
+  vehicle is considered to consist of two maneuvers: 1. leaving the
   current lane, 2. re-entering the lane after overtaking)
 - right side on edge: offset of the right vehicle side from the right
   side of the current road edge in m
@@ -94,7 +94,7 @@ The regular lanes of the road network are divided into sublanes with a
 minimum width of the given resolution (**--lateral-resolution**). If the lane width is not a
 multiple of the given value, the leftmost sublane has a reduced with.
 The default lane-width of SUMO is 3.2m so a lateral resolution of 0.8
-will created exactly 4 sublanes of that width per lane. A resulution of
+will created exactly 4 sublanes of that width per lane. A resolution of
 1.0 will create three sublanes of 1.0m width and on more lane of 0.2m
 width. It is recommended use a resolution that is at least as small as
 the least wide vehicle being simulated (i.e. motorcycles).
@@ -186,7 +186,7 @@ lane-changing is instantaneous without activating the sublane model.
 
 If only the non-instantaneous aspect of lane-changing needs to be
 modelled, a simplified (and thus faster) model may be used as an
-alternaive to the sublane model.
+alternative to the sublane model.
 
 The *Simple continous lane-change model* is activated by setting the
 option **--lanechange.duration** {{DT_FLOAT}} which specifies the default time for changing between adjacent

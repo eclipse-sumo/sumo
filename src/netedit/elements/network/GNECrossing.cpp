@@ -263,8 +263,10 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         const double halfWidth = NBCrossing->width * 0.5;
         // get color
         RGBColor crossingColor;
-        // set color depending of selection and priority
-        if (drawUsingSelectColor()) {
+        // first check if we're editing shape
+        if (myShapeEdited) {
+            crossingColor = s.colorSettings.editShape;
+        } else if (drawUsingSelectColor()) {
             crossingColor = s.colorSettings.selectedCrossingColor;
         } else if (!NBCrossing->valid) {
             crossingColor = s.colorSettings.crossingInvalid;
@@ -318,7 +320,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             // draw shape points only in Network supemode
             if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // color
-                const RGBColor darkerColor = crossingColor.changedBrightness(-10);
+                const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                 // draw geometry points
                 GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, 1);
                 // draw moving hint

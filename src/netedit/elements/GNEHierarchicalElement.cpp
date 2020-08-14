@@ -33,7 +33,7 @@
 // GNEHierarchicalElement - methods
 // ---------------------------------------------------------------------------
 
-GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
+GNEHierarchicalElement::GNEHierarchicalElement(GNENet* net, SumoXMLTag tag,
         const std::vector<GNEJunction*>& parentJunctions,
         const std::vector<GNEEdge*>& parentEdges,
         const std::vector<GNELane*>& parentLanes,
@@ -42,9 +42,9 @@ GNEHierarchicalElement::GNEHierarchicalElement(const GNEAttributeCarrier* AC,
         const std::vector<GNETAZElement*>& parentTAZElements,
         const std::vector<GNEDemandElement*>& ParentDemandElements,
         const std::vector<GNEGenericData*>& parentGenericDatas) :
+    GNEAttributeCarrier(tag, net),
     myHierarchicalConnections(this),
-    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas),
-    myAC(AC) {
+    myHierarchicalContainer(parentJunctions, parentEdges, parentLanes, parentAdditionals, parentShapes, parentTAZElements, ParentDemandElements, parentGenericDatas) {
 }
 
 
@@ -222,28 +222,28 @@ GNEHierarchicalElement::getChildGenericDatas() const {
 template<> void
 GNEHierarchicalElement::addParentElement(GNEJunction* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEEdge* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNELane* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
     // update connections geometry
     myHierarchicalConnections.update();
 }
@@ -252,56 +252,56 @@ GNEHierarchicalElement::addParentElement(GNEAdditional* element) {
 template<> void
 GNEHierarchicalElement::addParentElement(GNEShape* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNETAZElement* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEDemandElement* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addParentElement(GNEGenericData* element) {
     // add parent element into container
-    myHierarchicalContainer.addParentElement(myAC, element);
+    myHierarchicalContainer.addParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEJunction* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEEdge* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNELane* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
     // update connections geometry
     myHierarchicalConnections.update();
 }
@@ -310,63 +310,59 @@ GNEHierarchicalElement::removeParentElement(GNEAdditional* element) {
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEShape* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNETAZElement* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEDemandElement* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeParentElement(GNEGenericData* element) {
     // remove parent element from container
-    myHierarchicalContainer.removeParentElement(myAC, element);
+    myHierarchicalContainer.removeParentElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEJunction* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEEdge* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNELane* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
     // update connections geometry
     if (element->getTagProperty().isSlave()) {
         myHierarchicalConnections.update();
-    }
-    // Check if children must be sorted automatically
-    if (myAC->getTagProperty().canAutomaticSortChildren()) {
-        sortChildAdditionals();
     }
 }
 
@@ -374,67 +370,59 @@ GNEHierarchicalElement::addChildElement(GNEAdditional* element) {
 template<> void
 GNEHierarchicalElement::addChildElement(GNEShape* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNETAZElement* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEDemandElement* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
-    // Check if children must be sorted automatically
-    if (myAC->getTagProperty().canAutomaticSortChildren()) {
-        sortChildDemandElements();
-    }
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::addChildElement(GNEGenericData* element) {
     // add child element into container
-    myHierarchicalContainer.addChildElement(myAC, element);
+    myHierarchicalContainer.addChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEJunction* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEEdge* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNELane* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
     // update connections geometry
     if (element->getTagProperty().isSlave()) {
         myHierarchicalConnections.update();
-    }
-    // Check if children must be sorted automatically
-    if (myAC->getTagProperty().canAutomaticSortChildren()) {
-        sortChildAdditionals();
     }
 }
 
@@ -442,32 +430,28 @@ GNEHierarchicalElement::removeChildElement(GNEAdditional* element) {
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEShape* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNETAZElement* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEDemandElement* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
-    // Check if children must be sorted automatically
-    if (myAC->getTagProperty().canAutomaticSortChildren()) {
-        sortChildDemandElements();
-    }
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
 template<> void
 GNEHierarchicalElement::removeChildElement(GNEGenericData* element) {
     // remove child element from container
-    myHierarchicalContainer.removeChildElement(myAC, element);
+    myHierarchicalContainer.removeChildElement(this, element);
 }
 
 
@@ -529,85 +513,6 @@ GNEHierarchicalElement::drawHierarchicalConnections(const GUIVisualizationSettin
 }
 
 
-void
-GNEHierarchicalElement::sortChildAdditionals() {
-    if (myAC->getTagProperty().getTag() == SUMO_TAG_E3DETECTOR) {
-        // we need to sort Entry/Exits due additional.xds model
-        std::vector<GNEAdditional*> sortedEntryExits;
-        // obtain all entrys
-        for (const auto& additional : getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_DET_ENTRY) {
-                sortedEntryExits.push_back(additional);
-            }
-        }
-        // obtain all exits
-        for (const auto& additional : getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_DET_EXIT) {
-                sortedEntryExits.push_back(additional);
-            }
-        }
-        // change getChildAdditionals() for sortedEntryExits
-        if (sortedEntryExits.size() == getChildAdditionals().size()) {
-            myHierarchicalContainer.setParents<std::vector<GNEAdditional*> >(sortedEntryExits);
-        } else {
-            throw ProcessError("Some child additional were lost during sorting");
-        }
-    } else if (myAC->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-        // we need to sort Entry/Exits due additional.xds model
-        std::vector<GNEAdditional*> sortedTAZSourceSink;
-        // obtain all TAZSources
-        for (const auto& additional : getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSOURCE) {
-                sortedTAZSourceSink.push_back(additional);
-            }
-        }
-        // obtain all TAZSinks
-        for (const auto& additional : getChildAdditionals()) {
-            if (additional->getTagProperty().getTag() == SUMO_TAG_TAZSINK) {
-                sortedTAZSourceSink.push_back(additional);
-            }
-        }
-        // change getChildAdditionals() for sortedEntryExits
-        if (sortedTAZSourceSink.size() == getChildAdditionals().size()) {
-            myHierarchicalContainer.setParents<std::vector<GNEAdditional*> >(sortedTAZSourceSink);
-        } else {
-            throw ProcessError("Some child additional were lost during sorting");
-        }
-    } else {
-        // declare a vector to keep sorted children
-        std::vector<std::pair<std::pair<double, double>, GNEAdditional*> > sortedChildren;
-        // iterate over child additional
-        for (const auto& additional : getChildAdditionals()) {
-            sortedChildren.push_back(std::make_pair(std::make_pair(0., 0.), additional));
-            // set begin/start attribute
-            if (additional->getTagProperty().hasAttribute(SUMO_ATTR_TIME) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_TIME))) {
-                sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_TIME);
-            } else if (additional->getTagProperty().hasAttribute(SUMO_ATTR_BEGIN) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_BEGIN))) {
-                sortedChildren.back().first.first = additional->getAttributeDouble(SUMO_ATTR_BEGIN);
-            }
-            // set end attribute
-            if (additional->getTagProperty().hasAttribute(SUMO_ATTR_END) && GNEAttributeCarrier::canParse<double>(additional->getAttribute(SUMO_ATTR_END))) {
-                sortedChildren.back().first.second = additional->getAttributeDouble(SUMO_ATTR_END);
-            } else {
-                sortedChildren.back().first.second = sortedChildren.back().first.first;
-            }
-        }
-        // sort children
-        std::sort(sortedChildren.begin(), sortedChildren.end());
-        // make sure that number of sorted children is the same as the child additional
-        if (sortedChildren.size() == getChildAdditionals().size()) {
-            std::vector<GNEAdditional*> additionals;
-            for (auto i : sortedChildren) {
-                additionals.push_back(i.second);
-            }
-            myHierarchicalContainer.setParents<std::vector<GNEAdditional*> >(additionals);
-        } else {
-            throw ProcessError("Some child additional were lost during sorting");
-        }
-    }
-}
-
-
 bool
 GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
     // declare a vector to keep sorted children
@@ -646,12 +551,6 @@ GNEHierarchicalElement::checkChildAdditionalsOverlapping() const {
     } else {
         throw ProcessError("Some child additional were lost during sorting");
     }
-}
-
-
-void
-GNEHierarchicalElement::sortChildDemandElements() {
-    // by default empty
 }
 
 

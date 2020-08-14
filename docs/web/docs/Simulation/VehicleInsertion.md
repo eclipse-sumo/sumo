@@ -107,7 +107,7 @@ By default, the next attempt happens 2 seconds after the first vehicle has depar
 ## Global options that affect Departure
 
 - **--random-depart-offset** {{DT_TIME}}: randomly delays departure time for all vehicles
-- **--max-num-vehicles** {{DT_INT}}: limits the total amount of vehicles that may exist in the networ.
+- **--max-num-vehicles** {{DT_INT}}: limits the total amount of vehicles that may exist in the network.
   Setting this may cause delayed insertion
 - **--max-depart-delay** {{DT_TIME}}: removes vehicles from the insertion queue after a set amount of
   time

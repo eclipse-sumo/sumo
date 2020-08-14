@@ -88,7 +88,7 @@ One of the topics discussed on last year SUMO workshop was the
 documentation and, in conjunction, the internet pages. Several years
 ago, we moved the documentation completely to the wiki, in the hope to
 have less effort on keeping it up-to-date. During the workshop - and
-earlier in fact - especially the wiki's entry page was critisised for
+earlier in fact - especially the wiki's entry page was criticised for
 being both ugly and too overloaded with information. As one of the
 workshop's result, we decided to set up a nice static entry page which
 allows to navigate further down with fewer clicks and which presents

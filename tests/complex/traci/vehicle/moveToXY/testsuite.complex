@@ -27,3 +27,6 @@ intersection
 
 # moved vehicle should update waitingTime
 waitingTime
+
+# tests mapping with length/geometry mismatch
+customLength_keepRoute2

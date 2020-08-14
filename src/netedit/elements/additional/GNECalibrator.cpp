@@ -146,19 +146,18 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
     const double exaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
     if (s.drawAdditionals(exaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // begin draw
+        // begin push name
         glPushName(getGlID());
-        glLineWidth(1.0);
         // draw first symbol
         drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getPosition(), myAdditionalGeometry.getRotation());
         // continue with the other symbols
         for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
             drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getPosition(), edgeCalibratorGeometry.getRotation());
         }
-        // draw name
-        drawName(getPositionInView(), s.scale, s.addName);
         // pop name
         glPopName();
+        // draw name
+        drawName(getPositionInView(), s.scale, s.addName);
     }
 }
 
@@ -300,11 +299,17 @@ GNECalibrator::getHierarchyName() const {
 // ===========================================================================
 
 void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, const double exaggeration, const Position& pos, const double rot) const {
+    // push layer matrix
     glPushMatrix();
-    glTranslated(pos.x(), pos.y(), getType());
+    // translate to front
+    myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CALIBRATOR);
+    // translate to position
+    glTranslated(pos.x(), pos.y(), 0);
+    // rotate
     glRotated(rot, 0, 0, 1);
-    glTranslated(0, 0, getType());
+    // scale
     glScaled(exaggeration, exaggeration, 1);
+    // set drawing mode
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     // set color
     if (drawUsingSelectColor()) {
@@ -336,10 +341,14 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
             throw ProcessError("Both myEdge and myLane aren't defined");
         }
     }
+    // pop layer matrix
     glPopMatrix();
-    // check if dotted contour has to be drawn
-    if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-        // GNEGeometry::drawShapeDottedContour(s, getType(), exaggeration, myDottedGeometry);
+    // check if dotted contours has to be drawn
+    if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+        GNEGeometry::drawDottedSquaredShape(true, s, pos, 2, 1, 2, 0, rot, exaggeration);
+    }
+    if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+        GNEGeometry::drawDottedSquaredShape(false, s, pos, 2, 1, 2, 0, rot, exaggeration);
     }
 }
 

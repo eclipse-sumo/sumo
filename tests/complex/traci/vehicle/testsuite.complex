@@ -70,3 +70,4 @@ slowDown
 
 # test timing of slowDown command
 slowDown_subsecond
+getFollower

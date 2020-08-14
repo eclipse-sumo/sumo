@@ -42,14 +42,12 @@ GNECreateEdgeFrame::~GNECreateEdgeFrame() {}
 
 
 void
-GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor,
-                                 GNEViewNetHelper::ObjectsUnderCursor& objectsUnderGrippedCursor, const bool oppositeEdge, const bool chainEdge) {
+GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor,
+                                 const bool oppositeEdge, const bool chainEdge) {
     // obtain junction depending of gridEnabled
     GNEJunction* junction = nullptr;
     if (objectsUnderCursor.getJunctionFront()) {
         junction = objectsUnderCursor.getJunctionFront();
-    } else if (objectsUnderGrippedCursor.getJunctionFront()) {
-        junction = objectsUnderGrippedCursor.getJunctionFront();
     }
     // begin undo list
     if (!myViewNet->getUndoList()->hasCommandGroup()) {
@@ -104,13 +102,20 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, GNEViewNetHelp
 }
 
 
-void GNECreateEdgeFrame::abortEdgeCreation() {
+void 
+GNECreateEdgeFrame::abortEdgeCreation() {
     // if myCreateEdgeSource exist, unmark ist as create edge source
     if (myCreateEdgeSource != nullptr) {
         // remove current created edge source
         myCreateEdgeSource->unMarkAsCreateEdgeSource();
         myCreateEdgeSource = nullptr;
     }
+}
+
+
+const GNEJunction*
+GNECreateEdgeFrame::getJunctionSource() const {
+    return myCreateEdgeSource;
 }
 
 

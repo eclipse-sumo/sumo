@@ -76,6 +76,6 @@ instead use the attributes *fromTaz* and *toTaz*:
 ```
 
 The second definition would allow departure from either edge *123*' or
-*-123* **due to the way the taz *123* ** is definied. This can prevent
+*-123* **due to the way the taz *123* ** is defined. This can prevent
 unwanted turn-arounds and the beginning and end of generated trips and
 thus simplifies trips created from mapping of geo-coordinates.

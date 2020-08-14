@@ -15,7 +15,7 @@ if the normal traffic demand of the simulation does not meet the
 specified number of `vehsPerHour`. Furthermore, the speed on the edge will be
 adjusted to the specified `speed` similar to the workings of a [variable speed
 sign](../Simulation/Variable_Speed_Signs.md). Calibrators will also
-remove vehicles if the traffic on their lane is jammend beyond what
+remove vehicles if the traffic on their lane is jammed beyond what
 would be expected given the specified flow and speed. This ensures that
 invalid jams do not grow upstream past a calibrator.
 If no target flow is given, the provided type information will instead be used to modify the type of vehicles that are passing the calibrator.
@@ -106,7 +106,7 @@ This type of calibrator will modify the types of all passing vehicles (or all ve
 The normal behavior is to replace the type of the passing vehicles with the type set in the flow element.
 
 !!! note
-    When calibrating types, the 'route' attribute can be omitted from the flow defintion    
+    When calibrating types, the 'route' attribute can be omitted from the flow definition    
 
 ### Mapping between vTypeDistributions
 A special behavior is activated if the following conditions are met:

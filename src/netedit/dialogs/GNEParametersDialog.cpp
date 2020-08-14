@@ -158,13 +158,6 @@ GNEParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FXSelect
         } else if (myParameterRows.at(i)->valueField == obj) {
             // change value of Parameter
             myParameterDialogParent->myEditedParameters.at(i).second = myParameterRows.at(i)->valueField->getText().text();
-            // change color of text field depending if attribute is valid
-            if (SUMOXMLDefinitions::isValidParameterValue(myParameterDialogParent->myEditedParameters.at(i).second)) {
-                myParameterRows.at(i)->valueField->setTextColor(FXRGB(0, 0, 0));
-            } else {
-                myParameterRows.at(i)->valueField->setTextColor(FXRGB(255, 0, 0));
-                myParameterRows.at(i)->valueField->killFocus();
-            }
         }
     }
     return 1;
@@ -241,11 +234,6 @@ GNEParametersDialog::ParametersValues::ParameterRow::enableRow(const std::string
     keyField->enable();
     // restore color and enable value field
     valueField->setText(value.c_str());
-    if (SUMOXMLDefinitions::isValidParameterValue(value)) {
-        valueField->setTextColor(FXRGB(0, 0, 0));
-    } else {
-        valueField->setTextColor(FXRGB(255, 0, 0));
-    }
     valueField->enable();
     // enable button and set icon remove
     button->enable();
@@ -463,8 +451,6 @@ GNEParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int 
                         } else {
                             WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
                         }
-                    } else if (!SUMOXMLDefinitions::isValidParameterValue(value)) {
-                        WRITE_WARNING("Value '" + value + "'of Parameter contains invalid characters");
                     } else {
                         // add parameter to vector of myParameterDialogParent
                         myParametersOptionsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
@@ -528,14 +514,6 @@ GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
             FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-            return 1;
-        } else if (!SUMOXMLDefinitions::isValidParameterValue(parameter.second)) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-            // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter value", "%s", "There are values with invalid characters");
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;

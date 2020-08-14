@@ -427,7 +427,10 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         const double selectionScale = isAttributeCarrierSelected() ? s.selectionScale : 1;
         // get color
         RGBColor connectionColor;
-        if (drawUsingSelectColor()) {
+        // first check if we're editing shape
+        if (myShapeEdited) {
+            connectionColor = s.colorSettings.editShape;
+        } else if (drawUsingSelectColor()) {
             // override with special colors (unless the color scheme is based on selection)
             connectionColor = s.colorSettings.selectedConnectionColor;
         } else if (mySpecialColor != nullptr) {
@@ -468,7 +471,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // draw shape points only in Network supemode
             if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.connectionGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // color
-                const RGBColor darkerColor = connectionColor.changedBrightness(-10);
+                const RGBColor darkerColor = connectionColor.changedBrightness(-32);
                 // draw geometry points
                 GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myConnectionGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.connectionGeometryPointRadius, 1);
                 // draw moving hint

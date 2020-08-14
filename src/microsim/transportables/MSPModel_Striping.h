@@ -272,8 +272,9 @@ protected:
         void moveToXY(MSPerson* p, Position pos, MSLane* lane, double lanePos,
                       double lanePosLat, double angle, int routeOffset,
                       const ConstMSEdgeVector& edges, SUMOTime t);
-
+        /// @brief whether the transportable is jammed
         bool isJammed() const;
+        const MSLane* getLane() const;
         /// @}
 
         PState(MSPerson* person, MSStageMoving* stage, const MSLane* lane);
@@ -360,6 +361,9 @@ protected:
         /// @brief return the person width
         virtual double getWidth() const;
 
+        /// @brief whether the person is currently being controlled via TraCI
+        bool isRemoteControlled() const;
+
     protected:
         /// @brief constructor for PStateVehicle
         PState();
@@ -426,6 +430,15 @@ protected:
         return myActiveLanes;
     }
 
+    /// @brief return the number of active objects
+    int getActiveNumber() {
+        return myNumActivePedestrians;
+    }
+
+    void registerActive() {
+        myNumActivePedestrians++;
+    }
+
 private:
     static void DEBUG_PRINT(const Obstacles& obs);
 
@@ -444,8 +457,12 @@ private:
 
     static void initWalkingAreaPaths(const MSNet* net);
 
+    static const WalkingAreaPath* getWalkingAreaPath(const MSEdge* walkingArea, const MSLane* before, const MSLane* after);
+
     /// @brief return an arbitrary path across the given walkingArea
     static const WalkingAreaPath* getArbitraryPath(const MSEdge* walkingArea);
+
+    static const WalkingAreaPath* guessPath(const MSEdge* walkingArea, const MSEdge* before, const MSEdge* after);
 
     /// @brief return the maximum number of pedestrians walking side by side
     static int numStripes(const MSLane* lane);
@@ -478,11 +495,6 @@ private:
 
     static bool addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double lateral_offset,
                               double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds);
-
-    /// @brief return the number of active objects
-    int getActiveNumber() {
-        return myNumActivePedestrians;
-    }
 
 private:
     /// @brief the total number of active pedestrians

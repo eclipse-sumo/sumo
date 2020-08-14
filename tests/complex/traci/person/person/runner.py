@@ -103,6 +103,7 @@ def check(personID):
     print("angle", traci.person.getAngle(personID))
     print("slope", traci.person.getSlope(personID))
     print("road", traci.person.getRoadID(personID))
+    print("lane", traci.person.getLaneID(personID))
     print("type", traci.person.getTypeID(personID))
     print("lanePos", traci.person.getLanePosition(personID))
     print("color", traci.person.getColor(personID))

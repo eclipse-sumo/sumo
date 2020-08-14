@@ -57,7 +57,7 @@ permalink: /Z/Changes_from_version_0.9.7_to_version_0.9.8/
 - removed MSUnit - the usage was bogus, often same functions were
   defined twice. Rather confusing. Added
   utils/common/PhysicalTypeDefs.h instead, as a new begin.
-- Removed MSNet's deltaT - was falsly used and duplicate with
+- Removed MSNet's deltaT - was falsely used and duplicate with
   utils/common/SUMOTime
 
 - guisim

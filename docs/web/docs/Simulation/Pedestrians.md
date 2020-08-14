@@ -34,7 +34,7 @@ pedestrian crossing. In the latter they may "jump" between any two edges
 which allow pedestrians at an intersection.
 
 !!! note
-    Allmost all of the methods described below can be used for building a pedestrian network either based on an existing *.net.xml* file or while doing the initial import (i.e. from [OSM](../Networks/Import/OpenStreetMap.md)). The exception is [#Type-base_generation](#type-base_generation) which can only be done during import.
+    Almost all of the methods described below can be used for building a pedestrian network either based on an existing *.net.xml* file or while doing the initial import (i.e. from [OSM](../Networks/Import/OpenStreetMap.md)). The exception is [#Type-base_generation](#type-base_generation) which can only be done during import.
 
 ## Generating a network with sidewalks
 
@@ -56,7 +56,7 @@ Sidewalks may be defined explicitly in plain XML input when describing
 This is done by defining an additional lane which only permits the
 vClass “pedestrian” and setting the appropriate width. In this case it
 is important to disallow pedestrians on all other lanes. Also, any
-pre-exisiting connection definitions must be modified to account for the
+pre-existing connection definitions must be modified to account for the
 new sidewalk lane.
 
 ### Explicit specification of sidewalks

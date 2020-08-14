@@ -87,7 +87,7 @@ options to set the correct one.
 
 The complete list of options used for reading shapefiles is given in the
 table below. You may find further options which control the import
-behaviour on [netconvert](../../netconvert.md).
+behavior on [netconvert](../../netconvert.md).
 
 | Option                              | Description                                                           |
 |-------------------------------------|-----------------------------------------------------------------------|
@@ -251,7 +251,7 @@ on-/off-ramps**
 
 There is no demand available for Frida - at least none we know about.
 
-### Conlusion
+### Conclusion
 
 Using the current features we are able to parse the network from the
 Frida-project but we can not state it is completely usable for traffic

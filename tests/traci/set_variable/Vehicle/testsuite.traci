@@ -66,4 +66,4 @@ resume_from_stop_triggered
 resume_from_stop_parking
 
 # test command moveToXY (formerly known as moveToVTD)
-MoveToVTD
+MoveToXY

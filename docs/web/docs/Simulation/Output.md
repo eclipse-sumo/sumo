@@ -28,12 +28,12 @@ files can use a [custom binary
 format](../Simulation/Output/Binary.md) which is triggered by the
 file extension .sbx.
 
-## Seperating outputs of repeated runs
+## Separating outputs of repeated runs
 
-To keep the outputs of multiple simulation runs seperate, the option **--output-prefix** {{DT_STR}}
+To keep the outputs of multiple simulation runs separate, the option **--output-prefix** {{DT_STR}}
 can be used to prefix **all** output file names. When setting **--output-prefix TIME** all
-outputs will be prefixd using the time at which the simulation was
-started which keeps them seperated automatically.
+outputs will be prefixed using the time at which the simulation was
+started which keeps them separated automatically.
 
 # Available Output Files
 
@@ -185,7 +185,7 @@ will be printed (unless explicitly disabled with option **--duration-log false**
 
 - Inserted: number vehicles that entered the simulation network
 - Loaded: number of vehicles that were loaded from route files. This
-may differ from emitted forw two reason:
+may differ from emitted for two reason:
   - Running with option **--scale** with a value less than 1.0
   - Having a congested network where not all vehicles could be
     inserted before the simulation time ended

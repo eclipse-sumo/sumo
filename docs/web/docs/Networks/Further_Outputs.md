@@ -28,7 +28,7 @@ formats:
 
 This is the default output format, see above. The name of the file to
 write the network into can be given using the option **--output-file** {{DT_FILE}}. **--sumo-output** {{DT_FILE}} and **--output** {{DT_FILE}} are
-synonymes.
+synonyms.
 
 ## Plain XML Output
 
@@ -111,7 +111,7 @@ Recommended options
 
 ### Embedding Road Objects
 
-To include road ojects in the generated *xodr*-output, the following
+To include road objects in the generated *xodr*-output, the following
 conditions must be met:
 
 - a polygon file is loaded with `<poly>` elements that encode a rectangular
@@ -166,7 +166,7 @@ are optional and only serve to enhance human reader comprehension. The
 (other allowed types are
 *train,subway,light_rail,monorail,trolleybus,aerialway,ferry*). The
 **line** attribute will be used in the simulation when distinguishing
-public transport lines. The optinal **completeness** attribute serves to
+public transport lines. The optional **completeness** attribute serves to
 inform the human reader that the stops only descibe 11% of the complete
 line. Incomplete lines are typical when importing only a part of the
 complete public transport network.

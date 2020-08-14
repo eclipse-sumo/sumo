@@ -18,7 +18,7 @@ work without changes. Before running the application you have to execute
 
 In order to change the layout of the parking lot and the behavior
 (speed, capacity etc.) of the vehicles, constants.py should be edited
-and then createNet.py reexecuted.
+and then createNet.py re-executed.
 
 In order to start the (remote controlled) simulation execute one of the
 managers agentManager.py or simpleManager.py. If you want a visual

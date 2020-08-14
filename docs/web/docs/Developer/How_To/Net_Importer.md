@@ -114,7 +114,7 @@ should be able to handle several files or not.
 
 ## Error Handling
 
-Different formats have different sources for being errornous. In some
+Different formats have different sources for being erroneous. In some
 cases, heuristics may have to be applied during the parsing. In all
 cases something is strange - and it is not strange each time a network
 from the given format is imported - a warning should be generated. This
@@ -124,7 +124,7 @@ is done by calling the macro
 WRITE_WARNING(<TEXT>);
 ```
 
-If the odd behaviour completely disallows further processing of the
+If the odd behavior completely disallows further processing of the
 imported file, or in the case a read value is not in the right format (a
 string is read, though a floating point number was awaited, for
 example), a ProcessError should be thrown. The exception must have an
@@ -141,7 +141,7 @@ sometimes difficult.
     throw a ProcessError in the case of errors
 
 !!! convention
-    warn on strange behaviour
+    warn on strange behavior
 
 !!! convention
     both, a warning and an error exception must have an explanation about the reason supplied

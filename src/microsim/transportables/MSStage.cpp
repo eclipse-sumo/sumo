@@ -575,6 +575,10 @@ MSStageMoving::getSpeed() const {
     return myState == nullptr ? 0. : myState->getSpeed(*this);
 }
 
+const MSLane*
+MSStageMoving::getLane() const {
+    return myState == nullptr ? nullptr : myState->getLane();
+}
 
 void
 MSStageMoving::setRouteIndex(MSTransportable* const transportable, int routeOffset) {
@@ -585,5 +589,14 @@ MSStageMoving::setRouteIndex(MSTransportable* const transportable, int routeOffs
     getEdge()->addPerson(transportable);
 }
 
+void
+MSStageMoving::replaceRoute(MSTransportable* const transportable, const ConstMSEdgeVector& edges, int routeOffset) {
+    assert(routeOffset >= 0);
+    assert(routeOffset < (int)edges.size());
+    getEdge()->removePerson(transportable);
+    myRoute = edges;
+    myRouteStep = myRoute.begin() + routeOffset;
+    getEdge()->addPerson(transportable);
+}
 
 /****************************************************************************/

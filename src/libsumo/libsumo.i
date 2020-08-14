@@ -355,6 +355,13 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
   %}
 };
 
+%extend libsumo::TraCIReservation {
+  %pythoncode %{
+    __attr_repr__ = _person.Reservation.__attr_repr__
+    __repr__ = _person.Reservation.__repr__
+  %}
+};
+
 %extend libsumo::TraCILogic {
   %pythoncode %{
     getPhases = _trafficlight.Logic.getPhases
@@ -445,6 +452,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %include "TraCIDefs.h"
 %template(TraCILogicVector) std::vector<libsumo::TraCILogic>;
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
+%template(TraCIReservationVector) std::vector<libsumo::TraCIReservation>;
 %include "Edge.h"
 %include "InductionLoop.h"
 %include "Junction.h"
@@ -475,6 +483,7 @@ def wrapAsClassMethod(func, module):
 
 exceptions.TraCIException = TraCIException
 simulation.Stage = TraCIStage
+person.Reservation = TraCIReservation
 trafficlight.Phase = TraCIPhase
 trafficlight.Logic = TraCILogic
 vehicle.addFull = vehicle.add

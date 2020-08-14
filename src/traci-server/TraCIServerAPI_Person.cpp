@@ -90,11 +90,30 @@ TraCIServerAPI_Person::processGet(TraCIServer& server, tcpip::Storage& inputStor
                     if (!server.readTypeCheckingInt(inputStorage, onlyNew)) {
                         return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "Retrieval of reservations requires an integer flag.", outputStorage);
                     }
-                    const std::vector<libsumo::TraCIStage>& result = libsumo::Person::getTaxiReservations(onlyNew);
+                    const std::vector<libsumo::TraCIReservation> result = libsumo::Person::getTaxiReservations(onlyNew);
                     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
                     server.getWrapperStorage().writeInt((int)result.size());
-                    for (const libsumo::TraCIStage& s : result) {
-                        TraCIServerAPI_Simulation::writeStage(server.getWrapperStorage(), s);
+                    for (const libsumo::TraCIReservation& r : result) {
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
+                        server.getWrapperStorage().writeInt(9);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(r.id);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+                        server.getWrapperStorage().writeStringList(r.persons);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(r.group);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(r.fromEdge);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_STRING);
+                        server.getWrapperStorage().writeString(r.toEdge);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(r.departPos);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(r.arrivalPos);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(r.depart);
+                        server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_DOUBLE);
+                        server.getWrapperStorage().writeDouble(r.reservationTime);
                     }
                     break;
                 }

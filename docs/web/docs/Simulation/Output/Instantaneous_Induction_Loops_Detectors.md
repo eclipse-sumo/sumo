@@ -52,7 +52,7 @@ The following values are reported in all cases:
 | Name   | Type | Description                                    |
 | ------ | ---- | ---------------------------------------------- |
 | id     | id   | The id of the detector                         |
-| time   | s    | The time the event occured                     |
+| time   | s    | The time the event occurred                    |
 | state  |      | The event type, see above                      |
 | vehID  |      | The id of the vehicle which is on the detector |
 | speed  | m/s  | The speed of the vehicle in this time step     |

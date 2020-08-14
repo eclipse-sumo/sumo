@@ -15,7 +15,6 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
@@ -74,10 +73,12 @@ Debug: Created connection 'fromgneE5_0togneE10_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()Debug: Setting new attribute selected 'true' into route 'route_3'
+Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
+Debug: Setting new attribute selected 'true' into route 'route_3'
 Debug: demand elements saving aborted
 Debug: Key DEL (delete) pressed
-Debug: Removing route 'route_3' in GNEChange_DemandElementDebug: demand elements saved
+Debug: Removing route 'route_3' in GNEChange_DemandElement
+Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 49.60,6.80,86.40,37.20

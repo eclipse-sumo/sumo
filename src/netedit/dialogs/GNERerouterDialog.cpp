@@ -37,8 +37,6 @@
 
 FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_ADD_INTERVAL,     GNERerouterDialog::onCmdAddInterval),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_SORT_INTERVAL,    GNERerouterDialog::onCmdSortIntervals),
-    FXMAPFUNC(SEL_CLICKED,          MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
     FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
     FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
 };
@@ -128,16 +126,6 @@ GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
     // create empty rerouter interval and configure it with GNERerouterIntervalDialog
     GNERerouterIntervalDialog(new GNERerouterInterval(this), false);
     // update interval table
-    updateIntervalTable();
-    return 1;
-}
-
-
-long
-GNERerouterDialog::onCmdSortIntervals(FXObject*, FXSelector, void*) {
-    // Sort variable speed sign steps
-    myEditedAdditional->sortChildAdditionals();
-    // update table
     updateIntervalTable();
     return 1;
 }

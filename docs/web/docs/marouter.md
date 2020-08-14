@@ -106,7 +106,7 @@ configuration:
 | **--output-prefix** {{DT_STR}} | Prefix which is applied to all output files. The special string 'TIME' is replaced by the current time. |
 | **--precision** {{DT_INT}} | Defines the number of digits after the comma for floating point output; *default:* **2** |
 | **--precision.geo** {{DT_INT}} | Defines the number of digits after the comma for lon,lat output; *default:* **6** |
-| **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rathern than seconds; *default:* **false** |
+| **-H** {{DT_BOOL}}<br> **--human-readable-time** {{DT_BOOL}} | Write time values as hour:minute:second or day:hour:minute:second rather than seconds; *default:* **false** |
 | **-o** {{DT_FILE}}<br> **--output-file** {{DT_FILE}} | Write flow definitions with route distributions to FILE |
 | **--vtype-output** {{DT_FILE}} | Write used vehicle types into separate FILE |
 | **--ignore-vehicle-type** {{DT_BOOL}} | Does not save vtype information; *default:* **false** |
@@ -141,7 +141,7 @@ configuration:
 | **--upperbound** {{DT_FLOAT}} | Use FLOAT as the upper bound to determine auxiliary link cost; *default:* **0.5** |
 | **--lowerbound** {{DT_FLOAT}} | Use FLOAT as the lower bound to determine auxiliary link cost; *default:* **0.15** |
 | **-i** {{DT_INT}}<br> **--max-iterations** {{DT_INT}} | maximal number of iterations for new route searching in incremental and stochastic user assignment; *default:* **20** |
-| **--max-inner-iterations** {{DT_INT}} | maximal number of inner iterations for user equilibrium calcuation in the stochastic user assignment; *default:* **1000** |
+| **--max-inner-iterations** {{DT_INT}} | maximal number of inner iterations for user equilibrium calculation in the stochastic user assignment; *default:* **1000** |
 | **--route-choice-method** {{DT_STR}} | Choose a route choice method: gawron, logit, or lohse; *default:* **logit** |
 | **--gawron.beta** {{DT_FLOAT}} | Use FLOAT as Gawron's beta; *default:* **0.3** |
 | **--gawron.a** {{DT_FLOAT}} | Use FLOAT as Gawron's a; *default:* **0.05** |

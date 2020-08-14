@@ -162,4 +162,9 @@ public:
         return false;
     }
 
+    /// @brief whether the transportable is jammed
+    virtual const MSLane* getLane() const {
+        return nullptr;
+    }
+
 };

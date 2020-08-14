@@ -42,6 +42,6 @@ website](http://sourceforge.net/projects/trafficmodeler/)
 
 # Screenshots from Versions 0.7/0.8
 
-![](images/Scr_ernst-ruska.gif "Simulation of the area around our institute in Berlin Adlershof; streets are coloured by the maximum speed allowed")Simulation of the area around our institute
-in Berlin Adlershof; streets are coloured by the maximum speed allowed
+![](images/Scr_ernst-ruska.gif "Simulation of the area around our institute in Berlin Adlershof; streets are colored by the maximum speed allowed")Simulation of the area around our institute
+in Berlin Adlershof; streets are colored by the maximum speed allowed
 ![](images/Scr_koeln_fastlane.gif "Simulation of the City of Cologne")Simulation of the City of Cologne

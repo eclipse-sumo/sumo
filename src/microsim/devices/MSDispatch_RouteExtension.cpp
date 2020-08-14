@@ -32,11 +32,29 @@
 
 
 // ===========================================================================
-// MSDispatch_GreedyShared methods
+// method definitions
 // ===========================================================================
+void
+MSDispatch_RouteExtension::findInsertionPoint(std::vector<const Reservation*>::iterator& resIt, EdgePosVector::iterator& edgeIt,
+                                              const EdgePosVector::iterator& edgeEnd, ConstMSEdgeVector& route,
+                                              const MSEdge* newEdge, const double newPos) const {
+    for (const MSEdge* edge : route) {
+        while (edgeIt != edgeEnd && edge == edgeIt->first) {
+            if (edge == newEdge && edgeIt->second > newPos) {
+                break;
+            }
+            resIt++;
+            edgeIt++;
+        }
+        if (edge == newEdge) {
+            break;
+        }
+    }
+}
+
 
 int
-MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations) {
+MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUMOAbstractRouter<MSEdge, SUMOVehicle> & router, std::vector<Reservation*> & reservations) {
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND2(person)) {
         std::cout << SIMTIME << " dispatch taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << "\n";
@@ -46,7 +64,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOA
     int capacityLeft = taxi->getHolder().getVehicleType().getPersonCapacity() - (int)res->persons.size();
     std::vector<const Reservation*> sequence({ res, res });
     std::vector<Reservation*> toRemove({ res });
-    ConstMSEdgeVector edgeSequence({ res->from, res->to });
+    EdgePosVector posSequence({ std::make_pair(res->from, res->fromPos), std::make_pair(res->to, res->toPos) });
     const Reservation* first = sequence.front();
     const Reservation* last = sequence.back();
     ConstMSEdgeVector route;
@@ -61,56 +79,33 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOA
         ConstMSEdgeVector route2;
         // TODO It may be more efficient to check first whether from and to are already in the route
         router.compute(res2->from, res2->fromPos, res2->to, res2->toPos, &taxi->getHolder(), MAX2(now, res2->pickupTime), route2);
-        const bool pickup1 = std::find(route2.begin(), route2.end(), first->from) != route2.end();
-        const bool pickup2 = std::find(route.begin(), route.end(), res2->from) != route.end();
-        const bool dropoff1 = std::find(route2.begin(), route2.end(), last->to) != route2.end();
-        const bool dropoff2 = std::find(route.begin(), route.end(), res2->to) != route.end();
+        const bool pickup = std::find(route.begin(), route.end(), res2->from) != route.end();
+        const bool dropoff = std::find(route.begin(), route.end(), res2->to) != route.end();
 #ifdef DEBUG_DISPATCH
         if (DEBUG_COND2(person)) std::cout << "  consider sharing ride with " << toString(res2->persons)
-            << " pickup1=" << pickup1 << " pickup2=" << pickup2
-            << " dropoff1=" << dropoff1 << " dropoff2=" << dropoff2
+            << " pickup=" << pickup << " startFirst=" << (std::find(route2.begin(), route2.end(), first->from) != route2.end())
+            << " dropoff=" << dropoff << " endLast=" << (std::find(route2.begin(), route2.end(), last->to) != route2.end())
             << "\n";
 #endif
-        if ((pickup1 || pickup2) && (dropoff1 || dropoff2)) {
-            if (pickup1) {
-                // new reservation starts first
-                sequence.insert(sequence.begin(), res2);
-                edgeSequence.insert(edgeSequence.begin(), res2->from);
-            } else {
+        if ((pickup || std::find(route2.begin(), route2.end(), first->from) != route2.end()) &&
+            (dropoff || std::find(route2.begin(), route2.end(), last->to) != route2.end())) {
+            std::vector<const Reservation*>::iterator resIt = sequence.begin();
+            EdgePosVector::iterator edgeIt = posSequence.begin();
+            if (pickup) {
                 // new reservation gets picked up
-                std::vector<const Reservation*>::iterator resIt = sequence.begin();
-                ConstMSEdgeVector::iterator edgeIt = edgeSequence.begin();
-                for (const MSEdge* edge : route) {
-                    while (edge == *edgeIt) {
-                        resIt++;
-                        edgeIt++;
-                    }
-                    if (edge == res2->from) {
-                        break;
-                    }
-                }
-                sequence.insert(resIt, res2);
-                edgeSequence.insert(edgeIt, res2->from);
+                findInsertionPoint(resIt, edgeIt, posSequence.end(), route, res2->from, res2->fromPos);
             }
-            if (dropoff1) {
+            resIt = sequence.insert(resIt, res2) + 1;
+            edgeIt = posSequence.insert(edgeIt, std::make_pair(res2->from, res2->fromPos)) + 1;
+            if (dropoff) {
+                // new reservation drops off and route continues
+                findInsertionPoint(resIt, edgeIt, posSequence.end(), route, res2->to, res2->toPos);
+                sequence.insert(resIt, res2);
+                posSequence.insert(edgeIt, std::make_pair(res2->from, res2->fromPos));
+            } else {
                 // new reservation ends last
                 sequence.push_back(res2);
-                edgeSequence.push_back(res2->to);
-            } else {
-                // new reservation drops off and route continues
-                std::vector<const Reservation*>::iterator resIt = sequence.begin();
-                ConstMSEdgeVector::iterator edgeIt = edgeSequence.begin();
-                for (const MSEdge* edge : route) {
-                    while (edge == *edgeIt) {
-                        resIt++;
-                        edgeIt++;
-                    }
-                    if (edge == res2->to) {
-                        break;
-                    }
-                }
-                sequence.insert(resIt, res2);
-                edgeSequence.insert(edgeIt, res2->to);
+                posSequence.push_back(std::make_pair(res2->to, res2->toPos));
             }
             toRemove.push_back(res2);
             // TODO we have more capacity if some pickup is after an earlier dropoff
@@ -121,7 +116,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOA
             route.clear();
             first = sequence.front();
             last = sequence.back();
-            // TODO speed this up by reusing the route snippets from above
+            // TODO this is wrong for non linear networks! should be reusing the route snippets from above
             router.compute(first->from, first->fromPos, last->to, last->toPos, &taxi->getHolder(), MAX2(now, first->pickupTime), route);
         }
     }
@@ -138,7 +133,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOA
             myOutput->closeTag();
         }
 #ifdef DEBUG_DISPATCH
-        if (DEBUG_COND2(person)) std::cout << "  sharing ride with " << toString(res2->persons)
+        if (DEBUG_COND2(person)) std::cout << "  sharing ride with " << toString(sequence)
                                                << "\n";
 #endif
     } else {

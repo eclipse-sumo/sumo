@@ -15,7 +15,7 @@ All these tools are just wrappers around the wonderful
 Python, you must have a look.
 
 The tools share a set of [common options](#common_options) to
-fine-tune the appearence of the generated figures. These options' names
+fine-tune the appearance of the generated figures. These options' names
 where chosen similar to the [matplotlib](http://matplotlib.org/) calls.
 
 The tools are implemented in Python and need
@@ -273,7 +273,7 @@ plot_tripinfo_distributions.py reads one or multiple
 [tripinfo-files](../Simulation/Output/TripInfo.md) and plots a
 selected measure (attribute of the read
 [tripinfo-files](../Simulation/Output/TripInfo.md)). The measure is
-visualised as vertical bars that represent the numbers of occurences of
+visualised as vertical bars that represent the numbers of occurrences of
 the measure (vehicles) that fall into a bin.
 
 <table>

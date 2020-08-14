@@ -2,6 +2,7 @@ default
 default_actuated
 static
 actuated
+delay_based
 plain_tll_actuated
 
 # test a tl-controlled junction which has no junction logic
@@ -18,12 +19,6 @@ right_on_red_custom_program
 
 # default traffic_light with an added right_on_red program
 traffic_light_program_right_on_red
-
-# group phases by opposite directions
-layout_opposites
-
-# group phases by incoming edge, also allow compatible right-turns
-right_on_red_layout_incoming
 
 # load program with extra transition states
 extra_transitions

@@ -3,7 +3,6 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poi 'POI_1' into viewNet
 GLDebug: 	Inserted poi:POI_1 into SUMORTree with boundary 4.00,15.00,10.00,21.00
@@ -13,15 +12,6 @@ Debug: Adding poi 'POI_2' into viewNet
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
-
-
-
-
-
-
-
-
-
 Debug: Value 'dummyWidth' for attribute width of poi isn't valid
 Debug: Value '-2' for attribute width of poi isn't valid
 Debug: Setting new attribute width '5' into poi 'POI_1'
@@ -30,9 +20,6 @@ GLDebug: 	Inserted poi:POI_1 into SUMORTree with boundary 4.00,15.00,10.00,21.00
 Debug: Setting new attribute width '5' into poi 'POI_2'
 GLDebug: 	Removed object poi:POI_2 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary -1.00,15.00,5.00,21.00
-
-
-
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute width '7.00' into poi 'POI_2'
@@ -49,9 +36,6 @@ GLDebug: 	Removed object poi:POI_2 from SUMORTree with boundary -1.00,15.00,5.00
 Debug: Removing poi 'POI_1' from viewNet
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: 	Removed object poi:POI_1 from SUMORTree with boundary 4.00,15.00,10.00,21.00
-
-
-
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poi 'POI_1' into viewNet

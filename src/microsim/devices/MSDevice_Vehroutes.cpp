@@ -86,7 +86,8 @@ MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDev
     if (maxRoutes < std::numeric_limits<int>::max()) {
         return new MSDevice_Vehroutes(v, "vehroute_" + v.getID(), maxRoutes);
     }
-    if (OptionsCont::getOptions().isSet("vehroute-output")) {
+    OptionsCont& oc = OptionsCont::getOptions();
+    if (equippedByDefaultAssignmentOptions(oc, "vehroute", v, oc.isSet("vehroute-output"))) {
         if (myLastRouteOnly) {
             maxRoutes = 0;
         }

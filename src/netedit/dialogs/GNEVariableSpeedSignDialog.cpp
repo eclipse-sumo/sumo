@@ -140,8 +140,6 @@ GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdSortSteps(FXObject*, FXSelector, void*) {
-    // Sort variable speed sign steps
-    myEditedAdditional->sortChildAdditionals();
     // update table
     updateTableSteps();
     return 1;
@@ -162,8 +160,6 @@ GNEVariableSpeedSignDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     } else {
         // accept changes before closing dialog
         acceptChanges();
-        // sort steps after finish
-        myEditedAdditional->sortChildAdditionals();
         // stop dialgo sucesfully
         getApp()->stopModal(this, TRUE);
         return 1;

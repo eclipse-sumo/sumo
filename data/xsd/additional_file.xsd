@@ -2,7 +2,6 @@
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
 
     <xsd:include schemaLocation="routeTypes.xsd" />
-    <xsd:include schemaLocation="meandataTypes.xsd"/>
     <xsd:include schemaLocation="taz_file.xsd"/>
 
     <xsd:element name="additional" type="additionalType"/>
@@ -47,8 +46,9 @@
             <xsd:element name="vehicle" type="vehicleType" minOccurs="0"/>
             <xsd:element name="flow" type="flowType" minOccurs="0"/>
             <xsd:element name="person" type="personType" minOccurs="0"/>
-
-            <xsd:element name="interval" type="intervalType" minOccurs="0"/>
+            <xsd:element name="personFlow" type="personFlowType" minOccurs="0"/>
+            <xsd:element name="container" type="containerType" minOccurs="0"/>
+            <xsd:element name="interval" type="flowIntervalType" minOccurs="0"/>
 
             <xsd:element name="poly" type="polygonType" minOccurs="0"/>
             <xsd:element name="poi" type="poiType" minOccurs="0"/>

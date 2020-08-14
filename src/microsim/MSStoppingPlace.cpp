@@ -167,7 +167,7 @@ MSStoppingPlace::getWaitPosition(MSTransportable* t) const {
 
 double
 MSStoppingPlace::getStoppingPosition(const SUMOVehicle* veh) const {
-    std::map<const SUMOVehicle*, std::pair<double, double> >::const_iterator i = myEndPositions.find(veh);
+    auto i = myEndPositions.find(veh);
     if (i != myEndPositions.end()) {
         return i->second.second;
     } else {
@@ -225,8 +225,7 @@ MSStoppingPlace::leaveFrom(SUMOVehicle* what) {
 void
 MSStoppingPlace::computeLastFreePos() {
     myLastFreePos = myEndPos;
-    std::map<const SUMOVehicle*, std::pair<double, double> >::iterator i;
-    for (i = myEndPositions.begin(); i != myEndPositions.end(); i++) {
+    for (auto i = myEndPositions.begin(); i != myEndPositions.end(); i++) {
         if (myLastFreePos > (*i).second.second) {
             myLastFreePos = (*i).second.second;
         }

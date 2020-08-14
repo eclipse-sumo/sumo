@@ -393,9 +393,10 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
+        SystemFrame::checkOptions();
         XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"), oc.getString("xml-validation.routes"));
         MsgHandler::initOutputOptions();
-        if (!(ROMAFrame::checkOptions() && SystemFrame::checkOptions())) {
+        if (!ROMAFrame::checkOptions()) {
             throw ProcessError();
         }
         RandHelper::initRandGlobal();

@@ -7,7 +7,7 @@ permalink: /TraCI/
 
 TraCI is the short term for "**Tra**ffic **C**ontrol **I**nterface".
 Giving access to a running road traffic simulation, it allows to
-retrieve values of simulated objects and to manipulate their behaviour
+retrieve values of simulated objects and to manipulate their behavior
 "on-line".
 
 ## Using TraCI
@@ -219,7 +219,7 @@ bindings are included when downloading a sumo-build.
 - Java: [TraaS](TraCI/TraaS.md#java_client) provides a client
   library that is part of the [sumo](sumo.md)-source tree (API
   coverage is almost complete).
-- Others: Any language that can access webservies using
+- Others: Any language that can access webservices using
   [SOAP](https://en.wikipedia.org/wiki/SOAP) can access SUMO using the
   [TraaS Webservice](TraCI/TraaS.md#webservice). A [Java
   webservice client](TraCI/TraaS.md#webservice_client) is also
@@ -229,7 +229,7 @@ bindings are included when downloading a sumo-build.
 ### V2X simulation
 
 TraCI allows to use [sumo](sumo.md) in combination with
-communication network simulators vor simulating [vehicular
+communication network simulators for simulating [vehicular
 communication](Topics/V2X.md). See
 [Topics/V2X](Topics/V2X.md) for a list of available solutions.
 
@@ -328,7 +328,7 @@ and the different hand crafted clients.
 
 ### Output files are not closed.
 
-This problem occures if the client tries to access the output while
+This problem occurs if the client tries to access the output while
 the simulation is still closing down. This can be solved by letting
 the client wait for the simulation to shut down. The bug report was #524
 

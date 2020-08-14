@@ -38,7 +38,7 @@ transfer between the two strategies.
 ## Collision avoidance control mode
 
 The collision avoidance mode prevents rear-end collisions when safety
-critical conditions prevail.This mode is activated when the spacing to
+critical conditions prevail. This mode is activated when the spacing to
 the preceding vehicle is smaller than 100 m and the gap deviation is
 negative.
 

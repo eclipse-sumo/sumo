@@ -81,5 +81,5 @@ private:
     GNEFrameModuls::PathCreator* myPathCreator;
 
     /// @brief Person Hierarchy
-    GNEFrameModuls::AttributeCarrierHierarchy* myPersonHierarchy;
+    GNEFrameModuls::HierarchicalElementTree* myPersonHierarchy;
 };

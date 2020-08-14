@@ -94,6 +94,9 @@ public:
     /// @brief return list of available vehicle parameters
     std::vector<std::string> getVehicleParamKeys(bool vTypeKeys) const;
 
+    /// @brief return list of available POI parameters
+    std::vector<std::string> getPOIParamKeys() const;
+
     /// @brief handle mouse click in gaming mode
     void onGamingClick(Position pos);
     void onGamingRightClick(Position pos);

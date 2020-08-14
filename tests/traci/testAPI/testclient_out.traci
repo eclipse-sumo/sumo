@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Sun Jul  5 12:20:43 2020
+TraCITestClient output file. Date: Wed Aug 12 15:59:14 2020
 
 
 -> Command sent: <SetOrder>:
@@ -7,7 +7,7 @@ TraCITestClient output file. Date: Sun Jul  5 12:20:43 2020
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 testAPI:
-  getVersion: 20, SUMO v1_6_0+1145-e7441f14ba
+  getVersion: 20, SUMO v1_6_0+1531-1eb0ee76d1
   setOrder:
   edge:
     getIDList: :n_m1_0 :n_m2_0 :n_m3_0 :n_m4_0 :n_m4_2 :n_m4_4 :n_m4_7 :n_m5_0 :n_m5_2 :n_m5_4 :n_m6_0 :n_m6_2 :n_m6_4 :n_m7_0 :n_m7_3 :n_o0_0 :n_o1_0 :n_o1_3 :n_o2_0 :n_o2_3 :n_u0_0 :n_u1_0 :n_u1_2 :n_u2_0 :n_u2_2 :n_x1_0 e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
@@ -106,6 +106,7 @@ testAPI:
     getAccumulatedWaitingTime: 0.00
     getShapeClass: bicycle
     getLeader: 2, 493.85
+    getFollower: , -1.00
     getLaneChangeState (left): 1073741824, 1073741824
     getLaneChangeState (right): 1073741824, 1073741824
     getSpeedMode after change: 0
@@ -147,6 +148,7 @@ testAPI:
   person:
     getIDList: p0 pWaiting
     getRoadID: e_m3
+    getLaneID: e_m3_0
     getTypeID: stilts
     getWaitingTime: 0.00
     getNextEdge: :n_m4_4

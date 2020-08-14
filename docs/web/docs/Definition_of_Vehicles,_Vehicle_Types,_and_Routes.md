@@ -312,7 +312,7 @@ it's route on the specified lane
 ### arrivalPos
 
 Determines the position along the destination edge where the vehicle is
-conisdered to have arrived;
+considered to have arrived;
 
 - "`max`": the vehicle will drive up to the
   end of its final lane. *(default behavior)*
@@ -367,7 +367,7 @@ when driving through a city.
 
 The default car following model is based on the work of Krauß but other
 models can be selected as well. Model selection and parameterization is
-done by setting further `vType`-attribures as shown below. The models and their
+done by setting further `vType`-attributes as shown below. The models and their
 parameters are described in the following.
 
 ```

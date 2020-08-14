@@ -43,7 +43,7 @@ The generated XML file looks like this:
 | followerSecureGap   | double  | The required longitudinal gap to the nearest follower to fulfill deceleration constraints or 'None' if there was no follower.     |
 | origLeaderGap       | double  | The longitudinal gap to the nearest leader on the vehicle's original lane (bumper to bumper) or 'None' if there was no leader.    |
 | origLeaderSecureGap | double  | The required longitudinal gap to the nearest leader to fulfill deceleration constraints or 'None' if there was no leader.      |
-| latGap              | double  | The lateral gap to the nearest neighbour on the target lane or 'None' if there was no neighbor. (only when using the [sublane-model](../../Simulation/SublaneModel.md)) |
+| latGap              | double  | The lateral gap to the nearest neighbor on the target lane or 'None' if there was no neighbor. (only when using the [sublane-model](../../Simulation/SublaneModel.md)) |
 
 ### Lane Changing Reasons
 

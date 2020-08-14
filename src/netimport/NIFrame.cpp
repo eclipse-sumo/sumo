@@ -49,6 +49,7 @@ NIFrame::fillOptions(bool forNetedit) {
     // register input formats
     oc.doRegister("sumo-net-file", 's', new Option_FileName());
     oc.addSynonyme("sumo-net-file", "sumo-net", true);
+    oc.addSynonyme("sumo-net-file", "net-file");
     oc.addDescription("sumo-net-file", "Input", "Read SUMO-net from FILE");
     oc.addXMLDefault("sumo-net-file", "net");
 
@@ -134,6 +135,9 @@ NIFrame::fillOptions(bool forNetedit) {
 
     oc.doRegister("heightmap.geotiff", new Option_FileName());
     oc.addDescription("heightmap.geotiff", "Input", "Read heightmap from GeoTIFF");
+
+    // need to do this here to be able to check for network and route input options
+    SystemFrame::addReportOptions(oc);
 
     // register basic processing options
     oc.doRegister("ignore-errors", new Option_Bool(false));

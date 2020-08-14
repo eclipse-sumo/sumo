@@ -1816,16 +1816,18 @@ GNERouteHandler::closeFlow() {
         }
     } else if (myVehicleParameter) {
         // check if we're creating a flow or a routeFlow over route
-        if (myVehicleParameter->tag == GNE_TAG_FLOW_ROUTE) {
+        if (!myVehicleParameter->routeid.empty()) {
+            // change tag
+            myVehicleParameter->tag = GNE_TAG_FLOW_ROUTE;
             // build flow over route
             buildFlowOverRoute(myNet, myUndoDemandElements, *myVehicleParameter);
-        } else if (myVehicleParameter->routeid.empty() && (myRouteParameter.edges.size() > 1)) {
+        } else if (myRouteParameter.edges.size() > 1) {
             // extract via edges
             std::vector<GNEEdge*> viaEdges;
             for (int i = 1; i < ((int)myRouteParameter.edges.size() - 1); i++) {
                 viaEdges.push_back(myRouteParameter.edges.at(i));
             }
-            // build flow
+            // build flow from-via-to
             buildFlow(myNet, true, *myVehicleParameter, myRouteParameter.edges.front(), myRouteParameter.edges.back(), viaEdges);
         }
     }

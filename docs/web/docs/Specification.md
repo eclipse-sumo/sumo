@@ -272,7 +272,7 @@ Redefining the default type does not change the defaults if defining a
 new type, that means `<vType refId="DEFAULT_VEHTYPE"/>` may be different
 from `<vType/>`.
 
-The distrbution for a speedFactor can currently only be given as
+The distribution for a speedFactor can currently only be given as
 "norm(mean, dev)" or "normc(mean, dev, min, max)" which result in the
 value for the vehicle being drawn from a standard normal distribution
 with the given mean and standard deviation (first case) with optional

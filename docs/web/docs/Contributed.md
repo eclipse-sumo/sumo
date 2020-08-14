@@ -33,7 +33,7 @@ supported.
 - [LiSuM](Tools/LiSuM.md)
 
     a middleware that couples [LISA+](https://www.schlothauer.de/en/software-systems/lisa/) and SUMO to simulate real-world
-    traffic light controllers.
+    traffic light controllers and execute real-world traffic control software within SUMO.
 
 - [SAGA](https://github.com/lcodeca/SUMOActivityGen/blob/master/docs/SUMOActivityGen.md)
     
@@ -90,13 +90,21 @@ The following extensions are managed and supported by other parties.
 
 ## Other
 
+- [TraCI4Matlab](http://de.mathworks.com/matlabcentral/fileexchange/44805-traci4matlab)
+  
+    A Matlab interface for connecting and extending information via [TraCI](TraCI.md)
+
+- [TraaS](TraCI/TraaS.md) 
+  
+    A SOAP(webservice) interface for connecting and extending information via [TraCI](TraCI.md). Also a Java TraCI client library
+
 - [ocit2SUMO](https://github.com/DLR-TS/sumo-ocit)
     
-    Generate traffic light signal plans from OCIT® data.
+    Generate traffic light signal plans from OCIT® data
 
 - [FLOW](https://flow-project.github.io/)
 
-    a framework for applying reinforcement learning and custom controllers to SUMO, developed at the University of California, Berkeley. 
+    a framework for applying reinforcement learning and custom controllers to SUMO, developed at the University of California, Berkeley
     [[1]](https://github.com/flow-project/flow)
 
 - [Webots](https://www.cyberbotics.com/automobile/sumo-interface.php)

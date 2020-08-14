@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_6_0+1428-688e592900
+Eclipse SUMO jtrrouter Version v1_6_0+1462-a775417066
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
   junction turning ratios.
@@ -26,6 +26,10 @@ Input Options:
   -t, --turn-ratio-files FILE      Read turning ratios from FILE(s)
 
 Output Options:
+  -o, --output-file FILE           Write generated routes to FILE
+  --vtype-output FILE              Write used vehicle types into separate FILE
+  --keep-vtype-distributions       Keep vTypeDistribution ids when writing
+                                     vehicles and their types
   --write-license                  Include license info into every output file
   --output-prefix STR              Prefix which is applied to all output files.
                                      The special string 'TIME' is replaced by
@@ -36,10 +40,6 @@ Output Options:
                                      for lon,lat output
   -H, --human-readable-time        Write time values as hour:minute:second or
                                      day:hour:minute:second rathern than seconds
-  -o, --output-file FILE           Write generated routes to FILE
-  --vtype-output FILE              Write used vehicle types into separate FILE
-  --keep-vtype-distributions       Keep vTypeDistribution ids when writing
-                                     vehicles and their types
   --exit-times                     Write exit times (weights) for each edge
 
 Processing Options:

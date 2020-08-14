@@ -69,8 +69,6 @@ MSFrame::fillOptions() {
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Routing");
-    SystemFrame::addReportOptions(oc); // fill this subtopic, too
-
 
     // register configuration options
     //  register input options
@@ -103,6 +101,9 @@ MSFrame::fillOptions() {
 
     oc.doRegister("junction-taz", new Option_Bool(false));
     oc.addDescription("junction-taz", "Input", "Initialize a TAZ for every junction to use attributes toJunction and fromJunction");
+
+    // need to do this here to be able to check for network and route input options
+    SystemFrame::addReportOptions(oc);
 
     //  register output options
     oc.doRegister("netstate-dump", new Option_FileName());

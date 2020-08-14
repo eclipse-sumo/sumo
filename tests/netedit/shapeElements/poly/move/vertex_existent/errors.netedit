@@ -3,7 +3,6 @@ GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -12.00,-12.00,12.
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 38.00,-12.00,62.00,12.00
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
@@ -14,25 +13,17 @@ Debug: Key ENTER pressed
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -6.00,7.00,3.00,17.00
 Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets savedDebug: Setting new attribute shape '1.00,-4.00 1.00,15.00 -4.00,15.00 -4.00,9.00 1.00,-4.00' into poly 'poly_0'
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -6.00,7.00,3.00,17.00
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -6.00,-6.00,3.00,17.00Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute shape '1.00,9.00 1.00,15.00 -4.00,15.00 -4.00,9.00 1.00,9.00' into poly 'poly_0'
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -6.00,-6.00,3.00,17.00
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -6.00,7.00,3.00,17.00
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poly 'poly_0' from viewNet
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -6.00,7.00,3.00,17.00Debug: Keys Ctrl+Y (Redo) pressed
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -6.00,7.00,3.00,17.00
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -6.00,7.00,3.00,17.00
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute shape '1.00,-4.00 1.00,15.00 -4.00,15.00 -4.00,9.00 1.00,-4.00' into poly 'poly_0'
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -6.00,7.00,3.00,17.00
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -6.00,-6.00,3.00,17.00
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -43,15 +34,16 @@ GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,6
 GLDebug: Add junctions during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary -10.00,-13.20,10.00,13.20
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 40.00,-13.20,60.00,13.20
-GLDebug: Add egdges during recomputing after calling myNetBuilder->compute(...)
+GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -6.00,-6.00,3.00,17.00
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -6.00,7.00,3.00,17.00
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
-Debug: Deleting net builder in GNENet destructor
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -63,4 +55,5 @@ Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor
 GLDebug: Number of objects in SUMORTree during call of the destructor: 4

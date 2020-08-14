@@ -42,7 +42,7 @@ the router using an XML-file. The syntax of a single trip definition is:
 | arrivalPos     | float(m)/string (≥0<sup>(1)</sup>,"random","max")       | The position at which the vehicle shall leave the network<br><br>**Note:** see [Definition of Vehicles, Vehicle Types, and Routes#Vehicles and Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)       |
 | arrivalSpeed   | float(m/s)/string (≥0,"current")                        | The speed with which the vehicle shall leave the network<br><br>**Note:** see [Definition of Vehicles, Vehicle Types, and Routes#Vehicles and Routes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#vehicles_and_routes)         |
 | fromJunction | junction id  | The junction from which to depart [note](#Routing_between_junctions)    |
-| toJunction   | junction id  | The junction at which to arrve [note](#Routing_between_junctions)    |
+| toJunction   | junction id  | The junction at which to arrive [note](#Routing_between_junctions)    |
 | viaJunctions | junction ids | The junctions to pass along the way [note](#Routing_between_junctions)   |
 | fromXY   | float, float    | The network position from which to depart [note](#Mapmatching)    |
 | toXY   | float, float    | The network position from which to depart [note](#Mapmatching)    |
@@ -178,7 +178,7 @@ duarouter --trip-files=<TRIP_DEFS> --net-file=<SUMO_NET> \
 ```
 
 !!! caution
-    The edge weights are ignored when using TAZ this way. Instead TAZ edges are selected so that the travel time is minimzed.
+    The edge weights are ignored when using TAZ this way. Instead TAZ edges are selected so that the travel time is minimized.
 
 As we have to read in the flow definitions completely into the memory -
 something we do not have to do necessarily with trips, an extra

@@ -21,33 +21,37 @@ permalink: /TraCI/Control-related_commands/
 
 The server responds to a **Get Version** command by sending two items:
 
-- an API Version of **10** identifies the current state of the TraCI
-API (sumo 0.24.0 or later).
+- an integer API version number identifying the current state of the TraCI API
   - It is guaranteed to increase as soon as
     - the TraCI message format changes
     - the TraCI command format changes
     - any TraCI command has a different meaning (e.g., "0xff:
       stop" changes from "stop immediately" to "slow down, then
       stop if possible")
-    - any TraCI parameter has a different meaning (e.g., a "time"
+    - any TraCI parameter or return value has a different meaning (e.g., a "time"
       parameter changes from seconds to milliseconds)
-    - addition of a new command
+    - any TraCI parameter or return value has a different type (e.g., a "time"
+      parameter changes from int to double)
     - removal of a command
+  - It will not increase in the following events
+    - addition of a new command
     - addition of optional parameters
-    - addition of optional parameter types
-    - addition of optional result types
-  - The API version is only incremented for releases and not
-    inbetween
+    - addition of parameter types
+    - addition of result types
+    - changes in the python (or any other) client implementation which do not affect the byte sequence sent
+  - The API version should be incremented as soon as the change is introduced
+    but at least at the next release
 - an identifier string identifies the software version running on the
 TraCI server in human-readable form
   - no guarantee is made regarding the content of this string
-  - as an example, for SUMO 0.12.0, this string is "SUMO 0.12.0"
+  - for SUMO, this string has the format "SUMO " and then the version, e.g. "SUMO v1_6_0" or "SUMO v1_6_0+1493-02f4414fa4"
+  - for further information concerning the SUMO version have a look at [Versioning](../Versioning.md).
 
 #### Tip
 
 The client can find out if a particular command is supported by the
 current TraCI server (i.e., SUMO) by looking at the [status response](../TraCI/Protocol.md#status_response) of the command. It
-may report "not implemented."
+may report "not implemented". 
 
 ## Command 0x02: Simulation Step
 

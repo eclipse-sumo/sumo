@@ -5,8 +5,8 @@ permalink: /Fun/
 
 # SUMO Song (German)
 
-**Aber bitte mit SUMO**; slighly censored and unfortunately with no
-youtube pendant.
+**Aber bitte mit SUMO**; slightly censored and unfortunately with no
+YouTube pendant.
 
 ```
  C                                                   F      C

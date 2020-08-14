@@ -20,6 +20,7 @@
 #pragma once
 
 #include <netedit/GNEGeometry.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
 
 #include "GNEHierarchicalContainer.h"
 
@@ -32,7 +33,7 @@
  * @class GNEHierarchicalElements
  * @brief An special type of Attribute carrier that owns hierarchical elements
  */
-class GNEHierarchicalElement {
+class GNEHierarchicalElement : public GNEAttributeCarrier {
 
 public:
     /// @brief declare GNEChange_Children as friend class
@@ -40,7 +41,8 @@ public:
     friend class GNEDemandElement;
 
     /**@brief Constructor
-     * @param[in] AC Attribute carrier
+     * @param[in] tag SUMO Tag assigned to this type of object
+     * @param[in] net GNENet in which this AttributeCarrier is stored
      * @param[in] parentJunctions vector of parent junctions
      * @param[in] parentEdges vector of parent edges
      * @param[in] parentLanes vector of parent lanes
@@ -50,7 +52,7 @@ public:
      * @param[in] parentDemandElements vector of parent demand elements
      * @param[in] parentGenericData vector of parent generic data elements
      */
-    GNEHierarchicalElement(const GNEAttributeCarrier* AC,
+    GNEHierarchicalElement(GNENet* net, SumoXMLTag tag,
                            const std::vector<GNEJunction*>& parentJunctions,
                            const std::vector<GNEEdge*>& parentEdges,
                            const std::vector<GNELane*>& parentLanes,
@@ -167,14 +169,8 @@ public:
     /// @brief Draw hierarchical connections between parent and children
     void drawHierarchicalConnections(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const;
 
-    /// @brief sort child additionals (used by Rerouters, VSS, TAZs...)
-    void sortChildAdditionals();
-
     /// @brief check if children are overlapped (Used by Rerouters)
     bool checkChildAdditionalsOverlapping() const;
-
-    /// @brief sort child demand elements
-    void sortChildDemandElements();
 
     /// @brief check if childs demand elements are overlapped
     bool checkChildDemandElementsOverlapping() const;
@@ -219,9 +215,6 @@ protected:
 private:
     /// @brief hierarchical container with parents and children
     GNEHierarchicalContainer myHierarchicalContainer;
-
-    /// @brief pointer to AC (needed to avoid diamond problem)
-    const GNEAttributeCarrier* myAC;
 
     /// @brief Invalidated copy constructor.
     GNEHierarchicalElement(const GNEHierarchicalElement&) = delete;

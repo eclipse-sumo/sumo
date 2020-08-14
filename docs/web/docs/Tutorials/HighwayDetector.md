@@ -19,7 +19,7 @@ Selected edges (blue) are of minor priority and will be discarded
 ## Network
 
 Assuming you are already familiar with network extraction from your
-favourite mapping source you can open your net with
+favorite mapping source you can open your net with
 [netedit](../netedit.md) and reduce it to your area of interest.
 Assume you have a navteq file you can select (and then delete) all edges
 with a priority of less than -1 to reduce it to a highway network.
@@ -95,7 +95,7 @@ following formats:
 
 - Detector definition
 
-In addition to the above mentioned detector defintion, the following
+In addition to the above mentioned detector definition, the following
 definition can also be applied.
 
 ```
@@ -108,7 +108,7 @@ definition can also be applied.
 
 - Flow data
 
-The data about detector id, time and the number of each vehilce type
+The data about detector id, time and the number of each vehicle type
 must be given, while speed data is optional. All data is saved in csv
 format.
 
@@ -131,7 +131,7 @@ given detector file. As an example the script can be executed as
 tools/detector/flowrouter.py -n net.net.xml -d detector.det.xml -f flow.csv`
 ```
 
-Moremover, there are options, which are not available in
+Moreover, there are options, which are not available in
 [dfrouter](../dfrouter.md), for considering different parameters,
 such as speed, parking facilities, flow restrictions, maximal (turning)
 flows and vehicle types, in order to restrict the route searching space.
@@ -140,7 +140,7 @@ flows and vehicle types, in order to restrict the route searching space.
 
 There are different options to set up the route searching/calibration
 conditions and to manage the content of an output file. The available
-options and the respective defintions can be found at
+options and the respective definitions can be found at
 [dfrouter](../dfrouter.md). As an example the execution call is
 
 ```
@@ -153,7 +153,7 @@ a XML schema definition
 
 ### Comparison of the detected and the estimated flows
 
-According to the above metioned methods routes can be
+According to the above mentioned methods routes can be
 estimated/generated with given detector data, and then used in the
 simulation for estimating edge flows. Two scripts can be used to check
 to what extent the estimated flows correspond to the detected flows for
@@ -161,7 +161,7 @@ multiple intervals.
 
 - flowFromEdgeData.py
 
-This script is to compare the detected and simualted edge flows. The
+This script is to compare the detected and simulated edge flows. The
 latter one is based on SUMO's aggregated outputs. The script can be
 executed as following:
 
@@ -170,10 +170,10 @@ tools/detector/flowFromEdgeData.py -d detectors.det.xml -e edgeData.xml -f�
 ```
 
 , where detectors.det.xml mainly defines the relationship between
-detectors and edges; edgeData.xml is the aggregated ouptut from SUMO;
+detectors and edges; edgeData.xml is the aggregated output from SUMO;
 detector_flows.xml defines the detected flow data; the flow_column is
-the column, which contains flow data in the given detecotr flow file. It
-is also possible to specify the analyis interval and the consideration
+the column, which contains flow data in the given detectors flow file. It
+is also possible to specify the analysis interval and the consideration
 of detectors without data. In addition to edge-based relative errors per
 interval, average route flows, average detected flows, average flow
 deviation, RMSE and RMSPE are also calculated as outputs.
@@ -191,7 +191,7 @@ tools/detector/flowFromRoutes.py -d detectors.det.xml -e emitters.flows.xml�
 , where emitters.flows.xml defines the route flows; detector_flows.txt
 defines the detected flow data; routes.rou.xml defines the edge
 composition of each route. There are options to define the analysis
-interval. In addition to the above metioned outputs in the
+interval. In addition to the above mentioned outputs in the
 flowFromEdgeData.py it is also possible to get the GEH-statistics with
 use of the respective options --geh and --geh-treshold.
 

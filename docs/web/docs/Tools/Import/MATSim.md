@@ -10,7 +10,7 @@ contains tools for generating a virtual population and their daily travel plans.
 
 ## matsim_importPlans.py
 
-This tool allos to import person plans from MATSim output.
+This tool allows to import person plans from MATSim output.
 
 The call is:
 

@@ -190,7 +190,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myEditModes(this),
     myTestingMode(this),
     myObjectsUnderCursor(this),
-    myObjectsUnderGrippedCursor(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -585,7 +584,6 @@ GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
     myObjectsUnderCursor(this),
-    myObjectsUnderGrippedCursor(this),
     myCommonCheckableButtons(this),
     myNetworkCheckableButtons(this),
     myDemandCheckableButtons(this),
@@ -705,6 +703,8 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         }
         myNetworkViewOptions.menuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
     }
+    // draw temporal junction
+    drawTemporalJunction();
     // draw temporal elements
     if (!myVisualizationSettings->drawForRectangleSelection) {
         drawTemporalDrawShape();
@@ -772,10 +772,6 @@ GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     if (makeCurrent()) {
         // fill objects under cursor
         myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
-        // if grid is enabled, fill objects under gripped cursor
-        if (myVisualizationSettings->showGrid) {
-            myObjectsUnderGrippedCursor.updateObjectUnderCursor(getGUIGlObjectsUnderGrippedCursor());
-        }
         // process left button press function depending of supermode
         if (myEditModes.isCurrentSupermodeNetwork()) {
             processLeftButtonPressNetwork(eventData);
@@ -964,7 +960,14 @@ GNEViewNet::abortOperation(bool clearSelection) {
             myViewParent->getPersonPlanFrame()->getPathCreator()->abortPathCreation();
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
-        if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
+        // abort operation depending of current mode
+        if (myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) {
+            mySelectingArea.selectingUsingRectangle = false;
+            // check if current selection has to be cleaned
+            if (clearSelection) {
+                myViewParent->getSelectorFrame()->clearCurrentSelection();
+            }
+        } else if (myEditModes.dataEditMode == DataEditMode::DATA_EDGERELDATA) {
             myViewParent->getEdgeRelDataFrame()->getPathCreator()->abortPathCreation();
         } else if (myEditModes.dataEditMode == DataEditMode::DATA_TAZRELDATA) {
             myViewParent->getTAZRelDataFrame()->clearTAZSelection();
@@ -3596,6 +3599,67 @@ GNEViewNet::drawTemporalDrawShape() const {
 
 
 void
+GNEViewNet::drawTemporalJunction() const {
+    // first check if we're in correct mode
+    if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
+        // get mouse position
+        const Position mousePosition = snapToActiveGrid(getPositionInformation());
+        // get buble color
+        RGBColor bubbleColor = myVisualizationSettings->junctionColorer.getScheme().getColor(1);
+        // change alpha
+        bubbleColor.setAlpha(200);
+        // push layer matrix
+        glPushMatrix();
+        // translate to temporal shape layer
+        glTranslated(0, 0, GLO_TEMPORALSHAPE);
+        // push junction matrix
+        glPushMatrix();
+        // move matrix junction center
+        glTranslated(mousePosition.x(), mousePosition.y(), 0.1);
+        // set color
+        GLHelper::setColor(bubbleColor);
+        // draw filled circle
+        GLHelper::drawFilledCircle(myVisualizationSettings->neteditSizeSettings.junctionBubbleRadius, myVisualizationSettings->getCircleResolution());
+        // pop junction matrix
+        glPopMatrix();
+        // draw temporal edge
+        if (myViewParent->getCreateEdgeFrame()->getJunctionSource() && (mousePosition.distanceSquaredTo(myViewParent->getCreateEdgeFrame()->getJunctionSource()->getPositionInView()) > 1)) {
+            // set temporal edge color
+            RGBColor temporalEdgeColor = RGBColor::BLACK;
+            temporalEdgeColor.setAlpha(200);
+            // declare temporal edge geometry
+            GNEGeometry::Geometry temporalEdgeGeometery;
+            // calculate geometry between source junction and mouse position
+            PositionVector temporalEdge = {mousePosition, myViewParent->getCreateEdgeFrame()->getJunctionSource()->getPositionInView()};
+            // move temporal edge 2 side
+            temporalEdge.move2side(-1);
+            // update geometry
+            temporalEdgeGeometery.updateGeometry(temporalEdge);
+            // push temporal edge matrix
+            glPushMatrix();
+            // set color
+            GLHelper::setColor(temporalEdgeColor);
+            // draw temporal edge
+            GNEGeometry::drawGeometry(this, temporalEdgeGeometery, 0.75);
+            // check if we have to draw opposite edge
+            if (myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE) {
+                // move temporal edge to opposite edge
+                temporalEdge.move2side(2);
+                // update geometry
+                temporalEdgeGeometery.updateGeometry(temporalEdge);
+                // draw temporal edge
+                GNEGeometry::drawGeometry(this, temporalEdgeGeometery, 0.75);
+            }
+            // pop temporal edge matrix
+            glPopMatrix();
+        }
+        // pop layer matrix
+        glPopMatrix();
+    }
+}
+
+
+void
 GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     // decide what to do based on mode
     switch (myEditModes.networkEditMode) {
@@ -3677,7 +3741,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (!myKeyPressed.controlKeyPressed()) {
                 // process left click in create edge frame Frame
                 myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(),
-                        myObjectsUnderCursor, myObjectsUnderGrippedCursor,
+                        myObjectsUnderCursor,
                         (myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE),
                         (myNetworkViewOptions.menuCheckChainEdges->getCheck() == TRUE));
             }

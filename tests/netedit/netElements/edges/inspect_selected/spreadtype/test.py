@@ -38,7 +38,7 @@ netedit.selectMode()
 netedit.leftClick(referencePosition, 250, 180)
 
 # select second edge
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 110)
 
 # go to inspect mode
 netedit.inspectMode()

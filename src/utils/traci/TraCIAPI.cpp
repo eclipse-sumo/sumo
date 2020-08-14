@@ -2412,6 +2412,24 @@ TraCIAPI::VehicleScope::getLeader(const std::string& vehicleID, double dist) con
 }
 
 
+std::pair<std::string, double>
+TraCIAPI::VehicleScope::getFollower(const std::string& vehicleID, double dist) const {
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(dist);
+    myParent.createCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_FOLLOWER, vehicleID, &content);
+    if (myParent.processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
+        myParent.myInput.readInt(); // components
+        myParent.myInput.readUnsignedByte();
+        const std::string leaderID = myParent.myInput.readString();
+        myParent.myInput.readUnsignedByte();
+        const double gap = myParent.myInput.readDouble();
+        return std::make_pair(leaderID, gap);
+    }
+    return std::make_pair("", libsumo::INVALID_DOUBLE_VALUE);
+}
+
+
 std::pair<int, int>
 TraCIAPI::VehicleScope::getLaneChangeState(const std::string& vehicleID, int direction) const {
     tcpip::Storage content;
@@ -3142,6 +3160,11 @@ TraCIAPI::PersonScope::getLength(const std::string& personID) const {
 std::string
 TraCIAPI::PersonScope::getRoadID(const std::string& personID) const {
     return getString(libsumo::VAR_ROAD_ID, personID);
+}
+
+std::string
+TraCIAPI::PersonScope::getLaneID(const std::string& personID) const {
+    return getString(libsumo::VAR_LANE_ID, personID);
 }
 
 std::string

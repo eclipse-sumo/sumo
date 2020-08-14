@@ -51,7 +51,7 @@ The generated XML file looks like this:
 | speed    | m/s                  | The speed of the vehicle                                                                                                |
 | angle    | degree               | The angle of the vehicle in navigational standard (0-360 degrees, going clockwise with 0 at the 12'o clock position)    |
 | x        | m or longitude       | The absolute X coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
-| y        | m or lattitude       | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
+| y        | m or latitude        | The absolute Y coordinate of the vehicle (center of front bumper). The value depends on the given geographic projection |
 | z        | m                    | The z value of the vehicle (center of front bumper).<br><br>**Note:** This value is only present if the network contains elevation data      |
 | pos      | m                    | The running position of the vehicle measured from the start of the current lane.                                        |
 | lane     | id                   | The id of the current lane.                                                                                             |
@@ -64,9 +64,9 @@ lon/lat geo-coordinates.
 ### Precision
 
 By default fcd-output returns location values in meter with a precision
-of 1cm. (changable by setting option **--precision**) If you set option
+of 1cm. (changeable by setting option **--precision**) If you set option
 --fcd-output.geo the values are lon,lat as decimal values with a
-precision of 6 decimal places (changable by setting option **--precision.geo**)
+precision of 6 decimal places (changeable by setting option **--precision.geo**)
 
 ## Person and Container Output
 

@@ -60,6 +60,7 @@ const RGBColor SUMO_color_DEADEND(0, 0, 0);
 
 const RGBColor GUIVisualizationColorSettings::SUMO_color_DEADEND_SHOW(255, 0, 255);
 const RGBColor GUIVisualizationColorSettings::childConnections(255, 235, 0);
+const RGBColor GUIVisualizationColorSettings::editShape(0, 200, 0);
 const RGBColor GUIVisualizationColorSettings::crossing(25, 25, 25);
 const RGBColor GUIVisualizationColorSettings::crossingPriority(229, 229, 229);
 const RGBColor GUIVisualizationColorSettings::crossingInvalid(255, 25, 25);
@@ -441,6 +442,8 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     addFullName(false, 60, RGBColor(255, 0, 128, 255)),
     poiSize(0), poiName(false, 50, RGBColor(255, 0, 128, 255)),
     poiType(false, 60, RGBColor(255, 0, 128, 255)),
+    poiText(false, 80, RGBColor(140, 0, 255, 255)),
+    poiTextParam("PARAM_TEXT"),
     polySize(0), polyName(false, 50, RGBColor(255, 0, 128, 255)),
     polyType(false, 60, RGBColor(255, 0, 128, 255)),
     showSizeLegend(true),
@@ -1524,9 +1527,11 @@ GUIVisualizationSettings::save(OutputDevice& dev) const {
     dev.closeTag();
     // pois
     dev.openTag(SUMO_TAG_VIEWSETTINGS_POIS);
+    dev.writeAttr("poiTextParam", poiTextParam);
     poiSize.print(dev, "poi");
     poiName.print(dev, "poiName");
     poiType.print(dev, "poiType");
+    poiText.print(dev, "poiText");
     poiColorer.save(dev);
     dev.closeTag();
     // polys
@@ -1792,6 +1797,12 @@ GUIVisualizationSettings::operator==(const GUIVisualizationSettings& v2) {
         return false;
     }
     if (poiType != v2.poiType) {
+        return false;
+    }
+    if (poiText != v2.poiText) {
+        return false;
+    }
+    if (poiTextParam != v2.poiTextParam) {
         return false;
     }
     if (polySize != v2.polySize) {

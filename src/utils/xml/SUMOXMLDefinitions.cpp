@@ -1181,14 +1181,4 @@ SUMOXMLDefinitions::isValidParameterKey(const std::string& value) {
     }
 }
 
-
-bool
-SUMOXMLDefinitions::isValidParameterValue(const std::string& /*value*/) {
-    // Generic parameters should not be restricted (characters such as <>'" only
-    // reach this function if they are properly escaped in the xml inputs (and
-    // they are also escaped when writing)
-    return true;
-}
-
-
 /****************************************************************************/

@@ -4,7 +4,7 @@ permalink: /Tools/Emissions/
 ---
 
 SUMO includes some small-sized tools and tests that help to develop and
-evalue the implemented [emission
+evaluate the implemented [emission
 models](../Topics/Environmental_Issues.md#models). These tools are
 presented in the following.
 

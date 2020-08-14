@@ -8,7 +8,7 @@ freely available (this does **not** mean "open source") tools.
 Instructions on how to build SUMO on Windows using an Open Source
 toolchain are included in our [building on
 Linux](../Installing/Linux_Build.md) pages. Please note that you
-may also [download pre-built Windows binaries](../Downloads.md).
+may also [download pre-build Windows binaries](../Downloads.md).
 
 ## Recommended Windows setup
 
@@ -93,7 +93,7 @@ automatically
 We provide a central location for getting all dependent libraries at
 <https://github.com/DLR-TS/SUMOLibraries>. The easiest way is to clone
 this repository and define an environment variable `SUMO_LIBRARIES`
-pointing to the resulting directory. They are built with Visual Studio
+pointing to the resulting directory. They are build with Visual Studio
 2017, but may be used with earlier and later versions as well. You may
 need to install the Visual C++ 2017 Runtime Distributable for running
 SUMO then (tested with Visual Studio 2013). 
@@ -160,7 +160,7 @@ Install Microsoft [Visual C++ Redistributable Packages for Visual
 Studio 2012](https://www.microsoft.com/en-US/download/details.aspx?id=30679)
 (for MSVCR120.dll) or [Microsoft Visual C++ Redistributable Packages for
 Visual Studio 2015](https://www.visualstudio.com/downloads/) (for
-MSVCR140.dll). You can check if all dependences are correct using
+MSVCR140.dll). You can check if all dependencies are correct using
 [Dependencies](https://lucasg.github.io/Dependencies/)
 
 ![](../images/Dependencies.png)

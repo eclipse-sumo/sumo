@@ -44,7 +44,7 @@ The necessary files are as follows:
 
 ## Static HTML pages
 
-The HTML pages are being build using the Markdown files. The final pages are available to read at the [online Documentation](https://sumo.dlr.de/docs/). Altough the Documentation [Source files](#source_files) are included in the repository, the final Static HTML pages are not. In order to get a local copy of this pages, follow the [static HTML site generation](#static_html_site_generation) instructions.
+The HTML pages are being build using the Markdown files. The final pages are available to read at the [online Documentation](https://sumo.dlr.de/docs/). Although the Documentation [Source files](#source_files) are included in the repository, the final Static HTML pages are not. In order to get a local copy of this pages, follow the [static HTML site generation](#static_html_site_generation) instructions.
 
 # Static HTML site generation
 

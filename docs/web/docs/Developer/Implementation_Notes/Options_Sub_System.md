@@ -17,7 +17,7 @@ to files, and printing the help screen.
 ### First Steps
 
 Each application has exactly one instance of the **OptionsCont**
-(options container) - class. A reference to this class may be ontained
+(options container) - class. A reference to this class may be obtained
 using
 
 ```
@@ -112,9 +112,9 @@ application run quiet as default:
 oc.doRegister("verbose", 'v', new Option_Bool(false));
 ```
 
-#### Adding Synonymes
+#### Adding Synonyms
 
-One can also add synonymes for options. If you want to implement the
+One can also add synonyms for options. If you want to implement the
 option "**name-of-vehicle-that-shall-halt**", but you wish to have a
 shorter name, too, use the following to make the same option accessible
 using both "**name-of-vehicle-that-shall-halt**" and "**v2h**":

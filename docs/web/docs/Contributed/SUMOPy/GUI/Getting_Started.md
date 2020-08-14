@@ -193,7 +193,7 @@ python sumopy-gui.py scenario workdir|
 
 if needed, the network should be modified *before* moving on to demand modeling (see Sec.\[sec<sub>d</sub>emand\]).
 
-### Importing nets and buldings
+### Importing nets and buildings
 
 Networks can be import from a SUMO net.xml file with
 

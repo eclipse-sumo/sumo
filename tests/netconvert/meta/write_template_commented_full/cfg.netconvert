@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug  6 14:19:39 2020 by Eclipse SUMO netconvert Version v1_6_0+1429-e369bc3108
+<!-- generated on Sat Aug  8 12:26:00 2020 by Eclipse SUMO netconvert Version v1_6_0+1462-a775417066
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -25,7 +25,7 @@
 
     <input>
         <!-- Read SUMO-net from FILE -->
-        <sumo-net-file value="" synonymes="s sumo-net" type="FILE"/>
+        <sumo-net-file value="" synonymes="net-file s sumo-net" type="FILE"/>
 
         <!-- Read XML-node defs from FILE -->
         <node-files value="" synonymes="n nodes xml-node-files xml-nodes" type="FILE"/>
@@ -890,9 +890,6 @@
 
         <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation.net value="never" type="STR"/>
-
-        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.routes value="always" type="STR"/>
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>

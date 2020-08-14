@@ -165,6 +165,9 @@ struct GUIVisualizationColorSettings {
     /// @brief color for child connections between parents and child elements
     static const RGBColor childConnections;
 
+    /// @brief color for edited shapes (Junctions, crossings and connections)
+    static const RGBColor editShape;
+
     /// @brief color for crossings
     static const RGBColor crossing;
 
@@ -642,7 +645,7 @@ public:
     std::string edgeParam, laneParam;
     /// @brief key for coloring by vehicle parameter
     std::string vehicleParam;
-    /// @brief key for rendering textual parameter
+    /// @brief key for rendering vehicle textual parameter
     std::string vehicleTextParam;
 
     /// @brief key for coloring by edgeData
@@ -772,6 +775,12 @@ public:
 
     // Setting bundles for optional drawing poi types
     GUIVisualizationTextSettings poiType;
+
+    // Setting bundles for optional drawing poi text
+    GUIVisualizationTextSettings poiText;
+
+    /// @brief key for rendering poi textual parameter
+    std::string poiTextParam;
 
     /// @brief The polygon colorer
     GUIColorer polyColorer;
