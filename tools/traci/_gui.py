@@ -126,7 +126,6 @@ class GuiDomain(Domain):
         """track(string, string) -> None
         Start visually tracking the given vehicle or person on the given view.
         """
-        self.trackVehicle(viewID, objID)
-
+        self._setCmd(tc.VAR_TRACK_VEHICLE, viewID, "s", objID)
 
 
