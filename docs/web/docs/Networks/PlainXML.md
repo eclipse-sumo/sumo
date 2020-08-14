@@ -102,7 +102,8 @@ certain meaning and value range:
 | **y**           | float                                                                                                                                                                                                                     | The y-position of the node on the plane in meters                                                                                                  |
 | z               | float                                                                                                                                                                                                                     | The z-position of the node on the plane in meters                                                                                                  |
 | type            | enum ( "priority", "traffic_light", "right_before_left", "unregulated", "priority_stop", "traffic_light_unregulated", "allway_stop", "rail_signal", "zipper", "traffic_light_right_on_red", "rail_crossing") | An optional type for the node                                                                                                                      |
-| tlType          | enum ( "static", "actuated")                                                                                                                                                                                              | An optional type for the traffic light algorithm                                                                                                   |
+| tlType          | enum ( **"static"**, "actuated", "delay_based")                                                                                                                                                                                              | An optional type for the [traffic light algorithm](../Simulation/Traffic_Lights.md#actuated_traffic_lights)
+| tlLayout        | enum (  **"opposites"**, "incoming", "alternateOneWay")                                                                                                                                                                                              | An optional layout for the traffic light plan (see below)
 | tl              | id (string)                                                                                                                                                                                                               | An optional id for the traffic light program. Nodes with the same tl-value will be joined into a single program                                    |
 | radius          | positive float;                                                                                                                                                                                                           | optional turning radius (for all corners) for that node in meters *(default 1.5)*                                                                  |
 | shape           | List of positions; each position is encoded in x,y or x,y,z in meters (do not separate the numbers with a space\!).                                                                                                       | A custom shape for that node. If less than two positions are given, netconvert will reset that node to use a computed shape.                       |
@@ -144,10 +145,12 @@ ends of a street needs an according node. This is not really necessary
 as you may see soon, but it eases the understanding of the concept:
 every edge (street/road) is a connection between two nodes (junctions).
 
+## Traffic lights
 For traffic light nodes, [netconvert](../netconvert.md) generates a
 default traffic light program. The simulation can [load additional programs](../Simulation/Traffic_Lights.md) which may be used
 instead.
 
+### tlType
 If you leave out the tlType of the node, it is set to *static*. This
 default may be changed using the option **--tls.default-type** {{DT_STR}}.
 
@@ -159,6 +162,14 @@ default may be changed using the option **--tls.default-type** {{DT_STR}}.
 
 !!! note
     You can load multiple node files at the same time by giving a comma-separated list of file names on the command line. In a configuration file you can use a space separated list as well.
+    
+### tlLayout
+If you leave out the tlLayout of the node, it is set to *opposites*. This
+default may be changed using the option **--tls.layout** {{DT_STR}}
+
+- `opposites`: roads from opposite directions get the green light at the same time. Left turns (which conflict with the opposite stream) either have a green-with-conflict ('m') or get their own phase.
+- `incoming`: each incoming road gets it's own green phase
+- `alternateOneWay`: This program is for a joined controller that regulates alternating one-way access from two or more sides of a work zone (or narrow road). each incoming road gets it's own green phase and there is an all-red phase according to the size of the work zone for traffic to clear before the next direction starts up.
 
 ## Node types
 
