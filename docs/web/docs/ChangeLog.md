@@ -38,11 +38,13 @@ permalink: /ChangeLog/
   - Person rides with a specified arrivalPos now longer exit their vehicle prematurely. Issue #7258
   - Person ride arrivalPos and stoppingPlace are now included in vehroute-output. Issue #7260, #7261
   - Fixed invalid vehicle angle when using option **--lanechange-duration** with low values of 'maxSpeedLat'. Issue #7263
-    
+  - Fixed bug where vehicles would stop at [waypoints](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#waypoints). Issue #7377
+      
 - Meso
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
   - Option **--fcd-output.distance** now also applies to Meso. Issue #7069  
   - Fixed invalid exit times in vehroute-output
+  - Fixed invald odometer value. Issue #7380
   
 - netconvert
   - Fixed crash when patching a network with '.tll.xml' file. Issue #7014 (Regression in 1.6.0)
@@ -67,7 +69,7 @@ permalink: /ChangeLog/
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
   - Routes with a single edge can now be created. Issue #7129
   - Fixed bug where all passenger lanes changed their permissions when adding a sidewalk. Issue #7135
-  - Fixed crash when changing connection shape or junction shape. Issue #7138
+  - Fixed crash when changing connection shape or junction shape. Issue #7138, #7351
   - Fixed invalid output when transforming trip to vehicle. Issue #7073
   - Fixed invalid routes when on of it's edges. Issue #6986
   - Fixed invalid count of selected elements. Issue #7113
@@ -76,7 +78,11 @@ permalink: /ChangeLog/
   - Fixed crash when adding multiple busStops to a trip. Issue #7251
   - Fixed invalid handling of stops loaded from route file. Issue #7191
   - Added option "unregulated" to the list of permitted junction types. Issue #7359
-  - Fixed bug that caused inconsistent output when modifying the traffic light index of connections. Issue #7311  
+  - Fixed bug that caused inconsistent output when modifying the traffic light index of connections. Issue #7311
+  - LaneAreaDetectors linked to a traffic light (with attribute 'tl') can now be loaded. Issue #7275
+  - Selection of data elements can now be edited in inspect mode. Issue #7067
+  - Removed invalid content restriction for shape params. Issue #7379
+  - Flows with an embedded route can now be loaded. Issue #7317
   
 - duarouter
   - Person ride arrivalPos is now included in route-output. Issue #7260
@@ -102,6 +108,8 @@ permalink: /ChangeLog/
   - Vehicle type parameters can now be retrieved from vehicles with libsumo. Issue #7209
   - Fixed invalid electric vehicle parameters being used when calling 'traci.vehicle.getElectricityConsumption'. Issue #7196
   - Constructor of traci.simulation.Stage now uses the same default arguments as libsumo.simulation.Stage and an be constructed without arguments. Issue #7265
+  - Fixed invalid vehicle lane position when using moveToXY in a network with [custom edge lengths](Simulation/Distances.md). Issue #7401
+  
   
 - All Applications
   - File names with a `%`-Sign can no be loaded. Issue #6574
@@ -119,6 +127,9 @@ permalink: /ChangeLog/
   - Pedestrians can now be configured to ignore oncoming cars at an unregulated crossing via junction model parameters (jmIgnoreFoeProb, jmIgnoreFoeSpeed). Issue #7148  
   - Strategic lane-changes can now be disabled by setting 'lcStrategic="-1"`. Issue #7180
   - Taxi pickup and drop-off location can now be restricted to public transport stops by setting **--persontrip.transfer.walk-taxi ptStops** and **--persontrip.transfer.taxi-walk ptStops**. Issue #7192  
+  - Added new [taxi dispatch algorithm](Simulation/Taxi.md#dispatch) **routeExtension**. Issue #2606
+  - Vehroute-output can now be restricted by assigning 'device.vehroute' with [generic assignment options](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices). Issue #7393
+  - Improved loading time of large rail networks. Issue #7403
   
 - netconvert
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
@@ -166,9 +177,10 @@ permalink: /ChangeLog/
   - Added functionality for retrieving lane, position and stopped vehicles for traci domains 'busstop', 'parkingarea', 'chargingstation' and 'overheadwire'. Issue #5952, #7099
   - The python client now supports the optional argument 'traceFile' in function traci.start which records all traci commands to the given file (also works for libsumo.start). Issue#6604
   - Added function 'vehicle.replaceStop' which replace the upcoming stop with the given index and automatically adapts the route to the new stop edge. Issue #7226
+  - Added function 'vehicle.getFollower' which works like getLeader but looks backwards. Issue #7107
   - Retrieval of prior person stages now includes departure time and travel time. Issue #7274
   - Added 'simulation.getVersion' to libsumo and C++ client. Issue #7282
-  - Function 'person.moveToXY' can now be used while a person is stopped. Issue #7367
+  - Function ['person.moveToXY'](TraCI/Change_Person_State.md#move_to_xy_0xb4) is now officially supported whenever a person is walking or stopped. It can be used to move a person to an arbitrary place and will updated the route accordingly. Issue #2872, #7367, #7382
   
 - Tools
   - [plot_trajectories.py](Tools/Visualization.md#plot_trajectoriespy) can now filter input data by edges (**--filter-edges**) and vehicle-ids (**--filter-ids**). Issue #6952
@@ -186,6 +198,9 @@ permalink: /ChangeLog/
   - Total simulation running time is now in seconds rather than milliseconds. Issue #7255
 - netconvert
   - Roads of type 'highway.track' (aggricultural roads) are no longer accessible by cars when importing OSM data. Issue #7082
+
+- Netedit
+  - Demand creation entries have been renamed to better distinguish the different variants (i.e. flow with embedded route or flow with origin and destination). Issue #7175
 
 - TraCI
   - In the python client, function vehicle.getLeader can now optionally return the pair ("", -1) instead of 'None' if no leader is found. The new behavior can be enabled by calling function traci.setLegacyGetLeader(False). In later versions this will be the default behavior. The return value 'None' is deprecated. Issue #7013
