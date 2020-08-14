@@ -180,6 +180,9 @@ RODUAFrame::addDUAOptions() {
 
     oc.doRegister("persontrip.transfer.walk-taxi", new Option_StringVector());
     oc.addDescription("persontrip.transfer.walk-taxi", "Processing", "Where taxis can pick up customers ('allJunctions, 'ptStops')");
+
+    oc.doRegister("railway.max-train-length", new Option_Float(5000.0));
+    oc.addDescription("railway.max-train-length", "Processing", "Use FLOAT as a maximum train length when initializing the railway router");
 }
 
 

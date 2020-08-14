@@ -460,6 +460,9 @@ MSFrame::fillOptions() {
     oc.doRegister("persontrip.transfer.walk-taxi", new Option_StringVector());
     oc.addDescription("persontrip.transfer.walk-taxi", "Routing", "Where taxis can pick up customers ('allJunctions, 'ptStops')");
 
+    oc.doRegister("railway.max-train-length", new Option_Float(5000.0));
+    oc.addDescription("railway.max-train-length", "Routing", "Use FLOAT as a maximum train length when initializing the railway router");
+
     // devices
     oc.addOptionSubTopic("Emissions");
     oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));

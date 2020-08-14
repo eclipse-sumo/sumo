@@ -78,9 +78,10 @@ public:
     /// Constructor
     RailwayRouter(const std::vector<E*>& edges, bool unbuildIsWarning, typename SUMOAbstractRouter<E, V>::Operation effortOperation,
                   typename SUMOAbstractRouter<E, V>::Operation ttOperation = nullptr, bool silent = false,
-                  const bool havePermissions = false, const bool haveRestrictions = false) :
+                  const bool havePermissions = false, const bool haveRestrictions = false, double maxTrainLength = 5000) :
         SUMOAbstractRouter<E, V>("RailwayRouter", unbuildIsWarning, effortOperation, ttOperation, havePermissions, haveRestrictions),
-        myInternalRouter(nullptr), myOriginal(nullptr), mySilent(silent) {
+        myInternalRouter(nullptr), myOriginal(nullptr), mySilent(silent),
+        myMaxTrainLength(maxTrainLength) {
         myStaticOperation = effortOperation;
         for (const E* const edge : edges) {
             myInitialEdges.push_back(edge->getRailwayRoutingEdge());
@@ -102,6 +103,10 @@ public:
         if (myInternalRouter == nullptr) {
             myInternalRouter = new _InternalDijkstra(getRailEdges(), this->myErrorMsgHandler == MsgHandler::getWarningInstance(), &getTravelTimeStatic,
                                                      nullptr, mySilent, nullptr, this->myHavePermissions, this->myHaveRestrictions);
+        }
+        if (vehicle->getLength() > myMaxTrainLength) {
+            WRITE_WARNINGF("Vehicle '%' with length % exceeds configured value of --railway.max-train-length %",
+                    vehicle->getID(), toString(vehicle->getLength()), toString(myMaxTrainLength));
         }
         // make sure that the vehicle can turn-around when starting on a short edge (the virtual turn-around for this lies backwards along the route / track)
         std::vector<double> backLengths;
@@ -162,7 +167,8 @@ private:
         SUMOAbstractRouter<E, V>(other),
         myInternalRouter(nullptr),
         myOriginal(other),
-        mySilent(other->mySilent)
+        mySilent(other->mySilent),
+        myMaxTrainLength(other->myMaxTrainLength)
     {}
 
     const std::vector<_RailEdge*>& getRailEdges() {
@@ -239,6 +245,8 @@ private:
     /// @brief whether to suppress warning/error if no route was found
     const bool mySilent;
 
+    const double myMaxTrainLength;
+
 #ifdef HAVE_FOX
     /// The mutex used to avoid concurrent updates of myRailEdges
     mutable FXMutex myLock;
@@ -249,7 +257,6 @@ private:
 
     static double myReversalPenalty;
     static double myReversalPenaltyFactor;
-    static double myMaxTrainLength;
 
 private:
     /// @brief Invalidated assignment operator
@@ -263,7 +270,5 @@ template<class E, class V>
 double RailwayRouter<E, V>::myReversalPenalty(60);
 template<class E, class V>
 double RailwayRouter<E, V>::myReversalPenaltyFactor(0.2); // 1/v
-template<class E, class V>
-double RailwayRouter<E, V>::myMaxTrainLength(5000);
 
 

@@ -330,7 +330,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
 
     RailwayRouter<MSEdge, SUMOVehicle>* railRouter = nullptr;
     if (MSNet::getInstance()->hasBidiEdges()) {
-        railRouter = new RailwayRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, false, true);
+        railRouter = new RailwayRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, false, true, false, oc.getFloat("railway.max-train-length"));
     }
     myRouterProvider = new MSRouterProvider(router, nullptr, nullptr, railRouter);
 #ifdef HAVE_FOX
