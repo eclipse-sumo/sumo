@@ -994,6 +994,9 @@ Stops can be childs of vehicles, routes, persons or containers.
 - if the vehicle picks up a person or container, it can do so as long as the person is between startPos and endPos
 - if the stop uses attribute 'speed', than that speed will be maintained between startPos and endPos
 
+## Waypoints
+By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos. The 'duration' and 'until' values are ignored.
+
 # Colors
 
 A color is defined as *red,green,blue* or *red,green,blue,alpha* either
