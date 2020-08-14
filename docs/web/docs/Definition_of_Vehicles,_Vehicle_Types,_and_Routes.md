@@ -1044,7 +1044,7 @@ placeholder `<DEVICENAME>` below
 - [fcd](Simulation/Output/FCDOutput.md)
 - [tripinfo](Simulation/Output/TripInfo.md)
 - [vehroute](Simulation/Output/VehRoutes.md)
-- [Demand Responsive Transport (Taxis)](Simulation/Taxi.md)
+- [taxi](Simulation/Taxi.md)
 - [example](Developer/How_To/Device.md)
 
 ## Automatic assignment
