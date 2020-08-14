@@ -45,6 +45,9 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
+# select vehicle
+netedit.changeElement("vehicle (over route)")
+
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 

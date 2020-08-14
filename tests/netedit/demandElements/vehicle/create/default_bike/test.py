@@ -45,6 +45,9 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
+# select vehicle
+netedit.changeElement("vehicle (over route)")
+
 # set bike type
 netedit.changeDefaultValue(2, "DEFAULT_BIKETYPE")
 

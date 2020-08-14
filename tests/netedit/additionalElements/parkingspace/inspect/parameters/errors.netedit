@@ -8,63 +8,62 @@ Debug: Adding parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'space' in TagSelector
-Debug: Adding space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0space0'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into space 'parkingArea_gneE2_1_0space0'
-Debug: Setting new attribute genericParameter '' into space 'parkingArea_gneE2_1_0space0'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into space 'parkingArea_gneE2_1_0space0'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into space 'parkingArea_gneE2_1_0space0'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0space0'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into space 'parkingArea_gneE2_1_0space0'
+Debug: Adding space 'parkingArea_gneE2_1_0' in GNEChange_Additional
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into space 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute genericParameter '' into space 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into space 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into space 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0'
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting previous attribute genericParameter '' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting previous attribute genericParameter '' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Removing space 'parkingArea_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter '' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting new attribute genericParameter '' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into space 'parkingArea_gneE2_1_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into space 'parkingArea_gneE2_1_0space0'
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into space 'parkingArea_gneE2_1_0'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -74,10 +73,10 @@ Debug: Created crossing ':gneJ0_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
-Debug: Deleting unreferenced space 'parkingArea_gneE2_1_0space0'
+Debug: Deleting unreferenced space 'parkingArea_gneE2_1_0'
+Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_1_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_1_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
