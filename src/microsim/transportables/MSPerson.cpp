@@ -270,6 +270,8 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
     if (arrived) {
         MSPerson* p = dynamic_cast<MSPerson*>(person);
         if (p->hasInfluencer() && p->getInfluencer().isRemoteControlled()) {
+            myCurrentInternalEdge = nextInternal;
+            ((MSEdge*) getEdge())->addPerson(person);
             return false;
         }
         if (myDestinationStop != nullptr) {
