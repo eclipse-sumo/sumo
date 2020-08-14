@@ -3,17 +3,17 @@ Debug: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1detExit1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_2detExit1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_3detExit1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_3' in GNEChange_Additional
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Adding poi 'POI_0' into viewNet
 Debug: Adding poi 'POI_1' into viewNet
@@ -51,18 +51,13 @@ Debug: Setting new attribute selected '1' into edge '8'
 Debug: Setting new attribute selected '1' into junction 'Center'
 Debug: Setting new attribute selected '1' into poi 'POI_3'
 Debug: Setting new attribute selected '1' into busStop 'busStop_3_1_0'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_0detEntry0'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_1detEntry0'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_1detExit1'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_2detEntry0'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_2detExit1'
+Debug: Setting new attribute selected '1' into detEntry 'e3Detector_0'
+Debug: Setting new attribute selected '1' into detEntry 'e3Detector_1'
+Debug: Setting new attribute selected '1' into detExit 'e3Detector_1'
+Debug: Setting new attribute selected '1' into detEntry 'e3Detector_2'
+Debug: Setting new attribute selected '1' into detExit 'e3Detector_2'
 Debug: Setting new attribute selected '1' into poly 'poly_0'
 Debug: Key DEL (delete) pressed
-Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_1detExit1' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_2detExit1' in GNEChange_Additional
 Debug: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
 Debug: Removing connection '6_2->4_2' from edge '6'
 Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
@@ -111,6 +106,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Debug: Removing edge '1' from net
+Debug: Removing detEntry 'e3Detector_1' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -138,6 +135,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Debug: Removing edge '3' from net
+Debug: Removing detEntry 'e3Detector_2' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -162,7 +161,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '5' from net
-Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Removing poiLane 'POI_4' from viewNet
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
@@ -173,8 +173,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '6' from net
-Debug: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_3detExit1' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_3' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_3' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
@@ -207,8 +207,8 @@ Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-Debug: Adding detExit 'e3Detector_3detExit1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_3' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
 Debug: Adding edge '6' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -219,7 +219,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge '6' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Debug: Adding poiLane 'POI_4' into viewNet
-Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding edge '5' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -244,6 +245,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
+Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Adding edge '3' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
@@ -271,6 +274,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
 Debug: Adding edge '1' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
@@ -317,18 +322,8 @@ Debug: Created connection 'from6_2to1_2' in retrieveGNEConnection()
 Debug: Adding connection '6_2->4_2' into edge '6'
 Debug: Created connection 'from6_2to4_2' in retrieveGNEConnection()
 Debug: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_2detExit1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1detExit1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Removing detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_1detExit1' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_2detExit1' in GNEChange_Additional
 Debug: Removing busStop 'busStop_3_1_0' in GNEChange_Additional
 Debug: Removing connection '6_2->4_2' from edge '6'
 Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
@@ -375,6 +370,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '1' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
 Debug: Removing edge '1' from net
+Debug: Removing detEntry 'e3Detector_1' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_1' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -402,6 +399,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Debug: Removing edge '3' from net
+Debug: Removing detEntry 'e3Detector_2' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_2' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
@@ -426,7 +425,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '5' from net
-Debug: Removing detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Removing poiLane 'POI_4' from viewNet
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '6'
@@ -437,8 +437,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Removing edge '6' from net
-Debug: Removing detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_3detExit1' in GNEChange_Additional
+Debug: Removing detEntry 'e3Detector_3' in GNEChange_Additional
+Debug: Removing detExit 'e3Detector_3' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
@@ -471,8 +471,8 @@ Debug: invalidating (removing) connections of edge '7' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '8'
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'C'
-Debug: Adding detExit 'e3Detector_3detExit1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_3detEntry0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_3' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
 Debug: Adding edge '6' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -483,7 +483,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge '6' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Debug: Adding poiLane 'POI_4' into viewNet
-Debug: Adding detExit 'e3Detector_0detExit1' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding edge '5' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
@@ -508,6 +509,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
+Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
 Debug: Adding edge '3' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'C'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '3'
@@ -535,6 +538,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge '8' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '6'
 Debug: invalidating (removing) connections of edge '6' due it were guessed
+Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
 Debug: Adding edge '1' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'A'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge '1'
@@ -581,11 +586,6 @@ Debug: Created connection 'from6_2to1_2' in retrieveGNEConnection()
 Debug: Adding connection '6_2->4_2' into edge '6'
 Debug: Created connection 'from6_2to4_2' in retrieveGNEConnection()
 Debug: Adding busStop 'busStop_3_1_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_2detExit1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1detExit1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_2detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1detEntry0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0detEntry0' in GNEChange_Additional
 Debug: Additionals saved
 Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
 Debug: Additionals has to be saved
@@ -603,17 +603,17 @@ Debug: Removing poi 'POI_0' from net in ~GNEChange_Shape()
 Debug: delete poi 'POI_0' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
-Debug: Deleting unreferenced detExit 'e3Detector_3detExit1'
-Debug: Deleting unreferenced detEntry 'e3Detector_3detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_3'
+Debug: Deleting unreferenced detEntry 'e3Detector_3'
 Debug: Deleting unreferenced e3Detector 'e3Detector_3'
-Debug: Deleting unreferenced detExit 'e3Detector_2detExit1'
-Debug: Deleting unreferenced detEntry 'e3Detector_2detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_2'
+Debug: Deleting unreferenced detEntry 'e3Detector_2'
 Debug: Deleting unreferenced e3Detector 'e3Detector_2'
-Debug: Deleting unreferenced detExit 'e3Detector_1detExit1'
-Debug: Deleting unreferenced detEntry 'e3Detector_1detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_1'
+Debug: Deleting unreferenced detEntry 'e3Detector_1'
 Debug: Deleting unreferenced e3Detector 'e3Detector_1'
-Debug: Deleting unreferenced detExit 'e3Detector_0detExit1'
-Debug: Deleting unreferenced detEntry 'e3Detector_0detEntry0'
+Debug: Deleting unreferenced detExit 'e3Detector_0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Deleting unreferenced busStop 'busStop_3_1_0'
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
