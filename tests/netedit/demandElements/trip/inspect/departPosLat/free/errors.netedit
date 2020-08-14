@@ -65,28 +65,28 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Selected item 'vehicle' in TagSelector
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'trip' in TagSelector
 Debug: Key ENTER pressed
-Debug: Adding trip 'trip_0' in GNEChange_DemandElement
+Debug: Adding trip 'vehicle_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Value 'dummyPosLat' for attribute departPosLat of trip isn't valid
-Debug: Setting new attribute departPosLat 'free' into trip 'trip_0'
+Debug: Setting new attribute departPosLat 'free' into trip 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute departPosLat 'center' into trip 'trip_0'
+Debug: Setting previous attribute departPosLat 'center' into trip 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing trip 'trip_0' in GNEChange_DemandElement
+Debug: Removing trip 'vehicle_0' in GNEChange_DemandElement
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding trip 'trip_0' in GNEChange_DemandElement
+Debug: Adding trip 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute departPosLat 'free' into trip 'trip_0'
+Debug: Setting new attribute departPosLat 'free' into trip 'vehicle_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -125,7 +125,7 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced trip 'trip_0'
+Debug: Deleting unreferenced trip 'vehicle_0'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
