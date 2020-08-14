@@ -314,7 +314,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane, 
             myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // get route width
-        const double routeWidth = s.addSize.getExaggeration(s, lane) * s.widthSettings.route;
+        const double routeWidth = s.vehicleSize.getExaggeration(s, this) * s.widthSettings.route;
         // obtain color
         const RGBColor routeColor = drawUsingSelectColor() ? s.colorSettings.selectedRouteColor : getColor();
         // Start drawing adding an gl identificator
@@ -373,7 +373,7 @@ GNERoute::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* fromLa
     if (myNet->getViewNet()->getNetworkViewOptions().showDemandElements() && myNet->getViewNet()->getDataViewOptions().showDemandElements() &&
             fromLane->getLane2laneConnections().exist(toLane) && myNet->getViewNet()->getDemandViewOptions().showNonInspectedDemandElements(this)) {
         // calculate width
-        const double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.route;
+        const double width = s.vehicleSize.getExaggeration(s, this) * s.widthSettings.route;
         // obtain lane2lane geometry
         const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // Start drawing adding an gl identificator
