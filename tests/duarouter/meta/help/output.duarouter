@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_6_0+1462-a775417066
+Eclipse SUMO duarouter Version v1_6_0+1591-1651b78466
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -140,6 +140,8 @@ Processing Options:
                                         ('allJunctions, 'ptStops')
   --persontrip.transfer.walk-taxi STR[]  Where taxis can pick up customers
                                         ('allJunctions, 'ptStops')
+  --railway.max-train-length FLOAT    Use FLOAT as a maximum train length when
+                                        initializing the railway router
 
 Defaults Options:
   --departlane STR                    Assigns a default depart lane
