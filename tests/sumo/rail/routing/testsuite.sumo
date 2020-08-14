@@ -1,6 +1,9 @@
 # vehicle needs to continue more edges past the switch to enable reversal
 reversal_possible
 
+# vehicle needs to continue more edges past the switch to enable reversal
+reversal_possible_maxLengthShort
+
 # vehicle cannot reach reverse because there is insufficient space after the switch
 reversal_impossible
 
