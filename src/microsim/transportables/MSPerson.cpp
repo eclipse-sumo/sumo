@@ -285,10 +285,8 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
     } else {
         if (nextInternal == nullptr) {
             ++myRouteStep;
-            myCurrentInternalEdge = nullptr;
-        } else {
-            myCurrentInternalEdge = nextInternal;
         }
+        myCurrentInternalEdge = nextInternal;
         const MSLane* nextLane = getSidewalk<MSEdge, MSLane>(getEdge());
         if (nextLane != nullptr) {
             for (MSMoveReminder* rem : nextLane->getMoveReminders()) {
