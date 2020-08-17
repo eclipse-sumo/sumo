@@ -20,8 +20,8 @@ Debug: Adding route 'routeA' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Adding route 'routeB' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flowA' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flowB' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flowA' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flowB' in GNEChange_DemandElement
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 GLDebug: Removing junctions during recomputing
@@ -73,90 +73,90 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Setting new attribute selected 'true' into route 'routeA'
 Debug: Setting new attribute selected 'true' into route 'routeB'
-Debug: Setting new attribute selected 'true' into routeFlow 'flowA'
-Debug: Setting new attribute selected 'true' into routeFlow 'flowB'
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into routeFlow 'flowB'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into routeFlow 'flowB'
-Debug: Setting new attribute genericParameter '' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter '' into routeFlow 'flowB'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into routeFlow 'flowB'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeFlow 'flowB'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeFlow 'flowB'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into routeFlow 'flowB'
+Debug: Setting new attribute selected 'true' into flowRoute 'flowA'
+Debug: Setting new attribute selected 'true' into flowRoute 'flowB'
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowRoute 'flowB'
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into flowRoute 'flowB'
+Debug: Setting new attribute genericParameter '' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter '' into flowRoute 'flowB'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into flowRoute 'flowB'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into flowRoute 'flowB'
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into flowRoute 'flowB'
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into flowRoute 'flowB'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeFlow 'flowB'
-Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeFlow 'flowA'
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into flowRoute 'flowB'
+Debug: Setting previous attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into flowRoute 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeFlow 'flowB'
-Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeFlow 'flowA'
+Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into flowRoute 'flowB'
+Debug: Setting previous attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into flowRoute 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into routeFlow 'flowB'
-Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into routeFlow 'flowA'
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into flowRoute 'flowB'
+Debug: Setting previous attribute genericParameter 'key1duplicated=value2|key3=value3' into flowRoute 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter '' into routeFlow 'flowB'
-Debug: Setting previous attribute genericParameter '' into routeFlow 'flowA'
+Debug: Setting previous attribute genericParameter '' into flowRoute 'flowB'
+Debug: Setting previous attribute genericParameter '' into flowRoute 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into routeFlow 'flowB'
-Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into routeFlow 'flowA'
+Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into flowRoute 'flowB'
+Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into flowRoute 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into routeFlow 'flowB'
-Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into routeFlow 'flowA'
+Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowRoute 'flowB'
+Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowRoute 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'KeyB1=valueB1|KeyB2=valueB3|KeyB3=valueB2' into routeFlow 'flowB'
-Debug: Setting previous attribute genericParameter 'KeyA1=valueA1|KeyA2=valueA3|KeyA3=valueA2' into routeFlow 'flowA'
+Debug: Setting previous attribute genericParameter 'KeyB1=valueB1|KeyB2=valueB3|KeyB3=valueB2' into flowRoute 'flowB'
+Debug: Setting previous attribute genericParameter 'KeyA1=valueA1|KeyA2=valueA3|KeyA3=valueA2' into flowRoute 'flowA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into routeFlow 'flowB'
-Debug: Setting previous attribute selected '0' into routeFlow 'flowA'
+Debug: Setting previous attribute selected '0' into flowRoute 'flowB'
+Debug: Setting previous attribute selected '0' into flowRoute 'flowA'
 Debug: Setting previous attribute selected '0' into route 'routeB'
 Debug: Setting previous attribute selected '0' into route 'routeA'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'true' into route 'routeA'
 Debug: Setting new attribute selected 'true' into route 'routeB'
-Debug: Setting new attribute selected 'true' into routeFlow 'flowA'
-Debug: Setting new attribute selected 'true' into routeFlow 'flowB'
+Debug: Setting new attribute selected 'true' into flowRoute 'flowA'
+Debug: Setting new attribute selected 'true' into flowRoute 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into routeFlow 'flowB'
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into flowRoute 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into routeFlow 'flowB'
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into flowRoute 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter '' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter '' into routeFlow 'flowB'
+Debug: Setting new attribute genericParameter '' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter '' into flowRoute 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into routeFlow 'flowB'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into flowRoute 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into routeFlow 'flowB'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1=valueDuplicated|key2=valueDuplicated|key3=valueDuplicated' into flowRoute 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into routeFlow 'flowB'
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=value2|key3=value3' into flowRoute 'flowB'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into routeFlow 'flowA'
-Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into routeFlow 'flowB'
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into flowRoute 'flowA'
+Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into flowRoute 'flowB'
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
@@ -194,10 +194,10 @@ GLDebug: 	Inserted edge:gneE6 into SUMORTree with boundary 0.00,48.40,80.00,70.0
 GLDebug: 	Inserted edge:gneE7 into SUMORTree with boundary 0.00,10.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary 0.00,28.40,50.00,50.00
 GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.60
-Debug: Deleting unreferenced routeFlow 'flowB'
+Debug: Deleting unreferenced flowRoute 'flowB'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
-Debug: Deleting unreferenced routeFlow 'flowA'
+Debug: Deleting unreferenced flowRoute 'flowA'
 Debug: Deleting unreferenced route 'routeB'
 Debug: Deleting unreferenced route 'routeA'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
