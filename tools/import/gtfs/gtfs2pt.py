@@ -60,6 +60,7 @@ def get_options(args=None):
                            type=int, help="minimum time to wait on a stop")
     argParser.add_argument("--skip-fcd", action="store_true", default=False, help="skip generating fcd data")
     argParser.add_argument("--skip-map", action="store_true", default=False, help="skip network mapping")
+    argParser.add_argument("--warn-unmapped", action="store_true", default=False, help="warn about unmapped routes")
     argParser.add_argument("--bus-stop-length", default=13, type=float, help="length for a bus stop")
     argParser.add_argument("--train-stop-length", default=110, type=float, help="length for a train stop")
     argParser.add_argument("--tram-stop-length", default=60, type=float, help="length for a tram stop")
@@ -134,13 +135,21 @@ def mapFCD(options, typedNets):
         subprocess.call(call, shell=True)
 
 
-def traceMap(options, typedNets):
+def traceMap(options, typedNets, radius=100):
     routes = defaultdict(list)
     for railType in typedNets.keys():
+        if options.verbose:
+            print("mapping", railType)
         net = sumolib.net.readNet(os.path.join(options.network_split, railType + ".net.xml"))
+        netBox = net.getBBoxXY()
         traces = tracemapper.readFCD(os.path.join(options.fcd, railType + ".fcd.xml"), net, True)
         for tid, trace in traces:
-            routes[tid] = [e.getID() for e in sumolib.route.mapTrace(trace, net, 100)]
+            minX, minY, maxX, maxY = sumolib.geomhelper.addToBoundingBox(trace)
+            if (minX < netBox[1][0] + radius and minY < netBox[1][1] + radius and
+                maxX > netBox[0][0] - radius and maxY > netBox[0][1] - radius):
+                mappedRoute = sumolib.route.mapTrace(trace, net, radius)
+                if mappedRoute:
+                    routes[tid] = [e.getID() for e in mappedRoute]
     return routes
 
 
@@ -183,12 +192,12 @@ def map_stops(options, net, routes, rout):
                 params = "".join(['        <param key="%s" value="%s"/>\n' %
                                   p for p in (('fareZone', veh.fareZone), ('fareSymbol', veh.fareSymbol),
                                               ('startFare', veh.startFare))])
-            if rid != veh.id.split("_")[1]:
+            if rid != veh.id:
                 lastIndex = 0
                 lastPos = -1
-                rid = veh.id.split("_")[1]
+                rid = veh.id
             if rid not in routes:
-                if rid not in seen:
+                if options.warn_unmapped and rid not in seen:
                     print("Warning! Not mapped", rid)
                     seen.add(rid)
                 continue
@@ -293,7 +302,8 @@ def main(options):
                 time, edge, speed, coverage, id, minute_of_week = line.split('\t')[:6]
                 routes[id].append(edge)
     else:
-        print("Warning! No mapping library found, falling back to tracemapper.")
+        if options.mapperlib != "tracemapper":
+            print("Warning! No mapping library found, falling back to tracemapper.")
         routes = traceMap(options, typedNets)
     net = sumolib.net.readNet(options.network)
     if options.poly_output:

@@ -39,6 +39,22 @@ def polyLength(polygon):
     return sum([distance(a, b) for a, b in zip(polygon[:-1], polygon[1:])])
 
 
+def addToBoundingBox(coordList, bbox=None):
+    if bbox is None:
+        minX = 1e400
+        minY = 1e400
+        maxX = -1e400
+        maxY = -1e400
+    else:
+        minX, minY, maxX, maxY = bbox
+    for x, y in coordList:
+        minX = min(x, minX)
+        minY = min(y, minY)
+        maxX = max(x, maxX)
+        maxY = max(y, maxY)
+    return minX, minY, maxX, maxY
+
+
 def lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicular=False):
     """Return the offset from line (line_start, line_end) where the distance to
     point is minimal"""
