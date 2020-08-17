@@ -53,6 +53,14 @@ value is also shown in the table.
 
 The respond to a **"Command Get Person Variable"**.
 
+## Response 0xc6: taxi reservations
+
+Returns all reservations. If onlyNew is 1, each reservation is returned only once.
+
+| sting   | string   |  string  | string   | string   |  double   |  double    |  double |  double         |
+| :-----: | :------: | :------: | :------: | :------: | :-------: | :--------: | :-----: | :-------------: |
+|    id   | persons  | group    | fromEdge | toEdge   | departPos | arrivalPos | depart  | reservationTime | 
+
 ## Extended retrieval messages
 
 Some further messages require additional parameters.
