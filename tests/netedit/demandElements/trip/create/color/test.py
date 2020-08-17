@@ -34,8 +34,8 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# select trip
-netedit.changeElement("trip")
+# disable select trip due this is the first vehicle in the list
+# netedit.changeElement("trip")
 
 # set invalid color
 netedit.changeDefaultValue(7, "dummyColor")

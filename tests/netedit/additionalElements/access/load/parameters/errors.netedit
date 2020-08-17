@@ -31,10 +31,11 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Adding access 'busStopaccess0' in GNEChange_Additional
+Debug: Adding access 'busStop' in GNEChange_Additional
 Debug: Inserting parameter 'key1|value1' into additional access.
 Debug: Inserting parameter 'key1|value4' into additional access.
 Debug: Inserting parameter 'key2|' into additional access.
+Debug: Inserting parameter 'key3|$$value with spaces%%' into additional access.
 Debug: Inserting parameter 'key4|value5' into additional access.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
@@ -101,10 +102,10 @@ GLDebug: 	Inserted edge:8 into SUMORTree with boundary -10.00,18.40,60.00,40.00
 GLDebug: 	Inserted edge:9 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 Debug: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to7_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced access 'busStopaccess0'
+Debug: Deleting unreferenced access 'busStop'
+Debug: Deleting unreferenced busStop 'busStop'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced busStop 'busStop'
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '10' in AttributeCarriers destructor

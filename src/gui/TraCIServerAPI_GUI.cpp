@@ -28,9 +28,12 @@
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <libsumo/TraCIConstants.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicle.h>
+#include <guisim/GUIPerson.h>
+#include <guisim/GUIContainer.h>
 #include <guisim/GUIBaseVehicle.h>
 #include "TraCIServerAPI_GUI.h"
 
@@ -96,17 +99,13 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             }
             break;
             case libsumo::VAR_TRACK_VEHICLE: {
-                GUIVehicle* gv = 0;
+                GUIGlObject* tracked = nullptr;
                 std::string id;
                 GUIGlID gid = v->getTrackedID();
                 if (gid != GUIGlObject::INVALID_ID) {
-                    gv = static_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(gid));
+                    tracked = GUIGlObjectStorage::gIDStorage.getObjectBlocking(gid);
                 }
-                if (gv == 0) {
-                    id = "";
-                } else {
-                    id = gv->getID();
-                }
+                id = tracked == nullptr ? "" : tracked->getMicrosimID();
                 tempMsg.writeUnsignedByte(libsumo::TYPE_STRING);
                 tempMsg.writeString(id);
                 if (gid != GUIGlObject::INVALID_ID) {
@@ -209,19 +208,32 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
         }
         break;
         case libsumo::VAR_TRACK_VEHICLE: {
-            std::string vehID;
-            if (!server.readTypeCheckingString(inputStorage, vehID)) {
-                return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Tracking requires a string vehicle ID.", outputStorage);
+            std::string objID;
+            if (!server.readTypeCheckingString(inputStorage, objID)) {
+                return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Tracking requires a string ID.", outputStorage);
             }
-            if (vehID == "") {
+            if (objID == "") {
                 v->stopTrack();
             } else {
-                SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(vehID);
-                if (veh == nullptr) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Could not find vehicle '" + vehID + "'.", outputStorage);
+                GUIGlID id = 0;
+                SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(objID);
+                if (veh != nullptr) {
+                    id = static_cast<GUIVehicle*>(veh)->getGlID();
+                } else {
+                    MSTransportable* person = MSNet::getInstance()->getPersonControl().get(objID);
+                    if (person != nullptr) {
+                        id = static_cast<GUIPerson*>(person)->getGlID();
+                    } else {
+                        MSTransportable* container = MSNet::getInstance()->getContainerControl().get(objID);
+                        if (container != nullptr) {
+                            id = static_cast<GUIContainer*>(container)->getGlID();
+                        } else {
+                            return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Could not find vehicle or person '" + objID + "'.", outputStorage);
+                        }
+                    }
                 }
-                if (v->getTrackedID() != static_cast<GUIVehicle*>(veh)->getGlID()) {
-                    v->startTrack(static_cast<GUIVehicle*>(veh)->getGlID());
+                if (v->getTrackedID() != id) {
+                    v->startTrack(id);
                 }
             }
         }

@@ -134,6 +134,7 @@ SystemFrame::checkOptions() {
     if (oc.exists("xml-validation.routes") && oc.isDefault("xml-validation.routes") && !oc.isDefault("xml-validation")) {
         oc.set("xml-validation.routes", oc.getString("xml-validation"));
     }
+    std::cout << std::setprecision(gPrecision);
     return true;
 }
 

@@ -202,7 +202,7 @@ previous and the new position instead.
 
 |         byte          |       integer        |        byte         |                       string                       |       byte       |                        double                         | | | | | | | | |
 | :-------------------: | :------------------: | :-----------------: | :------------------------------------------------: | :--------------: | :---------------------------------------------------: | :-: |:-: |:-: |:-: |:-: |:-: |:-: |:-: |
-| value type *compound* | item number (5 or 6) | value type *string* | edge ID (to resolve ambiguities, may be arbitrary) | value type *int* | lane index (to resolve ambiguities, may be arbitrary) | value type double | x Position (network coordinates) | value type double | y Position (network coordinates) | value type double | angle | value type byte | keepRoute (0 - 2) |
+| value type *compound* | item number (5 or 6) | value type *string* | edge ID (to resolve ambiguities, may be arbitrary) | value type *int* | lane index (to resolve ambiguities, may be arbitrary) | value type double | x Position (network coordinates) | value type double | y Position (network coordinates) | value type double | angle | value type byte | keepRoute (0 - 7) |
 
 
 ### resume (0x19)

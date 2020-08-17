@@ -119,6 +119,9 @@ previous and the new position instead.
 
 !!! note
     This function can also be used to force a person into the network that [has been loaded](../Simulation/VehicleInsertion.md#loading) but did not yet depart (i.e. immediately after calling person.add).
+    
+!!! caution
+    In between calls of moveToXY, the person may still perform regular movement. The person position is reset afterwards but this can affect other pedestrians. To avoid this, person.setSpeed(personID, 0) can be used.
 
 !!! caution
     When mapping a person to an edge that is not currently on it's route, the new route may consist of that edge only. Once the person reaches the arrivalPos on that edge it disappears unless receiving another moveToXY command in that simulation step. This means, persons may disappear when calling *traci.simulationStep* with arguments that cause SUMO to perform multiple steps.

@@ -270,6 +270,8 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
     if (arrived) {
         MSPerson* p = dynamic_cast<MSPerson*>(person);
         if (p->hasInfluencer() && p->getInfluencer().isRemoteControlled()) {
+            myCurrentInternalEdge = nextInternal;
+            ((MSEdge*) getEdge())->addPerson(person);
             return false;
         }
         if (myDestinationStop != nullptr) {
@@ -283,10 +285,8 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
     } else {
         if (nextInternal == nullptr) {
             ++myRouteStep;
-            myCurrentInternalEdge = nullptr;
-        } else {
-            myCurrentInternalEdge = nextInternal;
         }
+        myCurrentInternalEdge = nextInternal;
         const MSLane* nextLane = getSidewalk<MSEdge, MSLane>(getEdge());
         if (nextLane != nullptr) {
             for (MSMoveReminder* rem : nextLane->getMoveReminders()) {

@@ -10,8 +10,8 @@ GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Adding space 'parkingArea_0space0' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_0space0 into SUMORTree with boundary -6.60,10.00,6.60,25.00
+Debug: Adding space 'parkingArea_0' in GNEChange_Additional
+GLDebug: 	Inserted parkingSpace:parkingArea_0 into SUMORTree with boundary -6.60,10.00,6.60,25.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
@@ -31,12 +31,11 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 15.80,2.20,34.20,10.60
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 15.80,2.20,34.20,10.60
-Debug: Deleting unreferenced space 'parkingArea_0space0'
-GLDebug: 	Removed object parkingSpace:parkingArea_0space0 from SUMORTree with boundary -6.60,10.00,6.60,25.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
+Debug: Deleting unreferenced space 'parkingArea_0'
 Debug: Deleting unreferenced parkingArea 'parkingArea_0'
 GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 15.80,2.20,34.20,10.60
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
@@ -49,4 +48,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destr
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 4
+GLDebug: Number of objects in SUMORTree during call of the destructor: 5

@@ -45,6 +45,9 @@ netedit.typeEnter()
 # go to vehicle mode
 netedit.vehicleMode()
 
+# select vehicle
+netedit.changeElement("vehicle (over route)")
+
 # set invalid arrival speed
 netedit.changeDefaultValue(13, "dummySpeed")
 

@@ -25,19 +25,20 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_1 into SUMORTree with boundar
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_1 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_1 into SUMORTree with boundary 28.80,9.40,47.20,17.80
 Debug: Selected item 'space' in TagSelector
-Debug: Adding space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 10.40,-2.00,23.60,13.00
-Debug: Adding space 'parkingArea_gneE2_1_0space1' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space1 into SUMORTree with boundary 26.40,-2.00,39.60,13.00
+Debug: Adding space 'parkingArea_gneE2_1_0' in GNEChange_Additional
+GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0 into SUMORTree with boundary 10.40,-2.00,23.60,13.00
+Debug: Adding space 'parkingArea_gneE2_1_0' in GNEChange_Additional
+GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0 into SUMORTree with boundary 26.40,-2.00,39.60,13.00
+Debug: Open additional dialog
+Debug: Cancel additional dialog
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing space 'parkingArea_gneE2_1_0space1' in GNEChange_Additional
-GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space1 from SUMORTree with boundary 26.40,-2.00,39.60,13.00
+Debug: Removing space 'parkingArea_gneE2_1_0' in GNEChange_Additional
+GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0 from SUMORTree with boundary 26.40,-2.00,39.60,13.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 10.40,-2.00,23.60,13.00
+Debug: Removing space 'parkingArea_gneE2_1_0' in GNEChange_Additional
+GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0 from SUMORTree with boundary 10.40,-2.00,23.60,13.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE2_1_1' in GNEChange_Additional
@@ -61,12 +62,12 @@ GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_1 from SUMORTree with b
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_1 into SUMORTree with boundary 28.80,9.40,47.20,17.80
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding space 'parkingArea_gneE2_1_0space0' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space0 into SUMORTree with boundary 10.40,-2.00,23.60,13.00
+Debug: Adding space 'parkingArea_gneE2_1_0' in GNEChange_Additional
+GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0 into SUMORTree with boundary 10.40,-2.00,23.60,13.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding space 'parkingArea_gneE2_1_0space1' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0space1 into SUMORTree with boundary 26.40,-2.00,39.60,13.00
+Debug: Adding space 'parkingArea_gneE2_1_0' in GNEChange_Additional
+GLDebug: 	Inserted parkingSpace:parkingArea_gneE2_1_0 into SUMORTree with boundary 26.40,-2.00,39.60,13.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
@@ -101,14 +102,12 @@ GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with b
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundary 12.80,9.40,31.20,17.80
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_1 from SUMORTree with boundary 28.80,9.40,47.20,17.80
 GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_1 into SUMORTree with boundary 28.80,9.40,47.20,17.80
-Debug: Deleting unreferenced space 'parkingArea_gneE2_1_0space1'
-GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space1 from SUMORTree with boundary 26.40,-2.00,39.60,13.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced space 'parkingArea_gneE2_1_0space0'
-GLDebug: 	Removed object parkingSpace:parkingArea_gneE2_1_0space0 from SUMORTree with boundary 10.40,-2.00,23.60,13.00
+Debug: Deleting unreferenced space 'parkingArea_gneE2_1_0'
+Debug: Deleting unreferenced space 'parkingArea_gneE2_1_0'
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_1_1'
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_1 from SUMORTree with boundary 28.80,9.40,47.20,17.80
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE2_1_0'
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary 12.80,9.40,31.20,17.80
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
@@ -137,4 +136,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destr
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 8
+GLDebug: Number of objects in SUMORTree during call of the destructor: 10

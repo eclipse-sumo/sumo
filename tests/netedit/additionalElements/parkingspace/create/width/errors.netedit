@@ -11,10 +11,10 @@ Debug: Selected item 'space' in TagSelector
 Debug: Invalid input parameter of space: 'width' doesn't have a valid 'float' format
 Debug: Invalid input parameter of space: 'width' doesn't have a valid 'float' format
 Debug: Invalid input parameter of space: 'width' cannot be negative
-Debug: Adding space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
+Debug: Removing space 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
@@ -23,14 +23,14 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding space 'parkingArea_gneE0_0_0space0' in GNEChange_Additional
+Debug: Adding space 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0space0'
+Debug: Deleting unreferenced space 'parkingArea_gneE0_0_0'
+Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

@@ -120,3 +120,12 @@ class GuiDomain(Domain):
         Returns the id of the currently tracked vehicle
         """
         return self._getUniversal(tc.VAR_TRACK_VEHICLE, viewID)
+
+
+    def track(self, objID, viewID=DEFAULT_VIEW):
+        """track(string, string) -> None
+        Start visually tracking the given vehicle or person on the given view.
+        """
+        self._setCmd(tc.VAR_TRACK_VEHICLE, viewID, "s", objID)
+
+

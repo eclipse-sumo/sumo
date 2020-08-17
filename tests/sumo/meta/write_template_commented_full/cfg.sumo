@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 12 23:21:31 2020 by Eclipse SUMO sumo Version v1_6_0+1537-ae20b5bc63
+<!-- generated on Fri Aug 14 21:07:29 2020 by Eclipse SUMO sumo Version v1_6_0+1591-1651b78466
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -416,6 +416,9 @@
 
         <!-- Where taxis can pick up customers (&apos;allJunctions, &apos;ptStops&apos;) -->
         <persontrip.transfer.walk-taxi value="" type="STR[]"/>
+
+        <!-- Use FLOAT as a maximum train length when initializing the railway router -->
+        <railway.max-train-length value="5000" type="FLOAT"/>
 
         <!-- The probability for a vehicle to have a &apos;rerouting&apos; device -->
         <device.rerouting.probability value="-1" type="FLOAT"/>

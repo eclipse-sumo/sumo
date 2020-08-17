@@ -971,7 +971,7 @@ Stops can be childs of vehicles, routes, persons or containers.
 | actType            | string            | arbitrary                                                                                    | 'waiting'          | activity displayed for stopped person in GUI and output files (only applies to person simulation)                      |
 | tripId             | string            | arbitrary                                                                                    |                    | parameter to be applied to the vehicle to track the trip id within a cyclical public transport route                   |
 | line               | string            | arbitrary                                                                                    |                    | new line attribute to be set on the vehicle when reaching this stop (for cyclical public transport route)  |
-| speed              | float            | positive | - | speed to be kept while driving between startPos and endPos |
+| speed              | float            | positive | - | speed to be kept while driving between startPos and endPos. This turns the stop into a waypoint. |
 
 - If "duration" *and* "until" are given, the vehicle will stop for at least "duration" seconds.
 - If "duration" is 0 the vehicle will decelerate to reach velocity 0 and then start to accelerate again.
@@ -993,6 +993,9 @@ Stops can be childs of vehicles, routes, persons or containers.
 - if the vehicle comes to a halt earlier (i.e. due to a jam) then the stop counts as reached if the vehicle front is between startPos and endPos
 - if the vehicle picks up a person or container, it can do so as long as the person is between startPos and endPos
 - if the stop uses attribute 'speed', than that speed will be maintained between startPos and endPos
+
+## Waypoints
+By defining attribute 'speed' with a positive value, the stop definition is turned into a waypoint. The vehicle will drive past the given lane and keep the defined speed while between startPos end endPos. The 'duration' and 'until' values are ignored.
 
 # Colors
 
@@ -1040,7 +1043,8 @@ placeholder `<DEVICENAME>` below
 - [driverstate](Driver_State.md)
 - [fcd](Simulation/Output/FCDOutput.md)
 - [tripinfo](Simulation/Output/TripInfo.md)
-- [Demand Responsive Transport (Taxis)](Simulation/Taxi.md)
+- [vehroute](Simulation/Output/VehRoutes.md)
+- [taxi](Simulation/Taxi.md)
 - [example](Developer/How_To/Device.md)
 
 ## Automatic assignment

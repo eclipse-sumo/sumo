@@ -79,6 +79,9 @@ dua_trip
 # public transport and walk possible
 person_route_length
 
+# sorting without public transport
+no_pt_lines_sorted
+
 # trips as input, districts used
 trip_with_taz
 
