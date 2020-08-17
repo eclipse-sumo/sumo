@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 17 16:30:32 2020 by Eclipse SUMO sumo Version v1_6_0+1614-84fe0561e9
+<!-- generated on Mon Aug 17 15:05:23 2020 by Eclipse SUMO sumo Version v1_6_0+1601-040c29858a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,12 +16,9 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
-
-    <time>
-        <end value="1000"/>
-    </time>
 
     <processing>
         <default.speeddev value="0"/>
@@ -41,20 +38,5 @@ SPDX-License-Identifier: EPL-2.0
     <person id="p0" depart="0.00" arrival="152.00">
         <ride from="B2C2" to="A0B0" arrivalPos="287.60" lines="taxi"/>
     </person>
-
-    <vehicle id="trip_0" type="taxi" depart="0.00" arrival="179.00">
-        <route edges="A0B0 B0C0"/>
-        <stop lane="A0B0_1" actType="idling"/>
-    </vehicle>
-
-    <vehicle id="trip_1" type="taxi" depart="0.00" arrival="502.00">
-        <routeDistribution>
-            <route replacedOnEdge="A2B2" reason="taxi:dispatch" replacedAtTime="0.00" probability="0" edges="A2B2 B2C2 A0B0"/>
-            <route edges="A2B2 B2C2 C2B2 B2A2 A2A1 A1A0 A0B0"/>
-        </routeDistribution>
-        <stop lane="B2C2_1" actType="pickup p0"/>
-        <stop lane="A0B0_1" actType="dropOff p0"/>
-        <param key="device.taxi.end" value="500"/>
-    </vehicle>
 
 </routes>

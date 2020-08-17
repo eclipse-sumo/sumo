@@ -5,10 +5,8 @@
     </vType>
 
     <trip id="trip_0" type="taxi" depart="0.00" from="A0B0" to="B0C0">
-        <stop lane="A0B0_1" triggered="person"/>
     </trip>
     <trip id="trip_1" type="taxi" depart="0.00" from="A2B2" to="B2C2">
-        <stop lane="A2B2_1" triggered="person"/>
     </trip>
 
     <person id="p0" depart="0.00">
