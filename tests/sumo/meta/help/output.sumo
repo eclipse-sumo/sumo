@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_6_0+1591-1651b78466
+Eclipse SUMO sumo Version v1_6_0+1601-040c29858a
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -124,6 +124,10 @@ Output Options:
                                          passenger and containers for all
                                          vehicles into FILE
   --statistic-output FILE              Write overall statistics into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                         vehicles into FILE
+  --movereminder-output.vehicles STR[]  List of vehicle ids which shall save
+                                         their movereminder states
   --save-state.times STR[]             Use TIME[] as times at which a network
                                          state written
   --save-state.period TIME             save state repeatedly after TIME period
@@ -584,6 +588,10 @@ Taxi Device Options:
                                          KEY1:VALUE1[,KEY2:VALUE]
   --device.taxi.dispatch-period TIME   The period between successive calls to
                                          the dispatcher
+  --device.taxi.idle-algorithm STR     The behavior of idle taxis
+                                         [stop|randomCircling]
+  --device.taxi.idle-algorithm.output STR  Write information from the idling
+                                         algorithm to FILE
 
 Tripinfo Device Options:
   --device.tripinfo.probability FLOAT  The probability for a vehicle to have a
