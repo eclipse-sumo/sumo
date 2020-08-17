@@ -11,13 +11,18 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    main.c
+/// @file    testlibsumofmi2.c
 /// @author  Robert Hilbrich
-/// @date    Tue, 03 Mar 2020
+/// @date    Mon, 15 Auf 2020
 ///
-// Implementation of the FMI2 to sumolib bridge features
+// Implementation of a basic test client for the FMU2 package of libsumo
 /****************************************************************************/
 
-#define FMI_VERSION 2
-#include <foreign/fmi/fmi2Functions.h>
 
+// Declarations
+void fmi2run();
+
+
+int main() {
+    fmi2run();
+}
