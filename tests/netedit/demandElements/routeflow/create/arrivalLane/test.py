@@ -46,7 +46,7 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("routeFlow")
+netedit.changeElement("flow (over route)")
 
 # set invalid arrival lane
 netedit.changeDefaultValue(11, "dummyLane")

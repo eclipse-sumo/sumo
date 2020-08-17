@@ -34,11 +34,8 @@ netedit.supermodeDemand()
 # go to vehicle mode
 netedit.vehicleMode()
 
-# go to vehicle mode
-netedit.vehicleMode()
-
 # select flow
-netedit.changeElement("flow")
+netedit.changeElement("flow (from-to)")
 
 # set invalid arrival lane
 netedit.changeDefaultValue(11, "dummyLane")

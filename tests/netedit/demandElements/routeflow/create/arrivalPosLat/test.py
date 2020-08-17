@@ -46,7 +46,7 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("routeFlow")
+netedit.changeElement("flow (over route)")
 
 # set invalid arrival pos
 netedit.changeDefaultValue(18, "dummyPos")

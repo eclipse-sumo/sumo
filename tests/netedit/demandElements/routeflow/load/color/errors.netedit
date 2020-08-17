@@ -20,31 +20,31 @@ Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Error: Attribute 'color' in definition of flow 'flow_0' is empty.
-Debug: Adding routeFlow 'flow_0' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Error: Attribute 'color' in definition of flow 'flow_1' is empty.
-Debug: Adding routeFlow 'flow_1' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_2' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_3' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_4' in GNEChange_DemandElement
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.13May170040.3320\netedit.gui\demandElements\routeflow\load\color\input_routes.rou.xml failed.
+Debug: Adding flowRoute 'flow_1' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_2' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_3' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_4' in GNEChange_DemandElement
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.17Aug102157.12256\netedit.gui\demandElements\routeflow\load\color\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing routeFlow 'flow_4' in GNEChange_DemandElement
-Debug: Removing routeFlow 'flow_3' in GNEChange_DemandElement
-Debug: Removing routeFlow 'flow_2' in GNEChange_DemandElement
-Debug: Removing routeFlow 'flow_1' in GNEChange_DemandElement
-Debug: Removing routeFlow 'flow_0' in GNEChange_DemandElement
+Debug: Removing flowRoute 'flow_4' in GNEChange_DemandElement
+Debug: Removing flowRoute 'flow_3' in GNEChange_DemandElement
+Debug: Removing flowRoute 'flow_2' in GNEChange_DemandElement
+Debug: Removing flowRoute 'flow_1' in GNEChange_DemandElement
+Debug: Removing flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_0' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_1' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_2' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_3' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_4' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_1' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_2' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_3' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_4' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
@@ -93,13 +93,13 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced routeFlow 'flow_4'
+Debug: Deleting unreferenced flowRoute 'flow_4'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
-Debug: Deleting unreferenced routeFlow 'flow_3'
-Debug: Deleting unreferenced routeFlow 'flow_2'
-Debug: Deleting unreferenced routeFlow 'flow_1'
-Debug: Deleting unreferenced routeFlow 'flow_0'
+Debug: Deleting unreferenced flowRoute 'flow_3'
+Debug: Deleting unreferenced flowRoute 'flow_2'
+Debug: Deleting unreferenced flowRoute 'flow_1'
+Debug: Deleting unreferenced flowRoute 'flow_0'
 Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor

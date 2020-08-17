@@ -46,7 +46,7 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("routeFlow")
+netedit.changeElement("flow (over route)")
 
 # set invalid depart speed
 netedit.changeDefaultValue(10, "dummySpeed")
