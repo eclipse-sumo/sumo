@@ -55,6 +55,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
             stop.endPos = stopPos.second + POSITION_EPS;
             stop.triggered = true;
             stop.actType = "idling";
+            stop.parking = true;
             veh.addTraciStop(stop, errorOut);
             if (errorOut != "") {
                 WRITE_WARNING(errorOut);
