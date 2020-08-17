@@ -155,7 +155,7 @@ value is also shown in the table.
 </tr>
 <tr class="even">
 <td><p>TaxiFleet </p></td>
-<td><p>stingList</p></td>
+<td><p>stringList</p></td>
 <td><p>Return the list of all taxis with the given mode:(0 : empty, 1 : pickup,2 : occupied)</p></td>
 <td><p><a href="https://sumo.dlr.de/pydoc/traci._vehicle.html#VehicleDomain-getTaxiFleet">getTaxiFleet</a></p></td>
 </tr>
