@@ -56,3 +56,7 @@ public:
 class MSIdling_Stop : public MSIdling {
     void idle(MSDevice_Taxi* taxi);
 };
+
+class MSIdling_RandomCircling : public MSIdling {
+    void idle(MSDevice_Taxi* taxi);
+};
