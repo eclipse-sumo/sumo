@@ -1,1 +1,1 @@
-Warning: Vehicle 'trip' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Error: Attribute 'expected' in definition of a stop is empty.
