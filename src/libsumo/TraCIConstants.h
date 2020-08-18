@@ -913,6 +913,9 @@ TRACI_CONST int VAR_ROUTE_ID = 0x53;
 // edges (get: routes, vehicles)
 TRACI_CONST int VAR_EDGES = 0x54;
 
+// lanes (get: variablespeedsign)
+TRACI_CONST int VAR_LANES = 0x30;
+
 // update bestLanes (set: vehicle)
 TRACI_CONST int VAR_UPDATE_BESTLANES = 0x6a;
 

@@ -42,6 +42,11 @@
 
 
 // ===========================================================================
+// static members
+// ===========================================================================
+std::map<std::string, MSLaneSpeedTrigger*> MSLaneSpeedTrigger::myInstances;
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string& id,
@@ -55,6 +60,7 @@ MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string& id,
     myAmOverriding(false),
     mySpeedOverrideValue(destLanes[0]->getSpeedLimit()),
     myDidInit(false) {
+    myInstances[id] = this;
     if (file != "") {
         if (!XMLSubSys::runParser(*this, file)) {
             throw ProcessError();
