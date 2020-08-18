@@ -46,28 +46,28 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("routeFlow")
+netedit.changeElement("flow (over route)")
 
 # set invalid arrival speed
-netedit.changeDefaultValue(13, "dummySpeed")
+netedit.changeDefaultValue(12, "dummySpeed")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid arrival speed
-netedit.changeDefaultValue(13, "-12")
+netedit.changeDefaultValue(12, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid arrival speed
-netedit.changeDefaultValue(13, "max")
+netedit.changeDefaultValue(12, "max")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid arrival speed
-netedit.changeDefaultValue(13, "20")
+netedit.changeDefaultValue(12, "20")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

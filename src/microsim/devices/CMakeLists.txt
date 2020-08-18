@@ -50,6 +50,8 @@ set(microsim_devices_STAT_SRCS
    MSDispatch_RouteExtension.h
    MSDispatch_TraCI.h
    MSDispatch_TraCI.cpp
+   MSIdling.cpp
+   MSIdling.h
    MSVehicleDevice.h
 )
 

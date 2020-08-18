@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 14 21:07:29 2020 by Eclipse SUMO sumo Version v1_6_0+1591-1651b78466
+<!-- generated on Mon Aug 17 15:00:05 2020 by Eclipse SUMO sumo Version v1_6_0+1601-040c29858a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -80,6 +80,8 @@
         <lanechange-output.xy value="false" type="BOOL" help="Record coordinates of lane change manoeuvres"/>
         <stop-output value="" type="FILE" help="Record stops and loading/unloading of passenger and containers for all vehicles into FILE"/>
         <statistic-output value="" synonymes="statistics-output" type="FILE" help="Write overall statistics into FILE"/>
+        <movereminder-output value="" type="FILE" help="Save movereminder states of selected vehicles into FILE"/>
+        <movereminder-output.vehicles value="" type="STR[]" help="List of vehicle ids which shall save their movereminder states"/>
         <save-state.times value="" type="STR[]" help="Use TIME[] as times at which a network state written"/>
         <save-state.period value="-1" type="TIME" help="save state repeatedly after TIME period"/>
         <save-state.prefix value="state" type="FILE" help="Prefix for network states"/>
@@ -313,6 +315,8 @@
         <device.taxi.dispatch-algorithm.output value="" type="STR" help="Write information from the dispatch algorithm to FILE"/>
         <device.taxi.dispatch-algorithm.params value="" type="STR" help="Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"/>
         <device.taxi.dispatch-period value="60" type="TIME" help="The period between successive calls to the dispatcher"/>
+        <device.taxi.idle-algorithm value="stop" type="STR" help="The behavior of idle taxis [stop|randomCircling]"/>
+        <device.taxi.idle-algorithm.output value="" type="STR" help="Write information from the idling algorithm to FILE"/>
     </taxi_device>
 
     <tripinfo_device>

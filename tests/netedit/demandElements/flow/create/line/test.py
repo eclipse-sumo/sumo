@@ -35,10 +35,10 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # select flow
-netedit.changeElement("flow")
+netedit.changeElement("flow (from-to)")
 
 # set invalid line
-netedit.changeDefaultValue(14, "%%%%%%")
+netedit.changeDefaultValue(13, "%%%%%%")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid Line
-netedit.changeDefaultValue(14, "ownLine")
+netedit.changeDefaultValue(13, "ownLine")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set empty line
-netedit.changeDefaultValue(14, "")
+netedit.changeDefaultValue(13, "")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)

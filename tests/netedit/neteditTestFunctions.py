@@ -1705,7 +1705,7 @@ def selectionInvertDemand():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(26):
+    for _ in range(25):
         typeTab()
     # type space to select invert operation
     typeSpace()

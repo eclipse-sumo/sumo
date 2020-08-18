@@ -19,17 +19,17 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
-Debug: Adding routeFlow 'flow_0' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing routeFlow 'flow_0' in GNEChange_DemandElement
+Debug: Removing flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: Adding routeFlow 'flow_0' in GNEChange_DemandElement
+Debug: Adding flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
@@ -78,7 +78,7 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced routeFlow 'flow_0'
+Debug: Deleting unreferenced flowRoute 'flow_0'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced route 'route_0'

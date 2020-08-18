@@ -109,3 +109,6 @@ permissions
 
 # some edges are disconnected explicitly
 unconnected
+
+# make sure that parallel left turns all use the same curve
+parallel_left_turns

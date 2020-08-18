@@ -21,6 +21,7 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
@@ -41,12 +42,10 @@ ContextSubscriptionResults RouteProbe::myContextSubscriptionResults;
 std::vector<std::string>
 RouteProbe::getIDList() {
     std::vector<std::string> ids;
-    //for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
-    //    ids.push_back(item.first);
-    //}
-    //std::sort(ids.begin(), ids.end());
+    MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ROUTEPROBE).insertIDs(ids);
     return ids;
 }
+
 
 int
 RouteProbe::getIDCount() {

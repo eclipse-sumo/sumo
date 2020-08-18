@@ -18,6 +18,7 @@
 # @author  Jakob Erdmann
 # @date    2011-11-28
 
+import sumolib.geomhelper
 from .connection import Connection
 from .lane import addJunctionPos
 
@@ -156,16 +157,7 @@ class Edge:
         return self._shape3D
 
     def getBoundingBox(self, includeJunctions=True):
-        s = self.getShape(includeJunctions)
-        xmin = s[0][0]
-        xmax = s[0][0]
-        ymin = s[0][1]
-        ymax = s[0][1]
-        for p in s[1:]:
-            xmin = min(xmin, p[0])
-            xmax = max(xmax, p[0])
-            ymin = min(ymin, p[1])
-            ymax = max(ymax, p[1])
+        xmin, ymin, xmax, ymax = sumolib.geomhelper.addToBoundingBox(self.getShape(includeJunctions))
         assert(xmin != xmax or ymin != ymax or self._function == "internal")
         return (xmin, ymin, xmax, ymax)
 

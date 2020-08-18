@@ -45,6 +45,8 @@ def add_options():
 
 
 def check_options(options):
+    if options.region is None:
+        options.region = os.path.basename(options.gtfs)[:-4]
     if options.fcd is None:
         options.fcd = os.path.join('fcd', options.region)
     if options.gpsdat is None:
@@ -70,7 +72,7 @@ def main(options):
     # Merging the tables
     tmp = pd.merge(trips, calendar_dates, on='service_id')
     trips_on_day = tmp[tmp['date'] == options.date]
-    if options.region == "moin":
+    if 'fare_stops.txt' in gtfsZip.namelist():
         zones = pd.read_csv(gtfsZip.open('fare_stops.txt'), dtype=str)
         stops_merged = pd.merge(pd.merge(stops, stop_times, on='stop_id'), zones, on='stop_id')
     else:
@@ -127,7 +129,6 @@ def main(options):
         'BUS': 'bus',        # tbd
         'Str': 'tram',        # tbd
         'DPF': 'rail',        # tbd
-        '3': 'bus',        # tbd
     }
     fcdFile = {}
     tripFile = {}
@@ -158,9 +159,9 @@ def main(options):
                 departure = list(map(int, d.departure_time.split(":")))
                 departureSec = departure[0] * 3600 + departure[1] * 60 + departure[2] + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
-                buf += (('    <timestep time="%s"><vehicle id="%s_%s" x="%s" y="%s" until="%s" ' +
+                buf += (('    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
                          'name=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
-                        (arrivalSec - offset, d.route_short_name, trip_id, d.stop_lon, d.stop_lat, until,
+                        (arrivalSec - offset, trip_id, d.stop_lon, d.stop_lat, until,
                          sumolib.xml.quoteattr(d.stop_name), d.fare_zone, d.fare_token, d.start_char))
                 if firstDep is None:
                     firstDep = departureSec - timeIndex
@@ -183,12 +184,8 @@ def main(options):
             tripFile[mode].write("</routes>\n")
             tripFile[mode].close()
             if mode in seenModes:
-                f = "gpsdat_%s.csv" % mode
-                traceExporter.main(['', '--base-date', '0', '-i', fcdFile[mode].name, '--gpsdat-output', f])
-                with open(f) as inp, open(os.path.join(options.gpsdat, f), "w") as outp:
-                    for l in inp:
-                        outp.write(l[l.index("_")+1:])
-                os.remove(f)
+                traceExporter.main(['', '--base-date', '0', '-i', fcdFile[mode].name,
+                                    '--gpsdat-output', os.path.join(options.gpsdat, "gpsdat_%s.csv" % mode)])
             else:
                 os.remove(fcdFile[mode].name)
                 os.remove(tripFile[mode].name)

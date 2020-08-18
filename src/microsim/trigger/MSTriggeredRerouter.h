@@ -177,6 +177,11 @@ public:
     MSParkingArea* rerouteParkingArea(const MSTriggeredRerouter::RerouteInterval* rerouteDef,
                                       SUMOVehicle& veh, bool& newDestination, ConstMSEdgeVector& newRoute) const;
 
+    /// @brief return all rerouter instances
+    static const std::map<std::string, MSTriggeredRerouter*>& getInstances() {
+        return myInstances;
+    }
+
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -249,6 +254,8 @@ protected:
     /// @brief special destination values
     static MSEdge mySpecialDest_keepDestination;
     static MSEdge mySpecialDest_terminateRoute;
+
+    static std::map<std::string, MSTriggeredRerouter*> myInstances;
 
 private:
     /// @brief Invalidated copy constructor.

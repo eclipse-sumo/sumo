@@ -46,21 +46,21 @@ netedit.typeEnter()
 netedit.vehicleMode()
 
 # change vehicle
-netedit.changeElement("routeFlow")
+netedit.changeElement("flow (over route)")
 # set invalid color
-netedit.changeDefaultValue(7, "dummyColor")
+netedit.changeDefaultValue(6, "dummyColor")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid color
-netedit.changeDefaultValue(7, "cyan")
+netedit.changeDefaultValue(6, "cyan")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid color
-netedit.changeDefaultValue(7, "12,13,14")
+netedit.changeDefaultValue(6, "12,13,14")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

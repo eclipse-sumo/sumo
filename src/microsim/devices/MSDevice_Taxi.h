@@ -30,6 +30,7 @@
 // ===========================================================================
 class SUMOTrafficObject;
 class MSDispatch;
+class MSIdling;
 struct Reservation;
 
 
@@ -225,6 +226,9 @@ private:
     bool myIsStopped = false;
     /// @brief the customer of the current reservation
     std::set<const MSTransportable*> myCustomers;
+
+    /// @brief algorithm for controlling idle behavior
+    MSIdling* myIdleAlgorithm;
 
     /// @brief the time between successive calls to the dispatcher
     static SUMOTime myDispatchPeriod;

@@ -16,6 +16,9 @@ person
 junction
 trafficlight
 route
+
+# Copy of route
+routeprobe
 inductionloop
 lanearea
 multientryexit
@@ -29,3 +32,6 @@ parkingarea
 # Copy of parkingarea
 chargingstation
 overheadwire
+
+# rerouter tests
+rerouter

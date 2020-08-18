@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 14 21:07:29 2020 by Eclipse SUMO sumo Version v1_6_0+1591-1651b78466
+<!-- generated on Mon Aug 17 15:00:06 2020 by Eclipse SUMO sumo Version v1_6_0+1601-040c29858a
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -215,6 +215,12 @@
 
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>
+
+        <!-- Save movereminder states of selected vehicles into FILE -->
+        <movereminder-output value="" type="FILE"/>
+
+        <!-- List of vehicle ids which shall save their movereminder states -->
+        <movereminder-output.vehicles value="" type="STR[]"/>
 
         <!-- Use TIME[] as times at which a network state written -->
         <save-state.times value="" type="STR[]"/>
@@ -824,6 +830,12 @@
 
         <!-- The period between successive calls to the dispatcher -->
         <device.taxi.dispatch-period value="60" type="TIME"/>
+
+        <!-- The behavior of idle taxis [stop|randomCircling] -->
+        <device.taxi.idle-algorithm value="stop" type="STR"/>
+
+        <!-- Write information from the idling algorithm to FILE -->
+        <device.taxi.idle-algorithm.output value="" type="STR"/>
 
     </taxi_device>
 

@@ -170,6 +170,7 @@ class Net:
         self._rtreeLanes = None
         self._allLanes = []
         self._origIdx = None
+        self._proj = None
         self.hasWarnedAboutMissingRTree = False
         self.hasInternal = False
 
@@ -442,14 +443,16 @@ class Net:
             (self._ranges[1][0] - self._ranges[1][1]) ** 2)
 
     def getGeoProj(self):
-        import pyproj
-        try:
-            return pyproj.Proj(projparams=self._location["projParameter"])
-        except RuntimeError:
-            if hasattr(pyproj.datadir, 'set_data_dir'):
-                pyproj.datadir.set_data_dir('/usr/share/proj')
-                return pyproj.Proj(projparams=self._location["projParameter"])
-            raise
+        if self._proj is None:
+            import pyproj
+            try:
+                self._proj = pyproj.Proj(projparams=self._location["projParameter"])
+            except RuntimeError:
+                if hasattr(pyproj.datadir, 'set_data_dir'):
+                    pyproj.datadir.set_data_dir('/usr/share/proj')
+                    self._proj = pyproj.Proj(projparams=self._location["projParameter"])
+                raise
+        return self._proj
 
     def getLocationOffset(self):
         """ offset to be added after converting from geo-coordinates to UTM"""

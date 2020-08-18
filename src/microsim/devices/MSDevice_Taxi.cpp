@@ -30,11 +30,15 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
+
 #include "MSDispatch.h"
 #include "MSDispatch_Greedy.h"
 #include "MSDispatch_GreedyShared.h"
 #include "MSDispatch_RouteExtension.h"
 #include "MSDispatch_TraCI.h"
+
+#include "MSIdling.h"
+
 #include "MSRoutingEngine.h"
 #include "MSDevice_Taxi.h"
 
@@ -73,6 +77,12 @@ MSDevice_Taxi::insertOptions(OptionsCont& oc) {
 
     oc.doRegister("device.taxi.dispatch-period", new Option_String("60", "TIME"));
     oc.addDescription("device.taxi.dispatch-period", "Taxi Device", "The period between successive calls to the dispatcher");
+
+    oc.doRegister("device.taxi.idle-algorithm", new Option_String("stop"));
+    oc.addDescription("device.taxi.idle-algorithm", "Taxi Device", "The behavior of idle taxis [stop|randomCircling]");
+
+    oc.doRegister("device.taxi.idle-algorithm.output", new Option_String(""));
+    oc.addDescription("device.taxi.idle-algorithm.output", "Taxi Device", "Write information from the idling algorithm to FILE");
 }
 
 
@@ -171,8 +181,23 @@ MSDevice_Taxi::cleanup() {
 // MSDevice_Taxi-methods
 // ---------------------------------------------------------------------------
 MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
-    MSVehicleDevice(holder, id),
-    myServiceEnd(string2time(getStringParam(holder, OptionsCont::getOptions(), "taxi.end", toString(1e15), false))) {
+    MSVehicleDevice(holder, id)
+{
+    std::string defaultServiceEnd = toString(1e15);
+    const std::string algo = getStringParam(holder, OptionsCont::getOptions(), "taxi.idle-algorithm", "", false);
+    if (algo == "stop") {
+        myIdleAlgorithm = new MSIdling_Stop();
+    } else if (algo == "randomCircling") {
+        myIdleAlgorithm = new MSIdling_RandomCircling();
+        // make sure simulation terminates
+        defaultServiceEnd = toString(STEPS2TIME(
+                    myHolder.getParameter().departProcedure == DEPART_GIVEN
+                    ? myHolder.getParameter().depart
+                    : MSNet::getInstance()->getCurrentTimeStep()) + (3600 * 8));
+    } else {
+        throw ProcessError("Idle algorithm '" + algo + "' is not known for vehicle '" + myHolder.getID() + "'");
+    }
+    myServiceEnd = string2time(getStringParam(holder, OptionsCont::getOptions(), "taxi.end", defaultServiceEnd, false));
 }
 
 
@@ -222,7 +247,6 @@ MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservation
                 stops.back().duration = TIME2STEPS(60); // pay and collect bags
             }
         }
-        stops.back().triggered = true; // stay in the simulaton
         myHolder.replaceRouteEdges(tmpEdges, -1, 0, "taxi:prepare_dispatch", false, false, false);
         for (SUMOVehicleParameter::Stop& stop : stops) {
             std::string error;
@@ -294,6 +318,9 @@ MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         myOccupiedDistance += (newPos - oldPos);
         myOccupiedTime += DELTA_T;
     }
+    if (isEmpty() && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
+        myIdleAlgorithm->idle(this);
+    }
     if (myHolder.isStopped()) {
         if (!myIsStopped) {
             // limit duration of stop
@@ -311,6 +338,9 @@ MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
 
 bool
 MSDevice_Taxi::notifyEnter(SUMOTrafficObject& /*veh*/, MSMoveReminder::Notification /*reason*/, const MSLane* /* enteredLane */) {
+    if (isEmpty() && MSNet::getInstance()->getCurrentTimeStep() < myServiceEnd) {
+        myIdleAlgorithm->idle(this);
+    }
     return true; // keep the device
 }
 

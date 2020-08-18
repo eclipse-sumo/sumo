@@ -35,10 +35,10 @@ netedit.supermodeDemand()
 netedit.vehicleMode()
 
 # select flow
-netedit.changeElement("flow")
+netedit.changeElement("flow (from-to)")
 
 # set invalid containerNumber
-netedit.changeDefaultValue(16, "dummyContainerNumber")
+netedit.changeDefaultValue(15, "dummyContainerNumber")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(16, "-12")
+netedit.changeDefaultValue(15, "-12")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid containerNumber
-netedit.changeDefaultValue(16, "3.5")
+netedit.changeDefaultValue(15, "3.5")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid containerNumber
-netedit.changeDefaultValue(16, "13")
+netedit.changeDefaultValue(15, "13")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)

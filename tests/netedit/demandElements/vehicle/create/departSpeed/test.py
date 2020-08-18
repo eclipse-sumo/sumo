@@ -49,25 +49,25 @@ netedit.vehicleMode()
 netedit.changeElement("vehicle (over route)")
 
 # set invalid depart speed
-netedit.changeDefaultValue(10, "dummySpeed")
+netedit.changeDefaultValue(9, "dummySpeed")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid depart speed
-netedit.changeDefaultValue(10, "-12")
+netedit.changeDefaultValue(9, "-12")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set invalid depart speed
-netedit.changeDefaultValue(10, "5000")
+netedit.changeDefaultValue(9, "5000")
 
 # try to create vehicle
 netedit.leftClick(referencePosition, 274, 414)
 
 # set valid depart speed
-netedit.changeDefaultValue(10, "max")
+netedit.changeDefaultValue(9, "max")
 
 # create vehicle
 netedit.leftClick(referencePosition, 274, 414)

@@ -63,6 +63,7 @@
 // ===========================================================================
 MSEdge MSTriggeredRerouter::mySpecialDest_keepDestination("MSTriggeredRerouter_keepDestination", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
 MSEdge MSTriggeredRerouter::mySpecialDest_terminateRoute("MSTriggeredRerouter_terminateRoute", -1, SumoXMLEdgeFunc::UNKNOWN, "", "", -1, 0);
+std::map<std::string, MSTriggeredRerouter*> MSTriggeredRerouter::myInstances;
 
 // ===========================================================================
 // method definitions
@@ -79,6 +80,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
     myUserProbability(prob),
     myAmInUserMode(false),
     myTimeThreshold(timeThreshold) {
+    myInstances[id] = this;
     // build actors
     for (MSEdgeVector::const_iterator j = edges.begin(); j != edges.end(); ++j) {
         if (MSGlobals::gUseMesoSim) {
@@ -101,6 +103,7 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string& id,
 
 
 MSTriggeredRerouter::~MSTriggeredRerouter() {
+    myInstances.erase(getID());
 }
 
 // ------------ loading begin
