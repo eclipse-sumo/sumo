@@ -1852,6 +1852,9 @@ MSVehicle::processNextStop(double currentVelocity) {
         if (DEBUG_COND) {
             std::cout << SIMTIME << " vehicle '" << getID() << "' reached stop.\n"
                       << "Remaining duration: " << STEPS2TIME(stop.duration) << std::endl;
+            if (stop.pars.speed > 0) {
+                std::cout << " waypointSpeed=" << stop.pars.speed << "vehPos=" << myState.myPos << " endPos=" << stop.pars.endPos << "\n";
+            }
         }
 #endif
         if (stop.duration <= 0 && stop.pars.join != "") {
