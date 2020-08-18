@@ -204,9 +204,6 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
     if options.districts:
         print('        <additional-files value="..%s..%s%s"/>' %
               (os.sep, os.sep, options.districts), file=fd)
-    #if dua_args and len(dua_args) > 1:
-    #    print('        <additional-files value="..%s..%s%s"/>' %
-    #          (os.sep, os.sep, dua_args[1]), file=fd)
     print('        <route-files value="..%s..%s%s"/>' % (os.sep, os.sep, file), file=fd)
     if step > 0:
         print('        <weights value="..%s..%s%s%s%s"/>' %
@@ -590,7 +587,7 @@ def main(args=None):
                         shutil.copy( str(step)+ os.sep +
                             basename + "_000.rou.alt.xml", ".."+ os.sep + basename + "_000.rou.galt.xml")
                         shutil.copy(str(step)+ os.sep +
-                            basename + "_000.rou.xml", str(step)+ os.sep + basename + "_000.grou.xml")
+                            basename + "_000.rou.xml", ".."+ os.sep + basename + "_000.grou.xml")
                     else:
                         print('step:', step)
                         print('get externalgawron')
