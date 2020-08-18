@@ -3,3 +3,6 @@ signalized_turn
 
 # stopping two times at the same stop should not cause reversal
 double_stop
+
+# should not crash
+unregulated_junction
