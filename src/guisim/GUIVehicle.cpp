@@ -681,7 +681,7 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
         Position pos = stop.lane->geometryPositionAtOffset(stopLanePos);
         GLHelper::setColor(col);
         GLHelper::drawBoxLines(stop.lane->getShape().getOrthogonal(pos, 10, true, stop.lane->getWidth()), 0.1);
-        std::string label = stop.reached ? "stopped" : "stop " + toString(stopIndex);
+        std::string label = stop.pars.speed > 0 ? "waypoint" : (stop.reached ? "stopped" : "stop " + toString(stopIndex));
 #ifdef _DEBUG
         label += " (" + toString(stop.edge - myCurrEdge) + "e)";
 #endif
@@ -715,6 +715,9 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             } else {
                 label += " duration:" + time2string(stop.duration);
             }
+        }
+        if (stop.pars.speed > 0) {
+            label += " speed:" + toString(stop.pars.speed);
         }
         std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stopLanePos);
         const double textSize = s.vehicleName.size / s.scale;
