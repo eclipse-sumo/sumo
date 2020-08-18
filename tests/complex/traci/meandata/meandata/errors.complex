@@ -1,0 +1,6 @@
+Traceback (most recent call last):
+  File "D:\Weber\sumo_win64\tests\..\tests/complex/traci/meandata/meandata/runner.py", line 35, in <module>
+    print("meandata", traci.meandata.getIDList())
+AttributeError: module 'traci' has no attribute 'meandata'
+Error: tcpip::Socket::recvAndCheck @ recv: peer shutdown
+Quitting (on error).
