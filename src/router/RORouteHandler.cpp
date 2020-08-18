@@ -199,9 +199,6 @@ RORouteHandler::myStartElement(int element,
                 if (from == nullptr) {
                     throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
                 }
-                if (!plan.empty() && plan.back()->getDestination() != from) {
-                    throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id + "' (" + fromID + "!=" + plan.back()->getDestination()->getID() + ").");
-                }
             } else if (plan.empty()) {
                 throw ProcessError("The start edge for person '" + pid + "' is not known.");
             }
