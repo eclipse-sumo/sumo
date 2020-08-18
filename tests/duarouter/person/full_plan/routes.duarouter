@@ -30,14 +30,10 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="p0_0" depart="triggered">
-        <routeDistribution last="0">
-            <route cost="36.22" probability="1.00000000" edges="beg beg2left"/>
-        </routeDistribution>
+        <route edges="beg beg2left"/>
     </vehicle>
     <vehicle id="p0_1" depart="triggered">
-        <routeDistribution last="0">
-            <route cost="54.15" probability="1.00000000" edges="beg2left left"/>
-        </routeDistribution>
+        <route edges="beg2left left"/>
     </vehicle>
     <person id="p0" depart="0.00">
         <ride from="beg" to="beg2left" lines="p0_0"/>
