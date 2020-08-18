@@ -149,6 +149,9 @@ public:
      */
     const NamedObjectCont<MSDetectorFileOutput*>& getTypedDetectors(SumoXMLTag type) const;
 
+    const std::map<std::string, std::vector<MSMeanData*> >& getMeanData() const {
+        return myMeanData;
+    }
 
     /** @brief Computes detector values
      *
@@ -223,8 +226,8 @@ protected:
     /// @brief The map that holds the last call for each sample interval
     std::map<IntervalsKey, SUMOTime> myLastCalls;
 
-    /// @brief List of harmonoise detectors
-    std::vector<MSMeanData*> myMeanData;
+    /// @brief List of meanData  detectors
+    std::map<std::string, std::vector<MSMeanData*> > myMeanData;
 
     /// @brief An empty container to return in getTypedDetectors() if no detectors of the asked type exist
     NamedObjectCont< MSDetectorFileOutput*> myEmptyContainer;

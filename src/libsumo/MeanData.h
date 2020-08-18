@@ -46,10 +46,12 @@ public:
 
     static std::vector<std::string> getIDList();
     static int getIDCount();
-    static std::string getParameter(const std::string& vssID, const std::string& param);
+    static std::string getParameter(const std::string& meanDataID, const std::string& param);
     LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
-    static void setParameter(const std::string& vssID, const std::string& key, const std::string& value); // not needed so far
+    //static double getFrequency(const std::string& meanDataID);
+
+    static void setParameter(const std::string& meanDataID, const std::string& key, const std::string& value); // not needed so far
 
     LIBSUMO_SUBSCRIPTION_API
 

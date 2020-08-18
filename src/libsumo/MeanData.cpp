@@ -21,6 +21,7 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSMeanData.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
@@ -41,10 +42,10 @@ ContextSubscriptionResults MeanData::myContextSubscriptionResults;
 std::vector<std::string>
 MeanData::getIDList() {
     std::vector<std::string> ids;
-    //for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
-    //    ids.push_back(item.first);
-    //}
-    //std::sort(ids.begin(), ids.end());
+    for (auto item : MSNet::getInstance()->getDetectorControl().getMeanData()) {
+        ids.push_back(item.first);
+    }
+    std::sort(ids.begin(), ids.end());
     return ids;
 }
 
@@ -73,11 +74,15 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(MeanData, MEANDATA)
 
 MSMeanData*
 MeanData::getMeanData(const std::string& id) {
-    MSMeanData* s = nullptr;
-    if (s == nullptr) {
+    auto mdMap = MSNet::getInstance()->getDetectorControl().getMeanData();
+    auto it = mdMap.find(id);
+    if (it == mdMap.end() || it->second.size() == 0) {
         throw TraCIException("MeanData '" + id + "' is not known");
     }
-    return s;
+    if (it->second.size() > 1) {
+        WRITE_WARNING("Found " + toString(it->second.size()) + " meanData definitions with id '" + id + "'.");
+    }
+    return it->second.front();
 }
 
 

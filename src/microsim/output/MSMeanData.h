@@ -365,6 +365,10 @@ public:
     double getMaxTravelTime() const {
         return myMaxTravelTime;
     }
+    
+    bool isEdgeData() const {
+        return myAmEdgeBased;
+    }
 
 
 protected:

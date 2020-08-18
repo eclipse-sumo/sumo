@@ -46,6 +46,15 @@ public:
 
     static std::vector<std::string> getIDList();
     static int getIDCount();
+
+    static std::string getEdgeID(const std::string& probeID);
+    //static double getFrequency(const std::string& meanDataID);
+
+    static std::string sampleLastRouteID(const std::string& probeID);
+    static std::string sampleCurrentRouteID(const std::string& probeID);
+    //static std::vector<std::pair<std::string, doube> > getLastRoutes(const std::string& probeID);
+    //static std::vector<std::pair<std::string, doube> > getCurrentRoutes(const std::string& probeID);
+
     static std::string getParameter(const std::string& probeID, const std::string& param);
     LIBSUMO_GET_PARAMETER_WITH_KEY_API
 

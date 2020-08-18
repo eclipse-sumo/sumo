@@ -22,7 +22,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
 #include <microsim/output/MSDetectorControl.h>
-#include <microsim/trigger/MSLaneSpeedTrigger.h>
+#include <microsim/output/MSRouteProbe.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "RouteProbe.h"
@@ -62,7 +62,7 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(RouteProbe)
 
 void
 RouteProbe::setParameter(const std::string& /* probeID */, const std::string& /* key */, const std::string& /* value */) {
-    //MSRouteProbe* r = const_cast<MSRouteProbe*>(getRouteProbe(probeID));
+    //MSRouteProbe* r = getRouteProbe(probeID);
     //r->setParameter(key, value);
 }
 
@@ -72,11 +72,11 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(RouteProbe, ROUTEPROBE)
 
 MSRouteProbe*
 RouteProbe::getRouteProbe(const std::string& id) {
-    MSRouteProbe* s = nullptr;
-    if (s == nullptr) {
-        throw TraCIException("RouteProbe '" + id + "' is not known");
+    MSRouteProbe* rp = dynamic_cast<MSRouteProbe*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_ROUTEPROBE).get(id));
+    if (rp == nullptr) {
+        throw TraCIException("Lane area detector '" + id + "' is not known");
     }
-    return s;
+    return rp;
 }
 
 
