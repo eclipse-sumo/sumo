@@ -44,7 +44,7 @@ from .domain import _defaultDomains  # noqa
 from .connection import Connection, StepListener  # noqa
 from .exceptions import FatalTraCIError, TraCIException  # noqa
 from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
-from . import _variablespeedsign  # noqa
+from . import _variablespeedsign, _meandata  # noqa
 from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
 from . import _calibrator, _routeprobe, _rerouter  # noqa
@@ -55,6 +55,7 @@ lanearea = _lanearea.LaneAreaDomain()
 multientryexit = _multientryexit.MultiEntryExitDomain()
 trafficlight = _trafficlight.TrafficLightDomain()
 variablespeedsign = _variablespeedsign.VariableSpeedSignDomain()
+meandata = _meandata.MeanDataDomain()
 lane = _lane.LaneDomain()
 person = _person.PersonDomain()
 route = _route.RouteDomain()
