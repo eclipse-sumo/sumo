@@ -22,3 +22,6 @@ walk_write-trips
 ride_write-trips
 unknown_from
 unknown_to
+
+# parsing an existing plan
+full_plan
