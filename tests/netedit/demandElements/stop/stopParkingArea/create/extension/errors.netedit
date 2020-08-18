@@ -10,10 +10,10 @@ GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary -
 GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
-Debug: Adding embeddedRoute 'embeddedRoute_0' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 GLDebug: Removing junctions during recomputing
@@ -35,44 +35,44 @@ GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 15.80,2
 Debug: Selected item 'vehicle_0' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopParkingArea' in TagSelector
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea1' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea2' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Invalid input parameter of stopParkingArea: 'extension' doesn't have a valid SUMOTime format
 Debug: Invalid input parameter of stopParkingArea: 'extension' doesn't have a valid SUMOTime format
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea3' in GNEChange_DemandElement
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea4' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopParkingArea 'vehicle_0stopParkingArea4' in GNEChange_DemandElement
+Debug: Removing stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopParkingArea 'vehicle_0stopParkingArea3' in GNEChange_DemandElement
+Debug: Removing stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopParkingArea 'vehicle_0stopParkingArea2' in GNEChange_DemandElement
+Debug: Removing stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopParkingArea 'vehicle_0stopParkingArea1' in GNEChange_DemandElement
+Debug: Removing stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing embeddedRoute 'embeddedRoute_0' in GNEChange_DemandElement
-Debug: Removing vehicle 'vehicle_0' in GNEChange_DemandElement
+Debug: Removing routeEmbedded 'vehicle_0' in GNEChange_DemandElement
+Debug: Removing vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding embeddedRoute 'embeddedRoute_0' in GNEChange_DemandElement
+Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
+Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea1' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea2' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea3' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopParkingArea 'vehicle_0stopParkingArea4' in GNEChange_DemandElement
+Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Additionals saved
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
@@ -89,14 +89,14 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 15.80,2.20,34.20,10.60
 GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 15.80,2.20,34.20,10.60
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0stopParkingArea4'
+Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
+Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
+Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
+Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
+Debug: Deleting unreferenced routeEmbedded 'vehicle_0'
+Debug: Deleting unreferenced vehicleWithRoute 'vehicle_0'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0stopParkingArea3'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0stopParkingArea2'
-Debug: Deleting unreferenced stopParkingArea 'vehicle_0stopParkingArea1'
-Debug: Deleting unreferenced embeddedRoute 'embeddedRoute_0'
-Debug: Deleting unreferenced vehicle 'vehicle_0'
 Debug: Deleting unreferenced parkingArea 'parkingAreaB'
 GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 15.80,2.20,34.20,10.60
 Debug: Additionals has to be saved
