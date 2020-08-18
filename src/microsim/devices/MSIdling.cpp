@@ -82,7 +82,7 @@ MSIdling_RandomCircling::idle(MSDevice_Taxi* taxi) {
     double remainingDist = -veh.getPositionOnLane();
     int remainingEdges = 0;
     int routePos = veh.getRoutePosition();
-    const int routeLength = edges.size();
+    const int routeLength = (int)edges.size();
     while (routePos + 1 < routeLength && (remainingEdges < 2 || remainingDist < 200)) {
         const MSEdge* edge = edges[routePos];
         remainingDist = edge->getLength();
