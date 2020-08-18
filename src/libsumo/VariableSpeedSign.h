@@ -47,13 +47,13 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
 
-    static std::vector<std::string> getLaneIDs(const std::string& probeID);
+    static std::vector<std::string> getLaneIDs(const std::string& vssID);
 
-    //static std::vector<double> getTimes(const std::string& probeID);
-    //static std::vector<double> getSpeeds(const std::string& probeID);
-    //static double getSpeed(const std::string& probeID);
+    //static std::vector<double> getTimes(const std::string& vssID);
+    //static std::vector<double> getSpeeds(const std::string& vssID);
+    //static double getSpeed(const std::string& vssID);
 
-    //static void setSpeed(const std::string& probeID, double speed, double begTime, double endTime);
+    //static void setSpeed(const std::string& vssID, double speed, double begTime, double endTime);
 
     static std::string getParameter(const std::string& vssID, const std::string& param);
     LIBSUMO_GET_PARAMETER_WITH_KEY_API
@@ -67,7 +67,7 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
-    static MSLaneSpeedTrigger* getVariableSpeedSign(const std::string& id);
+    static MSLaneSpeedTrigger* getVariableSpeedSign(const std::string& vssID);
 
 private:
     static SubscriptionResults mySubscriptionResults;

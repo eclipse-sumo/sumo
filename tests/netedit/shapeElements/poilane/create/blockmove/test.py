@@ -38,7 +38,7 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultBoolValue(14)
 
 # create poi
-netedit.leftClick(referencePosition, 150, 215)
+netedit.leftClick(referencePosition, 150, 225)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

@@ -32,16 +32,16 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.selectMode()
 
 # select first POILane
-netedit.leftClick(referencePosition, 140, 215)
+netedit.leftClick(referencePosition, 140, 225)
 
 # select second POILane
-netedit.leftClick(referencePosition, 200, 215)
+netedit.leftClick(referencePosition, 200, 225)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(referencePosition, 140, 215)
+netedit.leftClick(referencePosition, 140, 225)
 # check parameters
 netedit.checkParameters(referencePosition, 11, True)
 

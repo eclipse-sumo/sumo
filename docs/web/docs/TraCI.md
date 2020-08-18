@@ -120,6 +120,10 @@ structure](TraCI/SUMO_ID_Commands_Structure.md).
     information about the simulation
   - [GUI Value Retrieval](TraCI/GUI_Value_Retrieval.md)
     retrieve information about the simulation visualization
+  - [Rerouter](TraCI/Rerouter.md)
+    retrieve information about the rerouter
+  - [RouteProbe](TraCI/RouteProbe.md)
+    retrieve information about the RouteProbe
 - State Changing
   - [Change Lane State](TraCI/Change_Lane_State.md) change a
     lane's state

@@ -40,7 +40,8 @@
 TraCIAPI::TraCIAPI()
     : edge(*this), gui(*this), inductionloop(*this),
       junction(*this), lane(*this), lanearea(*this), multientryexit(*this),
-      person(*this), poi(*this), polygon(*this), route(*this),
+      person(*this), poi(*this), polygon(*this),
+      rerouter(*this), route(*this), routeprobe(*this),
       simulation(*this), trafficlights(*this),
       vehicle(*this), vehicletype(*this),
       mySocket(nullptr) {
@@ -53,7 +54,9 @@ TraCIAPI::TraCIAPI()
     myDomains[libsumo::RESPONSE_SUBSCRIBE_PERSON_VARIABLE] = &person;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_POI_VARIABLE] = &poi;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_POLYGON_VARIABLE] = &polygon;
+    myDomains[libsumo::RESPONSE_SUBSCRIBE_REROUTER_VARIABLE] = &rerouter;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_ROUTE_VARIABLE] = &route;
+    myDomains[libsumo::RESPONSE_SUBSCRIBE_ROUTEPROBE_VARIABLE] = &routeprobe;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_SIM_VARIABLE] = &simulation;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_TL_VARIABLE] = &trafficlights;
     myDomains[libsumo::RESPONSE_SUBSCRIBE_VEHICLE_VARIABLE] = &vehicle;

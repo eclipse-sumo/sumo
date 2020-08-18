@@ -89,6 +89,15 @@ public:
     /// Returns the current speed
     double getCurrentSpeed() const;
 
+    /// @brief return all MSLaneSpeedTrigger instances
+    static const std::map<std::string, MSLaneSpeedTrigger*>& getInstances() {
+        return myInstances;
+    }
+
+    const std::vector<MSLane*>& getLanes() {
+        return myDestLanes;
+    }
+
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
@@ -131,6 +140,7 @@ protected:
 
     std::vector<std::pair<SUMOTime, double> > myLoadedSpeeds;
     std::vector<std::pair<SUMOTime, double> >::iterator myCurrentEntry;
+    static std::map<std::string, MSLaneSpeedTrigger*> myInstances;
 
 private:
     /// @brief Invalidated copy constructor.

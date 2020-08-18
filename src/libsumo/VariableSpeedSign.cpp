@@ -20,7 +20,7 @@
 #include <config.h>
 
 #include <microsim/MSNet.h>
-#include <microsim/MSEdge.h>
+#include <microsim/MSLane.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
@@ -41,10 +41,10 @@ ContextSubscriptionResults VariableSpeedSign::myContextSubscriptionResults;
 std::vector<std::string>
 VariableSpeedSign::getIDList() {
     std::vector<std::string> ids;
-    //for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
-    //    ids.push_back(item.first);
-    //}
-    //std::sort(ids.begin(), ids.end());
+    for (auto& item : MSLaneSpeedTrigger::getInstances()) {
+        ids.push_back(item.first);
+    }
+    std::sort(ids.begin(), ids.end());
     return ids;
 }
 
@@ -53,6 +53,15 @@ VariableSpeedSign::getIDCount() {
     return (int)getIDList().size();
 }
 
+std::vector<std::string>
+VariableSpeedSign::getLaneIDs(const std::string& vssID) {
+    std::vector<std::string> result;
+    MSLaneSpeedTrigger* vss = getVariableSpeedSign(vssID);
+    for (MSLane* lane : vss->getLanes()) {
+        result.push_back(lane->getID());
+    }
+    return result;
+}
 
 std::string
 VariableSpeedSign::getParameter(const std::string& /* vssID */, const std::string& /* param */) {
@@ -73,11 +82,12 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(VariableSpeedSign, VARIABLESPEEDSIGN)
 
 MSLaneSpeedTrigger*
 VariableSpeedSign::getVariableSpeedSign(const std::string& id) {
-    MSLaneSpeedTrigger* s = nullptr;
-    if (s == nullptr) {
+    const auto& dict = MSLaneSpeedTrigger::getInstances();
+    auto it = dict.find(id);
+    if (it == dict.end()) {
         throw TraCIException("VariableSpeedSign '" + id + "' is not known");
     }
-    return s;
+    return it->second;
 }
 
 
@@ -94,6 +104,8 @@ VariableSpeedSign::handleVariable(const std::string& objID, const int variable, 
             return wrapper->wrapStringList(objID, variable, getIDList());
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
+        case VAR_LANES:
+            return wrapper->wrapStringList(objID, variable, getLaneIDs(objID));
         default:
             return false;
     }

@@ -449,6 +449,24 @@ public:
     };
 
 
+    /** @class RerouterScope
+     * @brief Scope for interaction with rerouters
+     */
+    class RerouterScope : public TraCIScopeWrapper {
+    public:
+        RerouterScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_REROUTER_VARIABLE, libsumo::CMD_SET_REROUTER_VARIABLE, libsumo::CMD_SUBSCRIBE_REROUTER_VARIABLE, libsumo::CMD_SUBSCRIBE_REROUTER_CONTEXT) {}
+        virtual ~RerouterScope() {}
+
+    private:
+        /// @brief invalidated copy constructor
+        RerouterScope(const RerouterScope& src);
+
+        /// @brief invalidated assignment operator
+        RerouterScope& operator=(const RerouterScope& src);
+
+    };
+
+
     /** @class RouteScope
      * @brief Scope for interaction with routes
      */
@@ -467,6 +485,24 @@ public:
 
         /// @brief invalidated assignment operator
         RouteScope& operator=(const RouteScope& src);
+
+    };
+
+
+    /** @class RouteProbeScope
+     * @brief Scope for interaction with route probes
+     */
+    class RouteProbeScope : public TraCIScopeWrapper {
+    public:
+        RouteProbeScope(TraCIAPI& parent) : TraCIScopeWrapper(parent, libsumo::CMD_GET_ROUTEPROBE_VARIABLE, libsumo::CMD_SET_ROUTEPROBE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTEPROBE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTEPROBE_CONTEXT) {}
+        virtual ~RouteProbeScope() {}
+
+    private:
+        /// @brief invalidated copy constructor
+        RouteProbeScope(const RouteProbeScope& src);
+
+        /// @brief invalidated assignment operator
+        RouteProbeScope& operator=(const RouteProbeScope& src);
 
     };
 
@@ -923,8 +959,12 @@ public:
     POIScope poi;
     /// @brief Scope for interaction with polygons
     PolygonScope polygon;
+    /// @brief Scope for interaction with rerouters
+    RerouterScope rerouter;
     /// @brief Scope for interaction with routes
     RouteScope route;
+    /// @brief Scope for interaction with route probes
+    RouteProbeScope routeprobe;
     /// @brief Scope for interaction with the simulation
     SimulationScope simulation;
     /// @brief Scope for interaction with traffic lights

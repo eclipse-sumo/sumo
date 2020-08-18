@@ -38,25 +38,25 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(12, "dummyAngle")
 
 # try to create POI
-netedit.leftClick(referencePosition, 150, 215)
+netedit.leftClick(referencePosition, 150, 225)
 
 # change angle (valid, but > 360)
 netedit.changeDefaultValue(12, "500")
 
 # create POI
-netedit.leftClick(referencePosition, 200, 215)
+netedit.leftClick(referencePosition, 200, 225)
 
 # change angle (valid, < 0)
 netedit.changeDefaultValue(12, "-27")
 
 # create POI
-netedit.leftClick(referencePosition, 250, 215)
+netedit.leftClick(referencePosition, 250, 225)
 
 # change angle (valid)
 netedit.changeDefaultValue(12, "45")
 
 # create POI
-netedit.leftClick(referencePosition, 300, 215)
+netedit.leftClick(referencePosition, 300, 225)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
