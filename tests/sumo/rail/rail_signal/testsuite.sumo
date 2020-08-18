@@ -79,3 +79,6 @@ indirect_guard_check_route
 
 # driveway computation should end when hitting a buffer stop
 siding_deadend
+
+# switch from block signaling to moving block
+end_block_mode
