@@ -35,16 +35,16 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create POILane
-netedit.leftClick(referencePosition, 140, 215)
+netedit.leftClick(referencePosition, 140, 225)
 
 # create POILane
-netedit.leftClick(referencePosition, 200, 215)
+netedit.leftClick(referencePosition, 200, 225)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(referencePosition, 140, 215)
+netedit.leftClick(referencePosition, 140, 225)
 
 # Change parameter ID with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "POI_1", True)

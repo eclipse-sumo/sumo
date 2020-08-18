@@ -38,19 +38,19 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(3, "dummyPosLat")
 
 # try to create poi
-netedit.leftClick(referencePosition, 150, 215)
+netedit.leftClick(referencePosition, 150, 225)
 
 # change pos lat (valid, negative)
 netedit.changeDefaultValue(3, "-5")
 
 # create poi
-netedit.leftClick(referencePosition, 200, 215)
+netedit.leftClick(referencePosition, 200, 225)
 
 # change pos lat (valid)
 netedit.changeDefaultValue(3, "7.5")
 
 # create poi
-netedit.leftClick(referencePosition, 250, 215)
+netedit.leftClick(referencePosition, 250, 225)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

@@ -35,31 +35,31 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create poi
-netedit.leftClick(referencePosition, 150, 215)
+netedit.leftClick(referencePosition, 150, 225)
 
 # enable ID
 netedit.changeDefaultBoolValue(2)
 
 # create poi
-netedit.leftClick(referencePosition, 170, 215)
+netedit.leftClick(referencePosition, 170, 225)
 
 # set invalid ID
 netedit.changeDefaultValue(3, ";;;;;;")
 
 # try to create poi
-netedit.leftClick(referencePosition, 190, 215)
+netedit.leftClick(referencePosition, 190, 225)
 
 # set invalid ID
 netedit.changeDefaultValue(3, "POI_0")
 
 # try to create poi
-netedit.leftClick(referencePosition, 220, 215)
+netedit.leftClick(referencePosition, 220, 225)
 
 # set invalid ID
 netedit.changeDefaultValue(3, "customID")
 
 # create POI
-netedit.leftClick(referencePosition, 240, 215)
+netedit.leftClick(referencePosition, 240, 225)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

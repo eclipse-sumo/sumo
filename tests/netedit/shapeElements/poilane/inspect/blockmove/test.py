@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create POILane
-netedit.leftClick(referencePosition, 140, 215)
+netedit.leftClick(referencePosition, 140, 225)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(referencePosition, 140, 215)
+netedit.leftClick(referencePosition, 140, 225)
 
 # Change boolean parameter block
 netedit.modifyBoolAttribute(16, True)

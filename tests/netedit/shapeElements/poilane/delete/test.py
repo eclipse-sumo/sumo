@@ -35,16 +35,16 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create POILane
-netedit.leftClick(referencePosition, 140, 215)
+netedit.leftClick(referencePosition, 140, 225)
 
 # go to delete mode
 netedit.deleteMode()
 
 # delete created poi
-netedit.leftClick(referencePosition, 135, 215)
+netedit.leftClick(referencePosition, 135, 225)
 
 # delete first stacked loaded POILane (Second stacked must stay)
-netedit.leftClick(referencePosition, 275, 215)
+netedit.leftClick(referencePosition, 275, 225)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
