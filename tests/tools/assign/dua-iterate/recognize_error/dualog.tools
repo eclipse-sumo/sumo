@@ -1,8 +1,8 @@
 -------------------------------------------------------------------------------
-['/scr1/sumo/bin/duarouter', '-c', 'iteration_000_input_trips.duarcfg']
+['C:\\Users\\biek_la\\source\\repos\\sumo\\tests\\\\..\\bin\\duarouter.exe', '-c', '0\\iteration_000_input_trips.duarcfg']
 Loading configuration ... done.
 Error: no declaration found for element 'bogus_item'
- In file 'input_trips.trips.xml'
+ In file '0\0\..\..\input_trips.trips.xml'
  At line/column 3/37.
 
 Quitting (on error).

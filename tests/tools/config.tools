@@ -101,7 +101,7 @@ pois:pois.add.xml
 trips:trips.trips.xml
 flows:out.flows.xml
 routes:out.rou.xml
-tripinfos:tripinfo_004.xml
+tripinfos:4/tripinfo_004.xml
 additional:out.add.xml
 diff_nod:diff.nod.xml
 diff_edg:diff.edg.xml
