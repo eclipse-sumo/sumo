@@ -1777,7 +1777,7 @@ MSVehicle::keepStopping(bool afterProcessing) const {
     if (isStopped()) {
         // when coming out of vehicleTransfer we must shift the time forward
         return (myStops.front().duration - (afterProcessing ? DELTA_T : 0) > 0 || isStoppedTriggered() || myStops.front().collision
-                || (myStops.front().pars.speed > 0 && myState.myPos < myStops.front().pars.endPos));
+                || (myStops.front().pars.speed > 0 && myState.myPos < MIN2(myStops.front().pars.endPos, myStops.front().lane->getLength() - POSITION_EPS)));
     } else {
         return false;
     }
