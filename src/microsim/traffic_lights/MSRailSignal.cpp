@@ -921,6 +921,9 @@ MSRailSignal::DriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneSet& visit
     std::cout << "  checkCrossingFlanks  dwLink=" << dwLink->getDescription() << " visited=" << joinNamedToString(visited, " ") << "\n";
 #endif
     const MSJunction* junction = dwLink->getJunction();
+    if (junction == nullptr) {
+        return; // unregulated junction;
+    }
     const MSJunctionLogic* logic = junction->getLogic();
     assert(logic != nullptr);
     for (const MSEdge* in : junction->getIncoming()) {
