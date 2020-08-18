@@ -21,7 +21,7 @@
 
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
-#include <microsim/trigger/MSLaneSpeedTrigger.h>
+#include <microsim/trigger/MSTriggeredRerouter.h>
 #include <libsumo/TraCIConstants.h>
 #include "Helper.h"
 #include "Rerouter.h"
@@ -41,16 +41,15 @@ ContextSubscriptionResults Rerouter::myContextSubscriptionResults;
 std::vector<std::string>
 Rerouter::getIDList() {
     std::vector<std::string> ids;
-    //for (auto& item : MSNet::getInstance()->getStoppingPlaces(SUMO_TAG_BUS_STOP)) {
-    //    ids.push_back(item.first);
-    //}
-    //std::sort(ids.begin(), ids.end());
+    for (const auto& item : MSTriggeredRerouter::getInstances()) {
+        ids.push_back(item.first);
+    }
     return ids;
 }
 
 int
 Rerouter::getIDCount() {
-    return (int)getIDList().size();
+    return (int)MSTriggeredRerouter::getInstances().size();
 }
 
 

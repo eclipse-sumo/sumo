@@ -32,3 +32,6 @@ parkingarea
 # Copy of parkingarea
 chargingstation
 overheadwire
+
+# rerouter tests
+rerouter

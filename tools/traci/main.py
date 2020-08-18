@@ -46,7 +46,7 @@ from .exceptions import FatalTraCIError, TraCIException  # noqa
 from . import _inductionloop, _lanearea, _multientryexit, _trafficlight  # noqa
 from . import _lane, _person, _route, _vehicle, _vehicletype  # noqa
 from . import _edge, _gui, _junction, _poi, _polygon, _simulation  # noqa
-from . import _calibrator, _routeprobe  # noqa
+from . import _calibrator, _routeprobe, _rerouter  # noqa
 from . import _busstop, _parkingarea, _chargingstation, _overheadwire  # noqa
 
 inductionloop = _inductionloop.InductionLoopDomain()
@@ -70,6 +70,7 @@ parkingarea = _parkingarea.ParkingAreaDomain()
 chargingstation = _chargingstation.ChargingStationDomain()
 overheadwire = _overheadwire.OverheadWireDomain()
 routeprobe = _routeprobe.RouteProbeDomain()
+rerouter = _rerouter.RerouterDomain()
 
 _connections = {}
 _traceFile = {}
