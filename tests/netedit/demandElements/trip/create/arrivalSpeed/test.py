@@ -38,7 +38,7 @@ netedit.vehicleMode()
 # netedit.changeElement("trip")
 
 # set invalid arrival lane
-netedit.changeDefaultValue(13, "dummySpeed")
+netedit.changeDefaultValue(12, "dummySpeed")
 
 # try to create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid arrival speed
-netedit.changeDefaultValue(13, "-12")
+netedit.changeDefaultValue(12, "-12")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid arrival speed
-netedit.changeDefaultValue(13, "max")
+netedit.changeDefaultValue(12, "max")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid arrival speed
-netedit.changeDefaultValue(13, "20")
+netedit.changeDefaultValue(12, "20")
 
 # create trip
 netedit.leftClick(referencePosition, 274, 414)

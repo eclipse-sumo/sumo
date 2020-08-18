@@ -38,7 +38,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (from-to)")
 
 # set invalid personNumber
-netedit.changeDefaultValue(15, "dummycontainerNumber")
+netedit.changeDefaultValue(14, "dummycontainerNumber")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -48,7 +48,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(15, "-12")
+netedit.changeDefaultValue(14, "-12")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set invalid personNumber
-netedit.changeDefaultValue(15, "3.5")
+netedit.changeDefaultValue(14, "3.5")
 
 # try to create flow
 netedit.leftClick(referencePosition, 274, 414)
@@ -68,7 +68,7 @@ netedit.leftClick(referencePosition, 280, 60)
 netedit.typeEnter()
 
 # set valid personNumber
-netedit.changeDefaultValue(15, "13")
+netedit.changeDefaultValue(14, "13")
 
 # create flow
 netedit.leftClick(referencePosition, 274, 414)

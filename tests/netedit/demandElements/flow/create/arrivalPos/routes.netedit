@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09.12.2019 14:31:40 by Eclipse SUMO netedit Version v1_3_1+1335-13e298d933
+<!-- generated on 18.08.2020 10:53:15 by Eclipse SUMO netedit Version v1_6_0+1619-158accbffd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec142551.6880\netedit.gui\demandElements\flow\create\arrivalPos\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec142551.6880\netedit.gui\demandElements\flow\create\arrivalPos\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,31 +30,34 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec142551.6880\netedit.gui\demandElements\flow\create\arrivalPos\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec142551.6880\netedit.gui\demandElements\flow\create\arrivalPos\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec142551.6880\netedit.gui\demandElements\flow\create\arrivalPos\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec142551.6880\netedit.gui\demandElements\flow\create\arrivalPos\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec142551.6880\netedit.gui\demandElements\flow\create\arrivalPos\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec142551.6880\netedit.gui\demandElements\flow\create\arrivalPos\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.09Dec142551.6880\netedit.gui\demandElements\flow\create\arrivalPos\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.18Aug100140.1244\netedit.gui\demandElements\flow\create\arrivalPos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <flow id="flow_0" begin="0.00" arrivalPos="20.00" from="gneE2" to="gneE5" end="3600.00" number="1800"/>
+    <flow id="flow_0" begin="0.00" arrivalPos="-12.00" from="gneE2" to="gneE5" end="3600.00" number="1800"/>
+    <flow id="flow_1" begin="0.00" arrivalPos="20.00" from="gneE2" to="gneE5" end="3600.00" number="1800"/>
 </routes>
