@@ -25,7 +25,6 @@ import sys
 
 SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
-print("\n".join(sys.path))
 import traci  # noqa
 import sumolib  # noqa
 

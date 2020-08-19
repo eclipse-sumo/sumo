@@ -1,8 +1,3 @@
-# meandata
-meandata
-
-# variablespeedsign
-variablespeedsign
 gui
 bugs
 
@@ -22,8 +17,6 @@ junction
 trafficlight
 route
 
-# Copy of route
-routeprobe
 inductionloop
 lanearea
 multientryexit
@@ -40,3 +33,11 @@ overheadwire
 
 # rerouter tests
 rerouter
+
+# meandata
+meandata
+
+# variablespeedsign
+variablespeedsign
+
+routeprobe
