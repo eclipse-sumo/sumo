@@ -34,24 +34,23 @@ for step in range(3):
     traci.simulationStep()
 print("routeprobes", traci.routeprobe.getIDList())
 print("routeprobe count", traci.routeprobe.getIDCount())
-#routeID = "horizontal"
-#print("examining", routeID)
-#print("edges", traci.route.getEdges(routeID))
-#traci.route.subscribe(routeID)
-#print(traci.route.getSubscriptionResults(routeID))
-#for step in range(3, 6):
-#    print("step", step)
-    # XXX: This stepping is a bit strange (intentional?)
-#    traci.simulationStep(step)
-#    print(traci.route.getSubscriptionResults(routeID))
-#traci.route.add("h2", ["1o"])
-#traci.route.add("withTaz", ["taz12-source", "taz34-sink"])
-#try:
-#    traci.route.add("empty", [])
-#except traci.TraCIException as e:
-#    if traci.isLibsumo():
-#        print(e, file=sys.stderr)
-#print("routes", traci.route.getIDList())
-#print("edges", traci.route.getEdges("h2"))
-#print("edges", traci.route.getEdges("withTaz"))
+
+probeID = "0"
+print("edge", traci.routeprobe.getEdgeID(probeID))
+
+while traci.simulation.getMinExpectedNumber() > 0:
+    try:
+        lastRouteID = traci.routeprobe.sampleLastRouteID(probeID)
+    except traci.TraCIException:
+        lastRouteID = None
+    try:
+        curRouteID = traci.routeprobe.sampleCurrentRouteID(probeID)
+    except traci.TraCIException:
+        curRouteID = None
+    print("%s last=%s cur=%s" % (
+        traci.simulation.getTime(),
+        lastRouteID,
+        curRouteID))
+    traci.simulationStep()
+
 traci.close()
