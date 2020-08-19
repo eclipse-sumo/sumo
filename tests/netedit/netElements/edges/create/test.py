@@ -35,28 +35,37 @@ netedit.rebuildNetwork()
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(referencePosition, 100, 200)
-netedit.leftClick(referencePosition, 500, 200)
+netedit.leftClick(referencePosition, 100, 100)
+netedit.leftClick(referencePosition, 500, 100)
 
 # Create another two nodes
-netedit.leftClick(referencePosition, 100, 400)
-netedit.leftClick(referencePosition, 500, 400)
+netedit.leftClick(referencePosition, 100, 150)
+netedit.leftClick(referencePosition, 500, 150)
+netedit.leftClick(referencePosition, 500, 150)
+netedit.leftClick(referencePosition, 100, 150)
 
 # select two-way mode
-netedit.changeEditMode('4')
+netedit.changeEditMode('5')
 
 # create square
 netedit.leftClick(referencePosition, 100, 400)
 netedit.leftClick(referencePosition, 100, 200)
+
+netedit.leftClick(referencePosition, 100, 200)
+netedit.leftClick(referencePosition, 500, 200)
+
 netedit.leftClick(referencePosition, 500, 200)
 netedit.leftClick(referencePosition, 500, 400)
+
+netedit.leftClick(referencePosition, 500, 400)
+netedit.leftClick(referencePosition, 100, 400)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 7)
+netedit.redo(referencePosition, 7)
 
 # rebuild network
 netedit.rebuildNetwork()

@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # split edge
-netedit.contextualMenuOperation(referencePosition, 250, 170, 9, 1)
+netedit.contextualMenuOperation(referencePosition, 250, 160, 9, 1)
 
 # recompute
 netedit.rebuildNetwork()

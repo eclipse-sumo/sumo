@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # reverse edge in both directions
-netedit.contextualMenuOperation(referencePosition, 250, 150, 9, 6)
+netedit.contextualMenuOperation(referencePosition, 250, 160, 9, 6)
 
 # recompute
 netedit.rebuildNetwork()
