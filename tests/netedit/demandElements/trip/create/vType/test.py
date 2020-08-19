@@ -41,7 +41,7 @@ netedit.vehicleMode()
 netedit.changeDefaultValue(2, "blue")
 
 # try to create trip
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create trip
@@ -51,7 +51,7 @@ netedit.typeEnter()
 netedit.changeDefaultValue(2, "custom_vType")
 
 # create trip
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create trip

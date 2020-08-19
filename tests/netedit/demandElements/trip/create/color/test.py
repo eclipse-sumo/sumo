@@ -41,7 +41,7 @@ netedit.vehicleMode()
 netedit.changeDefaultValue(6, "dummyColor")
 
 # try to create trip
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create trip
@@ -51,7 +51,7 @@ netedit.typeEnter()
 netedit.changeDefaultValue(6, "cyan")
 
 # create trip
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create trip
@@ -61,7 +61,7 @@ netedit.typeEnter()
 netedit.changeDefaultValue(6, "12,13,14")
 
 # create trip
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 280, 60)
 
 # press enter to create trip

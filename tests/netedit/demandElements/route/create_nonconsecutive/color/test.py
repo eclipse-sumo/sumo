@@ -41,7 +41,7 @@ netedit.changeRouteMode("non consecutive edges")
 netedit.changeDefaultValue(6, "dummyColor")
 
 # try to create route using three edges
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 570, 250)
 
 # press enter to try to create route

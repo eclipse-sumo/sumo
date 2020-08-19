@@ -38,7 +38,7 @@ netedit.routeMode()
 netedit.changeRouteMode("non consecutive edges")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 280, 60)
 netedit.leftClick(referencePosition, 190, 256)
 

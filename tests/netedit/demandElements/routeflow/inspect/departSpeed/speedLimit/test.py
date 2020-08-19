@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
@@ -49,7 +49,7 @@ netedit.vehicleMode()
 netedit.changeElement("flow (over route)")
 
 # create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 
 # go to inspect mode
 netedit.inspectMode()

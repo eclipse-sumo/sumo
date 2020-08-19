@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
@@ -52,13 +52,13 @@ netedit.changeElement("vehicle (over route)")
 netedit.changeDefaultValue(2, "blue")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 
 # set valid vType
 netedit.changeDefaultValue(2, "custom_vType")
 
 # create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

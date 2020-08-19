@@ -38,7 +38,7 @@ netedit.personMode()
 netedit.changePersonPlan("rides", "rideFromTo")
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 180, 60)
 
 # press enter to create route

@@ -41,7 +41,7 @@ netedit.changeElement("personFlow")
 netedit.changePersonFlowPlan("stops", "personStopLane")
 
 # create stop clicking over lane
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

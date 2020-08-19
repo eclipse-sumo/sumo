@@ -3,10 +3,10 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to)
 blue
-TestFunctions: Clicked over position 578 - 582
+TestFunctions: Clicked over position 578 - 584
 TestFunctions: Clicked over position 584 - 228
 custom_vType
-TestFunctions: Clicked over position 578 - 582
+TestFunctions: Clicked over position 578 - 584
 TestFunctions: Clicked over position 584 - 228
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

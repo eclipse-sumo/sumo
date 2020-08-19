@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 netedit.leftClick(referencePosition, 570, 250)
 netedit.leftClick(referencePosition, 280, 60)
 
@@ -52,7 +52,7 @@ netedit.changeElement("vehicle (over route)")
 netedit.changeDefaultValue(2, "DEFAULT_BIKETYPE")
 
 # create vehicle
-netedit.leftClick(referencePosition, 274, 414)
+netedit.leftClick(referencePosition, 274, 416)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
