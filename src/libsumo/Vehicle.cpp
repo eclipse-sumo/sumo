@@ -795,8 +795,12 @@ std::vector<std::string>
 Vehicle::getTaxiFleet(int taxiState) {
     std::vector<std::string> result;
     for (MSDevice_Taxi* taxi : MSDevice_Taxi::getFleet()) {
-        if (taxi->getHolder().hasDeparted() && (taxi->getState() & taxiState) == taxi->getState()) {
-            result.push_back(taxi->getHolder().getID());
+        if (taxi->getHolder().hasDeparted()) {
+            if (taxiState == -1
+                    || (taxiState == 0 && taxi->getState() == 0)
+                    || (taxiState != 0 && (taxi->getState() & taxiState) == taxiState)) {
+                result.push_back(taxi->getHolder().getID());
+            }
         }
     }
     return result;
