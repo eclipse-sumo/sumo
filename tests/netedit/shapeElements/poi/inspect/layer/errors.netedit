@@ -9,7 +9,7 @@ Debug: Current saving Status: net unsaved, additionals saved, demand elements sa
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poi' in TagSelector
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -1.00,17.00,5.00,23.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Value 'dummyLayer' for attribute layer of poi isn't valid
@@ -29,11 +29,11 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'poi_0' from viewNet
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -1.00,17.00,5.00,23.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -1.00,17.00,5.00,23.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute layer '-2' into poi 'poi_0'
@@ -59,7 +59,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poi 'poi_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -1.00,17.00,5.00,23.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'poi_0' in ~GNEChange_Shape()

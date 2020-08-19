@@ -9,7 +9,7 @@ Debug: Current saving Status: net unsaved, additionals saved, demand elements sa
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poi' in TagSelector
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -1.00,17.00,5.00,23.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Invalid input parameter of poi: 'color' doesn't have a valid 'RBGColor' format
@@ -22,11 +22,11 @@ GLDebug: 	Removed object poi:poi_1 from SUMORTree with boundary 9.00,17.00,15.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'poi_0' from viewNet
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -1.00,17.00,5.00,23.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -1.00,17.00,5.00,23.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poi 'poi_1' into viewNet
@@ -52,7 +52,7 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'poi_1' in ~GNEChange_Shape()
 Debug: Removing poi 'poi_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -1.00,17.00,5.00,23.00
 Debug: delete poi 'poi_0' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

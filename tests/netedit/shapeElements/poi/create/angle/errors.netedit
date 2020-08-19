@@ -16,11 +16,11 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Adding poi 'poi_1' into viewNet
 GLDebug: 	Inserted poi:poi_1 into SUMORTree with boundary 9.00,17.00,15.00,23.00
 Debug: Adding poi 'poi_2' into viewNet
-GLDebug: 	Inserted poi:poi_2 into SUMORTree with boundary 14.00,17.00,20.00,23.00
+GLDebug: 	Inserted poi:poi_2 into SUMORTree with boundary 13.00,17.00,19.00,23.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'poi_2' from viewNet
-GLDebug: 	Removed object poi:poi_2 from SUMORTree with boundary 14.00,17.00,20.00,23.00
+GLDebug: 	Removed object poi:poi_2 from SUMORTree with boundary 13.00,17.00,19.00,23.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'poi_1' from viewNet
@@ -40,7 +40,7 @@ GLDebug: 	Inserted poi:poi_1 into SUMORTree with boundary 9.00,17.00,15.00,23.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poi 'poi_2' into viewNet
-GLDebug: 	Inserted poi:poi_2 into SUMORTree with boundary 14.00,17.00,20.00,23.00
+GLDebug: 	Inserted poi:poi_2 into SUMORTree with boundary 13.00,17.00,19.00,23.00
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -57,7 +57,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poi 'poi_2' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object poi:poi_2 from SUMORTree with boundary 14.00,17.00,20.00,23.00
+GLDebug: 	Removed object poi:poi_2 from SUMORTree with boundary 13.00,17.00,19.00,23.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'poi_2' in ~GNEChange_Shape()

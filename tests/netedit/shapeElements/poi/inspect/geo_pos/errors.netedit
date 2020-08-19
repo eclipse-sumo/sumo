@@ -9,30 +9,30 @@ Debug: Current saving Status: net unsaved, additionals saved, demand elements sa
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poi' in TagSelector
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -1.00,17.00,5.00,23.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute lon/lat '3.73,74.30' into poi 'poi_0'
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -2.00,17.00,4.00,23.00
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -1.00,17.00,5.00,23.00
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute lon/lat '10.511041,0.000180' into poi 'poi_0'
+Debug: Setting previous attribute lon/lat '10.511050,0.000180' into poi 'poi_0'
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -2.01,16.96,3.99,22.96
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -1.01,16.96,4.99,22.96
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'poi_0' from viewNet
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -2.01,16.96,3.99,22.96
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -1.01,16.96,4.99,22.96
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -2.01,16.96,3.99,22.96
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -1.01,16.96,4.99,22.96
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute lon/lat '3.73,74.30' into poi 'poi_0'
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -2.01,16.96,3.99,22.96
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -1.01,16.96,4.99,22.96
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 161487.74,8277676.01,161493.74,8277682.01
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing

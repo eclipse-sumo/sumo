@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poi")
 
 # create first POI
-netedit.leftClick(referencePosition, 100, 55)
+netedit.leftClick(referencePosition, 108, 50)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POI
-netedit.leftClick(referencePosition, 100, 55)
+netedit.leftClick(referencePosition, 108, 50)
 
 # Change boolean parameter block
 netedit.modifyBoolAttribute(15, False)
