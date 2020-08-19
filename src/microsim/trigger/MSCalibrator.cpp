@@ -66,6 +66,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
                            const std::string& outputFilename,
                            const SUMOTime freq, const double length,
                            const MSRouteProbe* probe,
+                           const double invalidJamThreshold,
                            const std::string& vTypes,
                            bool addLaneMeanData) :
     MSTrigger(id),
@@ -83,6 +84,7 @@ MSCalibrator::MSCalibrator(const std::string& id,
     myDefaultSpeed(myLane == nullptr ? myEdge->getSpeedLimit() : myLane->getSpeedLimit()),
     myHaveWarnedAboutClearingJam(false),
     myAmActive(false),
+    myInvalidJamThreshold(invalidJamThreshold),
     myHaveInvalidJam(false) {
     myInstances[id] = this;
     if (outputFilename != "") {
@@ -476,7 +478,7 @@ MSCalibrator::invalidJam(int laneIndex) const {
         return false;
     }
     // maxSpeed reflects the calibration target
-    const bool toSlow = lane->getMeanSpeed() < 0.5 * myEdge->getSpeedLimit();
+    const bool toSlow = lane->getMeanSpeed() < myInvalidJamThreshold * myEdge->getSpeedLimit();
     return toSlow && remainingVehicleCapacity(laneIndex) < 1;
 }
 

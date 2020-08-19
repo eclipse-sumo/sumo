@@ -42,6 +42,7 @@ public:
                           const std::string& outputFilename,
                           const SUMOTime freq, const double length,
                           const MSRouteProbe* probe,
+                          const double invalidJamThreshold,
                           const std::string& vTypes);
 
     /** destructor */

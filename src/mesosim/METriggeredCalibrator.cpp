@@ -53,8 +53,9 @@ METriggeredCalibrator::METriggeredCalibrator(const std::string& id,
         const std::string& outputFilename,
         const SUMOTime freq, const double length,
         const MSRouteProbe* probe,
+        const double invalidJamThreshold,
         const std::string& vTypes) :
-    MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, vTypes, false),
+    MSCalibrator(id, edge, (MSLane*)nullptr, pos, aXMLFilename, outputFilename, freq, length, probe, invalidJamThreshold, vTypes, false),
     mySegment(MSGlobals::gMesoNet->getSegmentForEdge(*edge, pos)) {
     myEdgeMeanData.setDescription("meandata_calibrator_" + getID());
     mySegment->addDetector(&myEdgeMeanData);
@@ -247,7 +248,7 @@ METriggeredCalibrator::invalidJam() const {
         return false;
     }
     // maxSpeed reflects the calibration target
-    const bool toSlow = mySegment->getMeanSpeed() < 0.8 * mySegment->getEdge().getSpeedLimit();
+    const bool toSlow = mySegment->getMeanSpeed() < myInvalidJamThreshold * mySegment->getEdge().getSpeedLimit();
     return toSlow && remainingVehicleCapacity() < maximumInflow();
 }
 

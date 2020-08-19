@@ -384,6 +384,7 @@ protected:
                                           const std::string& file, const std::string& outfile,
                                           const SUMOTime freq,
                                           const MSRouteProbe* probe,
+                                          const double invalidJamThreshold,
                                           const std::string& vTypes);
 
     /** @brief builds a mesoscopic calibrator
@@ -402,6 +403,7 @@ protected:
             const std::string& file, const std::string& outfile,
             const SUMOTime freq,
             MSRouteProbe* probe,
+            const double invalidJamThreshold,
             const std::string& vTypes);
 
 
