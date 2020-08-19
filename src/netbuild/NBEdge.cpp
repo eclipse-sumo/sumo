@@ -1572,6 +1572,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
     int internalLaneIndex = 0;
     int numLanes = 0; // number of lanes that share the same edge
     double lengthSum = 0; // total shape length of all lanes that share the same edge
+    int avoidedIntersectingLeftOriginLane = std::numeric_limits<int>::max();
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         Connection& con = *i;
         con.haveVia = false; // reset first since this may be called multiple times
@@ -1627,18 +1628,29 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         }
                         const bool foes = n.foes(this, con.toEdge, *i2, (*k2).toEdge);
                         bool needsCont = !isRailway(conPermissions) && n.needsCont(this, *i2, con, *k2);
-                        bool oppositeLeftIntersect = !foes && bothLeftIntersect(n, shape, dir, *i2, *k2, numPoints, width2);
+                        const bool avoidIntersectCandidate = !foes && bothLeftTurns(n, dir, *i2, *k2);
+                        bool oppositeLeftIntersect = avoidIntersectCandidate && haveIntersection(n, shape, *i2, *k2, numPoints, width2);
                         int shapeFlag = 0;
-                        // do not warn if only bicycles pedestrians or delivery vehicles are involved as this is a typical occurence
                         SVCPermissions warn = SVCAll & ~(SVC_PEDESTRIAN | SVC_BICYCLE | SVC_DELIVERY | SVC_RAIL_CLASSES);
-                        if (oppositeLeftIntersect
+                        // do not warn if only bicycles pedestrians or delivery vehicles are involved as this is a typical occurence
+                        if (con.customShape.size() == 0
+                                && (*k2).customShape.size() == 0
+                                && (oppositeLeftIntersect || (avoidedIntersectingLeftOriginLane < con.fromLane  && avoidIntersectCandidate))
                                 && (((*i2)->getPermissions((*k2).fromLane) & warn) != 0
                                     && ((*k2).toEdge->getPermissions((*k2).toLane) & warn) != 0)) {
                             // recompute with different curve parameters (unless
                             // the other connection is "unimportant"
                             shapeFlag = NBNode::AVOID_INTERSECTING_LEFT_TURNS;
+                            PositionVector origShape = shape;
                             shape = n.computeInternalLaneShape(this, con, numPoints, myTo, shapeFlag);
-                            oppositeLeftIntersect = bothLeftIntersect(n, shape, dir, *i2, *k2, numPoints, width2, shapeFlag);
+                            oppositeLeftIntersect = haveIntersection(n, shape, *i2, *k2, numPoints, width2, shapeFlag);
+                            if (oppositeLeftIntersect
+                                    && (conPermissions & (SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN))) == 0) {
+                                shape = origShape;
+                            } else {
+                                // make sure connections further to the left do not get a wider angle
+                                avoidedIntersectingLeftOriginLane = con.fromLane;
+                            }
                         }
                         const bool bothPrio = getJunctionPriority(&n) > 0 && (*i2)->getJunctionPriority(&n) > 0;
                         //std::cout << "n=" << n.getID() << " e1=" << getID() << " prio=" << getJunctionPriority(&n) << " e2=" << (*i2)->getID() << " prio2=" << (*i2)->getJunctionPriority(&n) << " both=" << bothPrio << " bothLeftIntersect=" << bothLeftIntersect(n, shape, dir, *i2, *k2, numPoints, width2) << " needsCont=" << needsCont << "\n";
@@ -1873,24 +1885,20 @@ NBEdge::firstIntersection(const PositionVector& v1, const PositionVector& v2, do
 
 
 bool
-NBEdge::bothLeftIntersect(const NBNode& n, const PositionVector& shape, LinkDirection dir, NBEdge* otherFrom, const NBEdge::Connection& otherCon, int numPoints, double width2, int shapeFlag) const {
+NBEdge::bothLeftTurns(const NBNode& n, LinkDirection dir, NBEdge* otherFrom, const NBEdge::Connection& otherCon) const {
     if (otherFrom == this) {
         // not an opposite pair
         return false;
     }
     LinkDirection dir2 = n.getDirection(otherFrom, otherCon.toEdge);
-    const bool bothLeft = (dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) && (dir2 == LinkDirection::LEFT || dir2 == LinkDirection::PARTLEFT);
-    if (bothLeft) {
-        const PositionVector otherShape = n.computeInternalLaneShape(otherFrom, otherCon, numPoints, 0, shapeFlag);
-        const double minDV = firstIntersection(shape, otherShape, width2);
-        if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
+    return (dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) && (dir2 == LinkDirection::LEFT || dir2 == LinkDirection::PARTLEFT);
+}
+
+bool
+NBEdge::haveIntersection(const NBNode& n, const PositionVector& shape, NBEdge* otherFrom, const NBEdge::Connection& otherCon, int numPoints, double width2, int shapeFlag) const {
+    const PositionVector otherShape = n.computeInternalLaneShape(otherFrom, otherCon, numPoints, 0, shapeFlag);
+    const double minDV = firstIntersection(shape, otherShape, width2);
+    return minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS;
 }
 
 
