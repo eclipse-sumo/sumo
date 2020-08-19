@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.leftClick(referencePosition, 325, 250)
 
 # check parameters
-netedit.checkParameters(referencePosition, 15, False)
+netedit.checkParameters(referencePosition, 16, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

@@ -1,5 +1,3 @@
-Warning: The lane 'gneJ17_0' to use within the detEntry is not known.
-Warning: The lane '-gneJ12_0' to use within the detExit is not known.
 Warning: An e3Detector need at least one detEntry detector
 Warning: An e3Detector need at least one detExit detector
 Warning: e3Detector with ID='e3Detector_0' cannot be written

@@ -34,17 +34,17 @@ netedit.rebuildNetwork()
 # go to select mode
 netedit.selectMode()
 
-# select first edge
-netedit.leftClick(referencePosition, 325, 250)
+# select first junction
+netedit.leftClick(referencePosition, 325, 230)
 
-# select second edge
-netedit.leftClick(referencePosition, 10, 220)
+# select select second junction
+netedit.leftClick(referencePosition, 7, 238)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect central node
-netedit.leftClick(referencePosition, 325, 220)
+netedit.leftClick(referencePosition, 325, 230)
 
 # set invalid right of way
 netedit.modifyAttribute(3, "dummyRightOfWays", False)

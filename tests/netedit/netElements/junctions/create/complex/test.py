@@ -50,7 +50,7 @@ netedit.leftClick(referencePosition, 300, 150)
 netedit.cancelEdge()
 
 # disable chain mode
-netedit.changeEditMode('3')
+netedit.changeEditMode('4')
 
 # create a complex intersection
 netedit.leftClick(referencePosition, 300, 250)

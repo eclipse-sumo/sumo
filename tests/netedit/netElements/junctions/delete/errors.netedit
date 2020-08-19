@@ -12,6 +12,8 @@ Debug: Adding busStop 'busStop_gneE5_0_8' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE6_0_9' in GNEChange_Additional
 Debug: Adding busStop 'busStop_gneE7_0_6' in GNEChange_Additional
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
@@ -70,7 +72,8 @@ Debug: Created connection 'fromgneE6_0togneE7_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
@@ -78,7 +81,8 @@ Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Removing edge 'gneE0' from net
 Debug: Setting new attribute type 'priority' into junction 'gneJ0'
-Debug: Removing junction 'gneJ0' from netDebug: Removing connection 'gneE2_0->gneE1_0' from edge 'gneE2'
+Debug: Removing junction 'gneJ0' from net
+Debug: Removing connection 'gneE2_0->gneE1_0' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE1_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
@@ -95,7 +99,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Removing edge 'gneE2' from net
-Debug: Removing junction 'gneJ2' from netDebug: Removing connection '-gneE3_0->gneE3_0' from edge '-gneE3'
+Debug: Removing junction 'gneJ2' from net
+Debug: Removing connection '-gneE3_0->gneE3_0' from edge '-gneE3'
 Debug: Deleting unreferenced connection 'from-gneE3_0togneE3_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE3'
 Debug: invalidating (removing) connections of edge '-gneE3' due it were guessed
@@ -112,7 +117,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '-gneE3' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
 Debug: Removing edge '-gneE3' from net
-Debug: Removing junction 'gneJ4' from netDebug: Removing busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
+Debug: Removing junction 'gneJ4' from net
+Debug: Removing busStop 'busStop_-gneE4_0_2' in GNEChange_Additional
 Debug: Removing connection '-gneE5_0->-gneE4_0' from edge '-gneE5'
 Debug: Deleting unreferenced connection 'from-gneE5_0to-gneE4_0' in removeConnection()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
@@ -164,7 +170,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge 'gneE6' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Debug: Removing edge '-gneE7' from net
-Debug: Removing junction 'gneJ6' from netDebug: Removing busStop 'busStop_gneE5_0_8' in GNEChange_Additional
+Debug: Removing junction 'gneJ6' from net
+Debug: Removing busStop 'busStop_gneE5_0_8' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE5'
 Debug: invalidating (removing) connections of edge '-gneE5' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ7'
@@ -200,7 +207,8 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge 'gneE6' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ9'
 Debug: Removing edge 'gneE6' from net
-Debug: Removing junction 'gneJ8' from netDebug: Removing connection '-gneE8_0->-gneE16_0' from edge '-gneE8'
+Debug: Removing junction 'gneJ8' from net
+Debug: Removing connection '-gneE8_0->-gneE16_0' from edge '-gneE8'
 Debug: Deleting unreferenced connection 'from-gneE8_0to-gneE16_0' in removeConnection()
 Debug: Removing connection '-gneE8_0->-gneE15_0' from edge '-gneE8'
 Debug: Deleting unreferenced connection 'from-gneE8_0to-gneE15_0' in removeConnection()
@@ -268,6 +276,7 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge 'gneE15' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Debug: Removing edge 'gneE16' from net
+Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Removing connection 'gneE9_0->gneE10_0' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE10_0' in removeConnection()
 Debug: Removing connection 'gneE9_0->-gneE17_0' from edge 'gneE9'
@@ -367,6 +376,7 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Debug: Removing edge '-gneE19' from net
+Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
@@ -385,7 +395,8 @@ Debug: Created connection 'from-gneE8_0to-gneE15_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE11_0togneE12_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE13_0togneE14_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE15_0togneE8_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding junction 'gneJ19' into net
 Debug: Adding edge 'gneE19' from net
@@ -399,6 +410,7 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' int
 Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
 Debug: Deleting unreferenced connection 'from-gneE14_0to-gneE13_0' in clearGNEConnections()
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
+Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding edge '-gneE19' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE19'
@@ -502,6 +514,7 @@ Debug: Adding connection 'gneE9_0->-gneE17_0' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Adding connection 'gneE9_0->gneE10_0' into edge 'gneE9'
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
+Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Adding edge 'gneE16' from net
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE15'
@@ -715,7 +728,8 @@ Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into edge 'gneE0'
 Debug: declaring connections of edge 'gneE0' as loaded (It will not be removed)
 Debug: Setting previous attribute modificationStatusNotForPrinting 'loaded' into junction 'gneJ0'
-Debug: Key F5 (Compute) pressedDebug: Keys Ctrl+Y (Redo) pressed
+Debug: Key F5 (Compute) pressed
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
@@ -928,6 +942,7 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge 'gneE15' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ11'
 Debug: Removing edge 'gneE16' from net
+Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Removing connection 'gneE9_0->gneE10_0' from edge 'gneE9'
 Debug: Deleting unreferenced connection 'fromgneE9_0togneE10_0' in removeConnection()
 Debug: Removing connection 'gneE9_0->-gneE17_0' from edge 'gneE9'
@@ -1027,6 +1042,7 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge '-gneE19' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Debug: Removing edge '-gneE19' from net
+Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ19'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '-gneE14'
 Debug: invalidating (removing) connections of edge '-gneE14' due it were guessed
@@ -1100,6 +1116,8 @@ Debug: Deleting unreferenced edge 'gneE0' in GNEChange_Attribute
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in GNEChange_Attribute
 Debug: Deleting NBNode of 'gneJ0' in GNEJunction destructor
+Debug: Deleting unreferenced detExit 'e3Detector_0'
+Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved

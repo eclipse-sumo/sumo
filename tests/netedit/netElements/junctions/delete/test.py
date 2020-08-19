@@ -28,28 +28,30 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-
 # rebuild network
 netedit.rebuildNetwork()
 
 # Change to delete mode
 netedit.deleteMode()
 
+# disable 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+
 # remove one way edge
-netedit.leftClick(referencePosition, 50, 55)
+netedit.leftClick(referencePosition, 50, 60)
 
 # remove two way edges
-netedit.leftClick(referencePosition, 260, 55)
+netedit.leftClick(referencePosition, 260, 60)
 
 # remove two way edges
-netedit.leftClick(referencePosition, 500, 55)
+netedit.leftClick(referencePosition, 500, 60)
 
 # remove square
-netedit.leftClick(referencePosition, 58, 160)
-netedit.leftClick(referencePosition, 150, 260)
+netedit.leftClick(referencePosition, 50, 180)
+netedit.leftClick(referencePosition, 160, 290)
 
 # remove circular road
-netedit.leftClick(referencePosition, 450, 240)
+netedit.leftClick(referencePosition, 430, 290)
 
 # rebuild network
 netedit.rebuildNetwork()

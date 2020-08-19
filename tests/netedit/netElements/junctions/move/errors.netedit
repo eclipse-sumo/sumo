@@ -58,13 +58,64 @@ Debug: Created connection 'fromgneE7_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0to-gneE17_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE10_0' in retrieveGNEConnection()
-Debug: Setting new attribute pos '30.00,20.00,1.40' into junction 'gneJ19'
+Debug: Setting new attribute pos '0.00,70.00' into junction 'gneJ0'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
+Debug: Setting new attribute pos '20.00,70.00' into junction 'gneJ1'
+Debug: Setting new attribute pos '40.00,70.00' into junction 'gneJ2'
+Debug: Setting new attribute pos '60.00,70.00' into junction 'gneJ3'
+Debug: Setting new attribute pos '10.00,0.00,1.40' into junction 'gneJ19'
 Debug: Key F5 (Compute) pressed
-Debug: Setting new attribute pos '120,20.2' into junction 'gneJ13'
-Debug: Key F5 (Compute) pressed
-Debug: Deleting net builder in GNENet destructor
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '70.00,20.00,1.40' into junction 'gneJ19'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '60.00,60.00' into junction 'gneJ3'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '40.00,60.00' into junction 'gneJ2'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '20.00,60.00' into junction 'gneJ1'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '0.00,60.00' into junction 'gneJ0'
+Debug: Setting new attribute pos '0.00,70.00' into junction 'gneJ0'
+Debug: Setting new attribute pos '20.00,70.00' into junction 'gneJ1'
+Debug: Setting new attribute pos '40.00,70.00' into junction 'gneJ2'
+Debug: Setting new attribute pos '60.00,70.00' into junction 'gneJ3'
+Debug: Setting new attribute pos '10.00,0.00,1.40' into junction 'gneJ19'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '70.00,20.00,1.40' into junction 'gneJ19'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '60.00,60.00' into junction 'gneJ3'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '40.00,60.00' into junction 'gneJ2'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '20.00,60.00' into junction 'gneJ1'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '0.00,60.00' into junction 'gneJ0'
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute pos '0.00,70.00' into junction 'gneJ0'
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute pos '20.00,70.00' into junction 'gneJ1'
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute pos '40.00,70.00' into junction 'gneJ2'
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute pos '60.00,70.00' into junction 'gneJ3'
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute pos '10.00,0.00,1.40' into junction 'gneJ19'
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE10_0to-gneE9_0' in GNEEdge destructor
@@ -89,23 +140,23 @@ Debug: Deleting unreferenced connection 'from-gneE15_0to-gneE14_0' in GNEEdge de
 Debug: Deleting unreferenced edge '-gneE16' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE16_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE16_0togneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-gneE16_0togneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE16_0togneE17_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-gneE16_0togneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE17' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE17_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-gneE17_0togneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE17_0togneE16_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE17_0togneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-gneE17_0togneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE18' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-gneE18_0togneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE18_0togneE17_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-gneE18_0togneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE18_0togneE16_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE19' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'from-gneE19_0togneE16_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE19_0togneE18_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE19_0togneE17_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from-gneE19_0togneE16_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge '-gneE3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from-gneE3_0togneE3_0' in GNEEdge destructor
@@ -138,8 +189,8 @@ Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE11_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE11' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE11_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE11_0to-gneE18_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE11_0togneE12_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE11_0to-gneE18_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE12' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE12_0togneE13_0' in GNEEdge destructor
@@ -164,8 +215,8 @@ Debug: Deleting unreferenced connection 'fromgneE17_0togneE10_0' in GNEEdge dest
 Debug: Deleting unreferenced connection 'fromgneE17_0to-gneE9_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE18' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE18_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE18_0togneE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE18_0to-gneE11_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE18_0togneE12_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE19' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE19_0to-gneE13_0' in GNEEdge destructor
@@ -217,3 +268,4 @@ Debug: Deleting unreferenced junction 'gneJ9' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
+Debug: Deleting net builder in GNENet destructor
