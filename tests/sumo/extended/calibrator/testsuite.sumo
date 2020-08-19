@@ -32,6 +32,9 @@ high_flow
 # Calibrators should prevent invalid downstream jams from affecting upstream edges
 swallow_downstream_jam
 
+# disable detection and compensation of unexpected downstream jamming
+swallow_downstream_jam_disabled
+
 # test calibrator without flow value (speed has to be given)
 speed_only
 
