@@ -95,6 +95,9 @@ By default, taxis will remain in the simulation until all persons have left. To 
 # TraCI
 To couple an external dispatch algorithm to SUMO, the following [TraCI](../TraCI.md) functions are provided:
 
+!!! note
+    To make use of these functions, the option **--device.taxi.dispatch-algorithm traci** must be set
+
 - traci.person.getTaxiReservations(onlyNew)
 - traci.vehicle.getTaxiFleet(taxiState)
 - traci.vehicle.dispatchTaxi(vehID, reservations)
