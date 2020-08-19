@@ -1250,6 +1250,12 @@ TRACI_CONST int REMOVE_STAGE = 0xc5;
 // retrieve taxi reservation (person)
 TRACI_CONST int VAR_TAXI_RESERVATIONS = 0xc6;
 
+// sample last route (routeprobe)
+TRACI_CONST int VAR_SAMPLE_LAST = 0x20;
+
+// sample current route (routeprobe)
+TRACI_CONST int VAR_SAMPLE_CURRENT = 0x21;
+
 // zoom
 TRACI_CONST int VAR_VIEW_ZOOM = 0xa0;
 

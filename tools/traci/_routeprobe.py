@@ -28,16 +28,23 @@ class RouteProbeDomain(Domain):
                         tc.CMD_SUBSCRIBE_ROUTEPROBE_VARIABLE, tc.RESPONSE_SUBSCRIBE_ROUTEPROBE_VARIABLE,
                         tc.CMD_SUBSCRIBE_ROUTEPROBE_CONTEXT, tc.RESPONSE_SUBSCRIBE_ROUTEPROBE_CONTEXT)
 
-    # def getEdges(self, routeID):
-    #     """getEdges(string) -> list(string)
+    def getEdgeID(self, probeID):
+        """getEdgeID(string) -> string
+        Returns the edge id of the given route probe
+        """
+        return self._getUniversal(tc.VAR_ROAD_ID, probeID)
 
-    #     Returns a list of all edges in the route.
-    #     """
-    #     return self._getUniversal(tc.VAR_EDGES, routeID)
+    def sampleLastRouteID(self, probeID):
+        """sampleLastRouteID(string) -> string
+        Returns a random routeID from the distribution collected by this route
+        proble in the previous collectin interval
+        """
+        return self._getUniversal(tc.VAR_SAMPLE_LAST, probeID)
 
-    # def add(self, routeID, edges):
-    #     """add(string, list(string)) -> None
+    def sampleCurrentRouteID(self, probeID):
+        """sampleCurrentRouteID(string) -> string
+        Returns a random routeID from the distribution collected by this route
+        proble in the current collectin interval
+        """
+        return self._getUniversal(tc.VAR_SAMPLE_CURRENT, probeID)
 
-    #     Adds a new route with the given id consisting of the given list of edge IDs.
-    #     """
-    #     self._setCmd(tc.ADD, routeID, "l", edges)
