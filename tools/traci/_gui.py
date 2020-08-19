@@ -128,4 +128,16 @@ class GuiDomain(Domain):
         """
         self._setCmd(tc.VAR_TRACK_VEHICLE, viewID, "s", objID)
 
+    def isSelected(self, objID, objType = "vehicle"):
+        """isSelected(string, string) -> int
+        Return 1 if the object of the given type and id is select, 0 otherwise
+        """
+        return self._getUniversal(tc.VAR_SELECT, objID, "s", objType)
+
+    def toggleSelection(self, objID, objType = "vehicle"):
+        """toggleSelection(string, string) -> int
+        Toggle selection status for the object of the given type and id
+        """
+        self._setCmd(tc.VAR_SELECT, objID, "s", objType)
+
 

@@ -1268,6 +1268,9 @@ TRACI_CONST int VAR_VIEW_SCHEMA = 0xa2;
 // view by boundary
 TRACI_CONST int VAR_VIEW_BOUNDARY = 0xa3;
 
+// select/deselect object (gui)
+TRACI_CONST int VAR_SELECT = 0xa4;
+
 // screenshot
 TRACI_CONST int VAR_SCREENSHOT = 0xa5;
 

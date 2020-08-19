@@ -26,6 +26,8 @@
 #include <utils/gui/windows/GUIGlChildWindow.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
+#include <utils/gui/globjects/GUIGlObjectStorage.h>
+#include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/foxtools/MFXImageHelper.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -50,6 +52,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
     // check variable
     if (variable != libsumo::TRACI_ID_LIST && variable != libsumo::VAR_VIEW_ZOOM && variable != libsumo::VAR_VIEW_OFFSET
             && variable != libsumo::VAR_VIEW_SCHEMA && variable != libsumo::VAR_VIEW_BOUNDARY && variable != libsumo::VAR_HAS_VIEW
+            && variable != libsumo::VAR_SELECT
             && variable != libsumo::VAR_TRACK_VEHICLE) {
         return server.writeErrorStatusCmd(libsumo::CMD_GET_GUI_VARIABLE, "Get GUI Variable: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
@@ -66,7 +69,7 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
         tempMsg.writeStringList(ids);
     } else {
         GUISUMOAbstractView* v = getNamedView(id);
-        if (v == nullptr && variable != libsumo::VAR_HAS_VIEW) {
+        if (v == nullptr && variable != libsumo::VAR_HAS_VIEW && variable != libsumo::VAR_SELECT) {
             return server.writeErrorStatusCmd(libsumo::CMD_GET_GUI_VARIABLE, "View '" + id + "' is not known", outputStorage);
         }
         switch (variable) {
@@ -96,6 +99,22 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             case libsumo::VAR_HAS_VIEW: {
                 tempMsg.writeUnsignedByte(libsumo::TYPE_INTEGER);
                 tempMsg.writeInt(v != nullptr ? 1 : 0);
+            }
+            break;
+            case libsumo::VAR_SELECT: {
+                std::string objType;
+                if (!server.readTypeCheckingString(inputStorage, objType)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_GET_GUI_VARIABLE, "The type of the object must be given as a string.", outputStorage);
+                }
+                const std::string fullName = objType + ":" + id;
+                GUIGlObject* obj = GUIGlObjectStorage::gIDStorage.getObjectBlocking(fullName);
+                if (obj == nullptr) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_GET_GUI_VARIABLE, "The " + objType + " " + id + " is not known.", outputStorage);
+                } else {
+                    tempMsg.writeUnsignedByte(libsumo::TYPE_INTEGER);
+                    tempMsg.writeInt(gSelected.isSelected(obj) ? 1 : 0);
+                    GUIGlObjectStorage::gIDStorage.unblockObject(obj->getGlID());
+                }
             }
             break;
             case libsumo::VAR_TRACK_VEHICLE: {
@@ -132,13 +151,14 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
     if (variable != libsumo::VAR_VIEW_ZOOM && variable != libsumo::VAR_VIEW_OFFSET
             && variable != libsumo::VAR_VIEW_SCHEMA && variable != libsumo::VAR_VIEW_BOUNDARY
             && variable != libsumo::VAR_SCREENSHOT && variable != libsumo::VAR_TRACK_VEHICLE
+            && variable != libsumo::VAR_SELECT
        ) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Change GUI State: unsupported variable " + toHex(variable, 2) + " specified", outputStorage);
     }
     // id
     const std::string id = inputStorage.readString();
     GUISUMOAbstractView* v = getNamedView(id);
-    if (v == nullptr) {
+    if (v == nullptr && variable != libsumo::VAR_SELECT) {
         return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "View '" + id + "' is not known", outputStorage);
     }
     // process
@@ -164,6 +184,21 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             off.set(tp.x, tp.y, v->getChanger().getZPos());
             p.set(tp.x, tp.y, 0);
             v->setViewportFromToRot(off, p, v->getChanger().getRotation());
+        }
+        break;
+        case libsumo::VAR_SELECT: {
+            std::string objType;
+            if (!server.readTypeCheckingString(inputStorage, objType)) {
+                return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The type of the object must be given as a string.", outputStorage);
+            }
+            const std::string fullName = objType + ":" + id;
+            GUIGlObject* obj = GUIGlObjectStorage::gIDStorage.getObjectBlocking(fullName);
+            if (obj == nullptr) {
+                return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "The " + objType + " " + id + " is not known.", outputStorage);
+            } else {
+                gSelected.toggleSelection(obj->getGlID());
+                GUIGlObjectStorage::gIDStorage.unblockObject(obj->getGlID());
+            }
         }
         break;
         case libsumo::VAR_VIEW_SCHEMA: {
