@@ -1424,9 +1424,20 @@ GNENet::retrieveAttributeCarriers(SumoXMLTag type) {
             }
         }
     } else if (GNEAttributeCarrier::getTagProperties(type).isAdditionalElement()) {
-        // only returns additionals of a certain type.
-        for (const auto &additional : myAttributeCarriers->getAdditionals().at(type)) {
-            result.push_back(additional.second);
+        // iterate over all additionals
+        for (const auto &additionalTag : myAttributeCarriers->getAdditionals()) {
+            for (const auto & additional : additionalTag.second) {
+                if (additional.second->getTagProperty().getTag() == type) {
+                    result.push_back(additional.second);
+                } else {
+                    // check additional children
+                    for (const auto &additionalChild : additional.second->getChildAdditionals()) {
+                        if (additionalChild->getTagProperty().getTag() == type) {
+                            result.push_back(additionalChild);
+                        }
+                    }
+                }
+            }
         }
     } else if (GNEAttributeCarrier::getTagProperties(type).isShape()) {
         // only returns shapes of a certain type.
@@ -2227,10 +2238,16 @@ std::vector<GNEAdditional*>
 GNENet::retrieveAdditionals(bool onlySelected) const {
     std::vector<GNEAdditional*> result;
     // returns additionals depending of selection
-    for (auto i : myAttributeCarriers->getAdditionals()) {
-        for (auto j : i.second) {
-            if (!onlySelected || j.second->isAttributeCarrierSelected()) {
-                result.push_back(j.second);
+    for (const auto &additionalTag : myAttributeCarriers->getAdditionals()) {
+        for (const auto &additional : additionalTag.second) {
+            if (!onlySelected || additional.second->isAttributeCarrierSelected()) {
+                result.push_back(additional.second);
+            }
+            // iterate over children
+            for (const auto &additionalChild : additional.second->getChildAdditionals()) {
+                if (!onlySelected || additionalChild->isAttributeCarrierSelected()) {
+                    result.push_back(additionalChild);
+                }
             }
         }
     }

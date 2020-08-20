@@ -3283,14 +3283,20 @@ GNEViewNet::deleteSelectedEdges() {
 
 void
 GNEViewNet::deleteSelectedAdditionals() {
-    std::vector<GNEAdditional*> additionals = myNet->retrieveAdditionals(true);
-    if (additionals.size() > 0) {
-        std::string plural = additionals.size() == 1 ? ("") : ("s");
+    const std::vector<GNEAdditional*> selectedAdditionals = myNet->retrieveAdditionals(true);
+    if (selectedAdditionals.size() > 0) {
+        std::string plural = selectedAdditionals.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected additional" + plural);
-        for (auto i : additionals) {
-            // due there are additionals that are removed when their parent is removed, we need to check if yet exists before removing
-            if (myNet->retrieveAdditional(i->getTagProperty().getTag(), i->getID(), false) != nullptr) {
-                myNet->deleteAdditional(i, myUndoList);
+        // do it in two phases: In the first phase remove slaves...
+        for (const auto &selectedAdditional : selectedAdditionals) {
+            if (selectedAdditional->getTagProperty().isSlave()) {
+                myNet->deleteAdditional(selectedAdditional, myUndoList);
+            }
+        }
+        // ... and in the second remove rest
+        for (const auto &selectedAdditional : selectedAdditionals) {
+            if (!selectedAdditional->getTagProperty().isSlave()) {
+                myNet->deleteAdditional(selectedAdditional, myUndoList);
             }
         }
         myUndoList->p_end();
