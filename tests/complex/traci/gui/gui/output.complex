@@ -12,7 +12,7 @@ set offset (400.0, 400.0)
 get offset (400.0, 400.0)
 set schema ('real world')
 get schema real world
-visible boundary ((-805.859375, -230.0), (1605.859375, 1030.0))
+visible boundary ((-796.5116279069767, -230.0), (1596.5116279069766, 1030.0))
 has view View #0 True
 has view 'foo' False
 track vehicle 'horiz'
