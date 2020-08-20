@@ -776,7 +776,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lane
         // declare flag to draw spread vehicles
         const bool drawSpreadVehicles = (myNet->getViewNet()->getNetworkViewOptions().drawSpreadVehicles() || myNet->getViewNet()->getDemandViewOptions().drawSpreadVehicles());
         // calculate width
-        const double width = s.addSize.getExaggeration(s, lane) * s.widthSettings.trip;
+        const double width = s.vehicleSize.getExaggeration(s, lane) * s.widthSettings.trip;
         // Start drawing adding an gl identificator
         glPushName(getGlID());
         // Add a draw matrix
@@ -848,7 +848,7 @@ GNEVehicle::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* from
         // obtain lane2lane geometry
         const GNEGeometry::Geometry& lane2laneGeometry = fromLane->getLane2laneConnections().getLane2laneGeometry(toLane);
         // calculate width
-        const double width = s.addSize.getExaggeration(s, fromLane) * s.widthSettings.trip;
+        const double width = s.vehicleSize.getExaggeration(s, fromLane) * s.widthSettings.trip;
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
