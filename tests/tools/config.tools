@@ -6,6 +6,7 @@ copy_test_path:routes2.rou.xml
 copy_test_path:net.net.xml
 copy_test_path:net2.net.xml
 copy_test_path:input_additional.add.xml
+copy_test_path:input_additional2.add.xml
 copy_test_path:three_split.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_edges.edg.xml
@@ -174,7 +175,7 @@ dualog:Real time factor
 dualog:UPS
 dualog:(.*ms)
 dualog:Simulation.*started with{REPLACE Simulation started with}
-dualog:.*'-c', 'iteration{REPLACE '-c', 'iteration}
+dualog:.*'-c',{REPLACE '-c',}
 trips:<!-- generated on{[->]}-->
 osmtrips:<!-- generated on{[->]}-->
 districts:<!-- generated on{[->]}-->

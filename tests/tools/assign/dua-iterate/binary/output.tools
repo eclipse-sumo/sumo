@@ -1,76 +1,71 @@
-Loading configuration ... done.
 > Executing step 0
 >> Running router on input_trips.trips.xml
->>> Begin time: 2020-08-07 10:49:13.864884
->>> End time: 2020-08-07 10:49:14.283878
->>> Duration: 0:00:00.418994
+>>> Begin time: 2020-08-20 11:13:01.343539
+>>> End time: 2020-08-20 11:13:01.472008
+>>> Duration: 0:00:00.128469
 <<
 >> Running simulation
->>> Begin time: 2020-08-07 10:49:14.283878
->>> End time: 2020-08-07 10:49:14.822877
->>> Duration: 0:00:00.538999
+>>> Begin time: 2020-08-20 11:13:01.472106
+>>> End time: 2020-08-20 11:13:01.636653
+>>> Duration: 0:00:00.164547
 <<
-< Step 0 ended (duration: 0:00:00.957993)
+< Step 0 ended (duration: 0:00:00.293283)
 ------------------
 
-Loading configuration ... done.
 > Executing step 1
->> Running router on 0\input_trips_000.rou.alt.gz
->>> Begin time: 2020-08-07 10:49:14.828879
->>> End time: 2020-08-07 10:49:15.358877
->>> Duration: 0:00:00.529998
+>> Running router on 0/input_trips_000.rou.alt.gz
+>>> Begin time: 2020-08-20 11:13:01.639719
+>>> End time: 2020-08-20 11:13:01.773643
+>>> Duration: 0:00:00.133924
 <<
 >> Running simulation
->>> Begin time: 2020-08-07 10:49:15.358877
->>> End time: 2020-08-07 10:49:15.943875
->>> Duration: 0:00:00.584998
+>>> Begin time: 2020-08-20 11:13:01.773743
+>>> End time: 2020-08-20 11:13:01.919718
+>>> Duration: 0:00:00.145975
 <<
-< Step 1 ended (duration: 0:00:01.114996)
+< Step 1 ended (duration: 0:00:00.280159)
 ------------------
 
-Loading configuration ... done.
 > Executing step 2
->> Running router on 1\input_trips_001.rou.alt.gz
->>> Begin time: 2020-08-07 10:49:15.946876
->>> End time: 2020-08-07 10:49:16.479875
->>> Duration: 0:00:00.532999
+>> Running router on 1/input_trips_001.rou.alt.gz
+>>> Begin time: 2020-08-20 11:13:01.922484
+>>> End time: 2020-08-20 11:13:02.046490
+>>> Duration: 0:00:00.124006
 <<
 >> Running simulation
->>> Begin time: 2020-08-07 10:49:16.479875
->>> End time: 2020-08-07 10:49:17.059874
->>> Duration: 0:00:00.579999
+>>> Begin time: 2020-08-20 11:13:02.046597
+>>> End time: 2020-08-20 11:13:02.192689
+>>> Duration: 0:00:00.146092
 <<
-< Step 2 ended (duration: 0:00:01.114000)
+< Step 2 ended (duration: 0:00:00.270363)
 ------------------
 
-Loading configuration ... done.
 > Executing step 3
->> Running router on 2\input_trips_002.rou.alt.gz
->>> Begin time: 2020-08-07 10:49:17.062878
->>> End time: 2020-08-07 10:49:17.970877
->>> Duration: 0:00:00.907999
+>> Running router on 2/input_trips_002.rou.alt.gz
+>>> Begin time: 2020-08-20 11:13:02.196363
+>>> End time: 2020-08-20 11:13:02.341287
+>>> Duration: 0:00:00.144924
 <<
 >> Running simulation
->>> Begin time: 2020-08-07 10:49:17.970877
->>> End time: 2020-08-07 10:49:18.523876
->>> Duration: 0:00:00.552999
+>>> Begin time: 2020-08-20 11:13:02.341383
+>>> End time: 2020-08-20 11:13:02.507477
+>>> Duration: 0:00:00.166094
 <<
-< Step 3 ended (duration: 0:00:01.460998)
+< Step 3 ended (duration: 0:00:00.311306)
 ------------------
 
-Loading configuration ... done.
 > Executing step 4
->> Running router on 3\input_trips_003.rou.alt.gz
->>> Begin time: 2020-08-07 10:49:18.528876
->>> End time: 2020-08-07 10:49:19.024874
->>> Duration: 0:00:00.495998
+>> Running router on 3/input_trips_003.rou.alt.gz
+>>> Begin time: 2020-08-20 11:13:02.511937
+>>> End time: 2020-08-20 11:13:02.652739
+>>> Duration: 0:00:00.140802
 <<
 >> Running simulation
->>> Begin time: 2020-08-07 10:49:19.025882
->>> End time: 2020-08-07 10:49:19.723873
->>> Duration: 0:00:00.697991
+>>> Begin time: 2020-08-20 11:13:02.652848
+>>> End time: 2020-08-20 11:13:02.827479
+>>> Duration: 0:00:00.174631
 <<
-< Step 4 ended (duration: 0:00:01.194997)
+< Step 4 ended (duration: 0:00:00.315772)
 ------------------
 
-dua-iterate ended (duration: 0:00:05.862994)
+dua-iterate ended (duration: 0:00:01.487241)
