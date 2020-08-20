@@ -698,6 +698,20 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.example.customValue1 (return the value of option **--device.example.parameter**)
 - device.example.customValue2 (return the value of vehicle parameter
   *example*)
+- device.driverstate.awareness
+- device.driverstate.errorState
+- device.driverstate.errorTimeScale
+- device.driverstate.errorNoiseIntensity
+- device.driverstate.minAwareness
+- device.driverstate.initialAwareness
+- device.driverstate.errorTimeScaleCoefficient
+- device.driverstate.errorNoiseIntensityCoefficient
+- device.driverstate.speedDifferenceErrorCoefficient
+- device.driverstate.headwayErrorCoefficient
+- device.driverstate.speedDifferenceChangePerceptionThreshold
+- device.driverstate.headwayChangePerceptionThreshold
+- device.driverstate.maximalReactionTime
+- device.driverstate.originalReactionTime
 - device.example.meaningOfLife (return 42)
 - has.DEVICENAME.device (returns "true" or "false" depending on
   whether a device with DEVICENAME is equipped)
