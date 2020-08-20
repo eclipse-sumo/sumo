@@ -228,8 +228,6 @@ MSDevice_DriverState::getParameter(const std::string& key) const {
         return toString(myDriverState->getErrorTimeScale());
     } else if (key == "errorNoiseIntensity") {
         return toString(myDriverState->getErrorNoiseIntensity());
-    } else if (key == "errorNoiseIntensity") {
-        return toString(myDriverState->getErrorNoiseIntensity());
     } else if (key == "minAwareness") {
         return toString(myDriverState->getMinAwareness());
     } else if (key == "initialAwareness") {
