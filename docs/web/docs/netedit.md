@@ -603,11 +603,16 @@ color code. To select another connection, cancel the current one with
 <ESC\>.
 
 ### Traffic Lights
-
 Set junctions to be controlled or uncontrolled by a traffic light. Edit
 all aspects of static or actuated signal plans. Visualizes a signal
 phase by coloring the controlled lane-to-lane connections according to
-the signal state. Editing signal states can be accomplished in either of
+the signal state. 
+
+When entering this mode, each traffic light controlled junction is indicated with a traffic light icon.
+- Click on an uncontrolled junction to add a traffic light
+- Click on a controlled junction to make it uncontrolled, add a program (copy) or change a program.
+
+Editing signal states can be accomplished in either of
 the following ways:
 
 - right-clicking on any controlled lane and picking a new state
@@ -622,6 +627,15 @@ the following ways:
   phases of the current plan will be affected
 
 You can also change the state by editing the phase table directly.
+
+#### Joined Traffic Lights
+To edit the program of a joined traffic light, any of its junctions can be clicked in traffic light mode.
+This will cause connections from all controlled junctions to be highlighted.
+
+To create a joined traffic light you need to use inspect mode:
+
+- make all junctions controlled by a traffic light
+- set their 'tl' attribute (traffic light id) to the same value
 
 ![](images/GNETLS.png)General view of the TLS frame
 
