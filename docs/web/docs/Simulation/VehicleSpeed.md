@@ -33,6 +33,11 @@ have a random speedFactor with a deviation of 0.1 and mean of 1.0 which
 means there will be different desired speeds in the vehicle population
 by default.
 
+When vehicles are driving freely (unconstrained by other vehicles) they will accelerate until reaching the speed 
+```
+min(maxSpeed, speedFactor * speedLimit)
+```
+
 !!! note
     Legacy behavior can be achieved by setting option **--default.speeddev 0**
 
