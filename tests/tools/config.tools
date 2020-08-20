@@ -176,6 +176,8 @@ dualog:UPS
 dualog:(.*ms)
 dualog:Simulation.*started with{REPLACE Simulation started with}
 dualog:.*'-c',{REPLACE '-c',}
+dualog:\\\\{REPLACE /}
+
 trips:<!-- generated on{[->]}-->
 osmtrips:<!-- generated on{[->]}-->
 districts:<!-- generated on{[->]}-->

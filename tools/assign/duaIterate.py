@@ -265,7 +265,7 @@ def get_weightfilename(options, step, prefix):
 def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     detectorfile = "dua_dump_%03i.add.xml" % step
     add = [detectorfile]
-    if options.additional is not '':
+    if options.additional != '':
         add += ["../%s" % f for f in options.additional.split(',')]
 
     sumoCmd = [sumoBinary,
