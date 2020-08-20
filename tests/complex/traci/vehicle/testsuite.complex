@@ -71,3 +71,6 @@ slowDown
 # test timing of slowDown command
 slowDown_subsecond
 getFollower
+
+# test access to driverstate parameters
+driverstate
