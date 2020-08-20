@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 297, 116)
+netedit.leftClick(referencePosition, 250, 113)
 
 # check parameters
 netedit.checkParameters(referencePosition, 6, True)

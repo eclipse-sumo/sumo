@@ -10,6 +10,7 @@ Debug: Current saving Status: net saved, additionals unsaved, demand elements sa
 Debug: Inserting parameter 'key1|value1' into additional laneCalibrator.
 Debug: Inserting parameter 'key1|value4' into additional laneCalibrator.
 Debug: Inserting parameter 'key2|' into additional laneCalibrator.
+Debug: Inserting parameter 'key3|$$value with spaces%%' into additional laneCalibrator.
 Debug: Inserting parameter 'key4|value5' into additional laneCalibrator.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved

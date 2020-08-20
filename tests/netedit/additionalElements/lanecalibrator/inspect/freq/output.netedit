@@ -3,7 +3,7 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 laneCalibrator
 TestFunctions: Clicked over position 549 - 308
-TestFunctions: Clicked over position 654 - 408
+TestFunctions: Clicked over position 591 - 408
 dummyFreq
 -12
 12.5

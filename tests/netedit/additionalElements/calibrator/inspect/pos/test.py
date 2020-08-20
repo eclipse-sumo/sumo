@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 245, 180)
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 300, 215)
+netedit.leftClick(referencePosition, 355, 245)
 
 # Change parameter id with a non valid value (dummy)
 netedit.modifyAttribute(2, "dummyPos", True)
