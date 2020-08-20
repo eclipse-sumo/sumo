@@ -193,73 +193,45 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
                    output, routesInfo):
     filename = os.path.basename(file)
     filename = filename.split('.')[0]
-    cfgname = str(step)+ os.sep +"iteration_%03i_%s.duarcfg" % (step, filename)
-    withExitTimes = False
-    if routesInfo == "detailed":
-        withExitTimes = True
-    fd = open(cfgname, "w")
-    print("""<configuration>
-    <input>
-        <net-file value="..%s..%s%s"/>""" % (os.sep, os.sep, options.net), file=fd)
+    cfgname = "%s/iteration_%03i_%s.duarcfg" % (step, step, filename)
+    args = [
+            '--net-file', "../%s" % options.net,
+            '--route-files', "../%s" % file,
+            '--output-file', output,
+            '--exit-times', str(routesInfo == "detailed"),
+            '--ignore-errors', str(options.continueOnUnbuild),
+            '--with-taz', str(options.districts is not None),
+            '--gawron.beta', str(options.gBeta),
+            '--gawron.a', str(options.gA),
+            '--keep-all-routes', str(options.allroutes),
+            '--routing-algorithm', options.routing_algorithm,
+            '--max-alternatives', str(options.max_alternatives),
+            '--weights.expand',
+            '--logit', str(options.logit),
+            '--logit.beta', str(options.logitbeta),
+            '--logit.gamma', str(options.logitgamma),
+            '--random', str(options.absrand),
+            '--begin', str(options.begin),
+            '--verbose', str(options.router_verbose),
+            '--no-step-log',
+            '--no-warnings', str(options.noWarnings),
+        ]
     if options.districts:
-        print('        <additional-files value="..%s..%s%s"/>' %
-              (os.sep, os.sep, options.districts), file=fd)
-    print('        <route-files value="..%s..%s%s"/>' % (os.sep, os.sep, file), file=fd)
+        args += ['--additional-files', options.districts]
     if step > 0:
-        print('        <weights value="..%s..%s%s%s%s"/>' %
-              (os.sep, os.sep, step-1, os.sep, get_weightfilename(options, step - 1, "dump")), file=fd)
+        args += ['--weight-files', os.path.join('..', str(step-1), get_weightfilename(options, step - 1, "dump"))]
     if options.eco_measure:
-        print('        <weight-attribute value="%s"/>' %
-              options.eco_measure, file=fd)
-    print("""    </input>
-    <output>
-        <output-file value="..%s%s"/>
-        <exit-times value="%s"/>
-    </output>""" % (os.sep, output, withExitTimes), file=fd)
-    print("""    <processing>
-        <ignore-errors value="%s"/>
-        <with-taz value="%s"/>
-        <gawron.beta value="%s"/>
-        <gawron.a value="%s"/>
-        <keep-all-routes value="%s"/>
-        <routing-algorithm value="%s"/>%s
-        <max-alternatives value="%s"/>
-        <weights.expand value="true"/>
-        <logit value="%s"/>
-        <logit.beta value="%s"/>
-        <logit.gamma value="%s"/>""" % (
-        options.continueOnUnbuild,
-        bool(options.districts),
-        options.gBeta,
-        options.gA,
-        options.allroutes,
-        options.routing_algorithm,
-        ("" if 'CH' not in options.routing_algorithm else '\n<weight-period value="%s"/>\n' %
-         options.aggregation),
-        options.max_alternatives,
-        options.logit,
-        options.logitbeta,
-        options.logitgamma), file=fd)
+        args += ['--weight-attribute', optoins.eco_measure]
+    if 'CH' in options.routing_algorithm:
+        args += ['--weight-period', str(options.aggregation)]
     if options.logittheta:
-        print('        <logit.theta value="%s"/>' %
-              options.logittheta, file=fd)
-    print('    </processing>', file=fd)
-
-    print('    <random_number><random value="%s"/></random_number>' %
-          options.absrand, file=fd)
-    print('    <time><begin value="%s"/>' % options.begin, end=' ', file=fd)
+        args += ['--logit.theta', str(options.logittheta)]
     if options.end:
-        print('<end value="%s"/>' % options.end, end=' ', file=fd)
-    print("""</time>
-    <report>
-        <verbose value="%s"/>
-        <no-step-log value="True"/>
-        <no-warnings value="%s"/>
-    </report>
-</configuration>""" % (options.router_verbose, options.noWarnings), file=fd)
-    fd.close()
-    subprocess.call(
-        [duarouterBinary, "-c", cfgname, "--save-configuration", cfgname] + dua_args)
+        args += ['--end', str(options.end)]
+
+    args += ["--save-configuration", cfgname]
+
+    subprocess.call([duarouterBinary] + args + dua_args)
     return cfgname
 
 
@@ -292,14 +264,16 @@ def get_weightfilename(options, step, prefix):
 
 def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     detectorfile = "dua_dump_%03i.add.xml" % step
-    comma = (',..' + os.sep if options.additional != "" else '')
+    add = [detectorfile]
+    if options.additional is not '':
+        add += ["../%s" % f for f in options.additional.split(',')]
+
     sumoCmd = [sumoBinary,
-               '--save-configuration', str(step)+ os.sep+"iteration_%03i.sumocfg" % step,
+               '--save-configuration', "%s/iteration_%03i.sumocfg" % (step, step),
                '--log', "iteration_%03i.sumo.log" % step,
-               '--net-file', '..'+os.sep + options.net,
+               '--net-file', '../%s' % options.net,
                '--route-files', route_files,
-               '--additional-files', "%s%s%s" % (
-                   detectorfile, comma, options.additional),
+               '--additional-files', ",".join(add),
                '--no-step-log',
                '--random', options.absrand,
                '--begin', options.begin,
@@ -355,7 +329,7 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     subprocess.call(sumoCmd, stdout=subprocess.PIPE)
 
     # write detectorfile
-    with open(str(step)+ os.sep+ detectorfile, 'w') as fd:
+    with open(os.path.join(str(step), detectorfile), 'w') as fd:
         vTypes = ' vTypes="%s"' % ' '.join(options.measureVTypes.split(',')) if options.measureVTypes else ""
         suffix = "_%03i_%s" % (step, options.aggregation)
         print("<a>", file=fd)
@@ -370,7 +344,7 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
 
 def filterTripinfo(step, attrs):
     attrs.add("id")
-    inFile = "tripinfo_%03i.xml" % step
+    inFile = "%s%stripinfo_%03i.xml" % (step, os.sep, step)
     if os.path.exists(inFile):
         out = open(inFile + ".filtered", 'w')
         print("<tripinfos>", file=out)
@@ -487,7 +461,7 @@ def main(args=None):
         if dua_args[i] == '--additional-files':
             index= i
     if index > -1:
-        dua_args[index+1]= ".."+ os.sep + dua_args[index+1]        
+        dua_args[index+1] = ','.join(["../%s" % f for f in dua_args[index+1].split(',')])
     sys.stdout = sumolib.TeeFile(sys.stdout, open(options.log, "w+"))
     log = open(options.dualog, "w+")
     if options.zip:
