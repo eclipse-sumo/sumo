@@ -68,8 +68,10 @@ Debug: Created connection 'fromgneE6_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
-Debug: Selected item 'vehicle' in TagSelector
-Debug: Selected item 'flow' in TagSelector
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
+Debug: Selected item 'trip' in TagSelector
+Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
+Debug: Selected item 'flow (from-to)' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding flow 'flow_0' in GNEChange_DemandElement
 Debug: Setting new attribute type 'bicycle' into flow 'flow_0'
