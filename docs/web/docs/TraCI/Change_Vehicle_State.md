@@ -484,6 +484,20 @@ call](../TraCI/GenericParameters.md#set_parameter).
   time for rerouting for **all** vehicles (where EDGE_ID is the id if
   a network edge). This value is overwritten at the next update
   interval (**--device.rerouting.adaptation-interval**).
+- device.driverstate.awareness
+- device.driverstate.errorState
+- device.driverstate.errorTimeScale
+- device.driverstate.errorNoiseIntensity
+- device.driverstate.minAwareness
+- device.driverstate.initialAwareness
+- device.driverstate.errorTimeScaleCoefficient
+- device.driverstate.errorNoiseIntensityCoefficient
+- device.driverstate.speedDifferenceErrorCoefficient
+- device.driverstate.headwayErrorCoefficient
+- device.driverstate.speedDifferenceChangePerceptionThreshold
+- device.driverstate.headwayChangePerceptionThreshold
+- device.driverstate.maximalReactionTime
+- device.driverstate.originalReactionTime
 - device.example.customValue1 (double literal)
 - has.rerouting.device ("true"): can be used to dynamically enable
   [automatic rerouting](../Demand/Automatic_Routing.md)
