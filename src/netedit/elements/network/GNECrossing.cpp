@@ -119,7 +119,7 @@ GNECrossing::getCrossingShapeVertexIndex(Position pos, const bool snapToGrid) co
         if (shape.front().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
             return 0;
         } else if (shape.back().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
-            return (shape.size() - 1);
+            return (int)shape.size() - 1;
         } else {
             return -1;
         }

@@ -835,7 +835,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
             deleteMenuCommand->disable();
         }
         // now chec if given AC support manually moving of their item up and down (Currently only for certain demand elements)
-        if (false /*myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()*/) {
+        /* if (myClickedDemandElement && myClickedAC->getTagProperty().canBeSortedManually()) {
             // insert separator
             new FXMenuSeparator(pane);
             // create both moving menu commands
@@ -865,7 +865,7 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
                     moveDownMenuCommand->disable();
                 }
             }
-        }
+        } */
         // Center in the mouse position and create pane
         pane->setX(X);
         pane->setY(Y);

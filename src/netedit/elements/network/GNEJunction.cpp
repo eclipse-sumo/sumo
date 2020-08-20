@@ -152,7 +152,7 @@ GNEJunction::getJunctionShapeVertexIndex(Position pos, const bool snapToGrid) co
         if (shape.front().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
             return 0;
         } else if (shape.back().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
-            return (shape.size() - 1);
+            return (int)shape.size() - 1;
         } else {
             return -1;
         }

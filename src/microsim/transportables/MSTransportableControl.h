@@ -306,4 +306,7 @@ private:
 
     MSPModel* myNonInteractingModel;
 
+private:
+    /// @brief invalidated assignment operator
+    MSTransportableControl& operator=(const MSTransportableControl& src) = delete;
 };
