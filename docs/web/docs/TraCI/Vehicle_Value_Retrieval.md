@@ -695,9 +695,6 @@ call](../TraCI/GenericParameters.md#get_parameter).
   seconds)
 - device.rerouting.edge:EDGE_ID (returns assumed travel time for
   rerouting where EDGE_ID is the id of a network edge)
-- device.example.customValue1 (return the value of option **--device.example.parameter**)
-- device.example.customValue2 (return the value of vehicle parameter
-  *example*)
 - device.driverstate.awareness
 - device.driverstate.errorState
 - device.driverstate.errorTimeScale
@@ -712,6 +709,9 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.driverstate.headwayChangePerceptionThreshold
 - device.driverstate.maximalReactionTime
 - device.driverstate.originalReactionTime
+- device.example.customValue1 (return the value of option **--device.example.parameter**)
+- device.example.customValue2 (return the value of vehicle parameter
+  *example*)
 - device.example.meaningOfLife (return 42)
 - has.DEVICENAME.device (returns "true" or "false" depending on
   whether a device with DEVICENAME is equipped)
