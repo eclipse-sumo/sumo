@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # duplicate lane
-netedit.contextualMenuOperation(referencePosition, 250, 150, 10, 1)
+netedit.contextualMenuOperation(referencePosition, 250, 160, 10, 1)
 
 # recompute
 netedit.rebuildNetwork()
