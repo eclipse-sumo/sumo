@@ -1,3 +1,9 @@
+# test railSignalConstraints
+constraints
+
+# switch from block signaling to moving block
+end_block_mode
+
 # a forking rail line without a signal at the fork. a warning should appear
 fork_without_signal
 
@@ -79,6 +85,3 @@ indirect_guard_check_route
 
 # driveway computation should end when hitting a buffer stop
 siding_deadend
-
-# switch from block signaling to moving block
-end_block_mode
