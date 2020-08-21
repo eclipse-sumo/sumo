@@ -36,7 +36,7 @@ def add_options():
     argParser = sumolib.options.ArgumentParser()
     argParser.add_argument("-r", "--region", help="define the region to process")
     argParser.add_argument("--gtfs", help="define gtfs zip file to load")
-    argParser.add_argument("--date", type=str, help="define the day to import")
+    argParser.add_argument("--date", help="define the day to import, format: 'YYYYMMDD'")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
     argParser.add_argument("--vtype-output", help="file to write the generated vehicle types to")
@@ -54,13 +54,20 @@ def check_options(options):
     return options
 
 
+def time2sec(s):
+    t = s.split(":")
+    return int(t[0]) * 3600 + int(t[1]) * 60 + int(t[2])
+
+
 def main(options):
     if options.verbose:
         print('Loading GTFS data "%s"' % options.gtfs)
     gtfsZip = zipfile.ZipFile(options.gtfs)
     routes = pd.read_csv(gtfsZip.open('routes.txt'), dtype=str)
     stops = pd.read_csv(gtfsZip.open('stops.txt'), dtype=str)
-    stop_times = pd.read_csv(gtfsZip.open('stop_times.txt'), dtype=str)
+    stop_times = pd.read_csv(gtfsZip.open('stop_times.txt'),
+                             converters={'trip_id':str,'arrival_time':time2sec,'departure_time':time2sec,
+                                         'stop_id':str,'stop_sequence':int})
     trips = pd.read_csv(gtfsZip.open('trips.txt'), dtype=str)
     calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'), dtype=str)
 
@@ -153,11 +160,9 @@ def main(options):
             offset = 0
             firstDep = None
             for __, d in data.sort_values(by=['stop_sequence']).iterrows():
-                arrival = list(map(int, d.arrival_time.split(":")))
-                arrivalSec = arrival[0] * 3600 + arrival[1] * 60 + arrival[2] + timeIndex
+                arrivalSec = d.arrival_time + timeIndex
                 stopSeq.append(d.stop_id)
-                departure = list(map(int, d.departure_time.split(":")))
-                departureSec = departure[0] * 3600 + departure[1] * 60 + departure[2] + timeIndex
+                departureSec = d.departure_time + timeIndex
                 until = 0 if firstDep is None else departureSec - timeIndex - firstDep
                 buf += (('    <timestep time="%s"><vehicle id="%s" x="%s" y="%s" until="%s" ' +
                          'name=%s fareZone="%s" fareSymbol="%s" startFare="%s" speed="20"/></timestep>\n') %
