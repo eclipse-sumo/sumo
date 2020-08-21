@@ -133,21 +133,28 @@ GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
+    // get rerouter children
+    std::vector<GNEAdditional*> rerouterChildren;
+    for (const auto &rerouterChild : myEditedAdditional->getChildAdditionals()) {
+        if (!rerouterChild->getTagProperty().isSymbol()) {
+            rerouterChildren.push_back(rerouterChild);
+        }
+    }
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getChildAdditionals().size(); i++) {
+    for (int i = 0; i < (int)rerouterChildren.size(); i++) {
         if (myIntervalTable->getItem(i, 2)->hasFocus()) {
             // remove interval
-            myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getChildAdditionals().at(i), false), true);
+            myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterChildren.at(i), false), true);
             // update interval table after removing
             updateIntervalTable();
             return 1;
         }
     }
     // check if some begin or o end  button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getChildAdditionals().size(); i++) {
+    for (int i = 0; i < (int)rerouterChildren.size(); i++) {
         if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
-            GNERerouterIntervalDialog(myEditedAdditional->getChildAdditionals().at(i), true);
+            GNERerouterIntervalDialog(rerouterChildren.at(i), true);
             // update interval table after editing
             updateIntervalTable();
             return 1;
@@ -160,10 +167,17 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
 
 void
 GNERerouterDialog::updateIntervalTable() {
+    // get rerouter children
+    std::vector<GNEAdditional*> rerouterChildren;
+    for (const auto &rerouterChild : myEditedAdditional->getChildAdditionals()) {
+        if (!rerouterChild->getTagProperty().isSymbol()) {
+            rerouterChildren.push_back(rerouterChild);
+        }
+    }
     // clear table
     myIntervalTable->clearItems();
     // set number of rows
-    myIntervalTable->setTableSize(int(myEditedAdditional->getChildAdditionals().size()), 3);
+    myIntervalTable->setTableSize(int(rerouterChildren.size()), 3);
     // Configure list
     myIntervalTable->setVisibleColumns(4);
     myIntervalTable->setColumnWidth(0, 137);
@@ -177,12 +191,12 @@ GNERerouterDialog::updateIntervalTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over values
-    for (auto i : myEditedAdditional->getChildAdditionals()) {
+    for (const auto &rerouterChild : rerouterChildren) {
         // Set time
-        item = new FXTableItem(i->getAttribute(SUMO_ATTR_BEGIN).c_str());
+        item = new FXTableItem(rerouterChild->getAttribute(SUMO_ATTR_BEGIN).c_str());
         myIntervalTable->setItem(indexRow, 0, item);
         // Set speed
-        item = new FXTableItem(i->getAttribute(SUMO_ATTR_END).c_str());
+        item = new FXTableItem(rerouterChild->getAttribute(SUMO_ATTR_END).c_str());
         myIntervalTable->setItem(indexRow, 1, item);
         // set remove
         item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
