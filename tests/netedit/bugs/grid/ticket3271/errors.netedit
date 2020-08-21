@@ -37,27 +37,18 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edg
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Adding junction 'gneJ2' into net
+Debug: Adding junction 'gneJ3' into net
 Debug: Adding edge 'gneE1' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
-Debug: Adding junction 'gneJ3' into net
-Debug: Adding junction 'gneJ4' into net
-Debug: Adding edge 'gneE2' from net
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
-Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
-Debug: Adding junction 'gneJ5' into net
-Debug: Adding edge 'gneE3' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
-Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ4'
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
-Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ5'
-Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
+Debug: Adding junction 'gneJ4' into net
+Debug: Removing junction 'gneJ4' from net
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
+Debug: Deleting unreferenced junction 'gneJ4' in GNEChange_Junction
+Debug: Deleting NBNode of 'gneJ4' in GNEJunction destructor
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
@@ -110,11 +101,6 @@ Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor
-Debug: Deleting unreferenced edge 'gneE3' in AttributeCarriers destructor
-Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'A' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'B' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
@@ -124,8 +110,6 @@ Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
-Debug: Deleting unreferenced junction 'gneJ4' in AttributeCarriers destructor
-Debug: Deleting unreferenced junction 'gneJ5' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor

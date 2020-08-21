@@ -57,13 +57,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect set of junctions
-netedit.leftClick(referencePosition, 420, 140)
+netedit.leftClick(referencePosition, 405, 240)
 
 # Set all Junctions as traffic lighs
 netedit.modifyAttribute(0, "traffic_light", True)
 
 # inspect set of edges
-netedit.leftClick(referencePosition, 450, 140)
+netedit.leftClick(referencePosition, 390, 300)
 
 # change all speed of edges
 netedit.modifyAttribute(0, "20", False)
