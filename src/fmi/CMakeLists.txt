@@ -43,7 +43,7 @@ if(UNIX AND NOT APPLE)
 endif()
   
 if(APPLE)
-  set(PLATFORM_FOLDER_NAME "macos${BITS}")
+  set(PLATFORM_FOLDER_NAME "darwin${BITS}")
 endif()
 
 # Set the temporary folder name to collect the contents for the ZIP archive
@@ -59,7 +59,7 @@ add_custom_target(create_fmi2_zip
   COMMAND ${CMAKE_COMMAND} -E make_directory "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_SOURCE_DIR}/bin/libsumofmi2${CMAKE_SHARED_LIBRARY_SUFFIX}" "${ZIP_BUILD_FOLDER_NAME}/binaries/${PLATFORM_FOLDER_NAME}/"
   # Build the ZIP archive
-  COMMAND ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/bin/${libsumofmi2_lib_name}" --format=zip "${ZIP_BUILD_FOLDER_NAME}"
+  COMMAND ${CMAKE_COMMAND} -E chdir "${ZIP_BUILD_FOLDER_NAME}" tar "cf" "${CMAKE_SOURCE_DIR}/bin/${libsumofmi2_lib_name}" --format=zip "."
 )
 
 add_dependencies(create_fmi2_zip libsumofmi2)
