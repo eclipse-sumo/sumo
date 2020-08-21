@@ -38,6 +38,7 @@ class NLEdgeControlBuilder;
 class NLJunctionControlBuilder;
 class NLTriggerBuilder;
 class MSTrafficLightLogic;
+class MSRailSignal;
 
 
 // ===========================================================================
@@ -238,6 +239,7 @@ private:
     virtual void openWAUT(const SUMOSAXAttributes& attrs);
     void addWAUTSwitch(const SUMOSAXAttributes& attrs);
     void addWAUTJunction(const SUMOSAXAttributes& attrs);
+    void addPredecessorConstraint(const SUMOSAXAttributes& attrs);
 
     /// Parses network location description
     void setLocation(const SUMOSAXAttributes& attrs);
@@ -342,6 +344,9 @@ protected:
 
     /// @brief whether the location element was already loadee
     bool myNetIsLoaded;
+
+    /// @brief rail signal for which constraints are being loaded
+    MSRailSignal* myConstrainedSignal;
 
     /// @brief temporary data for building the junction graph after network parsing is finished
     typedef std::map<std::string, std::pair<std::string, std::string> > JunctionGraph;

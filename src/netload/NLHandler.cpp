@@ -44,6 +44,8 @@
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/MSStoppingPlace.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -249,6 +251,21 @@ NLHandler::myStartElement(int element,
                 }
                 break;
             }
+            case SUMO_TAG_RAILSIGNAL_CONSTRAINTS: {
+                bool ok = true;
+                const std::string signalID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+                if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
+                    throw InvalidArgument("Rail signal '" + signalID + "' in railSignalConstraints is not known");
+                }
+                myConstrainedSignal = dynamic_cast<MSRailSignal*>(MSNet::getInstance()->getTLSControl().get(signalID).getDefault());
+                if (myConstrainedSignal == nullptr) {
+                    throw InvalidArgument("Traffic light '" + signalID + "' is not a rail signal");
+                }
+                break;
+            }
+            case SUMO_TAG_PREDECESSOR:
+                addPredecessorConstraint(attrs);
+                break;
             default:
                 break;
         }
@@ -297,6 +314,9 @@ NLHandler::myEndElement(int element) {
             break;
         case SUMO_TAG_WAUT:
             closeWAUT();
+            break;
+        case SUMO_TAG_RAILSIGNAL_CONSTRAINTS:
+            myConstrainedSignal = nullptr;
             break;
         case SUMO_TAG_E3DETECTOR:
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:
@@ -1483,5 +1503,33 @@ NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, 
     return lane->geometryPositionAtOffset(lanePos, -lanePosLat);
 }
 
+
+void
+NLHandler::addPredecessorConstraint(const SUMOSAXAttributes& attrs) {
+    if (myConstrainedSignal == nullptr) {
+        throw InvalidArgument("Rail signal 'predecessor' constrain must occur within a railSignalConstraints element");
+    }
+    bool ok = true;
+    const std::string tripId = attrs.get<std::string>(SUMO_ATTR_TRIP_ID, nullptr, ok);
+    const std::string signalID = attrs.get<std::string>(SUMO_ATTR_TLID, nullptr, ok);
+    const std::string foesString = attrs.get<std::string>(SUMO_ATTR_FOES, nullptr, ok);
+    const std::vector<std::string> foes = StringTokenizer(foesString).getVector();
+    const int limit = attrs.getOpt<int>(SUMO_ATTR_LIMIT, nullptr, ok, foes.size());
+
+    if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
+        throw InvalidArgument("Rail signal '" +signalID + "' in railSignalConstraints is not known");
+    }
+    MSRailSignal* signal = dynamic_cast<MSRailSignal*>(MSNet::getInstance()->getTLSControl().get(signalID).getDefault());
+    if (signal == nullptr) {
+        throw InvalidArgument("Traffic light '" + signalID + "' is not a rail signal");
+    }
+    if (ok) {
+        for (const std::string& foe : foes) {
+            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit);
+            myConstrainedSignal->addConstraint(tripId, c);
+        }
+    }
+
+}
 
 /****************************************************************************/

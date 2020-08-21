@@ -14,6 +14,7 @@
 /// @file    MSRailSignal.h
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
+/// @author  Jakob Erdmann
 /// @date    Jan 2015
 ///
 // A rail signal logic
@@ -32,6 +33,7 @@
 // ===========================================================================
 class MSLink;
 class MSPhaseDefinition;
+class MSRailSignalConstraint;
 
 
 // ===========================================================================
@@ -209,7 +211,13 @@ public:
     /// @brief write rail signal block output for all links and driveways
     void writeBlocks(OutputDevice& od) const;
 
+    void addConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
+
     static bool hasOncomingRailTraffic(MSLink* link);
+
+protected:
+    /// @brief whether the given vehicle is free to drive
+    bool constraintsAllow(const SUMOVehicle* veh) const;
 
 protected:
 
@@ -379,6 +387,9 @@ protected:
 
     /// @brief MSTrafficLightLogic requires that the phase index changes whenever signals change their state
     int myPhaseIndex;
+
+    /// @brief map from tripId to constraint list
+    std::map<std::string, std::vector<MSRailSignalConstraint*> > myConstraints;
 
     static int myNumWarnings;
 

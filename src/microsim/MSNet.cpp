@@ -90,6 +90,7 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/trigger/MSChargingStation.h>
 #include <microsim/trigger/MSOverheadWire.h>
 #include <utils/router/FareModul.h>
@@ -725,6 +726,7 @@ MSNet::clearAll() {
     MSDevice_SSM::cleanup();
     MSDevice_ToC::cleanup();
     MSStopOut::cleanup();
+    MSRailSignalConstraint::cleanup();
     TraCIServer* t = TraCIServer::getInstance();
     if (t != nullptr) {
         t->cleanup();

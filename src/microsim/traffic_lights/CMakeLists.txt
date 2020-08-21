@@ -7,6 +7,8 @@ set(microsim_traffic_lights_STAT_SRCS
    MSOffTrafficLightLogic.h
    MSRailSignal.cpp
    MSRailSignal.h
+   MSRailSignalConstraint.cpp
+   MSRailSignalConstraint.h
    MSPhaseDefinition.h
    MSPhasedTrafficLightLogic.cpp
    MSPhasedTrafficLightLogic.h

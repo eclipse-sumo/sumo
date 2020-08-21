@@ -14,6 +14,7 @@
 /// @file    MSRailSignal.cpp
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
+/// @author  Jakob Erdmann
 /// @date    Jan 2015
 ///
 // A rail signal logic
@@ -44,6 +45,7 @@
 #include "MSTrafficLightLogic.h"
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
+#include "MSRailSignalConstraint.h"
 #include "MSRailSignal.h"
 
 // typical block length in germany on main lines is 3-5km on branch lines up to 7km
@@ -109,6 +111,12 @@ MSRailSignal::init(NLDetectorBuilder&) {
 
 
 MSRailSignal::~MSRailSignal() {
+    for (auto item : myConstraints) {
+        for (MSRailSignalConstraint* c : item.second) {
+            delete c;
+        }
+    }
+    myConstraints.clear();
 }
 
 
@@ -142,8 +150,9 @@ MSRailSignal::updateCurrentPhase() {
             DriveWay& driveway = li.getDriveWay(closest.first);
             //std::cout << SIMTIME << " signal=" << getTLLinkID(li.myLink) << " veh=" << closest.first->getID() << " dw:\n";
             //driveway.writeBlocks(*OutputDevice_COUT::getDevice());
+            const bool mustWait = !constraintsAllow(closest.first);
             MSEdgeVector occupied;
-            if (!driveway.reserve(closest, occupied)) {
+            if (mustWait || !driveway.reserve(closest, occupied)) {
                 state[li.myLink->getTLIndex()] = 'r';
                 if (occupied.size() > 0) {
                     li.reroute(const_cast<SUMOVehicle*>(closest.first), occupied);
@@ -180,6 +189,31 @@ MSRailSignal::updateCurrentPhase() {
 #ifdef DEBUG_SIGNALSTATE
     gDebugFlag4 = false;
 #endif
+}
+
+
+bool
+MSRailSignal::constraintsAllow(const SUMOVehicle* veh) const {
+    if (myConstraints.size() == 0) {
+        return true;
+    } else {
+        const std::string tripID = veh->getParameter().getParameter("tripId", veh->getID());
+        auto it = myConstraints.find(tripID);
+        if (it != myConstraints.end()) {
+            for (MSRailSignalConstraint* c : it->second) {
+                if (!c->cleared()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+}
+
+
+void
+MSRailSignal::addConstraint(const std::string& tripId, MSRailSignalConstraint* constraint) {
+    myConstraints[tripId].push_back(constraint);
 }
 
 

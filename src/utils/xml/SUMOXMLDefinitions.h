@@ -234,6 +234,10 @@ enum SumoXMLTag {
     SUMO_TAG_WALKINGAREA,
     /// @brief Information on vClass specific stop offsets at lane end
     SUMO_TAG_STOPOFFSET,
+    /// @brief Constraints on switching a rail signal
+    SUMO_TAG_RAILSIGNAL_CONSTRAINTS,
+    /// @brief Predecessor constraint on switching a rail signal
+    SUMO_TAG_PREDECESSOR,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,
@@ -1061,6 +1065,7 @@ enum SumoXMLAttr {
     SUMO_ATTR_ORIGIN,
     SUMO_ATTR_DESTINATION,
     SUMO_ATTR_VISIBLE,
+    SUMO_ATTR_LIMIT,
 
 
     /// @name ActivityGen Tags

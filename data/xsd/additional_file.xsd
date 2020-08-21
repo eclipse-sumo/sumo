@@ -38,6 +38,7 @@
             <xsd:element name="parkingArea" type="parkingAreaType" minOccurs="0"/>
             <xsd:element name="calibrator" type="calibratorType" minOccurs="0"/>
             <xsd:element name="vaporizer" type="vaporizerType" minOccurs="0"/>
+            <xsd:element name="railSignalConstraints" type="railSignalConstraintsType" minOccurs="0"/>
 
             <xsd:element name="vTypeDistribution" type="vTypeDistributionType" minOccurs="0"/>
             <xsd:element name="routeDistribution" type="routeDistributionType" minOccurs="0"/>
@@ -516,6 +517,20 @@
         <xsd:attribute name="begin" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="end" type="nonNegativeFloatType" use="optional"/>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="railSignalConstraintsType">
+        <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="predecessor">
+                <xsd:complexType>
+                    <xsd:attribute name="tripId" use="required" type="xsd:string"/>
+                    <xsd:attribute name="tl"     use="required" type="idType"/>
+                    <xsd:attribute name="foes"   use="required" type="xsd:string"/>
+                    <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:choice>
+        <xsd:attribute name="id" type="idType" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="polygonType">
