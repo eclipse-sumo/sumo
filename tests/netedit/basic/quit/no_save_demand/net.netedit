@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10.08.2020 15:08:26 by Eclipse SUMO netedit Version v1_6_0+1489-ee01cde108
+<!-- generated on 21.08.2020 14:36:18 by Eclipse SUMO netedit Version v1_6_0+1715-1ccaaec835
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,27 +30,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Aug150532.4652\netedit.gui\basic\quit\no_save_demand\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug142408.16372\netedit.gui\basic\quit\no_save_demand\log.txt"/>
     </report>
 
 </configuration>
@@ -58,7 +58,7 @@
 
 <net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="25.00,0.00" convBoundary="-9.00,-17.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="25.00,0.00" convBoundary="-10.00,-16.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ0_0" function="internal">
         <lane id=":gneJ0_0_0" index="0" speed="3.65" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>
@@ -74,7 +74,7 @@
         <lane id="gneE1_0" index="0" speed="13.89" length="50.00" shape="50.00,1.60 0.00,1.60"/>
     </edge>
     <edge id="gneE2" from="gneJ2" to="gneJ3" priority="-1">
-        <lane id="gneE2_0" index="0" speed="13.89" length="52.00" shape="-9.00,-18.60 43.00,-18.60"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="54.00" shape="-10.00,-17.60 44.00,-17.60"/>
     </edge>
 
     <tlLogic id="gneJ0" type="static" programID="0" offset="0">
@@ -92,8 +92,8 @@
     <junction id="gneJ1" type="traffic_light" x="50.00" y="0.00" incLanes="gneE0_0" intLanes=":gneJ1_0_0" shape="50.00,0.00 50.00,-3.20 50.00,0.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
-    <junction id="gneJ2" type="dead_end" x="-9.00" y="-17.00" incLanes="" intLanes="" shape="-9.00,-17.00 -9.00,-20.20"/>
-    <junction id="gneJ3" type="dead_end" x="43.00" y="-17.00" incLanes="gneE2_0" intLanes="" shape="43.00,-20.20 43.00,-17.00"/>
+    <junction id="gneJ2" type="dead_end" x="-10.00" y="-16.00" incLanes="" intLanes="" shape="-10.00,-16.00 -10.00,-19.20"/>
+    <junction id="gneJ3" type="dead_end" x="44.00" y="-16.00" incLanes="gneE2_0" intLanes="" shape="44.00,-19.20 44.00,-16.00"/>
 
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="O"/>
     <connection from="gneE1" to="gneE0" fromLane="0" toLane="0" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="O"/>
