@@ -1526,102 +1526,28 @@ GNEJunction::drawJunctionChildren(const GUIVisualizationSettings& s) const {
             connection->drawGL(s);
         }
     }
-
     // draw child demand elements
     for (const auto& demandElement : getChildDemandElements()) {
         if (!demandElement->getTagProperty().isPlacedInRTree()) {
             demandElement->drawGL(s);
         }
     }
-    // declare JunctionPathElementMarker
-    GNEPathElements::JunctionPathElementMarker junctionPathElementMarker;
     // draw child path additionals
     for (const auto& tag : myPathAdditionalElements) {
-        // search first selected element
-        const GNEAdditional* selectedElement = nullptr;
-        for (const GNEAdditional* const element : tag.second) {
-            if (element->isAttributeCarrierSelected()) {
-                selectedElement = element;
-                break;
-            }
-        }
-        // continue depending of selectedElement
-        if (selectedElement) {
-            // draw selected element with offset
-            selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
-            // draw rest of elements
-            for (const GNEAdditional* const element : tag.second) {
-                if (element != selectedElement) {
-                    element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
-                }
-            }
-        } else {
-            // draw all children
-            for (const auto& element : tag.second) {
-                element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
-            }
+        for (const auto& element : tag.second) {
+            element->drawJunctionPathChildren(s, this, 0);
         }
     }
     // draw child path demand elements
     for (const auto& tag : myPathDemandElements) {
-        // search first selected element
-        const GNEDemandElement* selectedElement = nullptr;
         for (const GNEDemandElement* const element : tag.second) {
-            if (element->isAttributeCarrierSelected()) {
-                selectedElement = element;
-                break;
-            }
-        }
-        // continue depending of selectedElement
-        if (selectedElement) {
-            // draw selected element with offset
-            selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
-            // draw rest of elements
-            for (const GNEDemandElement* const element : tag.second) {
-                if (element != selectedElement) {
-                    element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
-                }
-            }
-        } else {
-            // draw all children
-            for (const GNEDemandElement* const element : tag.second) {
-                element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
-            }
+            element->drawJunctionPathChildren(s, this, 0);
         }
     }
     // draw child path generic datas
     for (const auto& tag : myPathGenericDatas) {
-        // filter visible generic datas
-        std::vector<GNEGenericData*> visibleGenericDatas;
-        visibleGenericDatas.reserve(tag.second.size());
-        for (const auto& genericData : tag.second) {
-            if (genericData->isGenericDataVisible()) {
-                visibleGenericDatas.push_back(genericData);
-            }
-        }
-        // search first selected element
-        const GNEGenericData* selectedElement = nullptr;
-        for (const GNEGenericData* const element : visibleGenericDatas) {
-            if (element->isAttributeCarrierSelected()) {
-                selectedElement = element;
-                break;
-            }
-        }
-        // continue depending of selectedElement
-        if (selectedElement) {
-            // draw selected element with offset
-            selectedElement->drawJunctionPathChildren(s, this, 0.1, junctionPathElementMarker);
-            // draw rest of elements
-            for (const GNEGenericData* const element : visibleGenericDatas) {
-                if (element != selectedElement) {
-                    element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
-                }
-            }
-        } else {
-            // draw all children
-            for (const GNEGenericData* const element : visibleGenericDatas) {
-                element->drawJunctionPathChildren(s, this, 0, junctionPathElementMarker);
-            }
+        for (const GNEGenericData* const element : tag.second) {
+            element->drawJunctionPathChildren(s, this, 0);
         }
     }
 }

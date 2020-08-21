@@ -72,32 +72,6 @@ GNEPathElements::PathElement::PathElement():
 }
 
 // ---------------------------------------------------------------------------
-// GNEPathElements::PathElement - methods
-// ---------------------------------------------------------------------------
-
-GNEPathElements::JunctionPathElementMarker::JunctionPathElementMarker() {}
-
-
-bool
-GNEPathElements::JunctionPathElementMarker::exist(SumoXMLTag tag, const GNEPathElements::PathElement& pathElement) {
-    if (myContainer.count(tag) == 0) {
-        return false;
-    } else if (myContainer.at(tag).count(pathElement.getLane()) == 0) {
-        return false;
-    } else if (myContainer.at(tag).at(pathElement.getLane()).count(pathElement.getNextLane()) == 0) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-
-void
-GNEPathElements::JunctionPathElementMarker::mark(SumoXMLTag tag, const GNEPathElements::PathElement& pathElement) {
-    myContainer[tag][pathElement.getLane()].insert(pathElement.getNextLane());
-}
-
-// ---------------------------------------------------------------------------
 // GNEPathElements - methods
 // ---------------------------------------------------------------------------
 
@@ -161,19 +135,12 @@ GNEPathElements::drawLanePathChildren(const GUIVisualizationSettings& s, const G
 
 
 void
-GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, const GNEJunction* junction, const double offset, GNEPathElements::JunctionPathElementMarker& junctionPathElementMarker) const {
+GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, const GNEJunction* junction, const double offset) const {
     // additionals
     if (myAdditionalElement) {
         for (const auto& pathElement : myPathElements) {
             if (pathElement.getJunction() == junction) {
-                // always draw in position/rectangle selection
-                if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                    myAdditionalElement->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);
-                } else if (!junctionPathElementMarker.exist(myAdditionalElement->getTagProperty().getTag(), pathElement)) {
-                    myAdditionalElement->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);
-                    // register/mark path element
-                    junctionPathElementMarker.mark(myAdditionalElement->getTagProperty().getTag(), pathElement);
-                }
+                myAdditionalElement->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);
             }
         }
     }
@@ -181,14 +148,7 @@ GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, con
     if (myDemandElement) {
         for (const auto& pathElement : myPathElements) {
             if (pathElement.getJunction() == junction) {
-                // always draw in position/rectangle selection
-                if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                    myDemandElement->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);
-                } else if (!junctionPathElementMarker.exist(myDemandElement->getTagProperty().getTag(), pathElement)) {
-                    myDemandElement->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);
-                    // register/mark path element
-                    junctionPathElementMarker.mark(myDemandElement->getTagProperty().getTag(), pathElement);
-                }
+                myDemandElement->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);
             }
         }
     }
@@ -196,14 +156,7 @@ GNEPathElements::drawJunctionPathChildren(const GUIVisualizationSettings& s, con
     if (myGenericData && myGenericData->isGenericDataVisible()) {
         for (const auto& pathElement : myPathElements) {
             if (pathElement.getJunction() == junction) {
-                // always draw in position/rectangle selection
-                if (s.drawForPositionSelection || s.drawForRectangleSelection) {
-                    myGenericData->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);
-                } else if (!junctionPathElementMarker.exist(myGenericData->getTagProperty().getTag(), pathElement)) {
-                    myGenericData->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);
-                    // register/mark path element
-                    junctionPathElementMarker.mark(myGenericData->getTagProperty().getTag(), pathElement);
-                }
+                myGenericData->drawPartialGL(s, pathElement.getLane(), pathElement.getNextLane(), offset);
             }
         }
     }
