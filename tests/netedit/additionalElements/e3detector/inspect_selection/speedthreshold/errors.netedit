@@ -20,7 +20,11 @@ Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_B'
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_B'
 Debug: Value 'dummySpeedTreshold' for attribute speedThreshold of e3Detector isn't valid
 Debug: Value '-3' for attribute speedThreshold of e3Detector isn't valid
 Debug: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'
@@ -31,7 +35,11 @@ Debug: Setting previous attribute speedThreshold '3.39' into e3Detector 'e3Detec
 Debug: Setting previous attribute speedThreshold '1.39' into e3Detector 'e3Detector_A'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute selected '0' into detExit 'e3Detector_B'
+Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_B'
 Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_B'
+Debug: Setting previous attribute selected '0' into detExit 'e3Detector_A'
+Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_A'
 Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_A'
 Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Setting previous attribute selected '0' into junction 'gneJ1'
@@ -63,7 +71,11 @@ Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
 Debug: Setting new attribute selected 'true' into edge 'gneE0'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_A'
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_A'
 Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_B'
+Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_B'
+Debug: Setting new attribute selected 'true' into detExit 'e3Detector_B'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute speedThreshold '4' into e3Detector 'e3Detector_A'

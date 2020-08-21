@@ -38,10 +38,13 @@ netedit.changeElement("parkingArea")
 netedit.changeDefaultValue(11, "reference center")
 
 # create parkingArea in mode "reference center"
-netedit.leftClick(referencePosition, 250, 165)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
+
+# inspect first parkingArea
+netedit.leftClick(referencePosition, 250, 200)
 
 # Change parameter lane with a non valid value (dummy lane)
 netedit.modifyAttribute(1, "dummy lane", True)
