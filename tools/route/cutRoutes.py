@@ -256,7 +256,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                         except ValueError as e:
                             print("Error handling ride in '%s'" % moving.id, e)
                             planItem = None
-                        if planItem is not None and newDepart is None:
+                        if planItem is not None and newDepart is None and planItem.depart is not None:
                             newDepart = float(planItem.depart)
                             planItem.lines = planItem.intended
                     if planItem is None:
@@ -271,6 +271,8 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
                 cut_stops(moving, busStopEdges, remaining)
                 if not moving.getChildList():
                     continue
+                if newDepart is None:
+                    newDepart = float(moving.depart)
                 moving.depart = "%.2f" % newDepart
                 yield newDepart, moving
             else:
