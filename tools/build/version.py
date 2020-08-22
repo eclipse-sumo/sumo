@@ -67,19 +67,25 @@ def main():
     versionFile = join(versionDir, 'version.h')
 
     vcsFile = join(SUMO_ROOT, ".git", "index")
-    if exists(vcsFile):
-        if not exists(versionFile) or getmtime(versionFile) < getmtime(vcsFile):
-            # vcsFile is newer. lets update the revision number
-            try:
+    try:
+        if exists(vcsFile):
+            if not exists(versionFile) or getmtime(versionFile) < getmtime(vcsFile):
+                # vcsFile is newer. lets update the revision number
                 print('generating %s from revision in %s' % (versionFile, vcsFile))
                 create_version_file(versionFile, get_version())
-            except Exception as e:
-                print("Error creating", versionFile, e)
-    else:
-        print("version control file '%s' not found" % vcsFile)
-    if not exists(versionFile):
-        print('trying to generate version file %s from existing header' % versionFile)
-        create_version_file(versionFile, sumolib.version.fromVersionHeader())
+        else:
+            print("version control file '%s' not found" % vcsFile)
+        if not exists(versionFile):
+            print('trying to generate version file %s from existing header' % versionFile)
+            create_version_file(versionFile, sumolib.version.fromVersionHeader())
+    except Exception as e:
+        print("Error creating", versionFile, e)
+        try:
+            # try at least to create something
+            create_version_file(versionFile, "UNKNOWN")
+        except Exception as ee:
+            print("Error creating", versionFile, ee)
+            pass
 
 
 if __name__ == "__main__":
