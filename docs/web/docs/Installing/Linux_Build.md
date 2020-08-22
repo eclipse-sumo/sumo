@@ -73,7 +73,7 @@ local project history.
 ### release version or nightly tarball
 
 Download
-[sumo-src-{{Version}}.tar.gz](https://sumo.dlr.de/sumo/sumo-src-{{Version}}.tar.gz?download) or <http://sumo.dlr.de/daily/sumo-src-git.tar.gz>
+[sumo-src-{{Version}}.tar.gz](https://sumo.dlr.de/releases/{{Version}}/sumo-src-{{Version}}.tar.gz) or <http://sumo.dlr.de/daily/sumo-src-git.tar.gz>
 
 ```
 tar xzf sumo-src-<version>.tar.gz
@@ -83,7 +83,7 @@ pwd
 
 ## Definition of SUMO_HOME
 
-Before compiling is advisable (essential if you want to use Clang) to
+Before compiling is advisable to
 define the environment variable SUMO_HOME. SUMO_HOME must be set to
 the SUMO build path from the previous step. Assuming that you placed
 SUMO in the folder "*/home/<user\>/sumo-<version\>*", if you want to
