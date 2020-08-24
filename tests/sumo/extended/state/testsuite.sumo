@@ -90,3 +90,9 @@ save_rng
 
 # load state including rng
 load_rng
+
+# save state of a railway simulation
+save_rail_signal
+
+# load state of a railway simulation
+load_rail_signal
