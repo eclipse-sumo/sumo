@@ -175,10 +175,16 @@ MSRailSignal::updateCurrentPhase() {
             if (driveway.conflictLaneOccupied() || driveway.conflictLinkApproached()) {
 #ifdef DEBUG_SIGNALSTATE
                 if (gDebugFlag4) {
-                    std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway\n";
+                    std::cout << SIMTIME << " rsl=" << li.getID() << " red for default driveway (" << toString(driveway.myRoute) << ")\n";
                 }
 #endif
                 state[li.myLink->getTLIndex()] = 'r';
+            } else {
+#ifdef DEBUG_SIGNALSTATE
+                if (gDebugFlag4) {
+                    std::cout << SIMTIME << " rsl=" << li.getID() << " green for default driveway (" << toString(driveway.myRoute) << ")\n";
+                }
+#endif
             }
         }
     }
