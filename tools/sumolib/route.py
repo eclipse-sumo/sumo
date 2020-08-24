@@ -105,7 +105,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
                                 print("---------- same edge")
                         else:
                             extension, cost = net.getShortestPath(
-                                path[-1], edge, airDistFactor * advance + edge.getLength() + path[-1].getLength())
+                                path[-1], edge, airDistFactor * advance + edge.getLength() + path[-1].getLength(),
+                                maxDepth=1e400 if fillGaps else 3)
                             if extension is not None and not fillGaps and len(extension) > 2:
                                 extension = None
                             if extension is None:
