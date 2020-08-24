@@ -38,9 +38,6 @@ class GNERerouterIntervalDialog;
 class GNEClosingLaneReroute : public GNEAdditional {
 
 public:
-    /// @brief constructor (Used in GNERerouterIntervalDialog)
-    GNEClosingLaneReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
-
     /// @brief parameter constructor
     GNEClosingLaneReroute(GNEAdditional* rerouterIntervalParent, GNELane* closedLane, SVCPermissions permissions);
 

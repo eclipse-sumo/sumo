@@ -37,10 +37,8 @@ class GNERerouterIntervalDialog;
  * GNERouteProbReroute
  */
 class GNERouteProbReroute : public GNEAdditional {
-public:
-    /// @brief constructor (Used in GNERerouterIntervalDialog)
-    GNERouteProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
 
+public:
     /// @brief constructor
     GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability);
 

@@ -38,9 +38,6 @@ class GNERerouterIntervalDialog;
 class GNEDestProbReroute : public GNEAdditional {
 
 public:
-    /// @brief constructor (Used in GNERerouterIntervalDialog)
-    GNEDestProbReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
-
     /// @brief constructor
     GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability);
 

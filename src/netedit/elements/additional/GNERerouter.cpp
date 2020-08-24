@@ -201,7 +201,9 @@ GNERerouter::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES: {
             std::vector<std::string> edges;
             for (const auto& rerouterSymbol : getChildAdditionals()) {
-                edges.push_back(rerouterSymbol->getAttribute(SUMO_ATTR_EDGE));
+                if (rerouterSymbol->getTagProperty().isSymbol()) {
+                    edges.push_back(rerouterSymbol->getAttribute(SUMO_ATTR_EDGE));
+                }
             }
             return toString(edges);
         }

@@ -30,23 +30,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEParkingAreaReroute::GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog) :
-    GNEAdditional(rerouterIntervalDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false,
-{}, {}, {}, // Parents
-{rerouterIntervalDialog->getEditedAdditional(), rerouterIntervalDialog->getEditedAdditional()->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).begin()->second},
-{}, {}, {}, {}),
-myProbability(0),
-myVisible(false) {
-    // fill route type with default values
-    setDefaultValues();
-}
-
-
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {}),
-myProbability(probability),
-myVisible(visible) {
+    {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {}),
+    myProbability(probability),
+    myVisible(visible) {
 }
 
 

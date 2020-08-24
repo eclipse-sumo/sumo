@@ -1066,11 +1066,13 @@ GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter,
     // declare a vector to keep sorted rerouter children
     std::vector<std::pair<SUMOTime, SUMOTime>> sortedIntervals;
     // iterate over child additional
-    for (auto i : rerouter->getChildAdditionals()) {
-        sortedIntervals.push_back(std::make_pair((SUMOTime)0., (SUMOTime)0.));
-        // set begin and end
-        sortedIntervals.back().first = TIME2STEPS(i->getAttributeDouble(SUMO_ATTR_BEGIN));
-        sortedIntervals.back().second = TIME2STEPS(i->getAttributeDouble(SUMO_ATTR_END));
+    for (const auto &rerouterChild : rerouter->getChildAdditionals()) {
+        if (!rerouterChild->getTagProperty().isSymbol()) {
+            sortedIntervals.push_back(std::make_pair((SUMOTime)0., (SUMOTime)0.));
+            // set begin and end
+            sortedIntervals.back().first = TIME2STEPS(rerouterChild->getAttributeDouble(SUMO_ATTR_BEGIN));
+            sortedIntervals.back().second = TIME2STEPS(rerouterChild->getAttributeDouble(SUMO_ATTR_END));
+        }
     }
     // add new intervals
     sortedIntervals.push_back(std::make_pair(newBegin, newEnd));

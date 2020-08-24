@@ -305,36 +305,60 @@ GNERerouterIntervalDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 long
 GNERerouterIntervalDialog::onCmdAddClosingLaneReroute(FXObject*, FXSelector, void*) {
-    // create closing lane reroute
-    GNEClosingLaneReroute* closingLaneReroute = new GNEClosingLaneReroute(this);
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
-    myClosingLaneReroutesEdited.push_back(closingLaneReroute);
-    // update closing lane reroutes table
-    updateClosingLaneReroutesTable();
+    // first check if there is lanes in the network
+    if (myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().size() > 0) {
+        // get lane
+        GNELane *lane = myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().begin()->second->getLanes().front();
+        // create closing lane reroute
+        GNEClosingLaneReroute* closingLaneReroute = new GNEClosingLaneReroute(myEditedAdditional, lane, SVCAll);
+        // add it using undoList
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingLaneReroute, true), true);
+        myClosingLaneReroutesEdited.push_back(closingLaneReroute);
+        // update closing lane reroutes table
+        updateClosingLaneReroutesTable();
+    } else {
+        WRITE_WARNING("There is no lanes in the network");
+    }
     return 1;
 }
 
 
 long
 GNERerouterIntervalDialog::onCmdAddClosingReroute(FXObject*, FXSelector, void*) {
-    // create closing reroute
-    GNEClosingReroute* closingReroute = new GNEClosingReroute(this);
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingReroute, true), true);
-    myClosingReroutesEdited.push_back(closingReroute);
-    // update closing reroutes table
-    updateClosingReroutesTable();
+    // first check if there is lanes in the network
+    if (myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().size() > 0) {
+        // get edge
+        GNEEdge *edge = myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().begin()->second;
+        // create closing reroute
+        GNEClosingReroute* closingReroute = new GNEClosingReroute(myEditedAdditional, edge, SVCAll);
+        // add it using undoList
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(closingReroute, true), true);
+        myClosingReroutesEdited.push_back(closingReroute);
+        // update closing reroutes table
+        updateClosingReroutesTable();
+    } else {
+        WRITE_WARNING("There is no edges in the network");
+    }
     return 1;
 }
 
 
 long
 GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*) {
-    // create closing reroute and add it to table
-    GNEDestProbReroute* destProbReroute = new GNEDestProbReroute(this);
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
-    myDestProbReroutesEdited.push_back(destProbReroute);
-    // update dest Prob reroutes table
-    updateDestProbReroutesTable();
+    // first check if there is lanes in the network
+    if (myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().size() > 0) {
+        // get edge
+        GNEEdge *edge = myEditedAdditional->getNet()->getAttributeCarriers()->getEdges().begin()->second;
+        // create closing reroute and add it to table
+        GNEDestProbReroute* destProbReroute = new GNEDestProbReroute(myEditedAdditional, edge, 1);
+        // add it using undoList
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(destProbReroute, true), true);
+        myDestProbReroutesEdited.push_back(destProbReroute);
+        // update dest Prob reroutes table
+        updateDestProbReroutesTable();
+    } else {
+        WRITE_WARNING("There is no edges in the network");
+    }
     return 1;
 }
 
@@ -342,7 +366,7 @@ GNERerouterIntervalDialog::onCmdAddDestProbReroute(FXObject*, FXSelector, void*)
 long
 GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*) {
     // create route Prob Reroute
-    GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(this);
+    GNERouteProbReroute* routeProbReroute = new GNERouteProbReroute(myEditedAdditional, "route_id", 1);
     myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(routeProbReroute, true), true);
     myRouteProbReroutesEdited.push_back(routeProbReroute);
     // update route prob reroutes table
@@ -353,12 +377,20 @@ GNERerouterIntervalDialog::onCmdAddRouteProbReroute(FXObject*, FXSelector, void*
 
 long
 GNERerouterIntervalDialog::onCmdAddParkingAreaReroute(FXObject*, FXSelector, void*) {
-    // create parkingAreaReroute and add it to table
-    GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(this);
-    myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
-    myParkingAreaRerouteEdited.push_back(parkingAreaReroute);
-    // update dest Prob reroutes table
-    updateParkingAreaReroutesTable();
+    // first check if there is lanes in the network
+    if (myEditedAdditional->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).size() > 0) {
+        // get parking area
+        GNEAdditional *parkingArea = myEditedAdditional->getNet()->getAttributeCarriers()->getAdditionals().at(SUMO_TAG_PARKING_AREA).begin()->second;
+        // create parkingAreaReroute and add it to table
+        GNEParkingAreaReroute* parkingAreaReroute = new GNEParkingAreaReroute(myEditedAdditional, parkingArea, 1, 1);
+        // add it using undoList
+        myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(parkingAreaReroute, true), true);
+        myParkingAreaRerouteEdited.push_back(parkingAreaReroute);
+        // update dest Prob reroutes table
+        updateParkingAreaReroutesTable();
+    } else {
+        WRITE_WARNING("There is no parking areas in the network");
+    }
     return 1;
 }
 

@@ -39,9 +39,6 @@ class GNEParkingArea;
 class GNEParkingAreaReroute : public GNEAdditional {
 
 public:
-    /// @brief constructor (Used in GNERerouterIntervalDialog)
-    GNEParkingAreaReroute(GNERerouterIntervalDialog* rerouterIntervalDialog);
-
     /// @brief constructor
     GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible);
 
