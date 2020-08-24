@@ -18,6 +18,9 @@
 // Declaration of the libsumo c++ to c wrapper functions
 /****************************************************************************/
 
+#ifndef LIBSUMOCPP2C_H
+#define LIBSUMOCPP2C_H
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -28,4 +31,5 @@ void libsumo_run();
 }
 #endif
 
+#endif /* LIBSUMOCPP2C_H */
 
