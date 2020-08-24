@@ -6,3 +6,6 @@ lanes
 
 # write kml edge geometries including junction coordinates
 junctionCoordinates
+
+# write geojson  junction shapes
+junctions
