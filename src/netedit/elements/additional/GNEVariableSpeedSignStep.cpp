@@ -31,27 +31,11 @@
 // member method definitions
 // ===========================================================================
 
-GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog) :
-    GNEAdditional(variableSpeedSignDialog->getEditedAdditional()->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-{}, {}, {}, {variableSpeedSignDialog->getEditedAdditional()}, {}, {}, {}, {}),                                         // Children
-myTime(0),
-mySpeed(0) {
-    // fill VSS Step with default values
-    setDefaultValues();
-    // set time Attribute manually
-    if (getParentAdditionals().at(0)->getChildAdditionals().size() > 0) {
-        myTime = getParentAdditionals().at(0)->getChildAdditionals().back()->getAttributeDouble(SUMO_ATTR_TIME) + 1;
-    } else {
-        myTime = 0;
-    }
-}
-
-
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
-myTime(time),
-mySpeed(speed) {
+    {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
+    myTime(time),
+    mySpeed(speed) {
 }
 
 
@@ -172,8 +156,8 @@ GNEVariableSpeedSignStep::isValid(SumoXMLAttr key, const std::string& value) {
                 }
                 // check that there isn't duplicate times
                 int counter = 0;
-                for (auto i : getParentAdditionals().at(0)->getChildAdditionals()) {
-                    if (i->getAttributeDouble(SUMO_ATTR_TIME) == newTime) {
+                for (const auto& VSSChild : getParentAdditionals().at(0)->getChildAdditionals()) {
+                    if (!VSSChild->getTagProperty().isSymbol() && VSSChild->getAttributeDouble(SUMO_ATTR_TIME) == newTime) {
                         counter++;
                     }
                 }

@@ -84,8 +84,9 @@ GNEVariableSpeedSignDialog::~GNEVariableSpeedSignDialog() {}
 
 long
 GNEVariableSpeedSignDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
-    // Declare variables for time and speed
-    GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(this);
+    // create step
+    GNEVariableSpeedSignStep* step = new GNEVariableSpeedSignStep(myEditedAdditional, 0, 30);
+    // add it using GNEChange_additional
     myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(step, true), true);
     // Update table
     updateTableSteps();
@@ -95,10 +96,17 @@ GNEVariableSpeedSignDialog::onCmdAddStep(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
+    // get VSS children
+    std::vector<GNEAdditional*> VSSChildren;
+    for (const auto &VSSChild : myEditedAdditional->getChildAdditionals()) {
+        if (!VSSChild->getTagProperty().isSymbol()) {
+            VSSChildren.push_back(VSSChild);
+        }
+    }
     myStepsValids = true;
     // iterate over table and check that all parameters are correct
     for (int i = 0; i < myStepsTable->getNumRows(); i++) {
-        GNEAdditional* step = myEditedAdditional->getChildAdditionals().at(i);
+        GNEAdditional* step = VSSChildren.at(i);
         if (step->isValid(SUMO_ATTR_TIME, myStepsTable->getItem(i, 0)->getText().text()) == false) {
             myStepsValids = false;
             myStepsTable->getItem(i, 2)->setIcon(GUIIconSubSys::getIcon(GUIIcon::INCORRECT));
@@ -124,11 +132,18 @@ GNEVariableSpeedSignDialog::onCmdEditStep(FXObject*, FXSelector, void*) {
 
 long
 GNEVariableSpeedSignDialog::onCmdClickedStep(FXObject*, FXSelector, void*) {
+    // get VSS children
+    std::vector<GNEAdditional*> VSSChildren;
+    for (const auto &VSSChild : myEditedAdditional->getChildAdditionals()) {
+        if (!VSSChild->getTagProperty().isSymbol()) {
+            VSSChildren.push_back(VSSChild);
+        }
+    }
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getChildAdditionals().size(); i++) {
+    for (int i = 0; i < (int)VSSChildren.size(); i++) {
         if (myStepsTable->getItem(i, 3)->hasFocus()) {
             myStepsTable->removeRows(i);
-            myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getChildAdditionals().at(i), false), true);
+            myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(VSSChildren.at(i), false), true);
             // Update table
             updateTableSteps();
             return 1;
@@ -189,10 +204,17 @@ GNEVariableSpeedSignDialog::onCmdReset(FXObject*, FXSelector, void*) {
 
 void
 GNEVariableSpeedSignDialog::updateTableSteps() {
+    // get VSS children
+    std::vector<GNEAdditional*> VSSChildren;
+    for (const auto &VSSChild : myEditedAdditional->getChildAdditionals()) {
+        if (!VSSChild->getTagProperty().isSymbol()) {
+            VSSChildren.push_back(VSSChild);
+        }
+    }
     // clear table
     myStepsTable->clearItems();
     // set number of rows
-    myStepsTable->setTableSize(int(myEditedAdditional->getChildAdditionals().size()), 4);
+    myStepsTable->setTableSize(int(VSSChildren.size()), 4);
     // Configure list
     myStepsTable->setVisibleColumns(4);
     myStepsTable->setColumnWidth(0, 115);
@@ -207,12 +229,12 @@ GNEVariableSpeedSignDialog::updateTableSteps() {
     // Declare index for rows and pointer to FXTableItem
     FXTableItem* item = nullptr;
     // iterate over values
-    for (int i = 0; i < (int)myEditedAdditional->getChildAdditionals().size(); i++) {
+    for (int i = 0; i < (int)VSSChildren.size(); i++) {
         // Set time
-        item = new FXTableItem(myEditedAdditional->getChildAdditionals().at(i)->getAttribute(SUMO_ATTR_TIME).c_str());
+        item = new FXTableItem(VSSChildren.at(i)->getAttribute(SUMO_ATTR_TIME).c_str());
         myStepsTable->setItem(i, 0, item);
         // Set speed
-        item = new FXTableItem(myEditedAdditional->getChildAdditionals().at(i)->getAttribute(SUMO_ATTR_SPEED).c_str());
+        item = new FXTableItem(VSSChildren.at(i)->getAttribute(SUMO_ATTR_SPEED).c_str());
         myStepsTable->setItem(i, 1, item);
         // set valid icon
         item = new FXTableItem("");

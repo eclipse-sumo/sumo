@@ -37,9 +37,6 @@ class GNEVariableSpeedSignDialog;
 class GNEVariableSpeedSignStep : public GNEAdditional {
 
 public:
-    /// @brief default constructor
-    GNEVariableSpeedSignStep(GNEVariableSpeedSignDialog* variableSpeedSignDialog);
-
     /// @brief constructor
     GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed);
 

@@ -196,7 +196,9 @@ GNEVariableSpeedSign::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_LANES: {
             std::vector<std::string> lanes;
             for (const auto& VSSSymbol : getChildAdditionals()) {
-                lanes.push_back(VSSSymbol->getAttribute(SUMO_ATTR_LANE));
+                if (VSSSymbol->getTagProperty().isSymbol()) {
+                    lanes.push_back(VSSSymbol->getAttribute(SUMO_ATTR_LANE));
+                }
             }
             return toString(lanes);
         }
