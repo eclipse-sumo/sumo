@@ -63,11 +63,11 @@ public:
         // compute lane-marking intersection points)
         const double halfWidth2;
 
-        // Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
+        /// @brief Draw as a normal lane, and reduce width to make sure that a selected edge can still be seen
         const double halfWidth;
 
     private:
-        // default constructor
+        /// @brief default constructor
         LaneDrawingConstants();
 
         /// @brief Invalidated assignment operator.

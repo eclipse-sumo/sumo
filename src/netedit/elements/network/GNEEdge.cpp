@@ -516,11 +516,13 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     // draw name if isn't being drawn for selecting
     drawEdgeName(s);
     // draw dotted contours
-    if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-        GNEGeometry::drawDottedContourEdge(true, s, this, true, true);
-    }
-    if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
-        GNEGeometry::drawDottedContourEdge(false, s, this, true, true);
+    if (myLanes.size() > 1) {
+        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedContourEdge(true, s, this, true, true);
+        }
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedContourEdge(false, s, this, true, true);
+        }
     }
 }
 
