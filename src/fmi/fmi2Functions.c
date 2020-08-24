@@ -18,8 +18,11 @@
 // Implementation of the FMI2 interface functions
 /****************************************************************************/
 
+#include <stdio.h>
+#include <stdarg.h>
+#include <string.h>
 #include <foreign/fmi/fmi2Functions.h>
-
+#include "fmi2main.h"
 
 /* **********************************************************************************************
  * * IMPLEMENTATION OF GENERIC FUNCTIONALITY
@@ -41,24 +44,42 @@ const char* fmi2GetTypesPlatform() {
    failed.*/
 fmi2Component 
 fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
-                              fmi2String fmuResourceLocation, const fmi2CallbackFunctions *functions,
-                              fmi2Boolean visible, fmi2Boolean loggingOn)
+                  fmi2String fmuResourceLocation, const fmi2CallbackFunctions *functions,
+                  fmi2Boolean visible, fmi2Boolean loggingOn)
 {
-   /* For co-simulation, this function call has to perform all actions of a slave which are necessary
-   before a simulation run starts */
-   if (loggingOn) 
-      functions->logger(functions->componentEnvironment, instanceName, fmi2Error, "error", "Not yet implemented");
-   
-   return NULL;
+  
+   allocateMemoryType cbAllocateMemory = (allocateMemoryType)functions->allocateMemory;
+
+   ModelInstance* comp = (ModelInstance *) cbAllocateMemory(1, sizeof(ModelInstance));
+
+   if (comp) {
+      comp->componentEnvironment = functions->componentEnvironment;
+		comp->logger = (loggerType)functions->logger;
+		comp->allocateMemory = (allocateMemoryType)functions->allocateMemory;
+		comp->freeMemory = (freeMemoryType)functions->freeMemory;
+
+		comp->instanceName = (char *)comp->allocateMemory(1 + strlen(instanceName), sizeof(char));
+
+		if (fmuResourceLocation) {
+		 	comp->resourceLocation = (char *)comp->allocateMemory(1 + strlen(fmuResourceLocation), sizeof(char));
+		 	strcpy((char *)comp->resourceLocation, (char *)fmuResourceLocation);
+		} else {
+		 	comp->resourceLocation = NULL;
+		}
+
+		comp->modelData = (ModelData *)comp->allocateMemory(1, sizeof(ModelData));
+        
+      comp->logEvents = loggingOn;
+      comp->logErrors = true; // always log errors
+	}
+	strcpy((char *)comp->instanceName, (char *)instanceName);
+
+	return comp;
 }
 
 /* Disposes the given instance, unloads the loaded model, and frees all the allocated memory
 and other resources that have been allocated by the functions of the FMU interface. */
 void 
 fmi2FreeInstance(fmi2Component c) {
-   if (!c) return;
-   
-   /* Frees the model instance */
-   // ModelInstance *comp = (ModelInstance *)c;
-   // c->freeMemory(c->componentEnvironment, 
+  
 }

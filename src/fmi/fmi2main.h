@@ -11,20 +11,43 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    fmi2main.c
+/// @file    fmi2main.h
 /// @author  Robert Hilbrich
-/// @date    Tue, 03 Mar 2020
+/// @date    Mon, 24 Aug 2020
 ///
-// Implementation of the FMI2 to sumolib bridge features
+//  Basic declarations for the FMI model
 /****************************************************************************/
 
-#define FMI_VERSION 2
-#include <foreign/fmi/fmi2Functions.h>
+#ifndef FMI2MAIN_H
+#define FMI2MAIN_H
 
-#include "libsumocpp2c.h"
-#include "fmi2main.h"
+#include <stdbool.h>
 
-void
-fmi2run() {
-    libsumo_run();
-}
+/* Type definitions for callback functions */
+typedef void* (*allocateMemoryType)(size_t nobj, size_t size);
+typedef void  (*loggerType)        (void *componentEnvironment, const char *instanceName, int status, const char *category, const char *message, ...);
+typedef void  (*freeMemoryType)    (void *obj);
+
+
+/* The core date (= variables of the model) */
+typedef struct {
+    double vehicleCount;
+} ModelData;
+
+/* Several declarations for the model component (housekeeping stuff) */
+typedef struct {
+    void *componentEnvironment;
+    const char *instanceName;
+    const char *resourceLocation;
+
+    ModelData *modelData;
+
+    loggerType logger;
+   	allocateMemoryType allocateMemory;
+   	freeMemoryType freeMemory;
+
+    bool logEvents;
+    bool logErrors;
+} ModelInstance;
+
+#endif /* FMI2MAIN_H */
