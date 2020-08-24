@@ -683,8 +683,10 @@ NBFrame::checkOptions() {
             oc.set("junctions.small-radius", oc.getValueString("default.junctions.radius"));
         }
     }
-    if (oc.getString("tls.layout") != "opposites" && oc.getString("tls.layout") != "incoming") {
-        WRITE_ERROR("tls.layout must be 'opposites' or 'incoming'");
+    if (oc.getString("tls.layout") != "opposites" 
+            && oc.getString("tls.layout") != "incoming"
+            && oc.getString("tls.layout") != "alternateOneWay") {
+        WRITE_ERROR("tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'");
         ok = false;
     }
     if (!oc.isDefault("default.right-of-way") &&
