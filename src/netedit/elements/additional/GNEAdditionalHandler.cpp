@@ -2730,7 +2730,13 @@ GNEAdditionalHandler::LastInsertedElement::getAdditionalParent(GNENet* net, Sumo
             // parent additional wasn't sucesfully loaded, then return nullptr
             return nullptr;
         }
-        GNEAdditional* retrievedAdditional = net->retrieveAdditional((myInsertedElements.end() - 2)->tag, (myInsertedElements.end() - 2)->additional->getID(), false);
+        GNEAdditional* retrievedAdditional = nullptr;
+        // special case for rerouters
+        if ((myInsertedElements.size() == 3) && (myInsertedElements.at(0).tag == SUMO_TAG_REROUTER) && (myInsertedElements.at(1).tag == SUMO_TAG_INTERVAL)) {
+            retrievedAdditional = myInsertedElements.at(1).additional;
+        } else {
+            retrievedAdditional = net->retrieveAdditional((myInsertedElements.end() - 2)->tag, (myInsertedElements.end() - 2)->additional->getID(), false);
+        }
         if (retrievedAdditional == nullptr) {
             // additional doesn't exist
             WRITE_WARNING("A " + toString((myInsertedElements.end() - 1)->tag) + " must be declared within the definition of a " + toString(expectedTag) + ".");
