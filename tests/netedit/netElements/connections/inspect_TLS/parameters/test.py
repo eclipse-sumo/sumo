@@ -35,10 +35,10 @@ netedit.rebuildNetwork()
 netedit.changeEditMode('5')
 
 # inspect connection
-netedit.leftClick(referencePosition, 250, 138)
+netedit.leftClick(referencePosition, 223, 164)
 
 # check parameters
-netedit.checkParameters(referencePosition, 9, True)
+netedit.checkParameters(referencePosition, 15, True)
 
 # save network
 netedit.saveNetwork(referencePosition)

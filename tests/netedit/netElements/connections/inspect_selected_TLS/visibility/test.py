@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selected connections
-netedit.leftClick(referencePosition, 250, 138)
+netedit.leftClick(referencePosition, 223, 170)
 
 # Change visibility with an invalid value
 netedit.modifyAttribute(4, "dummyVisibility", True)

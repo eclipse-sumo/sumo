@@ -19,17 +19,17 @@ Debug: Created connection 'from8_0to3_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to3_1' in retrieveGNEConnection()
 Debug: Created connection 'from8_1to1_1' in retrieveGNEConnection()
 Debug: Enabled show connections throught alt + 5
-Debug: Setting new attribute keepClear 'false' into connection 'from8_0to3_0'
+Debug: Setting new attribute keepClear 'false' into connection 'from6_0to1_0'
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute keepClear '1' into connection 'from8_0to3_0'
+Debug: Setting previous attribute keepClear '1' into connection 'from6_0to1_0'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute keepClear 'false' into connection 'from8_0to3_0'
+Debug: Setting new attribute keepClear 'false' into connection 'from6_0to1_0'
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

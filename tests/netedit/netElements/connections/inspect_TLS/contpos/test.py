@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.changeEditMode('5')
 
 # inspect connection
-netedit.leftClick(referencePosition, 250, 138)
+netedit.leftClick(referencePosition, 223, 164)
 
 # Change constPos with an invalid value
 netedit.modifyAttribute(2, "dummyContPos", True)
