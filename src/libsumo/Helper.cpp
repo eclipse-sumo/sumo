@@ -1220,6 +1220,10 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             if (!l->allowsVehicleClass(vClass)) {
                 continue;
             }
+            if (l->getShape().length() == 0) {
+                // mapping to shapeless lanes is a bad idea
+                continue;
+            }
             double langle = 180.;
             double dist = FAR_AWAY;
             double perpendicularDist = FAR_AWAY;
@@ -1351,6 +1355,10 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
     for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end() && bestDistance > POSITION_EPS; ++k) {
         MSLane* candidateLane = *k;
         if (!candidateLane->allowsVehicleClass(vClass)) {
+            continue;
+        }
+        if (candidateLane->getShape().length() == 0) {
+            // mapping to shapeless lanes is a bad idea
             continue;
         }
         const double dist = candidateLane->getShape().distance2D(pos); // get distance
