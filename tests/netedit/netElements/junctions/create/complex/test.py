@@ -38,39 +38,51 @@ netedit.changeEditMode('5')
 netedit.changeEditMode('4')
 
 # create a circular road
-netedit.leftClick(referencePosition, 300, 150)
-netedit.leftClick(referencePosition, 400, 150)
-netedit.leftClick(referencePosition, 400, 250)
-netedit.leftClick(referencePosition, 400, 350)
-netedit.leftClick(referencePosition, 300, 350)
-netedit.leftClick(referencePosition, 200, 350)
-netedit.leftClick(referencePosition, 200, 250)
-netedit.leftClick(referencePosition, 200, 150)
-netedit.leftClick(referencePosition, 300, 150)
+netedit.leftClick(referencePosition, 167, 135)
+netedit.leftClick(referencePosition, 271, 135)
+netedit.leftClick(referencePosition, 375, 135)
+netedit.leftClick(referencePosition, 375, 241)
+netedit.leftClick(referencePosition, 375, 345)
+netedit.leftClick(referencePosition, 271, 345)
+netedit.leftClick(referencePosition, 167, 345)
+netedit.leftClick(referencePosition, 167, 241)
+netedit.leftClick(referencePosition, 167, 135)
 netedit.cancelEdge()
 
 # disable chain mode
 netedit.changeEditMode('4')
 
 # create a complex intersection
-netedit.leftClick(referencePosition, 300, 250)
-netedit.leftClick(referencePosition, 300, 150)
+netedit.leftClick(referencePosition, 273, 240)
+netedit.leftClick(referencePosition, 167, 135)
 
-netedit.leftClick(referencePosition, 300, 250)
-netedit.leftClick(referencePosition, 400, 250)
+netedit.leftClick(referencePosition, 273, 240)
+netedit.leftClick(referencePosition, 271, 135)
 
-netedit.leftClick(referencePosition, 300, 250)
-netedit.leftClick(referencePosition, 300, 350)
+netedit.leftClick(referencePosition, 273, 240)
+netedit.leftClick(referencePosition, 375, 135)
 
-netedit.leftClick(referencePosition, 300, 250)
-netedit.leftClick(referencePosition, 200, 250)
+netedit.leftClick(referencePosition, 273, 240)
+netedit.leftClick(referencePosition, 375, 241)
+
+netedit.leftClick(referencePosition, 273, 240)
+netedit.leftClick(referencePosition, 375, 345)
+
+netedit.leftClick(referencePosition, 273, 240)
+netedit.leftClick(referencePosition, 271, 345)
+
+netedit.leftClick(referencePosition, 273, 240)
+netedit.leftClick(referencePosition, 167, 345)
+
+netedit.leftClick(referencePosition, 273, 240)
+netedit.leftClick(referencePosition, 167, 241)
 
 # rebuild network
 netedit.rebuildNetwork()
 
 # Check undo and redo
-netedit.undo(referencePosition, 12)
-netedit.redo(referencePosition, 12)
+netedit.undo(referencePosition, 16)
+netedit.redo(referencePosition, 16)
 
 # save network
 netedit.saveNetwork(referencePosition)

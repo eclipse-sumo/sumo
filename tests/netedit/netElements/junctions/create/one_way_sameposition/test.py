@@ -32,12 +32,12 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # Create one way edge
-netedit.leftClick(referencePosition, 50, 50)
-netedit.leftClick(referencePosition, 150, 50)
+netedit.leftClick(referencePosition, 62, 30)
+netedit.leftClick(referencePosition, 167, 28)
 
 # try to create an edge with the same start and end (musn't be allowed)
-netedit.leftClick(referencePosition, 50, 50)
-netedit.leftClick(referencePosition, 50, 50)
+netedit.leftClick(referencePosition, 62, 30)
+netedit.leftClick(referencePosition, 62, 30)
 netedit.cancelEdge()
 
 # rebuild network

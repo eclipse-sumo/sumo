@@ -38,11 +38,11 @@ netedit.changeEditMode('5')
 netedit.changeEditMode('4')
 
 # create square
-netedit.leftClick(referencePosition, 50, 150)
-netedit.leftClick(referencePosition, 150, 150)
-netedit.leftClick(referencePosition, 150, 250)
-netedit.leftClick(referencePosition, 50, 250)
-netedit.leftClick(referencePosition, 50, 150)
+netedit.leftClick(referencePosition, 167, 135)
+netedit.leftClick(referencePosition, 375, 135)
+netedit.leftClick(referencePosition, 375, 345)
+netedit.leftClick(referencePosition, 167, 345)
+netedit.leftClick(referencePosition, 167, 135)
 netedit.cancelEdge()
 
 # rebuild network
