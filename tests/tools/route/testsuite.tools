@@ -36,3 +36,6 @@ implausibleRoutes
 route2poly
 analyzePersonPlans
 addStops2Routes
+
+# add delay to stops (increase duration)
+addStopDelay
