@@ -12,3 +12,6 @@ busStop
 
 # test that detector state is reset when loading a simulation state	
 detectors
+
+# test reset of the various IDLists upon loading state
+IDList

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Aug 25 10:14:36 2020 by Eclipse SUMO sumo Version v1_6_0+1752-8f7fae36af
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="34213"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1752-8f7fae36af" time="10.00">
+    <route id="r0" state="1" edges="SC"/>
+    <flowState id="v" index="10"/>
+    <delay number="1" begin="10" end="9" depart="0.00" time="9.00"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vehicle id="v.9" type="DEFAULT_VEHTYPE" depart="9.00" departLane="best" departPos="last" departSpeed="max" route="r0" speedFactor="0.86" state="9000 0 91.85 0 10000" pos="91.85" speed="11.90" posLat="0.00"/>
+    <lane id="SC_0">
+        <vehicles value="v.9"/>
+    </lane>
+</snapshot>
