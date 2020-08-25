@@ -49,7 +49,7 @@ the router using an XML-file. The syntax of a single trip definition is:
 | viaXY   | float, float [float,float]    | The network positions to pass along the way [note](#Mapmatching)   |
 | fromLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#Mapmatching)    |
 | toLonLat   | float, float    | The network position from which to depart in geo-coordinates [note](#Mapmatching)    |
-| viaLonLat   | float, float [float,float]    | The network position to pass along the way in geo-coordinates  [note](#Mapmatching)   |
+| viaLonLat   | float, float [float,float]    | The network positions to pass along the way in geo-coordinates  [note](#Mapmatching)   |
 
 ## Routing between Junctions
 Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the duarouter option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
