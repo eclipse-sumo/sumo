@@ -702,6 +702,7 @@ Simulation::loadState(const std::string& fileName) {
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         throw TraCIException("Loading state from '" + fileName + "' failed.");
     }
+    Helper::clearVehicleStates();
     PROGRESS_TIME_MESSAGE(before);
     return STEPS2TIME(newTime);
 }

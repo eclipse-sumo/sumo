@@ -1558,10 +1558,13 @@ TraCIServer::readTypeCheckingPolygon(tcpip::Storage& inputStorage, PositionVecto
 
 
 void
-TraCIServer::setTargetTime(SUMOTime targetTime) {
+TraCIServer::stateLoaded(SUMOTime targetTime) {
     myTargetTime = targetTime;
     for (auto& s : mySockets) {
         s.second->targetTime = targetTime;
+        for (auto& stateChange : s.second->vehicleStateChanges) {
+            stateChange.second.clear();
+        }
     }
 }
 

@@ -220,7 +220,7 @@ NLBuilder::build() {
         if (myOptions.isDefault("begin")) {
             myOptions.set("begin", time2string(h.getTime()));
             if (TraCIServer::getInstance() != nullptr) {
-                TraCIServer::getInstance()->setTargetTime(h.getTime());
+                TraCIServer::getInstance()->stateLoaded(h.getTime());
             }
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {

@@ -239,9 +239,9 @@ public:
     /// @}
 
 
-    /// @brief Sets myTargetTime on server and sockets to the given value
+    /// @brief updates myTargetTime and resets vehicle state changes after loading a simulation state
     /// @note  Used in MSStateHandler to update the server's time after loading a state
-    void setTargetTime(SUMOTime targetTime);
+    void stateLoaded(SUMOTime targetTime);
 
     std::vector<std::string>& getLoadArgs() {
         return myLoadArgs;

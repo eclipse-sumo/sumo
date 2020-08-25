@@ -344,7 +344,7 @@ TraCIServerAPI_Simulation::processSet(TraCIServer& server, tcpip::Storage& input
                     return server.writeErrorStatusCmd(libsumo::CMD_SET_SIM_VARIABLE, "A string is needed for loading simulation state.", outputStorage);
                 }
                 double time = libsumo::Simulation::loadState(file);
-                TraCIServer::getInstance()->setTargetTime(TIME2STEPS(time));
+                TraCIServer::getInstance()->stateLoaded(TIME2STEPS(time));
             }
             break;
             case libsumo::CMD_MESSAGE: {
