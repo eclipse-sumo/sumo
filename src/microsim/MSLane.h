@@ -1192,6 +1192,12 @@ public:
      * @todo What about throwing an error if something else fails (a vehicle can not be referenced)?
      */
     void loadState(const std::vector<std::string>& vehIDs, MSVehicleControl& vc);
+
+
+    /* @brief helper function for state saving: checks whether any outgoing
+     * links are being approached */
+    bool hasApproaching() const;
+
     /// @}
 
 
@@ -1281,6 +1287,9 @@ protected:
 
     /// @brief check whether pedestrians on this lane interfere with vehicle insertion
     bool checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& dist, double pos, bool patchSpeed) const;
+
+    /// @brief check whether any of the outgoing links are being approached
+    bool hasApproaching(const MSLinkCont& links) const;
 
     /// Unique numerical ID (set on reading by netload)
     int myNumericalID;

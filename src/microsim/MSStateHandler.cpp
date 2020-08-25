@@ -57,6 +57,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset, b
     myOffset(offset),
     mySegment(nullptr),
     myCurrentLane(nullptr),
+    myCurrentLink(nullptr),
     myAttrs(nullptr),
     myLastParameterised(nullptr),
     myOnlyReadTime(onlyReadTime)
@@ -214,6 +215,36 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 }
             } catch (EmptyData&) {} // attr may be empty
             myQueIndex++;
+            break;
+        }
+        case SUMO_TAG_LINK: {
+            bool ok;
+            myCurrentLink = nullptr;
+            const std::string toLaneID = attrs.get<std::string>(SUMO_ATTR_TO, nullptr, ok);
+            for (MSLink* link : myCurrentLane->getLinkCont()) {
+                if (link->getViaLaneOrLane()->getID() == toLaneID) {
+                    myCurrentLink = link;
+                }
+            }
+            if (myCurrentLink == nullptr) {
+                throw ProcessError("Unknown link from lane '" + myCurrentLane->getID() + "' to lane '" + toLaneID + "' in loaded state");
+            }
+            break;
+        }
+        case SUMO_TAG_APPROACHING: {
+            bool ok;
+            const std::string vehID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+            const SUMOTime arrivalTime = attrs.get<SUMOTime>(SUMO_ATTR_ARRIVALTIME, nullptr, ok);
+            const double arrivalSpeed = attrs.get<double>(SUMO_ATTR_ARRIVALSPEED, nullptr, ok);
+            const double leaveSpeed = attrs.get<double>(SUMO_ATTR_DEPARTSPEED, nullptr, ok);
+            const bool setRequest = attrs.get<bool>(SUMO_ATTR_REQUEST, nullptr, ok);
+            const SUMOTime arrivalTimeBraking = attrs.get<SUMOTime>(SUMO_ATTR_ARRIVALTIMEBRAKING, nullptr, ok);
+            const double arrivalSpeedBraking = attrs.get<double>(SUMO_ATTR_ARRIVALSPEEDBRAKING, nullptr, ok);
+            const SUMOTime waitingTime = attrs.get<SUMOTime>(SUMO_ATTR_WAITINGTIME, nullptr, ok);
+            const double dist = attrs.get<double>(SUMO_ATTR_DISTANCE, nullptr, ok);
+            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+            SUMOVehicle* veh = vc.getVehicle(vehID);
+            myCurrentLink->setApproaching(veh, arrivalTime, arrivalSpeed, leaveSpeed, setRequest, arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist);
             break;
         }
         case SUMO_TAG_PARAM: {

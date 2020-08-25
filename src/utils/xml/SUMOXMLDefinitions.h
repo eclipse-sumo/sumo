@@ -238,6 +238,10 @@ enum SumoXMLTag {
     SUMO_TAG_RAILSIGNAL_CONSTRAINTS,
     /// @brief Predecessor constraint on switching a rail signal
     SUMO_TAG_PREDECESSOR,
+    /// @brief Link information for state-saving
+    SUMO_TAG_LINK,
+    /// @brief Link-approaching vehicle information for state-saving
+    SUMO_TAG_APPROACHING,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,
@@ -1066,7 +1070,9 @@ enum SumoXMLAttr {
     SUMO_ATTR_DESTINATION,
     SUMO_ATTR_VISIBLE,
     SUMO_ATTR_LIMIT,
-
+    SUMO_ATTR_ARRIVALTIME,
+    SUMO_ATTR_ARRIVALTIMEBRAKING,
+    SUMO_ATTR_ARRIVALSPEEDBRAKING,
 
     /// @name ActivityGen Tags
     /// @{

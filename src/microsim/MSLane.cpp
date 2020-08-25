@@ -3103,14 +3103,52 @@ MSLane::removeParking(MSVehicle* veh) {
     myParkingVehicles.erase(veh);
 }
 
+bool
+MSLane::hasApproaching() const {
+    for (const MSLink* link : myLinks) {
+        if (link->getApproaching().size() > 0) {
+            return true;
+        }
+    }
+    return false;
+}
+
 void
 MSLane::saveState(OutputDevice& out) {
-    if (myVehicles.size() > 0) {
+    const bool toRailJunction = myLinks.size() > 0 && (
+            myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
+            || myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_CROSSING);
+    const bool hasVehicles = myVehicles.size() > 0;
+    if (hasVehicles || (toRailJunction && hasApproaching())) {
         out.openTag(SUMO_TAG_LANE);
         out.writeAttr(SUMO_ATTR_ID, getID());
-        out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
-        out.writeAttr(SUMO_ATTR_VALUE, myVehicles);
-        out.closeTag();
+        if (hasVehicles) {
+            out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES);
+            out.writeAttr(SUMO_ATTR_VALUE, myVehicles);
+            out.closeTag();
+        }
+        if (toRailJunction) {
+            for (const MSLink* link : myLinks) {
+                if (link->getApproaching().size() > 0) {
+                    out.openTag(SUMO_TAG_LINK);
+                    out.writeAttr(SUMO_ATTR_TO, link->getViaLaneOrLane()->getID());
+                    for (auto item : link->getApproaching()) {
+                        out.openTag(SUMO_TAG_APPROACHING);
+                        out.writeAttr(SUMO_ATTR_ID, item.first->getID());
+                        out.writeAttr(SUMO_ATTR_ARRIVALTIME, item.second.arrivalTime);
+                        out.writeAttr(SUMO_ATTR_ARRIVALSPEED, item.second.arrivalSpeed);
+                        out.writeAttr(SUMO_ATTR_DEPARTSPEED, item.second.leaveSpeed);
+                        out.writeAttr(SUMO_ATTR_REQUEST, item.second.willPass);
+                        out.writeAttr(SUMO_ATTR_ARRIVALTIMEBRAKING, item.second.arrivalTimeBraking);
+                        out.writeAttr(SUMO_ATTR_ARRIVALSPEEDBRAKING, item.second.arrivalSpeedBraking);
+                        out.writeAttr(SUMO_ATTR_WAITINGTIME, item.second.waitingTime);
+                        out.writeAttr(SUMO_ATTR_DISTANCE, item.second.dist);
+                        out.closeTag();
+                    }
+                    out.closeTag();
+                }
+            }
+        }
         out.closeTag();
     }
 }

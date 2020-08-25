@@ -114,14 +114,34 @@
     </xsd:complexType>
 
     <xsd:complexType name="laneStateType">
-        <xsd:sequence>
-            <xsd:element name="vehicles" type="vehiclesType" minOccurs="1" maxOccurs="1"/>
-        </xsd:sequence>
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="vehicles" type="vehiclesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="vehiclesType">
         <xsd:attribute name="value" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="linkType">
+        <xsd:sequence>
+            <xsd:element name="approaching" type="approachingType" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="to" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="approachingType">
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="arrivalTime" type="xsd:int" use="required"/>
+        <xsd:attribute name="arrivalSpeed" type="xsd:float" use="required"/>
+        <xsd:attribute name="departSpeed" type="xsd:float" use="required"/>
+        <xsd:attribute name="request" type="boolType" use="required"/>
+        <xsd:attribute name="arrivalTimeBraking" type="xsd:int" use="required"/>
+        <xsd:attribute name="arrivalSpeedBraking" type="xsd:float" use="required"/>
+        <xsd:attribute name="waitingTime" type="xsd:int" use="required"/>
+        <xsd:attribute name="distance" type="xsd:float" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="segmentStateType">

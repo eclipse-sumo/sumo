@@ -137,6 +137,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "stopOffset",                     SUMO_TAG_STOPOFFSET },
     { "railSignalConstraints",          SUMO_TAG_RAILSIGNAL_CONSTRAINTS },
     { "predecessor",                    SUMO_TAG_PREDECESSOR },
+    { "link",                           SUMO_TAG_LINK },
+    { "approaching",                    SUMO_TAG_APPROACHING },
     // OSM
     { "way",                            SUMO_TAG_WAY },
     { "nd",                             SUMO_TAG_ND },
@@ -755,6 +757,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "destination",            SUMO_ATTR_DESTINATION },
     { "visible",                SUMO_ATTR_VISIBLE },
     { "limit",                  SUMO_ATTR_LIMIT },
+    { "arrivalTime",            SUMO_ATTR_ARRIVALTIME },
+    { "arrivalTimeBraking",     SUMO_ATTR_ARRIVALTIMEBRAKING },
+    { "arrivalSpeedBraking",    SUMO_ATTR_ARRIVALSPEEDBRAKING },
 
 #ifndef WIN32
     { "commandPosix",   SUMO_ATTR_COMMAND },

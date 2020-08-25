@@ -97,6 +97,9 @@ private:
     /// @brief current lane being loaded
     MSLane* myCurrentLane;
 
+    /// @brief current link being loaded
+    MSLink* myCurrentLink;
+
     /// @brief que index
     int myQueIndex;
 
