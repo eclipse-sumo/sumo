@@ -299,6 +299,18 @@ For this functionality it is recommended to use
   subprocess.Popen, be sure to call wait() on the resulting process
   object before quitting your script. You might loose output
   otherwise.
+  
+### Determine the traci library being loaded
+When working with different sumo versions it may happen that the call `import traci` loads the wrong library.
+The easiest way to debug this is to add the following lines after the import
+```
+import traci
+print("LOADPATH:", '\n'.join(sys.path))                                                                                                                                      
+print("TRACIPATH:", traci.__file__) 
+sys.exit()
+```
+Make sure that the TRACIPATH corresponds to the sumo version that you wish to use. 
+If it does not, then the order of directories in LOADPATH (sys.path) must be changed or the SUMO installation must be removed from any directories that come before the wanted directory.
 
 ### Debugging a TraCI session on Linux
 
