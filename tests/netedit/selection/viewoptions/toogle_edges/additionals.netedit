@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.01.2019 13:20:00 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 25.08.2020 11:52:02 by Eclipse SUMO netedit Version v1_6_0+1752-8f7fae36af
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan131526.2148/netedit.gui/selection/viewoptions/toogle_edges\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan131526.2148/netedit.gui/selection/viewoptions/toogle_edges\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -30,28 +31,37 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan131526.2148/netedit.gui/selection/viewoptions/toogle_edges\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan131526.2148/netedit.gui/selection/viewoptions/toogle_edges\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan131526.2148/netedit.gui/selection/viewoptions/toogle_edges\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan131526.2148/netedit.gui/selection/viewoptions/toogle_edges\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan131526.2148/netedit.gui/selection/viewoptions/toogle_edges\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115110.4208\netedit.gui\selection\viewoptions\toogle_edges\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStopA" lane="3_1" startPos="3.90" endPos="13.90"/>
+    <busStop id="busStopB" lane="4_1" startPos="3.90" endPos="13.90"/>
+    <busStop id="busStopC" lane="7_1" startPos="25.00" endPos="35.00"/>
+    <busStop id="busStopD" lane="8_1" startPos="25.00" endPos="35.00"/>
     <e3Detector id="e3Detector_0" pos="37.00,39.00" freq="100.00" file="e3Detector_0.txt">
         <detEntry lane="3_1" pos="30.00"/>
         <detExit lane="3_2" pos="5.00"/>
@@ -68,7 +78,8 @@
         <detEntry lane="7_1" pos="35.00"/>
         <detExit lane="7_2" pos="10.00"/>
     </e3Detector>
-    <poly id="poly_0" color="green" fill="1" layer="0.00" shape="35.000000,63.000000 29.000000,63.000000 29.000000,69.000000 35.000000,69.000000 35.000000,63.000000"/>
+    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
+    <poly id="poly" color="green" fill="1" layer="0.00" shape="35.000000,63.000000 29.000000,63.000000 29.000000,69.000000 35.000000,69.000000 35.000000,63.000000"/>
     <poi id="POI_0" color="red" layer="3.00" x="26.00" y="63.00" width="0.00" height="0.00"/>
     <poi id="POI_1" color="red" layer="3.00" x="26.00" y="69.00" width="0.00" height="0.00"/>
     <poi id="POI_2" color="red" layer="3.00" x="29.00" y="72.00" width="0.00" height="0.00"/>

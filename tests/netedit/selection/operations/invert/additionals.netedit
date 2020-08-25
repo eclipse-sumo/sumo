@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10.05.2019 12:23:51 by Eclipse SUMO netedit Version v1_2_0+0323-a3c4a77541
+<!-- generated on 25.08.2020 12:02:18 by Eclipse SUMO netedit Version v1_6_0+1752-8f7fae36af
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_10May082617.3016/netedit.gui/selection/operations/invert\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_10May082617.3016/netedit.gui/selection/operations/invert\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -30,29 +31,34 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_10May082617.3016/netedit.gui/selection/operations/invert\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_10May082617.3016/netedit.gui/selection/operations/invert\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_10May082617.3016/netedit.gui/selection/operations/invert\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_10May082617.3016/netedit.gui/selection/operations/invert\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_10May082617.3016/netedit.gui/selection/operations/invert\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_10May082617.3016/netedit.gui/selection/operations/invert\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug115358.14324\netedit.gui\selection\operations\invert\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <taz id="TAZ" shape="70.00,30.00 60.00,30.00 60.00,40.00 70.00,40.00 70.00,30.00" color="orange"/>
     <poly id="poly_0" color="green" fill="1" layer="0.00" shape="35.000000,63.000000 29.000000,63.000000 29.000000,69.000000 35.000000,69.000000 35.000000,63.000000"/>
     <poi id="POI_3" color="red" layer="3.00" x="35.00" y="72.00" width="0.00" height="0.00"/>
 </additional>
