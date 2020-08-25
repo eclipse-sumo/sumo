@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E1
-netedit.leftClick(referencePosition, 150, 260)
+netedit.leftClick(referencePosition, 150, 250)
 
 # Change parameter file with an non valid value
 netedit.modifyAttribute(2, "%%%;:..&&%$%$", True)

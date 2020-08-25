@@ -56,7 +56,7 @@ netedit.leftClick(referencePosition, 400, 240)
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(referencePosition, 200, 240)
+netedit.leftClick(referencePosition, 186, 240)
 
 # Change parameter position with a non valid value (dummy position X)
 netedit.modifyAttribute(1, "dummy position", True)

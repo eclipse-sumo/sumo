@@ -38,10 +38,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect containerStops
-netedit.leftClick(referencePosition, 150, 265)
+netedit.leftClick(referencePosition, 160, 270)
 
 # check parameters
-netedit.checkParameters(referencePosition, 4, True)
+netedit.checkParameters(referencePosition, 4, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

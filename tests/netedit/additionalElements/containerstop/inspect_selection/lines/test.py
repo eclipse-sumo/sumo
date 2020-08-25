@@ -38,10 +38,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect containerStops
-netedit.leftClick(referencePosition, 150, 265)
+netedit.leftClick(referencePosition, 160, 270)
 
 # Set lines
-netedit.modifyAttribute(2, "commonLine1 commonLine2", True)
+netedit.modifyAttribute(2, "commonLine1 commonLine2", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

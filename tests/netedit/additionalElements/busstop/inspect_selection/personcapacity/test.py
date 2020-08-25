@@ -38,10 +38,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect busstops
-netedit.leftClick(referencePosition, 150, 265)
+netedit.leftClick(referencePosition, 160, 270)
 
 # Set person capacity
-netedit.modifyAttribute(3, "50", True)
+netedit.modifyAttribute(3, "50", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

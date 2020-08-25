@@ -56,7 +56,7 @@ netedit.leftClick(referencePosition, 400, 240)
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(referencePosition, 200, 240)
+netedit.leftClick(referencePosition, 186, 240)
 
 # check parameters
 netedit.checkParameters(referencePosition, 4, True)

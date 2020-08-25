@@ -38,10 +38,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect containerStops
-netedit.leftClick(referencePosition, 150, 265)
+netedit.leftClick(referencePosition, 160, 270)
 
 # Set name
-netedit.modifyAttribute(0, "common containerStop Name", True)
+netedit.modifyAttribute(0, "common containerStop Name", False)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
