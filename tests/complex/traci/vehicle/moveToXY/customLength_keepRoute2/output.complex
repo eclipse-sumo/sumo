@@ -9,7 +9,7 @@
 9.0 edge=beg xReq=70 xAct=70.0 xActConv 70.0
 10.0 edge=beg xReq=80 xAct=80.0 xActConv 80.0
 11.0 edge=beg xReq=90 xAct=90.0 xActConv 90.0
-12.0 edge=:gneJ3_0 xReq=100 xAct=100.0 xActConv 100.0
+12.0 edge=beg xReq=100 xAct=100.0 xActConv 99.95
 13.0 edge=middle xReq=110 xAct=110.0 xActConv 110.0
 14.0 edge=middle xReq=120 xAct=120.0 xActConv 120.0
 15.0 edge=middle xReq=130 xAct=130.0 xActConv 130.0
@@ -29,7 +29,7 @@
 29.0 edge=middle xReq=270 xAct=270.0 xActConv 270.0
 30.0 edge=middle xReq=280 xAct=280.0 xActConv 280.0
 31.0 edge=middle xReq=290 xAct=290.0 xActConv 290.0
-32.0 edge=:gneJ5_0 xReq=300 xAct=300.0 xActConv 300.0
+32.0 edge=end xReq=300 xAct=300.0 xActConv 300.0
 33.0 edge=end xReq=310 xAct=310.0 xActConv 310.0
 34.0 edge=end xReq=320 xAct=320.0 xActConv 320.0
 35.0 edge=end xReq=330 xAct=330.0 xActConv 330.0
