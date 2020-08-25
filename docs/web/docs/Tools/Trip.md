@@ -114,7 +114,7 @@ This would make the random vehicles be distributed randomly on their
 starting edges and inserted with high speed on a reasonable lane.
 
 !!! caution
-    Quoting of trip attributes on Linux must use the style **--trip-attributes departLane="best" departSpeed="max" departPos="random"'**
+    Quoting of trip attributes on Linux must use the style **--trip-attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
 ### Setting a vehicle type from an external file
 
