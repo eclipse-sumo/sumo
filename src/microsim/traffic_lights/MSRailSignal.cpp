@@ -835,7 +835,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
     bool seekBidiSwitch = true;
     MSLane* toLane = origin->getViaLaneOrLane();
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
-    gDebugFlag4 = getClickableTLLinkID(origin) == "junction '36745', link 0";
+    gDebugFlag4 = getClickableTLLinkID(origin) == "junction '14211', link 0";
     if (gDebugFlag4) std::cout << "buildRoute origin=" << getTLLinkID(origin) << " vehRoute=" << toString(ConstMSEdgeVector(next, end))
                                    << " visited=" << joinNamedToString(visited, " ") << "\n";
 #endif
@@ -872,6 +872,11 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
             myForward.push_back(toLane);
         } else if (bidi == nullptr) {
             seekBidiSwitch = false;
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+            if (gDebugFlag4) {
+                std::cout << "      noBidi, abort search for bidiSwitch\n";
+            }
+#endif
         }
         if (bidi != nullptr) {
             myBidi.push_back(bidi);
@@ -889,6 +894,11 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                         if (link->getViaLaneOrLane() != bidi) {
                             // this switch is special beause it still lies on the current route
                             myProtectingSwitches.push_back(ili.viaLink);
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                            if (gDebugFlag4) {
+                                std::cout << "      abort: found protecting switch " << ili.viaLink->getDescription() << "\n";
+                            }
+#endif
                             return;
                         }
                     }
@@ -905,6 +915,11 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                 toLane = link->getViaLaneOrLane();
                 if (link->getLane()->getBidiLane() != nullptr && &link->getLane()->getEdge() == current->getBidiEdge()) {
                     // do not follow turn-arounds even if the route contains a reversal
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                    if (gDebugFlag4) {
+                        std::cout << "      abort: turn-around\n";
+                    }
+#endif
                     return;
                 }
                 if (link->getTLLogic() != nullptr) {
@@ -915,6 +930,11 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                     }
                     seekForwardSignal = false;
                     seekBidiSwitch = bidi != nullptr;
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                    if (gDebugFlag4) {
+                        std::cout << "      found forwardSignal " << link->getTLLogic()->getID() << " seekBidiSwitch=" << seekBidiSwitch << "\n";
+                    }
+#endif
                 }
                 break;
             }
@@ -924,6 +944,11 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                 // no connection found, jump to next route edge
                 toLane = (*next)->getLanes()[0];
             } else {
+#ifdef DEBUG_DRIVEWAY_BUILDROUTE
+                if (gDebugFlag4) {
+                    std::cout << "      abort: no next lane available\n";
+                }
+#endif
                 return;
             }
         }
