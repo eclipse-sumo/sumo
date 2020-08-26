@@ -1875,6 +1875,16 @@ MSVehicle::processNextStop(double currentVelocity) {
             }
 #endif
             resumeFromStopping();
+            if (isRailway(getVClass())
+                    && hasStops()) {
+                // stay on the current lane in case of a double stop
+                const Stop& nextStop = getNextStop();
+                if (nextStop.edge == myCurrEdge) {
+                    const double stopSpeed = getCarFollowModel().stopSpeed(this, getSpeed(), nextStop.pars.endPos - myState.myPos);
+                    //std::cout << SIMTIME << " veh=" << getID() << " resumedFromStopping currentVelocity=" << currentVelocity << " stopSpeed=" << stopSpeed << "\n";
+                    return stopSpeed;
+                }
+            }
         } else {
             if (isParking()) {
                 // called via MSVehicleTransfer
@@ -1958,9 +1968,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     fitsOnStoppingPlace = false;
                 }
             }
-            const double targetPos = (myLFLinkLanes.empty()
-                                      ? stop.getEndPos(*this) // loading simulation state
-                                      : myState.myPos + myLFLinkLanes.front().myDistance); // avoid concurrent read/write to stoppingPlace during execute move;
+            const double targetPos = myState.myPos + myStopDist;
             const double reachedThreshold = (useStoppingPlace ? targetPos - STOPPING_PLACE_OFFSET : stop.pars.startPos) - NUMERICAL_EPS;
 #ifdef DEBUG_STOPS
             if (DEBUG_COND) {
@@ -2498,6 +2506,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 endPos = stop.pars.startPos;
             }
             myStopDist = seen + endPos - lane->getLength();
+#ifdef DEBUG_STOPS
+            if (DEBUG_COND) {
+                std::cout << SIMTIME << " veh=" << getID() <<  " myStopDist=" << myStopDist << " stopLane=" << stop.lane->getID() << " stopEndPos=" << endPos << "\n";
+            }
+#endif
             // regular stops are not emergencies
             double stopSpeed;
             if (isWaypoint) {
@@ -2533,7 +2546,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 
             }
 #endif
-            if (!isWaypoint) {
+            if (!isWaypoint && !isRailway(getVClass())) {
                 lfLinks.push_back(DriveProcessItem(v, myStopDist));
                 break;
             }
@@ -2649,8 +2662,10 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             laneStopOffset = MIN2(laneStopOffset, seen - brakeDist);
         }
         laneStopOffset = MAX2(POSITION_EPS, laneStopOffset);
-        const double stopDist = MAX2(0., seen - laneStopOffset);
-
+        double stopDist = MAX2(0., seen - laneStopOffset);
+        if (myStopDist != std::numeric_limits<double>::max()) {
+            stopDist = MAX2(stopDist, myStopDist);
+        }
 #ifdef DEBUG_PLAN_MOVE
         if (DEBUG_COND) {
             std::cout << SIMTIME << " veh=" << getID() << " effective stopOffset on lane '" << lane->getID()
@@ -2829,6 +2844,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, v, arrivalSpeed);
         } else {
             arrivalTime = t - DELTA_T + cfModel.getMinimalArrivalTime(seen, myState.mySpeed, arrivalSpeed);
+        }
+        if (isStopped()) {
+            arrivalTime += MAX2((SUMOTime)0, myStops.front().duration);
         }
 
         // compute arrival speed and arrival time if vehicle starts braking now
@@ -3913,6 +3931,16 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                         approachedLane = nullptr;
                         break;
                     }
+                    if ((getVClass() & SVC_RAIL_CLASSES) != 0
+                            && myState.myPos < myLane->getLength() + NUMERICAL_EPS
+                            && hasStops() && getNextStop().edge == myCurrEdge) {
+                        // avoid skipping stop due to numerical instability
+                        // this is a special case for rail vehicles because they
+                        // continue myLFLinkLanes past stops
+                        approachedLane = myLane;
+                        myState.myPos = myLane->getLength();
+                        break;
+                    }
                     approachedLane = link->getViaLaneOrLane();
                     if (myInfluencer == nullptr || myInfluencer->getEmergencyBrakeRedLight()) {
                         bool beyondStopLine = linkDist < link->getLaneBefore()->getStopOffset(this);
@@ -3920,6 +3948,10 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                             emergencyReason = " because of a red traffic light";
                             break;
                         }
+                    }
+                    if (reverseTrain && approachedLane->isInternal()) {
+                        // avoid getting stuck on a slow turn-around internal lane
+                        myState.myPos += approachedLane->getLength();
                     }
                 } else if (myState.myPos < myLane->getLength() + NUMERICAL_EPS) {
                     // avoid warning due to numerical instability
@@ -5175,6 +5207,9 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
     }
 
     // go forward along the next lanes;
+    // trains do not have to deal with lane-changing for stops but their best
+    // lanes lookahead is needed for rail signal control
+    const bool continueAfterStop = nextStopIsWaypoint || isRailway(getVClass());
     int seen = 0;
     double seenLength = 0;
     bool progress = true;
@@ -5205,7 +5240,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         if (nextStopEdge == ce
                 // already past the stop edge
                 && !(ce == myCurrEdge && myLane != nullptr && myLane->isInternal())) {
-            if (!nextStopLane->isInternal() && !nextStopIsWaypoint) {
+            if (!nextStopLane->isInternal() && !continueAfterStop) {
                 progress = false;
             }
             const MSLane* normalStopLane = nextStopLane->getNormalPredecessorLane();
