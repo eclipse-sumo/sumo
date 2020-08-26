@@ -100,10 +100,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum effort at the given time
         The definition of the effort depends on the wished routing scheme */
     bool compute(const E* from, const E* to, const V* const vehicle, SUMOTime msTime, std::vector<const E*>& into, bool silent = false) {
-        if (myInternalRouter == nullptr) {
-            myInternalRouter = new _InternalDijkstra(getRailEdges(), this->myErrorMsgHandler == MsgHandler::getWarningInstance(), &getTravelTimeStatic,
-                                                     nullptr, mySilent, nullptr, this->myHavePermissions, this->myHaveRestrictions);
-        }
+        ensureInternalRouter();
         if (vehicle->getLength() > myMaxTrainLength) {
             WRITE_WARNINGF("Vehicle '%' with length % exceeds configured value of --railway.max-train-length %",
                     vehicle->getID(), toString(vehicle->getLength()), toString(myMaxTrainLength));
@@ -154,6 +151,7 @@ public:
     }
 
     void prohibit(const std::vector<E*>& toProhibit) {
+        ensureInternalRouter();
         std::vector<_RailEdge*> railEdges;
         for (E* edge : toProhibit) {
             railEdges.push_back(edge->getRailwayRoutingEdge());
@@ -170,6 +168,13 @@ private:
         mySilent(other->mySilent),
         myMaxTrainLength(other->myMaxTrainLength)
     {}
+
+    void ensureInternalRouter() {
+        if (myInternalRouter == nullptr) {
+            myInternalRouter = new _InternalDijkstra(getRailEdges(), this->myErrorMsgHandler == MsgHandler::getWarningInstance(), &getTravelTimeStatic,
+                    nullptr, mySilent, nullptr, this->myHavePermissions, this->myHaveRestrictions);
+        }
+    }
 
     const std::vector<_RailEdge*>& getRailEdges() {
         if (myOriginal != nullptr) {
