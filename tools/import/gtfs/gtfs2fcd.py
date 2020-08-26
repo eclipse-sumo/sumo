@@ -35,7 +35,7 @@ import traceExporter  # noqa
 def add_options():
     argParser = sumolib.options.ArgumentParser()
     argParser.add_argument("-r", "--region", help="define the region to process")
-    argParser.add_argument("--gtfs", help="define gtfs zip file to load")
+    argParser.add_argument("--gtfs", help="define gtfs zip file to load (mandatory)")
     argParser.add_argument("--date", help="define the day to import, format: 'YYYYMMDD'")
     argParser.add_argument("--fcd", help="directory to write / read the generated FCD files to / from")
     argParser.add_argument("--gpsdat", help="directory to write / read the generated gpsdat files to / from")
@@ -45,6 +45,8 @@ def add_options():
 
 
 def check_options(options):
+    if options.gtfs is None or options.date is None:
+        sys.exit("Please give a GTFS file using --gtfs FILE and a date using --date YYYYMMDD.")
     if options.region is None:
         options.region = os.path.basename(options.gtfs)[:-4]
     if options.fcd is None:

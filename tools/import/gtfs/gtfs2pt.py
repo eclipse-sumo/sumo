@@ -66,6 +66,8 @@ def get_options(args=None):
     argParser.add_argument("--bus-stop-length", default=13, type=float, help="length for a bus stop")
     argParser.add_argument("--train-stop-length", default=110, type=float, help="length for a train stop")
     argParser.add_argument("--tram-stop-length", default=60, type=float, help="length for a tram stop")
+    argParser.add_argument("--fill-gaps", default=30, type=int, 
+                           help="maximum number of edges between stops")
 
     options = gtfs2fcd.check_options(argParser.parse_args(args=args))
     if options.map_output is None:
@@ -149,7 +151,7 @@ def traceMap(options, typedNets, radius=100):
             minX, minY, maxX, maxY = sumolib.geomhelper.addToBoundingBox(trace)
             if (minX < netBox[1][0] + radius and minY < netBox[1][1] + radius and
                 maxX > netBox[0][0] - radius and maxY > netBox[0][1] - radius):
-                mappedRoute = sumolib.route.mapTrace(trace, net, radius)
+                mappedRoute = sumolib.route.mapTrace(trace, net, radius, fillGaps=options.fill_gaps)
                 if mappedRoute:
                     routes[tid] = [e.getID() for e in mappedRoute]
     return routes
@@ -208,14 +210,18 @@ def map_stops(options, net, routes, rout):
                 routeFixed = [route[0]]
                 for routeEdgeID in route[1:]:
                     path, _ = typedNet.getShortestPath(typedNet.getEdge(routeFixed[-1]), typedNet.getEdge(routeEdgeID))
-                    if path is None:
-                        print("Warning! Not connected", rid)
-                        routeFixed.append(routeEdgeID)
-                    elif 2 < len(path) < 10:
-                        print("Warning! Fixed connection", rid, len(path))
-                        routeFixed += [e.getID() for e in path[1:]]
+                    if path is None or len(path) > options.fill_gaps + 2:
+                        error = "no path found" if path is None else "path too long (%s)" % len(path)
+                        print("Warning! Skipping disconnected route '%s', %s." % (rid, error))
+                        seen.add(rid)
+                        del routes[rid]
+                        break
                     else:
-                        routeFixed.append(routeEdgeID)
+                        if len(path) > 2:
+                            print("Warning! Fixed connection", rid, len(path))
+                        routeFixed += [e.getID() for e in path[1:]]
+                if rid not in routes:
+                    continue
                 route = routes[rid] = routeFixed
                 fixed.add(rid)
             p = typedNet.convertLonLat2XY(float(veh.x), float(veh.y))

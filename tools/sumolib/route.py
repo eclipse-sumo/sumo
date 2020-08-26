@@ -67,7 +67,7 @@ def _getMinPath(paths):
     return minPath
 
 
-def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, gapPenalty=-1, debug=False):
+def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapPenalty=-1, debug=False):
     """
     matching a list of 2D positions to consecutive edges in a network.
     The positions are assumed to be dense (i.e. covering each edge of the route) and in the correct order.
@@ -106,9 +106,7 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=False, 
                         else:
                             extension, cost = net.getShortestPath(
                                 path[-1], edge, airDistFactor * advance + edge.getLength() + path[-1].getLength(),
-                                maxDepth=1e400 if fillGaps else 3)
-                            if extension is not None and not fillGaps and len(extension) > 2:
-                                extension = None
+                                maxDepth=fillGaps + 1)
                             if extension is None:
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),

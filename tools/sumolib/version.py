@@ -62,7 +62,7 @@ def gitDescribe(commit="HEAD", gitDir=GITDIR, padZero=True):
             return fromVersionHeader()
     try:
         d = subprocess.check_output(command, universal_newlines=True).strip()
-    except subprocess.CalledProcessError:
+    except (subprocess.CalledProcessError, FileNotFoundError):
         return fromVersionHeader()
     if "-" in d:
         # remove the "g" in describe output
