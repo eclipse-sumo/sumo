@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # set invalid jam threshold (dummy)
-netedit.changeDefaultValue(10, "dummyJamTreshold")
+netedit.changeDefaultValue(11, "dummyJamTreshold")
 
 # try to create E2 with invalid jam threshold
 netedit.leftClick(referencePosition, 450, 220)
 
 # set invalid jam threshold
-netedit.changeDefaultValue(10, "-30")
+netedit.changeDefaultValue(11, "-30")
 
 # try to create E2 with invalid jam threshold
 netedit.leftClick(referencePosition, 450, 220)
 
 # set valid jam threshold
-netedit.changeDefaultValue(10, "15.5")
+netedit.changeDefaultValue(11, "15.5")
 
 # create E2 with valid jam threshold
 netedit.leftClick(referencePosition, 450, 220)

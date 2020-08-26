@@ -6,15 +6,20 @@ Debug: Selected item 'e2Detector' in TagSelector
 Debug: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Value ' i' for attribute distance of edge isn't valid
+Debug: Setting new attribute blockMovement 'true' into e2Detector 'e2Detector_gneE2_1_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute blockMovement '0' into e2Detector 'e2Detector_gneE2_1_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e2Detector 'e2Detector_gneE2_1_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute blockMovement 'true' into e2Detector 'e2Detector_gneE2_1_0'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()

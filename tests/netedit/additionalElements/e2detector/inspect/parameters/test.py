@@ -42,8 +42,9 @@ netedit.inspectMode()
 
 # inspect first E2
 netedit.leftClick(referencePosition, 260, 170)
+
 # check parameters
-netedit.checkParameters(referencePosition, 13, True)
+netedit.checkParameters(referencePosition, 14, True)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

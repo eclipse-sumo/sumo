@@ -35,19 +35,19 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # set invalid speed threshold (dummy)
-netedit.changeDefaultValue(9, "dummySpeedTreshold")
+netedit.changeDefaultValue(10, "dummySpeedTreshold")
 
 # try to create E2 with invalid speed threshold
 netedit.leftClick(referencePosition, 350, 220)
 
 # set invalid speed threshold (negative)
-netedit.changeDefaultValue(9, "-14")
+netedit.changeDefaultValue(10, "-14")
 
 # try to create E2 with invalid speed threshold
 netedit.leftClick(referencePosition, 350, 220)
 
 # set valid speed threshold
-netedit.changeDefaultValue(9, "2.5")
+netedit.changeDefaultValue(10, "2.5")
 
 # create E2 with valid speed threshold
 netedit.leftClick(referencePosition, 350, 220)

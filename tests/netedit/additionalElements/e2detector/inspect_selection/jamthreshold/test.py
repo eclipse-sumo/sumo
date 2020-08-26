@@ -41,13 +41,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 150, 255)
 
 # Change parameter JamThreshold with a non valid value
-netedit.modifyAttribute(7, "dummyJamThreshold", True)
+netedit.modifyAttribute(8, "dummyJamThreshold", True)
 
 # Change parameter JamThreshold with a non valid value
-netedit.modifyAttribute(7, "-11.1", True)
+netedit.modifyAttribute(8, "-11.1", True)
 
 # Change parameter JamThreshold with a valid value
-netedit.modifyAttribute(7, "7.3", True)
+netedit.modifyAttribute(8, "7.3", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)

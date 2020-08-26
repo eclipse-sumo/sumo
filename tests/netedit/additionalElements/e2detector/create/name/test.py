@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # set invalid name
-netedit.changeDefaultValue(5, ";;;;$$$")
+netedit.changeDefaultValue(6, ";;;;$$$")
 
 # try to create E2 with invalid name
 netedit.leftClick(referencePosition, 300, 250)
 
 # set valid name
-netedit.changeDefaultValue(5, "customName")
+netedit.changeDefaultValue(6, "customName")
 
 # create E2 with valid name
 netedit.leftClick(referencePosition, 300, 250)
