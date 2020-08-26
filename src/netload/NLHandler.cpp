@@ -1514,7 +1514,7 @@ NLHandler::addPredecessorConstraint(const SUMOSAXAttributes& attrs) {
     const std::string signalID = attrs.get<std::string>(SUMO_ATTR_TLID, nullptr, ok);
     const std::string foesString = attrs.get<std::string>(SUMO_ATTR_FOES, nullptr, ok);
     const std::vector<std::string> foes = StringTokenizer(foesString).getVector();
-    const int limit = attrs.getOpt<int>(SUMO_ATTR_LIMIT, nullptr, ok, foes.size());
+    const int limit = attrs.getOpt<int>(SUMO_ATTR_LIMIT, nullptr, ok, (int)foes.size());
 
     if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
         throw InvalidArgument("Rail signal '" +signalID + "' in railSignalConstraints is not known");

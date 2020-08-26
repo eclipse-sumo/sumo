@@ -100,6 +100,9 @@ public:
 
     static std::map<const MSLink*, PassedTracker*> myTrackerLookup;
 
+private:
+    /// invalidated assignment operator
+    MSRailSignalConstraint_Predecessor& operator=(const MSRailSignalConstraint_Predecessor& s) = delete;
 };
 
 

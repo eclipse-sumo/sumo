@@ -109,7 +109,7 @@ MSRailSignalConstraint_Predecessor::PassedTracker::hasPassed(const std::string& 
             return true;
         }
         if (i == 0) {
-            i = myPassed.size() - 1;
+            i = (int)myPassed.size() - 1;
         } else {
             i--;
         }
