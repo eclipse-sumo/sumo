@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr  2 00:08:46 2020 by Eclipse SUMO Version v1_5_0+1070-671c6afd8e
+<!-- generated on Wed Aug 26 16:30:27 2020 by Eclipse SUMO sumo Version v1_6_0+1774-a7aaaf2373
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -34,13 +35,13 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="blocker" type="train" depart="0.00" departPos="100.00" arrival="121.00">
+    <vehicle id="blocker" type="train" depart="0.00" departPos="100.00" arrival="120.00">
         <route edges="beg c end"/>
         <stop busStop="stopBeg" duration="10.00" until="80.00"/>
         <stop busStop="stopEnd" duration="10.00" until="100.00"/>
     </vehicle>
 
-    <vehicle id="train" type="train" depart="95.00" departPos="100.00" arrival="158.00">
+    <vehicle id="train" type="train" depart="94.00" departPos="100.00" arrival="156.00">
         <route edges="beg c end"/>
         <stop busStop="stopBeg" duration="10.00" until="20.00"/>
         <stop busStop="stopBeg" duration="10.00" until="40.00"/>
