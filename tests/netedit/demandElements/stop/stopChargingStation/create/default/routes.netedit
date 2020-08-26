@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.09.2019 16:12:29 by Eclipse SUMO netedit Version v1_3_1+0461-7a12acbeea
+<!-- generated on 26.08.2020 11:23:39 by Eclipse SUMO netedit Version v1_6_0+1769-10a6440831
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/default\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/default\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,24 +30,28 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/default\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/default\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/default\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/default\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/default\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/stop/stopChargingStation/create/default\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopChargingStation\create\default\log.txt"/>
     </report>
 
 </configuration>

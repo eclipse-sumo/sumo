@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.08.2019 12:22:51 by Eclipse SUMO netedit Version v1_3_0+0076-26751b8496
+<!-- generated on 26.08.2020 11:19:23 by Eclipse SUMO netedit Version v1_6_0+1769-10a6440831
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug122216.7316/netedit.gui/demandElements/stop/stopContainerStop/create/expected\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug122216.7316/netedit.gui/demandElements/stop/stopContainerStop/create/expected\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
-        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -30,29 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug122216.7316/netedit.gui/demandElements/stop/stopContainerStop/create/expected\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug122216.7316/netedit.gui/demandElements/stop/stopContainerStop/create/expected\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug122216.7316/netedit.gui/demandElements/stop/stopContainerStop/create/expected\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug122216.7316/netedit.gui/demandElements/stop/stopContainerStop/create/expected\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug122216.7316/netedit.gui/demandElements/stop/stopContainerStop/create/expected\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug122216.7316/netedit.gui/demandElements/stop/stopContainerStop/create/expected\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopContainerStop\create\expected\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStopB" lane="gneE1_0" startPos="20" endPos="30"/>
+    <containerStop id="containerStopB" lane="gneE1_0" startPos="20.00" endPos="30.00"/>
 </additional>

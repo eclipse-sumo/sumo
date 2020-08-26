@@ -37,7 +37,7 @@ netedit.stopMode()
 # change stop type with a valid value
 netedit.changeStopType("stopParkingArea")
 
-# try to create stop (don't click over parkingArea)
+# try to create stop (don't click over busStop)
 netedit.leftClick(referencePosition, 327, 240)
 
 # Check undo redo

@@ -38,28 +38,28 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # change triggered
-netedit.changeDefaultBoolValue(11)
+netedit.changeDefaultBoolValue(9)
 
 # set invalid value
-netedit.changeDefaultValue(12, ";;;;;;;;;;")
+netedit.changeDefaultValue(11, ";;;;;;;;;;")
 
 # try to create stop
 netedit.leftClick(referencePosition, 327, 220)
 
 # set invalid value
-netedit.changeDefaultValue(12, "")
+netedit.changeDefaultValue(11, "")
 
 # try to create stop
 netedit.leftClick(referencePosition, 327, 220)
 
 # set valid value
-netedit.changeDefaultValue(12, "ID1")
+netedit.changeDefaultValue(11, "ID1")
 
 # create stop
 netedit.leftClick(referencePosition, 327, 220)
 
 # set valid value
-netedit.changeDefaultValue(12, "ID1 ID2 ID3")
+netedit.changeDefaultValue(11, "ID1 ID2 ID3")
 
 # create stop
 netedit.leftClick(referencePosition, 327, 220)
