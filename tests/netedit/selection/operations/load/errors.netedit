@@ -12,28 +12,16 @@ Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing poi 'POI_3' from viewNet
-Debug: Removing poi 'POI_2' from viewNet
-Debug: Removing poiLane 'POI_1' from viewNet
-Debug: Removing poiLane 'POI_0' from viewNet
-Debug: Removing taz 'TAZ' from viewNet
-Debug: Removing poly 'poly_1' from viewNet
-Debug: Removing poly 'poly_0' from viewNet
-Debug: Removing busStop 'busStop_gneE1_0_0' in GNEChange_Additional
-Debug: Removing busStop 'busStop_gneE0_0_1' in GNEChange_Additional
+Debug: Setting previous attribute selected '0' into edge 'gneE1'
+Debug: Setting previous attribute selected '0' into edge 'gneE0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding busStop 'busStop_gneE0_0_1' in GNEChange_Additional
-Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
-Debug: Adding poly 'poly_0' into viewNet
-Debug: Adding poly 'poly_1' into viewNet
-Debug: Adding taz 'TAZ' into viewNet
-Debug: Adding poiLane 'POI_0' into viewNet
-Debug: Adding poiLane 'POI_1' into viewNet
-Debug: Adding poi 'POI_2' into viewNet
-Debug: Adding poi 'POI_3' into viewNet
+Debug: Setting new attribute selected 'true' into edge 'gneE0'
+Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
