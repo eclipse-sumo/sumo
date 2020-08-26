@@ -102,6 +102,13 @@ jobs:
         name: Py${{ matrix.python-version }}-wheels
         path: sumo/dist
 
+    - name: Publish to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.TEST_PYPI_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
+        packages_dir: sumo/dist/
+
   ###########################
   # BUILDING ON LINUX
   ###########################
@@ -195,6 +202,13 @@ jobs:
       with:
         name: manylinux-wheels
         path: wheelhouse
+
+    - name: Publish to Test PyPI
+      uses: pypa/gh-action-pypi-publish@master
+      with:
+        password: ${{ secrets.TEST_PYPI_TOKEN }}
+        repository_url: https://test.pypi.org/legacy/
+        packages_dir: wheelhouse/
 
   ###################
   # BUILDING ON macOS
