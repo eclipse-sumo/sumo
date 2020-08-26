@@ -9,3 +9,8 @@ unregulated_junction
 
 # should not crash
 delayed_insertion_parallel_routing
+
+# vehicles that are stopped at a signal should be considered approaching depending on their stop duration (when stopped at the current signal)
+# 
+# 
+stopped_at_signal
