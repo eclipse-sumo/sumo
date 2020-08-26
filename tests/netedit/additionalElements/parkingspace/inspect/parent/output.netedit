@@ -5,12 +5,12 @@ parkingArea
 TestFunctions: Clicked over position 554 - 348
 TestFunctions: Clicked over position 704 - 348
 space
-TestFunctions: Clicked over position 554 - 488
-TestFunctions: Clicked over position 704 - 488
-TestFunctions: Clicked over position 554 - 468
+TestFunctions: Clicked over position 535 - 469
+TestFunctions: Clicked over position 583 - 469
+TestFunctions: Clicked over position 534 - 443
 dummyParent
 
-parkingArea_gneE2_0_1
+parkingArea_gneE2_1_1
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

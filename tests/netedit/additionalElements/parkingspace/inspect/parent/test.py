@@ -48,26 +48,26 @@ netedit.changeElement("space")
 
 # create first space
 netedit.selectAdditionalChild(8, 0)
-netedit.leftClick(referencePosition, 250, 320)
+netedit.leftClick(referencePosition, 231, 301)
 
 # create second space
 netedit.selectAdditionalChild(8, 0)
-netedit.leftClick(referencePosition, 400, 320)
+netedit.leftClick(referencePosition, 279, 301)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect space
-netedit.leftClick(referencePosition, 250, 300)
+netedit.leftClick(referencePosition, 230, 275)
 
-# Change parameter 7 with a non valid value (dummy)
-netedit.modifyAttribute(7, "dummyParent", False)
+# Change parameter 8 with a non valid value (dummy)
+netedit.modifyAttribute(8, "dummyParent", False)
 
-# Change parameter 7 with a non valid value (empty)
-netedit.modifyAttribute(7, "", False)
+# Change parameter 8 with a non valid value (empty)
+netedit.modifyAttribute(8, "", False)
 
-# Change parameter 7 with a valid value
-netedit.modifyAttribute(7, "parkingArea_gneE2_0_1", False)
+# Change parameter 8 with a valid value
+netedit.modifyAttribute(8, "parkingArea_gneE2_1_1", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 5)

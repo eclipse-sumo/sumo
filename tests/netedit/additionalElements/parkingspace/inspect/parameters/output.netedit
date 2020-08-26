@@ -4,8 +4,8 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 parkingArea
 TestFunctions: Clicked over position 554 - 348
 space
-TestFunctions: Clicked over position 554 - 488
-TestFunctions: Clicked over position 554 - 468
+TestFunctions: Clicked over position 535 - 469
+TestFunctions: Clicked over position 534 - 443
 dummyGenericParameters
 key1|key2|key3
 key1=value1|key2=value2|key3=value3

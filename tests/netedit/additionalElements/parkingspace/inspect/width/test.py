@@ -42,13 +42,13 @@ netedit.changeElement("space")
 
 # create space
 netedit.selectAdditionalChild(8, 0)
-netedit.leftClick(referencePosition, 250, 320)
+netedit.leftClick(referencePosition, 231, 301)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect space
-netedit.leftClick(referencePosition, 250, 300)
+netedit.leftClick(referencePosition, 230, 275)
 
 # Change parameter width with a non valid value (dummy)
 netedit.modifyAttribute(1, "dummyWidth", False)
