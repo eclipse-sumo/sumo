@@ -6,3 +6,6 @@ double_stop
 
 # should not crash
 unregulated_junction
+
+# should not crash
+delayed_insertion_parallel_routing
