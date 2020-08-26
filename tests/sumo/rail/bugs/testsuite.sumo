@@ -14,3 +14,10 @@ delayed_insertion_parallel_routing
 # 
 # 
 stopped_at_signal
+
+# vehicles that are stopped at a signal should be considered approaching depending on their stop duration (when stopped at the current signal)
+# 
+# Here,  'train' has to wait because it must drive across a track occupied by 'train2' in reverse diretion.
+# 
+# 
+stopped_at_signal2
