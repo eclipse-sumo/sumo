@@ -54,6 +54,10 @@ fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
 
    if (comp) {
       comp->componentEnvironment = functions->componentEnvironment;
+		
+		/* Callback functions for specific logging, malloc and free;
+		   we need callback functions because we cannot know, which functions
+		   the environment will provide for us */
 		comp->logger = (loggerType)functions->logger;
 		comp->allocateMemory = (allocateMemoryType)functions->allocateMemory;
 		comp->freeMemory = (freeMemoryType)functions->freeMemory;
@@ -81,5 +85,12 @@ fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
 and other resources that have been allocated by the functions of the FMU interface. */
 void 
 fmi2FreeInstance(fmi2Component c) {
-  
+	ModelInstance *comp = (ModelInstance *)c;
+
+    if (!comp) return;
+
+	/* We want to free everything that we allocated in fmi2Instantiate */
+	comp->freeMemory((void *)comp->instanceName);
+	comp->freeMemory((void *)comp->resourceLocation); 
+	comp->freeMemory((void *)comp->modelData);
 }
