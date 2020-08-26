@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 250, 172)
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 168)
+netedit.leftClick(referencePosition, 250, 173)
 
 # Change parameter block movement
 netedit.modifyBoolAttribute(14, True)

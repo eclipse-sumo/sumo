@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 250, 172)
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 168)
+netedit.leftClick(referencePosition, 250, 173)
 
 # Change parameter charge in transit
 netedit.modifyBoolAttribute(8, True)

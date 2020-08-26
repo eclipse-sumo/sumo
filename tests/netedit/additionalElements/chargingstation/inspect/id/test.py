@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 450, 170)
 netedit.inspectMode()
 
 # inspect first chargingStation
-netedit.leftClick(referencePosition, 250, 168)
+netedit.leftClick(referencePosition, 250, 173)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "chargingStation_gneE2_1_1", True)
