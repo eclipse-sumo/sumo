@@ -8,7 +8,7 @@
         <!-- the vehicle is stopped here when saving state -->
         <stop lane="middle_0" duration="20" endPos="60" parking="false"/>
         <!-- this stop is yet to come when saving state -->
-        <stop lane="middle_0" duration="20" endPos="150" parking="false"/>
+        <stop lane="middle_0" duration="20" endPos="150" parking="false" line="testLine2" tripId="testTripID2"/>
         <stop busStop="busstop" duration="20" parking="true"/>
     </vehicle>
 
