@@ -5502,7 +5502,9 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
                 assert(l->getEdge().getID() == (*routeIt)->getLanes().front()->getEdge().getID());
             }
             ++contLanesIt;
-            ++routeIt;
+            if (l != nullptr || myLane->isInternal()) {
+                ++routeIt;
+            }
             if (l == nullptr) {
                 continue;
             }
