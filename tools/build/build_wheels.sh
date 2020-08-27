@@ -3,6 +3,7 @@ yum-config-manager --add-repo=https://download.opensuse.org/repositories/home:/b
 yum install -y --nogpgcheck cmake3 ccache xerces-c-devel proj-devel fox16-devel bzip2-devel gl2ps-devel swig3
 /opt/python/cp38-cp38/bin/pip install scikit-build
 
+mkdir -p $HOME/.ccache
 echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
 echo "base_dir = /github/workspace/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/ccache.conf
 /opt/python/cp38-cp38/bin/python tools/build/setup-sumo.py --cmake-executable cmake3 -j 8 bdist_wheel
@@ -17,7 +18,3 @@ for py in /opt/python/*; do
     $py/bin/python tools/build/setup-libsumo.py bdist_wheel
     auditwheel repair dist/libsumo*.whl
 done
-
-# TODO:
-# - fix version (sumo still shows "unknown")
-# - add bzip2-devel as dependency for fox16-devel
