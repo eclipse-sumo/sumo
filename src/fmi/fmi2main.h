@@ -21,13 +21,14 @@
 #ifndef FMI2MAIN_H
 #define FMI2MAIN_H
 
+#include <stdio.h>
 #include <stdbool.h>
+#include <stdarg.h>
 
 /* Type definitions for callback functions */
 typedef void* (*allocateMemoryType)(size_t nobj, size_t size);
 typedef void  (*loggerType)        (void *componentEnvironment, const char *instanceName, int status, const char *category, const char *message, ...);
 typedef void  (*freeMemoryType)    (void *obj);
-
 
 /* The core date (= variables of the model) */
 typedef struct {
@@ -49,5 +50,10 @@ typedef struct {
     bool logEvents;
     bool logErrors;
 } ModelInstance;
+
+/* Declarations of utility functions */
+void logError(ModelInstance *comp, const char *message, ...);
+static void logMessage(ModelInstance *comp, int status, const char *category, const char *message, va_list args); 
+
 
 #endif /* FMI2MAIN_H */

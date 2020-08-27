@@ -19,10 +19,40 @@
 /****************************************************************************/
 
 #define FMI_VERSION 2
+
 #include <foreign/fmi/fmi2Functions.h>
 
 #include "libsumocpp2c.h"
 #include "fmi2main.h"
+
+
+void logError(ModelInstance *comp, const char *message, ...) {
+    if (!comp->logErrors) return;
+
+    va_list args;
+    va_start(args, message);
+    logMessage(comp, fmi2Error, "logStatusError", message, args);
+    va_end(args); 
+}
+
+static void logMessage(ModelInstance *comp, int status, const char *category, const char *message, va_list args) {
+    va_list args1;
+    size_t len = 0;
+    char *buf = "";
+    
+    va_copy(args1, args);
+    len = vsnprintf(buf, len, message, args1);
+    va_end(args1);
+    
+    va_copy(args1, args);
+    buf = comp->allocateMemory(len + 1, sizeof(char));
+    vsnprintf(buf, len + 1, message, args);
+    va_end(args1);
+    
+    comp->logger(comp->componentEnvironment, comp->instanceName, status, category, buf);
+    
+    comp->freeMemory(buf);
+}
 
 void
 fmi2run() {

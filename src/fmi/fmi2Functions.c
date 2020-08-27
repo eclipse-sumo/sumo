@@ -94,3 +94,32 @@ fmi2FreeInstance(fmi2Component c) {
 	comp->freeMemory((void *)comp->resourceLocation); 
 	comp->freeMemory((void *)comp->modelData);
 }
+
+/* Define what should be logged - if logging is enabled globally */ 
+fmi2Status 
+fmi2SetDebugLogging(fmi2Component c, fmi2Boolean loggingOn, size_t nCategories, const fmi2String categories[]) {
+    
+    ModelInstance *comp = (ModelInstance *)c;
+
+	if (loggingOn) {
+        for (size_t i = 0; i < nCategories; i++) {
+            if (categories[i] == NULL) {
+                logError(comp, "Log category[%d] must not be NULL", i);
+                return fmi2Error;
+            } else if (strcmp(categories[i], "logStatusError") == 0) {
+                comp->logErrors = true;
+            } else if (strcmp(categories[i], "logEvents") == 0) {
+                comp->logEvents = true;
+            } else {
+                logError(comp, "Log category[%d] must be one of logEvents or logStatusError but was %s", i, categories[i]);
+                return fmi2Error;
+            }
+        }
+    } else {
+		// Logging is disabled globally, no need for a more fine grained logging
+        comp->logEvents = false;
+        comp->logErrors = false;
+    }
+
+    return fmi2OK;
+}
