@@ -62,6 +62,12 @@ save_parking
 # the input is taken from test save/save_parking/state.sumo
 load_parking
 
+# save vehicle parking at busStop
+save_parking_busStop
+
+# the input is taken from test save/save_parking_busStop/state.sumo
+load_parking_busStop
+
 # save a stopped vehicle
 save_stopped
 

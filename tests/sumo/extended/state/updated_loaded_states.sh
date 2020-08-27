@@ -26,6 +26,9 @@ cp save_flow/state.sumo.meso load_flow/input_meso_state.xml
 cp save_parking/state.sumo load_parking/input_state.xml
 cp save_parking/state.sumo.meso load_parking/input_meso_state.xml
 
+cp save_parking_busstop/state.sumo load_parking/input_state.xml
+cp save_parking_busstop/state.sumo.meso load_parking/input_meso_state.xml
+
 cp save_stopped/state.sumo load_stopped/input_state.xml
 cp save_stopped/state.sumo.meso load_stopped/input_meso_state.xml
 
