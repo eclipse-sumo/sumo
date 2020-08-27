@@ -41,13 +41,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, 541, 204)
+netedit.leftClick(referencePosition, 552, 205)
 
 # Set invalid begin
-netedit.modifyAttribute(3, "-5", False)
+netedit.modifyAttribute(3, "-5", True)
 
 # Set valid begin
-netedit.modifyAttribute(3, "11.3", False)
+netedit.modifyAttribute(3, "11.3", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

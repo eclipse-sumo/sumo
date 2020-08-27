@@ -44,13 +44,13 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 310, 210)
+netedit.leftClick(referencePosition, 320, 200)
 
 # Change parameter 3 with an non valid value
-netedit.modifyAttribute(3, "%%%;:..&&%$%$", True)
+netedit.modifyAttribute(3, "%%%;:..&&%$%$", False)
 
 # Change parameter 3 with a duplicated value
-netedit.modifyAttribute(3, "customName", True)
+netedit.modifyAttribute(3, "customName", False)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

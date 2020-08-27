@@ -44,7 +44,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first vaporizer
-netedit.leftClick(referencePosition, 310, 220)
+netedit.leftClick(referencePosition, 320, 220)
 
 # check parameters
 netedit.checkParameters(referencePosition, 5, True)

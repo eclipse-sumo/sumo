@@ -41,13 +41,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, 541, 204)
+netedit.leftClick(referencePosition, 552, 205)
 
 # Change parameter 2 with a non valid value (invalid characters)
-netedit.modifyAttribute(2, "$$$$$$$$", False)
+netedit.modifyAttribute(2, "$$$$$$$$", True)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "fileA.txt", False)
+netedit.modifyAttribute(2, "fileA.txt", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)

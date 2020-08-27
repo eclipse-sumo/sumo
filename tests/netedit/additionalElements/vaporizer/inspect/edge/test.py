@@ -47,7 +47,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first vaporizer
-netedit.leftClick(referencePosition, 310, 220)
+netedit.leftClick(referencePosition, 320, 220)
 
 # Change parameter 0 with a non valid value (dummy edge)
 netedit.modifyAttribute(0, "dummyEdge", True)

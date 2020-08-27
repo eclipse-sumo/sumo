@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect vaporizers
-netedit.leftClick(referencePosition, 522, 200)
+netedit.leftClick(referencePosition, 533, 200)
 
 # Set invalid name
 netedit.modifyAttribute(2, "%%%$$""", False)

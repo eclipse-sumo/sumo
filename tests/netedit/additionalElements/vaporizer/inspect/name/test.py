@@ -47,7 +47,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first vaporizer
-netedit.leftClick(referencePosition, 310, 220)
+netedit.leftClick(referencePosition, 320, 220)
 
 # Change parameter 3 with a valid value
 netedit.modifyAttribute(3, "%%$$$""", True)

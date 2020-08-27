@@ -41,13 +41,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect routeProbes
-netedit.leftClick(referencePosition, 541, 204)
+netedit.leftClick(referencePosition, 552, 205)
 
 # Set invalid freq
-netedit.modifyAttribute(0, "-30", False)
+netedit.modifyAttribute(0, "-30", True)
 
 # Set valid freq
-netedit.modifyAttribute(0, "50", False)
+netedit.modifyAttribute(0, "50", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 3)
