@@ -133,11 +133,13 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
         // move to icon position and front
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
         // rotate
-        glRotated(myAdditionalGeometry.getShape().rotationDegreeAtOffset(0), 0, 0, 1);
+        glRotated(myAdditionalGeometry.getShape().rotationDegreeAtOffset(0), 0, 0, -1);
         // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, routeProbeExaggeration)) {
             // set color
             glColor3d(1, 1, 1);
+            // rotate texture
+            glRotated(180, 0, 0, 1);
             // draw texture
             if (drawUsingSelectColor()) {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
