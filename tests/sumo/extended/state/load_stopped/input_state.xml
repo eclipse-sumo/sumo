@@ -42,10 +42,11 @@ SPDX-License-Identifier: EPL-2.0
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="v0" type="t0" depart="0.00" route="r0" speedFactor="1.00" state="0 1 5.10 0 19000" pos="60.00" speed="0.00" posLat="0.00">
+    <vehicle id="v0" type="t0" depart="0.00" route="r0" speedFactor="1.00" line="testLine" state="0 1 5.10 0 19000" pos="60.00" speed="0.00" posLat="0.00">
         <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="17.00"/>
         <stop lane="middle_0" startPos="149.80" endPos="150.00" duration="20.00"/>
         <stop busStop="busstop" duration="20.00" parking="1"/>
+        <param key="tripId" value="testTripID"/>
         <device id="tripinfo_v0" state="beg_0 0.00 0.00 1.90"/>
     </vehicle>
     <vehicle id="v1" type="t0" depart="3.00" route="r0" speedFactor="1.00" state="4000 1 5.10 3000 19000" pos="52.50" speed="0.00" posLat="0.00">

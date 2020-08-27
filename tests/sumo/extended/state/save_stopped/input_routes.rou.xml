@@ -4,7 +4,7 @@
 
     <vehicle id="v0" type="t0" route="r0" depart="0">
         <!-- this stop is already completed when saving state -->
-        <stop lane="middle_0" duration="2" endPos="10" parking="false"/>
+        <stop lane="middle_0" duration="2" endPos="10" parking="false" line="testLine" tripId="testTripID"/>
         <!-- the vehicle is stopped here when saving state -->
         <stop lane="middle_0" duration="20" endPos="60" parking="false"/>
         <!-- this stop is yet to come when saving state -->
