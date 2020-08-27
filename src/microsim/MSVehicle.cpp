@@ -98,7 +98,7 @@
 //#define DEBUG_TRACI
 //#define DEBUG_REVERSE_BIDI
 //#define DEBUG_REPLACE_ROUTE
-//#define DEBUG_COND (getID() == "follower")
+//#define DEBUG_COND (getID() == "v0")
 //#define DEBUG_COND (true)
 #define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) (obj->getID() == "follower")
@@ -6628,6 +6628,7 @@ MSVehicle::saveState(OutputDevice& out) {
     internals.push_back(toString(myDepartPos));
     internals.push_back(toString(myWaitingTime));
     internals.push_back(toString(myLastActionTime));
+    internals.push_back(toString(isStopped()));
     out.writeAttr(SUMO_ATTR_STATE, internals);
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
@@ -6649,12 +6650,14 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
         throw ProcessError("Error: Invalid vehicles in state (may be a meso state)!");
     }
     int routeOffset;
+    bool stopped;
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myDeparture;
     bis >> routeOffset;
     bis >> myDepartPos;
     bis >> myWaitingTime;
     bis >> myLastActionTime;
+    bis >> stopped;
     if (hasDeparted()) {
         myCurrEdge += routeOffset;
         myDeparture -= offset;
@@ -6665,7 +6668,9 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
     myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
     myState.myPosLat = attrs.getFloat(SUMO_ATTR_POSITION_LAT);
-
+    if (stopped) {
+        myStopDist = 0;
+    }
     // no need to reset myCachedPosition here since state loading happens directly after creation
 }
 
