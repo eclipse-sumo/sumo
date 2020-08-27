@@ -934,36 +934,15 @@ MSVehicle::Stop::getDescription() const {
 
 void
 MSVehicle::Stop::write(OutputDevice& dev) const {
-    // lots of duplication with SUMOVehicleParameter::Stop::write()
-    dev.openTag(SUMO_TAG_STOP);
-    if (busstop != nullptr) {
-        dev.writeAttr(SUMO_ATTR_BUS_STOP, busstop->getID());
+    SUMOVehicleParameter::Stop tmp = pars;
+    tmp.duration = duration;
+    if (busstop == nullptr 
+            && containerstop == nullptr 
+            && parkingarea == nullptr 
+            && chargingStation == nullptr) {
+        tmp.parametersSet |= STOP_START_SET | STOP_END_SET;
     }
-    if (containerstop != nullptr) {
-        dev.writeAttr(SUMO_ATTR_CONTAINER_STOP, containerstop->getID());
-    }
-    if (busstop == nullptr && containerstop == nullptr) {
-        dev.writeAttr(SUMO_ATTR_LANE, lane->getID());
-        dev.writeAttr(SUMO_ATTR_STARTPOS, pars.startPos);
-        dev.writeAttr(SUMO_ATTR_ENDPOS, pars.endPos);
-    }
-    if (duration >= 0) {
-        dev.writeAttr(SUMO_ATTR_DURATION, time2string(duration));
-    }
-    if (pars.until >= 0) {
-        dev.writeAttr(SUMO_ATTR_UNTIL, time2string(pars.until));
-    }
-    pars.writeTriggers(dev);
-    if (pars.parking) {
-        dev.writeAttr(SUMO_ATTR_PARKING, pars.parking);
-    }
-    if (pars.awaitedPersons.size() > 0) {
-        dev.writeAttr(SUMO_ATTR_EXPECTED, joinToString(pars.awaitedPersons, " "));
-    }
-    if (pars.awaitedContainers.size() > 0) {
-        dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, joinToString(pars.awaitedContainers, " "));
-    }
-    dev.closeTag();
+    tmp.write(dev);
 }
 
 void
