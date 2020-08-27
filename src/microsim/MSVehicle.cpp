@@ -6610,14 +6610,20 @@ MSVehicle::saveState(OutputDevice& out) {
     internals.push_back(toString(myWaitingTime));
     internals.push_back(toString(myLastActionTime));
     internals.push_back(toString(isStopped()));
+    internals.push_back(toString(myPastStops.size()));
     out.writeAttr(SUMO_ATTR_STATE, internals);
     out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
     out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
-    // save stops and parameters
-    for (std::list<Stop>::const_iterator it = myStops.begin(); it != myStops.end(); ++it) {
-        it->write(out);
+    // save past stops
+    for (SUMOVehicleParameter::Stop stop : myPastStops) {
+        stop.write(out);
     }
+    // save upcoming stops
+    for (Stop& stop : myStops) {
+        stop.write(out);
+    }
+    // save parameters and device states
     myParameter->writeParams(out);
     for (MSVehicleDevice* const dev : myDevices) {
         dev->saveState(out);
@@ -6632,6 +6638,7 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     }
     int routeOffset;
     bool stopped;
+    int pastStops;
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     bis >> myDeparture;
     bis >> routeOffset;
@@ -6639,12 +6646,16 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bis >> myWaitingTime;
     bis >> myLastActionTime;
     bis >> stopped;
+    bis >> pastStops;
     if (hasDeparted()) {
         myCurrEdge += routeOffset;
         myDeparture -= offset;
         // fix stops
-        myStops.clear();
-        addStops(!MSGlobals::gCheckRoutes, &myCurrEdge);
+        while (pastStops > 0) {
+            myPastStops.push_back(myStops.front().pars);
+            myStops.pop_front();
+            pastStops--;
+        }
     }
     myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
     myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
