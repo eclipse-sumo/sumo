@@ -7,9 +7,6 @@ on:
   pull_request:    # run on pull requests
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
-  release:         # run on tags of new releases
-    types:
-      - created
 
 jobs:
   
@@ -69,14 +66,21 @@ jobs:
         cmake --build . --config Release
         cmake --build . --config Release --target examples
 
-    - name: Building Python Wheel
+    - name: Building Libsumo Wheel
       if: matrix.optional-libs == false
       run: |
         python -m pip install wheel
         cd sumo
+        python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
+
+    - name: Building SUMO Wheels
+      if: matrix.optional-libs == false && matrix.python-version == 3.8
+      run: |
+        python -m pip install wheel scikit-build
+        cd sumo
         python tools\build\setup-sumolib.py bdist_wheel sdist
         python tools\build\setup-traci.py bdist_wheel sdist
-        python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
+        python tools\build\setup-sumo.py bdist_wheel --plat-name win_amd64 -G "Visual Studio 16 2019"
 
     - name: Building Traas
       run: |
@@ -205,15 +209,18 @@ jobs:
 
     steps:
     - uses: actions/download-artifact@v2
-      with:
-        path: wheelhouse/
 
+    - name: Moving artifacts
+      run: |
+        ls -lR
+        mkdir dist
+        mv ./*-wheels/* dist
+        mv dist/sumo-*cp38* `echo dist/sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
     - name: Publish to Test PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.TEST_PYPI_TOKEN }}
         repository_url: https://test.pypi.org/legacy/
-        packages_dir: wheelhouse/
 
   ###################
   # BUILDING ON macOS
