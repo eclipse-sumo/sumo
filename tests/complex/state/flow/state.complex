@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 27 10:52:51 2020 by Eclipse SUMO sumo Version v1_6_0+1791-b56e350623
+<!-- generated on Thu Aug 27 12:36:49 2020 by Eclipse SUMO sumo Version v1_6_0+1802-e5da78f65f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -22,7 +22,7 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1791-b56e350623" time="50.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1802-e5da78f65f" time="50.00">
     <route id="!0" state="1" edges="0/1to1/1 3/1to4/1"/>
     <route id="!0.0!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
     <route id="!0.1!var#1" state="0" edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
@@ -32,23 +32,23 @@
     <flowState id="0" index="5" reroute="1"/>
     <delay number="5" begin="5" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="0.0" type="DEFAULT_VEHTYPE" depart="0.00" route="!0.0!var#1" speedFactor="1.06" state="0 1 5.10 0 49000 0" pos="56.80" speed="10.60" posLat="0.00">
+    <vehicle id="0.0" type="DEFAULT_VEHTYPE" depart="0.00" route="!0.0!var#1" speedFactor="1.06" state="0 1 5.10 0 49000 0 0" pos="56.80" speed="10.60" posLat="0.00">
         <device id="vehroute_0.0" state="0 0.00 0.00 5.10 1 !NULL 0 !0 device.rerouting"/>
         <device id="routing_0.0" state="0"/>
     </vehicle>
-    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="10.00" route="!0.1!var#1" speedFactor="0.94" state="10000 0 5.10 0 49000 0" pos="358.49" speed="9.38" posLat="0.00">
+    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="10.00" route="!0.1!var#1" speedFactor="0.94" state="10000 0 5.10 0 49000 0 0" pos="358.49" speed="9.38" posLat="0.00">
         <device id="vehroute_0.1" state="0 0.00 0.00 5.10 1 !NULL 10000 !0 device.rerouting"/>
         <device id="routing_0.1" state="0"/>
     </vehicle>
-    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="20.00" route="!0.2!var#1" speedFactor="1.01" state="20000 0 5.10 0 49000 0" pos="283.40" speed="10.10" posLat="0.00">
+    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="20.00" route="!0.2!var#1" speedFactor="1.01" state="20000 0 5.10 0 49000 0 0" pos="283.40" speed="10.10" posLat="0.00">
         <device id="vehroute_0.2" state="0 0.00 0.00 5.10 1 !NULL 20000 !0 device.rerouting"/>
         <device id="routing_0.2" state="0"/>
     </vehicle>
-    <vehicle id="0.3" type="DEFAULT_VEHTYPE" depart="30.00" route="!0.3!var#1" speedFactor="1.08" state="30000 0 5.10 0 49000 0" pos="193.50" speed="10.83" posLat="0.00">
+    <vehicle id="0.3" type="DEFAULT_VEHTYPE" depart="30.00" route="!0.3!var#1" speedFactor="1.08" state="30000 0 5.10 0 49000 0 0" pos="193.50" speed="10.83" posLat="0.00">
         <device id="vehroute_0.3" state="0 0.00 0.00 5.10 1 !NULL 30000 !0 device.rerouting"/>
         <device id="routing_0.3" state="0"/>
     </vehicle>
-    <vehicle id="0.4" type="DEFAULT_VEHTYPE" depart="40.00" route="!0.4!var#1" speedFactor="1.03" state="40000 0 5.10 0 49000 0" pos="82.52" speed="10.30" posLat="0.00">
+    <vehicle id="0.4" type="DEFAULT_VEHTYPE" depart="40.00" route="!0.4!var#1" speedFactor="1.03" state="40000 0 5.10 0 49000 0 0" pos="82.52" speed="10.30" posLat="0.00">
         <device id="vehroute_0.4" state="0 0.00 0.00 5.10 1 !NULL 40000 !0 device.rerouting"/>
         <device id="routing_0.4" state="0"/>
     </vehicle>

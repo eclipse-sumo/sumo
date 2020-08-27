@@ -26,11 +26,23 @@ cp save_flow/state.sumo.meso load_flow/input_meso_state.xml
 cp save_parking/state.sumo load_parking/input_state.xml
 cp save_parking/state.sumo.meso load_parking/input_meso_state.xml
 
+cp save_parking_busStop/state.sumo load_parking_busStop/input_state.xml
+cp save_parking_busStop/state.sumo.meso load_parking_busStop/input_meso_state.xml
+
 cp save_parking_busstop/state.sumo load_parking/input_state.xml
 cp save_parking_busstop/state.sumo.meso load_parking/input_meso_state.xml
 
 cp save_stopped/state.sumo load_stopped/input_state.xml
 cp save_stopped/state.sumo.meso load_stopped/input_meso_state.xml
+
+cp save_cyclic_stops/state.sumo load_cyclic_stops/input_state.xml
+cp save_cyclic_stops/state.sumo.meso load_cyclic_stops/input_meso_state.xml
+
+cp save_rng/state.sumo load_rng/input_state.xml
+cp save_rng/state.sumo.meso load_rng/input_meso_state.xml
+
+cp save_rail_signal/state.sumo load_rail_signal/input_state.xml
+cp save_rail_signal/state.sumo.meso load_rail_signal/input_meso_state.xml
 
 sumo -c load_arriving/saveState.sumocfg
 sumo -c load_arriving/saveMesoState.sumocfg

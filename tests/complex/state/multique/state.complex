@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 27 10:52:50 2020 by Eclipse SUMO sumo Version v1_6_0+1791-b56e350623
+<!-- generated on Thu Aug 27 12:36:49 2020 by Eclipse SUMO sumo Version v1_6_0+1802-e5da78f65f
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -23,16 +23,16 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1791-b56e350623" time="00:00:25">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1802-e5da78f65f" time="00:00:25">
     <route id="!0" state="1" edges="SC CW"/>
     <flowState id="0" index="3" reroute="1"/>
     <delay number="2" begin="3" end="1" depart="0.00" time="17.00"/>
     <vType id="DEFAULT_VEHTYPE" sigma="0"/>
-    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="00:00:10" route="!0" speedFactor="0.94" state="10000 1 5.10 0 24000 0" pos="27.61" speed="13.03" posLat="0.00">
+    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="00:00:10" route="!0" speedFactor="0.94" state="10000 1 5.10 0 24000 0 0" pos="27.61" speed="13.03" posLat="0.00">
         <device id="vehroute_0.1" state="0 0.00 0.00 5.10 0"/>
         <device id="routing_0.1" state="0"/>
     </vehicle>
-    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="00:00:20" route="!0" speedFactor="1.01" state="20000 0 5.10 0 24000 0" pos="31.10" speed="10.40" posLat="0.00">
+    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="00:00:20" route="!0" speedFactor="1.01" state="20000 0 5.10 0 24000 0 0" pos="31.10" speed="10.40" posLat="0.00">
         <device id="vehroute_0.2" state="0 0.00 0.00 5.10 0"/>
         <device id="routing_0.2" state="0"/>
     </vehicle>

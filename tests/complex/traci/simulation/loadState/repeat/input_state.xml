@@ -27,7 +27,7 @@
     <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="trip_0" type="DEFAULT_VEHTYPE" depart="0.00" route="!trip_0" speedFactor="1.06" state="0 1 5.10 0 49000" pos="11.70" speed="9.50" posLat="0.00">
+    <vehicle id="trip_0" type="DEFAULT_VEHTYPE" depart="0.00" route="!trip_0" speedFactor="1.06" state="0 1 5.10 0 49000 0 0" pos="11.70" speed="9.50" posLat="0.00">
         <device id="routing_trip_0" state="0"/>
     </vehicle>
     <lane id="CE_0">

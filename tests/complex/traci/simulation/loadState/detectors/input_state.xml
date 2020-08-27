@@ -24,10 +24,10 @@
     <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departLane="0" route="!0" speedFactor="1.06" state="0 0 5.10 0 1000" pos="5.10" speed="0.00" posLat="0.00">
+    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departLane="0" route="!0" speedFactor="1.06" state="0 0 5.10 0 1000 0 0" pos="5.10" speed="0.00" posLat="0.00">
         <device id="routing_0" state="0"/>
     </vehicle>
-    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="0.00" departLane="1" route="!1" speedFactor="0.94" state="0 0 5.10 0 1000" pos="5.10" speed="0.00" posLat="0.00">
+    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="0.00" departLane="1" route="!1" speedFactor="0.94" state="0 0 5.10 0 1000 0 0" pos="5.10" speed="0.00" posLat="0.00">
         <device id="routing_1" state="0"/>
     </vehicle>
     <lane id="WC_0">

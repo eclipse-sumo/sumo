@@ -25,11 +25,11 @@
     <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="40.00" route="!0!var#1" speedFactor="1.06" state="40000 0 5.10 0 50000" pos="6.30" speed="14.61" posLat="0.00">
+    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="40.00" route="!0!var#1" speedFactor="1.06" state="40000 0 5.10 0 50000 0 0" pos="6.30" speed="14.61" posLat="0.00">
         <stop busStop="Stop" duration="300.00"/>
         <device id="routing_0" state="0"/>
     </vehicle>
-    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="60.00" route="!1" speedFactor="0.94" reroute="1" state="9223372036854775807 0 -1.00 0 0" pos="0.00" speed="0.00" posLat="0.00">
+    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="60.00" route="!1" speedFactor="0.94" reroute="1" state="9223372036854775807 0 -1.00 0 0 0 0" pos="0.00" speed="0.00" posLat="0.00">
         <stop busStop="Stop" duration="10.00"/>
         <device id="routing_1" state="0"/>
     </vehicle>

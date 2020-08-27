@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Aug 25 08:16:12 2020 by Eclipse SUMO sumo Version v1_6_0+1743-6252c7a360
+<!-- generated on Thu Aug 27 12:27:27 2020 by Eclipse SUMO sumo Version v1_6_0+1802-e5da78f65f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,17 +34,30 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1743-6252c7a360" time="30.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1802-e5da78f65f" time="30.00">
     <route id="!train" state="0" edges="a b e"/>
     <route id="!train2" state="0" edges="-e -b -d"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="train" length="20.00" vClass="rail" accel="2"/>
-    <vehicle id="train" type="train" depart="0.00" departSpeed="max" route="!train" speedFactor="1.00" state="0 0 20.10 18000 29000" pos="93.64" speed="0.00" posLat="0.00"/>
-    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" speedFactor="1.00" state="0 0 20.10 0 29000" pos="136.06" speed="0.00" posLat="0.00">
+    <vehicle id="train" type="train" depart="0.00" departSpeed="max" route="!train" speedFactor="1.00" state="0 0 20.10 18000 29000 0 0" pos="93.64" speed="0.00" posLat="0.00"/>
+    <vehicle id="train2" type="train" depart="0.00" departSpeed="max" route="!train2" speedFactor="1.00" state="0 0 20.10 0 29000 1 0" pos="136.06" speed="0.00" posLat="0.00">
         <stop lane="-e_0" startPos="135.86" endPos="136.06" duration="86.00"/>
     </vehicle>
+    <lane id=":B_0_0">
+        <link to="-b_0">
+            <approaching id="train2" arrivalTime="116862" arrivalSpeed="5.72" departSpeed="5.72" request="1" arrivalTimeBraking="146862" arrivalSpeedBraking="0.00" waitingTime="0" distance="7.19"/>
+        </link>
+    </lane>
+    <lane id="-b_0">
+        <link to=":A_0_0">
+            <approaching id="train2" arrivalTime="132149" arrivalSpeed="13.89" departSpeed="13.89" request="1" arrivalTimeBraking="162149" arrivalSpeedBraking="0.00" waitingTime="0" distance="202.86"/>
+        </link>
+    </lane>
     <lane id="-e_0">
         <vehicles value="train2"/>
+        <link to=":B_0_0">
+            <approaching id="train2" arrivalTime="115000" arrivalSpeed="2.00" departSpeed="5.72" request="1" arrivalTimeBraking="115000" arrivalSpeedBraking="2.00" waitingTime="0" distance="0.00"/>
+        </link>
     </lane>
     <lane id="a_0">
         <vehicles value="train"/>

@@ -31,10 +31,10 @@
     <vType id="train" length="45.00" maxSpeed="8.00" vClass="rail">
         <param key="carriageLength" value="10"/>
     </vType>
-    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0!var#1" speedFactor="1.00" state="0 2 45.10 0 24000" pos="36.90" speed="8.00" posLat="0.00">
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max" route="!t0!var#1" speedFactor="1.00" state="0 2 45.10 0 24000 0 0" pos="36.90" speed="8.00" posLat="0.00">
         <device id="routing_t0" state="0"/>
     </vehicle>
-    <vehicle id="t1" type="train" depart="10.00" departSpeed="max" route="!t1!var#1" speedFactor="1.00" state="10000 0 45.10 4000 24000" pos="99.00" speed="0.00" posLat="0.00">
+    <vehicle id="t1" type="train" depart="10.00" departSpeed="max" route="!t1!var#1" speedFactor="1.00" state="10000 0 45.10 4000 24000 0 0" pos="99.00" speed="0.00" posLat="0.00">
         <device id="routing_t1" state="0"/>
     </vehicle>
     <lane id="a_0">
