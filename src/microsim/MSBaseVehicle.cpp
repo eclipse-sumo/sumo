@@ -654,6 +654,10 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     if (myParameter->wasSet(VEHPARS_FORCE_REROUTE) && !hasDeparted()) {
         out.writeAttr(SUMO_ATTR_REROUTE, true);
     }
+    if (!myParameter->wasSet(VEHPARS_LINE_SET) && myParameter->line != "") {
+        // could be set from stop
+        out.writeAttr(SUMO_ATTR_LINE, myParameter->line);
+    }
     // here starts the vehicle internal part (see loading)
     // @note: remember to close the vehicle tag when calling this in a subclass!
 }
