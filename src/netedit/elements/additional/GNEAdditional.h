@@ -391,10 +391,13 @@ protected:
 
     /// @brief replace demand element parent
     void replaceDemandElementParent(SumoXMLTag tag, const std::string& value, const int parentIndex);
+    
+    /// @brief calculate perpendicular line between lane parents
+    void calculatePerpendicularLine(const double endLaneposition);
 
 private:
     /**@brief check restriction with the number of children
-     * @throw ProcessError if itis called without be reimplemented in child class
+     * @throw ProcessError if is called without be reimplemented in child class
      */
     virtual bool checkChildAdditionalRestriction() const;
 

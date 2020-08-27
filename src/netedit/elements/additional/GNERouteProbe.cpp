@@ -37,11 +37,10 @@
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const std::string& frequency,
                              const std::string& name, const std::string& filename, SUMOTime begin) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false,
-{}, {edge}, {}, {}, {}, {}, {}, {}),
-myFrequency(frequency),
-myFilename(filename),
-myBegin(begin),
-myRelativePositionY(0) {
+        {}, {edge}, {}, {}, {}, {}, {}, {}),
+    myFrequency(frequency),
+    myFilename(filename),
+    myBegin(begin) {
 }
 
 
@@ -51,23 +50,8 @@ GNERouteProbe::~GNERouteProbe() {
 
 void
 GNERouteProbe::updateGeometry() {
-    // obtain relative position of routeProbe in edge
-    myRelativePositionY = 2 * getParentEdges().front()->getRouteProbeRelativePosition(this);
-
-    // get lanes of edge
-    GNELane* firstLane = getParentEdges().front()->getLanes().at(0);
-
-    // Get shape of parent lane
-    const double offset = firstLane->getLaneShape().length() < 0.5 ? firstLane->getLaneShape().length() : 0.5;
-
-    // update geometry
-    myAdditionalGeometry.updateGeometry(firstLane, offset);
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
-
-    // Set offset of the block icon
-    myBlockIcon.setOffset(1.1, (-3.06) - myRelativePositionY);
+    // calculate perpendicular line
+    calculatePerpendicularLine(1);
 }
 
 
@@ -120,81 +104,64 @@ GNERouteProbe::drawGL(const GUIVisualizationSettings& s) const {
     const double routeProbeExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
     if (s.drawAdditionals(routeProbeExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // get values
-        const double width = (double) 2.0 * s.scale;
-        const int numberOfLanes = int(getParentEdges().front()->getLanes().size());
-        // start drawing
-        glPushName(getGlID());
-        glLineWidth(1.0);
-        // set color
+        // declare colors
+        RGBColor routeProbeColor, centralLineColor;
+        // set colors
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+            routeProbeColor = s.colorSettings.selectedAdditionalColor;
+            centralLineColor = routeProbeColor.changedBrightness(-32);
         } else {
-            GLHelper::setColor(s.additionalSettings.routeProbeColor);
+            routeProbeColor = s.additionalSettings.routeProbeColor;
+            centralLineColor = RGBColor::WHITE;
         }
-        // draw shape
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add layer matrix matrix
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_ROUTEPROBE);
-        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
-        glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-        glScaled(routeProbeExaggeration, routeProbeExaggeration, 1);
-        glTranslated(-1.6, -1.6, 0);
-        glBegin(GL_QUADS);
-        glVertex2d(0,  0.25);
-        glVertex2d(0, -0.25);
-        glVertex2d((numberOfLanes * 3.3), -0.25);
-        glVertex2d((numberOfLanes * 3.3),  0.25);
-        glEnd();
-        glTranslated(0, 0, .01);
-        glBegin(GL_LINES);
-        glVertex2d(0, 0.25 - .1);
-        glVertex2d(0, -0.25 + .1);
-        glEnd();
-        // position indicator (White)
-        if ((width * routeProbeExaggeration > 1) && !s.drawForRectangleSelection) {
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectionColor);
-            } else {
-                GLHelper::setColor(RGBColor::WHITE);
-            }
-            glRotated(90, 0, 0, -1);
-            glBegin(GL_LINES);
-            glVertex2d(0, 0);
-            glVertex2d(0, (numberOfLanes * 3.3));
-            glEnd();
-        }
-        // Pop shape matrix
-        glPopMatrix();
-        // Add a draw matrix for drawing logo
-        glPushMatrix();
-        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), getType());
-        glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-        glTranslated((-2.56) - myRelativePositionY, (-1.6), 0);
+        // set base color
+        GLHelper::setColor(routeProbeColor);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.3 * routeProbeExaggeration);
+        // move to front
+        glTranslated(0, 0, .1);
+        // set central color
+        GLHelper::setColor(centralLineColor);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.05 * routeProbeExaggeration);
+        // move to icon position and front
+        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
+        // rotate
+        glRotated(myAdditionalGeometry.getShape().rotationDegreeAtOffset(0), 0, 0, 1);
         // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, routeProbeExaggeration)) {
+            // set color
             glColor3d(1, 1, 1);
-            glRotated(-90, 0, 0, 1);
+            // draw texture
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), s.additionalSettings.routeProbeSize);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBESELECTED), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), s.additionalSettings.routeProbeSize);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_ROUTEPROBE), s.additionalSettings.routeProbeSize * routeProbeExaggeration);
             }
         } else {
-            GLHelper::setColor(s.additionalSettings.routeProbeColor);
-            GLHelper::drawBoxLine(Position(0, s.additionalSettings.routeProbeSize), 0, 2 * s.additionalSettings.routeProbeSize, s.additionalSettings.routeProbeSize);
+            // set route probe color
+            GLHelper::setColor(routeProbeColor);
+            // just drawn a box
+            GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.routeProbeSize, s.additionalSettings.routeProbeSize * routeProbeExaggeration);
         }
-        // Pop logo matrix
+        // pop layer matrix
         glPopMatrix();
-        // Show Lock icon depending of the Edit mode
-        myBlockIcon.drawIcon(s, routeProbeExaggeration, 0.4);
-        // draw name
-        drawName(getPositionInView(), s.scale, s.addName);
-        // pop name
+        // Pop name
         glPopName();
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedSquaredShape(true, s, myAdditionalGeometry.getPosition(), 1, 1, myAdditionalGeometry.getRotation(), 0, 0, routeProbeExaggeration);
+        // draw additional name
+        drawAdditionalName(s);
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(true, s, myAdditionalGeometry.getShape(), 0.3, routeProbeExaggeration);
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(false, s, myAdditionalGeometry.getShape(), 0.3, routeProbeExaggeration);
         }
     }
 }

@@ -136,9 +136,6 @@ protected:
     /// @brief route probe logo offset
     Position myRouteProbeLogoOffset;
 
-    /// @brief relative position regarding to other route probes
-    int myRelativePositionY;
-
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);

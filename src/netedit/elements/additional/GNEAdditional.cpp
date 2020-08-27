@@ -662,6 +662,28 @@ GNEAdditional::replaceDemandElementParent(SumoXMLTag tag, const std::string& val
 
 
 void
+GNEAdditional::calculatePerpendicularLine(const double endLaneposition) {
+    if (getParentEdges().empty()) {
+        throw ProcessError("Invalid number of edges");
+    } else {
+        // get lanes
+        const GNELane *firstLane = getParentEdges().front()->getLanes().front();
+        const GNELane *lastLane = getParentEdges().front()->getLanes().back();
+        // get first and back lane shapes
+        PositionVector firstLaneShape = firstLane->getLaneShape();
+        PositionVector lastLaneShape = lastLane->getLaneShape();
+        // move shapes
+        firstLaneShape.move2side((firstLane->getParentEdge()->getNBEdge()->getLaneWidth(firstLane->getIndex()) * 0.5) + 1);
+        lastLaneShape.move2side(lastLane->getParentEdge()->getNBEdge()->getLaneWidth(lastLane->getIndex()) * -0.5);
+        // calculate lane postion
+        const double lanePosition = firstLaneShape.length2D() >= endLaneposition? endLaneposition : firstLaneShape.length2D();
+        // update geometry
+        myAdditionalGeometry.updateGeometry({firstLaneShape.positionAtOffset2D(lanePosition), lastLaneShape.positionAtOffset2D(lanePosition)});
+    }
+}
+
+
+void
 GNEAdditional::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //
 }

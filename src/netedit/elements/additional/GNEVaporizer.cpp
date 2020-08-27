@@ -34,9 +34,9 @@
 
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
     GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false,
-{}, {edge}, {}, {}, {}, {}, {}, {}),
-myBegin(begin),
-myEnd(end) {
+        {}, {edge}, {}, {}, {}, {}, {}, {}),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -46,20 +46,8 @@ GNEVaporizer::~GNEVaporizer() {
 
 void
 GNEVaporizer::updateGeometry() {
-    // get lanes of edge
-    GNELane* firstLane = getParentEdges().front()->getLanes().at(0);
-
-    // Get shape of parent lane
-    const double offset = firstLane->getLaneShape().length() < 2.5 ? firstLane->getLaneShape().length() : 2.5;
-
-    // update geometry
-    myAdditionalGeometry.updateGeometry(firstLane, offset);
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
-
-    // Set offset of the block icon
-    myBlockIcon.setOffset(1.1, (-3.06));
+    // calculate perpendicular line
+    calculatePerpendicularLine(3);
 }
 
 
@@ -70,7 +58,6 @@ GNEVaporizer::getPositionInView() const {
     } else {
         Position A = getParentEdges().front()->getLanes().front()->getLaneShape().positionAtOffset(2.5);
         Position B = getParentEdges().front()->getLanes().back()->getLaneShape().positionAtOffset(2.5);
-
         // return Middle point
         return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
     }
@@ -113,81 +100,64 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
     const double vaporizerExaggeration = s.addSize.getExaggeration(s, this);
     // first check if additional has to be drawn
     if (s.drawAdditionals(vaporizerExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // get values
-        const int numberOfLanes = int(getParentEdges().front()->getLanes().size());
-        const double width = (double) 2.0 * s.scale;
-        // begin draw
-        glPushName(getGlID());
-        glLineWidth(1.0);
-        // set color
+        // declare colors
+        RGBColor vaporizerColor, centralLineColor;
+        // set colors
         if (drawUsingSelectColor()) {
-            GLHelper::setColor(s.colorSettings.selectedAdditionalColor);
+            vaporizerColor = s.colorSettings.selectedAdditionalColor;
+            centralLineColor = vaporizerColor.changedBrightness(-32);
         } else {
-            GLHelper::setColor(s.additionalSettings.vaporizerColor);
+            vaporizerColor = s.additionalSettings.vaporizerColor;
+            centralLineColor = RGBColor::WHITE;
         }
-        // draw shape
+        // Start drawing adding an gl identificator
+        glPushName(getGlID());
+        // Add layer matrix matrix
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VAPORIZER);
-        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
-        glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-        glScaled(vaporizerExaggeration, vaporizerExaggeration, 1);
-        glTranslated(-1.6, -1.6, 0);
-        glBegin(GL_QUADS);
-        glVertex2d(0,  0.25);
-        glVertex2d(0, -0.25);
-        glVertex2d((numberOfLanes * 3.3), -0.25);
-        glVertex2d((numberOfLanes * 3.3),  0.25);
-        glEnd();
-        glTranslated(0, 0, .01);
-        glBegin(GL_LINES);
-        glVertex2d(0, 0.25 - .1);
-        glVertex2d(0, -0.25 + .1);
-        glEnd();
-        // draw position indicator (White) if isn't being drawn for selecting
-        if ((width * vaporizerExaggeration > 1) && !s.drawForRectangleSelection) {
-            if (drawUsingSelectColor()) {
-                GLHelper::setColor(s.colorSettings.selectionColor);
-            } else {
-                GLHelper::setColor(RGBColor::WHITE);
-            }
-            glRotated(90, 0, 0, -1);
-            glBegin(GL_LINES);
-            glVertex2d(0, 0);
-            glVertex2d(0, (numberOfLanes * 3.3));
-            glEnd();
-        }
-        // Pop shape matrix
-        glPopMatrix();
-        // Add a draw matrix for drawing logo
-        glPushMatrix();
-        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), getType());
-        glRotated(myAdditionalGeometry.getRotation(), 0, 0, 1);
-        glTranslated((-2.56), (-1.6), 0);
-        // Draw icon depending of Vaporizer is selected and if isn't being drawn for selecting
+        // set base color
+        GLHelper::setColor(vaporizerColor);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.3 * vaporizerExaggeration);
+        // move to front
+        glTranslated(0, 0, .1);
+        // set central color
+        GLHelper::setColor(centralLineColor);
+        // Draw the area using shape, shapeRotations, shapeLengths and value of exaggeration
+        GNEGeometry::drawGeometry(myNet->getViewNet(), myAdditionalGeometry, 0.05 * vaporizerExaggeration);
+        // move to icon position and front
+        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), .1);
+        // rotate
+        glRotated(myAdditionalGeometry.getShape().rotationDegreeAtOffset(0), 0, 0, 1);
+        // Draw icon depending of Route Probe is selected and if isn't being drawn for selecting
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.laneTextures, vaporizerExaggeration)) {
+            // set color
             glColor3d(1, 1, 1);
-            glRotated(-90, 0, 0, 1);
+            // draw texture
             if (drawUsingSelectColor()) {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), s.additionalSettings.vaporizerSize);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZERSELECTED), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
             } else {
-                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), s.additionalSettings.vaporizerSize);
+                GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_VAPORIZER), s.additionalSettings.vaporizerSize * vaporizerExaggeration);
             }
         } else {
-            GLHelper::setColor(s.additionalSettings.vaporizerColor);
-            GLHelper::drawBoxLine(Position(0, s.additionalSettings.vaporizerSize), 0, 2 * s.additionalSettings.vaporizerSize, s.additionalSettings.vaporizerSize);
+            // set route probe color
+            GLHelper::setColor(vaporizerColor);
+            // just drawn a box
+            GLHelper::drawBoxLine(Position(0, 0), 0, 2 * s.additionalSettings.vaporizerSize, s.additionalSettings.vaporizerSize * vaporizerExaggeration);
         }
-        // Pop logo matrix
+        // pop layer matrix
         glPopMatrix();
-        // Show Lock icon
-        myBlockIcon.drawIcon(s, vaporizerExaggeration, 0.4);
-        // draw name
-        drawName(getPositionInView(), s.scale, s.addName);
-        // pop name
+        // Pop name
         glPopName();
-        // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
-            GNEGeometry::drawDottedSquaredShape(true, s, myAdditionalGeometry.getPosition(), 1, 1, 0, 0, myAdditionalGeometry.getRotation(), vaporizerExaggeration);
+        // draw additional name
+        drawAdditionalName(s);
+        // check if dotted contours has to be drawn
+        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(true, s, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration);
+        }
+        if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
+            GNEGeometry::drawDottedContourShape(false, s, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration);
         }
     }
 }
