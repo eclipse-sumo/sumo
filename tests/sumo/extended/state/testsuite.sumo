@@ -35,11 +35,17 @@ load_late_insertion
 # the input is taken from test save2/state.sumo
 load_and_save
 
-# the input is taken from test save2/state.sumo
-load_and_save_including_actionStepLength
+# save 2 states
+save_actionStepLength
 
 # the input is taken from test save2/state.sumo
-load_and_save_including_actionStepLength2
+load_and_save_actionStepLength
+
+# save 2 states
+save_actionStepLength2
+
+# the input is taken from test save2/state.sumo
+load_and_save_actionStepLength2
 
 # save state for a network with internal links
 save_with_internal_links
