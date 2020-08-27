@@ -347,8 +347,7 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
                     retrievedAC = dynamic_cast<GNELane*>(retrievedAC)->getParentEdge();
                 }
                 // make sure that AttributeCarrier can be selected
-                GUIGlObject* glObject = dynamic_cast<GUIGlObject*>(retrievedAC);
-                if (glObject && !myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(glObject->getType())) {
+                if (retrievedAC->getTagProperty().isSelectable() && !myViewParent->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(retrievedAC->getGUIGlObject()->getType())) {
                     result.insert(std::make_pair(retrievedAC->getID(), retrievedAC));
                 }
             }

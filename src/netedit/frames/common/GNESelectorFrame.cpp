@@ -1400,7 +1400,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select polygons
+            // invert polygons
             if (!locks->IsObjectTypeLocked(GLO_POLYGON)) {
                 for (const auto& polygon : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY)) {
                     if (polygon.second->isAttributeCarrierSelected()) {
@@ -1410,7 +1410,17 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select POIs and POILanes
+            // invert TAZs
+            if (!locks->IsObjectTypeLocked(GLO_TAZ)) {
+                for (const auto& polygon : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getTAZElements().at(SUMO_TAG_TAZ)) {
+                    if (polygon.second->isAttributeCarrierSelected()) {
+                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
+                    } else {
+                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
+                    }
+                }
+            }
+            // invert POIs and POILanes
             if (!locks->IsObjectTypeLocked(GLO_POI)) {
                 for (const auto& POI : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI)) {
                     if (POI.second->isAttributeCarrierSelected()) {
@@ -1428,7 +1438,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                 }
             }
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-            // select routes
+            // invert routes
             if (!locks->IsObjectTypeLocked(GLO_ROUTE)) {
                 for (const auto& route : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
                     if (route.second->isAttributeCarrierSelected()) {
@@ -1445,7 +1455,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select vehicles
+            // invert vehicles
             if (!locks->IsObjectTypeLocked(GLO_VEHICLE)) {
                 for (const auto& vehicle : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
                     if (vehicle.second->isAttributeCarrierSelected()) {
@@ -1462,7 +1472,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select trips
+            // invert trips
             if (!locks->IsObjectTypeLocked(GLO_TRIP)) {
                 for (const auto& trip : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
                     if (trip.second->isAttributeCarrierSelected()) {
@@ -1472,7 +1482,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select flows
+            // invert flows
             if (!locks->IsObjectTypeLocked(GLO_FLOW)) {
                 for (const auto& flow : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
                     if (flow.second->isAttributeCarrierSelected()) {
@@ -1482,7 +1492,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select route flows
+            // invert route flows
             if (!locks->IsObjectTypeLocked(GLO_ROUTEFLOW)) {
                 for (const auto& routeFlow : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
                     if (routeFlow.second->isAttributeCarrierSelected()) {
@@ -1499,7 +1509,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select stops
+            // invert stops
             if (!locks->IsObjectTypeLocked(GLO_STOP)) {
                 for (const auto& stopLane : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
                     if (stopLane.second->isAttributeCarrierSelected()) {
@@ -1537,7 +1547,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select person
+            // invert person
             if (!locks->IsObjectTypeLocked(GLO_PERSON)) {
                 for (const auto& person : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
                     if (person.second->isAttributeCarrierSelected()) {
@@ -1547,7 +1557,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select person flow
+            // invert person flow
             if (!locks->IsObjectTypeLocked(GLO_PERSONFLOW)) {
                 for (const auto& personFlow : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
                     if (personFlow.second->isAttributeCarrierSelected()) {
@@ -1557,7 +1567,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select person trip
+            // invert person trip
             if (!locks->IsObjectTypeLocked(GLO_PERSONTRIP)) {
                 for (const auto& personTripFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_EDGE_EDGE)) {
                     if (personTripFromTo.second->isAttributeCarrierSelected()) {
@@ -1574,7 +1584,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select ride
+            // invert ride
             if (!locks->IsObjectTypeLocked(GLO_RIDE)) {
                 for (const auto& rideFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_EDGE_EDGE)) {
                     if (rideFromTo.second->isAttributeCarrierSelected()) {
@@ -1591,7 +1601,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select walks
+            // invert walks
             if (!locks->IsObjectTypeLocked(GLO_WALK)) {
                 for (const auto& walkFromTo : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_EDGE)) {
                     if (walkFromTo.second->isAttributeCarrierSelected()) {
@@ -1615,7 +1625,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                     }
                 }
             }
-            // select person stops
+            // invert person stops
             if (!locks->IsObjectTypeLocked(GLO_PERSONSTOP)) {
                 for (const auto& personStopLane : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONSTOP_EDGE)) {
                     if (personStopLane.second->isAttributeCarrierSelected()) {
@@ -1633,7 +1643,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                 }
             }
         } else if (mySelectorFrameParent->myViewNet->getEditModes().isCurrentSupermodeData()) {
-            // select dataSets
+            // invert dataSets
             for (const auto& dataSet : mySelectorFrameParent->myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
                 for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
                     for (const auto& genericData : dataInterval.second->getGenericDataChildren()) {
@@ -1774,7 +1784,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select polygons
+            // unselect polygons
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POLYGON)) {
                 for (const auto& polygon : myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POLY)) {
                     if (polygon.second->isAttributeCarrierSelected()) {
@@ -1782,7 +1792,15 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select POIs and POILanes
+            // unselect TAZs
+            if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_TAZ)) {
+                for (const auto& polygon : myViewNet->getNet()->getAttributeCarriers()->getTAZElements().at(SUMO_TAG_TAZ)) {
+                    if (polygon.second->isAttributeCarrierSelected()) {
+                        polygon.second->setAttribute(GNE_ATTR_SELECTED, "false", myViewNet->getUndoList());
+                    }
+                }
+            }
+            // unselect POIs and POILanes
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_POI)) {
                 for (const auto& POI : myViewNet->getNet()->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI)) {
                     if (POI.second->isAttributeCarrierSelected()) {
@@ -1796,7 +1814,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                 }
             }
         } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
-            // select routes
+            // unselect routes
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE)) {
                 for (const auto& route : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
                     if (route.second->isAttributeCarrierSelected()) {
@@ -1804,7 +1822,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select vehicles
+            // unselect vehicles
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_VEHICLE)) {
                 for (const auto& vehicle : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
                     if (vehicle.second->isAttributeCarrierSelected()) {
@@ -1822,7 +1840,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select trips
+            // unselect trips
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_TRIP)) {
                 for (const auto& trip : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
                     if (trip.second->isAttributeCarrierSelected()) {
@@ -1830,7 +1848,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select flows
+            // unselect flows
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_FLOW)) {
                 for (const auto& flow : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
                     if (flow.second->isAttributeCarrierSelected()) {
@@ -1838,7 +1856,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select route flows
+            // unselect route flows
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTEFLOW)) {
                 for (const auto& routeFlow : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
                     if (routeFlow.second->isAttributeCarrierSelected()) {
@@ -1856,7 +1874,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select stops
+            // unselect stops
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_STOP)) {
                 for (const auto& stopLane : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
                     if (stopLane.second->isAttributeCarrierSelected()) {
@@ -1884,7 +1902,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select person
+            // unselect person
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSON)) {
                 for (const auto& person : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
                     if (person.second->isAttributeCarrierSelected()) {
@@ -1892,7 +1910,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select person flows
+            // unselect person flows
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONFLOW)) {
                 for (const auto& personFlow : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
                     if (personFlow.second->isAttributeCarrierSelected()) {
@@ -1900,7 +1918,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select person trips
+            // unselect person trips
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONTRIP)) {
                 for (const auto& personTripFromTo : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONTRIP_EDGE_EDGE)) {
                     if (personTripFromTo.second->isAttributeCarrierSelected()) {
@@ -1913,7 +1931,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select ride
+            // unselect ride
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_RIDE)) {
                 for (const auto& rideFromTo : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_RIDE_EDGE_EDGE)) {
                     if (rideFromTo.second->isAttributeCarrierSelected()) {
@@ -1926,7 +1944,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select walks
+            // unselect walks
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_WALK)) {
                 for (const auto& walkFromTo : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_WALK_EDGE_EDGE)) {
                     if (walkFromTo.second->isAttributeCarrierSelected()) {
@@ -1944,7 +1962,7 @@ GNESelectorFrame::clearCurrentSelection() const {
                     }
                 }
             }
-            // select person stops
+            // unselect person stops
             if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONSTOP)) {
                 for (const auto& personStopLane : myViewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_PERSONSTOP_EDGE)) {
                     if (personStopLane.second->isAttributeCarrierSelected()) {
