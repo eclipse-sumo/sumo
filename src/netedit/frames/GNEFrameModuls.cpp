@@ -2233,6 +2233,8 @@ GNEFrameModuls::PathCreator::getVClass() const {
 void
 GNEFrameModuls::PathCreator::setVClass(SUMOVehicleClass vClass) {
     myVClass = vClass;
+    // update edge colors
+    updateEdgeColors();
 }
 
 
