@@ -62,6 +62,9 @@ moveTo_detector
 # retrieve stops with limits
 getNextStops
 
+# retrieve stops from the past after loading state
+pastStops_stateLoaded
+
 # set rerouting device parameter period
 setReroutingPeriod
 
