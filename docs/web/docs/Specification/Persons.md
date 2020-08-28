@@ -210,6 +210,7 @@ vehicles](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#s_vehicles_dep
 The person stops for the maximum of *currentTime+duration* and *until*.
 
 # Router input
+The following definitions can be processed with [duarouter](../../duarouter.md) and [sumo](../../sumo.md).
 
 ## PersonTrips
 
@@ -219,6 +220,8 @@ process a personTrip with mode *public*, the [public transport
 network](../IntermodalRouting.md) has to be defined as well.
 Currently bicycle and/or car can only be the first mode. It is not
 possible to switch to a car or bicycle after a different mode.
+
+If the computed plan starts with a car or bicycle, a vehicle for use by the person will be automatically generated and set to depart="triggered". A car will be named 'PERSON_ID_0' and bicycle will be named 'PERSON_ID_b0' where 'PERSON_ID' is the id of the person. If a vehicle with this id already exists in the simulation, this vehicle will be used instead (and the user has to ensure that it starts at an appropriate location).
 
 | Attribute  | Type     | Range                                         | Default | Remark                                                        |
 | ---------- | -------- | --------------------------------------------- | ------- | ------------------------------------------------------------- |
