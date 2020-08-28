@@ -425,8 +425,8 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
         }
     }
     if (firstIt == veh->getRoute().end()) {
-        WRITE_WARNING("Invalid approach information after rerouting for vehicle '" + veh->getID()
-                      + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
+        WRITE_WARNING("Invalid approach information to rail signal '" + getClickableTLLinkID(myLink) + "' after rerouting for vehicle '" + veh->getID()
+                      + "' first driveway edge '" + first->getID() + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
         return myDriveways.front();
     }
     //std::cout << SIMTIME << " veh=" << veh->getID() << " rsl=" << getID() << " dws=" << myDriveways.size() << "\n";
