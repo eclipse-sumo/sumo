@@ -5,6 +5,7 @@ motorway
 
 # sublane behavior on junctions
 junction
+lateral_speed
 
 # tests for behavior at a 2-lane roundabout
 roundabout
@@ -24,7 +25,6 @@ depart_random_last
 
 # vehicle behavior on a single edge with cars and mopeds
 1edge_3lanes_mixed
-1edge_2lanes_compact_mixed_maxSpeedLatStanding
 
 # vehicle behavior on a single edge with cars and mopeds (all pushy)
 1edge_2lanes_compact_mixed_pushy
