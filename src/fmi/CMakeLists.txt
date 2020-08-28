@@ -21,8 +21,6 @@ target_link_libraries(testlibsumofmi2 libsumofmi2)
 #########################################################
 # Building of the ZIP Archive with the model description
 # and the static library for the FMU
-set(libsumofmi2_model_description modelDescription.xml)
-set(libsumofmi2_lib_name sumo-fmi2.fmu)
 
 # The Library needs to go to a specific folder
 # (binaries/win32 or binaries/win64 or ...)
@@ -45,6 +43,9 @@ endif()
 if(APPLE)
   set(PLATFORM_FOLDER_NAME "darwin${BITS}")
 endif()
+
+set(libsumofmi2_model_description modelDescription.xml)
+set(libsumofmi2_lib_name "sumo-fmi2-${PLATFORM_FOLDER_NAME}.fmu")
 
 # Set the temporary folder name to collect the contents for the ZIP archive
 set(ZIP_BUILD_FOLDER_NAME "sumo-fmi2")
