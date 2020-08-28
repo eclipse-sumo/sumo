@@ -94,7 +94,7 @@ FXDEFMAP(GNEFrameModuls::PathCreator) PathCreatorMap[] = {
 // Object implementation
 FXIMPLEMENT(GNEFrameModuls::TagSelector,                FXGroupBox,     TagSelectorMap,                 ARRAYNUMBER(TagSelectorMap))
 FXIMPLEMENT(GNEFrameModuls::DemandElementSelector,      FXGroupBox,     DemandElementSelectorMap,       ARRAYNUMBER(DemandElementSelectorMap))
-FXIMPLEMENT(GNEFrameModuls::HierarchicalElementTree,  FXGroupBox,     HierarchicalElementTreeMap,   ARRAYNUMBER(HierarchicalElementTreeMap))
+FXIMPLEMENT(GNEFrameModuls::HierarchicalElementTree,    FXGroupBox,     HierarchicalElementTreeMap,     ARRAYNUMBER(HierarchicalElementTreeMap))
 FXIMPLEMENT(GNEFrameModuls::DrawingShape,               FXGroupBox,     DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrameModuls::OverlappedInspection,       FXGroupBox,     OverlappedInspectionMap,        ARRAYNUMBER(OverlappedInspectionMap))
 FXIMPLEMENT(GNEFrameModuls::PathCreator,                FXGroupBox,     PathCreatorMap,                 ARRAYNUMBER(PathCreatorMap))

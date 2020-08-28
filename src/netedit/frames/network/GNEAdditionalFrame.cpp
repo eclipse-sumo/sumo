@@ -19,8 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/network/GNELane.h>
@@ -29,6 +33,8 @@
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/GNEApplicationWindow.h>
 
 #include "GNEAdditionalFrame.h"
 
@@ -58,10 +64,18 @@ FXDEFMAP(GNEAdditionalFrame::SelectorChildLanes) SelectorParentLanesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_ADDITIONALFRAME_SELECT,             GNEAdditionalFrame::SelectorChildLanes::onCmdSelectLane),
 };
 
+FXDEFMAP(GNEAdditionalFrame::E2MultilaneLaneSelector) E2MultilaneLaneSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANEPATH_ABORT,          GNEAdditionalFrame::E2MultilaneLaneSelector::onCmdAbortPathCreation),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANEPATH_FINISH,         GNEAdditionalFrame::E2MultilaneLaneSelector::onCmdCreatePath),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANEPATH_REMOVELAST,     GNEAdditionalFrame::E2MultilaneLaneSelector::onCmdRemoveLastElement),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_LANEPATH_SHOWCANDIDATES, GNEAdditionalFrame::E2MultilaneLaneSelector::onCmdShowCandidateLanes)
+};
+
 // Object implementation
-FXIMPLEMENT(GNEAdditionalFrame::SelectorParentLanes,        FXGroupBox,         ConsecutiveLaneSelectorMap,     ARRAYNUMBER(ConsecutiveLaneSelectorMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorChildEdges,         FXGroupBox,         SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
-FXIMPLEMENT(GNEAdditionalFrame::SelectorChildLanes,         FXGroupBox,         SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorParentLanes,        FXGroupBox,     ConsecutiveLaneSelectorMap,     ARRAYNUMBER(ConsecutiveLaneSelectorMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorChildEdges,         FXGroupBox,     SelectorParentEdgesMap,         ARRAYNUMBER(SelectorParentEdgesMap))
+FXIMPLEMENT(GNEAdditionalFrame::SelectorChildLanes,         FXGroupBox,     SelectorParentLanesMap,         ARRAYNUMBER(SelectorParentLanesMap))
+FXIMPLEMENT(GNEAdditionalFrame::E2MultilaneLaneSelector,    FXGroupBox,     E2MultilaneLaneSelectorMap,     ARRAYNUMBER(E2MultilaneLaneSelectorMap))
 
 
 // ---------------------------------------------------------------------------
@@ -589,6 +603,366 @@ GNEAdditionalFrame::SelectorChildLanes::onCmdInvertSelection(FXObject*, FXSelect
         }
     }
     return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEAdditionalFrame::E2MultilaneLaneSelector - methods
+// ---------------------------------------------------------------------------
+
+GNEAdditionalFrame::E2MultilaneLaneSelector::E2MultilaneLaneSelector(GNEAdditionalFrame* additionalFrameParent) :
+    FXGroupBox(additionalFrameParent->myContentFrame, "E2Multilane lane selector", GUIDesignGroupBoxFrame),
+    myAdditionalFrameParent(additionalFrameParent) {
+    // create label for route info
+    myInfoRouteLabel = new FXLabel(this, "No lanes selected", 0, GUIDesignLabelFrameThicked);
+    // create button for finish route creation
+    myFinishCreationButton = new FXButton(this, "Finish route creation", nullptr, this, MID_GNE_LANEPATH_FINISH, GUIDesignButton);
+    myFinishCreationButton->disable();
+    // create button for abort route creation
+    myAbortCreationButton = new FXButton(this, "Abort route creation", nullptr, this, MID_GNE_LANEPATH_ABORT, GUIDesignButton);
+    myAbortCreationButton->disable();
+    // create button for remove last inserted lane
+    myRemoveLastInsertedElement = new FXButton(this, "Remove last inserted lane", nullptr, this, MID_GNE_LANEPATH_REMOVELAST, GUIDesignButton);
+    myRemoveLastInsertedElement->disable();
+    // create check button
+    myShowCandidateLanes = new FXCheckButton(this, "Show candidate lanes", this, MID_GNE_LANEPATH_SHOWCANDIDATES, GUIDesignCheckButton);
+    myShowCandidateLanes->setCheck(TRUE);
+    // create shift label
+    myShiftLabel = new FXLabel(this,
+        "SHIFT-click: ignore vClass",
+        0, GUIDesignLabelFrameInformation);
+    // create control label
+    myControlLabel = new FXLabel(this,
+        "CTRL-click: add disconnected",
+        0, GUIDesignLabelFrameInformation);
+    // create backspace label (always shown)
+    new FXLabel(this,
+        "BACKSPACE: undo click",
+        0, GUIDesignLabelFrameInformation);
+}
+
+
+GNEAdditionalFrame::E2MultilaneLaneSelector::~E2MultilaneLaneSelector() {}
+
+
+void
+GNEAdditionalFrame::E2MultilaneLaneSelector::showE2MultilaneLaneSelectorModul() {
+    // declare flag
+    bool showE2MultilaneLaneSelector = true;
+    // first abort creation
+    abortPathCreation();
+    // disable buttons
+    myFinishCreationButton->disable();
+    myAbortCreationButton->disable();
+    myRemoveLastInsertedElement->disable();
+    // update lane colors
+    updateLaneColors();
+    // recalc before show (to avoid graphic problems)
+    recalc();
+    // show modul
+    show();
+}
+
+
+void
+GNEAdditionalFrame::E2MultilaneLaneSelector::hideE2MultilaneLaneSelectorModul() {
+    // clear path
+    clearPath();
+    // hide modul
+    hide();
+}
+
+
+bool
+GNEAdditionalFrame::E2MultilaneLaneSelector::addLane(GNELane* lane) {
+    // continue depending of number of selected eges
+    if (myLanePath.size() > 0) {
+        // check double lanes
+        if (myLanePath.back() == lane) {
+            // Write warning
+            WRITE_WARNING("Double lanes aren't allowed");
+            // abort add lane
+            return false;
+        }
+        /*
+        // check consecutive lanes
+        if (myCreationMode & Mode::CONSECUTIVE_LANES) {
+            // check that new lane is consecutive
+            const auto& outgoingLanes = mySelectedLanes.back()->getParentJunctions().back()->getGNEOutgoingLanes();
+            if (std::find(outgoingLanes.begin(), outgoingLanes.end(), lane) == outgoingLanes.end()) {
+                // Write warning
+                WRITE_WARNING("Only consecutives lanes are allowed");
+                // abort add lane
+                return false;
+            }
+        }
+        */
+    }
+    // check candidate lane
+    if ((myShowCandidateLanes->getCheck() == TRUE) && !lane->isPossibleCandidate()) {
+        if (lane->isSpecialCandidate() || lane->isConflictedCandidate()) {
+            // Write warning
+            WRITE_WARNING("Invalid lane");
+            // abort add lane
+            return false;
+        }
+    }
+    // All checks ok, then add it in selected elements
+    myLanePath.push_back(lane);
+    // enable abort route button
+    myAbortCreationButton->enable();
+    // enable finish button
+    myFinishCreationButton->enable();
+    // disable undo/redo
+    myAdditionalFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->disableUndoRedo("route creation");
+    // enable or disable remove last lane button
+    if (myLanePath.size() > 1) {
+        myRemoveLastInsertedElement->enable();
+    } else {
+        myRemoveLastInsertedElement->disable();
+    }
+    // update info route label
+    updateInfoRouteLabel();
+    // update lane colors
+    updateLaneColors();
+    return true;
+}
+
+
+const std::vector<GNELane*>&
+GNEAdditionalFrame::E2MultilaneLaneSelector::getLanePath() const {
+    return myLanePath;
+}
+
+
+bool
+GNEAdditionalFrame::E2MultilaneLaneSelector::drawCandidateLanesWithSpecialColor() const {
+    return (myShowCandidateLanes->getCheck() == TRUE);
+}
+
+
+void
+GNEAdditionalFrame::E2MultilaneLaneSelector::updateLaneColors() {
+    // reset all flags
+    for (const auto &edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto &lane : edge.second->getLanes()) {
+            lane->resetCandidateFlags();
+        }
+    }
+    // set reachability
+    if (myLanePath.size() > 0 && (myShowCandidateLanes->getCheck() == TRUE)) {
+        // XXX
+    }
+    // update view net
+    myAdditionalFrameParent->getViewNet()->updateViewNet();
+}
+
+
+void
+GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalRoute(const GUIVisualizationSettings* s) const {
+    if (myLanePath.size() > 0) {
+        const double lineWidth = 0.35;
+        const double lineWidthin = 0.25;
+        // Add a draw matrix
+        glPushMatrix();
+        // Start with the drawing of the area traslating matrix to origin
+        glTranslated(0, 0, GLO_MAX - 0.1);
+        // set first color
+        GLHelper::setColor(RGBColor::GREY);
+        // iterate over path
+        for (int i = 0; i < (int)myLanePath.size(); i++) {
+        /*
+            // get path
+            const GNEAdditionalFrame::E2MultilaneLaneSelector::Path& path = myLanePath.at(i);
+            // draw line over 
+            for (int j = 0; j < (int)path.getSubPath().size(); j++) {
+                const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
+                if (((i == 0) && (j == 0)) || (j > 0)) {
+                    GLHelper::drawBoxLines(lane->getLaneShape(), lineWidth);
+                }
+                // draw connection between lanes
+                if ((j + 1) < (int)path.getSubPath().size()) {
+                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
+                    if (lane->getLane2laneConnections().exist(nextLane)) {
+                        GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidth);
+                    } else {
+                        GLHelper::drawBoxLines({lane->getLaneShape().back(), nextLane->getLaneShape().front()}, lineWidth);
+                    }
+                }
+            }
+        */
+        }
+        glTranslated(0, 0, 0.1);
+        // iterate over path again
+        for (int i = 0; i < (int)myLanePath.size(); i++) {
+        /*
+            // get path
+            const GNEAdditionalFrame::E2MultilaneLaneSelector::Path& path = myLanePath.at(i);
+            // set path color color
+            if ((myCreationMode & SHOW_CANDIDATE_LANES) == 0) {
+                GLHelper::setColor(RGBColor::ORANGE);
+            } else if (path.isConflictDisconnected()) {
+                GLHelper::setColor(s->candidateColorSettings.conflict);
+            } else if (path.isConflictVClass()) {
+                GLHelper::setColor(s->candidateColorSettings.special);
+            } else {
+                GLHelper::setColor(RGBColor::ORANGE);
+            }
+            // draw line over 
+            for (int j = 0; j < (int)path.getSubPath().size(); j++) {
+                const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
+                if (((i == 0) && (j == 0)) || (j > 0)) {
+                    GLHelper::drawBoxLines(lane->getLaneShape(), lineWidthin);
+                }
+                // draw connection between lanes
+                if ((j + 1) < (int)path.getSubPath().size()) {
+                    const GNELane* nextLane = path.getSubPath().at(j + 1)->getLanes().back();
+                    if (lane->getLane2laneConnections().exist(nextLane)) {
+                        GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidthin);
+                    } else {
+                        GLHelper::drawBoxLines({ lane->getLaneShape().back(), nextLane->getLaneShape().front() }, lineWidthin);
+                    }
+                }
+            }
+        */
+        }
+        // Pop last matrix
+        glPopMatrix();
+    }
+}
+
+
+void 
+GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
+    // call create path implemented in frame parent
+    // myFrameParent->createPath();
+}
+
+
+void 
+GNEAdditionalFrame::E2MultilaneLaneSelector::abortPathCreation() {
+    // first check that there is elements
+    if (myLanePath.size() > 0) {
+        // unblock undo/redo
+        myAdditionalFrameParent->getViewNet()->getViewParent()->getGNEAppWindows()->enableUndoRedo();
+        // clear lanes
+        clearPath();
+        // disable buttons
+        myFinishCreationButton->disable();
+        myAbortCreationButton->disable();
+        myRemoveLastInsertedElement->disable();
+        // update info route label
+        updateInfoRouteLabel();
+        // update reachability
+        updateLaneColors();
+        // update view (to see the new route)
+        myAdditionalFrameParent->getViewNet()->updateViewNet();
+    }
+}
+
+
+void 
+GNEAdditionalFrame::E2MultilaneLaneSelector::removeLastElement() {
+    if (myLanePath.size() > 1) {
+        // remove special color of last selected lane
+        myLanePath.back()->resetCandidateFlags();
+        // remove last lane
+        myLanePath.pop_back();
+        // change last lane flag
+        if ((myLanePath.size() > 0) && myLanePath.back()->isSourceCandidate()) {
+            myLanePath.back()->setSourceCandidate(false);
+            myLanePath.back()->setTargetCandidate(true);
+        }
+        // enable or disable remove last lane button
+        if (myLanePath.size() > 1) {
+            myRemoveLastInsertedElement->enable();
+        } else {
+            myRemoveLastInsertedElement->disable();
+        }
+        // update info route label
+        updateInfoRouteLabel();
+        // update reachability
+        updateLaneColors();
+        // update view
+        myAdditionalFrameParent->getViewNet()->updateViewNet();
+    }
+}
+
+
+long
+GNEAdditionalFrame::E2MultilaneLaneSelector::onCmdCreatePath(FXObject*, FXSelector, void*) {
+    // just call create path
+    createPath();
+    return 1;
+}
+
+
+long
+GNEAdditionalFrame::E2MultilaneLaneSelector::onCmdAbortPathCreation(FXObject*, FXSelector, void*) {
+    // just call abort path creation
+    abortPathCreation();
+    return 1;
+}
+
+
+long
+GNEAdditionalFrame::E2MultilaneLaneSelector::onCmdRemoveLastElement(FXObject*, FXSelector, void*) {
+    // just call remove last element
+    removeLastElement();
+    return 1;
+}
+
+
+long
+GNEAdditionalFrame::E2MultilaneLaneSelector::onCmdShowCandidateLanes(FXObject*, FXSelector, void*) {
+    // update labels
+    if (myShowCandidateLanes->getCheck() == TRUE) {
+        myShiftLabel->show();
+        myControlLabel->show();
+    } else {
+        myShiftLabel->hide();
+        myControlLabel->hide();
+    }
+    // recalc frame
+    recalc();
+    // update lane colors (view will be updated within function)
+    updateLaneColors();
+    return 1;
+}
+
+
+void
+GNEAdditionalFrame::E2MultilaneLaneSelector::updateInfoRouteLabel() {
+    if (myLanePath.size() > 0) {
+        // declare variables for route info
+        double length = 0;
+        for (const auto& lane : myLanePath) {
+            length += lane->getParentEdge()->getNBEdge()->getLength();
+        }
+        // declare ostringstream for label and fill it
+        std::ostringstream information;
+        information
+            << "- Selected lanes: " << toString(myLanePath.size()) << "\n"
+            << "- Length: " << toString(length);
+        // set new label
+        myInfoRouteLabel->setText(information.str().c_str());
+    } else {
+        myInfoRouteLabel->setText("No lanes selected");
+    }
+}
+
+
+void
+GNEAdditionalFrame::E2MultilaneLaneSelector::clearPath() {
+    // reset all flags
+    for (const auto &edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto &lane : edge.second->getLanes()) {
+            lane->resetCandidateFlags();
+        }
+    }
+    // clear path
+    myLanePath.clear();
+    // update info route label
+    updateInfoRouteLabel();
 }
 
 // ===========================================================================

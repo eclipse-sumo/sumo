@@ -245,6 +245,110 @@ public:
         FXButton* invertLanesSelection;
     };
 
+    // ===========================================================================
+    // class E2MultilaneLaneSelector
+    // ===========================================================================
+
+    class E2MultilaneLaneSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEAdditionalFrame::E2MultilaneLaneSelector)
+
+    public:
+        /// @brief default constructor
+        E2MultilaneLaneSelector(GNEAdditionalFrame* additionalFrameParent);
+
+        /// @brief destructor
+        ~E2MultilaneLaneSelector();
+
+        /// @brief show E2MultilaneLaneSelector
+        void showE2MultilaneLaneSelectorModul();
+
+        /// @brief show E2MultilaneLaneSelector
+        void hideE2MultilaneLaneSelectorModul();
+
+        /// @brief add lane
+        bool addLane(GNELane* lane);
+
+        /// @brief get path route
+        const std::vector<GNELane*>& getLanePath() const;
+
+        /// @brief draw candidate lanes with special color (Only for candidates, special and conflicted)
+        bool drawCandidateLanesWithSpecialColor() const;
+
+        /// @brief update lane colors
+        void updateLaneColors();
+
+        /// @brief draw temporal route
+        void drawTemporalRoute(const GUIVisualizationSettings* s) const;
+
+        /// @brief create path
+        void createPath();
+
+        /// @brief abort path creation
+        void abortPathCreation();
+
+        /// @brief remove path element
+        void removeLastElement();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user click over button "Finish route creation"
+        long onCmdCreatePath(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Abort route creation"
+        long onCmdAbortPathCreation(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over button "Remove las inserted lane"
+        long onCmdRemoveLastElement(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user click over check button "show candidate lanes"
+        long onCmdShowCandidateLanes(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(E2MultilaneLaneSelector)
+
+        /// @brief update InfoRouteLabel
+        void updateInfoRouteLabel();
+
+        /// @brief clear lanes (and restore colors)
+        void clearPath();
+
+        /// @brief current additional frame parent
+        GNEAdditionalFrame* myAdditionalFrameParent;
+
+        /// @brief vector with current path
+        std::vector<GNELane*> myLanePath;
+
+        /// @brief label with route info
+        FXLabel* myInfoRouteLabel;
+
+        /// @brief button for finish route creation
+        FXButton* myFinishCreationButton;
+
+        /// @brief button for abort route creation
+        FXButton* myAbortCreationButton;
+
+        /// @brief button for removing last inserted element
+        FXButton* myRemoveLastInsertedElement;
+
+        /// @brief CheckBox for show candidate lanes
+        FXCheckButton* myShowCandidateLanes;
+
+        /// @brief label for shift information
+        FXLabel* myShiftLabel;
+
+        /// @brief label for control information
+        FXLabel* myControlLabel;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        E2MultilaneLaneSelector(E2MultilaneLaneSelector*) = delete;
+
+        /// @brief Invalidated assignment operator.
+        E2MultilaneLaneSelector& operator=(E2MultilaneLaneSelector*) = delete;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
