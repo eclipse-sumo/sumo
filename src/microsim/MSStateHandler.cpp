@@ -258,6 +258,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             SUMOVehicle* veh = vc.getVehicle(vehID);
             myCurrentLink->setApproaching(veh, arrivalTime, arrivalSpeed, leaveSpeed, setRequest, arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist);
+            if (!MSGlobals::gUseMesoSim) {
+                MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
+                microVeh->loadPreviousApproaching(myCurrentLink, setRequest, arrivalTime, arrivalSpeed, arrivalTimeBraking, arrivalSpeedBraking, dist, leaveSpeed);
+            }
             break;
         }
         case SUMO_TAG_PARAM: {

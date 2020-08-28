@@ -1806,6 +1806,11 @@ public:
     /** @brief Loads the state of this vehicle from the given description
      */
     void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset);
+
+    void loadPreviousApproaching(MSLink* link, bool setRequest,
+        SUMOTime arrivalTime, double arrivalSpeed,
+        SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
+        double dist, double leaveSpeed);
     //@}
 
 protected:

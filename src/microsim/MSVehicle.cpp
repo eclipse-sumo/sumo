@@ -6666,6 +6666,17 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     // no need to reset myCachedPosition here since state loading happens directly after creation
 }
 
+void
+MSVehicle::loadPreviousApproaching(MSLink* link, bool setRequest,
+        SUMOTime arrivalTime, double arrivalSpeed,
+        SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
+        double dist, double leaveSpeed) {
+    // ensure that approach information is reset on the next call to setApproachingForAllLinks
+    myLFLinkLanes.push_back(DriveProcessItem(link, -1, -1, setRequest,
+                arrivalTime, arrivalSpeed, arrivalTimeBraking, arrivalSpeedBraking, dist, leaveSpeed));
+
+}
+
 bool
 MSVehicle::haveValidStopEdges() const {
     MSRouteIterator start = myCurrEdge;
