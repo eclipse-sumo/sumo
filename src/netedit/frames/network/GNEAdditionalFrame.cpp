@@ -669,27 +669,11 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::addLane(GNELane* lane) {
         return false;
     }
     // continue depending of number of selected eges
-    if (myLanePath.size() > 0) {
-        // check double lanes
-        if (myLanePath.back() == lane) {
-            // Write warning
-            WRITE_WARNING("Double lanes aren't allowed");
-            // abort add lane
-            return false;
-        }
-        /*
-        // check consecutive lanes
-        if (myCreationMode & Mode::CONSECUTIVE_LANES) {
-            // check that new lane is consecutive
-            const auto& outgoingLanes = mySelectedLanes.back()->getParentJunctions().back()->getGNEOutgoingLanes();
-            if (std::find(outgoingLanes.begin(), outgoingLanes.end(), lane) == outgoingLanes.end()) {
-                // Write warning
-                WRITE_WARNING("Only consecutives lanes are allowed");
-                // abort add lane
-                return false;
-            }
-        }
-        */
+    if ((myLanePath.size() > 0) && (myLanePath.back().first == lane)) {
+        // Write warning
+        WRITE_WARNING("Double lanes aren't allowed");
+        // abort add lane
+        return false;
     }
     // check candidate lane
     if ((myShowCandidateLanes->getCheck() == TRUE) && !lane->isPossibleCandidate()) {
@@ -700,8 +684,10 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::addLane(GNELane* lane) {
             return false;
         }
     }
+    // get mouse position
+    const double offset = lane->getLaneShape().nearest_offset_to_point2D(myAdditionalFrameParent->getViewNet()->getPositionInformation());
     // All checks ok, then add it in selected elements
-    myLanePath.push_back(lane);
+    myLanePath.push_back(std::make_pair(lane, offset));
     // enable abort route button
     myAbortCreationButton->enable();
     // enable finish button
@@ -719,12 +705,6 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::addLane(GNELane* lane) {
     // update lane colors
     updateLaneColors();
     return true;
-}
-
-
-const std::vector<GNELane*>&
-GNEAdditionalFrame::E2MultilaneLaneSelector::getLanePath() const {
-    return myLanePath;
 }
 
 
@@ -753,19 +733,19 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::updateLaneColors() {
         // now mark lane paths as valid
         for (const auto &lane : myLanePath) {
             // disable conflicted candidate
-            lane->setConflictedCandidate(false);
+            lane.first->setConflictedCandidate(false);
             if (lane == myLanePath.back()) {
-                lane->setSourceCandidate(true);
+                lane.first->setSourceCandidate(true);
             } else {
-                lane->setTargetCandidate(true);
+                lane.first->setTargetCandidate(true);
             }
         }
         // get parent edge
-        const GNEEdge *edge = myLanePath.back()->getParentEdge();
+        const GNEEdge *edge = myLanePath.back().first->getParentEdge();
         // iterate over connections
         for (const auto &connection : edge->getGNEConnections()) {
             // mark possible candidates
-            if (connection->getLaneFrom() == myLanePath.back()) {
+            if (connection->getLaneFrom() == myLanePath.back().first) {
                 connection->getLaneTo()->setConflictedCandidate(false);
                 connection->getLaneTo()->setPossibleCandidate(true);
             }
@@ -777,26 +757,26 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::updateLaneColors() {
 
 
 void
-GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane() const {
+GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVisualizationSettings& s) const {
     if (myLanePath.size() > 0) {
         const double lineWidth = 0.35;
         const double lineWidthin = 0.25;
         // Add a draw matrix
         glPushMatrix();
         // Start with the drawing of the area traslating matrix to origin
-        glTranslated(0, 0, GLO_MAX - 0.1);
+        glTranslated(0, 0, GLO_TEMPORALSHAPE);
         // set first color
         GLHelper::setColor(RGBColor::GREY);
         // iterate over path
         for (int i = 0; i < (int)myLanePath.size(); i++) {
             // get lane
-            const GNELane* lane = myLanePath.at(i);
+            const GNELane* lane = myLanePath.at(i).first;
             // draw box lines
             GLHelper::drawBoxLines(lane->getLaneShape(), lineWidth);
             // draw connection between lanes
             if ((i + 1) < (int)myLanePath.size()) {
                 // get next lane
-                const GNELane* nextLane = myLanePath.at(i+1);
+                const GNELane* nextLane = myLanePath.at(i+1).first;
                 if (lane->getLane2laneConnections().exist(nextLane)) {
                     GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidth);
                 } else {
@@ -811,13 +791,13 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane() const {
         // iterate over path again
         for (int i = 0; i < (int)myLanePath.size(); i++) {
             // get lane
-            const GNELane* lane = myLanePath.at(i);
+            const GNELane* lane = myLanePath.at(i).first;
             // draw box lines
             GLHelper::drawBoxLines(lane->getLaneShape(), lineWidthin);
             // draw connection between lanes
             if ((i + 1) < (int)myLanePath.size()) {
                 // get next lane
-                const GNELane* nextLane = myLanePath.at(i+1);
+                const GNELane* nextLane = myLanePath.at(i+1).first;
                 if (lane->getLane2laneConnections().exist(nextLane)) {
                     GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidthin);
                 } else {
@@ -825,16 +805,74 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane() const {
                 }
             }
         }
+        // draw points
+        const RGBColor pointColor = RGBColor::RED;
+        const RGBColor darkerColor = pointColor.changedBrightness(-32);
+        // positions
+        const Position firstPosition = myLanePath.front().first->getLaneShape().positionAtOffset2D(myLanePath.front().second);
+        const Position secondPosition = myLanePath.back().first->getLaneShape().positionAtOffset2D(myLanePath.back().second);
+        // draw geometry points
+        GNEGeometry::drawGeometryPoints(s, myAdditionalFrameParent->getViewNet(), {firstPosition, secondPosition}, pointColor, darkerColor, s.neteditSizeSettings.polylineWidth, 1);
         // Pop last matrix
         glPopMatrix();
     }
 }
 
 
-void 
+bool 
 GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
-    // call create path implemented in frame parent
-    // myFrameParent->createPath();
+    // first check that current tag is valid
+    if (myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_E2DETECTOR_MULTILANE) {
+        return false;
+    }
+    // now check number of lanes
+    if (myLanePath.size() < 2) {
+        WRITE_WARNING("E2 multilane detectors need at least two consecutive lanes");
+        return false;
+    }
+    // Declare map to keep attributes obtained in frame
+    std::map<SumoXMLAttr, std::string> valuesMap = myAdditionalFrameParent->myAdditionalAttributes->getAttributesAndValues(true);
+    // fill netedit attributes
+    if (!myAdditionalFrameParent->myNeteditAttributes->getNeteditAttributesAndValues(valuesMap, nullptr)) {
+        return false;
+    }
+    // Check if ID has to be generated
+    if (valuesMap.count(SUMO_ATTR_ID) == 0) {
+        valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->myViewNet->getNet()->generateAdditionalID(SUMO_TAG_E2DETECTOR);
+    }
+    // obtain lane IDs
+    std::vector<std::string> laneIDs;
+    for (const auto &lane : myLanePath) {
+        laneIDs.push_back(lane.first->getID());
+    }
+    valuesMap[SUMO_ATTR_LANES] = joinToString(laneIDs, " ");
+    // set positions
+    valuesMap[SUMO_ATTR_POSITION] = toString(myLanePath.front().second);
+    valuesMap[SUMO_ATTR_ENDPOS] = toString(myLanePath.back().second);
+    // parse common attributes
+    if (!myAdditionalFrameParent->buildAdditionalCommonAttributes(valuesMap, myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties())) {
+        return false;
+    }
+    // show warning dialogbox and stop check if input parameters are valid
+    if (myAdditionalFrameParent->myAdditionalAttributes->areValuesValid() == false) {
+        myAdditionalFrameParent->myAdditionalAttributes->showWarningMessage();
+        return false;
+    }
+    // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
+    SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, myAdditionalFrameParent->getPredefinedTagsMML(), toString(SUMO_TAG_E2DETECTOR_MULTILANE));
+    // try to build additional
+    if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet->getNet(), true, SUMO_TAG_E2DETECTOR_MULTILANE, SUMOSAXAttrs, nullptr)) {
+        // Refresh additional Parent Selector (For additionals that have a limited number of children)
+        myAdditionalFrameParent->myParentAdditional->refreshSelectorParentModul();
+        // abort lane selector
+        //mySelectorParentLanes->abortConsecutiveLaneSelector();
+        // refresh additional attributes
+        myAdditionalFrameParent->myAdditionalAttributes->refreshRows();
+        return true;
+    } else {
+        // additional cannot be build
+        return false;
+    }
 }
 
 
@@ -864,13 +902,13 @@ void
 GNEAdditionalFrame::E2MultilaneLaneSelector::removeLastElement() {
     if (myLanePath.size() > 1) {
         // remove special color of last selected lane
-        myLanePath.back()->resetCandidateFlags();
+        myLanePath.back().first->resetCandidateFlags();
         // remove last lane
         myLanePath.pop_back();
         // change last lane flag
-        if ((myLanePath.size() > 0) && myLanePath.back()->isSourceCandidate()) {
-            myLanePath.back()->setSourceCandidate(false);
-            myLanePath.back()->setTargetCandidate(true);
+        if ((myLanePath.size() > 0) && myLanePath.back().first->isSourceCandidate()) {
+            myLanePath.back().first->setSourceCandidate(false);
+            myLanePath.back().first->setTargetCandidate(true);
         }
         // enable or disable remove last lane button
         if (myLanePath.size() > 1) {
@@ -928,7 +966,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::updateInfoRouteLabel() {
         // declare variables for route info
         double length = 0;
         for (const auto& lane : myLanePath) {
-            length += lane->getParentEdge()->getNBEdge()->getLength();
+            length += lane.first->getParentEdge()->getNBEdge()->getLength();
         }
         // declare ostringstream for label and fill it
         std::ostringstream information;
@@ -1316,68 +1354,6 @@ GNEAdditionalFrame::buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& 
             return true;
         } else {
             return false;
-        }
-    }
-}
-
-
-bool
-GNEAdditionalFrame::buildE2MultilaneDetector(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues) {
-    // stop if lane isn't valid
-    if (lane == nullptr) {
-        return false;
-    }
-    if (mySelectorParentLanes->isSelectingLanes()) {
-        // select clicked lane, but don't build additional
-        mySelectorParentLanes->addSelectedLane(lane, myViewNet->getPositionInformation());
-        return false;
-    } else if (mySelectorParentLanes->getSelectedLanes().empty()) {
-        // if there isn't selected lanes, that means that we will be start selecting lanes
-        mySelectorParentLanes->startConsecutiveLaneSelector(lane, myViewNet->getPositionInformation());
-        return false;
-    } else {
-        // Check if ID has to be generated
-        if (valuesMap.count(SUMO_ATTR_ID) == 0) {
-            valuesMap[SUMO_ATTR_ID] = generateID(mySelectorParentLanes->getSelectedLanes().front().first);
-        }
-        // obtain lane IDs
-        std::vector<std::string> laneIDs;
-        for (auto i : mySelectorParentLanes->getSelectedLanes()) {
-            laneIDs.push_back(i.first->getID());
-        }
-        valuesMap[SUMO_ATTR_LANES] = joinToString(laneIDs, " ");
-        // Check if clicked position over first lane has to be obtained
-        if (tagValues.hasAttribute(SUMO_ATTR_POSITION)) {
-            valuesMap[SUMO_ATTR_POSITION] = toString(mySelectorParentLanes->getSelectedLanes().front().second);
-        }
-        // Check if clicked position over last lane has to be obtained
-        if (tagValues.hasAttribute(SUMO_ATTR_ENDPOS)) {
-            valuesMap[SUMO_ATTR_ENDPOS] = toString(mySelectorParentLanes->getSelectedLanes().back().second);
-        }
-        // parse common attributes
-        if (!buildAdditionalCommonAttributes(valuesMap, tagValues)) {
-            return false;
-        }
-        // show warning dialogbox and stop check if input parameters are valid
-        if (myAdditionalAttributes->areValuesValid() == false) {
-            myAdditionalAttributes->showWarningMessage();
-            return false;
-        } else {
-            // declare SUMOSAXAttributesImpl_Cached to convert valuesMap into SUMOSAXAttributes
-            SUMOSAXAttributesImpl_Cached SUMOSAXAttrs(valuesMap, getPredefinedTagsMML(), toString(tagValues.getTag()));
-            // try to build additional
-            if (GNEAdditionalHandler::buildAdditional(myViewNet->getNet(), true, myAdditionalTagSelector->getCurrentTagProperties().getTag(), SUMOSAXAttrs, nullptr)) {
-                // Refresh additional Parent Selector (For additionals that have a limited number of children)
-                myParentAdditional->refreshSelectorParentModul();
-                // abort lane selector
-                mySelectorParentLanes->abortConsecutiveLaneSelector();
-                // refresh additional attributes
-                myAdditionalAttributes->refreshRows();
-                return true;
-            } else {
-                // additional cannot be build
-                return false;
-            }
         }
     }
 }

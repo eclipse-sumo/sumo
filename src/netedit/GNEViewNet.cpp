@@ -711,7 +711,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // draw testing elements
         myTestingMode.drawTestingElements(myApp);
         // draw temporal E2 multilane detectors
-        myViewParent->getAdditionalFrame()->getE2MultilaneLaneSelector()->drawTemporalE2Multilane();
+        myViewParent->getAdditionalFrame()->getE2MultilaneLaneSelector()->drawTemporalE2Multilane(myVisualizationSettings);
         // draw temporal trip/flow route
         myViewParent->getVehicleFrame()->getPathCreator()->drawTemporalRoute(myVisualizationSettings);
         // draw temporal person plan route
@@ -942,6 +942,8 @@ GNEViewNet::abortOperation(bool clearSelection) {
         } else if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
             // abort select lanes
             myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->abortConsecutiveLaneSelector();
+            // abort path
+            myViewParent->getAdditionalFrame()->getE2MultilaneLaneSelector()->abortPathCreation();
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         // abort operation depending of current mode
@@ -996,6 +998,7 @@ GNEViewNet::hotkeyDel() {
             deleteSelectedEdges();
             deleteSelectedJunctions();
             deleteSelectedShapes();
+            deleteSelectedTAZElements();
             myUndoList->p_end();
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
@@ -1050,9 +1053,10 @@ GNEViewNet::hotkeyEnter() {
                 // stop select lanes to create additional
                 myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->stopConsecutiveLaneSelector();
             }
+            // create E2
+            myViewParent->getAdditionalFrame()->getE2MultilaneLaneSelector()->createPath();
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
-        // abort operation depending of current mode
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
             myViewParent->getRouteFrame()->getPathCreator()->createPath();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
@@ -1074,9 +1078,10 @@ void
 GNEViewNet::hotkeyBackSpace() {
     // check what supermode is enabled
     if (myEditModes.isCurrentSupermodeNetwork()) {
-        // unused in Network mode
+        if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) {
+            myViewParent->getAdditionalFrame()->getE2MultilaneLaneSelector()->removeLastElement();
+        }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
-        // abort operation depending of current mode
         if (myEditModes.demandEditMode == DemandEditMode::DEMAND_ROUTE) {
             myViewParent->getRouteFrame()->getPathCreator()->removeLastElement();
         } else if (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) {
@@ -3410,6 +3415,22 @@ GNEViewNet::deleteSelectedShapes() {
         myUndoList->p_begin("delete selected shape" + plural);
         for (auto i : selectedShapes) {
             myNet->deleteShape(i, myUndoList);
+        }
+        myUndoList->p_end();
+    }
+}
+
+
+void
+GNEViewNet::deleteSelectedTAZElements() {
+    // obtain selected TAZ Elements
+    std::vector<GNETAZElement*> selectedTAZElements = myNet->retrieveTAZElements(true);
+    // remove it
+    if (selectedTAZElements.size() > 0) {
+        std::string plural = selectedTAZElements.size() == 1 ? ("") : ("s");
+        myUndoList->p_begin("delete selected TAZ" + plural);
+        for (auto i : selectedTAZElements) {
+            myNet->deleteTAZElement(i, myUndoList);
         }
         myUndoList->p_end();
     }

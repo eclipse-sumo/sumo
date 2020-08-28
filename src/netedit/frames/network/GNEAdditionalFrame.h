@@ -269,9 +269,6 @@ public:
         /// @brief add lane
         bool addLane(GNELane* lane);
 
-        /// @brief get path route
-        const std::vector<GNELane*>& getLanePath() const;
-
         /// @brief draw candidate lanes with special color (Only for candidates, special and conflicted)
         bool drawCandidateLanesWithSpecialColor() const;
 
@@ -279,10 +276,10 @@ public:
         void updateLaneColors();
 
         /// @brief draw temporal E2Multilane
-        void drawTemporalE2Multilane() const;
+        void drawTemporalE2Multilane(const GUIVisualizationSettings& s) const;
 
         /// @brief create path
-        void createPath();
+        bool createPath();
 
         /// @brief abort path creation
         void abortPathCreation();
@@ -306,6 +303,7 @@ public:
         /// @}
 
     protected:
+        /// @brief fox need this
         FOX_CONSTRUCTOR(E2MultilaneLaneSelector)
 
         /// @brief update InfoRouteLabel
@@ -317,8 +315,8 @@ public:
         /// @brief current additional frame parent
         GNEAdditionalFrame* myAdditionalFrameParent;
 
-        /// @brief vector with current path
-        std::vector<GNELane*> myLanePath;
+        /// @brief vector with lanes and clicked positions
+        std::vector<std::pair<GNELane*, double> > myLanePath;
 
         /// @brief label with route info
         FXLabel* myInfoRouteLabel;
@@ -392,9 +390,6 @@ private:
 
     /// @brief build additional over view
     bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNETagProperties& tagValues);
-
-    /// @brief build additional over lanes
-    bool buildE2MultilaneDetector(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);
 
     /// @brief item selector
     GNEFrameModuls::TagSelector* myAdditionalTagSelector;

@@ -558,6 +558,9 @@ private:
     /// @brief delete all currently selected shapes
     void deleteSelectedShapes();
 
+    /// @brief delete all currently selected TAZ Elements
+    void deleteSelectedTAZElements();
+
     /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
     bool mergeJunctions(GNEJunction* moved);
 
