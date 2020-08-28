@@ -103,7 +103,7 @@ private:
     /// @brief que index
     int myQueIndex;
 
-    /// @brief cached attrs (used when loading vehicles)
+    /// @brief cached attrs (used when loading vehicles or transportables)
     SUMOSAXAttributes* myAttrs;
 
     /// @brief cached device attrs (used when loading vehicles)

@@ -155,6 +155,7 @@ void
 MSDevice::loadState(const SUMOSAXAttributes& /* attrs */) {
 }
 
+
 std::string
 MSDevice::getStringParam(const SUMOVehicle& v, const OptionsCont& oc, std::string paramName, std::string deflt, bool required) {
     const std::string key = "device." + paramName;

@@ -34,6 +34,7 @@
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ToC.h>
+#include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
@@ -84,6 +85,18 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     MSRoute::dict_saveState(out);
     MSNet::getInstance()->getInsertionControl().saveState(out);
     MSNet::getInstance()->getVehicleControl().saveState(out);
+    if (OptionsCont::getOptions().getBool("save-state.transportables")) {
+        if (MSNet::getInstance()->hasPersons()) {
+            out.openTag(SUMO_TAG_TRANSPORTABLES).writeAttr(SUMO_ATTR_TYPE, "person");
+            MSNet::getInstance()->getPersonControl().saveState(out);
+            out.closeTag();
+        }
+        if (MSNet::getInstance()->hasContainers()) {
+            out.openTag(SUMO_TAG_TRANSPORTABLES).writeAttr(SUMO_ATTR_TYPE, "container");
+            MSNet::getInstance()->getContainerControl().saveState(out);
+            out.closeTag();
+        }
+    }
     MSVehicleTransfer::getInstance()->saveState(out);
     if (MSGlobals::gUseMesoSim) {
         for (int i = 0; i < MSEdge::dictSize(); i++) {
@@ -258,6 +271,18 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             }
             break;
         }
+        case SUMO_TAG_TRANSPORTABLES:
+            if (attrs.getString(SUMO_ATTR_TYPE) == "person") {
+                MSNet::getInstance()->getPersonControl().loadState(attrs.getString(SUMO_ATTR_STATE));
+            }
+            if (attrs.getString(SUMO_ATTR_TYPE) == "container") {
+                MSNet::getInstance()->getContainerControl().loadState(attrs.getString(SUMO_ATTR_STATE));
+            }
+            break;
+        case SUMO_TAG_PERSON:
+        case SUMO_TAG_CONTAINER:
+            myAttrs = attrs.clone();
+            break;
         default:
             break;
     }
@@ -267,6 +292,18 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
 void
 MSStateHandler::myEndElement(int element) {
     MSRouteHandler::myEndElement(element);
+    switch (element) {
+        case SUMO_TAG_PERSON:
+        case SUMO_TAG_CONTAINER: {
+            MSTransportableControl& tc = (element == SUMO_TAG_PERSON ? MSNet::getInstance()->getPersonControl() : MSNet::getInstance()->getContainerControl());
+            tc.get(myAttrs->getString(SUMO_ATTR_ID))->loadState(myAttrs->getString(SUMO_ATTR_STATE));
+            delete myAttrs;
+            myAttrs = nullptr;
+            break;
+        }
+        default:
+            break;
+    }
     if (element != SUMO_TAG_PARAM && myVehicleParameter == nullptr && myCurrentVType == nullptr) {
         myLastParameterised = nullptr;
     }

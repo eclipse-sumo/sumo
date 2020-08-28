@@ -110,13 +110,23 @@ public:
      */
     void addTransportable(MSTransportable* transportable);
 
-
     /** @brief Remove a passenger (TraCI)
      *
      * @param[in] transportable The passenger / container to remove.
      */
     void removeTransportable(MSTransportable* transportable);
 
+    /** @brief Saves the state of the device
+     *
+     * @param[in] out The OutputDevice to write the information into
+     */
+    void saveState(OutputDevice& out) const;
+
+    /** @brief Loads the state of the device from the given description
+     *
+     * @param[in] attrs XML attributes describing the current state
+     */
+    void loadState(const SUMOSAXAttributes& attrs);
 
     /** @brief Return the number of passengers / containers
      * @return The number of stored transportables
@@ -158,7 +168,7 @@ private:
 
 private:
     /// @brief Whether it is a container device
-    bool myAmContainer;
+    const bool myAmContainer;
 
     /// @brief The passengers of the vehicle
     std::vector<MSTransportable*> myTransportables;

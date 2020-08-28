@@ -910,10 +910,11 @@ MSRouteHandler::closePersonFlow() {
     myActivePlan = nullptr;
 }
 
+
 void
 MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i) {
     MSTransportableControl& pc = MSNet::getInstance()->getPersonControl();
-    int quota = MSNet::getInstance()->getVehicleControl().getQuota(-1, pc.getLoadedNumber());
+    const int quota = MSNet::getInstance()->getVehicleControl().getQuota(-1, pc.getLoadedNumber());
     if (quota == 0) {
         pc.addDiscarded();
     }
@@ -941,10 +942,13 @@ MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::s
         if (!pc.add(person)) {
             ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
             delete person;
-            throw error;
+            if (!MSGlobals::gStateLoaded) {
+                throw error;
+            }
         }
     }
 }
+
 
 void
 MSRouteHandler::closeVType() {

@@ -258,6 +258,14 @@ public:
         myDiscardedNumber++;
     }
 
+    /** @brief Saves the current state into the given stream
+     */
+    void saveState(OutputDevice& out);
+
+    /** @brief Reconstruct the current state
+     */
+    void loadState(const std::string& state);
+
 protected:
     /// all currently created transportables by id
     std::map<std::string, MSTransportable*> myTransportables;

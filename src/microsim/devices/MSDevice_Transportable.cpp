@@ -24,6 +24,7 @@
 /****************************************************************************/
 #include <config.h>
 
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/output/MSStopOut.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
@@ -213,12 +214,30 @@ MSDevice_Transportable::removeTransportable(MSTransportable* transportable) {
 }
 
 
+void
+MSDevice_Transportable::saveState(OutputDevice& out) const {
+    out.openTag(SUMO_TAG_DEVICE);
+    out.writeAttr(SUMO_ATTR_ID, getID());
+    std::vector<std::string> internals;
+    internals.push_back(toString(myStopped));
+    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    out.closeTag();
+}
+
+
+void
+MSDevice_Transportable::loadState(const SUMOSAXAttributes& attrs) {
+    std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myStopped;
+}
+
+
 std::string
 MSDevice_Transportable::getParameter(const std::string& key) const {
     if (key == "IDList") {
         std::vector<std::string> ids;
-        for (std::vector<MSTransportable*>::const_iterator i = myTransportables.begin(); i != myTransportables.end(); ++i) {
-            ids.push_back((*i)->getID());
+        for (const MSTransportable* t : myTransportables) {
+            ids.push_back(t->getID());
         }
         return toString(ids);
     }

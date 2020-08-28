@@ -187,8 +187,10 @@ MSTransportable::routeOutput(OutputDevice& os, const bool withRouteLength) const
     if (hasArrived()) {
         os.writeAttr("arrival", time2string(MSNet::getInstance()->getCurrentTimeStep()));
     }
-    for (MSTransportablePlan::const_iterator i = myPlan->begin(); i != myPlan->end(); ++i) {
-        (*i)->routeOutput(myAmPerson, os, withRouteLength);
+    const MSStage* previous = nullptr;
+    for (const MSStage* const stage : *myPlan) {
+        stage->routeOutput(myAmPerson, os, withRouteLength, previous);
+        previous = stage;
     }
     os.closeTag();
     os.lf();
@@ -303,7 +305,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
     // @note: parkingArea can currently not be set as myDestinationStop so we
     // check for stops on the edge instead
     assert(getCurrentStageType() == MSStageType::DRIVING);
-    if (dynamic_cast<MSPerson*>(this) == nullptr) {
+    if (!myAmPerson) {
         WRITE_WARNING("parkingAreaReroute not support for containers");
         return;
     }
@@ -383,6 +385,34 @@ MSTransportable::getMaxSpeed() const {
 SUMOVehicleClass
 MSTransportable::getVClass() const {
     return getVehicleType().getVehicleClass();
+}
+
+
+void
+MSTransportable::saveState(OutputDevice& out) {
+    // this saves lots of departParameters which are only needed for transportables that did not yet depart
+    // the parameters may hold the name of a vTypeDistribution but we are interested in the actual type
+    myParameter->write(out, OptionsCont::getOptions(), myAmPerson ? SUMO_TAG_PERSON : SUMO_TAG_CONTAINER, getVehicleType().getID());
+    std::ostringstream state;
+    state << (myStep - myPlan->begin());
+    (*myStep)->saveState(state);
+    out.writeAttr(SUMO_ATTR_STATE, state.str());
+    const MSStage* previous = nullptr;
+    for (const MSStage* const stage : *myPlan) {
+        stage->routeOutput(myAmPerson, out, false, previous);
+        previous = stage;
+    }
+    out.closeTag();
+}
+
+
+void
+MSTransportable::loadState(const std::string& state) {
+    std::istringstream iss(state);
+    int step;
+    iss >> step;
+    myStep = myPlan->begin() + step;
+    (*myStep)->loadState(this, iss);
 }
 
 

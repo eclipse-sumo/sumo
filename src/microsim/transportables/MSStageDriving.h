@@ -105,11 +105,13 @@ public:
     void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
     /** @brief Called on writing vehroute output
+     * @param[in] isPerson Whether we are writing person or container info
      * @param[in] os The stream to write the information into
      * @param[in] withRouteLength whether route length shall be written
+     * @param[in] previous The previous stage for additional info such as from edge
      * @exception IOError not yet implemented
      */
-    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
     /// Whether the person waits for the given vehicle
     bool isWaitingFor(const SUMOVehicle* vehicle) const;
@@ -152,6 +154,13 @@ public:
         return myVehicleType;
     }
 
+    /** @brief Saves the current state into the given stream
+     */
+    void saveState(std::ostringstream& out);
+
+    /** @brief Reconstructs the current state
+     */
+    void loadState(MSTransportable* transportable, std::istringstream& state);
 
 protected:
     /// the lines  to choose from

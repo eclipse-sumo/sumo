@@ -190,13 +190,23 @@ public:
     virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const = 0;
 
     /** @brief Called on writing vehroute output
+     * @param[in] isPerson Whether we are writing person or container info
      * @param[in] os The stream to write the information into
      * @param[in] withRouteLength whether route length shall be written
+     * @param[in] previous The previous stage for additional info such as from edge
      * @exception IOError not yet implemented
      */
-    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const = 0;
+    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const = 0;
 
     virtual MSStage* clone() const = 0;
+
+    /** @brief Saves the current state into the given stream, standard implementation does nothing
+     */
+    virtual void saveState(std::ostringstream& out) {}
+
+    /** @brief Reconstructs the current state, standard implementation does nothing
+     */
+    virtual void loadState(MSTransportable* transportable, std::istringstream& state) {}
 
 protected:
     /// the next edge to reach by getting transported
@@ -300,7 +310,7 @@ public:
     * @param[in] os The stream to write the information into
     * @exception IOError not yet implemented
     */
-    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const {
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const {
         UNUSED_PARAMETER(isPerson);
         UNUSED_PARAMETER(os);
         UNUSED_PARAMETER(withRouteLength);
@@ -396,11 +406,13 @@ public:
     void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
     /** @brief Called on writing vehroute output
-    *
-    * @param[in] os The stream to write the information into
-    * @exception IOError not yet implemented
-    */
-    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
+     * @param[in] isPerson Whether we are writing person or container info
+     * @param[in] os The stream to write the information into
+     * @param[in] withRouteLength whether route length shall be written
+     * @param[in] previous The previous stage for additional info such as from edge
+     * @exception IOError not yet implemented
+     */
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
 private:
     /// the time the person is waiting

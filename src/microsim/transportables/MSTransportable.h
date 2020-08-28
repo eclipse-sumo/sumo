@@ -323,6 +323,14 @@ public:
         return myDevices;
     }
 
+    /** @brief Saves the current state into the given stream
+     */
+    void saveState(OutputDevice& out);
+
+    /** @brief Reconstructs the current state
+     */
+    void loadState(const std::string& state);
+
 protected:
     /// the plan of the transportable
     const SUMOVehicleParameter* myParameter;

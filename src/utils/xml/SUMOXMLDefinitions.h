@@ -328,6 +328,7 @@ enum SumoXMLTag {
     SUMO_TAG_ACTORCONFIG,
     SUMO_TAG_MOTIONSTATE,
     SUMO_TAG_OD_PAIR,
+    SUMO_TAG_TRANSPORTABLES,
 
     /// @brief ActivityGen Tags
     AGEN_TAG_GENERAL,

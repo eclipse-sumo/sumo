@@ -213,6 +213,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "actorConfig",                    SUMO_TAG_ACTORCONFIG },
     { "motionState",                    SUMO_TAG_MOTIONSTATE },
     { "odPair",                         SUMO_TAG_OD_PAIR },
+    { "transportables",                 SUMO_TAG_TRANSPORTABLES },
     // ActivityGen statistics file
     { "general",                        AGEN_TAG_GENERAL },
     { "street",                         AGEN_TAG_STREET },

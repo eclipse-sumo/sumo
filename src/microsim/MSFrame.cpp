@@ -279,6 +279,8 @@ MSFrame::fillOptions() {
     oc.addDescription("save-state.files", "Output", "Files for network states");
     oc.doRegister("save-state.rng", new Option_Bool(false));
     oc.addDescription("save-state.rng", "Output", "Save random number generator states");
+    oc.doRegister("save-state.transportables", new Option_Bool(false));
+    oc.addDescription("save-state.transportables", "Output", "Save person and container states (experimental)");
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_String("0", "TIME"));

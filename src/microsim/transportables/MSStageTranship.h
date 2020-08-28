@@ -66,7 +66,7 @@ public:
     MSStage* clone() const;
 
     /// proceeds to the next step
-    virtual void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
+    void proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous);
 
     /// @brief get travel distance in this stage
     double getDistance() const;
@@ -82,13 +82,16 @@ public:
      * @param[in] os The stream to write the information into
      * @exception IOError not yet implemented
      */
-    virtual void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
+    void tripInfoOutput(OutputDevice& os, const MSTransportable* const transportable) const;
 
     /** @brief Called on writing vehroute output
+     * @param[in] isPerson Whether we are writing person or container info
      * @param[in] os The stream to write the information into
+     * @param[in] withRouteLength whether route length shall be written
+     * @param[in] previous The previous stage for additional info such as from edge
      * @exception IOError not yet implemented
      */
-    virtual void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const;
+    void routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const;
 
     /// @brief move forward and return whether the container arrived
     bool moveToNextEdge(MSTransportable* container, SUMOTime currentTime, MSEdge* nextInternal = 0);

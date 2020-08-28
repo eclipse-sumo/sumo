@@ -782,7 +782,7 @@ private:
 
 private:
     /// invalidated assignment operator
-    MSBaseVehicle& operator=(const MSBaseVehicle& s);
+    MSBaseVehicle& operator=(const MSBaseVehicle& s) = delete;
 
 #ifdef _DEBUG
 public:

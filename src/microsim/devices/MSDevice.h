@@ -130,7 +130,6 @@ public:
      */
     virtual void saveState(OutputDevice& out) const;
 
-
     /** @brief Loads the state of the device from the given description
      *
      * The default implementation does nothing.

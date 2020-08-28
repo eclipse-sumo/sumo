@@ -248,10 +248,12 @@ MSStageDriving::tripInfoOutput(OutputDevice& os, const MSTransportable* const tr
 
 
 void
-MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength) const {
+MSStageDriving::routeOutput(const bool isPerson, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const {
     os.openTag(isPerson ? "ride" : "transport");
     if (getFromEdge() != nullptr) {
         os.writeAttr(SUMO_ATTR_FROM, getFromEdge()->getID());
+    } else if (previous != nullptr && previous->getStageType() == MSStageType::WAITING_FOR_DEPART) {
+        os.writeAttr(SUMO_ATTR_FROM, previous->getEdge()->getID());
     }
     os.writeAttr(SUMO_ATTR_TO, getDestination()->getID());
     std::string comment = "";
@@ -388,6 +390,31 @@ MSStageDriving::getWaitingDescription() const {
                                           ? ("edge '" + myWaitingEdge->getID() + "'")
                                           : ("busStop '" + myDestinationStop->getID() + "'"))
                                  ) : "";
+}
+
+
+void
+MSStageDriving::saveState(std::ostringstream& out) {
+    const bool hasVehicle = myVehicle != nullptr;
+    out << " " << myArrived << " " << hasVehicle;
+    if (hasVehicle) {
+        out << " " << myVehicle->getID() << " " << myVehicleDistance << " " << myTimeLoss;
+    }
+}
+
+
+void
+MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& state) {
+    bool hasVehicle;
+    state >> myArrived >> hasVehicle;
+    if (hasVehicle) {
+        std::string vehID;
+        state >> vehID;
+        SUMOVehicle* startVeh = MSNet::getInstance()->getVehicleControl().getVehicle(vehID);
+        setVehicle(startVeh);
+        myVehicle->addTransportable(transportable);
+        state >> myVehicleDistance >> myTimeLoss;
+    }
 }
 
 
