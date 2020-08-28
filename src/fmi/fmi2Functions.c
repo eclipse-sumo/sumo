@@ -23,6 +23,7 @@
 #include <string.h>
 #include <foreign/fmi/fmi2Functions.h>
 #include "fmi2main.h"
+#include "libsumocpp2c.h"
 
 /* **********************************************************************************************
  * * IMPLEMENTATION OF GENERIC FUNCTIONALITY
@@ -147,5 +148,22 @@ fmi2EnterInitializationMode(fmi2Component c) {
 // Informs the FMU to exit Initialization Mode
 fmi2Status 
 fmi2ExitInitializationMode(fmi2Component c) {
+    return fmi2OK;
+}
+
+// Informs the FMU that the simulation run is terminated
+// --> let libsumo know, that we want to close the simulation
+fmi2Status 
+fmi2Terminate(fmi2Component c) {
+    ModelInstance *comp = (ModelInstance *)c;
+	libsumo_close();
+    return fmi2OK;
+}
+
+// Is called by the environment to reset the FMU after a simulation run
+fmi2Status 
+fmi2Reset(fmi2Component c) {
+    ModelInstance* comp = (ModelInstance *)c;
+	// Should we set some start values?
     return fmi2OK;
 }
