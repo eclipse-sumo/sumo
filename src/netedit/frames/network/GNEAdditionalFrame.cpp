@@ -838,7 +838,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
     }
     // Check if ID has to be generated
     if (valuesMap.count(SUMO_ATTR_ID) == 0) {
-        valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->myViewNet->getNet()->generateAdditionalID(SUMO_TAG_E2DETECTOR);
+        valuesMap[SUMO_ATTR_ID] = myAdditionalFrameParent->myViewNet->getNet()->generateAdditionalID(SUMO_TAG_E2DETECTOR_MULTILANE);
     }
     // obtain lane IDs
     std::vector<std::string> laneIDs;
@@ -864,8 +864,8 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
     if (GNEAdditionalHandler::buildAdditional(myAdditionalFrameParent->myViewNet->getNet(), true, SUMO_TAG_E2DETECTOR_MULTILANE, SUMOSAXAttrs, nullptr)) {
         // Refresh additional Parent Selector (For additionals that have a limited number of children)
         myAdditionalFrameParent->myParentAdditional->refreshSelectorParentModul();
-        // abort lane selector
-        //mySelectorParentLanes->abortConsecutiveLaneSelector();
+        // abort E2 creation
+        abortPathCreation();
         // refresh additional attributes
         myAdditionalFrameParent->myAdditionalAttributes->refreshRows();
         return true;

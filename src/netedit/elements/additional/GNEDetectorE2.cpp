@@ -245,22 +245,26 @@ GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
 void
 GNEDetectorE2::updateGeometry() {
     // declare variables for start and end positions
-    double startPosFixed, endPosFixed;
+    double startPosFixed = myPositionOverLane;
+    double endPosFixed = myEndPositionOverLane;
+    // adjust start and end pos
+    if (startPosFixed < 0) {
+        startPosFixed += myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
+    }
+    if (endPosFixed < 0) {
+        endPosFixed += myPositionOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
+    }
     // set start position
     if (myPositionOverLane < 0) {
         startPosFixed = 0;
-    } else if (myPositionOverLane > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
+    } else if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
         startPosFixed = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-    } else {
-        startPosFixed = myPositionOverLane;
     }
     // set end position
     if ((myPositionOverLane + myLength) < 0) {
         endPosFixed = 0;
     } else if ((myPositionOverLane + myLength) > getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength()) {
         endPosFixed = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
-    } else {
-        endPosFixed = (myPositionOverLane + myLength);
     }
     if (myTagProperty.getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
         // declare extreme geometry
