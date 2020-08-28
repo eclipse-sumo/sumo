@@ -108,3 +108,9 @@ save_rail_signal
 
 # load state of a railway simulation
 load_rail_signal
+
+# save state of a railway simulation
+save_on_rail_signal
+
+# load state of a railway simulation
+load_on_rail_signal

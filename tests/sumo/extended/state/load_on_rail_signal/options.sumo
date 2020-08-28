@@ -1,0 +1,2 @@
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+--load-state input_state.xml
