@@ -1936,14 +1936,17 @@ void MSLCM_LC2013::addLCSpeedAdvice(const double vSafe) {
 
 
 double
-MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist) {
-    double speedBound = myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed();
-    if (isChangingLanes()) {
-        // Don't stay caught in the middle of a lane change while vehicle is standing, workaround for #3771
-        speedBound = MAX2(LC_RESOLUTION_SPEED_LAT, speedBound);
+MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist) const {
+    double result = MSAbstractLaneChangeModel::computeSpeedLat(latDist, maneuverDist);
+    if (DEBUG_COND) std::cout << " myLeftSpace=" << myLeftSpace << " latDist=" << latDist << " maneuverDist=" << maneuverDist << "result1=" << result << "\n";
+    if (myLeftSpace > POSITION_EPS) {
+        double speedBound = myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed();
+        if (isChangingLanes()) {
+            speedBound = MAX2(LC_RESOLUTION_SPEED_LAT, speedBound);
+        }
+        result = MAX2(-speedBound, MIN2(speedBound, result));
     }
-    return MAX2(-speedBound, MIN2(speedBound,
-                                  MSAbstractLaneChangeModel::computeSpeedLat(latDist, maneuverDist)));
+    return result;
 }
 
 double

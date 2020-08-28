@@ -3048,7 +3048,7 @@ MSLCM_SL2015::getWidth() const {
 
 
 double
-MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
+MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) const {
     int currentDirection = mySpeedLat >= 0 ? 1 : -1;
     int directionWish = latDist >= 0 ? 1 : -1;
     double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();

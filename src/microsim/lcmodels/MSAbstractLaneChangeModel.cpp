@@ -376,7 +376,7 @@ MSAbstractLaneChangeModel::laneChangeOutput(const std::string& tag, MSLane* sour
 
 
 double
-MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverDist) {
+MSAbstractLaneChangeModel::computeSpeedLat(double /*latDist*/, double& maneuverDist) const {
     if (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)) {
         int stepsToChange = (int)ceil(fabs(maneuverDist) / SPEED2DIST(myVehicle.getVehicleType().getMaxSpeedLat()));
         return DIST2SPEED(maneuverDist / stepsToChange);
@@ -781,7 +781,14 @@ MSAbstractLaneChangeModel::estimateLCDuration(const double speed, const double r
     // If we didn't return yet this means the LC was not completed until the vehicle stops (if braking with rate b)
     if (wmin == 0) {
         // LC won't be completed if vehicle stands
-        return -1;
+        double maneuverDist = remainingManeuverDist;
+        const double vModel = computeSpeedLat(maneuverDist, maneuverDist);
+        if (vModel > 0) {
+            // unless the model tells us something different
+            return D / vModel;
+        } else {
+            return -1;
+        }
     } else {
         // complete LC with lateral speed wmin
         return timeSoFar + (D - distSoFar) / wmin;
