@@ -1029,14 +1029,15 @@ Vehicle::changeTarget(const std::string& vehicleID, const std::string& edgeID) {
     ConstMSEdgeVector newRoute;
     const MSEdge* currentEdge = veh->getRerouteOrigin();
     veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()).compute(
-        currentEdge, destEdge, (const MSVehicle * const)veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+        currentEdge, destEdge, veh, MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one (cost is updated by call to reroute())
     if (!veh->replaceRouteEdges(newRoute, -1, 0, "traci:changeTarget", onInit)) {
         throw TraCIException("Route replacement failed for vehicle '" + veh->getID() + "'.");
     }
     // route again to ensure usage of via/stops
     try {
-        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:changeTarget", veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), onInit);
+        veh->reroute(MSNet::getInstance()->getCurrentTimeStep(), "traci:changeTarget",
+                     veh->getBaseInfluencer().getRouterTT(veh->getRNGIndex(), veh->getVClass()), onInit);
     } catch (ProcessError& e) {
         throw TraCIException(e.what());
     }
