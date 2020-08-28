@@ -1224,6 +1224,10 @@ GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     if (mySpecialCandidate) {
         color = s.candidateColorSettings.special;
     }
+    // special color for possible candidate lanes
+    if (myPossibleCandidate) {
+        color = s.candidateColorSettings.possible;
+    }
     // special color for conflicted candidate lanes
     if (myConflictedCandidate) {
         color = s.candidateColorSettings.conflict;

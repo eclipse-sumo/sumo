@@ -278,8 +278,8 @@ public:
         /// @brief update lane colors
         void updateLaneColors();
 
-        /// @brief draw temporal route
-        void drawTemporalRoute(const GUIVisualizationSettings* s) const;
+        /// @brief draw temporal E2Multilane
+        void drawTemporalE2Multilane() const;
 
         /// @brief create path
         void createPath();
@@ -335,12 +335,6 @@ public:
         /// @brief CheckBox for show candidate lanes
         FXCheckButton* myShowCandidateLanes;
 
-        /// @brief label for shift information
-        FXLabel* myShiftLabel;
-
-        /// @brief label for control information
-        FXLabel* myControlLabel;
-
     private:
         /// @brief Invalidated copy constructor.
         E2MultilaneLaneSelector(E2MultilaneLaneSelector*) = delete;
@@ -370,8 +364,11 @@ public:
     /// @brief show selector child lane and update use selected edges/lanes
     void showSelectorChildLanesModul();
 
-    /// @brief getConsecutive Lane Selector
+    /// @brief get consecutive Lane Selector
     GNEAdditionalFrame::SelectorParentLanes* getConsecutiveLaneSelector() const;
+
+    /// @brief getConsecutive Lane Selector
+    GNEAdditionalFrame::E2MultilaneLaneSelector* getE2MultilaneLaneSelector() const;
 
 protected:
     /// @brief Tag selected in TagSelector
@@ -393,11 +390,11 @@ private:
     /// @brief build additional over a single lane
     bool buildAdditionalOverLane(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);
 
-    /// @brief build additional over lanes
-    bool buildAdditionalOverLanes(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);
-
     /// @brief build additional over view
     bool buildAdditionalOverView(std::map<SumoXMLAttr, std::string>& valuesMap, const GNETagProperties& tagValues);
+
+    /// @brief build additional over lanes
+    bool buildE2MultilaneDetector(std::map<SumoXMLAttr, std::string>& valuesMap, GNELane* lane, const GNETagProperties& tagValues);
 
     /// @brief item selector
     GNEFrameModuls::TagSelector* myAdditionalTagSelector;
@@ -419,4 +416,7 @@ private:
 
     /// @brief Modul for select child lanes
     SelectorChildLanes* mySelectorChildLanes;
+
+    /// @brief Modul for E2Multilane lane selector
+    E2MultilaneLaneSelector* myE2MultilaneLaneSelector;
 };
