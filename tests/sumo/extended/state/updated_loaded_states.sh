@@ -44,6 +44,9 @@ cp save_rng/state.sumo.meso load_rng/input_meso_state.xml
 cp save_rail_signal/state.sumo load_rail_signal/input_state.xml
 cp save_rail_signal/state.sumo.meso load_rail_signal/input_meso_state.xml
 
+cp save_on_rail_signal/state.sumo load_on_rail_signal/input_state.xml
+cp save_on_rail_signal/state.sumo.meso load_on_rail_signal/input_meso_state.xml
+
 sumo -c load_arriving/saveState.sumocfg
 sumo -c load_arriving/saveMesoState.sumocfg
 sumo -c load_shifted/saveState.sumocfg
