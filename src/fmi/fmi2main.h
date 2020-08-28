@@ -47,6 +47,9 @@ typedef struct {
    	allocateMemoryType allocateMemory;
    	freeMemoryType freeMemory;
 
+    double startTime;
+    double stopTime;
+
     bool logEvents;
     bool logErrors;
 } ModelInstance;

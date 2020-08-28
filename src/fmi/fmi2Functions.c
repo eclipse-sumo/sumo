@@ -123,3 +123,17 @@ fmi2SetDebugLogging(fmi2Component c, fmi2Boolean loggingOn, size_t nCategories, 
 
     return fmi2OK;
 }
+
+fmi2Status 
+fmi2SetupExperiment(fmi2Component c, fmi2Boolean toleranceDefined, fmi2Real tolerance,
+					fmi2Real startTime, fmi2Boolean stopTimeDefined, fmi2Real stopTime) {
+
+    // ignore arguments: toleranceDefined, tolerance
+    ModelInstance *comp = (ModelInstance *)c;
+
+	// Store the start and stop times of the experiment
+    comp->startTime = startTime;
+	comp->stopTime = stopTime;
+
+    return fmi2OK;
+}

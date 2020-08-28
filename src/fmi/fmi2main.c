@@ -26,7 +26,8 @@
 #include "fmi2main.h"
 
 
-void logError(ModelInstance *comp, const char *message, ...) {
+void 
+logError(ModelInstance *comp, const char *message, ...) {
     if (!comp->logErrors) return;
 
     va_list args;
@@ -35,7 +36,8 @@ void logError(ModelInstance *comp, const char *message, ...) {
     va_end(args); 
 }
 
-static void logMessage(ModelInstance *comp, int status, const char *category, const char *message, va_list args) {
+void 
+logMessage(ModelInstance *comp, int status, const char *category, const char *message, va_list args) {
     va_list args1;
     size_t len = 0;
     char *buf = "";
