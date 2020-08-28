@@ -805,6 +805,9 @@ The parameters are set within the `<vType>`:
 <vType id="myType" lcStrategic="0.5" lcCooperative="0.0"/>
 ```
 
+!!! note
+    parameter 'lcMaxSpeedLatStanding' will not be applied when a vehicle is at the end of its lane (to ensure that there are no deadlocks).
+
 ## Junction Model Parameters
 
 The behavior at intersections may be configured with the parameters
