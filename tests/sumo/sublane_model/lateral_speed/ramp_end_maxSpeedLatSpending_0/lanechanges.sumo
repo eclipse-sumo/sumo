@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Aug 28 08:51:57 2020 by Eclipse SUMO sumo Version v1_6_0+1814-4242b665f5
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.4"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="merge.0" type="t0" time="44.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="196.00" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="54.46" followerSecureGap="2.45" followerSpeed="2.45" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.1" type="t0" time="47.00" from="beg_0" to="beg_1" dir="1" speed="1.69" pos="192.61" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="38.20" followerSecureGap="8.45" followerSpeed="6.48" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.2" type="t0" time="48.00" from="beg_0" to="beg_1" dir="1" speed="1.69" pos="185.11" reason="strategic|urgent" leaderGap="4.19" leaderSecureGap="1.69" leaderSpeed="1.69" followerGap="28.41" followerSecureGap="2.29" followerSpeed="2.29" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.3" type="t0" time="49.00" from="beg_0" to="beg_1" dir="1" speed="1.69" pos="177.61" reason="strategic|urgent" leaderGap="4.19" leaderSecureGap="1.69" leaderSpeed="1.69" followerGap="19.01" followerSecureGap="1.90" followerSpeed="1.90" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.4" type="t0" time="50.00" from="beg_0" to="beg_1" dir="1" speed="1.69" pos="170.11" reason="strategic|urgent" leaderGap="4.19" leaderSecureGap="1.69" leaderSpeed="1.69" followerGap="8.73" followerSecureGap="2.78" followerSpeed="2.78" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.5" type="t0" time="56.00" from="beg_0" to="beg_1" dir="1" speed="6.81" pos="182.37" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="15.61" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.7" type="t0" time="56.00" from="beg_0" to="beg_1" dir="1" speed="2.39" pos="148.84" reason="strategic|urgent" leaderGap="7.92" leaderSecureGap="2.39" leaderSpeed="0.00" followerGap="5.80" followerSecureGap="2.60" followerSpeed="2.60" origLeaderGap="13.20" origLeaderSecureGap="0.00" origLeaderSpeed="7.84" latGap="None"/>
+    <change id="merge.6" type="t0" time="59.00" from="beg_0" to="beg_1" dir="1" speed="5.42" pos="185.16" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="7.82" followerSecureGap="3.50" followerSpeed="4.42" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.8" type="t0" time="62.00" from="beg_0" to="beg_1" dir="1" speed="4.77" pos="157.52" reason="strategic|urgent" leaderGap="12.32" leaderSecureGap="3.37" leaderSpeed="6.16" followerGap="11.88" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.12" type="t0" time="62.00" from="beg_0" to="beg_1" dir="1" speed="1.78" pos="109.64" reason="strategic|urgent" leaderGap="8.40" leaderSecureGap="1.78" leaderSpeed="0.00" followerGap="36.16" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="4.80" origLeaderSecureGap="1.78" origLeaderSpeed="2.30" latGap="None"/>
+    <change id="merge.14" type="t0" time="64.00" from="beg_0" to="beg_1" dir="1" speed="1.78" pos="94.64" reason="strategic|urgent" leaderGap="6.88" leaderSecureGap="1.78" leaderSpeed="4.38" followerGap="21.16" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="30.61" origLeaderSecureGap="0.37" origLeaderSpeed="5.91" latGap="None"/>
+    <change id="merge.9" type="t0" time="65.00" from="beg_0" to="beg_1" dir="1" speed="6.69" pos="164.07" reason="strategic|urgent" leaderGap="15.61" leaderSecureGap="0.00" leaderSpeed="11.63" followerGap="15.83" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.15" type="t0" time="65.00" from="beg_0" to="beg_1" dir="1" speed="1.78" pos="87.14" reason="strategic|urgent" leaderGap="4.69" leaderSecureGap="1.78" leaderSpeed="2.19" followerGap="13.66" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="21.37" origLeaderSecureGap="0.00" origLeaderSpeed="6.98" latGap="None"/>
+    <change id="merge.16" type="t0" time="65.00" from="beg_0" to="beg_1" dir="1" speed="1.87" pos="77.85" reason="strategic|urgent" leaderGap="4.28" leaderSecureGap="1.87" leaderSpeed="1.78" followerGap="4.37" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="52.16" origLeaderSecureGap="1.61" origLeaderSpeed="4.77" latGap="None"/>
+    <change id="merge.17" type="t0" time="66.00" from="beg_0" to="beg_1" dir="1" speed="1.87" pos="70.35" reason="strategic|urgent" leaderGap="3.39" leaderSecureGap="1.87" leaderSpeed="0.89" followerGap="4.37" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="67.03" origLeaderSecureGap="0.00" origLeaderSpeed="7.37" latGap="None"/>
+    <change id="merge.10" type="t0" time="67.00" from="beg_0" to="beg_1" dir="1" speed="7.81" pos="164.38" reason="strategic|urgent" leaderGap="15.87" leaderSecureGap="0.84" leaderSpeed="11.89" followerGap="10.94" followerSecureGap="0.00" followerSpeed="2.60" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.18" type="t0" time="67.00" from="beg_0" to="beg_1" dir="1" speed="1.87" pos="62.85" reason="strategic|urgent" leaderGap="3.39" leaderSecureGap="1.87" leaderSpeed="0.89" followerGap="4.37" followerSecureGap="0.00" followerSpeed="0.00" origLeaderGap="81.22" origLeaderSecureGap="0.00" origLeaderSpeed="6.69" latGap="None"/>
+    <change id="merge.19" type="t0" time="68.00" from="beg_0" to="beg_1" dir="1" speed="1.87" pos="55.35" reason="strategic|urgent" leaderGap="3.39" leaderSecureGap="1.87" leaderSpeed="0.89" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="96.53" origLeaderSecureGap="0.00" origLeaderSpeed="7.81" latGap="None"/>
+    <change id="merge.11" type="t0" time="71.00" from="beg_0" to="beg_1" dir="1" speed="10.88" pos="187.74" reason="strategic|urgent" leaderGap="22.84" leaderSecureGap="4.47" leaderSpeed="13.89" followerGap="10.82" followerSecureGap="1.06" followerSpeed="6.91" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <change id="merge.13" type="t0" time="95.00" from="beg_0" to="beg_1" dir="1" speed="0.00" pos="196.00" reason="strategic|urgent" leaderGap="2.53" leaderSecureGap="0.00" leaderSpeed="7.87" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+</lanechanges>

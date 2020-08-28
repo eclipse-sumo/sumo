@@ -1,4 +1,10 @@
 1edge_2lanes_compact_mixed_maxSpeedLatStanding
 
 # a vehicle urgently needs to change lanes but is configured to with lcMaxSpeedLatStanding=0
-ramp_end_maxSpeedLatSpending
+ramp_end_maxSpeedLatSpending_1
+
+# a vehicle urgently needs to change lanes but is configured to with lcMaxSpeedLatStanding=0
+ramp_end_maxSpeedLatSpending_0.5
+
+# a vehicle urgently needs to change lanes but is configured to with lcMaxSpeedLatStanding=0
+ramp_end_maxSpeedLatSpending_0
