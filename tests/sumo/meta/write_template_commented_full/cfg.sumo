@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 17 15:00:06 2020 by Eclipse SUMO sumo Version v1_6_0+1601-040c29858a
+<!-- generated on Fri Aug 28 11:38:18 2020 by Eclipse SUMO sumo Version v1_6_0+1827-94450ab757
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -216,12 +216,6 @@
         <!-- Write overall statistics into FILE -->
         <statistic-output value="" synonymes="statistics-output" type="FILE"/>
 
-        <!-- Save movereminder states of selected vehicles into FILE -->
-        <movereminder-output value="" type="FILE"/>
-
-        <!-- List of vehicle ids which shall save their movereminder states -->
-        <movereminder-output.vehicles value="" type="STR[]"/>
-
         <!-- Use TIME[] as times at which a network state written -->
         <save-state.times value="" type="STR[]"/>
 
@@ -239,6 +233,9 @@
 
         <!-- Save random number generator states -->
         <save-state.rng value="false" type="BOOL"/>
+
+        <!-- Save person and container states (experimental) -->
+        <save-state.transportables value="false" type="BOOL"/>
 
     </output>
 
@@ -959,6 +956,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
