@@ -3051,8 +3051,11 @@ double
 MSLCM_SL2015::computeSpeedLat(double latDist, double& maneuverDist) {
     int currentDirection = mySpeedLat >= 0 ? 1 : -1;
     int directionWish = latDist >= 0 ? 1 : -1;
-    const double maxSpeedLat = MIN2(myVehicle.getVehicleType().getMaxSpeedLat(),
-                                    myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed());
+    double maxSpeedLat = myVehicle.getVehicleType().getMaxSpeedLat();
+    if (myLeftSpace > POSITION_EPS) {
+        double speedBound = myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed();
+        maxSpeedLat = MIN2(maxSpeedLat, speedBound);
+    }
 
 #ifdef DEBUG_MANEUVER
     if (debugVehicle()) {
