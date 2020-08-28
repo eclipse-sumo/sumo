@@ -25,7 +25,8 @@
 extern "C" {
 #endif
 
-void libsumo_run();
+void libsumo_load();
+void libsumo_close();
 
 #ifdef __cplusplus
 }

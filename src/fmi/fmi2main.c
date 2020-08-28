@@ -58,5 +58,5 @@ logMessage(ModelInstance *comp, int status, const char *category, const char *me
 
 void
 fmi2run() {
-    libsumo_run();
+    libsumo_load();
 }

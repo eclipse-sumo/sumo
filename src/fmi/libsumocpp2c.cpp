@@ -22,7 +22,12 @@
 #include "libsumocpp2c.h"
 
 void
-libsumo_run() {
+libsumo_load() {
     std::vector<std::string> options;
     libsumo::Simulation::load(options);
+}
+
+void 
+libsumo_close() {
+    libsumo::Simulation::close();
 }
