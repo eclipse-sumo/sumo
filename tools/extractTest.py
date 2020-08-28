@@ -215,7 +215,7 @@ for p in [
                 call = ['"python"']
                 for o in appOptions:
                     if o.endswith(".py"):
-                        call.insert(1, '"%s"' % os.path.join(".", os.path.basename(o)))
+                        call.insert(1, '"./%s"' % os.path.basename(o))
                     else:
                         call.append('"%s"' % o)
             else:
