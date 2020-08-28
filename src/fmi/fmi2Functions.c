@@ -137,3 +137,15 @@ fmi2SetupExperiment(fmi2Component c, fmi2Boolean toleranceDefined, fmi2Real tole
 
     return fmi2OK;
 }
+
+// Will be called after instantiation and after initial variables have been set 
+fmi2Status 
+fmi2EnterInitializationMode(fmi2Component c) {
+    return fmi2OK;
+}
+
+// Informs the FMU to exit Initialization Mode
+fmi2Status 
+fmi2ExitInitializationMode(fmi2Component c) {
+    return fmi2OK;
+}
