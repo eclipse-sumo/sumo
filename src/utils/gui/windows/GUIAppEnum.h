@@ -739,8 +739,16 @@ enum {
     MID_GNE_EDGEPATH_FINISH,
     /// @brief remove last inserted element in path
     MID_GNE_EDGEPATH_REMOVELAST,
-    /// @brief enable or disable show ppath candidates
+    /// @brief enable or disable show path candidates
     MID_GNE_EDGEPATH_SHOWCANDIDATES,
+    /// @brief abort lane path creation
+    MID_GNE_LANEPATH_ABORT,
+    /// @brief finish lane path creation
+    MID_GNE_LANEPATH_FINISH,
+    /// @brief remove last inserted element in path
+    MID_GNE_LANEPATH_REMOVELAST,
+    /// @brief enable or disable show path candidates
+    MID_GNE_LANEPATH_SHOWCANDIDATES,
     /// @brief In HierarchicalElementTree list, show child menu
     MID_GNE_ACHIERARCHY_SHOWCHILDMENU,
     /// @brief In HierarchicalElementTree list, move element to up
