@@ -103,13 +103,13 @@ public:
             return "";
         }
 
-        int sep = -1;
+        size_t sep = std::string::npos;
         do {
-            sep = (int)inBuffer.find(SEP, sep + 1);
-        } while (!(sep == (int)std::string::npos || sep == 0 || inBuffer.c_str()[sep - 1] != ESC));
+            sep = inBuffer.find(SEP, sep + 1);
+        } while (!(sep == std::string::npos || sep == 0 || inBuffer.c_str()[sep - 1] != ESC));
 
         std::string value;
-        if (sep == (int)std::string::npos) {
+        if (sep == std::string::npos) {
             value = unescape(inBuffer);
             inBuffer = "";
         } else {

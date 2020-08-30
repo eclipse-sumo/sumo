@@ -255,7 +255,6 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const double arrivalSpeedBraking = attrs.get<double>(SUMO_ATTR_ARRIVALSPEEDBRAKING, nullptr, ok);
             const SUMOTime waitingTime = attrs.get<SUMOTime>(SUMO_ATTR_WAITINGTIME, nullptr, ok);
             const double dist = attrs.get<double>(SUMO_ATTR_DISTANCE, nullptr, ok);
-            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             SUMOVehicle* veh = vc.getVehicle(vehID);
             myCurrentLink->setApproaching(veh, arrivalTime, arrivalSpeed, leaveSpeed, setRequest, arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist);
             if (!MSGlobals::gUseMesoSim) {

@@ -161,7 +161,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     new FXLabel(myToolBar, "(s)", nullptr, LAYOUT_CENTER_Y);
     //
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
-    FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30);
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
         myLinkNames.push_back(toString<int>(i));
@@ -174,7 +173,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    setHeight(height);
+    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30));
     setWidth(700);
 }
 
@@ -188,7 +187,6 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
       myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(false),
       myToolBarDrag(nullptr), myBeginOffset(nullptr) {
     myConnector = nullptr;
-    FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8);
     setTitle("TLS-Tracker");
     app.addChild(this);
     for (int i = 0; i < (int)myTLLogic->getLinks().size(); ++i) {
@@ -202,7 +200,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getProgramID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TLSTRACKER));
-    setHeight(height);
+    setHeight((FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8));
     setWidth(700);
 }
 
@@ -464,24 +462,21 @@ GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition> d
 
 
 long
-GUITLLogicPhasesTrackerWindow::onConfigure(FXObject* sender,
-        FXSelector sel, void* data) {
-    myPanel->onConfigure(sender, sel, data);
-    return FXMainWindow::onConfigure(sender, sel, data);
+GUITLLogicPhasesTrackerWindow::onConfigure(FXObject* sender, FXSelector sel, void* ptr) {
+    myPanel->onConfigure(sender, sel, ptr);
+    return FXMainWindow::onConfigure(sender, sel, ptr);
 }
 
 
 long
-GUITLLogicPhasesTrackerWindow::onPaint(FXObject* sender,
-                                       FXSelector sel, void* data) {
-    myPanel->onPaint(sender, sel, data);
-    return FXMainWindow::onPaint(sender, sel, data);
+GUITLLogicPhasesTrackerWindow::onPaint(FXObject* sender, FXSelector sel, void* ptr) {
+    myPanel->onPaint(sender, sel, ptr);
+    return FXMainWindow::onPaint(sender, sel, ptr);
 }
 
 
 long
-GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*,
-        FXSelector, void*) {
+GUITLLogicPhasesTrackerWindow::onSimStep(FXObject*, FXSelector, void*) {
     update();
     return 1;
 }

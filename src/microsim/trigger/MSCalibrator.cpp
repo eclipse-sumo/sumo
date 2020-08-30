@@ -99,15 +99,14 @@ MSCalibrator::MSCalibrator(const std::string& id,
     }
     if (addLaneMeanData) {
         // disabled for METriggeredCalibrator
-        for (int i = 0; i < (int)myEdge->getLanes().size(); ++i) {
-            MSLane* lane = myEdge->getLanes()[i];
-            if (myLane == nullptr || myLane == lane) {
+        for (MSLane* const eLane : myEdge->getLanes()) {
+            if (myLane == nullptr || myLane == eLane) {
                 //std::cout << " cali=" << getID() << " myLane=" << Named::getIDSecure(myLane) << " checkLane=" << i << "\n";
-                MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(lane, lane->getLength(), true, &myMeanDataParent);
-                laneData->setDescription("meandata_calibrator_" + lane->getID());
+                MSMeanData_Net::MSLaneMeanDataValues* laneData = new MSMeanData_Net::MSLaneMeanDataValues(eLane, eLane->getLength(), true, &myMeanDataParent);
+                laneData->setDescription("meandata_calibrator_" + eLane->getID());
                 LeftoverReminders.push_back(laneData);
                 myLaneMeanData.push_back(laneData);
-                VehicleRemover* remover = new VehicleRemover(lane, this);
+                VehicleRemover* remover = new VehicleRemover(eLane, this);
                 LeftoverReminders.push_back(remover);
                 myVehicleRemovers.push_back(remover);
             }
@@ -547,13 +546,12 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
         const bool calibrateFlow = myParent->myCurrentStateInterval->q >= 0;
         const int totalWishedNum = myParent->totalWished();
         int adaptedNum = myParent->passed() + myParent->myClearedInJam;
-        MSVehicle* vehicle = dynamic_cast<MSVehicle*>(&veh);
         if (calibrateFlow && adaptedNum > totalWishedNum) {
 #ifdef MSCalibrator_DEBUG
             if (DEBUGCOND2(myParent->getID())) std::cout << time2string(MSNet::getInstance()->getCurrentTimeStep()) << " " << myParent->getID()
                         << " vaporizing " << vehicle->getID() << " to reduce flow\n";
 #endif
-            if (myParent->scheduleRemoval(vehicle)) {
+            if (myParent->scheduleRemoval(&veh)) {
                 myParent->myRemoved++;
             }
         } else if (myParent->myHaveInvalidJam) {
@@ -566,25 +564,24 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
                               + time2string(MSNet::getInstance()->getCurrentTimeStep()));
                 myParent->myHaveWarnedAboutClearingJam = true;
             }
-            if (myParent->scheduleRemoval(vehicle)) {
+            if (myParent->scheduleRemoval(&veh)) {
                 myParent->myClearedInJam++;
             }
         }
         const std::string typeID = myParent->myCurrentStateInterval->vehicleParameter->vtypeid;
         if (!calibrateFlow && typeID != DEFAULT_VTYPE_ID) {
             // calibrate type
-            MSVehicle* vehicle = dynamic_cast<MSVehicle*>(&veh);
-            const std::string origType = vehicle->getParameter().vtypeid; // could by id of vTypeDistribution
+            const std::string origType = veh.getParameter().vtypeid; // could by id of vTypeDistribution
             const MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
             const RandomDistributor<MSVehicleType*>* oldDist = vc.getVTypeDistribution(origType);
             const RandomDistributor<MSVehicleType*>* newDist = vc.getVTypeDistribution(typeID);
             bool matchDistribution = false;
             if (oldDist != nullptr && newDist != nullptr &&  oldDist->getVals().size() == newDist->getVals().size()) {
-                auto it = std::find(oldDist->getVals().begin(), oldDist->getVals().end(), &vehicle->getVehicleType());
+                auto it = std::find(oldDist->getVals().begin(), oldDist->getVals().end(), &veh.getVehicleType());
                 if (it != oldDist->getVals().end()) {
                     matchDistribution = true;
                     const int distIndex = (int)(it - oldDist->getVals().begin());
-                    vehicle->replaceVehicleType(newDist->getVals()[distIndex]);
+                    veh.replaceVehicleType(newDist->getVals()[distIndex]);
                 }
             }
             if (!matchDistribution) {
@@ -592,7 +589,7 @@ MSCalibrator::VehicleRemover::notifyEnter(SUMOTrafficObject& veh, Notification /
                 if (vehicleType == nullptr) {
                     throw ProcessError("Unknown vehicle type '" + typeID + "' in calibrator '" + myParent->getID() + "'");
                 }
-                vehicle->replaceVehicleType(vehicleType);
+                veh.replaceVehicleType(vehicleType);
             }
         }
     }

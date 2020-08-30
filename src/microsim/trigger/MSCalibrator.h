@@ -261,11 +261,11 @@ protected:
     /// @brief aggregate lane values
     virtual void updateMeanData();
 
-    /** @brief try to schedule the givne vehicle for removal. return true if it
+    /** @brief try to schedule the given vehicle for removal. return true if it
      * isn't already scheduled */
-    bool scheduleRemoval(MSVehicle* veh) {
+    bool scheduleRemoval(SUMOTrafficObject* veh) {
         return myToRemove.insert(veh->getID()).second;
-    };
+    }
 
 
     /** @brief remove any vehicles which are scheduled for removal.

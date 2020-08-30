@@ -119,14 +119,12 @@ TraCIServerAPI_GUI::processGet(TraCIServer& server, tcpip::Storage& inputStorage
             break;
             case libsumo::VAR_TRACK_VEHICLE: {
                 GUIGlObject* tracked = nullptr;
-                std::string id;
                 GUIGlID gid = v->getTrackedID();
                 if (gid != GUIGlObject::INVALID_ID) {
                     tracked = GUIGlObjectStorage::gIDStorage.getObjectBlocking(gid);
                 }
-                id = tracked == nullptr ? "" : tracked->getMicrosimID();
                 tempMsg.writeUnsignedByte(libsumo::TYPE_STRING);
-                tempMsg.writeString(id);
+                tempMsg.writeString(tracked == nullptr ? "" : tracked->getMicrosimID());
                 if (gid != GUIGlObject::INVALID_ID) {
                     GUIGlObjectStorage::gIDStorage.unblockObject(gid);
                 }
@@ -250,25 +248,25 @@ TraCIServerAPI_GUI::processSet(TraCIServer& server, tcpip::Storage& inputStorage
             if (objID == "") {
                 v->stopTrack();
             } else {
-                GUIGlID id = 0;
+                GUIGlID glID = 0;
                 SUMOVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(objID);
                 if (veh != nullptr) {
-                    id = static_cast<GUIVehicle*>(veh)->getGlID();
+                    glID = static_cast<GUIVehicle*>(veh)->getGlID();
                 } else {
                     MSTransportable* person = MSNet::getInstance()->getPersonControl().get(objID);
                     if (person != nullptr) {
-                        id = static_cast<GUIPerson*>(person)->getGlID();
+                        glID = static_cast<GUIPerson*>(person)->getGlID();
                     } else {
                         MSTransportable* container = MSNet::getInstance()->getContainerControl().get(objID);
                         if (container != nullptr) {
-                            id = static_cast<GUIContainer*>(container)->getGlID();
+                            glID = static_cast<GUIContainer*>(container)->getGlID();
                         } else {
                             return server.writeErrorStatusCmd(libsumo::CMD_SET_GUI_VARIABLE, "Could not find vehicle or person '" + objID + "'.", outputStorage);
                         }
                     }
                 }
-                if (v->getTrackedID() != id) {
-                    v->startTrack(id);
+                if (v->getTrackedID() != glID) {
+                    v->startTrack(glID);
                 }
             }
         }

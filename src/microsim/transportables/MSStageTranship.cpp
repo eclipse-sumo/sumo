@@ -109,7 +109,7 @@ MSStageTranship::tripInfoOutput(OutputDevice& os, const MSTransportable* const) 
 
 
 void
-MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool withRouteLength, const MSStage* const previous) const {
+MSStageTranship::routeOutput(const bool /*isPerson*/, OutputDevice& os, const bool withRouteLength, const MSStage* const /* previous */) const {
     os.openTag("tranship").writeAttr(SUMO_ATTR_EDGES, myRoute);
     os.writeAttr(SUMO_ATTR_SPEED, mySpeed);
     if (withRouteLength) {

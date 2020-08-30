@@ -78,6 +78,17 @@ public:
      */
     virtual const MSVehicleType& getVehicleType() const = 0;
 
+    /** @brief Replaces the current vehicle type by the one given
+    *
+    * If the currently used vehicle type is marked as being used by this object
+    *  only, it is deleted, first. The new, given type is then assigned to
+    *  "myVType".
+    * @param[in] type The new vehicle type
+    * @see MSTransportable::myVType
+    */
+    virtual void replaceVehicleType(MSVehicleType* type) = 0;
+
+
     /** @brief Returns the vehicle's parameter (including departure definition)
      *
      * @return The vehicle's parameter

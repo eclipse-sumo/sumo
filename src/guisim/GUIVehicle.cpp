@@ -720,8 +720,8 @@ GUIVehicle::drawRouteHelper(const GUIVisualizationSettings& s, const MSRoute& r,
             label += " speed:" + toString(stop.pars.speed);
         }
         std::pair<const MSLane*, double> stopPos = std::make_pair(stop.lane, stopLanePos);
-        const double textSize = s.vehicleName.size / s.scale;
-        Position pos2 = pos - Position(0, textSize * repeat[stopPos]);
+        const double nameSize = s.vehicleName.size / s.scale;
+        Position pos2 = pos - Position(0, nameSize * repeat[stopPos]);
         if (noLoop && repeat[stopPos] > 0) {
             break;
         }

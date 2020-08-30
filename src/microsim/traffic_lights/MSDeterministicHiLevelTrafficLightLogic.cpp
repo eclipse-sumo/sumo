@@ -60,10 +60,7 @@ void MSDeterministicHiLevelTrafficLightLogic::init(NLDetectorBuilder& nb) {
         }
     }
 
-    LinkVectorVector myLinks = getLinks();
-
-    for (int i = 0; i < (int)myLinks.size(); i++) {
-        LinkVector oneLink = getLinksAt(i);
+    for (const LinkVector& oneLink : getLinks()) {
         for (int j = 0; j < (int)oneLink.size(); j++) {
             currentLane = oneLink[j]->getLane();
             if (outputLanes.find(currentLane->getID()) == outputLanes.end()) {

@@ -202,11 +202,16 @@ public:
 
     /** @brief Saves the current state into the given stream, standard implementation does nothing
      */
-    virtual void saveState(std::ostringstream& out) {}
+    virtual void saveState(std::ostringstream& out) {
+        UNUSED_PARAMETER(out);
+    }
 
     /** @brief Reconstructs the current state, standard implementation does nothing
      */
-    virtual void loadState(MSTransportable* transportable, std::istringstream& state) {}
+    virtual void loadState(MSTransportable* transportable, std::istringstream& state) {
+        UNUSED_PARAMETER(transportable);
+        UNUSED_PARAMETER(state);
+    }
 
 protected:
     /// the next edge to reach by getting transported
@@ -314,6 +319,7 @@ public:
         UNUSED_PARAMETER(isPerson);
         UNUSED_PARAMETER(os);
         UNUSED_PARAMETER(withRouteLength);
+        UNUSED_PARAMETER(previous);
     }
 
 private:
