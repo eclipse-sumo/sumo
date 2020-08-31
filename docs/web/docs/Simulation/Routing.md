@@ -85,7 +85,7 @@ the *rerouting device* are used.
 - When using the TraCI method rerouteTraveltime from the [python TraCI library](../TraCI/Interfacing_TraCI_from_Python.md), the
   command supports an additional boolean parameter *currentTravelTime*
   (default *True*). When this parameter is set to *True*, the global
-  edge weights are replaced by to the currently measured travel times
+  edge weights are replaced by the currently measured travel times
   before rerouting. To replicate this behavior with other TraCI
   clients, all edges in the network must be called with *change global
   travel time information* using the value of *current travel time*.
