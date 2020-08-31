@@ -41,7 +41,7 @@ public:
 
 protected:
     /// @brief trigger taxi dispatch. @note: method exists so subclasses can inject code at this point (ride sharing)
-    virtual int dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations);
+    virtual int dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>::iterator& resIt, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations);
 
 private:
     typedef std::vector<std::pair<const MSEdge*, double> > EdgePosVector;

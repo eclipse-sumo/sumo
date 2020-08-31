@@ -54,7 +54,8 @@ MSDispatch_RouteExtension::findInsertionPoint(std::vector<const Reservation*>::i
 
 
 int
-MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUMOAbstractRouter<MSEdge, SUMOVehicle> & router, std::vector<Reservation*> & reservations) {
+MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>::iterator& resIt, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*> & reservations) {
+    const Reservation* const res = *resIt;
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND2(person)) {
         std::cout << SIMTIME << " dispatch taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << "\n";
@@ -62,17 +63,18 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUM
 #endif
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
     int capacityLeft = taxi->getHolder().getVehicleType().getPersonCapacity() - (int)res->persons.size();
-    std::vector<const Reservation*> sequence({ res, res });
-    std::vector<Reservation*> toRemove({ res });
+    std::vector<const Reservation*> sequence{ res, res };
+    std::vector<const Reservation*> toRemove{ res };
     EdgePosVector posSequence({ std::make_pair(res->from, res->fromPos), std::make_pair(res->to, res->toPos) });
     const Reservation* first = sequence.front();
     const Reservation* last = sequence.back();
     ConstMSEdgeVector route;
     router.compute(first->from, first->fromPos, last->to, last->toPos, &taxi->getHolder(), MAX2(now, first->pickupTime), route);
     // check whether the ride can be shared
-    for (auto it2 = std::find(reservations.begin(), reservations.end(), res) + 1; it2 != reservations.end(); it2++) {
+    for (auto it2 = resIt + 1; it2 != reservations.end();) {
         Reservation* const res2 = *it2;
         if (capacityLeft < (int)res2->persons.size()) {
+            it2++;
             continue;
         }
         // check whether res2 picks up or gets picked up on the way
@@ -89,18 +91,18 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUM
 #endif
         if ((pickup || std::find(route2.begin(), route2.end(), first->from) != route2.end()) &&
             (dropoff || std::find(route2.begin(), route2.end(), last->to) != route2.end())) {
-            std::vector<const Reservation*>::iterator resIt = sequence.begin();
+            std::vector<const Reservation*>::iterator resSeqIt = sequence.begin();
             EdgePosVector::iterator edgeIt = posSequence.begin();
             if (pickup) {
                 // new reservation gets picked up
-                findInsertionPoint(resIt, edgeIt, posSequence.end(), route, res2->from, res2->fromPos);
+                findInsertionPoint(resSeqIt, edgeIt, posSequence.end(), route, res2->from, res2->fromPos);
             }
-            resIt = sequence.insert(resIt, res2) + 1;
+            resSeqIt = sequence.insert(resSeqIt, res2) + 1;
             edgeIt = posSequence.insert(edgeIt, std::make_pair(res2->from, res2->fromPos)) + 1;
             if (dropoff) {
                 // new reservation drops off and route continues
-                findInsertionPoint(resIt, edgeIt, posSequence.end(), route, res2->to, res2->toPos);
-                sequence.insert(resIt, res2);
+                findInsertionPoint(resSeqIt, edgeIt, posSequence.end(), route, res2->to, res2->toPos);
+                sequence.insert(resSeqIt, res2);
                 posSequence.insert(edgeIt, std::make_pair(res2->from, res2->fromPos));
             } else {
                 // new reservation ends last
@@ -108,6 +110,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUM
                 posSequence.push_back(std::make_pair(res2->to, res2->toPos));
             }
             toRemove.push_back(res2);
+            it2 = reservations.erase(it2); // (resIt before it2) stays valid
             // TODO we have more capacity if some pickup is after an earlier dropoff
             capacityLeft -= (int)res2->persons.size();
             if (capacityLeft == 0) {
@@ -118,6 +121,8 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUM
             last = sequence.back();
             // TODO this is wrong for non linear networks! should be reusing the route snippets from above
             router.compute(first->from, first->fromPos, last->to, last->toPos, &taxi->getHolder(), MAX2(now, first->pickupTime), route);
+        } else {
+            it2++;
         }
     }
     if (sequence.size() > 2) {
@@ -142,6 +147,7 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi * taxi, Reservation * res, SUM
     for (const Reservation* r : toRemove) {
         servedReservation(r); // deleting r
     }
+    resIt = reservations.erase(resIt);
     return (int)toRemove.size();
 }
 

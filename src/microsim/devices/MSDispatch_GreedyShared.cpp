@@ -36,7 +36,8 @@
 // ===========================================================================
 
 int
-MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations) {
+MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>::iterator& resIt, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations) {
+    const Reservation* const res = *resIt;
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND2(person)) {
         std::cout << SIMTIME << " dispatch taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << "\n";
@@ -44,7 +45,6 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbs
 #endif
     const int capacityLeft = taxi->getHolder().getVehicleType().getPersonCapacity() - (int)res->persons.size();
     const SUMOTime now = MSNet::getInstance()->getCurrentTimeStep();
-    auto it = std::find(reservations.begin(), reservations.end(), res);
     // check whether the ride can be shared
     int shareCase = 0;
     Reservation* res2 = nullptr;
@@ -54,7 +54,7 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbs
     double relLoss2 = 0;
     double directTime = -1; // only computed once for res
     double directTime2 = -1;
-    for (auto it2 = it + 1; it2 != reservations.end(); it2++) {
+    for (auto it2 = resIt + 1; it2 != reservations.end(); it2++) {
         res2 = *it2;
         if (capacityLeft < (int)res2->persons.size()) {
             continue;
@@ -145,6 +145,7 @@ MSDispatch_GreedyShared::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbs
         taxi->dispatch(*res);
     }
     servedReservation(res); // deleting res
+    resIt = reservations.erase(resIt);
     return shareCase == 0 ? 1 : 2;
 }
 

@@ -97,8 +97,7 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
             it++;
             numPostponed++;
         } else {
-            numDispatched += dispatch(closest, res, router, reservations);
-            it = reservations.erase(it);
+            numDispatched += dispatch(closest, it, router, reservations);
             available.erase(closest);
         }
     }
@@ -112,14 +111,15 @@ MSDispatch_Greedy::computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi
 
 
 int
-MSDispatch_Greedy::dispatch(MSDevice_Taxi* taxi, Reservation* res, SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, std::vector<Reservation*>& /*reservations*/) {
+MSDispatch_Greedy::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>::iterator& resIt, SUMOAbstractRouter<MSEdge, SUMOVehicle>& /*router*/, std::vector<Reservation*>& reservations) {
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND2(person)) {
         std::cout << SIMTIME << " dispatch taxi=" << taxi->getHolder().getID() << " person=" << toString(res->persons) << "\n";
     }
 #endif
-    taxi->dispatch(*res);
-    servedReservation(res); // deleting res
+    taxi->dispatch(**resIt);
+    servedReservation(*resIt); // deleting res
+    resIt = reservations.erase(resIt);
     return 1;
 }
 
@@ -187,9 +187,9 @@ MSDispatch_GreedyClosest::computeDispatch(SUMOTime now, const std::vector<MSDevi
             */
         }
         if (closestTaxi != nullptr) {
-            numDispatched += dispatch(closestTaxi, closest, router, activeReservations);
+            auto closeIt = std::find(activeReservations.begin(), activeReservations.end(), closest);
+            numDispatched += dispatch(closestTaxi, closeIt, router, activeReservations);
             available.erase(closestTaxi);
-            activeReservations.erase(std::find(activeReservations.begin(), activeReservations.end(), closest));
         } else {
             // all current reservations are too early or too big
             havePostponed = true;
