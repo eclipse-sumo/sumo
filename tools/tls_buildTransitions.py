@@ -35,7 +35,7 @@ import sumolib  # noqa
 def get_options(args=None):
     parser = argparse.ArgumentParser()
     parser.add_argument("-d", "--description-file", dest="logic",
-                        help="Input logic description file file (mandatory)")
+                        help="Input logic description file (mandatory)")
     parser.add_argument("-o", "--output-file", dest="out",
                         help="Output route file (mandatory)")
     parser.add_argument("-y", "--yellow-time", type=int, default=3, dest="yellowTime",

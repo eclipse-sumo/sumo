@@ -37,7 +37,7 @@ from sumolib.xml import parse
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
     parser.add_argument("-r", "--route-file", dest="routeFile",
-                        help="Input route file file")
+                        help="Input route file")
     parser.add_argument("-s", "--stop-file", dest="stopFile",
                         help="Input stop-output file")
     parser.add_argument("-v", "--verbose", action="store_true",

@@ -65,11 +65,11 @@ def multi_process(cpu_num, seed, interval_list, func, outf, mismatchf, **kwargs)
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
     parser.add_argument("-r", "--route-files", dest="routeFiles",
-                        help="Input route file file")
+                        help="Input route file")
     parser.add_argument("-t", "--turn-files", dest="turnFiles",
                         help="Input turn-count file")
     parser.add_argument("-d", "--edgedata-files", dest="edgeDataFiles",
-                        help="Input edgeData file file (for counts)")
+                        help="Input edgeData file (for counts)")
     parser.add_argument("-O", "--od-files", dest="odFiles",
                         help="Input edgeRelation file for origin-destination counts")
     parser.add_argument("--edgedata-attribute", dest="edgeDataAttr", default="entered",
