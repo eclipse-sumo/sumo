@@ -2,8 +2,8 @@ TestFunctions: Netedit opened successfully
 Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 e2Detector
-TestFunctions: Clicked over position 554 - 338
-TestFunctions: Clicked over position 564 - 338
+TestFunctions: Clicked over position 554 - 343
+TestFunctions: Clicked over position 534 - 343
 dummySpeedTreshold
 -12.1
 6.3
