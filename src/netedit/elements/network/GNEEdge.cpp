@@ -1683,18 +1683,6 @@ GNEEdge::addConnection(NBEdge::Connection nbCon, bool selectAfterCreation) {
         }
         // update geometry
         con->updateGeometry();
-        // iterate over all additionals from "from" lane and check E2 multilane integrity
-        for (auto i : con->getLaneFrom()->getChildAdditionals()) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
-            }
-        }
-        // iterate over all additionals from "to" lane and check E2 multilane integrity
-        for (auto i : con->getLaneTo()->getChildAdditionals()) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
-            }
-        }
     }
     // actually we only do this to force a redraw
     updateGeometry();
@@ -1714,18 +1702,6 @@ GNEEdge::removeConnection(NBEdge::Connection nbCon) {
     if (con != nullptr) {
         con->decRef("GNEEdge::removeConnection");
         myGNEConnections.erase(std::find(myGNEConnections.begin(), myGNEConnections.end(), con));
-        // iterate over all additionals from "from" lane and check E2 multilane integrity
-        for (auto i : con->getLaneFrom()->getChildAdditionals()) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
-            }
-        }
-        // iterate over all additionals from "to" lane and check E2 multilane integrity
-        for (auto i : con->getLaneTo()->getChildAdditionals()) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
-            }
-        }
         // check if connection is selected
         if (con->isAttributeCarrierSelected()) {
             con->unselectAttributeCarrier();
@@ -1753,18 +1729,6 @@ GNEEdge::retrieveGNEConnection(int fromLane, NBEdge* to, int toLane, bool create
         GNEConnection* createdConnection = new GNEConnection(myLanes[fromLane], myNet->retrieveEdge(to->getID())->getLanes()[toLane]);
         // show extra information for tests
         WRITE_DEBUG("Created " + createdConnection->getTagStr() + " '" + createdConnection->getID() + "' in retrieveGNEConnection()");
-        // iterate over all additionals from "from" lane and check E2 multilane integrity
-        for (auto i : createdConnection->getLaneFrom()->getChildAdditionals()) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
-            }
-        }
-        // iterate over all additionals from "to" lane and check E2 multilane integrity
-        for (auto i : createdConnection->getLaneTo()->getChildAdditionals()) {
-            if (i->getTagProperty().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
-                dynamic_cast<GNEDetectorE2*>(i)->checkE2MultilaneIntegrity();
-            }
-        }
         // add it into network
         myNet->addGLObjectIntoGrid(createdConnection);
         return createdConnection;

@@ -427,8 +427,6 @@ GNEAdditionalHandler::buildMultiLaneDetectorE2(GNENet* net, bool allowUndoRedo, 
             }
             detectorE2->incRef("buildDetectorE2Multilane");
         }
-        // check E2 integrity
-        detectorE2->checkE2MultilaneIntegrity();
         return detectorE2;
     } else {
         throw ProcessError("Could not build " + toString(SUMO_TAG_E2DETECTOR_MULTILANE) + " with ID '" + id + "' in netedit; probably declared twice.");
