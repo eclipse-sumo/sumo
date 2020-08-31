@@ -7,3 +7,4 @@ rerouting
 # Tests for lateral collisions
 lateralCollision
 tracing
+tracing_noGetters

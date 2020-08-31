@@ -13,6 +13,9 @@ steplistener
 # test client-side command tracing
 tracing
 
+# test client-side command tracing (including getters)
+tracing_noGetters
+
 # test various functions and options for influencing the behavior of rerouting functions
 rerouting
 
