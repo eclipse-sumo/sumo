@@ -30,18 +30,21 @@ knowledge.
 
 The options related to this routing are:
 
-| Option                                       | default        | Description                                                                               |
-|----------------------------------------------|----------------|-------------------------------------------------------------------------------------------|
-| **--device.rerouting.probability** {{DT_FLOAT}}       | 0              | The probability for a vehicle to have a routing device                                    |
-| **--device.rerouting.explicit** {{DT_STR}}         |                | Assign a device to named vehicles                                                         |
-| **--device.rerouting.deterministic**             | false          | The devices are set deterministic using a fraction of 1000 (with the defined **probability**) |
-| **--device.rerouting.period** {{DT_STR}}           | 0              | The period with which the vehicle shall be rerouted                                       |
-| **--device.rerouting.pre-period** {{DT_STR}}       | 60             | The rerouting period before insertion/depart                                              |
+| Option                                          | default        | Description                                                                               |
+|-------------------------------------------------|----------------|-------------------------------------------------------------------------------------------|
+| **--device.rerouting.probability** {{DT_FLOAT}} | -1             | The probability for a vehicle to have a routing device (-1 is equivalent to 0 here)       |
+| **--device.rerouting.explicit** {{DT_STR}}      |                | Assign a device to named vehicles                                                         |
+| **--device.rerouting.deterministic**            | false          | The devices are set deterministic using a fraction of 1000 (with the defined **probability**) |
+| **--device.rerouting.period** {{DT_STR}}        | 0              | The period with which the vehicle shall be rerouted                                       |
+| **--device.rerouting.pre-period** {{DT_STR}}    | 60             | The rerouting period before insertion/depart                                              |
 | **--device.rerouting.adaptation-interval** {{DT_INT}} | 1              | The interval for updating the edge weights.                                               |
 | **--device.rerouting.adaptation-weight** {{DT_FLOAT}} | 0.0 (disabled) | The weight of prior edge weights for exponential averaging from [0, 1].                   |
 | **--device.rerouting.adaptation-steps** {{DT_INT}}    | 180            | The number of adaptation steps for averaging (enable for values > 0).                     |
 | **--device.rerouting.with-taz**                  | false          | Use [traffic assignment zones (TAZ/districts)](../Demand/Importing_O/D_Matrices.md#describing_the_taz) as routing end points                        |
 | **--device.rerouting.init-with-loaded-weights**  | false          | Use option **--weight-files** for initializing the edge weights at simulation start           |
+
+Please note that if a vehicle gets a routing device only rerouting *before insertion* is active by default.
+In order to activate periodic rerouting en route set **--device.rerouting.period**.
 
 # Edge weights
 
