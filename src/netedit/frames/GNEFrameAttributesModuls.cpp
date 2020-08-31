@@ -448,6 +448,14 @@ GNEFrameAttributesModuls::AttributesCreatorRow::onCmdSetAttribute(FXObject* obj,
         } else if (myAttrProperties.getTagPropertyParent().isDemandElement() && !SUMOXMLDefinitions::isValidVehicleID(myValueTextField->getText().text())) {
             myInvalidValue = "invalid id used in " + myAttrProperties.getAttrStr();
         }
+    } else if ((myAttrProperties.getAttr() == SUMO_ATTR_FREQUENCY) && myAttrProperties.getTagPropertyParent().isDetector()) {
+        if (!myValueTextField->getText().empty()) {
+            if (!GNEAttributeCarrier::canParse<double>(myValueTextField->getText().text())) {
+                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' doesn't have a valid 'float' or empty format";
+            } else if (GNEAttributeCarrier::parse<double>(myValueTextField->getText().text()) < 0) {
+                myInvalidValue = "'" + myAttrProperties.getAttrStr() + "' cannot be negative";
+            }
+        }
     }
     // change color of text field depending of myCurrentValueValid
     if (myInvalidValue.size() == 0) {
