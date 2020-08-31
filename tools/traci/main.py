@@ -77,6 +77,7 @@ rerouter = _rerouter.RerouterDomain()
 
 _connections = {}
 _traceFile = {}
+_traceGetters = {}
 # cannot use immutable type as global variable
 _currentLabel = [""]
 _connectHook = None
@@ -137,7 +138,8 @@ def init(port=8813, numRetries=10, host="localhost", label="default", proc=None)
     return getVersion()
 
 
-def start(cmd, port=None, numRetries=10, label="default", verbose=False, traceFile=None, stdout=None):
+def start(cmd, port=None, numRetries=10, label="default", verbose=False,
+        traceFile=None, traceGetters=True, stdout=None):
     """
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.
@@ -145,7 +147,7 @@ def start(cmd, port=None, numRetries=10, label="default", verbose=False, traceFi
     if label in _connections:
         raise TraCIException("Connection '%s' is already active." % label)
     if traceFile is not None:
-        _startTracing(traceFile, cmd, port, label)
+        _startTracing(traceFile, cmd, port, label, traceGetters)
     while numRetries >= 0 and label not in _connections:
         sumoPort = sumolib.miscutils.getFreeSocketPort() if port is None else port
         cmd2 = cmd + ["--remote-port", str(sumoPort)]
@@ -162,10 +164,11 @@ def start(cmd, port=None, numRetries=10, label="default", verbose=False, traceFi
     raise FatalTraCIError("Could not connect.")
 
 
-def _startTracing(traceFile, cmd, port, label):
+def _startTracing(traceFile, cmd, port, label, traceGetters):
     _traceFile[label] = open(traceFile, 'w')
     _traceFile[label].write("traci.start(%s, port=%s, label=%s)\n" % (
         repr(cmd), repr(port), repr(label)))
+    _traceGetters[label] = traceGetters
 
 
 def isLibsumo():
@@ -262,7 +265,7 @@ def switch(label):
     for domain in _defaultDomains:
         domain._setConnection(_connections[""])
         if _traceFile:
-            domain._setTraceFile(_traceFile[label])
+            domain._setTraceFile(_traceFile[label], _traceGetters[label])
 
 
 def getLabel():

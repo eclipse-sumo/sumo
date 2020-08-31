@@ -141,11 +141,12 @@ class Domain:
     def _setConnection(self, connection):
         self._connection = connection
 
-    def _setTraceFile(self, traceFile):
+    def _setTraceFile(self, traceFile, traceGetters):
         if self._traceFile is None:
             # decorate all methods
             for attrName in dir(self):
-                if not attrName.startswith("_"):
+                if (not attrName.startswith("_")
+                        and (traceGetters or not attrName.startswith("get"))):
                     attr = getattr(self, attrName)
                     if callable(attr):
                         setattr(self, attrName, self._addTracing(attr))
