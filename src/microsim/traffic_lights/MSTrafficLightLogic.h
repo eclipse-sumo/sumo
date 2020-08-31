@@ -289,7 +289,7 @@ public:
      *
      * @return The time spent in the current phase
      */
-    SUMOTime getSpentDuration() const;
+    SUMOTime getSpentDuration(SUMOTime simStep=-1) const;
     /// @}
 
 

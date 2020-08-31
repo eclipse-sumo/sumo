@@ -26,8 +26,9 @@
 
 #include <vector>
 #include <map>
-#include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/Command.h>
+#include <utils/common/StdDefs.h>
+#include <utils/xml/SUMOXMLDefinitions.h>
 
 
 // ===========================================================================
@@ -544,11 +545,11 @@ protected:
          * @param[in] step The current simulation step
          * @return If a switch shall be done, this method should return true.
          */
-        virtual bool trySwitch(SUMOTime step) = 0;
+        virtual bool trySwitch(SUMOTime step);
 
 
     protected:
-        /** @brief Checks, whether the position of a signal programm is at the GSP ("GuenstigerUmschaltPunkt")
+        /** @brief Checks, whether the position of a signal programm is at the GSP ("Good Switching Point")
          *
          * The GSP must be given as a logic's parameter ("GSP"). Not the simulation second,
          *  but the phase the GSP lies within is used. If the phase the GSP lies within is
@@ -560,14 +561,12 @@ protected:
          */
         bool isPosAtGSP(SUMOTime currentTime, const MSTrafficLightLogic& logic);
 
-
         /** @brief Returns the difference between a given time and the start of the phase
          * @param[in] logic The logic to consider
          * @param[in] toTime The time to ask for
          * @return How much time elapsed between the last pahse start and the given time
          */
         SUMOTime getDiffToStartOfPhase(MSTrafficLightLogic& logic, SUMOTime toTime);
-
 
         /** @brief switches the given logic directly to the given position
          * @param[in] simStep The current simulation time
@@ -576,7 +575,6 @@ protected:
          */
         void switchToPos(SUMOTime simStep, MSTrafficLightLogic& logic, SUMOTime toTime);
 
-
         /** @brief Returns the GSP-value
          *
          * The GSP must be given as a logic's parameter ("GSP").
@@ -584,8 +582,16 @@ protected:
          * @return The GSP value; 0 if not given.
          * @see MSTrafficLightLogic::getParameterValue
          */
-        int getGSPValue(const MSTrafficLightLogic& logic) const;
+        SUMOTime getGSPTime(const MSTrafficLightLogic& logic) const;
 
+        /** @brief Changes the destination program's phase to which the tls was switched
+         *
+         * Default does nothing, implemented only in the subclasses.
+         * @param[in] step The current simulation time
+         */
+        virtual void adaptLogic(SUMOTime step) {
+            UNUSED_PARAMETER(step);
+        }
 
     protected:
         /// @brief The current program of the tls to switch
@@ -631,24 +637,14 @@ protected:
                                        MSTrafficLightLogic* from, MSTrafficLightLogic* to,
                                        bool synchron);
 
-
         /// @brief Destructor
         ~WAUTSwitchProcedure_JustSwitch();
-
 
         /** @brief Determines whether a switch is possible.
          * @param[in] step The current simulation step
          * @return This implementation alsways returns true
          */
         bool trySwitch(SUMOTime step);
-
-
-    private:
-        /// @brief Invalidated copy constructor.
-        WAUTSwitchProcedure_JustSwitch(const WAUTSwitchProcedure_JustSwitch&);
-
-        /// @brief Invalidated assignment operator.
-        WAUTSwitchProcedure_JustSwitch& operator=(const WAUTSwitchProcedure_JustSwitch&);
 
     };
 
@@ -674,26 +670,10 @@ protected:
         /// @brief Destructor
         ~WAUTSwitchProcedure_GSP();
 
-
-        /** @brief Determines whether a switch is possible.
-         * @param[in] step The current simulation step
-         * @return If a switch shall be done, this method should return true.
-         */
-        bool trySwitch(SUMOTime step);
-
-
     protected:
         /** @brief Stretches the destination program's phase to which the tls was switched
          */
         void adaptLogic(SUMOTime step);
-
-
-    private:
-        /// @brief Invalidated copy constructor.
-        WAUTSwitchProcedure_GSP(const WAUTSwitchProcedure_GSP&);
-
-        /// @brief Invalidated assignment operator.
-        WAUTSwitchProcedure_GSP& operator=(const WAUTSwitchProcedure_GSP&);
 
     };
 
@@ -715,17 +695,8 @@ protected:
                                     MSTrafficLightLogic* from, MSTrafficLightLogic* to,
                                     bool synchron);
 
-
         /// @brief Destructor
         ~WAUTSwitchProcedure_Stretch();
-
-
-        /** @brief Determines whether a switch is possible.
-         * @param[in] step The current simulation step
-         * @return If a switch shall be done, this method should return true.
-         */
-        bool trySwitch(SUMOTime step);
-
 
     protected:
         /** @brief Determines the destination program's changes and applies them
@@ -735,14 +706,12 @@ protected:
          */
         void adaptLogic(SUMOTime step);
 
-
         /** @brief Stretches the logic to synchronize
          * @param[in] step The current simulation step
          * @param[in] startPos The position in the destination program to switch to
          * @param[in] allStretchTime The amount by which the logic shall be streched
          */
         void stretchLogic(SUMOTime step, SUMOTime startPos, SUMOTime allStretchTime);
-
 
         /** @brief Cuts the logic to synchronize
          * @param[in] step The current simulation step
@@ -751,46 +720,22 @@ protected:
          */
         void cutLogic(SUMOTime step, SUMOTime startPos, SUMOTime allCutTime);
 
-
     protected:
-        /** @struct StretchBereichDef
+        /** @struct StretchRange
          * @brief A definition of a stretch - Bereich
          */
-        struct StretchBereichDef {
-            /// @brief The begin of a stretch/cut area (time, in s)
-            double begin;
-            /// @brief The end of a stretch/cut area (time, in s)
-            double end;
+        struct StretchRange {
+            /// @brief The begin of a stretch/cut area
+            SUMOTime begin;
+            /// @brief The end of a stretch/cut area
+            SUMOTime end;
             /// @brief The weight factor of a stretch/cut area
             double fac;
-
         };
 
-
-        /** @brief Returns the number of given Stretch-areas for the given program
-         * @param[in] from The tls program to get the number of stretch areas from
-         * @return The number of stretch areas
-         */
-        int getStretchAreaNo(MSTrafficLightLogic* from) const;
-
-
-        /** @brief Returns the numbered Stretch-area for the given program
-         *
-         * The first area has normally the number "1", not "0"!
-         * @param[in] from The tls program to get the named stretch area from
-         * @param[in] index The index (identifier) for the area
-         * @return The definition of the stretch area
-         */
-        StretchBereichDef getStretchBereichDef(MSTrafficLightLogic* from, int index) const;
-
-
-    private:
-        /// @brief Invalidated copy constructor.
-        WAUTSwitchProcedure_Stretch(const WAUTSwitchProcedure_Stretch&);
-
-        /// @brief Invalidated assignment operator.
-        WAUTSwitchProcedure_Stretch& operator=(const WAUTSwitchProcedure_Stretch&);
-
+    protected:
+        /// @brief the given Stretch-areas for the "to" program, this is 0-based indexed, while the input is 1-based
+        std::vector<StretchRange> myStretchRanges;
     };
 
 

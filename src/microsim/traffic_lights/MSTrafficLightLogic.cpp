@@ -370,12 +370,15 @@ MSTrafficLightLogic::getNextSwitchTime() const {
 
 
 SUMOTime
-MSTrafficLightLogic::getSpentDuration() const {
+MSTrafficLightLogic::getSpentDuration(SUMOTime simStep) const {
+    if (simStep == -1) {
+        simStep = SIMSTEP;
+    }
     const SUMOTime nextSwitch = getNextSwitchTime();
     if (nextSwitch == -1) {
         return -1;
     } else {
-        const SUMOTime remaining = nextSwitch - MSNet::getInstance()->getCurrentTimeStep();
+        const SUMOTime remaining = nextSwitch - simStep;
         return getCurrentPhaseDef().duration - remaining;
     }
 }

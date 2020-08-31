@@ -254,21 +254,34 @@ MSTLLogicControl::TLSLogicVariants::ignoreLinkIndex(int pos) {
 /* -------------------------------------------------------------------------
  * method definitions for WAUTSwitchProcedure
  * ----------------------------------------------------------------------- */
-int
-MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(const MSTrafficLightLogic& logic) const {
-    std::string val = logic.getParameter("GSP", "");
-    if (val.length() == 0) {
-        return 0;
+bool
+MSTLLogicControl::WAUTSwitchProcedure::trySwitch(SUMOTime step) {
+    // switch to the next programm if the GSP is reached
+    if (isPosAtGSP(step, *myFrom)) {
+        // adapt program's state
+        if (mySwitchSynchron) {
+            adaptLogic(step);
+        } else {
+            switchToPos(step, *myTo, getGSPTime(*myTo));
+        }
+        // switch to destination program
+        return true;
     }
-    return StringUtils::toInt(val);
+    // do not switch, yet
+    return false;
+}
+
+
+SUMOTime
+MSTLLogicControl::WAUTSwitchProcedure::getGSPTime(const MSTrafficLightLogic& logic) const {
+    return string2time(logic.getParameter("GSP", "0"));
 }
 
 
 bool
 MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime currentTime, const MSTrafficLightLogic& logic) {
-    SUMOTime gspTime = TIME2STEPS(getGSPValue(logic)) % logic.getDefaultCycleTime();
-    SUMOTime programTime = logic.getOffsetFromIndex(logic.getCurrentPhaseIndex())
-                           + (logic.getCurrentPhaseDef().duration - (logic.getNextSwitchTime() - currentTime));
+    const SUMOTime gspTime = getGSPTime(logic) % logic.getDefaultCycleTime();
+    const SUMOTime programTime = logic.getOffsetFromIndex(logic.getCurrentPhaseIndex()) + logic.getSpentDuration(currentTime);
     return gspTime == programTime;
 }
 
@@ -324,44 +337,16 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::WAUTSwitchProcedure_GSP(
 MSTLLogicControl::WAUTSwitchProcedure_GSP::~WAUTSwitchProcedure_GSP() {}
 
 
-bool
-MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch(SUMOTime step) {
-    // switch to the next programm if the GSP is reached
-    if (isPosAtGSP(step, *myFrom)) {
-        // adapt program's state
-        if (mySwitchSynchron) {
-            adaptLogic(step);
-        } else {
-            switchToPos(step, *myTo, TIME2STEPS(getGSPValue(*myTo)));
-        }
-        // switch to destination program
-        return true;
-    }
-    // do not switch, yet
-    return false;
-}
-
-
 void
 MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step) {
-    SUMOTime gspTo = TIME2STEPS(getGSPValue(*myTo));
-    int stepTo = myTo->getIndexFromOffset(gspTo);
-    SUMOTime cycleTimeTo = myTo->getDefaultCycleTime();
-    if (gspTo == cycleTimeTo) {
-        gspTo = 0;
+    const SUMOTime gspTo = getGSPTime(*myTo) % myTo->getDefaultCycleTime();
+    const SUMOTime currentPosTo = myTo->getOffsetFromIndex(myTo->getCurrentPhaseIndex()) + myTo->getSpentDuration(step);
+    SUMOTime deltaToStretch = gspTo - currentPosTo;
+    if (deltaToStretch < 0) {
+        deltaToStretch += myTo->getDefaultCycleTime();
     }
-
-    SUMOTime currentPosTo = myTo->getOffsetFromIndex(myTo->getCurrentPhaseIndex());
-    currentPosTo += (myTo->getCurrentPhaseDef().duration - (myTo->getNextSwitchTime() - step));
-    SUMOTime diff = getDiffToStartOfPhase(*myTo, gspTo);
-
-    SUMOTime deltaToStretch = 0;
-    if (gspTo >= currentPosTo) {
-        deltaToStretch = (gspTo - currentPosTo);
-    } else {
-        deltaToStretch = (cycleTimeTo - currentPosTo + gspTo);
-    }
-    const SUMOTime newdur = myTo->getPhase(stepTo).duration - diff + deltaToStretch;
+    const int stepTo = myTo->getIndexFromOffset(gspTo);
+    const SUMOTime newdur = myTo->getPhase(stepTo).duration - getDiffToStartOfPhase(*myTo, gspTo) + deltaToStretch;
     myTo->changeStepAndDuration(myControl, step, stepTo, newdur);
 }
 
@@ -373,33 +358,25 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step) {
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::WAUTSwitchProcedure_Stretch(
     MSTLLogicControl& control, WAUT& waut,
     MSTrafficLightLogic* from, MSTrafficLightLogic* to, bool synchron)
-    : MSTLLogicControl::WAUTSwitchProcedure(control, waut, from, to, synchron) {}
+    : MSTLLogicControl::WAUTSwitchProcedure(control, waut, from, to, synchron) {
+    int idx = 1;
+    while (myTo->knowsParameter("B" + toString(idx) + ".begin")) {
+        StretchRange def;
+        def.begin = string2time(myTo->getParameter("B" + toString(idx) + ".begin"));
+        def.end = string2time(myTo->getParameter("B" + toString(idx) + ".end"));
+        def.fac = StringUtils::toDouble(myTo->getParameter("B" + toString(idx) + ".factor"));
+        myStretchRanges.emplace_back(def);
+    }
+
+}
 
 
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::~WAUTSwitchProcedure_Stretch() {}
 
 
-bool
-MSTLLogicControl::WAUTSwitchProcedure_Stretch::trySwitch(SUMOTime step) {
-    // switch to the next programm if the GSP is reached
-    if (isPosAtGSP(step, *myFrom)) {
-        // adapt program's state
-        if (mySwitchSynchron) {
-            adaptLogic(step);
-        } else {
-            switchToPos(step, *myTo, TIME2STEPS(getGSPValue(*myTo)));
-        }
-        // switch to destination program
-        return true;
-    }
-    // do not switch, yet
-    return false;
-}
-
-
 void
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step) {
-    SUMOTime gspTo = TIME2STEPS(getGSPValue(*myTo));
+    SUMOTime gspTo = getGSPTime(*myTo);
     SUMOTime cycleTime = myTo->getDefaultCycleTime();
     // the position, where the logic has to be after synchronisation
     SUMOTime posAfterSyn = myTo->getPhaseIndexAtTime(step);
@@ -412,11 +389,9 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step) {
     }
     // test, wheter cutting of the Signalplan is possible
     SUMOTime deltaPossible = 0;
-    int areasNo = getStretchAreaNo(myTo);
-    for (int i = 0; i < areasNo; i++) {
-        StretchBereichDef def = getStretchBereichDef(myTo, i + 1);
+    for (const StretchRange& def : myStretchRanges) {
         assert(def.end >= def.begin);
-        deltaPossible += TIME2STEPS(def.end - def.begin);
+        deltaPossible += def.end - def.begin;
     }
     int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", ""));
     deltaPossible = stretchUmlaufAnz * deltaPossible;
@@ -433,18 +408,14 @@ void
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, SUMOTime startPos, SUMOTime allCutTime) {
     int actStep = myTo->getIndexFromOffset(startPos);
     // switches to startPos and cuts this phase, if there is a "Bereich"
-    int areasNo = getStretchAreaNo(myTo);
     SUMOTime toCut = 0;
-    for (int i = 0; i < areasNo; i++) {
-        StretchBereichDef def = getStretchBereichDef(myTo, i + 1);
-        const SUMOTime begin = TIME2STEPS(def.begin);
-        const SUMOTime end = TIME2STEPS(def.end);
-        int stepOfBegin = myTo->getIndexFromOffset(begin);
+    for (const StretchRange& def : myStretchRanges) {
+        int stepOfBegin = myTo->getIndexFromOffset(def.begin);
         if (stepOfBegin == actStep) {
-            if (begin < startPos) {
-                toCut = end - startPos;
+            if (def.begin < startPos) {
+                toCut = def.end - startPos;
             } else {
-                toCut = end - begin;
+                toCut = def.end - def.begin;
             }
             toCut = MIN2(allCutTime, toCut);
             allCutTime = allCutTime - toCut;
@@ -461,12 +432,9 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::cutLogic(SUMOTime step, SUMOTime 
             SUMOTime beginOfPhase = myTo->getOffsetFromIndex(i);
             SUMOTime durOfPhase = myTo->getPhase(i).duration;
             SUMOTime endOfPhase = beginOfPhase + durOfPhase;
-            for (int i = 0; i < areasNo; i++) {
-                StretchBereichDef def = getStretchBereichDef(myTo, i + 1);
-                SUMOTime begin = TIME2STEPS(def.begin);
-                SUMOTime end = TIME2STEPS(def.end);
-                if ((beginOfPhase <= begin) && (endOfPhase >= end)) {
-                    SUMOTime maxCutOfPhase = MIN2(end - begin, allCutTime);
+            for (const StretchRange& def : myStretchRanges) {
+                if ((beginOfPhase <= def.begin) && (endOfPhase >= def.end)) {
+                    SUMOTime maxCutOfPhase = MIN2(def.end - def.begin, allCutTime);
                     allCutTime = allCutTime - maxCutOfPhase;
                     durOfPhase = durOfPhase - maxCutOfPhase;
                 }
@@ -485,23 +453,18 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
     SUMOTime StretchTimeOfPhase = 0;
     int stretchUmlaufAnz = (int) StringUtils::toDouble(myTo->getParameter("StretchUmlaufAnz", ""));
     double facSum = 0;
-    int areasNo = getStretchAreaNo(myTo);
-    for (int x = 0; x < areasNo; x++) {
-        StretchBereichDef def = getStretchBereichDef(myTo, x + 1);
+    for (const StretchRange& def : myStretchRanges) {
         facSum += def.fac;
     }
     facSum *= stretchUmlaufAnz;
 
     //switch to startPos and stretch this phase, if there is a end of "bereich" between startpos and end of phase
     SUMOTime diffToStart = getDiffToStartOfPhase(*myTo, startPos);
-    for (int x = 0; x < areasNo; x++) {
-        StretchBereichDef def = getStretchBereichDef(myTo, x + 1);
-        SUMOTime end = TIME2STEPS(def.end);
+    for (const StretchRange& def : myStretchRanges) {
         SUMOTime endOfPhase = (startPos + durOfPhase - diffToStart);
-        if (end <= endOfPhase && end >= startPos) {
-            double fac = def.fac;
-            double actualfac = fac / facSum;
-            facSum = facSum - fac;
+        if (def.end <= endOfPhase && def.end >= startPos) {
+            double actualfac = def.fac / facSum;
+            facSum = facSum - def.fac;
             StretchTimeOfPhase = TIME2STEPS(int(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
             remainingStretchTime = allStretchTime - StretchTimeOfPhase;
         }
@@ -520,14 +483,11 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
             durOfPhase = myTo->getPhase(i).duration;
             SUMOTime beginOfPhase = myTo->getOffsetFromIndex(i);
             SUMOTime endOfPhase = beginOfPhase + durOfPhase;
-            for (int j = 0; j < areasNo && remainingStretchTime > 0; j++) {
-                StretchBereichDef def = getStretchBereichDef(myTo, j + 1);
-                SUMOTime end = TIME2STEPS(def.end);
-                double fac = def.fac;
-                if ((beginOfPhase <= end) && (endOfPhase >= end)) {
-                    double actualfac = fac / facSum;
+            for (const StretchRange& def : myStretchRanges) {
+                if ((beginOfPhase <= def.end) && (endOfPhase >= def.end)) {
+                    double actualfac = def.fac / facSum;
                     StretchTimeOfPhase = TIME2STEPS(int(STEPS2TIME(remainingStretchTime) * actualfac + 0.5));
-                    facSum -= fac;
+                    facSum -= def.fac;
                     durOfPhase += StretchTimeOfPhase;
                     remainingStretchTime -= StretchTimeOfPhase;
                 }
@@ -537,26 +497,6 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, SUMOT
         currStep = 0;
     }
 }
-
-int
-MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchAreaNo(MSTrafficLightLogic* from) const {
-    int no = 0;
-    while (from->getParameter("B" + toString(no + 1) + ".begin", "") != "") {
-        no++;
-    }
-    return no;
-}
-
-
-MSTLLogicControl::WAUTSwitchProcedure_Stretch::StretchBereichDef
-MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchBereichDef(MSTrafficLightLogic* from, int index) const {
-    StretchBereichDef def;
-    def.begin = StringUtils::toDouble(from->getParameter("B" + toString(index) + ".begin", ""));
-    def.end = StringUtils::toDouble(from->getParameter("B" + toString(index) + ".end", ""));
-    def.fac = StringUtils::toDouble(from->getParameter("B" + toString(index) + ".factor", ""));
-    return def;
-}
-
 
 
 /* -------------------------------------------------------------------------
