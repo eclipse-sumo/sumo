@@ -4,5 +4,8 @@ trafficlight
 # Tests the trafficlight API
 railsignal_state
 
+# check that the results of getBlockingVehicles is correctly updated after calling replaceStop
+getBlocking_reroute
+
 # tests interaction with actuated traffic light
 actuated
