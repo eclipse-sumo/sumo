@@ -210,9 +210,9 @@ MSDevice::equippedByDefaultAssignmentOptions(const OptionsCont& oc, const std::s
         numberGiven = true;
         haveByNumber = MSNet::getInstance()->getVehicleControl().getQuota(oc.getFloat(prefix + ".probability")) == 1;
     } else {
-        if (oc.exists(prefix + ".probability") && oc.getFloat(prefix + ".probability") >= 0) {
+        if (oc.exists(prefix + ".probability") && oc.getFloat(prefix + ".probability") >= 0.) {
             numberGiven = true;
-            haveByNumber = RandHelper::rand(&myEquipmentRNG) <= oc.getFloat(prefix + ".probability");
+            haveByNumber = RandHelper::rand(&myEquipmentRNG) < oc.getFloat(prefix + ".probability");
         }
     }
     // assignment by name

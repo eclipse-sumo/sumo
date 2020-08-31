@@ -42,13 +42,13 @@ public:
     static void insertRandOptions();
 
     /// @brief Initialises the random number generator with hardware randomness or seed
-    static void initRand(std::mt19937* which = 0, const bool random = false, const int seed = 23423);
+    static void initRand(std::mt19937* which = nullptr, const bool random = false, const int seed = 23423);
 
     /// @brief Reads the given random number options and initialises the random number generator in accordance
-    static void initRandGlobal(std::mt19937* which = 0);
+    static void initRandGlobal(std::mt19937* which = nullptr);
 
     /// @brief Returns a random real number in [0, 1)
-    static inline double rand(std::mt19937* rng = 0) {
+    static inline double rand(std::mt19937* rng = nullptr) {
         if (rng == 0) {
             rng = &myRandomNumberGenerator;
         }
