@@ -37,14 +37,14 @@ netedit.changeElement("poly")
 # enable block shape
 netedit.changeDefaultBoolValue(14)
 
-# create polygon blocked
-netedit.createSquaredPoly(referencePosition, 300, 150, 100, True)
+# create polygon
+netedit.createSquaredPoly(referencePosition, 400, 150, 200, True)
 
 # go to move mode
 netedit.moveMode()
 
-# move entire polygon
-netedit.moveElement(referencePosition, 130, 120, 130, 300)
+# try to move polygon
+netedit.moveElement(referencePosition, 295, 96, 130, 96)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

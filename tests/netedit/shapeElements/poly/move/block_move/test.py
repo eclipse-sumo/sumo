@@ -38,13 +38,13 @@ netedit.changeElement("poly")
 netedit.changeDefaultBoolValue(13)
 
 # create polygon
-netedit.createSquaredPoly(referencePosition, 400, 150, 100, True)
+netedit.createSquaredPoly(referencePosition, 400, 150, 200, True)
 
 # go to move mode
 netedit.moveMode()
 
 # try to move polygon
-netedit.moveElement(referencePosition, 260, 120, 260, 300)
+netedit.moveElement(referencePosition, 295, 96, 130, 96)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)
@@ -58,3 +58,4 @@ netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
+
