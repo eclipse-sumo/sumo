@@ -271,7 +271,7 @@ MSDevice_Taxi::prepareStop(ConstMSEdgeVector& edges,
                            double& lastPos, const MSEdge* stopEdge, double stopPos,
                            const std::string& action) {
     assert(!edges.empty());
-    if (stopEdge == edges.back() && stopPos == lastPos && !stops.empty()) {
+    if (stopEdge == edges.back() && !stops.empty() && stopPos >= lastPos && stopPos <= stops.back().endPos) {
         // no new stop needed
         return;
     }
