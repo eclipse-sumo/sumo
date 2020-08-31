@@ -49,7 +49,7 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute endPos '-5.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '12.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting previous attribute endPos '13.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional

@@ -49,10 +49,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 320, 255)
 
 # Change parameter file with an non valid value
-netedit.modifyAttribute(6, "%;;%%&%%%&&", True)
+netedit.modifyAttribute(7, "%;;%%&%%%&&", True)
 
 # Change parameter file with an empty value
-netedit.modifyAttribute(6, "", True)
+netedit.modifyAttribute(7, "", True)
 
 # Change parameter file with a valid value
 netedit.modifyAttribute(6, "myOwnOutput.txt", True)

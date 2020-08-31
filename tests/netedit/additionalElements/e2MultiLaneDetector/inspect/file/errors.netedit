@@ -13,10 +13,10 @@ Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Value '%;;%%&%%%&&' for attribute file of e2MultilaneDetector isn't valid
 Debug: Setting new attribute file '' into e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Setting new attribute file 'myOwnOutput.txt' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute name 'myOwnOutput.txt' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute file '' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting previous attribute name '' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute file 'e2MultilaneDetector_0.xml' into e2MultilaneDetector 'e2MultilaneDetector_0'
@@ -32,7 +32,7 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute file '' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute file 'myOwnOutput.txt' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute name 'myOwnOutput.txt' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Additionals has to be saved

@@ -44,10 +44,10 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 320, 255)
 
 # Change parameter vtypes with a invalid value
-netedit.modifyAttribute(3, "Type%%%%%1 T;;yp$2 Type3", True)
+netedit.modifyAttribute(4, "Type%%%%%1 T;;yp$2 Type3", True)
 
 # Change parameter vtypes with a valid value
-netedit.modifyAttribute(3, "Type1 Type2 Type3", True)
+netedit.modifyAttribute(4, "Type1 Type2 Type3", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

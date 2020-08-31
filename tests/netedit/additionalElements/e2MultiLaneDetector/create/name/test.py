@@ -42,7 +42,7 @@ netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # set other name
-netedit.changeDefaultValue(4, "detectorName")
+netedit.changeDefaultValue(5, "detectorName")
 
 # create E2 with default parameters
 netedit.typeEnter()

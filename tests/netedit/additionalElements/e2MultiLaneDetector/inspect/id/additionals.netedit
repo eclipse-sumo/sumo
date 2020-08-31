@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08.08.2019 09:40:03 by Eclipse SUMO netedit Version v1_2_0+1475-19ad2e6581
+<!-- generated on 31.08.2020 11:22:27 by Eclipse SUMO netedit Version v1_6_0+1844-a48d4a84d5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug093939.9324/netedit.gui/additionalElements/e2MultiLaneDetector/inspect/id\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug093939.9324/netedit.gui/additionalElements/e2MultiLaneDetector/inspect/id\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -29,29 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug093939.9324/netedit.gui/additionalElements/e2MultiLaneDetector/inspect/id\additionals.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug093939.9324/netedit.gui/additionalElements/e2MultiLaneDetector/inspect/id\additionals.xml"/>
-        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug093939.9324/netedit.gui/additionalElements/e2MultiLaneDetector/inspect/id\routes.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug093939.9324/netedit.gui/additionalElements/e2MultiLaneDetector/inspect/id\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug093939.9324/netedit.gui/additionalElements/e2MultiLaneDetector/inspect/id\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug093939.9324/netedit.gui/additionalElements/e2MultiLaneDetector/inspect/id\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug112140.14056\netedit.gui\additionalElements\e2MultiLaneDetector\inspect\id\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="correctID" lanes="gneE2_0 gneE3_0" pos="11.00" endPos="12.00" freq="900.00" file="e2MultilaneDetector_0.xml"/>
-    <e2Detector id="e2MultilaneDetector_1" lanes="gneE4_0 gneE5_0" pos="13.00" endPos="14.00" freq="900.00" file="e2MultilaneDetector_1.xml"/>
+    <e2Detector id="correctID" lanes="gneE2_0 gneE3_0" pos="10.00" endPos="13.00" freq="900.00" file="e2MultilaneDetector_0.xml"/>
+    <e2Detector id="e2MultilaneDetector_1" lanes="gneE4_0 gneE5_0" pos="12.00" endPos="15.00" freq="900.00" file="e2MultilaneDetector_1.xml"/>
 </additional>

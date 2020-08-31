@@ -49,7 +49,7 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 320, 255)
 
 # check parameters
-netedit.checkParameters(referencePosition, 13, True)
+netedit.checkParameters(referencePosition, 14, True)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

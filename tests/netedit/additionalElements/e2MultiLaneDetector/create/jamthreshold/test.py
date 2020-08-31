@@ -42,13 +42,13 @@ netedit.leftClick(referencePosition, 190, 255)
 netedit.leftClick(referencePosition, 440, 255)
 
 # set invalid jam threshold
-netedit.changeDefaultValue(9, "-30")
+netedit.changeDefaultValue(10, "-30")
 
 # create E2 with default parameters
 netedit.typeEnter()
 
 # set valid jam threshold
-netedit.changeDefaultValue(9, "15.5")
+netedit.changeDefaultValue(10, "15.5")
 
 # create E2 with default parameters
 netedit.typeEnter()

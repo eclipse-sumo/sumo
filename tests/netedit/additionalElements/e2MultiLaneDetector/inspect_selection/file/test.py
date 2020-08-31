@@ -44,13 +44,13 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 320, 255)
 
 # Change parameter file with an non valid value
-netedit.modifyAttribute(2, "%;;%%&%%%&&", True)
+netedit.modifyAttribute(3, "%;;%%&%%%&&", True)
 
 # Change parameter file with an empty value
-netedit.modifyAttribute(2, "", True)
+netedit.modifyAttribute(3, "", True)
 
 # Change parameter file with a valid value
-netedit.modifyAttribute(2, "myOwnOutput.txt", True)
+netedit.modifyAttribute(3, "myOwnOutput.txt", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)
