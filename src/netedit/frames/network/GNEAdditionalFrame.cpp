@@ -685,7 +685,9 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::addLane(GNELane* lane) {
         }
     }
     // get mouse position
-    const double offset = lane->getLaneShape().nearest_offset_to_point2D(myAdditionalFrameParent->getViewNet()->getPositionInformation());
+    const Position mousePos = myAdditionalFrameParent->getViewNet()->snapToActiveGrid(myAdditionalFrameParent->getViewNet()->getPositionInformation());
+    // calculate lane offset
+    const double offset = lane->getLaneShape().nearest_offset_to_point2D(mousePos);
     // All checks ok, then add it in selected elements
     myLanePath.push_back(std::make_pair(lane, offset));
     // enable abort route button
