@@ -15,7 +15,8 @@ Error: Attribute 'key' in definition of a param is empty.
 Debug: Inserting parameter 'key1|value5' into additional e2MultilaneDetector.
 Debug: Inserting parameter 'key2|' into additional e2MultilaneDetector.
 Debug: Inserting parameter 'key2|' into additional e2MultilaneDetector.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\additionalElements\e2MultiLaneDetector\load\parameters\input_additionals.add.xml failed.
+Debug: Inserting parameter 'key3|$$value with spaces%%' into additional e2MultilaneDetector.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug122131.11864\netedit.gui\additionalElements\e2MultiLaneDetector\load\parameters\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
