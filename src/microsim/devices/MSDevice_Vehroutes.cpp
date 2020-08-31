@@ -134,8 +134,8 @@ MSDevice_Vehroutes::MSDevice_Vehroutes(SUMOVehicle& holder, const std::string& i
 
 
 MSDevice_Vehroutes::~MSDevice_Vehroutes() {
-    for (std::vector<RouteReplaceInfo>::iterator i = myReplacedRoutes.begin(); i != myReplacedRoutes.end(); ++i) {
-        (*i).route->release();
+    for (const RouteReplaceInfo& rri : myReplacedRoutes) {
+        rri.route->release();
     }
     myCurrentRoute->release();
     myStateListener.myDevices.erase(&myHolder);

@@ -237,10 +237,10 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
             edevice.writeAttr(SUMO_ATTR_DISTANCE, e->getDistance());
         }
         if (e->needsLaneSpecificOutput()) {
-            for (int i = 0; i < (int)e->getLanes().size(); ++i) {
-                const NBEdge::Lane& lane = e->getLanes()[i];
+            int idx = 0;
+            for (const NBEdge::Lane& lane : e->getLanes()) {
                 edevice.openTag(SUMO_TAG_LANE);
-                edevice.writeAttr(SUMO_ATTR_INDEX, i);
+                edevice.writeAttr(SUMO_ATTR_INDEX, idx++);
                 // write allowed lanes
                 if (e->hasLaneSpecificPermissions()) {
                     writePermissions(edevice, lane.permissions);
@@ -298,8 +298,8 @@ NWWriter_XML::writeEdgesAndConnections(const OptionsCont& oc, NBNodeCont& nc, NB
         } else {
             for (NBEdge::Connection c : connections) {
                 if (useGeo) {
-                    for (int i = 0; i < (int) c.customShape.size(); i++) {
-                        gch.cartesian2geo(c.customShape[i]);
+                    for (Position& p : c.customShape) {
+                        gch.cartesian2geo(p);
                     }
                 }
                 NWWriter_SUMO::writeConnection(cdevice, *e, c, false, NWWriter_SUMO::PLAIN, geoAccuracy);
