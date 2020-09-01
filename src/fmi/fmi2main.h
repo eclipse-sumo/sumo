@@ -61,4 +61,7 @@ static void logMessage(ModelInstance *comp, int status, const char *category, co
 /* Getter Functions */
 fmi2Status getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value);
 
+/* Stepping Functions */
+fmi2Status step(ModelInstance *comp, double tNext);
+
 #endif /* FMI2MAIN_H */

@@ -70,7 +70,8 @@ getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value) {
     }
 }
 
-void
-fmi2run() {
-    libsumo_load();
+fmi2Status 
+step(ModelInstance *comp, double tNext) {
+    libsumo_step(tNext);
+    return fmi2OK;
 }

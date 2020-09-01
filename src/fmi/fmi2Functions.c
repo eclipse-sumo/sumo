@@ -241,3 +241,17 @@ fmi2GetRealOutputDerivatives(fmi2Component c, const fmi2ValueReference vr[], siz
 		value[i] = 0;	/* We cannot compute derivatives of outputs */
 	return fmi2Error;
 }
+
+/* Stepping */
+fmi2Status 
+fmi2DoStep(fmi2Component c, fmi2Real currentCommunicationPoint, fmi2Real communicationStepSize, fmi2Boolean noSetFMUStatePriorToCurrentPoint) {
+    ModelInstance *comp = (ModelInstance *)c;
+
+    if (communicationStepSize <= 0) {
+        return fmi2Error;
+    }
+
+    return step(comp, currentCommunicationPoint + communicationStepSize);
+}
+
+

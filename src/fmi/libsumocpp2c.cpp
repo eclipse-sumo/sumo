@@ -40,3 +40,8 @@ void
 libsumo_close() {
     libsumo::Simulation::close();
 }
+
+void
+libsumo_step(double time) {
+    libsumo::Simulation::step(time);
+}

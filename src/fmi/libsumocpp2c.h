@@ -29,6 +29,7 @@ extern "C" {
 void libsumo_load();
 void libsumo_close();
 int libsumo_vehicle_getIDCount();
+void libsumo_step(double time);
 
 #ifdef __cplusplus
 }
