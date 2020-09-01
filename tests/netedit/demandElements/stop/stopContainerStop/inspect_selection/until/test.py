@@ -41,7 +41,7 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 324, 213)
 
 # change value
 netedit.modifyAttribute(3, "dummyValue", True)
