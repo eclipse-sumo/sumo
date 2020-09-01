@@ -733,6 +733,8 @@
         <xsd:attribute name="line" type="xsd:string"/>
         <xsd:attribute name="speed" type="nonNegativeFloatType"/>
         <xsd:attribute name="priorEdges" type="xsd:string"/>
+        <xsd:attribute name="actualArrival" type="timeType"/>
+        <xsd:attribute name="depart" type="timeType"/>
     </xsd:complexType>
 
     <xsd:complexType name="vTypeDistributionType">

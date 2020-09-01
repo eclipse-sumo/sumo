@@ -388,6 +388,12 @@ public:
         /// @brief the speed at which this stop counts as reached (waypoint mode)
         double speed = 0.;
 
+        /// @brief the time at which this stop was reached
+        SUMOTime actualArrival = -1;
+
+        /// @brief the time at which this stop was ended
+        SUMOTime depart = -1;
+
         /// @brief lanes and positions connected to this stop (only used by duarouter where Stop is used to store stopping places)
         std::vector<std::tuple<std::string, double, double> > accessPos;
 

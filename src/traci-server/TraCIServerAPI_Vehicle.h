@@ -56,7 +56,7 @@ public:
 private:
 
     /// @brief helper function to write the response for VAR_NEXT_STOPS and VAR_NEXT_STOPS2
-    static void writeNextStops(TraCIServer& server, const std::string& id, int limit);
+    static void writeNextStops(TraCIServer& server, const std::string& id, int limit, bool full);
 
 private:
     /// @brief invalidated copy constructor

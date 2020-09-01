@@ -242,6 +242,7 @@ private:
     static SUMOVehicleParameter::Stop buildStopParameters(const std::string& edgeOrStoppingPlaceID,
             double pos, int laneIndex, double startPos, int flags, double duration, double until);
 
+    static TraCINextStopData buildStopData(const SUMOVehicleParameter::Stop& stopPar);
 
 private:
     static SubscriptionResults mySubscriptionResults;

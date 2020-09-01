@@ -570,6 +570,14 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                             throw ProcessError("Cannot repeat stops with 'until' in route " + description + " because no cycleTime is defined.");
                         }
                         stop.until += myActiveRoutePeriod * (i + 1);
+                    }
+                    if (stop.arrival > 0) {
+                        if (myActiveRoutePeriod <= 0) {
+                            const std::string description = myVehicleParameter != nullptr
+                                ?  "for " + type + " '" + myVehicleParameter->id + "'"
+                                :  "'" + myActiveRouteID + "'";
+                            throw ProcessError("Cannot repeat stops with 'arrival' in route " + description + " because no cycleTime is defined.");
+                        }
                         stop.arrival += myActiveRoutePeriod * (i + 1);
                     }
                     myActiveRouteStops.push_back(stop);

@@ -332,24 +332,81 @@ struct TraCINextTLSData {
 
 
 struct TraCINextStopData : TraCIResult {
+
+    TraCINextStopData(const std::string& lane = "",
+            double startPos = INVALID_DOUBLE_VALUE,
+            double endPos = INVALID_DOUBLE_VALUE,
+            const std::string& stoppingPlaceID = "",
+            int stopFlags = 0,
+            double duration = INVALID_DOUBLE_VALUE,
+            double until = INVALID_DOUBLE_VALUE,
+            double intendedArrival = INVALID_DOUBLE_VALUE,
+            double arrival = INVALID_DOUBLE_VALUE,
+            double depart = INVALID_DOUBLE_VALUE,
+            const std::string& split = "",
+            const std::string& join = "",
+            const std::string& actType = "",
+            const std::string& tripId = "",
+            const std::string& line = "",
+            double speed = 0):
+        lane(lane),
+        startPos(startPos),
+        endPos(endPos),
+        stoppingPlaceID(stoppingPlaceID),
+        stopFlags(stopFlags),
+        duration(duration),
+        until(until),
+        intendedArrival(intendedArrival),
+        arrival(arrival),
+        depart(depart),
+        split(split),
+        join(join),
+        actType(actType),
+        tripId(tripId),
+        line(line),
+        speed(speed)
+    {}
+
     std::string getString() {
         std::ostringstream os;
-        os << "TraCINextStopData(" << lane << "," << endPos << "," << stoppingPlaceID << "," << stopFlags << "," << duration << "," << until << ")";
+        os << "TraCINextStopData(" << lane << "," << endPos << "," << stoppingPlaceID
+            << "," << stopFlags << "," << duration << "," << until
+            << "," << arrival << ")";
         return os.str();
     }
 
     /// @brief The lane to stop at
     std::string lane;
+    /// @brief The stopping position start
+    double startPos;
     /// @brief The stopping position end
     double endPos;
     /// @brief Id assigned to the stop
     std::string stoppingPlaceID;
     /// @brief Stop flags
     int stopFlags;
-    /// @brief The stopping duration
+    /// @brief The intended (minimum) stopping duration
     double duration;
     /// @brief The time at which the vehicle may continue its journey
     double until;
+    /// @brief The intended arrival time
+    double intendedArrival;
+    /// @brief The actual arrival time (only for past stops)
+    double arrival;
+    /// @brief The time at which this stop was ended
+    double depart;
+    /// @brief the id of the vehicle (train portion) that splits of upon reaching this stop
+    std::string split;
+    /// @brief the id of the vehicle (train portion) to which this vehicle shall be joined
+    std::string join;
+    /// @brief additional information for this stop
+    std::string actType;
+    /// @brief id of the trip within a cyclical public transport route
+    std::string tripId;
+    /// @brief the new line id of the trip within a cyclical public transport route
+    std::string line;
+    /// @brief the speed at which this stop counts as reached (waypoint mode)
+    double speed;
 };
 
 
@@ -430,7 +487,7 @@ public:
 class TraCIReservation {
 public:
     TraCIReservation() {}
-    TraCIReservation(const std::string& id, 
+    TraCIReservation(const std::string& id,
                const std::vector<std::string>& persons,
                const std::string& group,
                const std::string& fromEdge,

@@ -564,6 +564,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "duration",               SUMO_ATTR_DURATION },
     { "until",                  SUMO_ATTR_UNTIL },
     { "arrival",                SUMO_ATTR_ARRIVAL },
+    { "actualArrival",          SUMO_ATTR_ACTUALARRIVAL },
     { "extension",              SUMO_ATTR_EXTENSION },
     { "routeProbe",             SUMO_ATTR_ROUTEPROBE },
     { "crossingEdges",          SUMO_ATTR_CROSSING_EDGES },

@@ -942,7 +942,11 @@ MSVehicle::Stop::write(OutputDevice& dev) const {
             && chargingStation == nullptr) {
         tmp.parametersSet |= STOP_START_SET | STOP_END_SET;
     }
-    tmp.write(dev);
+    tmp.write(dev, false);
+    if (pars.actualArrival >= 0) {
+        dev.writeAttr(SUMO_ATTR_ACTUALARRIVAL, time2string(pars.actualArrival));
+    }
+    dev.closeTag();
 }
 
 void
@@ -1958,6 +1962,7 @@ MSVehicle::processNextStop(double currentVelocity) {
                     && (!MSGlobals::gModelParkingManoeuver || myManoeuvre.entryManoeuvreIsComplete(this))) {
                 // ok, we may stop (have reached the stop)  and either we are not modelling manoeuvering or have completed entry
                 stop.reached = true;
+                const_cast<SUMOVehicleParameter::Stop&>(stop.pars).actualArrival = time;
 #ifdef DEBUG_STOPS
                 if (DEBUG_COND) {
                     std::cout << SIMTIME << " vehicle '" << getID() << "' reached next stop." << std::endl;
@@ -6326,7 +6331,9 @@ MSVehicle::resumeFromStopping() {
         if (myStops.front().collision && MSLane::getCollisionAction() == MSLane::COLLISION_ACTION_WARN) {
             myCollisionImmunity = TIME2STEPS(5); // leave the conflict area
         }
-        myPastStops.push_back(myStops.front().pars);
+        SUMOVehicleParameter::Stop pars = myStops.front().pars;
+        pars.depart = MSNet::getInstance()->getCurrentTimeStep();
+        myPastStops.push_back(pars);
         myStops.pop_front();
         // do not count the stopping time towards gridlock time.
         // Other outputs use an independent counter and are not affected.
@@ -6617,7 +6624,10 @@ MSVehicle::saveState(OutputDevice& out) {
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
-        stop.write(out);
+        stop.write(out, false);
+        out.writeAttr("actualArrival", time2string(stop.actualArrival));
+        out.writeAttr(SUMO_ATTR_DEPART, time2string(stop.depart));
+        out.closeTag();
     }
     // save upcoming stops
     for (Stop& stop : myStops) {

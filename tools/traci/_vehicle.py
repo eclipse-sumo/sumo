@@ -31,6 +31,98 @@ from .exceptions import TraCIException
 
 _legacyGetLeader = True
 
+class StopData(object):
+
+    def __init__(self,
+                 lane="",
+                 startPos=-1,
+                 endPos=-1,
+                 stoppingPlaceID="",
+                 flags=0,
+                 duration=-1,
+                 until=-1,
+                 intendedArrival=-1,
+                 arrival=-1,
+                 depart=-1,
+                 split="",
+                 join="",
+                 actType="",
+                 tripId="",
+                 line="",
+                 speed=0):
+        self.lane = lane
+        self.startPos = startPos
+        self.endPos = endPos
+        self.stoppingPlaceID = stoppingPlaceID
+        self.flags = flags
+        self.duration = duration
+        self.until = until
+        self.intendedArrival = intendedArrival
+        self.arrival = arrival
+        self.depart = depart
+        self.split = split
+        self.join = join
+        self.actType = actType
+        self.tripId = tripId
+        self.line = line
+        self.speed = speed
+
+
+    def __attr_repr__(self, attrname, default=""):
+        if getattr(self, attrname) == default:
+            return ""
+        else:
+            val = getattr(self, attrname)
+            if val == tc.INVALID_DOUBLE_VALUE:
+                val = "INVALID"
+            return "%s=%s" % (attrname, val)
+
+    def __repr__(self):
+        return "StopData(%s)" % ', '.join([v for v in [
+            self.__attr_repr__("lane"),
+            self.__attr_repr__("startPos"),
+            self.__attr_repr__("endPos"),
+            self.__attr_repr__("stoppingPlaceID"),
+            self.__attr_repr__("flags"),
+            self.__attr_repr__("duration", tc.INVALID_DOUBLE_VALUE),
+            self.__attr_repr__("until", tc.INVALID_DOUBLE_VALUE),
+            self.__attr_repr__("intendedArrival", tc.INVALID_DOUBLE_VALUE),
+            self.__attr_repr__("arrival", tc.INVALID_DOUBLE_VALUE),
+            self.__attr_repr__("depart", tc.INVALID_DOUBLE_VALUE),
+            self.__attr_repr__("split"),
+            self.__attr_repr__("join"),
+            self.__attr_repr__("actType"),
+            self.__attr_repr__("tripId"),
+            self.__attr_repr__("line"),
+            self.__attr_repr__("speed", 0),
+        ] if v != ""])
+
+
+def _readStopData(result):
+    result.read("!iB")  # numCompounds, TYPE_INT
+    numStops = result.read("!i")[0]
+    nextStops = []
+    for _ in range(numStops):
+        lane = result.readTypedString()
+        endPos = result.readTypedDouble()
+        stoppingPlaceID = result.readTypedString()
+        flags = result.readTypedInt()
+        duration = result.readTypedDouble()
+        until = result.readTypedDouble()
+        startPos = result.readTypedDouble()
+        intendedArrival = result.readTypedDouble()
+        arrival = result.readTypedDouble()
+        depart = result.readTypedDouble()
+        split = result.readTypedString()
+        join = result.readTypedString()
+        actType = result.readTypedString()
+        tripId = result.readTypedString()
+        line = result.readTypedString()
+        speed = result.readTypedDouble()
+        nextStops.append(StopData(lane, startPos, endPos, stoppingPlaceID, flags, duration,
+            until, intendedArrival, arrival, depart, split, join,
+            actType, tripId, line, speed))
+    return tuple(nextStops)
 
 def _readBestLanes(result):
     result.read("!iB")
@@ -117,7 +209,7 @@ _RETURN_VALUE_FUNC = {tc.VAR_ROUTE_VALID: lambda result: bool(result.read("!i")[
                       tc.VAR_NEIGHBORS: _readNeighbors,
                       tc.VAR_NEXT_TLS: _readNextTLS,
                       tc.VAR_NEXT_STOPS: _readNextStops,
-                      tc.VAR_NEXT_STOPS2: _readNextStops,
+                      tc.VAR_NEXT_STOPS2: _readStopData,
                       # ignore num compounds and type int
                       tc.CMD_CHANGELANE: lambda result: result.read("!iBiBi")[2::2]}
 
@@ -720,8 +812,8 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NEXT_TLS, vehID)
 
-    def getNextStops(self, vehID, limit=0):
-        """getNextStop(string, int) -> [(string, double, string, int, double, double)], ...
+    def getNextStops(self, vehID):
+        """getNextStop(string) -> [(string, double, string, int, double, double)], ...
 
         Return list of upcoming stops [(lane, endPos, stoppingPlaceID, stopFlags, duration, until), ...]
         where integer stopFlag is defined as:
@@ -734,14 +826,31 @@ class VehicleDomain(Domain):
               64 * chargingStation +
              128 * parkingarea
         with each of these flags defined as 0 or 1.
+        """
+        return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
+
+
+    def getStops(self, vehID, limit=0):
+        """getStops(string, int) -> [StopData, ...],
+
+        Return a StopData object. The flags are the same as for setStop and
+        replaceStop (and different from getNextStops!):
+               1 * parking +
+               2 * personTriggered +
+               4 * containerTriggered +
+               8 * isBusStop +
+              16 * isContainerStop +
+              32 * chargingStation +
+              64 * parkingarea
+        with each of these flags defined as 0 or 1.
 
         The optional argument limit can be used to limit the returned stops to
         the next INT number (i.e. limit=1 if only the next stop is required).
+        Setting a negative limit returns up to 'limit' previous stops (or fewer
+        if the vehicle stopped fewer times previously)
         """
-        if limit == 0:
-            return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
-        else:
-            return self._getUniversal(tc.VAR_NEXT_STOPS2, vehID, "i", limit)
+        return self._getUniversal(tc.VAR_NEXT_STOPS2, vehID, "i", limit)
+
 
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
         """subscribeLeader(string, double, double, double) -> None
