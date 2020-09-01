@@ -259,5 +259,36 @@ fmi2CancelStep(fmi2Component c) {
     return fmi2Error; /* We will never have a modelStepInProgress state */
 }
 
+/* Status functions */
+fmi2Status 
+fmi2GetStatus(fmi2Component c, const fmi2StatusKind s, fmi2Status *value) {
+	return fmi2Discard;
+}
+
+fmi2Status 
+fmi2GetRealStatus(fmi2Component c, const fmi2StatusKind s, fmi2Real *value) {
+	return fmi2Discard;
+}
+
+fmi2Status 
+fmi2GetIntegerStatus(fmi2Component c, const fmi2StatusKind s, fmi2Integer *value) {
+	return fmi2Discard;
+}
+
+fmi2Status 
+fmi2GetBooleanStatus(fmi2Component c, const fmi2StatusKind s, fmi2Boolean *value) {
+	return fmi2Discard;
+}
+
+fmi2Status 
+fmi2GetStringStatus(fmi2Component c, const fmi2StatusKind s, fmi2String *value) {
+	return fmi2Discard;
+}
+
+
+
+
+
+
 
 
