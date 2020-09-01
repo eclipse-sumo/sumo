@@ -18,13 +18,22 @@
 // Implementation of the libsumo c++ to c wrapper
 /****************************************************************************/
 
+
 #include <libsumo/Simulation.h>
+#include <utils/geom/PositionVector.h>
+#include <libsumo/Vehicle.h>
+
 #include "libsumocpp2c.h"
 
 void
 libsumo_load() {
     std::vector<std::string> options;
     libsumo::Simulation::load(options);
+}
+
+int 
+libsumo_vehicle_getIDCount() {
+    return libsumo::Vehicle::getIDCount();
 }
 
 void 

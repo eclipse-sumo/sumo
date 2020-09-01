@@ -56,6 +56,20 @@ logMessage(ModelInstance *comp, int status, const char *category, const char *me
     comp->freeMemory(buf);
 }
 
+// Retrieve the integer value for a single variable
+fmi2Status
+getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value) {
+ 
+    // Do we need the pointer to comp here?
+    switch (vr) {
+        case 0:
+            *value = libsumo_vehicle_getIDCount();
+            return fmi2OK;
+        default:
+            return fmi2Error;
+    }
+}
+
 void
 fmi2run() {
     libsumo_load();

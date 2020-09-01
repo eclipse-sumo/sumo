@@ -167,3 +167,26 @@ fmi2Reset(fmi2Component c) {
 	// Should we set some start values?
     return fmi2OK;
 }
+
+fmi2Status 
+fmi2GetInteger (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Integer value[]) {
+
+    ModelInstance *comp = (ModelInstance *)c;
+	
+	// Check for null pointer errors 
+    if (nvr > 0 && (!vr || !value))
+        return fmi2Error;
+
+	fmi2Status status = fmi2OK;
+
+	// Go through the list of arrays and save all requested values
+	for (int i = 0; i < nvr; i++) { 
+		fmi2Status s = getInteger(comp, vr[i], &(value[i])); 
+		status = s > status ? s : status; 
+
+		if (status > fmi2Warning) 
+			return status; 
+	} 
+
+	return status;
+}

@@ -58,5 +58,7 @@ typedef struct {
 void logError(ModelInstance *comp, const char *message, ...);
 static void logMessage(ModelInstance *comp, int status, const char *category, const char *message, va_list args); 
 
+/* Getter Functions */
+fmi2Status getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value);
 
 #endif /* FMI2MAIN_H */
