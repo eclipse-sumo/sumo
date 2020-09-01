@@ -168,8 +168,9 @@ fmi2Reset(fmi2Component c) {
     return fmi2OK;
 }
 
+// Implementation of the getter features
 fmi2Status 
-fmi2GetInteger (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Integer value[]) {
+fmi2GetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Integer value[]) {
 
     ModelInstance *comp = (ModelInstance *)c;
 	
@@ -189,4 +190,54 @@ fmi2GetInteger (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2
 	} 
 
 	return status;
+}
+
+fmi2Status 
+fmi2GetReal(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Real value[]) {
+	return fmi2Error;
+}
+
+fmi2Status 
+fmi2GetBoolean(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Boolean value[]) {
+	return fmi2Error;
+}
+
+fmi2Status 
+fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2String value[]) {
+	return fmi2Error;
+}
+
+// Implementation of the setter features
+
+fmi2Status 
+fmi2SetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Integer value[]) {
+	return fmi2Error;
+}
+
+fmi2Status 
+fmi2SetReal (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Real value[]) {
+	return fmi2Error;
+}
+
+fmi2Status 
+fmi2SetBoolean(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Boolean value[]) {
+	return fmi2Error;
+}
+
+fmi2Status 
+fmi2SetString (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2String value[]) {
+	return fmi2Error;
+}
+
+/* Further functions for interpolation */
+fmi2Status 
+fmi2SetRealInputDerivatives(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Integer order[], const fmi2Real value[]) {
+	return fmi2Error; /* Ignoring - SUMO cannot interpolate inputs */
+}
+
+fmi2Status 
+fmi2GetRealOutputDerivatives(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Integer order[], fmi2Real value[]) {
+    for (int i = 0; i < nvr; i++) 
+		value[i] = 0;	/* We cannot compute derivatives of outputs */
+	return fmi2Error;
 }
