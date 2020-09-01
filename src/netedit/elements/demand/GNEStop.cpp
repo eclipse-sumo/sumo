@@ -462,14 +462,6 @@ GNEStop::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "";
             }
-        case SUMO_ATTR_INDEX:
-            if (index == STOP_INDEX_END) {
-                return "end";
-            } else if (index == STOP_INDEX_FIT) {
-                return "fit";
-            } else {
-                return toString(index);
-            }
         case SUMO_ATTR_TRIGGERED:
             // this is an special case
             if (parametersSet & STOP_TRIGGER_SET) {
@@ -570,7 +562,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_DURATION:
         case SUMO_ATTR_UNTIL:
         case SUMO_ATTR_EXTENSION:
-        case SUMO_ATTR_INDEX:
         case SUMO_ATTR_TRIGGERED:
         case SUMO_ATTR_CONTAINER_TRIGGERED:
         case SUMO_ATTR_EXPECTED:
@@ -608,14 +599,6 @@ GNEStop::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_EXTENSION:
             if (canParse<SUMOTime>(value)) {
                 return parse<SUMOTime>(value) >= 0;
-            } else {
-                return false;
-            }
-        case SUMO_ATTR_INDEX:
-            if ((value == "fit") || (value == "end")) {
-                return true;
-            } else if (canParse<int>(value)) {
-                return (parse<int>(value) >= 0);
             } else {
                 return false;
             }
@@ -892,15 +875,6 @@ GNEStop::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 extension = string2time(value);
                 parametersSet |= STOP_EXTENSION_SET;
-            }
-            break;
-        case SUMO_ATTR_INDEX:
-            if (value == "fit") {
-                index = STOP_INDEX_FIT;
-            } else if (value == "end") {
-                index = STOP_INDEX_END;
-            } else {
-                index = parse<int>(value);
             }
             break;
         case SUMO_ATTR_TRIGGERED:

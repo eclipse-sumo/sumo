@@ -4182,12 +4182,6 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
                                           "0");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_INDEX,
-                                          GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
-                                          "Where to insert the stop in the vehicle's list of stops",
-                                          "end");
-    myTagProperties[currentTag].addAttribute(attrProperty);
-
     attrProperty = GNEAttributeProperties(SUMO_ATTR_TRIGGERED,
                                           GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,
                                           "Whether a person may end the stop",
