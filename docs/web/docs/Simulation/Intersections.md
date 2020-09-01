@@ -24,7 +24,7 @@ They cannot block the intersection, wait within the intersection for left turns 
 When set to **true**, the network will not contain *internal lanes*,
 that is lanes within an intersection. Instead, vehicles will *jump*
 across the intersection. To avoid a systematic shortening of route lengths,
-the length of all edges is [set artificially to the length](Simulation/Distances.md)
+the length of all edges is [set artificially to the length](Distances.md)
 between junction centers without changing their appearance. When set to
 **false** (the default), The network will contain lanes within
 intersections on which vehicles will drive just as on normal lanes,

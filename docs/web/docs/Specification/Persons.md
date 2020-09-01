@@ -210,7 +210,7 @@ vehicles](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#s_vehicles_dep
 The person stops for the maximum of *currentTime+duration* and *until*.
 
 # Router input
-The following definitions can be processed with [duarouter](../../duarouter.md) and [sumo](../../sumo.md).
+The following definitions can be processed with [duarouter](../duarouter.md) and [sumo](../sumo.md).
 
 ## PersonTrips
 
