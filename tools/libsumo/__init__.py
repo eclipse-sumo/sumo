@@ -98,7 +98,8 @@ def _startTracing(traceFile, cmd, traceGetters):
                             "getAllSubscriptionResults",
                             "getAllContextSubscriptionResults",
                             "close",
-                            "load"
+                            "load",
+                            "getVersion",
                 ]
                         and not attrName.endswith('makeWrapper')
                         and (traceGetters or not attrName.startswith("get"))):
