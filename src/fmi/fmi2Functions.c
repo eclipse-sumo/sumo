@@ -254,4 +254,10 @@ fmi2DoStep(fmi2Component c, fmi2Real currentCommunicationPoint, fmi2Real communi
     return step(comp, currentCommunicationPoint + communicationStepSize);
 }
 
+fmi2Status 
+fmi2CancelStep(fmi2Component c) {
+    return fmi2Error; /* We will never have a modelStepInProgress state */
+}
+
+
 
