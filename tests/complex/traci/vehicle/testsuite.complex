@@ -60,7 +60,7 @@ getFollowSpeed
 moveTo_detector
 
 # retrieve stops with limits
-getNextStops
+getStops
 
 # retrieve stops from the past after loading state
 pastStops_stateLoaded

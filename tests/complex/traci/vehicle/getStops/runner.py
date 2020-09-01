@@ -30,6 +30,7 @@ import traci.constants as tc  # noqa
 sumoBinary = sumolib.checkBinary('sumo')
 traci.start([sumoBinary,
              "-n", "input_net2.net.xml",
+             "-a", "input_additional.add.xml",
              "-r", "input_routes.rou.xml",
              "--no-step-log",
              ] + sys.argv[1:])
@@ -40,9 +41,9 @@ while traci.simulation.getMinExpectedNumber() > 0:
     t = traci.simulation.getTime()
     if t % 10 == 0:
         print("time", t)
-        print("  past 2 stops", traci.vehicle.getNextStops(vehID, -2))
-        print("  next 2 stops", traci.vehicle.getNextStops(vehID, 2))
-        print("  all stops", traci.vehicle.getNextStops(vehID))
+        print("  past 2 stops", traci.vehicle.getStops(vehID, -2))
+        print("  next 2 stops", traci.vehicle.getStops(vehID, 2))
+        print("  all stops", traci.vehicle.getStops(vehID))
     traci.simulationStep()
 
 traci.close()
