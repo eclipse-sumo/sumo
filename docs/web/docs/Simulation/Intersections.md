@@ -14,14 +14,17 @@ governing the intersection model.
 
 The most important configuration aspect is whether the dynamics within
 an intersection shall be modelled or not. This is configured using the
-following options
+following options. When simulating without internal links, 
+Vehicles  be subject to right-of-way rules (waiting at traffic lights and at minor roads)
+but they will appear instantly on the other side of the intersection after passing the stop line.
+They cannot block the intersection, wait within the intersection for left turns nor collide on the intersection.
 
 ## [netconvert](../netconvert.md)-option **--no-internal-links**
 
 When set to **true**, the network will not contain *internal lanes*,
 that is lanes within an intersection. Instead, vehicles will *jump*
-across the intersection. To avoid a systematic shortening of route
-lengths, the length of all edges is set artificially to the length
+across the intersection. To avoid a systematic shortening of route lengths,
+the length of all edges is [set artificially to the length](Simulation/Distances.md)
 between junction centers without changing their appearance. When set to
 **false** (the default), The network will contain lanes within
 intersections on which vehicles will drive just as on normal lanes,
