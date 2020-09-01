@@ -37,7 +37,7 @@ netedit.stopMode()
 # change stop type with a valid value
 netedit.changeStopType("stopContainerStop")
 
-# try to create stop (don't click over busStop)
+# try to create stop (don't click over containerStop)
 netedit.leftClick(referencePosition, 327, 240)
 
 # Check undo redo

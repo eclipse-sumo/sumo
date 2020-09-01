@@ -38,18 +38,11 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <trip id="trip" depart="0.00" from="gneE0" to="gneE1">
-	
         <stop containerStop="containerStop" parking="dummy"/>
-		
 		<stop containerStop="containerStop" parking=""/>
-		
 		<stop containerStop="containerStop" parking="-4"/>
-		
 		<stop containerStop="containerStop" parking="0"/>
-		
 		<stop containerStop="containerStop" parking="2.3"/>
-		
 		<stop containerStop="containerStop" parking="true"/>
-		
     </trip>
 </routes>

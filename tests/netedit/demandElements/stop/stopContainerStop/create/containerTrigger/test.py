@@ -41,7 +41,7 @@ netedit.changeStopType("stopContainerStop")
 netedit.leftClick(referencePosition, 290, 190)
 
 # change triggered
-netedit.changeDefaultBoolValue(11)
+netedit.changeDefaultBoolValue(10)
 
 # create stop
 netedit.leftClick(referencePosition, 290, 190)

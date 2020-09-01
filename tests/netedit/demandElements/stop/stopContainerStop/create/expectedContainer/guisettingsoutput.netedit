@@ -31,7 +31,7 @@
                 <entry color="grey" threshold="32.00" name="pedestrian"/>
                 <entry color="10,10,10" threshold="64.00" name="passenger"/>
                 <entry color="166,147,26" threshold="256.00" name="taxi"/>
-                <entry color="40,100,40" threshold="512.00" name="bus"/>
+                <entry color="40,100,40" threshold="512.00" name="container"/>
                 <entry color="80,80,80" threshold="2080.00" name="pedestrian_delivery"/>
                 <entry color="192,66,44" threshold="65536.00" name="bicycle"/>
                 <entry color="150,200,200" threshold="8388608.00" name="waterway"/>
@@ -211,5 +211,5 @@
         </polys>
         <legend showSizeLegend="1" showColorLegend="0" showVehicleColorLegend="0"/>
     </scheme>
-    <viewport zoom="100.00" x="25.00" y="0.00" angle="0.00"/>
+    <viewport zoom="100.00" x="12.50" y="0.00" angle="0.00"/>
 </viewsettings>

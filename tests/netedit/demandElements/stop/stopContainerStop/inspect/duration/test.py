@@ -38,13 +38,13 @@ netedit.stopMode()
 netedit.changeStopType("stopContainerStop")
 
 # create stop
-netedit.leftClick(referencePosition, 324, 213)
+netedit.leftClick(referencePosition, 290, 190)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 324, 213)
+netedit.leftClick(referencePosition, 290, 190)
 
 # change value
 netedit.modifyBoolAttribute(0, True)
