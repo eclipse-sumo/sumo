@@ -27,7 +27,7 @@
 
 void
 libsumo_load() {
-    std::vector<std::string> options;
+    std::vector<std::string> options = {"-c", "/Users/robert/Git-Repositories/SUMO/tools/game/grid6.sumocfg"};
     libsumo::Simulation::load(options);
 }
 

@@ -148,6 +148,7 @@ fmi2EnterInitializationMode(fmi2Component c) {
 // Informs the FMU to exit Initialization Mode
 fmi2Status 
 fmi2ExitInitializationMode(fmi2Component c) {
+	libsumo_load();
     return fmi2OK;
 }
 
