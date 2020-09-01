@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug 27 12:27:27 2020 by Eclipse SUMO sumo Version v1_6_0+1802-e5da78f65f
+<!-- generated on Tue Sep  1 13:12:30 2020 by Eclipse SUMO sumo Version v1_6_0+1862-58a0549474
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,13 +34,13 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1802-e5da78f65f" time="20.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1862-58a0549474" time="20.00">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
     <vehicle id="v0" type="t0" depart="0.00" route="r0" speedFactor="1.00" state="0 1 5.10 0 15000 1 1" pos="60.00" speed="0.00" posLat="0.00">
-        <stop lane="middle_0" endPos="10.00" duration="2.00" parking="1"/>
-        <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="16.00" parking="1"/>
+        <stop lane="middle_0" endPos="10.00" duration="2.00" parking="1" actualArrival="6.00" depart="8.00"/>
+        <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="16.00" parking="1" actualArrival="15.00"/>
         <stop lane="middle_0" startPos="149.80" endPos="150.00" duration="20.00" parking="1"/>
     </vehicle>
     <vehicleTransfer id="v0" depart="-1" parking="middle_0"/>
