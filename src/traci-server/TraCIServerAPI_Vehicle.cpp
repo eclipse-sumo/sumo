@@ -538,8 +538,8 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     return server.writeErrorStatusCmd(libsumo::CMD_GET_VEHICLE_VARIABLE, "The fourth stop replacement parameter must be the stopping duration given as a double.", outputStorage);
                 }
                 int stopFlags = 0;
-                if (!server.readTypeCheckingByte(inputStorage, stopFlags)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth stop replacement parameter must be a byte indicating its parking/triggered status.", outputStorage);
+                if (!server.readTypeCheckingInt(inputStorage, stopFlags)) {
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The fifth stop replacement parameter must be a int indicating its parking/triggered status.", outputStorage);
                 }
                 double startPos = libsumo::INVALID_DOUBLE_VALUE;
                 if (!server.readTypeCheckingDouble(inputStorage, startPos)) {

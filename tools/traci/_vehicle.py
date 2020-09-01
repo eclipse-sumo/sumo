@@ -969,7 +969,7 @@ class VehicleDomain(Domain):
         Replaces stop at the given index with a new stop. Automatically modifies
         the route if the replacement stop is at another location
         """
-        self._setCmd(tc.CMD_REPLACE_STOP, vehID, "tsdbdbddi", 8, edgeID, pos,
+        self._setCmd(tc.CMD_REPLACE_STOP, vehID, "tsdbdiddi", 8, edgeID, pos,
                      laneIndex, duration, flags, startPos, until, nextStopIndex)
 
     def resume(self, vehID):
