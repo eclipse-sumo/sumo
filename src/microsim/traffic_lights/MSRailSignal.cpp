@@ -633,6 +633,7 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
         if (foeRS != nullptr) {
             const DriveWay& foeDriveWay = foeRS->myLinkInfos[foeLink->getTLIndex()].getDriveWay(foe.first);
             if (foeDriveWay.conflictLaneOccupied("", false) ||
+                    !foeRS->constraintsAllow(foe.first) ||
                     !overlap(foeDriveWay)) {
 #ifdef DEBUG_SIGNALSTATE_PRIORITY
                 if (gDebugFlag4) {
