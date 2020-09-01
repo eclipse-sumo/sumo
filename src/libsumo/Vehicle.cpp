@@ -453,9 +453,13 @@ Vehicle::getNextTLS(const std::string& vehicleID) {
     return result;
 }
 
+std::vector<TraCINextStopData>
+Vehicle::getNextStops(const std::string& vehicleID) {
+    return getStops(vehicleID, 0);
+}
 
 std::vector<TraCINextStopData>
-Vehicle::getNextStops(const std::string& vehicleID, int limit) {
+Vehicle::getStops(const std::string& vehicleID, int limit) {
     std::vector<TraCINextStopData> result;
     MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);

@@ -1275,7 +1275,7 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
 
 void
 TraCIServerAPI_Vehicle::writeNextStops(TraCIServer& server, const std::string& id, int limit, bool full) {
-    std::vector<libsumo::TraCINextStopData> nextStops = libsumo::Vehicle::getNextStops(id, limit);
+    std::vector<libsumo::TraCINextStopData> nextStops = libsumo::Vehicle::getStops(id, limit);
     server.getWrapperStorage().writeUnsignedByte(libsumo::TYPE_COMPOUND);
     const int cnt = 1 + (int)nextStops.size() * 4;
     server.getWrapperStorage().writeInt(cnt);
