@@ -126,7 +126,6 @@ print("</edges>", file=edges)
 edges.close()
 
 subprocess.call([sumolib.checkBinary('netconvert'),
-                 '--no-internal-links',
                  '-n', '%s.nod.xml' % PREFIX,
                  '-e', '%s.edg.xml' % PREFIX,
                  '-o', '%s.net.xml' % PREFIX])
@@ -173,10 +172,10 @@ for period in range(5, 50, 5):
         for idx in range(DOUBLE_ROWS):
             busStop = "cyber%sto%sstop" % (idx, idx+1) if idx < DOUBLE_ROWS - 1 else "cyber%sto%sstop" % (idx-1, idx)
             print("""    <trip id="v%s.%s" type="car" depart="%s" from="mainin" to="road%s">
-        <stop parkingArea="ParkArea%s" duration="10000"/>
+        <stop parkingArea="ParkArea%s" duration="1000"/>
     </trip>""" % (idx, v, v * period, idx, idx), file=routes)
             print("""    <trip id="v-%s.%s" type="car" depart="%s" from="mainin" to="-road%s">
-        <stop parkingArea="ParkArea-%s" duration="10000"/>
+        <stop parkingArea="ParkArea-%s" duration="1000"/>
     </trip>""" % (idx, v, v * period, idx, idx), file=routes)
             for p in range(random.randint(1, CAR_CAPACITY)):
                 for infix in ("", "-"):
