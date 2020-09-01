@@ -28,59 +28,36 @@ import random
 import subprocess
 import os
 import sys
+
 from constants import PREFIX, DOUBLE_ROWS, ROW_DIST, SLOTS_PER_ROW, SLOT_WIDTH
 from constants import CAR_CAPACITY, CYBER_CAPACITY, BUS_CAPACITY, TOTAL_CAPACITY
 from constants import CYBER_SPEED, CYBER_LENGTH
+
 sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 
-occupied = 0
+# network building
 nodes = open("%s.nod.xml" % PREFIX, "w")
-print("<nodes>", file=nodes)
+sumolib.xml.writeHeader(nodes, root="nodes")
 edges = open("%s.edg.xml" % PREFIX, "w")
-print("<edges>", file=edges)
-with open("%s_vtypes.rou.xml" % PREFIX, "w") as vtypes:
-    sumolib.xml.writeHeader(vtypes, root="routes")
-    print(("""    <vType id="car" color="0.7,0.7,0.7"/>
-    <vType id="ped_pedestrian" vClass="pedestrian" color="1,0.2,0.2"/>
-    <vType id="cybercar" vClass="taxi" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s"
-           color="green" emissionClass="HBEFA2/P_7_7" personCapacity="%s">
-        <param key="has.taxi.device" value="true"/>
-    </vType>
-    <vType id="bus" vClass="bus" color="blue" personCapacity="%s"/>
-</routes>""") % (CYBER_LENGTH, CYBER_SPEED, CYBER_CAPACITY, BUS_CAPACITY), file=vtypes)
+sumolib.xml.writeHeader(edges, root="edges")
 
-# streets
-nodeID = "main-0"
+## main street (passenger car inflow)
+nodeID = "main0"
 print('<node id="in" x="-100" y="0"/>', file=nodes)
-print('<node id="%s" x="0" y="0"/>' % nodeID, file=nodes)
-print('<edge id="mainin" from="in" to="%s" priority="-1" numLanes="2" speed="13.89"/>' %
-      nodeID, file=edges)
+print('<edge id="mainin" from="in" to="%s" numLanes="2"/>' % nodeID, file=edges)
 for row in range(DOUBLE_ROWS):
-    nextNodeID = "main%s-%s" % (row, row + 1)
-    if row + 1 == DOUBLE_ROWS:
-        nextNodeID = "main%s-%s" % (row, row+1)
-    x = (row + 1) * ROW_DIST
+    nextNodeID = "main%s" % row
+    x = row * ROW_DIST
     print('<node id="%s" x="%s" y="0"/>' % (nextNodeID, x), file=nodes)
-    print('<edge id="main%s" from="%s" to="%s" priority="-1" numLanes="2" speed="13.89"/>' % (
-        row, nodeID, nextNodeID), file=edges)
+    if row > 0:
+        print('<edge id="main%sto%s" from="%s" to="%s" numLanes="2"/>' %
+              (row - 1, row, nodeID, nextNodeID), file=edges)
     nodeID = nextNodeID
 print('<node id="out" x="%s" y="0"/>' % (x + 100), file=nodes)
-print('<edge id="mainout" from="%s" to="out" priority="-1" numLanes="2" speed="13.89"/>' %
-      nodeID, file=edges)
+print('<edge id="mainout" from="%s" to="out" numLanes="2"/>' % nodeID, file=edges)
 
-# parking area (road)
-for row in range(DOUBLE_ROWS):
-    print("""<edge id="road%s" from="main%s-%s" to="cyber%s" priority="-1" numLanes="2" speed="13.89">
-    <lane index="0" allow="pedestrian" width="2.00"/>
-    <lane index="1" disallow="pedestrian"/>
-</edge>""" % (row, row, row+1, row), file=edges)
-    print("""<edge id="-road%s" from="cyber%s" to="main%s-%s" priority="-1" numLanes="2" speed="13.89">
-    <lane index="0" allow="pedestrian" width="2.00"/>
-    <lane index="1" disallow="pedestrian"/>
-</edge>""" % (row, row, row, row+1), file=edges)
-
-# cybercar (automated bus)
+## cybercar infrastructure (automated bus)
 y = (SLOTS_PER_ROW + 3) * SLOT_WIDTH
 print('<node id="cyber" x="-100" y="%s"/>' % y, file=nodes)
 print("""<edge id="cyberin" from="cyber" to="cyber0" numLanes="3" spreadType="center">
@@ -94,7 +71,7 @@ print("""<edge id="-cyberin" from="cyber0" to="cyber" numLanes="2" spreadType="c
 </edge>""", file=edges)
 for row in range(DOUBLE_ROWS):
     nodeID = "cyber%s" % row
-    x = (row + 1) * ROW_DIST
+    x = row * ROW_DIST
     print('<node id="%s" x="%s" y="%s"/>' % (nodeID, x, y), file=nodes)
     if row > 0:
         edgeID = "cyber%sto%s" % (row - 1, row)
@@ -102,13 +79,11 @@ for row in range(DOUBLE_ROWS):
     <lane index="0" allow="pedestrian" width="2.00"/>
     <lane index="1" allow="taxi bus"/>
     <lane index="2" allow="taxi bus"/>
-</edge>""" % (
-            edgeID, row - 1, row), file=edges)
+</edge>""" % (edgeID, row - 1, row), file=edges)
         print("""<edge id="-%s" from="cyber%s" to="cyber%s" numLanes="2" spreadType="center">
     <lane index="0" allow="taxi bus"/>
     <lane index="1" allow="taxi bus"/>
-</edge>""" % (
-            edgeID, row, row - 1), file=edges)
+</edge>""" % (edgeID, row, row - 1), file=edges)
 print('<node id="cyberend" x="%s" y="%s"/>' % (x + 100, y), file=nodes)
 print("""<edge id="cyberout" from="cyber%s" to="cyberend" numLanes="3" spreadType="center">
     <lane index="0" allow="pedestrian" width="2.00"/>
@@ -120,6 +95,17 @@ print("""<edge id="-cyberout" from="cyberend" to="cyber%s" numLanes="2" spreadTy
     <lane index="1" allow="taxi bus"/>
 </edge>""" % row, file=edges)
 
+## roads in the parking area
+for row in range(DOUBLE_ROWS):
+    print("""<edge id="road%s" from="main%s" to="cyber%s" numLanes="2">
+    <lane index="0" allow="pedestrian" width="2.00"/>
+    <lane index="1" disallow="pedestrian"/>
+</edge>""" % (row, row, row), file=edges)
+    print("""<edge id="-road%s" from="cyber%s" to="main%s" numLanes="2">
+    <lane index="0" allow="pedestrian" width="2.00"/>
+    <lane index="1" disallow="pedestrian"/>
+</edge>""" % (row, row, row), file=edges)
+
 print("</nodes>", file=nodes)
 nodes.close()
 print("</edges>", file=edges)
@@ -130,7 +116,33 @@ subprocess.call([sumolib.checkBinary('netconvert'),
                  '-e', '%s.edg.xml' % PREFIX,
                  '-o', '%s.net.xml' % PREFIX])
 
-# routes cybercar and bus
+# Bus Stops / Parking Areas
+stops = open("%s.add.xml" % PREFIX, "w")
+sumolib.xml.writeHeader(stops, root="additional")
+for row in range(DOUBLE_ROWS):
+    print("""    <parkingArea id="ParkArea%s" lane="road%s_1" roadsideCapacity="%s" angle="270" length="8"/>
+    <parkingArea id="ParkArea-%s" lane="-road%s_1" roadsideCapacity="%s" angle="270" length="8"/>""" %
+          (row, row, SLOTS_PER_ROW, row, row, SLOTS_PER_ROW), file=stops)
+
+for row in range(DOUBLE_ROWS-1):
+    edgeID = "cyber%sto%s" % (row, row + 1)
+    print('    <busStop id="%sstop" lane="%s_1" startPos="2" endPos="12"/>' % (edgeID, edgeID), file=stops)
+
+# vehicle types
+print(("""    <vType id="car" color="0.7,0.7,0.7"/>
+    <vType id="ped_pedestrian" vClass="pedestrian" color="1,0.2,0.2"/>
+    <vType id="cybercar" vClass="taxi" length="%s" minGap="1" guiShape="evehicle" maxSpeed="%s"
+           color="green" emissionClass="HBEFA2/P_7_7" personCapacity="%s">
+        <param key="has.taxi.device" value="true"/>
+    </vType>
+    <vType id="bus" vClass="bus" color="blue" personCapacity="%s"/>
+""") % (CYBER_LENGTH, CYBER_SPEED, CYBER_CAPACITY, BUS_CAPACITY), file=stops)
+
+print("</additional>", file=stops)
+stops.close()
+
+# demand building
+## routes cybercar and bus
 with open("%s_cyber.rou.xml" % PREFIX, "w") as routes:
     sumolib.xml.writeHeader(routes, root="routes")
     print("""    <flow id="c" type="cybercar" begin="50" period="100" number="%s" line="taxi">
@@ -148,22 +160,7 @@ with open("%s_bus.rou.xml" % PREFIX, "w") as routes:
         print('    <stop busStop="%sstop" duration="10"/>' % edgeID, file=routes)
     print("    </flow>\n</routes>", file=routes)
 
-# Bus Stops / Parking Areas
-stops = open("%s.add.xml" % PREFIX, "w")
-print("<additional>", file=stops)
-for row in range(DOUBLE_ROWS):
-    print("""    <parkingArea id="ParkArea%s" lane="road%s_1" roadsideCapacity="10" angle="90" length="10"/>
-    <parkingArea id="ParkArea-%s" lane="-road%s_1" roadsideCapacity="10" angle="90" length="10"/>""" %
-          (row, row, row, row), file=stops)
-
-for row in range(DOUBLE_ROWS-1):
-    edgeID = "cyber%sto%s" % (row, row + 1)
-    print('    <busStop id="%sstop" lane="%s_1" startPos="5" endPos="30"/>' % (edgeID, edgeID), file=stops)
-print("</additional>", file=stops)
-stops.close()
-
-totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
-
+## passenger car demand
 for period in range(5, 50, 5):
     # routes person
     routes = open("%s_demand%02i.rou.xml" % (PREFIX, period), "w")
@@ -193,23 +190,23 @@ for period in range(5, 50, 5):
     print("""<configuration>
     <input>
         <net-file value="%s.net.xml"/>
-        <route-files value="%s_vtypes.rou.xml,%s_bus.rou.xml,%s_demand%02i.rou.xml"/>
+        <route-files value="%s_bus.rou.xml,%s_demand%02i.rou.xml"/>
         <additional-files value="%s.add.xml"/>
         <no-step-log value="True"/>
         <time-to-teleport value="0"/>
     </input>
-</configuration>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PREFIX), file=config)
+</configuration>""" % (PREFIX, PREFIX, PREFIX, period, PREFIX), file=config)
     config.close()
 
     config = open("%s%02i_cyber.sumocfg" % (PREFIX, period), "w")
     print("""<configuration>
     <input>
         <net-file value="%s.net.xml"/>
-        <route-files value="%s_vtypes.rou.xml,%s_cyber.rou.xml,%s_demand%02i.rou.xml"/>
+        <route-files value="%s_cyber.rou.xml,%s_demand%02i.rou.xml"/>
         <additional-files value="%s.add.xml"/>
         <no-step-log value="True"/>
         <time-to-teleport value="0"/>
         <device.taxi.dispatch-algorithm value="routeExtension"/>
     </input>
-</configuration>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PREFIX), file=config)
+</configuration>""" % (PREFIX, PREFIX, PREFIX, period, PREFIX), file=config)
     config.close()
