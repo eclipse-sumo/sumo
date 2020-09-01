@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep  1 13:12:30 2020 by Eclipse SUMO sumo Version v1_6_0+1862-58a0549474
+<!-- generated on Tue Sep  1 20:21:14 2020 by Eclipse SUMO sumo Version v1_6_0+1880-74cc129e76
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,7 +34,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1862-58a0549474" time="30.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1880-74cc129e76" time="30.00">
     <route id="!train" state="0" edges="a b e"/>
     <route id="!train2" state="0" edges="-e -b -d"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
@@ -62,7 +62,7 @@ SPDX-License-Identifier: EPL-2.0
     <lane id="a_0">
         <vehicles value="train"/>
         <link to=":A_2_0">
-            <approaching id="train" arrivalTime="1030000" arrivalSpeed="0.00" departSpeed="0.00" request="0" arrivalTimeBraking="0" arrivalSpeedBraking="0.00" waitingTime="17000" distance="1.00"/>
+            <approaching id="train" arrivalTime="29501" arrivalSpeed="0.00" departSpeed="2.00" request="0" arrivalTimeBraking="0" arrivalSpeedBraking="0.00" waitingTime="17000" distance="1.00"/>
         </link>
     </lane>
 </snapshot>
