@@ -2381,7 +2381,9 @@ Vehicle::buildStopData(const SUMOVehicleParameter::Stop& stopPar) {
             stopPar.endPos,
             stoppingPlaceID,
             stopFlags,
-            stopPar.duration >= 0 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
+            // negative duration is permitted to indicate that a vehicle cannot
+            // re-enter traffic after parking
+            stopPar.duration != -1 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
             stopPar.until >= 0 ? STEPS2TIME(stopPar.until) : INVALID_DOUBLE_VALUE,
             stopPar.arrival >= 0 ? STEPS2TIME(stopPar.arrival) : INVALID_DOUBLE_VALUE,
             stopPar.actualArrival >= 0 ? STEPS2TIME(stopPar.actualArrival) : INVALID_DOUBLE_VALUE,
