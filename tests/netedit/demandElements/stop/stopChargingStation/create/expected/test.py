@@ -44,25 +44,25 @@ netedit.changeDefaultBoolValue(9)
 netedit.changeDefaultValue(10, ";;;;;;;;;;")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 290, 190)
 
 # set invalid value
 netedit.changeDefaultValue(10, "")
 
 # try to create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 290, 190)
 
 # set valid value
 netedit.changeDefaultValue(10, "ID1")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 290, 190)
 
 # set valid value
 netedit.changeDefaultValue(10, "ID1 ID2 ID3")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 208)
+netedit.leftClick(referencePosition, 290, 190)
 
 # Check undo redo
 netedit.undo(referencePosition, 6)
