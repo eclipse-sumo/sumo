@@ -41,7 +41,7 @@ netedit.changeStopType("stopLane")
 netedit.leftClick(referencePosition, 327, 220)
 
 # change triggered
-netedit.changeDefaultBoolValue(12)
+netedit.changeDefaultBoolValue(9)
 
 # create stop
 netedit.leftClick(referencePosition, 327, 220)

@@ -41,14 +41,20 @@ netedit.changeStopType("stopLane")
 netedit.leftClick(referencePosition, 327, 220)
 
 # change parking
+netedit.changeDefaultBoolValue(13)
+
+# create stop
+netedit.leftClick(referencePosition, 327, 220)
+
+# change parking
 netedit.changeDefaultBoolValue(14)
 
 # create stop
 netedit.leftClick(referencePosition, 327, 220)
 
 # Check undo redo
-netedit.undo(referencePosition, 4)
-netedit.redo(referencePosition, 4)
+netedit.undo(referencePosition, 5)
+netedit.redo(referencePosition, 5)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
