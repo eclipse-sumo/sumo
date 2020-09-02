@@ -436,6 +436,7 @@ def focusOnFrame():
     @brief select focus on upper element of current frame
     """
     typeTwoKeys('shift', 'F12')
+    time.sleep(1)
 
 
 def undo(referencePosition, number):
