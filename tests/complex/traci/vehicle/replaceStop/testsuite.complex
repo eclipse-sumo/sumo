@@ -19,6 +19,9 @@ last
 # replace last stop after the vehicle has reached the second stop
 last_later
 
+# replace last stop on the destination edge and update destination
+last_destination
+
 # replace all stops after the vehicle has departed
 all
 
