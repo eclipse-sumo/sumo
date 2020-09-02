@@ -1,0 +1,5 @@
+--no-step-log -n net.net.xml
+-r input_trips.trips.xml
+--mesosim
+--meso-tls-penalty 1.3
+--duration-log.statistics
