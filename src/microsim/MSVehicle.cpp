@@ -6276,14 +6276,15 @@ MSVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const
     replacedStop.edge = myRoute->end(); // will be patched in replaceRoute
     replacedStop.lane = stopLane;
 
-    ConstMSEdgeVector newEdges;
-    newEdges.insert(newEdges.end(), oldEdges.begin(), itStart);
+    ConstMSEdgeVector oldRemainingEdges(myCurrEdge, getRoute().end());
+    ConstMSEdgeVector newEdges; // only remaining
+    newEdges.insert(newEdges.end(), myCurrEdge, itStart);
     newEdges.insert(newEdges.end(), toNewStop.begin(), toNewStop.end() - 1);
     newEdges.insert(newEdges.end(), fromNewStop.begin(), fromNewStop.end() - 1);
     newEdges.insert(newEdges.end(), itEnd, oldEdges.end());
 
     const double routeCost = router.recomputeCosts(newEdges, this, t);
-    const double previousCost = router.recomputeCosts(oldEdges, this, t);
+    const double previousCost = router.recomputeCosts(oldRemainingEdges, this, t);
     const double savings = previousCost - routeCost;
     if (!hasDeparted()) {
         // stops will be rebuilt from scratch so we must patch the stops in myParameter
