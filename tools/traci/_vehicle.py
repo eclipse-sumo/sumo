@@ -38,7 +38,7 @@ class StopData(object):
                  startPos=-1,
                  endPos=-1,
                  stoppingPlaceID="",
-                 flags=0,
+                 stopFlags=0,
                  duration=-1,
                  until=-1,
                  intendedArrival=-1,
@@ -54,7 +54,7 @@ class StopData(object):
         self.startPos = startPos
         self.endPos = endPos
         self.stoppingPlaceID = stoppingPlaceID
-        self.flags = flags
+        self.stopFlags = stopFlags
         self.duration = duration
         self.until = until
         self.intendedArrival = intendedArrival
@@ -83,7 +83,7 @@ class StopData(object):
             self.__attr_repr__("startPos"),
             self.__attr_repr__("endPos"),
             self.__attr_repr__("stoppingPlaceID"),
-            self.__attr_repr__("flags"),
+            self.__attr_repr__("stopFlags"),
             self.__attr_repr__("duration", tc.INVALID_DOUBLE_VALUE),
             self.__attr_repr__("until", tc.INVALID_DOUBLE_VALUE),
             self.__attr_repr__("intendedArrival", tc.INVALID_DOUBLE_VALUE),
@@ -106,7 +106,7 @@ def _readStopData(result):
         lane = result.readTypedString()
         endPos = result.readTypedDouble()
         stoppingPlaceID = result.readTypedString()
-        flags = result.readTypedInt()
+        stopFlags = result.readTypedInt()
         duration = result.readTypedDouble()
         until = result.readTypedDouble()
         startPos = result.readTypedDouble()
@@ -119,8 +119,8 @@ def _readStopData(result):
         tripId = result.readTypedString()
         line = result.readTypedString()
         speed = result.readTypedDouble()
-        nextStops.append(StopData(lane, startPos, endPos, stoppingPlaceID, flags, duration,
-            until, intendedArrival, arrival, depart, split, join,
+        nextStops.append(StopData(lane, startPos, endPos, stoppingPlaceID,
+            stopFlags, duration, until, intendedArrival, arrival, depart, split, join,
             actType, tripId, line, speed))
     return tuple(nextStops)
 

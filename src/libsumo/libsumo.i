@@ -298,20 +298,6 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     }
 };
 
-%typemap(out) std::vector<libsumo::TraCINextStopData> {
-    $result = PyTuple_New($1.size());
-    int index = 0;
-    for (auto iter = $1.begin(); iter != $1.end(); ++iter) {
-        PyTuple_SetItem($result, index++, Py_BuildValue("(sdsidd)",
-                                                        iter->lane.c_str(),
-                                                        iter->endPos,
-                                                        iter->stoppingPlaceID.c_str(),
-                                                        iter->stopFlags,
-                                                        iter->duration,
-                                                        iter->until));
-    }
-};
-
 %typemap(out) std::vector<std::vector<libsumo::TraCILink> > {
     $result = PyList_New($1.size());
     int index = 0;
@@ -459,6 +445,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %include "TraCIDefs.h"
 %template(TraCILogicVector) std::vector<libsumo::TraCILogic>;
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
+%template(TraCINextStopDataVector2) std::vector<libsumo::TraCINextStopData>;
 %template(TraCIReservationVector) std::vector<libsumo::TraCIReservation>;
 %include "Edge.h"
 %include "InductionLoop.h"
