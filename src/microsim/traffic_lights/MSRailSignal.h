@@ -223,6 +223,7 @@ protected:
 
     typedef std::pair<const SUMOVehicle* const, const MSLink::ApproachingVehicleInformation> Approaching;
     typedef std::set<const MSLane*, ComparatorNumericalIdLess> LaneSet;
+    typedef std::map<const MSLane*, int, ComparatorNumericalIdLess> LaneVisitedMap;
 
     /*  The driveways (Fahrstrassen) for each link index
      *  Each link index has at least one driveway
@@ -317,16 +318,16 @@ protected:
          *   myProtectingSwitches (at most 1 at the end of the bidi block)
          */
         void buildRoute(MSLink* origin, double length, MSRouteIterator next, MSRouteIterator end,
-                        LaneSet& visited);
+                        LaneVisitedMap& visited);
 
         /// @brief find switches that threathen this driveway
-        void checkFlanks(const std::vector<MSLane*>& lanes, const LaneSet& visited, bool allFoes);
+        void checkFlanks(const std::vector<MSLane*>& lanes, const LaneVisitedMap& visited, bool allFoes);
 
         /// @brief find links that cross the driveway without entering it
-        void checkCrossingFlanks(MSLink* dwLink, const LaneSet& visited);
+        void checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap& visited);
 
         /// @brief find upstream protection from the given link
-        void findFlankProtection(MSLink* link, double length, LaneSet& visited, MSLink* origLink);
+        void findFlankProtection(MSLink* link, double length, LaneVisitedMap& visited, MSLink* origLink);
     };
 
     /* The driveways for each link
@@ -376,6 +377,9 @@ protected:
 
     /// @brief print link descriptions
     static std::string describeLinks(std::vector<MSLink*> links);
+
+    /// @brief print link descriptions
+    static std::string formatVisitedMap(const LaneVisitedMap& visited);
 
 protected:
 
