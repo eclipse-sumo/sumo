@@ -368,6 +368,9 @@ protected:
     /// @brief return logicID_linkIndex
     static std::string getTLLinkID(MSLink* link);
 
+    /// @brief return junctionID_junctionLinkIndex
+    static std::string getJunctionLinkID(MSLink* link);
+
     /// @brief return logicID_linkIndex in a way that allows clicking in sumo-gui
     static std::string getClickableTLLinkID(MSLink* link);
 

@@ -281,6 +281,11 @@ MSRailSignal::getTLLinkID(MSLink* link) {
 }
 
 std::string
+MSRailSignal::getJunctionLinkID(MSLink* link) {
+    return link->getJunction()->getID() + "_" + toString(link->getIndex());
+}
+
+std::string
 MSRailSignal::getClickableTLLinkID(MSLink* link) {
     return "junction '" +  link->getTLLogic()->getID() + "', link " + toString(link->getTLIndex());
 }
@@ -820,6 +825,15 @@ MSRailSignal::DriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag("flank");
     od.writeAttr(SUMO_ATTR_LANES, toString(myFlank));
     od.closeTag();
+
+    od.openTag("protectingSwitches");
+    std::vector<std::string> links;
+    for (MSLink* link : myProtectingSwitches) {
+        links.push_back(getJunctionLinkID(link));
+    }
+    od.writeAttr("links", joinToString(links, " "));
+    od.closeTag();
+
     od.openTag("conflictLinks");
     std::vector<std::string> signals;
     for (MSLink* link : myConflictLinks) {
