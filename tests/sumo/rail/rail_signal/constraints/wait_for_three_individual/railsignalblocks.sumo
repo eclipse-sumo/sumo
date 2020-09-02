@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 21 15:15:17 2020 by Eclipse SUMO sumo Version v1_6_0+1707-2370e97800
+<!-- generated on Wed Sep  2 09:53:20 2020 by Eclipse SUMO sumo Version v1_6_0+1904-84cb2799ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,6 +41,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="b_0 c_0"/>
                 <bidi lanes=""/>
                 <flank lanes="e_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="D_0"/>
             </driveWay>
         </link>
@@ -51,6 +52,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="e_0 c_0"/>
                 <bidi lanes=""/>
                 <flank lanes="b_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="A_0"/>
             </driveWay>
         </link>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu May 23 21:47:14 2019 by Eclipse SUMO Version v1_2_0+0112-7d384bbd43
+<!-- generated on Wed Sep  2 09:53:22 2020 by Eclipse SUMO sumo Version v1_6_0+1904-84cb2799ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -44,6 +45,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":cluster_gneJ19_gneJ21_0_0 gneE15_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":cluster_gneJ19_gneJ21_1_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="cluster_gneJ19_gneJ21_1"/>
             </driveWay>
         </link>
@@ -52,6 +54,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":cluster_gneJ19_gneJ21_1_0 gneE16_0"/>
                 <bidi lanes="-gneE16_0"/>
                 <flank lanes=":gneJ22_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ22_0"/>
             </driveWay>
         </link>
@@ -62,6 +65,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":gneJ18_0_0 gneE14_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -72,6 +76,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":gneJ22_0_0 -gneE16_0"/>
                 <bidi lanes="gneE16_0"/>
                 <flank lanes=":cluster_gneJ19_gneJ21_1_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="cluster_gneJ19_gneJ21_1"/>
             </driveWay>
         </link>
@@ -80,6 +85,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":gneJ22_1_0 gneE17_0"/>
                 <bidi lanes=""/>
                 <flank lanes=":gneJ22_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ22_0"/>
             </driveWay>
         </link>
@@ -90,6 +96,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes=":gneJ24_0_0 gneE18_0"/>
                 <bidi lanes=""/>
                 <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
