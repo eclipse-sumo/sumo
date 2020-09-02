@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.08.2020 11:34:09 by Eclipse SUMO netedit Version v1_6_0+1769-10a6440831
+<!-- generated on 01.09.2020 10:56:22 by Eclipse SUMO netedit Version v1_6_0+1863-6f06e94ba6
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,33 +30,33 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.26Aug111232.13748\netedit.gui\demandElements\stop\stopParkingArea\create\default\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.01Sep105550.8264\netedit.gui\demandElements\stop\stopParkingArea\create\default\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingAreaB" lane="gneE1_0" startPos="20.00" endPos="30.00"/>
+    <parkingArea id="parkingAreaB" lane="gneE1_0" startPos="10.00" endPos="20.00"/>
 </additional>

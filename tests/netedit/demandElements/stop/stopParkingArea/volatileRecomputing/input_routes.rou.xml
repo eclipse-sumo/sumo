@@ -37,7 +37,7 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="vehicle0" depart="0.00">
+    <vehicle id="vehicle_0" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
         <stop parkingArea="parkingAreaH" duration="60.00"/>
         <stop parkingArea="parkingAreaG" duration="60.00"/>
@@ -46,8 +46,8 @@
         <stop parkingArea="parkingAreaD" duration="60.00"/>
         <stop parkingArea="parkingAreaC" duration="60.00"/>
     </vehicle>
-    <vehicle id="vehicle1" depart="0.00">
-	    <route edges="gneE0 gneE1" color="yellow"/>
+    <vehicle id="vehicle_1" depart="0.00">
+	    <route edges="gneE0 gneE1" color="red"/>
         <stop parkingArea="parkingAreaB" duration="60.00"/>
         <stop parkingArea="parkingAreaA" duration="60.00"/>
     </vehicle>

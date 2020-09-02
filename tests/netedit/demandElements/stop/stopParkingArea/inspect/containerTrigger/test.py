@@ -38,16 +38,16 @@ netedit.stopMode()
 netedit.changeStopType("stopParkingArea")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 175)
+netedit.leftClick(referencePosition, 290, 145)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 327, 175)
+netedit.leftClick(referencePosition, 290, 145)
 
 # change value
-netedit.modifyBoolAttribute(6, True)
+netedit.modifyBoolAttribute(5, True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

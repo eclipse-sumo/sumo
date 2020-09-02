@@ -41,37 +41,37 @@ netedit.changeStopType("stopParkingArea")
 netedit.changeDefaultBoolValue(4)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 145)
 
 # enable duration
 netedit.changeDefaultBoolValue(4)
 
 # create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 145)
 
 # set invalid value
 netedit.changeDefaultValue(5, "dummyValue")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 145)
 
 # set invalid value
 netedit.changeDefaultValue(5, "-20")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 145)
 
 # set valid value
 netedit.changeDefaultValue(5, "0")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 145)
 
 # set valid value
 netedit.changeDefaultValue(5, "22.33")
 
 # try to create stop
-netedit.leftClick(referencePosition, 290, 190)
+netedit.leftClick(referencePosition, 290, 145)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)

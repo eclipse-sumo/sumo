@@ -37,18 +37,12 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="vehicle" depart="0.00">
+    <vehicle id="vehicle_0" depart="0.00">
 	    <route edges="gneE0 gneE1" color="yellow"/>
-	
         <stop parkingArea="parkingArea" until="dummyDuration"/>
-		
 		<stop parkingArea="parkingArea" until=""/>
-		
 		<stop parkingArea="parkingArea" until="-4"/>
-		
 		<stop parkingArea="parkingArea" until="0"/>
-		
 		<stop parkingArea="parkingArea" until="2.3"/>
-		
     </vehicle>
 </routes>
