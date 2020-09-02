@@ -434,7 +434,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
     for (int j = 0; j < numLinks; ++j) {
         for (int k = 0; k < (int)myLinks[j].size(); ++k) {
             myLinks[j][k]->setMesoTLSPenalty(TIME2STEPS(MSGlobals::gMesoTLSPenalty * penalty[j] / durationSeconds));
-            myLinks[j][k]->setGreenFraction(MAX2((durationSeconds - MSGlobals::gMesoTLSPenalty * totalRedDuration[j]) / durationSeconds, NUMERICAL_EPS)); // avoid zero capacity (warning issued before)
+            myLinks[j][k]->setGreenFraction(MAX2((durationSeconds - totalRedDuration[j]) / durationSeconds, NUMERICAL_EPS)); // avoid zero capacity (warning issued before)
             controlledJunctions.insert(myLinks[j][k]->getLane()->getEdge().getFromJunction()); // MSLink::myJunction is not yet initialized
             //std::cout << " tls=" << getID() << " i=" << j << " link=" << myLinks[j][k]->getViaLaneOrLane()->getID() << " penalty=" << penalty[j] / durationSeconds << " durSecs=" << durationSeconds << " greenTime=" << " gF=" << myLinks[j][k]->getGreenFraction() << "\n";
         }
