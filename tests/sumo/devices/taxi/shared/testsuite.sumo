@@ -21,3 +21,6 @@ same_to
 
 # secondary passenger can be picked up with detour direct path
 same_to_detour
+
+# secondary passenger has subroute of the first passenger
+subroute
