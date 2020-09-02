@@ -21,10 +21,22 @@ useFMI:
       settings:
         FMI: 'yes'
     'no':
-      short: 'No FMI'
+      short: 'NoFMI'
       long: Do not build the FMI library
       settings:
         FMI: 'no'
 
-
-
+pythonBindings:
+  default: 'no'
+  description: Enable python Bindings?
+  choices:
+    'yes':
+      short: Python
+      long: Build python bindings
+      settings:
+        ENABLE_PYTHON_BINDINGS: 'yes'
+    'no':
+      short: 'NoPython'
+      long: Do not build python bindings
+      settings:
+        ENABLE_PYTHON_BINDINGS: 'no'

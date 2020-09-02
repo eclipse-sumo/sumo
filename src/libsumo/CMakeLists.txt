@@ -146,7 +146,7 @@ if(SWIG_FOUND)
                     # disable python module for the debug build because virtually no one has a python debug dll to link against
                     set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY EXCLUDE_FROM_DEFAULT_BUILD_DEBUG TRUE)
                     set_property(TARGET ${SWIG_MODULE_libsumo_REAL_NAME} PROPERTY FOLDER "libsumo")
-                    swig_link_libraries(libsumo libsumostatic ${sumolibs} ${PYTHON_LIBRARIES})
+                    swig_link_libraries(libsumo libsumostatic ${sumolibs})
                 else()
                     swig_link_libraries(libsumo -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive)
                 endif()
