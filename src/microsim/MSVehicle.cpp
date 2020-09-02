@@ -6254,6 +6254,8 @@ MSVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const
     auto endPos = nextStopIndex == n - 1 ? getArrivalPos() : stops[nextStopIndex + 1].pars.endPos;
     SUMOAbstractRouter<MSEdge, SUMOVehicle>& router = getInfluencer().getRouterTT(getRNGIndex(), getVClass());
 
+    bool newDestination = nextStopIndex == n - 1 && stops[nextStopIndex].edge == oldEdges.end() - 1;
+
     ConstMSEdgeVector toNewStop;
     router.compute(*itStart, startPos, stopEdge, stop.endPos, this, t, toNewStop, true);
     if (toNewStop.size() == 0) {
@@ -6262,10 +6264,12 @@ MSVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const
     }
 
     ConstMSEdgeVector fromNewStop;
-    router.compute(stopEdge, stop.endPos, *itEnd, endPos, this, t, fromNewStop, true);
-    if (fromNewStop.size() == 0) {
-        errorMsg = "No route found from stop edge '" + stopEdge->getID() + "' to edge '" + (*itEnd)->getID() + "'";
-        return false;
+    if (!newDestination) {
+        router.compute(stopEdge, stop.endPos, *itEnd, endPos, this, t, fromNewStop, true);
+        if (fromNewStop.size() == 0) {
+            errorMsg = "No route found from stop edge '" + stopEdge->getID() + "' to edge '" + (*itEnd)->getID() + "'";
+            return false;
+        }
     }
 
     auto itStop = myStops.begin();
@@ -6280,8 +6284,18 @@ MSVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const
     ConstMSEdgeVector newEdges; // only remaining
     newEdges.insert(newEdges.end(), myCurrEdge, itStart);
     newEdges.insert(newEdges.end(), toNewStop.begin(), toNewStop.end() - 1);
-    newEdges.insert(newEdges.end(), fromNewStop.begin(), fromNewStop.end() - 1);
-    newEdges.insert(newEdges.end(), itEnd, oldEdges.end());
+    if (!newDestination) {
+        newEdges.insert(newEdges.end(), fromNewStop.begin(), fromNewStop.end() - 1);
+        newEdges.insert(newEdges.end(), itEnd, oldEdges.end());
+    } else {
+        newEdges.push_back(toNewStop.back());
+    }
+    //std::cout << SIMTIME << " replaceStop veh=" << getID()
+    //    << " oldEdges=" << oldRemainingEdges.size()
+    //    << " newEdges=" << newEdges.size()
+    //    << " toNewStop=" << toNewStop.size()
+    //    << " fromNewStop=" << fromNewStop.size()
+    //    << "\n";
 
     const double routeCost = router.recomputeCosts(newEdges, this, t);
     const double previousCost = router.recomputeCosts(oldRemainingEdges, this, t);
