@@ -85,3 +85,6 @@ indirect_guard_check_route
 
 # driveway computation should end when hitting a buffer stop
 siding_deadend
+
+# two stopped trains on parallel tracks must enter the same section
+stopped_link_conflict
