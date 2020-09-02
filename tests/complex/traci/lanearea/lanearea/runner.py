@@ -48,7 +48,7 @@ def check():
             print("     jamLengthMet", traci.lanearea.getJamLengthMeters(detID))
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 while traci.simulation.getTime() < 4:
     traci.simulationStep()
     check()
