@@ -3072,7 +3072,7 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag);
+        fillCommonStopAttributes(currentTag, true);
     }
     currentTag = SUMO_TAG_STOP_BUSSTOP;
     {
@@ -3088,7 +3088,7 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag);
+        fillCommonStopAttributes(currentTag, true);
     }
     currentTag = SUMO_TAG_STOP_CONTAINERSTOP;
     {
@@ -3104,7 +3104,7 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag);
+        fillCommonStopAttributes(currentTag, true);
     }
     currentTag = SUMO_TAG_STOP_CHARGINGSTATION;
     {
@@ -3120,7 +3120,7 @@ GNEAttributeCarrier::fillStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag);
+        fillCommonStopAttributes(currentTag, true);
     }
     currentTag = SUMO_TAG_STOP_PARKINGAREA;
     {
@@ -3135,8 +3135,8 @@ GNEAttributeCarrier::fillStopElements() {
                                               "ParkingArea associated with this stop");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-        // fill common stop attributes
-        fillCommonStopAttributes(currentTag);
+        // fill common stop attributes (no parking)
+        fillCommonStopAttributes(currentTag, false);
     }
 }
 
@@ -3649,7 +3649,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag);
+        fillCommonStopAttributes(currentTag, true);
     }
     currentTag = GNE_TAG_PERSONSTOP_BUSSTOP;
     {
@@ -3667,7 +3667,7 @@ GNEAttributeCarrier::fillPersonStopElements() {
         myTagProperties[currentTag].addAttribute(attrProperty);
 
         // fill common stop attributes
-        fillCommonStopAttributes(currentTag);
+        fillCommonStopAttributes(currentTag, true);
     }
 }
 
@@ -4160,7 +4160,7 @@ GNEAttributeCarrier::fillCommonPersonAttributes(SumoXMLTag currentTag) {
 
 
 void
-GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
+GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag, const bool parking) {
     // declare empty GNEAttributeProperties
     GNEAttributeProperties attrProperty;
 
@@ -4204,11 +4204,13 @@ GNEAttributeCarrier::fillCommonStopAttributes(SumoXMLTag currentTag) {
                                           "List of containers that must be loaded onto the vehicle before it may continue");
     myTagProperties[currentTag].addAttribute(attrProperty);
 
-    attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
-                                          GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::XMLOPTIONAL,
-                                          "whether the vehicle stops on the road or beside ",
-                                          "0");
-    myTagProperties[currentTag].addAttribute(attrProperty);
+    if (parking) {
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_PARKING,
+                                              GNEAttributeProperties::BOOL | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::ACTIVATABLE | GNEAttributeProperties::XMLOPTIONAL,
+                                              "whether the vehicle stops on the road or beside ",
+                                              "0");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
 
     attrProperty = GNEAttributeProperties(SUMO_ATTR_ACTTYPE,
                                           GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::XMLOPTIONAL,

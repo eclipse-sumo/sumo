@@ -444,7 +444,7 @@ private:
     static void fillCommonPersonAttributes(SumoXMLTag currentTag);
 
     /// @brief fill stop person attributes (used by stops and personStps)
-    static void fillCommonStopAttributes(SumoXMLTag currentTag);
+    static void fillCommonStopAttributes(SumoXMLTag currentTag, const bool parking);
 
     /// @brief fill Data elements
     static void fillDataElements();
