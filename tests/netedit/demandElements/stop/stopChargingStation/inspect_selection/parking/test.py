@@ -41,16 +41,16 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 290, 220)
 
 # change value
-netedit.modifyAttribute(12, "dummy", True)
+netedit.modifyAttribute(10, "dummy", True)
 
 # change value
-netedit.modifyAttribute(12, "", True)
+netedit.modifyAttribute(10, "", True)
 
 # change value
-netedit.modifyAttribute(12, "true", True)
+netedit.modifyAttribute(10, "true", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)
