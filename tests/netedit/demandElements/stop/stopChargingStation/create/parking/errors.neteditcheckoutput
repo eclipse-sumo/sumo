@@ -1,3 +1,1 @@
-Error: Attribute 'expectedContainers' in definition of a stop is empty.
-Warning: Vehicle 'vehicle_0' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'vehicle_0' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'flow.2' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=0.06), time=329.00.

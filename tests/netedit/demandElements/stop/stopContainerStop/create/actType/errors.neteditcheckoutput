@@ -1,2 +1,1 @@
-Warning: Vehicle 'vehicle_0' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
-Warning: Vehicle 'vehicle_0' ignores container triggered stop on lane 'gneE1_0' due to capacity constraints.
+Warning: Vehicle 'trip' performs emergency stop at the end of lane 'gneE1_0' for unknown reasons (decel=0.00, offset=1.48), time=194.00.
