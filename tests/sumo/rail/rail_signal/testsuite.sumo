@@ -43,7 +43,7 @@ inserted_behind_signal
 single_incoming_lane
 
 # Two trains approaching conflicting block simultaneously causing a head-on conflict
-stopped_conflict
+halting_conflict
 
 # switches for a bidirectional section guarded by extra rail signal nodes
 indirect_guard
