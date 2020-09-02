@@ -1,0 +1,6 @@
+[Reported by kobo at 02Sep10:25:38]
+search_string:Induction loop '0' is not known
+search_file:errors
+ignore_other_errors:1
+full_description:meso handles inductionloops differently
+brief_description:see #7492
