@@ -1980,6 +1980,7 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } else if (myVehicleParameter != nullptr) {
         if ((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW)) {
             myPersonValues.myPersonPlanValues.push_back(stop);
+        } else {
             myVehicleParameter->stops.push_back(stop.stopParameters);
         }
     } else {
