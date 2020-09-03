@@ -5,7 +5,7 @@
   guid="{2A81BBFB-D21C-4BCE-947F-5CA1CB7C12EE}"
 >
 
-  <CoSimulation modelIdentifier="libsumofmi2" canHandleVariableCommunicationStepSize="false" />
+  <CoSimulation modelIdentifier="libsumofmi2" canHandleVariableCommunicationStepSize="true" />
   
   <!-- In CoSimulation the stepSize defines the preferred communication StepSize.  -->
   <DefaultExperiment  stepSize="1"/>
