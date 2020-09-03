@@ -41,6 +41,9 @@ permalink: /ChangeLog/
   - Fixed bug where vehicles would stop at [waypoints](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#waypoints). Issue #7377, #7419
   - Fixed crash when loading railway network with unregulated junctions. Issue #7421
   - Fixed invalid rail_signal state after loading simulation state. Issue #7451
+  - Fixed railway collision on bidirectional track. Issue #7462
+  - Fixed missing vehicle line information after loading state. Issue #7469
+  - Fixed crash when using bluelight device. Issue #7473
       
 - Meso
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
