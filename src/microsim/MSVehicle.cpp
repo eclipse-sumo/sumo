@@ -6304,8 +6304,7 @@ MSVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const
         // stops will be rebuilt from scratch so we must patch the stops in myParameter
         const_cast<SUMOVehicleParameter*>(myParameter)->stops[nextStopIndex] = stop;
     }
-    replaceRouteEdges(newEdges, routeCost, savings, info, !hasDeparted(), false, false);
-    return true;
+    return replaceRouteEdges(newEdges, routeCost, savings, info, !hasDeparted(), false, false);
 }
 
 
