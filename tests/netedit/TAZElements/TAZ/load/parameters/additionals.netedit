@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.08.2020 11:07:44 by Eclipse SUMO netedit Version v1_6_0+1504-21ba4914b8
+<!-- generated on 03.09.2020 10:24:10 by Eclipse SUMO netedit Version v1_6_0+1939-801d904187
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,38 +30,38 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.12Aug102751.1992\netedit.gui\shapeElements\poly\load\parameters\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="poly_0" color="green" fill="0" layer="0.00" shape="-50.000000,40.000000 -40.000000,40.000000 -40.000000,30.000000 -50.000000,30.000000 -50.000000,40.000000">
+    <taz id="TAZ_0" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00" color="green">
         <param key="key1" value="value5"/>
         <param key="key2" value=""/>
         <param key="key3" value="$$value with spaces%%"/>
         <param key="keyFinal" value="valueFinal"/>
-    </poly>
+    </taz>
 </additional>

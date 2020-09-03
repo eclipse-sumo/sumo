@@ -5,19 +5,37 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding taz 'TAZ_0' into viewNet
-GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -70.00,10.00,-20.00,60.00
+GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -18.00,-12.00,32.00,38.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Inserting parameter 'key1|value1' into TAZ taz.
-Error: Attribute 'key' in definition of a param is empty.
-Debug: Inserting parameter 'key1|value5' into TAZ taz.
-Debug: Inserting parameter 'key2|' into TAZ taz.
-Debug: Inserting parameter 'key2|' into TAZ taz.
-Debug: Inserting parameter 'key3|$$value with spaces%%' into TAZ taz.
-Debug: Inserting parameter 'keyFinal|valueFinal' into TAZ taz.
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep102229.17344\netedit.gui\TAZElements\TAZ\load\parameters\input_additionals.add.xml failed.
+Debug: Adding taz 'TAZ_1' into viewNet
+GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary 2.00,-12.00,52.00,38.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
+Debug: Setting new attribute blockShape 'true' into taz 'TAZ_0'
+Debug: Setting new attribute blockShape 'true' into taz 'TAZ_1'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute blockShape '0' into taz 'TAZ_1'
+Debug: Setting previous attribute blockShape '0' into taz 'TAZ_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Removing taz 'TAZ_1' from viewNet
+Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
+GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary 2.00,-12.00,52.00,38.00
+Debug: Removing taz 'TAZ_0' from viewNet
+Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -18.00,-12.00,32.00,38.00
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding taz 'TAZ_0' into viewNet
+GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -18.00,-12.00,32.00,38.00
+Debug: Adding taz 'TAZ_1' into viewNet
+GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary 2.00,-12.00,52.00,38.00
+Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute blockShape 'true' into taz 'TAZ_0'
+Debug: Setting new attribute blockShape 'true' into taz 'TAZ_1'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -33,10 +51,13 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Removing taz 'TAZ_0' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -70.00,10.00,-20.00,60.00
+Debug: Removing taz 'TAZ_1' from net in ~GNEChange_TAZElement()
+GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary 2.00,-12.00,52.00,38.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
+Debug: delete taz 'TAZ_1' in ~GNEChange_TAZElement()
+Debug: Removing taz 'TAZ_0' from net in ~GNEChange_TAZElement()
+GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -18.00,-12.00,32.00,38.00
 Debug: delete taz 'TAZ_0' in ~GNEChange_TAZElement()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
