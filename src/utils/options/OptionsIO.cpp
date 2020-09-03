@@ -147,7 +147,7 @@ OptionsIO::getRoot(const std::string& filename) {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         XERCES_CPP_NAMESPACE::XMLPScanToken token;
-        if (!FileHelpers::isReadable(filename)) {
+        if (!FileHelpers::isReadable(filename) || FileHelpers::isDirectory(filename)) {
             throw ProcessError("Could not open '" + filename + "'.");
         }
 #ifdef HAVE_ZLIB
