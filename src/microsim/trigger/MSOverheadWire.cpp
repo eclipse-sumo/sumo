@@ -215,13 +215,13 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
                 } else {
                     if (MSGlobals::gOverheadWireSolver) {
 #ifdef HAVE_EIGEN
-                        Node* unusedNode = newOverheadWireSegment->getCircuitStartNodePos();
-                        for (std::vector<MSOverheadWire*>::iterator it = myOverheadWireSegments.begin(); it != myOverheadWireSegments.end(); it++) {
-                            if ((*it)->getCircuitStartNodePos() == unusedNode) {
-                                (*it)->setCircuitStartNodePos(ovrhdSegment->getCircuitEndNodePos());
+                        Node* const unusedNode = newOverheadWireSegment->getCircuitStartNodePos();
+                        for (MSOverheadWire* const ows : myOverheadWireSegments) {
+                            if (ows->getCircuitStartNodePos() == unusedNode) {
+                                ows->setCircuitStartNodePos(ovrhdSegment->getCircuitEndNodePos());
                             }
-                            if ((*it)->getCircuitEndNodePos() == unusedNode) {
-                                (*it)->setCircuitEndNodePos(ovrhdSegment->getCircuitEndNodePos());
+                            if (ows->getCircuitEndNodePos() == unusedNode) {
+                                ows->setCircuitEndNodePos(ovrhdSegment->getCircuitEndNodePos());
                             }
                         }
                         newOverheadWireSegment->getCircuit()->replaceAndDeleteNode(unusedNode, ovrhdSegment->getCircuitEndNodePos());

@@ -81,11 +81,11 @@ public:
         } else {
             return false;
         }
-        for (auto it = myFollowingViaEdges.begin(); it != myFollowingViaEdges.end();) {
-            if (it->first == edge) {
-                it = myFollowingViaEdges.erase(it);
+        for (auto viaIt = myFollowingViaEdges.begin(); viaIt != myFollowingViaEdges.end();) {
+            if (viaIt->first == edge) {
+                viaIt = myFollowingViaEdges.erase(viaIt);
             } else {
-                ++it;
+                ++viaIt;
             }
         }
         return true;

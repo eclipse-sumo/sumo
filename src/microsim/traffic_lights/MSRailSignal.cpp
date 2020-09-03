@@ -495,11 +495,11 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     DriveWay dw((int)myDriveways.size());
     LaneVisitedMap visited;
     std::vector<MSLane*> before;
-    visited[myLink->getLaneBefore()] = visited.size();
+    visited[myLink->getLaneBefore()] = (int)visited.size();
     MSLane* fromBidi = myLink->getLaneBefore()->getBidiLane();
     if (fromBidi != nullptr) {
         // do not extend to forward block beyond the entering track (in case of a loop)
-        visited[fromBidi] = visited.size();
+        visited[fromBidi] = (int)visited.size();
         before.push_back(fromBidi);
     }
     dw.buildRoute(myLink, 0., first, end, visited);
@@ -890,7 +890,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                 next++;
             }
         }
-        visited[toLane] = visited.size();
+        visited[toLane] = (int)visited.size();
         length += toLane->getLength();
         MSLane* bidi = toLane->getBidiLane();
         if (seekForwardSignal) {
@@ -905,7 +905,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
         }
         if (bidi != nullptr) {
             myBidi.push_back(bidi);
-            visited[bidi] = visited.size();
+            visited[bidi] = (int)visited.size();
             if (!seekForwardSignal) {
                 // look for switch that could protect from oncoming vehicles
                 for (const auto& ili : bidi->getIncomingLanes()) {
@@ -1065,7 +1065,7 @@ MSRailSignal::DriveWay::findFlankProtection(MSLink* link, double length, LaneVis
         const bool isNew = visited.count(lane) == 0;
         if (isNew || (visited[lane] > visited[origLink->getLane()] && std::find(myForward.begin(), myForward.end(), lane) == myForward.end())) {
             if (isNew) {
-                visited[lane] = visited.size();
+                visited[lane] = (int)visited.size();
             }
             length += lane->getLength();
             if (lane->isInternal()) {
