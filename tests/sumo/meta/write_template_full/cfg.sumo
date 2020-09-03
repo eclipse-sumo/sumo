@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 28 11:38:18 2020 by Eclipse SUMO sumo Version v1_6_0+1827-94450ab757
+<!-- generated on Thu Sep  3 10:19:23 2020 by Eclipse SUMO sumo Version v1_6_0+1929-72c132134b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -341,7 +341,8 @@
         <meso-lane-queue value="false" type="BOOL" help="Enable separate queues for every lane"/>
         <meso-junction-control value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling"/>
         <meso-junction-control.limited value="false" type="BOOL" help="Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations"/>
-        <meso-tls-penalty value="0" type="FLOAT" help="Apply scaled time penalties when driving across tls controlled junctions based on green split instead of checking actual phases"/>
+        <meso-tls-penalty value="0" type="FLOAT" help="Apply scaled travel time penalties when driving across tls controlled junctions based on green split instead of checking actual phases"/>
+        <meso-tls-flow-penalty value="0" type="FLOAT" help="Apply scaled headway penalties when driving across tls controlled junctions based on green split instead of checking actual phases"/>
         <meso-minor-penalty value="0" type="TIME" help="Apply fixed time penalty when driving across a minor link. When using --meso-junction-control.limited, the penalty is not applied whenever limited control is active."/>
         <meso-overtaking value="false" type="BOOL" help="Enable mesoscopic overtaking"/>
         <meso-recheck value="0" type="TIME" help="Time interval for rechecking insertion into the next segment after failure"/>
@@ -367,7 +368,6 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
-        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settingsoutput file"/>

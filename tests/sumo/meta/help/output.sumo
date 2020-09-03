@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_6_0+1827-94450ab757
+Eclipse SUMO sumo Version v1_6_0+1929-72c132134b
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -629,10 +629,14 @@ Mesoscopic Options:
                                          saturated links. This prevents faulty
                                          traffic lights from hindering flow in
                                          low-traffic situations
-  --meso-tls-penalty FLOAT             Apply scaled time penalties when driving
-                                         across tls controlled junctions based
-                                         on green split instead of checking
-                                         actual phases
+  --meso-tls-penalty FLOAT             Apply scaled travel time penalties when
+                                         driving across tls controlled junctions
+                                         based on green split instead of
+                                         checking actual phases
+  --meso-tls-flow-penalty FLOAT        Apply scaled headway penalties when
+                                         driving across tls controlled junctions
+                                         based on green split instead of
+                                         checking actual phases
   --meso-minor-penalty TIME            Apply fixed time penalty when driving
                                          across a minor link. When using
                                          --meso-junction-control.limited, the
@@ -673,8 +677,6 @@ GUI Only Options:
                                          position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                          windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                          GUI-Testing

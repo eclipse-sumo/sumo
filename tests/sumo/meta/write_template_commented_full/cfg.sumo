@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Aug 28 11:38:18 2020 by Eclipse SUMO sumo Version v1_6_0+1827-94450ab757
+<!-- generated on Thu Sep  3 10:19:24 2020 by Eclipse SUMO sumo Version v1_6_0+1929-72c132134b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -891,8 +891,11 @@
         <!-- Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations -->
         <meso-junction-control.limited value="false" type="BOOL"/>
 
-        <!-- Apply scaled time penalties when driving across tls controlled junctions based on green split instead of checking actual phases -->
+        <!-- Apply scaled travel time penalties when driving across tls controlled junctions based on green split instead of checking actual phases -->
         <meso-tls-penalty value="0" type="FLOAT"/>
+
+        <!-- Apply scaled headway penalties when driving across tls controlled junctions based on green split instead of checking actual phases -->
+        <meso-tls-flow-penalty value="0" type="FLOAT"/>
 
         <!-- Apply fixed time penalty when driving across a minor link. When using --meso-junction-control.limited, the penalty is not applied whenever limited control is active. -->
         <meso-minor-penalty value="0" type="TIME"/>
@@ -956,9 +959,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>
