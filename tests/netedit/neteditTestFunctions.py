@@ -1869,6 +1869,100 @@ def GEOPOILatLon():
         typeTab()
     # Change current value
     typeSpace()
+    
+
+#################################################
+# TAZs
+#################################################
+
+
+def TAZMode():
+    """
+    @brief change to TAZ mode
+    """
+    typeKey('z')
+    # wait for gl debug
+    time.sleep(DELAY_CHANGEMODE)
+
+
+def createSquaredTAZ(referencePosition, positionx, positiony, size, close):
+    """
+    @brief Create squared TAZ in position with a certain size
+    """
+    # focus current frame
+    focusOnFrame()
+    # start draw
+    typeEnter()
+    # create TAZ
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx, positiony - (size / 2))
+    leftClick(referencePosition, positionx - (size / 2), positiony - (size / 2))
+    leftClick(referencePosition, positionx - (size / 2), positiony)
+    # check if TAZ has to be closed
+    if (close is True):
+        leftClick(referencePosition, positionx, positiony)
+    # finish draw
+    typeEnter()
+
+
+def createRectangledTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
+    """
+    @brief Create rectangle TAZ in position with a certain size
+    """
+    # focus current frame
+    focusOnFrame()
+    # start draw
+    typeEnter()
+    # create TAZ
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx, positiony - (sizey / 2))
+    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
+    leftClick(referencePosition, positionx - (sizex / 2), positiony)
+    # check if TAZ has to be closed
+    if (close is True):
+        leftClick(referencePosition, positionx, positiony)
+    # finish draw
+    typeEnter()
+
+
+def createLineTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
+    """
+    @brief Create line TAZ in position with a certain size
+    """
+    # focus current frame
+    focusOnFrame()
+    # start draw
+    typeEnter()
+    # create TAZ
+    leftClick(referencePosition, positionx, positiony)
+    leftClick(referencePosition, positionx - (sizex / 2), positiony - (sizey / 2))
+    # check if TAZ has to be closed
+    if (close is True):
+        leftClick(referencePosition, positionx, positiony)
+    # finish draw
+    typeEnter()
+
+
+def changeColorUsingDialog(numTabs, color):
+    """
+    @brief modify default color using dialog
+    """
+    # focus current frame
+    focusOnFrame()
+    # go to length TextField
+    for _ in range(numTabs + 1):
+        typeTab()
+    typeSpace()
+    # go to list of colors TextField
+    for _ in range(2):
+        typeInvertTab()
+    # select color
+    for _ in range(1 + color):
+        typeKey('down')
+    # go to accept button and press it
+    typeTab()
+    typeSpace()
+
 
 #################################################
 # Contextual menu
