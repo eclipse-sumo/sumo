@@ -27,3 +27,6 @@ all
 
 # replace stop with invalid index
 invalid
+
+# test replaceStop failure
+unreachable
