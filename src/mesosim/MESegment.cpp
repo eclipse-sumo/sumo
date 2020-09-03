@@ -105,7 +105,7 @@ MESegment::MESegment(const std::string& id,
     myCapacity(length * parent.getLanes().size()),
     myQueueCapacity(multiQueue ? length : length * parent.getLanes().size()),
     myJunctionControl(junctionControl),
-    myTLSPenalty(MSGlobals::gMesoTLSPenalty > 0 &&
+    myTLSPenalty((MSGlobals::gMesoTLSPenalty > 0 || MSGlobals::gMesoTLSFlowPenalty > 0) &&
                  // only apply to the last segment of a tls-controlled edge
                  myNextSegment == nullptr && (
                      parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT ||

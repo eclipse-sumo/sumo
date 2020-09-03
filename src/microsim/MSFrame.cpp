@@ -522,7 +522,10 @@ MSFrame::fillOptions() {
                       "Enable mesoscopic traffic light and priority junction handling for saturated links. This prevents faulty traffic lights from hindering flow in low-traffic situations");
     oc.doRegister("meso-tls-penalty", new Option_Float(0));
     oc.addDescription("meso-tls-penalty", "Mesoscopic",
-                      "Apply scaled time penalties when driving across tls controlled junctions based on green split instead of checking actual phases");
+                      "Apply scaled travel time penalties when driving across tls controlled junctions based on green split instead of checking actual phases");
+    oc.doRegister("meso-tls-flow-penalty", new Option_Float(0));
+    oc.addDescription("meso-tls-flow-penalty", "Mesoscopic",
+                      "Apply scaled headway penalties when driving across tls controlled junctions based on green split instead of checking actual phases");
     oc.doRegister("meso-minor-penalty", new Option_String("0", "TIME"));
     oc.addDescription("meso-minor-penalty", "Mesoscopic",
                       "Apply fixed time penalty when driving across a minor link. When using --meso-junction-control.limited, the penalty is not applied whenever limited control is active.");
@@ -835,6 +838,7 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
     MSGlobals::gMesoOvertaking = oc.getBool("meso-overtaking");
     MSGlobals::gMesoTLSPenalty = oc.getFloat("meso-tls-penalty");
+    MSGlobals::gMesoTLSFlowPenalty = oc.getFloat("meso-tls-flow-penalty");
     MSGlobals::gMesoMinorPenalty = string2time(oc.getString("meso-minor-penalty"));
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gUsingInternalLanes = false;

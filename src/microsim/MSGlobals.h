@@ -96,6 +96,9 @@ public:
     /** scaling factor for macroscopic time penalty when passing tls controlled intersection */
     static double gMesoTLSPenalty;
 
+    /** scaling factor for macroscopic headway penalty when passing tls controlled intersection */
+    static double gMesoTLSFlowPenalty;
+
     /** penalty time for passing a minor link */
     static SUMOTime gMesoMinorPenalty;
 
