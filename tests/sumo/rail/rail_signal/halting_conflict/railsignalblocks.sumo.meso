@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May  6 14:37:56 2020 by Eclipse SUMO Version v1_6_0+0116-fc17f5a0a5
+<!-- generated on Thu Sep  3 17:20:05 2020 by Eclipse SUMO sumo Version v1_6_0+1961-95c187100c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -44,6 +45,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T8_0_0 T9_0_0"/>
                 <bidi lanes="T8_1_0"/>
                 <flank lanes="T1_1_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="A.P1_0"/>
             </driveWay>
         </link>
@@ -54,6 +56,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T11_1_0 T3_1_0 T2_1_0"/>
                 <bidi lanes="T11_0_0"/>
                 <flank lanes="T10_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="A.N2_0"/>
             </driveWay>
         </link>
@@ -64,6 +67,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T10_0_0 T11_0_0 T12_0_0"/>
                 <bidi lanes="T11_1_0 T12_1_0 T13_1_0 T14_1_0 T15_1_0 T16_1_0"/>
                 <flank lanes="T4_1_0"/>
+                <protectingSwitches links="w4_1"/>
                 <conflictLinks signals="B.P1_0"/>
             </driveWay>
         </link>
@@ -74,6 +78,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T1_1_0 T8_1_0 T7_1_0"/>
                 <bidi lanes="T8_0_0 T7_0_0"/>
                 <flank lanes=""/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
@@ -84,6 +89,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T13_0_0 T14_0_0 T15_0_0"/>
                 <bidi lanes="T13_1_0 T14_1_0 T15_1_0 T16_1_0"/>
                 <flank lanes="T4_1_0"/>
+                <protectingSwitches links="w4_1"/>
                 <conflictLinks signals="B.P1_0"/>
             </driveWay>
         </link>
@@ -94,6 +100,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T17_1_0 T6_1_0 T5_1_0"/>
                 <bidi lanes="T17_0_0 T6_0_0 T5_0_0 T4_0_0"/>
                 <flank lanes="T16_0_0"/>
+                <protectingSwitches links="w3_3"/>
                 <conflictLinks signals="B.N2_0"/>
             </driveWay>
         </link>
@@ -104,6 +111,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T6_0_0 T17_0_0 T18_0_0"/>
                 <bidi lanes="T6_1_0 T17_1_0 T18_1_0"/>
                 <flank lanes="T16_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="B.N2_0"/>
             </driveWay>
         </link>
@@ -114,6 +122,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T16_0_0 T17_0_0 T18_0_0"/>
                 <bidi lanes="T16_1_0 T17_1_0 T18_1_0"/>
                 <flank lanes="T6_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="B.N1_0"/>
             </driveWay>
         </link>
@@ -124,6 +133,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T4_1_0 T13_1_0 T12_1_0"/>
                 <bidi lanes="T4_0_0 T13_0_0 T12_0_0 T11_0_0"/>
                 <flank lanes="T14_1_0 T10_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="B.P2_0 A.N2_0"/>
             </driveWay>
         </link>
@@ -134,6 +144,7 @@ SPDX-License-Identifier: EPL-2.0
                 <forward lanes="T14_1_0 T13_1_0 T12_1_0"/>
                 <bidi lanes="T14_0_0 T13_0_0 T12_0_0 T11_0_0"/>
                 <flank lanes="T4_1_0 T10_0_0"/>
+                <protectingSwitches links=""/>
                 <conflictLinks signals="B.P1_0 A.N2_0"/>
             </driveWay>
         </link>
