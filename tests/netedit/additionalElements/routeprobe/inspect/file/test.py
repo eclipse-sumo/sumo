@@ -38,13 +38,13 @@ netedit.changeElement("routeProbe")
 netedit.rebuildNetwork()
 
 # create routeProbe
-netedit.leftClick(referencePosition, 250, 135)
+netedit.leftClick(referencePosition, 250, 120)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 320, 215)
+netedit.leftClick(referencePosition, 320, 220)
 
 # Change parameter 4 with a non valid value (invalid characters)
 netedit.modifyAttribute(4, "$$$$$$$$", True)
