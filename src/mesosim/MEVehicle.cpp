@@ -420,6 +420,9 @@ MEVehicle::updateDetectorForWriting(MSMoveReminder* rem, SUMOTime currentTime, S
 void
 MEVehicle::updateDetectors(SUMOTime currentTime, const bool isLeave, const MSMoveReminder::Notification reason) {
     // segments of the same edge have the same reminder so no cleaning up must take place
+    if (reason == MSMoveReminder::NOTIFICATION_JUNCTION || reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
+        myOdometer += getEdge()->getLength();
+    }
     const bool cleanUp = isLeave && (reason != MSMoveReminder::NOTIFICATION_SEGMENT);
     for (MoveReminderCont::iterator rem = myMoveReminders.begin(); rem != myMoveReminders.end();) {
         if (currentTime != getLastEntryTime()) {
@@ -447,9 +450,6 @@ MEVehicle::updateDetectors(SUMOTime currentTime, const bool isLeave, const MSMov
 #endif
             rem = myMoveReminders.erase(rem);
         }
-    }
-    if (reason == MSMoveReminder::NOTIFICATION_JUNCTION || reason == MSMoveReminder::NOTIFICATION_TELEPORT) {
-        myOdometer += getEdge()->getLength();
     }
 }
 
