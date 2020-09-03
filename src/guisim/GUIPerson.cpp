@@ -577,9 +577,9 @@ GUIPerson::getStageArrivalPos() const {
 }
 
 bool
-GUIPerson::proceed(MSNet* net, SUMOTime time) {
+GUIPerson::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     FXMutexLock locker(myLock);
-    return MSTransportable::proceed(net, time);
+    return MSTransportable::proceed(net, time, vehicleArrived);
 }
 
 // -------------------------------------------------------------------------

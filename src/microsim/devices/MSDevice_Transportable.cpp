@@ -167,7 +167,7 @@ MSDevice_Transportable::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/,
                               "' from vehicle destination edge '" + veh.getEdge()->getID() +
                               "' to intended destination edge '" + transportable->getDestination()->getID() + "'");
             }
-            if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep())) {
+            if (!transportable->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep(), true)) {
                 if (myAmContainer) {
                     MSNet::getInstance()->getContainerControl().erase(transportable);
                 } else {

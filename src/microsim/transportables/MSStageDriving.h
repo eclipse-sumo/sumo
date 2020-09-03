@@ -136,7 +136,7 @@ public:
     void setVehicle(SUMOVehicle* v);
 
     /// @brief marks arrival time and records driven distance
-    const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
+    const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived);
 
     const std::set<std::string>& getLines() const {
         return myLines;

@@ -327,13 +327,13 @@ MSStageDriving::unspecifiedArrivalPos() const {
 }
 
 const std::string
-MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now) {
-    MSStage::setArrived(net, transportable, now);
+MSStageDriving::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived) {
+    MSStage::setArrived(net, transportable, now, vehicleArrived);
     if (myVehicle != nullptr) {
         // distance was previously set to driven distance upon embarking
         myVehicleDistance = myVehicle->getOdometer() - myVehicleDistance;
         myTimeLoss = myVehicle->getTimeLoss() - myTimeLoss;
-        if (myVehicle->hasArrived()) {
+        if (vehicleArrived) {
             myArrivalPos = myVehicle->getArrivalPos();
         } else {
             myArrivalPos = myVehicle->getPositionOnLane();

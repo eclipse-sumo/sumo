@@ -79,9 +79,9 @@ MSTransportable::getRNG() const {
 }
 
 bool
-MSTransportable::proceed(MSNet* net, SUMOTime time) {
+MSTransportable::proceed(MSNet* net, SUMOTime time, const bool vehicleArrived) {
     MSStage* prior = *myStep;
-    const std::string& error = prior->setArrived(net, this, time);
+    const std::string& error = prior->setArrived(net, this, time, vehicleArrived);
     // must be done before increasing myStep to avoid invalid state for rendering
     if (myAmPerson) {
         prior->getEdge()->removePerson(this);

@@ -145,7 +145,7 @@ public:
     void setDeparted(SUMOTime now);
 
     /// logs end of the step
-    virtual const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
+    virtual const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived);
 
     /// Whether the transportable waits for the given vehicle
     virtual bool isWaitingFor(const SUMOVehicle* vehicle) const;
@@ -290,7 +290,7 @@ public:
     std::string getStageSummary(const bool isPerson) const;
 
     /// logs end of the step
-    const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now);
+    const std::string setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now, const bool vehicleArrived);
 
     /// change origin for parking area rerouting
     void setOrigin(const MSEdge* origin) {
