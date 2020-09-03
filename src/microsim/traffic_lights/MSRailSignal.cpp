@@ -1015,7 +1015,9 @@ MSRailSignal::DriveWay::checkCrossingFlanks(MSLink* dwLink, const LaneVisitedMap
         return; // unregulated junction;
     }
     const MSJunctionLogic* logic = junction->getLogic();
-    assert(logic != nullptr);
+    if (logic == nullptr) {
+        return; // unregulated junction;
+    }
     for (const MSEdge* in : junction->getIncoming()) {
         if (in->isInternal()) {
             continue;
