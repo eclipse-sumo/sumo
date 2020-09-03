@@ -149,11 +149,9 @@ Additional options can be used to control intersection delays:
 
 ### TLS-Penalty
 
-When setting **--meso-tls-penalty** {{DT_FLOAT}}: to a value \> 0 (default is 0), a time penalty is applied
-according to the average delay time (based on red phase duration) and
-the minimum headway time is increased to model the maximum capacity
-(according the the proportion of green time to cycle time). This takes
-precedence over any of the above **--meso-junction-control** settings for tls controlled
+When setting **--meso-tls-penalty** {{DT_FLOAT}}: to a value \> 0 (default is 0), a travel time penalty is applied
+according to the average delay time (based on red phase duration).
+This takes precedence over any of the above **--meso-junction-control** settings for tls controlled
 intersections. FLOAT is used as a scaling factor that roughly
 corresponds to coordination (1.0 corresponds to uncoordinated traffic
 lights, whereas values approaching 0 model near-perfect coordination).
@@ -166,13 +164,19 @@ expected waiting time for random arrival within the cycle
 travelTimePenalty = p * (redTime * redTime + redTime) / (2 * cycleTime)
 ```
 
-Also, the headway time within the queue is increased to model reduced
-capacity. This value is also scaled with p to account for imperfect
-knowledge regarding actual green-split:
+### TLS-Flow-Penalty
+When setting **--meso-tls-flow-penalty** {{DT_FLOAT}}: to a value \> 0 (default is 0), a headway penalty is applied
+ which serves to reduce the maximum flow across a tls-controlled intersection (In contrast to actual junction control, they flow is spread evently across the phase cycle rather than being concentrated during the green phases).
+When the flow penalty is set to a value of 1 the minimum headway time is increased to model the maximum capacity
+according to the proportion of green time to cycle time.
+Higher penalty values can be used to reduce the flow even further while lower values increase the maximum flow.
+The latter is useful if the green split is not known exactly (because the traffic light program is guessed heuristically).
+```
+greenFraction = MIN2(1.0, (cycleTime - redDuration) / cycleTime) / penalty))
+headway = defaultHeadway / greenFraction
+```
 
-```
-headway = defaultHeadway * cycleTime / (cycleTime - p * redDuration)
-```
+Note, that the maximum flow cannot exceed the value at permenant green light regardless of penalty value.
 
 ### Penalty at uncontrolled intersections
 
