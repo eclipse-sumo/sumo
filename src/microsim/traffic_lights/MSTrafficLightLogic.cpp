@@ -440,7 +440,7 @@ void MSTrafficLightLogic::initMesoTLSPenalties() {
                 greenFraction = MAX2(MIN2(greenFraction / MSGlobals::gMesoTLSFlowPenalty, 1.0), 0.01);
             }
             if (greenFraction == 0.01) {
-                WRITE_WARNINGF("Green fraction is only 1%% for phase % in tlLogic '%', program '%'.", j, getID(), getProgramID());
+                WRITE_WARNINGF("Green fraction is only 1 percent for link % in tlLogic '%', program '%'.", j, getID(), getProgramID());
             }
             myLinks[j][k]->setMesoTLSPenalty(TIME2STEPS(MSGlobals::gMesoTLSPenalty * penalty[j] / durationSeconds));
             myLinks[j][k]->setGreenFraction(greenFraction);
