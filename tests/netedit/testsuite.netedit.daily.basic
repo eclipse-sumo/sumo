@@ -8,7 +8,10 @@ basic
 #additionalElements
 
 # test for shapes elements (Polygons and POIs)
-shapeElements
+#shapeElements
+
+# test for shapes elements
+#TAZElements
 
 # test for demand elements (Routes, Vehicles, etc.)
 #demandElements
