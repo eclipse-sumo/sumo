@@ -42,8 +42,10 @@ permalink: /ChangeLog/
   - Fixed crash when loading railway network with unregulated junctions. Issue #7421
   - Fixed invalid rail_signal state after loading simulation state. Issue #7451
   - Fixed railway collision on bidirectional track. Issue #7462
+  - Fixed railway emergency braking. Issue #7487
   - Fixed missing vehicle line information after loading state. Issue #7469
   - Fixed crash when using bluelight device. Issue #7473
+  - Vehicles no longer get stuck when setting 'maxSpeedLatStanding=0'. Issue #3776, #6106, #7474
       
 - Meso
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
@@ -140,6 +142,7 @@ permalink: /ChangeLog/
   - Improved loading time of large rail networks. Issue #7403
   - Added option **--railway.max-train-length** to tune the efficiency of the railway router initialization. Issue #7405
   - Calibrators now support attribute 'jamThreshold' to configure automatic jam clearing. Issue #6592
+  - **--railsignal-block-output** now includes 'protectingSwitches' to distinguish flanks guarded by signals from flanks guarded by switches. Issue #7489
   
 - netconvert
   - Added option **--discard-param KEY1,KEY2,..** which deletes all `<param .../>` elements with the given keys. Issue #6972
@@ -161,6 +164,7 @@ permalink: /ChangeLog/
   - Selection mode now supports Ctrl+click to strictly move the view. Issue #7239
   - Improving loading speed of polygons. Issue #7287
   - Elements can now be marked as 'front element' (F11) to facilitate working with overlapped objects in move mode and traffic light mode. Issue #4903, #5781
+  - LaneAreaDetectors with multiple lanes can now be created. Issue #7475
 
 - sumo-gui
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
@@ -184,7 +188,7 @@ permalink: /ChangeLog/
   - Added new optional 'reason' argument to *vehicle.moveTo* which controls how the vehicle interacts with detectors. By default, vehicles will be registered by detectors if the moveTo distance is physically plausible. Issue #3318. 
   - Added new function *vehicle.getStops*. This can be used to retrieve the next or last n stops. The method returns a list of stop objects with extended attributes. Issue #7015, #7249, #7117, #7452
   - Added functionality for retrieving lane, position and stopped vehicles for traci domains 'busstop', 'parkingarea', 'chargingstation' and 'overheadwire'. Issue #5952, #7099
-  - The python client now supports the optional argument 'traceFile' in function traci.start which records all traci commands to the given file (also works for libsumo.start). Issue#6604
+  - The python client now supports the optional argument 'traceFile' in function traci.start which records all traci commands to the given file (also works for libsumo.start). The optional boolean argumet 'traceGetters' can be used to switch of tracing of data retrieval functions. Issue#6604, #7481
   - Added function 'vehicle.replaceStop' which replace the upcoming stop with the given index and automatically adapts the route to the new stop edge. Issue #7226
   - Added function 'vehicle.getFollower' which works like getLeader but looks backwards. Issue #7107
   - Retrieval of prior person stages now includes departure time and travel time. Issue #7274
