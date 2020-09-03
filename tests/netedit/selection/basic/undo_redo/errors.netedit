@@ -192,8 +192,10 @@ Debug: Removing edge '8' from net
 Debug: Removing junction 'Center' from net
 Debug: Removing poi 'POI_3' from viewNet
 Debug: Removing poly 'poly_0' from viewNet
+Debug: Removing taz 'TAZ' from viewNet
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
+Debug: Adding taz 'TAZ' into viewNet
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding junction 'Center' into net
@@ -456,8 +458,10 @@ Debug: Removing edge '8' from net
 Debug: Removing junction 'Center' from net
 Debug: Removing poi 'POI_3' from viewNet
 Debug: Removing poly 'poly_0' from viewNet
+Debug: Removing taz 'TAZ' from viewNet
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
+Debug: Adding taz 'TAZ' into viewNet
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding junction 'Center' into net
