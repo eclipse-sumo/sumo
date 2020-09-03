@@ -71,7 +71,7 @@ Debug: Key ENTER pressed
 Debug: Adding trip 'vehicle_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into trip 'vehicle_0'
+Debug: Value 'key1=value1|key2=value2|key3=value3' for attribute depart of trip isn't valid
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into trip 'vehicle_0'
 Debug: Setting new attribute genericParameter '' into trip 'vehicle_0'
 Debug: Setting new attribute genericParameter 'key1duplicated=value2|key3=value3' into trip 'vehicle_0'
@@ -95,20 +95,15 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter 'key1=|key2=|key3=' into trip 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute genericParameter 'key1=value1|key2=value2|key3=value3' into trip 'vehicle_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute genericParameter '' into trip 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'vehicle_0' in GNEChange_DemandElement
 Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
+Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding trip 'vehicle_0' in GNEChange_DemandElement
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into trip 'vehicle_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into trip 'vehicle_0'
@@ -127,6 +122,7 @@ Debug: Setting new attribute genericParameter 'key1=valueInvalid%;%$<>$$%|key2=v
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute genericParameter 'keyFinal1=value1|keyFinal2=value2|keyFinal3=value3' into trip 'vehicle_0'
+Debug: Keys Ctrl+Y (Redo) pressed
 Debug: demand elements saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary 0.00,6.80,20.00,33.20
