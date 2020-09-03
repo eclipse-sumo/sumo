@@ -90,6 +90,10 @@ void
 MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into) {
     OptionsCont& oc = OptionsCont::getOptions();
     if (equippedByDefaultAssignmentOptions(oc, "taxi", v, false)) {
+        if (MSGlobals::gUseMesoSim) {
+            WRITE_WARNING("Mesoscopic simulation does not support the taxi device yet.");
+            return;
+        }
         // build the device
         MSDevice_Taxi* device = new MSDevice_Taxi(v, "taxi_" + v.getID());
         into.push_back(device);
@@ -100,7 +104,7 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
             const_cast<SUMOVehicleParameter&>(v.getParameter()).line = TAXI_SERVICE;
         }
         if (v.getVClass() != SVC_TAXI) {
-            WRITE_WARNING("Vehicle '" + v.getID() + "' with device.taxi should have vClass taxi instead of '" + toString(v.getVClass()) + "'");
+            WRITE_WARNING("Vehicle '" + v.getID() + "' with device.taxi should have vClass taxi instead of '" + toString(v.getVClass()) + "'.");
         }
     }
 }
@@ -332,10 +336,8 @@ MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
         if (!myIsStopped) {
             // limit duration of stop
             // @note: stops are not yet added to the vehicle so we can change the loaded parameters. Stops added from a route are not affected
-            if (!MSGlobals::gUseMesoSim) {
-                MSVehicle& veh = static_cast<MSVehicle&>(myHolder);
-                veh.getNextStop().endBoarding = myServiceEnd;
-            }
+            MSVehicle& veh = static_cast<MSVehicle&>(myHolder);
+            veh.getNextStop().endBoarding = myServiceEnd;
         }
     }
     myIsStopped = myHolder.isStopped();
