@@ -44,16 +44,16 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 320, 200)
+netedit.leftClick(referencePosition, 320, 215)
 
 # Change parameter 2 with a non valid value (dummy)
-netedit.modifyAttribute(2, "dummy", False)
+netedit.modifyAttribute(2, "dummy", True)
 
 # Change parameter 2 with a non valid value (negative)
-netedit.modifyAttribute(2, "-50", False)
+netedit.modifyAttribute(2, "-50", True)
 
 # Change parameter 2 with a valid value
-netedit.modifyAttribute(2, "150", False)
+netedit.modifyAttribute(2, "150", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

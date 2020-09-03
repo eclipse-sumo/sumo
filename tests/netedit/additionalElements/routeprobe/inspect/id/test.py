@@ -47,7 +47,7 @@ netedit.leftClick(referencePosition, 250, 235)
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 320, 200)
+netedit.leftClick(referencePosition, 320, 215)
 
 # Change parameter 0 with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "routeProbe_gneE3_1", True)
