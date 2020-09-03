@@ -74,6 +74,8 @@ GNETAZ::writeTAZElement(OutputDevice& device) const {
     for (const auto& sourceSink : getChildTAZElements()) {
         sourceSink->writeTAZElement(device);
     }
+    // write params
+    GNETAZElement::writeParams(device);
     // close TAZ tag
     device.closeTag();
 }

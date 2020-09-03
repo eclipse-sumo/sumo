@@ -2670,10 +2670,45 @@ GNEAdditionalHandler::parseParameter(const SUMOSAXAttributes& attrs) {
                 myLastInsertedElement->getLastInsertedShape()->setParameter(key, val);
             }
         } else {
-            WRITE_WARNING("Shape of type '" + myLastInsertedElement->getLastInsertedAdditional()->getTagStr() + "' doesn't support parameters");
+            WRITE_WARNING("Shape of type '" + myLastInsertedElement->getLastInsertedShape()->getTagStr() + "' doesn't support parameters");
+        }
+    } else if (myLastInsertedElement->getLastInsertedTAZElement()) {
+        // first check if given TAZ supports parameters
+        if (myLastInsertedElement->getLastInsertedTAZElement()->getTagProperty().hasParameters()) {
+            bool ok = true;
+            std::string key;
+            if (attrs.hasAttribute(SUMO_ATTR_KEY)) {
+                // obtain key
+                key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
+                if (key.empty()) {
+                    WRITE_WARNING("Error parsing key from TAZ parameter. Key cannot be empty");
+                    ok = false;
+                }
+                if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
+                    WRITE_WARNING("Error parsing key from TAZ parameter. Key contains invalid characters");
+                    ok = false;
+                }
+            } else {
+                WRITE_WARNING("Error parsing key from TAZ parameter. Key doesn't exist");
+                ok = false;
+            }
+            // circumventing empty string test
+            const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+            // check double values
+            if (myLastInsertedElement->getLastInsertedTAZElement()->getTagProperty().hasDoubleParameters() && !GNEAttributeCarrier::canParse<double>(val)) {
+                WRITE_WARNING("Error parsing value from TAZ float parameter. Value cannot be parsed to float");
+                ok = false;
+            }
+            // set parameter in last inserted TAZ
+            if (ok) {
+                WRITE_DEBUG("Inserting parameter '" + key + "|" + val + "' into TAZ " + myLastInsertedElement->getLastInsertedTAZElement()->getTagStr() + ".");
+                myLastInsertedElement->getLastInsertedTAZElement()->setParameter(key, val);
+            }
+        } else {
+            WRITE_WARNING("TAZ of type '" + myLastInsertedElement->getLastInsertedTAZElement()->getTagStr() + "' doesn't support parameters");
         }
     } else {
-        WRITE_WARNING("Parameters has to be declared within the definition of an additional or a shape element");
+        WRITE_WARNING("Parameters has to be declared within the definition of an additional, shape or TAZ element");
     }
 }
 
