@@ -61,7 +61,7 @@ When setting option **--save-state.rng**, the state of all random number generat
 
 # Know Issues
 
-- The internal state of the lanChangeModel is not saved
+- The internal state of the laneChangeModel is not saved
 - the internal state of the carFollowModel is not saved (not all models have this).
 - Persons are not saved
 
