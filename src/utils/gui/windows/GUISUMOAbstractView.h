@@ -414,7 +414,7 @@ protected:
     std::vector<GUIGlObject*> getGUIGlObjectsUnderCursor();
 
     /// @brief returns the GUIGlObject under the gripped cursor using GL_SELECT (including overlapped objects)
-    std::vector<GUIGlObject*> getGUIGlObjectsUnderGrippedCursor();
+    std::vector<GUIGlObject*> getGUIGlObjectsUnderSnappedCursor();
 
     /// @brief returns the id of the object at position using GL_SELECT
     GUIGlID getObjectAtPosition(Position pos);

@@ -34,6 +34,7 @@
 
 GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Create Edge"),
+    myObjectsUnderSnappedCursor(viewNet),
     myCreateEdgeSource(nullptr) {
 }
 
@@ -48,6 +49,8 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
     GNEJunction* junction = nullptr;
     if (objectsUnderCursor.getJunctionFront()) {
         junction = objectsUnderCursor.getJunctionFront();
+    } else if (myObjectsUnderSnappedCursor.getJunctionFront()) {
+        junction = myObjectsUnderSnappedCursor.getJunctionFront();
     }
     // begin undo list
     if (!myViewNet->getUndoList()->hasCommandGroup()) {
@@ -116,6 +119,12 @@ GNECreateEdgeFrame::abortEdgeCreation() {
 const GNEJunction*
 GNECreateEdgeFrame::getJunctionSource() const {
     return myCreateEdgeSource;
+}
+
+
+void 
+GNECreateEdgeFrame::updateObjectsUnderSnappedCursor(const std::vector<GUIGlObject*>& GUIGlObjects) {
+    myObjectsUnderSnappedCursor.updateObjectUnderCursor(GUIGlObjects);
 }
 
 

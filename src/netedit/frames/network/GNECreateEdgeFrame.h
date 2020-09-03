@@ -55,13 +55,19 @@ public:
     /// @brief get junction source for new edge
     const GNEJunction* getJunctionSource() const;
 
+    /// @brief update objects under snapped cursor
+    void updateObjectsUnderSnappedCursor(const std::vector<GUIGlObject*>& GUIGlObjects);
+
     /// @brief show prohibition frame
     void show();
 
     /// @brief hide prohibition frame
     void hide();
 
-private:
+protected:
+    /// @brief objects under snapped cursor
+    GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderSnappedCursor;
+
     /// @brief source junction for new edge
     GNEJunction* myCreateEdgeSource;
 };

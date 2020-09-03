@@ -3767,6 +3767,12 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         case NetworkEditMode::NETWORK_CREATE_EDGE: {
             // make sure that Control key isn't pressed
             if (!myKeyPressed.controlKeyPressed()) {
+                // check if we have to update objects under snapped cursor
+                if (myVisualizationSettings->showGrid) {
+                    myViewParent->getCreateEdgeFrame()->updateObjectsUnderSnappedCursor(getGUIGlObjectsUnderSnappedCursor());
+                } else {
+                    myViewParent->getCreateEdgeFrame()->updateObjectsUnderSnappedCursor({});
+                }
                 // process left click in create edge frame Frame
                 myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(),
                         myObjectsUnderCursor,
