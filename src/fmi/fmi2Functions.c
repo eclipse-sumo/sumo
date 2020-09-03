@@ -49,12 +49,12 @@ fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
                   fmi2Boolean visible, fmi2Boolean loggingOn)
 {
   
-   allocateMemoryType cbAllocateMemory = (allocateMemoryType)functions->allocateMemory;
+   allocateMemoryType funcAllocateMemory = (allocateMemoryType)functions->allocateMemory;
 
-   ModelInstance* comp = (ModelInstance *) cbAllocateMemory(1, sizeof(ModelInstance));
+   ModelInstance* comp = (ModelInstance *) funcAllocateMemory(1, sizeof(ModelInstance));
 
    if (comp) {
-      comp->componentEnvironment = functions->componentEnvironment;
+    	comp->componentEnvironment = functions->componentEnvironment;
 		
 		/* Callback functions for specific logging, malloc and free;
 		   we need callback functions because we cannot know, which functions
@@ -64,6 +64,7 @@ fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
 		comp->freeMemory = (freeMemoryType)functions->freeMemory;
 
 		comp->instanceName = (char *)comp->allocateMemory(1 + strlen(instanceName), sizeof(char));
+		strcpy((char *)comp->instanceName, (char *)instanceName);
 
 		if (fmuResourceLocation) {
 		 	comp->resourceLocation = (char *)comp->allocateMemory(1 + strlen(fmuResourceLocation), sizeof(char));
@@ -74,10 +75,9 @@ fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
 
 		comp->modelData = (ModelData *)comp->allocateMemory(1, sizeof(ModelData));
         
-      comp->logEvents = loggingOn;
-      comp->logErrors = true; // always log errors
+      	comp->logEvents = loggingOn;
+      	comp->logErrors = true; // always log errors
 	}
-	strcpy((char *)comp->instanceName, (char *)instanceName);
 
 	return comp;
 }
@@ -88,12 +88,15 @@ void
 fmi2FreeInstance(fmi2Component c) {
 	ModelInstance *comp = (ModelInstance *)c;
 
-    if (!comp) return;
+	/* Store the pointer to the freeMemory function, because we
+	   are going to free comp as well */
+	freeMemoryType freeMemoryFunc = comp->freeMemory;
 
 	/* We want to free everything that we allocated in fmi2Instantiate */
-	comp->freeMemory((void *)comp->instanceName);
-	comp->freeMemory((void *)comp->resourceLocation); 
-	comp->freeMemory((void *)comp->modelData);
+	freeMemoryFunc((void *)comp->instanceName);
+	freeMemoryFunc((void *)comp->resourceLocation); 
+	freeMemoryFunc((void *)comp->modelData);
+	freeMemoryFunc((void *)comp);
 }
 
 /* Define what should be logged - if logging is enabled globally */ 
