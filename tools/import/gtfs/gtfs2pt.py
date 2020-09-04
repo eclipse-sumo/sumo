@@ -66,8 +66,7 @@ def get_options(args=None):
     argParser.add_argument("--bus-stop-length", default=13, type=float, help="length for a bus stop")
     argParser.add_argument("--train-stop-length", default=110, type=float, help="length for a train stop")
     argParser.add_argument("--tram-stop-length", default=60, type=float, help="length for a tram stop")
-    argParser.add_argument("--fill-gaps", default=30, type=int,
-                           help="maximum number of edges between stops")
+    argParser.add_argument("--fill-gaps", default=5000, type=float, help="maximum distance between stops")
 
     options = gtfs2fcd.check_options(argParser.parse_args(args=args))
     if options.map_output is None:

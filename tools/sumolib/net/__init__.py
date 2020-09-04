@@ -486,7 +486,7 @@ class Net:
                             for p in l.getShape3D()]
             e.rebuildShape()
 
-    def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0, maxDepth=1e400):
+    def getShortestPath(self, fromEdge, toEdge, maxCost=1e400, vClass=None, reversalPenalty=0, includeFromToCost=True):
         """
         Finds the shortest path from fromEdge to toEdge respecting vClass, using Dijkstra's algorithm.
         It returns a pair of a tuple of edges and the cost. If no path is found the first element is None.
@@ -503,7 +503,7 @@ class Net:
                 appendix = (toEdge,) + appendix
                 appendixCost += toEdge.getLength()
                 toEdge = list(toEdge.getIncoming().keys())[0]
-        q = [(fromEdge.getLength(), fromEdge.getID(), fromEdge, ())]
+        q = [(fromEdge.getLength() if includeFromToCost else 0, fromEdge.getID(), fromEdge, ())]
         seen = set()
         dist = {fromEdge: fromEdge.getLength()}
         while q:
@@ -512,20 +512,14 @@ class Net:
                 continue
             seen.add(e1)
             path += (e1,)
-            if cost > maxCost:
-                return None, cost
-            if len(path) > maxDepth:
-                haveShorter = False
-                for p in q:
-                    if len(p[-1]) <= maxDepth:
-                        haveShorter = True
-                        break
-                if not haveShorter:
-                    return None, cost
             if e1 == toEdge:
                 if self.hasInternal:
                     return path + appendix, cost + appendixCost
-                return path, cost
+                if includeFromToCost:
+                    return path, cost                
+                return path, cost - toEdge.getLength()
+            if cost > maxCost:
+                return None, cost
 
             for e2, conn in e1.getAllowedOutgoing(vClass).items():
                 # print(cost, e1.getID(), e2.getID(), e2 in seen)

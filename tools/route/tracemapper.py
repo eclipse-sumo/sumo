@@ -84,7 +84,7 @@ if __name__ == "__main__":
     optParser.add_option("--geo", action="store_true",
                          default=False, help="read trace with geo-coordinates")
     optParser.add_option("--fill-gaps", default=0, type=int,
-                         help="repair disconnected routes bridging gaps of up to x edges")
+                         help="repair disconnected routes bridging gaps of up to x meters")
     optParser.add_option("-g", "--gap-penalty", default=-1, type="float",
                          help="penalty to add for disconnected routes " +
                               "(default of -1 adds the distance between the two endpoints as penalty)")

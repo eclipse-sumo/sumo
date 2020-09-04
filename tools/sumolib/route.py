@@ -104,9 +104,8 @@ def mapTrace(trace, net, delta, verbose=False, airDistFactor=2, fillGaps=0, gapP
                             if debug:
                                 print("---------- same edge")
                         else:
-                            extension, cost = net.getShortestPath(
-                                path[-1], edge, airDistFactor * advance + edge.getLength() + path[-1].getLength(),
-                                maxDepth=fillGaps + 1)
+                            maxGap = min(airDistFactor * advance + edge.getLength() + path[-1].getLength(), fillGaps)
+                            extension, cost = net.getShortestPath(path[-1], edge, maxGap, includeFromToCost=False)
                             if extension is None:
                                 airLineDist = euclidean(
                                     path[-1].getToNode().getCoord(),
