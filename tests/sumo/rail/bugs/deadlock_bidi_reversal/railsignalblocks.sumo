@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep  4 09:00:18 2020 by Eclipse SUMO sumo Version v1_6_0+1969-2e6130e9c0
+<!-- generated on Fri Sep  4 09:05:12 2020 by Eclipse SUMO sumo Version v1_6_0+1974-e63e6eaa31
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,31 +34,31 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <railsignal-block-output>
-    <railSignal id="gneJ1">
-        <link linkIndex="0" from="a_0" to=":gneJ1_0_0">
+    <railSignal id="A">
+        <link linkIndex="0" from="a_0" to=":A_0_0">
             <driveWay edges="b c d e f">
-                <forward lanes=":gneJ1_0_0 b_0 :gneJ2_1_0 c_0 :gneJ3_1_0 d_0"/>
-                <bidi lanes="-c_0 :gneJ3_0_0 -d_0 :gneJ7_0_0 -e_0 :gneJ8_0_0 -f_0"/>
+                <forward lanes=":A_0_0 b_0 :B_1_0 c_0 :C_1_0 d_0"/>
+                <bidi lanes="-c_0 :C_0_0 -d_0 :D_0_0 -e_0 :E_0_0 -f_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
             </driveWay>
         </link>
     </railSignal>
-    <railSignal id="gneJ7">
-        <link linkIndex="0" from="-e_0" to=":gneJ7_0_0">
+    <railSignal id="D">
+        <link linkIndex="0" from="-e_0" to=":D_0_0">
             <driveWay edges="-d -c -b -a">
-                <forward lanes=":gneJ7_0_0 -d_0 :gneJ3_0_0 -c_0 :gneJ2_0_0 -b_0 :gneJ6_0_0 -a_0"/>
-                <bidi lanes=":gneJ7_1_0 d_0 :gneJ3_1_0 c_0"/>
-                <flank lanes=":gneJ2_1_0 b_0 :gneJ1_0_0"/>
+                <forward lanes=":D_0_0 -d_0 :C_0_0 -c_0 :B_0_0 -b_0 :-A_0_0 -a_0"/>
+                <bidi lanes=":D_1_0 d_0 :C_1_0 c_0"/>
+                <flank lanes=":B_1_0 b_0 :A_0_0"/>
                 <protectingSwitches links=""/>
-                <conflictLinks signals="gneJ1_0"/>
+                <conflictLinks signals="A_0"/>
             </driveWay>
         </link>
-        <link linkIndex="1" from="d_0" to=":gneJ7_1_0">
+        <link linkIndex="1" from="d_0" to=":D_1_0">
             <driveWay edges="e f">
-                <forward lanes=":gneJ7_1_0 e_0 :gneJ8_1_0 f_0"/>
-                <bidi lanes=":gneJ7_0_0 -e_0 :gneJ8_0_0 -f_0"/>
+                <forward lanes=":D_1_0 e_0 :E_1_0 f_0"/>
+                <bidi lanes=":D_0_0 -e_0 :E_0_0 -f_0"/>
                 <flank lanes=""/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals=""/>
