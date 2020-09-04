@@ -21,3 +21,6 @@ stopped_at_signal
 # 
 # 
 stopped_at_signal2
+
+# vehicle train1 enters the branch and can only leave it by turning around. Rail signal guarding the branch should not let train2 enter to avoid deadlock
+deadlock_bidi_reversal
