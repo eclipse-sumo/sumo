@@ -5,14 +5,42 @@ Debug: Current Viewport values: 100.00, 0.00, 200.00. Zoom = '50.00'
 Debug: Adding junction 'gneJ0' into net
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
-Debug: Removing junction 'gneJ0' from net
-Debug: Deleting unreferenced junction 'gneJ0' in GNEChange_Junction
-Debug: Deleting NBNode of 'gneJ0' in GNEJunction destructor
+Debug: Adding junction 'gneJ1' into net
+Debug: Adding edge 'gneE0' from net
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: Setting new attribute shape '100.00,100.00' into edge 'gneE0'
 Debug: Key F5 (Compute) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute shape '' into edge 'gneE0'
 Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
+Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Removing edge 'gneE0' from net
+Debug: Removing junction 'gneJ1' from net
+Debug: Removing junction 'gneJ0' from net
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Adding junction 'gneJ0' into net
+Debug: Adding junction 'gneJ1' into net
+Debug: Adding edge 'gneE0' from net
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute shape '100.00,100.00' into edge 'gneE0'
+Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
+Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor

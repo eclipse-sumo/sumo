@@ -38,7 +38,7 @@ netedit.setZoom("50", "50", "100")
 netedit.moveMode()
 
 # move back to another different position of initial
-netedit.moveElement(referencePosition, -40, 240, 40, 365)
+netedit.moveElement(referencePosition, 60, 240, 168, 398)
 
 # check undo redo
 netedit.undo(referencePosition, 1)

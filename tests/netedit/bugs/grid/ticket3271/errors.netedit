@@ -36,26 +36,78 @@ Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into jun
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
 Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
-Debug: Adding junction 'gneJ2' into net
-Debug: Adding junction 'gneJ3' into net
 Debug: Adding edge 'gneE1' from net
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ2'
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
 Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
-Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ3'
-Debug: Adding junction 'gneJ4' into net
-Debug: Removing junction 'gneJ4' from net
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
-Debug: Deleting unreferenced junction 'gneJ4' in GNEChange_Junction
-Debug: Deleting NBNode of 'gneJ4' in GNEJunction destructor
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Adding edge 'gneE2' from net
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Removing connection '2_1->6_1' from edge '2'
+Debug: Deleting unreferenced connection 'from2_1to6_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
+Debug: invalidating (removing) connections of edge '2' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
+Debug: Adding edge 'gneE3' from net
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
+Debug: invalidating (removing) connections of edge '2' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE2'
+Debug: invalidating (removing) connections of edge 'gneE2' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE1'
+Debug: invalidating (removing) connections of edge 'gneE1' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE3'
+Debug: invalidating (removing) connections of edge 'gneE3' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ0'
+Debug: Adding edge 'gneE4' from net
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: Removing connection '1_1->5_1' from edge '1'
+Debug: Deleting unreferenced connection 'from1_1to5_1' in removeConnection()
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Debug: invalidating (removing) connections of edge '1' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
+Debug: Adding edge 'gneE5' from net
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '1'
+Debug: invalidating (removing) connections of edge '1' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE4'
+Debug: invalidating (removing) connections of edge 'gneE4' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'A'
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE0'
+Debug: invalidating (removing) connections of edge 'gneE0' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge 'gneE5'
+Debug: invalidating (removing) connections of edge 'gneE5' due it were guessed
+Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'gneJ1'
+Debug: Created connection 'from1_0togneE5_0' in retrieveGNEConnection()
+Debug: Created connection 'from1_1to5_1' in retrieveGNEConnection()
+Debug: Created connection 'from2_0togneE3_0' in retrieveGNEConnection()
+Debug: Created connection 'from2_1to6_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE0_0togneE4_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE1_0togneE2_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_0to6_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE2_0to6_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE3_0togneE0_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE4_0to5_0' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE4_0to5_1' in retrieveGNEConnection()
+Debug: Created connection 'fromgneE5_0togneE1_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from1_0togneE5_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from1_1to5_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge '2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '2_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '2_1' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from2_0togneE3_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from2_1to6_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge '3' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '3_0' in GNEEdge destructor
@@ -99,8 +151,24 @@ Debug: Deleting unreferenced connection 'from8_1to3_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from8_1to4_1' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE0_0togneE4_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE1_0togneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_0to6_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE2_0to6_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE3' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE3_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE3_0togneE0_0' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE4' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE4_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE4_0to5_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE4_0to5_1' in GNEEdge destructor
+Debug: Deleting unreferenced edge 'gneE5' in AttributeCarriers destructor
+Debug: Deleting unreferenced lane 'gneE5_0' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'fromgneE5_0togneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'A' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'B' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'C' in AttributeCarriers destructor
@@ -108,8 +176,6 @@ Debug: Deleting unreferenced junction 'Center' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'D' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
-Debug: Deleting unreferenced junction 'gneJ2' in AttributeCarriers destructor
-Debug: Deleting unreferenced junction 'gneJ3' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor

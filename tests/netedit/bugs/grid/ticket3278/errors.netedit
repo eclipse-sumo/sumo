@@ -29,8 +29,15 @@ Debug: Created connection 'from8_1to4_1' in retrieveGNEConnection()
 Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Current Viewport values: 50.00, 50.00, 100.00. Zoom = '124.00'
+Debug: Setting new attribute pos '20.00,20.00' into junction 'C'
+Debug: net has to be saved
+Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute pos '0.00,50.00' into junction 'C'
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute pos '20.00,20.00' into junction 'C'
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

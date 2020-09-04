@@ -35,17 +35,17 @@ netedit.setZoom("100", "0", "200")
 netedit.createEdgeMode()
 
 # Create one way edge
-netedit.leftClick(referencePosition, -30, 245)
-netedit.leftClick(referencePosition, 430, 245)
+netedit.leftClick(referencePosition, 62, 240)
+netedit.leftClick(referencePosition, 590, 240)
 
 # change to move mode
 netedit.moveMode()
 
 # Try to move to origin position
-netedit.moveElement(referencePosition, 215, 247, -40, 247)
+netedit.moveElement(referencePosition, 326, 240, 62, 240)
 
 # Now move to top
-netedit.moveElement(referencePosition, 215, 247, 215, 447)
+netedit.moveElement(referencePosition, 326, 240, 326, 0)
 
 # rebuild network
 netedit.rebuildNetwork()
