@@ -1,0 +1,3 @@
+Error: Vehicle 'tripB' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Teleporting vehicle 'tripA'; waited too long (jam), lane=':gneJ5_2_0', time=310.00.
+Warning: Vehicle 'tripA' ends teleporting on edge 'gneE4', time 310.00.
