@@ -1,18 +1,14 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Adding e1Detector 'detector1' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_3' in GNEChange_Additional
+Debug: Adding e1Detector 'detector2' in GNEChange_Additional
+Debug: Adding e1Detector 'detector3' in GNEChange_Additional
+Debug: Adding e1Detector 'detector4' in GNEChange_Additional
+Debug: Adding e1Detector 'detector5' in GNEChange_Additional
+Debug: Adding e1Detector 'detector6' in GNEChange_Additional
+Debug: Adding e1Detector 'detector7' in GNEChange_Additional
+Debug: Adding e1Detector 'detector8' in GNEChange_Additional
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Adding taz 'TAZ' into viewNet
 Debug: Adding poi 'POI_0' into viewNet
@@ -69,18 +65,14 @@ Debug: Setting new attribute selected 'true' into connection 'from8_2to3_2'
 Debug: Setting new attribute selected 'true' into connection 'from8_2to1_2'
 Debug: Setting new attribute selected 'true' into junction 'D'
 Debug: Setting new attribute selected 'true' into edge '4'
-Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected 'true' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected 'true' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected 'true' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector1'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector2'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector3'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector4'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector5'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector6'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector7'
+Debug: Setting new attribute selected 'true' into e1Detector 'detector8'
 Debug: Setting new attribute selected 'true' into poly 'poly_0'
 Debug: Setting new attribute selected 'true' into taz 'TAZ'
 Debug: Setting new attribute selected 'true' into poi 'POI_0'
@@ -118,18 +110,14 @@ Debug: Setting new attribute selected 'false' into connection 'from8_2to3_2'
 Debug: Setting new attribute selected 'false' into connection 'from8_2to1_2'
 Debug: Setting new attribute selected 'false' into junction 'D'
 Debug: Setting new attribute selected 'false' into edge '4'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector1'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector2'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector4'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector5'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector6'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector7'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector8'
 Debug: Setting new attribute selected 'false' into poly 'poly_0'
 Debug: Setting new attribute selected 'false' into taz 'TAZ'
 Debug: Setting new attribute selected 'false' into poi 'POI_0'
@@ -158,18 +146,14 @@ Debug: Removing taz 'TAZ' from net in ~GNEChange_TAZElement()
 Debug: delete taz 'TAZ' in ~GNEChange_TAZElement()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
-Debug: Deleting unreferenced detExit 'e3Detector_3'
-Debug: Deleting unreferenced detEntry 'e3Detector_3'
-Debug: Deleting unreferenced e3Detector 'e3Detector_3'
-Debug: Deleting unreferenced detExit 'e3Detector_2'
-Debug: Deleting unreferenced detEntry 'e3Detector_2'
-Debug: Deleting unreferenced e3Detector 'e3Detector_2'
-Debug: Deleting unreferenced detExit 'e3Detector_1'
-Debug: Deleting unreferenced detEntry 'e3Detector_1'
-Debug: Deleting unreferenced e3Detector 'e3Detector_1'
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting unreferenced e1Detector 'detector8'
+Debug: Deleting unreferenced e1Detector 'detector7'
+Debug: Deleting unreferenced e1Detector 'detector6'
+Debug: Deleting unreferenced e1Detector 'detector5'
+Debug: Deleting unreferenced e1Detector 'detector4'
+Debug: Deleting unreferenced e1Detector 'detector3'
+Debug: Deleting unreferenced e1Detector 'detector2'
+Debug: Deleting unreferenced e1Detector 'detector1'
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor

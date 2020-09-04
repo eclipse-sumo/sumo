@@ -1,18 +1,14 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Adding e1Detector 'detector1' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_3' in GNEChange_Additional
+Debug: Adding e1Detector 'detector2' in GNEChange_Additional
+Debug: Adding e1Detector 'detector3' in GNEChange_Additional
+Debug: Adding e1Detector 'detector4' in GNEChange_Additional
+Debug: Adding e1Detector 'detector5' in GNEChange_Additional
+Debug: Adding e1Detector 'detector6' in GNEChange_Additional
+Debug: Adding e1Detector 'detector7' in GNEChange_Additional
+Debug: Adding e1Detector 'detector8' in GNEChange_Additional
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Adding taz 'TAZ' into viewNet
 Debug: Adding poi 'POI_0' into viewNet
@@ -65,18 +61,14 @@ Debug: Setting new attribute selected '1' into poi 'POI_3'
 Debug: Setting new attribute selected '1' into poiLane 'POI_4'
 Debug: Setting new attribute selected '1' into poiLane 'POI_5'
 Debug: Setting new attribute selected '1' into taz 'TAZ'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected '1' into e1Detector 'detector1'
+Debug: Setting new attribute selected '1' into e1Detector 'detector2'
+Debug: Setting new attribute selected '1' into e1Detector 'detector3'
+Debug: Setting new attribute selected '1' into e1Detector 'detector4'
+Debug: Setting new attribute selected '1' into e1Detector 'detector5'
+Debug: Setting new attribute selected '1' into e1Detector 'detector6'
+Debug: Setting new attribute selected '1' into e1Detector 'detector7'
+Debug: Setting new attribute selected '1' into e1Detector 'detector8'
 Debug: Setting new attribute selected '1' into poly 'poly_0'
 Debug: Setting new attribute selected 'false' into junction 'A'
 Debug: Setting new attribute selected 'false' into edge '1'
@@ -93,18 +85,14 @@ Debug: Setting new attribute selected 'false' into crossing ':Center_c0'
 Debug: Setting new attribute selected 'false' into crossing ':Center_c1'
 Debug: Setting new attribute selected 'false' into junction 'D'
 Debug: Setting new attribute selected 'false' into edge '4'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector1'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector2'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector4'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector5'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector6'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector7'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector8'
 Debug: Setting new attribute selected 'false' into poly 'poly_0'
 Debug: Setting new attribute selected 'false' into taz 'TAZ'
 Debug: Setting new attribute selected 'false' into poi 'POI_0'
@@ -135,18 +123,14 @@ Debug: Setting new attribute selected '1' into poi 'POI_3'
 Debug: Setting new attribute selected '1' into poiLane 'POI_4'
 Debug: Setting new attribute selected '1' into poiLane 'POI_5'
 Debug: Setting new attribute selected '1' into taz 'TAZ'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected '1' into e1Detector 'detector1'
+Debug: Setting new attribute selected '1' into e1Detector 'detector2'
+Debug: Setting new attribute selected '1' into e1Detector 'detector3'
+Debug: Setting new attribute selected '1' into e1Detector 'detector4'
+Debug: Setting new attribute selected '1' into e1Detector 'detector5'
+Debug: Setting new attribute selected '1' into e1Detector 'detector6'
+Debug: Setting new attribute selected '1' into e1Detector 'detector7'
+Debug: Setting new attribute selected '1' into e1Detector 'detector8'
 Debug: Setting new attribute selected 'false' into junction 'A'
 Debug: Setting new attribute selected 'false' into edge '1'
 Debug: Setting new attribute selected 'false' into junction 'B'
@@ -162,18 +146,14 @@ Debug: Setting new attribute selected 'false' into crossing ':Center_c0'
 Debug: Setting new attribute selected 'false' into crossing ':Center_c1'
 Debug: Setting new attribute selected 'false' into junction 'D'
 Debug: Setting new attribute selected 'false' into edge '4'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector1'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector2'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector4'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector5'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector6'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector7'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector8'
 Debug: Setting new attribute selected 'false' into taz 'TAZ'
 Debug: Setting new attribute selected 'false' into poi 'POI_0'
 Debug: Setting new attribute selected 'false' into poi 'POI_1'
@@ -190,18 +170,14 @@ Debug: Setting previous attribute selected '1' into poi 'POI_2'
 Debug: Setting previous attribute selected '1' into poi 'POI_1'
 Debug: Setting previous attribute selected '1' into poi 'POI_0'
 Debug: Setting previous attribute selected '1' into taz 'TAZ'
-Debug: Setting previous attribute selected '1' into detExit 'e3Detector_3'
-Debug: Setting previous attribute selected '1' into detEntry 'e3Detector_3'
-Debug: Setting previous attribute selected '1' into e3Detector 'e3Detector_3'
-Debug: Setting previous attribute selected '1' into detExit 'e3Detector_2'
-Debug: Setting previous attribute selected '1' into detEntry 'e3Detector_2'
-Debug: Setting previous attribute selected '1' into e3Detector 'e3Detector_2'
-Debug: Setting previous attribute selected '1' into detExit 'e3Detector_1'
-Debug: Setting previous attribute selected '1' into detEntry 'e3Detector_1'
-Debug: Setting previous attribute selected '1' into e3Detector 'e3Detector_1'
-Debug: Setting previous attribute selected '1' into detExit 'e3Detector_0'
-Debug: Setting previous attribute selected '1' into detEntry 'e3Detector_0'
-Debug: Setting previous attribute selected '1' into e3Detector 'e3Detector_0'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector8'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector7'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector6'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector5'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector4'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector3'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector2'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector1'
 Debug: Setting previous attribute selected '1' into edge '4'
 Debug: Setting previous attribute selected '1' into junction 'D'
 Debug: Setting previous attribute selected '1' into crossing ':Center_c1'
@@ -219,18 +195,14 @@ Debug: Setting previous attribute selected '1' into edge '1'
 Debug: Setting previous attribute selected '1' into junction 'A'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_3'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_3'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_3'
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_2'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_2'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_2'
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_1'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_1'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_1'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_0'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_0'
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_0'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector8'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector7'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector6'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector5'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector4'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector3'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector2'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector1'
 Debug: Setting previous attribute selected '0' into taz 'TAZ'
 Debug: Setting previous attribute selected '0' into poiLane 'POI_5'
 Debug: Setting previous attribute selected '0' into poiLane 'POI_4'
@@ -263,18 +235,14 @@ Debug: Setting previous attribute selected '1' into poi 'POI_1'
 Debug: Setting previous attribute selected '1' into poi 'POI_0'
 Debug: Setting previous attribute selected '1' into taz 'TAZ'
 Debug: Setting previous attribute selected '1' into poly 'poly_0'
-Debug: Setting previous attribute selected '1' into detExit 'e3Detector_3'
-Debug: Setting previous attribute selected '1' into detEntry 'e3Detector_3'
-Debug: Setting previous attribute selected '1' into e3Detector 'e3Detector_3'
-Debug: Setting previous attribute selected '1' into detExit 'e3Detector_2'
-Debug: Setting previous attribute selected '1' into detEntry 'e3Detector_2'
-Debug: Setting previous attribute selected '1' into e3Detector 'e3Detector_2'
-Debug: Setting previous attribute selected '1' into detExit 'e3Detector_1'
-Debug: Setting previous attribute selected '1' into detEntry 'e3Detector_1'
-Debug: Setting previous attribute selected '1' into e3Detector 'e3Detector_1'
-Debug: Setting previous attribute selected '1' into detExit 'e3Detector_0'
-Debug: Setting previous attribute selected '1' into detEntry 'e3Detector_0'
-Debug: Setting previous attribute selected '1' into e3Detector 'e3Detector_0'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector8'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector7'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector6'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector5'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector4'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector3'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector2'
+Debug: Setting previous attribute selected '1' into e1Detector 'detector1'
 Debug: Setting previous attribute selected '1' into edge '4'
 Debug: Setting previous attribute selected '1' into junction 'D'
 Debug: Setting previous attribute selected '1' into crossing ':Center_c1'
@@ -293,18 +261,14 @@ Debug: Setting previous attribute selected '1' into junction 'A'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute selected '0' into poly 'poly_0'
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_3'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_3'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_3'
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_2'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_2'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_2'
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_1'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_1'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_1'
-Debug: Setting previous attribute selected '0' into detEntry 'e3Detector_0'
-Debug: Setting previous attribute selected '0' into e3Detector 'e3Detector_0'
-Debug: Setting previous attribute selected '0' into detExit 'e3Detector_0'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector8'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector7'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector6'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector5'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector4'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector3'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector2'
+Debug: Setting previous attribute selected '0' into e1Detector 'detector1'
 Debug: Setting previous attribute selected '0' into taz 'TAZ'
 Debug: Setting previous attribute selected '0' into poiLane 'POI_5'
 Debug: Setting previous attribute selected '0' into poiLane 'POI_4'
@@ -337,33 +301,25 @@ Debug: Removing poi 'POI_1' from viewNet
 Debug: Removing poi 'POI_0' from viewNet
 Debug: Removing taz 'TAZ' from viewNet
 Debug: Removing poly 'poly_0' from viewNet
-Debug: Removing detExit 'e3Detector_3' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_3' in GNEChange_Additional
-Debug: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_2' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_2' in GNEChange_Additional
-Debug: Removing e3Detector 'e3Detector_2' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_1' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_1' in GNEChange_Additional
-Debug: Removing e3Detector 'e3Detector_1' in GNEChange_Additional
-Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
-Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
+Debug: Removing e1Detector 'detector8' in GNEChange_Additional
+Debug: Removing e1Detector 'detector7' in GNEChange_Additional
+Debug: Removing e1Detector 'detector6' in GNEChange_Additional
+Debug: Removing e1Detector 'detector5' in GNEChange_Additional
+Debug: Removing e1Detector 'detector4' in GNEChange_Additional
+Debug: Removing e1Detector 'detector3' in GNEChange_Additional
+Debug: Removing e1Detector 'detector2' in GNEChange_Additional
+Debug: Removing e1Detector 'detector1' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_1' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_1' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_2' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_2' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_2' in GNEChange_Additional
-Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
-Debug: Adding detExit 'e3Detector_3' in GNEChange_Additional
+Debug: Adding e1Detector 'detector1' in GNEChange_Additional
+Debug: Adding e1Detector 'detector2' in GNEChange_Additional
+Debug: Adding e1Detector 'detector3' in GNEChange_Additional
+Debug: Adding e1Detector 'detector4' in GNEChange_Additional
+Debug: Adding e1Detector 'detector5' in GNEChange_Additional
+Debug: Adding e1Detector 'detector6' in GNEChange_Additional
+Debug: Adding e1Detector 'detector7' in GNEChange_Additional
+Debug: Adding e1Detector 'detector8' in GNEChange_Additional
 Debug: Adding poly 'poly_0' into viewNet
 Debug: Adding taz 'TAZ' into viewNet
 Debug: Adding poi 'POI_0' into viewNet
@@ -396,18 +352,14 @@ Debug: Setting new attribute selected '1' into poi 'POI_3'
 Debug: Setting new attribute selected '1' into poiLane 'POI_4'
 Debug: Setting new attribute selected '1' into poiLane 'POI_5'
 Debug: Setting new attribute selected '1' into taz 'TAZ'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected '1' into e1Detector 'detector1'
+Debug: Setting new attribute selected '1' into e1Detector 'detector2'
+Debug: Setting new attribute selected '1' into e1Detector 'detector3'
+Debug: Setting new attribute selected '1' into e1Detector 'detector4'
+Debug: Setting new attribute selected '1' into e1Detector 'detector5'
+Debug: Setting new attribute selected '1' into e1Detector 'detector6'
+Debug: Setting new attribute selected '1' into e1Detector 'detector7'
+Debug: Setting new attribute selected '1' into e1Detector 'detector8'
 Debug: Setting new attribute selected '1' into poly 'poly_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
@@ -426,18 +378,14 @@ Debug: Setting new attribute selected 'false' into crossing ':Center_c0'
 Debug: Setting new attribute selected 'false' into crossing ':Center_c1'
 Debug: Setting new attribute selected 'false' into junction 'D'
 Debug: Setting new attribute selected 'false' into edge '4'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector1'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector2'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector4'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector5'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector6'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector7'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector8'
 Debug: Setting new attribute selected 'false' into poly 'poly_0'
 Debug: Setting new attribute selected 'false' into taz 'TAZ'
 Debug: Setting new attribute selected 'false' into poi 'POI_0'
@@ -470,18 +418,14 @@ Debug: Setting new attribute selected '1' into poi 'POI_3'
 Debug: Setting new attribute selected '1' into poiLane 'POI_4'
 Debug: Setting new attribute selected '1' into poiLane 'POI_5'
 Debug: Setting new attribute selected '1' into taz 'TAZ'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected '1' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected '1' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected '1' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected '1' into e1Detector 'detector1'
+Debug: Setting new attribute selected '1' into e1Detector 'detector2'
+Debug: Setting new attribute selected '1' into e1Detector 'detector3'
+Debug: Setting new attribute selected '1' into e1Detector 'detector4'
+Debug: Setting new attribute selected '1' into e1Detector 'detector5'
+Debug: Setting new attribute selected '1' into e1Detector 'detector6'
+Debug: Setting new attribute selected '1' into e1Detector 'detector7'
+Debug: Setting new attribute selected '1' into e1Detector 'detector8'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute selected 'false' into junction 'A'
@@ -499,18 +443,14 @@ Debug: Setting new attribute selected 'false' into crossing ':Center_c0'
 Debug: Setting new attribute selected 'false' into crossing ':Center_c1'
 Debug: Setting new attribute selected 'false' into junction 'D'
 Debug: Setting new attribute selected 'false' into edge '4'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_0'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_1'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_2'
-Debug: Setting new attribute selected 'false' into e3Detector 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detEntry 'e3Detector_3'
-Debug: Setting new attribute selected 'false' into detExit 'e3Detector_3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector1'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector2'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector3'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector4'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector5'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector6'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector7'
+Debug: Setting new attribute selected 'false' into e1Detector 'detector8'
 Debug: Setting new attribute selected 'false' into taz 'TAZ'
 Debug: Setting new attribute selected 'false' into poi 'POI_0'
 Debug: Setting new attribute selected 'false' into poi 'POI_1'
@@ -538,18 +478,14 @@ Debug: Removing taz 'TAZ' from net in ~GNEChange_TAZElement()
 Debug: delete taz 'TAZ' in ~GNEChange_TAZElement()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()
-Debug: Deleting unreferenced detExit 'e3Detector_3'
-Debug: Deleting unreferenced detEntry 'e3Detector_3'
-Debug: Deleting unreferenced e3Detector 'e3Detector_3'
-Debug: Deleting unreferenced detExit 'e3Detector_2'
-Debug: Deleting unreferenced detEntry 'e3Detector_2'
-Debug: Deleting unreferenced e3Detector 'e3Detector_2'
-Debug: Deleting unreferenced detExit 'e3Detector_1'
-Debug: Deleting unreferenced detEntry 'e3Detector_1'
-Debug: Deleting unreferenced e3Detector 'e3Detector_1'
-Debug: Deleting unreferenced detExit 'e3Detector_0'
-Debug: Deleting unreferenced detEntry 'e3Detector_0'
-Debug: Deleting unreferenced e3Detector 'e3Detector_0'
+Debug: Deleting unreferenced e1Detector 'detector8'
+Debug: Deleting unreferenced e1Detector 'detector7'
+Debug: Deleting unreferenced e1Detector 'detector6'
+Debug: Deleting unreferenced e1Detector 'detector5'
+Debug: Deleting unreferenced e1Detector 'detector4'
+Debug: Deleting unreferenced e1Detector 'detector3'
+Debug: Deleting unreferenced e1Detector 'detector2'
+Debug: Deleting unreferenced e1Detector 'detector1'
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
