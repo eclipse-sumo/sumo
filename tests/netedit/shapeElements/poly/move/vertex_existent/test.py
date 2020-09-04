@@ -28,26 +28,26 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# go to shape mode
+# go to Shape mode
 netedit.shapeMode()
 
 # go to additional mode
 netedit.changeElement("poly")
 
-# create polygon
-netedit.createSquaredPoly(referencePosition, 100, 150, 100, True)
+# create Shape
+netedit.createSquaredPoly(referencePosition, 372, 144, 200, True)
 
 # go to move mode
 netedit.moveMode()
 
-# move vertex polygon
-netedit.moveElement(referencePosition, -90, 120, -90, 300)
+# move vertex Shape
+netedit.moveElement(referencePosition, 372, 144, 372, 355)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
 netedit.redo(referencePosition, 2)
 
-# save shapes
+# save Shapes
 netedit.saveAdditionals(referencePosition)
 
 # save network
@@ -55,3 +55,4 @@ netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
+
