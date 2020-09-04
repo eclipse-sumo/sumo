@@ -66,7 +66,7 @@ attributes are used:
 - lateral position (posLat): offset from the center of the current
   lane in meters
 - shadow lane: Each vehicle in the sublane model occupies 1 or 2
-  lanes. The lane that contains that contains the center of the
+  lanes. The lane that contains the center of the
   front-bumper is refered to as its *lane*. If the vehicle
   front-bumper also reaches into another lane, this is called the
   *shadow lane*
