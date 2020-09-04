@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep  3 17:20:08 2020 by Eclipse SUMO sumo Version v1_6_0+1961-95c187100c
+<!-- generated on Wed Sep  2 09:53:23 2020 by Eclipse SUMO sumo Version v1_6_0+1904-84cb2799ee
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,7 +19,6 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
-        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -29,31 +28,27 @@ SPDX-License-Identifier: EPL-2.0
         <no-step-log value="true"/>
     </report>
 
-    <mesoscopic>
-        <mesosim value="true"/>
-    </mesoscopic>
-
 </configuration>
 -->
 
 <railsignal-block-output>
     <railSignal id="gneJ5">
-        <link linkIndex="0" from="-e_0" to="-d_0">
+        <link linkIndex="0" from="-e_0" to=":gneJ5_0_0">
             <driveWay edges="-d -c -b -a">
-                <forward lanes="-d_0 -c_0 -b_0 -a_0"/>
+                <forward lanes=":gneJ5_0_0 -d_0 :gneJ2_0_0 -c_0 :gneJ1_0_0 -b_0 :gneJ6_0_0 -a_0"/>
                 <bidi lanes="c_0"/>
-                <flank lanes="b_0"/>
+                <flank lanes=":gneJ1_1_0 b_0 :gneJ8_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ8_0"/>
             </driveWay>
         </link>
     </railSignal>
     <railSignal id="gneJ8">
-        <link linkIndex="0" from="a_0" to="b_0">
+        <link linkIndex="0" from="a_0" to=":gneJ8_0_0">
             <driveWay edges="b c d e">
-                <forward lanes="b_0 c_0 d_0 e_0"/>
+                <forward lanes=":gneJ8_0_0 b_0 :gneJ1_1_0 c_0 :gneJ2_1_0 d_0 :gneJ9_0_0 e_0"/>
                 <bidi lanes="-c_0"/>
-                <flank lanes="-d_0"/>
+                <flank lanes=":gneJ2_0_0 -d_0 :gneJ5_0_0"/>
                 <protectingSwitches links=""/>
                 <conflictLinks signals="gneJ5_0"/>
             </driveWay>

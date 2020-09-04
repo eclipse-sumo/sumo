@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 26 11:17:36 2020 by Eclipse SUMO sumo Version v1_6_0+1772-2f8e4c58e2
+<!-- generated on Fri Sep  4 08:01:25 2020 by Eclipse SUMO sumo Version v1_6_0+1969-2e6130e9c0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -30,10 +31,14 @@ SPDX-License-Identifier: EPL-2.0
         <no-step-log value="true"/>
     </report>
 
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
 </configuration>
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="train" depart="0.00" departLane="a_0" departPos="94.64" departSpeed="0.00" departDelay="0.00" arrival="35.00" arrivalLane="c_0" arrivalPos="94.64" arrivalSpeed="13.89" duration="35.00" routeLength="305.37" waitingTime="0.00" waitingCount="0" stopTime="10.00" timeLoss="2.98" rerouteNo="0" devices="tripinfo_train" vType="train" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="train2" depart="0.00" departLane="-e_0" departPos="136.06" departSpeed="0.00" departDelay="0.00" arrival="58.00" arrivalLane="-d_0" arrivalPos="136.06" arrivalSpeed="13.89" duration="58.00" routeLength="346.11" waitingTime="20.00" waitingCount="1" stopTime="10.00" timeLoss="22.98" rerouteNo="0" devices="tripinfo_train2" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="train" depart="0.00" departLane="" departPos="0.00" departSpeed="5.63" departDelay="0.00" arrival="41.00" arrivalLane="" arrivalPos="136.06" arrivalSpeed="13.89" duration="41.00" routeLength="426.37" waitingTime="0.00" waitingCount="0" stopTime="10.00" timeLoss="10.00" rerouteNo="0" devices="tripinfo_train" vType="train" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="train2" depart="0.00" departLane="" departPos="0.00" departSpeed="6.87" departDelay="0.00" arrival="44.00" arrivalLane="" arrivalPos="136.06" arrivalSpeed="13.89" duration="44.00" routeLength="467.79" waitingTime="0.00" waitingCount="0" stopTime="10.00" timeLoss="10.00" rerouteNo="0" devices="tripinfo_train2" vType="train" speedFactor="1.00" vaporized=""/>
 </tripinfos>
