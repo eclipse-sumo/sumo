@@ -519,6 +519,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
                   << "\n    forward=" << toString(dw.myForward)
                   << "\n    bidi=" << toString(dw.myBidi)
                   << "\n    flank=" << toString(dw.myFlank)
+                  << "\n    flankSwitch=" << describeLinks(dw.myFlankSwitches)
                   << "\n    protSwitch=" << describeLinks(dw.myProtectingSwitches)
                   << "\n";
     }
