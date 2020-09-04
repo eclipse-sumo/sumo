@@ -32,13 +32,13 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.TAZMode()
 
 # create TAZ
-netedit.createSquaredTAZ(referencePosition, 100, 150, 100, True)
+netedit.createSquaredTAZ(referencePosition, 372, 144, 200, True)
 
 # go to move mode
 netedit.moveMode()
 
 # move vertex TAZ
-netedit.moveElement(referencePosition, -90, 120, -90, 300)
+netedit.moveElement(referencePosition, 372, 144, 372, 355)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
@@ -52,3 +52,4 @@ netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
+
