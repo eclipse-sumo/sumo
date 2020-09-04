@@ -1,6 +1,9 @@
 # trafficlight.setCompleteRedYellowGreenDefinition
 ticket1010
 
+# Defect vehicle after loading a state in which it is added but not inserted
+ticket1433
+
 # distance calculation from/to internal edges
 ticket2321
 
