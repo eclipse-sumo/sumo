@@ -1016,6 +1016,10 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
     MSLane* source = vehicle->getLane();
+    if (vehicle->getLaneChangeModel().getModelID() == LCM_SL2015) {
+        // we have warned before but people may still try
+        return false;
+    }
     if (vehicle->isStopped()) {
         // stopped vehicles obviously should not change lanes. Usually this is
         // prevent by appropriate bestLane distances
