@@ -66,7 +66,7 @@ def get_options(args=None):
     argParser.add_argument("--bus-stop-length", default=13, type=float, help="length for a bus stop")
     argParser.add_argument("--train-stop-length", default=110, type=float, help="length for a train stop")
     argParser.add_argument("--tram-stop-length", default=60, type=float, help="length for a tram stop")
-    argParser.add_argument("--fill-gaps", default=30, type=int, 
+    argParser.add_argument("--fill-gaps", default=30, type=int,
                            help="maximum number of edges between stops")
 
     options = gtfs2fcd.check_options(argParser.parse_args(args=args))
@@ -110,7 +110,7 @@ def splitNet(options):
                     edgeTypes.append("highway.%s|railway.tram" % hwType)
                 else:
                     edgeTypes.append("highway." + hwType)
-        edgeType = ",".join(filter(lambda t:t in seenTypes, edgeTypes))
+        edgeType = ",".join(filter(lambda t: t in seenTypes, edgeTypes))
         if edgeType:
             subprocess.call(netcCall + ["-s", numIdNet, "-o", netPrefix + ".net.xml",
                                         "--dlr-navteq-output", netPrefix,
@@ -150,7 +150,7 @@ def traceMap(options, typedNets, radius=100):
         for tid, trace in traces:
             minX, minY, maxX, maxY = sumolib.geomhelper.addToBoundingBox(trace)
             if (minX < netBox[1][0] + radius and minY < netBox[1][1] + radius and
-                maxX > netBox[0][0] - radius and maxY > netBox[0][1] - radius):
+                    maxX > netBox[0][0] - radius and maxY > netBox[0][1] - radius):
                 mappedRoute = sumolib.route.mapTrace(trace, net, radius, fillGaps=options.fill_gaps)
                 if mappedRoute:
                     routes[tid] = [e.getID() for e in mappedRoute]

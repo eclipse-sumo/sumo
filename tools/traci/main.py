@@ -139,7 +139,7 @@ def init(port=8813, numRetries=10, host="localhost", label="default", proc=None)
 
 
 def start(cmd, port=None, numRetries=10, label="default", verbose=False,
-        traceFile=None, traceGetters=True, stdout=None):
+          traceFile=None, traceGetters=True, stdout=None):
     """
     Start a sumo server using cmd, establish a connection to it and
     store it under the given label. This method is not thread-safe.

@@ -68,8 +68,8 @@ def main(options):
     routes = pd.read_csv(gtfsZip.open('routes.txt'), dtype=str)
     stops = pd.read_csv(gtfsZip.open('stops.txt'), dtype=str)
     stop_times = pd.read_csv(gtfsZip.open('stop_times.txt'),
-                             converters={'trip_id':str,'arrival_time':time2sec,'departure_time':time2sec,
-                                         'stop_id':str,'stop_sequence':int})
+                             converters={'trip_id': str, 'arrival_time': time2sec, 'departure_time': time2sec,
+                                         'stop_id': str, 'stop_sequence': int})
     trips = pd.read_csv(gtfsZip.open('trips.txt'), dtype=str)
     calendar_dates = pd.read_csv(gtfsZip.open('calendar_dates.txt'), dtype=str)
 

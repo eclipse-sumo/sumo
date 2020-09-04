@@ -28,7 +28,6 @@ from __future__ import print_function
 
 import os
 import sys
-import random
 import subprocess
 from collections import defaultdict
 
@@ -38,6 +37,7 @@ import sumolib  # noqa
 from sumolib.miscutils import parseTime  # noqa
 
 DUAROUTER = sumolib.checkBinary('duarouter')
+
 
 def get_options(args=None):
     parser = sumolib.options.ArgumentParser(description="Sample routes to match counts")
@@ -74,6 +74,7 @@ def get_options(args=None):
 
     return options
 
+
 def findMergingSwitches(options, net):
     # find switches where routes merge and thus conflicts must be solved
     predEdges = defaultdict(set)
@@ -96,9 +97,10 @@ def findMergingSwitches(options, net):
     print("read %s routes across %s edges with %s merging switches" % (
         numRoutes, len(predEdges), len(mergeSwitches)))
 
+
 def main(options):
     net = sumolib.net.readNet(options.netFile)
-    mergeSwitches = findMergingSwitches(options, net)
+    findMergingSwitches(options, net)
 
 
 if __name__ == "__main__":

@@ -67,6 +67,8 @@
 /docs/doxygen
 /docs/examples
 /docs/javadoc
+/docs/lcov
+/docs/man
 /docs/pydoc
 /docs/tutorial
 /docs/userdoc
@@ -154,3 +156,4 @@ lib*.a
 *.ipch
 .vscode
 *.aps
+.gdb_history

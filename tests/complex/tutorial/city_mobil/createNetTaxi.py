@@ -42,7 +42,7 @@ sumolib.xml.writeHeader(nodes, root="nodes")
 edges = open("%s.edg.xml" % PREFIX, "w")
 sumolib.xml.writeHeader(edges, root="edges")
 
-## main street (passenger car inflow)
+# main street (passenger car inflow)
 nodeID = "main0"
 print('<node id="in" x="-100" y="0"/>', file=nodes)
 print('<edge id="mainin" from="in" to="%s" numLanes="2"/>' % nodeID, file=edges)
@@ -57,7 +57,7 @@ for row in range(DOUBLE_ROWS):
 print('<node id="out" x="%s" y="0"/>' % (x + 100), file=nodes)
 print('<edge id="mainout" from="%s" to="out" numLanes="2"/>' % nodeID, file=edges)
 
-## cybercar infrastructure (automated bus)
+# cybercar infrastructure (automated bus)
 y = (SLOTS_PER_ROW + 3) * SLOT_WIDTH
 print('<node id="cyber" x="-100" y="%s"/>' % y, file=nodes)
 print("""<edge id="cyberin" from="cyber" to="cyber0" numLanes="3" spreadType="center">
@@ -95,7 +95,7 @@ print("""<edge id="-cyberout" from="cyberend" to="cyber%s" numLanes="2" spreadTy
     <lane index="1" allow="taxi bus"/>
 </edge>""" % row, file=edges)
 
-## roads in the parking area
+# roads in the parking area
 for row in range(DOUBLE_ROWS):
     print("""<edge id="road%s" from="main%s" to="cyber%s" numLanes="2">
     <lane index="0" allow="pedestrian" width="2.00"/>
@@ -142,7 +142,7 @@ print("</additional>", file=stops)
 stops.close()
 
 # demand building
-## routes cybercar and bus
+# routes cybercar and bus
 with open("%s_cyber.rou.xml" % PREFIX, "w") as routes:
     sumolib.xml.writeHeader(routes, root="routes")
     print("""    <flow id="c" type="cybercar" begin="50" period="100" number="%s" line="taxi">
@@ -160,7 +160,7 @@ with open("%s_bus.rou.xml" % PREFIX, "w") as routes:
         print('    <stop busStop="%sstop" duration="10"/>' % edgeID, file=routes)
     print("    </flow>\n</routes>", file=routes)
 
-## passenger car demand
+# passenger car demand
 for period in range(5, 50, 5):
     # routes person
     routes = open("%s_demand%02i.rou.xml" % (PREFIX, period), "w")

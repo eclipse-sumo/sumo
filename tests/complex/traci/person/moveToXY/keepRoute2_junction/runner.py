@@ -36,7 +36,7 @@ traci.start(cmd)
 
 p = "p0"
 traci.simulationStep()
-for i in range(80): 
+for i in range(80):
     t = traci.simulation.getTime()
     x, y = traci.person.getPosition(p)
     print("s=%s x=%s y=%s" % (t, x, y))

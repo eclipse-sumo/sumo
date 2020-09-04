@@ -36,14 +36,16 @@ traci.start([sumoBinary,
 
 vehID = "v0"
 
+
 def slowDown(currentSpeed, delta, duration):
     newSpeed = currentSpeed + delta
     print("  slowDown from %s to %s over %s seconds" % (currentSpeed,
-        newSpeed, duration))
+                                                        newSpeed, duration))
     traci.vehicle.slowDown(vehID, newSpeed, duration)
 
+
 traci.vehicle.setAccel(vehID, 0)
-#traci.vehicle.setSpeed(vehID, 25)
+# traci.vehicle.setSpeed(vehID, 25)
 while traci.simulation.getMinExpectedNumber() > 0:
     t = traci.simulation.getTime()
     speed = traci.vehicle.getSpeed(vehID)

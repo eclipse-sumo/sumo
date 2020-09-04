@@ -43,7 +43,7 @@ for i in range(200):
     traci.person.moveToXY(p, "", x, y, keepRoute=0)
     traci.simulationStep()
     print("t=%s requestPos=%s pos=%s edge=%s route=%s" % (
-        traci.simulation.getTime(), (x, y), 
+        traci.simulation.getTime(), (x, y),
         traci.person.getPosition(p),
         traci.person.getRoadID(p),
         traci.person.getEdges(p)))

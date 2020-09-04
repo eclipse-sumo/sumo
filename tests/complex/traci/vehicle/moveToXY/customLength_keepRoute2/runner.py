@@ -38,9 +38,9 @@ vehID = "v0"
 
 
 traci.start([sumolib.checkBinary("sumo"),
-    '-n', 'input_net.net.xml',
-    '-r', 'input_routes.rou.xml',
-    '--no-step-log'])
+             '-n', 'input_net.net.xml',
+             '-r', 'input_routes.rou.xml',
+             '--no-step-log'])
 traci.simulationStep()
 x, y = traci.vehicle.getPosition(vehID)
 for x in range(0, 400, 10):
@@ -52,6 +52,6 @@ for x in range(0, 400, 10):
         x,
         traci.vehicle.getPosition(vehID)[0]),
         traci.simulation.convert2D(traci.vehicle.getRoadID(vehID),
-            traci.vehicle.getLanePosition(vehID), 0)[0])
+                                   traci.vehicle.getLanePosition(vehID), 0)[0])
 
 traci.close()

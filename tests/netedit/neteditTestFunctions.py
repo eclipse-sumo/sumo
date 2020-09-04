@@ -1869,7 +1869,7 @@ def GEOPOILatLon():
         typeTab()
     # Change current value
     typeSpace()
-    
+
 
 #################################################
 # TAZs
@@ -1941,27 +1941,6 @@ def createLineTAZ(referencePosition, positionx, positiony, sizex, sizey, close):
         leftClick(referencePosition, positionx, positiony)
     # finish draw
     typeEnter()
-
-
-def changeColorUsingDialog(numTabs, color):
-    """
-    @brief modify default color using dialog
-    """
-    # focus current frame
-    focusOnFrame()
-    # go to length TextField
-    for _ in range(numTabs + 1):
-        typeTab()
-    typeSpace()
-    # go to list of colors TextField
-    for _ in range(2):
-        typeInvertTab()
-    # select color
-    for _ in range(1 + color):
-        typeKey('down')
-    # go to accept button and press it
-    typeTab()
-    typeSpace()
 
 
 #################################################

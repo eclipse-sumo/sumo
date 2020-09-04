@@ -38,10 +38,10 @@ vehID = "v0"
 
 while traci.simulation.getMinExpectedNumber() > 0:
     t = traci.simulation.getTime()
-    print("%s awareness=%s errorState=%s" % (t, 
-        traci.vehicle.getParameter(vehID, "device.driverstate.awareness"),
-        traci.vehicle.getParameter(vehID, "device.driverstate.errorState")
-        ))
+    print("%s awareness=%s errorState=%s" % (t,
+                                             traci.vehicle.getParameter(vehID, "device.driverstate.awareness"),
+                                             traci.vehicle.getParameter(vehID, "device.driverstate.errorState")
+                                             ))
     traci.simulationStep()
 
 traci.close()

@@ -33,5 +33,3 @@ class VariableSpeedSignDomain(Domain):
         Returns a list of all lanes controlled by the variablespeedsign.
         """
         return self._getUniversal(tc.VAR_LANES, vssID)
-
-

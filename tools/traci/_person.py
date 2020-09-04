@@ -20,10 +20,11 @@ from .domain import Domain
 from . import constants as tc
 from . import _simulation as simulation
 
+
 class Reservation(object):
 
     def __init__(self, id, persons, group, fromEdge, toEdge, departPos, arrivalPos,
-            depart, reservationTime):
+                 depart, reservationTime):
         self.id = id
         self.persons = persons
         self.group = group
@@ -72,9 +73,8 @@ def _readReservation(result):
     return Reservation(id, persons, group, fromEdge, toEdge, departPos, arrivalPos, depart, reservationTime)
 
 
-
 _RETURN_VALUE_FUNC = {tc.VAR_STAGE: simulation._readStage,
-        }
+                      }
 
 
 class PersonDomain(Domain):

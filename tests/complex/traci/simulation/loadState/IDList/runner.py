@@ -29,16 +29,18 @@ sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import traci  # noqa
 import sumolib  # noqa
 
+
 def check():
     print("%s departed=%s arrived=%s" % (
         traci.simulation.getTime(),
         traci.simulation.getDepartedIDList(),
         traci.simulation.getArrivedIDList()))
 
+
 traci.start([sumolib.checkBinary('sumo'),
-    "-n", "input_net2.net.xml",
-    "-r", "input_routes.rou.xml",
-    "--no-step-log",
+             "-n", "input_net2.net.xml",
+             "-r", "input_routes.rou.xml",
+             "--no-step-log",
              ])
 
 traci.simulationStep(10)

@@ -26,5 +26,3 @@ class MeanDataDomain(Domain):
         Domain.__init__(self, "meandata", tc.CMD_GET_MEANDATA_VARIABLE, None,
                         tc.CMD_SUBSCRIBE_MEANDATA_VARIABLE, tc.RESPONSE_SUBSCRIBE_MEANDATA_VARIABLE,
                         tc.CMD_SUBSCRIBE_MEANDATA_CONTEXT, tc.RESPONSE_SUBSCRIBE_MEANDATA_CONTEXT)
-
-    

@@ -41,7 +41,7 @@ def get_options(args=None):
     parser.add_argument("-s", "--stop-file", dest="stopFile",
                         help="Input stop-output file")
     parser.add_argument("-v", "--verbose", action="store_true",
-                         default=False, help="tell me what you are doing")
+                        default=False, help="tell me what you are doing")
 
     options = parser.parse_args(args=args)
     if options.routeFile is None or options.stopFile is None:
@@ -49,6 +49,7 @@ def get_options(args=None):
         sys.exit()
 
     return options
+
 
 def main(options):
 
@@ -96,16 +97,15 @@ def main(options):
             for vehCode in vehicles:
                 if vehCode in actual_vehicles:
                     comparable_expected.append(vehCode)
-                    comparable_actual.append((actual_vehicles[vehCode], vehCode)) # (ended, (until, vehID))
+                    comparable_actual.append((actual_vehicles[vehCode], vehCode))  # (ended, (until, vehID))
                 else:
                     missing[stopCode].append(vehCode)
             comparable_expected.sort()
             comparable_actual.sort()
-            num_unexpected = len(actual_vehicles) -  len(comparable_actual)
+            num_unexpected = len(actual_vehicles) - len(comparable_actual)
             if num_unexpected > 0:
                 print("Found %s unexpected stops at %s" % (num_unexpected, stopCode))
 
-                        
             # after sorting, discard the 'ended' attribute and only keep vehCode
             comparable_actual2 = [v[1] for v in comparable_actual]
 
@@ -136,14 +136,14 @@ def main(options):
                     print("At %s vehicle %s comes after %s (i=%s, j=%s)" % (
                         stopCode, vehCode,
                         ','.join(map(str, comparable_actual2[i:j])),
-                        i,j
-                        ))
+                        i, j
+                    ))
                 elif j < i:
                     print("At %s vehicle %s comes before %s (i=%s, j=%s)" % (
                         stopCode, vehCode,
                         ','.join(map(str, comparable_actual2[j:i])),
-                        i,j
-                        ))
+                        i, j
+                    ))
                 if i != j:
                     # swap to avoid duplicate out-of-order warnings
                     tmp = comparable_actual2[i]
@@ -153,6 +153,7 @@ def main(options):
             missing[stopCode] = vehicles
 
     print("Simulation missed %s stops at %s locations" % (sum(map(len, missing.values())), len(missing)))
+
 
 if __name__ == "__main__":
     main(get_options())

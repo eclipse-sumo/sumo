@@ -31,6 +31,7 @@ from .exceptions import TraCIException
 
 _legacyGetLeader = True
 
+
 class StopData(object):
 
     def __init__(self,
@@ -66,7 +67,6 @@ class StopData(object):
         self.tripId = tripId
         self.line = line
         self.speed = speed
-
 
     def __attr_repr__(self, attrname, default=""):
         if getattr(self, attrname) == default:
@@ -120,9 +120,10 @@ def _readStopData(result):
         line = result.readTypedString()
         speed = result.readTypedDouble()
         nextStops.append(StopData(lane, startPos, endPos, stoppingPlaceID,
-            stopFlags, duration, until, intendedArrival, arrival, depart, split, join,
-            actType, tripId, line, speed))
+                                  stopFlags, duration, until, intendedArrival, arrival, depart, split, join,
+                                  actType, tripId, line, speed))
     return tuple(nextStops)
+
 
 def _readBestLanes(result):
     result.read("!iB")
@@ -829,7 +830,6 @@ class VehicleDomain(Domain):
         """
         return self._getUniversal(tc.VAR_NEXT_STOPS, vehID)
 
-
     def getStops(self, vehID, limit=0):
         """getStops(string, int) -> [StopData, ...],
 
@@ -850,7 +850,6 @@ class VehicleDomain(Domain):
         if the vehicle stopped fewer times previously)
         """
         return self._getUniversal(tc.VAR_NEXT_STOPS2, vehID, "i", limit)
-
 
     def subscribeLeader(self, vehID, dist=0., begin=0, end=2**31 - 1):
         """subscribeLeader(string, double, double, double) -> None

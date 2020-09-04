@@ -195,33 +195,33 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
     filename = filename.split('.')[0]
     cfgname = "%s/iteration_%03i_%s.duarcfg" % (step, step, filename)
     args = [
-            '--net-file', "../%s" % options.net,
-            '--route-files', "../%s" % file,
-            '--output-file', output,
-            '--exit-times', str(routesInfo == "detailed"),
-            '--ignore-errors', str(options.continueOnUnbuild),
-            '--with-taz', str(options.districts is not None),
-            '--gawron.beta', str(options.gBeta),
-            '--gawron.a', str(options.gA),
-            '--keep-all-routes', str(options.allroutes),
-            '--routing-algorithm', options.routing_algorithm,
-            '--max-alternatives', str(options.max_alternatives),
-            '--weights.expand',
-            '--logit', str(options.logit),
-            '--logit.beta', str(options.logitbeta),
-            '--logit.gamma', str(options.logitgamma),
-            '--random', str(options.absrand),
-            '--begin', str(options.begin),
-            '--verbose', str(options.router_verbose),
-            '--no-step-log',
-            '--no-warnings', str(options.noWarnings),
-        ]
+        '--net-file', "../%s" % options.net,
+        '--route-files', "../%s" % file,
+        '--output-file', output,
+        '--exit-times', str(routesInfo == "detailed"),
+        '--ignore-errors', str(options.continueOnUnbuild),
+        '--with-taz', str(options.districts is not None),
+        '--gawron.beta', str(options.gBeta),
+        '--gawron.a', str(options.gA),
+        '--keep-all-routes', str(options.allroutes),
+        '--routing-algorithm', options.routing_algorithm,
+        '--max-alternatives', str(options.max_alternatives),
+        '--weights.expand',
+        '--logit', str(options.logit),
+        '--logit.beta', str(options.logitbeta),
+        '--logit.gamma', str(options.logitgamma),
+        '--random', str(options.absrand),
+        '--begin', str(options.begin),
+        '--verbose', str(options.router_verbose),
+        '--no-step-log',
+        '--no-warnings', str(options.noWarnings),
+    ]
     if options.districts:
         args += ['--additional-files', options.districts]
     if step > 0:
         args += ['--weight-files', os.path.join('..', str(step-1), get_weightfilename(options, step - 1, "dump"))]
     if options.eco_measure:
-        args += ['--weight-attribute', optoins.eco_measure]
+        args += ['--weight-attribute', options.eco_measure]
     if 'CH' in options.routing_algorithm:
         args += ['--weight-period', str(options.aggregation)]
     if options.logittheta:
@@ -456,10 +456,10 @@ def main(args=None):
         sumoBinary, 'sumo', options.remaining_args)
     dua_args = assign_remaining_args(
         duaBinary, 'duarouter', options.remaining_args)
-    index= -1
+    index = -1
     for i in range(len(dua_args)):
         if dua_args[i] == '--additional-files':
-            index= i
+            index = i
     if index > -1:
         dua_args[index+1] = ','.join(["../%s" % f for f in dua_args[index+1].split(',')])
     sys.stdout = sumolib.TeeFile(sys.stdout, open(options.log, "w+"))
@@ -518,7 +518,7 @@ def main(args=None):
             simulation_demands = [
                 get_basename(f) + "_%03i.rou%s" % (step, routesSuffix) for f in input_demands]
         if not ((options.skipFirstRouting and step == 1) or step == 0):
-            router_demands = [str(step-1)+ os.sep+ get_basename(
+            router_demands = [str(step-1) + os.sep + get_basename(
                 f) + "_%03i.rou.alt%s" % (step - 1, routesSuffix) for f in input_demands]
 
         if not (options.skipFirstRouting and step == options.firstStep):
@@ -553,25 +553,26 @@ def main(args=None):
                                 options.aggregation), basename + "_001.rou.alt.xml", options.addweights,
                                 ecomeasure)
                         else:
-                            shutil.copy( str(1)+ os.sep +
-                                basename + "_001.rou.alt.xml", ".."+ os.sep + basename + "_001.rou.galt.xml")
-                            shutil.copy( str(step)+ os.sep +
-                                basename + "_001.rou.xml", str(step)+ os.sep +basename + "_001.grou.xml")
+                            shutil.copy(str(1) + os.sep +
+                                        basename + "_001.rou.alt.xml", ".." + os.sep + basename + "_001.rou.galt.xml")
+                            shutil.copy(str(step) + os.sep +
+                                        basename + "_001.rou.xml", str(step) + os.sep + basename + "_001.grou.xml")
                     if step == options.firstStep and not options.skipFirstRouting:
-                        shutil.copy( str(step)+ os.sep +
-                            basename + "_000.rou.alt.xml", ".."+ os.sep + basename + "_000.rou.galt.xml")
-                        shutil.copy(str(step)+ os.sep +
-                            basename + "_000.rou.xml", ".."+ os.sep + basename + "_000.grou.xml")
+                        shutil.copy(str(step) + os.sep +
+                                    basename + "_000.rou.alt.xml", ".." + os.sep + basename + "_000.rou.galt.xml")
+                        shutil.copy(str(step) + os.sep +
+                                    basename + "_000.rou.xml", ".." + os.sep + basename + "_000.grou.xml")
                     else:
                         print('step:', step)
                         print('get externalgawron')
                         dumpfile = str(step-1)+os.sep+"dump_%03i_%s.xml" % (
                             step - 1, options.aggregation)
-                        shutil.copy( str(step-1)+ os.sep +
-                            basename + "_00%s.rou.alt.xml" %(step-1), basename + "_00%s.rou.galt.xml" % (step-1))
+                        shutil.copy(str(step-1) + os.sep + basename + "_00%s.rou.alt.xml" % (step-1),
+                                    basename + "_00%s.rou.galt.xml" % (step-1))
                         if (not options.skipFirstRouting) or (options.skipFirstRouting and step > 1):
                             output, edgesMap = getRouteChoices(
-                                edgesMap, dumpfile, str(step)+os.sep+ basename + "_%03i.rou.alt.xml" % step, options.net,
+                                edgesMap, dumpfile, str(step)+os.sep + basename +
+                                "_%03i.rou.alt.xml" % step, options.net,
                                 options.addweights, options.gA, options.gBeta, step, ecomeasure)
 
         # simulation
@@ -582,7 +583,7 @@ def main(args=None):
                       ",".join(simulation_demands))  # todo: change 'grou.xml'
         log.flush()
         sys.stdout.flush()
-        call([sumoBinary, "-c", "%s%siteration_%03i.sumocfg" % (step, os.sep,step)], log)
+        call([sumoBinary, "-c", "%s%siteration_%03i.sumocfg" % (step, os.sep, step)], log)
         if options.tripinfoFilter:
             filterTripinfo(step, set(options.tripinfoFilter.split(",")))
         etime = datetime.now()
@@ -593,8 +594,8 @@ def main(args=None):
         if options.weightmemory:
             print(">> Smoothing edge weights")
             costmemory.load_costs(
-                str(step)+ os.sep +get_dumpfilename(options, step, "dump"), step, get_scale(options, step))
-            costmemory.write_costs(str(step)+ os.sep + get_weightfilename(options, step, "dump"))
+                str(step) + os.sep + get_dumpfilename(options, step, "dump"), step, get_scale(options, step))
+            costmemory.write_costs(str(step) + os.sep + get_weightfilename(options, step, "dump"))
             print(">>> Updated %s edges" % costmemory.loaded())
             print(">>> Decayed %s unseen edges" % costmemory.decayed())
             print(">>> Error avg:%.12g mean:%.12g" %
@@ -623,7 +624,8 @@ def main(args=None):
         if options.convDev:
             sum = 0.
             count = 0
-            for t in sumolib.output.parse_fast(str(step)+ os.sep+ "tripinfo_%03i.xml" % step, 'tripinfo', ['duration']):
+            for t in sumolib.output.parse_fast(str(step) + os.sep + "tripinfo_%03i.xml" % step,
+                                               'tripinfo', ['duration']):
                 sum += float(t.duration)
                 count += 1
             avgTT.add(sum / count)

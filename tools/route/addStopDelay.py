@@ -64,6 +64,7 @@ def get_options(args=None):
 
     return options
 
+
 def main(options):
     if options.seed:
         random.seed(options.seed)
@@ -77,8 +78,8 @@ def main(options):
                         delay = options.min
                     else:
                         delay = None
-                        while (delay is None 
-                                or delay < options.min 
+                        while (delay is None
+                                or delay < options.min
                                 or delay > options.max):
                             delay = random.gauss(options.mean, options.dev)
 
@@ -86,6 +87,7 @@ def main(options):
                     newDuration = int((parseTime(mo.group(2)) + delay))
                     line = mo.group(1) + str(newDuration) + mo.group(3) + "\n"
             outf.write(line)
+
 
 if __name__ == "__main__":
     main(get_options())

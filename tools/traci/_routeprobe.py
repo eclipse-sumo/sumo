@@ -47,4 +47,3 @@ class RouteProbeDomain(Domain):
         proble in the current collectin interval
         """
         return self._getUniversal(tc.VAR_SAMPLE_CURRENT, probeID)
-

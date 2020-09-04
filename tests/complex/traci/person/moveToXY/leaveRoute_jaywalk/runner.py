@@ -41,6 +41,7 @@ def step():
     traci.simulationStep()
     return s
 
+
 p = "p0"
 x, y = traci.person.getPosition(p)
 traci.person.setSpeed(p, 0)

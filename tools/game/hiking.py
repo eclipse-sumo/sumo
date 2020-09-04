@@ -12,7 +12,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    racing.py
+# @file    hiking.py
 # @author  Jakob Erdmann
 # @date    2017-06-12
 
@@ -25,7 +25,6 @@ from __future__ import print_function
 import os
 import sys
 import threading
-import math
 
 if sys.version_info.major == 3:
     import queue as Queue
@@ -130,15 +129,15 @@ class HikingClient:
     def workerThread(self):
         try:
             traci.start([checkBinary("sumo-gui"), "-c", self.sumocfg,
-                #"-C", "debug.sumocfg",
+                         # "-C", "debug.sumocfg",
                          "--step-length", str(TS)])
             # steal focus for keyboard input after sumo-gui has loaded
             # self.master.focus_force() # not working on all platforms
             # make sure ego person is loaded
             traci.simulationStep()
             x, y = traci.person.getPosition(self.egoID)
-            #traci.gui.trackVehicle(traci.gui.DEFAULT_VIEW, self.egoID)
-            while True: # traci.simulation.getMinExpectedNumber() > 0:
+            # traci.gui.trackVehicle(traci.gui.DEFAULT_VIEW, self.egoID)
+            while True:  # traci.simulation.getMinExpectedNumber() > 0:
                 try:
                     while eventQueue.qsize():
                         try:
@@ -159,12 +158,12 @@ class HikingClient:
                                 x += 1
                         except Queue.Empty:
                             pass
-                    #if autopy:
+                    # if autopy:
                     #    speed, steerAngle = mouseControl(self.master, speed, steerAngle)
-                    
+
                     # move person
                     traci.person.moveToXY(self.egoID, "dummy", x, y, keepRoute=2)
-                    traci.person.setSpeed(self.egoID, 0) # no automatic walking
+                    traci.person.setSpeed(self.egoID, 0)  # no automatic walking
                     traci.simulationStep()
                 except traci.TraCIException:
                     pass
