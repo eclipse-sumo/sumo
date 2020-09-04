@@ -211,18 +211,10 @@ GNEConnection::moveConnectionShape(const Position& offset) {
         if (geometryPointIndex == -1) {
             geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
         }
-        // get last index
-        const int lastIndex = (int)newShape.size() - 1;
-        // check if we have to move first and last postion
-        if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
-                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
-            // move first and last position in newShape
-            newShape[0].add(offset);
-            newShape[lastIndex] = newShape[0];
-        } else {
-            // move geometry point within newShape
-            newShape[geometryPointIndex].add(offset);
-        }
+        // move geometry point within newShape
+        newShape[geometryPointIndex].add(offset);
+        // snap to grid
+        newShape[geometryPointIndex] = myNet->getViewNet()->snapToActiveGrid(newShape[geometryPointIndex]);
     }
     // set new shape
     getNBEdgeConnection().customShape = newShape;

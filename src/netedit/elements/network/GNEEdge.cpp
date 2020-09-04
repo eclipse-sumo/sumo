@@ -318,6 +318,8 @@ GNEEdge::moveEdgeShape(const Position& offset) {
         }
         // move geometry point within newShape
         newShape[geometryPointIndex].add(offset);
+        // snap to grid
+        newShape[geometryPointIndex] = myNet->getViewNet()->snapToActiveGrid(newShape[geometryPointIndex]);
         // check if edge is selected
         if (isAttributeCarrierSelected()) {
             // move more geometry points, depending if junctions are selected

@@ -186,12 +186,17 @@ GNEJunction::moveJunctionShape(const Position& offset) {
         // check if we have to move first and last postion
         if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
                 ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
-            // move first and last position in newShape
+            // move first geometry point
             newShape[0].add(offset);
+            // snap to grid
+            newShape[0] = myNet->getViewNet()->snapToActiveGrid(newShape[0]);
+            // set end geometry point
             newShape[lastIndex] = newShape[0];
         } else {
             // move geometry point within newShape
             newShape[geometryPointIndex].add(offset);
+            // snap to grid
+            newShape[geometryPointIndex] = myNet->getViewNet()->snapToActiveGrid(newShape[geometryPointIndex]);
         }
     }
     // set new shape
