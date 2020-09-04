@@ -538,7 +538,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
 
     routeUsage = getRouteUsage(routes, countData)
 
-    # pick a random couting location and select a new route that passes it until
+    # pick a random counting location and select a new route that passes it until
     # all counts are satisfied or no routes can be used anymore
     openRoutes = set(range(0, routes.number))
     openCounts = set(range(0, len(countData)))
