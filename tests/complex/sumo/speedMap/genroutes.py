@@ -18,6 +18,7 @@
 
 from __future__ import print_function
 from __future__ import absolute_import
+from __future__ import division
 import os
 import sys
 import subprocess
@@ -80,7 +81,7 @@ for model in ["Krauss", "KraussPS", "KraussOrig1", "BKerner", "SmartSK", "IDM", 
 
     matrix = numpy.empty([numVehs, time])
     for count, vehicle in enumerate(sumolib.output.parse(stateFile, "vehicle")):
-        matrix[int(vehicle.id)][count / numVehs] = 3.6 * float(vehicle.speed)
+        matrix[int(vehicle.id)][count // numVehs] = 3.6 * float(vehicle.speed)
     plt.imshow(matrix)
     plt.colorbar(orientation='horizontal')
     plt.savefig("%s.png" % model)

@@ -34,24 +34,23 @@ sumoBinary = sumolib.checkBinary('sumo')
 def main(bailOut=False):
     sys.stdout.flush()
     # create an INET, STREAMing socket
-    serversocket = socket.socket(
-        socket.AF_INET, socket.SOCK_STREAM)
+    serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serversocket.bind(("localhost", PORT))
     serversocket.listen(5)
-    (clientsocket, address) = serversocket.accept()
+    clientsocket, _ = serversocket.accept()
     while True:
         # accept connections from outside
         # now do something with the clientsocket
-        msg = ''
+        msg = b''
         while len(msg) < 100:
             chunk = clientsocket.recv(100 - len(msg))
             if bailOut:
                 return
-            if chunk == '':
-                sys.stdout.write(msg)
+            if chunk == b'':
+                sys.stdout.write(msg.decode("UTF8"))
                 return
-            msg = msg + chunk
-        sys.stdout.write(msg)
+            msg += chunk
+        sys.stdout.write(msg.decode("UTF8"))
 
 
 threading.Thread(target=main).start()
