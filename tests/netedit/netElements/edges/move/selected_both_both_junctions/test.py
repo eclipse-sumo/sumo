@@ -44,8 +44,8 @@ netedit.leftClick(referencePosition, 570, 220)
 # change to move mode
 netedit.moveMode()
 
-# move both edges
-netedit.moveElement(referencePosition, 220, 250, 220, 350)
+# move all
+netedit.moveElement(referencePosition, 325, 220, 325, 90)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
