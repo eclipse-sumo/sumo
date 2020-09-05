@@ -17,7 +17,7 @@
 
 """
 Compare ordering of vehicle departure at stops based on a route file with until
-times (ground truth) and stop-output 
+times (ground truth) and stop-output
 """
 
 from __future__ import absolute_import
@@ -31,7 +31,7 @@ if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.miscutils import parseTime  # noqa
-from sumolib.xml import parse
+from sumolib.xml import parse  # noqa
 
 
 def get_options(args=None):

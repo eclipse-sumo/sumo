@@ -516,7 +516,7 @@ class Net:
                 if self.hasInternal:
                     return path + appendix, cost + appendixCost
                 if includeFromToCost:
-                    return path, cost                
+                    return path, cost
                 return path, cost - toEdge.getLength()
             if cost > maxCost:
                 return None, cost

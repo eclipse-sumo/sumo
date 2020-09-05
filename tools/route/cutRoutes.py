@@ -188,7 +188,7 @@ def cut_routes(aEdges, orig_net, options, busStopEdges=None, ptRoutes=None, oldP
         for moving in parse(routeFile, (u'vehicle', u'person', u'flow'), {u"walk": (u"edges", u"busStop")},
                             heterogeneous=options.heterogeneous):
             if options.verbose and stats.total() > 0 and stats.total() % 100000 == 0:
-                print ("%s items read" % stats.total())
+                print("%s items read" % stats.total())
             old_route = None
             if moving.name == 'person':
                 stats.num_persons += 1

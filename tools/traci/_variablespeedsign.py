@@ -23,7 +23,8 @@ from .domain import Domain
 class VariableSpeedSignDomain(Domain):
 
     def __init__(self):
-        Domain.__init__(self, "variablespeedsign", tc.CMD_GET_VARIABLESPEEDSIGN_VARIABLE, tc.CMD_SET_VARIABLESPEEDSIGN_VARIABLE,
+        Domain.__init__(self, "variablespeedsign",
+                        tc.CMD_GET_VARIABLESPEEDSIGN_VARIABLE, tc.CMD_SET_VARIABLESPEEDSIGN_VARIABLE,
                         tc.CMD_SUBSCRIBE_VARIABLESPEEDSIGN_VARIABLE, tc.RESPONSE_SUBSCRIBE_VARIABLESPEEDSIGN_VARIABLE,
                         tc.CMD_SUBSCRIBE_VARIABLESPEEDSIGN_CONTEXT, tc.RESPONSE_SUBSCRIBE_VARIABLESPEEDSIGN_CONTEXT)
 
