@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 # Copyright (C) 2020-2020 German Aerospace Center (DLR) and others.
 # This program and the accompanying materials are made available under the
@@ -21,10 +20,13 @@ import subprocess
 
 
 SUMO_HOME = os.path.dirname(__file__)
+ENV = os.environ.copy()
+if "SUMO_HOME" not in ENV:
+    ENV["SUMO_HOME"] = SUMO_HOME
 
 
 def _makefunc(app):
-    return lambda: sys.exit(subprocess.call([os.path.join(SUMO_HOME, 'bin', app)] + sys.argv[1:]))
+    return lambda: sys.exit(subprocess.call([os.path.join(SUMO_HOME, 'bin', app)] + sys.argv[1:], env=ENV))
 
 
 activitygen = _makefunc("activitygen")
