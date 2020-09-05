@@ -89,7 +89,7 @@ A simple configuration to launch `sumo` can be seen here:
 ```
 
 !!! note 
-    If you try to launch `sumo-gui` with a run configuration on macOS, the launch will fail because it cannot find the proper `DISPLAY` variable of the XQuartz server instance. A workaround seems to be to define a `preLaunchTask`in the configuration above which exports the `DISPLAY` variable for the debugging session. However, this needs more testing.
+    If you try to launch `sumo-gui` with a run configuration on macOS, the launch will fail because it cannot find the proper `DISPLAY` variable of the XQuartz server instance. A workaround seems to be to define a `preLaunchTask` in the configuration above which exports the `DISPLAY` variable for the debugging session. However, this needs more testing.
 
 ## General Remarks
 
