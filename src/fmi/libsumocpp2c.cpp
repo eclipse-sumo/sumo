@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    libsumpcpp2c.c
+/// @file    libsumocpp2c.cpp
 /// @author  Robert Hilbrich
 /// @date    Mon, 17 Aug 2020
 ///
@@ -31,12 +31,12 @@ libsumo_load() {
     libsumo::Simulation::load(options);
 }
 
-int 
+int
 libsumo_vehicle_getIDCount() {
     return libsumo::Vehicle::getIDCount();
 }
 
-void 
+void
 libsumo_close() {
     libsumo::Simulation::close();
 }

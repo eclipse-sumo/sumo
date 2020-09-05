@@ -21,7 +21,6 @@ from __future__ import print_function
 import os
 import sys
 import optparse
-import random
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -34,15 +33,14 @@ from sumolib import checkBinary  # noqa
 import traci  # noqa
 
 
-
 def run():
     """execute the TraCI control loop"""
     step = 0
     while traci.simulation.getMinExpectedNumber() > 0:
         traci.simulationStep()
         step += 1
-        ids= traci.simulation.getDepartedIDList()
-        #print(ids)
+        ids = traci.simulation.getDepartedIDList()
+        # print(ids)
         if "1" in ids:
             traci.vehicle.setRoute("1", ["4/1to3/1", "3/1to2/1", "2/1to1/1"])
     traci.close()

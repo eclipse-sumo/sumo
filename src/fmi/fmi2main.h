@@ -27,8 +27,8 @@
 
 /* Type definitions for callback functions */
 typedef void* (*allocateMemoryType)(size_t nobj, size_t size);
-typedef void  (*loggerType)        (void *componentEnvironment, const char *instanceName, int status, const char *category, const char *message, ...);
-typedef void  (*freeMemoryType)    (void *obj);
+typedef void (*loggerType)(void* componentEnvironment, const char* instanceName, int status, const char* category, const char* message, ...);
+typedef void (*freeMemoryType)(void* obj);
 
 /* The core date (= variables of the model) */
 typedef struct {
@@ -37,15 +37,15 @@ typedef struct {
 
 /* Several declarations for the model component (housekeeping stuff) */
 typedef struct {
-    void *componentEnvironment;
-    const char *instanceName;
-    const char *resourceLocation;
+    void* componentEnvironment;
+    const char* instanceName;
+    const char* resourceLocation;
 
-    ModelData *modelData;
+    ModelData* modelData;
 
     loggerType logger;
-   	allocateMemoryType allocateMemory;
-   	freeMemoryType freeMemory;
+    allocateMemoryType allocateMemory;
+    freeMemoryType freeMemory;
 
     double startTime;
     double stopTime;
@@ -55,13 +55,13 @@ typedef struct {
 } ModelInstance;
 
 /* Declarations of utility functions */
-void logError(ModelInstance *comp, const char *message, ...);
-static void logMessage(ModelInstance *comp, int status, const char *category, const char *message, va_list args); 
+void logError(ModelInstance* comp, const char* message, ...);
+static void logMessage(ModelInstance* comp, int status, const char* category, const char* message, va_list args);
 
 /* Getter Functions */
 fmi2Status getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value);
 
 /* Stepping Functions */
-fmi2Status step(ModelInstance *comp, double tNext);
+fmi2Status step(ModelInstance* comp, double tNext);
 
 #endif /* FMI2MAIN_H */
