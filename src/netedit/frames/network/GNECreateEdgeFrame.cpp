@@ -105,7 +105,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
 }
 
 
-void 
+void
 GNECreateEdgeFrame::abortEdgeCreation() {
     // if myCreateEdgeSource exist, unmark ist as create edge source
     if (myCreateEdgeSource != nullptr) {
@@ -122,7 +122,7 @@ GNECreateEdgeFrame::getJunctionSource() const {
 }
 
 
-void 
+void
 GNECreateEdgeFrame::updateObjectsUnderSnappedCursor(const std::vector<GUIGlObject*>& GUIGlObjects) {
     myObjectsUnderSnappedCursor.updateObjectUnderCursor(GUIGlObjects);
 }

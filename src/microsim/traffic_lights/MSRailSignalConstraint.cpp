@@ -44,8 +44,7 @@ MSRailSignalConstraint::cleanup() {
 // ===========================================================================
 MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(const MSRailSignal* signal, const std::string& tripId, int limit) :
     myTripId(tripId),
-    myLimit(limit)
-{
+    myLimit(limit) {
     for (const auto& lv : signal->getLinks()) {
         for (const MSLink* link : lv) {
             PassedTracker* pt = nullptr;

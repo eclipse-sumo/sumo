@@ -251,8 +251,8 @@ GNEConnection::commitConnectionShapeChange(GNEUndoList* undoList) {
 }
 
 
-void 
-GNEConnection::deleteConnectionShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList) {
+void
+GNEConnection::deleteConnectionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList) {
     // get a copy of shape
     PositionVector newShape = getNBEdgeConnection().customShape;
     // obtain index

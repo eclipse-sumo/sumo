@@ -87,8 +87,7 @@ MSRailSignal::MSRailSignal(MSTLLogicControl& tlcontrol,
                            const std::map<std::string, std::string>& parameters) :
     MSTrafficLightLogic(tlcontrol, id, programID, TrafficLightType::RAIL_SIGNAL, delay, parameters),
     myCurrentPhase(DELTA_T, std::string(SUMO_MAX_CONNECTIONS, 'X'), -1), // dummy phase
-    myPhaseIndex(0)
-{
+    myPhaseIndex(0) {
     myDefaultCycleTime = DELTA_T;
 }
 
@@ -761,7 +760,7 @@ MSRailSignal::DriveWay::findProtection(const Approaching& veh, MSLink* link) con
 #ifdef DEBUG_FIND_PROTECTION
             if (gDebugFlag4) {
                 std::cout << " protectionCandidate=" << l2->getDescription() << " l2Via=" << Named::getIDSecure(l2->getViaLane())
-                    << " occupied=" << (l2->getViaLane() != nullptr && !l2->getViaLane()->isEmpty()) << "\n";
+                          << " occupied=" << (l2->getViaLane() != nullptr && !l2->getViaLane()->isEmpty()) << "\n";
             }
 #endif
             if (l2->getViaLane() != nullptr && !l2->getViaLane()->isEmpty()) {

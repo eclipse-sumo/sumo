@@ -492,9 +492,9 @@ public:
     /** @brief Sets the influenced previous speed
      * @param[in] A double value with the speed that overwrites the previous speed
      */
-	void setPreviousSpeed(double prevspeed) {
-		myState.mySpeed = MAX2(0., prevspeed);
-	}
+    void setPreviousSpeed(double prevspeed) {
+        myState.mySpeed = MAX2(0., prevspeed);
+    }
 
 
     /** @brief Returns the vehicle's acceleration in m/s
@@ -1808,9 +1808,9 @@ public:
     void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset);
 
     void loadPreviousApproaching(MSLink* link, bool setRequest,
-        SUMOTime arrivalTime, double arrivalSpeed,
-        SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
-        double dist, double leaveSpeed);
+                                 SUMOTime arrivalTime, double arrivalSpeed,
+                                 SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
+                                 double dist, double leaveSpeed);
     //@}
 
 protected:

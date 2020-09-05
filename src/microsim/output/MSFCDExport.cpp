@@ -123,7 +123,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 if (microVeh != nullptr) {
                     if (microVeh->getLane()->isInternal()) {
                         distance += microVeh->getRoute().getDistanceBetween(0, microVeh->getPositionOnLane(),
-                                microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
+                                    microVeh->getEdge(), &microVeh->getLane()->getEdge(), true, microVeh->getRoutePosition());
                     } else {
                         distance += microVeh->getPositionOnLane();
                     }

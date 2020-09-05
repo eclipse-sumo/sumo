@@ -61,8 +61,7 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset, b
     myCurrentLink(nullptr),
     myAttrs(nullptr),
     myLastParameterised(nullptr),
-    myOnlyReadTime(onlyReadTime)
-{
+    myOnlyReadTime(onlyReadTime) {
     myAmLoadingState = true;
     const std::vector<std::string> vehIDs = OptionsCont::getOptions().getStringVector("load-state.remove-vehicles");
     myVehiclesToRemove.insert(vehIDs.begin(), vehIDs.end());

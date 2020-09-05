@@ -251,7 +251,7 @@ struct GNEViewNetHelper {
     protected:
         /// @brief objects container
         class ObjectsContainer {
-        
+
         public:
             /// @brief constructor
             ObjectsContainer();
@@ -329,7 +329,7 @@ struct GNEViewNetHelper {
 
         /// @brief objectContainer for objects selecting edges
         ObjectsContainer myEdgeObjects;
-        
+
         /// @brief objectContainer for objects selecting lanes
         ObjectsContainer myLaneObjects;
 
@@ -1247,7 +1247,7 @@ struct GNEViewNetHelper {
     /// @brief get rainbow scaled color
     static const RGBColor& getRainbowScaledColor(const double min, const double max, const double value);
 
-    private:
-        /// @brief scale (rainbow) colors
-        static std::vector<RGBColor> myRainbowScaledColors;
+private:
+    /// @brief scale (rainbow) colors
+    static std::vector<RGBColor> myRainbowScaledColors;
 };

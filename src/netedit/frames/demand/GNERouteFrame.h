@@ -118,7 +118,7 @@ public:
     * @param keyPressed key pressed during click
     * @return true if element was sucesfully added
     */
-    bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::KeyPressed &keyPressed);
+    bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::KeyPressed& keyPressed);
 
     /// @brief get path creator modul
     GNEFrameModuls::PathCreator* getPathCreator() const;

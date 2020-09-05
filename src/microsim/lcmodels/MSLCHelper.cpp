@@ -35,10 +35,10 @@
 
 double
 MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
-        double bonusParam,
-        const MSVehicle::LaneQ& curr,
-        const MSVehicle::LaneQ& neigh,
-        const MSVehicle::LaneQ& best) {
+                                   double bonusParam,
+                                   const MSVehicle::LaneQ& curr,
+                                   const MSVehicle::LaneQ& neigh,
+                                   const MSVehicle::LaneQ& best) {
     if (veh.getLaneChangeModel().isOpposite()) {
         return 0;
     }

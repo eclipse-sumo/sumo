@@ -1305,8 +1305,8 @@ MSLCM_SL2015::_wantsChangeSublane(
                     latDist = latLaneDist;
                     maneuverDist = latLaneDist;
                     blocked = checkBlocking(neighLane, latDist, maneuverDist, laneOffset,
-                            leaders, followers, blockers,
-                            neighLeaders, neighFollowers, neighBlockers);
+                                            leaders, followers, blockers,
+                                            neighLeaders, neighFollowers, neighBlockers);
                 }
                 return ret;
             }
@@ -1557,7 +1557,7 @@ MSLCM_SL2015::_wantsChangeSublane(
         // start keepRight maneuver when no speed loss is expected and continue
         // started maneuvers if the loss isn't too big
         if (right && myVehicle.getSpeed() > 0 && (maxGainRight >= 0
-                      || ((myPreviousState & LCA_KEEPRIGHT) != 0 && maxGainRight >= -myKeepRightParam))) {
+                || ((myPreviousState & LCA_KEEPRIGHT) != 0 && maxGainRight >= -myKeepRightParam))) {
             // honor the obligation to keep right (Rechtsfahrgebot)
             // XXX consider fast approaching followers on the current lane
             //const double vMax = myLookAheadSpeed;

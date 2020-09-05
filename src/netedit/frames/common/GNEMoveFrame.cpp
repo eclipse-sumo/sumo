@@ -35,9 +35,9 @@ GNEMoveFrame::~GNEMoveFrame() {}
 
 
 void
-GNEMoveFrame::processClick(const Position& /*clickedPosition*/, 
-    const GNEViewNetHelper::ObjectsUnderCursor& /*objectsUnderCursor*/,
-    const GNEViewNetHelper::ObjectsUnderCursor& /*objectsUnderGrippedCursor*/) {
+GNEMoveFrame::processClick(const Position& /*clickedPosition*/,
+                           const GNEViewNetHelper::ObjectsUnderCursor& /*objectsUnderCursor*/,
+                           const GNEViewNetHelper::ObjectsUnderCursor& /*objectsUnderGrippedCursor*/) {
     // currently unused
 }
 

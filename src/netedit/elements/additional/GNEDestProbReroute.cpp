@@ -32,9 +32,9 @@
 
 GNEDestProbReroute::GNEDestProbReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* newEdgeDestination, double probability):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_DEST_PROB_REROUTE, "", false,
-    {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
-    myNewEdgeDestination(newEdgeDestination),
-    myProbability(probability) {
+{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
+myNewEdgeDestination(newEdgeDestination),
+myProbability(probability) {
 }
 
 

@@ -183,7 +183,7 @@ public:
         return myLoadedNumber;
     }
 
-    int getDepartedNumber() const; 
+    int getDepartedNumber() const;
 
     /** @brief Returns the number of build and inserted, but not yet deleted transportables
      * @return The number of simulated transportables
@@ -214,7 +214,7 @@ public:
 
     /** @brief Returns the number of transportables moving by themselvs (i.e. walking)
      */
-    int getMovingNumber() const; 
+    int getMovingNumber() const;
 
     /** @brief Returns the number of transportables riding a vehicle
      */

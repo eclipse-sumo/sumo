@@ -517,11 +517,11 @@ MSVehicleControl::getQuota(double frac, int loaded) const {
     if (frac < 0 || frac == 1.) {
         return 1;
     }
-    const int origLoaded = (loaded < 1 
-            // the vehicle in question has already been loaded, hence  the '-1'
-            ? frac > 1. ? (int)(myLoadedVehNo / frac) : myLoadedVehNo - 1
-            // given transportable number reflects only previously loaded
-            : frac > 1. ? (int)(loaded / frac) : loaded);
+    const int origLoaded = (loaded < 1
+                            // the vehicle in question has already been loaded, hence  the '-1'
+                            ? frac > 1. ? (int)(myLoadedVehNo / frac) : myLoadedVehNo - 1
+                            // given transportable number reflects only previously loaded
+                            : frac > 1. ? (int)(loaded / frac) : loaded);
     const int base = (int)frac;
     const int resolution = 1000;
     const int intFrac = (int)floor((frac - base) * resolution + 0.5);

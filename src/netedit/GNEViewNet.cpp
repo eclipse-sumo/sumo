@@ -417,7 +417,7 @@ GNEViewNet::openObjectDialog() {
             myPopup->create();
             myPopup->show();
             myPopupPosition = getPositionInformation();
-            // call onRightBtnRelease 
+            // call onRightBtnRelease
             myChanger->onRightBtnRelease(nullptr);
             // set focus in viewNet
             setFocus();
@@ -1159,7 +1159,7 @@ GNEViewNet::setFrontAttributeCarrier(const GNEAttributeCarrier* AC) {
 }
 
 
-void 
+void
 GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, GUIGlObjectType objectType, const double extraOffset) {
     if (myFrontAttributeCarrier == AC) {
         glTranslated(0, 0, GLO_DOTTEDCONTOUR_FRONT + extraOffset);
@@ -1853,7 +1853,7 @@ GNEViewNet::onCmdLaneOperation(FXObject*, FXSelector sel, void*) {
 }
 
 
-long 
+long
 GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
     GNELane* clickedLane = getLaneAtPopupPosition();
     if (clickedLane != nullptr) {
@@ -1863,7 +1863,7 @@ GNEViewNet::onCmdLaneReachability(FXObject* menu, FXSelector, void*) {
         myNet->getPathCalculator()->calculateReachability(vClass, clickedLane->getParentEdge());
         // select all lanes with reachablility greather than 0
         myUndoList->p_begin("select lane reachability");
-        for (const auto &edge : myNet->getAttributeCarriers()->getEdges()) {
+        for (const auto& edge : myNet->getAttributeCarriers()->getEdges()) {
             for (const auto& lane : edge.second->getLanes()) {
                 if (lane->getReachability() >= 0) {
                     lane->setAttribute(GNE_ATTR_SELECTED, "true", myUndoList);
@@ -2149,15 +2149,15 @@ GNEViewNet::updateCursor() {
     // check if in current mode/supermode cursor move can be shown
     if (myEditModes.isCurrentSupermodeNetwork()) {
         if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_SELECT) ||
-            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
-            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) ||
-            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
+                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL) ||
+                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) ||
+                (myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ)) {
             cursorMove = true;
         }
     } else if (myEditModes.isCurrentSupermodeDemand()) {
         if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_SELECT) ||
-            (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
-            (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
+                (myEditModes.demandEditMode == DemandEditMode::DEMAND_VEHICLE) ||
+                (myEditModes.demandEditMode == DemandEditMode::DEMAND_STOP)) {
             cursorMove = true;
         }
     } else if (myEditModes.isCurrentSupermodeData()) {
@@ -3294,13 +3294,13 @@ GNEViewNet::deleteSelectedAdditionals() {
         std::string plural = selectedAdditionals.size() == 1 ? ("") : ("s");
         myUndoList->p_begin("delete selected additional" + plural);
         // do it in two phases: In the first phase remove slaves...
-        for (const auto &selectedAdditional : selectedAdditionals) {
+        for (const auto& selectedAdditional : selectedAdditionals) {
             if (selectedAdditional->getTagProperty().isSlave()) {
                 myNet->deleteAdditional(selectedAdditional, myUndoList);
             }
         }
         // ... and in the second remove rest
-        for (const auto &selectedAdditional : selectedAdditionals) {
+        for (const auto& selectedAdditional : selectedAdditionals) {
             if (!selectedAdditional->getTagProperty().isSlave()) {
                 myNet->deleteAdditional(selectedAdditional, myUndoList);
             }
@@ -3318,7 +3318,7 @@ GNEViewNet::deleteSelectedDemandElements() {
         myUndoList->p_begin("delete selected demand elements" + plural);
         // declare vector for persons
         std::vector<GNEDemandElement*> persons;
-        for (const auto &demandElement: demandElements) {
+        for (const auto& demandElement : demandElements) {
             // check if element is a personplan
             if (demandElement->getTagProperty().isPersonPlan()) {
                 persons.push_back(demandElement->getParentDemandElements().front());
@@ -3329,7 +3329,7 @@ GNEViewNet::deleteSelectedDemandElements() {
             }
         }
         // check if we have to remove empty persons
-        for (const auto &person : persons) {
+        for (const auto& person : persons) {
             // due person could be removed previously, check if exist
             if (person->getChildDemandElements().empty() && myNet->retrieveDemandElement(person->getTagProperty().getTag(), person->getID(), false) != nullptr) {
                 myNet->deleteDemandElement(person, myUndoList);
@@ -3709,10 +3709,10 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             // check that we have clicked over an non-demand element
             if (myObjectsUnderCursor.getAttributeCarrierFront() &&
-                (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isNetworkElement() || 
-                 myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isAdditionalElement() || 
-                 myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isShape() ||
-                 myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isTAZElement())) {
+                    (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isNetworkElement() ||
+                     myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isAdditionalElement() ||
+                     myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isShape() ||
+                     myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isTAZElement())) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // before delete al selected attribute carriers, check if we clicked over a geometry point
@@ -3793,14 +3793,14 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // check if we're removing a geometry point
                 if (myKeyPressed.shiftKeyPressed()) {
                     // check what geometry point will be removed
-                    if (myObjectsUnderCursor.getCrossingFront() && 
-                        (myObjectsUnderCursor.getCrossingFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
+                    if (myObjectsUnderCursor.getCrossingFront() &&
+                            (myObjectsUnderCursor.getCrossingFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
                         myObjectsUnderCursor.getCrossingFront()->deleteCrossingShapeGeometryPoint(getPositionInformation(), myUndoList);
-                    } else if (myObjectsUnderCursor.getConnectionFront() && 
-                        (myObjectsUnderCursor.getConnectionFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
+                    } else if (myObjectsUnderCursor.getConnectionFront() &&
+                               (myObjectsUnderCursor.getConnectionFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
                         myObjectsUnderCursor.getConnectionFront()->deleteConnectionShapeGeometryPoint(getPositionInformation(), myUndoList);
-                    } else if (myObjectsUnderCursor.getJunctionFront() && 
-                        (myObjectsUnderCursor.getJunctionFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
+                    } else if (myObjectsUnderCursor.getJunctionFront() &&
+                               (myObjectsUnderCursor.getJunctionFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
                         myObjectsUnderCursor.getJunctionFront()->deleteJunctionShapeGeometryPoint(getPositionInformation(), myUndoList);
                     }
                 } else if (!myMoveSingleElementValues.beginMoveNetworkElementShape()) {

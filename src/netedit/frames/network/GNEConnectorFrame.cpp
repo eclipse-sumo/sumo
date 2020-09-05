@@ -487,15 +487,15 @@ GNEConnectorFrame::initTargets() {
     // gather potential targets
     NBNode* nbn = myCurrentEditedLane->getParentEdge()->getParentJunctions().back()->getNBNode();
     // get potencial targets
-    for (const auto &NBEEdge : nbn->getOutgoingEdges()) {
+    for (const auto& NBEEdge : nbn->getOutgoingEdges()) {
         GNEEdge* edge = myViewNet->getNet()->retrieveEdge(NBEEdge->getID());
-        for (const auto &lane : edge->getLanes()) {
+        for (const auto& lane : edge->getLanes()) {
             myPotentialTargets.insert(lane);
         }
     }
     // set color for existing connections
     std::vector<NBEdge::Connection> connections = myCurrentEditedLane->getParentEdge()->getNBEdge()->getConnectionsFromLane(myCurrentEditedLane->getIndex());
-    for (const auto &lane : myPotentialTargets) {
+    for (const auto& lane : myPotentialTargets) {
         switch (getLaneStatus(connections, lane)) {
             case LaneStatus::CONNECTED:
                 lane->setSpecialColor(&myViewNet->getVisualisationSettings().candidateColorSettings.target);

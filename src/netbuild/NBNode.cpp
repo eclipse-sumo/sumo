@@ -2540,7 +2540,7 @@ void
 NBNode::buildCrossingsAndWalkingAreas() {
     buildCrossings();
     buildWalkingAreas(OptionsCont::getOptions().getInt("junctions.corner-detail"),
-            OptionsCont::getOptions().getFloat("walkingareas.join-dist"));
+                      OptionsCont::getOptions().getFloat("walkingareas.join-dist"));
     // ensure that all crossings are properly connected
     for (auto& crossing : myCrossings) {
         if (crossing->prevWalkingArea == "" || crossing->nextWalkingArea == "" || !crossing->valid) {
@@ -2764,7 +2764,7 @@ NBNode::buildWalkingAreas(int cornerDetail, double joinMinDist) {
                 start = i;
             }
         } else {
-            if ((l.permissions & SVC_PEDESTRIAN) == 0 
+            if ((l.permissions & SVC_PEDESTRIAN) == 0
                     || crossingBetween(edge, prevEdge)
                     || alreadyConnectedPaths(edge, prevEdge, joinMinDist)) {
                 waIndices.push_back(std::make_pair(start, i - start));

@@ -85,8 +85,12 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
     // aliases for backward compatibility
-    inline static std::vector<TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) { return getAllProgramLogics(tlsID); }
-    inline static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic) { setProgramLogic(tlsID, logic); }
+    inline static std::vector<TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) {
+        return getAllProgramLogics(tlsID);
+    }
+    inline static void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const TraCILogic& logic) {
+        setProgramLogic(tlsID, logic);
+    }
 
 private:
 #ifndef SWIGJAVA

@@ -82,7 +82,7 @@ public:
     void commitConnectionShapeChange(GNEUndoList* undoList);
 
     /// @brief delete geometry point
-    void deleteConnectionShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList);
+    void deleteConnectionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList);
     /// @}
 
     /// Returns the street's geometry

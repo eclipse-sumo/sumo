@@ -46,7 +46,7 @@ public:
      * @param objectsUnderCursor collection of objects under cursor after click over view
      * @return true if additional was sucesfully added
      */
-    bool addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed);
+    bool addEdgeRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed& keyPressed);
 
 protected:
     /// @brief create path

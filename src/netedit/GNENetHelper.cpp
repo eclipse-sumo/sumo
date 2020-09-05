@@ -709,7 +709,7 @@ GNENetHelper::AttributeCarriers::TAZElementExist(const GNETAZElement* TAZElement
     // first check that TAZElement pointer is valid
     if (TAZElement) {
         return myTAZElements.at(TAZElement->getTagProperty().getTag()).find(TAZElement->getID()) !=
-            myTAZElements.at(TAZElement->getTagProperty().getTag()).end();
+               myTAZElements.at(TAZElement->getTagProperty().getTag()).end();
     } else {
         throw ProcessError("Invalid TAZElement pointer");
     }
@@ -845,7 +845,7 @@ GNENetHelper::AttributeCarriers::updateDemandElementID(GNEAttributeCarrier* AC, 
         // retrieve demand element
         GNEDemandElement* demandElement = myDemandElements.at(AC->getTagProperty().getTag()).at(AC->getID());
         // get embebbed route
-        GNEDemandElement *embebbedRoute = nullptr;
+        GNEDemandElement* embebbedRoute = nullptr;
         if (demandElement->getTagProperty().embebbedRoute()) {
             embebbedRoute = demandElement->getChildDemandElements().back();
         }
@@ -875,7 +875,7 @@ bool
 GNENetHelper::AttributeCarriers::dataSetExist(const GNEDataSet* dataSet) const {
     // first check that dataSet pointer is valid
     if (dataSet) {
-        for (const auto &dataset : myDataSets) {
+        for (const auto& dataset : myDataSets) {
             if (dataset.second == dataSet) {
                 return true;
             }
@@ -983,7 +983,8 @@ GNENetHelper::PathCalculator::calculatePath(const SUMOVehicleClass vClass, const
     if (partialEdges.size() == 0) {
         // partial edges empty, then return a empty vector
         return solution;
-    } if (partialEdges.size() == 1) {
+    }
+    if (partialEdges.size() == 1) {
         // if there is only one partialEdges, route has only one edge
         solution.push_back(partialEdges.front());
     } else {
@@ -1085,7 +1086,7 @@ GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass v
         return true;
     } else {
         // iterate over connections of from edge
-        for (const auto &fromLane : from->getLanes()) {
+        for (const auto& fromLane : from->getLanes()) {
             for (const auto& fromConnection : from->getGNEConnections()) {
                 // within from loop, iterate ove to lanes
                 for (const auto& toLane : to->getLanes()) {
@@ -1094,8 +1095,8 @@ GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass v
                         const NBEdge::Lane NBFromLane = from->getNBEdge()->getLaneStruct(fromLane->getIndex());
                         const NBEdge::Lane NBToLane = to->getNBEdge()->getLaneStruct(toLane->getIndex());
                         // check vClass
-                        if (((NBFromLane.permissions & vClass) == vClass) && 
-                            ((NBToLane.permissions & vClass) == vClass)) {
+                        if (((NBFromLane.permissions & vClass) == vClass) &&
+                                ((NBToLane.permissions & vClass) == vClass)) {
                             return true;
                         }
                     }
@@ -1107,15 +1108,15 @@ GNENetHelper::PathCalculator::consecutiveEdgesConnected(const SUMOVehicleClass v
 }
 
 
-bool 
+bool
 GNENetHelper::PathCalculator::busStopConnected(const GNEAdditional* busStop, const GNEEdge* edge) const {
     if (busStop->getTagProperty().getTag() != SUMO_TAG_BUS_STOP) {
         return false;
     }
     // check if busstop is placed over a pedestrian lane
     if ((busStop->getParentLanes().front()->getParentEdge() == edge) &&
-        (edge->getNBEdge()->getLaneStruct(busStop->getParentLanes().front()->getIndex()).permissions & SVC_PEDESTRIAN) != 0) {
-        // busStop is placed over an lane that supports pedestrians, then return true 
+            (edge->getNBEdge()->getLaneStruct(busStop->getParentLanes().front()->getIndex()).permissions & SVC_PEDESTRIAN) != 0) {
+        // busStop is placed over an lane that supports pedestrians, then return true
         return true;
     }
     // obtain a list with all edge lanes that supports pedestrians
@@ -1126,10 +1127,10 @@ GNENetHelper::PathCalculator::busStopConnected(const GNEAdditional* busStop, con
         }
     }
     // check if exist an access between busStop and pedestrian lanes
-    for (const auto &access : busStop->getChildAdditionals()) {
+    for (const auto& access : busStop->getChildAdditionals()) {
         // check that child is an access
         if (access->getTagProperty().getTag() == SUMO_TAG_ACCESS) {
-            for (const auto &lane : pedestrianLanes) {
+            for (const auto& lane : pedestrianLanes) {
                 if (access->getParentLanes().front() == lane) {
                     // found, then return true
                     return true;

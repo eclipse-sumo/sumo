@@ -132,7 +132,7 @@ Person::getTaxiReservations(int onlyNew) {
     std::vector<TraCIReservation> result;
     MSDispatch* dispatcher = MSDevice_Taxi::getDispatchAlgorithm();
     if (dispatcher != nullptr) {
-        MSDispatch_TraCI* traciDispatcher = dynamic_cast<MSDispatch_TraCI*>(dispatcher); 
+        MSDispatch_TraCI* traciDispatcher = dynamic_cast<MSDispatch_TraCI*>(dispatcher);
         if (traciDispatcher == nullptr) {
             throw TraCIException("device.taxi.dispatch-algorithm 'traci' has not been loaded");
         }
@@ -149,15 +149,15 @@ Person::getTaxiReservations(int onlyNew) {
                 personIDs.push_back(p->getID());
             }
             result.push_back(TraCIReservation(traciDispatcher->getReservationID(res),
-                        personIDs,
-                        res->group,
-                        res->from->getID(),
-                        res->to->getID(),
-                        res->fromPos,
-                        res->toPos,
-                        STEPS2TIME(res->pickupTime),
-                        STEPS2TIME(res->reservationTime)
-                        ));
+                                              personIDs,
+                                              res->group,
+                                              res->from->getID(),
+                                              res->to->getID(),
+                                              res->fromPos,
+                                              res->toPos,
+                                              STEPS2TIME(res->pickupTime),
+                                              STEPS2TIME(res->reservationTime)
+                                             ));
         }
     }
     return result;
@@ -883,7 +883,7 @@ Person::moveToXY(const std::string& personID, const std::string& edgeID, const d
                 }
                 break;
             }
-            case MSStageType::WAITING_FOR_DEPART: 
+            case MSStageType::WAITING_FOR_DEPART:
                 MSNet::getInstance()->getPersonControl().forceDeparture();
                 FALLTHROUGH;
             case MSStageType::WAITING: {

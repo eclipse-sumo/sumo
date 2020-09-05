@@ -33,9 +33,9 @@
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-    {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
-    myTime(time),
-    mySpeed(speed) {
+{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
+myTime(time),
+mySpeed(speed) {
 }
 
 

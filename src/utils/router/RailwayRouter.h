@@ -103,7 +103,7 @@ public:
         ensureInternalRouter();
         if (vehicle->getLength() > myMaxTrainLength) {
             WRITE_WARNINGF("Vehicle '%' with length % exceeds configured value of --railway.max-train-length %",
-                    vehicle->getID(), toString(vehicle->getLength()), toString(myMaxTrainLength));
+                           vehicle->getID(), toString(vehicle->getLength()), toString(myMaxTrainLength));
         }
         // make sure that the vehicle can turn-around when starting on a short edge (the virtual turn-around for this lies backwards along the route / track)
         std::vector<double> backLengths;

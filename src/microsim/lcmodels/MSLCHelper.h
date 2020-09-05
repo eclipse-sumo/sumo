@@ -44,8 +44,8 @@ public:
     /// @param[in] curr continuation info along veh's current lane
     /// @param[in] neigh continuation info along a neighboring lane (in MSLCM_2013::_wantsChange() the considered lane for a lanechange)
     static double getRoundaboutDistBonus(const MSVehicle& veh,
-            double bonusParam,
-            const MSVehicle::LaneQ& curr,
-            const MSVehicle::LaneQ& neigh,
-            const MSVehicle::LaneQ& best);
+                                         double bonusParam,
+                                         const MSVehicle::LaneQ& curr,
+                                         const MSVehicle::LaneQ& neigh,
+                                         const MSVehicle::LaneQ& best);
 };

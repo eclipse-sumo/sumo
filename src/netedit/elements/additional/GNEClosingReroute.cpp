@@ -33,9 +33,9 @@
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false,
-    {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
-    myClosedEdge(closedEdge),
-    myPermissions(permissions) {
+{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
+myClosedEdge(closedEdge),
+myPermissions(permissions) {
 }
 
 

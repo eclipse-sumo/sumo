@@ -203,7 +203,7 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         if (pcoe != nullptr && pcie != nullptr && pcoe->getToNode() == e->getToNode()) {
             // if so, simply prohibit the connections
             NBNode* const toNode = e->getToNode();
-            for (NBEdge* const edge: e->getConnectedEdges()) {
+            for (NBEdge* const edge : e->getConnectedEdges()) {
                 toNode->addSortedLinkFoes(NBConnection(e, edge), NBConnection(pcoe, pcie));
             }
         } else {

@@ -135,7 +135,7 @@ long
 GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
     // get rerouter children
     std::vector<GNEAdditional*> rerouterChildren;
-    for (const auto &rerouterChild : myEditedAdditional->getChildAdditionals()) {
+    for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
         if (!rerouterChild->getTagProperty().isSymbol()) {
             rerouterChildren.push_back(rerouterChild);
         }
@@ -169,7 +169,7 @@ void
 GNERerouterDialog::updateIntervalTable() {
     // get rerouter children
     std::vector<GNEAdditional*> rerouterChildren;
-    for (const auto &rerouterChild : myEditedAdditional->getChildAdditionals()) {
+    for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
         if (!rerouterChild->getTagProperty().isSymbol()) {
             rerouterChildren.push_back(rerouterChild);
         }
@@ -191,7 +191,7 @@ GNERerouterDialog::updateIntervalTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over values
-    for (const auto &rerouterChild : rerouterChildren) {
+    for (const auto& rerouterChild : rerouterChildren) {
         // Set time
         item = new FXTableItem(rerouterChild->getAttribute(SUMO_ATTR_BEGIN).c_str());
         myIntervalTable->setItem(indexRow, 0, item);

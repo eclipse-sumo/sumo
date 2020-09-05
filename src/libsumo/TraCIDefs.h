@@ -334,21 +334,21 @@ struct TraCINextTLSData {
 struct TraCINextStopData : TraCIResult {
 
     TraCINextStopData(const std::string& lane = "",
-            double startPos = INVALID_DOUBLE_VALUE,
-            double endPos = INVALID_DOUBLE_VALUE,
-            const std::string& stoppingPlaceID = "",
-            int stopFlags = 0,
-            double duration = INVALID_DOUBLE_VALUE,
-            double until = INVALID_DOUBLE_VALUE,
-            double intendedArrival = INVALID_DOUBLE_VALUE,
-            double arrival = INVALID_DOUBLE_VALUE,
-            double depart = INVALID_DOUBLE_VALUE,
-            const std::string& split = "",
-            const std::string& join = "",
-            const std::string& actType = "",
-            const std::string& tripId = "",
-            const std::string& line = "",
-            double speed = 0):
+                      double startPos = INVALID_DOUBLE_VALUE,
+                      double endPos = INVALID_DOUBLE_VALUE,
+                      const std::string& stoppingPlaceID = "",
+                      int stopFlags = 0,
+                      double duration = INVALID_DOUBLE_VALUE,
+                      double until = INVALID_DOUBLE_VALUE,
+                      double intendedArrival = INVALID_DOUBLE_VALUE,
+                      double arrival = INVALID_DOUBLE_VALUE,
+                      double depart = INVALID_DOUBLE_VALUE,
+                      const std::string& split = "",
+                      const std::string& join = "",
+                      const std::string& actType = "",
+                      const std::string& tripId = "",
+                      const std::string& line = "",
+                      double speed = 0):
         lane(lane),
         startPos(startPos),
         endPos(endPos),
@@ -370,8 +370,8 @@ struct TraCINextStopData : TraCIResult {
     std::string getString() {
         std::ostringstream os;
         os << "TraCINextStopData(" << lane << "," << endPos << "," << stoppingPlaceID
-            << "," << stopFlags << "," << duration << "," << until
-            << "," << arrival << ")";
+           << "," << stopFlags << "," << duration << "," << until
+           << "," << arrival << ")";
         return os.str();
     }
 
@@ -488,14 +488,14 @@ class TraCIReservation {
 public:
     TraCIReservation() {}
     TraCIReservation(const std::string& id,
-               const std::vector<std::string>& persons,
-               const std::string& group,
-               const std::string& fromEdge,
-               const std::string& toEdge,
-               double departPos,
-               double arrivalPos,
-               double depart,
-               double reservationTime) :
+                     const std::vector<std::string>& persons,
+                     const std::string& group,
+                     const std::string& fromEdge,
+                     const std::string& toEdge,
+                     double departPos,
+                     double arrivalPos,
+                     double depart,
+                     double reservationTime) :
         id(id), persons(persons), group(group), fromEdge(fromEdge), toEdge(toEdge), departPos(departPos), arrivalPos(arrivalPos),
         depart(depart), reservationTime(reservationTime) {}
     /// @brief The id of the taxi reservation (usable for traci.vehicle.dispatchTaxi)

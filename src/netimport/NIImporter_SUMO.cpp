@@ -84,8 +84,7 @@ NIImporter_SUMO::NIImporter_SUMO(NBNetBuilder& nb)
       myCheckLaneFoesRoundabout(true),
       myTlsIgnoreInternalJunctionJam(false),
       myDefaultSpreadType(toString(LaneSpreadFunction::RIGHT)),
-      myGeomAvoidOverlap(true)
-{
+      myGeomAvoidOverlap(true) {
 }
 
 

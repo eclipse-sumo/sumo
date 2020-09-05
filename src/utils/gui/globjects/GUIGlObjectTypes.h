@@ -219,7 +219,7 @@ enum GUIGlObjectType {
 
     /// @brief temporal shape (used in NETEDIT)
     GLO_TEMPORALSHAPE = 1030,
-    
+
     /// @brief rectangle selection shape (used in NETEDIT)
     GLO_RECTANGLESELECTION = 1040,
 

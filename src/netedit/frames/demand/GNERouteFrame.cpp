@@ -231,7 +231,7 @@ GNERouteFrame::hide() {
 
 
 bool
-GNERouteFrame::addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::KeyPressed &keyPressed) {
+GNERouteFrame::addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::KeyPressed& keyPressed) {
     // first check if current vClass and mode are valid and edge exist
     if (clickedEdge && myRouteModeSelector->isValidVehicleClass() && myRouteModeSelector->isValidMode()) {
         // add edge in path
@@ -251,7 +251,7 @@ GNERouteFrame::getPathCreator() const {
 }
 
 
-void 
+void
 GNERouteFrame::createPath() {
     // check that route attributes are valid
     if (!myRouteAttributes->areValuesValid()) {

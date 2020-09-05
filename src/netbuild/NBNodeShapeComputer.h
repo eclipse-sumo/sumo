@@ -80,8 +80,8 @@ private:
 
     /// @brief compute clockwise/counter-clockwise edge boundaries
     void computeEdgeBoundaries(const EdgeVector& edges,
-                                GeomsMap& geomsCCW,
-                                GeomsMap& geomsCW);
+                               GeomsMap& geomsCCW,
+                               GeomsMap& geomsCW);
 
     /** @brief Joins edges and computes ccw/cw boundaries
      *
@@ -101,10 +101,10 @@ private:
      *  is returned;
      */
     EdgeVector computeUniqueDirectionList(
-            const EdgeVector& all,
-            std::map<NBEdge*, std::set<NBEdge*> >& same,
-            GeomsMap& geomsCCW,
-            GeomsMap& geomsCW);
+        const EdgeVector& all,
+        std::map<NBEdge*, std::set<NBEdge*> >& same,
+        GeomsMap& geomsCCW,
+        GeomsMap& geomsCW);
 
     /** @brief Compute smoothed corner shape
      * @param[in] begShape
@@ -143,7 +143,7 @@ private:
 
     /// @brief whether the given edges (along with those in the same direction) requires a large turning radius
     bool needsLargeTurn(NBEdge* e1, NBEdge* e2,
-            std::map<NBEdge*, std::set<NBEdge*> >& same) const;
+                        std::map<NBEdge*, std::set<NBEdge*> >& same) const;
 
     /// @brief determine the default radius appropriate for the current junction
     double getDefaultRadius(const OptionsCont& oc);

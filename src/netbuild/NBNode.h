@@ -375,7 +375,7 @@ public:
     void computeLogic2(bool checkLaneFoes);
 
     /// @brief compute keepClear status for all connections
-    void computeKeepClear(); 
+    void computeKeepClear();
 
     /// @brief writes the XML-representation of the logic as a bitset-logic XML representation
     bool writeLogic(OutputDevice& into) const;
@@ -652,7 +652,7 @@ public:
     bool crossingBetween(const NBEdge* e1, const NBEdge* e2) const;
 
     /// @brief return true if the given pedestrian paths are connected at another junction within dist
-    bool alreadyConnectedPaths(const NBEdge* e1, const NBEdge* e2, double dist) const; 
+    bool alreadyConnectedPaths(const NBEdge* e1, const NBEdge* e2, double dist) const;
 
     /// @brief get prohibitions (BLocked connections)
     const NBConnectionProhibits& getProhibitions() {

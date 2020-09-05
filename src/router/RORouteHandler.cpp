@@ -447,8 +447,8 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
                 if (stop.until > 0) {
                     if (myActiveRoutePeriod <= 0) {
                         const std::string description = myVehicleParameter != nullptr
-                            ?  "for vehicle '" + myVehicleParameter->id + "'"
-                            :  "'" + myActiveRouteID + "'";
+                                                        ?  "for vehicle '" + myVehicleParameter->id + "'"
+                                                        :  "'" + myActiveRouteID + "'";
                         throw ProcessError("Cannot repeat stops with 'until' in route " + description + " because no cycleTime is defined.");
                     }
                     stop.until += myActiveRoutePeriod * (i + 1);

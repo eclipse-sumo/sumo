@@ -232,7 +232,7 @@ MSRouteHandler::myStartElement(int element,
                     if (!myActivePlan->empty() && myActivePlan->back()->getDestination() != from) {
                         if (myActivePlan->back()->getDestinationStop() == nullptr || &myActivePlan->back()->getDestinationStop()->getLane().getEdge() != from) {
                             throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id +
-                                "' (edge '" + fromID + "' != edge '" + myActivePlan->back()->getDestination()->getID() + "').");
+                                               "' (edge '" + fromID + "' != edge '" + myActivePlan->back()->getDestination()->getID() + "').");
                         }
                     }
                     if (startVeh != nullptr && startVeh->getRoute().getEdges().front() != from) {
@@ -468,8 +468,8 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes& attrs) {
     myActiveRouteColor = attrs.hasAttribute(SUMO_ATTR_COLOR) ? new RGBColor(attrs.get<RGBColor>(SUMO_ATTR_COLOR, myActiveRouteID.c_str(), ok)) : nullptr;
     myActiveRouteRepeat = attrs.getOpt<int>(SUMO_ATTR_REPEAT, myActiveRouteID.c_str(), ok, 0);
     myActiveRoutePeriod = attrs.getOptSUMOTimeReporting(SUMO_ATTR_CYCLETIME, myActiveRouteID.c_str(), ok,
-            // handle obsolete attribute name
-            attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
+                          // handle obsolete attribute name
+                          attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, myActiveRouteID.c_str(), ok, 0));
     if (attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         WRITE_WARNING("Attribute 'period' is deprecated for route. Use 'cycleTime' instead.");
     }
@@ -565,8 +565,8 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                     if (stop.until > 0) {
                         if (myActiveRoutePeriod <= 0) {
                             const std::string description = myVehicleParameter != nullptr
-                                ?  "for " + type + " '" + myVehicleParameter->id + "'"
-                                :  "'" + myActiveRouteID + "'";
+                                                            ?  "for " + type + " '" + myVehicleParameter->id + "'"
+                                                            :  "'" + myActiveRouteID + "'";
                             throw ProcessError("Cannot repeat stops with 'until' in route " + description + " because no cycleTime is defined.");
                         }
                         stop.until += myActiveRoutePeriod * (i + 1);
@@ -574,8 +574,8 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
                     if (stop.arrival > 0) {
                         if (myActiveRoutePeriod <= 0) {
                             const std::string description = myVehicleParameter != nullptr
-                                ?  "for " + type + " '" + myVehicleParameter->id + "'"
-                                :  "'" + myActiveRouteID + "'";
+                                                            ?  "for " + type + " '" + myVehicleParameter->id + "'"
+                                                            :  "'" + myActiveRouteID + "'";
                             throw ProcessError("Cannot repeat stops with 'arrival' in route " + description + " because no cycleTime is defined.");
                         }
                         stop.arrival += myActiveRoutePeriod * (i + 1);
@@ -838,7 +838,7 @@ MSRouteHandler::addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPerm
         }
     }
     MSRoute* newRoute = new MSRoute("!" + myVehicleParameter->id, edges,
-            isPermanent, new RGBColor(route->getColor()), route->getStops());
+                                    isPermanent, new RGBColor(route->getColor()), route->getStops());
     if (!MSRoute::dictionary(newRoute->getID(), newRoute)) {
         delete newRoute;
         throw ProcessError("Could not adapt implicit route for " + std::string(isPermanent ? "flow" : "vehicle") + "  '" + myVehicleParameter->id + "'");
@@ -942,9 +942,9 @@ MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::s
                 myActivePlan->front()->setArrivalPos(initialDepartPos);
             }
         }
-        myVehicleParameter->id = (baseID 
-                + (i >= 0 ? "." + toString(i) : "") 
-                + (j > 0 ?  "." + toString(j) : ""));
+        myVehicleParameter->id = (baseID
+                                  + (i >= 0 ? "." + toString(i) : "")
+                                  + (j > 0 ?  "." + toString(j) : ""));
         myVehicleParameter->depart = depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
         MSTransportable* person = pc.buildPerson(myVehicleParameter, type, myActivePlan, &myParsingRNG);
         if (!pc.add(person)) {

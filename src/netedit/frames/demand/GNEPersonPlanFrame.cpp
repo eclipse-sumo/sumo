@@ -112,7 +112,7 @@ GNEPersonPlanFrame::hide() {
 
 
 bool
-GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
+GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed& keyPressed) {
     // first check if person selected is valid
     if (myPersonSelector->getCurrentDemandElement() == nullptr) {
         myViewNet->setStatusBarText("Current selected person isn't valid.");
@@ -127,9 +127,9 @@ GNEPersonPlanFrame::addPersonPlanElement(const GNEViewNetHelper::ObjectsUnderCur
     SumoXMLTag personPlanTag = myPersonPlanTagSelector->getCurrentTagProperties().getTag();
     // declare flags for requierements
     const bool requireBusStop = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_WALK_EDGE_BUSSTOP) ||
-        (personPlanTag == GNE_TAG_RIDE_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_PERSONSTOP_BUSSTOP));
+                                 (personPlanTag == GNE_TAG_RIDE_EDGE_BUSSTOP) || (personPlanTag == GNE_TAG_PERSONSTOP_BUSSTOP));
     const bool requireEdge = ((personPlanTag == GNE_TAG_PERSONTRIP_EDGE_EDGE) || (personPlanTag == GNE_TAG_WALK_EDGES) ||
-        (personPlanTag == GNE_TAG_WALK_EDGE_EDGE) || (personPlanTag == GNE_TAG_RIDE_EDGE_EDGE));
+                              (personPlanTag == GNE_TAG_WALK_EDGE_EDGE) || (personPlanTag == GNE_TAG_RIDE_EDGE_EDGE));
     // continue depending of tag
     if ((personPlanTag == GNE_TAG_WALK_ROUTE) && objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
         return myPathCreator->addRoute(objectsUnderCursor.getDemandElementFront(), keyPressed.shiftKeyPressed(), keyPressed.controlKeyPressed());
@@ -216,10 +216,10 @@ GNEPersonPlanFrame::createPath() {
     } else {
         // check if person plan can be created
         if (GNERouteHandler::buildPersonPlan(
-                myPersonPlanTagSelector->getCurrentTagProperties().getTag(), 
-                myPersonSelector->getCurrentDemandElement(),
-                myPersonPlanAttributes,
-                myPathCreator)) {
+                    myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
+                    myPersonSelector->getCurrentDemandElement(),
+                    myPersonPlanAttributes,
+                    myPathCreator)) {
             // refresh HierarchicalElementTree
             myPersonHierarchy->refreshHierarchicalElementTree();
             // abort path creation

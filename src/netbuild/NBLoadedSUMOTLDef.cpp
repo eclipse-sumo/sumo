@@ -441,10 +441,10 @@ NBLoadedSUMOTLDef::reconstructLogic() {
 #ifdef DEBUG_RECONSTRUCTION
     bool debugPrintModified = myReconstructAddedConnections || myReconstructRemovedConnections;
     std::cout << getID() << " reconstructLogic added=" << myReconstructAddedConnections
-        << " removed=" << myReconstructRemovedConnections
-        << " valid=" << hasValidIndices()
-        << " phasesLoaded=" << myPhasesLoaded
-        << " oldLinks:\n";
+              << " removed=" << myReconstructRemovedConnections
+              << " valid=" << hasValidIndices()
+              << " phasesLoaded=" << myPhasesLoaded
+              << " oldLinks:\n";
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
         std::cout << "    " << *it << "\n";
     }

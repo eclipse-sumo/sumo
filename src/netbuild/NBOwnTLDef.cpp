@@ -1094,7 +1094,7 @@ NBOwnTLDef::fixSuperfluousYellow(NBTrafficLightLogic* logic) const {
         for (int i2 = 0; i2 < p; ++i2) {
             LinkState cur = (LinkState)logic->getPhases()[i2].state[i1];
             LinkState next = (LinkState)logic->getPhases()[(i2 + 1) % p].state[i1];
-            if (cur == LINKSTATE_TL_YELLOW_MINOR 
+            if (cur == LINKSTATE_TL_YELLOW_MINOR
                     && (prev == LINKSTATE_TL_GREEN_MAJOR || prev == LINKSTATE_TL_YELLOW_MINOR)
                     && next == LINKSTATE_TL_GREEN_MAJOR) {
                 logic->setPhaseState(i2, i1, prev);
@@ -1150,7 +1150,7 @@ NBOwnTLDef::computeEscapeTime(const std::string& state, const EdgeVector& fromEd
         if (state[i1] == 'y' && !fromEdges[i1]->isInsideTLS()) {
             for (int i2 = 0; i2 < n; ++i2) {
                 if (fromEdges[i2]->isInsideTLS()) {
-                    double gapSpeed = (toEdges[i1]->getSpeed() + fromEdges[i2]->getSpeed()) / 2; 
+                    double gapSpeed = (toEdges[i1]->getSpeed() + fromEdges[i2]->getSpeed()) / 2;
                     double time = fromEdges[i1]->getGeometry().back().distanceTo2D(fromEdges[i2]->getGeometry().back()) / gapSpeed;
                     maxTime = MAX2(maxTime, time);
                 }

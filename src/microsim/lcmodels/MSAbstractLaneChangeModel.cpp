@@ -682,8 +682,8 @@ MSAbstractLaneChangeModel::determineTargetLane(int& targetDir) const {
 double
 MSAbstractLaneChangeModel::getAngleOffset() const {
     const double totalDuration = (myVehicle.getVehicleType().wasSet(VTYPEPARS_MAXSPEED_LAT_SET)
-            ? SUMO_const_laneWidth / myVehicle.getVehicleType().getMaxSpeedLat()
-            : STEPS2TIME(MSGlobals::gLaneChangeDuration));
+                                  ? SUMO_const_laneWidth / myVehicle.getVehicleType().getMaxSpeedLat()
+                                  : STEPS2TIME(MSGlobals::gLaneChangeDuration));
 
     const double angleOffset = 60 / totalDuration * (pastMidpoint() ? 1 - myLaneChangeCompletion : myLaneChangeCompletion);
     return myLaneChangeDirection * angleOffset;

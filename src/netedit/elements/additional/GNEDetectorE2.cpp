@@ -34,19 +34,21 @@
 // member method definitions
 // ===========================================================================
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const std::string &freq, const std::string &trafficLight, const std::string& filename, 
+GNEDetectorE2::GNEDetectorE2(const std::string& id, GNELane* lane, GNENet* net, double pos, double length, const std::string& freq, const std::string& trafficLight, const std::string& filename,
                              const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {lane}),
-    myLength(length),
-    myEndPositionOverLane(0.),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold),
-    myJamThreshold(jamThreshold),
-    myTrafficLight(trafficLight) {
+    GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, {
+    lane
+}),
+myLength(length),
+myEndPositionOverLane(0.),
+myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold),
+myJamThreshold(jamThreshold),
+myTrafficLight(trafficLight) {
 }
 
 
-GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const std::string &freq, const std::string &trafficLight, const std::string& filename, 
+GNEDetectorE2::GNEDetectorE2(const std::string& id, std::vector<GNELane*> lanes, GNENet* net, double pos, double endPos, const std::string& freq, const std::string& trafficLight, const std::string& filename,
                              const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) :
     GNEDetector(id, net, GLO_E2DETECTOR, SUMO_TAG_E2DETECTOR_MULTILANE, pos, freq, filename, vehicleTypes, name, friendlyPos, blockMovement, lanes),
     myLength(0),
@@ -554,13 +556,13 @@ GNEDetectorE2::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-bool 
+bool
 GNEDetectorE2::areLaneConsecutives() const {
     // declare lane iterator
     int i = 0;
     // iterate over all lanes, and stop if myE2valid is false
     while (i < ((int)getParentLanes().size() - 1)) {
-        // we assume that E2 is invalid 
+        // we assume that E2 is invalid
         bool connectionFound = false;
         // if there is a connection betwen "from" lane and "to" lane of connection, change connectionFound to true
         for (auto j : getParentLanes().at(i)->getParentEdge()->getGNEConnections()) {

@@ -259,7 +259,7 @@ NBPTLine::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) 
             stopIndex++;
         }
     }
-    for (NBPTStop* stop: unassigned) {
+    for (NBPTStop* stop : unassigned) {
         myPTStops.erase(std::find(myPTStops.begin(), myPTStops.end(), stop));
     }
 }

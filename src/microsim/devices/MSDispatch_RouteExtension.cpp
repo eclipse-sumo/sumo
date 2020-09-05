@@ -36,8 +36,8 @@
 // ===========================================================================
 void
 MSDispatch_RouteExtension::findInsertionPoint(std::vector<const Reservation*>::iterator& resIt, EdgePosVector::iterator& edgeIt,
-                                              const EdgePosVector::iterator& edgeEnd, ConstMSEdgeVector& route,
-                                              const MSEdge* newEdge, const double newPos) const {
+        const EdgePosVector::iterator& edgeEnd, ConstMSEdgeVector& route,
+        const MSEdge* newEdge, const double newPos) const {
     for (const MSEdge* edge : route) {
         while (edgeIt != edgeEnd && edge == edgeIt->first) {
             if (edge == newEdge && edgeIt->second > newPos) {
@@ -54,7 +54,7 @@ MSDispatch_RouteExtension::findInsertionPoint(std::vector<const Reservation*>::i
 
 
 int
-MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>::iterator& resIt, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*> & reservations) {
+MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation*>::iterator& resIt, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, std::vector<Reservation*>& reservations) {
     const Reservation* const res = *resIt;
 #ifdef DEBUG_DISPATCH
     if (DEBUG_COND2(person)) {
@@ -85,12 +85,12 @@ MSDispatch_RouteExtension::dispatch(MSDevice_Taxi* taxi, std::vector<Reservation
         const bool dropoff = std::find(route.begin(), route.end(), res2->to) != route.end();
 #ifdef DEBUG_DISPATCH
         if (DEBUG_COND2(person)) std::cout << "  consider sharing ride with " << toString(res2->persons)
-            << " pickup=" << pickup << " startFirst=" << (std::find(route2.begin(), route2.end(), first->from) != route2.end())
-            << " dropoff=" << dropoff << " endLast=" << (std::find(route2.begin(), route2.end(), last->to) != route2.end())
-            << "\n";
+                                               << " pickup=" << pickup << " startFirst=" << (std::find(route2.begin(), route2.end(), first->from) != route2.end())
+                                               << " dropoff=" << dropoff << " endLast=" << (std::find(route2.begin(), route2.end(), last->to) != route2.end())
+                                               << "\n";
 #endif
         if ((pickup || std::find(route2.begin(), route2.end(), first->from) != route2.end()) &&
-            (dropoff || std::find(route2.begin(), route2.end(), last->to) != route2.end())) {
+                (dropoff || std::find(route2.begin(), route2.end(), last->to) != route2.end())) {
             std::vector<const Reservation*>::iterator resSeqIt = sequence.begin();
             EdgePosVector::iterator edgeIt = posSequence.begin();
             if (pickup) {

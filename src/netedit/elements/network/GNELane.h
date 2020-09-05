@@ -85,7 +85,7 @@ public:
     ~GNELane();
 
     /// @brief get arent edge
-    GNEEdge *getParentEdge() const;
+    GNEEdge* getParentEdge() const;
 
     /// @name Functions related with geometry of element
     /// @{

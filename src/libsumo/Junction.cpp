@@ -86,7 +86,7 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Junction, JUNCTION)
 NamedRTree*
 Junction::getTree() {
     if (myTree == nullptr) {
-        myTree= new NamedRTree();
+        myTree = new NamedRTree();
         for (const auto& i : MSNet::getInstance()->getJunctionControl()) {
             Boundary b = i.second->getShape().getBoxBoundary();
             const float cmin[2] = {(float) b.xmin(), (float) b.ymin()};

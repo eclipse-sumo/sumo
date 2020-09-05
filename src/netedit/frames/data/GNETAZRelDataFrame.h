@@ -47,14 +47,14 @@ public:
      * @param keyPressed key pressed during click
      * @return true if additional was sucesfully added
      */
-    bool addTAZRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed);
+    bool addTAZRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed& keyPressed);
 
     /// @brief clear TAZ selection
     void clearTAZSelection();
 
 protected:
     /// @brief first selected TAZ Element
-    GNETAZElement *myFirstTAZElement;
+    GNETAZElement* myFirstTAZElement;
 
 private:
     /// @brief Invalidated copy constructor.

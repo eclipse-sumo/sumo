@@ -306,7 +306,7 @@ NBFrame::fillOptions(bool forNetgen) {
 
         oc.doRegister("edges.join-tram-dist", new Option_Float(-1));
         oc.addDescription("edges.join-tram-dist", "Processing",
-                "Joins tram edges into road lanes with similar geometry (within FLOAT distance)");
+                          "Joins tram edges into road lanes with similar geometry (within FLOAT distance)");
     }
 
     oc.doRegister("junctions.corner-detail", new Option_Integer(5));
@@ -683,7 +683,7 @@ NBFrame::checkOptions() {
             oc.set("junctions.small-radius", oc.getValueString("default.junctions.radius"));
         }
     }
-    if (oc.getString("tls.layout") != "opposites" 
+    if (oc.getString("tls.layout") != "opposites"
             && oc.getString("tls.layout") != "incoming"
             && oc.getString("tls.layout") != "alternateOneWay") {
         WRITE_ERROR("tls.layout must be 'opposites', 'incoming' or 'alternateOneWay'");

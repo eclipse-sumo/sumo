@@ -100,7 +100,7 @@ public:
     void commitJunctionShapeChange(GNEUndoList* undoList);
 
     /// @brief delete geometry point
-    void deleteJunctionShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList);
+    void deleteJunctionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList);
     /// @}
 
     /// @name inherited from GUIGlObject

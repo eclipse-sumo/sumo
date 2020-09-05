@@ -134,8 +134,8 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             if (ok && vph <= 0) {
                 delete ret;
                 return handleError(hardFail, abortCreation,
-                        "Invalid repetition rate in the definition of " 
-                        + std::string(hasVPH ? "flow" : "personFlow") + " '" + id + "'.");
+                                   "Invalid repetition rate in the definition of "
+                                   + std::string(hasVPH ? "flow" : "personFlow") + " '" + id + "'.");
             }
             if (ok && vph != 0) {
                 ret->repetitionOffset = TIME2STEPS(3600. / vph);
@@ -165,8 +165,8 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
             ret->repetitionEnd = attrs.getSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok);
             ret->parametersSet |= VEHPARS_END_SET;
         } else if ((endDefault >= TIME2STEPS(9223372036854773) || endDefault < 0)
-                // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
-                && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) {
+                   // see SUMOTIME_MAXSTRING (which differs slightly from SUMOTime_MAX)
+                   && (!hasNumber || (!hasProb && !hasPeriod && !hasXPH))) {
             WRITE_WARNING("Undefined end for flow '" + id + "', defaulting to 24hour duration.");
             ret->repetitionEnd = ret->depart + TIME2STEPS(24 * 3600);
         }

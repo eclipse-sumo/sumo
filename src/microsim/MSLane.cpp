@@ -3116,8 +3116,8 @@ MSLane::hasApproaching() const {
 void
 MSLane::saveState(OutputDevice& out) {
     const bool toRailJunction = myLinks.size() > 0 && (
-            myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
-            || myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_CROSSING);
+                                    myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL
+                                    || myEdge->getToJunction()->getType() == SumoXMLNodeType::RAIL_CROSSING);
     const bool hasVehicles = myVehicles.size() > 0;
     if (hasVehicles || (toRailJunction && hasApproaching())) {
         out.openTag(SUMO_TAG_LANE);

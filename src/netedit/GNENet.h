@@ -270,10 +270,10 @@ public:
     void mergeJunctions(GNEJunction* moved, GNEJunction* target, GNEUndoList* undoList);
 
     /// @brief select all roundabout edges and junctions for the current roundabout
-    void selectRoundabout(GNEJunction* junction, GNEUndoList* undoList); 
+    void selectRoundabout(GNEJunction* junction, GNEUndoList* undoList);
 
     /// @brief transform the given junction into a roundabout
-    void createRoundabout(GNEJunction* junction, GNEUndoList* undoList); 
+    void createRoundabout(GNEJunction* junction, GNEUndoList* undoList);
 
     /**@brief get junction by id
      * @param[in] id The id of the desired junction

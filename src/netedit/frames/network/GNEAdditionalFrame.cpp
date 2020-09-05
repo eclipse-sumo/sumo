@@ -185,13 +185,13 @@ GNEAdditionalFrame::SelectorParentLanes::stopConsecutiveLaneSelector() {
 void
 GNEAdditionalFrame::SelectorParentLanes::abortConsecutiveLaneSelector() {
     // reset color of all candidate lanes
-    for (const auto &lane : myCandidateLanes) {
+    for (const auto& lane : myCandidateLanes) {
         lane->resetCandidateFlags();
     }
     // clear candidate colors
     myCandidateLanes.clear();
     // reset color of all selected lanes
-    for (const auto &lane : mySelectedLanes) {
+    for (const auto& lane : mySelectedLanes) {
         lane.first->resetCandidateFlags();
     }
     // clear selected lanes
@@ -232,13 +232,13 @@ GNEAdditionalFrame::SelectorParentLanes::addSelectedLane(GNELane* lane, const Po
     // change color of selected lane
     lane->setTargetCandidate(true);
     // restore original color of candidates (except already selected)
-    for (const auto &candidateLane : myCandidateLanes) {
+    for (const auto& candidateLane : myCandidateLanes) {
         candidateLane->setPossibleCandidate(false);
     }
     // clear candidate lanes
     myCandidateLanes.clear();
     // fill candidate lanes
-    for (const auto &connection : lane->getParentEdge()->getGNEConnections()) {
+    for (const auto& connection : lane->getParentEdge()->getGNEConnections()) {
         // check that possible candidate lane isn't already selected
         if ((lane == connection->getLaneFrom()) && (!isLaneSelected(connection->getLaneTo()))) {
             // set candidate lane
@@ -628,8 +628,8 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::E2MultilaneLaneSelector(GNEAddition
     myShowCandidateLanes->setCheck(TRUE);
     // create backspace label (always shown)
     new FXLabel(this,
-        "BACKSPACE: undo click",
-        0, GUIDesignLabelFrameInformation);
+                "BACKSPACE: undo click",
+                0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -719,21 +719,21 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawCandidateLanesWithSpecialColor(
 void
 GNEAdditionalFrame::E2MultilaneLaneSelector::updateLaneColors() {
     // reset all flags
-    for (const auto &edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto &lane : edge.second->getLanes()) {
+    for (const auto& edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto& lane : edge.second->getLanes()) {
             lane->resetCandidateFlags();
         }
     }
     // set reachability
     if (myLanePath.size() > 0 && (myShowCandidateLanes->getCheck() == TRUE)) {
         // first mark all lanes as invalid
-        for (const auto &edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-            for (const auto &lane : edge.second->getLanes()) {
+        for (const auto& edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+            for (const auto& lane : edge.second->getLanes()) {
                 lane->setConflictedCandidate(true);
             }
         }
         // now mark lane paths as valid
-        for (const auto &lane : myLanePath) {
+        for (const auto& lane : myLanePath) {
             // disable conflicted candidate
             lane.first->setConflictedCandidate(false);
             if (lane == myLanePath.back()) {
@@ -743,9 +743,9 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::updateLaneColors() {
             }
         }
         // get parent edge
-        const GNEEdge *edge = myLanePath.back().first->getParentEdge();
+        const GNEEdge* edge = myLanePath.back().first->getParentEdge();
         // iterate over connections
-        for (const auto &connection : edge->getGNEConnections()) {
+        for (const auto& connection : edge->getGNEConnections()) {
             // mark possible candidates
             if (connection->getLaneFrom() == myLanePath.back().first) {
                 connection->getLaneTo()->setConflictedCandidate(false);
@@ -778,7 +778,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
             // draw connection between lanes
             if ((i + 1) < (int)myLanePath.size()) {
                 // get next lane
-                const GNELane* nextLane = myLanePath.at(i+1).first;
+                const GNELane* nextLane = myLanePath.at(i + 1).first;
                 if (lane->getLane2laneConnections().exist(nextLane)) {
                     GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidth);
                 } else {
@@ -799,7 +799,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
             // draw connection between lanes
             if ((i + 1) < (int)myLanePath.size()) {
                 // get next lane
-                const GNELane* nextLane = myLanePath.at(i+1).first;
+                const GNELane* nextLane = myLanePath.at(i + 1).first;
                 if (lane->getLane2laneConnections().exist(nextLane)) {
                     GLHelper::drawBoxLines(lane->getLane2laneConnections().getLane2laneGeometry(nextLane).getShape(), lineWidthin);
                 } else {
@@ -821,7 +821,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::drawTemporalE2Multilane(const GUIVi
 }
 
 
-bool 
+bool
 GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
     // first check that current tag is valid
     if (myAdditionalFrameParent->myAdditionalTagSelector->getCurrentTagProperties().getTag() != SUMO_TAG_E2DETECTOR_MULTILANE) {
@@ -844,7 +844,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
     }
     // obtain lane IDs
     std::vector<std::string> laneIDs;
-    for (const auto &lane : myLanePath) {
+    for (const auto& lane : myLanePath) {
         laneIDs.push_back(lane.first->getID());
     }
     valuesMap[SUMO_ATTR_LANES] = joinToString(laneIDs, " ");
@@ -878,7 +878,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::createPath() {
 }
 
 
-void 
+void
 GNEAdditionalFrame::E2MultilaneLaneSelector::abortPathCreation() {
     // first check that there is elements
     if (myLanePath.size() > 0) {
@@ -900,7 +900,7 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::abortPathCreation() {
 }
 
 
-void 
+void
 GNEAdditionalFrame::E2MultilaneLaneSelector::removeLastElement() {
     if (myLanePath.size() > 1) {
         // remove special color of last selected lane
@@ -973,8 +973,8 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::updateInfoRouteLabel() {
         // declare ostringstream for label and fill it
         std::ostringstream information;
         information
-            << "- Selected lanes: " << toString(myLanePath.size()) << "\n"
-            << "- Length: " << toString(length);
+                << "- Selected lanes: " << toString(myLanePath.size()) << "\n"
+                << "- Length: " << toString(length);
         // set new label
         myInfoRouteLabel->setText(information.str().c_str());
     } else {
@@ -986,8 +986,8 @@ GNEAdditionalFrame::E2MultilaneLaneSelector::updateInfoRouteLabel() {
 void
 GNEAdditionalFrame::E2MultilaneLaneSelector::clearPath() {
     // reset all flags
-    for (const auto &edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
-        for (const auto &lane : edge.second->getLanes()) {
+    for (const auto& edge : myAdditionalFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdges()) {
+        for (const auto& lane : edge.second->getLanes()) {
             lane->resetCandidateFlags();
         }
     }
@@ -1094,7 +1094,7 @@ GNEAdditionalFrame::getConsecutiveLaneSelector() const {
 }
 
 
-GNEAdditionalFrame::E2MultilaneLaneSelector* 
+GNEAdditionalFrame::E2MultilaneLaneSelector*
 GNEAdditionalFrame::getE2MultilaneLaneSelector() const {
     return myE2MultilaneLaneSelector;
 }

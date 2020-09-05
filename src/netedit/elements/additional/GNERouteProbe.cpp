@@ -37,10 +37,10 @@
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const std::string& frequency,
                              const std::string& name, const std::string& filename, SUMOTime begin) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false,
-        {}, {edge}, {}, {}, {}, {}, {}, {}),
-    myFrequency(frequency),
-    myFilename(filename),
-    myBegin(begin) {
+{}, {edge}, {}, {}, {}, {}, {}, {}),
+myFrequency(frequency),
+myFilename(filename),
+myBegin(begin) {
 }
 
 

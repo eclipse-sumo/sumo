@@ -51,7 +51,7 @@ GNEChange_DataInterval::~GNEChange_DataInterval() {
                     myDataInterval->getAttribute(SUMO_ATTR_END) + "] in ~GNEChange_DataInterval()");
         // check that data interval don't exist
         if (myDataInterval->getNet()->getAttributeCarriers()->dataSetExist(myDataSetParent) &&
-            myDataSetParent->dataIntervalChildrenExist(myDataInterval)) {
+                myDataSetParent->dataIntervalChildrenExist(myDataInterval)) {
             myDataSetParent->removeDataIntervalChild(myDataInterval);
         }
         // delete dataInterval

@@ -535,7 +535,7 @@ public:
             Path(GNEViewNet* viewNet, const SUMOVehicleClass vClass, GNEEdge* edgeFrom, GNEEdge* edgeTo);
 
             /// @brief get sub path
-            const std::vector<GNEEdge*> &getSubPath() const;
+            const std::vector<GNEEdge*>& getSubPath() const;
 
             /// @brief get from additional
             GNEAdditional* getFromBusStop() const;

@@ -1313,7 +1313,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
         // obtan locks (only for improve code legibly)
         LockGLObjectTypes* locks = mySelectorFrameParent->getLockGLObjectTypes();
         // obtain undoList (only for improve code legibly)
-        GNEUndoList *undoList = mySelectorFrameParent->myViewNet->getUndoList();
+        GNEUndoList* undoList = mySelectorFrameParent->myViewNet->getUndoList();
         // for invert selection, first clean current selection and next select elements of set "unselectedElements"
         undoList->p_begin("invert selection");
         // invert selection of elements depending of current supermode
@@ -1391,7 +1391,7 @@ GNESelectorFrame::SelectionOperation::onCmdInvert(FXObject*, FXSelector, void*) 
                                 if (additionalChild->getTagProperty().isSelectable()) {
                                     if (additionalChild->isAttributeCarrierSelected()) {
                                         additionalChild->setAttribute(GNE_ATTR_SELECTED, "false", undoList);
-                                    }else {
+                                    } else {
                                         additionalChild->setAttribute(GNE_ATTR_SELECTED, "true", undoList);
                                     }
                                 }
@@ -2058,7 +2058,7 @@ GNESelectorFrame::ACsToSelected() const {
         }
         // check if exist connections
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_CONNECTION)) {
-            for (const auto &junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+            for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                 if (junction.second->getGNEConnections().size() > 0) {
                     return true;
                 }
@@ -2066,7 +2066,7 @@ GNESelectorFrame::ACsToSelected() const {
         }
         // check if exist crossings
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_CROSSING)) {
-            for (const auto &junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
+            for (const auto& junction : myViewNet->getNet()->getAttributeCarriers()->getJunctions()) {
                 if (junction.second->getGNECrossings().size() > 0) {
                     return true;
                 }
@@ -2099,7 +2099,7 @@ GNESelectorFrame::ACsToSelected() const {
         }
     } else if (myViewNet->getEditModes().isCurrentSupermodeDemand()) {
         // get demand elements map
-        const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> > &demandElementsMap = myViewNet->getNet()->getAttributeCarriers()->getDemandElements();
+        const std::map<SumoXMLTag, std::map<std::string, GNEDemandElement*> >& demandElementsMap = myViewNet->getNet()->getAttributeCarriers()->getDemandElements();
         // check routes
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_ROUTE) && ((demandElementsMap.at(SUMO_TAG_ROUTE).size() + demandElementsMap.at(GNE_TAG_ROUTE_EMBEDDED).size()) > 0)) {
             return true;
@@ -2165,7 +2165,7 @@ GNESelectorFrame::ACsToSelected() const {
         // check person stops
         if (!myLockGLObjectTypes->IsObjectTypeLocked(GLO_PERSONSTOP)) {
             if ((demandElementsMap.at(GNE_TAG_PERSONSTOP_EDGE).size() > 0) ||
-                (demandElementsMap.at(GNE_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
+                    (demandElementsMap.at(GNE_TAG_PERSONSTOP_BUSSTOP).size() > 0)) {
                 return true;
             }
         }

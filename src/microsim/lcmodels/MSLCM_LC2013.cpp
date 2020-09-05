@@ -1458,8 +1458,8 @@ MSLCM_LC2013::_wantsChange(
     }
     // a high inconvenience prevents cooperative changes.
     const double inconvenience = MIN2(1.0, (laneOffset < 0
-                                      ? mySpeedGainProbability / myChangeProbThresholdRight
-                                      : -mySpeedGainProbability / myChangeProbThresholdLeft));
+                                            ? mySpeedGainProbability / myChangeProbThresholdRight
+                                            : -mySpeedGainProbability / myChangeProbThresholdLeft));
     const bool speedGainInconvenient = inconvenience > myCooperativeParam;
     const bool neighOccupancyInconvenient = neigh.lane->getBruttoOccupancy() > curr.lane->getBruttoOccupancy();
 
@@ -1938,7 +1938,9 @@ void MSLCM_LC2013::addLCSpeedAdvice(const double vSafe) {
 double
 MSLCM_LC2013::computeSpeedLat(double latDist, double& maneuverDist) const {
     double result = MSAbstractLaneChangeModel::computeSpeedLat(latDist, maneuverDist);
-    if (DEBUG_COND) std::cout << " myLeftSpace=" << myLeftSpace << " latDist=" << latDist << " maneuverDist=" << maneuverDist << "result1=" << result << "\n";
+    if (DEBUG_COND) {
+        std::cout << " myLeftSpace=" << myLeftSpace << " latDist=" << latDist << " maneuverDist=" << maneuverDist << "result1=" << result << "\n";
+    }
     if (myLeftSpace > POSITION_EPS) {
         double speedBound = myMaxSpeedLatStanding + myMaxSpeedLatFactor * myVehicle.getSpeed();
         if (isChangingLanes()) {

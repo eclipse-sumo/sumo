@@ -221,11 +221,11 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                     objectsUnderCursor.getPolyFront()->deleteGeometryPoint(clickedPosition);
                 }
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-/*
-                if (objectsUnderCursor.getTAZElementFront()->getVertexIndex(clickedPosition, false) != -1) {
-                    objectsUnderCursor.getTAZElementFront()->deleteGeometryPoint(clickedPosition);
-                }
-*/
+                /*
+                                if (objectsUnderCursor.getTAZElementFront()->getVertexIndex(clickedPosition, false) != -1) {
+                                    objectsUnderCursor.getTAZElementFront()->deleteGeometryPoint(clickedPosition);
+                                }
+                */
             }
         } else {
             // check type of of object under cursor object
@@ -387,8 +387,8 @@ GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCar
 }
 
 
-GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCarrier* attributeCarrier, GNEViewNet* viewNet, 
-    const GNEHierarchicalElement* hierarchicalElement) :
+GNEDeleteFrame::SubordinatedElements::SubordinatedElements(const GNEAttributeCarrier* attributeCarrier, GNEViewNet* viewNet,
+        const GNEHierarchicalElement* hierarchicalElement) :
     myAttributeCarrier(attributeCarrier),
     myViewNet(viewNet),
     myAdditionalParents(hierarchicalElement->getParentAdditionals().size()),

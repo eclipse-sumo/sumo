@@ -389,7 +389,7 @@ GNEAdditionalHandler::buildDetectorE1(GNENet* net, bool allowUndoRedo, const std
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildSingleLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, const std::string &freq, const std::string &trafficLight, 
+GNEAdditionalHandler::buildSingleLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, GNELane* lane, double pos, double length, const std::string& freq, const std::string& trafficLight,
         const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_E2DETECTOR, id, false) == nullptr) {
         GNEAdditional* detectorE2 = new GNEDetectorE2(id, lane, net, pos, length, freq, trafficLight, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
@@ -410,7 +410,7 @@ GNEAdditionalHandler::buildSingleLaneDetectorE2(GNENet* net, bool allowUndoRedo,
 
 
 GNEAdditional*
-GNEAdditionalHandler::buildMultiLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, const std::string &freq, const std::string &trafficLight,
+GNEAdditionalHandler::buildMultiLaneDetectorE2(GNENet* net, bool allowUndoRedo, const std::string& id, const std::vector<GNELane*>& lanes, double pos, double endPos, const std::string& freq, const std::string& trafficLight,
         const std::string& filename, const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, double jamThreshold, bool friendlyPos, bool blockMovement) {
     if (net->retrieveAdditional(SUMO_TAG_E2DETECTOR_MULTILANE, id, false) == nullptr) {
         GNEDetectorE2* detectorE2 = new GNEDetectorE2(id, lanes, net, pos, endPos, freq, trafficLight, filename, vehicleTypes, name, timeThreshold, speedThreshold, jamThreshold, friendlyPos, blockMovement);
@@ -1064,7 +1064,7 @@ GNEAdditionalHandler::checkOverlappingRerouterIntervals(GNEAdditional* rerouter,
     // declare a vector to keep sorted rerouter children
     std::vector<std::pair<SUMOTime, SUMOTime>> sortedIntervals;
     // iterate over child additional
-    for (const auto &rerouterChild : rerouter->getChildAdditionals()) {
+    for (const auto& rerouterChild : rerouter->getChildAdditionals()) {
         if (!rerouterChild->getTagProperty().isSymbol()) {
             sortedIntervals.push_back(std::make_pair((SUMOTime)0., (SUMOTime)0.));
             // set begin and end

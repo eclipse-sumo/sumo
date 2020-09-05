@@ -189,8 +189,8 @@ GNECrossing::commitCrossingShapeChange(GNEUndoList* undoList) {
 }
 
 
-void 
-GNECrossing::deleteCrossingShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList) {
+void
+GNECrossing::deleteCrossingShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList) {
     // get a copy of shape
     PositionVector newShape = myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->customShape;
     // obtain index

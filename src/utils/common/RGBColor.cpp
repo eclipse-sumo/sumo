@@ -202,10 +202,10 @@ RGBColor::parseColor(std::string coldef) {
     }
     if (coldef == "random") {
         return fromHSV(RandHelper::rand(360, &myRNG),
-                // prefer more saturated colors
-                pow(RandHelper::rand(&myRNG), 0.3),
-                // prefer brighter colors
-                pow(RandHelper::rand(&myRNG), 0.3));
+                       // prefer more saturated colors
+                       pow(RandHelper::rand(&myRNG), 0.3),
+                       // prefer brighter colors
+                       pow(RandHelper::rand(&myRNG), 0.3));
     }
     unsigned char r = 0;
     unsigned char g = 0;

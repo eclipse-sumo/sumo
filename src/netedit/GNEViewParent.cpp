@@ -309,10 +309,10 @@ GNEViewParent::getTAZRelDataFrame() const {
 
 void
 GNEViewParent::showFramesArea() {
-    const bool frameShown = myCommonFrames.isCommonFrameShown() || 
-        myNetworkFrames.isNetworkFrameShown() || 
-        myDemandFrames.isDemandFrameShown() || 
-        myDataFrames.isDataFrameShown();
+    const bool frameShown = myCommonFrames.isCommonFrameShown() ||
+                            myNetworkFrames.isNetworkFrameShown() ||
+                            myDemandFrames.isDemandFrameShown() ||
+                            myDataFrames.isDataFrameShown();
     // show and recalc framesArea if at least there is a frame shown
     if (frameShown) {
         myFramesArea->recalc();
@@ -323,10 +323,10 @@ GNEViewParent::showFramesArea() {
 
 void
 GNEViewParent::hideFramesArea() {
-    const bool frameShown = myCommonFrames.isCommonFrameShown() || 
-        myNetworkFrames.isNetworkFrameShown() || 
-        myDemandFrames.isDemandFrameShown() || 
-        myDataFrames.isDataFrameShown();
+    const bool frameShown = myCommonFrames.isCommonFrameShown() ||
+                            myNetworkFrames.isNetworkFrameShown() ||
+                            myDemandFrames.isDemandFrameShown() ||
+                            myDataFrames.isDataFrameShown();
     // hide and recalc frames Area if all frames are hidden is enabled
     if (!frameShown) {
         myFramesArea->hide();
@@ -675,7 +675,7 @@ GNEViewParent::CommonFrames::CommonFrames() :
 }
 
 
-void 
+void
 GNEViewParent::CommonFrames::buildCommonFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
     inspectorFrame = new GNEInspectorFrame(viewParent->myFramesArea, viewNet);
     selectorFrame = new GNESelectorFrame(viewParent->myFramesArea, viewNet);
@@ -752,7 +752,7 @@ GNEViewParent::NetworkFrames::NetworkFrames() :
 }
 
 
-void 
+void
 GNEViewParent::NetworkFrames::buildNetworkFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
     connectorFrame = new GNEConnectorFrame(viewParent->myFramesArea, viewNet);
     prohibitionFrame = new GNEProhibitionFrame(viewParent->myFramesArea, viewNet);
@@ -856,7 +856,7 @@ GNEViewParent::DemandFrames::DemandFrames() :
 }
 
 
-void 
+void
 GNEViewParent::DemandFrames::buildDemandFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
     routeFrame = new GNERouteFrame(viewParent->myFramesArea, viewNet);
     vehicleFrame = new GNEVehicleFrame(viewParent->myFramesArea, viewNet);
@@ -949,7 +949,7 @@ GNEViewParent::DataFrames::DataFrames() :
 }
 
 
-void 
+void
 GNEViewParent::DataFrames::buildDataFrames(GNEViewParent* viewParent, GNEViewNet* viewNet) {
     edgeDataFrame = new GNEEdgeDataFrame(viewParent->myFramesArea, viewNet);
     edgeRelDataFrame = new GNEEdgeRelDataFrame(viewParent->myFramesArea, viewNet);

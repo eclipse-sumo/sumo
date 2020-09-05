@@ -104,7 +104,7 @@ GNEPersonFrame::hide() {
 
 
 bool
-GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
+GNEPersonFrame::addPerson(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed& keyPressed) {
     // first check that we clicked over an AC
     if (objectsUnderCursor.getAttributeCarrierFront() == nullptr) {
         return false;
@@ -259,8 +259,8 @@ GNEPersonFrame::createPath() {
         myViewNet->getUndoList()->p_begin("create " + myPersonTagSelector->getCurrentTagProperties().getTagStr() + " and " + myPersonPlanTagSelector->getCurrentTagProperties().getTagStr());
         // check if person and person plan can be created
         if (GNERouteHandler::buildPersonPlan(
-            myPersonPlanTagSelector->getCurrentTagProperties().getTag(), 
-            buildPerson(), myPersonPlanAttributes, myPathCreator)) {
+                    myPersonPlanTagSelector->getCurrentTagProperties().getTag(),
+                    buildPerson(), myPersonPlanAttributes, myPathCreator)) {
             // end undo-redo operation
             myViewNet->getUndoList()->p_end();
             // abort path creation

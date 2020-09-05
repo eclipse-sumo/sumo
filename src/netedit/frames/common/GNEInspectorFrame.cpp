@@ -506,7 +506,7 @@ GNEInspectorFrame::NeteditAttributesEditor::~NeteditAttributesEditor() {}
 void
 GNEInspectorFrame::NeteditAttributesEditor::showNeteditAttributesEditor() {
     // get edited ACS
-    const auto &editedACs = myInspectorFrameParent->myAttributesEditor->getEditedACs();
+    const auto& editedACs = myInspectorFrameParent->myAttributesEditor->getEditedACs();
     // continue if there is edited ACs
     if (editedACs.size() > 0) {
         // enable all editable elements
@@ -790,10 +790,10 @@ GNEInspectorFrame::NeteditAttributesEditor::onCmdNeteditAttributeHelp(FXObject*,
     // set help text
     std::ostringstream help;
     help
-        << "- Mark as front element: Mark element as front element (Will be drawn over all other elements)\n"
-        << "- Block movement: disable movement in move mode\n"
-        << "- Block shape: Disable moving of shape's vertices and edges. Entire shape can be moved'.\n"
-        << "- Close shape: Add or remove the last vertex with the same position of first edge'.";
+            << "- Mark as front element: Mark element as front element (Will be drawn over all other elements)\n"
+            << "- Block movement: disable movement in move mode\n"
+            << "- Block shape: Disable moving of shape's vertices and edges. Entire shape can be moved'.\n"
+            << "- Close shape: Add or remove the last vertex with the same position of first edge'.";
     // Create label with the help text
     new FXLabel(additionalNeteditAttributesHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator

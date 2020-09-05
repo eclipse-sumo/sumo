@@ -375,7 +375,7 @@ private:
                *myPersonNamePanel, *myPersonValuePanel,
                *myContainerNamePanel,
                *myAddNamePanel, *myAddFullNamePanel,
-               *myPOINamePanel, *myPOITypePanel, *myPOITextPanel, 
+               *myPOINamePanel, *myPOITypePanel, *myPOITextPanel,
                *myPolyNamePanel, *myPolyTypePanel;
 
     SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel, *myJunctionSizePanel;

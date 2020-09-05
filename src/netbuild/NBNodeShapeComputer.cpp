@@ -46,7 +46,7 @@
 // foot- and bicycle paths as well as pure service roads should not get larget junctions
 // railways also do have have junctions with sharp turns so can be excluded
 const SVCPermissions NBNodeShapeComputer::SVC_LARGE_TURN(
-        SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES));
+    SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN | SVC_DELIVERY | SVC_RAIL_CLASSES));
 
 // ===========================================================================
 // method definitions
@@ -503,7 +503,7 @@ NBNodeShapeComputer::closestIntersection(const PositionVector& geom1, const Posi
 
 bool
 NBNodeShapeComputer::needsLargeTurn(NBEdge* e1, NBEdge* e2,
-        std::map<NBEdge*, std::set<NBEdge*> >& same) const {
+                                    std::map<NBEdge*, std::set<NBEdge*> >& same) const {
     const SVCPermissions p1 = e1->getPermissions();
     const SVCPermissions p2 = e2->getPermissions();
     if ((p1 & p2 & SVC_LARGE_TURN) != 0) {

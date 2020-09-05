@@ -49,8 +49,7 @@
  * ----------------------------------------------------------------------- */
 MSTLLogicControl::TLSLogicVariants::TLSLogicVariants() :
     myCurrentProgram(nullptr),
-    myDefaultProgram(nullptr)
-{
+    myDefaultProgram(nullptr) {
 }
 
 

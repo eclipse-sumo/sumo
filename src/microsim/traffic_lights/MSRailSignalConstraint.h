@@ -67,25 +67,25 @@ public:
     bool cleared() const;
 
     class PassedTracker : public MSMoveReminder {
-        public:
-            PassedTracker(const MSLink* link); 
+    public:
+        PassedTracker(const MSLink* link);
 
-            /// @name inherited from MSMoveReminder
-            //@{
-            /// @brief tracks vehicles that passed this link (entered the next lane)
-            bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
-            //@}
-            
-            void raiseLimit(int limit);
+        /// @name inherited from MSMoveReminder
+        //@{
+        /// @brief tracks vehicles that passed this link (entered the next lane)
+        bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        //@}
 
-            bool hasPassed(const std::string& tripId, int limit) const;
+        void raiseLimit(int limit);
 
-        protected:
-            /// @brief passed tripIds
-            std::vector<std::string> myPassed;
+        bool hasPassed(const std::string& tripId, int limit) const;
 
-            /// @brief index of the last passed object
-            int myLastIndex;
+    protected:
+        /// @brief passed tripIds
+        std::vector<std::string> myPassed;
+
+        /// @brief index of the last passed object
+        int myLastIndex;
     };
 
     /// @brief the tracker object for this constraint

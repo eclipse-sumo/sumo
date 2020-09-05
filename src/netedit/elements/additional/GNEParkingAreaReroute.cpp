@@ -32,9 +32,9 @@
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false,
-    {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {}),
-    myProbability(probability),
-    myVisible(visible) {
+{}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {}),
+myProbability(probability),
+myVisible(visible) {
 }
 
 

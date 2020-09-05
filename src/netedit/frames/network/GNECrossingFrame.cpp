@@ -123,7 +123,7 @@ GNECrossingFrame::EdgesSelector::enableEdgeSelector(GNEJunction* currentJunction
     myCrossingFrameParent->getViewNet()->updateViewNet();
     // check if use selected eges must be enabled
     myUseSelectedEdges->disable();
-    for (const auto &edge : myCurrentJunction->getChildEdges()) {
+    for (const auto& edge : myCurrentJunction->getChildEdges()) {
         if (edge->isAttributeCarrierSelected()) {
             myUseSelectedEdges->enable();
         }
@@ -151,7 +151,7 @@ void
 GNECrossingFrame::EdgesSelector::restoreEdgeColors() {
     if (myCurrentJunction != nullptr) {
         // restore color of all lanes of edge candidates
-        for (const auto &edge : myCurrentJunction->getChildEdges()) {
+        for (const auto& edge : myCurrentJunction->getChildEdges()) {
             edge->resetCandidateFlags();
         }
         // Update view net to show the new colors
@@ -399,7 +399,7 @@ GNECrossingFrame::CrossingParameters::onCmdSetAttribute(FXObject*, FXSelector, v
         myCurrentParametersValid = false;
     }
     // Update edge colors
-    for (const auto &edge: myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getChildEdges()) {
+    for (const auto& edge : myCrossingFrameParent->myEdgeSelector->getCurrentJunction()->getChildEdges()) {
         // restore colors
         edge->resetCandidateFlags();
         // set selected or candidate color

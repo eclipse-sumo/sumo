@@ -414,7 +414,7 @@ struct GNENetHelper {
         bool consecutiveEdgesConnected(const SUMOVehicleClass vClass, const GNEEdge* from, const GNEEdge* to) const;
 
         /// @brief check if exist a path between the given busStop and edge (Either a valid lane or an acces) for pedestrians
-        bool busStopConnected(const GNEAdditional *busStop, const GNEEdge* edge) const;
+        bool busStopConnected(const GNEAdditional* busStop, const GNEEdge* edge) const;
 
     private:
         /// @brief pointer to net

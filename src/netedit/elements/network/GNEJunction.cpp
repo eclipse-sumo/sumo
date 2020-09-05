@@ -233,8 +233,8 @@ GNEJunction::commitJunctionShapeChange(GNEUndoList* undoList) {
 }
 
 
-void 
-GNEJunction::deleteJunctionShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList) {
+void
+GNEJunction::deleteJunctionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList) {
     // get a copy of shape
     PositionVector newShape = parse<PositionVector>(getAttribute(SUMO_ATTR_SHAPE));
     // obtain index

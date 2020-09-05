@@ -1931,16 +1931,16 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
     myAngle = GeomHelper::fromNaviDegree(angle);
 #ifdef DEBUG_MOVETOXY
     std::cout << SIMTIME << " ped=" << p->getID()
-        << " moveToXY"
-        << " pos=" << pos
-        << " lane=" << lane->getID()
-        << " lanePos=" << lanePos
-        << " lanePosLat=" << lanePosLat
-        << " angle=" << angle
-        << " routeOffset=" << routeOffset
-        << " edges=" << toString(edges)
-        << " oldLane=" << Named::getIDSecure(myLane)
-        << " path=" << (myWalkingAreaPath == nullptr ? "null" : (myWalkingAreaPath->from->getID() + "->" + myWalkingAreaPath->to->getID())) << "\n";
+              << " moveToXY"
+              << " pos=" << pos
+              << " lane=" << lane->getID()
+              << " lanePos=" << lanePos
+              << " lanePosLat=" << lanePosLat
+              << " angle=" << angle
+              << " routeOffset=" << routeOffset
+              << " edges=" << toString(edges)
+              << " oldLane=" << Named::getIDSecure(myLane)
+              << " path=" << (myWalkingAreaPath == nullptr ? "null" : (myWalkingAreaPath->from->getID() + "->" + myWalkingAreaPath->to->getID())) << "\n";
 #endif
 
     if (lane != myLane && myLane != nullptr) {
@@ -1974,8 +1974,8 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
                 myWalkingAreaPath = guessPath(&lane->getEdge(), old, myStage->getNextRouteEdge());
 #ifdef DEBUG_MOVETOXY
                 std::cout << " guessPath old=" << old->getID() << " next=" << Named::getIDSecure(myStage->getNextRouteEdge())
-                    << " path=" << myWalkingAreaPath->from->getID() << "->" << myWalkingAreaPath->to->getID() << "\n";
-#endif 
+                          << " path=" << myWalkingAreaPath->from->getID() << "->" << myWalkingAreaPath->to->getID() << "\n";
+#endif
             }
             // lanePos and lanePosLat are matched onto the circumference of the
             // walkingarea. Use pos instead
@@ -2024,8 +2024,8 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
 #endif
         }
 #ifdef DEBUG_MOVETOXY
-        std::cout << " newRelPos=" << Position(myRelX, myRelY) << " edge=" << myPerson->getEdge()->getID() << " newPos=" << myPerson->getPosition() 
-            << " oldAngle=" << oldAngle << " angleDiff=" << angleDiff << " newDir=" << myDir << "\n";
+        std::cout << " newRelPos=" << Position(myRelX, myRelY) << " edge=" << myPerson->getEdge()->getID() << " newPos=" << myPerson->getPosition()
+                  << " oldAngle=" << oldAngle << " angleDiff=" << angleDiff << " newDir=" << myDir << "\n";
 #endif
     } else {
         // map outside the network

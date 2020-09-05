@@ -752,8 +752,8 @@ GNETLSEditorFrame::cleanup() {
 void
 GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
     // clean up previous internal lanes
-    for (const auto &internalLanes : myInternalLanes) {
-        for (const auto &internalLane : internalLanes.second) {
+    for (const auto& internalLanes : myInternalLanes) {
+        for (const auto& internalLane : internalLanes.second) {
             // remove internal lane from grid
             myViewNet->getNet()->getGrid().removeAdditionalGLObject(internalLane);
             // delete internal lane
@@ -770,10 +770,10 @@ GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
         const std::string innerID = ":" + nbnCurrentJunction->getID();
         const NBConnectionVector& links = tlDef->getControlledLinks();
         // iterate over links
-        for (const auto &link : links) {
+        for (const auto& link : links) {
             int tlIndex = link.getTLIndex();
             PositionVector shape = link.getFrom()->getToNode()->computeInternalLaneShape(link.getFrom(), NBEdge::Connection(link.getFromLane(),
-                link.getTo(), link.getToLane()), NUM_POINTS);
+                                   link.getTo(), link.getToLane()), NUM_POINTS);
             if (shape.length() < 2) {
                 // enlarge shape to ensure visibility
                 shape.clear();
@@ -788,8 +788,8 @@ GNETLSEditorFrame::buildInternalLanes(NBTrafficLightDefinition* tlDef) {
             myInternalLanes[tlIndex].push_back(internalLane);
         }
         // iterate over crossings
-        for (const auto &nbn : tlDef->getNodes()) {
-            for (const auto &crossing : nbn->getCrossings()) {
+        for (const auto& nbn : tlDef->getNodes()) {
+            for (const auto& crossing : nbn->getCrossings()) {
                 if (crossing->tlLinkIndex2 > 0 && crossing->tlLinkIndex2 != crossing->tlLinkIndex) {
                     // draw both directions
                     PositionVector forward = crossing->shape;

@@ -88,7 +88,7 @@ public:
     void commitCrossingShapeChange(GNEUndoList* undoList);
 
     /// @brief delete geometry point
-    void deleteCrossingShapeGeometryPoint(const Position &mousePosition, GNEUndoList* undoList);
+    void deleteCrossingShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList);
     /// @}
 
     /// @brief get parent Junction

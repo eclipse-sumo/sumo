@@ -899,7 +899,7 @@ Vehicle::setStop(const std::string& vehicleID,
         return;
     }
     SUMOVehicleParameter::Stop stopPars = buildStopParameters(edgeID,
-            pos, laneIndex, startPos, flags, duration, until);
+                                          pos, laneIndex, startPos, flags, duration, until);
     std::string error;
     if (!veh->addTraciStop(stopPars, error)) {
         throw TraCIException(error);
@@ -909,14 +909,14 @@ Vehicle::setStop(const std::string& vehicleID,
 
 void
 Vehicle::replaceStop(const std::string& vehicleID,
-                 int nextStopIndex,
-                 const std::string& edgeID,
-                 double pos,
-                 int laneIndex,
-                 double duration,
-                 int flags,
-                 double startPos,
-                 double until) {
+                     int nextStopIndex,
+                     const std::string& edgeID,
+                     double pos,
+                     int laneIndex,
+                     double duration,
+                     int flags,
+                     double startPos,
+                     double until) {
     MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
     MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
     if (veh == nullptr) {
@@ -924,7 +924,7 @@ Vehicle::replaceStop(const std::string& vehicleID,
         return;
     }
     SUMOVehicleParameter::Stop stopPars = buildStopParameters(edgeID,
-            pos, laneIndex, startPos, flags, duration, until);
+                                          pos, laneIndex, startPos, flags, duration, until);
 
     std::string error;
     if (!veh->replaceStop(nextStopIndex, stopPars, "traci:replaceStop", error)) {
@@ -2252,8 +2252,7 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
 
 SUMOVehicleParameter::Stop
 Vehicle::buildStopParameters(const std::string& edgeOrStoppingPlaceID,
-        double pos, int laneIndex, double startPos, int flags, double duration, double until)
-{
+                             double pos, int laneIndex, double startPos, int flags, double duration, double until) {
     SUMOVehicleParameter::Stop newStop;
     newStop.duration = duration == INVALID_DOUBLE_VALUE ? SUMOTime_MAX : TIME2STEPS(duration);
     newStop.until = until == INVALID_DOUBLE_VALUE ? -1 : TIME2STEPS(until);
@@ -2367,33 +2366,33 @@ Vehicle::buildStopData(const SUMOVehicleParameter::Stop& stopPar) {
         stoppingPlaceID = stopPar.overheadWireSegment;
     }
     int stopFlags = (
-            (stopPar.parking ? 1 : 0) +
-            (stopPar.triggered ? 2 : 0) +
-            (stopPar.containerTriggered ? 4 : 0) +
-            (stopPar.busstop != "" ? 8 : 0) +
-            (stopPar.containerstop != "" ? 16 : 0) +
-            (stopPar.chargingStation != "" ? 32 : 0) +
-            (stopPar.parkingarea != "" ? 64 : 0) +
-            (stopPar.overheadWireSegment != "" ? 128 : 0));
+                        (stopPar.parking ? 1 : 0) +
+                        (stopPar.triggered ? 2 : 0) +
+                        (stopPar.containerTriggered ? 4 : 0) +
+                        (stopPar.busstop != "" ? 8 : 0) +
+                        (stopPar.containerstop != "" ? 16 : 0) +
+                        (stopPar.chargingStation != "" ? 32 : 0) +
+                        (stopPar.parkingarea != "" ? 64 : 0) +
+                        (stopPar.overheadWireSegment != "" ? 128 : 0));
 
     return TraCINextStopData(stopPar.lane,
-            stopPar.startPos,
-            stopPar.endPos,
-            stoppingPlaceID,
-            stopFlags,
-            // negative duration is permitted to indicate that a vehicle cannot
-            // re-enter traffic after parking
-            stopPar.duration != -1 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
-            stopPar.until >= 0 ? STEPS2TIME(stopPar.until) : INVALID_DOUBLE_VALUE,
-            stopPar.arrival >= 0 ? STEPS2TIME(stopPar.arrival) : INVALID_DOUBLE_VALUE,
-            stopPar.actualArrival >= 0 ? STEPS2TIME(stopPar.actualArrival) : INVALID_DOUBLE_VALUE,
-            stopPar.depart >= 0 ? STEPS2TIME(stopPar.depart) : INVALID_DOUBLE_VALUE,
-            stopPar.split,
-            stopPar.join,
-            stopPar.actType,
-            stopPar.tripId,
-            stopPar.line,
-            stopPar.speed);
+                             stopPar.startPos,
+                             stopPar.endPos,
+                             stoppingPlaceID,
+                             stopFlags,
+                             // negative duration is permitted to indicate that a vehicle cannot
+                             // re-enter traffic after parking
+                             stopPar.duration != -1 ? STEPS2TIME(stopPar.duration) : INVALID_DOUBLE_VALUE,
+                             stopPar.until >= 0 ? STEPS2TIME(stopPar.until) : INVALID_DOUBLE_VALUE,
+                             stopPar.arrival >= 0 ? STEPS2TIME(stopPar.arrival) : INVALID_DOUBLE_VALUE,
+                             stopPar.actualArrival >= 0 ? STEPS2TIME(stopPar.actualArrival) : INVALID_DOUBLE_VALUE,
+                             stopPar.depart >= 0 ? STEPS2TIME(stopPar.depart) : INVALID_DOUBLE_VALUE,
+                             stopPar.split,
+                             stopPar.join,
+                             stopPar.actType,
+                             stopPar.tripId,
+                             stopPar.line,
+                             stopPar.speed);
 }
 
 

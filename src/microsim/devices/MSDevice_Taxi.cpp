@@ -185,8 +185,7 @@ MSDevice_Taxi::cleanup() {
 // MSDevice_Taxi-methods
 // ---------------------------------------------------------------------------
 MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
-    MSVehicleDevice(holder, id)
-{
+    MSVehicleDevice(holder, id) {
     std::string defaultServiceEnd = toString(1e15);
     const std::string algo = getStringParam(holder, OptionsCont::getOptions(), "taxi.idle-algorithm", "", false);
     if (algo == "stop") {
@@ -195,9 +194,9 @@ MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
         myIdleAlgorithm = new MSIdling_RandomCircling();
         // make sure simulation terminates
         defaultServiceEnd = toString(STEPS2TIME(
-                    myHolder.getParameter().departProcedure == DEPART_GIVEN
-                    ? myHolder.getParameter().depart
-                    : MSNet::getInstance()->getCurrentTimeStep()) + (3600 * 8));
+                                         myHolder.getParameter().departProcedure == DEPART_GIVEN
+                                         ? myHolder.getParameter().depart
+                                         : MSNet::getInstance()->getCurrentTimeStep()) + (3600 * 8));
     } else {
         throw ProcessError("Idle algorithm '" + algo + "' is not known for vehicle '" + myHolder.getID() + "'");
     }

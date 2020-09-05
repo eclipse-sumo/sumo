@@ -1517,7 +1517,7 @@ NLHandler::addPredecessorConstraint(const SUMOSAXAttributes& attrs) {
     const int limit = attrs.getOpt<int>(SUMO_ATTR_LIMIT, nullptr, ok, (int)foes.size());
 
     if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
-        throw InvalidArgument("Rail signal '" +signalID + "' in railSignalConstraints is not known");
+        throw InvalidArgument("Rail signal '" + signalID + "' in railSignalConstraints is not known");
     }
     MSRailSignal* signal = dynamic_cast<MSRailSignal*>(MSNet::getInstance()->getTLSControl().get(signalID).getDefault());
     if (signal == nullptr) {

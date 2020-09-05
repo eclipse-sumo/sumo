@@ -1926,7 +1926,7 @@ GUIVisualizationSettings::getCircleResolution() const {
 }
 
 
-bool 
+bool
 GUIVisualizationSettings::drawDottedContour() const {
     if (drawForPositionSelection || drawForRectangleSelection) {
         return false;
@@ -1936,7 +1936,7 @@ GUIVisualizationSettings::drawDottedContour() const {
 }
 
 
-bool 
+bool
 GUIVisualizationSettings::drawMovingGeometryPoint(const double exaggeration, const double radius) const {
     return (scale * radius * exaggeration > 10);
 }

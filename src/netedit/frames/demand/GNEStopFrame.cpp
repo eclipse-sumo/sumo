@@ -166,7 +166,7 @@ GNEStopFrame::show() {
 
 
 bool
-GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed) {
+GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed& keyPressed) {
     // check if we're selecting a new stop parent
     if (keyPressed.shiftKeyPressed()) {
         if (objectsUnderCursor.getDemandElementFront() &&

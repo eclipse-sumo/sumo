@@ -91,9 +91,9 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
         throw ProcessError("Unknown route validation scheme + '" + routeValidationScheme + "'.");
     }
     if (myGrammarPool == nullptr &&
-        (myValidationScheme != SAX2XMLReader::Val_Never ||
-         myNetValidationScheme != SAX2XMLReader::Val_Never ||
-         myRouteValidationScheme != SAX2XMLReader::Val_Never)) {
+            (myValidationScheme != SAX2XMLReader::Val_Never ||
+             myNetValidationScheme != SAX2XMLReader::Val_Never ||
+             myRouteValidationScheme != SAX2XMLReader::Val_Never)) {
         myGrammarPool = new XERCES_CPP_NAMESPACE::XMLGrammarPoolImpl(XMLPlatformUtils::fgMemoryManager);
         SAX2XMLReader* parser(XMLReaderFactory::createXMLReader(XMLPlatformUtils::fgMemoryManager, myGrammarPool));
 #if _XERCES_VERSION >= 30100
@@ -104,7 +104,9 @@ XMLSubSys::setValidation(const std::string& validationScheme, const std::string&
             WRITE_WARNING("Environment variable SUMO_HOME is not set, schema resolution will use slow website lookups.");
             return;
         }
-        for (const std::string& filetype : { "additional", "routes", "net" }) {
+        for (const std::string& filetype : {
+                    "additional", "routes", "net"
+                }) {
             const std::string file = sumoPath + std::string("/data/xsd/") + filetype + "_file.xsd";
             if (!parser->loadGrammar(file.c_str(), XERCES_CPP_NAMESPACE::Grammar::SchemaGrammarType, true)) {
                 WRITE_WARNING("Cannot read local schema '" + file + "', will try website lookup.");

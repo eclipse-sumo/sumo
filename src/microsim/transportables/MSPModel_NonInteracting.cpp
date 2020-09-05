@@ -87,7 +87,7 @@ MSPModel_NonInteracting::remove(MSTransportableStateAdapter* state) {
     dynamic_cast<PState*>(state)->getCommand()->abortWalk();
 }
 
-MSPModel_NonInteracting::MoveToNextEdge::~MoveToNextEdge() { 
+MSPModel_NonInteracting::MoveToNextEdge::~MoveToNextEdge() {
     myModel->registerArrived();
 }
 

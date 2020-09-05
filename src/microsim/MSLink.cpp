@@ -183,12 +183,12 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     myLengthsBehindCrossing.push_back(std::make_pair(lbcLane, lbcSibling));
 #ifdef MSLink_DEBUG_CROSSING_POINTS
                     std::cout
-                        << " " << lane->getID()
-                        << " merges with " << (*it_lane)->getID()
-                        << " nextLane " << lane->getLinkCont()[0]->getViaLaneOrLane()->getID()
-                        << " dist1=" << myLengthsBehindCrossing.back().first
-                        << " dist2=" << myLengthsBehindCrossing.back().second
-                        << "\n";
+                            << " " << lane->getID()
+                            << " merges with " << (*it_lane)->getID()
+                            << " nextLane " << lane->getLinkCont()[0]->getViaLaneOrLane()->getID()
+                            << " dist1=" << myLengthsBehindCrossing.back().first
+                            << " dist2=" << myLengthsBehindCrossing.back().second
+                            << "\n";
 #endif
                 }
             } else {
@@ -365,15 +365,15 @@ MSLink::computeDistToDivergence(const MSLane* lane, const MSLane* sibling, doubl
     const double distToDivergence1 = sibling->getLength() - lbcSibling;
     const double distToDivergence2 = lane->getLength() - lbcLane;
     const double distToDivergence = MIN3(
-            MAX2(distToDivergence1, distToDivergence2),
-            s.length2D(), l.length2D());
+                                        MAX2(distToDivergence1, distToDivergence2),
+                                        s.length2D(), l.length2D());
 #ifdef MSLink_DEBUG_CROSSING_POINTS
     std::cout << "   distToDivergence=" << distToDivergence
-        << " distTD1=" << distToDivergence1
-        << " distTD2=" << distToDivergence2
-        << " length=" << l.length2D()
-        << " sibLength=" << s.length2D()
-        << "\n";
+              << " distTD1=" << distToDivergence1
+              << " distTD2=" << distToDivergence2
+              << " length=" << l.length2D()
+              << " sibLength=" << s.length2D()
+              << "\n";
 #endif
     return distToDivergence;
 }
@@ -1067,8 +1067,8 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                                         && leader->getVehicleType().getVehicleClass() == SVC_BICYCLE
                                                         && foeLane->getIncomingLanes().front().viaLink->getDirection() == LinkDirection::LEFT);
                 const bool cannotIgnore = ((contLane && !ignoreIndirectBicycleTurn) || sameTarget || sameSource) && ego != nullptr;
-                const bool inTheWay = (((!pastTheCrossingPoint && distToCrossing > 0) || (sameTarget && distToCrossing > leaderBackDist - leader->getLength())) 
-                        && leaderBackDist < leader->getVehicleType().getLength());
+                const bool inTheWay = (((!pastTheCrossingPoint && distToCrossing > 0) || (sameTarget && distToCrossing > leaderBackDist - leader->getLength()))
+                                       && leaderBackDist < leader->getVehicleType().getLength());
                 const bool isOpposite = leader->getLaneChangeModel().isOpposite();
                 if (gDebugFlag1) {
                     std::cout << " candiate leader=" << leader->getID()

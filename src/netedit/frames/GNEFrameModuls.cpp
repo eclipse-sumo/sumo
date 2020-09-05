@@ -347,7 +347,7 @@ GNEFrameModuls::DemandElementSelector::DemandElementSelector(GNEFrame* framePare
     // fill myDemandElementTags
     for (const auto& tagType : tagTypes) {
         const auto tagsByCategory = GNEAttributeCarrier::getAllowedTagsByCategory(tagType, false);
-        for (const auto &tagByCategory : tagsByCategory) {
+        for (const auto& tagByCategory : tagsByCategory) {
             myDemandElementTags.push_back(tagByCategory.first);
         }
     }
@@ -490,7 +490,7 @@ GNEFrameModuls::DemandElementSelector::refreshDemandElementSelector() {
 }
 
 
-GNEEdge* 
+GNEEdge*
 GNEFrameModuls::DemandElementSelector::getPersonPlanPreviousEdge() const {
     if (myCurrentDemandElement == nullptr) {
         return nullptr;
@@ -1502,12 +1502,12 @@ GNEFrameModuls::DrawingShape::DrawingShape(GNEFrame* frameParent) :
     // create information label
     std::ostringstream information;
     information
-        << "- 'Start drawing' or ENTER\n"
-        << "  to create shape.\n"
-        << "- 'Stop drawing' or ESC to\n"
-        << "  abort shape creation.\n"
-        << "- 'Shift + Click' to remove\n"
-        << "  last inserted point.";
+            << "- 'Start drawing' or ENTER\n"
+            << "  to create shape.\n"
+            << "- 'Stop drawing' or ESC to\n"
+            << "  abort shape creation.\n"
+            << "- 'Shift + Click' to remove\n"
+            << "  last inserted point.";
     myInformationLabel = new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameInformation);
     // disable stop and abort functions as init
     myStopDrawingButton->disable();
@@ -1987,10 +1987,10 @@ GNEFrameModuls::OverlappedInspection::buildFXElements() {
 
 GNEFrameModuls::PathCreator::Path::Path(const SUMOVehicleClass vClass, GNEEdge* edge) :
     mySubPath({edge}),
-    myFromBusStop(nullptr),
-    myToBusStop(nullptr),
-    myConflictVClass(false),
-    myConflictDisconnected(false) {
+          myFromBusStop(nullptr),
+          myToBusStop(nullptr),
+          myConflictVClass(false),
+myConflictDisconnected(false) {
     // check if we have to change vClass flag
     if (edge->getNBEdge()->getNumLanesThatAllow(vClass) == 0) {
         myConflictVClass = true;
@@ -2018,13 +2018,13 @@ GNEFrameModuls::PathCreator::Path::Path(GNEViewNet* viewNet, const SUMOVehicleCl
 }
 
 
-const std::vector<GNEEdge*>& 
+const std::vector<GNEEdge*>&
 GNEFrameModuls::PathCreator::Path::getSubPath() const {
     return mySubPath;
 }
 
 
-GNEAdditional* GNEFrameModuls::PathCreator::Path::getFromBusStop() const{
+GNEAdditional* GNEFrameModuls::PathCreator::Path::getFromBusStop() const {
     return myFromBusStop;
 }
 
@@ -2034,13 +2034,13 @@ GNEAdditional* GNEFrameModuls::PathCreator::Path::getToBusStop() const {
 }
 
 
-bool 
+bool
 GNEFrameModuls::PathCreator::Path::isConflictVClass() const {
     return myConflictVClass;
 }
 
 
-bool 
+bool
 GNEFrameModuls::PathCreator::Path::isConflictDisconnected() const {
     return myConflictDisconnected;
 }
@@ -2078,16 +2078,16 @@ GNEFrameModuls::PathCreator::PathCreator(GNEFrame* frameParent) :
     myShowCandidateEdges->setCheck(TRUE);
     // create shift label
     myShiftLabel = new FXLabel(this,
-        "SHIFT-click: ignore vClass",
-        0, GUIDesignLabelFrameInformation);
+                               "SHIFT-click: ignore vClass",
+                               0, GUIDesignLabelFrameInformation);
     // create control label
     myControlLabel = new FXLabel(this,
-        "CTRL-click: add disconnected",
-        0, GUIDesignLabelFrameInformation);
+                                 "CTRL-click: add disconnected",
+                                 0, GUIDesignLabelFrameInformation);
     // create backspace label (always shown)
     new FXLabel(this,
-        "BACKSPACE: undo click",
-        0, GUIDesignLabelFrameInformation);
+                "BACKSPACE: undo click",
+                0, GUIDesignLabelFrameInformation);
 }
 
 
@@ -2242,7 +2242,7 @@ bool
 GNEFrameModuls::PathCreator::addEdge(GNEEdge* edge, const bool shiftKeyPressed, const bool controlKeyPressed) {
     // check if edges are allowed
     if (((myCreationMode & CONSECUTIVE_EDGES) + (myCreationMode & NONCONSECUTIVE_EDGES) +
-        (myCreationMode & START_EDGE) + (myCreationMode & END_EDGE)) == 0) {
+            (myCreationMode & START_EDGE) + (myCreationMode & END_EDGE)) == 0) {
         return false;
     }
     // check if only an edge is allowed
@@ -2326,7 +2326,7 @@ GNEFrameModuls::PathCreator::getSelectedEdges() const {
 
 
 bool
-GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional *stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional* stoppingPlace, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     // check if stoppingPlaces aren allowed
     if (((myCreationMode & START_BUSSTOP) + (myCreationMode & END_BUSSTOP)) == 0) {
         return false;
@@ -2378,7 +2378,7 @@ GNEFrameModuls::PathCreator::addStoppingPlace(GNEAdditional *stoppingPlace, cons
 }
 
 
-GNEAdditional* 
+GNEAdditional*
 GNEFrameModuls::PathCreator::getFromStoppingPlace(SumoXMLTag expectedTag) const {
     if (myFromStoppingPlace && (myFromStoppingPlace->getTagProperty().getTag() == expectedTag)) {
         return myFromStoppingPlace;
@@ -2388,7 +2388,7 @@ GNEFrameModuls::PathCreator::getFromStoppingPlace(SumoXMLTag expectedTag) const 
 }
 
 
-GNEAdditional* 
+GNEAdditional*
 GNEFrameModuls::PathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
     if (myToStoppingPlace && (myToStoppingPlace->getTagProperty().getTag() == expectedTag)) {
         return myToStoppingPlace;
@@ -2399,7 +2399,7 @@ GNEFrameModuls::PathCreator::getToStoppingPlace(SumoXMLTag expectedTag) const {
 
 
 bool
-GNEFrameModuls::PathCreator::addRoute(GNEDemandElement *route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
+GNEFrameModuls::PathCreator::addRoute(GNEDemandElement* route, const bool /*shiftKeyPressed*/, const bool /*controlKeyPressed*/) {
     // check if routes aren allowed
     if ((myCreationMode & ROUTE) == 0) {
         return false;
@@ -2418,7 +2418,7 @@ GNEFrameModuls::PathCreator::addRoute(GNEDemandElement *route, const bool /*shif
 }
 
 
-GNEDemandElement* 
+GNEDemandElement*
 GNEFrameModuls::PathCreator::getRoute() const {
     return myRoute;
 }
@@ -2446,7 +2446,7 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
     if (mySelectedEdges.size() > 0) {
         // only coloring edges if checkbox "show candidate edges" is enabled
         if ((myShowCandidateEdges->getCheck() == TRUE) && (myCreationMode & SHOW_CANDIDATE_EDGES)) {
-            // mark all edges as conflicted (to mark special candidates) 
+            // mark all edges as conflicted (to mark special candidates)
             for (const auto& edge : myFrameParent->myViewNet->getNet()->getAttributeCarriers()->getEdges()) {
                 edge.second->setConflictedCandidate(true);
             }
@@ -2497,7 +2497,7 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
         for (int i = 0; i < (int)myPath.size(); i++) {
             // get path
             const GNEFrameModuls::PathCreator::Path& path = myPath.at(i);
-            // draw line over 
+            // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
                 const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
                 if (((i == 0) && (j == 0)) || (j > 0)) {
@@ -2529,7 +2529,7 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
             } else {
                 GLHelper::setColor(RGBColor::ORANGE);
             }
-            // draw line over 
+            // draw line over
             for (int j = 0; j < (int)path.getSubPath().size(); j++) {
                 const GNELane* lane = path.getSubPath().at(j)->getLanes().back();
                 if (((i == 0) && (j == 0)) || (j > 0)) {
@@ -2552,14 +2552,14 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
 }
 
 
-void 
+void
 GNEFrameModuls::PathCreator::createPath() {
     // call create path implemented in frame parent
     myFrameParent->createPath();
 }
 
 
-void 
+void
 GNEFrameModuls::PathCreator::abortPathCreation() {
     // first check that there is elements
     if ((mySelectedEdges.size() > 0) || myFromStoppingPlace || myToStoppingPlace || myRoute) {
@@ -2581,7 +2581,7 @@ GNEFrameModuls::PathCreator::abortPathCreation() {
 }
 
 
-void 
+void
 GNEFrameModuls::PathCreator::removeLastElement() {
     if (mySelectedEdges.size() > 1) {
         // remove special color of last selected edge
@@ -2670,10 +2670,10 @@ GNEFrameModuls::PathCreator::updateInfoRouteLabel() {
         // declare ostringstream for label and fill it
         std::ostringstream information;
         information
-            << "- Selected edges: " << toString(mySelectedEdges.size()) << "\n"
-            << "- Path edges: " << toString(pathSize) << "\n"
-            << "- Length: " << toString(length) << "\n"
-            << "- Average speed: " << toString(speed / pathSize);
+                << "- Selected edges: " << toString(mySelectedEdges.size()) << "\n"
+                << "- Path edges: " << toString(pathSize) << "\n"
+                << "- Length: " << toString(length) << "\n"
+                << "- Average speed: " << toString(speed / pathSize);
         // set new label
         myInfoRouteLabel->setText(information.str().c_str());
     } else {
@@ -2715,7 +2715,7 @@ GNEFrameModuls::PathCreator::recalculatePath() {
             edges.push_back(myFromStoppingPlace->getParentLanes().front()->getParentEdge());
         }
         // add selected edges
-        for (const auto &edge : mySelectedEdges) {
+        for (const auto& edge : mySelectedEdges) {
             edges.push_back(edge);
         }
         // add to stopping place edge

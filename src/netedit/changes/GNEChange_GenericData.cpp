@@ -59,8 +59,8 @@ GNEChange_GenericData::~GNEChange_GenericData() {
         WRITE_DEBUG("Deleting unreferenced " + myGenericData->getTagStr() + " '" + myGenericData->getID() + "'");
         // check that generic data don't exist
         if (myGenericData->getNet()->getAttributeCarriers()->dataSetExist(myDataSetParent) &&
-            myDataSetParent->dataIntervalChildrenExist(myDataIntervalParent) &&
-            myDataIntervalParent->hasGenericDataChild(myGenericData)) {
+                myDataSetParent->dataIntervalChildrenExist(myDataIntervalParent) &&
+                myDataIntervalParent->hasGenericDataChild(myGenericData)) {
             // delete generic data from interval parent
             myDataIntervalParent->removeGenericDataChild(myGenericData);
             // remove element from path

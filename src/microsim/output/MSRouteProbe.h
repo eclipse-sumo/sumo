@@ -121,7 +121,7 @@ public:
     void writeXMLDetectorProlog(OutputDevice& dev) const;
     /// @}
 
-    /* @brief sample a route from the routeDistribution 
+    /* @brief sample a route from the routeDistribution
      * @param[in] last Retrieve route from the previous (complete) collection interval
      */
     const MSRoute* sampleRoute(bool last = true) const;

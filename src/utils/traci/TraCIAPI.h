@@ -472,8 +472,12 @@ public:
         void setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic) const;
 
         // aliases for backward compatibility
-        inline std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) const { return getAllProgramLogics(tlsID); }
-        void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) const { setProgramLogic(tlsID, logic); }
+        inline std::vector<libsumo::TraCILogic> getCompleteRedYellowGreenDefinition(const std::string& tlsID) const {
+            return getAllProgramLogics(tlsID);
+        }
+        void setCompleteRedYellowGreenDefinition(const std::string& tlsID, const libsumo::TraCILogic& logic) const {
+            setProgramLogic(tlsID, logic);
+        }
     };
 
 

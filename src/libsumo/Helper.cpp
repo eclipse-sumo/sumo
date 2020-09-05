@@ -1116,7 +1116,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                     double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle/person
 #ifdef DEBUG_MOVEXY
-        std::cout << SIMTIME << " moveToXYMap pos=" << pos << " angle=" << angle << " vClass=" << toString(vClass) << "\n";
+    std::cout << SIMTIME << " moveToXYMap pos=" << pos << " angle=" << angle << " vClass=" << toString(vClass) << "\n";
 #endif
     const MSEdge* const currentRouteEdge = currentRoute[routePosition];
     std::set<const Named*> into;
@@ -1319,8 +1319,8 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     bestDistance = u.dist;
     *lane = bestLane;
     lanePos = MAX2(0., MIN2(double((*lane)->getLength() - POSITION_EPS),
-                bestLane->interpolateGeometryPosToLanePos(
-                    bestLane->getShape().nearest_offset_to_point25D(pos, false))));
+                            bestLane->interpolateGeometryPosToLanePos(
+                                bestLane->getShape().nearest_offset_to_point25D(pos, false))));
     const MSEdge* prevEdge = u.prevEdge;
     if (u.onRoute) {
         ConstMSEdgeVector::const_iterator prevEdgePos = std::find(currentRoute.begin(), currentRoute.end(), prevEdge);

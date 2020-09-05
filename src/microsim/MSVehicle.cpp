@@ -936,9 +936,9 @@ void
 MSVehicle::Stop::write(OutputDevice& dev) const {
     SUMOVehicleParameter::Stop tmp = pars;
     tmp.duration = duration;
-    if (busstop == nullptr 
-            && containerstop == nullptr 
-            && parkingarea == nullptr 
+    if (busstop == nullptr
+            && containerstop == nullptr
+            && parkingarea == nullptr
             && chargingStation == nullptr) {
         tmp.parametersSet |= STOP_START_SET | STOP_END_SET;
     }
@@ -996,8 +996,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     myJunctionEntryTime(SUMOTime_MAX),
     myJunctionEntryTimeNeverYield(SUMOTime_MAX),
     myJunctionConflictEntryTime(SUMOTime_MAX),
-    myInfluencer(nullptr)
-{
+    myInfluencer(nullptr) {
     myCFVariables = type->getCarFollowModel().createVehicleVariables();
     myNextDriveItem = myLFLinkLanes.begin();
 }
@@ -2820,7 +2819,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         if (couldBrakeForMinor && (*link)->getLane()->getEdge().isRoundabout()) {
             slowedDownForMinor = true;
 #ifdef DEBUG_PLAN_MOVE
-            if (DEBUG_COND) std::cout << "   slowedDownForMinor at roundabout\n";
+            if (DEBUG_COND) {
+                std::cout << "   slowedDownForMinor at roundabout\n";
+            }
 #endif
         }
 
@@ -3158,14 +3159,18 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
             // braking for pedestrian
             vsafeLeader = vStop;
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
-            if (DEBUG_COND) std::cout << "  breaking for pedestrian distToCrossing=" << distToCrossing << " vStop=" << vStop << "\n";
+            if (DEBUG_COND) {
+                std::cout << "  breaking for pedestrian distToCrossing=" << distToCrossing << " vStop=" << vStop << "\n";
+            }
 #endif
         } else {
             const double leaderBrakeGap = leaderInfo.first->getCarFollowModel().brakeGap(leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getMaxDecel(), 0);
             const double leaderDistToCrossing = distToCrossing - leaderInfo.second;
             const bool leaderClear = leaderDistToCrossing < leaderBrakeGap;
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
-            if (DEBUG_COND) std::cout << "  leaderDistToCrossing=" << leaderDistToCrossing << " leaderBrakeGap=" << leaderBrakeGap << "  leaderClear=" << leaderClear << "\n";;
+            if (DEBUG_COND) {
+                std::cout << "  leaderDistToCrossing=" << leaderDistToCrossing << " leaderBrakeGap=" << leaderBrakeGap << "  leaderClear=" << leaderClear << "\n";
+            };
 #endif
             if (leaderClear) {
                 vsafeLeader = getCarFollowModel().maxNextSpeed(getSpeed(), this);
@@ -3181,11 +3186,11 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                 if (DEBUG_COND) {
                     std::cout << "    driving up to the crossing point (distToCrossing=" << distToCrossing << ")"
-                        << " leaderPastCPTime=" << leaderPastCPTime
-                        << " vFinal=" << vFinal
-                        << " v2=" << v2
-                        << " vStop=" << vStop
-                        << " vsafeLeader=" << vsafeLeader << "\n";
+                              << " leaderPastCPTime=" << leaderPastCPTime
+                              << " vFinal=" << vFinal
+                              << " v2=" << v2
+                              << " vStop=" << vStop
+                              << " vsafeLeader=" << vsafeLeader << "\n";
                 }
 #endif
             }
@@ -4245,7 +4250,7 @@ MSVehicle::executeFractionalMove(double dist) {
             link = MSLinkContHelper::getConnectingLink(*from, *to);
         }
         myLFLinkLanes.push_back(DriveProcessItem(
-                    link, getSpeed(), getSpeed(), true, t, getSpeed(), 0, 0, dist));
+                                    link, getSpeed(), getSpeed(), true, t, getSpeed(), 0, 0, dist));
     }
     // minimum execute move:
     std::vector<MSLane*> passedLanes;
@@ -5027,8 +5032,8 @@ MSVehicle::leaveLane(const MSMoveReminder::Notification reason, const MSLane* ap
         while (!myStops.empty() && myStops.front().edge == myCurrEdge && &myStops.front().lane->getEdge() == &myLane->getEdge()) {
             if (myStops.front().pars.speed <= 0) {
                 WRITE_WARNING("Vehicle '" + getID() + "' skips stop on lane '" + myStops.front().lane->getID()
-                        + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
-                    myStops.pop_front();
+                              + "' time=" + time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".")
+                myStops.pop_front();
             } else {
                 // passed waypoint at the end of the lane
                 if (!myStops.front().reached) {
@@ -6696,12 +6701,12 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
 
 void
 MSVehicle::loadPreviousApproaching(MSLink* link, bool setRequest,
-        SUMOTime arrivalTime, double arrivalSpeed,
-        SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
-        double dist, double leaveSpeed) {
+                                   SUMOTime arrivalTime, double arrivalSpeed,
+                                   SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
+                                   double dist, double leaveSpeed) {
     // ensure that approach information is reset on the next call to setApproachingForAllLinks
     myLFLinkLanes.push_back(DriveProcessItem(link, -1, -1, setRequest,
-                arrivalTime, arrivalSpeed, arrivalTimeBraking, arrivalSpeedBraking, dist, leaveSpeed));
+                            arrivalTime, arrivalSpeed, arrivalTimeBraking, arrivalSpeedBraking, dist, leaveSpeed));
 
 }
 

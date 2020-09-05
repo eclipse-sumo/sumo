@@ -513,11 +513,11 @@ GNEViewNetHelper::ObjectsUnderCursor::getClickedAttributeCarriers() const {
     }
 }
 
- 
+
 GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::ObjectsContainer() {}
 
 
-void 
+void
 GNEViewNetHelper::ObjectsUnderCursor::ObjectsContainer::clearElements() {
     // just clear all containers
     GUIGlObjects.clear();
@@ -568,7 +568,7 @@ GNEViewNetHelper::ObjectsUnderCursor::sortGUIGlObjects(const std::vector<GUIGlOb
 }
 
 
-void 
+void
 GNEViewNetHelper::ObjectsUnderCursor::updateAttributeCarriers(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
@@ -595,7 +595,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateAttributeCarriers(ObjectsContainer& 
 }
 
 
-void 
+void
 GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
@@ -681,7 +681,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateNetworkElements(ObjectsContainer& co
 }
 
 
-void 
+void
 GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
@@ -696,7 +696,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateAdditionalElements(ObjectsContainer&
 }
 
 
-void 
+void
 GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
@@ -726,7 +726,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateTAZElements(ObjectsContainer& contai
 }
 
 
-void 
+void
 GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
@@ -766,7 +766,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateShapeElements(ObjectsContainer& cont
 }
 
 
-void 
+void
 GNEViewNetHelper::ObjectsUnderCursor::updateDemandElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
@@ -781,7 +781,7 @@ GNEViewNetHelper::ObjectsUnderCursor::updateDemandElements(ObjectsContainer& con
 }
 
 
-void 
+void
 GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer& container, GNEAttributeCarrier* AC) {
     // get front AC
     const GNEAttributeCarrier* frontAC = myViewNet->getFrontAttributeCarrier();
@@ -821,14 +821,14 @@ GNEViewNetHelper::ObjectsUnderCursor::updateGenericDataElements(ObjectsContainer
 }
 
 
-void 
+void
 GNEViewNetHelper::ObjectsUnderCursor::updateGUIGlObjects(ObjectsContainer& container) {
     // first clear GUIGlObjects
     container.GUIGlObjects.clear();
     // reserve
     container.GUIGlObjects.reserve(container.attributeCarriers.size());
     // iterate over atribute carriers
-    for (const auto &attributeCarrrier : container.attributeCarriers) {
+    for (const auto& attributeCarrrier : container.attributeCarriers) {
         // add GUIGlObject in GUIGlObjects container
         container.GUIGlObjects.push_back(attributeCarrrier->getGUIGlObject());
     }
@@ -901,14 +901,14 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
     // get edited element
     const GNENetworkElement* editedElement = myViewNet->myEditNetworkElementShapes.getEditedNetworkElement();
     // check what type of AC will be moved
-    if (myViewNet->myObjectsUnderCursor.getCrossingFront() && 
-        (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
+    if (myViewNet->myObjectsUnderCursor.getCrossingFront() &&
+            (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
         return calculateCrossingValues();
-    } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() && 
-        (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
-            return calculateConnectionValues();
-    } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() && 
-        (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
+    } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() &&
+               (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
+        return calculateConnectionValues();
+    } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() &&
+               (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
         return calculateJunctionValues();
     } else {
         // there isn't moved items, then return false
@@ -922,7 +922,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // get front AC
-    const GNEAttributeCarrier *frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
+    const GNEAttributeCarrier* frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
     // check what type of AC will be moved
     if (myViewNet->myObjectsUnderCursor.getPolyFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPolyFront())) {
         // calculate poly movement values (can be entire shape, single geometry points, altitude, etc.)
@@ -955,7 +955,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             // there is moved items, then return true
             return true;
         }
-    } else if ((myViewNet->myObjectsUnderCursor.getEdgeFront() && (frontAC == myViewNet->myObjectsUnderCursor.getEdgeFront())) || 
+    } else if ((myViewNet->myObjectsUnderCursor.getEdgeFront() && (frontAC == myViewNet->myObjectsUnderCursor.getEdgeFront())) ||
                (myViewNet->myObjectsUnderCursor.getLaneFront() && (frontAC == myViewNet->myObjectsUnderCursor.getLaneFront()))) {
         // calculate Edge movement values (can be entire shape, single geometry points, altitude, etc.)
         return calculateEdgeValues();
@@ -971,8 +971,8 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
     // first obtain moving reference (common for all)
     myRelativeClickedPosition = myViewNet->getPositionInformation();
     // check what type of AC will be moved
-    if (myViewNet->myObjectsUnderCursor.getDemandElementFront() && 
-        (myViewNet->myObjectsUnderCursor.getAttributeCarrierFront() == myViewNet->myObjectsUnderCursor.getDemandElementFront())) {
+    if (myViewNet->myObjectsUnderCursor.getDemandElementFront() &&
+            (myViewNet->myObjectsUnderCursor.getAttributeCarrierFront() == myViewNet->myObjectsUnderCursor.getDemandElementFront())) {
         // set additionals moved object
         myDemandElementToMove = myViewNet->myObjectsUnderCursor.getDemandElementFront();
         // start demand element geometry moving
@@ -1634,7 +1634,7 @@ GNEViewNetHelper::SelectingArea::processBoundarySelection(const Boundary& bounda
         for (const auto& AC : ACsInBoundary) {
             if (myViewNet->myEditModes.isCurrentSupermodeNetwork()) {
                 if (AC.second->getTagProperty().isNetworkElement() || AC.second->getTagProperty().isAdditionalElement() ||
-                    AC.second->getTagProperty().isTAZElement() || AC.second->getTagProperty().isShape()) {
+                        AC.second->getTagProperty().isTAZElement() || AC.second->getTagProperty().isShape()) {
                     ACsInBoundaryFiltered.insert(AC);
                 }
             } else if (myViewNet->myEditModes.isCurrentSupermodeDemand() && AC.second->getTagProperty().isDemandElement()) {
@@ -2051,7 +2051,7 @@ GNEViewNetHelper::EditModes::setDataEditMode(DataEditMode mode, const bool force
         // update DijkstraRouter of RouteCalculatorInstance
         myViewNet->myNet->getPathCalculator()->updatePathCalculator();
         // update all datasets
-        for (const auto &dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
+        for (const auto& dataSet : myViewNet->getNet()->getAttributeCarriers()->getDataSets()) {
             dataSet.second->updateAttributeColors();
         }
         // update network mode specific controls
@@ -2843,7 +2843,7 @@ GNEViewNetHelper::IntervalBar::setGenericDataType() {
         // set invalid color
         myGenericDataTypesComboBox->setTextColor(FXRGB(255, 0, 0));
         // set valid color depending of myGenericDataTypesComboBox
-        for (const auto & genericDataTag : genericDataTags) {
+        for (const auto& genericDataTag : genericDataTags) {
             if (genericDataTag.second == myGenericDataTypesComboBox->getText().text()) {
                 myGenericDataTypesComboBox->setTextColor(FXRGB(0, 0, 0));
             }
@@ -3281,19 +3281,19 @@ void
 GNEViewNetHelper::DataCheckableButtons::buildDataCheckableButtons() {
     // edgeData mode
     edgeDataButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tcreate edge data mode\tMode for creating edge datas.",
-        GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myViewNet, MID_HOTKEY_E_MODES_EDGE_EDGEDATA, GUIDesignButtonToolbarCheckable);
+                                            "\tcreate edge data mode\tMode for creating edge datas.",
+                                            GUIIconSubSys::getIcon(GUIIcon::MODEEDGEDATA), myViewNet, MID_HOTKEY_E_MODES_EDGE_EDGEDATA, GUIDesignButtonToolbarCheckable);
     edgeDataButton->create();
     // edgeRelData mode
     edgeRelDataButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tcreate edge relation data mode\tMode for creating edge relation datas.",
-        GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myViewNet, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA, GUIDesignButtonToolbarCheckable);
+            "\tcreate edge relation data mode\tMode for creating edge relation datas.",
+            GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myViewNet, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA, GUIDesignButtonToolbarCheckable);
     edgeRelDataButton->create();
     // TAZRelData mode
     TAZRelDataButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tcreate TAZ relation data mode\tMode for creating TAZ relation datas.",
-        GUIIconSubSys::getIcon(GUIIcon::MODETAZRELDATA), myViewNet, MID_HOTKEY_Z_MODES_TAZ_TAZREL, GUIDesignButtonToolbarCheckable);
-    
+            "\tcreate TAZ relation data mode\tMode for creating TAZ relation datas.",
+            GUIIconSubSys::getIcon(GUIIcon::MODETAZRELDATA), myViewNet, MID_HOTKEY_Z_MODES_TAZ_TAZREL, GUIDesignButtonToolbarCheckable);
+
     TAZRelDataButton->create();
     // always recalc after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
@@ -3388,7 +3388,7 @@ GNEViewNetHelper::EditNetworkElementShapes::commitEditedShape() {
 }
 
 
-GNENetworkElement* 
+GNENetworkElement*
 GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
     return myEditedNetworkElement;
 }
@@ -3397,7 +3397,7 @@ GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
 // GNEViewNetHelper - methods
 // ---------------------------------------------------------------------------
 
-const std::vector<RGBColor>& 
+const std::vector<RGBColor>&
 GNEViewNetHelper::getRainbowScaledColors() {
     // if is empty, fill it
     if (myRainbowScaledColors.empty()) {

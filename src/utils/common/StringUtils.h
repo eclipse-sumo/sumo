@@ -140,7 +140,7 @@ public:
     static std::string transcode(const XMLCh* const data, int length);
 
     /// @brief remove leading whitespace from string
-    static std::string trim_left(const std::string s, const std::string& t = " \t\n"); 
+    static std::string trim_left(const std::string s, const std::string& t = " \t\n");
 
     /// @brief remove trailing whitespace from string
     static std::string trim_right(const std::string s, const std::string& t = " \t\n");

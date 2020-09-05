@@ -86,23 +86,23 @@ GNELane::LaneDrawingConstants::LaneDrawingConstants() :
 
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
-    {}, {}, {}, {}, {}, {}, {}, {}),
-    myParentEdge(edge),
-    myIndex(index),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myParentEdge(edge),
+myIndex(index),
+mySpecialColor(nullptr),
+mySpecialColorValue(-1),
+myLane2laneConnections(this) {
 }
 
 
 GNELane::GNELane() :
     GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
-    {}, {}, {}, {}, {}, {}, {}, {}),
-    myParentEdge(nullptr),
-    myIndex(-1),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myParentEdge(nullptr),
+myIndex(-1),
+mySpecialColor(nullptr),
+mySpecialColorValue(-1),
+myLane2laneConnections(this) {
 }
 
 
@@ -628,11 +628,11 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         // check if dotted contours has to be drawn
         if (!drawRailway) {
             if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this) ||
-                ((myNet->getViewNet()->getInspectedAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+                    ((myNet->getViewNet()->getInspectedAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
                 GNEGeometry::drawDottedContourLane(true, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
             }
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
-                ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+                    ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
                 GNEGeometry::drawDottedContourLane(false, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
             }
         }
@@ -1469,11 +1469,11 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * laneDrawingConstants.exaggeration, 0.6 * laneDrawingConstants.exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
     // check if dotted contours has to be drawn
     if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this) ||
-        ((myNet->getViewNet()->getInspectedAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+            ((myNet->getViewNet()->getInspectedAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
         GNEGeometry::drawDottedContourShape(true, s, shape, halfGauge, 1);
     }
     if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
-        ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+            ((myNet->getViewNet()->getFrontAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
         GNEGeometry::drawDottedContourShape(false, s, shape, halfGauge, 1);
     }
 }

@@ -47,7 +47,7 @@ public:
      * @param keyPressed key pressed during click
      * @return true if additional was sucesfully added
      */
-    bool addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed &keyPressed);
+    bool addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed& keyPressed);
 
 private:
     /// @brief Invalidated copy constructor.

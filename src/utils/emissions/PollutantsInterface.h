@@ -103,7 +103,7 @@ public:
         /** @brief Constructor, intializes the name
          * @param[in] name the name of the model (string before the '/' in the emission class attribute)
          */
-        Helper(std::string name, const int defaultClass=-1) : myName(name) {
+        Helper(std::string name, const int defaultClass = -1) : myName(name) {
             if (defaultClass != -1) {
                 myEmissionClassStrings.insert("default", defaultClass);
                 myEmissionClassStrings.addAlias("unknown", defaultClass);

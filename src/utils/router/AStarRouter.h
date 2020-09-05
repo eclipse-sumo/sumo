@@ -122,7 +122,7 @@ public:
 
     virtual SUMOAbstractRouter<E, V>* clone() {
         return new AStarRouter<E, V>(myEdgeInfos, this->myErrorMsgHandler == MsgHandler::getWarningInstance(), this->myOperation, myLookupTable,
-                this->myHavePermissions, this->myHaveRestrictions);
+                                     this->myHavePermissions, this->myHaveRestrictions);
     }
 
     void init() {
@@ -197,20 +197,20 @@ public:
 #ifdef ASTAR_DEBUG_QUERY_PERF
                 if (ASTAR_DEBUG_COND) {
                     std::cout << "visited " + toString(num_visited) + " edges (final path length=" + toString(into.size())
-                        + " time=" + toString(this->recomputeCosts(into, vehicle, msTime))
-                        + " edges=" + toString(into) + ")\n";
+                              + " time=" + toString(this->recomputeCosts(into, vehicle, msTime))
+                              + " edges=" + toString(into) + ")\n";
                 }
 #endif
 #ifdef ASTAR_DEBUG_VISITED
-        if (ASTAR_DEBUG_COND) {
-            OutputDevice& dev = OutputDevice::getDevice(Named::getIDSecure(vehicle) + "_" + toString(STEPS2TIME(msTime)));
-            for (const auto& i : myEdgeInfos) {
-                if (i.visited) {
-                    dev << "edge:" << i.edge->getID() << "\n";
+                if (ASTAR_DEBUG_COND) {
+                    OutputDevice& dev = OutputDevice::getDevice(Named::getIDSecure(vehicle) + "_" + toString(STEPS2TIME(msTime)));
+                    for (const auto& i : myEdgeInfos) {
+                        if (i.visited) {
+                            dev << "edge:" << i.edge->getID() << "\n";
+                        }
+                    }
+                    dev.close();
                 }
-            }
-            dev.close();
-        }
 #endif
                 return true;
             }
@@ -221,10 +221,10 @@ public:
 #ifdef ASTAR_DEBUG_QUERY
             if (ASTAR_DEBUG_COND) {
                 std::cout << "DEBUG: hit=" << minEdge->getID()
-                    << " TT=" << minimumInfo->effort
-                    << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
-                    << " HT=" << minimumInfo->heuristicEffort
-                    << " Q(TT,HT,Edge)=";
+                          << " TT=" << minimumInfo->effort
+                          << " EF=" << this->getEffort(minEdge, vehicle, minimumInfo->leaveTime)
+                          << " HT=" << minimumInfo->heuristicEffort
+                          << " Q(TT,HT,Edge)=";
                 for (auto edgeInfo : myFrontierList) {
                     std::cout << edgeInfo->effort << "," << edgeInfo->heuristicEffort << "," << edgeInfo->edge->getID() << " ";
                 }
@@ -262,8 +262,8 @@ public:
 #ifdef ASTAR_DEBUG_QUERY_FOLLOWERS
                     if (ASTAR_DEBUG_COND) {
                         std::cout << "   follower=" << followerInfo->edge->getID()
-                            << " OEF=" << (oldEffort == std::numeric_limits<double>::max() ? "inf" : toString(oldEffort))
-                            << " TT=" << effort << " HR=" << heuristic_remaining << " HT=" << followerInfo->heuristicEffort << "\n";
+                                  << " OEF=" << (oldEffort == std::numeric_limits<double>::max() ? "inf" : toString(oldEffort))
+                                  << " TT=" << effort << " HR=" << heuristic_remaining << " HT=" << followerInfo->heuristicEffort << "\n";
                     }
 #endif
                     if (oldEffort == std::numeric_limits<double>::max()) {
