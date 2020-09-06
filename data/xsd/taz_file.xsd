@@ -15,6 +15,7 @@
         <xsd:choice maxOccurs="unbounded" minOccurs="0">
             <xsd:element name="tazSource" type="tazSubType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="tazSink" type="tazSubType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="edges" type="xsd:string" use="optional"/>
