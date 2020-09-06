@@ -122,7 +122,9 @@ public:
 
         std::vector<const _RailEdge*> intoTmp;
         bool success = myInternalRouter->compute(start->getRailwayRoutingEdge(), to->getRailwayRoutingEdge(), vehicle, msTime, intoTmp, silent);
-        //std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime) << " success=" << success << "\n";
+#ifdef RailwayRouter_DEBUG_ROUTES
+        std::cout << "RailRouter veh=" << vehicle->getID() << " from=" << from->getID() << " to=" << to->getID() << " t=" << time2string(msTime) << " success=" << success << "\n";
+#endif
         if (success) {
             const size_t intoSize = into.size();
             const int backIndex = (int)backLengths.size() - 1;;
