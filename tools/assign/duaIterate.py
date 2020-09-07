@@ -188,6 +188,12 @@ def call(command, log):
               (command, log.name), file=sys.stderr)
         sys.exit(retCode)
 
+def prepend_relative(prefix, path):
+    if os.path.isabs(path):
+        return path
+    else:
+        return "%s/%s" % (prefix, path)
+
 
 def writeRouteConf(duarouterBinary, step, options, dua_args, file,
                    output, routesInfo):
@@ -195,8 +201,8 @@ def writeRouteConf(duarouterBinary, step, options, dua_args, file,
     filename = filename.split('.')[0]
     cfgname = "%s/iteration_%03i_%s.duarcfg" % (step, step, filename)
     args = [
-        '--net-file', "../%s" % options.net,
-        '--route-files', "../%s" % file,
+        '--net-file', prepend_relative("..", options.net),
+        '--route-files', prepend_relative("..", file),
         '--output-file', output,
         '--exit-times', str(routesInfo == "detailed"),
         '--ignore-errors', str(options.continueOnUnbuild),
@@ -266,12 +272,12 @@ def writeSUMOConf(sumoBinary, step, options, additional_args, route_files):
     detectorfile = "dua_dump_%03i.add.xml" % step
     add = [detectorfile]
     if options.additional != '':
-        add += ["../%s" % f for f in options.additional.split(',')]
+        add += [prepend_relative("..", f) for f in options.additional.split(',')]
 
     sumoCmd = [sumoBinary,
                '--save-configuration', "%s/iteration_%03i.sumocfg" % (step, step),
                '--log', "iteration_%03i.sumo.log" % step,
-               '--net-file', '../%s' % options.net,
+               '--net-file', prepend_relative("..", options.net),
                '--route-files', route_files,
                '--additional-files', ",".join(add),
                '--no-step-log',
@@ -461,7 +467,7 @@ def main(args=None):
         if dua_args[i] == '--additional-files':
             index = i
     if index > -1:
-        dua_args[index+1] = ','.join(["../%s" % f for f in dua_args[index+1].split(',')])
+        dua_args[index+1] = ','.join([prepend_relative("..", f) for f in dua_args[index+1].split(',')])
     sys.stdout = sumolib.TeeFile(sys.stdout, open(options.log, "w+"))
     log = open(options.dualog, "w+")
     if options.zip:
