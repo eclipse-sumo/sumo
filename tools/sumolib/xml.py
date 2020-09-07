@@ -118,6 +118,11 @@ def compound_object(element_name, attrnames, warn=False):
                 return self.__dict__[name]
             raise AttributeError
 
+        def getAttributeSecure(self, name, default=None):
+            if self.hasAttribute(name):
+                return self.__dict__[name]
+            return default
+
         def setAttribute(self, name, value):
             if name not in self._original_fields:
                 self._original_fields.append(name)
