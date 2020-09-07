@@ -8,6 +8,10 @@ trip
 
 flow
 
+vehicle_embedded
+
+flow_embedded
+
 person
 
 personFlow
