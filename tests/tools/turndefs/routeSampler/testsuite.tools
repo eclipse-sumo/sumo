@@ -4,6 +4,9 @@ output-styles
 
 # test loading data with multiple intervals
 intervals
+
+# sample routes by probabilites or counts
+weighted
 verbose
 
 # using edgedata as input
