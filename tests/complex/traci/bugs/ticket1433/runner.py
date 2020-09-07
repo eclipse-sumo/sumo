@@ -69,5 +69,8 @@ if __name__ == "__main__":
     # this is the normal way of using traci. sumo is started as a
     # subprocess and then the python script connects and runs
     traci.start([sumoBinary, "-n", "input_net.net.xml",
-                             "-a", "input_routes.rou.xml", "--load-state", "input_state.xml", "--begin", "9"])
+                             "-a", "input_routes.rou.xml",
+                             "--load-state", "input_state.xml",
+                             "--no-step-log",
+                             "--begin", "9"])
     run()
