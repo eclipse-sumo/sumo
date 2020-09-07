@@ -3,7 +3,7 @@ title: ChangeLog
 permalink: /ChangeLog/
 ---
 
-## Git Master
+## Version 1.7.0 (08.09.2020)
 
 ### Bugfixes
 - Simulation
@@ -46,12 +46,14 @@ permalink: /ChangeLog/
   - Fixed missing vehicle line information after loading state. Issue #7469
   - Fixed crash when using bluelight device. Issue #7473
   - Vehicles no longer get stuck when setting 'maxSpeedLatStanding=0'. Issue #3776, #6106, #7474
+  - Sorted vehroute output now works when ignoring public transport lines. Issue #7409
       
 - Meso
   - Fixed invalid jamming when a long vehicle passes a short edge. Issue #7035
   - Option **--fcd-output.distance** now also applies to Meso. Issue #7069  
   - Fixed invalid exit times in vehroute-output
-  - Fixed invald odometer value. Issue #7380
+  - Fixed invalid odometer value. Issue #7380
+  - Fixed person arrivalPos value. Issue #7381
   
 - netconvert
   - Fixed crash when patching a network with '.tll.xml' file. Issue #7014 (Regression in 1.6.0)
@@ -71,6 +73,7 @@ permalink: /ChangeLog/
   - Corrected waiting position for persons at busStop in lefthand-network. Issue #6985
   - Fixed crash in mesosim when keeping vehicle parameter window open. Issue #7194
   - Fixed changes to neighboring values when setting color thresholds. Issue #7304
+  - Fixed invalid floating point values in saved GUI settings. Issue #7305
   
 - netedit
   - Fixed invalid results/crashing when splitting an edge within a joined traffic light. Issue #7018
@@ -94,10 +97,10 @@ permalink: /ChangeLog/
   
 - duarouter
   - Person ride arrivalPos is now included in route-output. Issue #7260
+  - Fixed crash when loading fully defined person plan. Issue #7423
   
 - marouter
   - Fixed crash when using routing algorithm 'CH'. Issue #6912, #6935
-  - Fixed crash when loading fully defined person plan. Issue #7423
   
 - Tools
   - Fixed invalid connection diff when edges without any connections are removed. Issue #6643
@@ -105,9 +108,10 @@ permalink: /ChangeLog/
   - [randomTrips.py](Tools/Trip.md) no longer generates trips were *fromJunction* equals *toJunctoin* when setting option  **--junction-taz**. Issue #7005
   - [randomTrips.py](Tools/Trip.md) option **--vtype-output** now also applies to trip output. Issue #7089
   - turnFile2EdgeRelations.py can now handle empty intervals. Issue #7084
+  - XML objects returned by sumo.xml.parse can now add attributes which are python keywords correctly. Issue #7441
   
 - TraCI
-  - Fixed memory leak when using libsumo. Issue #7012, #7169, #7220
+  - Fixed memory leaks when using libsumo. Issue #7012, #7169, #7220
   - Fixed invalid vehicle placement when using *vehicle.moveToXY* and the lane hint specifies a neighboring lane of the target position. Issue #6870
   - Fixed crash when accessing prior riding stage with *person.getStage*. Issue #7060
   - Fixed crash and delayed effect when setting vehicle parameter "device.rerouting.period". Issue #7064, #7075
@@ -137,7 +141,7 @@ permalink: /ChangeLog/
   - Pedestrians can now be configured to ignore oncoming cars at an unregulated crossing via junction model parameters (jmIgnoreFoeProb, jmIgnoreFoeSpeed). Issue #7148  
   - Strategic lane-changes can now be disabled by setting 'lcStrategic="-1"`. Issue #7180
   - Taxi pickup and drop-off location can now be restricted to public transport stops by setting **--persontrip.transfer.walk-taxi ptStops** and **--persontrip.transfer.taxi-walk ptStops**. Issue #7192  
-  - Added new [taxi dispatch algorithm](Simulation/Taxi.md#dispatch) **routeExtension**. Issue #2606
+  - Added new [taxi dispatch algorithm](Simulation/Taxi.md#dispatch) **routeExtension**. Issue #2606 #7373
   - Vehroute-output can now be restricted by assigning 'device.vehroute' with [generic assignment options](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices). Issue #7393
   - Improved loading time of large rail networks. Issue #7403
   - Added option **--railway.max-train-length** to tune the efficiency of the railway router initialization. Issue #7405
@@ -234,6 +238,10 @@ permalink: /ChangeLog/
 - Documentation
   - Dark Mode added (not available on Internet Explorer)
   - Added documentation on [length-geometry-mismatch](Simulation/Distances.md)
+
+- Releases
+  - Version numbers of the python packages now follow the 1.6.0.post1234 scheme [see PEP440](https://www.python.org/dev/peps/pep-0440/)
+  - Publishing Python packages on https://test.pypi.org/
 
 ## Version 1.6.0 (28.04.2020)
 
