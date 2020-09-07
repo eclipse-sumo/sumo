@@ -1,147 +1,147 @@
-Eclipse SUMO duarouter Version v1_6_0+2015-336b3d6f93
+Eclipse SUMO duarouter Version v1_6_0+2016-faf1994207
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
-  simulation SUMO.
+ simulation SUMO.
 
 Usage: duarouter [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE       Loads the named config on startup
   -C, --save-configuration FILE       Saves current configuration into FILE
   --save-template FILE                Saves a configuration template (empty)
-                                        into FILE
+                                       into FILE
   --save-schema FILE                  Saves the configuration schema into FILE
   --save-commented                    Adds comments to saved template,
-                                        configuration, or schema
+                                       configuration, or schema
 
 Input Options:
   -n, --net-file FILE                 Use FILE as SUMO-network to route on
   -a, --additional-files FILE         Read additional network data (districts,
-                                        bus stops) from FILE(s)
+                                       bus stops) from FILE(s)
   -r, --route-files FILE              Read sumo routes, alternatives, flows,
-                                        and trips from FILE(s)
+                                       and trips from FILE(s)
   --phemlight-path FILE               Determines where to load PHEMlight
-                                        definitions from.
+                                       definitions from.
   --junction-taz                      Initialize a TAZ for every junction to
-                                        use attributes toJunction and
-                                        fromJunction
+                                       use attributes toJunction and
+                                       fromJunction
   -w, --weight-files FILE             Read network weights from FILE(s)
   --lane-weight-files FILE            Read lane-based network weights from
-                                        FILE(s)
+                                       FILE(s)
   -x, --weight-attribute STR          Name of the xml attribute which gives the
-                                        edge weight
+                                       edge weight
 
 Output Options:
   -o, --output-file FILE              Write generated routes to FILE
   --vtype-output FILE                 Write used vehicle types into separate
-                                        FILE
+                                       FILE
   --keep-vtype-distributions          Keep vTypeDistribution ids when writing
-                                        vehicles and their types
+                                       vehicles and their types
   --write-license                     Include license info into every output
-                                        file
+                                       file
   --output-prefix STR                 Prefix which is applied to all output
-                                        files. The special string 'TIME' is
-                                        replaced by the current time.
+                                       files. The special string 'TIME' is
+                                       replaced by the current time.
   --precision INT                     Defines the number of digits after the
-                                        comma for floating point output
+                                       comma for floating point output
   --precision.geo INT                 Defines the number of digits after the
-                                        comma for lon,lat output
+                                       comma for lon,lat output
   -H, --human-readable-time           Write time values as hour:minute:second
-                                        or day:hour:minute:second rather than
-                                        seconds
+                                       or day:hour:minute:second rather than
+                                       seconds
   --alternatives-output FILE          Write generated route alternatives to
-                                        FILE
+                                       FILE
   --intermodal-network-output FILE    Write edge splits and connectivity to
-                                        FILE
+                                       FILE
   --intermodal-weight-output FILE     Write intermodal edges with lengths and
-                                        travel times to FILE
+                                       travel times to FILE
   --write-trips                       Write trips instead of vehicles (for
-                                        validating trip input)
+                                       validating trip input)
   --write-trips.geo                   Write trips with geo-coordinates
   --write-trips.junctions             Write trips with fromJunction and
-                                        toJunction
+                                       toJunction
   --exit-times                        Write exit times (weights) for each edge
 
 Processing Options:
   --unsorted-input                    Assume input is unsorted
   -s, --route-steps TIME              Load routes for the next number of
-                                        seconds ahead
+                                       seconds ahead
   --no-internal-links                 Disable (junction) internal links
   --randomize-flows                   generate random departure times for flow
-                                        input
+                                       input
   --max-alternatives INT              Prune the number of alternatives to INT
   --remove-loops                      Remove loops within the route;
-                                        Remove turnarounds at start and end of
-                                        the route
+                                       Remove turnarounds at start and end of
+                                       the route
   --repair                            Tries to correct a false route
   --repair.from                       Tries to correct an invalid starting edge
-                                        by using the first usable edge instead
+                                       by using the first usable edge instead
   --repair.to                         Tries to correct an invalid destination
-                                        edge by using the last usable edge
-                                        instead
+                                       edge by using the last usable edge
+                                       instead
   --weights.interpolate               Interpolate edge weights at interval
-                                        boundaries
+                                       boundaries
   --weights.minor-penalty FLOAT       Apply the given time penalty when
-                                        computing routing costs for minor-link
-                                        internal lanes
+                                       computing routing costs for minor-link
+                                       internal lanes
   --with-taz                          Use origin and destination zones
-                                        (districts) for in- and output
+                                       (districts) for in- and output
   --mapmatch.distance FLOAT           Maximum distance when mapping input
-                                        coordinates (fromXY etc.) to the road
-                                        network
+                                       coordinates (fromXY etc.) to the road
+                                       network
   --mapmatch.junctions                Match positions to junctions instead of
-                                        edges
+                                       edges
   --bulk-routing                      Aggregate routing queries with the same
-                                        origin
+                                       origin
   --routing-threads INT               The number of parallel execution threads
-                                        used for routing
+                                       used for routing
   --restriction-params STR[]          Comma separated list of param keys to
-                                        compare for additional restrictions
+                                       compare for additional restrictions
   --weights.expand                    Expand weights behind the simulation's
-                                        end
+                                       end
   --weights.random-factor FLOAT       Edge weights for routing are dynamically
-                                        disturbed by a random factor drawn
-                                        uniformly from [1,FLOAT)
+                                       disturbed by a random factor drawn
+                                       uniformly from [1,FLOAT)
   --routing-algorithm STR             Select among routing algorithms
-                                        ['dijkstra', 'astar', 'CH', 'CHWrapper']
+                                       ['dijkstra', 'astar', 'CH', 'CHWrapper']
   --weight-period TIME                Aggregation period for the given weight
-                                        files;
-                                        triggers rebuilding of Contraction
-                                        Hierarchy
+                                       files;
+                                       triggers rebuilding of Contraction
+                                       Hierarchy
   --weights.priority-factor FLOAT     Consider edge priorities in addition to
-                                        travel times, weighted by factor
+                                       travel times, weighted by factor
   --astar.all-distances FILE          Initialize lookup table for astar from
-                                        the given file (generated by marouter
-                                        --all-pairs-output)
+                                       the given file (generated by marouter
+                                       --all-pairs-output)
   --astar.landmark-distances FILE     Initialize lookup table for astar
-                                        ALT-variant from the given file
+                                       ALT-variant from the given file
   --astar.save-landmark-distances FILE  Save lookup table for astar ALT-variant
-                                        to the given file
+                                       to the given file
   --gawron.beta FLOAT                 Use FLOAT as Gawron's beta
   --gawron.a FLOAT                    Use FLOAT as Gawron's a
   --keep-all-routes                   Save routes with near zero probability
   --skip-new-routes                   Only reuse routes from input, do not
-                                        calculate new ones
+                                       calculate new ones
   --ptline-routing                    Route all public transport input
   --logit                             Use c-logit model (deprecated in favor of
-                                        --route-choice-method logit)
+                                       --route-choice-method logit)
   --route-choice-method STR           Choose a route choice method: gawron,
-                                        logit, or lohse
+                                       logit, or lohse
   --logit.beta FLOAT                  Use FLOAT as logit's beta
   --logit.gamma FLOAT                 Use FLOAT as logit's gamma
   --logit.theta FLOAT                 Use FLOAT as logit's theta (negative
-                                        values mean auto-estimation)
+                                       values mean auto-estimation)
   --persontrip.walkfactor FLOAT       Use FLOAT as a factor on pedestrian
-                                        maximum speed during intermodal routing
+                                       maximum speed during intermodal routing
   --persontrip.transfer.car-walk STR[]  Where are mode changes from car to
-                                        walking allowed (possible values:
-                                        'parkingAreas', 'ptStops',
-                                        'allJunctions' and combinations)
+                                       walking allowed (possible values:
+                                       'parkingAreas', 'ptStops', 'allJunctions'
+                                       and combinations)
   --persontrip.transfer.taxi-walk STR[]  Where taxis can drop off customers
-                                        ('allJunctions, 'ptStops')
+                                       ('allJunctions, 'ptStops')
   --persontrip.transfer.walk-taxi STR[]  Where taxis can pick up customers
-                                        ('allJunctions, 'ptStops')
+                                       ('allJunctions, 'ptStops')
   --railway.max-train-length FLOAT    Use FLOAT as a maximum train length when
-                                        initializing the railway router
+                                       initializing the railway router
 
 Defaults Options:
   --departlane STR                    Assigns a default depart lane
@@ -154,11 +154,11 @@ Defaults Options:
 
 Time Options:
   -b, --begin TIME                    Defines the begin time;
-                                        Previous trips will be discarded
+                                       Previous trips will be discarded
   -e, --end TIME                      Defines the end time;
-                                        Later trips will be discarded;
-                                        Defaults to the maximum time that SUMO
-                                        can represent
+                                       Later trips will be discarded;
+                                       Defaults to the maximum time that SUMO
+                                       can represent
 
 Report Options:
   -v, --verbose                       Switches to verbose output
@@ -166,32 +166,32 @@ Report Options:
   -?, --help                          Prints this screen or selected topics
   -V, --version                       Prints the current version
   -X, --xml-validation STR            Set schema validation scheme of XML
-                                        inputs ("never", "auto" or "always")
+                                       inputs ("never", "auto" or "always")
   --xml-validation.net STR            Set schema validation scheme of SUMO
-                                        network inputs ("never", "auto" or
-                                        "always")
+                                       network inputs ("never", "auto" or
+                                       "always")
   --xml-validation.routes STR         Set schema validation scheme of SUMO
-                                        route inputs ("never", "auto" or
-                                        "always")
+                                       route inputs ("never", "auto" or
+                                       "always")
   -W, --no-warnings                   Disables output of warnings
   --aggregate-warnings INT            Aggregate warnings of the same type
-                                        whenever more than INT occur
+                                       whenever more than INT occur
   -l, --log FILE                      Writes all messages to FILE (implies
-                                        verbose)
+                                       verbose)
   --message-log FILE                  Writes all non-error messages to FILE
-                                        (implies verbose)
+                                       (implies verbose)
   --error-log FILE                    Writes all warnings and errors to FILE
   --ignore-errors                     Continue if a route could not be build
   --stats-period INT                  Defines how often statistics shall be
-                                        printed
+                                       printed
   --no-step-log                       Disable console output of route parsing
-                                        step
+                                       step
 
 Random Number Options:
   --random                            Initialises the random number generator
-                                        with the current system time
+                                       with the current system time
   --seed INT                          Initialises the random number generator
-                                        with the given value
+                                       with the given value
 
 
 Examples:

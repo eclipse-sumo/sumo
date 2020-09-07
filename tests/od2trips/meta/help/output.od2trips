@@ -1,40 +1,40 @@
-Eclipse SUMO od2trips Version v1_6_0+2011-142405e97b
+Eclipse SUMO od2trips Version v1_6_0+2016-faf1994207
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of O/D-matrices for the microscopic, multi-modal traffic simulation
-  SUMO.
+ SUMO.
 
 Usage: od2trips [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
   -C, --save-configuration FILE    Saves current configuration into FILE
   --save-template FILE             Saves a configuration template (empty) into
-                                     FILE
+                                    FILE
   --save-schema FILE               Saves the configuration schema into FILE
   --save-commented                 Adds comments to saved template,
-                                     configuration, or schema
+                                    configuration, or schema
 
 Input Options:
   -n, --taz-files FILE             Loads TAZ (districts;
-                                     also from networks) from FILE(s)
+                                    also from networks) from FILE(s)
   -d, --od-matrix-files FILE       Loads O/D-files from FILE(s)
   --od-amitran-files FILE          Loads O/D-matrix in Amitran format from
-                                     FILE(s)
+                                    FILE(s)
 
 Output Options:
   --write-license                  Include license info into every output file
   --output-prefix STR              Prefix which is applied to all output files.
-                                     The special string 'TIME' is replaced by
-                                     the current time.
+                                    The special string 'TIME' is replaced by the
+                                    current time.
   --precision INT                  Defines the number of digits after the comma
-                                     for floating point output
+                                    for floating point output
   --precision.geo INT              Defines the number of digits after the comma
-                                     for lon,lat output
+                                    for lon,lat output
   -H, --human-readable-time        Write time values as hour:minute:second or
-                                     day:hour:minute:second rather than seconds
+                                    day:hour:minute:second rather than seconds
   -o, --output-file FILE           Writes trip definitions into FILE
   --flow-output FILE               Writes flow definitions into FILE
   --flow-output.probability        Writes probabilistic flow instead of evenly
-                                     spaced flow
+                                    spaced flow
   --pedestrians                    Writes pedestrians instead of vehicles
   --persontrips                    Writes persontrips instead of vehicles
   --persontrips.modes STR[]        Add modes attribute to personTrips
@@ -42,18 +42,18 @@ Output Options:
 
 Time Options:
   -b, --begin TIME                 Defines the begin time;
-                                     Previous trips will be discarded
+                                    Previous trips will be discarded
   -e, --end TIME                   Defines the end time;
-                                     Later trips will be discarded;
-                                     Defaults to the maximum time that SUMO can
-                                     represent
+                                    Later trips will be discarded;
+                                    Defaults to the maximum time that SUMO can
+                                    represent
 
 Processing Options:
   -s, --scale FLOAT                Scales the loaded flows by FLOAT
   --spread.uniform                 Spreads trips uniformly over each time
-                                     period
+                                    period
   --different-source-sink          Always choose source and sink edge which are
-                                     not identical
+                                    not identical
   --vtype STR                      Defines the name of the vehicle type to use
   --prefix STR                     Defines the prefix for vehicle names
   --timeline STR[]                 Uses STR[] as a timeline definition
@@ -74,22 +74,22 @@ Report Options:
   -?, --help                       Prints this screen or selected topics
   -V, --version                    Prints the current version
   -X, --xml-validation STR         Set schema validation scheme of XML inputs
-                                     ("never", "auto" or "always")
+                                    ("never", "auto" or "always")
   -W, --no-warnings                Disables output of warnings
   --aggregate-warnings INT         Aggregate warnings of the same type whenever
-                                     more than INT occur
+                                    more than INT occur
   -l, --log FILE                   Writes all messages to FILE (implies
-                                     verbose)
+                                    verbose)
   --message-log FILE               Writes all non-error messages to FILE
-                                     (implies verbose)
+                                    (implies verbose)
   --error-log FILE                 Writes all warnings and errors to FILE
   --ignore-errors                  Continue on broken input
 
 Random Number Options:
   --random                         Initialises the random number generator with
-                                     the current system time
+                                    the current system time
   --seed INT                       Initialises the random number generator with
-                                     the given value
+                                    the given value
 
 
 Examples:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:20 2020 by Eclipse SUMO sumo Version v1_6_0+2011-142405e97b
+<!-- generated on Mon Sep  7 13:34:00 2020 by Eclipse SUMO sumo Version v1_6_0+2016-faf1994207
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -816,7 +816,7 @@
         <!-- The &apos;taxi&apos; devices are set deterministic using a fraction of 1000 -->
         <device.taxi.deterministic value="false" type="BOOL"/>
 
-        <!-- The dispatch algorithm [greedy|greedyClosest|greedyShared] -->
+        <!-- The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|traci] -->
         <device.taxi.dispatch-algorithm value="greedy" type="STR"/>
 
         <!-- Write information from the dispatch algorithm to FILE -->
@@ -969,7 +969,7 @@
         <!-- Enable output messages during GUI-Testing -->
         <gui-testing-debug value="false" type="BOOL"/>
 
-        <!-- Save gui settings in the given settingsoutput file -->
+        <!-- Save gui settings in the given settings output file -->
         <gui-testing.setting-output value="" type="FILE"/>
 
     </gui_only>

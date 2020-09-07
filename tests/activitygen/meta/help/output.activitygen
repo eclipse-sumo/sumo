@@ -1,18 +1,18 @@
-Eclipse SUMO activitygen Version v1_6_0+2011-142405e97b
+Eclipse SUMO activitygen Version v1_6_0+2016-faf1994207
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates trips of persons throughout a day for the microscopic, multi-modal
-  traffic simulation SUMO.
+ traffic simulation SUMO.
 
 Usage: activitygen [OPTION]*
 Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
   -C, --save-configuration FILE    Saves current configuration into FILE
   --save-template FILE             Saves a configuration template (empty) into
-                                     FILE
+                                    FILE
   --save-schema FILE               Saves the configuration schema into FILE
   --save-commented                 Adds comments to saved template,
-                                     configuration, or schema
+                                    configuration, or schema
 
 Input Options:
   -n, --net-file FILE              Use FILE as SUMO-network to create trips for
@@ -21,23 +21,23 @@ Input Options:
 Output Options:
   --write-license                  Include license info into every output file
   --output-prefix STR              Prefix which is applied to all output files.
-                                     The special string 'TIME' is replaced by
-                                     the current time.
+                                    The special string 'TIME' is replaced by the
+                                    current time.
   --precision INT                  Defines the number of digits after the comma
-                                     for floating point output
+                                    for floating point output
   --precision.geo INT              Defines the number of digits after the comma
-                                     for lon,lat output
+                                    for lon,lat output
   -H, --human-readable-time        Write time values as hour:minute:second or
-                                     day:hour:minute:second rather than seconds
+                                    day:hour:minute:second rather than seconds
   -o, --output-file FILE           Write generated trips to FILE
 
 Processing Options:
 
 Time Options:
   -b, --begin INT                  Sets the time of beginning of the simulation
-                                     during the first day (in seconds)
+                                    during the first day (in seconds)
   -e, --end INT                    Sets the time of ending of the simulation
-                                     during the last day (in seconds)
+                                    during the last day (in seconds)
   --duration-d INT                 Sets the duration of the simulation in days
 
 Report Options:
@@ -46,24 +46,24 @@ Report Options:
   -?, --help                       Prints this screen or selected topics
   -V, --version                    Prints the current version
   -X, --xml-validation STR         Set schema validation scheme of XML inputs
-                                     ("never", "auto" or "always")
+                                    ("never", "auto" or "always")
   --xml-validation.net STR         Set schema validation scheme of SUMO network
-                                     inputs ("never", "auto" or "always")
+                                    inputs ("never", "auto" or "always")
   -W, --no-warnings                Disables output of warnings
   --aggregate-warnings INT         Aggregate warnings of the same type whenever
-                                     more than INT occur
+                                    more than INT occur
   -l, --log FILE                   Writes all messages to FILE (implies
-                                     verbose)
+                                    verbose)
   --message-log FILE               Writes all non-error messages to FILE
-                                     (implies verbose)
+                                    (implies verbose)
   --error-log FILE                 Writes all warnings and errors to FILE
   --debug                          Detailed messages about every single step
 
 Random Number Options:
   --random                         Initialises the random number generator with
-                                     the current system time
+                                    the current system time
   --seed INT                       Initialises the random number generator with
-                                     the given value
+                                    the given value
 
 
 Examples:

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:20 2020 by Eclipse SUMO sumo Version v1_6_0+2011-142405e97b
+<!-- generated on Mon Sep  7 13:34:00 2020 by Eclipse SUMO sumo Version v1_6_0+2016-faf1994207
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -310,7 +310,7 @@
         <device.taxi.probability value="-1" type="FLOAT" help="The probability for a vehicle to have a &apos;taxi&apos; device"/>
         <device.taxi.explicit value="" synonymes="device.taxi.knownveh" type="STR[]" help="Assign a &apos;taxi&apos; device to named vehicles"/>
         <device.taxi.deterministic value="false" type="BOOL" help="The &apos;taxi&apos; devices are set deterministic using a fraction of 1000"/>
-        <device.taxi.dispatch-algorithm value="greedy" type="STR" help="The dispatch algorithm [greedy|greedyClosest|greedyShared]"/>
+        <device.taxi.dispatch-algorithm value="greedy" type="STR" help="The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|traci]"/>
         <device.taxi.dispatch-algorithm.output value="" type="STR" help="Write information from the dispatch algorithm to FILE"/>
         <device.taxi.dispatch-algorithm.params value="" type="STR" help="Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE]"/>
         <device.taxi.dispatch-period value="60" type="TIME" help="The period between successive calls to the dispatcher"/>
@@ -371,7 +371,7 @@
         <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
-        <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settingsoutput file"/>
+        <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>
     </gui_only>
 
 </configuration>

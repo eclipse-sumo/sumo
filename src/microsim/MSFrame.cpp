@@ -597,7 +597,7 @@ MSFrame::fillOptions() {
 
     // gui testing - settings output
     oc.doRegister("gui-testing.setting-output", new Option_FileName());
-    oc.addDescription("gui-testing.setting-output", "GUI Only", "Save gui settings in the given settingsoutput file");
+    oc.addDescription("gui-testing.setting-output", "GUI Only", "Save gui settings in the given settings output file");
 }
 
 

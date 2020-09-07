@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_6_0+2011-142405e97b
+Eclipse SUMO sumo Version v1_6_0+2016-faf1994207
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -7,339 +7,338 @@ Configuration Options:
   -c, --configuration-file FILE        Loads the named config on startup
   -C, --save-configuration FILE        Saves current configuration into FILE
   --save-template FILE                 Saves a configuration template (empty)
-                                         into FILE
+                                        into FILE
   --save-schema FILE                   Saves the configuration schema into FILE
   --save-commented                     Adds comments to saved template,
-                                         configuration, or schema
+                                        configuration, or schema
 
 Input Options:
   -n, --net-file FILE                  Load road network description from FILE
   -r, --route-files FILE               Load routes descriptions from FILE(s)
   -a, --additional-files FILE          Load further descriptions from FILE(s)
   -w, --weight-files FILE              Load edge/lane weights for online
-                                         rerouting from FILE
+                                        rerouting from FILE
   -x, --weight-attribute STR           Name of the xml attribute which gives
-                                         the edge weight
+                                        the edge weight
   --load-state FILE                    Loads a network state from FILE
   --load-state.offset TIME             Shifts all times loaded from a saved
-                                         state by the given offset
+                                        state by the given offset
   --load-state.remove-vehicles STR[]   Removes vehicles with the given IDs from
-                                         the loaded state
+                                        the loaded state
   --junction-taz                       Initialize a TAZ for every junction to
-                                         use attributes toJunction and
-                                         fromJunction
+                                        use attributes toJunction and
+                                        fromJunction
 
 Output Options:
   --write-license                      Include license info into every output
-                                         file
+                                        file
   --output-prefix STR                  Prefix which is applied to all output
-                                         files. The special string 'TIME' is
-                                         replaced by the current time.
+                                        files. The special string 'TIME' is
+                                        replaced by the current time.
   --precision INT                      Defines the number of digits after the
-                                         comma for floating point output
+                                        comma for floating point output
   --precision.geo INT                  Defines the number of digits after the
-                                         comma for lon,lat output
+                                        comma for lon,lat output
   -H, --human-readable-time            Write time values as hour:minute:second
-                                         or day:hour:minute:second rather than
-                                         seconds
+                                        or day:hour:minute:second rather than
+                                        seconds
   --netstate-dump FILE                 Save complete network states into FILE
   --netstate-dump.empty-edges          Write also empty edges completely when
-                                         dumping
+                                        dumping
   --netstate-dump.precision INT        Write positions and speeds with the
-                                         given precision (default 2)
+                                        given precision (default 2)
   --emission-output FILE               Save the emission values of each vehicle
   --emission-output.precision INT      Write emission values with the given
-                                         precision (default 2)
+                                        precision (default 2)
   --battery-output FILE                Save the battery values of each vehicle
   --battery-output.precision INT       Write battery values with the given
-                                         precision (default 2)
+                                        precision (default 2)
   --elechybrid-output FILE             Save the elecHybrid values of each
-                                         vehicle
+                                        vehicle
   --elechybrid-output.precision INT    Write elecHybrid values with the given
-                                         precision (default 2)
+                                        precision (default 2)
   --elechybrid-output.aggregated       Write elecHybrid values into one
-                                         aggregated file
+                                        aggregated file
   --chargingstations-output FILE       Write data of charging stations
   --overheadwiresegments-output FILE   Write data of overhead wire segments
   --substations-output FILE            Write data of electrical substation
-                                         stations
+                                        stations
   --fcd-output FILE                    Save the Floating Car Data
   --fcd-output.geo                     Save the Floating Car Data using
-                                         geo-coordinates (lon/lat)
+                                        geo-coordinates (lon/lat)
   --fcd-output.signals                 Add the vehicle signal state to the FCD
-                                         output (brake lights etc.)
+                                        output (brake lights etc.)
   --fcd-output.distance                Add kilometrage to the FCD output
-                                         (linear referencing)
+                                        (linear referencing)
   --fcd-output.acceleration            Add acceleration to the FCD output
   --fcd-output.params STR[]            Add generic parameter values to the FCD
-                                         output
+                                        output
   --fcd-output.filter-edges.input-file FILE  Restrict fcd output to the edge
-                                         selection from the given input file
+                                        selection from the given input file
   --full-output FILE                   Save a lot of information for each
-                                         timestep (very redundant)
+                                        timestep (very redundant)
   --queue-output FILE                  Save the vehicle queues at the junctions
-                                         (experimental)
+                                        (experimental)
   --vtk-output FILE                    Save complete vehicle positions
-                                         inclusive speed values in the VTK
-                                         Format (usage: /path/out will produce
-                                         /path/out_$TIMESTEP$.vtp files)
+                                        inclusive speed values in the VTK Format
+                                        (usage: /path/out will produce
+                                        /path/out_$TIMESTEP$.vtp files)
   --amitran-output FILE                Save the vehicle trajectories in the
-                                         Amitran format
+                                        Amitran format
   --summary-output FILE                Save aggregated vehicle departure info
-                                         into FILE
+                                        into FILE
   --person-summary-output FILE         Save aggregated person counts into FILE
   --tripinfo-output FILE               Save single vehicle trip info into FILE
   --tripinfo-output.write-unfinished   Write tripinfo output for vehicles which
-                                         have not arrived at simulation end
+                                        have not arrived at simulation end
   --vehroute-output FILE               Save single vehicle route info into FILE
   --vehroute-output.exit-times         Write the exit times for all edges
   --vehroute-output.last-route         Write the last route only
   --vehroute-output.sorted             Sorts the output by departure time
   --vehroute-output.dua                Write the output in the duarouter
-                                         alternatives style
+                                        alternatives style
   --vehroute-output.cost               Write costs for all routes
   --vehroute-output.intended-depart    Write the output with the intended
-                                         instead of the real departure time
+                                        instead of the real departure time
   --vehroute-output.route-length       Include total route length in the output
   --vehroute-output.write-unfinished   Write vehroute output for vehicles which
-                                         have not arrived at simulation end
+                                        have not arrived at simulation end
   --vehroute-output.skip-ptlines       Skip vehroute output for public
-                                         transport vehicles
+                                        transport vehicles
   --vehroute-output.incomplete         Include invalid routes and route stubs
-                                         in vehroute output
+                                        in vehroute output
   --vehroute-output.stop-edges         Include information about edges between
-                                         stops
+                                        stops
   --link-output FILE                   Save links states into FILE
   --railsignal-block-output FILE       Save railsignal-blocks into FILE
   --bt-output FILE                     Save bluetooth visibilities into FILE
-                                         (in conjunction with device.btreceiver
-                                         and device.btsender)
+                                        (in conjunction with device.btreceiver
+                                        and device.btsender)
   --lanechange-output FILE             Record lane changes and their
-                                         motivations for all vehicles into FILE
+                                        motivations for all vehicles into FILE
   --lanechange-output.started          Record start of lane change manoeuvres
   --lanechange-output.ended            Record end of lane change manoeuvres
   --lanechange-output.xy               Record coordinates of lane change
-                                         manoeuvres
+                                        manoeuvres
   --stop-output FILE                   Record stops and loading/unloading of
-                                         passenger and containers for all
-                                         vehicles into FILE
+                                        passenger and containers for all
+                                        vehicles into FILE
   --statistic-output FILE              Write overall statistics into FILE
+  --movereminder-output FILE           Save movereminder states of selected
+                                        vehicles into FILE
+  --movereminder-output.vehicles STR[]  List of vehicle ids which shall save
+                                        their movereminder states
   --save-state.times STR[]             Use TIME[] as times at which a network
-                                         state written
+                                        state written
   --save-state.period TIME             save state repeatedly after TIME period
   --save-state.prefix FILE             Prefix for network states
   --save-state.suffix STR              Suffix for network states (.xml.gz or
-                                         .xml)
+                                        .xml)
   --save-state.files FILE              Files for network states
   --save-state.rng                     Save random number generator states
   --save-state.transportables          Save person and container states
-                                         (experimental)
+                                        (experimental)
 
 Time Options:
   -b, --begin TIME                     Defines the begin time in seconds;
-                                         The simulation starts at this time
+                                        The simulation starts at this time
   -e, --end TIME                       Defines the end time in seconds;
-                                         The simulation ends at this time
+                                        The simulation ends at this time
   --step-length TIME                   Defines the step duration in seconds
 
 Processing Options:
   --step-method.ballistic              Whether to use ballistic method for the
-                                         positional update of vehicles (default
-                                         is a semi-implicit Euler method).
+                                        positional update of vehicles (default
+                                        is a semi-implicit Euler method).
   --extrapolate-departpos              Whether vehicles that depart between
-                                         simulation steps should extrapolate the
-                                         depart position
+                                        simulation steps should extrapolate the
+                                        depart position
   --threads INT                        Defines the number of threads for
-                                         parallel simulation
+                                        parallel simulation
   --lateral-resolution FLOAT           Defines the resolution in m when
-                                         handling lateral positioning within a
-                                         lane (with -1 all vehicles drive at the
-                                         center of their lane
+                                        handling lateral positioning within a
+                                        lane (with -1 all vehicles drive at the
+                                        center of their lane
   -s, --route-steps TIME               Load routes for the next number of
-                                         seconds ahead
+                                        seconds ahead
   --no-internal-links                  Disable (junction) internal links
   --ignore-junction-blocker TIME       Ignore vehicles which block the junction
-                                         after they have been standing for
-                                         SECONDS (-1 means never ignore)
+                                        after they have been standing for
+                                        SECONDS (-1 means never ignore)
   --ignore-route-errors                (1) Do not check whether routes are
-                                         connected. (2) Allow inserting a
-                                         vehicle in a situation which requires
-                                         emergency braking.
+                                        connected. (2) Allow inserting a vehicle
+                                        in a situation which requires emergency
+                                        braking.
   --ignore-accidents                   Do not check whether accidents occur
   --collision.action STR               How to deal with collisions:
-                                         [none,warn,teleport,remove]
+                                        [none,warn,teleport,remove]
   --collision.stoptime TIME            Let vehicle stop for TIME before
-                                         performing collision.action (except for
-                                         action 'none')
+                                        performing collision.action (except for
+                                        action 'none')
   --collision.check-junctions          Enables collisions checks on junctions
   --collision.mingap-factor FLOAT      Sets the fraction of minGap that must be
-                                         maintained to avoid collision
-                                         detection. If a negative value is
-                                         given, the carFollowModel parameter is
-                                         used
+                                        maintained to avoid collision detection.
+                                        If a negative value is given, the
+                                        carFollowModel parameter is used
   --max-num-vehicles INT               Delay vehicle insertion to stay within
-                                         the given maximum number
+                                        the given maximum number
   --max-num-teleports INT              Abort the simulation if the given
-                                         maximum number of teleports is exceeded
+                                        maximum number of teleports is exceeded
   --scale FLOAT                        Scale demand by the given factor (by
-                                         discarding or duplicating vehicles)
+                                        discarding or duplicating vehicles)
   --time-to-teleport TIME              Specify how long a vehicle may wait
-                                         until being teleported, defaults to
-                                         300, non-positive values disable
-                                         teleporting
+                                        until being teleported, defaults to 300,
+                                        non-positive values disable teleporting
   --time-to-teleport.highways TIME     The waiting time after which vehicles on
-                                         a fast road (speed > 69km/h) are
-                                         teleported if they are on a
-                                         non-continuing lane
+                                        a fast road (speed > 69km/h) are
+                                        teleported if they are on a
+                                        non-continuing lane
   --waiting-time-memory TIME           Length of time interval, over which
-                                         accumulated waiting time is taken into
-                                         account (default is 100s.)
+                                        accumulated waiting time is taken into
+                                        account (default is 100s.)
   --max-depart-delay TIME              How long vehicles wait for departure
-                                         before being skipped, defaults to -1
-                                         which means vehicles are never skipped
+                                        before being skipped, defaults to -1
+                                        which means vehicles are never skipped
   --sloppy-insert                      Whether insertion on an edge shall not
-                                         be repeated in same step once failed
+                                        be repeated in same step once failed
   --eager-insert                       Whether each vehicle is checked
-                                         separately for insertion on an edge
+                                        separately for insertion on an edge
   --random-depart-offset TIME          Each vehicle receives a random offset to
-                                         its depart value drawn uniformly from
-                                         [0, TIME]
+                                        its depart value drawn uniformly from
+                                        [0, TIME]
   --lanechange.duration TIME           Duration of a lane change maneuver
-                                         (default 0)
+                                        (default 0)
   --lanechange.overtake-right          Whether overtaking on the right on
-                                         motorways is permitted
+                                        motorways is permitted
   --tls.all-off                        Switches off all traffic lights.
   --tls.actuated.show-detectors        Sets default visibility for actuation
-                                         detectors
+                                        detectors
   --tls.delay_based.detector-range FLOAT  Sets default range for detecting
-                                         delayed vehicles
+                                        delayed vehicles
   --time-to-impatience TIME            Specify how long a vehicle may wait
-                                         until impatience grows from 0 to 1,
-                                         defaults to 300, non-positive values
-                                         disable impatience growth
+                                        until impatience grows from 0 to 1,
+                                        defaults to 300, non-positive values
+                                        disable impatience growth
   --default.action-step-length FLOAT   Length of the default interval length
-                                         between action points for the
-                                         car-following and lane-change models
-                                         (in seconds). If not specified, the
-                                         simulation step-length is used per
-                                         default. Vehicle- or VType-specific
-                                         settings override the default. Must be
-                                         a multiple of the simulation
-                                         step-length.
+                                        between action points for the
+                                        car-following and lane-change models (in
+                                        seconds). If not specified, the
+                                        simulation step-length is used per
+                                        default. Vehicle- or VType-specific
+                                        settings override the default. Must be a
+                                        multiple of the simulation step-length.
   --default.carfollowmodel STR         Select default car following model
-                                         (Krauss, IDM, ...)
+                                        (Krauss, IDM, ...)
   --default.speeddev FLOAT             Select default speed deviation. A
-                                         negative value implies vClass specific
-                                         defaults (0.1 for the default passenger
-                                         class
+                                        negative value implies vClass specific
+                                        defaults (0.1 for the default passenger
+                                        class
   --default.emergencydecel STR         Select default emergencyDecel value
-                                         among ('decel', 'default', FLOAT) which
-                                         sets the value either to the same as
-                                         the deceleration value, a vClass-class
-                                         specific default or the given FLOAT in
-                                         m/s^2
+                                        among ('decel', 'default', FLOAT) which
+                                        sets the value either to the same as the
+                                        deceleration value, a vClass-class
+                                        specific default or the given FLOAT in
+                                        m/s^2
   --overhead-wire-solver               Use Kirchhoff's laws for solving
-                                         overhead wire circuit
+                                        overhead wire circuit
   --emergencydecel.warning-threshold FLOAT  Sets the fraction of emergency
-                                         decel capability that must be used to
-                                         trigger a warning.
+                                        decel capability that must be used to
+                                        trigger a warning.
   --parking.maneuver                   Whether parking simulation includes
-                                         manoeuvering time and associated lane
-                                         blocking
+                                        manoeuvering time and associated lane
+                                        blocking
   --pedestrian.model STR               Select among pedestrian models
-                                         ['nonInteracting', 'striping',
-                                         'remote']
+                                        ['nonInteracting', 'striping', 'remote']
   --pedestrian.striping.stripe-width FLOAT  Width of parallel stripes for
-                                         segmenting a sidewalk (meters) for use
-                                         with model 'striping'
+                                        segmenting a sidewalk (meters) for use
+                                        with model 'striping'
   --pedestrian.striping.dawdling FLOAT  Factor for random slow-downs [0,1] for
-                                         use with model 'striping'
+                                        use with model 'striping'
   --pedestrian.striping.jamtime TIME   Time in seconds after which pedestrians
-                                         start squeezing through a jam when
-                                         using model 'striping' (non-positive
-                                         values disable squeezing)
+                                        start squeezing through a jam when using
+                                        model 'striping' (non-positive values
+                                        disable squeezing)
   --pedestrian.striping.jamtime.crossing TIME  Time in seconds after which
-                                         pedestrians start squeezing through a
-                                         jam while on a pedestrian crossing when
-                                         using model 'striping' (non-positive
-                                         values disable squeezing)
+                                        pedestrians start squeezing through a
+                                        jam while on a pedestrian crossing when
+                                        using model 'striping' (non-positive
+                                        values disable squeezing)
   --pedestrian.striping.reserve-oncoming FLOAT  Fraction of stripes to reserve
-                                         for oncoming pedestrians
+                                        for oncoming pedestrians
   --pedestrian.striping.reserve-oncoming.junctions FLOAT  Fraction of stripes
-                                         to reserve for oncoming pedestrians on
-                                         crossings and walkingareas
+                                        to reserve for oncoming pedestrians on
+                                        crossings and walkingareas
   --pedestrian.remote.address STR      The address (host:port) of the external
-                                         simulation
+                                        simulation
   --ride.stop-tolerance FLOAT          Tolerance to apply when matching
-                                         pedestrian and vehicle positions on
-                                         boarding at individual stops
+                                        pedestrian and vehicle positions on
+                                        boarding at individual stops
 
 Routing Options:
   --routing-algorithm STR              Select among routing algorithms
-                                         ['dijkstra', 'astar', 'CH',
-                                         'CHWrapper']
+                                        ['dijkstra', 'astar', 'CH', 'CHWrapper']
   --weights.random-factor FLOAT        Edge weights for routing are dynamically
-                                         disturbed by a random factor drawn
-                                         uniformly from [1,FLOAT)
+                                        disturbed by a random factor drawn
+                                        uniformly from [1,FLOAT)
   --weights.minor-penalty FLOAT        Apply the given time penalty when
-                                         computing minimum routing costs for
-                                         minor-link internal lanes
+                                        computing minimum routing costs for
+                                        minor-link internal lanes
   --weights.priority-factor FLOAT      Consider edge priorities in addition to
-                                         travel times, weighted by factor
+                                        travel times, weighted by factor
   --astar.all-distances FILE           Initialize lookup table for astar from
-                                         the given file (generated by marouter
-                                         --all-pairs-output)
+                                        the given file (generated by marouter
+                                        --all-pairs-output)
   --astar.landmark-distances FILE      Initialize lookup table for astar
-                                         ALT-variant from the given file
+                                        ALT-variant from the given file
   --persontrip.walkfactor FLOAT        Use FLOAT as a factor on pedestrian
-                                         maximum speed during intermodal routing
+                                        maximum speed during intermodal routing
   --persontrip.transfer.car-walk STR[]  Where are mode changes from car to
-                                         walking allowed (possible values:
-                                         'parkingAreas', 'ptStops',
-                                         'allJunctions' and combinations)
+                                        walking allowed (possible values:
+                                        'parkingAreas', 'ptStops',
+                                        'allJunctions' and combinations)
   --persontrip.transfer.taxi-walk STR[]  Where taxis can drop off customers
-                                         ('allJunctions, 'ptStops')
+                                        ('allJunctions, 'ptStops')
   --persontrip.transfer.walk-taxi STR[]  Where taxis can pick up customers
-                                         ('allJunctions, 'ptStops')
+                                        ('allJunctions, 'ptStops')
   --railway.max-train-length FLOAT     Use FLOAT as a maximum train length when
-                                         initializing the railway router
+                                        initializing the railway router
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
-                                         'rerouting' device
+                                        'rerouting' device
   --device.rerouting.explicit STR[]    Assign a 'rerouting' device to named
-                                         vehicles
+                                        vehicles
   --device.rerouting.deterministic     The 'rerouting' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
   --device.rerouting.period TIME       The period with which the vehicle shall
-                                         be rerouted
+                                        be rerouted
   --device.rerouting.pre-period TIME   The rerouting period before depart
   --device.rerouting.adaptation-weight FLOAT  The weight of prior edge weights
-                                         for exponential moving average
+                                        for exponential moving average
   --device.rerouting.adaptation-steps INT  The number of steps for moving
-                                         average weight of prior edge weights
+                                        average weight of prior edge weights
   --device.rerouting.adaptation-interval TIME  The interval for updating the
-                                         edge weights
+                                        edge weights
   --device.rerouting.with-taz          Use zones (districts) as routing start-
-                                         and endpoints
+                                        and endpoints
   --device.rerouting.init-with-loaded-weights  Use weight files given with
-                                         option --weight-files for initializing
-                                         edge weights
+                                        option --weight-files for initializing
+                                        edge weights
   --device.rerouting.threads INT       The number of parallel execution threads
-                                         used for rerouting
+                                        used for rerouting
   --device.rerouting.synchronize       Let rerouting happen at the same time
-                                         for all vehicles
+                                        for all vehicles
   --device.rerouting.railsignal        Allow rerouting triggered by rail
-                                         signals.
+                                        signals.
   --device.rerouting.bike-speeds       Compute separate average speeds for
-                                         bicycles
+                                        bicycles
   --device.rerouting.output FILE       Save adapting weights to FILE
   --person-device.rerouting.probability FLOAT  The probability for a person to
-                                         have a 'rerouting' device
+                                        have a 'rerouting' device
   --person-device.rerouting.explicit STR[]  Assign a 'rerouting' device to
-                                         named persons
+                                        named persons
   --person-device.rerouting.deterministic  The 'rerouting' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
   --person-device.rerouting.period TIME  The period with which the person shall
-                                         be rerouted
+                                        be rerouted
 
 Report Options:
   -v, --verbose                        Switches to verbose output
@@ -347,257 +346,256 @@ Report Options:
   -?, --help                           Prints this screen or selected topics
   -V, --version                        Prints the current version
   -X, --xml-validation STR             Set schema validation scheme of XML
-                                         inputs ("never", "auto" or "always")
+                                        inputs ("never", "auto" or "always")
   --xml-validation.net STR             Set schema validation scheme of SUMO
-                                         network inputs ("never", "auto" or
-                                         "always")
+                                        network inputs ("never", "auto" or
+                                        "always")
   --xml-validation.routes STR          Set schema validation scheme of SUMO
-                                         route inputs ("never", "auto" or
-                                         "always")
+                                        route inputs ("never", "auto" or
+                                        "always")
   -W, --no-warnings                    Disables output of warnings
   --aggregate-warnings INT             Aggregate warnings of the same type
-                                         whenever more than INT occur
+                                        whenever more than INT occur
   -l, --log FILE                       Writes all messages to FILE (implies
-                                         verbose)
+                                        verbose)
   --message-log FILE                   Writes all non-error messages to FILE
-                                         (implies verbose)
+                                        (implies verbose)
   --error-log FILE                     Writes all warnings and errors to FILE
   --duration-log.disable               Disable performance reports for
-                                         individual simulation steps
+                                        individual simulation steps
   -t, --duration-log.statistics        Enable statistics on vehicle trips
   --no-step-log                        Disable console output of current
-                                         simulation step
+                                        simulation step
   --step-log.period INT                Number of simulation steps between
-                                         step-log outputs
+                                        step-log outputs
 
 Emissions Options:
   --phemlight-path FILE                Determines where to load PHEMlight
-                                         definitions from.
+                                        definitions from.
   --device.emissions.probability FLOAT  The probability for a vehicle to have a
-                                         'emissions' device
+                                        'emissions' device
   --device.emissions.explicit STR[]    Assign a 'emissions' device to named
-                                         vehicles
+                                        vehicles
   --device.emissions.deterministic     The 'emissions' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
   --device.emissions.period STR        Recording period for emission-output
 
 Communication Options:
   --device.btreceiver.probability FLOAT  The probability for a vehicle to have
-                                         a 'btreceiver' device
+                                        a 'btreceiver' device
   --device.btreceiver.explicit STR[]   Assign a 'btreceiver' device to named
-                                         vehicles
+                                        vehicles
   --device.btreceiver.deterministic    The 'btreceiver' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
   --device.btreceiver.range FLOAT      The range of the bt receiver
   --device.btreceiver.all-recognitions  Whether all recognition point shall be
-                                         written
+                                        written
   --device.btreceiver.offtime FLOAT    The offtime used for calculating
-                                         detection probability (in seconds)
+                                        detection probability (in seconds)
   --device.btsender.probability FLOAT  The probability for a vehicle to have a
-                                         'btsender' device
+                                        'btsender' device
   --device.btsender.explicit STR[]     Assign a 'btsender' device to named
-                                         vehicles
+                                        vehicles
   --device.btsender.deterministic      The 'btsender' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
 
 Battery Options:
   --device.battery.probability FLOAT   The probability for a vehicle to have a
-                                         'battery' device
+                                        'battery' device
   --device.battery.explicit STR[]      Assign a 'battery' device to named
-                                         vehicles
+                                        vehicles
   --device.battery.deterministic       The 'battery' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
 
 Example Device Options:
   --device.example.probability FLOAT   The probability for a vehicle to have a
-                                         'example' device
+                                        'example' device
   --device.example.explicit STR[]      Assign a 'example' device to named
-                                         vehicles
+                                        vehicles
   --device.example.deterministic       The 'example' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
   --device.example.parameter FLOAT     An exemplary parameter which can be used
-                                         by all instances of the example device
+                                        by all instances of the example device
 
 SSM Device Options:
   --device.ssm.probability FLOAT       The probability for a vehicle to have a
-                                         'ssm' device
+                                        'ssm' device
   --device.ssm.explicit STR[]          Assign a 'ssm' device to named vehicles
   --device.ssm.deterministic           The 'ssm' devices are set deterministic
-                                         using a fraction of 1000
+                                        using a fraction of 1000
   --device.ssm.measures STR            Specifies which measures will be logged
-                                         (as a space separated sequence of IDs
-                                         in ('TTC', 'DRAC', 'PET')).
+                                        (as a space separated sequence of IDs in
+                                        ('TTC', 'DRAC', 'PET')).
   --device.ssm.thresholds STR          Specifies thresholds corresponding to
-                                         the specified measures (see
-                                         documentation and watch the order!).
-                                         Only events exceeding the thresholds
-                                         will be logged.
+                                        the specified measures (see
+                                        documentation and watch the order!).
+                                        Only events exceeding the thresholds
+                                        will be logged.
   --device.ssm.trajectories            Specifies whether trajectories will be
-                                         logged (if false, only the extremal
-                                         values and times are reported, this is
-                                         the default).
+                                        logged (if false, only the extremal
+                                        values and times are reported, this is
+                                        the default).
   --device.ssm.range FLOAT             Specifies the detection range in meters
-                                         (default is 50.00m.). For vehicles
-                                         below this distance from the equipped
-                                         vehicle, SSM values are traced.
+                                        (default is 50.00m.). For vehicles below
+                                        this distance from the equipped vehicle,
+                                        SSM values are traced.
   --device.ssm.extratime FLOAT         Specifies the time in seconds to be
-                                         logged after a conflict is over
-                                         (default is 5.00secs.). Required >0 if
-                                         PET is to be calculated for crossing
-                                         conflicts.
+                                        logged after a conflict is over (default
+                                        is 5.00secs.). Required >0 if PET is to
+                                        be calculated for crossing conflicts.
   --device.ssm.file STR                Give a global default filename for the
-                                         SSM output.
+                                        SSM output.
   --device.ssm.geo                     Whether to use coordinates of the
-                                         original reference system in output
-                                         (default is false).
+                                        original reference system in output
+                                        (default is false).
 
 ToC Device Options:
   --device.toc.probability FLOAT       The probability for a vehicle to have a
-                                         'toc' device
+                                        'toc' device
   --device.toc.explicit STR[]          Assign a 'toc' device to named vehicles
   --device.toc.deterministic           The 'toc' devices are set deterministic
-                                         using a fraction of 1000
+                                        using a fraction of 1000
   --device.toc.manualType STR          Vehicle type for manual driving regime.
   --device.toc.automatedType STR       Vehicle type for automated driving
-                                         regime.
+                                        regime.
   --device.toc.responseTime FLOAT      Average response time needed by a driver
-                                         to take back control.
+                                        to take back control.
   --device.toc.recoveryRate FLOAT      Recovery rate for the driver's awareness
-                                         after a ToC.
+                                        after a ToC.
   --device.toc.lcAbstinence FLOAT      Attention level below which a driver
-                                         restrains from performing lane changes
-                                         (value in [0,1]).
+                                        restrains from performing lane changes
+                                        (value in [0,1]).
   --device.toc.initialAwareness FLOAT  Average awareness a driver has initially
-                                         after a ToC (value in [0,1]).
+                                        after a ToC (value in [0,1]).
   --device.toc.mrmDecel FLOAT          Deceleration rate applied during a
-                                         'minimum risk maneuver'.
+                                        'minimum risk maneuver'.
   --device.toc.dynamicToCThreshold FLOAT  Time, which the vehicle requires to
-                                         have ahead to continue in automated
-                                         mode. The default value of 0 indicates
-                                         no dynamic triggering of ToCs.
+                                        have ahead to continue in automated
+                                        mode. The default value of 0 indicates
+                                        no dynamic triggering of ToCs.
   --device.toc.dynamicMRMProbability FLOAT  Probability that a dynamically
-                                         triggered TOR is not answered in time.
+                                        triggered TOR is not answered in time.
   --device.toc.mrmKeepRight            If true, the vehicle tries to change to
-                                         the right during an MRM.
+                                        the right during an MRM.
   --device.toc.mrmSafeSpot STR         If set, the vehicle tries to reach the
-                                         given named stopping place during an
-                                         MRM.
+                                        given named stopping place during an
+                                        MRM.
   --device.toc.mrmSafeSpotDuration FLOAT  Duration the vehicle stays at the
-                                         safe spot after an MRM.
+                                        safe spot after an MRM.
   --device.toc.maxPreparationAccel FLOAT  Maximal acceleration that may be
-                                         applied during the ToC preparation
-                                         phase.
+                                        applied during the ToC preparation
+                                        phase.
   --device.toc.ogNewTimeHeadway FLOAT  Timegap for ToC preparation phase.
   --device.toc.ogNewSpaceHeadway FLOAT  Additional spacing for ToC preparation
-                                         phase.
+                                        phase.
   --device.toc.ogMaxDecel FLOAT        Maximal deceleration applied for
-                                         establishing increased gap in ToC
-                                         preparation phase.
+                                        establishing increased gap in ToC
+                                        preparation phase.
   --device.toc.ogChangeRate FLOAT      Rate of adaptation towards the increased
-                                         headway during ToC preparation.
+                                        headway during ToC preparation.
   --device.toc.useColorScheme          Whether a coloring scheme shall by
-                                         applied to indicate the different ToC
-                                         stages.
+                                        applied to indicate the different ToC
+                                        stages.
   --device.toc.file STR                Switches on output by specifying an
-                                         output filename.
+                                        output filename.
 
 Driver State Device Options:
   --device.driverstate.probability FLOAT  The probability for a vehicle to have
-                                         a 'driverstate' device
+                                        a 'driverstate' device
   --device.driverstate.explicit STR[]  Assign a 'driverstate' device to named
-                                         vehicles
+                                        vehicles
   --device.driverstate.deterministic   The 'driverstate' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
   --device.driverstate.initialAwareness FLOAT  Initial value assigned to the
-                                         driver's awareness.
+                                        driver's awareness.
   --device.driverstate.errorTimeScaleCoefficient FLOAT  Time scale for the
-                                         error process.
+                                        error process.
   --device.driverstate.errorNoiseIntensityCoefficient FLOAT  Noise intensity
-                                         driving the error process.
+                                        driving the error process.
   --device.driverstate.speedDifferenceErrorCoefficient FLOAT  General scaling
-                                         coefficient for applying the error to
-                                         the perceived speed difference (error
-                                         also scales with distance).
+                                        coefficient for applying the error to
+                                        the perceived speed difference (error
+                                        also scales with distance).
   --device.driverstate.headwayErrorCoefficient FLOAT  General scaling
-                                         coefficient for applying the error to
-                                         the perceived distance (error also
-                                         scales with distance).
+                                        coefficient for applying the error to
+                                        the perceived distance (error also
+                                        scales with distance).
   --device.driverstate.speedDifferenceChangePerceptionThreshold FLOAT  Base
-                                         threshold for recognizing changes in
-                                         the speed difference (threshold also
-                                         scales with distance).
+                                        threshold for recognizing changes in the
+                                        speed difference (threshold also scales
+                                        with distance).
   --device.driverstate.headwayChangePerceptionThreshold FLOAT  Base threshold
-                                         for recognizing changes in the headway
-                                         (threshold also scales with distance).
+                                        for recognizing changes in the headway
+                                        (threshold also scales with distance).
   --device.driverstate.minAwareness FLOAT  Minimal admissible value for the
-                                         driver's awareness.
+                                        driver's awareness.
   --device.driverstate.maximalReactionTime FLOAT  Maximal reaction time
-                                         (~action step length) induced by
-                                         decreased awareness level (reached for
-                                         awareness=minAwareness).
+                                        (~action step length) induced by
+                                        decreased awareness level (reached for
+                                        awareness=minAwareness).
 
 Bluelight Device Options:
   --device.bluelight.probability FLOAT  The probability for a vehicle to have a
-                                         'bluelight' device
+                                        'bluelight' device
   --device.bluelight.explicit STR[]    Assign a 'bluelight' device to named
-                                         vehicles
+                                        vehicles
   --device.bluelight.deterministic     The 'bluelight' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
   --device.bluelight.reactiondist FLOAT  Set the distance at which other
-                                         drivers react to the blue light and
-                                         siren sound
+                                        drivers react to the blue light and
+                                        siren sound
 
 FCD Device Options:
   --device.fcd.probability FLOAT       The probability for a vehicle to have a
-                                         'fcd' device
+                                        'fcd' device
   --device.fcd.explicit STR[]          Assign a 'fcd' device to named vehicles
   --device.fcd.deterministic           The 'fcd' devices are set deterministic
-                                         using a fraction of 1000
+                                        using a fraction of 1000
   --device.fcd.period STR              Recording period for FCD-data
   --device.fcd.radius FLOAT            Record objects in a radius around
-                                         equipped vehicles
+                                        equipped vehicles
   --person-device.fcd.probability FLOAT  The probability for a person to have a
-                                         'fcd' device
+                                        'fcd' device
   --person-device.fcd.explicit STR[]   Assign a 'fcd' device to named persons
   --person-device.fcd.deterministic    The 'fcd' devices are set deterministic
-                                         using a fraction of 1000
+                                        using a fraction of 1000
   --person-device.fcd.period STR       Recording period for FCD-data
 
 ElecHybrid Device Options:
   --device.elechybrid.probability FLOAT  The probability for a vehicle to have
-                                         a 'elechybrid' device
+                                        a 'elechybrid' device
   --device.elechybrid.explicit STR[]   Assign a 'elechybrid' device to named
-                                         vehicles
+                                        vehicles
   --device.elechybrid.deterministic    The 'elechybrid' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
 
 Taxi Device Options:
   --device.taxi.probability FLOAT      The probability for a vehicle to have a
-                                         'taxi' device
+                                        'taxi' device
   --device.taxi.explicit STR[]         Assign a 'taxi' device to named vehicles
   --device.taxi.deterministic          The 'taxi' devices are set deterministic
-                                         using a fraction of 1000
+                                        using a fraction of 1000
   --device.taxi.dispatch-algorithm STR  The dispatch algorithm
-                                         [greedy|greedyClosest|greedyShared]
+                                        [greedy|greedyClosest|greedyShared|routeExtension|traci]
   --device.taxi.dispatch-algorithm.output STR  Write information from the
-                                         dispatch algorithm to FILE
+                                        dispatch algorithm to FILE
   --device.taxi.dispatch-algorithm.params STR  Load dispatch algorithm
-                                         parameters in format
-                                         KEY1:VALUE1[,KEY2:VALUE]
+                                        parameters in format
+                                        KEY1:VALUE1[,KEY2:VALUE]
   --device.taxi.dispatch-period TIME   The period between successive calls to
-                                         the dispatcher
+                                        the dispatcher
   --device.taxi.idle-algorithm STR     The behavior of idle taxis
-                                         [stop|randomCircling]
+                                        [stop|randomCircling]
   --device.taxi.idle-algorithm.output STR  Write information from the idling
-                                         algorithm to FILE
+                                        algorithm to FILE
 
 Tripinfo Device Options:
   --device.tripinfo.probability FLOAT  The probability for a vehicle to have a
-                                         'tripinfo' device
+                                        'tripinfo' device
   --device.tripinfo.explicit STR[]     Assign a 'tripinfo' device to named
-                                         vehicles
+                                        vehicles
   --device.tripinfo.deterministic      The 'tripinfo' devices are set
-                                         deterministic using a fraction of 1000
+                                        deterministic using a fraction of 1000
 
 TraCI Server Options:
   --remote-port INT                    Enables TraCI Server if set
@@ -606,56 +604,56 @@ TraCI Server Options:
 Mesoscopic Options:
   --mesosim                            Enables mesoscopic simulation
   --meso-edgelength FLOAT              Length of an edge segment in mesoscopic
-                                         simulation
+                                        simulation
   --meso-tauff TIME                    Factor for calculating the net free-free
-                                         headway time
+                                        headway time
   --meso-taufj TIME                    Factor for calculating the net free-jam
-                                         headway time
+                                        headway time
   --meso-taujf TIME                    Factor for calculating the jam-free
-                                         headway time
+                                        headway time
   --meso-taujj TIME                    Factor for calculating the jam-jam
-                                         headway time
+                                        headway time
   --meso-jam-threshold FLOAT           Minimum percentage of occupied space to
-                                         consider a segment jammed. A negative
-                                         argument causes thresholds to be
-                                         computed based on edge speed and tauff
-                                         (default)
+                                        consider a segment jammed. A negative
+                                        argument causes thresholds to be
+                                        computed based on edge speed and tauff
+                                        (default)
   --meso-multi-queue                   Enable multiple queues at edge ends
   --meso-lane-queue                    Enable separate queues for every lane
   --meso-junction-control              Enable mesoscopic traffic light and
-                                         priority junction handling
+                                        priority junction handling
   --meso-junction-control.limited      Enable mesoscopic traffic light and
-                                         priority junction handling for
-                                         saturated links. This prevents faulty
-                                         traffic lights from hindering flow in
-                                         low-traffic situations
+                                        priority junction handling for saturated
+                                        links. This prevents faulty traffic
+                                        lights from hindering flow in
+                                        low-traffic situations
   --meso-tls-penalty FLOAT             Apply scaled travel time penalties when
-                                         driving across tls controlled junctions
-                                         based on green split instead of
-                                         checking actual phases
+                                        driving across tls controlled junctions
+                                        based on green split instead of checking
+                                        actual phases
   --meso-tls-flow-penalty FLOAT        Apply scaled headway penalties when
-                                         driving across tls controlled junctions
-                                         based on green split instead of
-                                         checking actual phases
+                                        driving across tls controlled junctions
+                                        based on green split instead of checking
+                                        actual phases
   --meso-minor-penalty TIME            Apply fixed time penalty when driving
-                                         across a minor link. When using
-                                         --meso-junction-control.limited, the
-                                         penalty is not applied whenever limited
-                                         control is active.
+                                        across a minor link. When using
+                                        --meso-junction-control.limited, the
+                                        penalty is not applied whenever limited
+                                        control is active.
   --meso-overtaking                    Enable mesoscopic overtaking
   --meso-recheck TIME                  Time interval for rechecking insertion
-                                         into the next segment after failure
+                                        into the next segment after failure
 
 Random Number Options:
   --random                             Initialises the random number generator
-                                         with the current system time
+                                        with the current system time
   --seed INT                           Initialises the random number generator
-                                         with the given value
+                                        with the given value
   --thread-rngs INT                    Number of pre-allocated random number
-                                         generators to ensure repeatable
-                                         multi-threaded simulations (should be
-                                         at least the number of threads for
-                                         repeatable simulations).
+                                        generators to ensure repeatable
+                                        multi-threaded simulations (should be at
+                                        least the number of threads for
+                                        repeatable simulations).
 
 GUI Only Options:
   -g, --gui-settings-file FILE         Load visualisation settings from FILE
@@ -664,26 +662,26 @@ GUI Only Options:
   --game.mode STR                      Select the game type ('tls', 'drt')
   -S, --start                          Start the simulation after loading
   -B, --breakpoints STR[]              Use TIME[] as times when the simulation
-                                         should halt
+                                        should halt
   --edgedata-files FILE                Load edge/lane weights for visualization
-                                         from FILE
+                                        from FILE
   -D, --demo                           Restart the simulation after ending
-                                         (demo mode)
+                                        (demo mode)
   -T, --disable-textures               Do not load background pictures
   --registry-viewport                  Load current viewport from registry
   --window-size STR[]                  Create initial window with the given x,y
-                                         size
+                                        size
   --window-pos STR[]                   Create initial window at the given x,y
-                                         position
+                                        position
   --tracker-interval FLOAT             The aggregation period for value tracker
-                                         windows
+                                        windows
   --osg-view                           Start with an OpenSceneGraph view
-                                         instead of the regular 2D view
+                                        instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
-                                         GUI-Testing
-  --gui-testing.setting-output FILE    Save gui settings in the given
-                                         settingsoutput file
+                                        GUI-Testing
+  --gui-testing.setting-output FILE    Save gui settings in the given settings
+                                        output file
 
 
 Examples:

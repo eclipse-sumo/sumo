@@ -548,7 +548,7 @@ OptionsCont::splitLines(std::ostream& os, std::string what,
             }
             if (splitPos != std::string::npos) {
                 os << what.substr(0, splitPos) << std::endl;
-                what = what.substr(splitPos);
+                what = what.substr(splitPos + 1);
                 for (int r = 0; r < nextOffset + 1; ++r) {
                     os << ' ';
                 }
