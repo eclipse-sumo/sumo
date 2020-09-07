@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:21 2020 by Eclipse SUMO netconvert Version v1_6_0+2011-142405e97b
+<!-- generated on Mon Sep  7 13:28:02 2020 by Eclipse SUMO netconvert Version v1_6_0+2015-336b3d6f93
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -150,7 +150,7 @@
         <!-- Writes parking areas to FILE -->
         <parking-output value="" type="FILE"/>
 
-        <!-- Analyse topology of the railway network -->
+        <!-- Analyze topology of the railway network -->
         <railway.topology.output value="" type="FILE"/>
 
         <!-- Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE) -->
@@ -213,7 +213,7 @@
         <!-- Remaps IDs of edges to integers starting at INT -->
         <numerical-ids.edge-start value="2147483647" type="INT"/>
 
-        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) -->
+        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) -->
         <reserved-ids value="" type="FILE"/>
 
         <!-- Removes vehicle class restrictions from imported edges -->
@@ -228,7 +228,7 @@
         <!-- Ensure that the given list of edges is not modified -->
         <geometry.remove.keep-edges.explicit value="" type="STR[]"/>
 
-        <!-- Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
+        <!-- Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported) -->
         <geometry.remove.keep-edges.input-file value="" type="FILE"/>
 
         <!-- Allow merging edges with differing attributes when their length is below min-length -->
@@ -522,10 +522,10 @@
         <!-- Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options -->
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]"/>
 
-        <!-- Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options -->
+        <!-- Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options -->
         <keep-edges.input-file value="" type="FILE"/>
 
-        <!-- Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
+        <!-- Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) -->
         <remove-edges.input-file value="" type="FILE"/>
 
         <!-- Remove edges after joining -->

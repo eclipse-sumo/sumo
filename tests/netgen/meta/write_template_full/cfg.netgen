@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:21 2020 by Eclipse SUMO netgenerate Version v1_6_0+2011-142405e97b
+<!-- generated on Mon Sep  7 13:28:03 2020 by Eclipse SUMO netgenerate Version v1_6_0+2015-336b3d6f93
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -81,13 +81,13 @@
     <processing>
         <turn-lanes value="0" type="INT" help="Generate INT left-turn lanes"/>
         <turn-lanes.length value="20" type="FLOAT" help="Set the length of generated turning lanes to FLOAT"/>
-        <perturb-x value="0" type="STR" help="Apply random spatial pertubation in x direction according the the given distribution"/>
-        <perturb-y value="0" type="STR" help="Apply random spatial pertubation in y direction according the the given distribution"/>
-        <perturb-z value="0" type="STR" help="Apply random spatial pertubation in z direction according the the given distribution"/>
+        <perturb-x value="0" type="STR" help="Apply random spatial perturbation in x direction according the the given distribution"/>
+        <perturb-y value="0" type="STR" help="Apply random spatial perturbation in y direction according the the given distribution"/>
+        <perturb-z value="0" type="STR" help="Apply random spatial perturbation in z direction according the the given distribution"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
         <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
-        <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
+        <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format)"/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
         <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge edge geometries with a grade in above the warning threshold."/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
@@ -158,8 +158,8 @@
         <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR[]" help="Remove edges in STR[]"/>
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]" help="Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options"/>
-        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options"/>
-        <remove-edges.input-file value="" type="FILE" help="Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
+        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options"/>
+        <remove-edges.input-file value="" type="FILE" help="Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported)"/>
         <keep-edges.in-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)"/>
         <keep-edges.in-geo-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;)"/>
     </edge_removal>

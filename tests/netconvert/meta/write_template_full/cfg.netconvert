@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:21 2020 by Eclipse SUMO netconvert Version v1_6_0+2011-142405e97b
+<!-- generated on Mon Sep  7 13:28:02 2020 by Eclipse SUMO netconvert Version v1_6_0+2015-336b3d6f93
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -58,7 +58,7 @@
         <ptline-output value="" type="FILE" help="Writes public transport lines to FILE"/>
         <ptline-clean-up value="false" type="BOOL" help="Clean-up pt stops that are not served by any line"/>
         <parking-output value="" type="FILE" help="Writes parking areas to FILE"/>
-        <railway.topology.output value="" type="FILE" help="Analyse topology of the railway network"/>
+        <railway.topology.output value="" type="FILE" help="Analyze topology of the railway network"/>
         <polygon-output value="" synonymes="taz-output" type="FILE" help="Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)"/>
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
     </output>
@@ -83,12 +83,12 @@
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
         <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
         <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
-        <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
+        <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format)"/>
         <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges"/>
         <geometry.split value="false" synonymes="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL" help="Replace nodes which only define edge geometry by geometry points (joins edges)"/>
         <geometry.remove.keep-edges.explicit value="" type="STR[]" help="Ensure that the given list of edges is not modified"/>
-        <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
+        <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)"/>
         <geometry.remove.min-length value="0" type="FLOAT" help="Allow merging edges with differing attributes when their length is below min-length"/>
         <geometry.remove.width-tolerance value="0" type="FLOAT" help="Allow merging edges with differing lane widths if the difference is below FLOAT"/>
         <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
@@ -194,8 +194,8 @@
         <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
         <remove-edges.explicit value="" synonymes="remove-edges" type="STR[]" help="Remove edges in STR[]"/>
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]" help="Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options"/>
-        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options"/>
-        <remove-edges.input-file value="" type="FILE" help="Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
+        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options"/>
+        <remove-edges.input-file value="" type="FILE" help="Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported)"/>
         <keep-edges.postload value="false" type="BOOL" help="Remove edges after joining"/>
         <keep-edges.in-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)"/>
         <keep-edges.in-geo-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;)"/>

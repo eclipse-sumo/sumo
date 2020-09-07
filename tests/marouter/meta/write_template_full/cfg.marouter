@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:21 2020 by Eclipse SUMO marouter Version v1_6_0+2011-142405e97b
+<!-- generated on Mon Sep  7 13:28:02 2020 by Eclipse SUMO marouter Version v1_6_0+2015-336b3d6f93
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -65,7 +65,7 @@
         <upperbound value="0.5" synonymes="upper" type="FLOAT" help="Use FLOAT as the upper bound to determine auxiliary link cost"/>
         <lowerbound value="0.15" synonymes="lower" type="FLOAT" help="Use FLOAT as the lower bound to determine auxiliary link cost"/>
         <max-iterations value="20" synonymes="i" type="INT" help="maximal number of iterations for new route searching in incremental and stochastic user assignment"/>
-        <max-inner-iterations value="1000" type="INT" help="maximal number of inner iterations for user equilibrium calcuation in the stochastic user assignment"/>
+        <max-inner-iterations value="1000" type="INT" help="maximal number of inner iterations for user equilibrium calculation in the stochastic user assignment"/>
         <route-choice-method value="logit" type="STR" help="Choose a route choice method: gawron, logit, or lohse"/>
         <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
         <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>

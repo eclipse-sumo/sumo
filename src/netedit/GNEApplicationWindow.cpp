@@ -796,7 +796,7 @@ GNEApplicationWindow::onCmdClearMsgWindow(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI(FXObject*, FXSelector, void*) {
     // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Toogle load additionals in SUMO-GUI");
+    WRITE_DEBUG("Toogle load additionals in sumo-gui");
     return 1;
 }
 
@@ -804,7 +804,7 @@ GNEApplicationWindow::onCmdLoadAdditionalsInSUMOGUI(FXObject*, FXSelector, void*
 long
 GNEApplicationWindow::onCmdLoadDemandInSUMOGUI(FXObject*, FXSelector, void*) {
     // write warning if netedit is running in testing mode
-    WRITE_DEBUG("Toogle load demand in SUMO-GUI");
+    WRITE_DEBUG("Toogle load demand in sumo-gui");
     return 1;
 }
 

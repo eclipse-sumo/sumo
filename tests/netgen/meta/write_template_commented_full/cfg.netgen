@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:21 2020 by Eclipse SUMO netgenerate Version v1_6_0+2011-142405e97b
+<!-- generated on Mon Sep  7 13:28:03 2020 by Eclipse SUMO netgenerate Version v1_6_0+2015-336b3d6f93
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -195,13 +195,13 @@
         <!-- Set the length of generated turning lanes to FLOAT -->
         <turn-lanes.length value="20" type="FLOAT"/>
 
-        <!-- Apply random spatial pertubation in x direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in x direction according the the given distribution -->
         <perturb-x value="0" type="STR"/>
 
-        <!-- Apply random spatial pertubation in y direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in y direction according the the given distribution -->
         <perturb-y value="0" type="STR"/>
 
-        <!-- Apply random spatial pertubation in z direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in z direction according the the given distribution -->
         <perturb-z value="0" type="STR"/>
 
         <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
@@ -213,7 +213,7 @@
         <!-- Remaps IDs of edges to integers starting at INT -->
         <numerical-ids.edge-start value="2147483647" type="INT"/>
 
-        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) -->
+        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) -->
         <reserved-ids value="" type="FILE"/>
 
         <!-- Warn about edge geometries with a grade in % above FLOAT. -->
@@ -408,10 +408,10 @@
         <!-- Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options -->
         <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]"/>
 
-        <!-- Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options -->
+        <!-- Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options -->
         <keep-edges.input-file value="" type="FILE"/>
 
-        <!-- Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
+        <!-- Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) -->
         <remove-edges.input-file value="" type="FILE"/>
 
         <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;) -->

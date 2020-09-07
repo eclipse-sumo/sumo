@@ -250,7 +250,7 @@ ROMAFrame::addAssignmentOptions() {
     oc.addDescription("max-iterations", "Processing", "maximal number of iterations for new route searching in incremental and stochastic user assignment");
 
     oc.doRegister("max-inner-iterations", new Option_Integer(1000));
-    oc.addDescription("max-inner-iterations", "Processing", "maximal number of inner iterations for user equilibrium calcuation in the stochastic user assignment");
+    oc.addDescription("max-inner-iterations", "Processing", "maximal number of inner iterations for user equilibrium calculation in the stochastic user assignment");
 
     // register route choice settings
     oc.doRegister("route-choice-method", new Option_String("logit"));

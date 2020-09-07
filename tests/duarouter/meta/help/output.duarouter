@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_6_0+2013-2419297574
+Eclipse SUMO duarouter Version v1_6_0+2015-336b3d6f93
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -135,7 +135,7 @@ Processing Options:
   --persontrip.transfer.car-walk STR[]  Where are mode changes from car to
                                         walking allowed (possible values:
                                         'parkingAreas', 'ptStops',
-                                        'allJunctions', 'taxi' and combinations)
+                                        'allJunctions' and combinations)
   --persontrip.transfer.taxi-walk STR[]  Where taxis can drop off customers
                                         ('allJunctions, 'ptStops')
   --persontrip.transfer.walk-taxi STR[]  Where taxis can pick up customers

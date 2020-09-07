@@ -1,4 +1,4 @@
-Eclipse SUMO jtrrouter Version v1_6_0+2013-2419297574
+Eclipse SUMO jtrrouter Version v1_6_0+2015-336b3d6f93
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Router for the microscopic, multi-modal traffic simulation SUMO based on
   junction turning ratios.
@@ -87,8 +87,8 @@ Processing Options:
   -D, --discount-sources           Subtract upstream flow when inserting a new
                                      flow. When option --sources-are-sinks is
                                      set, the upstream flow is limited to the
-                                     value of the source flow and the remainig
-                                     part termines.
+                                     value of the source flow and the remaining
+                                     part terminates.
 
 Defaults Options:
   --departlane STR                 Assigns a default depart lane

@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version v1_6_0+2011-142405e97b
+Eclipse SUMO marouter Version v1_6_0+2015-336b3d6f93
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
@@ -102,7 +102,7 @@ Processing Options:
                                        searching in incremental and stochastic
                                        user assignment
   --max-inner-iterations INT         maximal number of inner iterations for
-                                       user equilibrium calcuation in the
+                                       user equilibrium calculation in the
                                        stochastic user assignment
   --route-choice-method STR          Choose a route choice method: gawron,
                                        logit, or lohse

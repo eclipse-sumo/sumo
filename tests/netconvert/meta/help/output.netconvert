@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_6_0+2011-142405e97b
+Eclipse SUMO netconvert Version v1_6_0+2015-336b3d6f93
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -81,7 +81,7 @@ Output Options:
   --ptline-clean-up                    Clean-up pt stops that are not served by
                                          any line
   --parking-output FILE                Writes parking areas to FILE
-  --railway.topology.output FILE       Analyse topology of the railway network
+  --railway.topology.output FILE       Analyze topology of the railway network
   --polygon-output FILE                Write shapes that are embedded in the
                                          network input and that are not
                                          supported by polyconvert (OpenDRIVE)
@@ -124,7 +124,7 @@ Processing Options:
                                          at INT
   --reserved-ids FILE                  Ensures that generated ids do not
                                          included any of the typed IDs from FILE
-                                         (SUMO-GUI selection file format)
+                                         (sumo-gui selection file format)
   --dismiss-vclasses                   Removes vehicle class restrictions from
                                          imported edges
   --geometry.split                     Splits edges across geometry nodes
@@ -135,7 +135,7 @@ Processing Options:
                                          edges is not modified
   --geometry.remove.keep-edges.input-file FILE  Ensure that the edges in FILE
                                          are not modified (Each id on a single
-                                         line. Selection files from SUMO-GUI are
+                                         line. Selection files from sumo-gui are
                                          also supported)
   --geometry.remove.min-length FLOAT   Allow merging edges with differing
                                          attributes when their length is below
@@ -333,12 +333,12 @@ Edge Removal Options:
                                          remove-edges options
   --keep-edges.input-file FILE         Only keep edges in FILE (Each id on a
                                          single line. Selection files from
-                                         SUMO-GUI are also supported) or those
+                                         sumo-gui are also supported) or those
                                          which are kept due to other keep-edges
                                          or remove-edges options
   --remove-edges.input-file FILE       Remove edges in FILE. (Each id on a
                                          single line. Selection files from
-                                         SUMO-GUI are also supported)
+                                         sumo-gui are also supported)
   --keep-edges.postload                Remove edges after joining
   --keep-edges.in-boundary STR[]       Only keep edges which are located within
                                          the given boundary (given either as

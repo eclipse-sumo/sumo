@@ -108,7 +108,7 @@ NWFrame::fillOptions(bool forNetgen) {
         oc.addDescription("parking-output", "Output", "Writes parking areas to FILE");
 
         oc.doRegister("railway.topology.output", new Option_FileName());
-        oc.addDescription("railway.topology.output", "Output", "Analyse topology of the railway network");
+        oc.addDescription("railway.topology.output", "Output", "Analyze topology of the railway network");
 
         oc.doRegister("polygon-output", new Option_FileName());
         oc.addSynonyme("polygon-output", "taz-output");

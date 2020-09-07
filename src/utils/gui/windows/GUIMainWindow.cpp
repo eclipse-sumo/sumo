@@ -51,7 +51,7 @@ GUIMainWindow* GUIMainWindow::myInstance = nullptr;
 // member method definitions
 // ===========================================================================
 GUIMainWindow::GUIMainWindow(FXApp* a) :
-    FXMainWindow(a, "SUMO-gui main window", nullptr, nullptr, DECOR_ALL, 20, 20, 600, 400),
+    FXMainWindow(a, "sumo-gui main window", nullptr, nullptr, DECOR_ALL, 20, 20, 600, 400),
     myAmFullScreen(false),
     myTrackerLock(true),
     myGLVisual(new FXGLVisual(a, VISUAL_DOUBLEBUFFER)),

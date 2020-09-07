@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_6_0+2011-142405e97b
+Eclipse SUMO netgenerate Version v1_6_0+2015-336b3d6f93
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
   SUMO.
@@ -125,13 +125,13 @@ Processing Options:
   --turn-lanes INT                     Generate INT left-turn lanes
   --turn-lanes.length FLOAT            Set the length of generated turning
                                          lanes to FLOAT
-  --perturb-x STR                      Apply random spatial pertubation in x
+  --perturb-x STR                      Apply random spatial perturbation in x
                                          direction according the the given
                                          distribution
-  --perturb-y STR                      Apply random spatial pertubation in y
+  --perturb-y STR                      Apply random spatial perturbation in y
                                          direction according the the given
                                          distribution
-  --perturb-z STR                      Apply random spatial pertubation in z
+  --perturb-z STR                      Apply random spatial perturbation in z
                                          direction according the the given
                                          distribution
   --numerical-ids                      Remaps alphanumerical IDs of nodes and
@@ -143,7 +143,7 @@ Processing Options:
                                          at INT
   --reserved-ids FILE                  Ensures that generated ids do not
                                          included any of the typed IDs from FILE
-                                         (SUMO-GUI selection file format)
+                                         (sumo-gui selection file format)
   --geometry.max-grade FLOAT           Warn about edge geometries with a grade
                                          in % above FLOAT.
   --geometry.max-grade.fix             Smooth edge edge geometries with a grade
@@ -266,12 +266,12 @@ Edge Removal Options:
                                          remove-edges options
   --keep-edges.input-file FILE         Only keep edges in FILE (Each id on a
                                          single line. Selection files from
-                                         SUMO-GUI are also supported) or those
+                                         sumo-gui are also supported) or those
                                          which are kept due to other keep-edges
                                          or remove-edges options
   --remove-edges.input-file FILE       Remove edges in FILE. (Each id on a
                                          single line. Selection files from
-                                         SUMO-GUI are also supported)
+                                         sumo-gui are also supported)
   --keep-edges.in-boundary STR[]       Only keep edges which are located within
                                          the given boundary (given either as
                                          CARTESIAN corner coordinates
