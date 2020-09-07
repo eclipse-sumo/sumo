@@ -1,4 +1,4 @@
-Eclipse SUMO polyconvert Version v1_6_0+1462-a775417066
+Eclipse SUMO polyconvert Version v1_6_0+2011-142405e97b
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Importer of polygons and POIs for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -56,8 +56,7 @@ Output Options:
   --precision.geo INT               Defines the number of digits after the
                                       comma for lon,lat output
   -H, --human-readable-time         Write time values as hour:minute:second or
-                                      day:hour:minute:second rathern than
-                                      seconds
+                                      day:hour:minute:second rather than seconds
   -o, --output-file FILE            Write generated polygons/pois to FILE
   --dlr-tdp-output FILE             Write generated polygons/pois to a dlr-tdp
                                       file with the given prefix

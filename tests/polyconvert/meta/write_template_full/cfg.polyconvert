@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Aug  8 12:26:01 2020 by Eclipse SUMO polyconvert Version v1_6_0+1462-a775417066
+<!-- generated on Mon Sep  7 12:51:22 2020 by Eclipse SUMO polyconvert Version v1_6_0+2011-142405e97b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
@@ -39,7 +39,7 @@
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
-        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
+        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <output-file value="" synonymes="o output" type="FILE" help="Write generated polygons/pois to FILE"/>
         <dlr-tdp-output value="" type="FILE" help="Write generated polygons/pois to a dlr-tdp file with the given prefix"/>
     </output>

@@ -1,4 +1,4 @@
-Eclipse SUMO activitygen Version v1_6_0+1462-a775417066
+Eclipse SUMO activitygen Version v1_6_0+2011-142405e97b
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
  Copyright (C) 2010-2012 Technische Universitaet Muenchen
 Generates trips of persons throughout a day for the microscopic, multi-modal
@@ -28,7 +28,7 @@ Output Options:
   --precision.geo INT              Defines the number of digits after the comma
                                      for lon,lat output
   -H, --human-readable-time        Write time values as hour:minute:second or
-                                     day:hour:minute:second rathern than seconds
+                                     day:hour:minute:second rather than seconds
   -o, --output-file FILE           Write generated trips to FILE
 
 Processing Options:

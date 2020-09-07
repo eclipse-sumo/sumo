@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Aug  8 09:06:37 2020 by Eclipse SUMO dfrouter Version v1_6_0+1462-a775417066
+<!-- generated on Mon Sep  7 12:51:21 2020 by Eclipse SUMO dfrouter Version v1_6_0+2011-142405e97b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -24,7 +24,7 @@
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
-        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
+        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <routes-output value="" synonymes="o" type="FILE" help="Saves computed routes to FILE"/>
         <routes-for-all value="false" type="BOOL" help="Forces DFROUTER to compute routes for in-between detectors"/>
         <detector-output value="" synonymes="detectors-output" type="FILE" help="Saves typed detectors to FILE"/>

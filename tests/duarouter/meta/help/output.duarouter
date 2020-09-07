@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_6_0+1591-1651b78466
+Eclipse SUMO duarouter Version v1_6_0+2011-142405e97b
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -46,7 +46,7 @@ Output Options:
   --precision.geo INT                 Defines the number of digits after the
                                         comma for lon,lat output
   -H, --human-readable-time           Write time values as hour:minute:second
-                                        or day:hour:minute:second rathern than
+                                        or day:hour:minute:second rather than
                                         seconds
   --alternatives-output FILE          Write generated route alternatives to
                                         FILE

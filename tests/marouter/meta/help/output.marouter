@@ -1,4 +1,4 @@
-Eclipse SUMO marouter Version v1_6_0+1462-a775417066
+Eclipse SUMO marouter Version v1_6_0+2011-142405e97b
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Import O/D-matrices for macroscopic traffic assignment to generate SUMO routes
 
@@ -51,7 +51,7 @@ Output Options:
   --precision.geo INT                Defines the number of digits after the
                                        comma for lon,lat output
   -H, --human-readable-time          Write time values as hour:minute:second or
-                                       day:hour:minute:second rathern than
+                                       day:hour:minute:second rather than
                                        seconds
   --exit-times                       Write exit times (weights) for each edge
 
