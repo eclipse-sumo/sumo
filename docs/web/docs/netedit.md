@@ -74,7 +74,7 @@ via menus. The following input formats are supported:
 | -------------------- | ---- | ------------------------------------------------ |
 | Network              | F2   | Change to supermode Network (default )           |
 | Demand               | F3   | Change to supermode Demand (implies recomputing) |
-| Data                 | FF4  | Change to supermode Data (implies recomputing)   |
+| Data                 | F4   | Change to supermode Data (implies recomputing)   |
 
 | Common modes shortcuts | Key | Description              |
 | ---------------------- | --- | ------------------------ |
