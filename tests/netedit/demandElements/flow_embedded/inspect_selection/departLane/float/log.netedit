@@ -1,0 +1,4 @@
+Warning: Essential unique string attribute 'to' of flow with ID 'flowA' is missing; flow cannot be created
+Warning: Essential unique string attribute 'from' of flow with ID 'flowA' is missing; flow cannot be created
+Warning: Essential unique string attribute 'to' of flow with ID 'flowB' is missing; flow cannot be created
+Warning: Essential unique string attribute 'from' of flow with ID 'flowB' is missing; flow cannot be created
