@@ -28,6 +28,7 @@ import random
 from collections import defaultdict
 # multiprocessing imports
 import multiprocessing
+import math
 import numpy as np
 
 try:
@@ -88,6 +89,8 @@ def get_options(args=None):
                         help="random seed")
     parser.add_argument("--mismatch-output", dest="mismatchOut",
                         help="write cout-data with overflow/underflow information to FILE")
+    parser.add_argument("--weighted", dest="weighted", action="store_true", default=False,
+                        help="Sample routes according to their probability (or count)")
     parser.add_argument("--optimize",
                         help="set optimization method level (full, INT boundary)")
     parser.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
@@ -394,14 +397,30 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
 class Routes:
     def __init__(self, routefiles):
         self.all = []
+        self.edgeProbs = defaultdict(lambda : 0)
+        self.withProb = 0
         for routefile in routefiles:
-            self.all += [tuple(r.edges.split()) for r in sumolib.xml.parse(routefile, 'route')]
-        self.unique = sorted(list(set(self.all)))
+            # not all routes may have specified probability, in this case use their number of occurence
+            for r in sumolib.xml.parse(routefile, 'route', heterogeneous=True):
+                edges = tuple(r.edges.split())
+                self.all.append(edges)
+                prob = float(r.getAttributeSecure("probability", 1))
+                if r.hasAttribute("probability"):
+                    self.withProb += 1
+                    prob = float(r.probability)
+                else:
+                    prob = 1
+                if prob <= 0:
+                    print("Warning: route probability must be positive (edges=%s)" % r.edges, file=sys.stderr)
+                    prob = 0
+                self.edgeProbs[edges] += prob
+        self.unique = sorted(list(self.edgeProbs.keys()))
         self.number = len(self.unique)
         self.edges2index = dict([(e, i) for i, e in enumerate(self.unique)])
-        self.loadedCounts = [0] * len(self.edges2index)  # route index to count
-        for e in self.all:
-            self.loadedCounts[self.edges2index[e]] += 1
+        if len(self.unique) == 0:
+            print("Error: no input routes loaded", file=sys.stderr)
+            sys.exit()
+        self.probabilities = np.array([self.edgeProbs[e] for e in self.unique], dtype=np.float64)
 
 
 def resetCounts(usedRoutes, routeUsage, countData):
@@ -431,6 +450,7 @@ def getRouteUsage(routes, countData):
 def main(options):
     if options.seed:
         random.seed(options.seed)
+        np.random.seed(options.seed)
 
     routes = Routes(options.routeFiles)
 
@@ -454,6 +474,8 @@ def main(options):
 
     if options.verbose:
         print("Loaded %s routes (%s distinct)" % (len(routes.all), routes.number))
+        if options.weighted:
+            print("Loaded probability for %s routes" % routes.withProb)
         if options.verboseHistogram:
             edgeCount = sumolib.miscutils.Statistics("route edge count", histogram=True)
             detectorCount = sumolib.miscutils.Statistics("route detector count", histogram=True)
@@ -508,6 +530,17 @@ def _sample(sampleSet, rng):
     population = tuple(sampleSet)
     return population[(int)(rng.random() * len(population))]
 
+def _sample_skewed(sampleSet, rng, probabilityMap):
+    # build cumulative distribution function for weighted sampling
+    cdf = []
+    total = 0
+    population = tuple(sampleSet)
+    for element in population:
+        total += probabilityMap[element]
+        cdf.append(total)
+
+    value = random.random() * total
+    return population[np.searchsorted(cdf, value)]
 
 def _solveIntervalMP(options, routes, interval, cpuIndex):
     output_list = []
@@ -552,7 +585,10 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     else:
         while openCounts:
             cd = countData[_sample(openCounts, rng)]
-            routeIndex = _sample(cd.routeSet.intersection(openRoutes), rng)
+            if options.weighted:
+                routeIndex = _sample_skewed(cd.routeSet.intersection(openRoutes), rng, routes.probabilities)
+            else:
+                routeIndex = _sample(cd.routeSet.intersection(openRoutes), rng)
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
                 countData[dataIndex].count -= 1
