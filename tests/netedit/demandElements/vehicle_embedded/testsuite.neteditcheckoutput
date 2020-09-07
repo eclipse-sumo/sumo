@@ -1,13 +1,13 @@
 create
 
-#delete
+delete
 
-#inspect
+inspect
 
 inspect_selection
 
-#load
+load
 
-#volatileRecomputing
+volatileRecomputing
 
-#fix
+fix
