@@ -251,6 +251,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--offset.z** {{DT_FLOAT}} | Adds FLOAT to net z-positions; *default:* **0** |
 | **--flip-y-axis** {{DT_BOOL}} | Flips the y-coordinate along zero; *default:* **false** |
 | **--roundabouts.guess** {{DT_BOOL}} | Enable roundabout-guessing; *default:* **true** |
+| **--roundabouts.visibility-distance** {{DT_FLOAT}} | Default visibility when approaching a roundabout; *default:* **9** |
 | **--opposites.guess** {{DT_BOOL}} | Enable guessing of opposite direction lanes usable for overtaking; *default:* **false** |
 | **--opposites.guess.fix-lengths** {{DT_BOOL}} | Ensure that opposite edges have the same length; *default:* **false** |
 | **--fringe.guess** {{DT_BOOL}} | Enable guessing of network fringe nodes; *default:* **false** |
@@ -259,6 +260,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--speed.offset** {{DT_FLOAT}} | Modifies all edge speeds by adding FLOAT; *default:* **0** |
 | **--speed.factor** {{DT_FLOAT}} | Modifies all edge speeds by multiplying by FLOAT; *default:* **1** |
 | **--speed.minimum** {{DT_FLOAT}} | Modifies all edge speeds to at least FLOAT; *default:* **0** |
+| **--edges.join-tram-dist** {{DT_FLOAT}} | Joins tram edges into road lanes with similar geometry (within FLOAT distance); *default:* **-1** |
 
 ### Building Defaults
 
@@ -401,6 +403,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--crossings.guess** {{DT_BOOL}} | Guess pedestrian crossings based on the presence of sidewalks; *default:* **false** |
 | **--crossings.guess.speed-threshold** {{DT_FLOAT}} | At uncontrolled nodes, do not build crossings across edges with a speed above the threshold; *default:* **13.89** |
 | **--walkingareas** {{DT_BOOL}} | Always build walking areas even if there are no crossings; *default:* **false** |
+| **--walkingareas.join-dist** {{DT_FLOAT}} | Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT; *default:* **15** |
 
 ### Bicycle
 
@@ -431,6 +434,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 
 | Option | Description |
 |--------|-------------|
+| **--discard-params** {{DT_STR[]}} | Remove the list of keys from all params |
 | **--osm.skip-duplicates-check** {{DT_BOOL}} | Skips the check for duplicate nodes and edges; *default:* **false** |
 | **--osm.elevation** {{DT_BOOL}} | Imports elevation data; *default:* **false** |
 | **--osm.layer-elevation** {{DT_FLOAT}} | Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m; *default:* **0** |
@@ -456,6 +460,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--shapefile.all-bidirectional** {{DT_BOOL}} | Insert edges in both directions; *default:* **false** |
 | **--shapefile.guess-projection** {{DT_BOOL}} | Guess the proper projection; *default:* **false** |
 | **--shapefile.traditional-axis-mapping** {{DT_BOOL}} | Use traditional axis order (lon, lat); *default:* **false** |
+| **--dlr-navteq.tolerant-permissions** {{DT_BOOL}} | Allow more vehicle classes by default; *default:* **false** |
 | **--vissim.join-distance** {{DT_FLOAT}} | Structure join offset; *default:* **5** |
 | **--vissim.default-speed** {{DT_FLOAT}} | Use FLOAT as default speed; *default:* **50** |
 | **--vissim.speed-norm** {{DT_FLOAT}} | Factor for edge velocity; *default:* **1** |

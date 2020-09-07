@@ -68,10 +68,12 @@ class ConfigReader(handler.ContentHandler):
             if a != "":
                 print('**-%s** {{DT_%s}}<br>' % (a, attrs['type']), end=' ', file=self._file)
             print('**--%s** {{DT_%s}}' % (name, attrs['type']), end=' ', file=self._file)
-            suffix = ""
+            helpStr = attrs['help']
             if attrs['value']:
-                suffix = "; *default:* **%s**" % attrs['value']
-            print('| %s%s |' % (attrs['help'], suffix), file=self._file)
+                if helpStr:
+                    helpStr += "; "
+                helpStr += "*default:* **%s**" % attrs['value']
+            print('| %s |' % helpStr, file=self._file)
         self._level += 1
 
     def endElement(self, name):
@@ -95,7 +97,7 @@ if __name__ == "__main__":
                 cfg = os.path.join(os.path.dirname(__file__), "..", "..",
                                    "tests", app, "meta", "write_template_full", "cfg." + app)
             docs = os.path.join(os.path.dirname(__file__), "..", "..",
-                                "docs", "web", "docs", app.upper() + ".md")
+                                "docs", "web", "docs", app + ".md")
             parse(cfg, ConfigReader(open(docs).readlines(), docs))
     elif len(sys.argv) == 2:
         app = sys.argv[1].lower()
@@ -104,7 +106,7 @@ if __name__ == "__main__":
         cfg = os.path.join(os.path.dirname(__file__), "..", "..",
                            "tests", app, "meta", "write_template_full", "cfg." + app)
         docs = os.path.join(os.path.dirname(__file__), "..", "..",
-                            "docs", "web", "docs", sys.argv[1].upper() + ".md")
+                            "docs", "web", "docs", sys.argv[1] + ".md")
         parse(cfg, ConfigReader(open(docs).readlines()))
     elif len(sys.argv) == 3:
         parse(sys.argv[1], ConfigReader(open(sys.argv[2]).readlines()))
