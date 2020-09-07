@@ -49,7 +49,7 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # change person plan
-netedit.changePersonFlowPlan("walks", "walkRoute")
+netedit.changePersonFlowPlan("walks", "walk: route")
 
 # create person
 netedit.leftClick(referencePosition, 274, 416)

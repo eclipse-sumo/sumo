@@ -38,7 +38,7 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # change person plan
-netedit.changePersonFlowPlan("stops", "personStopBusStop")
+netedit.changePersonFlowPlan("stops", "personStop: busStop")
 
 # create route clicking over busStop
 netedit.leftClick(referencePosition, 270, 54)

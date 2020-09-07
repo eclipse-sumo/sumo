@@ -38,7 +38,7 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # change person plan
-netedit.changePersonFlowPlan("walks", "walkEdges")
+netedit.changePersonFlowPlan("walks", "walk: edges")
 
 # set invalid depart
 netedit.changeDefaultValue(7, "dummyDepartPos")

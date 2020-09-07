@@ -38,7 +38,7 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # change person plan
-netedit.changePersonFlowPlan("walks", "walkFromTo")
+netedit.changePersonFlowPlan("walks", "walk: edge->edge")
 
 # create route using three edges
 netedit.leftClick(referencePosition, 274, 416)

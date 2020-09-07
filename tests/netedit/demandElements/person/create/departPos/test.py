@@ -35,7 +35,7 @@ netedit.supermodeDemand()
 netedit.personMode()
 
 # change person plan
-netedit.changePersonPlan("walks", "walkEdges")
+netedit.changePersonPlan("walks", "walk: edges")
 
 # set invalid depart
 netedit.changeDefaultValue(7, "dummyDepartPos")
