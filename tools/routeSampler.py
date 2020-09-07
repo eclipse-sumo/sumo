@@ -398,6 +398,7 @@ class Routes:
     def __init__(self, routefiles):
         self.all = []
         self.edgeProbs = defaultdict(lambda : 0)
+        self.edgeIDs = {}
         self.withProb = 0
         for routefile in routefiles:
             # not all routes may have specified probability, in this case use their number of occurence
@@ -413,6 +414,8 @@ class Routes:
                 if prob <= 0:
                     print("Warning: route probability must be positive (edges=%s)" % r.edges, file=sys.stderr)
                     prob = 0
+                if r.hasAttribute("id"):
+                    self.edgeIDs[edges] = r.id
                 self.edgeProbs[edges] += prob
         self.unique = sorted(list(self.edgeProbs.keys()))
         self.number = len(self.unique)
@@ -570,6 +573,9 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                  )
 
     routeUsage = getRouteUsage(routes, countData)
+    unrestricted = set([r for r,usage in enumerate(routeUsage) if len(usage) == 0])
+    if options.verbose and len(unrestricted) > 0:
+        print("Ignored %s routes which do not pass any counting location" % len(unrestricted))
 
     # pick a random counting location and select a new route that passes it until
     # all counts are satisfied or no routes can be used anymore
@@ -577,6 +583,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     openCounts = set(range(0, len(countData)))
     openRoutes = updateOpenRoutes(openRoutes, routeUsage, countData)
     openCounts = updateOpenCounts(openCounts, countData, openRoutes)
+    openRoutes = openRoutes.difference(unrestricted)
 
     usedRoutes = []
     if options.optimizeInput:
@@ -584,10 +591,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         resetCounts(usedRoutes, routeUsage, countData)
     else:
         while openCounts:
-            cd = countData[_sample(openCounts, rng)]
             if options.weighted:
-                routeIndex = _sample_skewed(cd.routeSet.intersection(openRoutes), rng, routes.probabilities)
+                routeIndex = _sample_skewed(openRoutes, rng, routes.probabilities)
             else:
+                # sampling equally among open counting locations appears to
+                # improve GEH but it would also introduce a bias in the loaded
+                # route probabilities
+                cd = countData[_sample(openCounts, rng)]
                 routeIndex = _sample(cd.routeSet.intersection(openRoutes), rng)
             usedRoutes.append(routeIndex)
             for dataIndex in routeUsage[routeIndex]:
@@ -612,8 +622,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
         routeCounts = getRouteCounts(routes, usedRoutes)
         if options.writeRouteIDs:
             for routeIndex in sorted(set(usedRoutes)):
-                outf.write('    <route id="%s%s" edges="%s"/> <!-- %s -->\n' % (
-                    intervalPrefix, routeIndex, ' '.join(routes.unique[routeIndex]), routeCounts[routeIndex]))
+                edges = routes.unique[routeIndex]
+                routeIDComment = ""
+                if edges in routes.edgeIDs:
+                    routeIDComment = " (%s)" % routes.edgeIDs[edges]
+                outf.write('    <route id="%s%s" edges="%s"/> <!-- %s%s -->\n' % (
+                    intervalPrefix, routeIndex, ' '.join(edges),
+                    routeCounts[routeIndex], routeIDComment))
             outf.write('\n')
         elif options.writeRouteDist:
             outf.write('    <routeDistribution id="%s%s"/>\n' % (intervalPrefix, options.writeRouteDist))
