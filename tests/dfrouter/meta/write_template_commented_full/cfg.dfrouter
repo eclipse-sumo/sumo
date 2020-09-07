@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 12:51:21 2020 by Eclipse SUMO dfrouter Version v1_6_0+2011-142405e97b
+<!-- generated on Mon Sep  7 13:04:06 2020 by Eclipse SUMO dfrouter Version v1_6_0+2013-2419297574
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -54,7 +54,7 @@
         <!-- Saves computed routes to FILE -->
         <routes-output value="" synonymes="o" type="FILE"/>
 
-        <!-- Forces DFROUTER to compute routes for in-between detectors -->
+        <!-- Forces dfrouter to compute routes for in-between detectors -->
         <routes-for-all value="false" type="BOOL"/>
 
         <!-- Saves typed detectors to FILE -->

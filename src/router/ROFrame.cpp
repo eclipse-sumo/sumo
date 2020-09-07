@@ -137,7 +137,7 @@ ROFrame::fillOptions(OptionsCont& oc) {
     oc.addDescription("mapmatch.distance", "Processing", "Maximum distance when mapping input coordinates (fromXY etc.) to the road network");
 
     oc.doRegister("mapmatch.junctions", new Option_Bool(false));
-    oc.addDescription("mapmatch.junctions", "Processing", "Match postions to junctions instead of edges");
+    oc.addDescription("mapmatch.junctions", "Processing", "Match positions to junctions instead of edges");
 
     oc.doRegister("bulk-routing", new Option_Bool(false));
     oc.addDescription("bulk-routing", "Processing", "Aggregate routing queries with the same origin");

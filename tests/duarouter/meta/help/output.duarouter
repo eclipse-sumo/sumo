@@ -1,4 +1,4 @@
-Eclipse SUMO duarouter Version v1_6_0+2011-142405e97b
+Eclipse SUMO duarouter Version v1_6_0+2013-2419297574
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Shortest path router and DUE computer for the microscopic, multi-modal traffic
   simulation SUMO.
@@ -88,7 +88,7 @@ Processing Options:
   --mapmatch.distance FLOAT           Maximum distance when mapping input
                                         coordinates (fromXY etc.) to the road
                                         network
-  --mapmatch.junctions                Match postions to junctions instead of
+  --mapmatch.junctions                Match positions to junctions instead of
                                         edges
   --bulk-routing                      Aggregate routing queries with the same
                                         origin

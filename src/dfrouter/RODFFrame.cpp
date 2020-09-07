@@ -82,7 +82,7 @@ RODFFrame::fillOptions() {
     oc.addDescription("routes-output", "Output", "Saves computed routes to FILE");
 
     oc.doRegister("routes-for-all", new Option_Bool(false));
-    oc.addDescription("routes-for-all", "Output", "Forces DFROUTER to compute routes for in-between detectors");
+    oc.addDescription("routes-for-all", "Output", "Forces dfrouter to compute routes for in-between detectors");
 
     oc.doRegister("detector-output", new Option_FileName());
     oc.addSynonyme("detector-output", "detectors-output", true);

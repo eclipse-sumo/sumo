@@ -579,10 +579,10 @@ GUIBaseVehicle::drawOnPos(const GUIVisualizationSettings& s, const Position& pos
         mySeatPositions.clear();
         myContainerPositions.clear();
         int requiredSeats = getNumPassengers();
-        int requiredContainerPostions = getNumContainers();
+        int requiredContainerPositions = getNumContainers();
         const Position back = (p1 + Position(-length * upscaleLength, 0)).rotateAround2D(angle, p1);
         computeSeats(p1, back, SUMO_const_waitingPersonWidth, getVType().getPersonCapacity(), upscale, requiredSeats, mySeatPositions);
-        computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPostions, myContainerPositions);
+        computeSeats(p1, back, SUMO_const_waitingContainerWidth, getVType().getContainerCapacity(), upscale, requiredContainerPositions, myContainerPositions);
     }
 
     glPopMatrix();
