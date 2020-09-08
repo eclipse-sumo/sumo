@@ -22,6 +22,7 @@
 #include <utility>
 
 #include <microsim/MSLane.h>
+#include <microsim/MSEdge.h>
 #include <microsim/MSLink.h>
 #include "MSRailSignal.h"
 #include "MSRailSignalConstraint.h"
@@ -77,6 +78,11 @@ MSRailSignalConstraint_Predecessor::cleared() const {
         }
     }
     return false;
+}
+
+std::string
+MSRailSignalConstraint_Predecessor::getDescription() const {
+    return "predecessor " + myTripId + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID();
 }
 
 MSRailSignalConstraint_Predecessor::PassedTracker::PassedTracker(const MSLink* link) :

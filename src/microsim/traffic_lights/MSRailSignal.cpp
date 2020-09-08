@@ -207,6 +207,11 @@ MSRailSignal::constraintsAllow(const SUMOVehicle* veh) const {
         if (it != myConstraints.end()) {
             for (MSRailSignalConstraint* c : it->second) {
                 if (!c->cleared()) {
+#ifdef DEBUG_SIGNALSTATE
+                    if (gDebugFlag4) {
+                        std::cout << "  constraint '" << c->getDescription() << "' not cleared\n";
+                    }
+#endif
                     return false;
                 }
             }
@@ -654,6 +659,8 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
                 if (gDebugFlag4) {
                     if (foeDriveWay.conflictLaneOccupied("", false)) {
                         std::cout << "     foe blocked\n";
+                    } else if (!foeRS->constraintsAllow(foe.first)) {
+                        std::cout << "     foe constrained\n";
                     } else {
                         std::cout << "     no overlap\n";
                     }

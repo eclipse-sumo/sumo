@@ -47,6 +47,10 @@ public:
     /// @brief whether the constraint has been met
     virtual bool cleared() const = 0;
 
+    virtual std::string getDescription() const {
+        return "RailSignalConstraint";
+    }
+
     /// @brief clean up state
     static void cleanup();
 };
@@ -65,6 +69,8 @@ public:
     static void cleanup();
 
     bool cleared() const;
+
+    std::string getDescription() const;
 
     class PassedTracker : public MSMoveReminder {
     public:
