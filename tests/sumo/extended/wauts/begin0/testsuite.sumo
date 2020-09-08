@@ -40,5 +40,8 @@ cross3ltl_off100
 # Switches the tls off at time step 100 and on at time step 200
 cross3ltl_off100_on200
 
-# switch at the GSP defined in the logic
+# switch at the GSP
 cross3ltl_GSP
+
+# switch at the GSP defined in the logic
+cross3ltl_GSP25

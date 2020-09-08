@@ -4,6 +4,7 @@
     <tlLogic id="0" type="static" programID="S1" offset="0">
         <phase duration="50" state="GGggrrrrGGggrrrr"/>
         <phase duration="50" state="rrrrGGggrrrrGGgg"/>
+        <param key="GSP" value="25"/>
     </tlLogic>
 
     <tlLogic id="0" type="static" programID="S2" offset="0">
