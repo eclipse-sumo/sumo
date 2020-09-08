@@ -394,10 +394,15 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
         print("Optimization failed")
 
 
+def zero():
+    # cannot pickle lambda for multiprocessing
+    return 0
+
+
 class Routes:
     def __init__(self, routefiles):
         self.all = []
-        self.edgeProbs = defaultdict(lambda : 0)
+        self.edgeProbs = defaultdict(zero)
         self.edgeIDs = {}
         self.withProb = 0
         for routefile in routefiles:
