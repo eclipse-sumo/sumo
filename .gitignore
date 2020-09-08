@@ -102,6 +102,7 @@
 /src/utils/empty.cpp
 /unittest/src/sumo-unittest
 # tools dir
+/tools/*.egg-info
 /tools/[0-9]*
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
