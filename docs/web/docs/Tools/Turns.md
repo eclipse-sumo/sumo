@@ -107,6 +107,18 @@ starting edges and inserted with high speed on a reasonable lane.
 !!! caution
     Quoting of trip attributes on Linux must use the style **--attributes 'departLane="best" departSpeed="max" departPos="random"'**
 
+## Sampling
+By default, sampling will be performed iteratively by 
+1) selecting a random counting location that has not yet reached it's count (and which still has viable routes)
+2) selecting a random route that passes this counting location
+
+until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
+
+By setting the option **--weighted**. The sampling algorithm is changed. For each route a probability value is loaded from the input. The probabilty can either be specified explicitly using route attribute 'probability' or implicitly if a route with the same sequence of edges appears multiple times in the the route input. Sampling will be performed iteratively by
+1) selecting a random viable route sampled by probability
+
+until all counting locations have reached their measured count or there are no viable routes (routes which have all their passed counting locations below the input count)
+
 ## Optimization
 By default, routes will be sampled from the input route set until no further routes can be added without exceeding one of the counts. This may still leave some counts below their target values. At this point an ILP-Solver can be used to swap out routes and get closer to the target values or even reach the exact numbers.
 By setting option **--optimize <INT>**. The number of times that a route is used can be changed by up to **<INT>** times. This defines a trade-off between using routes in the same distribution as found in the input and optimizing the counts.
