@@ -280,8 +280,12 @@ def Popen(extraParameters, debugInformation):
         neteditCall += ['-a',
                         os.path.join(_TEXTTEST_SANDBOX, "input_additionals.add.xml")]
 
-    # Check if routes must be loaded
-    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
+    # Check if vTypes must be loaded
+    if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml")):
+        neteditCall += ['-r',
+                        os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml,input_routes.rou.xml")]
+                        
+    elif os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
         neteditCall += ['-r',
                         os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
 
