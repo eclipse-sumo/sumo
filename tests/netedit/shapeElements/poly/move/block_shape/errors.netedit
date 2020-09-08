@@ -19,13 +19,13 @@ GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 18.00,8.00,
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 18.00,8.00,32.00,22.00
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 18.00,8.00,32.00,22.00
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 18.00,8.00,32.00,22.00
-Debug: Setting new attribute shape '30.00,-11.14 30.00,-1.14 20.00,-1.14 20.00,-11.14 30.00,-11.14' into poly 'poly_0'
+Debug: Setting new attribute shape '30.00,-9.13 30.00,0.87 20.00,0.87 20.00,-9.13 30.00,-9.13' into poly 'poly_0'
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 18.00,8.00,32.00,22.00
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 18.00,-13.14,32.00,0.86
+GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 18.00,-11.13,32.00,2.87
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute shape '30.00,10.00 30.00,20.00 20.00,20.00 20.00,10.00 30.00,10.00' into poly 'poly_0'
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 18.00,-13.14,32.00,0.86
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 18.00,-11.13,32.00,2.87
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 18.00,8.00,32.00,22.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
@@ -43,9 +43,9 @@ GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 18.00,8.00,
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 18.00,8.00,32.00,22.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute shape '30.00,-11.14 30.00,-1.14 20.00,-1.14 20.00,-11.14 30.00,-11.14' into poly 'poly_0'
+Debug: Setting new attribute shape '30.00,-9.13 30.00,0.87 20.00,0.87 20.00,-9.13 30.00,-9.13' into poly 'poly_0'
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 18.00,8.00,32.00,22.00
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 18.00,-13.14,32.00,0.86
+GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary 18.00,-11.13,32.00,2.87
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -62,7 +62,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 18.00,-13.14,32.00,0.86
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary 18.00,-11.13,32.00,2.87
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()

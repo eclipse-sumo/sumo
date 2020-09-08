@@ -41,7 +41,7 @@ netedit.createSquaredPoly(referencePosition, 372, 144, 200, True)
 netedit.moveMode()
 
 # move new vertex Shape
-netedit.moveElement(referencePosition, 335, 144, 335, 355)
+netedit.moveElement(referencePosition, 335, 144, 335, 335)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
