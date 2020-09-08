@@ -1027,6 +1027,16 @@ incompatibles with Fox Library. If sumo-gui or netedit presents graphics
 problem like [this](http://sumo.dlr.de/docs/images/DisplayLinkError.png)
 during the execution, DisplayLink drivers must be uninstalled.
 
+### Distorted view with green lines all over the network
+
+If your sumo-gui looks [like this](https://github.com/eclipse/sumo/issues/7511)
+it is probably again a problem with your display driver. It seems to occur most
+of the time with on board (Intel) graphics together with a dedicated nvidia card.
+To fix it install the latest nvidia drivers, open the nvidia system control panel
+(should be available from a right click on the desktop background) go to 3D settings
+and select nvidia as your preferred graphics processor. If this does not fix it, try
+to set the integrated graphics as preferred. (Thanks @palvarezlopez for finding out.)
+
 ## Upgrading
 
 ### How do I upgrade SUMO?
