@@ -153,7 +153,7 @@ permalink: /ChangeLog/
   - Added option **edges.join-tram-dist {{DT_FLOAT}}** which can be used to join overlying road and tram edges into a single lane with combined permissions. This is needed for the correct dynamics in OSM-derived networks. Issue #6980
   - When loading **ptstop-files** and filtering the network extend, the loaded stops will be filtered automatically. Issue #7024
   - When specifying a polygon boundary for option **--keep-edges.in-boundary**, the argument may now contain spaces to separate positions. This allows copying a polygon shape attribute. Issue #7025
-  - When an intersectoin is surrounded by connected footpaths, superfluous walkingareas are no longer built. The distance at which pedestrian nodes count as connected can be set by option **--walkingareas.join-dist**. Issue #7120
+  - When an intersection is surrounded by connected footpaths, superfluous walkingareas are no longer built. The distance at which pedestrian nodes count as connected can be set by option **--walkingareas.join-dist**. Issue #7120
   - Added new node attribute 'tlLayout' to configure signal plan layout per node. Issue #7187
   - Added new traffic light layout 'alternateOneWay' to model work zones where each direction uses the interior of a joined traffic light exclusively. Issue #7199
   - Added option **--roundabouts.visibility-distance** to set the default visibility distance when entering a roundabout. The new default is 9 (meters) which is twice the default link visibility and this leads to smoother flow when there are no foe vehicles at a roundabout. The old behavior can be restored by setting **--roundabouts.visibility-distance -1**. Issue #4703
