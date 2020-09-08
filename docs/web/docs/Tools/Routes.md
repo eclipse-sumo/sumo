@@ -295,3 +295,15 @@ The implausibility score is a weighted sum of individual measures of implausibil
 
 The tool reports routes with an implausibility score above a given threshold.
 It can also be used to generated restrictions for [flowrouter](Detector.md#flowrouterpy).
+
+
+# addStopDelay.py
+
+This tool adds a random delay to some or all stops that have a 'duration' value by increasing the duration
+```
+<SUMO_HOME>/tools/route/addStopDelay.py -r <route-file> -o <output-route-file>
+```
+
+The delays are sampled from a [truncated Normal distribution](https://en.wikipedia.org/wiki/Truncated_normal_distribution) with parameters set via options
+**--mean FLOAT, --dev FLOAT, --min FLOAT, --max FLOAT**. In the special case where min=max, a fixed delay is added.
+By setting option **--probability FLOAT**, stops only receive a delay with the given probability.
