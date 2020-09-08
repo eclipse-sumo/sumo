@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 27 19:52:46 2020 by Eclipse SUMO Version v1_5_0+1309-533c90b613
+<!-- generated on Tue Sep  8 13:06:13 2020 by Eclipse SUMO sumo Version v1_6_0+2018-124343ba59
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -81,6 +81,7 @@
             <xsd:element name="vtk-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="amitran-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="summary-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="person-summary-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="tripinfo-output.write-unfinished" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vehroute-output" type="fileOptionType" minOccurs="0"/>
@@ -110,6 +111,7 @@
             <xsd:element name="save-state.suffix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="save-state.files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="save-state.rng" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="save-state.transportables" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -181,6 +183,9 @@
             <xsd:element name="astar.landmark-distances" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.transfer.car-walk" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.taxi-walk" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.walk-taxi" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="railway.max-train-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.deterministic" type="boolOptionType" minOccurs="0"/>
@@ -211,6 +216,7 @@
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation.routes" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
@@ -229,6 +235,7 @@
             <xsd:element name="device.emissions.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.emissions.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.emissions.deterministic" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="device.emissions.period" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -327,7 +334,7 @@
             <xsd:element name="device.bluelight.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.bluelight.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.bluelight.deterministic" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="device.bluelight.parameter" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.bluelight.reactiondist" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -362,6 +369,8 @@
             <xsd:element name="device.taxi.dispatch-algorithm.output" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.dispatch-algorithm.params" type="strOptionType" minOccurs="0"/>
             <xsd:element name="device.taxi.dispatch-period" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="device.taxi.idle-algorithm" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="device.taxi.idle-algorithm.output" type="strOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -390,9 +399,11 @@
             <xsd:element name="meso-taujj" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="meso-jam-threshold" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-multi-queue" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="meso-lane-queue" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-junction-control.limited" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-tls-penalty" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="meso-tls-flow-penalty" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="meso-minor-penalty" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="meso-overtaking" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="meso-recheck" type="timeOptionType" minOccurs="0"/>

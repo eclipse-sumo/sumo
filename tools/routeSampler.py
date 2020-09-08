@@ -28,7 +28,6 @@ import random
 from collections import defaultdict
 # multiprocessing imports
 import multiprocessing
-import math
 import numpy as np
 
 try:
@@ -538,6 +537,7 @@ def _sample(sampleSet, rng):
     population = tuple(sampleSet)
     return population[(int)(rng.random() * len(population))]
 
+
 def _sample_skewed(sampleSet, rng, probabilityMap):
     # build cumulative distribution function for weighted sampling
     cdf = []
@@ -549,6 +549,7 @@ def _sample_skewed(sampleSet, rng, probabilityMap):
 
     value = random.random() * total
     return population[np.searchsorted(cdf, value)]
+
 
 def _solveIntervalMP(options, routes, interval, cpuIndex):
     output_list = []
@@ -578,7 +579,7 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
                  )
 
     routeUsage = getRouteUsage(routes, countData)
-    unrestricted = set([r for r,usage in enumerate(routeUsage) if len(usage) == 0])
+    unrestricted = set([r for r, usage in enumerate(routeUsage) if len(usage) == 0])
     if options.verbose and len(unrestricted) > 0:
         print("Ignored %s routes which do not pass any counting location" % len(unrestricted))
 

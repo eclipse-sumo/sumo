@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 27 19:52:46 2020 by Eclipse SUMO od2trips Version v1_5_0+1309-533c90b613
+<!-- generated on Tue Sep  8 13:06:13 2020 by Eclipse SUMO od2trips Version v1_6_0+2018-124343ba59
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -40,6 +40,7 @@
             <xsd:element name="flow-output.probability" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="pedestrians" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="persontrips" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="persontrips.modes" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="ignore-vehicle-type" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
@@ -82,7 +83,6 @@
             <xsd:element name="help" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>

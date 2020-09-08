@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Apr 27 19:52:46 2020 by Eclipse SUMO duarouter Version v1_5_0+1309-533c90b613
+<!-- generated on Tue Sep  8 13:06:12 2020 by Eclipse SUMO duarouter Version v1_6_0+2018-124343ba59
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -35,14 +35,14 @@
 
     <xsd:complexType name="outputTopicType">
         <xsd:all>
+            <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
+            <xsd:element name="keep-vtype-distributions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="write-license" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="output-prefix" type="strOptionType" minOccurs="0"/>
             <xsd:element name="precision" type="intOptionType" minOccurs="0"/>
             <xsd:element name="precision.geo" type="intOptionType" minOccurs="0"/>
             <xsd:element name="human-readable-time" type="boolOptionType" minOccurs="0"/>
-            <xsd:element name="output-file" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="vtype-output" type="fileOptionType" minOccurs="0"/>
-            <xsd:element name="keep-vtype-distributions" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="alternatives-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="intermodal-network-output" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="intermodal-weight-output" type="fileOptionType" minOccurs="0"/>
@@ -92,6 +92,9 @@
             <xsd:element name="logit.theta" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.walkfactor" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.transfer.car-walk" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.taxi-walk" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.transfer.walk-taxi" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="railway.max-train-length" type="floatOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -122,6 +125,7 @@
             <xsd:element name="version" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="xml-validation.routes" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>

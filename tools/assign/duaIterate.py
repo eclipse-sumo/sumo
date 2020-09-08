@@ -188,6 +188,7 @@ def call(command, log):
               (command, log.name), file=sys.stderr)
         sys.exit(retCode)
 
+
 def prepend_relative(prefix, path):
     if os.path.isabs(path):
         return path
