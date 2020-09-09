@@ -1,0 +1,17 @@
+# two trains approach the same stop from different tracks
+basic
+
+# two trains approach the same stop from different tracks
+verbose
+
+# run duarouter to obtain routes first
+trip_input
+
+# estimate arrival from until and duration
+no_arrival_given
+
+# no stop timings available
+no_schedule
+
+# stop on lane
+lane_stops
