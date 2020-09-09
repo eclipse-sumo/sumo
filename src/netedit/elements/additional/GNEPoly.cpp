@@ -374,9 +374,9 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
             if (getFill() || scaledGeometry.getShape().isClosed()) {
-                GNEGeometry::drawDottedContourClosedShape(true, s, scaledGeometry.getShape(), 1);
+                GNEGeometry::drawDottedContourClosedShape(GNEGeometry::DottedContourType::INSPECT, s, scaledGeometry.getShape(), 1);
             } else {
-                GNEGeometry::drawDottedContourShape(true, s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
+                GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, scaledGeometry.getShape(), s.neteditSizeSettings.polylineWidth, polyExaggeration);
             }
         }
         // pop name

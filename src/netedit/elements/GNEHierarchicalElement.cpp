@@ -503,11 +503,11 @@ GNEHierarchicalElement::drawHierarchicalConnections(const GUIVisualizationSettin
         myHierarchicalConnections.drawConnection(s, AC, exaggeration);
         // check if we have to draw dotted inspect contour
         if (s.drawDottedContour() || AC->getNet()->getViewNet()->isAttributeCarrierInspected(AC)) {
-            myHierarchicalConnections.drawDottedConnection(true, s, exaggeration);
+            myHierarchicalConnections.drawDottedConnection(GNEGeometry::DottedContourType::INSPECT, s, exaggeration);
         }
         // check if we have to draw dotted fronto contour
         if (s.drawDottedContour() || (AC->getNet()->getViewNet()->getFrontAttributeCarrier() == AC)) {
-            myHierarchicalConnections.drawDottedConnection(false, s, exaggeration);
+            myHierarchicalConnections.drawDottedConnection(GNEGeometry::DottedContourType::FRONT, s, exaggeration);
         }
     }
 }

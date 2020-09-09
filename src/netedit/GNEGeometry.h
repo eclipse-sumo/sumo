@@ -155,6 +155,13 @@ struct GNEGeometry {
         Geometry& operator=(const Geometry& other) = delete;
     };
 
+    /// @enum for dotted cotour type
+    enum class DottedContourType {
+        INSPECT,
+        FRONT,
+        MOVE
+    };
+
     /// @brief class for pack all variables related with DottedGeometry color
     class DottedGeometryColor {
 
@@ -489,7 +496,7 @@ struct GNEGeometry {
         void drawConnection(const GUIVisualizationSettings& s, const GNEAttributeCarrier* AC, const double exaggeration) const;
 
         /// @brief draw dotted connections between Parent and childrens
-        void drawDottedConnection(const bool inspect, const GUIVisualizationSettings& s, const double exaggeration) const;
+        void drawDottedConnection(const DottedContourType type, const GUIVisualizationSettings& s, const double exaggeration) const;
 
         /// @brief position and rotation of every symbol over lane
         std::vector<ConnectionGeometry> symbolsPositionAndRotation;
@@ -547,22 +554,22 @@ struct GNEGeometry {
     static void drawSegmentGeometry(const GNEViewNet* viewNet, const SegmentGeometry::Segment& segment, const double width);
 
     /// @brief draw dotted contour for the given dottedGeometry (used by lanes, routes, etc.)
-    static void drawDottedContourLane(const bool inspect, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
+    static void drawDottedContourLane(const DottedContourType type, const GUIVisualizationSettings& s, const DottedGeometry& dottedGeometry, const double width, const bool drawFirstExtrem, const bool drawLastExtrem);
 
     /// @brief draw dotted contour for the given dottedGeometries (used by edges)
-    static void drawDottedContourEdge(const bool inspect, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme);
+    static void drawDottedContourEdge(const DottedContourType type, const GUIVisualizationSettings& s, const GNEEdge* edge, const bool drawFrontExtreme, const bool drawBackExtreme);
 
     /// @brief draw dotted contour for the given closed shape (used by Juctions, shapes and TAZs)
-    static void drawDottedContourClosedShape(const bool inspect, const GUIVisualizationSettings& s, const PositionVector& shape, const double exaggeration);
+    static void drawDottedContourClosedShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, const double exaggeration);
 
     /// @brief draw dotted contour for the given shape (used by additionals)
-    static void drawDottedContourShape(const bool inspect, const GUIVisualizationSettings& s, const PositionVector& shape, const double width, const double exaggeration);
+    static void drawDottedContourShape(const DottedContourType type, const GUIVisualizationSettings& s, const PositionVector& shape, const double width, const double exaggeration);
 
     /// @brief draw dotted contour for the given Position and radius (used by Juctions and POIs)
-    static void drawDottedContourCircle(const bool inspect, const GUIVisualizationSettings& s, const Position& pos, const double radius, const double exaggeration);
+    static void drawDottedContourCircle(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos, const double radius, const double exaggeration);
 
     /// @brief draw dotted squared contour (used by additionals and demand elements)
-    static void drawDottedSquaredShape(const bool inspect, const GUIVisualizationSettings& s, const Position& pos,
+    static void drawDottedSquaredShape(const DottedContourType type, const GUIVisualizationSettings& s, const Position& pos,
                                        const double width, const double height, const double offsetX, const double offsetY, const double rot, const double exaggeration);
 
     /// @brief get a circle around the given position
