@@ -26,6 +26,7 @@
 // class declarations
 // ===========================================================================
 class MSRailSignal;
+class SUMOSAXAttributes;
 
 
 // ===========================================================================
@@ -53,6 +54,12 @@ public:
 
     /// @brief clean up state
     static void cleanup();
+
+    /** @brief Saves the current constraint states into the given stream */
+    static void saveState(OutputDevice& out);
+
+    /** @brief Clear all constraint states before quick-loading state */
+    static void clearState();
 };
 
 
@@ -68,13 +75,22 @@ public:
     /// @brief clean up state
     static void cleanup();
 
+    /** @brief Saves the current constraint states into the given stream */
+    static void saveState(OutputDevice& out);
+
+    /** @brief loads the constraint state from the given attrs */
+    static void loadState(const SUMOSAXAttributes& attrs); 
+
+    /** @brief Clear all constraint states before quick-loading state */
+    static void clearState();
+
     bool cleared() const;
 
     std::string getDescription() const;
 
     class PassedTracker : public MSMoveReminder {
     public:
-        PassedTracker(const MSLink* link);
+        PassedTracker(MSLane* lane);
 
         /// @name inherited from MSMoveReminder
         //@{
@@ -85,6 +101,15 @@ public:
         void raiseLimit(int limit);
 
         bool hasPassed(const std::string& tripId, int limit) const;
+
+        /** @brief Clear all passed states before quick-loading state */
+        void clearState();
+
+        /** @brief Saves the current passed states into the given stream */
+        void saveState(OutputDevice& out);
+
+        /** @brief loads the current passed states into the given stream */
+        void loadState(int index, const std::vector<std::string>& tripIDs);
 
     protected:
         /// @brief passed tripIds
@@ -104,7 +129,7 @@ public:
     const int myLimit;
 
 
-    static std::map<const MSLink*, PassedTracker*> myTrackerLookup;
+    static std::map<const MSLane*, PassedTracker*> myTrackerLookup;
 
 private:
     /// invalidated assignment operator

@@ -137,6 +137,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "stopOffset",                     SUMO_TAG_STOPOFFSET },
     { "railSignalConstraints",          SUMO_TAG_RAILSIGNAL_CONSTRAINTS },
     { "predecessor",                    SUMO_TAG_PREDECESSOR },
+    { "railSignalConstraintTracker",    SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER },
     { "link",                           SUMO_TAG_LINK },
     { "approaching",                    SUMO_TAG_APPROACHING },
     // OSM

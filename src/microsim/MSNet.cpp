@@ -757,6 +757,7 @@ MSNet::clearState(const SUMOTime step) {
             }
         }
     }
+    myLogics->clearState();
     myDetectorControl->updateDetectors(myStep);
     myDetectorControl->writeOutput(myStep, true);
     myDetectorControl->clearState();

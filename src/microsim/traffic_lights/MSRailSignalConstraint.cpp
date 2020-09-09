@@ -21,6 +21,7 @@
 #include <cassert>
 #include <utility>
 
+#include <utils/xml/SUMOSAXAttributes.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLink.h>
@@ -30,7 +31,7 @@
 // ===========================================================================
 // static value definitions
 // ===========================================================================
-std::map<const MSLink*, MSRailSignalConstraint_Predecessor::PassedTracker*> MSRailSignalConstraint_Predecessor::myTrackerLookup;
+std::map<const MSLane*, MSRailSignalConstraint_Predecessor::PassedTracker*> MSRailSignalConstraint_Predecessor::myTrackerLookup;
 
 // ===========================================================================
 // MSRailSignalConstraint method definitions
@@ -38,6 +39,16 @@ std::map<const MSLink*, MSRailSignalConstraint_Predecessor::PassedTracker*> MSRa
 void
 MSRailSignalConstraint::cleanup() {
     MSRailSignalConstraint_Predecessor::cleanup();
+}
+
+void
+MSRailSignalConstraint::saveState(OutputDevice& out) {
+    MSRailSignalConstraint_Predecessor::saveState(out);
+}
+
+void
+MSRailSignalConstraint::clearState() {
+    MSRailSignalConstraint_Predecessor::clearState();
 }
 
 // ===========================================================================
@@ -48,12 +59,13 @@ MSRailSignalConstraint_Predecessor::MSRailSignalConstraint_Predecessor(const MSR
     myLimit(limit) {
     for (const auto& lv : signal->getLinks()) {
         for (const MSLink* link : lv) {
+            MSLane* lane = link->getViaLaneOrLane();
             PassedTracker* pt = nullptr;
-            if (myTrackerLookup.count(link) == 0) {
-                pt = new PassedTracker(link);
-                myTrackerLookup[link] = pt;
+            if (myTrackerLookup.count(lane) == 0) {
+                pt = new PassedTracker(lane);
+                myTrackerLookup[lane] = pt;
             } else {
-                pt = myTrackerLookup[link];
+                pt = myTrackerLookup[lane];
             }
             pt->raiseLimit(limit);
             myTrackers.push_back(pt);
@@ -70,6 +82,40 @@ MSRailSignalConstraint_Predecessor::cleanup() {
     myTrackerLookup.clear();
 }
 
+void
+MSRailSignalConstraint_Predecessor::saveState(OutputDevice& out) {
+    for (auto item : myTrackerLookup) {
+        item.second->saveState(out);
+    }
+}
+
+void
+MSRailSignalConstraint_Predecessor::loadState(const SUMOSAXAttributes& attrs) {
+    bool ok;
+    const std::string laneID = attrs.getString(SUMO_ATTR_LANE);
+    const int index = attrs.get<int>(SUMO_ATTR_INDEX, "", ok);
+    std::vector<std::string> tripIDs = attrs.getStringVector(SUMO_ATTR_STATE);
+    MSLane* lane = MSLane::dictionary(laneID);
+    if (lane == nullptr) {
+        throw ProcessError("Unknown lane '" + laneID + "' in loaded state");
+    }
+    if (myTrackerLookup.count(lane) == 0) {
+        WRITE_WARNINGF("Unknown tracker lane '%' in loaded state", laneID);
+        return;
+    }
+    PassedTracker* tracker = myTrackerLookup[lane];
+    tracker->loadState(index, tripIDs);
+}
+
+
+void
+MSRailSignalConstraint_Predecessor::clearState() {
+    for (auto item : myTrackerLookup) {
+        item.second->clearState();
+    }
+}
+
+
 bool
 MSRailSignalConstraint_Predecessor::cleared() const {
     for (PassedTracker* pt : myTrackers) {
@@ -85,8 +131,12 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
     return "predecessor " + myTripId + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID();
 }
 
-MSRailSignalConstraint_Predecessor::PassedTracker::PassedTracker(const MSLink* link) :
-    MSMoveReminder("PassedTracker_" + link->getViaLaneOrLane()->getID(), link->getViaLaneOrLane(), true),
+// ===========================================================================
+// MSRailSignalConstraint_Predecessor::PassedTracker method definitions
+// ===========================================================================
+
+MSRailSignalConstraint_Predecessor::PassedTracker::PassedTracker(MSLane* lane) :
+    MSMoveReminder("PassedTracker_" + lane->getID(), lane, true),
     myPassed(1, ""),
     myLastIndex(0)
 { }
@@ -122,5 +172,31 @@ MSRailSignalConstraint_Predecessor::PassedTracker::hasPassed(const std::string& 
     return false;
 }
 
+void
+MSRailSignalConstraint_Predecessor::PassedTracker::clearState() {
+    myPassed = std::vector<std::string>(myPassed.size());
+    myLastIndex = 0;
+}
+
+void
+MSRailSignalConstraint_Predecessor::PassedTracker::saveState(OutputDevice& out) {
+    out.openTag(SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER);
+    out.writeAttr(SUMO_ATTR_LANE, getLane()->getID());
+    out.writeAttr(SUMO_ATTR_INDEX, myLastIndex);
+    out.writeAttr(SUMO_ATTR_STATE, myPassed.back() == "" 
+            ? std::vector<std::string>(myPassed.begin(), myPassed.begin() + myLastIndex)
+            // wrapped around
+            : myPassed);
+    out.closeTag();
+}
+
+void
+MSRailSignalConstraint_Predecessor::PassedTracker::loadState(int index, const std::vector<std::string>& tripIDs) {
+    raiseLimit(tripIDs.size());
+    for (int i = 0; i < (int)tripIDs.size(); i++) {
+        myPassed[i] = tripIDs[i];
+    }
+    myLastIndex = index;
+}
 
 /****************************************************************************/

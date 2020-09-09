@@ -31,6 +31,8 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
+#include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <microsim/devices/MSDevice_Routing.h>
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ToC.h>
@@ -111,6 +113,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
             }
         }
     }
+    MSNet::getInstance()->getTLSControl().saveState(out);
     out.close();
 }
 
@@ -260,6 +263,10 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
                 microVeh->loadPreviousApproaching(myCurrentLink, setRequest, arrivalTime, arrivalSpeed, arrivalTimeBraking, arrivalSpeedBraking, dist, leaveSpeed);
             }
+            break;
+        }
+        case SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER: {
+            MSRailSignalConstraint_Predecessor::loadState(attrs);
             break;
         }
         case SUMO_TAG_PARAM: {

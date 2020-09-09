@@ -33,6 +33,7 @@
 #include "MSSimpleTrafficLightLogic.h"
 #include "MSTLLogicControl.h"
 #include "MSOffTrafficLightLogic.h"
+#include "MSRailSignalConstraint.h"
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
 #include <utils/common/StringUtils.h>
@@ -816,5 +817,14 @@ MSTLLogicControl::switchOffAll() {
     }
 }
 
+void
+MSTLLogicControl::saveState(OutputDevice& out) {
+    MSRailSignalConstraint::saveState(out);
+}
+
+void
+MSTLLogicControl::clearState() {
+    MSRailSignalConstraint::clearState();
+}
 
 /****************************************************************************/

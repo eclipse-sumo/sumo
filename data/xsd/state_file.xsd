@@ -17,6 +17,7 @@
                 <xsd:element name="lane" type="laneStateType" minOccurs="0"/>
                 <xsd:element name="segment" type="segmentStateType" minOccurs="0"/>
                 <xsd:element name="vehicleTransfer" type="vehicleTransferType" minOccurs="0"/>
+                <xsd:element name="railSignalConstraintTracker" type="railSignalConstraintTrackerType" minOccurs="0"/>
             </xsd:choice>
             <xsd:attribute name="version" type="xsd:string"/>
             <xsd:attribute name="time" type="timeType"/>
@@ -160,6 +161,12 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="depart" type="xsd:int" use="required"/>
         <xsd:attribute name="parking" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="railSignalConstraintTrackerType">
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="index" type="xsd:int" use="required"/>
+        <xsd:attribute name="state" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

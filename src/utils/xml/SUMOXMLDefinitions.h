@@ -238,6 +238,8 @@ enum SumoXMLTag {
     SUMO_TAG_RAILSIGNAL_CONSTRAINTS,
     /// @brief Predecessor constraint on switching a rail signal
     SUMO_TAG_PREDECESSOR,
+    /// @brief Saved state for constraint tracker
+    SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER,
     /// @brief Link information for state-saving
     SUMO_TAG_LINK,
     /// @brief Link-approaching vehicle information for state-saving

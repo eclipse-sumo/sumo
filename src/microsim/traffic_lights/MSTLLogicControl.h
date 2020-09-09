@@ -38,6 +38,7 @@ class MSTrafficLightLogic;
 class MSLink;
 class MSLane;
 class MSPhaseDefinition;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -376,6 +377,13 @@ public:
 
     /// @brief switch all logic variants to 'off'
     void switchOffAll();
+
+    /** @brief Saves the current tls states into the given stream
+     */
+    void saveState(OutputDevice& out);
+
+    /** @brief Clear all tls states before quick-loading state */
+    void clearState();
 
 
 
