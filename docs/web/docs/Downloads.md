@@ -84,13 +84,10 @@ repositories include a nightly build as well (called sumo_nightly).
 - [Fedora 31 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_31/)
 - [Fedora 32 repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_32/)
 - [Fedora Rawhide repository](http://download.opensuse.org/repositories/home:/behrisch/Fedora_Rawhide/)
+- [CentOS 7 repository](http://download.opensuse.org/repositories/home:/behrisch/CentOS_7/)
+- [CentOS 8 repository](http://download.opensuse.org/repositories/home:/behrisch/CentOS_8/)
 
-There are [more Linux RPM
-repositories](https://build.opensuse.org/repositories/home:behrisch) but
-in a less well maintained state (CentOS and Scientific missing gdal
-support for instance) because the opensuse build service does not
-provide the necessary packages any longer. Ubuntu and Debian users
-please see the [repository information](#repositories).
+Ubuntu, Debian and Arch users please see the community repositories above.
 
 ## macOS binaries
 

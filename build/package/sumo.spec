@@ -2,7 +2,7 @@
 # spec file for package sumo
 #
 # Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
-# Copyright (c) 2001-2019 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2001-2020 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -29,8 +29,18 @@ Group:          Productivity/Scientific/Other
 URL:            https://sumo.dlr.de/
 Source0:        https://sumo.dlr.de/daily/sumo-all-%{version}.tar.gz
 BuildRequires:  gcc-c++
+%if 0%{?centos_version}
+BuildRequires:  cmake3
+%else
 BuildRequires:  cmake
+%endif
+%if 0%{?centos_version} < 800
 BuildRequires:  python
+%endif
+BuildRequires:  python3
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-devel
+BuildRequires:  swig
 %if 0%{?suse_version}
 BuildRequires:  python-xml
 %endif
@@ -40,13 +50,9 @@ BuildRequires:  unzip
 BuildRequires:  pkgconfig(fox)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xerces-c)
-%if 0%{?fedora_version} || 0%{?suse_version}
 BuildRequires:  fdupes
 BuildRequires:  pkgconfig(gdal)
-%endif
-%if 0%{?fedora_version} || 0%{?centos_version} || 0%{?scientificlinux_version} || 0%{?suse_version}
 BuildRequires:  pkgconfig(proj)
-%endif
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version} || 0%{?scientificlinux_version}
 BuildRequires:  libGLU-devel
 BuildRequires:  libjpeg-devel
@@ -72,30 +78,46 @@ Group:          Development/Libraries/C and C++
 libsumocpp provides the C++-API for adding traffic simulation
 functionality to your own application.
 
-%if 0%{?fedora_version}
+%package -n python3-libsumo
+Summary:        libsumo Python3 module
+Requires:       %{name} = %{version}-%{release}
+Provides:       python3-%{name} = %{version}
+Obsoletes:      python3-%{name} < %{version}
+
+%description -n python3-libsumo
+The libsumo python module provides support to connect to and remote control a running sumo simulation.
+
+%if 0%{?fedora_version} || 0%{?centos_version}
 %global debug_package %{nil}
 %endif
 
 %prep
 %setup -q
 # Use real shebang
-%if 0%{?fedora_version} > 28
-find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python2,'
+%if 0%{?fedora_version} > 28 || 0%{?centos_version} >= 800
+find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python3,'
 %else
 find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python,'
 %endif
+find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python3$,#!%{_bindir}/python3,'
 
 %build
 mkdir cmake-build
 cd cmake-build
-cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr ..
+%if 0%{?centos_version}
+cmake3 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+%else
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+%endif
 make %{?_smp_mflags}
 make %{?_smp_mflags} man
+
 
 %install
 cd cmake-build
 %make_install
 cd ..
+rm -rf %{buildroot}%{_datadir}/sumo/tools/libsumo 
 ln -s %{_datadir}/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
 ln -s %{_datadir}/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard.py
 ln -s %{_datadir}/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
@@ -111,12 +133,11 @@ install -p -m 644 build/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
 %if 0%{?suse_version}
 install -d -m 755 %{buildroot}%{_datadir}/mime/application
 install -p -m 644 build/package/%{name}.xml %{buildroot}%{_datadir}/mime/application/%{name}.xml
-%fdupes -s docs
-%fdupes %{buildroot}
 %endif
+%fdupes %{buildroot}%{_datadir}
 
-#%check
-#cd cmake-build
+%check
+cd cmake-build
 #make %{?_smp_mflags} test
 
 %post -n libsumocpp -p /sbin/ldconfig
@@ -147,5 +168,15 @@ install -p -m 644 build/package/%{name}.xml %{buildroot}%{_datadir}/mime/applica
 %license LICENSE
 %endif
 %{_libdir}/libsumocpp.so
+
+%files -n python3-libsumo
+%if 0%{?suse_version} < 1500
+%doc LICENSE
+%else
+%license LICENSE
+%endif
+%{python3_sitelib}/sumolib*/
+%{python3_sitelib}/traci*/
+%{python3_sitearch}/libsumo*/
 
 %changelog
