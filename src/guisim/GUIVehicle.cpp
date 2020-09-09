@@ -332,6 +332,9 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
     }
     Position front, back;
     double angle = 0.;
+    // position parking vehicle beside the road or track
+    const double lateralOffset = isParking() ? (SUMO_const_laneWidth * (MSGlobals::gLefthand ? -1 : 1)) : 0;
+
     // draw individual carriages
     double curCLength = firstCarriageLength;
     //std::cout << SIMTIME << " veh=" << getID() << " curCLength=" << curCLength << " loc=" << locomotiveLength << " car=" << carriageLength << " tlen=" << totalLength << " len=" << length << "\n";
@@ -359,8 +362,8 @@ GUIVehicle::drawAction_drawCarriageClass(const GUIVisualizationSettings& s, bool
             }
             backLane = prev;
         }
-        front = lane->geometryPositionAtOffset(carriageOffset);
-        back = backLane->geometryPositionAtOffset(carriageBackOffset);
+        front = lane->geometryPositionAtOffset(carriageOffset, lateralOffset);
+        back = backLane->geometryPositionAtOffset(carriageBackOffset, lateralOffset);
         if (front == back) {
             // no place for drawing available
             continue;
