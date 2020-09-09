@@ -393,7 +393,8 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
                     if (foeLink->getApproaching().size() != 0) {
                         Approaching closest = getClosest(foeLink);
                         const SUMOVehicle* veh = closest.first;
-                        if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
+                        if (veh->getSpeed() > 0 && closest.second.arrivalSpeedBraking > 0
+                                && std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
 #ifdef DEBUG_SIGNALSTATE
                             if (DEBUG_HELPER(rs)) std::cout << " oncoming vehicle approaching foe link " << foeLink->getDescription() << "\n";
 #endif
