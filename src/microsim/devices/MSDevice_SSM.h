@@ -15,6 +15,7 @@
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Leonhard Luecken
+/// @author  Mirko Barthauer
 /// @date    11.06.2013
 ///
 // An SSM-device logs encounters / conflicts of the carrying vehicle with other surrounding vehicles.
@@ -376,6 +377,11 @@ public:
      */
     static const std::set<MSDevice_SSM*, ComparatorNumericalIdLess>& getInstances();
 
+    /// @brief return the edges where the SSM device should scan
+    static const std::set<const MSEdge*>& getEdgeFilter() {
+        return myEdgeFilter;
+    }
+
     /** @brief This is called once per time step in MSNet::writeOutput() and
      *         collects the surrounding vehicles, updates information on encounters
      *         and flushes the encounters qualified as conflicts (@see thresholds)
@@ -690,6 +696,10 @@ private:
                                          std::map<std::string, double>& thresholds);
     ///@}
 
+    /// @brief initialize edge filter (once)
+    static void initEdgeFilter();
+
+
 private:
     /// @name Device parameters
     /// @{
@@ -739,6 +749,11 @@ private:
     std::pair<std::pair<std::pair<double, Position>, double>, std::string>  myMinTGAP;
     /// @}
     /// @}
+
+    /// @brief spatial filter for SSM device output
+    static std::set<const MSEdge*> myEdgeFilter;
+    static bool myEdgeFilterInitialized;
+    static bool myEdgeFilterActive;
 
     /// Output device
     OutputDevice* myOutputFile;
