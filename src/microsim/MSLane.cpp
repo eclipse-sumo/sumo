@@ -770,6 +770,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
 #endif
             if (currentLane == this && MSRailSignal::hasOncomingRailTraffic(*link)) {
                 // allow guarding bidirectional tracks at the network border with railSignal
+#ifdef DEBUG_INSERTION
+                if DEBUG_COND2(aVehicle) std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
+#endif
                 return false;
             }
             break;

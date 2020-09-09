@@ -372,6 +372,9 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
                 //std::cout << SIMTIME <<< " hasOncomingRailTraffic link=" << getTLLinkID(link) << " dwRoute=" << toString(dw.myRoute) << " bidi=" << toString(dw.myBidi) << "\n";
                 for (MSLane* lane : dw.myBidi) {
                     if (!lane->isEmpty()) {
+#ifdef DEBUG_SIGNALSTATE
+                        if (DEBUG_HELPER(rs)) std::cout << " oncoming vehicle on bidi-lane " << lane->getID() << "\n";;
+#endif
                         return true;
                     }
                 }
@@ -379,6 +382,9 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
                     if (!lane->isEmpty()) {
                         MSVehicle* veh = lane->getFirstAnyVehicle();
                         if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
+#ifdef DEBUG_SIGNALSTATE
+                            if (DEBUG_HELPER(rs)) std::cout << " oncoming vehicle on flank-lane " << lane->getID() << "\n";;
+#endif
                             return true;
                         }
                     }
@@ -388,6 +394,9 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
                         Approaching closest = getClosest(foeLink);
                         const SUMOVehicle* veh = closest.first;
                         if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
+#ifdef DEBUG_SIGNALSTATE
+                            if (DEBUG_HELPER(rs)) std::cout << " oncoming vehicle approaching foe link " << foeLink->getDescription() << "\n";
+#endif
                             return true;
                         }
                     }
