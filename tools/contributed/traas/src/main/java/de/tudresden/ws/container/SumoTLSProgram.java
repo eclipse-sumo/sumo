@@ -42,8 +42,8 @@ public class SumoTLSProgram implements SumoObject {
     public SumoTLSProgram() {
 
         this.subID = "unknown";
-        this.type = -1;
-        this.currentPhaseIndex = -1;
+        this.type = SumoTrafficLightType.STATIC.getIndex();
+        this.currentPhaseIndex = 0;
         this.phases = new ArrayList<SumoTLSPhase>();
         this.params = new HashMap<String, String>();
     }

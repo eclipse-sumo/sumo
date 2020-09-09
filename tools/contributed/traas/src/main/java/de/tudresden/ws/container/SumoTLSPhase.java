@@ -44,7 +44,7 @@ public class SumoTLSPhase implements SumoObject {
         this.minDur = 0;
         this.maxDur = 0;
         this.phasedef = "r";
-        this.name = "";
+        this.name = "phase";
         this.next = new ArrayList<Integer>();
 
     }
@@ -66,11 +66,20 @@ public class SumoTLSPhase implements SumoObject {
         this.minDur = duration;
         this.maxDur = duration;
         this.phasedef = phasedef;
-        this.name = "";
+        this.name = "phase";
         this.next = new ArrayList<Integer>();
-
     }
 
+    public SumoTLSPhase(int duration, String phasedef, String name) {
+
+        this.duration = duration;
+        this.minDur = duration;
+        this.maxDur = duration;
+        this.phasedef = phasedef;
+        this.name = name;
+        this.next = new ArrayList<Integer>();
+    }
+    
     public String toString() {
         return this.phasedef + "#" + this.duration + "#" + this.minDur + "#" + this.maxDur + "#" + this.next + "#" + this.name;
     }
