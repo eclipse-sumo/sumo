@@ -54,6 +54,7 @@
 /bin/testmicrosim*
 /bin/testnetbuild*
 /bin/testlibsumo*
+/bin/testthreadpool*
 /bin/*.dll
 /bin/*.so
 /bin/*.pyd

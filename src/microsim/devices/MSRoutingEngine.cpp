@@ -333,6 +333,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
         railRouter = new RailwayRouter<MSEdge, SUMOVehicle>(MSEdge::getAllEdges(), true, myEffortFunc, nullptr, false, true, false, oc.getFloat("railway.max-train-length"));
     }
     myRouterProvider = new MSRouterProvider(router, nullptr, nullptr, railRouter);
+#ifndef THREAD_POOL
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
@@ -344,6 +345,7 @@ MSRoutingEngine::initRouter(SUMOVehicle* vehicle) {
         }
     }
 #endif
+#endif
 }
 
 
@@ -354,12 +356,14 @@ MSRoutingEngine::reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const
         initRouter(&vehicle);
     }
     auto& router = myRouterProvider->getVehicleRouter(vehicle.getVClass());
+#ifndef THREAD_POOL
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
         threadPool.add(new RoutingTask(vehicle, currentTime, info, onInit, silent, prohibited));
         return;
     }
+#endif
 #endif
     if (!prohibited.empty()) {
         router.prohibit(prohibited);
@@ -393,6 +397,7 @@ MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const MSE
         initEdgeWeights(svc);
         initRouter();
     }
+#ifndef THREAD_POOL
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
@@ -400,6 +405,7 @@ MSRoutingEngine::getRouterTT(const int rngIndex, SUMOVehicleClass svc, const MSE
         router.prohibit(prohibited);
         return router;
     }
+#endif
 #endif
     myRouterProvider->getVehicleRouter(svc).prohibit(prohibited);
     return myRouterProvider->getVehicleRouter(svc);
@@ -434,10 +440,12 @@ MSRoutingEngine::cleanup() {
 #ifdef HAVE_FOX
 void
 MSRoutingEngine::waitForAll() {
+#ifndef THREAD_POOL
     FXWorkerThread::Pool& threadPool = MSNet::getInstance()->getEdgeControl().getThreadPool();
     if (threadPool.size() > 0) {
         threadPool.waitAll();
     }
+#endif
 }
 
 

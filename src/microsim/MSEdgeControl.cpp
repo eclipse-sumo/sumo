@@ -46,7 +46,11 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
       myWithVehicles2Integrate(MSGlobals::gNumSimThreads > 1),
       myLastLaneChange(MSEdge::dictSize()),
       myInactiveCheckCollisions(MSGlobals::gNumSimThreads > 1),
-      myMinLengthGeometryFactor(1.) {
+      myMinLengthGeometryFactor(1.)
+#ifdef THREAD_POOL
+      , myThreadPool(false, std::vector<int>(MSGlobals::gNumThreads, 0))
+#endif
+       {
     // build the usage definitions for lanes
     for (MSEdge* const edge : myEdges) {
         const std::vector<MSLane*>& lanes = edge->getLanes();
@@ -67,6 +71,7 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
             myLastLaneChange[edge->getNumericalID()] = -1;
         }
     }
+#ifndef THREAD_POOL
 #ifdef HAVE_FOX
     if (MSGlobals::gNumThreads > 1) {
         while (myThreadPool.size() < MSGlobals::gNumThreads) {
@@ -74,12 +79,15 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
         }
     }
 #endif
+#endif
 }
 
 
 MSEdgeControl::~MSEdgeControl() {
+#ifndef THREAD_POOL
 #ifdef HAVE_FOX
     myThreadPool.clear();
+#endif
 #endif
 }
 
@@ -105,11 +113,8 @@ MSEdgeControl::patchActiveLanes() {
 
 void
 MSEdgeControl::planMovements(SUMOTime t) {
-#ifdef LOAD_BALANCING
-    myRNGLoad = std::priority_queue<std::pair<int, int> >();
-    for (int i = 0; i < MSLane::getNumRNGs(); i++) {
-        myRNGLoad.emplace(0, i);
-    }
+#ifdef THREAD_POOL
+    std::vector<std::future<void>> results;
 #endif
     for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
         const int vehNum = (*i)->getVehicleNumber();
@@ -117,13 +122,13 @@ MSEdgeControl::planMovements(SUMOTime t) {
             myLanes[(*i)->getNumericalID()].amActive = false;
             i = myActiveLanes.erase(i);
         } else {
-#ifdef LOAD_BALANCING
-            std::pair<int, int> minRNG = myRNGLoad.top();
-            (*i)->setRNGIndex(minRNG.second);
-            myRNGLoad.pop();
-            minRNG.first -= vehNum;
-            myRNGLoad.push(minRNG);
-#endif
+#ifdef THREAD_POOL
+            if (MSGlobals::gNumSimThreads > 1) {
+                results.push_back(myThreadPool.executeAsync([i,t](int) { (*i)->planMovements(t);}, (*i)->getRNGIndex() % MSGlobals::gNumSimThreads));
+                ++i;
+                continue;
+            }
+#else
 #ifdef HAVE_FOX
             if (MSGlobals::gNumSimThreads > 1) {
                 myThreadPool.add((*i)->getPlanMoveTask(t), (*i)->getRNGIndex() % myThreadPool.size());
@@ -131,14 +136,21 @@ MSEdgeControl::planMovements(SUMOTime t) {
                 continue;
             }
 #endif
+#endif
             (*i)->planMovements(t);
             ++i;
         }
     }
+#ifdef THREAD_POOL
+    for(auto& r : results) {
+        r.get();
+    }
+#else
 #ifdef HAVE_FOX
     if (MSGlobals::gNumSimThreads > 1) {
         myThreadPool.waitAll(false);
     }
+#endif
 #endif
 }
 
@@ -155,27 +167,26 @@ void
 MSEdgeControl::executeMovements(SUMOTime t) {
     std::vector<MSLane*> wasActive(myActiveLanes.begin(), myActiveLanes.end());
     myWithVehicles2Integrate.clear();
-#ifdef HAVE_FOX
 #ifdef PARALLEL_EXEC_MOVE
+#ifdef THREAD_POOL
+    std::vector<std::future<void>> results;
     if (MSGlobals::gNumSimThreads > 1) {
-#ifdef LOAD_BALANCING
-        myRNGLoad = std::priority_queue<std::pair<int, int> >();
-        for (int i = 0; i < MSLane::getNumRNGs(); i++) {
-            myRNGLoad.emplace(0, i);
-        }
-#endif
         for (MSLane* const lane : myActiveLanes) {
-#ifdef LOAD_BALANCING
-            std::pair<int, int> minRNG = myRNGLoad.top();
-            lane->setRNGIndex(minRNG.second);
-            myRNGLoad.pop();
-            minRNG.first -= lane->getVehicleNumber();
-            myRNGLoad.push(minRNG);
-#endif
+            results.push_back(myThreadPool.executeAsync([lane,t](int) { lane->executeMovements(t);}, lane->getRNGIndex() % MSGlobals::gNumSimThreads));
+        }
+        for(auto& r : results) {
+            r.get();
+        }
+    }
+#else
+#ifdef HAVE_FOX
+    if (MSGlobals::gNumSimThreads > 1) {
+        for (MSLane* const lane : myActiveLanes) {
             myThreadPool.add(lane->getExecuteMoveTask(t), lane->getRNGIndex() % myThreadPool.size());
         }
         myThreadPool.waitAll(false);
     }
+#endif
 #endif
 #endif
     for (std::list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end();) {
