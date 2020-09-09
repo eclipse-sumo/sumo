@@ -34,9 +34,6 @@ BuildRequires:  cmake3
 %else
 BuildRequires:  cmake
 %endif
-%if 0%{?centos_version} < 800
-BuildRequires:  python
-%endif
 BuildRequires:  python3
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-devel
