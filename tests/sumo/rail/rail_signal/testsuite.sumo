@@ -88,3 +88,6 @@ siding_deadend
 
 # two stopped trains on parallel tracks must enter the same section
 stopped_link_conflict
+
+# a stopped train on parallel track should not block a train without stop from entering the subsequent section
+stopped_link_conflict2
