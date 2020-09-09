@@ -179,7 +179,7 @@ permalink: /ChangeLog/
 
 - sumo-gui
   - Improved visualization of long vehicles (i.e. trains) when zoomed out (length/width ratio reduces with zoom). Issue #6745
-  - A color legend for vehicle colors can no be enabled via the 'Legend' tab. Issue #6930
+  - A color legend for vehicle colors can now be enabled via the 'Legend' tab. Issue #6930
   - Vehicles can now be stopped and stops can be aborted via context menu.
   - The hiding-treshold for edge coloring can now also hide edge color value labels (to avoid clutter from irrelevant numbers). Issue #7140
   - Added locator menu entry for containers. Issue #7324
@@ -198,7 +198,7 @@ permalink: /ChangeLog/
   - There is a new emission model "Zero" replacing "HBEFA*/zero" etc. Furthermore the default emission class for a model can now be chosen using something like "HBEFA3/default". Issue #7098
 
 - TraCI
-  - Added new function *simulation.loadState* for quick-loading simulation a saved state. Issue #6201
+  - Added new function *simulation.loadState* for quick-loading a saved simulation state. Issue #6201
   - Added new optional 'reason' argument to *vehicle.moveTo* which controls how the vehicle interacts with detectors. By default, vehicles will be registered by detectors if the moveTo distance is physically plausible. Issue #3318. 
   - Added new function *vehicle.getStops*. This can be used to retrieve the next or last n stops. The method returns a list of stop objects with extended attributes. Issue #7015, #7249, #7117, #7452
   - Added functionality for retrieving lane, position and stopped vehicles for traci domains 'busstop', 'parkingarea', 'chargingstation' and 'overheadwire'. Issue #5952, #7099
