@@ -42,7 +42,7 @@ permalink: /ChangeLog/
   - Fixed invali error when doing parallel routing with algorithm 'astar'. Issue #7248
   - Fixed invalid taxi states when two customers exit on the same edge. Issue #7257
   - Fixed crash when using routing algorithm CH with taxis. Issue #7256
-  - Person rides with a specified arrivalPos now longer exit their vehicle prematurely. Issue #7258
+  - Person rides with a specified arrivalPos no longer exit their vehicle prematurely. Issue #7258
   - Person ride arrivalPos and stoppingPlace are now included in vehroute-output. Issue #7260, #7261
   - Fixed invalid vehicle angle when using option **--lanechange-duration** with low values of 'maxSpeedLat'. Issue #7263
   - Fixed bug where vehicles would stop at [waypoints](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#waypoints). Issue #7377, #7419
@@ -202,12 +202,12 @@ permalink: /ChangeLog/
   - Added new optional 'reason' argument to *vehicle.moveTo* which controls how the vehicle interacts with detectors. By default, vehicles will be registered by detectors if the moveTo distance is physically plausible. Issue #3318. 
   - Added new function *vehicle.getStops*. This can be used to retrieve the next or last n stops. The method returns a list of stop objects with extended attributes. Issue #7015, #7249, #7117, #7452
   - Added functionality for retrieving lane, position and stopped vehicles for traci domains 'busstop', 'parkingarea', 'chargingstation' and 'overheadwire'. Issue #5952, #7099
-  - The python client now supports the optional argument 'traceFile' in function traci.start which records all traci commands to the given file (also works for libsumo.start). The optional boolean argumet 'traceGetters' can be used to switch of tracing of data retrieval functions. Issue#6604, #7481
-  - Added function 'vehicle.replaceStop' which replace the upcoming stop with the given index and automatically adapts the route to the new stop edge. Issue #7226
+  - The python client now supports the optional argument 'traceFile' in function traci.start which records all traci commands to the given file (also works for libsumo.start). The optional boolean argument 'traceGetters' can be used to switch off tracing of data retrieval functions. Issue#6604, #7481
+  - Added function 'vehicle.replaceStop' which replaces the upcoming stop with the given index and automatically adapts the route to the new stop edge. Issue #7226
   - Added function 'vehicle.getFollower' which works like getLeader but looks backwards. Issue #7107
   - Retrieval of prior person stages now includes departure time and travel time. Issue #7274
   - Added 'simulation.getVersion' to libsumo and C++ client. Issue #7282
-  - Function ['person.moveToXY'](TraCI/Change_Person_State.md#move_to_xy_0xb4) is now officially supported whenever a person is walking or stopped. It can be used to move a person to an arbitrary place and will updated the route accordingly. Issue #2872, #7367, #7382
+  - Function ['person.moveToXY'](TraCI/Change_Person_State.md#move_to_xy_0xb4) is now officially supported whenever a person is walking or stopped. It can be used to move a person to an arbitrary place and will update the route accordingly. Issue #2872, #7367, #7382
   - Added function 'person.getLaneID'. Issue #7394
   - Added function 'gui.track' which can be used to track persons. Issue #7400
   - Added functions 'routeprobe.sampleLastRouteID' and 'traci.routeprobe.sampleCurrentRouteID'. Issue #6109
