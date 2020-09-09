@@ -94,3 +94,6 @@ junctionTaz
 # use fromJunction and toJunction with flows
 junctionTaz_flow
 junctionTaz_validate
+
+# prevent some edge types from being used as source or destination
+viaEdgeType
