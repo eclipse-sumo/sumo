@@ -1,0 +1,4 @@
+--no-step-log --no-duration-log -v --net-file=net.net.xml
+-a input_additional.add.xml,input_additional2.add.xml
+--tripinfo-output tripinfos.xml
+--load-state input_state.xml

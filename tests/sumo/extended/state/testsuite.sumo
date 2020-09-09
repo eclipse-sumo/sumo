@@ -114,3 +114,9 @@ save_on_rail_signal
 
 # load state of a railway simulation
 load_on_rail_signal
+
+# save state of a railway simulation including constraint tracking
+save_rail_signal_constraint
+
+# load state of a railway simulation including constraint tracking
+load_rail_signal_constraint
