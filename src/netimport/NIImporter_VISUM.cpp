@@ -205,7 +205,7 @@ NIImporter_VISUM::load() {
                 if (line.substr(0, dataName.length()) == dataName) {
                     (*i).position = myLineReader.getPosition();
                     (*i).pattern = line.substr(dataName.length());
-                    WRITE_MESSAGE("Found: " + dataName + " at " + toString<int>(myLineReader.getPosition()));
+                    WRITE_MESSAGE("Found: " + dataName + " at line " + toString<int>(myLineReader.getLineNumber()));
                 }
             }
         }
