@@ -215,6 +215,9 @@ public:
 
     static bool hasOncomingRailTraffic(MSLink* link);
 
+    /// @brief final check for driveway compatibility of signals that switched green in this step
+    static void recheckGreen();
+
 protected:
     /// @brief whether the given vehicle is free to drive
     bool constraintsAllow(const SUMOVehicle* veh) const;
@@ -235,14 +238,18 @@ protected:
     struct DriveWay {
 
         /// @brief Constructor
-        DriveWay(int index) :
+        DriveWay(int index, bool temporary = false) :
             myIndex(index),
+            myNumericalID(temporary ? -1 : myDriveWayIndex++),
             myMaxFlankLength(0),
             myActive(nullptr)
         {}
 
         /// @brief index in the list of driveways
         int myIndex;
+
+        /// @brief global driveway index
+        int myNumericalID;
 
         /// @brief the maximum flank length searched while building this driveway
         double myMaxFlankLength;
@@ -294,7 +301,7 @@ protected:
         bool hasLinkConflict(const Approaching& closest, MSLink* foeLink) const;
 
         /// @brief Whether veh must yield to the foe train
-        bool mustYield(const Approaching& veh, const Approaching& foe) const;
+        static bool mustYield(const Approaching& veh, const Approaching& foe);
 
         /// @brief Whether any of the conflict linkes have approaching vehicles
         bool conflictLinkApproached() const;
@@ -302,8 +309,11 @@ protected:
         /// @brief find protection for the given vehicle  starting at a switch
         bool findProtection(const Approaching& veh, MSLink* link) const;
 
-        /// @brief Wether this driveway overlaps with the given one
+        /// @brief Wether this driveway (route) overlaps with the given one
         bool overlap(const DriveWay& other) const;
+
+        /// @brief Wether there is a flank conflict with the given driveway
+        bool flankConflict(const DriveWay& other) const;
 
         /// @brief Write block items for this driveway
         void writeBlocks(OutputDevice& od) const;
@@ -363,6 +373,10 @@ protected:
     /// @brief data storage for every link at this node (more than one when directly guarding a switch)
     std::vector<LinkInfo> myLinkInfos;
 
+    /* @brief retrieve driveway with the given numerical id
+     * @note: throws exception if the driveway does not exist at this rail signal */
+    const DriveWay& getDriveWay(int numericalID) const;
+
     /// @brief get the closest vehicle approaching the given link
     static Approaching getClosest(MSLink* link);
 
@@ -399,6 +413,11 @@ protected:
     std::map<std::string, std::vector<MSRailSignalConstraint*> > myConstraints;
 
     static int myNumWarnings;
+
+    /// @brief list of signals that switched green along with driveway index
+    static std::vector<std::pair<MSLink*, int> > mySwitchedGreenFlanks;
+    static std::map<std::pair<int, int>, bool> myDriveWayCompatibility;
+    static int myDriveWayIndex;
 
 protected:
     /// @brief update vehicle lists for traci calls

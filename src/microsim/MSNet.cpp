@@ -553,6 +553,7 @@ MSNet::simulationStep() {
         MSStateHandler::saveState(myStateDumpPrefix + "_" + timeStamp + myStateDumpSuffix, myStep);
     }
     myBeginOfTimestepEvents->execute(myStep);
+    MSRailSignal::recheckGreen();
 #ifdef HAVE_FOX
     MSRoutingEngine::waitForAll();
 #endif
