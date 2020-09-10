@@ -518,6 +518,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "jmIgnoreFoeSpeed",       SUMO_ATTR_JM_IGNORE_FOE_SPEED },
     { "jmIgnoreFoeProb",        SUMO_ATTR_JM_IGNORE_FOE_PROB },
     { "jmSigmaMinor",           SUMO_ATTR_JM_SIGMA_MINOR },
+    { "jmStoplineGap",          SUMO_ATTR_JM_STOPLINE_GAP },
     { "jmTimegapMinor",         SUMO_ATTR_JM_TIMEGAP_MINOR },
 
     { "last",                   SUMO_ATTR_LAST },

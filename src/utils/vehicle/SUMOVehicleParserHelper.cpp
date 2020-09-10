@@ -1323,6 +1323,7 @@ SUMOVehicleParserHelper::parseJMParams(SUMOVTypeParameter& into, const SUMOSAXAt
         allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_FOE_SPEED);
         allowedJMAttrs.insert(SUMO_ATTR_JM_IGNORE_FOE_PROB);
         allowedJMAttrs.insert(SUMO_ATTR_JM_SIGMA_MINOR);
+        allowedJMAttrs.insert(SUMO_ATTR_JM_STOPLINE_GAP);
         allowedJMAttrs.insert(SUMO_ATTR_JM_TIMEGAP_MINOR);
     }
     bool ok = true;
