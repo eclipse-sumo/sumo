@@ -685,6 +685,7 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
                         << "  aT=" << veh.second.arrivalTime << " foeAT=" << foe.second.arrivalTime
                         << "  aS=" << veh.first->getSpeed() << " foeS=" << foe.first->getSpeed()
                         << "  aD=" << veh.second.dist << " foeD=" << foe.second.dist
+                        << "  aN=" << veh.first->getNumericalID() << " foeN=" << foe.first->getNumericalID()
                         << "\n";
             }
 #endif
