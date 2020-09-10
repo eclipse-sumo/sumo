@@ -805,13 +805,13 @@ MSLaneChanger::checkChange(
         }
     }
     if (blocked == 0 && targetLane->hasPedestrians()) {
-        PersonDist leader = targetLane->nextBlocking(vehicle->getBackPositionOnLane(),
+        PersonDist nextLeader = targetLane->nextBlocking(vehicle->getBackPositionOnLane(),
                             vehicle->getRightSideOnLane(), vehicle->getRightSideOnLane() + vehicle->getVehicleType().getWidth(),
                             ceil(vehicle->getSpeed() / vehicle->getCarFollowModel().getMaxDecel()));
-        if (leader.first != 0) {
+        if (nextLeader.first != 0) {
             const double brakeGap = vehicle->getCarFollowModel().brakeGap(vehicle->getSpeed());
             // returned gap value is relative to backPosition
-            const double gap = leader.second - vehicle->getVehicleType().getLengthWithGap();
+            const double gap = nextLeader.second - vehicle->getVehicleType().getLengthWithGap();
 #ifdef DEBUG_CHECK_CHANGE
             if (DEBUG_COND) {
                 std::cout << SIMTIME << "  pedestrian on road " + leader.first->getID() << " gap=" << gap << " brakeGap=" << brakeGap << "\n";
@@ -954,15 +954,15 @@ MSLaneChanger::checkChange(
                 nextLane = vehicle->getLane();
                 view = 1;
                 const double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
-                MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
-                while (!nextLane->isLinkEnd(link) && seen <= space2change && seen <= dist) {
-                    nextLane = (*link)->getViaLaneOrLane();
-                    MSLane* targetLane = nextLane->getParallelLane(laneOffset);
-                    if (targetLane == nullptr) {
+                MSLinkCont::const_iterator nextLink = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+                while (!nextLane->isLinkEnd(nextLink) && seen <= space2change && seen <= dist) {
+                    nextLane = (*nextLink)->getViaLaneOrLane();
+                    const MSLane* const parallelLane = nextLane->getParallelLane(laneOffset);
+                    if (parallelLane == nullptr) {
                         state |= LCA_INSUFFICIENT_SPACE;
                         break;
                     } else {
-                        std::pair<MSVehicle* const, double> neighLead2 = targetLane->getLeader(vehicle, -seen, std::vector<MSLane*>());
+                        std::pair<MSVehicle* const, double> neighLead2 = parallelLane->getLeader(vehicle, -seen, std::vector<MSLane*>());
                         if (neighLead2.first != nullptr && neighLead2.first != neighLead.first
                                 && (neighLead2.second < vehicle->getCarFollowModel().getSecureGap(vehicle, neighLead2.first,
                                         vehicle->getSpeed(), neighLead2.first->getSpeed(), neighLead2.first->getCarFollowModel().getMaxDecel()))) {
@@ -970,12 +970,12 @@ MSLaneChanger::checkChange(
                             break;
                         }
                     }
-                    if ((*link)->getViaLane() == nullptr) {
+                    if ((*nextLink)->getViaLane() == nullptr) {
                         view++;
                     }
                     seen += nextLane->getLength();
                     // get the next link used
-                    link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+                    nextLink = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
                 }
             }
         }

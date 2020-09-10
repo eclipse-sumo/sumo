@@ -1569,7 +1569,7 @@ GNERouteHandler::closeRoute(const bool /* mayBeDisconnected */) {
             GNEDemandElement* vType = myNet->retrieveDemandElement(SUMO_TAG_VTYPE, myVehicleParameter->vtypeid, false);
             if (vType == nullptr) {
                 WRITE_ERROR("Invalid vehicle type '" + myVehicleParameter->vtypeid + "' used in " + toString(myVehicleParameter->tag) + " '" + myVehicleParameter->id + "'.");
-            } else if (myVehicleParameter->wasSet(VEHPARS_DEPARTLANE_SET) && (myVehicleParameter->departLaneProcedure == DepartLaneDefinition::GIVEN) && (myRouteParameter.edges.front()->getLanes().size() < myVehicleParameter->departLane)) {
+            } else if (myVehicleParameter->wasSet(VEHPARS_DEPARTLANE_SET) && (myVehicleParameter->departLaneProcedure == DepartLaneDefinition::GIVEN) && ((int)myRouteParameter.edges.front()->getLanes().size() < myVehicleParameter->departLane)) {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTLANE) + " used in " + toString(myVehicleParameter->tag) + " '" + myVehicleParameter->id + "'. " + toString(myVehicleParameter->departLane) + " is greater than number of lanes");
             } else if (myVehicleParameter->wasSet(VEHPARS_DEPARTSPEED_SET) && (myVehicleParameter->departSpeedProcedure == DepartSpeedDefinition::GIVEN) && (vType->getAttributeDouble(SUMO_ATTR_MAXSPEED) < myVehicleParameter->departSpeed)) {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_DEPARTSPEED) + " used in " + toString(myVehicleParameter->tag) + " '" + myVehicleParameter->id + "'. " + toString(myVehicleParameter->departSpeed) + " is greater than vType" + toString(SUMO_ATTR_MAXSPEED));

@@ -235,14 +235,14 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, double gap, double latOffs
     }
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
-    for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
-        if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
-                && gap < myDistances[sublane]) {
-            if (myVehicles[sublane] == 0) {
+    for (int sublaneIdx = rightmost; sublaneIdx <= leftmost; ++sublaneIdx) {
+        if ((egoRightMost < 0 || (egoRightMost <= sublaneIdx && sublaneIdx <= egoLeftMost))
+                && gap < myDistances[sublaneIdx]) {
+            if (myVehicles[sublaneIdx] == 0) {
                 myFreeSublanes--;
             }
-            myVehicles[sublane] = veh;
-            myDistances[sublane] = gap;
+            myVehicles[sublaneIdx] = veh;
+            myDistances[sublaneIdx] = gap;
             myHasVehicles = true;
         }
     }
@@ -353,22 +353,22 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     }
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
-    for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
-        if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
+    for (int sublaneIdx = rightmost; sublaneIdx <= leftmost; ++sublaneIdx) {
+        if ((egoRightMost < 0 || (egoRightMost <= sublaneIdx && sublaneIdx <= egoLeftMost))
                 // overlapping vehicles are stored preferably
                 // among those vehicles with missing gap, closer ones are preferred
-                && (missingGap > myMissingGaps[sublane]
-                    || (missingGap > 0 && gap < myDistances[sublane])
-                    || (gap < 0 && myDistances[sublane] > 0))
-                && !(gap > 0 && myDistances[sublane] < 0)
-                && !(myMissingGaps[sublane] > 0 && myDistances[sublane] < gap)
+                && (missingGap > myMissingGaps[sublaneIdx]
+                    || (missingGap > 0 && gap < myDistances[sublaneIdx])
+                    || (gap < 0 && myDistances[sublaneIdx] > 0))
+                && !(gap > 0 && myDistances[sublaneIdx] < 0)
+                && !(myMissingGaps[sublaneIdx] > 0 && myDistances[sublaneIdx] < gap)
            ) {
-            if (myVehicles[sublane] == 0) {
+            if (myVehicles[sublaneIdx] == 0) {
                 myFreeSublanes--;
             }
-            myVehicles[sublane] = veh;
-            myDistances[sublane] = gap;
-            myMissingGaps[sublane] = missingGap;
+            myVehicles[sublaneIdx] = veh;
+            myDistances[sublaneIdx] = gap;
+            myMissingGaps[sublaneIdx] = missingGap;
             myHasVehicles = true;
         }
     }
