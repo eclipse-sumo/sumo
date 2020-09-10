@@ -17,7 +17,7 @@ may be visualized using [sumo-gui](sumo-gui.md).
 
 ## Features
 
-- Imports OSM, VISUM, Elmar, XML, ArcView shape files
+- Imports OSM, VISUM, dlr-navteq, XML, ArcView shape files
 - per-type import settings
 - projections using a given proj.4-definition or via a matching
   network
