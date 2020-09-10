@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep  1 13:06:03 2020 by Eclipse SUMO sumo Version v1_6_0+1862-58a0549474
+<!-- generated on Thu Sep 10 17:36:00 2020 by Eclipse SUMO sumo Version v1_7_0+0035-5d14e96350
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -13,17 +13,17 @@
     </report>
 
     <traci_server>
-        <remote-port value="50863"/>
+        <remote-port value="55555"/>
     </traci_server>
 
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_6_0+1862-58a0549474" time="500.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+0035-5d14e96350" time="500.00">
     <route id="r1" state="1" edges="CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS SC"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
     <vType id="bus" vClass="bus"/>
-    <vehicle id="bus" type="bus" depart="0.00" line="B7" route="r1" speedFactor="1.00" state="0 11 12.10 16000 499000 0 6" pos="91.94" speed="0.00" posLat="0.00">
+    <vehicle id="bus" type="bus" depart="0.00" line="B7" route="r1" speedFactor="1.00" state="17410 0 11 12.10 16000 358.58 499000 0 6" pos="91.94" speed="0.00" posLat="0.00">
         <stop lane="NC_0" duration="10.00" until="20.00" actualArrival="25.00" depart="35.00"/>
         <stop lane="SC_0" duration="8.00" until="80.00" actualArrival="114.00" depart="122.00"/>
         <stop lane="NC_0" duration="10.00" until="140.00" actualArrival="203.00" depart="213.00"/>
