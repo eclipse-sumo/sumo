@@ -89,7 +89,8 @@ def main(options):
     print("Parsed %s actual stops at %s locations" % (output_stops, len(actual_departs)))
 
     missing = defaultdict(list)
-    for stopCode, vehicles in expected_departs.items():
+    for stopCode in sorted(expected_departs.keys()):
+        vehicles = expected_departs[stopCode]
         if stopCode in actual_departs:
             actual_vehicles = actual_departs[stopCode]
             comparable_expected = []
