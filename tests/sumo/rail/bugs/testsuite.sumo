@@ -33,3 +33,6 @@ deadlock_bidi_reversal2
 # stopped vehicles should not block insertion if they are approaching a foe signal
 # 
 insertion_at_signal
+
+# foe vehicles must be correctly identified beyond switches that could give protection
+merge_check_flank_switch
