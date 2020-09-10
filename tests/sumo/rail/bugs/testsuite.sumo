@@ -26,7 +26,7 @@ stopped_at_signal2
 deadlock_bidi_reversal
 
 # vehicle train1 enters the branch and can only leave it by turning around. Rail signal guarding the branch should not let train2 enter to avoid deadlock
-#
+# 
 # (as above but with a longer branch that exceeds the approach-information range)
 deadlock_bidi_reversal2
 
@@ -36,3 +36,6 @@ insertion_at_signal
 
 # foe vehicles must be correctly identified beyond switches that could give protection
 merge_check_flank_switch
+
+# foe vehicles must be correctly identified beyond switches that could give protection (trains driving in opposite directions)
+merge_check_flank_switch2
