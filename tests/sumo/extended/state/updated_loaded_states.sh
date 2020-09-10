@@ -20,32 +20,10 @@ cp save_actionStepLength/state.sumo.meso load_and_save_actionStepLength/input_me
 cp save_actionStepLength2/state.sumo load_and_save_actionStepLength2/input_state.xml
 cp save_actionStepLength2/state.sumo.meso load_and_save_actionStepLength2/input_meso_state.xml
 
-cp save_flow/state.sumo load_flow/input_state.xml
-cp save_flow/state.sumo.meso load_flow/input_meso_state.xml
-
-cp save_parking/state.sumo load_parking/input_state.xml
-cp save_parking/state.sumo.meso load_parking/input_meso_state.xml
-
-cp save_parking_busStop/state.sumo load_parking_busStop/input_state.xml
-cp save_parking_busStop/state.sumo.meso load_parking_busStop/input_meso_state.xml
-
-cp save_parking_busstop/state.sumo load_parking/input_state.xml
-cp save_parking_busstop/state.sumo.meso load_parking/input_meso_state.xml
-
-cp save_stopped/state.sumo load_stopped/input_state.xml
-cp save_stopped/state.sumo.meso load_stopped/input_meso_state.xml
-
-cp save_cyclic_stops/state.sumo load_cyclic_stops/input_state.xml
-cp save_cyclic_stops/state.sumo.meso load_cyclic_stops/input_meso_state.xml
-
-cp save_rng/state.sumo load_rng/input_state.xml
-cp save_rng/state.sumo.meso load_rng/input_meso_state.xml
-
-cp save_rail_signal/state.sumo load_rail_signal/input_state.xml
-cp save_rail_signal/state.sumo.meso load_rail_signal/input_meso_state.xml
-
-cp save_on_rail_signal/state.sumo load_on_rail_signal/input_state.xml
-cp save_on_rail_signal/state.sumo.meso load_on_rail_signal/input_meso_state.xml
+for f in flow parking parking_busStop stopped cyclic_stops rng rail_signal on_rail_signal rail_signal_constraint; do
+    cp save_$f/state.sumo load_$f/input_state.xml
+    cp save_$f/state.sumo.meso load_$f/input_meso_state.xml
+done
 
 sumo -c load_arriving/saveState.sumocfg
 sumo -c load_arriving/saveMesoState.sumocfg
