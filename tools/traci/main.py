@@ -198,6 +198,10 @@ def load(args):
     return _connections[""].load(args)
 
 
+def isLoaded():
+    return "" in _connections
+
+
 def simulationStep(step=0):
     """
     Make a simulation step and simulate up to the given second in sim time.
@@ -252,7 +256,9 @@ def close(wait=True):
     if "" not in _connections:
         raise FatalTraCIError("Not connected.")
     _connections[""].close(wait)
+    _connections[""].simulation._setConnection(None)
     del _connections[_currentLabel[0]]
+    del _connections[""]
     if _traceFile:
         # cannot wrap because the method is import from __init__
         _traceFile[_currentLabel[0]].write("traci.close()\n")

@@ -39,6 +39,10 @@ def load(args):
     simulation.load(args)
 
 
+def isLoaded():
+    return simulation.isLoaded()
+
+
 def getVersion():
     return simulation.getVersion()
 
