@@ -6634,10 +6634,12 @@ MSVehicle::saveState(OutputDevice& out) {
     MSBaseVehicle::saveState(out);
     // here starts the vehicle internal part (see loading)
     std::vector<std::string> internals;
+    internals.push_back(toString(myParameter->parametersSet));
     internals.push_back(toString(myDeparture));
     internals.push_back(toString(distance(myRoute->begin(), myCurrEdge)));
     internals.push_back(toString(myDepartPos));
     internals.push_back(toString(myWaitingTime));
+    internals.push_back(toString(myTimeLoss));
     internals.push_back(toString(myLastActionTime));
     internals.push_back(toString(isStopped()));
     internals.push_back(toString(myPastStops.size()));
@@ -6673,10 +6675,12 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     bool stopped;
     int pastStops;
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
+    bis >> myParameter->parametersSet;
     bis >> myDeparture;
     bis >> routeOffset;
     bis >> myDepartPos;
     bis >> myWaitingTime;
+    bis >> myTimeLoss;
     bis >> myLastActionTime;
     bis >> stopped;
     bis >> pastStops;

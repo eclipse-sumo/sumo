@@ -396,9 +396,9 @@ MSStageDriving::getWaitingDescription() const {
 void
 MSStageDriving::saveState(std::ostringstream& out) {
     const bool hasVehicle = myVehicle != nullptr;
-    out << " " << myArrived << " " << hasVehicle;
+    out << " " << myWaitingSince << " " << myTimeLoss << " " << myArrived << " " << hasVehicle;
     if (hasVehicle) {
-        out << " " << myVehicle->getID() << " " << myVehicleDistance << " " << myTimeLoss;
+        out << " " << myDeparted << " " << myVehicle->getID() << " " << myVehicleDistance;
     }
 }
 
@@ -406,14 +406,14 @@ MSStageDriving::saveState(std::ostringstream& out) {
 void
 MSStageDriving::loadState(MSTransportable* transportable, std::istringstream& state) {
     bool hasVehicle;
-    state >> myArrived >> hasVehicle;
+    state >> myWaitingSince >> myTimeLoss >> myArrived >> hasVehicle;
     if (hasVehicle) {
         std::string vehID;
-        state >> vehID;
+        state >> myDeparted >> vehID;
         SUMOVehicle* startVeh = MSNet::getInstance()->getVehicleControl().getVehicle(vehID);
         setVehicle(startVeh);
         myVehicle->addTransportable(transportable);
-        state >> myVehicleDistance >> myTimeLoss;
+        state >> myVehicleDistance;
     }
 }
 

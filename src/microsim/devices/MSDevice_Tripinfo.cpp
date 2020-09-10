@@ -628,14 +628,13 @@ void
 MSDevice_Tripinfo::saveState(OutputDevice& out) const {
     out.openTag(SUMO_TAG_DEVICE);
     out.writeAttr(SUMO_ATTR_ID, getID());
-    std::vector<std::string> internals;
+    std::ostringstream internals;
     if (!MSGlobals::gUseMesoSim) {
-        internals.push_back(myDepartLane);
-        internals.push_back(toString(myDepartPosLat));
+        internals << myDepartLane << " " << myDepartPosLat << " ";
     }
-    internals.push_back(toString(myDepartSpeed));
-    internals.push_back(toString(myRouteLength));
-    out.writeAttr(SUMO_ATTR_STATE, toString(internals));
+    internals << myDepartSpeed << " " << myRouteLength << " " << myWaitingTime << " " << myAmWaiting << " " << myWaitingCount << " ";
+    internals << myStoppingTime << " " << myParkingStarted;
+    out.writeAttr(SUMO_ATTR_STATE, internals.str());
     out.closeTag();
 }
 
@@ -644,11 +643,10 @@ void
 MSDevice_Tripinfo::loadState(const SUMOSAXAttributes& attrs) {
     std::istringstream bis(attrs.getString(SUMO_ATTR_STATE));
     if (!MSGlobals::gUseMesoSim) {
-        bis >> myDepartLane;
-        bis >> myDepartPosLat;
+        bis >> myDepartLane >> myDepartPosLat;
     }
-    bis >> myDepartSpeed;
-    bis >> myRouteLength;
+    bis >> myDepartSpeed >> myRouteLength >> myWaitingTime >> myAmWaiting >> myWaitingCount;
+    bis >> myStoppingTime >> myParkingStarted;
 }
 
 
