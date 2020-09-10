@@ -236,8 +236,8 @@ TLS Link indices can be access using either
 
 ## Viewing TLS-Programs graphically
 
-In the sumo-gui you can click on a red/green stop bar and select show
-phases.
+In the sumo-gui you can right-click on a red/green stop bar and select *show
+phases*.
 
 ## Actuated Traffic Lights
 
