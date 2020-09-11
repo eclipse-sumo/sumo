@@ -548,16 +548,13 @@ public:
 
     public:
         /// @brief constructor
-        ParametersEditor(GNEFrame* frameParent, std::string title);
+        ParametersEditor(GNEFrame* frameParent);
 
         /// @brief destructor
         ~ParametersEditor();
 
-        /// @brief show netedit attributes editor (used for edit parameters of an existent AC)
-        void showParametersEditor(GNEAttributeCarrier* AC, std::string title);
-
-        /// @brief show netedit attributes editor (used for edit parameters of an existent list of AC)
-        void showParametersEditor(std::vector<GNEAttributeCarrier*> ACs, std::string title);
+        /// @brief show netedit attributes editor
+        void showParametersEditor();
 
         /// @brief hide netedit attributes editor
         void hideParametersEditor();
@@ -599,14 +596,8 @@ public:
         /// @brief pointer to frame parent
         GNEFrame* myFrameParent = nullptr;
 
-        /// @brief edited Attribute Carrier
-        GNEAttributeCarrier* myAC = nullptr;
-
         /// @brief flag for parameters type
         Parameterised::ParameterisedAttrType myAttrType;
-
-        /// @brief list of edited ACs
-        std::vector<GNEAttributeCarrier*> myACs;
 
         /// @brief pointer to current map of parameters
         std::map<std::string, std::string> myParameters;

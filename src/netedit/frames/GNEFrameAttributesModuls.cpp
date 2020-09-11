@@ -2087,16 +2087,13 @@ GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 // GNEFrameAttributesModuls::ParametersEditor - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspectorFrameParent, std::string title) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, title.c_str(), GUIDesignGroupBoxFrame),
+GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Parameters", GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent),
-    myAC(nullptr),
     myAttrType(Parameterised::ParameterisedAttrType::STRING) {
-    // set first letter upper
-    title[0] = (char)tolower(title[0]);
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(this, ("Edit " + title).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    myButtonEditParameters = new FXButton(this, "Edit parameters", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
 }
 
 
@@ -2104,21 +2101,18 @@ GNEFrameAttributesModuls::ParametersEditor::~ParametersEditor() {}
 
 
 void
-GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCarrier* AC, std::string title) {
-    if ((AC != nullptr) && AC->getTagProperty().hasParameters() && (title.size() > 0)) {
-        // set AC
-        myAC = AC;
-        myACs.clear();
-        // obtain a copy of AC parameters
-        if (myAC) {
+GNEFrameAttributesModuls::ParametersEditor::showParametersEditor() {
+    if ((myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) && 
+         myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasParameters()) {
+        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
             // update flag
-            if (myAC->getTagProperty().hasDoubleParameters()) {
+            if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasDoubleParameters()) {
                 myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
             } else {
                 myAttrType = Parameterised::ParameterisedAttrType::STRING;
             }
             // obtain string
-            std::string parametersStr = myAC->getAttribute(GNE_ATTR_PARAMETERS);
+            std::string parametersStr = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
             // clear parameters
             myParameters.clear();
             // separate value in a vector of string using | as separator
@@ -2131,65 +2125,39 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(GNEAttributeCar
                     myParameters[keyValue.front()] = keyValue.back();
                 }
             }
-        }
-        // set title and button
-        myButtonEditParameters->setText(("Edit " + title).c_str());
-        // set first letter upper
-        title[0] = (char)toupper(title[0]);
-        // change
-        setText(title.c_str());
-        // refresh ParametersEditor
-        refreshParametersEditor();
-        // show groupbox
-        show();
-    } else {
-        hide();
-    }
-}
-
-
-void
-GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNEAttributeCarrier*> ACs, std::string title) {
-    if ((ACs.size() > 0) && ACs.front()->getTagProperty().hasParameters()) {
-        myAC = nullptr;
-        myACs = ACs;
-        // check if parameters are different
-        bool differentsParameters = false;
-        std::string firstParameters = myACs.front()->getAttribute(GNE_ATTR_PARAMETERS);
-        for (auto i : myACs) {
-            if (firstParameters != i->getAttribute(GNE_ATTR_PARAMETERS)) {
-                differentsParameters = true;
-            }
-        }
-        // set parameters editor
-        if (differentsParameters) {
-            myParameters.clear();
         } else {
-            // update flag
-            if (myACs.front()->getTagProperty().hasDoubleParameters()) {
-                myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
-            } else {
-                myAttrType = Parameterised::ParameterisedAttrType::STRING;
+            // check if parameters are different
+            bool differentsParameters = false;
+            std::string firstParameters = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
+            for (auto i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
+                if (firstParameters != i->getAttribute(GNE_ATTR_PARAMETERS)) {
+                    differentsParameters = true;
+                }
             }
-            // obtain string
-            std::string parametersStr = myACs.front()->getAttribute(GNE_ATTR_PARAMETERS);
-            // clear parameters
-            myParameters.clear();
-            // separate value in a vector of string using | as separator
-            std::vector<std::string> parameters = StringTokenizer(parametersStr, "|", true).getVector();
-            // iterate over all values
-            for (const auto& i : parameters) {
-                // obtain key and value and save it in myParameters
-                std::vector<std::string> keyValue = StringTokenizer(i, "=", true).getVector();
-                myParameters[keyValue.front()] = keyValue.back();
+            // set parameters editor
+            if (differentsParameters) {
+                myParameters.clear();
+            } else {
+                // update flag
+                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasDoubleParameters()) {
+                    myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
+                } else {
+                    myAttrType = Parameterised::ParameterisedAttrType::STRING;
+                }
+                // obtain string
+                std::string parametersStr = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
+                // clear parameters
+                myParameters.clear();
+                // separate value in a vector of string using | as separator
+                std::vector<std::string> parameters = StringTokenizer(parametersStr, "|", true).getVector();
+                // iterate over all values
+                for (const auto& i : parameters) {
+                    // obtain key and value and save it in myParameters
+                    std::vector<std::string> keyValue = StringTokenizer(i, "=", true).getVector();
+                    myParameters[keyValue.front()] = keyValue.back();
+                }
             }
         }
-        // set title and button
-        myButtonEditParameters->setText(("Edit " + title).c_str());
-        // set first letter upper
-        title[0] = (char)toupper(title[0]);
-        // change
-        setText(title.c_str());
         // refresh ParametersEditor
         refreshParametersEditor();
         // show groupbox
@@ -2202,7 +2170,6 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor(std::vector<GNE
 
 void
 GNEFrameAttributesModuls::ParametersEditor::hideParametersEditor() {
-    myAC = nullptr;
     // hide groupbox
     hide();
 }
@@ -2211,21 +2178,21 @@ GNEFrameAttributesModuls::ParametersEditor::hideParametersEditor() {
 void
 GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
     // update text field depending of AC
-    if (myAC) {
-        myTextFieldParameters->setText(myAC->getAttribute(GNE_ATTR_PARAMETERS).c_str());
+    if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+        myTextFieldParameters->setText(myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS).c_str());
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-        if (isSupermodeValid(myFrameParent->myViewNet, myAC)) {
+        if (isSupermodeValid(myFrameParent->myViewNet, myFrameParent->getViewNet()->getInspectedAttributeCarriers().front())) {
             myTextFieldParameters->enable();
             myButtonEditParameters->enable();
         } else {
             myTextFieldParameters->disable();
             myButtonEditParameters->disable();
         }
-    } else if (myACs.size() > 0) {
+    } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // check if parameters of all inspected ACs are different
-        std::string parameters = myACs.front()->getAttribute(GNE_ATTR_PARAMETERS);
-        for (auto i : myACs) {
+        std::string parameters = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
+        for (auto i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
             if (parameters != i->getAttribute(GNE_ATTR_PARAMETERS)) {
                 parameters = "different parameters";
             }
@@ -2233,7 +2200,7 @@ GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
         myTextFieldParameters->setText(parameters.c_str());
         myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
         // disable myTextFieldParameters if we're in demand mode and inspected AC isn't a demand element (or viceversa)
-        if (isSupermodeValid(myFrameParent->myViewNet, myACs.front())) {
+        if (isSupermodeValid(myFrameParent->myViewNet, myFrameParent->getViewNet()->getInspectedAttributeCarriers().front())) {
             myTextFieldParameters->enable();
             myButtonEditParameters->enable();
         } else {
@@ -2313,11 +2280,11 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
         // write debug information
         WRITE_DEBUG("Close parameters dialog");
         // set values edited in Parameter dialog in Edited AC
-        if (myAC) {
-            myAC->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
-        } else if (myACs.size() > 0) {
+        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
+        } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
             myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple parameters");
-            for (auto i : myACs) {
+            for (auto i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
                 i->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
             }
             myFrameParent->myViewNet->getUndoList()->p_end();
@@ -2355,18 +2322,18 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSele
         // overwritte myTextFieldParameters (to remove duplicated parameters
         myTextFieldParameters->setText(getParametersStr().c_str(), FALSE);
         // if we're editing parameters of an AttributeCarrier, set it
-        if (myAC) {
+        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
             // begin undo list
             myFrameParent->myViewNet->getUndoList()->p_begin("change parameters");
             // set parameters
-            myAC->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
+            myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
             // end undo list
             myFrameParent->myViewNet->getUndoList()->p_end();
-        } else if (myACs.size() > 0) {
+        } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
             // begin undo list
             myFrameParent->myViewNet->getUndoList()->p_begin("change multiple parameters");
             // set parameters in all ACs
-            for (const auto& i : myACs) {
+            for (const auto& i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
                 i->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
             }
             // end undo list
