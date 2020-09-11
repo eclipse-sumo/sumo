@@ -24,7 +24,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/dialogs/GNEAllowDisallow.h>
-#include <netedit/dialogs/GNEParametersDialog.h>
+#include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNELane.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
@@ -2334,7 +2334,7 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
     // write debug information
     WRITE_DEBUG("Open parameters dialog");
     // edit parameters using dialog
-    if (GNEParametersDialog(this).execute()) {
+    if (GNESingleParametersDialog(this).execute()) {
         // write debug information
         WRITE_DEBUG("Close parameters dialog");
         // set values edited in Parameter dialog in Edited AC

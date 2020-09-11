@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEParametersDialog.cpp
+/// @file    GNESingleParametersDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jul 2018
 ///
@@ -25,51 +25,51 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/frames/GNEFrame.h>
 
-#include "GNEParametersDialog.h"
+#include "GNESingleParametersDialog.h"
 
 
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNEParametersDialog) GNEParametersDialogMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNEParametersDialog::onCmdAccept),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNEParametersDialog::onCmdReset),
-    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, GNEParametersDialog::onCmdCancel),
-    FXMAPFUNC(SEL_CLOSE,    0,                      GNEParametersDialog::onCmdCancel),
+FXDEFMAP(GNESingleParametersDialog) GNESingleParametersDialogMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_ACCEPT,  GNESingleParametersDialog::onCmdAccept),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CANCEL,  GNESingleParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_RESET,   GNESingleParametersDialog::onCmdReset),
+    FXMAPFUNC(SEL_CHORE,    FXDialogBox::ID_CANCEL, GNESingleParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_TIMEOUT,  FXDialogBox::ID_CANCEL, GNESingleParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_COMMAND,  FXDialogBox::ID_CANCEL, GNESingleParametersDialog::onCmdCancel),
+    FXMAPFUNC(SEL_CLOSE,    0,                      GNESingleParametersDialog::onCmdCancel),
 };
 
-FXDEFMAP(GNEParametersDialog::ParametersValues) ParametersValuesMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEParametersDialog::ParametersValues::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNEParametersDialog::ParametersValues::onCmdButtonPress),
-    FXMAPFUNC(SEL_PAINT,    0,                          GNEParametersDialog::ParametersValues::onPaint),
+FXDEFMAP(GNESingleParametersDialog::ParametersValues) ParametersValuesMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNESingleParametersDialog::ParametersValues::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNESingleParametersDialog::ParametersValues::onCmdButtonPress),
+    FXMAPFUNC(SEL_PAINT,    0,                          GNESingleParametersDialog::ParametersValues::onPaint),
 };
 
-FXDEFMAP(GNEParametersDialog::ParametersOptions) ParametersOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_LOAD,    GNEParametersDialog::ParametersOptions::onCmdLoadParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNEParametersDialog::ParametersOptions::onCmdSaveParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CLEAR,   GNEParametersDialog::ParametersOptions::onCmdClearParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SORT,    GNEParametersDialog::ParametersOptions::onCmdSortParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEParametersDialog::ParametersOptions::onCmdHelpParameter),
+FXDEFMAP(GNESingleParametersDialog::ParametersOptions) ParametersOptionsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_LOAD,    GNESingleParametersDialog::ParametersOptions::onCmdLoadParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNESingleParametersDialog::ParametersOptions::onCmdSaveParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CLEAR,   GNESingleParametersDialog::ParametersOptions::onCmdClearParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SORT,    GNESingleParametersDialog::ParametersOptions::onCmdSortParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNESingleParametersDialog::ParametersOptions::onCmdHelpParameter),
 };
 
 // Object implementation
-FXIMPLEMENT(GNEParametersDialog,                    FXDialogBox,   GNEParametersDialogMap,     ARRAYNUMBER(GNEParametersDialogMap))
-FXIMPLEMENT(GNEParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,        ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT(GNEParametersDialog::ParametersOptions, FXGroupBox,    ParametersOptionsMap,       ARRAYNUMBER(ParametersOptionsMap))
+FXIMPLEMENT(GNESingleParametersDialog,                    FXDialogBox,   GNESingleParametersDialogMap,  ARRAYNUMBER(GNESingleParametersDialogMap))
+FXIMPLEMENT(GNESingleParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,           ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT(GNESingleParametersDialog::ParametersOptions, FXGroupBox,    ParametersOptionsMap,          ARRAYNUMBER(ParametersOptionsMap))
 
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNEParametersDialog::ParametersValues - methods
+// GNESingleParametersDialog::ParametersValues - methods
 // ---------------------------------------------------------------------------
 
-GNEParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNEParametersDialog* ParameterDialogParent) :
+GNESingleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent) :
     FXGroupBox(frame, " Parameters", GUIDesignGroupBoxFrameFill),
     myParameterDialogParent(ParameterDialogParent) {
     // create labels for keys and values
@@ -85,11 +85,11 @@ GNEParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame
 }
 
 
-GNEParametersDialog::ParametersValues::~ParametersValues() {}
+GNESingleParametersDialog::ParametersValues::~ParametersValues() {}
 
 
 void
-GNEParametersDialog::ParametersValues::updateValues() {
+GNESingleParametersDialog::ParametersValues::updateValues() {
     // first show the correct number of rows
     while ((myParameterDialogParent->myEditedParameters.size() + 1) < myParameterRows.size()) {
         delete myParameterRows.back();
@@ -108,7 +108,7 @@ GNEParametersDialog::ParametersValues::updateValues() {
 
 
 void
-GNEParametersDialog::ParametersValues::setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters) {
+GNESingleParametersDialog::ParametersValues::setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters) {
     myParameterDialogParent->myEditedParameters = newParameters;
     // update values
     updateValues();
@@ -116,7 +116,7 @@ GNEParametersDialog::ParametersValues::setParameters(const std::vector<std::pair
 
 
 void
-GNEParametersDialog::ParametersValues::addParameter(std::pair<std::string, std::string> newParameter) {
+GNESingleParametersDialog::ParametersValues::addParameter(std::pair<std::string, std::string> newParameter) {
     myParameterDialogParent->myEditedParameters.push_back(newParameter);
     // update values
     updateValues();
@@ -124,7 +124,7 @@ GNEParametersDialog::ParametersValues::addParameter(std::pair<std::string, std::
 
 
 void
-GNEParametersDialog::ParametersValues::clearParameters() {
+GNESingleParametersDialog::ParametersValues::clearParameters() {
     myParameterDialogParent->myEditedParameters.clear();
     // update values
     updateValues();
@@ -132,7 +132,7 @@ GNEParametersDialog::ParametersValues::clearParameters() {
 
 
 long
-GNEParametersDialog::ParametersValues::onPaint(FXObject* o, FXSelector f, void* p) {
+GNESingleParametersDialog::ParametersValues::onPaint(FXObject* o, FXSelector f, void* p) {
     // size of key label has to be updated in every interation
     if (myParameterRows.size() > 0) {
         myKeyLabel->setWidth(myParameterRows.front()->keyField->getWidth());
@@ -142,7 +142,7 @@ GNEParametersDialog::ParametersValues::onPaint(FXObject* o, FXSelector f, void* 
 
 
 long
-GNEParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+GNESingleParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // find what value was changed
     for (int i = 0; i < (int)myParameterRows.size(); i++) {
         if (myParameterRows.at(i)->keyField == obj) {
@@ -165,7 +165,7 @@ GNEParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FXSelect
 
 
 long
-GNEParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
+GNESingleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
     // first check if add button was pressed
     if (myParameterRows.back()->button == obj) {
         // create new parameter
@@ -190,7 +190,7 @@ GNEParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, FXSelecto
 }
 
 
-GNEParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) {
+GNESingleParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) {
     horizontalFrame = new FXHorizontalFrame(verticalFrameParent, GUIDesignAuxiliarHorizontalFrame);
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -204,14 +204,14 @@ GNEParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValu
 }
 
 
-GNEParametersDialog::ParametersValues::ParameterRow::~ParameterRow() {
+GNESingleParametersDialog::ParametersValues::ParameterRow::~ParameterRow() {
     // simply delete horizontalFrame (rest of elements will be automatic deleted due they are children of horizontal frame)
     delete horizontalFrame;
 }
 
 
 void
-GNEParametersDialog::ParametersValues::ParameterRow::disableRow() {
+GNESingleParametersDialog::ParametersValues::ParameterRow::disableRow() {
     // hide all
     keyField->setText("");
     keyField->disable();
@@ -223,7 +223,7 @@ GNEParametersDialog::ParametersValues::ParameterRow::disableRow() {
 
 
 void
-GNEParametersDialog::ParametersValues::ParameterRow::enableRow(const std::string& parameter, const std::string& value) const {
+GNESingleParametersDialog::ParametersValues::ParameterRow::enableRow(const std::string& parameter, const std::string& value) const {
     // restore color and enable key field
     keyField->setText(parameter.c_str());
     if (parameter.empty() || SUMOXMLDefinitions::isValidParameterKey(parameter)) {
@@ -242,7 +242,7 @@ GNEParametersDialog::ParametersValues::ParameterRow::enableRow(const std::string
 
 
 void
-GNEParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
+GNESingleParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
     // clear and disable parameter and value fields
     keyField->setText("");
     keyField->disable();
@@ -256,22 +256,22 @@ GNEParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
 
 
 bool
-GNEParametersDialog::ParametersValues::ParameterRow::isButtonInAddMode() const {
+GNESingleParametersDialog::ParametersValues::ParameterRow::isButtonInAddMode() const {
     return (button->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ADD));
 }
 
 
 void
-GNEParametersDialog::ParametersValues::ParameterRow::copyValues(const ParameterRow& other) {
+GNESingleParametersDialog::ParametersValues::ParameterRow::copyValues(const ParameterRow& other) {
     keyField->setText(other.keyField->getText());
     valueField->setText(other.valueField->getText());
 }
 
 // ---------------------------------------------------------------------------
-// GNEParametersDialog::ParametersOptions - methods
+// GNESingleParametersDialog::ParametersOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* frame, GNEParametersDialog* ParameterDialogParent) :
+GNESingleParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent) :
     FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
@@ -283,11 +283,11 @@ GNEParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* fra
 }
 
 
-GNEParametersDialog::ParametersOptions::~ParametersOptions() {}
+GNESingleParametersDialog::ParametersOptions::~ParametersOptions() {}
 
 
 long
-GNEParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, FXSelector, void*) {
     // get the Additional file name
     FXFileDialog opendialog(this, "Open Parameter Template");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
@@ -316,7 +316,7 @@ GNEParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, FXSelecto
 
 
 long
-GNEParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, FXSelector, void*) {
     // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the Parameter Template file", ".xml",
@@ -342,7 +342,7 @@ GNEParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, FXSelecto
 
 
 long
-GNEParametersDialog::ParametersOptions::onCmdClearParameters(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::ParametersOptions::onCmdClearParameters(FXObject*, FXSelector, void*) {
     // simply clear parameters from ParametersValues
     myParameterDialogParent->myParametersValues->clearParameters();
     return 1;
@@ -350,7 +350,7 @@ GNEParametersDialog::ParametersOptions::onCmdClearParameters(FXObject*, FXSelect
 
 
 long
-GNEParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, FXSelector, void*) {
     std::vector<std::pair<std::string, std::string> > ParametersNoEmpty;
     std::vector<std::string> valuesEmpty;
     // first extract empty values
@@ -380,7 +380,7 @@ GNEParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, FXSelecto
 
 
 long
-GNEParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* ParameterHelpDialog = new FXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
     ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
@@ -417,17 +417,17 @@ GNEParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector
 }
 
 
-GNEParametersDialog::ParametersOptions::GNEParameterHandler::GNEParameterHandler(ParametersOptions* ParametersOptionsParent, const std::string& file) :
+GNESingleParametersDialog::ParametersOptions::GNEParameterHandler::GNEParameterHandler(ParametersOptions* ParametersOptionsParent, const std::string& file) :
     SUMOSAXHandler(file),
     myParametersOptionsParent(ParametersOptionsParent) {
 }
 
 
-GNEParametersDialog::ParametersOptions::GNEParameterHandler::~GNEParameterHandler() {}
+GNESingleParametersDialog::ParametersOptions::GNEParameterHandler::~GNEParameterHandler() {}
 
 
 void
-GNEParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+GNESingleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // only continue if tag is valid
@@ -464,10 +464,10 @@ GNEParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int 
 }
 
 // ---------------------------------------------------------------------------
-// GNEParametersDialog - methods
+// GNESingleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEParametersDialog::GNEParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor) :
+GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor) :
     FXDialogBox(ParametersEditor->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditor(ParametersEditor),
     myEditedParameters(ParametersEditor->getParametersVectorStr()),
@@ -494,11 +494,11 @@ GNEParametersDialog::GNEParametersDialog(GNEFrameAttributesModuls::ParametersEdi
 }
 
 
-GNEParametersDialog::~GNEParametersDialog() {}
+GNESingleParametersDialog::~GNESingleParametersDialog() {}
 
 
 long
-GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // check if all edited parameters are valid
     for (const auto& parameter : myEditedParameters) {
         if (parameter.first.empty()) {
@@ -550,7 +550,7 @@ GNEParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 
 long
-GNEParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
     // restore copy of parameters
     myParametersValues->setParameters(myCopyOfParameters);
     // Stop Modal
@@ -560,7 +560,7 @@ GNEParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 
 long
-GNEParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // simply restore copy of parameters and continue editing
     myParametersValues->setParameters(myCopyOfParameters);
     return 1;
