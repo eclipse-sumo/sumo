@@ -1277,13 +1277,13 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         if (colordialog.execute()) {
             std::string newValue = toString(MFXUtils::getRGBColor(colordialog.getRGBA()));
             myValueTextField->setText(newValue.c_str());
-            if (myAttributesEditorParent->getEditedACs().front()->isValid(myACAttr.getAttr(), newValue)) {
+            if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newValue)) {
                 // if its valid for the first AC than its valid for all (of the same type)
-                if (myAttributesEditorParent->getEditedACs().size() > 1) {
+                if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
                     myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
                 }
                 // Set new value of attribute in all selected ACs
-                for (const auto& it_ac : myAttributesEditorParent->getEditedACs()) {
+                for (const auto& it_ac : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
                     it_ac->setAttribute(myACAttr.getAttr(), newValue, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
                 }
                 // If previously value was incorrect, change font color to black
@@ -1294,18 +1294,18 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdOpenAttributeDialog(FXObject
         return 0;
     } else if (obj == myAttributeButtonCombinableChoices) {
         // if its valid for the first AC than its valid for all (of the same type)
-        if (myAttributesEditorParent->getEditedACs().size() > 1) {
+        if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
         }
         // open GNEAllowDisallow
-        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getEditedACs().front()).execute();
-        std::string allowed = myAttributesEditorParent->getEditedACs().front()->getAttribute(SUMO_ATTR_ALLOW);
+        GNEAllowDisallow(myAttributesEditorParent->getFrameParent()->myViewNet, myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()).execute();
+        std::string allowed = myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(SUMO_ATTR_ALLOW);
         // Set new value of attribute in all selected ACs
-        for (const auto& it_ac : myAttributesEditorParent->getEditedACs()) {
+        for (const auto& it_ac : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             it_ac->setAttribute(SUMO_ATTR_ALLOW, allowed, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
         }
         // finish change multiple attributes
-        if (myAttributesEditorParent->getEditedACs().size() > 1) {
+        if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
         }
         // update frame parent after attribute sucesfully set
@@ -1384,20 +1384,20 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
         newVal = stripWhitespaceAfterComma(newVal);
     }
     // Check if attribute must be changed
-    if ((myAttributesEditorParent->getEditedACs().size() > 0) && myAttributesEditorParent->getEditedACs().front()->isValid(myACAttr.getAttr(), newVal)) {
+    if ((myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) && myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->isValid(myACAttr.getAttr(), newVal)) {
         // if its valid for the first AC than its valid for all (of the same type)
-        if (myAttributesEditorParent->getEditedACs().size() > 1) {
+        if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("Change multiple attributes");
         } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
             // IDs attribute has to be encapsulated
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_begin("change " + myACAttr.getTagPropertyParent().getTagStr() + " attribute");
         }
         // Set new value of attribute in all selected ACs
-        for (const auto& it_ac : myAttributesEditorParent->getEditedACs()) {
+        for (const auto& it_ac : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             it_ac->setAttribute(myACAttr.getAttr(), newVal, myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList());
         }
         // finish change multiple attributes or ID Attributes
-        if (myAttributesEditorParent->getEditedACs().size() > 1) {
+        if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
         } else if (myACAttr.getAttr() == SUMO_ATTR_ID) {
             myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList()->p_end();
@@ -1484,8 +1484,7 @@ GNEFrameAttributesModuls::AttributesEditor::AttributesEditor(GNEFrame* FramePare
 
 
 void
-GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended, bool forceAttributeEnabled) {
-    myEditedACs = ACs;
+GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includeExtended, bool forceAttributeEnabled) {
     myIncludeExtended = includeExtended;
     // first remove all rows
     for (int i = 0; i < (int)myAttributesEditorRows.size(); i++) {
@@ -1498,13 +1497,13 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
     }
     // declare flag to check if flow editor has to be shown
     bool showFlowEditor = false;
-    if (myEditedACs.size() > 0) {
+    if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // Iterate over attributes
-        for (const auto& tagProperty : myEditedACs.front()->getTagProperty()) {
+        for (const auto& tagProperty : myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty()) {
             // declare flag to show/hidde atribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
-            if ((myEditedACs.size() > 1) && tagProperty.isUnique()) {
+            if ((myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 1) && tagProperty.isUnique()) {
                 editAttribute = false;
             }
             // disable editing of extended attributes if includeExtended isn't enabled
@@ -1521,7 +1520,7 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
                 // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
                 std::set<std::string> occuringValues;
                 // iterate over edited attributes
-                for (const auto& it_ac : myEditedACs) {
+                for (const auto& it_ac : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
                     occuringValues.insert(it_ac->getAttribute(tagProperty.getAttr()));
                 }
                 // get current value
@@ -1535,16 +1534,17 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
                 // obtain value to be shown in row
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
-                bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(tagProperty.getAttr());
+                bool attributeEnabled = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(tagProperty.getAttr());
                 // overwritte value if attribute is disabled (used by LinkIndex)
                 if (attributeEnabled == false) {
-                    value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(tagProperty.getAttr());
+                    value = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(tagProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered
-                if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
-                    if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
+                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() || 
+                    myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonStop()) {
+                    if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
-                    } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
+                    } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     }
                 }
@@ -1574,8 +1574,6 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(const std::
 
 void
 GNEFrameAttributesModuls::AttributesEditor::hideAttributesEditorModul() {
-    // clear myEditedACs
-    myEditedACs.clear();
     // hide AttributesEditorFlowModul
     myAttributesEditorFlow->hideAttributesEditorFlowModul();
     // hide also AttributesEditor
@@ -1585,13 +1583,14 @@ GNEFrameAttributesModuls::AttributesEditor::hideAttributesEditorModul() {
 
 void
 GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRefreshShape, bool forceRefreshPosition) {
-    if (myEditedACs.size() > 0) {
-        // Iterate over attributes
-        for (const auto& tagProperty : myEditedACs.front()->getTagProperty()) {
+    // first check if there is inspected attribute carriers
+    if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+        // Iterate over inspected attribute carriers
+        for (const auto& tagProperty : myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty()) {
             // declare flag to show/hidde atribute
             bool editAttribute = true;
             // disable editing for unique attributes in case of multi-selection
-            if ((myEditedACs.size() > 1) && tagProperty.isUnique()) {
+            if ((myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 1) && tagProperty.isUnique()) {
                 editAttribute = false;
             }
             // disable editing of extended attributes if includeExtended isn't enabled
@@ -1607,7 +1606,7 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                 // Declare a set of occuring values and insert attribute's values of item (note: We use a set to avoid repeated values)
                 std::set<std::string> occuringValues;
                 // iterate over edited attributes
-                for (const auto& it_ac : myEditedACs) {
+                for (const auto& it_ac : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
                     occuringValues.insert(it_ac->getAttribute(tagProperty.getAttr()));
                 }
                 // get current value
@@ -1621,16 +1620,17 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                 // obtain value to be shown in row
                 std::string value = oss.str();
                 // declare a flag for enabled attributes
-                bool attributeEnabled = myEditedACs.front()->isAttributeEnabled(tagProperty.getAttr());
+                bool attributeEnabled = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(tagProperty.getAttr());
                 // overwritte value if attribute is disabled (used by LinkIndex)
                 if (attributeEnabled == false) {
-                    value = myEditedACs.front()->getAlternativeValueForDisabledAttributes(tagProperty.getAttr());
+                    value = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(tagProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered
-                if (myEditedACs.front()->getTagProperty().isStop() || myEditedACs.front()->getTagProperty().isPersonStop()) {
-                    if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
+                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() || 
+                    myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonStop()) {
+                    if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
-                    } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myEditedACs.front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
+                    } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     }
                 }
@@ -1666,37 +1666,12 @@ GNEFrameAttributesModuls::AttributesEditor::getFrameParent() const {
 }
 
 
-const std::vector<GNEAttributeCarrier*>&
-GNEFrameAttributesModuls::AttributesEditor::getEditedACs() const {
-    return myEditedACs;
-}
-
-
-void
-GNEFrameAttributesModuls::AttributesEditor::removeEditedAC(GNEAttributeCarrier* AC) {
-    // Only remove if there is inspected ACs
-    if (myEditedACs.size() > 0) {
-        // Try to find AC in myACs
-        auto i = std::find(myEditedACs.begin(), myEditedACs.end(), AC);
-        // if was found
-        if (i != myEditedACs.end()) {
-            // erase AC from inspected ACs
-            myEditedACs.erase(i);
-            // Write Warning in console if we're in testing mode
-            WRITE_DEBUG("Removed inspected element from Inspected ACs. " + toString(myEditedACs.size()) + " ACs remains.");
-            // Inspect multi selection again (To refresh Modul)
-            showAttributeEditorModul(myEditedACs, myIncludeExtended, false);
-        }
-    }
-}
-
-
 long
 GNEFrameAttributesModuls::AttributesEditor::onCmdAttributesEditorHelp(FXObject*, FXSelector, void*) {
     // open Help attributes dialog if there is inspected ACs
-    if (myEditedACs.size() > 0) {
+    if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // open Help attributes dialog
-        myFrameParent->openHelpAttributesDialog(myEditedACs.front()->getTagProperty());
+        myFrameParent->openHelpAttributesDialog(myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty());
     }
     return 1;
 }
@@ -1735,7 +1710,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::AttributesEditorFlow(AttributesE
 
 void
 GNEFrameAttributesModuls::AttributesEditorFlow::showAttributeEditorFlowModul() {
-    if (myAttributesEditorParent->getEditedACs().size() > 0) {
+    if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // refresh attributeEditorFlowModul
         refreshAttributeEditorFlow();
         // show flow
@@ -1761,7 +1736,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::isAttributesEditorFlowModulShown
 
 void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshAttributeEditorFlow() {
-    if (myAttributesEditorParent->getEditedACs().size() > 0) {
+    if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // simply refresh every flow attribute
         refreshEnd();
         refreshNumber();
@@ -1787,7 +1762,7 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* 
         value = myValueNumberTextField->getText().text();
     } else if (obj == myValueVehsPerHourTextField) {
         // check attribute
-        if (myAttributesEditorParent->getEditedACs().front()->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
+        if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasAttribute(SUMO_ATTR_VEHSPERHOUR)) {
             attr = SUMO_ATTR_VEHSPERHOUR;
         } else {
             attr = SUMO_ATTR_PERSONSPERHOUR;
@@ -1805,15 +1780,15 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSetFlowAttribute(FXObject* 
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected checkBox for attribute '" + toString(attr) + "'");
     // check if we're editing multiple attributes
-    if (myAttributesEditorParent->getEditedACs().size() > 1) {
+    if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
         undoList->p_begin("Change multiple " + toString(attr) + " attributes");
     }
     // enable attribute with undo/redo
-    for (const auto& i : myAttributesEditorParent->getEditedACs()) {
+    for (const auto& i : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         i->setAttribute(attr, value, undoList);
     }
     // check if we're editing multiple attributes
-    if (myAttributesEditorParent->getEditedACs().size() > 1) {
+    if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
         undoList->p_end();
     }
     // refresh Attributes edito parent
@@ -1844,13 +1819,13 @@ GNEFrameAttributesModuls::AttributesEditorFlow::onCmdSelectFlowRadioButton(FXObj
     // write debug (for Netedit tests)
     WRITE_DEBUG("Selected checkBox for attribute '" + toString(attr) + "'");
     // begin undo list
-    if (myAttributesEditorParent->getEditedACs().size() > 1) {
+    if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
         undoList->p_begin("enable multiple " + toString(attr) + " attributes");
     } else {
         undoList->p_begin("enable attribute '" + toString(attr) + "'");
     }
     // enable attribute with undo/redo
-    for (const auto& i : myAttributesEditorParent->getEditedACs()) {
+    for (const auto& i : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         i->enableAttribute(attr, undoList);
     }
     // end undoList
@@ -1865,13 +1840,13 @@ void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto& i : myAttributesEditorParent->getEditedACs()) {
+    for (const auto& i : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_END);
     }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+        for (const auto& values : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_END));
         }
         // get current value
@@ -1890,10 +1865,10 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshEnd() {
         // disable radio button and text field
         myValueEndTextField->disable();
         // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
             myValueEndTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
-            myValueEndTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_END).c_str());
+        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            myValueEndTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_END).c_str());
         } else {
             myValueEndTextField->setText("");
         }
@@ -1906,13 +1881,13 @@ void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto& i : myAttributesEditorParent->getEditedACs()) {
+    for (const auto& i : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_NUMBER);
     }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+        for (const auto& values : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_NUMBER));
         }
         // get current value
@@ -1931,10 +1906,10 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshNumber() {
         // disable radio button
         myValueNumberTextField->disable();
         // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
             myValueNumberTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
-            myValueNumberTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_NUMBER).c_str());
+        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            myValueNumberTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_NUMBER).c_str());
         } else {
             myValueNumberTextField->setText("");
         }
@@ -1948,20 +1923,20 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
     // declare attribute
     SumoXMLAttr attr = SUMO_ATTR_VEHSPERHOUR;
     // first change attribute
-    if (myAttributesEditorParent->getEditedACs().front()->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
+    if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasAttribute(SUMO_ATTR_PERSONSPERHOUR)) {
         attr = SUMO_ATTR_PERSONSPERHOUR;
     }
     // update radio button
     myAttributeVehsPerHourRadioButton->setText(toString(attr).c_str());
     // we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto& i : myAttributesEditorParent->getEditedACs()) {
+    for (const auto& i : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(attr);
     }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+        for (const auto& values : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(values->getAttribute(attr));
         }
         // get current value
@@ -1980,10 +1955,10 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshVehsPerHour() {
         // disable radio button
         myValueVehsPerHourTextField->disable();
         // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
             myValueVehsPerHourTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
-            myValueVehsPerHourTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(attr).c_str());
+        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            myValueVehsPerHourTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(attr).c_str());
         } else {
             myValueVehsPerHourTextField->setText("");
         }
@@ -1996,13 +1971,13 @@ void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshPeriod() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto& i : myAttributesEditorParent->getEditedACs()) {
+    for (const auto& i : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_PERIOD);
     }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+        for (const auto& values : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_PERIOD));
         }
         // get current value
@@ -2021,10 +1996,10 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshPeriod() {
         // disable radio button and text field
         myValuePeriodTextField->disable();
         // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
             myValuePeriodTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
-            myValuePeriodTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_PERIOD).c_str());
+        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            myValuePeriodTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_PERIOD).c_str());
         } else {
             myValuePeriodTextField->setText("");
         }
@@ -2037,13 +2012,13 @@ void
 GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
     // first we need to check if all attributes are enabled or disabled
     int allAttributesEnabledOrDisabled = 0;
-    for (const auto& i : myAttributesEditorParent->getEditedACs()) {
+    for (const auto& i : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         allAttributesEnabledOrDisabled += i->isAttributeEnabled(SUMO_ATTR_PROB);
     }
-    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getEditedACs().size()) {
+    if (allAttributesEnabledOrDisabled == (int)myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) {
         // Declare a set of occuring values and insert attribute's values of item
         std::set<std::string> occuringValues;
-        for (const auto& values : myAttributesEditorParent->getEditedACs()) {
+        for (const auto& values : myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
             occuringValues.insert(values->getAttribute(SUMO_ATTR_PROB));
         }
         // get current value
@@ -2063,10 +2038,10 @@ GNEFrameAttributesModuls::AttributesEditorFlow::refreshProbability() {
         // disable radio button and text field
         myValueProbabilityTextField->disable();
         // check if we set an special value in textField
-        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getEditedACs().size() > 1)) {
+        if ((allAttributesEnabledOrDisabled > 0) && (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() > 1)) {
             myValueProbabilityTextField->setText("Different flow attributes");
-        } else if (myAttributesEditorParent->getEditedACs().size() == 1) {
-            myValueProbabilityTextField->setText(myAttributesEditorParent->getEditedACs().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_PROB).c_str());
+        } else if (myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            myValueProbabilityTextField->setText(myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(SUMO_ATTR_PROB).c_str());
         } else {
             myValueProbabilityTextField->setText("");
         }

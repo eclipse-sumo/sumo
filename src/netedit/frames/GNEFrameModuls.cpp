@@ -693,8 +693,6 @@ GNEFrameModuls::HierarchicalElementTree::onCmdInspectItem(FXObject*, FXSelector,
 
 long
 GNEFrameModuls::HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector, void*) {
-    // check if Inspector frame was opened before removing
-    const std::vector<GNEAttributeCarrier*>& currentInspectedACs = myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->getAttributesEditor()->getEditedACs();
     // Remove Attribute Carrier
     if (myClickedJunction) {
         myFrameParent->myViewNet->getNet()->deleteJunction(myClickedJunction, myFrameParent->myViewNet->getUndoList());
@@ -750,9 +748,9 @@ GNEFrameModuls::HierarchicalElementTree::onCmdDeleteItem(FXObject*, FXSelector, 
     // refresh AC Hierarchy
     refreshHierarchicalElementTree();
     // check if inspector frame has to be shown again
-    if (currentInspectedACs.size() == 1) {
-        if (currentInspectedACs.front() != myClickedAC) {
-            myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(currentInspectedACs.front());
+    if (myFrameParent->myViewNet->getInspectedAttributeCarriers().size() == 1) {
+        if (myFrameParent->myViewNet->getInspectedAttributeCarriers().front() != myClickedAC) {
+            myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(myFrameParent->myViewNet->getInspectedAttributeCarriers().front());
         } else {
             // inspect a nullprt element to reset inspector frame
             myFrameParent->myViewNet->getViewParent()->getInspectorFrame()->inspectSingleElement(nullptr);

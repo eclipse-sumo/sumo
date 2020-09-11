@@ -395,9 +395,9 @@ GNEViewNet::openObjectDialog() {
         GUIGlObject* GlObject = myObjectsUnderCursor.getGUIGlObjectFront();
         // we need to check if we're inspecting a overlapping element
         if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
-                myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
-                myViewParent->getInspectorFrame()->getAttributesEditor()->getEditedACs().size() > 0) {
-            GlObject = dynamic_cast<GUIGlObject*>(myViewParent->getInspectorFrame()->getAttributesEditor()->getEditedACs().front());
+            myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
+            myInspectedAttributeCarriers.size() > 0) {
+            GlObject = dynamic_cast<GUIGlObject*>(myInspectedAttributeCarriers.front());
         }
         // if GlObject is null, use net
         if (GlObject == nullptr) {
@@ -1156,6 +1156,25 @@ GNEViewNet::isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const {
             return true;
         }
     }
+}
+
+
+void 
+GNEViewNet::removeFromAttributeCarrierInspected(const GNEAttributeCarrier* AC) {
+    // search AC in myInspectedAttributeCarriers
+    const auto it = std::find(myInspectedAttributeCarriers.begin(), myInspectedAttributeCarriers.end(), AC);
+    if (it != myInspectedAttributeCarriers.end()) {
+        myInspectedAttributeCarriers.erase(it);
+    }
+
+
+/*************
+* 
+* 
+* Refresh inspector frame
+* 
+* 
+* *************/
 }
 
 

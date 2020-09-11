@@ -380,7 +380,7 @@ public:
         AttributesEditor(GNEFrame* inspectorFrameParent);
 
         /// @brief show attributes of multiple ACs
-        void showAttributeEditorModul(const std::vector<GNEAttributeCarrier*>& ACs, bool includeExtended, bool forceAttributeEnabled);
+        void showAttributeEditorModul(bool includeExtended, bool forceAttributeEnabled);
 
         /// @brief hide attribute editor
         void hideAttributesEditorModul();
@@ -390,12 +390,6 @@ public:
 
         /// @brief pointer to GNEFrame parent
         GNEFrame* getFrameParent() const;
-
-        /// @brief get current edited ACs
-        const std::vector<GNEAttributeCarrier*>& getEditedACs() const;
-
-        /// @brief remove edited ACs
-        void removeEditedAC(GNEAttributeCarrier* AC);
 
         /// @name FOX-callbacks
         /// @{
@@ -418,9 +412,6 @@ public:
 
         /// @brief button for help
         FXButton* myHelpButton = nullptr;
-
-        /// @brief the multi-selection currently being inspected
-        std::vector<GNEAttributeCarrier*> myEditedACs;
 
         /// @brief flag used to mark if current edited ACs are bein edited including extended attribute
         bool myIncludeExtended;

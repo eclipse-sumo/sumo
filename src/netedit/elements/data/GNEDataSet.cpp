@@ -225,8 +225,8 @@ GNEDataSet::removeDataIntervalChild(GNEDataInterval* dataInterval) {
     if (myDataIntervalChildren.count(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN)) == 1) {
         // remove data interval child
         myDataIntervalChildren.erase(dataInterval->getAttributeDouble(SUMO_ATTR_BEGIN));
-        // remove it from Inspector Frame and HierarchicalElementTree
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getAttributesEditor()->removeEditedAC(dataInterval);
+        // remove it from inspected elements and HierarchicalElementTree
+        myNet->getViewNet()->removeFromAttributeCarrierInspected(dataInterval);
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(dataInterval);
     } else {
         throw ProcessError("DataInterval wasn't previously inserted");

@@ -383,6 +383,9 @@ public:
     /// @brief check if attribute carrier is being inspected
     bool isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const;
 
+    /// @brief remove given AC of list of inspected Attribute Carriers
+    void removeFromAttributeCarrierInspected(const GNEAttributeCarrier* AC);
+
     /// @brief get front attributeCarrier
     const GNEAttributeCarrier* getFrontAttributeCarrier() const;
 
