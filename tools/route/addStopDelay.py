@@ -48,9 +48,9 @@ def get_options(args=None):
     parser.add_argument("--max", type=float, default=3600,
                         help="maximum delay value (default 3600)")
     parser.add_argument("--mean", type=float, default=0,
-                        help="mean delay")
+                        help="mean delay (default 0)")
     parser.add_argument("--dev", type=float, default=60,
-                        help="mean standard deviation of delay")
+                        help="mean standard deviation of delay (default 60)")
 
     options = parser.parse_args(args=args)
     if options.routeFile is None:
