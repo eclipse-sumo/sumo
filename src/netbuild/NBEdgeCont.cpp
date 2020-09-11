@@ -953,7 +953,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
     // count the number of lanes, the speed and the id
     int nolanes = 0;
     double speed = 0;
-    int priority = 0;
+    int priority = -1;
     std::string id;
     sort(edges.begin(), edges.end(), NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
@@ -961,6 +961,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
     NBNode* from = tpledge->getFromNode();
     NBNode* to = tpledge->getToNode();
     EdgeVector::const_iterator i;
+    int myPriority = (*edges.begin())->getPriority();
     for (i = edges.begin(); i != edges.end(); i++) {
         // some assertions
         assert((*i)->getFromNode() == from);
@@ -975,7 +976,13 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
         // compute the speed
         speed += (*i)->getSpeed();
         // build the priority
-        priority = MAX2(priority, (*i)->getPriority());
+        // merged edges should have the same inherited priority 
+        if (myPriority == (*i)->getPriority()) {
+            priority = myPriority; 
+        }
+        else { 
+            priority = -1;
+        }
     }
     speed /= edges.size();
     // build the new edge
