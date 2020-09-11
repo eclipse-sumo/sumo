@@ -194,7 +194,7 @@ GNEEdgeData::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* lan
         drawFilteredAttribute(s, lane->getLaneShape(), myNet->getViewNet()->getViewParent()->getEdgeDataFrame()->getAttributeSelector()->getFilteredAttribute());
     }
     // check if shape dotted contour has to be drawn
-    if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+    if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
         GNEGeometry::drawDottedContourEdge(true, s, lane->getParentEdge(), true, true);
     }
 }

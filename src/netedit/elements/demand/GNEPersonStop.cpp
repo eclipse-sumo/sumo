@@ -342,12 +342,12 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
         }
     } else if (myNet->getViewNet()->getDemandViewOptions().showAllPersonPlans()) {
         drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getInspectedAttributeCarrier() == getParentDemandElements().front()) {
+    } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentDemandElements().front())) {
         drawPersonPlan = true;
     } else if (myNet->getViewNet()->getDemandViewOptions().getLockedPerson() == getParentDemandElements().front()) {
         drawPersonPlan = true;
-    } else if (myNet->getViewNet()->getInspectedAttributeCarrier() && myNet->getViewNet()->getInspectedAttributeCarrier()->getTagProperty().isPersonPlan() &&
-               (myNet->getViewNet()->getInspectedAttributeCarrier()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
+    } else if (!myNet->getViewNet()->getInspectedAttributeCarriers().empty() && myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonPlan() &&
+               (myNet->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARENT) == getAttribute(GNE_ATTR_PARENT))) {
         drawPersonPlan = true;
     }
     // check if stop can be drawn
@@ -414,7 +414,7 @@ GNEPersonStop::drawGL(const GUIVisualizationSettings& s) const {
             // Draw name if isn't being drawn for selecting
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
             // check if dotted contour has to be drawn
-            if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw dooted contour depending if it's placed over a lane or over a stoppingPlace
                 if (getParentLanes().size() > 0) {
                     // GLHelper::drawShapeDottedContourAroundShape(s, getType(), myDemandElementGeometry.getShape(),

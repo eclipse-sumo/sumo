@@ -374,11 +374,14 @@ public:
     /// @brief get interval bar
     GNEViewNetHelper::IntervalBar& getIntervalBar();
 
-    /// @brief get inspected attributeCarrier
-    const GNEAttributeCarrier* getInspectedAttributeCarrier() const;
+    /// @brief get inspected attribute carriers
+    const std::vector<GNEAttributeCarrier*> &getInspectedAttributeCarriers() const;
 
     /// @brief set inspected attributeCarrier
-    void setInspectedAttributeCarrier(const GNEAttributeCarrier* AC);
+    void setInspectedAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs);
+
+    /// @brief check if attribute carrier is being inspected
+    bool isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const;
 
     /// @brief get front attributeCarrier
     const GNEAttributeCarrier* getFrontAttributeCarrier() const;
@@ -513,8 +516,8 @@ private:
     /// @brief a reference to the undolist maintained in the application
     GNEUndoList* myUndoList;
 
-    /// @brief inspected attribute carrier
-    const GNEAttributeCarrier* myInspectedAttributeCarrier;
+    /// @brief current inspected attribute carrier
+    std::vector<GNEAttributeCarrier*> myInspectedAttributeCarriers;
 
     /// @brief front attribute carrier
     const GNEAttributeCarrier* myFrontAttributeCarrier;

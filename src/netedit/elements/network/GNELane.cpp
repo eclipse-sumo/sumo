@@ -627,8 +627,8 @@ GNELane::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contours has to be drawn
         if (!drawRailway) {
-            if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this) ||
-                    ((myNet->getViewNet()->getInspectedAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+                    (myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
                 GNEGeometry::drawDottedContourLane(true, s, myDottedLaneGeometry, laneDrawingConstants.halfWidth, true, true);
             }
             if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||
@@ -1149,15 +1149,17 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
+    // get inspected attribute carriers
+    const auto & inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // declare a RGBColor variable
     RGBColor color;
     // get inspected AC
-    const GNEAttributeCarrier* inspectedAC = myNet->getViewNet()->getInspectedAttributeCarrier();
+    const GNEAttributeCarrier* inspectedAC = inspectedACs.size() > 0? inspectedACs.front() : nullptr;
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
     if (inspectedAC && (inspectedAC->isAttributeCarrierSelected() == false) &&
             ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TRIP) || (inspectedAC->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
         // obtain attribute "via"
-        std::vector<std::string> viaEdges = parse<std::vector<std::string> >(myNet->getViewNet()->getInspectedAttributeCarrier()->getAttribute(SUMO_ATTR_VIA));
+        std::vector<std::string> viaEdges = parse<std::vector<std::string> >(inspectedAC->getAttribute(SUMO_ATTR_VIA));
         // iterate over viaEdges
         for (const auto& edge : viaEdges) {
             // check if parent edge is in the via edges
@@ -1468,8 +1470,8 @@ GNELane::drawLaneAsRailway(const GUIVisualizationSettings& s, const LaneDrawingC
     // Draw crossties
     GLHelper::drawCrossTies(shape, myLaneGeometry.getShapeRotations(), myLaneGeometry.getShapeLengths(), 0.26 * laneDrawingConstants.exaggeration, 0.6 * laneDrawingConstants.exaggeration, halfCrossTieWidth, s.drawForRectangleSelection);
     // check if dotted contours has to be drawn
-    if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this) ||
-            ((myNet->getViewNet()->getInspectedAttributeCarrier() == myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
+    if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this) ||
+            (myNet->getViewNet()->isAttributeCarrierInspected(myParentEdge) && (myParentEdge->getLanes().size() == 1))) {
         GNEGeometry::drawDottedContourShape(true, s, shape, halfGauge, 1);
     }
     if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this) ||

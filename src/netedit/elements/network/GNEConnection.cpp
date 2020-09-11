@@ -486,7 +486,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // Pop name
             glPopName();
             // check if dotted contour has to be drawn (not useful at high zoom)
-            if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // calculate dotted geometry
                 GNEGeometry::DottedGeometry dottedConnectionGeometry(s, myConnectionGeometry.getShape(), false);
                 dottedConnectionGeometry.setWidth(0.1);

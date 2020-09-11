@@ -155,7 +155,7 @@ GNEVaporizer::drawGL(const GUIVisualizationSettings& s) const {
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GNEGeometry::drawDottedContourShape(true, s, myAdditionalGeometry.getShape(), 0.3, vaporizerExaggeration);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {

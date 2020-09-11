@@ -164,7 +164,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw using drawDottedContourClosedShape
             GNEGeometry::drawDottedSquaredShape(true, s, myPosition, lengthExaggeration * 0.5, widthExaggeration * 0.5, lengthExaggeration * 0.5, 0, myAngle, 1);
         }

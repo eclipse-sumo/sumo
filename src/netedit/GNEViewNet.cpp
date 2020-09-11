@@ -209,7 +209,6 @@ GNEViewNet::GNEViewNet(FXComposite* tmpParent, FXComposite* actualParent, GUIMai
     myNet(net),
     myCurrentFrame(nullptr),
     myUndoList(undoList),
-    myInspectedAttributeCarrier(nullptr),
     myFrontAttributeCarrier(nullptr) {
     // view must be the final member of actualParent
     reparent(actualParent);
@@ -602,7 +601,6 @@ GNEViewNet::GNEViewNet() :
     myNet(nullptr),
     myCurrentFrame(nullptr),
     myUndoList(nullptr),
-    myInspectedAttributeCarrier(nullptr),
     myFrontAttributeCarrier(nullptr) {
 }
 
@@ -733,9 +731,9 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // check if menuCheckLockPerson must be enabled or disabled
         if (myDemandViewOptions.menuCheckLockPerson->getCheck() == FALSE) {
             // check if we're in inspector mode and we're inspecting exactly one element
-            if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedAttributeCarrier) {
+            if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedAttributeCarriers.size() > 0) {
                 // obtain tag property
-                const GNETagProperties& tagProperty = myInspectedAttributeCarrier->getTagProperty();
+                const GNETagProperties& tagProperty = myInspectedAttributeCarriers.front()->getTagProperty();
                 // enable menu check lock person if is either a person, a person plan or a person stop
                 if (tagProperty.isPerson() || tagProperty.isPersonPlan() || tagProperty.isPersonStop()) {
                     myDemandViewOptions.menuCheckLockPerson->enable();
@@ -1133,15 +1131,31 @@ GNEViewNet::getIntervalBar() {
 }
 
 
-const GNEAttributeCarrier*
-GNEViewNet::getInspectedAttributeCarrier() const {
-    return myInspectedAttributeCarrier;
+const std::vector<GNEAttributeCarrier*>&
+GNEViewNet::getInspectedAttributeCarriers() const {
+    return myInspectedAttributeCarriers;
 }
 
 
 void
-GNEViewNet::setInspectedAttributeCarrier(const GNEAttributeCarrier* AC) {
-    myInspectedAttributeCarrier = AC;
+GNEViewNet::setInspectedAttributeCarriers(const std::vector<GNEAttributeCarrier*> ACs) {
+    myInspectedAttributeCarriers = ACs;
+}
+
+
+bool 
+GNEViewNet::isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const {
+    if (myInspectedAttributeCarriers.empty()) {
+        return false;
+    } else {
+        // search AC in myInspectedAttributeCarriers
+        const auto it = std::find(myInspectedAttributeCarriers.begin(), myInspectedAttributeCarriers.end(), AC);
+        if (it == myInspectedAttributeCarriers.end()) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
 
 
@@ -2295,7 +2309,7 @@ GNEViewNet::onCmdClearConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
-        if (myInspectedAttributeCarrier != nullptr && (myInspectedAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
+        if ((myInspectedAttributeCarriers.size() > 0) && (myInspectedAttributeCarriers.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION)) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
@@ -2327,7 +2341,7 @@ GNEViewNet::onCmdResetConnections(FXObject*, FXSelector, void*) {
     GNEJunction* junction = getJunctionAtPopupPosition();
     if (junction != nullptr) {
         // make sure we do not inspect the connection will it is being deleted
-        if (myInspectedAttributeCarrier != nullptr && myInspectedAttributeCarrier->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+        if ((myInspectedAttributeCarriers.size() > 0) && myInspectedAttributeCarriers.front()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
             myViewParent->getInspectorFrame()->clearInspectedAC();
         }
         // make sure that connections isn't the front attribute
@@ -2620,7 +2634,7 @@ GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
     // lock or unlock current inspected person depending of menuCheckLockPerson value
     if (myDemandViewOptions.menuCheckLockPerson->getCheck()) {
         // obtan locked person or person plan
-        const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myInspectedAttributeCarrier);
+        const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myInspectedAttributeCarriers.front());
         if (personOrPersonPlan) {
             // lock person depending if casted demand element is either a person or a person plan
             if (personOrPersonPlan->getTagProperty().isPerson()) {

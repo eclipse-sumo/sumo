@@ -519,7 +519,7 @@ GNEEdge::drawGL(const GUIVisualizationSettings& s) const {
     drawEdgeName(s);
     // draw dotted contours
     if (myLanes.size() > 1) {
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GNEGeometry::drawDottedContourEdge(true, s, this, true, true);
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {

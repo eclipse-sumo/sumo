@@ -325,7 +325,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         // pop layer matrix
         glPopMatrix();
         // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // draw depending if is closed
             if (getFill() || scaledGeometry.getShape().isClosed()) {
                 GNEGeometry::drawDottedContourClosedShape(true, s, scaledGeometry.getShape(), 1);

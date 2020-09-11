@@ -163,7 +163,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             glPopName();
         }
         // check if dotted contour has to be drawn
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == getParentAdditionals().front())) {
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
                 GNEGeometry::drawDottedSquaredShape(true, s, symbolGeometry.getPosition(), 1, 3, 0, 3, symbolGeometry.getRotation() + 90, rerouteExaggeration);

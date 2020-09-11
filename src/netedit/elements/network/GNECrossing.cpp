@@ -328,7 +328,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
             drawTLSLinkNo(s, NBCrossing);
         }
         // check if dotted contour has to be drawn (not useful at high zoom)
-        if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GNEGeometry::drawDottedContourShape(true, s, myCrossingGeometry.getShape(), halfWidth, 1);
         }
     }

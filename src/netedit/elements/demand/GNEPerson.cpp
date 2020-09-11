@@ -446,7 +446,7 @@ GNEPerson::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawTextSettings(s.personValue, toString(value), personValuePosition, s.scale, s.angle, GLO_MAX - getType());
             }
             // check if dotted contours has to be drawn
-            if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // draw using drawDottedSquaredShape
                 GNEGeometry::drawDottedSquaredShape(true, s, personPosition, 0.5, 0.5, 0, 0, 0, exaggeration);
             }
@@ -700,17 +700,17 @@ GNEPerson::getHierarchyName() const {
     // special case for Trips and flow
     if ((myTagProperty.getTag() == SUMO_TAG_TRIP) || (myTagProperty.getTag() == SUMO_TAG_FLOW)) {
         // check if we're inspecting a Edge
-        if (myNet->getViewNet()->getInspectedAttributeCarrier() &&
-                myNet->getViewNet()->getInspectedAttributeCarrier()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+        if (myNet->getViewNet()->getInspectedAttributeCarriers().front() &&
+                myNet->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
             // check if edge correspond to a "from", "to" or "via" edge
-            if (getParentEdges().front() == myNet->getViewNet()->getInspectedAttributeCarrier()) {
+            if (myNet->getViewNet()->isAttributeCarrierInspected(getParentEdges().front())) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (from)";
-            } else if (getParentEdges().front() == myNet->getViewNet()->getInspectedAttributeCarrier()) {
+            } else if (myNet->getViewNet()->isAttributeCarrierInspected(getParentEdges().front())) {
                 return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (to)";
             } else {
                 // iterate over via
                 for (const auto& i : via) {
-                    if (i == myNet->getViewNet()->getInspectedAttributeCarrier()->getID()) {
+                    if (i == myNet->getViewNet()->getInspectedAttributeCarriers().front()->getID()) {
                         return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID) + " (via)";
                     }
                 }

@@ -174,7 +174,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn
-        if (s.drawDottedContour() || myNet->getViewNet()->getInspectedAttributeCarrier() == this) {
+        if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GNEGeometry::drawDottedSquaredShape(true, s, myPosition, s.detectorSettings.E3Size, s.detectorSettings.E3Size, 0, 0, 0, E3Exaggeration);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {

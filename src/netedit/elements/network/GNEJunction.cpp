@@ -570,7 +570,7 @@ GNEJunction::drawGL(const GUIVisualizationSettings& s) const {
             // draw Junction childs
             drawJunctionChildren(s);
             // check if dotted contour has to be drawn
-            if (s.drawDottedContour() || (myNet->getViewNet()->getInspectedAttributeCarrier() == this)) {
+            if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 if (drawShape) {
                     GNEGeometry::drawDottedContourClosedShape(true, s, myNBNode->getShape(), junctionExaggeration);
                 }

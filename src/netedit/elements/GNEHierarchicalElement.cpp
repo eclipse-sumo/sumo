@@ -502,7 +502,7 @@ GNEHierarchicalElement::drawHierarchicalConnections(const GUIVisualizationSettin
     if (!s.drawForPositionSelection && !s.drawForRectangleSelection && (exaggeration > 0)) {
         myHierarchicalConnections.drawConnection(s, AC, exaggeration);
         // check if we have to draw dotted inspect contour
-        if (s.drawDottedContour() || (AC->getNet()->getViewNet()->getInspectedAttributeCarrier() == AC)) {
+        if (s.drawDottedContour() || AC->getNet()->getViewNet()->isAttributeCarrierInspected(AC)) {
             myHierarchicalConnections.drawDottedConnection(true, s, exaggeration);
         }
         // check if we have to draw dotted fronto contour
