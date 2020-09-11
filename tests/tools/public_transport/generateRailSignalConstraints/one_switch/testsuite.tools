@@ -15,3 +15,6 @@ no_schedule
 
 # stop on lane
 lane_stops
+
+# include line and vehID information if relevant
+coments
