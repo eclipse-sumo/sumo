@@ -30,7 +30,7 @@ from collections import defaultdict
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime  # noqa
+from sumolib.miscutils import parseTime, humanReadableTime  # noqa
 from sumolib.xml import parse  # noqa
 
 
@@ -40,6 +40,8 @@ def get_options(args=None):
                         help="Input route file")
     parser.add_argument("-s", "--stop-file", dest="stopFile",
                         help="Input stop-output file")
+    parser.add_argument("-H", "--human-readable-time", dest="hrTime", action="store_true", default=False,
+                        help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
     parser.add_argument("-v", "--verbose", action="store_true",
                         default=False, help="tell me what you are doing")
 
@@ -50,8 +52,14 @@ def get_options(args=None):
 
     return options
 
-
 def main(options):
+
+    def formatVehCode(code):
+        time, veh = code
+        if options.hrTime:
+            time = humanReadableTime(time)
+        return "%s (plan=%s)" % (veh, time)
+
 
     # stop (stoppingPlaceID or (lane, pos)) -> [(depart1, veh1), (depart2, veh2), ...]
     expected_departs = defaultdict(list)
@@ -133,17 +141,21 @@ def main(options):
 
             for i, vehCode in enumerate(comparable_expected):
                 j = comparable_actual2.index(vehCode)
+                indexInStops = ""
+                if options.verbose:
+                    indexInStops = "  Index in stops: ex=%s act=%s" % (i, j)
+
                 if i < j:
-                    print("At %s vehicle %s comes after %s (i=%s, j=%s)" % (
-                        stopCode, vehCode,
-                        ','.join(map(str, comparable_actual2[i:j])),
-                        i, j
+                    print("At %s vehicle %s comes after %s.%s" % (
+                        stopCode, formatVehCode(vehCode),
+                        ','.join(map(formatVehCode, comparable_actual2[i:j])),
+                        indexInStops
                     ))
                 elif j < i:
-                    print("At %s vehicle %s comes before %s (i=%s, j=%s)" % (
-                        stopCode, vehCode,
-                        ','.join(map(str, comparable_actual2[j:i])),
-                        i, j
+                    print("At %s vehicle %s comes before %s.%s" % (
+                        stopCode, formatVehCode(vehCode),
+                        ','.join(map(formatVehCode, comparable_actual2[j:i])),
+                        indexInStops
                     ))
                 if i != j:
                     # swap to avoid duplicate out-of-order warnings
