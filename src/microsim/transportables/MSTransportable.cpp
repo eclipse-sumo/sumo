@@ -394,7 +394,13 @@ MSTransportable::saveState(OutputDevice& out) {
     // the parameters may hold the name of a vTypeDistribution but we are interested in the actual type
     myParameter->write(out, OptionsCont::getOptions(), myAmPerson ? SUMO_TAG_PERSON : SUMO_TAG_CONTAINER, getVehicleType().getID());
     std::ostringstream state;
-    state << myParameter->parametersSet << " " << (myStep - myPlan->begin());
+    int stepIdx = (int)(myStep - myPlan->begin());
+    for (auto it = myPlan->begin(); it != myStep; ++it) {
+        if ((*it)->getStageType() == MSStageType::TRIP) {
+            stepIdx--;
+        }
+    }
+    state << myParameter->parametersSet << " " << stepIdx;
     (*myStep)->saveState(state);
     out.writeAttr(SUMO_ATTR_STATE, state.str());
     const MSStage* previous = nullptr;

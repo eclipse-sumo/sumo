@@ -39,17 +39,16 @@ MSEventControl::MSEventControl() :
 
 MSEventControl::~MSEventControl() {
     // delete the events
-    while (!myEvents.empty()) {
-        Event e = myEvents.top();
+    for (const Event& e : myEvents) {
         delete e.first;
-        myEvents.pop();
     }
 }
 
 
 void
 MSEventControl::addEvent(Command* operation, SUMOTime execTimeStep) {
-    myEvents.push(Event(operation, execTimeStep));
+    myEvents.emplace_back(Event(operation, execTimeStep));
+    std::push_heap(myEvents.begin(), myEvents.end(), MSEventControl::eventCompare);
 }
 
 
@@ -57,13 +56,14 @@ void
 MSEventControl::execute(SUMOTime execTime) {
     // Execute all events that are scheduled for execTime.
     while (!myEvents.empty()) {
-        Event currEvent = myEvents.top();
+        Event currEvent = myEvents.front();
         if (currEvent.second < 0) {
             currEvent.second = execTime;
         }
         if (currEvent.second < execTime + DELTA_T) {
             Command* command = currEvent.first;
-            myEvents.pop();
+            std::pop_heap(myEvents.begin(), myEvents.end(), eventCompare);
+            myEvents.pop_back();
             SUMOTime time = 0;
             try {
                 time = command->execute(execTime);
@@ -80,8 +80,7 @@ MSEventControl::execute(SUMOTime execTime) {
                 }
                 delete currEvent.first;
             } else {
-                currEvent.second += time;
-                myEvents.push(currEvent);
+                addEvent(currEvent.first, currEvent.second + time);
             }
         } else {
             break;
@@ -98,20 +97,28 @@ MSEventControl::isEmpty() {
 
 void
 MSEventControl::clearState(SUMOTime currentTime, SUMOTime newTime) {
-    std::vector<Event> keep;
-    while (!myEvents.empty()) {
-        Event currEvent = myEvents.top();
-        myEvents.pop();
-        SUMOTime newExecTime = currEvent.first->shiftTime(currentTime, currEvent.second, newTime);
-        if (newExecTime >= 0) {
-            keep.push_back(std::make_pair(currEvent.first, newExecTime));
+    for (auto eventIt = myEvents.begin(); eventIt != myEvents.end();) {
+        eventIt->second = eventIt->first->shiftTime(currentTime, eventIt->second, newTime);
+        if (eventIt->second >= 0) {
+            ++eventIt;
         } else {
-            delete currEvent.first;
+            delete eventIt->first;
+            eventIt = myEvents.erase(eventIt);
         }
     }
-    for (Event e : keep) {
-        myEvents.push(e);
-    }
+    std::make_heap(myEvents.begin(), myEvents.end(), eventCompare);
 }
+
+
+SUMOTime
+MSEventControl::getEventTime(Command* cmd) const {
+    for (const Event& e : myEvents) {
+        if (e.first == cmd) {
+            return e.second;
+        }
+    }
+    return -2;
+}
+
 
 /****************************************************************************/

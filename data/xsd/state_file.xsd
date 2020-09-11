@@ -115,12 +115,6 @@
             <xsd:element name="container" type="containerStateType" minOccurs="0" maxOccurs="unbounded"/>
         </xsd:choice>
         <xsd:attribute name="type" type="xsd:string" use="required"/>
-        <xsd:attribute name="number" type="xsd:nonNegativeInteger"/>
-        <xsd:attribute name="begin" type="xsd:nonNegativeInteger"/>
-        <xsd:attribute name="end" type="xsd:nonNegativeInteger"/>
-        <xsd:attribute name="depart" type="xsd:nonNegativeInteger"/>
-        <xsd:attribute name="arrival" type="xsd:nonNegativeInteger"/>
-        <xsd:attribute name="discard" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="state" type="xsd:string" use="required"/>
     </xsd:complexType>
 

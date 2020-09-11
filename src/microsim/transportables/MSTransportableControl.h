@@ -173,7 +173,12 @@ public:
         myJammedNumber++;
     }
 
-    /// @name Retrieval of transportable statistics (always accessable)
+    /// @brief decrement counter to avoid double counting transportables loaded from state
+    void fixLoadCount() {
+        myLoadedNumber--;
+    }
+
+    /// @name Retrieval of transportable statistics (always accessible)
     /// @{
 
     /** @brief Returns the number of build transportables

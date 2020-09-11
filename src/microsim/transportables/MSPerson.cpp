@@ -95,19 +95,18 @@ MSPerson::MSPersonStage_Walking::proceed(MSNet* net, MSTransportable* person, SU
         }
     }
     MSTransportableControl& pControl = net->getPersonControl();
-    myState = pControl.getMovementModel()->add(dynamic_cast<MSPerson*>(person), this, now);
+    myState = pControl.getMovementModel()->add(person, this, now);
     if (myState == nullptr) {
         pControl.erase(person);
         return;
     }
-    const MSEdge* edge = *myRouteStep;
-    const MSLane* lane = getSidewalk<MSEdge, MSLane>(getEdge());
+    const MSLane* const lane = getSidewalk<MSEdge, MSLane>(getEdge());
     if (lane != nullptr) {
         for (MSMoveReminder* rem : lane->getMoveReminders()) {
             rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_DEPARTED, lane);
         }
     }
-    edge->addPerson(person);
+    (*myRouteStep)->addPerson(person);
 }
 
 
@@ -310,6 +309,23 @@ MSPerson::MSPersonStage_Walking::getStageSummary(const bool /* isPerson */) cons
                               " stop '" + getDestinationStop()->getID() + "'" + (
                                   getDestinationStop()->getMyName() != "" ? " (" + getDestinationStop()->getMyName() + ")" : ""));
     return "walking to " + dest;
+}
+
+
+void
+MSPerson::MSPersonStage_Walking::saveState(std::ostringstream& out) {
+    out << " " << myDeparted << " " << (myRouteStep - myRoute.begin()) << " " << myLastEdgeEntryTime;
+    myState->saveState(out);
+}
+
+
+void
+MSPerson::MSPersonStage_Walking::loadState(MSTransportable* transportable, std::istringstream& state) {
+    int stepIdx;
+    state >> myDeparted >> stepIdx >> myLastEdgeEntryTime;
+    myRouteStep = myRoute.begin() + stepIdx;
+    myState = MSNet::getInstance()->getPersonControl().getMovementModel()->loadState(transportable, this, state);
+    (*myRouteStep)->addPerson(transportable);
 }
 
 

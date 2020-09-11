@@ -97,26 +97,19 @@ public:
     /** @brief Remove all events before quick-loading state */
     void clearState(SUMOTime currentTime, SUMOTime newTime);
 
+    /** @brief get the next scheduled event time for the given command, -2 if it is not scheduled */
+    SUMOTime getEventTime(Command* cmd) const;
+
 protected:
-    /** @brief Sort-criterion for events.
-     *
-     * Sorts events by their execution time
-     */
-    class EventSortCrit {
-    public:
-        /// @brief compares two events
-        bool operator()(const Event& e1, const Event& e2) const {
-            return e1.second > e2.second;
-        }
-    };
+    /// @brief compares two events
+    static bool eventCompare(const Event& e1, const Event& e2) {
+        return e1.second > e2.second;
+    }
 
 
 private:
-    /// @brief Container for time-dependant events, e.g. traffic-light-change.
-    typedef std::priority_queue< Event, std::vector< Event >, EventSortCrit > EventCont;
-
     /// @brief Event-container, holds executable events.
-    EventCont myEvents;
+    std::vector<Event> myEvents;
 
 
 private:

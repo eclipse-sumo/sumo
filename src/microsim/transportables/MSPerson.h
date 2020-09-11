@@ -96,6 +96,14 @@ public:
 
         std::string getStageSummary(const bool isPerson) const;
 
+        /** @brief Saves the current state into the given stream
+         */
+        void saveState(std::ostringstream& out);
+
+        /** @brief Reconstructs the current state
+         */
+        void loadState(MSTransportable* transportable, std::istringstream& state);
+
         /** @brief Called on writing tripinfo output
          * @param[in] os The stream to write the information into
          * @exception IOError not yet implemented
