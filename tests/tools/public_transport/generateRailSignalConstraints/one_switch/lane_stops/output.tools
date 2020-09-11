@@ -1,6 +1,5 @@
 read 1 busStops on 1 edges
-ignoring stop on lane 'c_0'
-read 2 routes (2 unique) and 2 stops at 0 busStops
+read 2 routes (2 unique) and 2 stops at 1 busStops
 processed 2 routes across 3 edges with 1 merging switches
-Found 0 stops after merging switches and 0 signals that guard switches
-Found 0 conflicts
+Found 2 stops after merging switches and 2 signals that guard switches
+Found 1 conflicts
