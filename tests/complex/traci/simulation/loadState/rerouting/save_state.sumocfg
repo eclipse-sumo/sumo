@@ -4,12 +4,12 @@
 
     <input>
         <net-file value="../../../input_net2.net.xml"/>
-        <route-files value="trips.trips.xml"/>
+        <route-files value="input_routes.rou.xml"/>
     </input>
 
     <output>
         <save-state.times value="1000"/>
-        <save-state.files value="state.xml"/>
+        <save-state.files value="input_state.xml"/>
     </output>
 
 </configuration>

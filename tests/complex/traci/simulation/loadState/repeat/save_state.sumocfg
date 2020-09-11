@@ -9,7 +9,7 @@
 
     <output>
         <save-state.times value="50"/>
-        <save-state.files value="state.xml"/>
+        <save-state.files value="input_state.xml"/>
     </output>
 
     <report>
