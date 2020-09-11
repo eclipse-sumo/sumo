@@ -52,6 +52,8 @@ def get_options(args=None):
                         help="Output additional file")
     #parser.add_argument("--arrivals", action="store_true", default=False,
     #                    help="Use stop arrival time instead of 'until' time for sorting")
+    #parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
+    #                    help="Do not create constraints after a parking stop")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -102,7 +104,6 @@ def getStopRoutes(options, stopEdges):
         return: setOfUniqueRoutes, busstopDict
     """
     uniqueRoutes = set()
-    ignored = set()
     stopRoutes = defaultdict(list) # busStop -> [(edges, stopObj), ....]
     numRoutes = 0
     numStops = 0
@@ -117,10 +118,8 @@ def getStopRoutes(options, stopEdges):
         for stop in vehicle.stop:
             numStops += 1
             if stop.busStop is None:
-                if not stop.lane in ignored:
-                    print("ignoring stop on lane '%s'" % stop.lane)
-                    ignored.add(stop.lane)
-                continue
+                stop.setAttribute("busStop", stop.lane)
+                stopEdges[stop.lane] = sumolib._laneID2edgeID(stop.lane)
             stopEdge = stopEdges[stop.busStop]
             while edges[routeIndex] != stopEdge:
                 routeIndex += 1
@@ -218,7 +217,7 @@ def findConflicts(options, switchRoutes, mergeSignals):
                 nSignal, nTime = mergeSignals[(switch, nEdges)]
                 if switch == options.debugSwitch:
                     print(pSignal, nSignal, pStop, nStop)
-                if pSignal != nSignal:
+                if pSignal != nSignal and pSignal is not None and nSignal is not None:
                     numConflicts += 1
                     numSwitchConflicts += 1
                     conflicts[nSignal].append((nStop.prevTripId, pSignal, pStop.prevTripId, nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
