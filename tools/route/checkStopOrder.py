@@ -45,7 +45,11 @@ def get_options(args=None):
                         help="Do not report conflicts with parking vehicles")
 
     options = parser.parse_args(args=args)
-    options.routeFiles = options.routeFiles.split(',')
+    if options.routeFiles:
+        options.routeFiles = options.routeFiles.split(',')
+    else:
+        print("Argument --route-files is mandatory", file=sys.stderr)
+        sys.exit()
 
     return options
 
