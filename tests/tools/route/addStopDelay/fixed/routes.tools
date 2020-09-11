@@ -15,5 +15,5 @@
     <trip id="trip" depart="0.0">
         <stop busStop="3959807201" duration="40" until="39.0"/> <!-- Dudenstraße/Katzbachstraße -->
         <stop busStop="3959807220" duration="40" until="103.0"/> <!-- Kolonnenbrücke -->
-    </flow>
+    </trip>
 </routes>
