@@ -74,13 +74,13 @@ end note
 
 Compliance with FMI 2.0 is checked with [FMU Compliance Checker](https://github.com/modelica-tools/FMUComplianceChecker). It can be installed after cloning according to the build instructions.
 
-The validation can be triggered on MacOS with
+The validation can be triggered on macOS with
 
 ```
 fmuCheck.darwin64 /PATH/TO/SUMO/FMI/sumo-fmi2.fmu 
 ```
 
-On some MacOS systems, the validation may fail with the following message: *Interceptors are not working*. This can be fixed with the following call:
+On some macOS systems, the validation may fail with the following message: *Interceptors are not working*. This can be fixed with the following call:
 
 ```
 DYLD_INSERT_LIBRARIES=/Library/Developer/CommandLineTools/usr/lib/clang/11.0.3/lib/darwin/libclang_rt.asan_osx_dynamic.dylib fmuCheck.darwin64 /PATH/TO/SUMO/FMI/sumo-fmi2.fmu 
