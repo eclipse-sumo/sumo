@@ -103,7 +103,7 @@ private:
     /// @brief implementation of callbacks to retrieve various state information from the model
     class PState : public MSTransportableStateAdapter {
     public:
-        PState(MoveToNextEdge* cmd): myCommand(cmd) {};
+        PState(MoveToNextEdge* cmd, std::istringstream* in = nullptr);
 
         /// @brief abstract methods inherited from PedestrianState
         /// @{
@@ -118,8 +118,12 @@ private:
 
         /// @brief compute walking time on edge and update state members
         virtual SUMOTime computeDuration(const MSEdge* prev, const MSStageMoving& stage, SUMOTime currentTime);
-        MoveToNextEdge* getCommand() {
+        MoveToNextEdge* getCommand() const {
             return myCommand;
+        }
+
+        SUMOTime getEventTime() const {
+            return myLastEntryTime + myCurrentDuration;
         }
 
         /** @brief Saves the current state into the given stream
@@ -137,7 +141,7 @@ private:
 
     class CState : public PState {
     public:
-        CState(MoveToNextEdge* cmd) : PState(cmd) {};
+        CState(MoveToNextEdge* cmd, std::istringstream* in = nullptr);
 
         /// @brief the offset for computing container positions when being transhiped
         static const double LATERAL_OFFSET;

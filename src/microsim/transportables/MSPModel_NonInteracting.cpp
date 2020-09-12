@@ -76,10 +76,8 @@ MSTransportableStateAdapter*
 MSPModel_NonInteracting::loadState(MSTransportable* transportable, MSStageMoving* stage, std::istringstream& in) {
     myNumActivePedestrians++;
     MoveToNextEdge* const cmd = new MoveToNextEdge(transportable, *stage, this);
-    PState* const state = transportable->isPerson() ? new PState(cmd) : new CState(cmd);
-    SUMOTime eventTime;
-    in >> eventTime;
-    myNet->getBeginOfTimestepEvents()->addEvent(cmd, eventTime);
+    PState* const state = transportable->isPerson() ? new PState(cmd, &in) : new CState(cmd, &in);
+    myNet->getBeginOfTimestepEvents()->addEvent(cmd, state->getEventTime());
     return state;
 }
 
@@ -91,9 +89,13 @@ MSPModel_NonInteracting::remove(MSTransportableStateAdapter* state) {
 }
 
 
+// ---------------------------------------------------------------------------
+// MSPModel_NonInteracting::MoveToNextEdge method definitions
+// ---------------------------------------------------------------------------
 MSPModel_NonInteracting::MoveToNextEdge::~MoveToNextEdge() {
     myModel->registerArrived();
 }
+
 
 SUMOTime
 MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
@@ -106,6 +108,16 @@ MSPModel_NonInteracting::MoveToNextEdge::execute(SUMOTime currentTime) {
         return 0;
     }
     return static_cast<PState*>(myParent.getState())->computeDuration(old, myParent, currentTime);
+}
+
+
+// ---------------------------------------------------------------------------
+// MSPModel_NonInteracting::PState method definitions
+// ---------------------------------------------------------------------------
+MSPModel_NonInteracting::PState::PState(MoveToNextEdge* cmd, std::istringstream* in) : myCommand(cmd) {
+    if (in != nullptr) {
+        (*in) >> myLastEntryTime >> myCurrentDuration;
+    }
 }
 
 
@@ -198,8 +210,14 @@ MSPModel_NonInteracting::PState::getNextEdge(const MSStageMoving& stage) const {
 
 void
 MSPModel_NonInteracting::PState::saveState(std::ostringstream& out) {
-    // TODO this could be optimized, it does a linear search in the event list
-    out << " " << MSNet::getInstance()->getBeginOfTimestepEvents()->getEventTime(myCommand);
+    out << " " << myLastEntryTime << " " << myCurrentDuration;
+}
+
+
+// ---------------------------------------------------------------------------
+// MSPModel_NonInteracting::CState method definitions
+// ---------------------------------------------------------------------------
+MSPModel_NonInteracting::CState::CState(MoveToNextEdge* cmd, std::istringstream* in) : PState(cmd, in) {
 }
 
 

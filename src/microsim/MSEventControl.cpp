@@ -110,15 +110,4 @@ MSEventControl::clearState(SUMOTime currentTime, SUMOTime newTime) {
 }
 
 
-SUMOTime
-MSEventControl::getEventTime(Command* cmd) const {
-    for (const Event& e : myEvents) {
-        if (e.first == cmd) {
-            return e.second;
-        }
-    }
-    return -2;
-}
-
-
 /****************************************************************************/
