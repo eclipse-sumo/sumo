@@ -132,7 +132,7 @@ jobs:
     - name: Preparing Build System
       run: |
         sudo apt-get update 
-        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgl2ps-dev python3-dev swig openjdk-8-jdk maven ccache
+        sudo apt-get install cmake libeigen3-dev libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgtest-dev libgl2ps-dev python3-dev python3-setuptools swig openjdk-8-jdk maven ccache
         sudo pip3 install texttest
 
     - name: Preparing Gtest
