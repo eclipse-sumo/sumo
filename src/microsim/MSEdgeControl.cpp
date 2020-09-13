@@ -89,6 +89,7 @@ MSEdgeControl::~MSEdgeControl() {
     myThreadPool.clear();
 #endif
 #endif
+//    std::cout << myStopWatch.getHistory().size() << " calls, average " << myStopWatch.getAverage() << " ns" << std::endl;
 }
 
 
@@ -113,6 +114,7 @@ MSEdgeControl::patchActiveLanes() {
 
 void
 MSEdgeControl::planMovements(SUMOTime t) {
+//    myStopWatch.start();
 #ifdef THREAD_POOL
     std::vector<std::future<void>> results;
 #endif
@@ -143,7 +145,7 @@ MSEdgeControl::planMovements(SUMOTime t) {
     }
 #ifdef THREAD_POOL
     for(auto& r : results) {
-        r.get();
+        r.wait();
     }
 #else
 #ifdef HAVE_FOX
@@ -152,6 +154,7 @@ MSEdgeControl::planMovements(SUMOTime t) {
     }
 #endif
 #endif
+//    myStopWatch.stop();
 }
 
 
@@ -165,18 +168,16 @@ MSEdgeControl::setJunctionApproaches(SUMOTime t) {
 
 void
 MSEdgeControl::executeMovements(SUMOTime t) {
+//    myStopWatch.start();
     std::vector<MSLane*> wasActive(myActiveLanes.begin(), myActiveLanes.end());
     myWithVehicles2Integrate.clear();
 #ifdef PARALLEL_EXEC_MOVE
 #ifdef THREAD_POOL
-    std::vector<std::future<void>> results;
     if (MSGlobals::gNumSimThreads > 1) {
         for (MSLane* const lane : myActiveLanes) {
-            results.push_back(myThreadPool.executeAsync([lane,t](int) { lane->executeMovements(t);}, lane->getRNGIndex() % MSGlobals::gNumSimThreads));
+            myThreadPool.executeAsync([lane,t](int) { lane->executeMovements(t);}, lane->getRNGIndex() % MSGlobals::gNumSimThreads);
         }
-        for(auto& r : results) {
-            r.get();
-        }
+        myThreadPool.waitAll();
     }
 #else
 #ifdef HAVE_FOX
@@ -229,6 +230,7 @@ MSEdgeControl::executeMovements(SUMOTime t) {
             }
         }
     }
+//    myStopWatch.stop();
 }
 
 

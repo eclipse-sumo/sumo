@@ -70,6 +70,16 @@ public:
         return myQueues[index % myQueues.size()].push(std::forward<TaskT>(task));
     }
 
+    void waitAll() {
+        std::vector<std::future<void>> results;
+        for (int n = 0; n != (int)myQueues.size(); ++n) {
+            results.push_back(executeAsync([](CONTEXT) {}, n));
+        }
+        for (auto& r : results) {
+            r.wait();
+        }
+    }
+
 private:
     void run(size_t queueIndex, const CONTEXT& context) {
         while (myQueues[queueIndex].isEnabled()) {

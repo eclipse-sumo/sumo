@@ -18,8 +18,74 @@
 // Testing the threadpool implementation,
 // based on https://github.com/vukis/Cpp-Utilities/tree/master/ThreadPool
 /****************************************************************************/
-#include "TestUtilities.h"
+#include <string>
+#include <vector>
+#include <chrono>
+#include <iostream>
+#include <sstream>
+#include <iomanip>
+#include <numeric>
+
+#include <utils/common/StopWatch.h>
 #include <utils/threadpool/WorkStealingThreadPool.h>
+
+inline void LoadCPUForRandomTime()
+{
+    // Sleeping the thread isn't good as it doesn't tie up the
+    // CPU resource in the same way as actual work on a thread would do,
+    // The OS is free to schedule work on the CPU while the thread is
+    // sleeping. Hence we do some busy work. Note that volatile keyword
+    // is necessary to prevent compiler from removing the below code.
+
+    srand(0); // random sequences should be indentical
+
+    volatile auto delay = rand() % static_cast<int>(1e5);
+    while (delay != 0) {
+        delay--;
+    };
+}
+
+template<typename DurationT>
+void LoadCPUFor(DurationT&& duration) {
+    for (auto start = std::chrono::steady_clock::now(), now = start;
+        now < start + duration;
+        now = std::chrono::steady_clock::now())
+    {
+    }
+}
+
+#define DO_BENCHMARK_TEST_WITH_DESCRIPTION(description, repeatTimes, test, pool) { \
+std::cout << " - Benchmark test ( " << #test << ", description: " << description; \
+StopWatch<> stopWatch; \
+for (size_t n = 0; n < repeatTimes; ++n) { \
+    stopWatch.start(); \
+    test(pool); \
+    stopWatch.stop(); \
+} \
+std::cout << " ) => " << stopWatch.getAverage() << " ms" << std::endl; \
+}
+
+#define TEST_ASSERT(expr) \
+if (!(expr)) { \
+    std::ostringstream ss; \
+    ss << __FILE__ << ":" <<__LINE__ << " " << #expr; \
+    throw std::runtime_error(ss.str()); \
+}
+
+#define DO_TEST(test, pool)  { \
+std::cout << " - Test ( " << #test << " " << #pool; \
+try \
+{ \
+    test(pool); \
+} \
+catch (const std::exception& e) \
+{ \
+    std::cout << " => failed with: " << e.what() << " )" << std::endl; \
+    throw; \
+} \
+std::cout << " => succeed )" << std::endl; \
+}
+
 
 void Test_TaskResultIsAsExpected(WorkStealingThreadPool<>& taskSystem)
 {

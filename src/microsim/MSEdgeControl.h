@@ -34,6 +34,7 @@
 #include <queue>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/Named.h>
+#include <utils/common/StopWatch.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/router/RouterProvider.h>
 #include <utils/vehicle/SUMOVehicle.h>
@@ -285,7 +286,7 @@ private:
 #endif
 #endif
 
-    std::priority_queue<std::pair<int, int> > myRNGLoad;
+    StopWatch<std::chrono::nanoseconds> myStopWatch;
 
 private:
     /// @brief Copy constructor.
