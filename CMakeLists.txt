@@ -31,8 +31,8 @@ cmake_minimum_required(VERSION 3.1)
 
 find_program(CCACHE_FOUND "ccache")
 if (CCACHE_FOUND AND CCACHE_SUPPORT)
-  message(STATUS "Enabling ccache")
-  set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "ccache")
+    message(STATUS "Enabling ccache")
+    set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE "ccache")
 endif()
 
 set(CMAKE_COLOR_MAKEFILE ON)
@@ -556,6 +556,10 @@ add_subdirectory(src)
 if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()
+find_program(TEXTTEST_FOUND "texttest")
+if (TEXTTEST_FOUND)
+    add_test(texttest ${CMAKE_SOURCE_DIR}/tests/runTests.sh -b ci -v ci)
+endif()
 
 # example and dist targets
 add_custom_target(examples
