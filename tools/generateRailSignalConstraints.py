@@ -184,22 +184,51 @@ def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
                     if signal is None:
                         print("No signal found when approaching stop %s via switch %s along route %s" % (
                             busStop, edge, ','.join(edgesBefore)), file=sys.stderr)
-                    time = getTravelTime(net, edgesBefore[signalEdgeIndex:])
-                    mergeSignals[(edge, edgesBefore)] = (signal, time)
+                    # travel time from signal to switch
+                    #ttSignalSwitch = getTravelTime(net, edgesBefore[signalEdgeIndex:i])
+                    # travel time from switch to stop
+                    ttSwitchsStop = getTravelTime(net, edgesBefore[i:])
+                    mergeSignals[(edge, edgesBefore)] = (signal, ttSwitchsStop)
 
     print("Found %s stops after merging switches and %s signals that guard switches" % (
         numFound, len(set(mergeSignals.values()))))
     return switchRoutes, mergeSignals
 
+def countPassingTrainsToOtherStops(options, switch, stopRoutes2, currentStop, begin, end, mergeSignals):
+    count = 0
+    for busStop, stops in stopRoutes2.items():
+        if busStop == currentStop:
+            continue
+        for edges, stop in stops:
+            if stop.hasAttribute("arrival"):
+                arrival = parseTime(stop.arrival)
+            elif stop.hasAttribute("until"):
+                arrival = parseTime(stop.until) - parseTime(stop.getAttributeSecure("duration", "0"))
+            else:
+                continue
+            signal, timeSwSt = mergeSignals[(switch, edges)]
+            timeAtSwitch = arrival - timeSwSt
+            #if switch == options.debugSwitch:
+            #    print("vehicle %s (%s) passes switch %s at time %s arrival=%s, timeSwSt=%s (begin=%s end=%s)" % (
+            #        stop.prevTripId, stop.vehID, switch, timeAtSwitch, arrival, timeSwSt, begin, end))
+            if begin < timeAtSwitch and timeAtSwitch < end:
+                count += 1
+                if switch == options.debugSwitch:
+                    print("vehicle %s (%s) passes switch %s at time %s (in between %s and %s)" % (
+                        stop.prevTripId, stop.vehID, switch, timeAtSwitch, begin, end))
+
+    return count
 
 def findConflicts(options, switchRoutes, mergeSignals):
     """find stops that target the same busStop from different branches of the
     prior merge switch and establish their ordering"""
 
     numConflicts = 0
-    conflicts = defaultdict(list) # signal -> [(tripID, otherSignal, otherTripID), ...]
+    conflicts = defaultdict(list) # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
     for switch, stopRoutes2 in switchRoutes.items():
         numSwitchConflicts = 0
+        if switch == options.debugSwitch:
+            print("Switch %s lies ahead of busStops %s" % (switch, stopRoutes2.keys()))
         for busStop, stops in stopRoutes2.items():
             arrivals = []
             for edges, stop in stops:
@@ -213,14 +242,22 @@ def findConflicts(options, switchRoutes, mergeSignals):
                 arrivals.append((arrival, edges, stop))
             arrivals.sort()
             for (pArrival, pEdges, pStop), (nArrival, nEdges, nStop) in zip(arrivals[:-1], arrivals[1:]):
-                pSignal, pTime = mergeSignals[(switch, pEdges)]
-                nSignal, nTime = mergeSignals[(switch, nEdges)]
+                pSignal, pTimeSwSt = mergeSignals[(switch, pEdges)]
+                nSignal, nTimeSwSt = mergeSignals[(switch, nEdges)]
                 if switch == options.debugSwitch:
                     print(pSignal, nSignal, pStop, nStop)
                 if pSignal != nSignal and pSignal is not None and nSignal is not None:
                     numConflicts += 1
                     numSwitchConflicts += 1
-                    conflicts[nSignal].append((nStop.prevTripId, pSignal, pStop.prevTripId, nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
+                    # check for trains that pass the switch in between the
+                    # current two trains (heading to another stop) and raise the limit
+                    limit = 1
+                    pTimeAtSwitch = pArrival - pTimeSwSt
+                    nTimeAtSwitch = nArrival - nTimeSwSt
+                    limit += countPassingTrainsToOtherStops(options, switch, stopRoutes2, busStop, pTimeAtSwitch, nTimeAtSwitch, mergeSignals)
+                    conflicts[nSignal].append((nStop.prevTripId, pSignal, pStop.prevTripId, limit,
+                        # attributes for adding comments
+                        nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
         if options.verbose:
             print("Found %s conflicts at switch %s" % (numSwitchConflicts, switch))
 
@@ -230,7 +267,7 @@ def findConflicts(options, switchRoutes, mergeSignals):
         sumolib.writeXMLHeader(outf, "$Id$", "additional")  # noqa
         for signal in sorted(conflicts.keys()):
             outf.write('    <railSignalConstraints id="%s">\n' % signal)
-            for tripID, otherSignal, otherTripID, line, otherLine, vehID, otherVehID in conflicts[signal]:
+            for tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID in conflicts[signal]:
                 comment = ""
                 if options.commentLine:
                     if line != "":
@@ -244,8 +281,12 @@ def findConflicts(options, switchRoutes, mergeSignals):
                         comment += "foeID=%s " % otherVehID
                 if comment != "":
                     comment = "   <!-- %s -->" % comment
-                outf.write('        <predecessor tripId="%s" tl="%s" foes="%s"/>%s\n' % (
-                    tripID, otherSignal, otherTripID, comment))
+                if limit == 1:
+                    limit = ""
+                else:
+                    limit = ' limit="%s"' % limit
+                outf.write('        <predecessor tripId="%s" tl="%s" foes="%s"%s/>%s\n' % (
+                    tripID, otherSignal, otherTripID, limit, comment))
             outf.write('    </railSignalConstraints>\n')
         outf.write('</additional>\n')
 
