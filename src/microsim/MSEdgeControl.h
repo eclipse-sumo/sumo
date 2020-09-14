@@ -286,7 +286,7 @@ private:
 #endif
 #endif
 
-    StopWatch<std::chrono::nanoseconds> myStopWatch;
+//    std::vector<StopWatch<std::chrono::nanoseconds> > myStopWatch{3};
 
 private:
     /// @brief Copy constructor.

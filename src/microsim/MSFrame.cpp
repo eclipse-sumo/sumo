@@ -792,11 +792,16 @@ MSFrame::checkOptions() {
         ok = false;
     }
 #endif
+    if (oc.getInt("threads") < 1) {
+        WRITE_ERROR("You need at least one thread.");
+        ok = false;
+    }
     if (oc.getInt("threads") > oc.getInt("thread-rngs")) {
         WRITE_WARNING("Number of threads exceeds number of thread-rngs. Simulation runs with the same seed may produce different results");
     }
     if (oc.getString("game.mode") != "tls" && oc.getString("game.mode") != "drt") {
         WRITE_ERROR("game.mode must be one of ['tls', 'drt']");
+        ok = false;
     }
 
     if (oc.isSet("persontrip.transfer.car-walk")) {

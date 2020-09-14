@@ -89,7 +89,8 @@ MSEdgeControl::~MSEdgeControl() {
     myThreadPool.clear();
 #endif
 #endif
-//    std::cout << myStopWatch.getHistory().size() << " calls, average " << myStopWatch.getAverage() << " ns" << std::endl;
+//    std::cout << myStopWatch[0].getHistory().size() << " calls, average " << myStopWatch[0].getAverage() << " ns" << std::endl;
+//    std::cout << myStopWatch[1].getHistory().size() << " calls, average " << myStopWatch[1].getAverage() << " ns" << std::endl;
 }
 
 
@@ -114,7 +115,7 @@ MSEdgeControl::patchActiveLanes() {
 
 void
 MSEdgeControl::planMovements(SUMOTime t) {
-//    myStopWatch.start();
+//    myStopWatch[0].start();
 #ifdef THREAD_POOL
     std::vector<std::future<void>> results;
 #endif
@@ -154,7 +155,7 @@ MSEdgeControl::planMovements(SUMOTime t) {
     }
 #endif
 #endif
-//    myStopWatch.stop();
+//    myStopWatch[0].stop();
 }
 
 
@@ -168,7 +169,7 @@ MSEdgeControl::setJunctionApproaches(SUMOTime t) {
 
 void
 MSEdgeControl::executeMovements(SUMOTime t) {
-//    myStopWatch.start();
+//    myStopWatch[1].start();
     std::vector<MSLane*> wasActive(myActiveLanes.begin(), myActiveLanes.end());
     myWithVehicles2Integrate.clear();
 #ifdef PARALLEL_EXEC_MOVE
@@ -230,7 +231,7 @@ MSEdgeControl::executeMovements(SUMOTime t) {
             }
         }
     }
-//    myStopWatch.stop();
+//    myStopWatch[1].stop();
 }
 
 

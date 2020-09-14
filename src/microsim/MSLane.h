@@ -38,6 +38,7 @@
 #include <utils/vehicle/SUMOVehicle.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/geom/PositionVector.h>
+#include "MSGlobals.h"
 #include "MSLinkCont.h"
 #include "MSLeaderInfo.h"
 #include "MSMoveReminder.h"
@@ -207,13 +208,13 @@ public:
     /// @brief Destructor
     virtual ~MSLane();
 
-    /// @brief sets the associated RNG index
-    void setRNGIndex(const int rngIndex) {
-        myRNGIndex = rngIndex;
+    /// @brief returns the associated thread index
+    inline int getThreadIndex() const {
+        return myRNGIndex % MSGlobals::gNumSimThreads;
     }
 
     /// @brief returns the associated RNG index
-    int getRNGIndex() const {
+    inline int getRNGIndex() const {
         return myRNGIndex;
     }
 
