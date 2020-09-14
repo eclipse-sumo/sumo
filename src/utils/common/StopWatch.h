@@ -24,7 +24,13 @@
 #include <chrono>
 #include <numeric>
 
-template<typename TimeT = std::chrono::milliseconds, typename ClockT = std::chrono::steady_clock>
+template<typename TimeT = std::chrono::milliseconds, typename ClockT =
+#if defined(_MSC_VER) && _MSC_VER == 1800
+    std::chrono::system_clock
+#else
+    std::chrono::steady_clock
+#endif
+>
 class StopWatch {
 public:
     StopWatch() {
