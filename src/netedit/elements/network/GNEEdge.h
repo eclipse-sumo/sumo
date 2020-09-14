@@ -77,6 +77,8 @@ public:
     Position getPositionInView() const;
     /// @}
 
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+
     /// @name functions for edit start and end shape positions
     /// @{
     /// @brief return true if user clicked over ShapeStart

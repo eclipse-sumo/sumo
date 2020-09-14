@@ -145,6 +145,27 @@ GNEEdge::getPositionInView() const {
 }
 
 
+GNEMoveOperation*
+GNEEdge::getMoveOperation(const double shapeOffset) {
+    // declare shape to move
+    PositionVector shapeToMove = myNBEdge->getGeometry();
+    // first check if in the given shapeOffset there is a geometry point
+    const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
+    // obtain index
+    int index = myNBEdge->getGeometry().indexOfClosest(positionAtOffset);
+    // check if we have to create a new index
+    if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS*SNAP_RADIUS)) {
+        shapeToMove.insert_noDoublePos(shapeToMove.begin() + index, positionAtOffset);
+        index++;
+    }
+    // declare geometries
+    GNEGeometry::Geometry originalGeometry(myNBEdge->getGeometry());
+    GNEGeometry::Geometry geometryToMove(shapeToMove);
+    // return a new move operation
+    return new GNEMoveOperation(this, originalGeometry, geometryToMove, index, {index});
+}
+
+
 bool
 GNEEdge::clickedOverShapeStart(const Position& pos) {
     if (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView()) {
