@@ -25,6 +25,8 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLink.h>
+#include <microsim/MSNet.h>
+#include <microsim/MSVehicleControl.h>
 #include "MSRailSignal.h"
 #include "MSRailSignalConstraint.h"
 
@@ -49,6 +51,18 @@ MSRailSignalConstraint::saveState(OutputDevice& out) {
 void
 MSRailSignalConstraint::clearState() {
     MSRailSignalConstraint_Predecessor::clearState();
+}
+
+std::string
+MSRailSignalConstraint::getVehID(const std::string& tripID) {
+    MSVehicleControl& c = MSNet::getInstance()->getVehicleControl();
+    for (MSVehicleControl::constVehIt i = c.loadedVehBegin(); i != c.loadedVehEnd(); ++i) {
+        SUMOVehicle* veh = i->second;
+        if (veh->getParameter().getParameter("tripId") == tripID) {
+            return veh->getID();
+        }
+    }
+    return "";
 }
 
 // ===========================================================================
@@ -128,7 +142,25 @@ MSRailSignalConstraint_Predecessor::cleared() const {
 
 std::string
 MSRailSignalConstraint_Predecessor::getDescription() const {
-    return "predecessor " + myTripId + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID();
+    // try to retrieve vehicle id that belongs to myTripId
+    // this may be slow so it should only be used for debugging
+    std::string vehID = getVehID(myTripId);
+    if (vehID != "") {
+        vehID = " (" + vehID + ")";
+    }
+    std::vector<std::string> passedIDs;
+    for (const std::string& passedTripID : myTrackers.front()->myPassed) {
+        const std::string passedID = getVehID(passedTripID);
+        if (passedID != "") {
+            passedIDs.push_back(passedID);
+        }
+    }
+    std::string passedIDs2 = "";
+    if (passedIDs.size() > 0) {
+        passedIDs2 = " (" + toString(passedIDs) + ")";
+    }
+    return ("predecessor " + myTripId + vehID + " at signal " + myTrackers.front()->getLane()->getEdge().getFromJunction()->getID()
+            + " passed=" + toString(myTrackers.front()->myPassed) + passedIDs2);
 }
 
 // ===========================================================================

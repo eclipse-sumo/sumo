@@ -60,6 +60,9 @@ public:
 
     /** @brief Clear all constraint states before quick-loading state */
     static void clearState();
+
+protected:
+    static std::string getVehID(const std::string& tripID);
 };
 
 
@@ -111,7 +114,6 @@ public:
         /** @brief loads the current passed states into the given stream */
         void loadState(int index, const std::vector<std::string>& tripIDs);
 
-    protected:
         /// @brief passed tripIds
         std::vector<std::string> myPassed;
 
