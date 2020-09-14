@@ -23,7 +23,7 @@
 
 #include <netbuild/NBEdge.h>
 #include <netedit/elements/GNECandidateElement.h>
-#include <netedit/GNEMove.h>
+#include <netedit/GNEMoveElement.h>
 
 
 // ===========================================================================

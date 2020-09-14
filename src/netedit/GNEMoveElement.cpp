@@ -19,7 +19,7 @@
 /****************************************************************************/
 #include <netedit/elements/network/GNEEdge.h>
 
-#include "GNEMove.h"
+#include "GNEMoveElement.h"
 
 
 void 
