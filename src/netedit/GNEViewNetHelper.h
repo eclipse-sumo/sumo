@@ -133,6 +133,7 @@ class GNENet;
 class GNEUndoList;
 class GNEViewNet;
 class GNEViewParent;
+class GNEMoveOperation;
 // network elements
 class GNENetworkElement;
 class GNEJunction;
@@ -890,6 +891,9 @@ struct GNEViewNetHelper {
 
         /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
         GNETAZ* myTAZElementToMove;
+
+        /// @brief move operations
+        std::vector<GNEMoveOperation*> myMoveOperations;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements

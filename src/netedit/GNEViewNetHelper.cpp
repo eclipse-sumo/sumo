@@ -1025,6 +1025,11 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
             myConnectionToMove->moveConnectionShape(offsetMovement);
         }
     } else if (myEdgeToMove) {
+        for (const auto &moveOperation : myMoveOperations) {
+            GNEMoveElement::moveElement(moveOperation, offsetMovement);
+        }
+        
+    /*
         // check if we're moving the start or end position, or a geometry point
         if (myMovingStartPos) {
             myEdgeToMove->moveShapeBegin(offsetMovement);
@@ -1034,6 +1039,9 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
             // move edge's geometry without commiting changes
             myEdgeToMove->moveEdgeShape(offsetMovement);
         }
+    */
+
+
     } else if (myAdditionalToMove && (myAdditionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
         myAdditionalToMove->moveGeometry(offsetMovement);
@@ -1256,6 +1264,13 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
     } else {
         // assign clicked edge to edgeToMove
         myEdgeToMove = myViewNet->myObjectsUnderCursor.getEdgeFront();
+        // get move operation
+        GNEMoveOperation* moveOperation = myEdgeToMove->getMoveOperation(myEdgeToMove->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation()));
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+        }
+        /*
         // calculate edgeShapeOffset
         const double edgeShapeOffset = myEdgeToMove->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
         // check if we clicked over a start or end position
@@ -1295,6 +1310,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
                 return true;
             }
         }
+        */
+
     }
 }
 
