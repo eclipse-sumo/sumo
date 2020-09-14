@@ -30,6 +30,7 @@
 #include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
+#include <netbuild/NBEdgeCont.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -895,6 +896,8 @@ GNELane::getAttribute(SumoXMLAttr key) const {
             return toString(edge->getLaneStruct(myIndex).accelRamp);
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(edge->getLaneStruct(myIndex).customShape);
+        case GNE_ATTR_OPPOSITE:
+            return toString(edge->getLaneStruct(myIndex).oppositeID);
         case SUMO_ATTR_INDEX:
             return toString(myIndex);
         case GNE_ATTR_PARENT:
@@ -930,6 +933,7 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
         case SUMO_ATTR_ENDOFFSET:
         case SUMO_ATTR_ACCELERATION:
         case SUMO_ATTR_CUSTOMSHAPE:
+        case GNE_ATTR_OPPOSITE:
         case SUMO_ATTR_INDEX:
         case GNE_ATTR_SELECTED:
         case GNE_ATTR_PARAMETERS:
@@ -967,6 +971,22 @@ GNELane::isValid(SumoXMLAttr key, const std::string& value) {
                 return parse<PositionVector>(value).size() > 1;
             }
             return false;
+        }
+        case GNE_ATTR_OPPOSITE: {
+            if (value.empty()) {
+                return true;
+            } else {
+                NBEdge* oppEdge = myNet->getEdgeCont().retrieve(value.substr(0, value.rfind("_")));
+                if (oppEdge == nullptr || oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != value) {
+                    return false;
+                }
+                NBEdge* edge = myParentEdge->getNBEdge();
+                if (oppEdge->getFromNode() != edge->getToNode() || oppEdge->getToNode() != edge->getFromNode()) {
+                    WRITE_WARNING("Opposite lane '" + value + "' does not connect the same nodes as edge '" + edge->getID() + "'!");
+                    return false;
+                }
+                return true;
+            }
         }
         case GNE_ATTR_SELECTED:
             return canParse<bool>(value);
@@ -1129,6 +1149,12 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setLaneShape(myIndex, parse<PositionVector>(value));
             // add parent edge into net again
             myNet->addGLObjectIntoGrid(myParentEdge);
+            break;
+        }
+        case GNE_ATTR_OPPOSITE: {
+            myParentEdge->getNBEdge()->getLaneStruct(myIndex).oppositeID = value;
+            NBEdge* oppEdge = myNet->getEdgeCont().retrieve(value.substr(0, value.rfind("_")));
+            oppEdge->getLaneStruct(oppEdge->getNumLanes() - 1).oppositeID = getID();
             break;
         }
         case GNE_ATTR_SELECTED:

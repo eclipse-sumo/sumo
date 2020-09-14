@@ -1200,6 +1200,8 @@ enum SumoXMLAttr {
     GNE_ATTR_FROM_STOP,
     /// @brief to stop (used by personPlans)
     GNE_ATTR_TO_STOP,
+    /// @brief neighboring lane, simplified lane attr instead of child element
+    GNE_ATTR_OPPOSITE,
 
     // @}
 
