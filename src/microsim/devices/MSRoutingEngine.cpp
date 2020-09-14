@@ -181,7 +181,7 @@ MSRoutingEngine::getEffortExtra(const MSEdge* const e, const SUMOVehicle* const 
     }
     if (myPriorityFactor != 0) {
         // lower priority should result in higher effort (and the edge with
-        // minimum priority receives a factor of myPriorityFactor
+        // minimum priority receives a factor of 1 + myPriorityFactor
         const double relativeInversePrio = 1 - ((e->getPriority() - myMinEdgePriority) / myEdgePriorityRange);
         effort *= 1 + relativeInversePrio * myPriorityFactor;
     }
