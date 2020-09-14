@@ -23,12 +23,13 @@
 
 
 void 
-GNEMoveElement::moveElement(const GNEMoveOperation& moveOperation, const Position &offset) {
+GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &offset) {
     //
 }
 
+
 void 
-GNEMoveElement::commitMove(const GNEMoveOperation& moveOperation, const Position &offset) {
+GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offset) {
     //
 }
 

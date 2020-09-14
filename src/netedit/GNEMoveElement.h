@@ -22,66 +22,81 @@
 
 #include "GNEGeometry.h"
 
+// ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEMoveElement;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 
+/// @brief move element
+class GNEMoveOperation {
+
+public:
+    /// @brief constructor for entire geometries
+    GNEMoveOperation(GNEMoveElement *_moveElement,
+        GNEGeometry::Geometry _originalGeometry,
+        std::vector<int> _geometryPointsToMove) :
+        moveElement(_moveElement),
+        originalGeometry(_originalGeometry),
+        clickedIndex(-1),
+        geometryToMove(_originalGeometry),
+        geometryPointsToMove({}) {}
+
+    /// @brief constructor
+    GNEMoveOperation(GNEMoveElement *_moveElement,
+        GNEGeometry::Geometry _originalGeometry,
+        GNEGeometry::Geometry _geometryToMove,
+        const int _clickedIndex,
+        std::vector<int> _geometryPointsToMove) :
+        moveElement(_moveElement),
+        originalGeometry(_originalGeometry),
+        clickedIndex(_clickedIndex),
+        geometryToMove(_geometryToMove),
+        geometryPointsToMove(_geometryPointsToMove) {}
+
+    /// @brief destructor
+    ~GNEMoveOperation() {}
+
+    const GNEMoveElement *moveElement;
+
+    /// @brief original geometry
+    const GNEGeometry::Geometry originalGeometry;
+
+    /// @brief geometry to move (note: it can be different of originalGeometry, for example due a new Geometry point)
+    const GNEGeometry::Geometry geometryToMove;
+
+    /// @brief clicked index (of geometryToMove)
+    const int clickedIndex;
+
+    /// @brief geometry points to move (of geometryToMove)
+    const std::vector<int> geometryPointsToMove;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GNEMoveOperation(const GNEMoveOperation&) = delete;
+
+    /// @brief Invalidated assignment operator.
+    GNEMoveOperation& operator=(const GNEMoveOperation&) = delete;
+};
+
+
 class GNEMoveElement {
 
 public:
 
-    /// @brief move element
-    class GNEMoveOperation {
-
-    public:
-        /// @brief constructor for entire geometries
-        GNEMoveOperation(GNEGeometry::Geometry _originalGeometry,
-            std::vector<int> _geometryPointsToMove) :
-            originalGeometry(_originalGeometry),
-            clickedIndex(-1),
-            geometryToMove(_originalGeometry),
-            geometryPointsToMove({}) {}
-
-        /// @brief constructor
-        GNEMoveOperation(GNEGeometry::Geometry _originalGeometry,
-            GNEGeometry::Geometry _geometryToMove,
-            const int _clickedIndex,
-            std::vector<int> _geometryPointsToMove) :
-            originalGeometry(_originalGeometry),
-            clickedIndex(_clickedIndex),
-            geometryToMove(_geometryToMove),
-            geometryPointsToMove(_geometryPointsToMove) {}
-
-        /// @brief destructor
-        ~GNEMoveOperation() {}
-
-        /// @brief original geometry
-        const GNEGeometry::Geometry originalGeometry;
-
-        /// @brief geometry to move (note: it can be different of originalGeometry, for example due a new Geometry point)
-        const GNEGeometry::Geometry geometryToMove;
-
-        /// @brief clicked index (of geometryToMove)
-        const int clickedIndex;
-        
-        /// @brief geometry points to move (of geometryToMove)
-        const std::vector<int> geometryPointsToMove;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        GNEMoveOperation(const GNEMoveOperation&) = delete;
-
-        /// @brief Invalidated assignment operator.
-        GNEMoveOperation& operator=(const GNEMoveOperation&) = delete;
-    };
-
     /// @brief constructor
     GNEMoveElement() {}
 
-    void moveElement(const GNEMoveOperation& moveOperation, const Position &offset);
+    virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
 
-    void commitMove(const GNEMoveOperation& moveOperation, const Position &offset);
+
+    static void moveElement(GNEMoveOperation* moveOperation, const Position &offset);
+
+    static void commitMove(GNEMoveOperation* moveOperation, const Position &offset);
 
 protected:
     virtual void setMoveGeometry(const GNEGeometry::Geometry& newGeometry) = 0;
