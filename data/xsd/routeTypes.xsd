@@ -102,6 +102,7 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
+        <xsd:attribute name="jmStoplineGap" type="nonNegativeFloatType"/>
         <xsd:attribute name="jmTimegapMinor" type="nonNegativeFloatType"/>
         <xsd:attribute name="sigma">
             <xsd:simpleType>

@@ -2625,7 +2625,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         //   the next step, new foes may appear and cause a collision (see #1096)
         // - major links: stopping point is irrelevant
         double laneStopOffset;
-        const double majorStopOffset = MAX2(DIST_TO_STOPLINE_EXPECT_PRIORITY, lane->getStopOffset(this));
+        const double majorStopOffset = MAX2(getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_STOPLINE_GAP, DIST_TO_STOPLINE_EXPECT_PRIORITY), lane->getStopOffset(this));
         const double minorStopOffset = lane->getStopOffset(this);
         const double brakeDist = cfModel.brakeGap(myState.mySpeed, cfModel.getMaxDecel(), 0);
         const bool canBrakeBeforeLaneEnd = seen >= brakeDist;
