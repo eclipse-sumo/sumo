@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon 14 Sep 2020 08:59:27 AM CEST by Eclipse SUMO netedit Version v1_7_0+0069-1261b585eb
+<!-- generated on Mo 14 Sep 2020 11:13:06 CEST by Eclipse SUMO netedit Version v1_7_0+0071-303f809f6b
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/tools/public_transport/generateRailSignalConstraints/in_between/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="/home/kobo/dlr/sumo/tests/tools/public_transport/generateRailSignalConstraints/in_between/net.net.xml"/>
     </output>
 
     <processing>
@@ -42,28 +42,28 @@
     <location netOffset="0.00,0.00" convBoundary="-200.00,0.00,1100.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="a" from="gneJ1" to="A" priority="-1">
-        <lane id="a_0" index="0" allow="rail" speed="13.89" length="400.00" shape="-200.00,-1.60 200.00,-1.60"/>
+        <lane id="a_0" index="0" allow="rail" speed="27.78" length="400.00" shape="-200.00,-1.60 200.00,-1.60"/>
     </edge>
     <edge id="b" from="A" to="gneJ3" priority="-1">
-        <lane id="b_0" index="0" allow="rail" speed="13.89" length="100.00" shape="200.00,-1.60 293.97,-1.60"/>
+        <lane id="b_0" index="0" allow="rail" speed="27.78" length="100.00" shape="200.00,-1.60 293.97,-1.60"/>
     </edge>
     <edge id="c" from="gneJ3" to="C" priority="-1">
-        <lane id="c_0" index="0" allow="rail" speed="13.89" length="400.00" shape="301.50,-1.60 698.50,-1.60"/>
+        <lane id="c_0" index="0" allow="rail" speed="27.78" length="400.00" shape="301.50,-1.60 698.50,-1.60"/>
     </edge>
     <edge id="d" from="gneJ5" to="D" priority="-1">
-        <lane id="d_0" index="0" allow="rail" speed="13.89" length="400.05" shape="-200.00,98.40 198.67,98.40"/>
+        <lane id="d_0" index="0" allow="rail" speed="27.78" length="400.05" shape="-200.00,98.40 198.67,98.40"/>
     </edge>
     <edge id="e" from="D" to="gneJ3" priority="-1">
-        <lane id="e_0" index="0" allow="rail" speed="13.89" length="141.24" shape="199.81,97.93 295.55,2.19"/>
+        <lane id="e_0" index="0" allow="rail" speed="27.78" length="141.24" shape="199.81,97.93 295.55,2.19"/>
     </edge>
     <edge id="f" from="C" to="F" priority="-1">
-        <lane id="f_0" index="0" allow="rail" speed="13.89" length="141.47" shape="704.45,2.19 800.19,97.93"/>
+        <lane id="f_0" index="0" allow="rail" speed="27.78" length="141.47" shape="704.45,2.19 800.19,97.93"/>
     </edge>
     <edge id="g" from="F" to="G" priority="-1">
-        <lane id="g_0" index="0" allow="rail" speed="13.89" length="299.82" shape="801.33,98.40 1100.00,98.40"/>
+        <lane id="g_0" index="0" allow="rail" speed="27.78" length="299.82" shape="801.33,98.40 1100.00,98.40"/>
     </edge>
     <edge id="h" from="C" to="H" priority="-1">
-        <lane id="h_0" index="0" allow="rail" speed="13.89" length="400.00" shape="706.03,-1.60 1100.00,-1.60"/>
+        <lane id="h_0" index="0" allow="rail" speed="27.78" length="400.00" shape="706.03,-1.60 1100.00,-1.60"/>
     </edge>
 
     <junction id="A" type="rail_signal" x="200.00" y="0.00" incLanes="a_0" intLanes="" shape="200.00,0.00 200.00,-3.20 200.00,0.00">
