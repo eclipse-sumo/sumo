@@ -61,7 +61,9 @@ def get_options(args=None):
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
     parser.add_argument("--debug-switch", dest="debugSwitch",
-            help="debug operation for the given merge-switch edge")
+            help="print debug information for the given merge-switch edge")
+    parser.add_argument("--debug-signal", dest="debugSignal",
+            help="print debug information for the given signal id")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None and options.tripFile is None) or options.netFile is None:
@@ -184,42 +186,66 @@ def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
                     if signal is None:
                         print("No signal found when approaching stop %s via switch %s along route %s" % (
                             busStop, edge, ','.join(edgesBefore)), file=sys.stderr)
-                    # travel time from signal to switch
-                    #ttSignalSwitch = getTravelTime(net, edgesBefore[signalEdgeIndex:i])
-                    # travel time from switch to stop
-                    ttSwitchsStop = getTravelTime(net, edgesBefore[i:])
-                    mergeSignals[(edge, edgesBefore)] = (signal, ttSwitchsStop)
+                    # travel time from signal to stop
+                    ttSignalStop = getTravelTime(net, edgesBefore[signalEdgeIndex:])
+                    mergeSignals[(edge, edgesBefore)] = (signal, ttSignalStop)
 
     print("Found %s stops after merging switches and %s signals that guard switches" % (
         numFound, len(set(mergeSignals.values()))))
     return switchRoutes, mergeSignals
 
-def countPassingTrainsToOtherStops(options, switch, stopRoutes2, currentStop, begin, end, mergeSignals):
-    count = 0
-    for busStop, stops in stopRoutes2.items():
-        if busStop == currentStop:
-            continue
-        for edges, stop in stops:
+def computeSignalTimes(options, net, stopRoutes):
+    signalTimes = defaultdict(list) # signal -> [(timeAtSignal, stop), ...]
+    for busStop, stops in stopRoutes.items():
+        for edgesBefore, stop in stops:
             if stop.hasAttribute("arrival"):
                 arrival = parseTime(stop.arrival)
             elif stop.hasAttribute("until"):
                 arrival = parseTime(stop.until) - parseTime(stop.getAttributeSecure("duration", "0"))
             else:
                 continue
-            signal, timeSwSt = mergeSignals[(switch, edges)]
-            timeAtSwitch = arrival - timeSwSt
-            #if switch == options.debugSwitch:
-            #    print("vehicle %s (%s) passes switch %s at time %s arrival=%s, timeSwSt=%s (begin=%s end=%s)" % (
-            #        stop.prevTripId, stop.vehID, switch, timeAtSwitch, arrival, timeSwSt, begin, end))
-            if begin < timeAtSwitch and timeAtSwitch < end:
-                count += 1
-                if switch == options.debugSwitch:
-                    print("vehicle %s (%s) passes switch %s at time %s (in between %s and %s)" % (
-                        stop.prevTripId, stop.vehID, switch, timeAtSwitch, begin, end))
+            for i, edge in enumerate(edgesBefore):
+                node = net.getEdge(edge).getFromNode()
+                if node.getType() == "rail_signal":
+                    tls = net.getTLS(node.getID())
+                    for inLane, outLane, linkNo in tls.getConnections():
+                        if outLane.getEdge().getID() == edge:
+                            signal = tls.getID()
+                            ttSignalStop = getTravelTime(net, edgesBefore[i:])
+                            timeAtSignal = arrival - ttSignalStop
+                            signalTimes[signal].append((timeAtSignal, stop))
+                            if signal == options.debugSignal:
+                                print("Route past signal %s to stop %s arrival=%s ttSignalStop=%s timeAtSignal=%s edges=%s" % (
+                                    signal, stop.busStop, arrival, ttSignalStop, timeAtSignal, edgesBefore))
+                            break
+    for signal in signalTimes.keys():
+        signalTimes[signal] = sorted(signalTimes[signal])
 
+    if options.debugSignal in signalTimes:
+        busStops = set([s.busStop for a, s in signalTimes[options.debugSignal]])
+        arrivals = [a for a,s in signalTimes[options.debugSignal]]
+        print("Signal %s is passed %s times between %s and %s on approach to stops %s" % (
+            options.debugSignal, len(arrivals), arrivals[0], arrivals[-1], ' '.join(busStops)))
+
+    return signalTimes
+
+
+def countPassingTrainsToOtherStops(options, signal, currentStop, begin, end, signalTimes):
+    count = 0
+    for timeAtSwitch, stop in signalTimes[signal]:
+        if timeAtSwitch < begin:
+            continue
+        if timeAtSwitch > end:
+            break
+        if stop.busStop == currentStop:
+            continue
+        count += 1
+        if options.debugSignal == signal:
+            print("vehicle %s (%s) passes signal %s at time %s (in between %s and %s)" % (
+                stop.prevTripId, stop.vehID, signal, timeAtSwitch, begin, end))
     return count
 
-def findConflicts(options, switchRoutes, mergeSignals):
+def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
     """find stops that target the same busStop from different branches of the
     prior merge switch and establish their ordering"""
 
@@ -242,8 +268,8 @@ def findConflicts(options, switchRoutes, mergeSignals):
                 arrivals.append((arrival, edges, stop))
             arrivals.sort()
             for (pArrival, pEdges, pStop), (nArrival, nEdges, nStop) in zip(arrivals[:-1], arrivals[1:]):
-                pSignal, pTimeSwSt = mergeSignals[(switch, pEdges)]
-                nSignal, nTimeSwSt = mergeSignals[(switch, nEdges)]
+                pSignal, pTimeSiSt = mergeSignals[(switch, pEdges)]
+                nSignal, nTimeSiSt = mergeSignals[(switch, nEdges)]
                 if switch == options.debugSwitch:
                     print(pSignal, nSignal, pStop, nStop)
                 if pSignal != nSignal and pSignal is not None and nSignal is not None:
@@ -252,9 +278,9 @@ def findConflicts(options, switchRoutes, mergeSignals):
                     # check for trains that pass the switch in between the
                     # current two trains (heading to another stop) and raise the limit
                     limit = 1
-                    pTimeAtSwitch = pArrival - pTimeSwSt
-                    nTimeAtSwitch = nArrival - nTimeSwSt
-                    limit += countPassingTrainsToOtherStops(options, switch, stopRoutes2, busStop, pTimeAtSwitch, nTimeAtSwitch, mergeSignals)
+                    pTimeAtSignal = pArrival - pTimeSiSt
+                    nTimeAtSignal = nArrival - nTimeSiSt
+                    limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, nTimeAtSignal, signalTimes)
                     conflicts[nSignal].append((nStop.prevTripId, pSignal, pStop.prevTripId, limit,
                         # attributes for adding comments
                         nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
@@ -295,8 +321,9 @@ def main(options):
     stopEdges = getStopEdges(options.addFile)
     uniqueRoutes, stopRoutes = getStopRoutes(options, stopEdges)
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
+    signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
-    findConflicts(options, switchRoutes, mergeSignals)
+    findConflicts(options, switchRoutes, mergeSignals, signalTimes)
 
 
 
