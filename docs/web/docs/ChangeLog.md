@@ -6,11 +6,20 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
+- simulation
+  - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
+  - Fixed train collision due to insafe rail signal state. Issue #7534
+  - Rail signal constraints now work correctly after loading simulation state. Issue #7523
+
+- sumo-gui
+  - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
 
 ### Enhancements
+- netedit
+  - Opposite direction lanes can now be edited and selected. Issue #2653
 
 - Tools
-    - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
+  - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
 
 ### Other
 
