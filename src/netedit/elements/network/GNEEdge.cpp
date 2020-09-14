@@ -633,7 +633,7 @@ GNEEdge::setGeometry(PositionVector geom, bool inner) {
     // invalidate junction destiny shape
     getParentJunctions().back()->invalidateShape();
     // iterate over second parent junction edges and update geometry
-    for (const auto& edge : getParentJunctions().front()->getGNEIncomingEdges()) {
+    for (const auto& edge : getParentJunctions().back()->getGNEIncomingEdges()) {
         edge->updateGeometry();
     }
     for (const auto& edge : getParentJunctions().back()->getGNEOutgoingEdges()) {
@@ -1332,6 +1332,13 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
             glPopMatrix();
         }
     }
+}
+
+
+void 
+GNEEdge::setMoveGeometry(const GNEGeometry::Geometry& newGeometry) {
+    // just set entire geometry
+    setGeometry(newGeometry.getShape(), false);
 }
 
 // ===========================================================================

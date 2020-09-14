@@ -23,6 +23,7 @@
 
 #include <netbuild/NBEdge.h>
 #include <netedit/elements/GNECandidateElement.h>
+#include <netedit/GNEMove.h>
 
 
 // ===========================================================================
@@ -44,7 +45,7 @@ class GNECrossing;
  *
  * @see MSEdge
  */
-class GNEEdge : public GNENetworkElement, public GNECandidateElement {
+class GNEEdge : public GNENetworkElement, public GNECandidateElement, public GNEMoveElement {
 
     /// @brief Friend class
     friend class GNEChange_Lane;
@@ -318,6 +319,8 @@ protected:
 
     /// @brief modification status of the connections
     std::string myConnectionStatus;
+
+    void setMoveGeometry(const GNEGeometry::Geometry& newGeometry);
 
 private:
     /// @brief Stack position (used to stack demand elements over edges)
