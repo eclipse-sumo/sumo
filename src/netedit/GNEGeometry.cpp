@@ -60,6 +60,17 @@ GNEGeometry::Geometry::Geometry() :
 }
 
 
+GNEGeometry::Geometry::Geometry(const PositionVector& shape) :
+    myPosition(Position::INVALID),
+    myRotation(0),
+    myShape(shape),
+    myLane(nullptr),
+    myAdditional(nullptr) {
+    // calculate shape rotation and lenghts
+    calculateShapeRotationsAndLengths();
+}
+
+
 GNEGeometry::Geometry::Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths) :
     myPosition(Position::INVALID),
     myRotation(0),

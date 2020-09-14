@@ -80,6 +80,9 @@ struct GNEGeometry {
         Geometry();
 
         /// @brief parameter constructor
+        Geometry(const PositionVector& shape);
+
+        /// @brief parameter constructor
         Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths);
 
         /**@brief update geometry shape
