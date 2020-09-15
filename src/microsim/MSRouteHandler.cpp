@@ -674,6 +674,7 @@ MSRouteHandler::closeRouteDistribution() {
         const bool haveSameID = MSRoute::dictionary(myCurrentRouteDistributionID, &myParsingRNG) != nullptr;
         if (MSGlobals::gStateLoaded && haveSameID) {
             delete myCurrentRouteDistribution;
+            myCurrentRouteDistribution = nullptr;
             return;
         }
         if (haveSameID) {
