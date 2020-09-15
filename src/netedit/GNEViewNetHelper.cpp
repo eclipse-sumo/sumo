@@ -885,7 +885,6 @@ GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* v
     myJunctionToMove(nullptr),
     myCrossingToMove(nullptr),
     myConnectionToMove(nullptr),
-    myEdgeToMove(nullptr),
     myPolyToMove(nullptr),
     myPOIToMove(nullptr),
     myAdditionalToMove(nullptr),
@@ -958,7 +957,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     } else if ((myViewNet->myObjectsUnderCursor.getEdgeFront() && (frontAC == myViewNet->myObjectsUnderCursor.getEdgeFront())) ||
                (myViewNet->myObjectsUnderCursor.getLaneFront() && (frontAC == myViewNet->myObjectsUnderCursor.getLaneFront()))) {
         // calculate Edge movement values (can be entire shape, single geometry points, altitude, etc.)
-        return calculateEdgeValues();
+        return calculateEdgeValues(myViewNet->myObjectsUnderCursor.getEdgeFront());
     } else {
         // there isn't moved items, then return false
         return false;
@@ -1024,24 +1023,6 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
             // move connection's geometry without commiting changes
             myConnectionToMove->moveConnectionShape(offsetMovement);
         }
-    } else if (myEdgeToMove) {
-        for (const auto &moveOperation : myMoveOperations) {
-            GNEMoveElement::moveElement(moveOperation, offsetMovement);
-        }
-        
-    /*
-        // check if we're moving the start or end position, or a geometry point
-        if (myMovingStartPos) {
-            myEdgeToMove->moveShapeBegin(offsetMovement);
-        } else if (myMovingEndPos) {
-            myEdgeToMove->moveShapeEnd(offsetMovement);
-        } else {
-            // move edge's geometry without commiting changes
-            myEdgeToMove->moveEdgeShape(offsetMovement);
-        }
-    */
-
-
     } else if (myAdditionalToMove && (myAdditionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
         myAdditionalToMove->moveGeometry(offsetMovement);
@@ -1051,6 +1032,10 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
     } else if (myTAZElementToMove) {
         // move TAZ's geometry without commiting changes
         myTAZElementToMove->moveTAZShape(offsetMovement);
+    }
+    // execute all move operations
+    for (const auto &moveOperation : myMoveOperations) {
+        GNEMoveElement::moveElement(moveOperation, offsetMovement);
     }
 }
 
@@ -1083,31 +1068,6 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
             myConnectionToMove->commitConnectionShapeChange(myViewNet->getUndoList());
         }
         myConnectionToMove = nullptr;
-    } else if (myEdgeToMove) {
-        // calculate offsetMovement depending of current mouse position and relative clicked position
-        // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
-        Position offsetMovement = myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition;
-
-        for (const auto &moveOperation : myMoveOperations) {
-            GNEMoveElement::commitMove(moveOperation, offsetMovement, myViewNet->getUndoList());
-            delete moveOperation;
-        }
-
-        myMoveOperations.clear();
-
-        /*
-        // commit change depending of what was moved
-        if (myMovingStartPos) {
-            myEdgeToMove->commitShapeChangeBegin(myViewNet->getUndoList());
-            myMovingStartPos = false;
-        } else if (myMovingEndPos) {
-            myEdgeToMove->commitShapeChangeEnd(myViewNet->getUndoList());
-            myMovingEndPos = false;
-        } else {
-            myEdgeToMove->commitEdgeShapeChange(myViewNet->getUndoList());
-        }
-        */
-        myEdgeToMove = nullptr;
     } else if (myAdditionalToMove) {
         myAdditionalToMove->commitGeometryMoving(myViewNet->getUndoList());
         myAdditionalToMove->endGeometryMoving();
@@ -1120,6 +1080,18 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         myTAZElementToMove->commitTAZShapeChange(myViewNet->getUndoList());
         myTAZElementToMove = nullptr;
     }
+
+    // calculate offsetMovement depending of current mouse position and relative clicked position
+    // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
+    Position offsetMovement = myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition;
+    // finish all move operations
+    for (const auto &moveOperation : myMoveOperations) {
+        GNEMoveElement::commitMove(moveOperation, offsetMovement, myViewNet->getUndoList());
+        // don't forget delete move operation
+        delete moveOperation;
+    }
+    // clear move operations
+    myMoveOperations.clear();
 }
 
 
@@ -1268,63 +1240,21 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
 
 
 bool
-GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues() {
+GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues(GNEEdge *edge) {
     if (myViewNet->myKeyPressed.shiftKeyPressed()) {
         // edit end point
-        myViewNet->myObjectsUnderCursor.getEdgeFront()->editEndpoint(myViewNet->getPositionInformation(), myViewNet->myUndoList);
+        edge->editEndpoint(myViewNet->getPositionInformation(), myViewNet->myUndoList);
         // edge values wasn't calculated, then return false
         return false;
     } else {
-        // assign clicked edge to edgeToMove
-        myEdgeToMove = myViewNet->myObjectsUnderCursor.getEdgeFront();
+        // calculate shape offset
+        const double shapeOffset = edge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
         // get move operation
-        GNEMoveOperation* moveOperation = myEdgeToMove->getMoveOperation(myEdgeToMove->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation()));
+        GNEMoveOperation* moveOperation = edge->getMoveOperation(shapeOffset);
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
         }
-        /*
-        // calculate edgeShapeOffset
-        const double edgeShapeOffset = myEdgeToMove->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
-        // check if we clicked over a start or end position
-        if (myEdgeToMove->clickedOverShapeStart(myViewNet->getPositionInformation())) {
-            // set flag
-            myViewNet->myMoveSingleElementValues.myMovingStartPos = true;
-            // start begin geometry moving
-            myEdgeToMove->startShapeBegin();
-            // edge values sucesfully calculated, then return true
-            return true;
-        } else if (myEdgeToMove->clickedOverShapeEnd(myViewNet->getPositionInformation())) {
-            // set flag
-            myViewNet->myMoveSingleElementValues.myMovingEndPos = true;
-            // start end geometry moving
-            myEdgeToMove->startShapeEnd();
-            // edge values sucesfully calculated, then return true
-            return true;
-        } else {
-            // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
-            if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
-                // check if in the clicked position a geometry point exist
-                if (myEdgeToMove->getEdgeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
-                    // start geometry moving
-                    myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset, false);
-                    // edge values sucesfully calculated, then return true
-                    return true;
-                } else {
-                    // stop edge moving
-                    myEdgeToMove = nullptr;
-                    // edge values wasn't calculated, then return false
-                    return false;
-                }
-            } else {
-                // start geometry moving
-                myEdgeToMove->startEdgeGeometryMoving(edgeShapeOffset, false);
-                // edge values sucesfully calculated, then return true
-                return true;
-            }
-        }
-        */
-
     }
 }
 

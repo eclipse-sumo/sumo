@@ -848,7 +848,7 @@ struct GNEViewNetHelper {
         bool calculatePolyValues();
 
         /// @brief calculate Edge movement values (Position, Index, etc.)
-        bool calculateEdgeValues();
+        bool calculateEdgeValues(GNEEdge *edge);
 
         /// @brief calculate TAZ movement values (Position, Index, etc.)
         bool calculateTAZValues();
@@ -873,9 +873,6 @@ struct GNEViewNetHelper {
 
         /// @brief the connection to be moved.
         GNEConnection* myConnectionToMove;
-
-        /// @brief the edge of which geometry is being moved
-        GNEEdge* myEdgeToMove;
 
         /// @brief the poly of which geometry is being moved
         GNEPoly* myPolyToMove;
