@@ -37,44 +37,35 @@ class GNEMoveOperation {
 
 public:
     /// @brief constructor for entire geometries
-    GNEMoveOperation(GNEMoveElement *_moveElement,
-        GNEGeometry::Geometry _originalGeometry,
-        std::vector<int> _geometryPointsToMove) :
-        moveElement(_moveElement),
-        originalGeometry(_originalGeometry),
-        clickedIndex(-1),
-        geometryToMove(_originalGeometry),
-        geometryPointsToMove({}) {}
+    GNEMoveOperation(GNEMoveElement *moveElement,
+        PositionVector originalShape,
+        std::vector<int> geometryPointsToMove);
 
-    /// @brief constructor
-    GNEMoveOperation(GNEMoveElement *_moveElement,
-        GNEGeometry::Geometry _originalGeometry,
-        GNEGeometry::Geometry _geometryToMove,
+    /// @brief constructor for elements that
+    GNEMoveOperation(GNEMoveElement *moveElement,
+        PositionVector originalShape,
+        PositionVector shapeToMove,
         const int _clickedIndex,
-        std::vector<int> _geometryPointsToMove) :
-        moveElement(_moveElement),
-        originalGeometry(_originalGeometry),
-        clickedIndex(_clickedIndex),
-        geometryToMove(_geometryToMove),
-        geometryPointsToMove(_geometryPointsToMove) {}
+        std::vector<int> geometryPointsToMove);
 
     /// @brief destructor
     ~GNEMoveOperation() {}
 
+    /// @brief move element
     GNEMoveElement *moveElement;
 
-    /// @brief original geometry
-    const GNEGeometry::Geometry originalGeometry;
+    /// @brief original shape
+    const PositionVector originalShape;
 
-    /**@brief geometry to move
-     * @note: it can be different of originalGeometry, for example due a new Geometry point)
+    /**@brief shape to move
+     * @note: it can be different of originalShape, for example due a new geometry point)
      */
-    const GNEGeometry::Geometry geometryToMove;
+    const PositionVector shapeToMove;
 
-    /// @brief clicked index (of geometryToMove)
+    /// @brief clicked index (of shapeToMove)
     const int clickedIndex;
 
-    /// @brief geometry points to move (of geometryToMove)
+    /// @brief shape points to move (of shapeToMove)
     const std::vector<int> geometryPointsToMove;
 
 private:

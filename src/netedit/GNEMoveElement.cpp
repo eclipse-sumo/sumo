@@ -24,10 +24,40 @@
 #include "GNEMoveElement.h"
 
 
+// ===========================================================================
+// GNEMoveOperation method definitions
+// ===========================================================================
+
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
+    PositionVector _originalShape,
+    std::vector<int> _shapePointsToMove) :
+    moveElement(_moveElement),
+    originalShape(_originalShape),
+    clickedIndex(-1),
+    shapeToMove(_originalShape),
+    geometryPointsToMove({}) {}
+
+
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
+    PositionVector _originalShape,
+    PositionVector _shapeToMove,
+    const int _clickedIndex,
+    std::vector<int> _geometryPointsToMove) :
+    moveElement(_moveElement),
+    originalShape(_originalShape),
+    clickedIndex(_clickedIndex),
+    shapeToMove(_shapeToMove),
+    geometryPointsToMove(_geometryPointsToMove) {
+}
+
+// ===========================================================================
+// GNEMoveElement method definitions
+// ===========================================================================
+
 void 
 GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &offset) {
     // calculate new shape
-    PositionVector newShape = moveOperation->geometryToMove.getShape();
+    PositionVector newShape = moveOperation->shapeToMove;
     for (const auto &index : moveOperation->geometryPointsToMove) {
         newShape[index].add(offset);
     }
@@ -39,9 +69,9 @@ GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &off
 void 
 GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList) {
     // first restore original geometry geometry
-    moveOperation->moveElement->setMoveShape(moveOperation->originalGeometry.getShape());
+    moveOperation->moveElement->setMoveShape(moveOperation->originalShape);
     // calculate new shape
-    PositionVector newShape = moveOperation->geometryToMove.getShape();
+    PositionVector newShape = moveOperation->shapeToMove;
     for (const auto &index : moveOperation->geometryPointsToMove) {
         newShape[index].add(offset);
     }

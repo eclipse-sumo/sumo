@@ -161,11 +161,8 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
         if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS*SNAP_RADIUS)) {
             index = shapeToMove.insertAtClosest(positionAtOffset, true);
         }
-        // declare geometries
-        GNEGeometry::Geometry originalGeometry(myNBEdge->getGeometry());
-        GNEGeometry::Geometry geometryToMove(shapeToMove);
         // return a new move operation
-        return new GNEMoveOperation(this, originalGeometry, geometryToMove, index, {index});
+        return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, {index});
     }
 }
 
@@ -1553,7 +1550,10 @@ GNEEdge::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) 
         // commit new shape
         undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+        // only update shape if isn't empty (example, if we move a end geometry point)
+        if (innenShape.size() > 0) {
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+        }
         undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
         undoList->p_end();
     }
