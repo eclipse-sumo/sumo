@@ -32,7 +32,7 @@ class GNEMoveElement;
 // class definitions
 // ===========================================================================
 
-/// @brief move element
+/// @brief move operation
 class GNEMoveOperation {
 
 public:
@@ -77,6 +77,7 @@ private:
 };
 
 
+/// @brief move element
 class GNEMoveElement {
 
 public:

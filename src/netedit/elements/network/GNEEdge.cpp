@@ -1547,12 +1547,14 @@ GNEEdge::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) 
         PositionVector innenShape = newShape;
         innenShape.pop_front();
         innenShape.pop_back();
+        // remove double points
+        innenShape.removeDoublePoints(SNAP_RADIUS);
         // commit new shape
         undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
-        // only update shape if isn't empty (example, if we move a end geometry point)
+        // only update innen shape if isn't empty (example, if we move a end geometry point)
         if (innenShape.size() > 0) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innenShape)));
         }
         undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
         undoList->p_end();
