@@ -225,6 +225,12 @@ GNELane::getPositionInView() const {
 }
 
 
+GNEMoveOperation* 
+GNELane::getMoveOperation(const double shapeOffset) {
+    return nullptr;
+}
+
+
 void
 GNELane::startLaneShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
@@ -1179,6 +1185,18 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNELane::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void 
+GNELane::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 

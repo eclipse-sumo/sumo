@@ -98,14 +98,13 @@ public:
     /// @brief commit move element for the given offset
     static void commitMove(GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList);
 
-protected:
+private:
     /// @brief set move shape
     virtual void setMoveShape(const PositionVector& newShape) = 0;
 
     /// @brief commit move shape
     virtual void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) = 0;
 
-private:
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;
 

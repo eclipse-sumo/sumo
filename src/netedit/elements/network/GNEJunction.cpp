@@ -1508,34 +1508,6 @@ GNEJunction::setResponsible(bool newVal) {
 }
 
 // ===========================================================================
-// protected
-// ===========================================================================
-
-void 
-GNEJunction::setMoveShape(const PositionVector& newShape) {
-    // set new position in NBNode without updating grid
-    if (newShape.size() > 0) {
-        moveJunctionGeometry(newShape.front());
-    }
-}
-
-
-void 
-GNEJunction::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    // make sure that newShape isn't empty
-    if (newShape.size() > 0) {
-        // check if we're editing a shape
-        if (isShapeEdited()) {
-            //
-        } else {
-            undoList->p_begin("position of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
-            undoList->p_end();
-        }
-    }
-}
-
-// ===========================================================================
 // private
 // ===========================================================================
 
@@ -1682,6 +1654,31 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void 
+GNEJunction::setMoveShape(const PositionVector& newShape) {
+    // set new position in NBNode without updating grid
+    if (newShape.size() > 0) {
+        moveJunctionGeometry(newShape.front());
+    }
+}
+
+
+void 
+GNEJunction::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    // make sure that newShape isn't empty
+    if (newShape.size() > 0) {
+        // check if we're editing a shape
+        if (isShapeEdited()) {
+            //
+        } else {
+            undoList->p_begin("position of " + getTagStr());
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
+            undoList->p_end();
+        }
     }
 }
 

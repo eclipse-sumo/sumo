@@ -56,6 +56,12 @@ public:
     Position getPositionInView() const;
     /// @}
 
+    /// @name Functions related with move elements
+    /// @{
+    /// @brief get move operation for the given shapeOffset (can be nullptr)
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    /// @}
+
     /// @name functions for edit shape
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
@@ -206,6 +212,12 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set move shape
+    void setMoveShape(const PositionVector& newShape);
+
+    /// @brief commit move shape
+    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
 
     /// @brief manage change of tlLinkindices
     void changeTLIndex(SumoXMLAttr key, int tlIndex, int tlIndex2, GNEUndoList* undoList);

@@ -63,6 +63,12 @@ public:
     Position getPositionInView() const;
     /// @}
 
+    /// @name Functions related with move elements
+    /// @{
+    /// @brief get move operation for the given shapeOffset (can be nullptr)
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    /// @}
+
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own popup-menu
@@ -179,6 +185,12 @@ private:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set move shape
+    void setMoveShape(const PositionVector& newShape);
+
+    /// @brief commit move shape
+    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEInternalLane(const GNEInternalLane&) = delete;

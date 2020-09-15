@@ -75,6 +75,12 @@ GNECrossing::getPositionInView() const {
 }
 
 
+GNEMoveOperation* 
+GNECrossing::getMoveOperation(const double shapeOffset) {
+    return nullptr;
+}
+
+
 void
 GNECrossing::startCrossingShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
@@ -613,6 +619,18 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
     if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_PARAMETERS) && (key != GNE_ATTR_SELECTED)) {
         myParentJunction->updateGeometry();
     }
+}
+
+
+void
+GNECrossing::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void 
+GNECrossing::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 /****************************************************************************/

@@ -98,6 +98,12 @@ GNEInternalLane::getPositionInView() const {
 }
 
 
+GNEMoveOperation* 
+GNEInternalLane::getMoveOperation(const double shapeOffset) {
+    return nullptr;
+}
+
+
 long
 GNEInternalLane::onDefault(FXObject* obj, FXSelector sel, void* data) {
     if (myEditor != nullptr) {
@@ -241,6 +247,18 @@ GNEInternalLane::isAttributeEnabled(SumoXMLAttr key) const {
 void
 GNEInternalLane::setAttribute(SumoXMLAttr key, const std::string& /*value*/) {
     throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+}
+
+
+void 
+GNEInternalLane::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void
+GNEInternalLane::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 /****************************************************************************/

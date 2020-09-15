@@ -22,7 +22,6 @@
 #include "GNENetworkElement.h"
 
 #include <netbuild/NBNode.h>
-#include <netedit/GNEMoveElement.h>
 
 // ===========================================================================
 // class declarations
@@ -43,7 +42,7 @@ class GNEConnection;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEJunction : public GNENetworkElement, public GNEMoveElement {
+class GNEJunction : public GNENetworkElement {
 
     /// @brief Declare friend class
     friend class GNEChange_TLS;
@@ -78,9 +77,7 @@ public:
 
     /// @name Functions related with move elements
     /// @{
-    /**@brief get move operation for the given shapeOffset
-     * @note returned GNEMoveOperation can be nullptr
-     */
+    /// @brief get move operation for the given shapeOffset (can be nullptr)
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
     /// @}
 
@@ -336,12 +333,6 @@ protected:
     /// @brief whether this junction probably should have some connections but doesn't
     bool myColorForMissingConnections;
 
-    /// @brief set move shape
-    void setMoveShape(const PositionVector& newShape);
-
-    /// @brief commit move shape
-    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
-
 private:
     /// @brief draw TLS icon
     void drawTLSIcon(const GUIVisualizationSettings& s) const;
@@ -351,6 +342,12 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set move shape
+    void setMoveShape(const PositionVector& newShape);
+
+    /// @brief commit move shape
+    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
 
     /**@brief reposition the node at pos without updating GRID and informs the edges
     * @param[in] pos The new position

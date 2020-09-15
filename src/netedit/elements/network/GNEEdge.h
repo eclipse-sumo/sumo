@@ -23,7 +23,6 @@
 
 #include <netbuild/NBEdge.h>
 #include <netedit/elements/GNECandidateElement.h>
-#include <netedit/GNEMoveElement.h>
 
 
 // ===========================================================================
@@ -45,7 +44,7 @@ class GNECrossing;
  *
  * @see MSEdge
  */
-class GNEEdge : public GNENetworkElement, public GNECandidateElement, public GNEMoveElement {
+class GNEEdge : public GNENetworkElement, public GNECandidateElement {
 
     /// @brief Friend class
     friend class GNEChange_Lane;
@@ -79,9 +78,7 @@ public:
 
     /// @name Functions related with move elements
     /// @{
-    /**@brief get move operation for the given shapeOffset
-     * @note returned GNEMoveOperation can be nullptr
-     */
+    /// @brief get move operation for the given shapeOffset (can be nullptr)
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
     /// @}
 

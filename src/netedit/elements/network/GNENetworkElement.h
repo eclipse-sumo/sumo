@@ -25,6 +25,7 @@
 #include <netedit/GNEMoveShape.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
+#include <netedit/GNEMoveElement.h>
 
 
 // ===========================================================================
@@ -38,7 +39,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNENetworkElement : public GUIGlObject, public GNEHierarchicalElement, protected GNEMoveShape {
+class GNENetworkElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, protected GNEMoveShape {
 
 public:
     /**@brief Constructor.

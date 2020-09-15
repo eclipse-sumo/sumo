@@ -141,6 +141,12 @@ GNEConnection::getPositionInView() const {
 }
 
 
+GNEMoveOperation* 
+GNEConnection::getMoveOperation(const double shapeOffset) {
+    return nullptr;
+}
+
+
 void
 GNEConnection::startConnectionShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
@@ -797,6 +803,18 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
         markConnectionGeometryDeprecated();
         updateGeometry();
     }
+}
+
+
+void 
+GNEConnection::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void
+GNEConnection::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 /****************************************************************************/

@@ -108,6 +108,12 @@ public:
     Position getPositionInView() const;
     /// @}
 
+    /// @name Functions related with move elements
+    /// @{
+    /// @brief get move operation for the given shapeOffset (can be nullptr)
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    /// @}
+
     /// @name functions for edit shape
     /// @{
     /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
@@ -324,12 +330,22 @@ private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
+    /// @brief set move shape
+    void setMoveShape(const PositionVector& newShape);
+
+    /// @brief commit move shape
+    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
+
+    /// @brief draw children
     void drawChildren(const GUIVisualizationSettings& s) const;
 
+    /// @brief path additional elements
     void drawPathAdditionalElements(const GUIVisualizationSettings& s) const;
 
+    /// @brief path demand elements
     void drawPathDemandElements(const GUIVisualizationSettings& s) const;
 
+    /// @brief path generic data elements
     void drawPathGenericDataElements(const GUIVisualizationSettings& s) const;
 
     /// @brief draw lane markings
