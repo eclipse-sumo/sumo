@@ -36,16 +36,20 @@ class GNEMoveElement;
 class GNEMoveOperation {
 
 public:
-    /// @brief constructor for entire geometries
+    /// @brief constructor for values with a single position
     GNEMoveOperation(GNEMoveElement *moveElement,
-        PositionVector originalShape);
+        const Position originalPosition);
 
-    /// @brief constructor for elements that
-    GNEMoveOperation(GNEMoveElement *moveElement,
-        PositionVector originalShape,
-        PositionVector shapeToMove,
+    /// @brief constructor for entire geometries
+    GNEMoveOperation(GNEMoveElement *moveElement, 
+        const PositionVector originalShape);
+
+    /// @brief constructor for elements with shape editierbar (edges, polygons...)
+    GNEMoveOperation(GNEMoveElement *moveElement, 
+        const PositionVector originalShape,
+        const PositionVector shapeToMove, 
         const int _clickedIndex,
-        std::vector<int> geometryPointsToMove);
+        const std::vector<int> geometryPointsToMove);
 
     /// @brief destructor
     ~GNEMoveOperation() {}

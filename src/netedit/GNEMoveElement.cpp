@@ -29,17 +29,26 @@
 // ===========================================================================
 
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
-    PositionVector _originalShape) :
+    const Position _originalPosition) :
     moveElement(_moveElement),
-    originalShape(_originalShape),
+    originalShape({_originalPosition}),
     clickedIndex(-1),
-    shapeToMove(_originalShape),
-    geometryPointsToMove({}) {}
+    shapeToMove({_originalPosition}) {
+}
 
 
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
-    PositionVector _originalShape,
-    PositionVector _shapeToMove,
+    const PositionVector _originalShape) :
+    moveElement(_moveElement),
+    originalShape(_originalShape),
+    clickedIndex(-1),
+    shapeToMove(_originalShape) {
+}
+
+
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
+    const PositionVector _originalShape,
+    const PositionVector _shapeToMove,
     const int _clickedIndex,
     std::vector<int> _geometryPointsToMove) :
     moveElement(_moveElement),
@@ -55,7 +64,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
 
 void 
 GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &offset) {
-    // calculate new shape
+    // calculate new shape using shapeToMove
     PositionVector newShape = moveOperation->shapeToMove;
     // check if we're moving an entire shape or  only certain geometry point
     if (moveOperation->geometryPointsToMove.empty()) {
@@ -75,10 +84,16 @@ void
 GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList) {
     // first restore original geometry geometry
     moveOperation->moveElement->setMoveShape(moveOperation->originalShape);
-    // calculate new shape
+    // calculate new shape using shapeToMove
     PositionVector newShape = moveOperation->shapeToMove;
-    for (const auto &index : moveOperation->geometryPointsToMove) {
-        newShape[index].add(offset);
+    // check if we're moving an entire shape or  only certain geometry point
+    if (moveOperation->geometryPointsToMove.empty()) {
+        newShape.add(offset);
+    } else {
+        // only move certain geometry points
+        for (const auto &index : moveOperation->geometryPointsToMove) {
+            newShape[index].add(offset);
+        }
     }
     // commit move shape
     moveOperation->moveElement->commitMoveShape(newShape, undoList);

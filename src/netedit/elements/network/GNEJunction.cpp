@@ -113,7 +113,12 @@ GNEJunction::getPositionInView() const {
 
 GNEMoveOperation* 
 GNEJunction::getMoveOperation(const double shapeOffset) {
-    return nullptr;
+    if (isShapeEdited()) {
+        return nullptr;
+    } else {
+        // return junction position
+        return new GNEMoveOperation(this, myNBNode->getPosition());
+    }
 }
 
 
@@ -1508,13 +1513,26 @@ GNEJunction::setResponsible(bool newVal) {
 
 void 
 GNEJunction::setMoveShape(const PositionVector& newShape) {
-    //
+    // set new position in NBNode without updating grid
+    if (newShape.size() > 0) {
+        moveJunctionGeometry(newShape.front());
+    }
 }
 
 
 void 
 GNEJunction::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+    // make sure that newShape isn't empty
+    if (newShape.size() > 0) {
+        // check if we're editing a shape
+        if (isShapeEdited()) {
+            //
+        } else {
+            undoList->p_begin("position of " + getTagStr());
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
+            undoList->p_end();
+        }
+    }
 }
 
 // ===========================================================================

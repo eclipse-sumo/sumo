@@ -836,7 +836,7 @@ struct GNEViewNetHelper {
 
     private:
         /// @brief calculate network element movement values (Position, Index, etc.)
-        bool calculateJunctionValues();
+        bool calculateJunctionValues(GNEJunction *junction);
 
         /// @brief calculate crossing element movement values (Position, Index, etc.)
         bool calculateCrossingValues();
@@ -864,9 +864,6 @@ struct GNEViewNetHelper {
 
         /// @brief bool to indicate that end pos of an edge is being moved
         bool myMovingEndPos;
-
-        /// @brief the junction to be moved
-        GNEJunction* myJunctionToMove;
 
         /// @brief the crossing to be moved.
         GNECrossing* myCrossingToMove;
