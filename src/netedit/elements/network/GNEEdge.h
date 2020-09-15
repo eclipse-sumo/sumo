@@ -77,6 +77,9 @@ public:
     Position getPositionInView() const;
     /// @}
 
+    /**@brief get move operation for the given shapeOffset
+    * @note returned GNEMoveOperation can be nullptr
+    */
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
 
     /// @name functions for edit start and end shape positions
@@ -322,8 +325,6 @@ protected:
     /// @brief modification status of the connections
     std::string myConnectionStatus;
 
-    void setMoveGeometry(const GNEGeometry::Geometry& newGeometry);
-
 private:
     /// @brief Stack position (used to stack demand elements over edges)
     class StackPosition : public std::tuple<double, double> {
@@ -361,6 +362,12 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set move shape
+    void setMoveShape(const PositionVector& newShape);
+
+    /// @brief commit move shape
+    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
 
     /**@brief changes the number of lanes.
      * When reducing the number of lanes, higher-numbered lanes are removed first.

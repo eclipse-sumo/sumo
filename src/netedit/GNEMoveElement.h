@@ -66,7 +66,9 @@ public:
     /// @brief original geometry
     const GNEGeometry::Geometry originalGeometry;
 
-    /// @brief geometry to move (note: it can be different of originalGeometry, for example due a new Geometry point)
+    /**@brief geometry to move
+     * @note: it can be different of originalGeometry, for example due a new Geometry point)
+     */
     const GNEGeometry::Geometry geometryToMove;
 
     /// @brief clicked index (of geometryToMove)
@@ -87,19 +89,26 @@ private:
 class GNEMoveElement {
 
 public:
-
     /// @brief constructor
     GNEMoveElement() {}
 
+    /**@brief get move operation for the given shapeOffset
+     * @note returned GNEMoveOperation can be nullptr
+     */
     virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
 
-
+    /// @brief move element the for given offset
     static void moveElement(GNEMoveOperation* moveOperation, const Position &offset);
 
+    /// @brief commit move element for the given offset
     static void commitMove(GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList);
 
 protected:
-    virtual void setMoveGeometry(const GNEGeometry::Geometry& newGeometry) = 0;
+    /// @brief set move shape
+    virtual void setMoveShape(const PositionVector& newShape) = 0;
+
+    /// @brief commit move shape
+    virtual void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) = 0;
 
 private:
     /// @brief Invalidated copy constructor.

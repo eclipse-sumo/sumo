@@ -151,17 +151,22 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
     PositionVector shapeToMove = myNBEdge->getGeometry();
     // first check if in the given shapeOffset there is a geometry point
     const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
-    // obtain index
-    int index = myNBEdge->getGeometry().indexOfClosest(positionAtOffset);
-    // check if we have to create a new index
-    if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS*SNAP_RADIUS)) {
-        index = shapeToMove.insertAtClosest(positionAtOffset, true);
+    // check if position is valid
+    if (positionAtOffset == Position::INVALID) {
+        return nullptr;
+    } else {
+        // obtain index
+        int index = myNBEdge->getGeometry().indexOfClosest(positionAtOffset);
+        // check if we have to create a new index
+        if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS*SNAP_RADIUS)) {
+            index = shapeToMove.insertAtClosest(positionAtOffset, true);
+        }
+        // declare geometries
+        GNEGeometry::Geometry originalGeometry(myNBEdge->getGeometry());
+        GNEGeometry::Geometry geometryToMove(shapeToMove);
+        // return a new move operation
+        return new GNEMoveOperation(this, originalGeometry, geometryToMove, index, {index});
     }
-    // declare geometries
-    GNEGeometry::Geometry originalGeometry(myNBEdge->getGeometry());
-    GNEGeometry::Geometry geometryToMove(shapeToMove);
-    // return a new move operation
-    return new GNEMoveOperation(this, originalGeometry, geometryToMove, index, {index});
 }
 
 
@@ -1354,13 +1359,6 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
     }
 }
 
-
-void 
-GNEEdge::setMoveGeometry(const GNEGeometry::Geometry& newGeometry) {
-    // just set entire geometry
-    setGeometry(newGeometry.getShape(), false);
-}
-
 // ===========================================================================
 // private
 // ===========================================================================
@@ -1530,6 +1528,34 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    }
+}
+
+
+void 
+GNEEdge::setMoveShape(const PositionVector& newShape) {
+    // just set entire geometry (including start and end positions)
+    setGeometry(newShape, false);
+}
+
+
+void 
+GNEEdge::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    // make sure that newShape isn't empty
+    if (newShape.size() > 0) {
+        // get start and end points
+        const Position shapeStart = newShape.front();
+        const Position shapeEnd = newShape.back();
+        // get innen shape
+        PositionVector innenShape = newShape;
+        innenShape.pop_front();
+        innenShape.pop_back();
+        // commit new shape
+        undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+        undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
+        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+        undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
+        undoList->p_end();
     }
 }
 
