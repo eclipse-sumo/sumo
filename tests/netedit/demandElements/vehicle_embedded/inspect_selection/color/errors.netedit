@@ -100,10 +100,8 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'vehicle_embeddedB' in GNEChange_DemandElement
 Debug: Removing vehicleWithRoute 'vehicle_embeddedB' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing routeEmbedded 'vehicle_embeddedA' in GNEChange_DemandElement
 Debug: Removing vehicleWithRoute 'vehicle_embeddedA' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding vehicleWithRoute 'vehicle_embeddedA' in GNEChange_DemandElement

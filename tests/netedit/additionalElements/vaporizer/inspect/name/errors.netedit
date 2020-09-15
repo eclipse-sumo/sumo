@@ -24,7 +24,6 @@ Debug: Setting previous attribute name '' into vaporizer 'gneE3'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vaporizer 'gneE3' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding vaporizer 'gneE3' in GNEChange_Additional

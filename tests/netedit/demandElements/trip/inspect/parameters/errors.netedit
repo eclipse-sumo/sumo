@@ -99,7 +99,6 @@ Debug: Setting previous attribute genericParameter '' into trip 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing trip 'vehicle_0' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

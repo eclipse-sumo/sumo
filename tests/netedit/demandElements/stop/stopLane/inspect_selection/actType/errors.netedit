@@ -55,10 +55,8 @@ Debug: Setting previous attribute selected '0' into person 'person_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing personStopLane 'person_0personStopLane2' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing walkEdges 'walkEdges_0' in GNEChange_DemandElement
 Debug: Removing personStopLane 'person_0personStopLane0' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Removing person 'person_0' in GNEChange_DemandElement
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

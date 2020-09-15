@@ -56,9 +56,7 @@ Debug: Removing routeProbe 'customRouteProbeName' in GNEChange_Additional
 Debug: Removing routeProbe 'RouteProbeB' in GNEChange_Additional
 Debug: Removing routeProbe 'RouteProbeA' in GNEChange_Additional
 Debug: Removing laneCalibrator 'calibratorB' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing laneCalibrator 'calibratorA' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

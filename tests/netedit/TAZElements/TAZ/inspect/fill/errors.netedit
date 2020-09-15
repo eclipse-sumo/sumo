@@ -19,7 +19,6 @@ Debug: Setting previous attribute fill '0' into taz 'taz_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing taz 'taz_0' from viewNet
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -18.00,-10.00,32.00,40.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

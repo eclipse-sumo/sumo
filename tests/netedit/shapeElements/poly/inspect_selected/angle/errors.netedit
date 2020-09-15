@@ -32,7 +32,6 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing poly 'poly_1' from viewNet
 GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 19.83,5.83,34.17,20.17
 Debug: Removing poly 'poly_0' from viewNet
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -0.09,5.91,14.09,20.09
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed

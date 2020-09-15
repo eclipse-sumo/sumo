@@ -21,10 +21,8 @@ Debug: Setting previous attribute relativePath '0' into poi 'POI_1'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'POI_2' from viewNet
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 GLDebug: 	Removed object poi:POI_2 from SUMORTree with boundary -1.00,15.00,5.00,21.00
 Debug: Removing poi 'POI_1' from viewNet
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: 	Removed object poi:POI_1 from SUMORTree with boundary 4.00,15.00,10.00,21.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

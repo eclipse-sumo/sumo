@@ -15,7 +15,6 @@ Debug: Setting previous attribute output '' into laneCalibrator 'laneCalibrator_
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing laneCalibrator 'laneCalibrator_gneE3_1_0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

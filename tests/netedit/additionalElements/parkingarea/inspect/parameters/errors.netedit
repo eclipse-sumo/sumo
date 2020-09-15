@@ -38,7 +38,6 @@ Debug: Setting previous attribute genericParameter '' into parkingArea 'parkingA
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional

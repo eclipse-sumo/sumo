@@ -20,7 +20,6 @@ Debug: Setting previous attribute height '1.00' into poiLane 'poi_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poiLane 'poi_0' from viewNet
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poiLane 'poi_0' into viewNet

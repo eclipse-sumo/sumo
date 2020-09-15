@@ -13,7 +13,6 @@ Debug: Setting previous attribute blockMovement '0' into chargingStation 'chargi
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding chargingStation 'chargingStation_gneE2_1_0' in GNEChange_Additional

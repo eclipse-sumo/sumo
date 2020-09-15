@@ -96,10 +96,8 @@ Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'flowB' in GNEChange_DemandElement
 Debug: Removing flowWithRoute 'flowB' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing routeEmbedded 'flowA' in GNEChange_DemandElement
 Debug: Removing flowWithRoute 'flowA' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()

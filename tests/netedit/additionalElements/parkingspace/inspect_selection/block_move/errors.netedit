@@ -42,10 +42,8 @@ Debug: Setting previous attribute selected '0' into junction 'gneJ0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing space 'parkingArea_Bspace0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing parkingArea 'parkingArea_B' in GNEChange_Additional
 Debug: Removing space 'parkingArea_Aspace0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Removing parkingArea 'parkingArea_A' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed

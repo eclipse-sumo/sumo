@@ -99,9 +99,7 @@ Debug: Setting previous attribute selected '0' into route 'routeA'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing flowRoute 'flowB' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing flowRoute 'flowA' in GNEChange_DemandElement
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Removing route 'routeB' in GNEChange_DemandElement
 Debug: Removing route 'routeA' in GNEChange_DemandElement
 Debug: Keys Ctrl+Z (Undo) pressed

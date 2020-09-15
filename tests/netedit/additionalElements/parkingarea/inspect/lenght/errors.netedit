@@ -33,7 +33,6 @@ GLDebug: 	Inserted parkingArea:parkingArea_gneE2_1_0 into SUMORTree with boundar
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE2_1_0' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 GLDebug: 	Removed object parkingArea:parkingArea_gneE2_1_0 from SUMORTree with boundary 7.80,9.40,26.20,17.80
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
