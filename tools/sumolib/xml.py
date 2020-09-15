@@ -216,6 +216,9 @@ def compound_object(element_name, attrnames, warn=False):
         def __repr__(self):
             return str(self)
 
+        def __lt__(self, other):
+            return str(self) < str(other)
+
     return CompoundObject
 
 

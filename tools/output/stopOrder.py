@@ -74,7 +74,7 @@ def main(options):
                     if stop.hasAttribute("busStop"):
                         stopCode = stop.busStop
                     else:
-                        stopCode = (stop.lane, stop.endPos)
+                        stopCode = "%s,%s" % (stop.lane, stop.endPos)
                     expected_departs[stopCode].append((parseTime(stop.until), vehicle.id))
                     parsed_stops += 1
                 else:
