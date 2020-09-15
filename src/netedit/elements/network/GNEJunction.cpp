@@ -111,6 +111,12 @@ GNEJunction::getPositionInView() const {
 }
 
 
+GNEMoveOperation* 
+GNEJunction::getMoveOperation(const double shapeOffset) {
+    return nullptr;
+}
+
+
 void
 GNEJunction::startJunctionShapeGeometryMoving(const double shapeOffset) {
     // save current centering boundary
@@ -1494,6 +1500,21 @@ GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
 void
 GNEJunction::setResponsible(bool newVal) {
     myAmResponsible = newVal;
+}
+
+// ===========================================================================
+// protected
+// ===========================================================================
+
+void 
+GNEJunction::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void 
+GNEJunction::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 // ===========================================================================

@@ -20,7 +20,9 @@
 /****************************************************************************/
 #pragma once
 #include "GNENetworkElement.h"
+
 #include <netbuild/NBNode.h>
+#include <netedit/GNEMoveElement.h>
 
 // ===========================================================================
 // class declarations
@@ -41,7 +43,7 @@ class GNEConnection;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEJunction : public GNENetworkElement {
+class GNEJunction : public GNENetworkElement, public GNEMoveElement {
 
     /// @brief Declare friend class
     friend class GNEChange_TLS;
@@ -72,6 +74,14 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+    /// @}
+
+    /// @name Functions related with move elements
+    /// @{
+    /**@brief get move operation for the given shapeOffset
+     * @note returned GNEMoveOperation can be nullptr
+     */
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
     /// @}
 
     /// @name functions for edit shape
@@ -282,7 +292,7 @@ public:
     /// @brief invalidate path element childs
     void invalidatePathElements();
 
-private:
+protected:
     /// @brief A reference to the represented junction
     NBNode* myNBNode;
 
@@ -326,6 +336,13 @@ private:
     /// @brief whether this junction probably should have some connections but doesn't
     bool myColorForMissingConnections;
 
+    /// @brief set move shape
+    void setMoveShape(const PositionVector& newShape);
+
+    /// @brief commit move shape
+    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
+
+private:
     /// @brief draw TLS icon
     void drawTLSIcon(const GUIVisualizationSettings& s) const;
 

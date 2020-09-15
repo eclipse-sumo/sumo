@@ -77,10 +77,13 @@ public:
     Position getPositionInView() const;
     /// @}
 
+    /// @name Functions related with move elements
+    /// @{
     /**@brief get move operation for the given shapeOffset
-    * @note returned GNEMoveOperation can be nullptr
-    */
+     * @note returned GNEMoveOperation can be nullptr
+     */
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
+    /// @}
 
     /// @name functions for edit start and end shape positions
     /// @{
