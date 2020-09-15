@@ -37,6 +37,8 @@
 //#define PARALLEL_CHANGE_LANES
 //#define LOAD_BALANCING
 
+//#define PARALLEL_STOPWATCH
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
@@ -89,8 +91,10 @@ MSEdgeControl::~MSEdgeControl() {
     myThreadPool.clear();
 #endif
 #endif
-//    std::cout << myStopWatch[0].getHistory().size() << " calls, average " << myStopWatch[0].getAverage() << " ns" << std::endl;
-//    std::cout << myStopWatch[1].getHistory().size() << " calls, average " << myStopWatch[1].getAverage() << " ns" << std::endl;
+#ifdef PARALLEL_STOPWATCH
+    std::cout << myStopWatch[0].getHistory().size() << " planmove calls, average " << myStopWatch[0].getAverage() << " ns" << std::endl;
+    std::cout << myStopWatch[1].getHistory().size() << " execmove calls, average " << myStopWatch[1].getAverage() << " ns" << std::endl;
+#endif
 }
 
 
@@ -115,7 +119,9 @@ MSEdgeControl::patchActiveLanes() {
 
 void
 MSEdgeControl::planMovements(SUMOTime t) {
-//    myStopWatch[0].start();
+#ifdef PARALLEL_STOPWATCH
+    myStopWatch[0].start();
+#endif
 #ifdef THREAD_POOL
     std::vector<std::future<void>> results;
 #endif
@@ -155,7 +161,9 @@ MSEdgeControl::planMovements(SUMOTime t) {
     }
 #endif
 #endif
-//    myStopWatch[0].stop();
+#ifdef PARALLEL_STOPWATCH
+    myStopWatch[0].stop();
+#endif
 }
 
 
@@ -169,7 +177,9 @@ MSEdgeControl::setJunctionApproaches(SUMOTime t) {
 
 void
 MSEdgeControl::executeMovements(SUMOTime t) {
-//    myStopWatch[1].start();
+#ifdef PARALLEL_STOPWATCH
+    myStopWatch[1].start();
+#endif
     std::vector<MSLane*> wasActive(myActiveLanes.begin(), myActiveLanes.end());
     myWithVehicles2Integrate.clear();
 #ifdef PARALLEL_EXEC_MOVE
@@ -231,7 +241,9 @@ MSEdgeControl::executeMovements(SUMOTime t) {
             }
         }
     }
-//    myStopWatch[1].stop();
+#ifdef PARALLEL_STOPWATCH
+    myStopWatch[1].stop();
+#endif
 }
 
 
