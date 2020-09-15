@@ -39,7 +39,7 @@ class GNEDemandElement;
 // class definitions
 // ===========================================================================
 
-class GNENetworkElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement, protected GNEMoveShape {
+class GNENetworkElement : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor.

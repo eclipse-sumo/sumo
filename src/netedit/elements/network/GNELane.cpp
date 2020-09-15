@@ -233,10 +233,12 @@ GNELane::getMoveOperation(const double shapeOffset) {
 
 void
 GNELane::startLaneShapeGeometryMoving(const double shapeOffset) {
+/*
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
     startMoveShape(myParentEdge->getNBEdge()->getLaneShape(myIndex), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius);
+*/
 }
 
 
@@ -283,6 +285,7 @@ GNELane::getLaneShapeVertexIndex(Position pos, const bool snapToGrid) const {
 
 void
 GNELane::moveLaneShape(const Position& offset) {
+/*
     // first obtain a copy of shapeBeforeMoving
     PositionVector newShape = getShapeBeforeMoving();
     if (moveEntireShape()) {
@@ -311,11 +314,13 @@ GNELane::moveLaneShape(const Position& offset) {
     myParentEdge->getNBEdge()->setLaneShape(myIndex, newShape);
     // update geometry
     updateGeometry();
+*/
 }
 
 
 void
 GNELane::commitLaneShapeChange(GNEUndoList* undoList) {
+/*
     // get visualisation settings
     auto& s = myNet->getViewNet()->getVisualisationSettings();
     // restore original shape into shapeToCommit
@@ -338,6 +343,7 @@ GNELane::commitLaneShapeChange(GNEUndoList* undoList) {
     undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shapeToCommit)));
     undoList->p_end();
+*/
 }
 
 

@@ -124,10 +124,12 @@ GNEJunction::getMoveOperation(const double shapeOffset) {
 
 void
 GNEJunction::startJunctionShapeGeometryMoving(const double shapeOffset) {
+/*
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
     startMoveShape(myNBNode->getShape(), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius);
+*/
 }
 
 
@@ -181,6 +183,7 @@ GNEJunction::getJunctionShapeVertexIndex(Position pos, const bool snapToGrid) co
 
 void
 GNEJunction::moveJunctionShape(const Position& offset) {
+/*
     // first obtain a copy of shapeBeforeMoving
     PositionVector newShape = getShapeBeforeMoving();
     if (moveEntireShape()) {
@@ -214,11 +217,13 @@ GNEJunction::moveJunctionShape(const Position& offset) {
     myNBNode->setCustomShape(newShape);
     // update geometry
     updateGeometry();
+*/
 }
 
 
 void
 GNEJunction::commitJunctionShapeChange(GNEUndoList* undoList) {
+/*
     // get visualisation settings
     auto& s = myNet->getViewNet()->getVisualisationSettings();
     // restore original shape into shapeToCommit
@@ -241,6 +246,7 @@ GNEJunction::commitJunctionShapeChange(GNEUndoList* undoList) {
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
     undoList->p_end();
+*/
 }
 
 

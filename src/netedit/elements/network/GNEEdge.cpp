@@ -319,6 +319,7 @@ GNEEdge::getEdgeVertexIndex(Position pos, const bool snapToGrid) const {
 
 void
 GNEEdge::startEdgeGeometryMoving(const double shapeOffset, const bool invertOffset) {
+/*
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape
@@ -347,11 +348,13 @@ GNEEdge::startEdgeGeometryMoving(const double shapeOffset, const bool invertOffs
     for (const auto& demandElement : getParentDemandElements()) {
         demandElement->startGeometryMoving();
     }
+*/
 }
 
 
 void
 GNEEdge::moveEdgeShape(const Position& offset) {
+/*
     // first make a copy of myMovingShape
     PositionVector newShape = getShapeBeforeMoving();
     // move entire shap if this edge and their junctions is selected
@@ -389,6 +392,7 @@ GNEEdge::moveEdgeShape(const Position& offset) {
     newShape.pop_back();
     // set new inner shape
     setGeometry(newShape, true);
+*/
 }
 
 
@@ -428,6 +432,7 @@ GNEEdge::endEdgeGeometryMoving() {
 
 void
 GNEEdge::commitEdgeShapeChange(GNEUndoList* undoList) {
+/*
     // restore original shape into shapeToCommit
     PositionVector innerShapeToCommit = myNBEdge->getInnerGeometry();
     // first check if second and penultimate isn't in Junction's buubles
@@ -455,6 +460,7 @@ GNEEdge::commitEdgeShapeChange(GNEUndoList* undoList) {
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
     undoList->p_end();
+*/
 }
 
 

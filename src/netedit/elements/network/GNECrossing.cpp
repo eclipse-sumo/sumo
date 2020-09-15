@@ -83,11 +83,13 @@ GNECrossing::getMoveOperation(const double shapeOffset) {
 
 void
 GNECrossing::startCrossingShapeGeometryMoving(const double shapeOffset) {
+/*
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
     startMoveShape(getCrossingShape(), shapeOffset,
                    myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
+*/
 }
 
 
@@ -143,6 +145,7 @@ GNECrossing::getCrossingShapeVertexIndex(Position pos, const bool snapToGrid) co
 
 void
 GNECrossing::moveCrossingShape(const Position& offset) {
+/*
     // first obtain a copy of shapeBeforeMoving
     PositionVector newShape = getShapeBeforeMoving();
     if (moveEntireShape()) {
@@ -163,11 +166,13 @@ GNECrossing::moveCrossingShape(const Position& offset) {
     myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->customShape = newShape;
     // update geometry
     updateGeometry();
+*/
 }
 
 
 void
 GNECrossing::commitCrossingShapeChange(GNEUndoList* undoList) {
+/*
     // get crossing
     const auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     // get visualisation settings
@@ -192,6 +197,7 @@ GNECrossing::commitCrossingShapeChange(GNEUndoList* undoList) {
     undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shapeToCommit)));
     undoList->p_end();
+*/
 }
 
 

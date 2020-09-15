@@ -149,10 +149,12 @@ GNEConnection::getMoveOperation(const double shapeOffset) {
 
 void
 GNEConnection::startConnectionShapeGeometryMoving(const double shapeOffset) {
+/*
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
     // start move shape depending of block shape
     startMoveShape(getConnectionShape(), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius);
+*/
 }
 
 
@@ -206,6 +208,7 @@ GNEConnection::getConnectionShapeVertexIndex(Position pos, const bool snapToGrid
 
 void
 GNEConnection::moveConnectionShape(const Position& offset) {
+/*
     // first obtain a copy of shapeBeforeMoving
     PositionVector newShape = getShapeBeforeMoving();
     if (moveEntireShape()) {
@@ -227,11 +230,13 @@ GNEConnection::moveConnectionShape(const Position& offset) {
     myShapeDeprecated = true;
     // update geometry
     updateGeometry();
+*/
 }
 
 
 void
 GNEConnection::commitConnectionShapeChange(GNEUndoList* undoList) {
+/*
     // get visualisation settings
     auto& s = myNet->getViewNet()->getVisualisationSettings();
     // restore original shape into shapeToCommit
@@ -254,6 +259,7 @@ GNEConnection::commitConnectionShapeChange(GNEUndoList* undoList) {
     undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shapeToCommit)));
     undoList->p_end();
+*/
 }
 
 
