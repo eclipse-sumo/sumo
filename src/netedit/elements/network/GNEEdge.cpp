@@ -161,8 +161,35 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
         if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS*SNAP_RADIUS)) {
             index = shapeToMove.insertAtClosest(positionAtOffset, true);
         }
-        // return a new move operation
-        return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, {index});
+        // check if attribute carrier is selected
+        if (isAttributeCarrierSelected()) {
+            // declare a vector for saving geometry points to move
+            std::vector<int> geometryPointsToMove;
+            // if edge is selected, check conditions
+            if (getParentJunctions().front()->isAttributeCarrierSelected() && 
+                getParentJunctions().back()->isAttributeCarrierSelected()) {
+                // move entire shape edge (original)
+                return new GNEMoveOperation(this, myNBEdge->getGeometry());
+            } else if (getParentJunctions().front()->isAttributeCarrierSelected()) {
+                for (int i = 0; i <= index; i++) {
+                    geometryPointsToMove.push_back(i);
+                }
+                // move only a part of edge geometry
+                return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, geometryPointsToMove);
+            } else if (getParentJunctions().back()->isAttributeCarrierSelected()) {
+                for (int i = index; i < shapeToMove.size(); i++) {
+                    geometryPointsToMove.push_back(i);
+                }
+                // move only a part of edge geometry
+                return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, geometryPointsToMove);
+            } else {
+                // move as a non-selected edge
+                return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, {index});
+            }
+        } else {
+            // only move clicked edge
+            return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, {index});
+        }
     }
 }
 
@@ -1551,12 +1578,18 @@ GNEEdge::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) 
         innenShape.removeDoublePoints(SNAP_RADIUS);
         // commit new shape
         undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
+        // check if we have to update shape start
+        if (getParentJunctions().front()->getPositionInView() != shapeStart) {
+            undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
+        }
         // only update innen shape if isn't empty (example, if we move a end geometry point)
         if (innenShape.size() > 0) {
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innenShape)));
         }
-        undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
+        // check if we have to update shape end
+        if (getParentJunctions().back()->getPositionInView() != shapeEnd) {
+            undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
+        }
         undoList->p_end();
     }
 }

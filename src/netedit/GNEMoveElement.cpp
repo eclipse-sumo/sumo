@@ -29,8 +29,7 @@
 // ===========================================================================
 
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
-    PositionVector _originalShape,
-    std::vector<int> _shapePointsToMove) :
+    PositionVector _originalShape) :
     moveElement(_moveElement),
     originalShape(_originalShape),
     clickedIndex(-1),
@@ -58,8 +57,14 @@ void
 GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &offset) {
     // calculate new shape
     PositionVector newShape = moveOperation->shapeToMove;
-    for (const auto &index : moveOperation->geometryPointsToMove) {
-        newShape[index].add(offset);
+    // check if we're moving an entire shape or  only certain geometry point
+    if (moveOperation->geometryPointsToMove.empty()) {
+        newShape.add(offset);
+    } else {
+        // only move certain geometry points
+        for (const auto &index : moveOperation->geometryPointsToMove) {
+            newShape[index].add(offset);
+        }
     }
     // move shape element
     moveOperation->moveElement->setMoveShape(newShape);

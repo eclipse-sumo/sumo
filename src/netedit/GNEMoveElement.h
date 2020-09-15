@@ -38,8 +38,7 @@ class GNEMoveOperation {
 public:
     /// @brief constructor for entire geometries
     GNEMoveOperation(GNEMoveElement *moveElement,
-        PositionVector originalShape,
-        std::vector<int> geometryPointsToMove);
+        PositionVector originalShape);
 
     /// @brief constructor for elements that
     GNEMoveOperation(GNEMoveElement *moveElement,
