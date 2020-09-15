@@ -1084,6 +1084,18 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         }
         myConnectionToMove = nullptr;
     } else if (myEdgeToMove) {
+        // calculate offsetMovement depending of current mouse position and relative clicked position
+        // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
+        Position offsetMovement = myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition;
+
+        for (const auto &moveOperation : myMoveOperations) {
+            GNEMoveElement::commitMove(moveOperation, offsetMovement, myViewNet->getUndoList());
+            delete moveOperation;
+        }
+
+        myMoveOperations.clear();
+
+        /*
         // commit change depending of what was moved
         if (myMovingStartPos) {
             myEdgeToMove->commitShapeChangeBegin(myViewNet->getUndoList());
@@ -1094,6 +1106,7 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         } else {
             myEdgeToMove->commitEdgeShapeChange(myViewNet->getUndoList());
         }
+        */
         myEdgeToMove = nullptr;
     } else if (myAdditionalToMove) {
         myAdditionalToMove->commitGeometryMoving(myViewNet->getUndoList());

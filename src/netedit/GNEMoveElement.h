@@ -61,7 +61,7 @@ public:
     /// @brief destructor
     ~GNEMoveOperation() {}
 
-    const GNEMoveElement *moveElement;
+    GNEMoveElement *moveElement;
 
     /// @brief original geometry
     const GNEGeometry::Geometry originalGeometry;
@@ -96,7 +96,7 @@ public:
 
     static void moveElement(GNEMoveOperation* moveOperation, const Position &offset);
 
-    static void commitMove(GNEMoveOperation* moveOperation, const Position &offset);
+    static void commitMove(GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList);
 
 protected:
     virtual void setMoveGeometry(const GNEGeometry::Geometry& newGeometry) = 0;

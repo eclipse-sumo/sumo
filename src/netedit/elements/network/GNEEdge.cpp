@@ -155,8 +155,7 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
     int index = myNBEdge->getGeometry().indexOfClosest(positionAtOffset);
     // check if we have to create a new index
     if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS*SNAP_RADIUS)) {
-        shapeToMove.insert_noDoublePos(shapeToMove.begin() + index, positionAtOffset);
-        index++;
+        index = shapeToMove.insertAtClosest(positionAtOffset, true);
     }
     // declare geometries
     GNEGeometry::Geometry originalGeometry(myNBEdge->getGeometry());
