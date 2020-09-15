@@ -60,6 +60,10 @@ public:
         return (long long int)(std::accumulate(myHistory.begin(), myHistory.end(), TimeT{}) / myHistory.size()).count();
     }
 
+    long long int getTotal() const {
+        return (long long int)(std::accumulate(myHistory.begin(), myHistory.end(), TimeT{})).count();
+    }
+
 private:
     std::chrono::time_point<ClockT> myStart;
     std::chrono::time_point<ClockT> myEnd;
