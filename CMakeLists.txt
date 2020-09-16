@@ -11,7 +11,8 @@ option(SUMO_UTILS "Enable generation of a shared library for the utility functio
 option(FMI "Enable generation of an FMI library for SUMO" false)
 set(BINARY_SUFFIX "" CACHE STRING "Append the suffix to every generated binary")
 set(COMPILE_DEFINITIONS "" CACHE STRING "Macros or defines to add when compiling")
-set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support")
+set(CCACHE_SUPPORT ON CACHE BOOL "Enable ccache support if installed")
+set(TCMALLOC ON CACHE BOOL "Use tcmalloc if installed")
 
 # Set a default build type if none was specified
 # you may use -DCMAKE_BUILD_TYPE:STRING=Debug from the command line
@@ -311,6 +312,15 @@ if (SWIG_FOUND)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} SWIG")
 endif ()
 
+if (TCMALLOC)
+    find_library(TCMALLOC_LIBRARY NAMES tcmalloc_minimal)
+    if (TCMALLOC_LIBRARY)
+        set(ENABLED_FEATURES "${ENABLED_FEATURES} tcmalloc")
+    else ()
+        set(TCMALLOC_LIBRARY "")
+    endif ()
+endif ()
+
 if (CHECK_OPTIONAL_LIBS)
     find_package(GDAL)
     if (GDAL_FOUND)
@@ -368,7 +378,7 @@ include_directories(${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(commonlibs
         utils_distribution utils_shapes utils_options
         utils_xml utils_geom utils_common utils_importio utils_iodevices utils_traction_wire foreign_tcpip
-        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY})
+        ${XercesC_LIBRARIES} ${ZLIB_LIBRARIES} ${PROJ_LIBRARY} ${TCMALLOC_LIBRARY})
 if (MSVC)
     set(commonlibs ${commonlibs} ws2_32)
 endif ()
