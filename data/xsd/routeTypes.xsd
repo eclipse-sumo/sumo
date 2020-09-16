@@ -689,6 +689,7 @@
         <xsd:attribute name="savings" type="xsd:float"/>
         <xsd:attribute name="repeat" type="xsd:nonNegativeInteger"/>
         <xsd:attribute name="cycleTime" type="timeType"/>
+        <xsd:attribute name="probability" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="routeDistRouteType">
