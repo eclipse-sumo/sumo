@@ -461,7 +461,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
 
         // find indices for exclusive left green phase and apply option minor-left.max-speed
         for (int i1 = 0; i1 < pos; ++i1) {
-            if (state[i1] == 'g' && !rightTurnConflicts[i1]
+            if (state[i1] == 'g' && !rightTurnConflicts[i1] && !mergeConflicts[i1]
                     // only activate turn-around together with a real left-turn
                     && (!isTurnaround[i1] || (i1 > 0 && leftGreen[i1 - 1]))) {
                 leftGreen[i1] = true;
@@ -481,6 +481,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         if (DEBUGCOND) {
             std::cout << getID() << " state=" << state << " buildLeft=" << buildLeftGreenPhase << " hFLM=" << haveForbiddenLeftMover << " turnLane=" << foundLeftTurnLane
                       << "   \nrtC=" << toString(rightTurnConflicts)
+                      << "   \nmC=" << toString(mergeConflicts)
                       << "   \nhTL=" << toString(hasTurnLane)
                       << "   \nlGr=" << toString(leftGreen)
                       << "\n";
@@ -526,6 +527,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 if ((vehicleState[i1] >= 'a' && vehicleState[i1] <= 'z')
                         && buildLeftGreenPhase
                         && !rightTurnConflicts[i1]
+                        && !mergeConflicts[i1]
                         && leftGreen[i1]) {
                     continue;
                 }
