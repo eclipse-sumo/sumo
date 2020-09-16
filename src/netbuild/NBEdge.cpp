@@ -2706,16 +2706,6 @@ NBEdge::divideSelectedLanesOnEdges(const EdgeVector* outgoing, const std::vector
                 --targetLanes;
             }
             if (numConsToTarget >= targetLanes) {
-                // let bicycles move onto the road to allow continuation
-                // the speed limit is taken from rural roads (which allow cycles)
-                // (pending implementation of #1859)
-                if (getPermissions(fromIndex) == SVC_BICYCLE && getSpeed() <= (101 / 3.6)) {
-                    for (NBEdge::Lane& lane : myLanes) {
-                        if (lane.permissions != SVC_PEDESTRIAN) {
-                            lane.permissions |= SVC_BICYCLE;
-                        }
-                    }
-                }
                 continue;
             }
             if (myLanes[fromIndex].connectionsDone) {

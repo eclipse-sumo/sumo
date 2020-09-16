@@ -1345,8 +1345,9 @@ NBNode::computeLanes2Lanes() {
                             for (int i2 = 0; i2 < (int)currentOutgoing->getNumLanes(); i2++) {
                                 if ((currentOutgoing->getPermissions(i2) & SVC_BICYCLE) != 0) {
                                     // possibly a double-connection
-                                    // XXX could use 'true' here but this requires additional work on tls generation
-                                    incoming->setConnection(i, currentOutgoing, i2, NBEdge::Lane2LaneInfoType::COMPUTED, false);
+                                    const bool allowDouble = (incoming->getPermissions(i) == SVC_BICYCLE
+                                            && (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT));
+                                    incoming->setConnection(i, currentOutgoing, i2, NBEdge::Lane2LaneInfoType::COMPUTED, allowDouble);
                                     builtConnection = true;
                                     break;
                                 }
