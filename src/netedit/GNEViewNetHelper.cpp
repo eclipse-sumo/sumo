@@ -1093,19 +1093,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues(GNEJunction *
     const double junctionShapeOffset = junction->getNBNode()->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
     // calculate distance to shape
     const double distanceToShape = junction->getNBNode()->getShape().distance2D(myViewNet->getPositionInformation());
-    // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
-    if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
-        // check if we clicked over a vertex index
-        if (junction->getJunctionShapeVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
-            // start geometry moving
-            junction->startJunctionShapeGeometryMoving(junctionShapeOffset);
-            // junction values sucesfully calculated, then return true
-            return true;
-        } else {
-            // junction values wasn't calculated, then return false
-            return false;
-        }
-    } else if (distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
+    // check if we clicked over shape
+    if (distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
         // get move operation
         GNEMoveOperation* moveOperation = junction->getMoveOperation(junctionShapeOffset);
         // continue if move operation is valid
