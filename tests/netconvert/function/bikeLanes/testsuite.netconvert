@@ -13,11 +13,11 @@ typemap
 # add bike lane via plain-xml input
 addFromPlainXML
 
-# test connection building in the presence of bicycle lanes
-connections
-
-# same as 'connections' but with different priorities
-connections2
-
 # guess bicycle lanes based on edge permissions
 guess.from-permissions
+
+# test connection building when all lanes are reserved for either bicycle or passenger traffic
+connections_dedicated
+
+# test connection building when there are some roads with dedicated lanes and some roads with mixed traffic
+connections_mixed
