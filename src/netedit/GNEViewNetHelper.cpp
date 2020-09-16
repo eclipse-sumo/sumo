@@ -880,10 +880,12 @@ GNEViewNetHelper::KeyPressed::controlKeyPressed() const {
 
 GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* viewNet) :
     myViewNet(viewNet),
+/*
     myMovingStartPos(false),
     myMovingEndPos(false),
     myCrossingToMove(nullptr),
     myConnectionToMove(nullptr),
+*/
     myPolyToMove(nullptr),
     myPOIToMove(nullptr),
     myAdditionalToMove(nullptr),
@@ -901,12 +903,12 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
     // check what type of AC will be moved
     if (myViewNet->myObjectsUnderCursor.getCrossingFront() &&
             (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
-        return calculateCrossingValues();
+        return calculateCrossingValues(myViewNet->myObjectsUnderCursor.getCrossingFront());
     } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() &&
-               (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
-        return calculateConnectionValues();
+            (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
+        return calculateConnectionValues(myViewNet->myObjectsUnderCursor.getConnectionFront());
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() &&
-               (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
+            (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
         return calculateJunctionValues(myViewNet->myObjectsUnderCursor.getJunctionFront());
     } else {
         // there isn't moved items, then return false
@@ -1007,6 +1009,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
     } else if (myPOIToMove) {
         // Move POI's geometry without commiting changes
         myPOIToMove->movePOIGeometry(offsetMovement);
+/*
     } else if (myCrossingToMove) {
         if (myCrossingToMove->isShapeEdited()) {
             // move crossing's geometry without commiting changes
@@ -1017,6 +1020,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
             // move connection's geometry without commiting changes
             myConnectionToMove->moveConnectionShape(offsetMovement);
         }
+*/
     } else if (myAdditionalToMove && (myAdditionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
         myAdditionalToMove->moveGeometry(offsetMovement);
@@ -1042,6 +1046,7 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
     } else if (myPOIToMove) {
         myPOIToMove->commitPOIGeometryMoving(myViewNet->getUndoList());
         myPOIToMove = nullptr;
+/*
     } else if (myCrossingToMove) {
         // check if in the moved position there is another crossing and it will be merged
         if (myCrossingToMove->isShapeEdited()) {
@@ -1054,6 +1059,7 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
             myConnectionToMove->commitConnectionShapeChange(myViewNet->getUndoList());
         }
         myConnectionToMove = nullptr;
+*/
     } else if (myAdditionalToMove) {
         myAdditionalToMove->commitGeometryMoving(myViewNet->getUndoList());
         myAdditionalToMove->endGeometryMoving();
@@ -1100,10 +1106,15 @@ GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues(GNEJunction *
             return false;
         }
     } else if (distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
-        // start geometry moving
-        junction->startJunctionShapeGeometryMoving(junctionShapeOffset);
-        // junction values sucesfully calculated, then return true
-        return true;
+        // get move operation
+        GNEMoveOperation* moveOperation = junction->getMoveOperation(junctionShapeOffset);
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
     } else {
         // junction values wasn't calculated, then return false
         return false;
@@ -1112,7 +1123,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues(GNEJunction *
 
 
 bool
-GNEViewNetHelper::MoveSingleElementValues::calculateCrossingValues() {
+GNEViewNetHelper::MoveSingleElementValues::calculateCrossingValues(GNECrossing* crossing) {
+/*
     // assign clicked crossing to crossingToMove
     myCrossingToMove = myViewNet->myObjectsUnderCursor.getCrossingFront();
     // calculate crossingShapeOffset
@@ -1144,11 +1156,14 @@ GNEViewNetHelper::MoveSingleElementValues::calculateCrossingValues() {
         // crossing values wasn't calculated, then return false
         return false;
     }
+*/
+    return false;
 }
 
 
 bool
-GNEViewNetHelper::MoveSingleElementValues::calculateConnectionValues() {
+GNEViewNetHelper::MoveSingleElementValues::calculateConnectionValues(GNEConnection *connection) {
+/*
     // assign clicked crossing to crossingToMove
     myConnectionToMove = myViewNet->myObjectsUnderCursor.getConnectionFront();
     // calculate crossingShapeOffset
@@ -1180,6 +1195,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculateConnectionValues() {
         // crossing values wasn't calculated, then return false
         return false;
     }
+*/
+    return false;
 }
 
 

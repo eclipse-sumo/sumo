@@ -53,15 +53,15 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myNBNode(nbn),
-myMaxDrawingSize(1),
-myAmCreateEdgeSource(false),
-myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-myAmResponsible(false),
-myHasValidLogic(loaded),
-myAmTLSSelected(false),
-myColorForMissingConnections(false) {
+        {}, {}, {}, {}, {}, {}, {}, {}),
+    myNBNode(nbn),
+    myMaxDrawingSize(1),
+    myAmCreateEdgeSource(false),
+    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myAmResponsible(false),
+    myHasValidLogic(loaded),
+    myAmTLSSelected(false),
+    myColorForMissingConnections(false) {
 }
 
 
@@ -113,8 +113,27 @@ GNEJunction::getPositionInView() const {
 
 GNEMoveOperation* 
 GNEJunction::getMoveOperation(const double shapeOffset) {
+    // edit depending if shape is being edited
     if (isShapeEdited()) {
-        return nullptr;
+        // declare shape to move
+        PositionVector shapeToMove = myNBNode->getShape();
+        // first check if in the given shapeOffset there is a geometry point
+        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
+        // check if position is valid
+        if (positionAtOffset == Position::INVALID) {
+            return nullptr;
+        } else {
+            // obtain index
+            int index = myNBNode->getShape().indexOfClosest(positionAtOffset);
+            // get snap radius
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+            // check if we have to create a new index
+            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
+                index = shapeToMove.insertAtClosest(positionAtOffset, true);
+            }
+            // return move operation for edit shape
+            return new GNEMoveOperation(this, myNBNode->getShape(), shapeToMove, index, {index});
+        }
     } else {
         // return junction position
         return new GNEMoveOperation(this, myNBNode->getPosition());
@@ -1667,7 +1686,10 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 void 
 GNEJunction::setMoveShape(const PositionVector& newShape) {
     // set new position in NBNode without updating grid
-    if (newShape.size() > 0) {
+    if (isShapeEdited()) {
+        // set new shape
+        myNBNode->setCustomShape(newShape);
+    } else if (newShape.size() > 0) {
         moveJunctionGeometry(newShape.front());
     }
 }
@@ -1679,7 +1701,10 @@ GNEJunction::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoLi
     if (newShape.size() > 0) {
         // check if we're editing a shape
         if (isShapeEdited()) {
-            //
+            // commit new shape
+            undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+            undoList->p_end();
         } else {
             undoList->p_begin("position of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));

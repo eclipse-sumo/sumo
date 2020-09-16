@@ -839,10 +839,10 @@ struct GNEViewNetHelper {
         bool calculateJunctionValues(GNEJunction *junction);
 
         /// @brief calculate crossing element movement values (Position, Index, etc.)
-        bool calculateCrossingValues();
+        bool calculateCrossingValues(GNECrossing* crossing);
 
         /// @brief calculate connection element movement values (Position, Index, etc.)
-        bool calculateConnectionValues();
+        bool calculateConnectionValues(GNEConnection *connection);
 
         /// @brief calculate Poly movement values (Position, Index, etc.)
         bool calculatePolyValues();
@@ -858,7 +858,7 @@ struct GNEViewNetHelper {
 
         /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
         Position myRelativeClickedPosition;
-
+/*
         /// @brief bool to indicate that startPos of an edge is being moved
         bool myMovingStartPos;
 
@@ -870,7 +870,7 @@ struct GNEViewNetHelper {
 
         /// @brief the connection to be moved.
         GNEConnection* myConnectionToMove;
-
+*/
         /// @brief the poly of which geometry is being moved
         GNEPoly* myPolyToMove;
 
