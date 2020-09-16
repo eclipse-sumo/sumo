@@ -73,6 +73,12 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
+
+    /// @brief add network element in grid (RTREE) (and all children)
+    void addNetworkElementInGrid();
+
+    /// @brief add network element in RTREE (RTREE) (and all children)
+    void removeNetworkElementfromGrid();
     /// @}
 
     /// @name Functions related with move elements
@@ -83,29 +89,6 @@ public:
 
     /// @name functions for edit shape
     /// @{
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
-    void startJunctionShapeGeometryMoving(const double shapeOffset);
-
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
-    void endJunctionShapeGeometryMoving();
-
-    /**@brief return index of geometry point placed in given position, or -1 if no exist
-    * @param pos position of new/existent vertex
-    * @param snapToGrid enable or disable snapToActiveGrid
-    * @return index of position vector
-    */
-    int getJunctionShapeVertexIndex(Position pos, const bool snapToGrid) const;
-
-    /**@brief move shape
-    * @param[in] offset the offset of movement
-    */
-    void moveJunctionShape(const Position& offset);
-
-    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
-    * @param[in] undoList The undoList on which to register changes
-    */
-    void commitJunctionShapeChange(GNEUndoList* undoList);
-
     /// @brief delete geometry point
     void deleteJunctionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList);
     /// @}
@@ -173,23 +156,6 @@ public:
 
     /// @brief notify the junction of being selected in tls-mode. (used to control drawing)
     void selectTLS(bool selected);
-
-    /// @name functions related with geometry movement
-    /// @{
-
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
-    void startGeometryMoving(bool extendToNeighbors = true);
-
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
-    void endGeometryMoving(bool extendToNeighbors = true);
-
-    /// @brief change the position of the element geometry without saving in undoList
-    void moveGeometry(const Position& offset);
-
-    /// @brief registers completed movement with the undoList
-    void commitGeometryMoving(GNEUndoList* undoList);
-
-    /// @}
 
     /// @name inherited from GNEAttributeCarrier
     /// @{

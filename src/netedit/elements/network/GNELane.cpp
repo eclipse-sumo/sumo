@@ -225,6 +225,18 @@ GNELane::getPositionInView() const {
 }
 
 
+void 
+GNELane::addNetworkElementInGrid() {
+    //
+}
+
+
+void 
+GNELane::removeNetworkElementfromGrid() {
+    //
+}
+
+
 GNEMoveOperation* 
 GNELane::getMoveOperation(const double shapeOffset) {
     return nullptr;
@@ -244,6 +256,7 @@ GNELane::startLaneShapeGeometryMoving(const double shapeOffset) {
 
 void
 GNELane::endLaneShapeGeometryMoving() {
+/*
     // check that endGeometryMoving was called only once
     if (myMovingGeometryBoundary.isInitialised()) {
         // Remove object from net
@@ -253,6 +266,7 @@ GNELane::endLaneShapeGeometryMoving() {
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
     }
+*/
 }
 
 

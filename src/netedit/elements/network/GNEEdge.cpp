@@ -110,12 +110,9 @@ GNEEdge::updateGeometry() {
         for (const auto& lane : myLanes) {
             lane->updateGeometry();
         }
-        // Update geometry of connections (Only if updateGrid is enabled, because in move mode connections are hidden
-        // (note: only the previous marked as deprecated will be updated)
-        if (!myMovingGeometryBoundary.isInitialised()) {
-            for (const auto& connection : myGNEConnections) {
-                connection->updateGeometry();
-            }
+        // Update geometry of connections
+        for (const auto& connection : myGNEConnections) {
+            connection->updateGeometry();
         }
         // Update geometry of additionals children vinculated to this edge
         for (const auto& childAdditionals : getChildAdditionals()) {
@@ -142,6 +139,18 @@ Position
 GNEEdge::getPositionInView() const {
     // currently unused
     return Position(0, 0);
+}
+
+
+void 
+GNEEdge::addNetworkElementInGrid() {
+    //
+}
+
+
+void 
+GNEEdge::removeNetworkElementfromGrid() {
+    //
 }
 
 
@@ -216,17 +225,21 @@ GNEEdge::clickedOverShapeEnd(const Position& pos) {
 
 void
 GNEEdge::startShapeBegin() {
+/*
     myPositionBeforeMoving = myNBEdge->getGeometry().front();
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
+*/
 }
 
 
 void
 GNEEdge::startShapeEnd() {
+/*
     myPositionBeforeMoving = myNBEdge->getGeometry().back();
     // save current centering boundary
     myMovingGeometryBoundary = getCenteringBoundary();
+*/
 }
 
 
@@ -398,6 +411,7 @@ GNEEdge::moveEdgeShape(const Position& offset) {
 
 void
 GNEEdge::endEdgeGeometryMoving() {
+/*
     // check that endGeometryMoving was called only once
     if (myMovingGeometryBoundary.isInitialised()) {
         // Remove object from net
@@ -427,6 +441,7 @@ GNEEdge::endEdgeGeometryMoving() {
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
     }
+*/
 }
 
 
@@ -498,21 +513,16 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
 
 Boundary
 GNEEdge::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMovingGeometryBoundary.isInitialised()) {
-        return myMovingGeometryBoundary;
-    }  else {
-        Boundary b;
-        for (const auto& i : myLanes) {
-            b.add(i->getCenteringBoundary());
-        }
-        // ensure that geometry points are selectable even if the lane geometry is strange
-        for (const Position& pos : myNBEdge->getGeometry()) {
-            b.add(pos);
-        }
-        b.grow(10);
-        return b;
+    Boundary b;
+    for (const auto& i : myLanes) {
+        b.add(i->getCenteringBoundary());
     }
+    // ensure that geometry points are selectable even if the lane geometry is strange
+    for (const Position& pos : myNBEdge->getGeometry()) {
+        b.add(pos);
+    }
+    b.grow(10);
+    return b;
 }
 
 const std::string

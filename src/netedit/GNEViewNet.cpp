@@ -3520,10 +3520,6 @@ GNEViewNet::mergeJunctions(GNEJunction* moved) {
                 WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'Yes'");
             }
         }
-        // restore previous position of junction moved
-        moved->moveGeometry(Position(0, 0));
-        // finish geometry moving
-        moved->endGeometryMoving();
         // merge moved and targed junctions
         myNet->mergeJunctions(moved, mergeTarget, myUndoList);
         return true;

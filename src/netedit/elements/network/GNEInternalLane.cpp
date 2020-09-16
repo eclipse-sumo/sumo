@@ -98,6 +98,18 @@ GNEInternalLane::getPositionInView() const {
 }
 
 
+void 
+GNEInternalLane::addNetworkElementInGrid() {
+    //
+}
+
+
+void 
+GNEInternalLane::removeNetworkElementfromGrid() {
+    //
+}
+
+
 GNEMoveOperation* 
 GNEInternalLane::getMoveOperation(const double shapeOffset) {
     return nullptr;

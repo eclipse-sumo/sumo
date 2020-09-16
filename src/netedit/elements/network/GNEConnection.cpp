@@ -141,6 +141,18 @@ GNEConnection::getPositionInView() const {
 }
 
 
+void 
+GNEConnection::addNetworkElementInGrid() {
+    //
+}
+
+
+void 
+GNEConnection::removeNetworkElementfromGrid() {
+    //
+}
+
+
 GNEMoveOperation* 
 GNEConnection::getMoveOperation(const double shapeOffset) {
     return nullptr;
@@ -160,6 +172,7 @@ GNEConnection::startConnectionShapeGeometryMoving(const double shapeOffset) {
 
 void
 GNEConnection::endConnectionShapeGeometryMoving() {
+/*
     // check that endGeometryMoving was called only once
     if (myMovingGeometryBoundary.isInitialised()) {
         // Remove object from net
@@ -169,6 +182,7 @@ GNEConnection::endConnectionShapeGeometryMoving() {
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
     }
+*/
 }
 
 

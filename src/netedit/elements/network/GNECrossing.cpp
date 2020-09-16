@@ -75,6 +75,18 @@ GNECrossing::getPositionInView() const {
 }
 
 
+void 
+GNECrossing::addNetworkElementInGrid() {
+    //
+}
+
+
+void 
+GNECrossing::removeNetworkElementfromGrid() {
+    //
+}
+
+
 GNEMoveOperation* 
 GNECrossing::getMoveOperation(const double shapeOffset) {
     return nullptr;
@@ -95,6 +107,7 @@ GNECrossing::startCrossingShapeGeometryMoving(const double shapeOffset) {
 
 void
 GNECrossing::endCrossingShapeGeometryMoving() {
+/*
     // check that endGeometryMoving was called only once
     if (myMovingGeometryBoundary.isInitialised()) {
         // Remove object from net
@@ -104,6 +117,7 @@ GNECrossing::endCrossingShapeGeometryMoving() {
         // add object into grid again (using the new centering boundary)
         myNet->addGLObjectIntoGrid(this);
     }
+*/
 }
 
 
