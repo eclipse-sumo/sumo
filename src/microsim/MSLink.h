@@ -461,10 +461,7 @@ public:
      * @param[in] isShadowLink whether this link is a shadowLink for ego
      * @return The all vehicles on foeLanes and their (virtual) distances to the asking vehicle
      */
-    LinkLeaders getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers = 0, bool isShadowLink = false) const;
-
-    /// @brief check for persons on walkingarea in the path of ego vehicle
-    void checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::vector<const MSPerson*>* collectBlockers, LinkLeaders& result) const;
+    const LinkLeaders getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers = 0, bool isShadowLink = false) const;
 
     /// @brief return the speed at which ego vehicle must approach the zipper link
     double getZipperSpeed(const MSVehicle* ego, const double dist, double vSafe,
@@ -574,6 +571,9 @@ private:
     static bool couldBrakeForLeader(double followDist, double leaderDist, const MSVehicle* follow, const MSVehicle* leader);
 
     MSLink* computeParallelLink(int direction);
+
+    /// @brief check for persons on walkingarea in the path of ego vehicle
+    void checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::vector<const MSPerson*>* collectBlockers, LinkLeaders& result) const;
 
     bool blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi,
                       SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
