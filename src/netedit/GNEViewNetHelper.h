@@ -858,19 +858,7 @@ struct GNEViewNetHelper {
 
         /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
         Position myRelativeClickedPosition;
-/*
-        /// @brief bool to indicate that startPos of an edge is being moved
-        bool myMovingStartPos;
 
-        /// @brief bool to indicate that end pos of an edge is being moved
-        bool myMovingEndPos;
-
-        /// @brief the crossing to be moved.
-        GNECrossing* myCrossingToMove;
-
-        /// @brief the connection to be moved.
-        GNEConnection* myConnectionToMove;
-*/
         /// @brief the poly of which geometry is being moved
         GNEPoly* myPolyToMove;
 

@@ -79,7 +79,30 @@ GNECrossing::getPositionInView() const {
 
 GNEMoveOperation* 
 GNECrossing::getMoveOperation(const double shapeOffset) {
-    return nullptr;
+    // edit depending if shape is being edited
+    if (isShapeEdited()) {
+        // get original shape
+        const PositionVector originalShape = getCrossingShape();
+        // declare shape to move
+        PositionVector shapeToMove = originalShape;
+        // first check if in the given shapeOffset there is a geometry point
+        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
+        // check if position is valid
+        if (positionAtOffset == Position::INVALID) {
+            return nullptr;
+        } else {
+            // obtain index
+            int index = originalShape.indexOfClosest(positionAtOffset);
+            // get snap radius
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+            // check if we have to create a new index
+            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
+                index = shapeToMove.insertAtClosest(positionAtOffset, true);
+            }
+            // return move operation for edit shape
+            return new GNEMoveOperation(this, originalShape, shapeToMove, index, {index});
+        }
+    }
 }
 
 
@@ -552,13 +575,16 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNECrossing::setMoveShape(const PositionVector& newShape) {
-    //
+    myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->customShape = newShape;
 }
 
 
 void 
 GNECrossing::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+    // commit new shape
+    undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(newShape)));
+    undoList->p_end();
 }
 
 /****************************************************************************/
