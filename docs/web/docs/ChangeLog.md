@@ -10,7 +10,14 @@ permalink: /ChangeLog/
   - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
   - Fixed train collision due to insafe rail signal state. Issue #7534
   - Rail signal constraints now work correctly after loading simulation state. Issue #7523
+  - Fixed crash when loading simulation state that includes a routeDistribution along with a route file that includes the same distribution. Issue #7539
 
+- netconvert
+  - Fixed unsafe traffic light signals when two connections from the same edge target the same lane. Issue #7550
+  - Fixed missing right-turn connections from bicycle lanes to mixed traffic road. Issue #7548  
+  - Road lanes that prohibit bicycles no longer receive bicycle permissions when a bicycle lane ends. Instead the bicycle lane receives a double-connection to allowed target edges where needed. Issue #2350
+  - Fixed invalid right of way for right-turning double-connections at intersections with one incoming road. The rightmost lane now gets priority. Issue #7552
+  
 - sumo-gui
   - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
 
@@ -22,6 +29,7 @@ permalink: /ChangeLog/
   - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
 
 ### Other
+
 
 ## Version 1.7.0 (09.09.2020)
 
