@@ -75,6 +75,10 @@ GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &off
             newShape[index].add(offset);
         }
     }
+    /*
+        if (myNet->getViewNet()->getNetworkViewOptions().menuCheckMoveElevation->shown() && 
+            (myNet->getViewNet()->getNetworkViewOptions().menuCheckMoveElevation->getCheck() == TRUE)) {
+    */
     // move shape element
     moveOperation->moveElement->setMoveShape(newShape);
 }
