@@ -158,6 +158,8 @@ Other useful cmake options:
   only)
 - `-D CHECK_OPTIONAL_LIBS=OFF` disable all optional libraries (only
   include EPL compatible licensed code)
+- `-D CMAKE_BUILD_TYPE=RelWithDebInfo` enable debug symbols for
+  debugging the release build or using a different profiler
 - `-D PROJ_LIBRARY=` disable PROJ
 - `-D FOX_CONFIG=` disable FOX toolkit (GUI and multithreading)
 
