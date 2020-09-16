@@ -50,6 +50,8 @@ def get_options(args=None):
                         help="Input route file (must contain routed vehicles rather than trips)")
     parser.add_argument("-o", "--output-file", dest="out", default="constraints.add.xml",
                         help="Output additional file")
+    parser.add_argument("-b", "--begin", default="0",
+                        help="ignore vehicles departing before the given begin time (seconds or H:M:S)")
     #parser.add_argument("--arrivals", action="store_true", default=False,
     #                    help="Use stop arrival time instead of 'until' time for sorting")
     #parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
@@ -61,9 +63,9 @@ def get_options(args=None):
     parser.add_argument("-v", "--verbose", action="store_true", default=False,
                         help="tell me what you are doing")
     parser.add_argument("--debug-switch", dest="debugSwitch",
-            help="print debug information for the given merge-switch edge")
+                        help="print debug information for the given merge-switch edge")
     parser.add_argument("--debug-signal", dest="debugSignal",
-            help="print debug information for the given signal id")
+                        help="print debug information for the given signal id")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None and options.tripFile is None) or options.netFile is None:
@@ -109,7 +111,11 @@ def getStopRoutes(options, stopEdges):
     stopRoutes = defaultdict(list) # busStop -> [(edges, stopObj), ....]
     numRoutes = 0
     numStops = 0
+    begin = parseTime(options.begin)
     for vehicle in sumolib.xml.parse(options.routeFile, 'vehicle', heterogeneous=True):
+        depart = parseTime(vehicle.depart)
+        if depart < begin:
+            continue
         numRoutes += 1
         edges = tuple(vehicle.route[0].edges.split())
         uniqueRoutes.add(edges)
