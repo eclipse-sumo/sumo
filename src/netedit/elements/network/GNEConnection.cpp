@@ -211,63 +211,6 @@ GNEConnection::getConnectionShapeVertexIndex(Position pos, const bool snapToGrid
 
 
 void
-GNEConnection::moveConnectionShape(const Position& offset) {
-/*
-    // first obtain a copy of shapeBeforeMoving
-    PositionVector newShape = getShapeBeforeMoving();
-    if (moveEntireShape()) {
-        // move entire shape
-        newShape.add(offset);
-    } else {
-        int geometryPointIndex = getGeometryPointIndex();
-        // if geometryPoint is -1, then we have to create a new geometry point
-        if (geometryPointIndex == -1) {
-            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
-        }
-        // move geometry point within newShape
-        newShape[geometryPointIndex].add(offset);
-        // snap to grid
-        newShape[geometryPointIndex] = myNet->getViewNet()->snapToActiveGrid(newShape[geometryPointIndex]);
-    }
-    // set new shape
-    getNBEdgeConnection().customShape = newShape;
-    myShapeDeprecated = true;
-    // update geometry
-    updateGeometry();
-*/
-}
-
-
-void
-GNEConnection::commitConnectionShapeChange(GNEUndoList* undoList) {
-/*
-    // get visualisation settings
-    auto& s = myNet->getViewNet()->getVisualisationSettings();
-    // restore original shape into shapeToCommit
-    PositionVector shapeToCommit = getNBEdgeConnection().customShape;
-    // get geometryPoint radius
-    const double geometryPointRadius = s.neteditSizeSettings.connectionGeometryPointRadius * s.polySize.getExaggeration(s, this);
-    // remove double points
-    shapeToCommit.removeDoublePoints(geometryPointRadius);
-    // check if we have to merge start and end points
-    if ((shapeToCommit.front() != shapeToCommit.back()) && (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < geometryPointRadius)) {
-        shapeToCommit[0] = shapeToCommit.back();
-    }
-    // update geometry
-    updateGeometry();
-    // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    getNBEdgeConnection().customShape = getShapeBeforeMoving();
-    // finish geometry moving
-    endConnectionShapeGeometryMoving();
-    // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shapeToCommit)));
-    undoList->p_end();
-*/
-}
-
-
-void
 GNEConnection::deleteConnectionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList) {
     // get a copy of shape
     PositionVector newShape = getNBEdgeConnection().customShape;

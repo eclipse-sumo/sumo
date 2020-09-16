@@ -83,34 +83,6 @@ GNECrossing::getMoveOperation(const double shapeOffset) {
 }
 
 
-void
-GNECrossing::startCrossingShapeGeometryMoving(const double shapeOffset) {
-/*
-    // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
-    // start move shape depending of block shape
-    startMoveShape(getCrossingShape(), shapeOffset,
-                   myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
-*/
-}
-
-
-void
-GNECrossing::endCrossingShapeGeometryMoving() {
-/*
-    // check that endGeometryMoving was called only once
-    if (myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net
-        myNet->removeGLObjectFromGrid(this);
-        // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
-        // add object into grid again (using the new centering boundary)
-        myNet->addGLObjectIntoGrid(this);
-    }
-*/
-}
-
-
 int
 GNECrossing::getCrossingShapeVertexIndex(Position pos, const bool snapToGrid) const {
     // get crossing
@@ -144,64 +116,6 @@ GNECrossing::getCrossingShapeVertexIndex(Position pos, const bool snapToGrid) co
         }
     }
     return -1;
-}
-
-
-void
-GNECrossing::moveCrossingShape(const Position& offset) {
-/*
-    // first obtain a copy of shapeBeforeMoving
-    PositionVector newShape = getShapeBeforeMoving();
-    if (moveEntireShape()) {
-        // move entire shape
-        newShape.add(offset);
-    } else {
-        int geometryPointIndex = getGeometryPointIndex();
-        // if geometryPoint is -1, then we have to create a new geometry point
-        if (geometryPointIndex == -1) {
-            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
-        }
-        // move geometry point within newShape
-        newShape[geometryPointIndex].add(offset);
-        // snap to grid
-        newShape[geometryPointIndex] = myNet->getViewNet()->snapToActiveGrid(newShape[geometryPointIndex]);
-    }
-    // set new shape
-    myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->customShape = newShape;
-    // update geometry
-    updateGeometry();
-*/
-}
-
-
-void
-GNECrossing::commitCrossingShapeChange(GNEUndoList* undoList) {
-/*
-    // get crossing
-    const auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    // get visualisation settings
-    auto& s = myNet->getViewNet()->getVisualisationSettings();
-    // restore original shape into shapeToCommit
-    PositionVector shapeToCommit = parse<PositionVector>(getAttribute(SUMO_ATTR_CUSTOMSHAPE));
-    // get geometryPoint radius
-    const double geometryPointRadius = s.neteditSizeSettings.crossingGeometryPointRadius * s.polySize.getExaggeration(s, this);
-    // remove double points
-    shapeToCommit.removeDoublePoints(geometryPointRadius);
-    // check if we have to merge start and end points
-    if ((shapeToCommit.front() != shapeToCommit.back()) && (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < geometryPointRadius)) {
-        shapeToCommit[0] = shapeToCommit.back();
-    }
-    // update geometry
-    updateGeometry();
-    // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    crossing->customShape = getShapeBeforeMoving();
-    // finish geometry moving
-    endCrossingShapeGeometryMoving();
-    // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shapeToCommit)));
-    undoList->p_end();
-*/
 }
 
 

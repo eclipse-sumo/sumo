@@ -271,8 +271,6 @@ GNEEdge::commitShapeChangeBegin(GNEUndoList* undoList) {
     Position modifiedShapeStartPos = myNBEdge->getGeometry().front();
     // restore old shape start position
     setShapeStartPos(myPositionBeforeMoving);
-    // end geometry moving
-    endEdgeGeometryMoving();
     // set attribute using undolist
     undoList->p_begin("shape start of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), toString(myPositionBeforeMoving)));
@@ -286,8 +284,6 @@ GNEEdge::commitShapeChangeEnd(GNEUndoList* undoList) {
     Position modifiedShapeEndPos = myNBEdge->getGeometry().back();
     // restore old shape end position
     setShapeEndPos(myPositionBeforeMoving);
-    // end geometry moving
-    endEdgeGeometryMoving();
     // set attribute using undolist
     undoList->p_begin("shape end of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), toString(myPositionBeforeMoving)));
@@ -317,155 +313,6 @@ GNEEdge::getEdgeVertexIndex(Position pos, const bool snapToGrid) const {
         }
     }
     return -1;
-}
-
-
-void
-GNEEdge::startEdgeGeometryMoving(const double shapeOffset, const bool invertOffset) {
-/*
-    // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
-    // start move shape
-    if (invertOffset) {
-        startMoveShape(myNBEdge->getGeometry(), myNBEdge->getGeometry().length() - shapeOffset, SNAP_RADIUS);
-    } else {
-        startMoveShape(myNBEdge->getGeometry(), shapeOffset, SNAP_RADIUS);
-    }
-    // Save current centering boundary of lanes (and their children)
-    for (const auto& lane : myLanes) {
-        lane->startGeometryMoving();
-    }
-    // Save current centering boundary of additionals children vinculated to this edge
-    for (const auto& additional : getChildAdditionals()) {
-        additional->startGeometryMoving();
-    }
-    // Save current centering boundary of parent additionals that have this edge as parent
-    for (const auto& additional : getParentAdditionals()) {
-        additional->startGeometryMoving();
-    }
-    // Save current centering boundary of demand elements children vinculated to this edge
-    for (const auto& demandElement : getChildDemandElements()) {
-        demandElement->startGeometryMoving();
-    }
-    // Save current centering boundary of demand elements parents that have this edge as parent
-    for (const auto& demandElement : getParentDemandElements()) {
-        demandElement->startGeometryMoving();
-    }
-*/
-}
-
-
-void
-GNEEdge::moveEdgeShape(const Position& offset) {
-/*
-    // first make a copy of myMovingShape
-    PositionVector newShape = getShapeBeforeMoving();
-    // move entire shap if this edge and their junctions is selected
-    const bool allSelected = mySelected && getParentJunctions().front()->isAttributeCarrierSelected() && getParentJunctions().back()->isAttributeCarrierSelected();
-    if (moveEntireShape() || allSelected) {
-        // move entire shape
-        newShape.add(offset);
-    } else {
-        int geometryPointIndex = getGeometryPointIndex();
-        // if geometryPoint is -1, then we have to create a new geometry point
-        if (geometryPointIndex == -1) {
-            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
-        }
-        // move geometry point within newShape
-        newShape[geometryPointIndex].add(offset);
-        // snap to grid
-        newShape[geometryPointIndex] = myNet->getViewNet()->snapToActiveGrid(newShape[geometryPointIndex]);
-        // check if edge is selected
-        if (isAttributeCarrierSelected()) {
-            // move more geometry points, depending if junctions are selected
-            if (getParentJunctions().front()->isAttributeCarrierSelected()) {
-                for (int i = 1; i < geometryPointIndex; i++) {
-                    newShape[i].add(offset);
-                }
-            }
-            if (getParentJunctions().back()->isAttributeCarrierSelected()) {
-                for (int i = (geometryPointIndex + 1); i < (int)newShape.size(); i++) {
-                    newShape[i].add(offset);
-                }
-            }
-        }
-    }
-    // pop front and back
-    newShape.pop_front();
-    newShape.pop_back();
-    // set new inner shape
-    setGeometry(newShape, true);
-*/
-}
-
-
-void
-GNEEdge::endEdgeGeometryMoving() {
-/*
-    // check that endGeometryMoving was called only once
-    if (myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net
-        myNet->removeGLObjectFromGrid(this);
-        // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
-        // Restore centering boundary of lanes (and their children)
-        for (const auto& lane : myLanes) {
-            lane->endGeometryMoving();
-        }
-        // Restore centering boundary of additionals children vinculated to this edge
-        for (const auto& additional : getChildAdditionals()) {
-            additional->endGeometryMoving();
-        }
-        // Restore centering boundary of parent additionals that have this edge as parent
-        for (const auto& additional : getParentAdditionals()) {
-            additional->endGeometryMoving();
-        }
-        // Restore centering boundary of demand elements children vinculated to this edge
-        for (const auto& demandElement : getChildDemandElements()) {
-            demandElement->endGeometryMoving();
-        }
-        // Restore centering boundary of demand elements parents that have this edge as parent
-        for (const auto& demandElement : getParentDemandElements()) {
-            demandElement->endGeometryMoving();
-        }
-        // add object into grid again (using the new centering boundary)
-        myNet->addGLObjectIntoGrid(this);
-    }
-*/
-}
-
-
-void
-GNEEdge::commitEdgeShapeChange(GNEUndoList* undoList) {
-/*
-    // restore original shape into shapeToCommit
-    PositionVector innerShapeToCommit = myNBEdge->getInnerGeometry();
-    // first check if second and penultimate isn't in Junction's buubles
-    double buubleRadius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionBubbleRadius *
-                          myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
-    if (myNBEdge->getGeometry().size() > 2 && myNBEdge->getGeometry()[0].distanceTo2D(myNBEdge->getGeometry()[1]) < buubleRadius) {
-        innerShapeToCommit.removeClosest(innerShapeToCommit[0]);
-    }
-    if (myNBEdge->getGeometry().size() > 2 && myNBEdge->getGeometry()[(int)myNBEdge->getGeometry().size() - 2].distanceTo2D(myNBEdge->getGeometry()[(int)myNBEdge->getGeometry().size() - 1]) < buubleRadius) {
-        innerShapeToCommit.removeClosest(innerShapeToCommit[(int)innerShapeToCommit.size() - 1]);
-    }
-    // second check if double points has to be removed
-    innerShapeToCommit.removeDoublePoints(SNAP_RADIUS);
-    // show warning if some of edge's shape was merged
-    if (innerShapeToCommit.size() != myNBEdge->getInnerGeometry().size()) {
-        WRITE_WARNING("Merged shape's point")
-    }
-
-    updateGeometry();
-    // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    setGeometry(getShapeBeforeMoving(), false);
-    // finish geometry moving
-    endEdgeGeometryMoving();
-    // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innerShapeToCommit)));
-    undoList->p_end();
-*/
 }
 
 
@@ -1620,8 +1467,6 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     getParentJunctions().back()->setLogicValid(false, undoList);
     // disable update geometry (see #6336)
     myUpdateGeometry = false;
-    // remove edge of RTREE
-    myNet->removeGLObjectFromGrid(this);
     const int oldNumLanes = (int)myLanes.size();
     for (int i = oldNumLanes; i < numLanes; i++) {
         // since the GNELane does not exist yet, it cannot have yet been referenced so we only pass a zero-pointer
@@ -1633,12 +1478,12 @@ GNEEdge::setNumLanes(int numLanes, GNEUndoList* undoList) {
     }
     // enable updateGeometry again
     myUpdateGeometry = true;
-    // insert edge in RTREE again
-    myNet->addGLObjectIntoGrid(this);
     // update geometry of entire edge
     updateGeometry();
     // end undo list
     undoList->p_end();
+    // update centering boundary and grid
+    updateCenteringBoundary(true);
 }
 
 
@@ -1662,10 +1507,6 @@ GNEEdge::updateSecondParentJunction(const std::string& value) {
 
 void
 GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeConnections) {
-    // boundary of edge depends of number of lanes. We need to extract if before add or remove lane
-    if (myUpdateGeometry) {
-        myNet->removeGLObjectFromGrid(this);
-    }
     const int index = lane ? lane->getIndex() : myNBEdge->getNumLanes();
     // the laneStruct must be created first to ensure we have some geometry
     // unless the connections are fully recomputed, existing indices must be shifted
@@ -1708,21 +1549,15 @@ GNEEdge::addLane(GNELane* lane, const NBEdge::Lane& laneAttrs, bool recomputeCon
     for (auto i : getParentJunctions().back()->getChildEdges()) {
         i->remakeGNEConnections();
     }
-    // add object again
-    if (myUpdateGeometry) {
-        myNet->addGLObjectIntoGrid(this);
-    }
     // Update geometry with the new lane
     updateGeometry();
+    // update boundary and grid
+    updateCenteringBoundary(myUpdateGeometry);
 }
 
 
 void
 GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
-    // boundary of edge depends of number of lanes. We need to extract if before add or remove lane
-    if (myUpdateGeometry) {
-        myNet->removeGLObjectFromGrid(this);
-    }
     if (myLanes.size() == 0) {
         throw ProcessError("Should not remove the last " + toString(SUMO_TAG_LANE) + " from an " + getTagStr());
     }
@@ -1762,12 +1597,10 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     for (auto i : getParentJunctions().back()->getChildEdges()) {
         i->remakeGNEConnections();
     }
-    // add object again
-    if (myUpdateGeometry) {
-        myNet->addGLObjectIntoGrid(this);
-    }
     // Update element
     updateGeometry();
+    // update boundary and grid
+    updateCenteringBoundary(myUpdateGeometry);
 }
 
 

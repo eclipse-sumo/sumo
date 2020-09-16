@@ -1319,8 +1319,10 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
         for (const auto& edge : myMovedEdges) {
             // add edge into movedEdges
             myMovedEdges.insert(edge);
+/*
             // start geometry moving
             edge->startEdgeGeometryMoving(-1, false);
+*/
         }
     } else if (originAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         // get clicked edge
@@ -1362,14 +1364,18 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
         for (const auto& edge : groupNormalEdges) {
             // insert it again in myMovedEdges
             myMovedEdges.insert(edge);
+/*
             // start geometry moving
             edge->startEdgeGeometryMoving(edgeShapeOffset, false);
+*/
         }
         for (const auto& edge : groupOppositeEdges) {
             // insert it again in myMovedEdges
             myMovedEdges.insert(edge);
+/*
             // start geometry moving using an opposite offset
             edge->startEdgeGeometryMoving(edgeShapeOffset, true);
+*/
         }
     }
 }
@@ -1393,10 +1399,12 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
         junction->moveGeometry(offsetMovement);
     }
 */
+/*
     // move edges
     for (const auto& edge : myMovedEdges) {
         edge->moveEdgeShape(offsetMovement);
     }
+*/
 }
 
 
@@ -1410,10 +1418,12 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
         junction->commitGeometryMoving(myViewNet->getUndoList());
     }
 */
+/*
     // commit shapes of entired moved edges
     for (const auto& edge : myMovedEdges) {
         edge->commitEdgeShapeChange(myViewNet->getUndoList());
     }
+*/
     // end undo list
     myViewNet->getUndoList()->p_end();
     // stop moving selection

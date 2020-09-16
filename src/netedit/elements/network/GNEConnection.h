@@ -77,16 +77,6 @@ public:
     */
     int getConnectionShapeVertexIndex(Position pos, const bool snapToGrid) const;
 
-    /**@brief move shape
-    * @param[in] offset the offset of movement
-    */
-    void moveConnectionShape(const Position& offset);
-
-    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
-    * @param[in] undoList The undoList on which to register changes
-    */
-    void commitConnectionShapeChange(GNEUndoList* undoList);
-
     /// @brief delete geometry point
     void deleteConnectionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList);
     /// @}

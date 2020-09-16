@@ -117,24 +117,6 @@ public:
      * @return index of position vector
      */
     int getEdgeVertexIndex(Position pos, const bool snapToGrid) const;
-
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
-    void startEdgeGeometryMoving(const double shapeOffset, const bool invertOffset);
-
-    /**@brief move shape
-     * @param[in] offset the offset of movement
-     * @note always call before startEdgeGeometryMoving() and after endEdgeGeometryMoving()
-     */
-    void moveEdgeShape(const Position& offset);
-
-    /// @brief end movement
-    void endEdgeGeometryMoving();
-
-    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
-     * @param[in] undoList The undoList on which to register changes
-     */
-    void commitEdgeShapeChange(GNEUndoList* undoList);
-
     /// @}
 
     /// @brief delete the geometry point closest to the given pos
