@@ -18,3 +18,9 @@ double_con_bikelane2
 
 # a bike lane ends and merges with the road. Priority depends on turning direction
 double_con_turns
+
+# bike lane ends at tls and must continue on mixed road going straight
+tls_bike_merge_straight
+
+# bike lane ends at tls and must continue on mixed road going right
+tls_bike_merge_right
