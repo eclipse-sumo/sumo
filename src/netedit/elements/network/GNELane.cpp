@@ -1061,6 +1061,8 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_WIDTH:
             edge->setLaneWidth(myIndex, parse<double>(value));
+            // update edge parent boundary
+            myParentEdge->updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_ENDOFFSET:
             edge->setEndOffset(myIndex, parse<double>(value));
@@ -1069,12 +1071,10 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             edge->setAcceleration(myIndex, parse<bool>(value));
             break;
         case SUMO_ATTR_CUSTOMSHAPE: {
-            // first remove parent edge from net
-            myNet->removeGLObjectFromGrid(myParentEdge);
             // set new shape
             edge->setLaneShape(myIndex, parse<PositionVector>(value));
-            // add parent edge into net again
-            myNet->addGLObjectIntoGrid(myParentEdge);
+            // update edge parent boundary
+            myParentEdge->updateCenteringBoundary(true);
             break;
         }
         case GNE_ATTR_OPPOSITE: {

@@ -312,7 +312,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 void
-GNECrossing::updateCenteringBoundary(const bool updateGrid) {
+GNECrossing::updateCenteringBoundary(const bool /*updateGrid*/) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     if (crossing) {
         if (crossing->customShape.size() > 0) {
@@ -507,6 +507,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_WIDTH:
             // Change width an refresh element
             crossing->customWidth = parse<double>(value);
+            // update boundary
+            updateCenteringBoundary(false);
             break;
         case SUMO_ATTR_PRIORITY:
             crossing->priority = parse<bool>(value);
@@ -524,6 +526,8 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_CUSTOMSHAPE: {
             // set custom shape
             crossing->customShape = parse<PositionVector>(value);
+            // update boundary
+            updateCenteringBoundary(false);
             break;
         }
         case GNE_ATTR_SELECTED:

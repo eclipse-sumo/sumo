@@ -149,33 +149,6 @@ GNEConnection::getMoveOperation(const double shapeOffset) {
 }
 
 
-void
-GNEConnection::startConnectionShapeGeometryMoving(const double shapeOffset) {
-/*
-    // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
-    // start move shape depending of block shape
-    startMoveShape(getConnectionShape(), shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius);
-*/
-}
-
-
-void
-GNEConnection::endConnectionShapeGeometryMoving() {
-/*
-    // check that endGeometryMoving was called only once
-    if (myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net
-        myNet->removeGLObjectFromGrid(this);
-        // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
-        // add object into grid again (using the new centering boundary)
-        myNet->addGLObjectIntoGrid(this);
-    }
-*/
-}
-
-
 int
 GNEConnection::getConnectionShapeVertexIndex(Position pos, const bool snapToGrid) const {
     // get shape
@@ -224,18 +197,6 @@ GNEConnection::deleteConnectionShapeGeometryPoint(const Position& mousePosition,
         undoList->p_begin("delete geometry point of " + getTagStr());
         undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(newShape)));
         undoList->p_end();
-    }
-}
-
-Boundary
-GNEConnection::getBoundary() const {
-    if (myConnectionGeometry.getShape().size() == 0) {
-        // we need to use the center of junction parent as boundary if shape is empty
-        Position junctionParentPosition = myFromLane->getParentEdge()->getParentJunctions().back()->getPositionInView();
-        return Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
-                        junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
-    } else {
-        return myConnectionGeometry.getShape().getBoxBoundary();
     }
 }
 
@@ -348,9 +309,18 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 void
-GNEConnection::updateCenteringBoundary(const bool updateGrid) {
-    myBoundary = getBoundary();
-    myBoundary.grow(20);
+GNEConnection::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // calculate boundary
+    if (myConnectionGeometry.getShape().size() == 0) {
+        // we need to use the center of junction parent as boundary if shape is empty
+        const Position junctionParentPosition = myFromLane->getParentEdge()->getParentJunctions().back()->getPositionInView();
+        myBoundary = Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
+            junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
+    } else {
+        myBoundary = myConnectionGeometry.getShape().getBoxBoundary();
+    }
+    // grow
+    myBoundary.grow(10);
 }
 
 
@@ -391,7 +361,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getBoundary());
+            GLHelper::drawBoundary(getCenteringBoundary());
         }
         // Push name
         glPushName(getGlID());
@@ -735,6 +705,8 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         case SUMO_ATTR_CUSTOMSHAPE: {
             nbCon.customShape = parse<PositionVector>(value);
+            // update centering boundary
+            updateCenteringBoundary(false);
             break;
         }
         case GNE_ATTR_SELECTED:

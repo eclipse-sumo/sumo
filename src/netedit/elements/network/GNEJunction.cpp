@@ -186,6 +186,8 @@ GNEJunction::rebuildGNECrossings(bool rebuildNBNodeCrossings) {
                 myGNECrossings.erase(retrievedExists);
                 // update geometry of retrieved crossing
                 retrievedGNECrossing->updateGeometry();
+                // update boundary
+                retrievedGNECrossing->updateCenteringBoundary(false);
             } else {
                 // include reference to created GNECrossing
                 retrievedGNECrossing->incRef();
@@ -635,12 +637,10 @@ GNEJunction::invalidateShape() {
         if (myNBNode->myPoly.size() > 0) {
             // write GL Debug
             WRITE_GLDEBUG("<-- Invalidating shape of junction '" + getID() + "' -->");
-            // remove Juntion from grid
-            myNet->removeGLObjectFromGrid(this);
             // clear poly
             myNBNode->myPoly.clear();
-            // add Juntion into grid
-            myNet->addGLObjectIntoGrid(this);
+            // update centering boundary
+            updateCenteringBoundary(true);
         }
         myNet->requireRecompute();
     }
