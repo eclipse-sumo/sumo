@@ -62,6 +62,8 @@ GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     myHasValidLogic(loaded),
     myAmTLSSelected(false),
     myColorForMissingConnections(false) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 
@@ -167,10 +169,14 @@ GNEJunction::getMoveOperation(const double shapeOffset) {
             if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
                 index = shapeToMove.insertAtClosest(positionAtOffset, true);
             }
+            // save current boundary
+            myMovingBoundary = getCenteringBoundary();
             // return move operation for edit shape
             return new GNEMoveOperation(this, myNBNode->getShape(), shapeToMove, index, {index});
         }
     } else {
+        // save current boundary
+        myMovingBoundary = getCenteringBoundary();
         // return junction position
         return new GNEMoveOperation(this, myNBNode->getPosition());
     }
@@ -340,20 +346,18 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-Boundary
-GNEJunction::getCenteringBoundary() const {
+void
+GNEJunction::updateCenteringBoundary(const bool updateGrid) {
     if (myNBNode->getShape().size() > 0) {
-        Boundary b = myNBNode->getShape().getBoxBoundary();
-        b.grow(10);
-        return b;
+        myBoundary = myNBNode->getShape().getBoxBoundary();
     } else {
         // calculate boundary using EXTENT as size
         const double EXTENT = 2;
         Boundary b(myNBNode->getPosition().x() - EXTENT, myNBNode->getPosition().y() - EXTENT,
                    myNBNode->getPosition().x() + EXTENT, myNBNode->getPosition().y() + EXTENT);
-        b.grow(10);
-        return b;
+        myBoundary = b;
     }
+    myBoundary.grow(10);
 }
 
 

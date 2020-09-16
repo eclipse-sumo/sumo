@@ -87,23 +87,25 @@ GNELane::LaneDrawingConstants::LaneDrawingConstants() :
 
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myParentEdge(edge),
-myIndex(index),
-mySpecialColor(nullptr),
-mySpecialColorValue(-1),
-myLane2laneConnections(this) {
+    {}, {}, {}, {}, {}, {}, {}, {}),
+    myParentEdge(edge),
+    myIndex(index),
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 
 GNELane::GNELane() :
     GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myParentEdge(nullptr),
-myIndex(-1),
-mySpecialColor(nullptr),
-mySpecialColorValue(-1),
-myLane2laneConnections(this) {
+    {}, {}, {}, {}, {}, {}, {}, {}),
+    myParentEdge(nullptr),
+    myIndex(-1),
+    mySpecialColor(nullptr),
+    mySpecialColorValue(-1),
+    myLane2laneConnections(this) {
 }
 
 
@@ -845,12 +847,12 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-Boundary
-GNELane::getCenteringBoundary() const {
+void
+GNELane::updateCenteringBoundary(const bool updateGrid) {
     if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
-        return myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
+        myBoundary = myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
     } else {
-        return myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.getBoxBoundary();
+        myBoundary= myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.getBoxBoundary();
     }
 }
 

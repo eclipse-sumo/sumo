@@ -39,9 +39,11 @@
 GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> crossingEdges) :
     GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id,
                       GLO_CROSSING, SUMO_TAG_CROSSING,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myParentJunction(parentJunction),
-myCrossingEdges(crossingEdges) {
+    {}, {}, {}, {}, {}, {}, {}, {}),
+    myParentJunction(parentJunction),
+    myCrossingEdges(crossingEdges) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 
@@ -407,23 +409,23 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 }
 
 
-Boundary
-GNECrossing::getCenteringBoundary() const {
-    Boundary b;
+void
+GNECrossing::updateCenteringBoundary(const bool updateGrid) {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
     if (crossing) {
         if (crossing->customShape.size() > 0) {
-            b = crossing->customShape.getBoxBoundary();
+            myBoundary = crossing->customShape.getBoxBoundary();
+            myBoundary.grow(10);
         } else if (crossing->shape.size() > 0) {
-            b = crossing->shape.getBoxBoundary();
+            myBoundary = crossing->shape.getBoxBoundary();
+            myBoundary.grow(10);
         } else {
-            return myParentJunction->getCenteringBoundary();
+            myBoundary = myParentJunction->getCenteringBoundary();
         }
-        b.grow(10);
-        return b;
+    } else {
+        // in other case use boundary of parent junction
+        myBoundary = myParentJunction->getCenteringBoundary();
     }
-    // in other case return boundary of parent junction
-    return myParentJunction->getCenteringBoundary();
 }
 
 

@@ -93,6 +93,12 @@ GNENetworkElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) 
 }
 
 
+Boundary
+GNENetworkElement::getCenteringBoundary() const {
+    return myBoundary;
+}
+
+
 void
 GNENetworkElement::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
     //

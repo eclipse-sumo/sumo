@@ -55,14 +55,14 @@ const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
     net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())
-},
-{}, {}, {}, {}, {}, {}, {}),
-myNBEdge(nbe),
-myLanes(0),
-myAmResponsible(false),
-myWasSplit(wasSplit),
-myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-myUpdateGeometry(true) {
+    },
+    {}, {}, {}, {}, {}, {}, {}),
+    myNBEdge(nbe),
+    myLanes(0),
+    myAmResponsible(false),
+    myWasSplit(wasSplit),
+    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+    myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -74,6 +74,8 @@ myUpdateGeometry(true) {
     for (const auto& i : myLanes) {
         i->updateGeometry();
     }
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 
@@ -511,8 +513,8 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
 }
 
 
-Boundary
-GNEEdge::getCenteringBoundary() const {
+void
+GNEEdge::updateCenteringBoundary(const bool updateGrid) {
     Boundary b;
     for (const auto& i : myLanes) {
         b.add(i->getCenteringBoundary());
@@ -521,14 +523,16 @@ GNEEdge::getCenteringBoundary() const {
     for (const Position& pos : myNBEdge->getGeometry()) {
         b.add(pos);
     }
-    b.grow(10);
-    return b;
+    myBoundary = b;
+    myBoundary.grow(10);
 }
+
 
 const std::string
 GNEEdge::getOptionalName() const {
     return myNBEdge->getStreetName();
 }
+
 
 GUIGLObjectPopupMenu*
 GNEEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {

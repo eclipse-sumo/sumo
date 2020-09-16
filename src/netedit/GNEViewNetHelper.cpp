@@ -1299,8 +1299,10 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
     myMovedEdges = std::set<GNEEdge*>(movedEdges.begin(), movedEdges.end());
     // Junctions are always moved, then save position of current selected junctions (Needed when mouse is released)
     for (const auto& junction : myMovedJunctions) {
+/*
         // start geometry moving
         junction->startGeometryMoving();
+*/
         // interate over junction edges
         for (const auto& edge : junction->getChildEdges()) {
             // if both junction are selected, then move shape
@@ -1385,10 +1387,12 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
         // leave z empty (because in this case offset only actuates over X-Y)
         offsetMovement.setz(0);
     }
+/*
     // move junctions
     for (const auto& junction : myMovedJunctions) {
         junction->moveGeometry(offsetMovement);
     }
+*/
     // move edges
     for (const auto& edge : myMovedEdges) {
         edge->moveEdgeShape(offsetMovement);
@@ -1400,10 +1404,12 @@ void
 GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
     // begin undo list
     myViewNet->getUndoList()->p_begin("position of selected elements");
+/*
     // commit positions of moved junctions
     for (const auto& junction : myMovedJunctions) {
         junction->commitGeometryMoving(myViewNet->getUndoList());
     }
+*/
     // commit shapes of entired moved edges
     for (const auto& edge : myMovedEdges) {
         edge->commitEdgeShapeChange(myViewNet->getUndoList());
