@@ -2261,12 +2261,6 @@ MSLane::addApproachingLane(MSLane* lane, bool warnMultiCon) {
 
 
 bool
-MSLane::isApproachedFrom(MSEdge* const edge) {
-    return myApproachingLanes.find(edge) != myApproachingLanes.end();
-}
-
-
-bool
 MSLane::isApproachedFrom(MSEdge* const edge, MSLane* const lane) {
     std::map<MSEdge*, std::vector<MSLane*> >::const_iterator i = myApproachingLanes.find(edge);
     if (i == myApproachingLanes.end()) {

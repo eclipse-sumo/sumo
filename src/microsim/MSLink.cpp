@@ -751,24 +751,12 @@ MSLink::getFirstApproachingFoe(const MSLink* wrapAround) const {
 }
 
 
-LinkDirection
-MSLink::getDirection() const {
-    return myDirection;
-}
-
-
 void
 MSLink::setTLState(LinkState state, SUMOTime t) {
     if (myState != state) {
         myLastStateChange = t;
     }
     myState = state;
-}
-
-
-MSLane*
-MSLink::getLane() const {
-    return myLane;
 }
 
 
@@ -935,12 +923,6 @@ MSLink::getLengthBeforeCrossing(const MSLane* foeLane) const {
 }
 
 
-MSLane*
-MSLink::getViaLane() const {
-    return myInternalLane;
-}
-
-
 bool
 MSLink::isEntryLink() const {
     if (MSGlobals::gUsingInternalLanes) {
@@ -994,10 +976,6 @@ MSLink::isInternalJunctionLink() const {
     return getInternalLaneBefore() != nullptr && myInternalLane != nullptr;
 }
 
-bool
-MSLink::fromInternalLane() const {
-    return myInternalLaneBefore != nullptr;
-}
 
 MSLink::LinkLeaders
 MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPerson*>* collectBlockers, bool isShadowLink) const {
@@ -1281,26 +1259,6 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
 }
 
 
-MSLane*
-MSLink::getViaLaneOrLane() const {
-    if (myInternalLane != nullptr) {
-        return myInternalLane;
-    }
-    return myLane;
-}
-
-
-const MSLane*
-MSLink::getLaneBefore() const {
-    if (myInternalLaneBefore != nullptr) {
-        if (myLaneBefore != myInternalLaneBefore) {
-            throw ProcessError("lane before mismatch!");
-        }
-    }
-    return myLaneBefore;
-}
-
-
 MSLink*
 MSLink::getParallelLink(int direction) const {
     if (direction == -1) {
@@ -1323,12 +1281,6 @@ MSLink::computeParallelLink(int direction) {
     } else {
         return nullptr;
     }
-}
-
-
-const MSLane*
-MSLink::getInternalLaneBefore() const {
-    return myInternalLaneBefore;
 }
 
 

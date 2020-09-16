@@ -309,7 +309,10 @@ public:
      *
      * @return The direction of this link
      */
-    LinkDirection getDirection() const;
+    inline LinkDirection getDirection() const {
+        return myDirection;
+    }
+
 
 
     /** @brief Sets the current tl-state
@@ -324,7 +327,9 @@ public:
      *
      * @return The lane approached by this link
      */
-    MSLane* getLane() const;
+    inline MSLane* getLane() const {
+        return myLane;
+    }
 
 
     /** @brief Returns the respond index (for visualization)
@@ -444,7 +449,9 @@ public:
      *
      * @return The inner lane to use to cross the junction
      */
-    MSLane* getViaLane() const;
+    inline MSLane* getViaLane() const {
+        return myInternalLane;
+    }
 
     /** @brief Returns all potential link leaders (vehicles on foeLanes)
      * Valid during the planMove() phase
@@ -465,13 +472,21 @@ public:
                           BlockingFoes* collectFoes) const;
 
     /// @brief return the via lane if it exists and the lane otherwise
-    MSLane* getViaLaneOrLane() const;
+    inline MSLane* getViaLaneOrLane() const {
+        return  myInternalLane != nullptr ? myInternalLane : myLane;
+    }
+
 
     /// @brief return the internalLaneBefore if it exists and the laneBefore otherwise
-    const MSLane* getLaneBefore() const;
+    inline const MSLane* getLaneBefore() const {
+        assert (myInternalLaneBefore == nullptr || myLaneBefore == myInternalLaneBefore); // lane before mismatch!
+        return myLaneBefore;
+    }
 
     /// @brief return myInternalLaneBefore (always 0 when compiled without internal lanes)
-    const MSLane* getInternalLaneBefore() const;
+    inline const MSLane* getInternalLaneBefore() const {
+        return myInternalLaneBefore;
+    }
 
     /// @brief return the expected time at which the given vehicle will clear the link
     SUMOTime getLeaveTime(const SUMOTime arrivalTime, const double arrivalSpeed, const double leaveSpeed, const double vehicleLength) const;
@@ -483,7 +498,9 @@ public:
     MSLink* getParallelLink(int direction) const;
 
     /// @brief return whether the fromLane of this link is an internal lane
-    bool fromInternalLane() const;
+    inline bool fromInternalLane() const {
+        return myInternalLaneBefore != nullptr;
+    }
 
     /// @brief return whether the toLane of this link is an internal lane and fromLane is a normal lane
     bool isEntryLink() const;

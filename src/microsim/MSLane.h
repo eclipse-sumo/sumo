@@ -827,7 +827,9 @@ public:
 
 
     void addApproachingLane(MSLane* lane, bool warnMultiCon);
-    bool isApproachedFrom(MSEdge* const edge);
+    inline bool isApproachedFrom(MSEdge* const edge) {
+        return myApproachingLanes.find(edge) != myApproachingLanes.end();
+    }
     bool isApproachedFrom(MSEdge* const edge, MSLane* const lane);
 
     /// @brief Returns vehicle class specific stopOffset for the vehicle
