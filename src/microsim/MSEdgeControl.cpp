@@ -48,11 +48,11 @@ MSEdgeControl::MSEdgeControl(const std::vector< MSEdge* >& edges)
       myWithVehicles2Integrate(MSGlobals::gNumSimThreads > 1),
       myLastLaneChange(MSEdge::dictSize()),
       myInactiveCheckCollisions(MSGlobals::gNumSimThreads > 1),
-      myMinLengthGeometryFactor(1.)
+      myMinLengthGeometryFactor(1.),
 #ifdef THREAD_POOL
-      , myThreadPool(false, std::vector<int>(MSGlobals::gNumThreads, 0))
+      myThreadPool(false, std::vector<int>(MSGlobals::gNumThreads, 0)),
 #endif
-       {
+      myStopWatch(3) {
     // build the usage definitions for lanes
     for (MSEdge* const edge : myEdges) {
         const std::vector<MSLane*>& lanes = edge->getLanes();
