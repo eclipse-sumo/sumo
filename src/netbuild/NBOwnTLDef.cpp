@@ -435,7 +435,8 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         // correct behaviour for those that have to wait (mainly left-mover)
         bool haveForbiddenLeftMover = false;
         std::vector<bool> rightTurnConflicts(pos, false);
-        state = correctConflicting(state, fromEdges, toEdges, isTurnaround, fromLanes, hadGreenMajor, haveForbiddenLeftMover, rightTurnConflicts);
+        std::vector<bool> mergeConflicts(pos, false);
+        state = correctConflicting(state, fromEdges, toEdges, isTurnaround, fromLanes, toLanes, hadGreenMajor, haveForbiddenLeftMover, rightTurnConflicts, mergeConflicts);
         for (int i1 = 0; i1 < pos; ++i1) {
             if (state[i1] == 'G') {
                 hadGreenMajor[i1] = true;
@@ -451,7 +452,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
         // check whether at least one left-turn lane exist
         bool foundLeftTurnLane = false;
         for (int i1 = 0; i1 < pos; ++i1) {
-            if (state[i1] == 'g' && !rightTurnConflicts[i1] && hasTurnLane[i1]) {
+            if (state[i1] == 'g' && !rightTurnConflicts[i1] && !mergeConflicts[i1] && hasTurnLane[i1]) {
                 foundLeftTurnLane = true;
             }
         }
@@ -552,7 +553,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 }
             }
             state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
-            state = correctConflicting(state, fromEdges, toEdges, isTurnaround, fromLanes, hadGreenMajor, haveForbiddenLeftMover, rightTurnConflicts);
+            state = correctConflicting(state, fromEdges, toEdges, isTurnaround, fromLanes, toLanes, hadGreenMajor, haveForbiddenLeftMover, rightTurnConflicts, mergeConflicts);
 
             // add step
             logic->addStep(leftTurnTime, state, minDur, maxDur);
@@ -950,9 +951,11 @@ std::string
 NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
                                const std::vector<bool>& isTurnaround,
                                const std::vector<int>& fromLanes,
+                               const std::vector<int>& toLanes,
                                const std::vector<bool>& hadGreenMajor,
                                bool& haveForbiddenLeftMover,
-                               std::vector<bool>& rightTurnConflicts) {
+                               std::vector<bool>& rightTurnConflicts,
+                               std::vector<bool>& mergeConflicts) {
     const bool controlledWithin = !OptionsCont::getOptions().getBool("tls.uncontrolled-within");
     for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
         if (state[i1] == 'G') {
@@ -968,6 +971,13 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                         if (!isTurnaround[i1] && !hadGreenMajor[i1] && !rightTurnConflicts[i1]) {
                             haveForbiddenLeftMover = true;
                         }
+                    } else if (fromEdges[i1] == fromEdges[i2]
+                            && fromLanes[i1] != fromLanes[i2]
+                            && toEdges[i1] == toEdges[i2]
+                            && toLanes[i1] == toLanes[i2]
+                            && fromEdges[i1]->getToNode()->mergeConflictYields(fromEdges[i1], fromLanes[i1], fromLanes[i2], toEdges[i1], toLanes[i1])) {
+                        mergeConflicts[i1] = true;
+                        state[i1] = 'g';
                     }
                 }
             }

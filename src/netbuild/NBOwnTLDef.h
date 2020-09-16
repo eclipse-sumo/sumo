@@ -250,13 +250,17 @@ protected:
      * @param[in] hadGreenMajor
      * @param[out] haveForbiddenLeftMover
      * @param[out] rightTurnConflicts
+     * @param[out] mergeConflicts
      * @return The corrected state
      */
     std::string correctConflicting(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
                                    const std::vector<bool>& isTurnaround,
                                    const std::vector<int>& fromLanes,
+                                   const std::vector<int>& toLanes,
                                    const std::vector<bool>& hadGreenMajor,
-                                   bool& haveForbiddenLeftMover, std::vector<bool>& rightTurnConflicts);
+                                   bool& haveForbiddenLeftMover,
+                                   std::vector<bool>& rightTurnConflicts,
+                                   std::vector<bool>& mergeConflicts);
 
     /// @brief fix states in regard to custom crossing indices
     void checkCustomCrossingIndices(NBTrafficLightLogic* logic) const;

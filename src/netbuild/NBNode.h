@@ -464,6 +464,9 @@ public:
     static bool rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
                                   const NBEdge* prohibitorFrom, const NBEdge* prohibitorTo, int prohibitorFromLane);
 
+    /// @brief whether one of multple connections from the same edge targeting the same lane must yield
+    bool mergeConflictYields(const NBEdge* from, int fromLane, int fromLaneFoe, NBEdge* to, int toLane) const;
+
     /// @brief return whether the given laneToLane connection originate from the same edge and are in conflict due to turning across each other
     bool turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
                   const NBEdge* from2, const NBEdge* to2, int fromLane2,

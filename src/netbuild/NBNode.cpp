@@ -1865,6 +1865,15 @@ NBNode::rightTurnConflict(const NBEdge* from, const NBEdge* to, int fromLane,
     }
 }
 
+bool
+NBNode::mergeConflictYields(const NBEdge* from, int fromLane, int fromLaneFoe, NBEdge* to, int toLane) const {
+    if (myRequest == nullptr) {
+        return false;
+    }
+    NBEdge::Connection con = from->getConnection(fromLane, to, toLane);
+    NBEdge::Connection prohibitorCon = from->getConnection(fromLaneFoe, to, toLane);
+    return myRequest->mergeConflict(from, con, from, prohibitorCon, false);
+}
 
 bool
 NBNode::turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
