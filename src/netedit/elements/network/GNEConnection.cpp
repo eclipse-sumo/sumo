@@ -143,18 +143,6 @@ GNEConnection::getPositionInView() const {
 }
 
 
-void 
-GNEConnection::addNetworkElementInGrid() {
-    //
-}
-
-
-void 
-GNEConnection::removeNetworkElementfromGrid() {
-    //
-}
-
-
 GNEMoveOperation* 
 GNEConnection::getMoveOperation(const double shapeOffset) {
     return nullptr;

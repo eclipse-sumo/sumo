@@ -113,42 +113,6 @@ GNEJunction::getPositionInView() const {
 }
 
 
-void 
-GNEJunction::addNetworkElementInGrid() {
-    // add junction from grid
-    myNet->addGLObjectIntoGrid(this);
-    // add all edges (and children) into grid
-    for (const auto &edge : myGNEIncomingEdges) {
-        edge->addNetworkElementInGrid();
-    }
-    for (const auto &edge : myGNEOutgoingEdges) {
-        edge->addNetworkElementInGrid();
-    }
-    // add all crossings into grid
-    for (const auto &crossing : myGNECrossings) {
-        crossing->addNetworkElementInGrid();
-    }
-}
-
-
-void 
-GNEJunction::removeNetworkElementfromGrid() {
-    // Remove junction from grid
-    myNet->removeGLObjectFromGrid(this);
-    // remove all edges (and children) from grid
-    for (const auto &edge : myGNEIncomingEdges) {
-        edge->removeNetworkElementfromGrid();
-    }
-    for (const auto &edge : myGNEOutgoingEdges) {
-        edge->removeNetworkElementfromGrid();
-    }
-    // remove all crossings from grid
-    for (const auto &crossing : myGNECrossings) {
-        crossing->removeNetworkElementfromGrid();
-    }
-}
-
-
 GNEMoveOperation* 
 GNEJunction::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is being edited
@@ -169,14 +133,10 @@ GNEJunction::getMoveOperation(const double shapeOffset) {
             if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
                 index = shapeToMove.insertAtClosest(positionAtOffset, true);
             }
-            // save current boundary
-            myMovingBoundary = getCenteringBoundary();
             // return move operation for edit shape
             return new GNEMoveOperation(this, myNBNode->getShape(), shapeToMove, index, {index});
         }
     } else {
-        // save current boundary
-        myMovingBoundary = getCenteringBoundary();
         // return junction position
         return new GNEMoveOperation(this, myNBNode->getPosition());
     }
@@ -348,6 +308,11 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNEJunction::updateCenteringBoundary(const bool updateGrid) {
+    // Remove object from net
+    if (updateGrid) {
+        myNet->removeGLObjectFromGrid(this);
+    }
+    // update boundary
     if (myNBNode->getShape().size() > 0) {
         myBoundary = myNBNode->getShape().getBoxBoundary();
     } else {
@@ -358,6 +323,10 @@ GNEJunction::updateCenteringBoundary(const bool updateGrid) {
         myBoundary = b;
     }
     myBoundary.grow(10);
+    // add object into net
+    if (updateGrid) {
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 
@@ -1400,14 +1369,12 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION: {
-            // remove element from grid
-            removeNetworkElementfromGrid();
             // set new position in NBNode without updating grid
             moveJunctionGeometry(parse<Position>(value));
-            // add element into grid
-            addNetworkElementInGrid();
             // mark this connections and all of the junction's Neighbours as deprecated
             markConnectionsDeprecated(true);
+            // update centering boundary and grid
+            updateCenteringBoundary(true);
             break;
         }
         case GNE_ATTR_MODIFICATION_STATUS:
@@ -1422,14 +1389,12 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             myLogicStatus = value;
             break;
         case SUMO_ATTR_SHAPE: {
-            // remove element from grid
-            removeNetworkElementfromGrid();
             // set new shape (without updating grid)
             myNBNode->setCustomShape(parse<PositionVector>(value));
-            // add element into grid
-            addNetworkElementInGrid();
             // mark this connections and all of the junction's Neighbours as deprecated
             markConnectionsDeprecated(true);
+            // update centering boundary and grid
+            updateCenteringBoundary(true);
             break;
         }
         case SUMO_ATTR_RADIUS: {

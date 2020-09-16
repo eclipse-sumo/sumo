@@ -77,18 +77,6 @@ GNECrossing::getPositionInView() const {
 }
 
 
-void 
-GNECrossing::addNetworkElementInGrid() {
-    //
-}
-
-
-void 
-GNECrossing::removeNetworkElementfromGrid() {
-    //
-}
-
-
 GNEMoveOperation* 
 GNECrossing::getMoveOperation(const double shapeOffset) {
     return nullptr;

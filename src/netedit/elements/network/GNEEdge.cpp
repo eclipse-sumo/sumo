@@ -144,18 +144,6 @@ GNEEdge::getPositionInView() const {
 }
 
 
-void 
-GNEEdge::addNetworkElementInGrid() {
-    //
-}
-
-
-void 
-GNEEdge::removeNetworkElementfromGrid() {
-    //
-}
-
-
 GNEMoveOperation*
 GNEEdge::getMoveOperation(const double shapeOffset) {
     // declare shape to move
@@ -515,16 +503,26 @@ GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) 
 
 void
 GNEEdge::updateCenteringBoundary(const bool updateGrid) {
-    Boundary b;
-    for (const auto& i : myLanes) {
-        b.add(i->getCenteringBoundary());
+    // Remove object from net
+    if (updateGrid) {
+        myNet->removeGLObjectFromGrid(this);
+    }
+    // use as boundary the first lane boundary
+    myBoundary = myLanes.front()->getCenteringBoundary();
+    // add lane boundaries
+    for (const auto& lane : myLanes) {
+        myBoundary.add(lane->getCenteringBoundary());
     }
     // ensure that geometry points are selectable even if the lane geometry is strange
     for (const Position& pos : myNBEdge->getGeometry()) {
-        b.add(pos);
+        myBoundary.add(pos);
     }
-    myBoundary = b;
+    // grow boundary
     myBoundary.grow(10);
+    // add object into net
+    if (updateGrid) {
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 
@@ -1463,6 +1461,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateFirstParentJunction(value);
             // update this edge of list of outgoings edges of the new first parent junction
             getParentJunctions().front()->addOutgoingGNEEdge(this);
+            // update centering boundary and grid
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_TO:
             myNet->changeEdgeEndpoints(this, getParentJunctions().front()->getID(), value);
@@ -1472,6 +1472,8 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             updateSecondParentJunction(value);
             // update this edge of list of incomings edges of the new second parent junction
             getParentJunctions().back()->addIncomingGNEEdge(this);
+            // update centering boundary and grid
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_NUMLANES:
             throw InvalidArgument("GNEEdge::setAttribute (private) called for attr SUMO_ATTR_NUMLANES. This should never happen");
@@ -1486,12 +1488,10 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNBEdge->myType = value;
             break;
         case SUMO_ATTR_SHAPE:
-            // start geometry moving (because a new shape affect all child edges)
-            startEdgeGeometryMoving(-1, false);
             // set new geometry
             setGeometry(parse<PositionVector>(value), true);
-            // start geometry moving (because a new shape affect all child edges)
-            endEdgeGeometryMoving();
+            // update centering boundary and grid
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_SPREADTYPE:
             myNBEdge->setLaneSpreadFunction(SUMOXMLDefinitions::LaneSpreadFunctions.get(value));
@@ -1534,12 +1534,10 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 newShapeStart = parse<Position>(value);
             }
-            // Remove object from net
-            myNet->removeGLObjectFromGrid(this);
             // set shape start position
             setShapeStartPos(newShapeStart);
-            // add object from net
-            myNet->addGLObjectIntoGrid(this);
+            // update centering boundary and grid
+            updateCenteringBoundary(true);
             break;
         }
         case GNE_ATTR_SHAPE_END: {
@@ -1550,12 +1548,10 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 newShapeEnd = parse<Position>(value);
             }
-            // Remove object from net
-            myNet->removeGLObjectFromGrid(this);
             // set shape end position
             setShapeEndPos(newShapeEnd);
-            // add object from net
-            myNet->addGLObjectIntoGrid(this);
+            // update centering boundary and grid
+            updateCenteringBoundary(true);
             break;
         }
         case GNE_ATTR_BIDIR:

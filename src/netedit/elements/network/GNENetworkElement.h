@@ -88,12 +88,6 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     virtual Position getPositionInView() const = 0;
-
-    /// @brief add network element in grid (RTREE) (and all children)
-    virtual void addNetworkElementInGrid() = 0;
-
-    /// @brief add network element in RTREE (RTREE) (and all children)
-    virtual void removeNetworkElementfromGrid() = 0;
     /// @}
 
     /// @name inherited from GUIGlObject

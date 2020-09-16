@@ -61,12 +61,6 @@ public:
 
     /// @brief Returns position of hierarchical element in view
     Position getPositionInView() const;
-
-    /// @brief add network element in grid (RTREE) (and all children)
-    void addNetworkElementInGrid();
-
-    /// @brief add network element in RTREE (RTREE) (and all children)
-    void removeNetworkElementfromGrid();
     /// @}
 
     /// @name Functions related with move elements

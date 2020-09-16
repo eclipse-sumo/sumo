@@ -3160,11 +3160,17 @@ GNENet::computeAndUpdate(OptionsCont& oc, bool volatileOptions) {
         // insert all junctions of grid again
         WRITE_GLDEBUG("Add junctions during recomputing after calling myNetBuilder->compute(...)");
         for (const auto& junction : myAttributeCarriers->getJunctions()) {
+            // update centering boundary
+            junction.second->updateCenteringBoundary(false);
+            // add junction in grid again
             myGrid.addAdditionalGLObject(junction.second);
         }
         // insert all edges from grid again
         WRITE_GLDEBUG("Add edges during recomputing after calling myNetBuilder->compute(...)");
         for (const auto& edge : myAttributeCarriers->getEdges()) {
+            // update centeting boundary
+            edge.second->updateCenteringBoundary(false);
+            // add edge in grid again
             myGrid.addAdditionalGLObject(edge.second);
         }
         // remake connections

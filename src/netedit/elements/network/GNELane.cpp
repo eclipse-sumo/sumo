@@ -227,18 +227,6 @@ GNELane::getPositionInView() const {
 }
 
 
-void 
-GNELane::addNetworkElementInGrid() {
-    //
-}
-
-
-void 
-GNELane::removeNetworkElementfromGrid() {
-    //
-}
-
-
 GNEMoveOperation* 
 GNELane::getMoveOperation(const double shapeOffset) {
     return nullptr;
@@ -849,6 +837,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 void
 GNELane::updateCenteringBoundary(const bool updateGrid) {
+
     if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
         myBoundary = myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
     } else {
