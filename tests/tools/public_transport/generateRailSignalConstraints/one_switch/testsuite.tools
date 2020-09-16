@@ -18,3 +18,9 @@ lane_stops
 
 # include line and vehID information if relevant
 coments
+
+# like 'basic' but repeat the same trains again after 1000s
+repeat
+
+# like 'repeat' but set begin time to ignore some constraints
+begin
