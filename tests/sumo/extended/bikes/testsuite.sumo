@@ -1,0 +1,5 @@
+# bike lane ends at tls and merges with vehicle lanes going straight
+tls_merge_straight
+
+# bike lane ends at tls and merges with vehicle lanes going right
+tls_merge_right
