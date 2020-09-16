@@ -150,6 +150,9 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
     }
     std::vector<std::string> passedIDs;
     for (const std::string& passedTripID : myTrackers.front()->myPassed) {
+        if (passedTripID == "") {
+            continue;
+        }
         const std::string passedID = getVehID(passedTripID);
         if (passedID != "") {
             passedIDs.push_back(passedID);
