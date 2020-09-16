@@ -567,7 +567,7 @@ if (GTEST_FOUND)
     add_subdirectory(unittest)
 endif ()
 find_program(TEXTTEST_FOUND "texttest")
-if (TEXTTEST_FOUND)
+if (TEXTTEST_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tests/runTests.sh)
     add_test(texttest ${CMAKE_SOURCE_DIR}/tests/runTests.sh -b ci -v ci)
 endif()
 
