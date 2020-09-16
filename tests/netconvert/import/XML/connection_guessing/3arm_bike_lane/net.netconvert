@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 16 13:01:48 2020 by Eclipse SUMO netconvert Version v1_7_0+0099-df44430dc9
+<!-- generated on Wed Sep 16 13:51:24 2020 by Eclipse SUMO netconvert Version v1_7_0+0102-d1f1b72c00
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,16 +56,16 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="C" type="priority" x="0.00" y="0.00" incLanes="WC_0 WC_1 WC_2" intLanes="" shape="2.00,0.00 2.00,-5.20 0.89,-5.42 0.50,-5.70 0.22,-6.09 0.06,-6.59 0.00,-7.20 -4.20,-7.20 -4.42,-6.09 -4.70,-5.70 -5.09,-5.42 -5.59,-5.26 -6.20,-5.20 -6.20,0.00">
-        <request index="0" response="0100" foes="0100"/>
+        <request index="0" response="0000" foes="0100"/>
         <request index="1" response="0000" foes="0100"/>
-        <request index="2" response="0010" foes="0011"/>
+        <request index="2" response="0011" foes="0011"/>
         <request index="3" response="0000" foes="0000"/>
     </junction>
     <junction id="E" type="dead_end" x="100.00" y="0.00" incLanes="CE_0 CE_1 CE_2" intLanes="" shape="100.00,-5.20 100.00,0.00"/>
     <junction id="S" type="dead_end" x="0.00" y="-100.00" incLanes="CS_0 CS_1" intLanes="" shape="-4.20,-100.00 0.00,-100.00"/>
     <junction id="W" type="dead_end" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,0.00 -100.00,-5.20"/>
 
-    <connection from="WC" to="CS" fromLane="1" toLane="1" dir="r" state="m"/>
+    <connection from="WC" to="CS" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from="WC" to="CE" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="WC" to="CS" fromLane="2" toLane="1" dir="r" state="m"/>
     <connection from="WC" to="CE" fromLane="2" toLane="2" dir="s" state="M"/>
