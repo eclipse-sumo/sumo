@@ -766,9 +766,6 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
         if (myOutgoing.size() == 1) {
             // at on-ramp like situations, right lane should yield
             return bike || (con.fromLane < prohibitorCon.fromLane && !prohibitorBike);
-        } else if (myIncoming.size() == 1) {
-            // at off-ramp like situations, right lane should pass unless it's a bicycle lane
-            return bike || (con.fromLane > prohibitorCon.fromLane && !prohibitorBike);
         } else {
             // priority depends on direction:
             // for right turns the rightmost lane gets priority
@@ -777,7 +774,12 @@ NBRequest::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
             if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
                 return con.fromLane > prohibitorCon.fromLane;
             } else {
-                return con.fromLane < prohibitorCon.fromLane;
+                if (myIncoming.size() == 1) {
+                    // at off-ramp like situations, right lane should pass unless it's a bicycle lane
+                    return bike || (con.fromLane > prohibitorCon.fromLane && !prohibitorBike);
+                } else {
+                    return con.fromLane < prohibitorCon.fromLane;
+                }
             }
         }
 
