@@ -847,15 +847,19 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
     // update keyPressed
     myKeyPressed.update(eventData);
+    /*
+    FXEvent* myEventInfo = (FXEvent*) eventData;
+    std::cout << (myEventInfo->state & LEFTBUTTONMASK) << std::endl;
+    */
     // update cursor
     updateCursor();
     // process mouse move function depending of supermode
     if (myEditModes.isCurrentSupermodeNetwork()) {
-        processMoveMouseNetwork();
+        processMoveMouseNetwork(true);
     } else if (myEditModes.isCurrentSupermodeDemand()) {
-        processMoveMouseDemand();
+        processMoveMouseDemand(true);
     } else if (myEditModes.isCurrentSupermodeData()) {
-        processMoveMouseData();
+        processMoveMouseData(true);
     }
     // update view
     updateViewNet();
@@ -4015,7 +4019,7 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
 
 
 void
-GNEViewNet::processMoveMouseNetwork() {
+GNEViewNet::processMoveMouseNetwork(const bool mouseLeftButtonPressed) {
     // change "delete last created point" depending if during movement shift key is pressed
     if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
@@ -4031,7 +4035,7 @@ GNEViewNet::processMoveMouseNetwork() {
         mySelectingArea.moveRectangleSelection();
     } else {
         // move single elements
-        myMoveSingleElementValues.moveSingleElement();
+        myMoveSingleElementValues.moveSingleElement(mouseLeftButtonPressed);
     }
 }
 
@@ -4176,13 +4180,13 @@ GNEViewNet::processLeftButtonReleaseDemand() {
 
 
 void
-GNEViewNet::processMoveMouseDemand() {
+GNEViewNet::processMoveMouseDemand(const bool mouseLeftButtonPressed) {
     if (mySelectingArea.selectingUsingRectangle) {
         // update selection corner of selecting area
         mySelectingArea.moveRectangleSelection();
     } else {
         // move single elements
-        myMoveSingleElementValues.moveSingleElement();
+        myMoveSingleElementValues.moveSingleElement(mouseLeftButtonPressed);
     }
 }
 
@@ -4302,13 +4306,13 @@ GNEViewNet::processLeftButtonReleaseData() {
 
 
 void
-GNEViewNet::processMoveMouseData() {
+GNEViewNet::processMoveMouseData(const bool mouseLeftButtonPressed) {
     if (mySelectingArea.selectingUsingRectangle) {
         // update selection corner of selecting area
         mySelectingArea.moveRectangleSelection();
     } else {
         // move single elements
-        myMoveSingleElementValues.moveSingleElement();
+        myMoveSingleElementValues.moveSingleElement(mouseLeftButtonPressed);
     }
 }
 

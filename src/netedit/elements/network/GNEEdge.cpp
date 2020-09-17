@@ -162,10 +162,6 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
         }
         // check if attribute carrier is selected
         if (isAttributeCarrierSelected()) {
-
-            /* clickedElement */
-
-
             // declare a vector for saving geometry points to move
             std::vector<int> geometryPointsToMove;
             // if edge is selected, check conditions

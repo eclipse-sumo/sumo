@@ -830,7 +830,7 @@ struct GNEViewNetHelper {
         bool beginMoveSingleElementDemandMode();
 
         /// @brief move single element in Network AND Demand mode
-        void moveSingleElement();
+        void moveSingleElement(const bool mouseLeftButtonPressed);
 
         /// @brief finish moving single elements in Network AND Demand mode
         void finishMoveSingleElement();

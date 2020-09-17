@@ -632,7 +632,7 @@ private:
     void processLeftButtonReleaseNetwork();
 
     /// @brief process move mouse function in Supermode Network
-    void processMoveMouseNetwork();
+    void processMoveMouseNetwork(const bool mouseLeftButtonPressed);
 
     /// @brief process left button press function in Supermode Demand
     void processLeftButtonPressDemand(void* eventData);
@@ -641,7 +641,7 @@ private:
     void processLeftButtonReleaseDemand();
 
     /// @brief process move mouse function in Supermode Demand
-    void processMoveMouseDemand();
+    void processMoveMouseDemand(const bool mouseLeftButtonPressed);
 
     /// @brief process left button press function in Supermode Data
     void processLeftButtonPressData(void* eventData);
@@ -650,7 +650,7 @@ private:
     void processLeftButtonReleaseData();
 
     /// @brief process move mouse function in Supermode Data
-    void processMoveMouseData();
+    void processMoveMouseData(const bool mouseLeftButtonPressed);
 
     /// @brief Invalidated copy constructor.
     GNEViewNet(const GNEViewNet&) = delete;

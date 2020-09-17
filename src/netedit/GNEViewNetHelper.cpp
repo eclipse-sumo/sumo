@@ -987,7 +987,7 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementDemandMode() {
 
 
 void
-GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
+GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLeftButtonPressed) {
     // calculate offsetMovement depending of current mouse position and relative clicked position
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
     Position offsetMovement = myViewNet->getPositionInformation() - myViewNet->myMoveSingleElementValues.myRelativeClickedPosition;
@@ -1016,9 +1016,23 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement() {
         // move TAZ's geometry without commiting changes
         myTAZElementToMove->moveTAZShape(offsetMovement);
     }
-    // execute all move operations
-    for (const auto &moveOperation : myMoveOperations) {
-        GNEMoveElement::moveElement(moveOperation, offsetMovement);
+    // check if mouse button is pressed
+    if (mouseLeftButtonPressed) {
+        // iterate over all operations
+        for (const auto &moveOperation : myMoveOperations) {
+            // move elements
+            GNEMoveElement::moveElement(moveOperation, offsetMovement);
+        }
+    } else {
+        // iterate over all operations
+        for (const auto &moveOperation : myMoveOperations) {
+            // commit move
+            GNEMoveElement::commitMove(moveOperation, offsetMovement, myViewNet->getUndoList());
+            // don't forget delete move operation
+            delete moveOperation;
+        }
+        // clear move operations
+        myMoveOperations.clear();
     }
 }
 

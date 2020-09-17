@@ -48,7 +48,7 @@ public:
     GNEMoveOperation(GNEMoveElement *moveElement, 
         const PositionVector originalShape,
         const PositionVector shapeToMove, 
-        const int _clickedIndex,
+        const int clickedIndex,
         const std::vector<int> geometryPointsToMove);
 
     /// @brief destructor
@@ -61,7 +61,7 @@ public:
     const PositionVector originalShape;
 
     /**@brief shape to move
-     * @note: it can be different of originalShape, for example due a new geometry point)
+     * @note: it can be different of originalShape, for example due a new geometry point
      */
     const PositionVector shapeToMove;
 
@@ -95,7 +95,7 @@ public:
     /// @brief remove geometry point in the clicked position
     virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
 
-    /// @brief move element the for given offset
+    /// @brief move element the for given offset (note: offset can be X-Y-0, 0-0-Z or X-Y-Z)
     static void moveElement(GNEMoveOperation* moveOperation, const Position &offset);
 
     /// @brief commit move element for the given offset
