@@ -99,6 +99,7 @@ MSDispatch::addReservation(MSTransportable* person,
                                            << " from=" << from->getID() << " fromPos=" << fromPos
                                            << " to=" << to->getID() << " toPos=" << toPos
                                            << " group=" << group
+                                           << " added=" << added
                                            << "\n";
 #endif
     return result;
