@@ -109,7 +109,18 @@ GNEPoly::updateGeometry() {
 
 void 
 GNEPoly::updateCenteringBoundary(const bool updateGrid) {
-    //
+    // Remove object from net
+    if (updateGrid) {
+        myNet->removeGLObjectFromGrid(this);
+    }
+    // use shape as boundary
+    myBoundary = myShape.getBoxBoundary();
+    // grow boundary
+    myBoundary.grow(10);
+    // add object into net
+    if (updateGrid) {
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 

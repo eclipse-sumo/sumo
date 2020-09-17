@@ -173,7 +173,20 @@ GNEPOI::updateGeometry() {
 
 void 
 GNEPOI::updateCenteringBoundary(const bool updateGrid) {
-    //
+    // Remove object from net
+    if (updateGrid) {
+        myNet->removeGLObjectFromGrid(this);
+    }
+    // reset boundary
+    myBoundary.reset();
+    // add position (this POI)
+    myBoundary.add(*this);
+    // grow boundary
+    myBoundary.grow(10 + std::max(getWidth(), getHeight()));
+    // add object into net
+    if (updateGrid) {
+        myNet->addGLObjectIntoGrid(this);
+    }
 }
 
 
