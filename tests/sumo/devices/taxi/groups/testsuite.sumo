@@ -1,6 +1,9 @@
 # use a ride definition to call a taxi
 2persons
 
+# use a ride definition to call a taxi
+2persons_differentDepart
+
 # two persontrips with the same group
 2persontrips
 
