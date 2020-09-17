@@ -258,6 +258,7 @@ public:
                 const MSEdge* destination, MSStoppingPlace* toStop,
                 const SUMOTime duration, const SVCPermissions modeSet,
                 const std::string& vTypes, const double speed, const double walkFactor,
+                const std::string& group,
                 const double departPosLat, const bool hasArrivalPos, const double arrivalPos);
 
     /// destructor
@@ -343,6 +344,9 @@ private:
 
     /// @brief The factor to apply to walking durations
     const double myWalkFactor;
+
+    /// @brief The group for this personTrip
+    std::string myGroup;
 
     /// @brief The depart position
     double myDepartPos;

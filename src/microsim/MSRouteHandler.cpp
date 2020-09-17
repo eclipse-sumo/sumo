@@ -1335,6 +1335,7 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
     parseWalkPositions(attrs, myVehicleParameter->id, from, to, departPos, arrivalPos, stoppingPlace, nullptr, ok);
 
     const std::string modes = attrs.getOpt<std::string>(SUMO_ATTR_MODES, id, ok, "");
+    const std::string group = attrs.getOpt<std::string>(SUMO_ATTR_GROUP, id, ok, id);
     SVCPermissions modeSet = 0;
     std::string errorMsg;
     // try to parse person modes
@@ -1366,7 +1367,9 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         }
         myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
         MSStoppingPlace* fromStop = myActivePlan->empty() ? nullptr : myActivePlan->back()->getDestinationStop();
-        myActivePlan->push_back(new MSStageTrip(from, fromStop, to == nullptr ? &stoppingPlace->getLane().getEdge() : to, stoppingPlace, duration, modeSet, types, speed, walkFactor, departPosLat, attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS), arrivalPos));
+        myActivePlan->push_back(new MSStageTrip(from, fromStop, to == nullptr ? &stoppingPlace->getLane().getEdge() : to,
+                    stoppingPlace, duration, modeSet, types, speed, walkFactor, group,
+                    departPosLat, attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS), arrivalPos));
     }
     myActiveRoute.clear();
 }

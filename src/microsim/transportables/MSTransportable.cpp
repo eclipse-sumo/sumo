@@ -324,7 +324,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
             dynamic_cast<MSStageTrip*>(nextStage)->setOrigin(stage->getDestination());
         } else if (nextStage->getStageType() == MSStageType::WALKING) {
             MSStageTrip* newStage = new MSStageTrip(stage->getDestination(), nullptr, nextStage->getDestination(),
-                                                    nextStage->getDestinationStop(), -1, 0, "", -1, 1, 0, true, nextStage->getArrivalPos());
+                                                    nextStage->getDestinationStop(), -1, 0, "", -1, 1, getID(), 0, true, nextStage->getArrivalPos());
             removeStage(1);
             appendStage(newStage, 1);
         }
@@ -342,7 +342,7 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
                         dynamic_cast<MSStageTrip*>(prevStage)->setDestination(stage->getDestination(), replacement);
                     } else if (prevStage->getStageType() == MSStageType::WALKING) {
                         MSStageTrip* newStage = new MSStageTrip(prevStage->getFromEdge(), nullptr, stage->getDestination(),
-                                                                replacement, -1, 0, "", -1, 1, 0, true, stage->getArrivalPos());
+                                                                replacement, -1, 0, "", -1, 1, getID(), 0, true, stage->getArrivalPos());
                         int prevStageRelIndex = (int)(it - 1 - myStep);
                         removeStage(prevStageRelIndex);
                         appendStage(newStage, prevStageRelIndex);

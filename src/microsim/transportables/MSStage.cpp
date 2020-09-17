@@ -173,6 +173,7 @@ MSStageTrip::MSStageTrip(const MSEdge* origin, MSStoppingPlace* fromStop,
                          const MSEdge* destination, MSStoppingPlace* toStop,
                          const SUMOTime duration, const SVCPermissions modeSet,
                          const std::string& vTypes, const double speed, const double walkFactor,
+                         const std::string& group,
                          const double departPosLat, const bool hasArrivalPos, const double arrivalPos):
     MSStage(destination, toStop, arrivalPos, MSStageType::TRIP),
     myOrigin(origin),
@@ -182,6 +183,7 @@ MSStageTrip::MSStageTrip(const MSEdge* origin, MSStoppingPlace* fromStop,
     myVTypes(vTypes),
     mySpeed(speed),
     myWalkFactor(walkFactor),
+    myGroup(group),
     myDepartPosLat(departPosLat),
     myHaveArrivalPos(hasArrivalPos) {
 }
@@ -193,7 +195,7 @@ MSStage*
 MSStageTrip::clone() const {
     return new MSStageTrip(myOrigin, const_cast<MSStoppingPlace*>(myOriginStop),
                            myDestination, myDestinationStop, myDuration,
-                           myModeSet, myVTypes, mySpeed, myWalkFactor, myDepartPosLat, myHaveArrivalPos, myArrivalPos);
+                           myModeSet, myVTypes, mySpeed, myWalkFactor, myGroup, myDepartPosLat, myHaveArrivalPos, myArrivalPos);
 }
 
 
@@ -344,7 +346,7 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                                 previous->setArrivalPos(MAX2(0.0, last->getLength() - 10));
                             }
                         }
-                        previous = new MSStageDriving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }));
+                        previous = new MSStageDriving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }), myGroup);
                         transportable->appendStage(previous, stageIndex++);
                     } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                         if (bs == nullptr && it + 1 != result.end()) {
