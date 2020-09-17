@@ -20,6 +20,9 @@ export LIBS := -lgl2ps -lGL -lGLU -lglut
 
 include /usr/share/dpkg/buildflags.mk
 
+override_dh_auto_configure:
+	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release
+
 override_dh_auto_build-indep:
 #	pip3 install mkdocs mkdocs-macros-plugin==0.2.4 mdx_gh_links pymdown-extensions mkdocs-git-revision-date-plugin mdx_truly_sane_lists
 #	$(MAKE) --directory=$(BUILDDIR) userdoc

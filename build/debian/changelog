@@ -1,3 +1,10 @@
+sumo (1.7.0+dfsg1-1) bionic; urgency=medium
+
+  * new upstream version
+  * fixing CMAKE_BUILD_TYPE to Release
+
+ -- Michael Behrisch <oss@behrisch.de>  Thu, 17 Sep 2020 18:27:13 +0200
+
 sumo (1.6.0+dfsg1-1) bionic; urgency=medium
 
   * new upstream version
