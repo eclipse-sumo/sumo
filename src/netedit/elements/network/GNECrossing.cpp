@@ -65,7 +65,7 @@ void
 GNECrossing::updateGeometry() {
     // rebuild crossing and walking areas form node parent
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    // obtain shape
+    // update crossing geometry
     myCrossingGeometry.updateGeometry(crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape);
 }
 
@@ -546,7 +546,10 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNECrossing::setMoveShape(const PositionVector& newShape) {
+    // set custom shape
     myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->customShape = newShape;
+    // update geometry
+    updateGeometry();
 }
 
 

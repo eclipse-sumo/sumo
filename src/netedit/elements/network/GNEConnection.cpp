@@ -732,7 +732,12 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEConnection::setMoveShape(const PositionVector& newShape) {
+    // set custom shape
     getNBEdgeConnection().customShape = newShape;
+    // mark junction as deprecated
+    myShapeDeprecated = true;
+    // update geometry
+    updateGeometry();
 }
 
 
