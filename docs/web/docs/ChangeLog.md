@@ -11,7 +11,7 @@ permalink: /ChangeLog/
   - Fixed train collision due to insafe rail signal state. Issue #7534
   - Rail signal constraints now work correctly after loading simulation state. Issue #7523
   - Fixed crash when loading simulation state that includes a routeDistribution along with a route file that includes the same distribution. Issue #7539
-  - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560
+  - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for persontTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560
 
 - netconvert
   - Fixed unsafe traffic light signals when two connections from the same edge target the same lane. Issue #7550
