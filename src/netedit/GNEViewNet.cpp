@@ -3736,27 +3736,21 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
-            // check that we have clicked over an non-demand element
+            // check that we have clicked over network element element
             if (myObjectsUnderCursor.getAttributeCarrierFront() &&
                     (myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isNetworkElement() ||
                      myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isAdditionalElement() ||
                      myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isShape() ||
                      myObjectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isTAZElement())) {
-                // check if we are deleting a selection or an single attribute carrier
-                if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
-                    // before delete al selected attribute carriers, check if we clicked over a geometry point
-                    if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
-                        if (myObjectsUnderCursor.getEdgeFront()) {
-                            myObjectsUnderCursor.getEdgeFront()->removeGeometryPoint(getPositionInformation(), myUndoList);
-                /*
-                        } else if (myObjectsUnderCursor.getPolyFront()) {
-                            myObjectsUnderCursor.getPolyFront()->removeGeometryPoint(getPositionInformation());
-                */
-                        }
-                    } else {
-                        myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
-                    }
+                // now check if we want only delete geometry points
+                if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
+                    // only remove geometry point
+                    myViewParent->getDeleteFrame()->removeGeometryPoint(myObjectsUnderCursor);
+                } else if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
+                    // remove all selected attribute carriers
+                    myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                 } else {
+                    // remove attribute carrier under cursor
                     myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
                 }
             } else {

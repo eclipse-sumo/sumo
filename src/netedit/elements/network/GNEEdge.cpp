@@ -23,12 +23,14 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/elements/additional/GNEDetectorE2.h>
 #include <netedit/elements/additional/GNERouteProbe.h>
 #include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_Lane.h>
 #include <netedit/elements/demand/GNERoute.h>
+#include <netedit/frames/common/GNEDeleteFrame.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
@@ -192,8 +194,63 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
     }
 }
 
-void GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList)
-{
+
+void 
+GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    // declare shape to move
+    PositionVector shape = myNBEdge->getGeometry();
+    // obtain flags for start and end positions
+    const bool customStartPosition = (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView());
+    const bool customEndPosition = (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView());
+    // get variable for last index
+    const int lastIndex = (int)myNBEdge->getGeometry().size() - 1;
+    // flag to enable/disable remove geometry point
+    bool removeGeometryPoint = true;
+    // obtain index
+    const int index = myNBEdge->getGeometry().indexOfClosest(clickedPosition);
+    // check index
+    if (index == -1) {
+        removeGeometryPoint = false;
+    }
+    // check distance
+    if (shape[index].distanceSquaredTo2D(clickedPosition) > (SNAP_RADIUS * SNAP_RADIUS)) {
+        removeGeometryPoint = false;
+    }
+    // check custom start position
+    if (!customStartPosition && (index == 0)) {
+        removeGeometryPoint = false;
+    }
+    // check custom end position
+    if (!customEndPosition && (index == lastIndex)) {
+        removeGeometryPoint = false;
+    }
+    // check if we can remove geometry point
+    if (removeGeometryPoint) {
+        // check if we're removing first geometry proint
+        if (index == 0) {
+            // commit new geometry start
+            undoList->p_begin("remove first geometry point of " + getTagStr());
+            undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, ""));
+            undoList->p_end();
+        } else if (index == lastIndex) {
+            // commit new geometry end
+            undoList->p_begin("remove last geometry point of " + getTagStr());
+            undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, ""));
+            undoList->p_end();
+        } else {
+            // remove geometry point
+            shape.erase(shape.begin() + index);
+            // get innen shape
+            shape.pop_front();
+            shape.pop_back();
+            // remove double points
+            shape.removeDoublePoints(SNAP_RADIUS);
+            // commit new shape
+            undoList->p_begin("remove geometry point of " + getTagStr());
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
+            undoList->p_end();
+        }
+    }
 }
 
 
@@ -1118,10 +1175,16 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
     if ((lane == myLanes.back()) && (s.scale > 8.0) && !myNet->getViewNet()->getEditModes().isCurrentSupermodeDemand()) {
         // Obtain exaggeration of the draw
         const double exaggeration = s.addSize.getExaggeration(s, this);
-        // obtain circle width
-        bool drawBig = (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE ||
-                        myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE);
-        double circleWidth = drawBig ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
+        // get circle width
+        bool drawBigGeometryPoints = false;
+        if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+            drawBigGeometryPoints = true;
+        }
+        if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) &&
+            (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
+            drawBigGeometryPoints = true;
+        }
+        double circleWidth = drawBigGeometryPoints ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
         double circleWidthSquared = circleWidth * circleWidth;
         // obtain color
         RGBColor color = s.junctionColorer.getSchemes()[0].getColor(2);
@@ -1157,7 +1220,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                 }
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
-            if (myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_MOVE) {
+            if (drawBigGeometryPoints) {
                 if ((myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView()) &&
                         (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();

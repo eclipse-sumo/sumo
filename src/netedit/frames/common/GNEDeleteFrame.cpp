@@ -207,75 +207,79 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
     if (objectsUnderCursor.getAttributeCarrierFront()) {
         // disable update geometry
         myViewNet->getNet()->disableUpdateGeometry();
-        // obtain clicked position
-        Position clickedPosition = myViewNet->getPositionInformation();
-        // first check if we'll only delete a geometry point
-        if (myDeleteOptions->deleteOnlyGeometryPoints() && !ignoreOptions) {
-            // check type of of object under cursor object with geometry points
-            if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                objectsUnderCursor.getEdgeFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
-            } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_POLY) {
-                if (objectsUnderCursor.getPolyFront()->getVertexIndex(clickedPosition, false) != -1) {
-                    objectsUnderCursor.getPolyFront()->deleteGeometryPoint(clickedPosition);
-                }
-            } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-                /*
-                                if (objectsUnderCursor.getTAZElementFront()->getVertexIndex(clickedPosition, false) != -1) {
-                                    objectsUnderCursor.getTAZElementFront()->deleteGeometryPoint(clickedPosition);
-                                }
-                */
+        // get clicked position
+        const Position clickedPosition = myViewNet->getPositionInformation();
+        // check type of of object under cursor object
+        if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
+            // Check if junction can be deleted
+            if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getJunctionFront()).checkElements(myDeleteOptions)) {
+                myViewNet->getNet()->deleteJunction(objectsUnderCursor.getJunctionFront(), myViewNet->getUndoList());
             }
-        } else {
-            // check type of of object under cursor object
-            if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
-                // Check if junction can be deleted
-                if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getJunctionFront()).checkElements(myDeleteOptions)) {
-                    myViewNet->getNet()->deleteJunction(objectsUnderCursor.getJunctionFront(), myViewNet->getUndoList());
-                }
-            } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getEdgeFront()).checkElements(myDeleteOptions)) {
-                    // if all ok, then delete edge
-                    myViewNet->getNet()->deleteEdge(objectsUnderCursor.getEdgeFront(), myViewNet->getUndoList(), false);
-                }
-            } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) {
-                // Check if edge can be deleted
-                if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getLaneFront()).checkElements(myDeleteOptions)) {
-                    // if all ok, then delete lane
-                    myViewNet->getNet()->deleteLane(objectsUnderCursor.getLaneFront(), myViewNet->getUndoList(), false);
-                }
-            } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
-                myViewNet->getNet()->deleteCrossing(objectsUnderCursor.getCrossingFront(), myViewNet->getUndoList());
-            } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
-                myViewNet->getNet()->deleteConnection(objectsUnderCursor.getConnectionFront(), myViewNet->getUndoList());
-            } else if (objectsUnderCursor.getAttributeCarrierFront() && (objectsUnderCursor.getAdditionalFront() == objectsUnderCursor.getAttributeCarrierFront())) {
-                myViewNet->getNet()->deleteAdditional(objectsUnderCursor.getAdditionalFront(), myViewNet->getUndoList());
-            } else if (objectsUnderCursor.getShapeFront() && (objectsUnderCursor.getShapeFront() == objectsUnderCursor.getAttributeCarrierFront())) {
-                myViewNet->getNet()->deleteShape(objectsUnderCursor.getShapeFront(), myViewNet->getUndoList());
-            } else if (objectsUnderCursor.getTAZElementFront() && (objectsUnderCursor.getTAZElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
-                myViewNet->getNet()->deleteTAZElement(objectsUnderCursor.getTAZElementFront(), myViewNet->getUndoList());
-            } else if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
-                // we need an special check for person plans
-                if (objectsUnderCursor.getDemandElementFront()->getTagProperty().isPersonPlan()) {
-                    // get person plarent
-                    GNEDemandElement* personParent = objectsUnderCursor.getDemandElementFront()->getParentDemandElements().front();
-                    // if this is the last person plan element, remove person instead person plan
-                    if (personParent->getChildDemandElements().size() == 1) {
-                        myViewNet->getNet()->deleteDemandElement(personParent, myViewNet->getUndoList());
-                    } else {
-                        myViewNet->getNet()->deleteDemandElement(objectsUnderCursor.getDemandElementFront(), myViewNet->getUndoList());
-                    }
+        } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
+            if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getEdgeFront()).checkElements(myDeleteOptions)) {
+                // if all ok, then delete edge
+                myViewNet->getNet()->deleteEdge(objectsUnderCursor.getEdgeFront(), myViewNet->getUndoList(), false);
+            }
+        } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_LANE) {
+            // Check if edge can be deleted
+            if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getLaneFront()).checkElements(myDeleteOptions)) {
+                // if all ok, then delete lane
+                myViewNet->getNet()->deleteLane(objectsUnderCursor.getLaneFront(), myViewNet->getUndoList(), false);
+            }
+        } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_CROSSING) {
+            myViewNet->getNet()->deleteCrossing(objectsUnderCursor.getCrossingFront(), myViewNet->getUndoList());
+        } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_CONNECTION) {
+            myViewNet->getNet()->deleteConnection(objectsUnderCursor.getConnectionFront(), myViewNet->getUndoList());
+        } else if (objectsUnderCursor.getAttributeCarrierFront() && (objectsUnderCursor.getAdditionalFront() == objectsUnderCursor.getAttributeCarrierFront())) {
+            myViewNet->getNet()->deleteAdditional(objectsUnderCursor.getAdditionalFront(), myViewNet->getUndoList());
+        } else if (objectsUnderCursor.getShapeFront() && (objectsUnderCursor.getShapeFront() == objectsUnderCursor.getAttributeCarrierFront())) {
+            myViewNet->getNet()->deleteShape(objectsUnderCursor.getShapeFront(), myViewNet->getUndoList());
+        } else if (objectsUnderCursor.getTAZElementFront() && (objectsUnderCursor.getTAZElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
+            myViewNet->getNet()->deleteTAZElement(objectsUnderCursor.getTAZElementFront(), myViewNet->getUndoList());
+        } else if (objectsUnderCursor.getDemandElementFront() && (objectsUnderCursor.getDemandElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
+            // we need an special check for person plans
+            if (objectsUnderCursor.getDemandElementFront()->getTagProperty().isPersonPlan()) {
+                // get person plarent
+                GNEDemandElement* personParent = objectsUnderCursor.getDemandElementFront()->getParentDemandElements().front();
+                // if this is the last person plan element, remove person instead person plan
+                if (personParent->getChildDemandElements().size() == 1) {
+                    myViewNet->getNet()->deleteDemandElement(personParent, myViewNet->getUndoList());
                 } else {
-                    // just remove demand element
                     myViewNet->getNet()->deleteDemandElement(objectsUnderCursor.getDemandElementFront(), myViewNet->getUndoList());
                 }
-            } else if (objectsUnderCursor.getGenericDataElementFront() && (objectsUnderCursor.getGenericDataElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
-                myViewNet->getNet()->deleteGenericData(objectsUnderCursor.getGenericDataElementFront(), myViewNet->getUndoList());
+            } else {
+                // just remove demand element
+                myViewNet->getNet()->deleteDemandElement(objectsUnderCursor.getDemandElementFront(), myViewNet->getUndoList());
             }
+        } else if (objectsUnderCursor.getGenericDataElementFront() && (objectsUnderCursor.getGenericDataElementFront() == objectsUnderCursor.getAttributeCarrierFront())) {
+            myViewNet->getNet()->deleteGenericData(objectsUnderCursor.getGenericDataElementFront(), myViewNet->getUndoList());
         }
-        // enable update geometry
-        myViewNet->getNet()->enableUpdateGeometry();
-        // update view to show changes
-        myViewNet->updateViewNet();
+    }
+    // enable update geometry
+    myViewNet->getNet()->enableUpdateGeometry();
+    // update view to show changes
+    myViewNet->updateViewNet();
+}
+
+
+void 
+GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
+    // get clicked position
+    const Position clickedPosition = myViewNet->getPositionInformation();
+    // check type of of object under cursor object with geometry points
+    if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isNetworkElement()) {
+        objectsUnderCursor.getNetworkElementFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
+/*
+    } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_POLY) {
+        if (objectsUnderCursor.getPolyFront()->getVertexIndex(clickedPosition, false) != -1) {
+            objectsUnderCursor.getPolyFront()->deleteGeometryPoint(clickedPosition);
+        }
+    } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_TAZ) {
+        /*
+        if (objectsUnderCursor.getTAZElementFront()->getVertexIndex(clickedPosition, false) != -1) {
+        objectsUnderCursor.getTAZElementFront()->deleteGeometryPoint(clickedPosition);
+        }
+*/
     }
 }
 
