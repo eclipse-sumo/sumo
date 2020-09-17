@@ -846,7 +846,7 @@ struct GNEViewNetHelper {
         bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector &shape, const double radius);
 
         /// @brief calculate Poly movement values (Position, Index, etc.)
-        bool calculatePolyValues();
+        bool calculatePolyValues(GNEPoly* polygon);
 
         /// @brief calculate Edge movement values (Position, Index, etc.)
         bool calculateEdgeValues(GNEEdge *edge);

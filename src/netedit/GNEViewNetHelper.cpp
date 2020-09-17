@@ -943,12 +943,14 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     // check what type of AC will be moved
     if (myViewNet->myObjectsUnderCursor.getPolyFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPolyFront())) {
         // calculate poly movement values (can be entire shape, single geometry points, altitude, etc.)
-        return calculatePolyValues();
+        return calculatePolyValues(myViewNet->myObjectsUnderCursor.getPolyFront());
     } else if (myViewNet->myObjectsUnderCursor.getPOIFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPOIFront())) {
         // set POI moved object
         myPOIToMove = myViewNet->myObjectsUnderCursor.getPOIFront();
+/*
         // start POI geometry moving
         myPOIToMove->startPOIGeometryMoving();
+*/
         // there is moved items, then return true
         return true;
     } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront() && (frontAC == myViewNet->myObjectsUnderCursor.getAdditionalFront())) {
@@ -1019,14 +1021,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLef
         // leave z empty (because in this case offset only actuates over X-Y)
         offsetMovement.setz(0);
     }
-    // check what element will be moved
-    if (myPolyToMove) {
-        // move poly's geometry without commiting changes
-        myPolyToMove->movePolyShape(offsetMovement);
-    } else if (myPOIToMove) {
-        // Move POI's geometry without commiting changes
-        myPOIToMove->movePOIGeometry(offsetMovement);
-    } else if (myAdditionalToMove && (myAdditionalToMove->isAdditionalBlocked() == false)) {
+    if (myAdditionalToMove && (myAdditionalToMove->isAdditionalBlocked() == false)) {
         // Move Additional geometry without commiting changes
         myAdditionalToMove->moveGeometry(offsetMovement);
     } else if (myDemandElementToMove/* && (myDemandElementToMove->isDemandElementBlocked() == false)*/) {
@@ -1059,13 +1054,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLef
 
 void
 GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
-    if (myPolyToMove) {
-        myPolyToMove->commitPolyShapeChange(myViewNet->getUndoList());
-        myPolyToMove = nullptr;
-    } else if (myPOIToMove) {
-        myPOIToMove->commitPOIGeometryMoving(myViewNet->getUndoList());
-        myPOIToMove = nullptr;
-    } else if (myAdditionalToMove) {
+    if (myAdditionalToMove) {
         myAdditionalToMove->commitGeometryMoving(myViewNet->getUndoList());
         myAdditionalToMove->endGeometryMoving();
         myAdditionalToMove = nullptr;
@@ -1114,7 +1103,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculateMoveOperationShape(GNEMoveEl
 
 
 bool
-GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
+GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues(GNEPoly* polygon) {
+/*
     // assign clicked poly to polyToMove
     myPolyToMove = myViewNet->myObjectsUnderCursor.getPolyFront();
     // calculate polyShapeOffset
@@ -1146,6 +1136,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
         // poly values wasn't calculated, then return false
         return false;
     }
+*/
+    return nullptr;
 }
 
 

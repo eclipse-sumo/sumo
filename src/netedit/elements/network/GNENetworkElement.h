@@ -22,7 +22,6 @@
 
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/GNEGeometry.h>
-#include <netedit/GNEMoveShape.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/geom/PositionVector.h>
 #include <netedit/GNEMoveElement.h>
@@ -68,6 +67,11 @@ public:
 
     /// @brief Destructor
     virtual ~GNENetworkElement();
+
+    /**@brief get move operation for the given shapeOffset
+    * @note returned GNEMoveOperation can be nullptr
+    */
+    virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
 
     /// @brief get ID
     const std::string& getID() const;

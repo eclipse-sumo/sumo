@@ -41,7 +41,9 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                bool relativePath, double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POI, movementBlocked,
-{}, {}, {}, {}, {}, {}, {}, {}) {
+        {}, {}, {}, {}, {}, {}, {}, {}) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
     // set GEO Position
     myGEOPosition = pos;
     GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
@@ -53,11 +55,25 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                double width, double height, bool movementBlocked) :
     GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POILANE, movementBlocked,
-{}, {}, {lane}, {}, {}, {}, {}, {}) {
+        {}, {}, {lane}, {}, {}, {}, {}, {}) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 
 GNEPOI::~GNEPOI() {}
+
+
+GNEMoveOperation* 
+GNEPOI::getMoveOperation(const double shapeOffset) {
+    return nullptr;
+}
+
+
+void 
+GNEPOI::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    //
+}
 
 
 const std::string&
@@ -90,17 +106,6 @@ GNEPOI::setParameter(const std::string& key, const std::string& value) {
 
 
 void
-GNEPOI::startPOIGeometryMoving() {
-    myPositionBeforeMoving = *this;
-}
-
-
-void
-GNEPOI::endPOIGeometryMoving() {
-}
-
-
-void
 GNEPOI::writeShape(OutputDevice& device) {
     if (getParentLanes().size() > 0) {
         // obtain fixed position over lane
@@ -112,7 +117,7 @@ GNEPOI::writeShape(OutputDevice& device) {
     }
 }
 
-
+/*
 void
 GNEPOI::movePOIGeometry(const Position& offset) {
     if (!myBlockMovement) {
@@ -153,7 +158,7 @@ GNEPOI::commitPOIGeometryMoving(GNEUndoList* undoList) {
         }
     }
 }
-
+*/
 
 void
 GNEPOI::updateGeometry() {
@@ -166,20 +171,15 @@ GNEPOI::updateGeometry() {
 }
 
 
-Position
-GNEPOI::getPositionInView() const {
-    return Position(x(), y());
+void 
+GNEPOI::updateCenteringBoundary(const bool updateGrid) {
+    //
 }
 
 
-Boundary
-GNEPOI::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMovingGeometryBoundary.isInitialised()) {
-        return myMovingGeometryBoundary;
-    }  else {
-        return GUIPointOfInterest::getCenteringBoundary();
-    }
+Position
+GNEPOI::getPositionInView() const {
+    return Position(x(), y());
 }
 
 
@@ -236,7 +236,7 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() && myNet->getViewNet()->getDataViewOptions().showShapes()) {
         // check if boundary has to be drawn
         if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
+            GLHelper::drawBoundary(myBoundary);
         }
         // check if POI can be drawn
         if (checkDraw(s)) {
@@ -549,6 +549,18 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " attribute '" + toString(key) + "' not allowed");
     }
+}
+
+
+void 
+GNEPOI::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void 
+GNEPOI::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 /****************************************************************************/

@@ -45,6 +45,7 @@ class GNEPoly : public GUIPolygon, public GNEShape, protected GNEMoveShape {
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
     using GNEShape::getID;
+    using GNEShape::getCenteringBoundary;
 
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
@@ -68,6 +69,14 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
+    /**@brief get move operation for the given shapeOffset
+    * @note returned GNEMoveOperation can be nullptr
+    */
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
     /// @brief get ID
     const std::string& getID() const;
 
@@ -83,39 +92,13 @@ public:
      */
     void setParameter(const std::string& key, const std::string& value);
 
-    /// @name functions for edit geometry
-    /// @{
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
-    void startPolyShapeGeometryMoving(const double shapeOffset);
-
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
-    void endPolyShapeGeometryMoving();
-
-    /**@brief return index of geometry point placed in given position, or -1 if no exist
-    * @param pos position of new/existent vertex
-    * @param snapToGrid enable or disable snapToActiveGrid
-    * @return index of position vector
-    */
-    int getPolyVertexIndex(Position pos, const bool snapToGrid) const;
-
-    /**@brief move shape
-    * @param[in] offset the offset of movement
-    */
-    void movePolyShape(const Position& offset);
-
-    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
-    * @param[in] undoList The undoList on which to register changes
-    */
-    void commitPolyShapeChange(GNEUndoList* undoList);
-    /// @}
-
     /// @name inherited from GNEShape
     /// @{
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
-    /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    Boundary getCenteringBoundary() const;
+    /// @brief update centering boundary (implies change in RTREE)
+    void updateCenteringBoundary(const bool updateGrid);
 
     /**@brief writte shape element into a xml file
     * @param[in] device device in which write parameters of additional element
@@ -234,6 +217,12 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set move shape
+    void setMoveShape(const PositionVector& newShape);
+
+    /// @brief commit move shape
+    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNEPoly(const GNEPoly&) = delete;

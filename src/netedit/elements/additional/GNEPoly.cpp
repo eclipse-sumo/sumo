@@ -38,9 +38,11 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
     GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GNEShape(net, SUMO_TAG_POLY, movementBlocked,
-{}, {}, {}, {}, {}, {}, {}, {}),
-myBlockShape(shapeBlocked),
-mySimplifiedShape(false) {
+        {}, {}, {}, {}, {}, {}, {}, {}),
+    myBlockShape(shapeBlocked),
+    mySimplifiedShape(false) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
     // check if imgFile is valid
     if (!imgFile.empty() && GUITexturesHelper::getTextureID(imgFile) == -1) {
         setShapeImgFile("");
@@ -56,6 +58,18 @@ mySimplifiedShape(false) {
 
 
 GNEPoly::~GNEPoly() {}
+
+
+GNEMoveOperation* 
+GNEPoly::getMoveOperation(const double shapeOffset) {
+    return nullptr;
+}
+
+
+void 
+GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    //
+}
 
 
 const std::string&
@@ -87,126 +101,15 @@ GNEPoly::setParameter(const std::string& key, const std::string& value) {
 
 
 void
-GNEPoly::startPolyShapeGeometryMoving(const double shapeOffset) {
-    // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
-    // start move shape depending of block shape
-    if (myBlockShape) {
-        startMoveShape(myShape, -1, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius);
-    } else {
-        startMoveShape(myShape, shapeOffset, myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius);
-    }
-}
-
-
-void
-GNEPoly::endPolyShapeGeometryMoving() {
-    // check that endGeometryMoving was called only once
-    if (myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net
-        myNet->removeGLObjectFromGrid(this);
-        // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
-        // add object into grid again (using the new centering boundary)
-        myNet->addGLObjectIntoGrid(this);
-    }
-}
-
-
-int
-GNEPoly::getPolyVertexIndex(Position pos, const bool snapToGrid) const {
-    // check if position has to be snapped to grid
-    if (snapToGrid) {
-        pos = myNet->getViewNet()->snapToActiveGrid(pos);
-    }
-    const double offset = myShape.nearest_offset_to_point2D(pos, true);
-    if (offset == GeomHelper::INVALID_OFFSET) {
-        return -1;
-    }
-    Position newPos = myShape.positionAtOffset2D(offset);
-    // first check if vertex already exists in the inner geometry
-    for (int i = 0; i < (int)myShape.size(); i++) {
-        if (myShape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius) {
-            // index refers to inner geometry
-            if (i == 0 || i == (int)(myShape.size() - 1)) {
-                return -1;
-            }
-            return i;
-        }
-    }
-    return -1;
-}
-
-
-void
-GNEPoly::movePolyShape(const Position& offset) {
-    // first obtain a copy of shapeBeforeMoving
-    PositionVector newShape = getShapeBeforeMoving();
-    if (moveEntireShape()) {
-        // move entire shape
-        newShape.add(offset);
-    } else {
-        int geometryPointIndex = getGeometryPointIndex();
-        // if geometryPoint is -1, then we have to create a new geometry point
-        if (geometryPointIndex == -1) {
-            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
-        }
-        // get last index
-        const int lastIndex = (int)newShape.size() - 1;
-        // check if we have to move first and last postion
-        if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
-                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
-            // move first geometry point
-            newShape[0].add(offset);
-            // snap to grid
-            newShape[0] = myNet->getViewNet()->snapToActiveGrid(newShape[0]);
-            // set end geometry point
-            newShape[lastIndex] = newShape[0];
-        } else {
-            // move geometry point within newShape
-            newShape[geometryPointIndex].add(offset);
-            // snap to grid
-            newShape[geometryPointIndex] = myNet->getViewNet()->snapToActiveGrid(newShape[geometryPointIndex]);
-        }
-    }
-    // set new poly shape
-    myShape = newShape;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNEPoly::commitPolyShapeChange(GNEUndoList* undoList) {
-    // get visualisation settings
-    auto& s = myNet->getViewNet()->getVisualisationSettings();
-    // restore original shape into shapeToCommit
-    PositionVector shapeToCommit = myShape;
-    // get geometryPoint radius
-    const double geometryPointRadius = s.neteditSizeSettings.polygonGeometryPointRadius * s.polySize.getExaggeration(s, this);
-    // remove double points
-    shapeToCommit.removeDoublePoints(geometryPointRadius);
-    // check if we have to merge start and end points
-    if ((shapeToCommit.front() != shapeToCommit.back()) && (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < geometryPointRadius)) {
-        shapeToCommit[0] = shapeToCommit.back();
-    }
-    // update geometry
-    updateGeometry();
-    // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    myShape = getShapeBeforeMoving();
-    // finish geometry moving
-    endPolyShapeGeometryMoving();
-    // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-    undoList->p_end();
-}
-
-
-void
 GNEPoly::updateGeometry() {
     // just update geometry
     myPolygonGeometry.updateGeometry(myShape);
+}
+
+
+void 
+GNEPoly::updateCenteringBoundary(const bool updateGrid) {
+    //
 }
 
 
@@ -219,17 +122,6 @@ GNEPoly::writeShape(OutputDevice& device) {
 Position
 GNEPoly::getPositionInView() const {
     return myShape.getPolygonCenter();
-}
-
-
-Boundary
-GNEPoly::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMovingGeometryBoundary.isInitialised()) {
-        return myMovingGeometryBoundary;
-    }  else {
-        return GUIPolygon::getCenteringBoundary();
-    }
 }
 
 
@@ -292,7 +184,7 @@ void
 GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // check if boundary has to be drawn
     if (s.drawBoundaries) {
-        GLHelper::drawBoundary(getCenteringBoundary());
+        GLHelper::drawBoundary(myBoundary);
     }
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
@@ -837,6 +729,18 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
     if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_PARAMETERS) && (key != GNE_ATTR_SELECTED)) {
         myNet->addGLObjectIntoGrid(this);
     }
+}
+
+
+void 
+GNEPoly::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void 
+GNEPoly::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 /****************************************************************************/

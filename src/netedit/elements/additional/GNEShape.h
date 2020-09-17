@@ -20,6 +20,7 @@
 #pragma once
 #include <config.h>
 
+#include <netedit/GNEMoveElement.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
 
@@ -28,7 +29,7 @@
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEHierarchicalElement {
+class GNEShape : public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor.
@@ -56,6 +57,14 @@ public:
 
     /// @brief Destructor
     virtual ~GNEShape();
+
+    /**@brief get move operation for the given shapeOffset
+    * @note returned GNEMoveOperation can be nullptr
+    */
+    virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
+
+    /// @brief remove geometry point in the clicked position
+    virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
 
     /// @brief get ID (all shapes have one)
     virtual const std::string& getID() const = 0;
@@ -98,7 +107,10 @@ public:
     virtual Position getPositionInView() const = 0;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    virtual Boundary getCenteringBoundary() const = 0;
+    Boundary getCenteringBoundary() const;
+
+    /// @brief update centering boundary (implies change in RTREE)
+    virtual void updateCenteringBoundary(const bool updateGrid) = 0;
 
     /// @}
 
@@ -179,8 +191,8 @@ public:
     /// @}
 
 protected:
-    /// @brief boundary used during moving of elements
-    Boundary myMovingGeometryBoundary;
+    /// @brief object boundary
+    Boundary myBoundary;
 
     /// @brief flag to block movement
     bool myBlockMovement;
@@ -191,6 +203,12 @@ protected:
 private:
     /// @brief set attribute after validation
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief set move shape
+    virtual void setMoveShape(const PositionVector& newShape) = 0;
+
+    /// @brief commit move shape
+    virtual void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) = 0;
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);

@@ -88,6 +88,11 @@ GNEShape::draw(const Position& pos, double layer, double size) const {
     }
 }
 
+Boundary 
+GNEShape::getCenteringBoundary() const {
+    return myBoundary;
+}
+
 
 void
 GNEShape::enableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) {
