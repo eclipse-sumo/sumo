@@ -125,7 +125,6 @@ def generateCMake(generator, log, checkOptionalLibs, python):
     subprocess.call(["cmake", "../..", "-G", generator] + cmakeOpt, cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     return buildDir
 
-
 optParser = optparse.OptionParser()
 optParser.add_option("-r", "--root-dir", dest="rootDir",
                      default=r"D:\Sumo", help="root for git and log output")
@@ -141,6 +140,8 @@ optParser.add_option("-n", "--no-tests", dest="tests", action="store_false",
 optParser.add_option("-x", "--x64only", action="store_true",
                      default=False, help="skip Win32 and debug build (as well as netedit tests)")
 optParser.add_option("-p", "--python", help="path to python interpreter to use")
+optParser.add_option("-c", "--msvc-version", default="msvc12",
+                     help="Visual Studio version to use (either msvc12 or msvc16)")
 optParser.add_option("-u", "--repositories", default="git",
                      help="repositories to update")
 (options, args) = optParser.parse_args()
@@ -154,7 +155,6 @@ if "SUMO_HOME" not in env:
         os.path.dirname(os.path.dirname(__file__)))
 env["PYTHON"] = "python"
 env["SMTP_SERVER"] = "smtprelay.dlr.de"
-msvcVersion = "msvc12"
 
 maxTime = 0
 sumoAllZip = None
@@ -163,7 +163,7 @@ for fname in glob.glob(os.path.join(options.remoteDir, "sumo-all-*.zip")):
         maxTime = os.path.getmtime(fname)
         sumoAllZip = fname
 for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
-    env["FILEPREFIX"] = msvcVersion + options.suffix + platform
+    env["FILEPREFIX"] = options.msvc_version + options.suffix + platform
     prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
     makeLog = prefix + "Release.log"
     makeAllLog = prefix + "Debug.log"
@@ -182,19 +182,19 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
             pass
     # we need to use io.open here due to http://bugs.python.org/issue16273
     with io.open(makeLog, 'a') as log:
-        status.printLog("Running %s build using python %s." % (msvcVersion, sys.version), log)
+        status.printLog("Running %s build using python %s." % (options.msvc_version, sys.version), log)
         gitrev = repositoryUpdate(options, log)
-        generator = "Visual Studio 12 2013"
+        generator = "Visual Studio " + ("12 2013" if options.msvc_version == "msvc12" else "16 2019")
         if platform == "x64":
             generator += " Win64"
         buildDir = generateCMake(generator, log, options.suffix == "extra", options.python)
         ret = subprocess.call(["cmake", "--build", ".", "--config", "Release"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         if os.path.exists(os.path.join("src", "libsumo", "_libsumo.vcxproj")):
-            ret = subprocess.call(["cmake", "--build", ".", "--target", "_libsumo"],
-                                  cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-        ret = subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
-                              cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+            subprocess.call(["cmake", "--build", ".", "--target", "_libsumo"],
+                            cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+        subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
+                        cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         if ret == 0 and sumoAllZip:
             try:
                 binaryZip = sumoAllZip.replace("-all-", "-%s%s-" %
