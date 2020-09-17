@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Dec 18 10:05:59 2019 by Eclipse SUMO Version v1_4_0+0173-908b4d0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <human-readable-time value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.period value="12"/>
+        <save-state.suffix value=".xml"/>
+    </output>
+
+    <time>
+        <end value="20"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0173-908b4d0" time="00:00:00">
+    <route id="r0" state="1" edges="beg middle end"/>
+    <delay number="0" begin="2" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
+    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE"/>
+    <vType id="type0" sigma="0"/>
+    <vType id="type1" sigma="0"/>
+    <vType id="type2" sigma="0">
+        <param key="has.rerouting.device" value="false"/>
+    </vType>
+    <vTypeDistribution id="testDist" vTypes="type0 type1" probabilities="1.00 1.00"/>
+    <vehicle id="v0" type="type1" depart="00:00:00" line="line1" route="r0" speedFactor="1.00" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
+        <stop lane="middle_0" duration="00:00:00"/>
+        <param key="has.rerouting.device" value="false"/>
+        <device id="vehroute_v0" state="-1.00 -1.00 0"/>
+    </vehicle>
+    <vehicle id="v1" type="type2" depart="00:00:00" route="r0" speedFactor="1.00" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
+        <device id="vehroute_v1" state="-1.00 -1.00 0"/>
+    </vehicle>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+</snapshot>

@@ -19,6 +19,9 @@ save_at_interval_mismatch
 # save multiple states with human-readable times (no colons)
 save_at_interval_H
 
+# save multiple states with human-readable times (no colons)
+save_default_names_H
+
 # the input is taken from test save2/state2.sumo
 load
 
