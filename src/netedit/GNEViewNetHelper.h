@@ -133,6 +133,7 @@ class GNENet;
 class GNEUndoList;
 class GNEViewNet;
 class GNEViewParent;
+class GNEMoveElement;
 class GNEMoveOperation;
 // network elements
 class GNENetworkElement;
@@ -835,14 +836,8 @@ struct GNEViewNetHelper {
         void finishMoveSingleElement();
 
     private:
-        /// @brief calculate network element movement values (Position, Index, etc.)
-        bool calculateJunctionValues(GNEJunction *junction);
-
-        /// @brief calculate crossing element movement values (Position, Index, etc.)
-        bool calculateCrossingValues(GNECrossing* crossing);
-
-        /// @brief calculate connection element movement values (Position, Index, etc.)
-        bool calculateConnectionValues(GNEConnection *connection);
+        /// @brief calculate move operation for shape
+        bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector &shape, const double radius);
 
         /// @brief calculate Poly movement values (Position, Index, etc.)
         bool calculatePolyValues();

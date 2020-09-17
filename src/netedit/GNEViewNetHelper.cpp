@@ -895,15 +895,18 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
     // get edited element
     const GNENetworkElement* editedElement = myViewNet->myEditNetworkElementShapes.getEditedNetworkElement();
     // check what type of AC will be moved
-    if (myViewNet->myObjectsUnderCursor.getCrossingFront() &&
-            (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
-        return calculateCrossingValues(myViewNet->myObjectsUnderCursor.getCrossingFront());
-    } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() &&
-            (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
-        return calculateConnectionValues(myViewNet->myObjectsUnderCursor.getConnectionFront());
-    } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() &&
-            (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
-        return calculateJunctionValues(myViewNet->myObjectsUnderCursor.getJunctionFront());
+    if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
+        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getJunctionFront(), 
+            myViewNet->myObjectsUnderCursor.getJunctionFront()->getNBNode()->getShape(), 
+            myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius);
+    } else if (myViewNet->myObjectsUnderCursor.getCrossingFront() && (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
+        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getCrossingFront(), 
+            myViewNet->myObjectsUnderCursor.getCrossingFront()->getCrossingShape(), 
+            myViewNet->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
+    } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() && (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
+        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getConnectionFront(), 
+            myViewNet->myObjectsUnderCursor.getConnectionFront()->getConnectionShape(), 
+            myViewNet->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius);
     } else {
         // there isn't moved items, then return false
         return false;
@@ -1055,65 +1058,23 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
 }
 
 
-bool
-GNEViewNetHelper::MoveSingleElementValues::calculateJunctionValues(GNEJunction *junction) {
+bool 
+GNEViewNetHelper::MoveSingleElementValues::calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector &shape, const double radius) {
     // calculate junctionShapeOffset
-    const double junctionShapeOffset = junction->getNBNode()->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+    const double junctionShapeOffset = shape.nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
     // calculate distance to shape
-    const double distanceToShape = junction->getNBNode()->getShape().distance2D(myViewNet->getPositionInformation());
+    const double distanceToShape = shape.distance2D(myViewNet->getPositionInformation());
     // check if we clicked over shape
-    if (distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius) {
+    if (distanceToShape <= radius) {
         // get move operation
-        GNEMoveOperation* moveOperation = junction->getMoveOperation(junctionShapeOffset);
+        GNEMoveOperation* moveOperation = moveElement->getMoveOperation(junctionShapeOffset);
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
             return true;
         }
     }
-    // junction values wasn't calculated, then return false
-    return false;
-}
-
-
-bool
-GNEViewNetHelper::MoveSingleElementValues::calculateCrossingValues(GNECrossing* crossing) {
-    // calculate crossingShapeOffset
-    const double crossingShapeOffset = crossing->getCrossingShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
-    // calculate distance to shape
-    const double distanceToShape = crossing->getCrossingShape().distance2D(myViewNet->getPositionInformation());
-    // check if we clicked over shape
-    if (distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
-        // get move operation
-        GNEMoveOperation* moveOperation = crossing->getMoveOperation(crossingShapeOffset);
-        // continue if move operation is valid
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-            return true;
-        }
-    }
-    // crossing values wasn't calculated, then return false
-    return false;
-}
-
-
-bool
-GNEViewNetHelper::MoveSingleElementValues::calculateConnectionValues(GNEConnection *connection) {
-    // calculate connectionShapeOffset
-    const double connectionShapeOffset = connection->getConnectionShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
-    // calculate distance to shape
-    const double distanceToShape = connection->getConnectionShape().distance2D(myViewNet->getPositionInformation());
-    // check if we clicked over shape
-    if (distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius) {
-        // get move operation
-        GNEMoveOperation* moveOperation = connection->getMoveOperation(connectionShapeOffset);
-        // continue if move operation is valid
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-            return true;
-        }
-    }
-    // connection values wasn't calculated, then return false
+    // shape operation value wasn't calculated, then return false
     return false;
 }
 
