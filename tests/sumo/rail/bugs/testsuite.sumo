@@ -39,3 +39,7 @@ merge_check_flank_switch
 
 # foe vehicles must be correctly identified beyond switches that could give protection (trains driving in opposite directions)
 merge_check_flank_switch2
+
+# deadlock due to insufficient flank check for bidi flank
+# 
+ticket7563
