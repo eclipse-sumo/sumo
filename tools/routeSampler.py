@@ -553,7 +553,8 @@ def _sample_skewed(sampleSet, rng, probabilityMap):
 
 def _solveIntervalMP(options, routes, interval, cpuIndex):
     output_list = []
-    rng = np.random.RandomState(options.seed + cpuIndex)
+    rng = random.Random()
+    rng.seed(options.seed + cpuIndex)
     for begin, end in interval:
         local_outf = StringIO()
         local_mismatch_outf = StringIO() if options.mismatchOut else None
