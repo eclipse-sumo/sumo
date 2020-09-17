@@ -339,7 +339,9 @@ NLBuilder::buildNet() {
             const std::string prefix = myOptions.getString("save-state.prefix");
             const std::string suffix = myOptions.getString("save-state.suffix");
             for (std::vector<SUMOTime>::iterator i = stateDumpTimes.begin(); i != stateDumpTimes.end(); ++i) {
-                stateDumpFiles.push_back(prefix + "_" + time2string(*i) + suffix);
+                std::string timeStamp = time2string(*i);
+                std::replace(timeStamp.begin(), timeStamp.end(), ':', '-');
+                stateDumpFiles.push_back(prefix + "_" + timeStamp + suffix);
             }
         }
     } catch (IOError& e) {
