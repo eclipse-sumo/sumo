@@ -4,6 +4,9 @@
 # two persontrips with the same group
 2persontrips
 
+# two persontrips with the same group
+2persontrips_defaultgroup
+
 # 5 persons wish to share a taxi but only some taxis are applicable
 5persons_taxi_size
 
