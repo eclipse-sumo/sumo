@@ -162,6 +162,10 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
         }
         // check if attribute carrier is selected
         if (isAttributeCarrierSelected()) {
+
+            /* clickedElement */
+
+
             // declare a vector for saving geometry points to move
             std::vector<int> geometryPointsToMove;
             // if edge is selected, check conditions
@@ -190,6 +194,10 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
             return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, {index});
         }
     }
+}
+
+void GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList)
+{
 }
 
 
@@ -288,49 +296,6 @@ GNEEdge::commitShapeChangeEnd(GNEUndoList* undoList) {
     undoList->p_begin("shape end of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), toString(myPositionBeforeMoving)));
     undoList->p_end();
-}
-
-
-int
-GNEEdge::getEdgeVertexIndex(Position pos, const bool snapToGrid) const {
-    // check if position has to be snapped to grid
-    if (snapToGrid) {
-        pos = myNet->getViewNet()->snapToActiveGrid(pos);
-    }
-    const double offset = myNBEdge->getGeometry().nearest_offset_to_point2D(pos, true);
-    if (offset == GeomHelper::INVALID_OFFSET) {
-        return -1;
-    }
-    Position newPos = myNBEdge->getGeometry().positionAtOffset2D(offset);
-    // first check if vertex already exists in the inner geometry
-    for (int i = 0; i < (int)myNBEdge->getGeometry().size(); i++) {
-        if (myNBEdge->getGeometry()[i].distanceTo2D(newPos) < SNAP_RADIUS) {
-            // index refers to inner geometry
-            if (i == 0 || i == (int)(myNBEdge->getGeometry().size() - 1)) {
-                return -1;
-            }
-            return i;
-        }
-    }
-    return -1;
-}
-
-
-void
-GNEEdge::deleteEdgeGeometryPoint(const Position& pos, bool allowUndo) {
-    // obtain index and remove point
-    PositionVector modifiedShape = myNBEdge->getInnerGeometry();
-    int index = modifiedShape.indexOfClosest(pos);
-    modifiedShape.erase(modifiedShape.begin() + index);
-    // set new shape depending of allowUndo
-    if (allowUndo) {
-        myNet->getViewNet()->getUndoList()->p_begin("delete geometry point");
-        setAttribute(SUMO_ATTR_SHAPE, toString(modifiedShape), myNet->getViewNet()->getUndoList());
-        myNet->getViewNet()->getUndoList()->p_end();
-    } else {
-        // set new shape
-        setGeometry(modifiedShape, true);
-    }
 }
 
 
@@ -497,10 +462,12 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
                 setAttribute(GNE_ATTR_SHAPE_START, toString(newPos), undoList);
                 getParentJunctions().front()->invalidateShape();
             }
+/*
             // possibly existing inner point is no longer needed
             if (myNBEdge->getInnerGeometry().size() > 0 && getEdgeVertexIndex(pos, false) != -1) {
                 deleteEdgeGeometryPoint(pos, false);
             }
+*/
             undoList->p_end();
         }
     }

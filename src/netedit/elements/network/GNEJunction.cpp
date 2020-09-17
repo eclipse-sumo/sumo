@@ -143,23 +143,26 @@ GNEJunction::getMoveOperation(const double shapeOffset) {
 }
 
 
-void
-GNEJunction::deleteJunctionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList) {
-/*
-    // get a copy of shape
-    PositionVector newShape = parse<PositionVector>(getAttribute(SUMO_ATTR_SHAPE));
-    // obtain index
-    const int index = getJunctionShapeVertexIndex(mousePosition, false);
-    // check index
-    if ((index != -1) && (newShape.size() > 3)) {
-        // remove geometry point
-        newShape.erase(newShape.begin() + index);
-        // set new shape
-        undoList->p_begin("delete geometry point of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
-        undoList->p_end();
+void 
+GNEJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    // edit depending if shape is being edited
+    if (isShapeEdited()) {
+        // get original shape
+        PositionVector shape = myNBNode->getShape();
+        // obtain index
+        int index = shape.indexOfClosest(clickedPosition);
+        // get snap radius
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+        // check if we have to create a new index
+        if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) > (snap_radius * snap_radius)) {
+            // remove geometry point
+            shape.erase(shape.begin() + index);
+            // commit new shape
+            undoList->p_begin("remove geometry point of " + getTagStr());
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
+            undoList->p_end();
+        }
     }
-*/
 }
 
 

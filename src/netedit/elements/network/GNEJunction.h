@@ -79,12 +79,9 @@ public:
     /// @{
     /// @brief get move operation for the given shapeOffset (can be nullptr)
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
-    /// @}
 
-    /// @name functions for edit shape
-    /// @{
-    /// @brief delete geometry point
-    void deleteJunctionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList);
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
     /// @}
 
     /// @name inherited from GUIGlObject

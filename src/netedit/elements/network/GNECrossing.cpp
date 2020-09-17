@@ -94,7 +94,7 @@ GNECrossing::getMoveOperation(const double shapeOffset) {
             // obtain index
             int index = originalShape.indexOfClosest(positionAtOffset);
             // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius;
             // check if we have to create a new index
             if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
                 index = shapeToMove.insertAtClosest(positionAtOffset, true);
@@ -102,60 +102,31 @@ GNECrossing::getMoveOperation(const double shapeOffset) {
             // return move operation for edit shape
             return new GNEMoveOperation(this, originalShape, shapeToMove, index, {index});
         }
+    } else {
+        return nullptr;
     }
 }
 
 
-int
-GNECrossing::getCrossingShapeVertexIndex(Position pos, const bool snapToGrid) const {
-    // get crossing
-    const auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
-    // get shape
-    const PositionVector shape = crossing->customShape.size() > 0 ?  crossing->customShape : crossing->shape;
-    // check shape size
-    if (shape.size() == 0) {
-        return -1;
-    }
-    // check if position has to be snapped to grid
-    if (snapToGrid) {
-        pos = myNet->getViewNet()->snapToActiveGrid(pos);
-    }
-    const double offset = shape.nearest_offset_to_point2D(pos, true);
-    if (offset == GeomHelper::INVALID_OFFSET) {
-        // check if we clicked over start or end position
-        if (shape.front().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
-            return 0;
-        } else if (shape.back().distanceTo2D(pos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
-            return (int)shape.size() - 1;
-        } else {
-            return -1;
+void 
+GNECrossing::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    // edit depending if shape is being edited
+    if (isShapeEdited()) {
+        // get original shape
+        PositionVector shape = getCrossingShape();
+        // obtain index
+        int index = shape.indexOfClosest(clickedPosition);
+        // get snap radius
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius;
+        // check if we have to create a new index
+        if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) > (snap_radius * snap_radius)) {
+            // remove geometry point
+            shape.erase(shape.begin() + index);
+            // commit new shape
+            undoList->p_begin("remove geometry point of " + getTagStr());
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(shape)));
+            undoList->p_end();
         }
-    }
-    Position newPos = shape.positionAtOffset2D(offset);
-    // first check if vertex already exists in the inner geometry
-    for (int i = 0; i < (int)shape.size(); i++) {
-        if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius) {
-            return i;
-        }
-    }
-    return -1;
-}
-
-
-void
-GNECrossing::deleteCrossingShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList) {
-    // get a copy of shape
-    PositionVector newShape = myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->customShape;
-    // obtain index
-    const int index = getCrossingShapeVertexIndex(mousePosition, false);
-    // check index
-    if ((index != -1) && (newShape.size() > 2)) {
-        // remove geometry point
-        newShape.erase(newShape.begin() + index);
-        // set new shape
-        undoList->p_begin("delete geometry point of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(newShape)));
-        undoList->p_end();
     }
 }
 

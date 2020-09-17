@@ -3745,10 +3745,14 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // check if we are deleting a selection or an single attribute carrier
                 if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // before delete al selected attribute carriers, check if we clicked over a geometry point
-                    if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints() &&
-                            (((myObjectsUnderCursor.getEdgeFront()) && (myObjectsUnderCursor.getEdgeFront()->getEdgeVertexIndex(getPositionInformation(), false) != -1)) ||
-                             ((myObjectsUnderCursor.getPolyFront()) && (myObjectsUnderCursor.getPolyFront()->getPolyVertexIndex(getPositionInformation(), false) != -1)))) {
-                        myViewParent->getDeleteFrame()->removeAttributeCarrier(myObjectsUnderCursor);
+                    if (myViewParent->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints()) {
+                        if (myObjectsUnderCursor.getEdgeFront()) {
+                            myObjectsUnderCursor.getEdgeFront()->removeGeometryPoint(getPositionInformation(), myUndoList);
+                /*
+                        } else if (myObjectsUnderCursor.getPolyFront()) {
+                            myObjectsUnderCursor.getPolyFront()->removeGeometryPoint(getPositionInformation());
+                */
+                        }
                     } else {
                         myViewParent->getDeleteFrame()->removeSelectedAttributeCarriers();
                     }
@@ -3824,13 +3828,13 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     // check what geometry point will be removed
                     if (myObjectsUnderCursor.getCrossingFront() &&
                             (myObjectsUnderCursor.getCrossingFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
-                        myObjectsUnderCursor.getCrossingFront()->deleteCrossingShapeGeometryPoint(getPositionInformation(), myUndoList);
+                        myObjectsUnderCursor.getCrossingFront()->removeGeometryPoint(getPositionInformation(), myUndoList);
                     } else if (myObjectsUnderCursor.getConnectionFront() &&
                                (myObjectsUnderCursor.getConnectionFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
-                        myObjectsUnderCursor.getConnectionFront()->deleteConnectionShapeGeometryPoint(getPositionInformation(), myUndoList);
+                        myObjectsUnderCursor.getConnectionFront()->removeGeometryPoint(getPositionInformation(), myUndoList);
                     } else if (myObjectsUnderCursor.getJunctionFront() &&
                                (myObjectsUnderCursor.getJunctionFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
-                        myObjectsUnderCursor.getJunctionFront()->deleteJunctionShapeGeometryPoint(getPositionInformation(), myUndoList);
+                        myObjectsUnderCursor.getJunctionFront()->removeGeometryPoint(getPositionInformation(), myUndoList);
                     }
                 } else if (!myMoveSingleElementValues.beginMoveNetworkElementShape()) {
                     // process click  if there isn't movable elements (to move camera using drag an drop)

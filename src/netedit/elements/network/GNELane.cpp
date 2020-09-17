@@ -228,35 +228,15 @@ GNELane::getPositionInView() const {
 
 
 GNEMoveOperation* 
-GNELane::getMoveOperation(const double shapeOffset) {
+GNELane::getMoveOperation(const double /*shapeOffset*/) {
+    // currently Lane shapes cannot be edited
     return nullptr;
 }
 
 
-int
-GNELane::getLaneShapeVertexIndex(Position pos, const bool snapToGrid) const {
-    // get shape
-    const PositionVector& shape = myParentEdge->getNBEdge()->getLaneShape(myIndex);
-    // check if position has to be snapped to grid
-    if (snapToGrid) {
-        pos = myNet->getViewNet()->snapToActiveGrid(pos);
-    }
-    const double offset = shape.nearest_offset_to_point2D(pos, true);
-    if (offset == GeomHelper::INVALID_OFFSET) {
-        return -1;
-    }
-    Position newPos = shape.positionAtOffset2D(offset);
-    // first check if vertex already exists in the inner geometry
-    for (int i = 0; i < (int)shape.size(); i++) {
-        if (shape[i].distanceTo2D(newPos) < myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.edgeGeometryPointRadius) {
-            // index refers to inner geometry
-            if (i == 0 || i == (int)(shape.size() - 1)) {
-                return -1;
-            }
-            return i;
-        }
-    }
-    return -1;
+void 
+GNELane::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // currently unused
 }
 
 
@@ -1109,14 +1089,14 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNELane::setMoveShape(const PositionVector& newShape) {
-    //
+GNELane::setMoveShape(const PositionVector& /*newShape*/) {
+    // currently unused
 }
 
 
 void 
-GNELane::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+GNELane::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // currently unused
 }
 
 
@@ -1795,3 +1775,7 @@ GNELane::buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMe
 }
 
 /****************************************************************************/
+
+void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList)
+{
+}

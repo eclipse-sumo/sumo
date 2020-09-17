@@ -101,8 +101,15 @@ GNEInternalLane::getPositionInView() const {
 
 
 GNEMoveOperation* 
-GNEInternalLane::getMoveOperation(const double shapeOffset) {
+GNEInternalLane::getMoveOperation(const double /*shapeOffset*/) {
+    // internal lanes cannot be moved
     return nullptr;
+}
+
+
+void 
+GNEInternalLane::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undolist*/) {
+    // geometry points of internal lanes cannot be removed
 }
 
 
@@ -252,14 +259,14 @@ GNEInternalLane::setAttribute(SumoXMLAttr key, const std::string& /*value*/) {
 
 
 void 
-GNEInternalLane::setMoveShape(const PositionVector& newShape) {
-    //
+GNEInternalLane::setMoveShape(const PositionVector& /*newShape*/) {
+    // internal lanes cannot be moved
 }
 
 
 void
-GNEInternalLane::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+GNEInternalLane::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // internal lanes cannot be moved
 }
 
 /****************************************************************************/

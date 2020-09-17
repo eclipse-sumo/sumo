@@ -213,9 +213,7 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
         if (myDeleteOptions->deleteOnlyGeometryPoints() && !ignoreOptions) {
             // check type of of object under cursor object with geometry points
             if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                if (objectsUnderCursor.getEdgeFront()->getEdgeVertexIndex(clickedPosition, false) != -1) {
-                    objectsUnderCursor.getEdgeFront()->deleteEdgeGeometryPoint(clickedPosition);
-                }
+                objectsUnderCursor.getEdgeFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_POLY) {
                 if (objectsUnderCursor.getPolyFront()->getVertexIndex(clickedPosition, false) != -1) {
                     objectsUnderCursor.getPolyFront()->deleteGeometryPoint(clickedPosition);
@@ -235,10 +233,7 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
                     myViewNet->getNet()->deleteJunction(objectsUnderCursor.getJunctionFront(), myViewNet->getUndoList());
                 }
             } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                // check if click was over a geometry point or over a shape's edge
-                if (objectsUnderCursor.getEdgeFront()->getEdgeVertexIndex(clickedPosition, false) != -1) {
-                    objectsUnderCursor.getEdgeFront()->deleteEdgeGeometryPoint(clickedPosition);
-                } else if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getEdgeFront()).checkElements(myDeleteOptions)) {
+                if (ignoreOptions || SubordinatedElements(objectsUnderCursor.getEdgeFront()).checkElements(myDeleteOptions)) {
                     // if all ok, then delete edge
                     myViewNet->getNet()->deleteEdge(objectsUnderCursor.getEdgeFront(), myViewNet->getUndoList(), false);
                 }

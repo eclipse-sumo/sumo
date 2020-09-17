@@ -112,16 +112,9 @@ public:
     /// @{
     /// @brief get move operation for the given shapeOffset (can be nullptr)
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
-    /// @}
 
-    /// @name functions for edit shape
-    /// @{
-    /**@brief return index of geometry point placed in given position, or -1 if no exist
-    * @param pos position of new/existent vertex
-    * @param snapToGrid enable or disable snapToActiveGrid
-    * @return index of position vector
-    */
-    int getLaneShapeVertexIndex(Position pos, const bool snapToGrid) const;
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
     /// @}
 
     /// @brief returns a vector with the incoming GNEConnections of this lane

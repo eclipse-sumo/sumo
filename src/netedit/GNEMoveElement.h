@@ -92,6 +92,9 @@ public:
      */
     virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
 
+    /// @brief remove geometry point in the clicked position
+    virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
+
     /// @brief move element the for given offset
     static void moveElement(GNEMoveOperation* moveOperation, const Position &offset);
 

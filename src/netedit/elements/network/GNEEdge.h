@@ -80,6 +80,9 @@ public:
     /// @{
     /// @brief get move operation for the given shapeOffset (can be nullptr)
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
+
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
     /// @}
 
     /// @name functions for edit start and end shape positions
@@ -108,19 +111,6 @@ public:
     /// @brief commit position changing in shape end
     void commitShapeChangeEnd(GNEUndoList* undoList);
     /// @}
-
-    /// @name functions for edit geometry
-    /// @{
-    /**@brief return index of geometry point placed in given position, or -1 if no exist
-     * @param pos position of new/existent vertex
-     * @param snapToGrid enable or disable snapToActiveGrid
-     * @return index of position vector
-     */
-    int getEdgeVertexIndex(Position pos, const bool snapToGrid) const;
-    /// @}
-
-    /// @brief delete the geometry point closest to the given pos
-    void deleteEdgeGeometryPoint(const Position& pos, bool allowUndo = true);
 
     /// @brief update edge geometry after junction move
     void updateJunctionPosition(GNEJunction* junction, const Position& origPos);

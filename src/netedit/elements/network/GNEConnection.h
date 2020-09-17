@@ -60,19 +60,9 @@ public:
     /// @{
     /// @brief get move operation for the given shapeOffset (can be nullptr)
     GNEMoveOperation* getMoveOperation(const double shapeOffset);
-    /// @}
 
-    /// @name functions for edit shape
-    /// @{
-    /**@brief return index of geometry point placed in given position, or -1 if no exist
-    * @param pos position of new/existent vertex
-    * @param snapToGrid enable or disable snapToActiveGrid
-    * @return index of position vector
-    */
-    int getConnectionShapeVertexIndex(Position pos, const bool snapToGrid) const;
-
-    /// @brief delete geometry point
-    void deleteConnectionShapeGeometryPoint(const Position& mousePosition, GNEUndoList* undoList);
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
     /// @}
 
     /// @brief get the name of the edge the vehicles leave
