@@ -79,10 +79,10 @@ public:
 
     /**@brief add vehicle element
      * @param objectsUnderCursor collection of objects under cursor after click over view
-     * @param keyPressed key pressed during click
+     * @param mouseButtonKeyPressed key pressed during click
      * @return true if element was sucesfully added
      */
-    bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed& keyPressed);
+    bool addVehicle(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get PathCreator modul
     GNEFrameModuls::PathCreator* getPathCreator() const;

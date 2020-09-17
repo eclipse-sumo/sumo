@@ -39,7 +39,7 @@ GNETAZRelDataFrame::~GNETAZRelDataFrame() {}
 
 
 bool
-GNETAZRelDataFrame::addTAZRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed& /*keyPressed*/) {
+GNETAZRelDataFrame::addTAZRelationData(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& /*mouseButtonKeyPressed*/) {
     // check if myFirstTAZElement is empty
     if (myFirstTAZElement) {
         if (objectsUnderCursor.getTAZElementFront()) {

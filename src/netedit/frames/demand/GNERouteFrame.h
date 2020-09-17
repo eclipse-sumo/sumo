@@ -115,10 +115,10 @@ public:
 
     /**@brief add route edge
     * @param edge edge to be added
-    * @param keyPressed key pressed during click
+    * @param mouseButtonKeyPressed key pressed during click
     * @return true if element was sucesfully added
     */
-    bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::KeyPressed& keyPressed);
+    bool addEdgeRoute(GNEEdge* clickedEdge, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed);
 
     /// @brief get path creator modul
     GNEFrameModuls::PathCreator* getPathCreator() const;

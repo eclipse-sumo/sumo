@@ -166,9 +166,9 @@ GNEStopFrame::show() {
 
 
 bool
-GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::KeyPressed& keyPressed) {
+GNEStopFrame::addStop(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, const GNEViewNetHelper::MouseButtonKeyPressed& mouseButtonKeyPressed) {
     // check if we're selecting a new stop parent
-    if (keyPressed.shiftKeyPressed()) {
+    if (mouseButtonKeyPressed.shiftKeyPressed()) {
         if (objectsUnderCursor.getDemandElementFront() &&
                 (objectsUnderCursor.getDemandElementFront()->getTagProperty().isVehicle() || objectsUnderCursor.getDemandElementFront()->getTagProperty().getTag() == SUMO_TAG_ROUTE)) {
             myStopParentSelector->setDemandElement(objectsUnderCursor.getDemandElementFront());

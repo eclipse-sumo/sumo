@@ -841,22 +841,22 @@ GNEViewNetHelper::ObjectsUnderCursor::ObjectsUnderCursor() :
 }
 
 // ---------------------------------------------------------------------------
-// GNEViewNetHelper::keyPressed - methods
+// GNEViewNetHelper::MouseButtonKeyPressed - methods
 // ---------------------------------------------------------------------------
 
-GNEViewNetHelper::KeyPressed::KeyPressed() :
+GNEViewNetHelper::MouseButtonKeyPressed::MouseButtonKeyPressed() :
     myEventInfo(nullptr) {
 }
 
 
 void
-GNEViewNetHelper::KeyPressed::update(void* eventData) {
+GNEViewNetHelper::MouseButtonKeyPressed::update(void* eventData) {
     myEventInfo = (FXEvent*) eventData;
 }
 
 
 bool
-GNEViewNetHelper::KeyPressed::shiftKeyPressed() const {
+GNEViewNetHelper::MouseButtonKeyPressed::shiftKeyPressed() const {
     if (myEventInfo) {
         return (myEventInfo->state & SHIFTMASK) != 0;
     } else {
@@ -866,9 +866,29 @@ GNEViewNetHelper::KeyPressed::shiftKeyPressed() const {
 
 
 bool
-GNEViewNetHelper::KeyPressed::controlKeyPressed() const {
+GNEViewNetHelper::MouseButtonKeyPressed::controlKeyPressed() const {
     if (myEventInfo) {
         return (myEventInfo->state & CONTROLMASK) != 0;
+    } else {
+        return false;
+    }
+}
+
+
+bool
+GNEViewNetHelper::MouseButtonKeyPressed::mouseLeftButtonPressed() const {
+    if (myEventInfo) {
+        return (myEventInfo->state & LEFTBUTTONMASK) != 0;
+    } else {
+        return false;
+    }
+}
+
+
+bool 
+GNEViewNetHelper::MouseButtonKeyPressed::mouseRightButtonPressed() const {
+    if (myEventInfo) {
+        return (myEventInfo->state & RIGHTBUTTONMASK) != 0;
     } else {
         return false;
     }
@@ -1131,7 +1151,7 @@ GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues() {
 
 bool
 GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues(GNEEdge *edge) {
-    if (myViewNet->myKeyPressed.shiftKeyPressed()) {
+    if (myViewNet->myMouseButtonKeyPressed.shiftKeyPressed()) {
         // edit end point
         edge->editEndpoint(myViewNet->getPositionInformation(), myViewNet->myUndoList);
         // edge values wasn't calculated, then return false
@@ -1430,7 +1450,7 @@ GNEViewNetHelper::SelectingArea::processRectangleSelection() {
     // shift held down on mouse-down and mouse-up and check that rectangle exist
     if ((abs(selectionCorner1.x() - selectionCorner2.x()) > 0.01) &&
             (abs(selectionCorner1.y() - selectionCorner2.y()) > 0.01) &&
-            myViewNet->myKeyPressed.shiftKeyPressed()) {
+            myViewNet->myMouseButtonKeyPressed.shiftKeyPressed()) {
         // create boundary between two corners
         Boundary rectangleBoundary;
         rectangleBoundary.add(selectionCorner1);
@@ -1448,7 +1468,7 @@ GNEViewNetHelper::SelectingArea::processEdgeRectangleSelection() {
     // shift held down on mouse-down and mouse-up and check that rectangle exist
     if ((abs(selectionCorner1.x() - selectionCorner2.x()) > 0.01) &&
             (abs(selectionCorner1.y() - selectionCorner2.y()) > 0.01) &&
-            myViewNet->myKeyPressed.shiftKeyPressed()) {
+            myViewNet->myMouseButtonKeyPressed.shiftKeyPressed()) {
         // create boundary between two corners
         Boundary rectangleBoundary;
         rectangleBoundary.add(selectionCorner1);

@@ -376,30 +376,36 @@ struct GNEViewNetHelper {
         ObjectsUnderCursor& operator=(const ObjectsUnderCursor&) = delete;
     };
 
-    /// @brief class used to group all variables related with key pressed after certain events
-    struct KeyPressed {
+    /// @brief class used to group all variables related with mouse buttons and key pressed after certain events
+    struct MouseButtonKeyPressed {
 
         /// @brief constructor
-        KeyPressed();
+        MouseButtonKeyPressed();
 
-        /// @brief update status of KeyPressed
+        /// @brief update status of MouseButtonKeyPressed during current event
         void update(void* eventData);
 
-        /// @brief check if SHIFT key was pressed during click
+        /// @brief check if SHIFT is pressed during current event
         bool shiftKeyPressed() const;
 
-        /// @brief check if CONTROL key was pressed during click
+        /// @brief check if CONTROL is pressed during current event
         bool controlKeyPressed() const;
 
+        /// @brief check if mouse left button is pressed during current event
+        bool mouseLeftButtonPressed() const;
+
+        /// @brief check if mouse right button is pressed during current event
+        bool mouseRightButtonPressed() const;
+
     private:
-        /// @brief information of event
+        /// @brief information of event (must be updated)
         FXEvent* myEventInfo;
 
         /// @brief Invalidated copy constructor.
-        KeyPressed(const KeyPressed&) = delete;
+        MouseButtonKeyPressed(const MouseButtonKeyPressed&) = delete;
 
         /// @brief Invalidated assignment operator.
-        KeyPressed& operator=(const KeyPressed&) = delete;
+        MouseButtonKeyPressed& operator=(const MouseButtonKeyPressed&) = delete;
     };
 
     /// @brief struct used to group all variables related with save elements

@@ -485,9 +485,9 @@ GNEViewNet::getDataViewOptions() const {
 }
 
 
-const GNEViewNetHelper::KeyPressed&
-GNEViewNet::getKeyPressed() const {
-    return myKeyPressed;
+const GNEViewNetHelper::MouseButtonKeyPressed&
+GNEViewNet::getMouseButtonKeyPressed() const {
+    return myMouseButtonKeyPressed;
 }
 
 
@@ -765,8 +765,8 @@ long
 GNEViewNet::onLeftBtnPress(FXObject*, FXSelector, void* eventData) {
     // set focus in view net
     setFocus();
-    // update keyPressed
-    myKeyPressed.update(eventData);
+    // update MouseButtonKeyPressed
+    myMouseButtonKeyPressed.update(eventData);
     // interpret object under cursor
     if (makeCurrent()) {
         // fill objects under cursor
@@ -793,8 +793,8 @@ long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // process parent function
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
-    // first update keyPressed
-    myKeyPressed.update(eventData);
+    // first update MouseButtonKeyPressed
+    myMouseButtonKeyPressed.update(eventData);
     // update cursor
     updateCursor();
     // process left button release function depending of supermode
@@ -813,8 +813,8 @@ GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
-    // update keyPressed
-    myKeyPressed.update(eventData);
+    // update MouseButtonKeyPressed
+    myMouseButtonKeyPressed.update(eventData);
     // update cursor
     updateCursor();
     if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
@@ -828,8 +828,8 @@ GNEViewNet::onRightBtnPress(FXObject* obj, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onRightBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
-    // update keyPressed
-    myKeyPressed.update(eventData);
+    // update MouseButtonKeyPressed
+    myMouseButtonKeyPressed.update(eventData);
     // update cursor
     updateCursor();
     // disable right button release during drawing polygon
@@ -845,21 +845,17 @@ long
 GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
     // process mouse move in GUISUMOAbstractView
     GUISUMOAbstractView::onMouseMove(obj, sel, eventData);
-    // update keyPressed
-    myKeyPressed.update(eventData);
-    /*
-    FXEvent* myEventInfo = (FXEvent*) eventData;
-    std::cout << (myEventInfo->state & LEFTBUTTONMASK) << std::endl;
-    */
+    // update MouseButtonKeyPressed
+    myMouseButtonKeyPressed.update(eventData);
     // update cursor
     updateCursor();
     // process mouse move function depending of supermode
     if (myEditModes.isCurrentSupermodeNetwork()) {
-        processMoveMouseNetwork(true);
+        processMoveMouseNetwork(myMouseButtonKeyPressed.mouseLeftButtonPressed());
     } else if (myEditModes.isCurrentSupermodeDemand()) {
-        processMoveMouseDemand(true);
+        processMoveMouseDemand(myMouseButtonKeyPressed.mouseLeftButtonPressed());
     } else if (myEditModes.isCurrentSupermodeData()) {
-        processMoveMouseData(true);
+        processMoveMouseData(myMouseButtonKeyPressed.mouseLeftButtonPressed());
     }
     // update view
     updateViewNet();
@@ -869,16 +865,16 @@ GNEViewNet::onMouseMove(FXObject* obj, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
-    // update keyPressed
-    myKeyPressed.update(eventData);
+    // update MouseButtonKeyPressed
+    myMouseButtonKeyPressed.update(eventData);
     // update cursor
     updateCursor();
     // change "delete last created point" depending of shift key
     if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
         updateViewNet();
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
-        myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+        myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
         updateViewNet();
     }
     return GUISUMOAbstractView::onKeyPress(o, sel, eventData);
@@ -887,17 +883,17 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
 
 long
 GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
-    // update keyPressed
-    myKeyPressed.update(eventData);
+    // update MouseButtonKeyPressed
+    myMouseButtonKeyPressed.update(eventData);
     // update cursor
     updateCursor();
     // change "delete last created point" depending of shift key
     if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
         updateViewNet();
     }
     // check if selecting using rectangle has to be disabled
-    if (mySelectingArea.selectingUsingRectangle && !myKeyPressed.shiftKeyPressed()) {
+    if (mySelectingArea.selectingUsingRectangle && !myMouseButtonKeyPressed.shiftKeyPressed()) {
         mySelectingArea.selectingUsingRectangle = false;
         updateViewNet();
     }
@@ -2203,7 +2199,7 @@ GNEViewNet::updateCursor() {
         }
     }
     // update cursor if control key is pressed
-    if (myKeyPressed.controlKeyPressed() && cursorMove) {
+    if (myMouseButtonKeyPressed.controlKeyPressed() && cursorMove) {
         setDefaultCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVE));
         setDragCursor(GUICursorSubSys::getCursor(SUMOCURSOR_MOVE));
     } else {
@@ -3726,7 +3722,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
     switch (myEditModes.networkEditMode) {
         case NetworkEditMode::NETWORK_INSPECT: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
+            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
             // process left click in Inspector Frame
@@ -3737,7 +3733,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_DELETE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
+            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
             // check that we have clicked over an non-demand element
@@ -3771,13 +3767,13 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_SELECT:
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
+            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
             // avoid to select if control key is pressed
-            if (!myKeyPressed.controlKeyPressed()) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
-                if (myKeyPressed.shiftKeyPressed()) {
+                if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
                 } else {
@@ -3803,7 +3799,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             break;
         case NetworkEditMode::NETWORK_CREATE_EDGE: {
             // make sure that Control key isn't pressed
-            if (!myKeyPressed.controlKeyPressed()) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if we have to update objects under snapped cursor
                 if (myVisualizationSettings->showGrid) {
                     myViewParent->getCreateEdgeFrame()->updateObjectsUnderSnappedCursor(getGUIGlObjectsUnderSnappedCursor());
@@ -3822,13 +3818,13 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_MOVE: {
             // first swap lane to edges if mySelectEdges is enabled and shift key isn't pressed
-            if (myNetworkViewOptions.selectEdges() && (myKeyPressed.shiftKeyPressed() == false)) {
+            if (myNetworkViewOptions.selectEdges() && (myMouseButtonKeyPressed.shiftKeyPressed() == false)) {
                 myObjectsUnderCursor.swapLane2Edge();
             }
             // check if we're editing a shape
             if (myEditNetworkElementShapes.getEditedNetworkElement()) {
                 // check if we're removing a geometry point
-                if (myKeyPressed.shiftKeyPressed()) {
+                if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // check what geometry point will be removed
                     if (myObjectsUnderCursor.getCrossingFront() &&
                             (myObjectsUnderCursor.getCrossingFront() == myEditNetworkElementShapes.getEditedNetworkElement())) {
@@ -3889,7 +3885,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_ADDITIONAL: {
             // avoid create additionals if control key is pressed
-            if (!myKeyPressed.controlKeyPressed()) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isShown()) {
                     // check if we need to start select lanes
                     if (myViewParent->getAdditionalFrame()->getConsecutiveLaneSelector()->isSelectingLanes()) {
@@ -3920,9 +3916,9 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // swap lanes to edges in TAZ Mode
             myObjectsUnderCursor.swapLane2Edge();
             // avoid create TAZs if control key is pressed
-            if (!myKeyPressed.controlKeyPressed()) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if we want to create a rect for selecting edges
-                if (myKeyPressed.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
+                if (myMouseButtonKeyPressed.shiftKeyPressed() && (myViewParent->getTAZFrame()->getTAZCurrentModul()->getTAZ() != nullptr)) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
                 } else {
@@ -3942,7 +3938,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
         }
         case NetworkEditMode::NETWORK_POLYGON: {
             // avoid create shapes if control key is pressed
-            if (!myKeyPressed.controlKeyPressed()) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 if (!myObjectsUnderCursor.getPOIFront()) {
                     GNEPolygonFrame::AddShape result = myViewParent->getPolygonFrame()->processClick(snapToActiveGrid(getPositionInformation()), myObjectsUnderCursor);
                     // view net must be always update
@@ -3992,7 +3988,7 @@ GNEViewNet::processLeftButtonReleaseNetwork() {
                 // process edge selection
                 myViewParent->getTAZFrame()->processEdgeSelection(mySelectingArea.processEdgeRectangleSelection());
             }
-        } else if (myKeyPressed.shiftKeyPressed()) {
+        } else if (myMouseButtonKeyPressed.shiftKeyPressed()) {
             // obtain objects under cursor
             if (makeCurrent()) {
                 // update objects under cursor again
@@ -4022,9 +4018,9 @@ void
 GNEViewNet::processMoveMouseNetwork(const bool mouseLeftButtonPressed) {
     // change "delete last created point" depending if during movement shift key is pressed
     if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
-        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+        myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
-        myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myKeyPressed.shiftKeyPressed());
+        myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
     }
     // check what type of additional is moved
     if (myMoveMultipleElementValues.isMovingSelection()) {
@@ -4068,9 +4064,9 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_SELECT:
             // avoid to select if control key is pressed
-            if (!myKeyPressed.controlKeyPressed()) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
-                if (myKeyPressed.shiftKeyPressed()) {
+                if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
                 } else {
@@ -4118,7 +4114,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
             // check if we clicked over a lane
             if (myObjectsUnderCursor.getLaneFront()) {
                 // Handle edge click
-                myViewParent->getRouteFrame()->addEdgeRoute(myObjectsUnderCursor.getLaneFront()->getParentEdge(), myKeyPressed);
+                myViewParent->getRouteFrame()->addEdgeRoute(myObjectsUnderCursor.getLaneFront()->getParentEdge(), myMouseButtonKeyPressed);
             }
             // process click
             processClick(eventData);
@@ -4126,28 +4122,28 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
         }
         case DemandEditMode::DEMAND_VEHICLE: {
             // Handle click
-            myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor, myKeyPressed);
+            myViewParent->getVehicleFrame()->addVehicle(myObjectsUnderCursor, myMouseButtonKeyPressed);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_STOP: {
             // Handle click
-            myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myKeyPressed);
+            myViewParent->getStopFrame()->addStop(myObjectsUnderCursor, myMouseButtonKeyPressed);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_PERSON: {
             // Handle click
-            myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor, myKeyPressed);
+            myViewParent->getPersonFrame()->addPerson(myObjectsUnderCursor, myMouseButtonKeyPressed);
             // process click
             processClick(eventData);
             break;
         }
         case DemandEditMode::DEMAND_PERSONPLAN: {
             // Handle person plan click
-            myViewParent->getPersonPlanFrame()->addPersonPlanElement(myObjectsUnderCursor, myKeyPressed);
+            myViewParent->getPersonPlanFrame()->addPersonPlanElement(myObjectsUnderCursor, myMouseButtonKeyPressed);
             // process click
             processClick(eventData);
             break;
@@ -4219,9 +4215,9 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
         }
         case DataEditMode::DATA_SELECT:
             // avoid to select if control key is pressed
-            if (!myKeyPressed.controlKeyPressed()) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if a rect for selecting is being created
-                if (myKeyPressed.shiftKeyPressed()) {
+                if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                     // begin rectangle selection
                     mySelectingArea.beginRectangleSelection();
                 } else {
@@ -4247,8 +4243,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             break;
         case DataEditMode::DATA_EDGEDATA:
             // avoid create edgeData if control key is pressed
-            if (!myKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getEdgeDataFrame()->addEdgeData(myObjectsUnderCursor, myKeyPressed)) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+                if (myViewParent->getEdgeDataFrame()->addEdgeData(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
                     // update view to show the new edge data
                     updateViewNet();
                 }
@@ -4258,8 +4254,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             break;
         case DataEditMode::DATA_EDGERELDATA:
             // avoid create edgeData if control key is pressed
-            if (!myKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myObjectsUnderCursor, myKeyPressed)) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+                if (myViewParent->getEdgeRelDataFrame()->addEdgeRelationData(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
                     // update view to show the new edge data
                     updateViewNet();
                 }
@@ -4269,8 +4265,8 @@ GNEViewNet::processLeftButtonPressData(void* eventData) {
             break;
         case DataEditMode::DATA_TAZRELDATA:
             // avoid create TAZData if control key is pressed
-            if (!myKeyPressed.controlKeyPressed()) {
-                if (myViewParent->getTAZRelDataFrame()->addTAZRelationData(myObjectsUnderCursor, myKeyPressed)) {
+            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+                if (myViewParent->getTAZRelDataFrame()->addTAZRelationData(myObjectsUnderCursor, myMouseButtonKeyPressed)) {
                     // update view to show the new TAZ data
                     updateViewNet();
                 }

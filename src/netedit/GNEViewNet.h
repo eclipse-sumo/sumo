@@ -115,7 +115,7 @@ public:
     const GNEViewNetHelper::DataViewOptions& getDataViewOptions() const;
 
     /// @brief get Key Pressed modul
-    const GNEViewNetHelper::KeyPressed& getKeyPressed() const;
+    const GNEViewNetHelper::MouseButtonKeyPressed& getMouseButtonKeyPressed() const;
 
     /// @brief get Edit Shape modul
     const GNEViewNetHelper::EditNetworkElementShapes& getEditNetworkElementShapes() const;
@@ -441,7 +441,7 @@ private:
     /// @{
 
     /// @brief variable used to save key status after certain events
-    GNEViewNetHelper::KeyPressed myKeyPressed;
+    GNEViewNetHelper::MouseButtonKeyPressed myMouseButtonKeyPressed;
 
     /// @brief variable use to save all pointers to objects under cursor after a click
     GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderCursor;

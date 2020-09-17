@@ -127,7 +127,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
     // first check if we have clicked over an Attribute Carrier
     if (objectsUnderCursor.getAttributeCarrierFront()) {
         // if Control key is Pressed, select instead inspect element
-        if (myViewNet->getKeyPressed().controlKeyPressed()) {
+        if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
             if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
                 // toogle networkElement selection
@@ -139,7 +139,7 @@ GNEInspectorFrame::processNetworkSupermodeClick(const Position& clickedPosition,
             }
         } else {
             // first check if we clicked over a OverlappedInspection point
-            if (myViewNet->getKeyPressed().shiftKeyPressed()) {
+            if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(objectsUnderCursor, clickedPosition);
@@ -163,7 +163,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
     // first check if we have clicked over a demand element
     if (objectsUnderCursor.getDemandElementFront()) {
         // if Control key is Pressed, select instead inspect element
-        if (myViewNet->getKeyPressed().controlKeyPressed()) {
+        if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
             if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
                 // toogle networkElement selection
@@ -175,7 +175,7 @@ GNEInspectorFrame::processDemandSupermodeClick(const Position& clickedPosition, 
             }
         } else {
             // first check if we clicked over a OverlappedInspection point
-            if (myViewNet->getKeyPressed().shiftKeyPressed()) {
+            if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(objectsUnderCursor, clickedPosition);
@@ -199,7 +199,7 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
     // first check if we have clicked over a data element
     if (objectsUnderCursor.getGenericDataElementFront()) {
         // if Control key is Pressed, select instead inspect element
-        if (myViewNet->getKeyPressed().controlKeyPressed()) {
+        if (myViewNet->getMouseButtonKeyPressed().controlKeyPressed()) {
             // Check if this GLobject type is locked
             if (!myViewNet->getViewParent()->getSelectorFrame()->getLockGLObjectTypes()->IsObjectTypeLocked(objectsUnderCursor.getGlTypeFront())) {
                 // toogle networkElement selection
@@ -211,7 +211,7 @@ GNEInspectorFrame::processDataSupermodeClick(const Position& clickedPosition, GN
             }
         } else {
             // first check if we clicked over a OverlappedInspection point
-            if (myViewNet->getKeyPressed().shiftKeyPressed()) {
+            if (myViewNet->getMouseButtonKeyPressed().shiftKeyPressed()) {
                 if (!myOverlappedInspection->previousElement(clickedPosition)) {
                     // inspect attribute carrier, (or multiselection if AC is selected)
                     inspectClickedElement(objectsUnderCursor, clickedPosition);
