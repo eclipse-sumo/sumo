@@ -38,9 +38,8 @@
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
-    GUIGlObject(GLO_POLYGON, id),
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
-    GNEShape(net, SUMO_TAG_POLY, movementBlocked,
+    GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, movementBlocked,
         {}, {}, {}, {}, {}, {}, {}, {}),
     myBlockShape(shapeBlocked),
     mySimplifiedShape(false) {
@@ -122,18 +121,6 @@ GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
             }
         }
     }
-}
-
-
-const std::string&
-GNEPoly::getID() const {
-    return getMicrosimID();
-}
-
-
-GUIGlObject*
-GNEPoly::getGUIGlObject() {
-    return this;
 }
 
 

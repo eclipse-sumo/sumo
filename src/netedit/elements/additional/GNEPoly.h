@@ -39,10 +39,10 @@ class GNENetworkElement;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPoly : public GUIGlObject, public SUMOPolygon, public GNEShape {
+class GNEPoly : public GNEShape, public SUMOPolygon {
 
 public:
-    /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
+    /// @brief needed to avoid diamond Problem between SUMOPolygon and GNEShape
     using GNEShape::getID;
 
     /** @brief Constructor
@@ -67,10 +67,6 @@ public:
     /// @brief Destructor
     ~GNEPoly();
 
-    Boundary getCenteringBoundary() const {
-        return myBoundary;
-    }
-
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
     */
@@ -78,12 +74,6 @@ public:
 
     /// @brief remove geometry point in the clicked position
     void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
-
-    /// @brief get ID
-    const std::string& getID() const;
-
-    /// @brief get GUIGlObject associated with this AttributeCarrier
-    GUIGlObject* getGUIGlObject();
 
     /// @brief gererate a new ID for an element child
     std::string generateChildID(SumoXMLTag childTag);

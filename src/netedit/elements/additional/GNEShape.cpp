@@ -31,7 +31,7 @@
 // method definitions
 // ===========================================================================
 
-GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
+GNEShape::GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool movementBlocked,
                    const std::vector<GNEJunction*>& junctionParents,
                    const std::vector<GNEEdge*>& edgeParents,
                    const std::vector<GNELane*>& laneParents,
@@ -40,12 +40,25 @@ GNEShape::GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
                    const std::vector<GNETAZElement*>& TAZElementParents,
                    const std::vector<GNEDemandElement*>& demandElementParents,
                    const std::vector<GNEGenericData*>& genericDataParents) :
+    GUIGlObject(type, id),
     GNEHierarchicalElement(net, tag, junctionParents, edgeParents, laneParents, additionalParents, shapeParents, TAZElementParents, demandElementParents, genericDataParents),
     myBlockMovement(movementBlocked) {
 }
 
 
 GNEShape::~GNEShape() {}
+
+
+const std::string& 
+GNEShape::getID() const {
+    return getMicrosimID();
+}
+
+
+GUIGlObject* 
+GNEShape::getGUIGlObject() {
+    return this;
+}
 
 
 bool

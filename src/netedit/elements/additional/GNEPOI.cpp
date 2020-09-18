@@ -40,9 +40,8 @@
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
                const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
                bool relativePath, double width, double height, bool movementBlocked) :
-    GUIGlObject(GLO_POI, id),
     PointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(net, SUMO_TAG_POI, movementBlocked,
+    GNEShape(id, net, GLO_POI,SUMO_TAG_POI, movementBlocked,
         {}, {}, {}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -55,9 +54,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
                double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
                double width, double height, bool movementBlocked) :
-    GUIGlObject(GLO_POI, id),
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(net, SUMO_TAG_POILANE, movementBlocked,
+    GNEShape(id, net, GLO_POI, SUMO_TAG_POILANE, movementBlocked,
         {}, {}, {lane}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
@@ -77,18 +75,6 @@ GNEPOI::getMoveOperation(const double shapeOffset) {
 void 
 GNEPOI::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // nothing to remove
-}
-
-
-const std::string&
-GNEPOI::getID() const {
-    return getMicrosimID();
-}
-
-
-GUIGlObject*
-GNEPOI::getGUIGlObject() {
-    return this;
 }
 
 

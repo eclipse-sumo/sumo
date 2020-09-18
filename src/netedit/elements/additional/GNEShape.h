@@ -30,10 +30,15 @@
 // class definitions
 // ===========================================================================
 
-class GNEShape : public GNEHierarchicalElement, public GNEMoveElement {
+class GNEShape : public GUIGlObject, public GNEHierarchicalElement, public GNEMoveElement {
 
 public:
     /**@brief Constructor.
+     * @param[in] id Gl-id of the shape element (Must be unique)
+     * @param[in] net pointer to GNENet of this shape element belongs
+     * @param[in] type GUIGlObjectType of shape
+     * @param[in] tag Type of xml tag that define the shape element
+     * @param[in] block movement enable or disable additional movement
      * @param[in] net The net to inform about gui updates
      * @param[in] tag sumo xml tag of the element
      * @param[in] movementBlocked if movement of POI is blocked
@@ -46,7 +51,7 @@ public:
      * @param[in] demandElementParents vector of demand element parents
      * @param[in] genericDataParents vector of generic data parents
      */
-    GNEShape(GNENet* net, SumoXMLTag tag, bool movementBlocked,
+    GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, SumoXMLTag tag, bool movementBlocked,
              const std::vector<GNEJunction*>& junctionParents,
              const std::vector<GNEEdge*>& edgeParents,
              const std::vector<GNELane*>& laneParents,
@@ -68,10 +73,10 @@ public:
     virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
 
     /// @brief get ID (all shapes have one)
-    virtual const std::string& getID() const = 0;
+    const std::string& getID() const;
 
     /// @brief get GUIGlObject associated with this AttributeCarrier
-    virtual GUIGlObject* getGUIGlObject() = 0;
+    GUIGlObject* getGUIGlObject();
 
     /// @brief gererate a new ID for an element child
     virtual std::string generateChildID(SumoXMLTag childTag) = 0;
