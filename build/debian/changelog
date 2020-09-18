@@ -1,7 +1,8 @@
-sumo (1.7.0+dfsg1-1) bionic; urgency=medium
+sumo (1.7.0+dfsg1-2) bionic; urgency=medium
 
   * new upstream version
   * fixing CMAKE_BUILD_TYPE to Release
+  * include userdoc in doc package and avoid gzipped examples
 
  -- Michael Behrisch <oss@behrisch.de>  Thu, 17 Sep 2020 18:27:13 +0200
 

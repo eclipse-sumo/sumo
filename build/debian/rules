@@ -20,12 +20,11 @@ export LIBS := -lgl2ps -lGL -lGLU -lglut
 
 include /usr/share/dpkg/buildflags.mk
 
+# we need to set the CMAKE_BUILD_TYPE because it is set to "None" otherwise
 override_dh_auto_configure:
 	dh_auto_configure -- -DCMAKE_BUILD_TYPE=Release
 
 override_dh_auto_build-indep:
-#	pip3 install mkdocs mkdocs-macros-plugin==0.2.4 mdx_gh_links pymdown-extensions mkdocs-git-revision-date-plugin mdx_truly_sane_lists
-#	$(MAKE) --directory=$(BUILDDIR) userdoc
 #	$(MAKE) --directory=$(BUILDDIR) traas
 	./tools/build/buildPyDoc.py -p docs/pydoc -c
 	#Clean some unneeded files and fix permissions
@@ -45,3 +44,9 @@ override_dh_auto_build-arch:
 override_dh_auto_install:
 	dh_auto_install
 	find . -type d -name "__pycache__" -delete
+
+# By default, dh_compress compresses files that Debian policy mandates
+# should be compressed. Examples and tutorials are more user-friendly
+# if they remain uncompressed.
+override_dh_compress:
+	dh_compress --exclude=examples --exclude=tutorial
