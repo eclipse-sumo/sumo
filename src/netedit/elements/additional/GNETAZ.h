@@ -18,7 +18,7 @@
 //
 /****************************************************************************/
 #pragma once
-#include <netedit/GNEMoveShape.h>
+#include <netedit/GNEMoveElement.h>
 #include <utils/shapes/SUMOPolygon.h>
 
 #include "GNETAZElement.h"
@@ -30,7 +30,7 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNETAZElement, public GUIGlObject, private SUMOPolygon, protected GNEMoveShape {
+class GNETAZ : public GNETAZElement, private SUMOPolygon, public GNEMoveElement {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNETAZElement
@@ -45,6 +45,14 @@ public:
 
     /// @brief GNETAZ Destructor
     ~GNETAZ();
+
+    /**@brief get move operation for the given shapeOffset
+    * @note returned GNEMoveOperation can be nullptr
+    */
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
     /// @brief get TAZ Shape
     const PositionVector& getTAZElementShape() const;
@@ -65,59 +73,13 @@ public:
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
     Boundary getCenteringBoundary() const;
 
-    /// @brief split geometry
-    void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
     /// @}
-
-    /// @name functions for edit geometry
-    /// @{
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
-    void startTAZShapeGeometryMoving(const double shapeOffset);
-
-    /// @brief begin movement (used when user click over edge to start a movement, to avoid problems with GL Tree)
-    void endTAZShapeGeometryMoving();
-
-    /**@brief return index of geometry point placed in given position, or -1 if no exist
-    * @param pos position of new/existent vertex
-    * @param snapToGrid enable or disable snapToActiveGrid
-    * @return index of position vector
-    */
-    int getTAZVertexIndex(Position pos, const bool snapToGrid) const;
-
-    /**@brief move shape
-    * @param[in] offset the offset of movement
-    */
-    void moveTAZShape(const Position& offset);
-
-    /**@brief commit geometry changes in the attributes of an element after use of changeShapeGeometry(...)
-    * @param[in] undoList The undoList on which to register changes
-    */
-    void commitTAZShapeChange(GNEUndoList* undoList);
 
     /// @brief return true if Shape TAZ is blocked
     bool isShapeBlocked() const;
-    /// @}
 
     /// @name inherited from GUIGlObject
     /// @{
-    /** @brief Returns an own popup-menu
-     *
-     * @param[in] app The application needed to build the popup-menu
-     * @param[in] parent The parent window needed to build the popup-menu
-     * @return The built popup-menu
-     * @see GUIGlObject::getPopUpMenu
-     */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
-    /** @brief Returns an own parameter window
-     *
-     * @param[in] app The application needed to build the parameter window
-     * @param[in] parent The parent window needed to build the parameter window
-     * @return The built parameter window
-     * @see GUIGlObject::getParameterWindow
-     */
-    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
-
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
     std::string getParentName() const;
@@ -209,6 +171,12 @@ private:
 
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set move shape
+    void setMoveShape(const PositionVector& newShape);
+
+    /// @brief commit move shape
+    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNETAZ(const GNETAZ&) = delete;

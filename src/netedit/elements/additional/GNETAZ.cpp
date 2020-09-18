@@ -23,8 +23,10 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 
 #include "GNETAZ.h"
 
@@ -43,7 +45,6 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ, blockMovement,
         {}, {}, {}, {}, {}, {}, {}, {}),
-    GUIGlObject(GLO_TAZ, id),
     SUMOPolygon(id, "", color, shape, false, false, 1),
     myBlockShape(false),
     myMaxWeightSource(0),
@@ -58,6 +59,69 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColo
 
 
 GNETAZ::~GNETAZ() {}
+
+
+GNEMoveOperation* 
+GNETAZ::getMoveOperation(const double shapeOffset) {
+    // edit depending if shape is blocked
+    if (true) {
+        // declare shape to move
+        PositionVector shapeToMove = myShape;
+        // first check if in the given shapeOffset there is a geometry point
+        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
+        // check if position is valid
+        if (positionAtOffset == Position::INVALID) {
+            return nullptr;
+        } else {
+            // obtain index
+            int index = myShape.indexOfClosest(positionAtOffset);
+            // get snap radius
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+            // check if we have to create a new index
+            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
+                index = shapeToMove.insertAtClosest(positionAtOffset, true);
+            }
+            // get last index
+            const int lastIndex = ((int)shapeToMove.size() - 1);
+            // return move operation for edit shape
+            if (myShape.isClosed() && ((index == 0) || (index == lastIndex))) {
+                return new GNEMoveOperation(this, myShape, shapeToMove, index, {0, lastIndex});
+            } else {
+                return new GNEMoveOperation(this, myShape, shapeToMove, index, {index});
+            }
+        }
+    } else {
+        // return junction position
+        return new GNEMoveOperation(this, myShape);
+    }
+}
+
+
+void 
+GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    // edit depending if shape is being edited
+    if (true) {
+        // get original shape
+        PositionVector shape = myShape;
+        // check shape size
+        if (shape.size() > 1) {
+            // obtain index
+            int index = shape.indexOfClosest(clickedPosition);
+            // get snap radius
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+            // check if we have to create a new index
+            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
+                // remove geometry point
+                shape.erase(shape.begin() + index);
+                // commit new shape
+                undoList->p_begin("remove geometry point of " + getTagStr());
+                undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
+                undoList->p_end();
+            }
+        }
+    }
+}
+
 
 const PositionVector&
 GNETAZ::getTAZElementShape() const {
@@ -112,142 +176,9 @@ GNETAZ::getCenteringBoundary() const {
 }
 
 
-void
-GNETAZ::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
-    // geometry of this element cannot be splitted
-}
-
-
-void
-GNETAZ::startTAZShapeGeometryMoving(const double shapeOffset) {
-    // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
-    // start move shape depending of block shape
-    if (myBlockShape) {
-        startMoveShape(myShape, -1, myHintSize);
-    } else {
-        startMoveShape(myShape, shapeOffset, myHintSize);
-    }
-}
-
-
-void
-GNETAZ::endTAZShapeGeometryMoving() {
-    // check that endGeometryMoving was called only once
-    if (myMovingGeometryBoundary.isInitialised()) {
-        // Remove object from net
-        myNet->removeGLObjectFromGrid(this);
-        // reset myMovingGeometryBoundary
-        myMovingGeometryBoundary.reset();
-        // add object into grid again (using the new centering boundary)
-        myNet->addGLObjectIntoGrid(this);
-    }
-}
-
-
-int
-GNETAZ::getTAZVertexIndex(Position pos, const bool snapToGrid) const {
-    // check if position has to be snapped to grid
-    if (snapToGrid) {
-        pos = myNet->getViewNet()->snapToActiveGrid(pos);
-    }
-    const double offset = myShape.nearest_offset_to_point2D(pos, true);
-    if (offset == GeomHelper::INVALID_OFFSET) {
-        return -1;
-    }
-    Position newPos = myShape.positionAtOffset2D(offset);
-    // first check if vertex already exists in the inner geometry
-    for (int i = 0; i < (int)myShape.size(); i++) {
-        if (myShape[i].distanceTo2D(newPos) < myHintSize) {
-            // index refers to inner geometry
-            if (i == 0 || i == (int)(myShape.size() - 1)) {
-                return -1;
-            }
-            return i;
-        }
-    }
-    return -1;
-}
-
-
-void
-GNETAZ::moveTAZShape(const Position& offset) {
-    // first obtain a copy of shapeBeforeMoving
-    PositionVector newShape = getShapeBeforeMoving();
-    if (moveEntireShape()) {
-        // move entire shape
-        newShape.add(offset);
-    } else {
-        int geometryPointIndex = getGeometryPointIndex();
-        // if geometryPoint is -1, then we have to create a new geometry point
-        if (geometryPointIndex == -1) {
-            geometryPointIndex = newShape.insertAtClosest(getPosOverShapeBeforeMoving(), true);
-        }
-        // get last index
-        const int lastIndex = (int)newShape.size() - 1;
-        // check if we have to move first and last postion
-        if ((newShape.size() > 2) && (newShape.front() == newShape.back()) &&
-                ((geometryPointIndex == 0) || (geometryPointIndex == lastIndex))) {
-            // move first geometry point
-            newShape[0].add(offset);
-            // snap to grid
-            newShape[0] = myNet->getViewNet()->snapToActiveGrid(newShape[0]);
-            // set end geometry point
-            newShape[lastIndex] = newShape[0];
-        } else {
-            // move geometry point within newShape
-            newShape[geometryPointIndex].add(offset);
-            // snap to grid
-            newShape[geometryPointIndex] = myNet->getViewNet()->snapToActiveGrid(newShape[geometryPointIndex]);
-        }
-    }
-    // set new poly shape
-    myShape = newShape;
-    // update geometry
-    updateGeometry();
-}
-
-
-void
-GNETAZ::commitTAZShapeChange(GNEUndoList* undoList) {
-    // restore original shape into shapeToCommit
-    PositionVector shapeToCommit = myShape;
-    // get geometryPoint radius
-    const double geometryPointRadius = myHintSize * myNet->getViewNet()->getVisualisationSettings().junctionSize.exaggeration;
-    // remove double points
-    shapeToCommit.removeDoublePoints(geometryPointRadius);
-    // check if we have to merge start and end points
-    if ((shapeToCommit.front() != shapeToCommit.back()) && (shapeToCommit.front().distanceTo2D(shapeToCommit.back()) < geometryPointRadius)) {
-        shapeToCommit[0] = shapeToCommit.back();
-    }
-    // update geometry
-    updateGeometry();
-    // restore old geometry to allow change attribute (And restore shape if during movement a new point was created
-    myShape = getShapeBeforeMoving();
-    // finish geometry moving
-    endTAZShapeGeometryMoving();
-    // commit new shape
-    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shapeToCommit)));
-    undoList->p_end();
-}
-
-
 bool
 GNETAZ::isShapeBlocked() const {
     return myBlockShape;
-}
-
-
-GUIGLObjectPopupMenu* 
-GNETAZ::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
-    return nullptr;
-}
-
-
-GUIParameterTableWindow* 
-GNETAZ::getParameterWindow(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
-    return nullptr;
 }
 
 
@@ -611,5 +542,23 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+
+void
+GNETAZ::setMoveShape(const PositionVector& newShape) {
+    // update new shape
+    myShape = newShape;
+    // update geometry
+    myTAZGeometry.updateGeometry(myShape);
+}
+
+
+void 
+GNETAZ::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    // commit new shape
+    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+    undoList->p_end();
+}
 
 /****************************************************************************/
