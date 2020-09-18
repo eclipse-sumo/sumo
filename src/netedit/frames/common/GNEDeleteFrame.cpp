@@ -269,17 +269,10 @@ GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& 
     // check type of of object under cursor object with geometry points
     if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().isNetworkElement()) {
         objectsUnderCursor.getNetworkElementFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
-/*
     } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_POLY) {
-        if (objectsUnderCursor.getPolyFront()->getVertexIndex(clickedPosition, false) != -1) {
-            objectsUnderCursor.getPolyFront()->deleteGeometryPoint(clickedPosition);
-        }
+        objectsUnderCursor.getPolyFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
     } else if (objectsUnderCursor.getAttributeCarrierFront()->getTagProperty().getTag() == SUMO_TAG_TAZ) {
-        /*
-        if (objectsUnderCursor.getTAZElementFront()->getVertexIndex(clickedPosition, false) != -1) {
-        objectsUnderCursor.getTAZElementFront()->deleteGeometryPoint(clickedPosition);
-        }
-*/
+        objectsUnderCursor.getTAZFront()->removeGeometryPoint(clickedPosition, myViewNet->getUndoList());
     }
 }
 
