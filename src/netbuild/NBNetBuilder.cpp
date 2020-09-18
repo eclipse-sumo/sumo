@@ -209,8 +209,15 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         PROGRESS_TIME_MESSAGE(before);
     }
     if (numJoined > 0) {
-        // bit of a misnomer since we're already done
         WRITE_MESSAGE(" Joined " + toString(numJoined) + " junction cluster(s).");
+    }
+    if (mayAddOrRemove && oc.exists("junctions.join-same") && oc.getBool("junctions.join-same")) {
+        before = PROGRESS_BEGIN_TIME_MESSAGE("Joining junctions with identical coordinates");
+        int numJoined2 = myNodeCont.joinSameJunctions(myDistrictCont, myEdgeCont, myTLLCont);
+        PROGRESS_TIME_MESSAGE(before);
+        if (numJoined2 > 0) {
+            WRITE_MESSAGE(" Joined " + toString(numJoined2) + " junctions.");
+        }
     }
     //
     if (mayAddOrRemove && oc.exists("join-lanes") && oc.getBool("join-lanes")) {

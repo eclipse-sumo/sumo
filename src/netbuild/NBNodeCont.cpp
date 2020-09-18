@@ -767,6 +767,31 @@ NBNodeCont::joinJunctions(double maxDist, NBDistrictCont& dc, NBEdgeCont& ec, NB
     return (int)clusters.size();
 }
 
+int
+NBNodeCont::joinSameJunctions(NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+#ifdef DEBUG_JOINJUNCTIONS
+    std::cout << "joinSameJunctions...\n";
+#endif
+    std::map<Position, NodeSet> positions;
+    for (auto& item : myNodes) {
+        positions[item.second->getPosition()].insert(item.second);
+    }
+    NodeClusters clusters;
+    for (auto& item : positions) {
+        if (item.second.size() > 1) {
+            for (NBNode* n : item.second) {
+                if (myJoinExclusions.count(n->getID()) > 0) {
+                    item.second.erase(n);
+                }
+            }
+            if (item.second.size() > 1) {
+                clusters.push_back(item.second);
+            }
+        }
+    }
+    joinNodeClusters(clusters, dc, ec, tlc, true);
+    return (int)clusters.size();
+}
 
 void
 NBNodeCont::pruneClusterFringe(NodeSet& cluster) const {
@@ -1473,15 +1498,15 @@ NBNodeCont::shortestEdge(const NodeSet& cluster, const NodeSet& startNodes, cons
 
 void
 NBNodeCont::joinNodeClusters(NodeClusters clusters,
-                             NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
+                             NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool resetConnections) {
     for (NodeSet cluster : clusters) {
-        joinNodeCluster(cluster, dc, ec, tlc);
+        joinNodeCluster(cluster, dc, ec, tlc, nullptr, resetConnections);
     }
 }
 
 
 void
-NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBNode* predefined) {
+NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, NBNode* predefined, bool resetConnections) {
     const bool origNames = OptionsCont::getOptions().getBool("output.original-names");
     assert(cluster.size() > 1);
     Position pos;
@@ -1633,13 +1658,19 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
             }
         }
     }
-    // disable connections that were impossible with the old topology
-    for (NBEdge* in : newNode->getIncomingEdges()) {
-        for (NBEdge* out : newNode->getOutgoingEdges()) {
-            if (reachable[in].count(out) == 0 && !ec.hasPostProcessConnection(in->getID(), out->getID())) {
-                //std::cout << " removeUnreachable in=" << in->getID() << " out=" << out->getID() << "\n";
-                in->removeFromConnections(out, -1, -1, true, false, true);
+    if (!resetConnections) {
+        // disable connections that were impossible with the old topology
+        for (NBEdge* in : newNode->getIncomingEdges()) {
+            for (NBEdge* out : newNode->getOutgoingEdges()) {
+                if (reachable[in].count(out) == 0 && !ec.hasPostProcessConnection(in->getID(), out->getID())) {
+                    //std::cout << " removeUnreachable in=" << in->getID() << " out=" << out->getID() << "\n";
+                    in->removeFromConnections(out, -1, -1, true, false, true);
+                }
             }
+        }
+    } else {
+        for (NBEdge* in : newNode->getIncomingEdges()) {
+            in->invalidateConnections(true);
         }
     }
 
