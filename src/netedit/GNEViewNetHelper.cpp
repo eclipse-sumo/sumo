@@ -1104,40 +1104,24 @@ GNEViewNetHelper::MoveSingleElementValues::calculateMoveOperationShape(GNEMoveEl
 
 bool
 GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues(GNEPoly* polygon) {
-/*
-    // assign clicked poly to polyToMove
-    myPolyToMove = myViewNet->myObjectsUnderCursor.getPolyFront();
-    // calculate polyShapeOffset
-    const double polyShapeOffset = myPolyToMove->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+    // calculate junctionShapeOffset
+    const double junctionShapeOffset = polygon->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
     // calculate distance to shape
-    const double distanceToShape = myPolyToMove->getShape().distance2D(myViewNet->getPositionInformation());
-    // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
-    if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
-        // check if we clicked over a vertex index
-        if (myPolyToMove->getPolyVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
-            // start geometry moving
-            myPolyToMove->startPolyShapeGeometryMoving(polyShapeOffset);
-            // poly values sucesfully calculated, then return true
+    const double distanceToShape = polygon->getShape().distance2D(myViewNet->getPositionInformation());
+    // get snap radius
+    const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+    // check if we clicked over shape
+    if (distanceToShape <= snap_radius) {
+        // get move operation
+        GNEMoveOperation* moveOperation = polygon->getMoveOperation(junctionShapeOffset);
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
             return true;
-        } else {
-            // stop poly moving
-            myPolyToMove = nullptr;
-            // poly values wasn't calculated, then return false
-            return false;
         }
-    } else if ((distanceToShape <= myViewNet->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius) || myPolyToMove->isPolygonBlocked()) {
-        // start geometry moving
-        myPolyToMove->startPolyShapeGeometryMoving(polyShapeOffset);
-        // poly values sucesfully calculated, then return true
-        return true;
-    } else {
-        // stop poly moving
-        myPolyToMove = nullptr;
-        // poly values wasn't calculated, then return false
-        return false;
     }
-*/
-    return nullptr;
+    // shape operation value wasn't calculated, then return false
+    return false;
 }
 
 

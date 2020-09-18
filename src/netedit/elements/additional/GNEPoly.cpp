@@ -62,13 +62,63 @@ GNEPoly::~GNEPoly() {}
 
 GNEMoveOperation* 
 GNEPoly::getMoveOperation(const double shapeOffset) {
-    return nullptr;
+    // edit depending if shape is blocked
+    if (true) {
+        // declare shape to move
+        PositionVector shapeToMove = myShape;
+        // first check if in the given shapeOffset there is a geometry point
+        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
+        // check if position is valid
+        if (positionAtOffset == Position::INVALID) {
+            return nullptr;
+        } else {
+            // obtain index
+            int index = myShape.indexOfClosest(positionAtOffset);
+            // get snap radius
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+            // check if we have to create a new index
+            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
+                index = shapeToMove.insertAtClosest(positionAtOffset, true);
+            }
+            // get last index
+            const int lastIndex = ((int)shapeToMove.size() - 1);
+            // return move operation for edit shape
+            if (myShape.isClosed() && ((index == 0) || (index == lastIndex))) {
+                return new GNEMoveOperation(this, myShape, shapeToMove, index, {0, lastIndex});
+            } else {
+                return new GNEMoveOperation(this, myShape, shapeToMove, index, {index});
+            }
+        }
+    } else {
+        // return junction position
+        return new GNEMoveOperation(this, myShape);
+    }
 }
 
 
 void 
 GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    //
+    // edit depending if shape is being edited
+    if (true) {
+        // get original shape
+        PositionVector shape = myShape;
+        // check shape size
+        if (shape.size() > 1) {
+            // obtain index
+            int index = shape.indexOfClosest(clickedPosition);
+            // get snap radius
+            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+            // check if we have to create a new index
+            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
+                // remove geometry point
+                shape.erase(shape.begin() + index);
+                // commit new shape
+                undoList->p_begin("remove geometry point of " + getTagStr());
+                undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
+                undoList->p_end();
+            }
+        }
+    }
 }
 
 
@@ -745,13 +795,19 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEPoly::setMoveShape(const PositionVector& newShape) {
-    //
+    // update new shape
+    myShape = newShape;
+    // update geometry
+    myPolygonGeometry.updateGeometry(myShape);
 }
 
 
 void 
 GNEPoly::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+    // commit new shape
+    undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+    undoList->p_end();
 }
 
 /****************************************************************************/

@@ -19,7 +19,6 @@
 // GUIPolygon and NLHandler)
 /****************************************************************************/
 #pragma once
-#include <netedit/GNEMoveShape.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 
 #include "GNEShape.h"
@@ -40,7 +39,7 @@ class GNENetworkElement;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPoly : public GUIPolygon, public GNEShape, protected GNEMoveShape {
+class GNEPoly : public GUIPolygon, public GNEShape {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
