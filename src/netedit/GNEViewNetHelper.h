@@ -845,9 +845,6 @@ struct GNEViewNetHelper {
         /// @brief calculate move operation for shape
         bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector &shape, const double radius);
 
-        /// @brief calculate Edge movement values (Position, Index, etc.)
-        bool calculateEdgeValues(GNEEdge *edge);
-
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 

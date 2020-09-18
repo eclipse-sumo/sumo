@@ -969,12 +969,14 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             return false;
         }
     } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront() && (frontAC == myViewNet->myObjectsUnderCursor.getAdditionalFront())) {
+/*
         // set additionals moved object
         myAdditionalToMove = myViewNet->myObjectsUnderCursor.getAdditionalFront();
         // start additional geometry moving
         myAdditionalToMove->startGeometryMoving();
         // there is moved items, then return true
         return true;
+*/
     } else if (myViewNet->myObjectsUnderCursor.getTAZFront() && (frontAC == myViewNet->myObjectsUnderCursor.getTAZFront())) {
         // calculate TAZShapeOffset
         const double TAZShapeOffset = myViewNet->myObjectsUnderCursor.getTAZFront()->getTAZElementShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
@@ -1011,7 +1013,24 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     } else if ((myViewNet->myObjectsUnderCursor.getEdgeFront() && (frontAC == myViewNet->myObjectsUnderCursor.getEdgeFront())) ||
                (myViewNet->myObjectsUnderCursor.getLaneFront() && (frontAC == myViewNet->myObjectsUnderCursor.getLaneFront()))) {
         // calculate Edge movement values (can be entire shape, single geometry points, altitude, etc.)
-        return calculateEdgeValues(myViewNet->myObjectsUnderCursor.getEdgeFront());
+        if (myViewNet->myMouseButtonKeyPressed.shiftKeyPressed()) {
+            // edit end point
+            myViewNet->myObjectsUnderCursor.getEdgeFront()->editEndpoint(myViewNet->getPositionInformation(), myViewNet->myUndoList);
+            // edge values wasn't calculated, then return false
+            return false;
+        } else {
+            // calculate shape offset
+            const double shapeOffset = myViewNet->myObjectsUnderCursor.getEdgeFront()->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
+            // get move operation
+            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getEdgeFront()->getMoveOperation(shapeOffset);
+            // continue if move operation is valid
+            if (moveOperation) {
+                myMoveOperations.push_back(moveOperation);
+                return true;
+            } else {
+                return false;
+            }
+        }
     } else {
         // there isn't moved items, then return false
         return false;
@@ -1052,10 +1071,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLef
         // leave z empty (because in this case offset only actuates over X-Y)
         offsetMovement.setz(0);
     }
-    if (myAdditionalToMove && (myAdditionalToMove->isAdditionalBlocked() == false)) {
-        // Move Additional geometry without commiting changes
-        myAdditionalToMove->moveGeometry(offsetMovement);
-    } else if (myDemandElementToMove/* && (myDemandElementToMove->isDemandElementBlocked() == false)*/) {
+    if (myDemandElementToMove/* && (myDemandElementToMove->isDemandElementBlocked() == false)*/) {
         // Move DemandElement geometry without commiting changes
         myDemandElementToMove->moveGeometry(offsetMovement);
     }
@@ -1082,11 +1098,7 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLef
 
 void
 GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
-    if (myAdditionalToMove) {
-        myAdditionalToMove->commitGeometryMoving(myViewNet->getUndoList());
-        myAdditionalToMove->endGeometryMoving();
-        myAdditionalToMove = nullptr;
-    } else if (myDemandElementToMove) {
+    if (myDemandElementToMove) {
         myDemandElementToMove->commitGeometryMoving(myViewNet->getUndoList());
         myDemandElementToMove->endGeometryMoving();
         myDemandElementToMove = nullptr;
@@ -1124,29 +1136,6 @@ GNEViewNetHelper::MoveSingleElementValues::calculateMoveOperationShape(GNEMoveEl
     }
     // shape operation value wasn't calculated, then return false
     return false;
-}
-
-
-bool
-GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues(GNEEdge *edge) {
-    if (myViewNet->myMouseButtonKeyPressed.shiftKeyPressed()) {
-        // edit end point
-        edge->editEndpoint(myViewNet->getPositionInformation(), myViewNet->myUndoList);
-        // edge values wasn't calculated, then return false
-        return false;
-    } else {
-        // calculate shape offset
-        const double shapeOffset = edge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
-        // get move operation
-        GNEMoveOperation* moveOperation = edge->getMoveOperation(shapeOffset);
-        // continue if move operation is valid
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-            return true;
-        } else {
-            return false;
-        }
-    }
 }
 
 // ---------------------------------------------------------------------------
