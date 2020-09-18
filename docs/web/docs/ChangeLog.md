@@ -25,6 +25,9 @@ permalink: /ChangeLog/
 ### Enhancements
 - netedit
   - Opposite direction lanes can now be edited and selected. Issue #2653
+  
+- netconvert
+  - Added option **--junctions.join-same** which joins junctions with identical coordinates regardless of edge topology. This is useful when merging networks. Issue #7567
 
 - Tools
   - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
