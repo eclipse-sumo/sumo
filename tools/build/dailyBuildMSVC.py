@@ -94,7 +94,7 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
     # provide more information than just the date:
     fullOpt = ["-b", prefix, "-name", "%sr%s" %
                (datetime.date.today().strftime("%d%b%y"), gitrev)]
-    ttBin = "texttestc.py"
+    ttBin = "texttest"
     if options.suffix == "extra":
         runExtraTests.run(debugSuffix, fullOpt, log, True, True, debugSuffix == "")
     else:
