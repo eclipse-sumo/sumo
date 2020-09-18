@@ -107,8 +107,8 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
     killall(debugSuffix)
 
 
-def generateCMake(generator, log, checkOptionalLibs, python):
-    buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + generator.replace(" ", "-"))
+def generateCMake(generator, platform, log, checkOptionalLibs, python):
+    buildDir = os.path.join(env["SUMO_HOME"], "build", "cmake-build-" + platform)
     cmakeOpt = ["-DCOMPILE_DEFINITIONS=MSVC_TEST_SERVER",
                 "-DDEFAULT_LIBSUMO_PYTHON=False",
                 "-DCHECK_OPTIONAL_LIBS=%s" % checkOptionalLibs]
@@ -122,7 +122,8 @@ def generateCMake(generator, log, checkOptionalLibs, python):
         shutil.rmtree(buildDir)
     os.makedirs(buildDir)
     status.printLog("Creating solution for %s." % generator, log)
-    subprocess.call(["cmake", "../..", "-G", generator] + cmakeOpt, cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+    subprocess.call(["cmake", "../..", "-G", generator, "-A", platform] + cmakeOpt,
+                    cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
     return buildDir
 
 optParser = optparse.OptionParser()
@@ -185,9 +186,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         status.printLog("Running %s build using python %s." % (options.msvc_version, sys.version), log)
         gitrev = repositoryUpdate(options, log)
         generator = "Visual Studio " + ("12 2013" if options.msvc_version == "msvc12" else "16 2019")
-        if platform == "x64":
-            generator += " Win64"
-        buildDir = generateCMake(generator, log, options.suffix == "extra", options.python)
+        buildDir = generateCMake(generator, platform, log, options.suffix == "extra", options.python)
         ret = subprocess.call(["cmake", "--build", ".", "--config", "Release"],
                               cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         if os.path.exists(os.path.join("src", "libsumo", "_libsumo.vcxproj")):
@@ -195,10 +194,12 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
                             cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
+        plat = platform.lower().replace("x", "win")
+        if options.msvc_version != "msvc12":
+            plat += options.msvc_version
         if ret == 0 and sumoAllZip:
             try:
-                binaryZip = sumoAllZip.replace("-all-", "-%s%s-" %
-                                               (platform.lower().replace("x", "win"), options.suffix))
+                binaryZip = sumoAllZip.replace("-all-", "-%s%s-" % (plat, options.suffix))
                 zipf = zipfile.ZipFile(binaryZip, 'w', zipfile.ZIP_DEFLATED)
                 srcZip = zipfile.ZipFile(sumoAllZip)
                 write = False
@@ -262,8 +263,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
             if ret == 0 and sumoAllZip:
                 status.printLog("Creating sumoDebug.zip.", debugLog)
                 try:
-                    debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" %
-                                                  (platform.lower().replace("x", "win"), options.suffix))
+                    debugZip = sumoAllZip.replace("-all-", "-%s%sDebug-" % (plat, options.suffix))
                     zipf = zipfile.ZipFile(debugZip, 'w', zipfile.ZIP_DEFLATED)
                     for ext in ("*D.exe", "*.dll", "*D.pdb"):
                         for f in glob.glob(os.path.join(options.rootDir, options.binDir, ext)):
