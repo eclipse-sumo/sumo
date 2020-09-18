@@ -44,6 +44,17 @@ GNEVaporizer::~GNEVaporizer() {
 }
 
 
+GNEMoveOperation* GNEVaporizer::getMoveOperation(const double shapeOffset)
+{
+    return nullptr;
+}
+
+void
+GNEVaporizer::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    //
+}
+
+
 void
 GNEVaporizer::updateGeometry() {
     // calculate perpendicular line
@@ -73,18 +84,6 @@ GNEVaporizer::getCenteringBoundary() const {
 void
 GNEVaporizer::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
-}
-
-
-void
-GNEVaporizer::moveGeometry(const Position&) {
-    // This additional cannot be moved
-}
-
-
-void
-GNEVaporizer::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
 }
 
 
@@ -308,5 +307,16 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
+
+void 
+GNEVaporizer::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void 
+GNEVaporizer::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
+}
 
 /****************************************************************************/

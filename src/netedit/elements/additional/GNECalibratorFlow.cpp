@@ -70,15 +70,14 @@ myEnd(end) {
 GNECalibratorFlow::~GNECalibratorFlow() {}
 
 
-void
-GNECalibratorFlow::moveGeometry(const Position&) {
-    // This additional cannot be moved
+GNEMoveOperation* 
+GNECalibratorFlow::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 
-void
-GNECalibratorFlow::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+void 
+GNECalibratorFlow::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -406,6 +405,14 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNECalibratorFlow::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNECalibratorFlow::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

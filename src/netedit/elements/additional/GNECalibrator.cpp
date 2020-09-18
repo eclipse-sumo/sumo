@@ -57,15 +57,14 @@ myRouteProbe(routeprobe) {
 GNECalibrator::~GNECalibrator() {}
 
 
-void
-GNECalibrator::moveGeometry(const Position&) {
-    // This additional cannot be moved
+GNEMoveOperation* 
+GNECalibrator::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 
-void
-GNECalibrator::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+void 
+GNECalibrator::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -392,6 +391,14 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNECalibrator::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNECalibrator::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

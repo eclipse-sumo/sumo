@@ -50,15 +50,15 @@ myEnd(end) {
 
 GNERerouterInterval::~GNERerouterInterval() {}
 
-void
-GNERerouterInterval::moveGeometry(const Position&) {
-    // This additional cannot be moved
+
+GNEMoveOperation*
+GNERerouterInterval::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 
-void
-GNERerouterInterval::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+void 
+GNERerouterInterval::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -198,6 +198,14 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNERerouterInterval::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNERerouterInterval::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

@@ -48,6 +48,17 @@ GNEVariableSpeedSign::~GNEVariableSpeedSign() {
 }
 
 
+GNEMoveOperation* GNEVariableSpeedSign::getMoveOperation(const double shapeOffset)
+{
+    return nullptr;
+}
+
+void
+GNEVariableSpeedSign::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    //
+}
+
+
 void
 GNEVariableSpeedSign::updateGeometry() {
     // update additional geometry
@@ -94,26 +105,6 @@ void
 GNEVariableSpeedSign::openAdditionalDialog() {
     // Open VSS dialog
     GNEVariableSpeedSignDialog(this);
-}
-
-
-void
-GNEVariableSpeedSign::moveGeometry(const Position& offset) {
-    // restore old position, apply offset and update Geometry
-    myPosition = myMove.originalViewPosition;
-    myPosition.add(offset);
-    // filtern position using snap to active grid
-    myPosition = myNet->getViewNet()->snapToActiveGrid(myPosition);
-    updateGeometry();
-}
-
-
-void
-GNEVariableSpeedSign::commitGeometryMoving(GNEUndoList* undoList) {
-    // commit new position allowing undo/redo
-    undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), toString(myMove.originalViewPosition)));
-    undoList->p_end();
 }
 
 
@@ -325,6 +316,18 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void 
+GNEVariableSpeedSign::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void 
+GNEVariableSpeedSign::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 

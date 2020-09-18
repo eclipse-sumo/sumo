@@ -23,6 +23,7 @@
 #include <netedit/elements/GNEHierarchicalElement.h>
 #include <netedit/elements/GNEPathElements.h>
 #include <netedit/GNEGeometry.h>
+#include <netedit/GNEMoveElement.h>
 #include <utils/common/Parameterised.h>
 #include <utils/geom/PositionVector.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -43,7 +44,7 @@ class GUIGLObjectPopupMenu;
  * @class GNEAdditional
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEAdditional : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathElements  {
+class GNEAdditional : public GUIGlObject, public Parameterised, public GNEHierarchicalElement, public GNEPathElements, public GNEMoveElement  {
 
 public:
     /**@brief Constructor
@@ -100,6 +101,14 @@ public:
     /// @brief Destructor
     virtual ~GNEAdditional();
 
+    /**@brief get move operation for the given shapeOffset
+    * @note returned GNEMoveOperation can be nullptr
+    */
+    virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
+
+    /// @brief remove geometry point in the clicked position
+    virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
+
     /// @brief get ID
     const std::string& getID() const;
 
@@ -137,24 +146,6 @@ public:
      * @throw invalid argument if additional doesn't have an additional Dialog
      */
     virtual void openAdditionalDialog();
-
-    /// @name Functions related with geometry of element
-    /// @{
-    /// @brief begin movement (used when user click over additional to start a movement, to avoid problems with GL Tree)
-    void startGeometryMoving();
-
-    /// @brief begin movement (used when user click over additional to start a movement, to avoid problems with GL Tree)
-    void endGeometryMoving();
-
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] offset Position used for calculate new position of geometry without updating RTree
-     */
-    virtual void moveGeometry(const Position& offset) = 0;
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] undoList The undoList on which to register changes
-    */
-    virtual void commitGeometryMoving(GNEUndoList* undoList) = 0;
 
     /// @brief update pre-computed geometry information
     virtual void updateGeometry() = 0;
@@ -278,7 +269,6 @@ public:
     /// @}
 
 protected:
-
     /// @brief struct for pack all variables related with additional move
     struct AdditionalMove {
         /// @brief boundary used during moving of elements (to avoid insertion in RTREE
@@ -403,6 +393,12 @@ private:
 
     /// @brief method for setting the attribute and nothing else (used in GNEChange_Attribute)
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
+
+    /// @brief set move shape
+    virtual void setMoveShape(const PositionVector& newShape) = 0;
+
+    /// @brief commit move shape
+    virtual void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) = 0;
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);

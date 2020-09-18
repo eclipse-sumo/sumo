@@ -48,6 +48,17 @@ mySpeedThreshold(speedThreshold) {
 GNEDetectorE3::~GNEDetectorE3() {}
 
 
+GNEMoveOperation* 
+GNEDetectorE3::getMoveOperation(const double shapeOffset) {
+    return nullptr;
+}
+
+
+void
+GNEDetectorE3::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+}
+
+
 void
 GNEDetectorE3::updateGeometry() {
     // update additional geometry
@@ -87,27 +98,6 @@ GNEDetectorE3::getCenteringBoundary() const {
 void
 GNEDetectorE3::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
-}
-
-
-void
-GNEDetectorE3::moveGeometry(const Position& offset) {
-    // restore old position, apply offset and update Geometry
-    myPosition = myMove.originalViewPosition;
-    myPosition.add(offset);
-    // filtern position using snap to active grid
-    // filtern position using snap to active grid
-    myPosition = myNet->getViewNet()->snapToActiveGrid(myPosition);
-    updateGeometry();
-}
-
-
-void
-GNEDetectorE3::commitGeometryMoving(GNEUndoList* undoList) {
-    // commit new position allowing undo/redo
-    undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), toString(myMove.originalViewPosition)));
-    undoList->p_end();
 }
 
 
@@ -375,6 +365,14 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNEDetectorE3::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNEDetectorE3::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

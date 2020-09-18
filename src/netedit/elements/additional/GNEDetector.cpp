@@ -58,6 +58,17 @@ myFriendlyPosition(friendlyPos) {
 GNEDetector::~GNEDetector() {}
 
 
+GNEMoveOperation* GNEDetector::getMoveOperation(const double shapeOffset)
+{
+    return nullptr;
+}
+
+void
+GNEDetector::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    //
+}
+
+
 double
 GNEDetector::getPositionOverLane() const {
     return myPositionOverLane;
@@ -233,5 +244,16 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
     }
 }
 
+
+void 
+GNEDetector::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void 
+GNEDetector::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
+}
 
 /****************************************************************************/

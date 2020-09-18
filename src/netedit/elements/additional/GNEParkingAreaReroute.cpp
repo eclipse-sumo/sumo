@@ -41,15 +41,14 @@ myVisible(visible) {
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
-void
-GNEParkingAreaReroute::moveGeometry(const Position&) {
-    // This additional cannot be moved
+GNEMoveOperation* 
+GNEParkingAreaReroute::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 
 void
-GNEParkingAreaReroute::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+GNEParkingAreaReroute::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -196,6 +195,14 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNEParkingAreaReroute::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNEParkingAreaReroute::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

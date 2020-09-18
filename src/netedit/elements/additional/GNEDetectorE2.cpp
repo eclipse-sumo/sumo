@@ -187,9 +187,9 @@ GNEDetectorE2::fixAdditionalProblem() {
     }
 }
 
-
+/*
 void
-GNEDetectorE2::moveGeometry(const Position& offset) {
+GNEDetectorE2::mov eGeometry(const Position& offset) {
     // Calculate new position using old position
     Position newPosition = myMove.originalViewPosition;
     newPosition.add(offset);
@@ -240,7 +240,7 @@ GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
         undoList->p_end();
     }
 }
-
+*/
 
 void
 GNEDetectorE2::updateGeometry() {

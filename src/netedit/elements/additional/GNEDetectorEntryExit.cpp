@@ -85,32 +85,6 @@ GNEDetectorEntryExit::fixAdditionalProblem() {
 
 
 void
-GNEDetectorEntryExit::moveGeometry(const Position& offset) {
-    // Calculate new position using old position
-    Position newPosition = myMove.originalViewPosition;
-    newPosition.add(offset);
-    // filtern position using snap to active grid
-    newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
-    const bool storeNegative = myPositionOverLane < 0;
-    myPositionOverLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
-    if (storeNegative) {
-        myPositionOverLane -= getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
-    }
-    // Update geometry
-    updateGeometry();
-}
-
-
-void
-GNEDetectorEntryExit::commitGeometryMoving(GNEUndoList* undoList) {
-    // commit new position allowing undo/redo
-    undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), myMove.firstOriginalLanePosition));
-    undoList->p_end();
-}
-
-
-void
 GNEDetectorEntryExit::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());

@@ -40,16 +40,13 @@ myProbability(probability) {
 
 GNERouteProbReroute::~GNERouteProbReroute() {}
 
-
-void
-GNERouteProbReroute::moveGeometry(const Position&) {
-    // This additional cannot be moved
+GNEMoveOperation* GNERouteProbReroute::getMoveOperation(const double shapeOffset)
+{
+    return nullptr;
 }
 
-
-void
-GNERouteProbReroute::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+void GNERouteProbReroute::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList)
+{
 }
 
 
@@ -188,6 +185,14 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNERouteProbReroute::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNERouteProbReroute::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

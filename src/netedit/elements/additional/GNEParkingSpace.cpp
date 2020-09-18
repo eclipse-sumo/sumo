@@ -43,24 +43,13 @@ myAngle(angle) {
 
 GNEParkingSpace::~GNEParkingSpace() {}
 
-
-void
-GNEParkingSpace::moveGeometry(const Position& offset) {
-    // restore old position, apply offset and update Geometry
-    myPosition = myMove.originalViewPosition;
-    myPosition.add(offset);
-    // filtern position using snap to active grid
-    myPosition = myNet->getViewNet()->snapToActiveGrid(myPosition);
-    updateGeometry();
+GNEMoveOperation* GNEParkingSpace::getMoveOperation(const double shapeOffset)
+{
+    return nullptr;
 }
 
-
-void
-GNEParkingSpace::commitGeometryMoving(GNEUndoList* undoList) {
-    // commit new position allowing undo/redo
-    undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPosition), toString(myMove.originalViewPosition)));
-    undoList->p_end();
+void GNEParkingSpace::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList)
+{
 }
 
 
@@ -319,6 +308,14 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNEParkingSpace::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNEParkingSpace::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

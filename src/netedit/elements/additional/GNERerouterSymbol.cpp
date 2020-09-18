@@ -43,15 +43,14 @@ GNERerouterSymbol::~GNERerouterSymbol() {
 }
 
 
-void
-GNERerouterSymbol::moveGeometry(const Position& /*offset*/) {
-    // Nothing to do
+GNEMoveOperation* 
+GNERerouterSymbol::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 
-void
-GNERerouterSymbol::commitGeometryMoving(GNEUndoList* /*undoList*/) {
-    // Nothing to do
+void 
+GNERerouterSymbol::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -232,6 +231,14 @@ GNERerouterSymbol::getHierarchyName() const {
 void
 GNERerouterSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/) {
     throw InvalidArgument("Symbols cannot be edited");
+}
+
+void GNERerouterSymbol::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNERerouterSymbol::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

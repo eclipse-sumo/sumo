@@ -57,6 +57,17 @@ myFriendlyPosition(friendlyPosition) {
 GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
+GNEMoveOperation* GNEStoppingPlace::getMoveOperation(const double shapeOffset)
+{
+    return nullptr;
+}
+
+void
+GNEStoppingPlace::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+    //
+}
+
+
 bool
 GNEStoppingPlace::isAdditionalValid() const {
     // with friendly position enabled position are "always fixed"
@@ -197,10 +208,10 @@ GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetwork
         }
     }
 }
-
+/*
 
 void
-GNEStoppingPlace::moveGeometry(const Position& offset) {
+GNEStoppingPlace::move Geometry(const Position& offset) {
     // only move if at leats start or end positions is defined
     if (myParametersSet > 0) {
         // Calculate new position using old position
@@ -239,8 +250,8 @@ GNEStoppingPlace::moveGeometry(const Position& offset) {
         updateGeometry();
     }
 }
-
-
+*/
+/*
 void
 GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
     // only commit geometry moving if at leats start or end positions is defined
@@ -255,7 +266,7 @@ GNEStoppingPlace::commitGeometryMoving(GNEUndoList* undoList) {
         undoList->p_end();
     }
 }
-
+*/
 
 double
 GNEStoppingPlace::getStartPosition() const {
@@ -440,6 +451,18 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
         // pop draw matrix
         glPopMatrix();
     }
+}
+
+
+void 
+GNEStoppingPlace::setMoveShape(const PositionVector& newShape) {
+    //
+}
+
+
+void 
+GNEStoppingPlace::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 /****************************************************************************/

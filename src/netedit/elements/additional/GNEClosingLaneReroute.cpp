@@ -42,15 +42,14 @@ myPermissions(permissions) {
 GNEClosingLaneReroute::~GNEClosingLaneReroute() {}
 
 
-void
-GNEClosingLaneReroute::moveGeometry(const Position&) {
-    // This additional cannot be moved
+GNEMoveOperation* 
+GNEClosingLaneReroute::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 
-void
-GNEClosingLaneReroute::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+void 
+GNEClosingLaneReroute::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -196,6 +195,14 @@ GNEClosingLaneReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNEClosingLaneReroute::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNEClosingLaneReroute::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

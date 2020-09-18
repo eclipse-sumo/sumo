@@ -235,62 +235,6 @@ GNEAdditional::openAdditionalDialog() {
 }
 
 
-void
-GNEAdditional::startGeometryMoving() {
-    // only move if additional is drawable
-    if (myTagProperty.isDrawable()) {
-        // always save original position over view
-        myMove.originalViewPosition = getPositionInView();
-        // check if position over lane or lanes has to be saved
-        if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
-            if (myTagProperty.canMaskStartEndPos()) {
-                // obtain start and end position
-                myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_STARTPOS);
-                myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
-            } else {
-                // obtain position attribute
-                myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
-            }
-        } else if (myTagProperty.hasAttribute(SUMO_ATTR_LANES) &&
-                   myTagProperty.hasAttribute(SUMO_ATTR_POSITION) &&
-                   myTagProperty.hasAttribute(SUMO_ATTR_ENDPOS)) {
-            // obtain start and end position
-            myMove.firstOriginalLanePosition = getAttribute(SUMO_ATTR_POSITION);
-            myMove.secondOriginalPosition = getAttribute(SUMO_ATTR_ENDPOS);
-        }
-        // save current centering boundary if element is placed in RTree
-        if (myTagProperty.isPlacedInRTree()) {
-            myMove.movingGeometryBoundary = getCenteringBoundary();
-        }
-        // start geometry in all children
-        for (const auto& i : getChildDemandElements()) {
-            i->startGeometryMoving();
-        }
-    }
-}
-
-
-void
-GNEAdditional::endGeometryMoving() {
-    // check that endGeometryMoving was called only once
-    if (myTagProperty.isDrawable()) {
-        // check if object must be placed in RTREE
-        if (myTagProperty.isPlacedInRTree()) {
-            // Remove object from net
-            myNet->removeGLObjectFromGrid(this);
-            // reset myMovingGeometryBoundary
-            myMove.movingGeometryBoundary.reset();
-            // add object into grid again (using the new centering boundary)
-            myNet->addGLObjectIntoGrid(this);
-        }
-        // end geometry in all children
-        for (const auto& i : getChildDemandElements()) {
-            i->endGeometryMoving();
-        }
-    }
-}
-
-
 bool
 GNEAdditional::isAdditionalBlocked() const {
     return myBlockMovement;

@@ -42,21 +42,19 @@ mySpeed(speed) {
 GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}
 
 
+GNEMoveOperation* 
+GNEVariableSpeedSignStep::getMoveOperation(const double shapeOffset) {
+    return nullptr;
+}
+
+
+void 
+GNEVariableSpeedSignStep::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
+}
+
 double
 GNEVariableSpeedSignStep::getTime() const {
     return myTime;
-}
-
-
-void
-GNEVariableSpeedSignStep::moveGeometry(const Position&) {
-    // This additional cannot be moved
-}
-
-
-void
-GNEVariableSpeedSignStep::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
 }
 
 
@@ -211,6 +209,14 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNEVariableSpeedSignStep::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNEVariableSpeedSignStep::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

@@ -46,27 +46,14 @@ GNEAccess::~GNEAccess() {
 }
 
 
-void
-GNEAccess::moveGeometry(const Position& offset) {
-    // Calculate new position using old position
-    Position newPosition = myMove.originalViewPosition;
-    newPosition.add(offset);
-    // filtern position using snap to active grid
-    newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
-    myPositionOverLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false);
-    // Update geometry
-    updateGeometry();
+GNEMoveOperation* 
+GNEAccess::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 
-void
-GNEAccess::commitGeometryMoving(GNEUndoList* undoList) {
-    if (!myBlockMovement) {
-        // commit new position allowing undo/redo
-        undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), myMove.firstOriginalLanePosition));
-        undoList->p_end();
-    }
+void 
+GNEAccess::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -340,6 +327,14 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNEAccess::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNEAccess::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

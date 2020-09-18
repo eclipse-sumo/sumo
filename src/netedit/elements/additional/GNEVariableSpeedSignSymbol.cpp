@@ -43,15 +43,14 @@ GNEVariableSpeedSignSymbol::~GNEVariableSpeedSignSymbol() {
 }
 
 
-void
-GNEVariableSpeedSignSymbol::moveGeometry(const Position& /*offset*/) {
-    // Nothing to do
+GNEMoveOperation*
+GNEVariableSpeedSignSymbol::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 
-void
-GNEVariableSpeedSignSymbol::commitGeometryMoving(GNEUndoList* /*undoList*/) {
-    // Nothing to do
+void 
+GNEVariableSpeedSignSymbol::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -207,6 +206,14 @@ GNEVariableSpeedSignSymbol::getHierarchyName() const {
 void
 GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/) {
     throw InvalidArgument("Symbols cannot be edited");
+}
+
+void GNEVariableSpeedSignSymbol::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNEVariableSpeedSignSymbol::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 

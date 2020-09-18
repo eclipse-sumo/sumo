@@ -69,18 +69,6 @@ GNETAZSourceSink::getDepartWeight() const {
 
 
 void
-GNETAZSourceSink::moveGeometry(const Position&) {
-    // This TAZElement cannot be moved
-}
-
-
-void
-GNETAZSourceSink::commitGeometryMoving(GNEUndoList*) {
-    // This TAZElement cannot be moved
-}
-
-
-void
 GNETAZSourceSink::updateGeometry() {
     // This TAZElement doesn't own a geometry
 }

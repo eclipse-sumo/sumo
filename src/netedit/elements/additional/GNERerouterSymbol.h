@@ -45,18 +45,16 @@ public:
     /// @brief Destructor
     ~GNERerouterSymbol();
 
+    /**@brief get move operation for the given shapeOffset
+    * @note returned GNEMoveOperation can be nullptr
+    */
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);    
+
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+
     /// @name Functions related with geometry of element
     /// @{
-    /**@brief change the position of the element geometry without saving in undoList
-     * @param[in] offset Position used for calculate new position of geometry without updating RTree
-     */
-    void moveGeometry(const Position& offset);
-
-    /**@brief commit geometry changes in the attributes of an element after use of moveGeometry(...)
-    * @param[in] undoList The undoList on which to register changes
-    */
-    void commitGeometryMoving(GNEUndoList* undoList);
-
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
@@ -130,6 +128,12 @@ protected:
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set move shape
+    void setMoveShape(const PositionVector& newShape);
+
+    /// @brief commit move shape
+    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
 
     /// @brief Invalidated copy constructor.
     GNERerouterSymbol(const GNERerouterSymbol&) = delete;

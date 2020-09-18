@@ -80,15 +80,14 @@ GNERouteProbe::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 }
 
 
-void
-GNERouteProbe::moveGeometry(const Position&) {
-    // This additional cannot be moved
+GNEMoveOperation* 
+GNERouteProbe::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 
-void
-GNERouteProbe::commitGeometryMoving(GNEUndoList*) {
-    // This additional cannot be moved
+void 
+GNERouteProbe::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -315,6 +314,14 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+void GNERouteProbe::setMoveShape(const PositionVector& newShape)
+{
+}
+
+void GNERouteProbe::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
+{
 }
 
 
