@@ -251,7 +251,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
             myNet->getViewNet()->getDataViewOptions().showShapes() &&
-            checkDraw(s)) {
+            checkDraw(s, this, this)) {
         // Obtain constants
         const double TAZExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
@@ -288,7 +288,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 }
             } else {
                 // draw inner polygon
-                drawInnerPolygon(s, scaledGeometry.getShape(), 0, drawUsingSelectColor());
+                drawInnerPolygon(s, this, this, scaledGeometry.getShape(), 0, drawUsingSelectColor());
             }
         } else {
             // push matrix

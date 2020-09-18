@@ -19,7 +19,7 @@
 // GUIPolygon and NLHandler)
 /****************************************************************************/
 #pragma once
-#include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/shapes/SUMOPolygon.h>
 
 #include "GNEShape.h"
 
@@ -39,12 +39,11 @@ class GNENetworkElement;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPoly : public GUIPolygon, public GNEShape {
+class GNEPoly : public GUIGlObject, public SUMOPolygon, public GNEShape {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNEShape
     using GNEShape::getID;
-    using GNEShape::getCenteringBoundary;
 
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
@@ -67,6 +66,10 @@ public:
 
     /// @brief Destructor
     ~GNEPoly();
+
+    Boundary getCenteringBoundary() const {
+        return myBoundary;
+    }
 
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr

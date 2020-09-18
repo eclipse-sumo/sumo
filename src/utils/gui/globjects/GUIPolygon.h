@@ -37,6 +37,7 @@
  * @brief The GUI-version of a polygon
  */
 class GUIPolygon : public SUMOPolygon, public GUIGlObject_AbstractAdd {
+
 public:
     /** @brief Constructor
      * @param[in] id The name of the polygon
@@ -113,15 +114,14 @@ public:
         }
     }
 
-protected:
     /// @brief set color
-    void setColor(const GUIVisualizationSettings& s, bool disableSelectionColor) const;
+    static void setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o, bool disableSelectionColor);
 
     /// @brief check if Polygon can be drawn
-    bool checkDraw(const GUIVisualizationSettings& s) const;
+    static bool checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o);
 
     /// @brief draw inner Polygon (before pushName() )
-    void drawInnerPolygon(const GUIVisualizationSettings& s, const PositionVector& shape, double layer, bool disableSelectionColor) const;
+    static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o, const PositionVector shape, double layer, bool disableSelectionColor);
 
 private:
     /// The mutex used to avoid concurrent updates of the shape
@@ -134,9 +134,9 @@ private:
     PositionVector* myRotatedShape;
 
     /// @brief store the drawing commands in a display list
-    void storeTesselation(const PositionVector& shape, double lineWidth) const;
+    void storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const;
 
     // @brief perform the tesselation / drawing
-    void performTesselation(const PositionVector& shape, double lineWidth) const;
+    static void performTesselation(const bool fill, const PositionVector &shape, const double lineWidth);
 
 };

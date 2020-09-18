@@ -42,8 +42,11 @@ class OutputDevice;
  * @brief A 2D- or 3D-polygon
  */
 class SUMOPolygon : public Shape, public Parameterised {
-    friend class PolygonDynamics;
+
 public:
+    /// @brief friend class
+    friend class PolygonDynamics;
+
     /** @brief Constructor
      * @param[in] id The name of the polygon
      * @param[in] type The (abstract) type of the polygon

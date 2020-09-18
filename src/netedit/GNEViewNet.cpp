@@ -48,6 +48,7 @@
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/gui/images/GUITextureSubSys.h>

@@ -148,7 +148,7 @@ GUIPolygon::getCenteringBoundary() const {
 void
 GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
     // first check if polygon can be drawn
-    if (checkDraw(s)) {
+    if (checkDraw(s, this, this)) {
         FXMutexLock locker(myLock);
         //if (myDisplayList == 0 || (!getFill() && myLineWidth != s.polySize.getExaggeration(s))) {
         //    storeTesselation(s.polySize.getExaggeration(s));
@@ -156,7 +156,11 @@ GUIPolygon::drawGL(const GUIVisualizationSettings& s) const {
         // push name (needed for getGUIGlObjectsUnderCursor(...)
         glPushName(getGlID());
         // draw inner polygon
-        drawInnerPolygon(s, (myRotatedShape != nullptr ? *myRotatedShape : myShape), getShapeLayer(), false);
+        if (myRotatedShape) {
+            drawInnerPolygon(s, this, this, *myRotatedShape, getShapeLayer(), false);
+        } else {
+            drawInnerPolygon(s, this, this, myShape, getShapeLayer(), false);
+        }
         // pop name
         glPopName();
     }
@@ -185,8 +189,8 @@ GUIPolygon::setShape(const PositionVector& shape) {
 
 
 void
-GUIPolygon::performTesselation(const PositionVector& shape, double lineWidth) const {
-    if (getFill()) {
+GUIPolygon::performTesselation(const bool fill, const PositionVector &shape, const double lineWidth) {
+    if (fill) {
         // draw the tesselated shape
         double* points = new double[shape.size() * 3];
         GLUtesselator* tobj = gluNewTess();
@@ -214,12 +218,11 @@ GUIPolygon::performTesselation(const PositionVector& shape, double lineWidth) co
         GLHelper::drawLine(shape);
         GLHelper::drawBoxLines(shape, lineWidth);
     }
-    //std::cout << "OpenGL says: '" << gluErrorString(glGetError()) << "'\n";
 }
 
 
 void
-GUIPolygon::storeTesselation(const PositionVector& shape, double lineWidth) const {
+GUIPolygon::storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const {
     if (myDisplayList > 0) {
         glDeleteLists(myDisplayList, 1);
     }
@@ -228,22 +231,22 @@ GUIPolygon::storeTesselation(const PositionVector& shape, double lineWidth) cons
         throw ProcessError("GUIPolygon::storeTesselation() could not create display list");
     }
     glNewList(myDisplayList, GL_COMPILE);
-    performTesselation(shape, lineWidth);
+    performTesselation(fill, shape, lineWidth);
     glEndList();
 }
 
 
 void
-GUIPolygon::setColor(const GUIVisualizationSettings& s, bool disableSelectionColor) const {
+GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o, bool disableSelectionColor) {
     const GUIColorer& c = s.polyColorer;
     const int active = c.getActive();
-    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, getGlID()) && disableSelectionColor) {
+    if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, o->getGlID()) && disableSelectionColor) {
         // override with special selection colors (unless the color scheme is based on selection)
         GLHelper::setColor(RGBColor(0, 0, 204));
     } else if (active == 0) {
-        GLHelper::setColor(getShapeColor());
+        GLHelper::setColor(polygon->getShapeColor());
     } else if (active == 1) {
-        GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(GLO_POLYGON, getGlID())));
+        GLHelper::setColor(c.getScheme().getColor(gSelected.isSelected(GLO_POLYGON, o->getGlID())));
     } else {
         GLHelper::setColor(c.getScheme().getColor(0));
     }
@@ -251,20 +254,20 @@ GUIPolygon::setColor(const GUIVisualizationSettings& s, bool disableSelectionCol
 
 
 bool
-GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
-    if (s.polySize.getExaggeration(s, this) == 0) {
+GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o) {
+    if (s.polySize.getExaggeration(s, o) == 0) {
         return false;
     }
-    Boundary boundary = myShape.getBoxBoundary();
+    Boundary boundary = polygon->getShape().getBoxBoundary();
     if (s.scale * MAX2(boundary.getWidth(), boundary.getHeight()) < s.polySize.minSize) {
         return false;
     }
-    if (getFill()) {
-        if (myShape.size() < 3) {
+    if (polygon->getFill()) {
+        if (polygon->getShape().size() < 3) {
             return false;
         }
     } else {
-        if (myShape.size() < 2) {
+        if (polygon->getShape().size() < 2) {
             return false;
         }
     }
@@ -273,14 +276,14 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s) const {
 
 
 void
-GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const PositionVector& shape, double layer, bool disableSelectionColor) const {
+GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o, 
+    const PositionVector shape, double layer, bool disableSelectionColor) {
     glPushMatrix();
     glTranslated(0, 0, layer);
-    setColor(s, disableSelectionColor);
-
+    setColor(s, polygon, o, disableSelectionColor);
     int textureID = -1;
-    if (getFill()) {
-        const std::string& file = getShapeImgFile();
+    if (polygon->getFill()) {
+        const std::string& file = polygon->getShapeImgFile();
         if (file != "") {
             textureID = GUITexturesHelper::getTextureID(file, true);
         }
@@ -310,7 +313,7 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const PositionVe
     }
     // recall tesselation
     //glCallList(myDisplayList);
-    performTesselation(shape, myLineWidth * s.polySize.getExaggeration(s, this));
+    performTesselation(polygon->getFill(), shape, polygon->getLineWidth() * s.polySize.getExaggeration(s, o));
     // de-init generation of texture coordinates
     if (textureID >= 0) {
         glEnable(GL_DEPTH_TEST);
@@ -324,10 +327,10 @@ GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const PositionVe
 #endif
     glPopMatrix();
     const Position& namePos = shape.getPolygonCenter();
-    drawName(namePos, s.scale, s.polyName, s.angle);
+    o->drawName(namePos, s.scale, s.polyName, s.angle);
     if (s.polyType.show) {
         const Position p = namePos + Position(0, -0.6 * s.polyType.size / s.scale);
-        GLHelper::drawTextSettings(s.polyType, getShapeType(), p, s.scale, s.angle);
+        GLHelper::drawTextSettings(s.polyType, polygon->getShapeType(), p, s.scale, s.angle);
     }
 }
 

@@ -27,6 +27,8 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 
 #include "GNEPoly.h"
 
@@ -36,7 +38,8 @@
 // ===========================================================================
 GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, const PositionVector& shape, bool geo, bool fill, double lineWidth,
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
-    GUIPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
+    GUIGlObject(GLO_POLYGON, id),
+    SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GNEShape(net, SUMO_TAG_POLY, movementBlocked,
         {}, {}, {}, {}, {}, {}, {}, {}),
     myBlockShape(shapeBlocked),
@@ -188,7 +191,7 @@ GNEPoly::getPositionInView() const {
 
 GUIGlID
 GNEPoly::getGlID() const {
-    return GUIPolygon::getGlID();
+    return GUIGlObject::getGlID();
 }
 
 
@@ -237,7 +240,12 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GNEPoly::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    return GUIPolygon::getParameterWindow(app, parent);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
+    // add items
+    ret->mkItem("type", false, getShapeType());
+    ret->mkItem("layer", false, toString(getShapeLayer()));
+    ret->closeBuilding(this);
+    return ret;
 }
 
 
@@ -250,7 +258,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
             myNet->getViewNet()->getDataViewOptions().showShapes() &&
-            checkDraw(s)) {
+            GUIPolygon::checkDraw(s, this, this)) {
         // Obtain constants
         const double polyExaggeration = s.polySize.getExaggeration(s, this);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
@@ -287,7 +295,7 @@ GNEPoly::drawGL(const GUIVisualizationSettings& s) const {
                 }
             } else {
                 // draw inner polygon
-                drawInnerPolygon(s, scaledGeometry.getShape(), 0, drawUsingSelectColor());
+                GUIPolygon::drawInnerPolygon(s, this, this, scaledGeometry.getShape(), 0, drawUsingSelectColor());
             }
         } else {
             // push matrix
