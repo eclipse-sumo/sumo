@@ -28,6 +28,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/globjects/GUIPointOfInterest.h>
 
 #include "GNEPOI.h"
 
@@ -39,7 +40,8 @@
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
                const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
                bool relativePath, double width, double height, bool movementBlocked) :
-    GUIPointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
+    GUIGlObject(GLO_POI, id),
+    PointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POI, movementBlocked,
         {}, {}, {}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
@@ -53,7 +55,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, const RGBColor& color,
                double layer, double angle, const std::string& imgFile, bool relativePath, GNELane* lane, double posOverLane, double posLat,
                double width, double height, bool movementBlocked) :
-    GUIPointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
+    GUIGlObject(GLO_POI, id),
+    PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
     GNEShape(net, SUMO_TAG_POILANE, movementBlocked,
         {}, {}, {lane}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
@@ -199,7 +202,7 @@ GNEPOI::getPositionInView() const {
 
 GUIGlID
 GNEPOI::getGlID() const {
-    return GUIPointOfInterest::getGlID();
+    return GUIGlObject::getGlID();
 }
 
 
@@ -240,7 +243,12 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 GUIParameterTableWindow*
 GNEPOI::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    return GUIPointOfInterest::getParameterWindow(app, parent);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
+    // add items
+    ret->mkItem("type", false, getShapeType());
+    ret->mkItem("layer", false, getShapeLayer());
+    ret->closeBuilding(this);
+    return ret;
 }
 
 
@@ -253,16 +261,16 @@ GNEPOI::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::drawBoundary(myBoundary);
         }
         // check if POI can be drawn
-        if (checkDraw(s)) {
+        if (GUIPointOfInterest::checkDraw(s, this)) {
             // obtain POIExaggeration
             const double POIExaggeration = s.poiSize.getExaggeration(s, this);
             // push name (needed for getGUIGlObjectsUnderCursor(...)
             glPushName(getGlID());
             // draw inner polygon
             if (myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-                drawInnerPOI(s, drawUsingSelectColor(), GLO_DOTTEDCONTOUR_FRONT);
+                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), GLO_DOTTEDCONTOUR_FRONT);
             } else {
-                drawInnerPOI(s, drawUsingSelectColor(), getShapeLayer());
+                GUIPointOfInterest::drawInnerPOI(s, this, this, drawUsingSelectColor(), getShapeLayer());
             }
             // draw an orange square mode if there is an image(see #4036)
             if (!getShapeImgFile().empty() && myNet->getViewNet()->getTestingMode().isTestingEnabled()) {

@@ -23,6 +23,7 @@
 #include <netedit/GNEMoveElement.h>
 #include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/elements/GNEHierarchicalElement.h>
+#include <utils/gui/globjects/GUIGlObject.h>
 
 
 // ===========================================================================

@@ -109,13 +109,12 @@ public:
     void drawGL(const GUIVisualizationSettings& s) const;
     //@}
 
-protected:
-    /// @brief set color
-    void setColor(const GUIVisualizationSettings& s, bool forceSelectionColor) const;
-
     /// @brief check if POI can be drawn
-    bool checkDraw(const GUIVisualizationSettings& s) const;
+    static bool checkDraw(const GUIVisualizationSettings& s, const GUIGlObject *o);
+
+    /// @brief set color
+    static void setColor(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject *o, bool forceSelectionColor);
 
     /// @brief draw inner POI (before pushName() )
-    void drawInnerPOI(const GUIVisualizationSettings& s, const bool disableSelectionColor, const double layer) const;
+    static void drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject *o, const bool disableSelectionColor, const double layer);
 };

@@ -19,7 +19,7 @@
 // GUIPointOfInterest and NLHandler)
 /****************************************************************************/
 #pragma once
-#include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/shapes/PointOfInterest.h>
 #include <netedit/GNEMoveShape.h>
 
 #include "GNEShape.h"
@@ -39,12 +39,11 @@ class GNELane;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPOI : public GUIPointOfInterest, public GNEShape {
+class GNEPOI : public GUIGlObject, public PointOfInterest, public GNEShape {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPointOfInterest and GNEShape
     using GNEShape::getID;
-    using GNEShape::getCenteringBoundary;
 
     /** @brief Constructor
      * @param[in] net net in which this polygon is placed
@@ -86,6 +85,10 @@ public:
 
     /// @brief Destructor
     ~GNEPOI();
+
+    Boundary getCenteringBoundary() const {
+        return myBoundary;
+    }
 
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
