@@ -105,7 +105,7 @@ GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
         // get original shape
         PositionVector shape = myShape;
         // check shape size
-        if (shape.size() > 1) {
+        if (shape.size() > 2) {
             // obtain index
             int index = shape.indexOfClosest(clickedPosition);
             // get snap radius
