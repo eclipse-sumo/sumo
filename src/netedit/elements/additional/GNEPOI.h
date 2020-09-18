@@ -20,7 +20,6 @@
 /****************************************************************************/
 #pragma once
 #include <utils/shapes/PointOfInterest.h>
-#include <netedit/GNEMoveShape.h>
 
 #include "GNEShape.h"
 
