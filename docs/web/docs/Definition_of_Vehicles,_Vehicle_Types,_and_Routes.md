@@ -189,7 +189,7 @@ routing in this case see
 
 [For supported attributes for flows and trips see here.](Demand/Shortest_or_Optimal_Path_Routing.md)
 
-### Traffic assignement zones (TAZ)
+### Traffic assignment zones (TAZ)
 
 It is also possible to let vehicles depart and arrive at [traffic assignment zones (TAZ)](Demand/Importing_O/D_Matrices.md#describing_the_taz).
 This allows the departure and arrival edges to be selected from a
