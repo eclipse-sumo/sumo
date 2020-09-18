@@ -714,7 +714,9 @@ use the Linux version or download the [nightly-extra version](http://sumo.dlr.de
   you can simply read off the route by mapping the location to the
   street. This mapping can be done using the python sumolib coming
   with sumo, see
-  [Tools/Sumolib\#locate_nearby_edges_based_on_the_geo-coordinate](Tools/Sumolib.md#locate_nearby_edges_based_on_the_geo-coordinate).
+  [Tools/Sumolib\#locate_nearby_edges_based_on_the_geo-coordinate](Tools/Sumolib.md#locate_nearby_edges_based_on_the_geo-coordinate)
+  or directly by using duarouter's functionality to map (geo) coordinates
+  using the attributes [fromXY, fromLonLat and their relatives](Demand/Shortest_or_Optimal_Path_Routing.md).
 
   This will fail when there is an edge in the route which did not get
   hit by a data point or if you have a mismatch (for instance matching
