@@ -845,9 +845,6 @@ struct GNEViewNetHelper {
         /// @brief calculate move operation for shape
         bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector &shape, const double radius);
 
-        /// @brief calculate Poly movement values (Position, Index, etc.)
-        bool calculatePolyValues(GNEPoly* polygon);
-
         /// @brief calculate Edge movement values (Position, Index, etc.)
         bool calculateEdgeValues(GNEEdge *edge);
 
@@ -859,12 +856,6 @@ struct GNEViewNetHelper {
 
         /// @brief relative position of Clicked Position regarding to originalGeometryPointPosition (Used when user doesn't click exactly over the center of element)
         Position myRelativeClickedPosition;
-
-        /// @brief the poly of which geometry is being moved
-        GNEPoly* myPolyToMove;
-
-        /// @brief the poi which position is being moved
-        GNEPOI* myPOIToMove;
 
         /// @brief the additional element which position is being moved
         GNEAdditional* myAdditionalToMove;

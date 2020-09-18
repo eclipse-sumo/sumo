@@ -66,13 +66,14 @@ GNEPOI::~GNEPOI() {}
 
 GNEMoveOperation* 
 GNEPOI::getMoveOperation(const double shapeOffset) {
-    return nullptr;
+    // return move operation for a position
+    return new GNEMoveOperation(this, *this);
 }
 
 
 void 
-GNEPOI::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    //
+GNEPOI::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // nothing to remove
 }
 
 
@@ -463,8 +464,6 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             if (getParentLanes().size() > 0) {
                 myPosOverLane = parse<double>(value);
             } else {
-                // first remove object from grid due position is used for boundary
-                myNet->removeGLObjectFromGrid(this);
                 // set position
                 set(parse<Position>(value));
                 // set GEO Position
@@ -472,24 +471,24 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
                 myGEOPosition.sety(this->y());
                 myGEOPosition.setz(this->z());
                 GeoConvHelper::getFinal().cartesian2geo(myGEOPosition);
-                // add object into grid again
-                myNet->addGLObjectIntoGrid(this);
             }
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
         }
         case SUMO_ATTR_POSITION_LAT:
             myPosLat = parse<double>(value);
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_GEOPOSITION: {
-            // first remove object from grid due position is used for boundary
-            myNet->removeGLObjectFromGrid(this);
             // set new position
             myGEOPosition = parse<Position>(value);
             // set cartesian Position
             set(myGEOPosition);
             GeoConvHelper::getFinal().x2cartesian_const(*this);
-            // add object into grid again
-            myNet->addGLObjectIntoGrid(this);
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
         }
         case SUMO_ATTR_GEO:
@@ -518,30 +517,16 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
             setShapeRelativePath(parse<bool>(value));
             break;
         case SUMO_ATTR_WIDTH:
-            if (getParentLanes().size() > 0) {
-                // set new width
-                setWidth(parse<double>(value));
-            } else {
-                // first remove object from grid due position is used for boundary
-                myNet->removeGLObjectFromGrid(this);
-                // set new width
-                setWidth(parse<double>(value));
-                // add object into grid again
-                myNet->addGLObjectIntoGrid(this);
-            }
+            // set new width
+            setWidth(parse<double>(value));
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_HEIGHT:
-            if (getParentLanes().size() > 0) {
-                // set new height
-                setHeight(parse<double>(value));
-            } else {
-                // first remove object from grid due position is used for boundary
-                myNet->removeGLObjectFromGrid(this);
-                // set new height
-                setHeight(parse<double>(value));
-                // add object into grid again
-                myNet->addGLObjectIntoGrid(this);
-            }
+            // set new height
+            setHeight(parse<double>(value));
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_ANGLE:
             setShapeNaviDegree(parse<double>(value));
@@ -567,13 +552,16 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEPOI::setMoveShape(const PositionVector& newShape) {
-    //
+    // set geometry
+    set(newShape.front());
 }
 
 
 void 
 GNEPOI::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+    undoList->p_begin("position of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
+    undoList->p_end();
 }
 
 /****************************************************************************/

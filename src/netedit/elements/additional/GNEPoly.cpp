@@ -681,10 +681,6 @@ GNEPoly::isAttributeEnabled(SumoXMLAttr /* key */) const {
 
 void
 GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
-    // first remove object from grid due almost modificactions affects to boundary (but avoided for certain attributes)
-    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_PARAMETERS) && (key != GNE_ATTR_SELECTED)) {
-        myNet->removeGLObjectFromGrid(this);
-    }
     switch (key) {
         case SUMO_ATTR_ID: {
             // note: getAttributeCarriers().updateID doesn't change Microsim ID in GNEShapes
@@ -705,6 +701,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             // update geometry
             updateGeometry();
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
         }
         case SUMO_ATTR_GEOSHAPE: {
@@ -719,6 +717,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             // update geometry
             updateGeometry();
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
         }
         case SUMO_ATTR_COLOR:
@@ -753,6 +753,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         case SUMO_ATTR_GEO:
             myGEO = parse<bool>(value);
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
@@ -772,6 +774,8 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             mySimplifiedShape = false;
             // update geometry
             updateGeometry();
+            // update centering boundary
+            updateCenteringBoundary(true);
             break;
         case GNE_ATTR_SELECTED:
             if (parse<bool>(value)) {
@@ -785,10 +789,6 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-    }
-    // add object into grid again (but avoided for certain attributes)
-    if ((key != SUMO_ATTR_ID) && (key != GNE_ATTR_PARAMETERS) && (key != GNE_ATTR_SELECTED)) {
-        myNet->addGLObjectIntoGrid(this);
     }
 }
 

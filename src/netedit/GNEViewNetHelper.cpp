@@ -900,8 +900,6 @@ GNEViewNetHelper::MouseButtonKeyPressed::mouseRightButtonPressed() const {
 
 GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* viewNet) :
     myViewNet(viewNet),
-    myPolyToMove(nullptr),
-    myPOIToMove(nullptr),
     myAdditionalToMove(nullptr),
     myDemandElementToMove(nullptr),
     myTAZElementToMove(nullptr) {
@@ -942,17 +940,34 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     const GNEAttributeCarrier* frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
     // check what type of AC will be moved
     if (myViewNet->myObjectsUnderCursor.getPolyFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPolyFront())) {
-        // calculate poly movement values (can be entire shape, single geometry points, altitude, etc.)
-        return calculatePolyValues(myViewNet->myObjectsUnderCursor.getPolyFront());
+        // calculate junctionShapeOffset
+        const double junctionShapeOffset = myViewNet->myObjectsUnderCursor.getPolyFront()->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+        // calculate distance to shape
+        const double distanceToShape = myViewNet->myObjectsUnderCursor.getPolyFront()->getShape().distance2D(myViewNet->getPositionInformation());
+        // get snap radius
+        const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+        // check if we clicked over shape
+        if (distanceToShape <= snap_radius) {
+            // get move operation
+            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPolyFront()->getMoveOperation(junctionShapeOffset);
+            // continue if move operation is valid
+            if (moveOperation) {
+                myMoveOperations.push_back(moveOperation);
+                return true;
+            }
+        }
+        // shape operation value wasn't calculated, then return false
+        return false;
     } else if (myViewNet->myObjectsUnderCursor.getPOIFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPOIFront())) {
-        // set POI moved object
-        myPOIToMove = myViewNet->myObjectsUnderCursor.getPOIFront();
-/*
-        // start POI geometry moving
-        myPOIToMove->startPOIGeometryMoving();
-*/
-        // there is moved items, then return true
-        return true;
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPOIFront()->getMoveOperation(0);
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
     } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront() && (frontAC == myViewNet->myObjectsUnderCursor.getAdditionalFront())) {
         // set additionals moved object
         myAdditionalToMove = myViewNet->myObjectsUnderCursor.getAdditionalFront();
@@ -1091,29 +1106,6 @@ GNEViewNetHelper::MoveSingleElementValues::calculateMoveOperationShape(GNEMoveEl
     if (distanceToShape <= radius) {
         // get move operation
         GNEMoveOperation* moveOperation = moveElement->getMoveOperation(junctionShapeOffset);
-        // continue if move operation is valid
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-            return true;
-        }
-    }
-    // shape operation value wasn't calculated, then return false
-    return false;
-}
-
-
-bool
-GNEViewNetHelper::MoveSingleElementValues::calculatePolyValues(GNEPoly* polygon) {
-    // calculate junctionShapeOffset
-    const double junctionShapeOffset = polygon->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
-    // calculate distance to shape
-    const double distanceToShape = polygon->getShape().distance2D(myViewNet->getPositionInformation());
-    // get snap radius
-    const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
-    // check if we clicked over shape
-    if (distanceToShape <= snap_radius) {
-        // get move operation
-        GNEMoveOperation* moveOperation = polygon->getMoveOperation(junctionShapeOffset);
         // continue if move operation is valid
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
