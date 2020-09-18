@@ -848,9 +848,6 @@ struct GNEViewNetHelper {
         /// @brief calculate Edge movement values (Position, Index, etc.)
         bool calculateEdgeValues(GNEEdge *edge);
 
-        /// @brief calculate TAZ movement values (Position, Index, etc.)
-        bool calculateTAZValues();
-
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
@@ -862,9 +859,6 @@ struct GNEViewNetHelper {
 
         /// @brief the demand element which position is being moved
         GNEDemandElement* myDemandElementToMove;
-
-        /// @brief the TAZ element which their Shape is being moved (it's the only additional with a shape instead a position)
-        GNETAZ* myTAZElementToMove;
 
         /// @brief move operations
         std::vector<GNEMoveOperation*> myMoveOperations;

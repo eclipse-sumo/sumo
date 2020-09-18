@@ -902,8 +902,7 @@ GNEViewNetHelper::MouseButtonKeyPressed::mouseRightButtonPressed() const {
 GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* viewNet) :
     myViewNet(viewNet),
     myAdditionalToMove(nullptr),
-    myDemandElementToMove(nullptr),
-    myTAZElementToMove(nullptr) {
+    myDemandElementToMove(nullptr) {
 }
 
 
@@ -941,16 +940,16 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
     const GNEAttributeCarrier* frontAC = myViewNet->myObjectsUnderCursor.getAttributeCarrierFront();
     // check what type of AC will be moved
     if (myViewNet->myObjectsUnderCursor.getPolyFront() && (frontAC == myViewNet->myObjectsUnderCursor.getPolyFront())) {
-        // calculate junctionShapeOffset
-        const double junctionShapeOffset = myViewNet->myObjectsUnderCursor.getPolyFront()->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+        // calculate polygonShapeOffset
+        const double polygonShapeOffset = myViewNet->myObjectsUnderCursor.getPolyFront()->getShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
         // calculate distance to shape
         const double distanceToShape = myViewNet->myObjectsUnderCursor.getPolyFront()->getShape().distance2D(myViewNet->getPositionInformation());
         // get snap radius
-        const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius;
+        const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
         // check if we clicked over shape
         if (distanceToShape <= snap_radius) {
             // get move operation
-            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPolyFront()->getMoveOperation(junctionShapeOffset);
+            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getPolyFront()->getMoveOperation(polygonShapeOffset);
             // continue if move operation is valid
             if (moveOperation) {
                 myMoveOperations.push_back(moveOperation);
@@ -977,8 +976,24 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
         // there is moved items, then return true
         return true;
     } else if (myViewNet->myObjectsUnderCursor.getTAZFront() && (frontAC == myViewNet->myObjectsUnderCursor.getTAZFront())) {
-        // calculate TAZ movement values (can be entire shape or single geometry points)
-        return calculateTAZValues();
+        // calculate TAZShapeOffset
+        const double TAZShapeOffset = myViewNet->myObjectsUnderCursor.getTAZFront()->getTAZElementShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
+        // calculate distance to TAZ
+        const double distanceToShape = myViewNet->myObjectsUnderCursor.getTAZFront()->getTAZElementShape().distance2D(myViewNet->getPositionInformation());
+        // get snap radius
+        const double snap_radius = myViewNet->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+        // check if we clicked over TAZ
+        if (distanceToShape <= snap_radius) {
+            // get move operation
+            GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getTAZFront()->getMoveOperation(TAZShapeOffset);
+            // continue if move operation is valid
+            if (moveOperation) {
+                myMoveOperations.push_back(moveOperation);
+                return true;
+            }
+        }
+        // TAZ operation value wasn't calculated, then return false
+        return false;
     } else if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (frontAC == myViewNet->myObjectsUnderCursor.getJunctionFront())) {
         if (myViewNet->myObjectsUnderCursor.getJunctionFront()->isShapeEdited()) {
             return false;
@@ -1043,9 +1058,6 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLef
     } else if (myDemandElementToMove/* && (myDemandElementToMove->isDemandElementBlocked() == false)*/) {
         // Move DemandElement geometry without commiting changes
         myDemandElementToMove->moveGeometry(offsetMovement);
-    } else if (myTAZElementToMove) {
-        // move TAZ's geometry without commiting changes
-        myTAZElementToMove->moveTAZShape(offsetMovement);
     }
     // check if mouse button is pressed
     if (mouseLeftButtonPressed) {
@@ -1078,9 +1090,6 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         myDemandElementToMove->commitGeometryMoving(myViewNet->getUndoList());
         myDemandElementToMove->endGeometryMoving();
         myDemandElementToMove = nullptr;
-    } else if (myTAZElementToMove) {
-        myTAZElementToMove->commitTAZShapeChange(myViewNet->getUndoList());
-        myTAZElementToMove = nullptr;
     }
 
     // calculate offsetMovement depending of current mouse position and relative clicked position
@@ -1137,35 +1146,6 @@ GNEViewNetHelper::MoveSingleElementValues::calculateEdgeValues(GNEEdge *edge) {
         } else {
             return false;
         }
-    }
-}
-
-
-bool
-GNEViewNetHelper::MoveSingleElementValues::calculateTAZValues() {
-    // assign clicked TAZ to TAZToMove
-    myTAZElementToMove = myViewNet->myObjectsUnderCursor.getTAZFront();
-    // calculate TAZShapeOffset
-    const double TAZShapeOffset = myTAZElementToMove->getTAZElementShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
-    // now we have two cases: if we're editing the X-Y coordenade or the altitude (z)
-    if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
-        // check if in the clicked position a geometry point exist
-        if (myTAZElementToMove->getTAZVertexIndex(myViewNet->getPositionInformation(), false) != -1) {
-            // start geometry moving
-            myTAZElementToMove->startTAZShapeGeometryMoving(TAZShapeOffset);
-            // TAZ values sucesfully calculated, then return true
-            return true;
-        } else {
-            // stop TAZ moving
-            myTAZElementToMove = nullptr;
-            // TAZ values wasn't calculated, then return false
-            return false;
-        }
-    } else {
-        // start geometry moving
-        myTAZElementToMove->startTAZShapeGeometryMoving(TAZShapeOffset);
-        // TAZ values sucesfully calculated, then return true
-        return true;
     }
 }
 
