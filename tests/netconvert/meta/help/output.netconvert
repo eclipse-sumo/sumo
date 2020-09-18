@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_6_0+2016-faf1994207
+Eclipse SUMO netconvert Version v1_7_0+0138-b785e36aa2
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -386,6 +386,8 @@ Junctions Options:
                                         joining junctions (defaults to 10)
   --junctions.join-exclude STR[]       Interprets STR[] as list of junctions to
                                         exclude from joining
+  --junctions.join-same                Joins junctions that have the same
+                                        coordinates even if not connected
   --junctions.corner-detail INT        Generate INT intermediate points to
                                         smooth out intersection corners
   --junctions.internal-link-detail INT  Generate INT intermediate points to
