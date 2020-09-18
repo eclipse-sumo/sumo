@@ -23,6 +23,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/div/GLHelper.h>
 
 #include "GNETAZ.h"
@@ -38,17 +39,19 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ, blockMovement,
-{}, {}, {}, {}, {}, {}, {}, {}),
-GUIPolygon(id, "", color, shape, false, false, 1),
-myBlockShape(false),
-myMaxWeightSource(0),
-myMinWeightSource(0),
-myAverageWeightSource(0),
-myMaxWeightSink(0),
-myMinWeightSink(0),
-myAverageWeightSink(0) {
+        {}, {}, {}, {}, {}, {}, {}, {}),
+    GUIGlObject(GLO_TAZ, id),
+    SUMOPolygon(id, "", color, shape, false, false, 1),
+    myBlockShape(false),
+    myMaxWeightSource(0),
+    myMinWeightSource(0),
+    myAverageWeightSource(0),
+    myMaxWeightSink(0),
+    myMinWeightSink(0),
+    myAverageWeightSink(0) {
     // update geometry
     updateGeometry();
 }
@@ -236,6 +239,18 @@ GNETAZ::isShapeBlocked() const {
 }
 
 
+GUIGLObjectPopupMenu* 
+GNETAZ::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
+    return nullptr;
+}
+
+
+GUIParameterTableWindow* 
+GNETAZ::getParameterWindow(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
+    return nullptr;
+}
+
+
 std::string
 GNETAZ::getParentName() const {
     return myNet->getMicrosimID();
@@ -251,7 +266,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
     // first check if poly can be drawn
     if (myNet->getViewNet()->getDemandViewOptions().showShapes() &&
             myNet->getViewNet()->getDataViewOptions().showShapes() &&
-            checkDraw(s, this, this)) {
+            GUIPolygon::checkDraw(s, this, this)) {
         // Obtain constants
         const double TAZExaggeration = s.polySize.getExaggeration(s, (GNETAZElement*)this);
         const Position mousePosition = myNet->getViewNet()->getPositionInformation();
@@ -288,7 +303,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
                 }
             } else {
                 // draw inner polygon
-                drawInnerPolygon(s, this, this, scaledGeometry.getShape(), 0, drawUsingSelectColor());
+                GUIPolygon::drawInnerPolygon(s, this, this, scaledGeometry.getShape(), 0, drawUsingSelectColor());
             }
         } else {
             // push matrix

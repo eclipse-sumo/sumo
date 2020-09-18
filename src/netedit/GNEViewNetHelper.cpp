@@ -30,6 +30,7 @@
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>

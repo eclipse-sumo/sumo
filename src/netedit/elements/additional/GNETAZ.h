@@ -19,7 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <netedit/GNEMoveShape.h>
-#include <utils/gui/globjects/GUIPolygon.h>
+#include <utils/shapes/SUMOPolygon.h>
 
 #include "GNETAZElement.h"
 
@@ -30,7 +30,7 @@
  * @class GNETAZ
  * Class for Traffic Assign Zones (TAZs)
  */
-class GNETAZ : public GNETAZElement, private GUIPolygon, protected GNEMoveShape {
+class GNETAZ : public GNETAZElement, public GUIGlObject, private SUMOPolygon, protected GNEMoveShape {
 
 public:
     /// @brief needed to avoid diamond Problem between GUIPolygon and GNETAZElement
@@ -100,6 +100,24 @@ public:
 
     /// @name inherited from GUIGlObject
     /// @{
+    /** @brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+    /** @brief Returns an own parameter window
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     * @see GUIGlObject::getParameterWindow
+     */
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
     /// @brief Returns the name of the parent object
     /// @return This object's parent id
     std::string getParentName() const;
