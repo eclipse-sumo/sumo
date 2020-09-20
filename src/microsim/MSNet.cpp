@@ -262,7 +262,7 @@ MSNet::closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionCont
     mySimBeginMillis = SysUtils::getCurrentMillis();
     myHasInternalLinks = hasInternalLinks;
     if (hasNeighs && MSGlobals::gLateralResolution > 0) {
-        WRITE_WARNING("Opposite direction driving does not work together with the sublane model.");
+        throw ProcessError("Opposite direction driving does not work together with the sublane model.");
     }
     myHasElevation = checkElevation();
     myHasPedestrianNetwork = checkWalkingarea();
