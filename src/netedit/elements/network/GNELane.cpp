@@ -1152,9 +1152,18 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case GNE_ATTR_OPPOSITE: {
+            if (value != "") {
+                NBEdge* oppEdge = myNet->getEdgeCont().retrieve(value.substr(0, value.rfind("_")));
+                oppEdge->getLaneStruct(oppEdge->getNumLanes() - 1).oppositeID = getID();
+            } else {
+                // reset prior oppEdge if existing
+                const std::string oldValue = myParentEdge->getNBEdge()->getLaneStruct(myIndex).oppositeID;
+                NBEdge* oppEdge = myNet->getEdgeCont().retrieve(oldValue.substr(0, oldValue.rfind("_")));
+                if (oppEdge != nullptr) {
+                    oppEdge->getLaneStruct(oppEdge->getNumLanes() - 1).oppositeID = "";
+                }
+            }
             myParentEdge->getNBEdge()->getLaneStruct(myIndex).oppositeID = value;
-            NBEdge* oppEdge = myNet->getEdgeCont().retrieve(value.substr(0, value.rfind("_")));
-            oppEdge->getLaneStruct(oppEdge->getNumLanes() - 1).oppositeID = getID();
             break;
         }
         case GNE_ATTR_SELECTED:
