@@ -242,17 +242,13 @@ protected:
     struct DriveWay {
 
         /// @brief Constructor
-        DriveWay(int index, bool temporary = false) :
-            myIndex(index),
+        DriveWay(bool temporary = false) :
             myNumericalID(temporary ? -1 : myDriveWayIndex++),
             myMaxFlankLength(0),
             myActive(nullptr),
             myProtectedBidi(nullptr),
             myCoreSize(0)
         {}
-
-        /// @brief index in the list of driveways
-        int myIndex;
 
         /// @brief global driveway index
         int myNumericalID;
@@ -309,6 +305,9 @@ protected:
 
         /// @brief whether any of myConflictLanes is occupied (vehicles that are the target of a join must be ignored)
         bool conflictLaneOccupied(const std::string& joinVehicle = "", bool store = true) const;
+
+        /// @brief whether any of myBidiExtended is occupied by a vehicle that targets myBidi
+        bool deadlockLaneOccupied(bool store = true) const;
 
         /// @brief attempt reserve this driveway for the given vehicle
         bool reserve(const Approaching& closest, MSEdgeVector& occupied);
@@ -391,7 +390,7 @@ protected:
 
     /* @brief retrieve driveway with the given numerical id
      * @note: throws exception if the driveway does not exist at this rail signal */
-    std::pair<const MSLink*, const DriveWay&> getDriveWayLink(int numericalID) const;
+    const DriveWay& retrieveDriveWay(int numericalID) const;
 
     /// @brief get the closest vehicle approaching the given link
     static Approaching getClosest(MSLink* link);
