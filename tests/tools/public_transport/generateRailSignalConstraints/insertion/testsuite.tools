@@ -1,6 +1,9 @@
 # one train passes the stop and the other train is inserted there
 basic
 
+# passing train tripId changes at stop
+changeTripId
+
 # signal is not at the end of the insertion stop edge
 signal_on_next_edge
 
