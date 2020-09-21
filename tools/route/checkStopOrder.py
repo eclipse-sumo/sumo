@@ -43,6 +43,8 @@ def get_options(args=None):
                         help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
     parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
                         help="Do not report conflicts with parking vehicles")
+    parser.add_argument("--stop-table", dest="stopTable",
+                        help="Print timetable information for the given busStop")
 
     options = parser.parse_args(args=args)
     if options.routeFiles:
@@ -76,7 +78,17 @@ def main(options):
             for a2, u2, v2 in times[i + 1:]:
                 if u2 < u:
                     print("Vehicle %s (%s, %s) overtakes %s (%s, %s) at stop %s" % (
-                        v2, tf(a2), tf(u2), v, tf(a), tf(u), stop))
+                        v2, tf(a2), tf(u2), v, tf(a), tf(u), stop), file=sys.stderr)
+
+    if options.stopTable:
+        if options.stopTable in stopTimes:
+            times = stopTimes[options.stopTable]
+            print("# busStop: %s" % options.stopTable)
+            print("arrival\tuntil\tveh")
+            for a, u, v in sorted(times):
+                print("%s\t%s\t%s" % (tf(a), tf(u), v))
+        else:
+            print("No vehicle stops at busStop '%s' found" % options.stopTable, file=sys.stderr)
 
 
 if __name__ == "__main__":
