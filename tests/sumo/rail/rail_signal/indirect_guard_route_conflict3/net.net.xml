@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu 31 Jan 2019 02:38:59 PM CET by Eclipse SUMO netedit Version v1_1_0+0435-678c69824b
+<!-- generated on Mon Sep 21 12:42:52 2020 by Eclipse SUMO netconvert Version v1_7_0+0154-8737097f0c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="net.net.xml"/>
+        <sumo-net-file value="rail_signal/indirect_guard_route_conflict3/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="net.net.xml"/>
+        <output-file value="rail_signal/indirect_guard_route_conflict3/net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -28,10 +29,14 @@
         <walkingareas value="false"/>
     </pedestrian>
 
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
 </configuration>
 -->
 
-<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-400.00,0.00,1000.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -69,10 +74,7 @@
         <lane id=":w0_2_0" index="0" allow="rail" speed="70.00" length="19.32" shape="-1.66,0.00 17.66,0.00"/>
     </edge>
     <edge id=":w0_3" function="internal" bidi=":w0_0">
-        <lane id=":w0_3_0" index="0" allow="rail" speed="70.00" length="10.71" shape="-1.66,0.00 2.73,0.40 7.86,1.36 8.92,1.60"/>
-    </edge>
-    <edge id=":w0_4" function="internal">
-        <lane id=":w0_4_0" index="0" allow="rail" speed="70.00" length="8.60" shape="8.92,1.60 12.99,2.51 17.32,3.46"/>
+        <lane id=":w0_3_0" index="0" allow="rail" speed="70.00" length="19.31" shape="-1.66,0.00 2.73,0.40 7.86,1.36 12.99,2.51 17.32,3.46"/>
     </edge>
 
     <edge id="-T0" from="B" to="A" priority="1" spreadType="center" bidi="T0">
@@ -137,14 +139,12 @@
     </junction>
     <junction id="E2" type="dead_end" x="1000.00" y="20.00" incLanes="T12_0" intLanes="" shape="1000.00,18.40 1000.00,21.60 1000.00,18.40 1000.00,21.60"/>
     <junction id="Z" type="dead_end" x="1000.00" y="0.00" incLanes="T3_0" intLanes="" shape="1000.00,-1.60 1000.00,1.60 1000.00,-1.60 1000.00,1.60"/>
-    <junction id="w0" type="priority" x="0.00" y="0.00" incLanes="-T10_0 -T2_0 T1_0" intLanes=":w0_0_0 :w0_1_0 :w0_2_0 :w0_4_0" shape="17.00,5.03 17.63,1.89 17.66,1.60 17.66,-1.60 -1.66,-1.60 -1.66,1.60">
+    <junction id="w0" type="priority" x="0.00" y="0.00" incLanes="-T10_0 -T2_0 T1_0" intLanes=":w0_0_0 :w0_1_0 :w0_2_0 :w0_3_0" shape="17.00,5.03 17.63,1.89 17.66,1.60 17.66,-1.60 -1.66,-1.60 -1.66,1.60">
         <request index="0" response="0010" foes="0010" cont="0"/>
         <request index="1" response="0000" foes="1001" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
-        <request index="3" response="0010" foes="0010" cont="1"/>
+        <request index="3" response="0010" foes="0010" cont="0"/>
     </junction>
-
-    <junction id=":w0_4_0" type="internal" x="8.92" y="1.60" incLanes=":w0_3_0 -T2_0" intLanes=":w0_1_0"/>
 
     <connection from="-T1" to="-T0" fromLane="0" toLane="0" uncontrolled="1" via=":B_0_0" dir="s" state="M"/>
     <connection from="-T10" to="-T1" fromLane="0" toLane="0" via=":w0_0_0" dir="s" state="M"/>
@@ -170,7 +170,6 @@
     <connection from=":w0_0" to="-T1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":w0_1" to="-T1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":w0_2" to="T2" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from=":w0_3" to="T10" fromLane="0" toLane="0" via=":w0_4_0" dir="L" state="m"/>
-    <connection from=":w0_4" to="T10" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from=":w0_3" to="T10" fromLane="0" toLane="0" dir="L" state="M"/>
 
 </net>

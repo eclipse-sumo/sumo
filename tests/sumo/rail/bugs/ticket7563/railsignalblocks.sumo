@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep 17 12:00:04 2020 by Eclipse SUMO sumo Version v1_7_0+0127-788f2fe11b
+<!-- generated on Mon Sep 21 12:34:41 2020 by Eclipse SUMO sumo Version v1_7_0+0154-8737097f0c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,10 +36,11 @@ SPDX-License-Identifier: EPL-2.0
 <railsignal-block-output>
     <railSignal id="A">
         <link linkIndex="0" from="gneE0_0" to=":A_0_0">
-            <driveWay edges="gneE1 gneE1.100 gneE2">
+            <driveWay edges="gneE1 gneE1.100 gneE2 gneE5 gneE6">
                 <forward lanes=":A_0_0 gneE1_0 :gneJ8_1_0 gneE1.100_0"/>
-                <bidi lanes="gneE10_0 :B_0_0 gneE9_0 :gneJ3_0_0"/>
-                <flank lanes=":gneJ3_0_0"/>
+                <bidi lanes="gneE10_0 :B_0_0 gneE9_0 :gneJ3_0_0"
+                    deadlockCheck="gneE8_0 :C_0_0 gneE7_0"/>
+                <flank lanes=""/>
                 <protectingSwitches links="gneJ3_0"/>
                 <conflictLinks signals=""/>
             </driveWay>
