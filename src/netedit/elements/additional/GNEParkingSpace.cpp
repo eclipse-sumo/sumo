@@ -33,11 +33,13 @@
 
 GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, const Position& pos, double width, double length, double angle, bool blockMovement) :
     GNEAdditional(net, GLO_PARKING_SPACE, SUMO_TAG_PARKING_SPACE, "", blockMovement,
-{}, {}, {}, {parkingAreaParent}, {}, {}, {}, {}),
-myPosition(pos),
-myWidth(width),
-myLength(length),
-myAngle(angle) {
+        {}, {}, {}, {parkingAreaParent}, {}, {}, {}, {}),
+    myPosition(pos),
+    myWidth(width),
+    myLength(length),
+    myAngle(angle) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 

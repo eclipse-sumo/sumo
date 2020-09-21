@@ -37,6 +37,8 @@ GNEContainerStop::GNEContainerStop(const std::string& id, GNELane* lane, GNENet*
                                    const std::string& name, const std::vector<std::string>& lines, bool friendlyPosition, bool blockMovement) :
     GNEStoppingPlace(id, net, GLO_CONTAINER_STOP, SUMO_TAG_CONTAINER_STOP, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
     myLines(lines) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 

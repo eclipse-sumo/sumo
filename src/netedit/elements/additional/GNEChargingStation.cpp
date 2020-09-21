@@ -40,6 +40,8 @@ GNEChargingStation::GNEChargingStation(const std::string& id, GNELane* lane, GNE
     myEfficiency(efficiency),
     myChargeInTransit(chargeInTransit),
     myChargeDelay(chargeDelay) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 

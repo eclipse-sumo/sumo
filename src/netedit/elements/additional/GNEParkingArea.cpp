@@ -41,6 +41,8 @@ GNEParkingArea::GNEParkingArea(const std::string& id, GNELane* lane, GNENet* net
     myWidth(width),
     myLength(length),
     myAngle(angle) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 

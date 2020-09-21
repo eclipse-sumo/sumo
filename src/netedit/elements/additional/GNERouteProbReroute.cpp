@@ -32,9 +32,11 @@
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false,
-{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
-myNewRouteId(newRouteId),
-myProbability(probability) {
+        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
+    myNewRouteId(newRouteId),
+    myProbability(probability) {
+    // update centering boundary without updating grid
+    updateCenteringBoundary(false);
 }
 
 
