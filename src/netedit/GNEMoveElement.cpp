@@ -33,7 +33,9 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
     moveElement(_moveElement),
     originalShape({_originalPosition}),
     clickedIndex(-1),
-    shapeToMove({_originalPosition}) {
+    shapeToMove({_originalPosition}),
+    lane(nullptr), 
+    originalPosOverLane(0) {
 }
 
 
@@ -42,7 +44,9 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
     moveElement(_moveElement),
     originalShape(_originalShape),
     clickedIndex(-1),
-    shapeToMove(_originalShape) {
+    shapeToMove(_originalShape),
+    lane(nullptr), 
+    originalPosOverLane(0) {
 }
 
 
@@ -55,6 +59,37 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
     originalShape(_originalShape),
     clickedIndex(_clickedIndex),
     shapeToMove(_shapeToMove),
+    lane(nullptr), 
+    originalPosOverLane(0),
+    geometryPointsToMove(_geometryPointsToMove) {
+}
+
+
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement, 
+    const PositionVector _originalShape, 
+    const GNELane* _lane, 
+    const double _originalPosOverLane) : 
+    moveElement(_moveElement),
+    originalShape(_originalShape),
+    clickedIndex(-1),
+    shapeToMove(_originalShape),
+    lane(_lane), 
+    originalPosOverLane(_originalPosOverLane) {
+}
+
+
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
+    const PositionVector _originalShape, 
+    const GNELane* _lane, 
+    const double _originalPosOverLane, 
+    const int _clickedIndex, 
+    const std::vector<int> _geometryPointsToMove):
+    moveElement(_moveElement),
+    originalShape(_originalShape),
+    clickedIndex(_clickedIndex),
+    shapeToMove(_originalShape),
+    lane(_lane), 
+    originalPosOverLane(_originalPosOverLane),
     geometryPointsToMove(_geometryPointsToMove) {
 }
 

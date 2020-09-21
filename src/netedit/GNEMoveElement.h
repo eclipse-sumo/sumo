@@ -37,18 +37,32 @@ class GNEUndoList;
 class GNEMoveOperation {
 
 public:
-    /// @brief constructor for values with a single position
+    /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
     GNEMoveOperation(GNEMoveElement *moveElement,
         const Position originalPosition);
 
-    /// @brief constructor for entire geometries
+    /// @brief constructor for entire geometries (Polygon with blocked shapes)
     GNEMoveOperation(GNEMoveElement *moveElement, 
         const PositionVector originalShape);
 
-    /// @brief constructor for elements with shape editierbar (edges, polygons...)
+    /// @brief constructor for elements with editable shapes (edges, polygons...)
     GNEMoveOperation(GNEMoveElement *moveElement, 
         const PositionVector originalShape,
         const PositionVector shapeToMove, 
+        const int clickedIndex,
+        const std::vector<int> geometryPointsToMove);
+
+    /// @brief constructor for elements placed over lanes (StoppingPlaces, detectors...)
+    GNEMoveOperation(GNEMoveElement *moveElement, 
+        const PositionVector originalShape,
+        const GNELane* lane,
+        const double originalPosOverLane);
+
+    /// @brief constructor for edit elements placed over lanes (start/end of StoppingPlaces, detectors...)
+    GNEMoveOperation(GNEMoveElement *moveElement, 
+        const PositionVector originalShape,
+        const GNELane* lane,
+        const double originalPosOverLane,
         const int clickedIndex,
         const std::vector<int> geometryPointsToMove);
 
@@ -65,6 +79,12 @@ public:
      * @note: it can be different of originalShape, for example due a new geometry point
      */
     const PositionVector shapeToMove;
+
+    /// @brief original lane
+    const GNELane* lane;
+
+    /// @brief original position over lane
+    const double originalPosOverLane;
 
     /// @brief clicked index (of shapeToMove)
     const int clickedIndex;
