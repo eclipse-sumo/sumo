@@ -744,7 +744,7 @@ public:
     /** Returns true if vehicle's speed is below 60km/h. This is only relevant
         on highways. Overtaking on the right is allowed then. */
     bool congested() const {
-        return myState.mySpeed < double(60) / double(3.6);
+        return myState.mySpeed < double(60.0) / double(3.6) || myLane->getSpeedLimit() < (60.1 / 3.6);
     }
 
 
