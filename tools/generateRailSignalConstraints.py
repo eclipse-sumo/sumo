@@ -149,22 +149,31 @@ def getStopRoutes(options, stopEdges):
 def findMergingSwitches(options, uniqueRoutes, net):
     """find switches where routes merge and thus conflicts must be solved"""
     predEdges = defaultdict(set)
+    predReversal = set()
     for edges in uniqueRoutes:
         for i, edge in enumerate(edges):
             if i > 0:
                 pred = edges[i - 1]
-                if net.getEdge(edge).getBidi() != net.getEdge(pred):
-                    predEdges[edge].add(pred)
+                if net.getEdge(edge).getBidi() == net.getEdge(pred):
+                    predReversal.add(edge)
+                predEdges[edge].add(pred)
 
     mergeSwitches = set()
+    numReversals = 0
     for edge, preds in predEdges.items():
         if len(preds) > 1:
+            if edge in predReversal:
+                numReversals += 1
             if options.verbose:
                 print("mergingEdge=%s pred=%s" % (edge, ','.join(preds)))
             mergeSwitches.add(edge)
 
-    print("processed %s routes across %s edges with %s merging switches" % (
-        len(uniqueRoutes), len(predEdges), len(mergeSwitches)))
+    if numReversals == 0:
+        reversalInfo = ""
+    else:
+        reversalInfo = " (including %s reversal-merges)" % numReversals
+    print("processed %s routes across %s edges with %s merging switches%s" % (
+        len(uniqueRoutes), len(predEdges), len(mergeSwitches), reversalInfo))
     return mergeSwitches
 
 def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
@@ -177,12 +186,14 @@ def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
         for edgesBefore, stop in stops:
             signal = None
             signalEdgeIndex = 0
+            prevEdge = None
             for i, edge in enumerate(edgesBefore):
                 node = net.getEdge(edge).getFromNode()
                 if node.getType() == "rail_signal":
                     tls = net.getTLS(node.getID())
                     for inLane, outLane, linkNo in tls.getConnections():
-                        if outLane.getEdge().getID() == edge:
+                        if (outLane.getEdge().getID() == edge
+                                and (prevEdge is None or prevEdge == inLane.getEdge().getID())):
                             signal = tls.getID()
                             signalEdgeIndex = i
                             break
@@ -195,6 +206,7 @@ def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
                     # travel time from signal to stop
                     ttSignalStop = getTravelTime(net, edgesBefore[signalEdgeIndex:])
                     mergeSignals[(edge, edgesBefore)] = (signal, ttSignalStop)
+                prevEdge = edge
 
     print("Found %s stops after merging switches and %s signals that guard switches" % (
         numFound, len(set(mergeSignals.values()))))
