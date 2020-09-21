@@ -214,10 +214,14 @@ public:
     /// @brief register contraint for signal switching
     void addConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
 
+    /// @brief register contraint for vehicle insertion
+    void addInsertionConstraint(const std::string& tripId, MSRailSignalConstraint* constraint);
+
     /// update driveway for extended deadlock protection
     void updateDriveway(int numericalID);
 
     static bool hasOncomingRailTraffic(MSLink* link);
+    static bool hasInsertionConstraint(MSLink* link, const MSVehicle* veh);
 
     /// @brief final check for driveway compatibility of signals that switched green in this step
     static void recheckGreen();
@@ -426,6 +430,7 @@ protected:
 
     /// @brief map from tripId to constraint list
     std::map<std::string, std::vector<MSRailSignalConstraint*> > myConstraints;
+    std::map<std::string, std::vector<MSRailSignalConstraint*> > myInsertionConstraints;
 
     static int myNumWarnings;
 

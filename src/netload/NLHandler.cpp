@@ -266,6 +266,9 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_PREDECESSOR:
                 addPredecessorConstraint(attrs);
                 break;
+            case SUMO_TAG_INSERTION_PREDECESSOR:
+                addInsertionPredecessorConstraint(attrs);
+                break;
             default:
                 break;
         }
@@ -1507,7 +1510,7 @@ NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, 
 void
 NLHandler::addPredecessorConstraint(const SUMOSAXAttributes& attrs) {
     if (myConstrainedSignal == nullptr) {
-        throw InvalidArgument("Rail signal 'predecessor' constrain must occur within a railSignalConstraints element");
+        throw InvalidArgument("Rail signal 'predecessor' constraint must occur within a railSignalConstraints element");
     }
     bool ok = true;
     const std::string tripId = attrs.get<std::string>(SUMO_ATTR_TRIP_ID, nullptr, ok);
@@ -1527,6 +1530,34 @@ NLHandler::addPredecessorConstraint(const SUMOSAXAttributes& attrs) {
         for (const std::string& foe : foes) {
             MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit);
             myConstrainedSignal->addConstraint(tripId, c);
+        }
+    }
+}
+
+
+void
+NLHandler::addInsertionPredecessorConstraint(const SUMOSAXAttributes& attrs) {
+    if (myConstrainedSignal == nullptr) {
+        throw InvalidArgument("Rail signal 'insertionPredecessor' constraint must occur within a railSignalConstraints element");
+    }
+    bool ok = true;
+    const std::string tripId = attrs.get<std::string>(SUMO_ATTR_TRIP_ID, nullptr, ok);
+    const std::string signalID = attrs.get<std::string>(SUMO_ATTR_TLID, nullptr, ok);
+    const std::string foesString = attrs.get<std::string>(SUMO_ATTR_FOES, nullptr, ok);
+    const std::vector<std::string> foes = StringTokenizer(foesString).getVector();
+    const int limit = attrs.getOpt<int>(SUMO_ATTR_LIMIT, nullptr, ok, (int)foes.size());
+
+    if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
+        throw InvalidArgument("Rail signal '" + signalID + "' in railSignalConstraints is not known");
+    }
+    MSRailSignal* signal = dynamic_cast<MSRailSignal*>(MSNet::getInstance()->getTLSControl().get(signalID).getDefault());
+    if (signal == nullptr) {
+        throw InvalidArgument("Traffic light '" + signalID + "' is not a rail signal");
+    }
+    if (ok) {
+        for (const std::string& foe : foes) {
+            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit);
+            myConstrainedSignal->addInsertionConstraint(tripId, c);
         }
     }
 

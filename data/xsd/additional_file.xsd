@@ -529,6 +529,14 @@
                     <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
                 </xsd:complexType>
             </xsd:element>
+            <xsd:element name="insertionPredecessor">
+                <xsd:complexType>
+                    <xsd:attribute name="tripId" use="required" type="xsd:string"/>
+                    <xsd:attribute name="tl"     use="required" type="idType"/>
+                    <xsd:attribute name="foes"   use="required" type="xsd:string"/>
+                    <xsd:attribute name="limit"  use="optional" type="positiveIntType"/>
+                </xsd:complexType>
+            </xsd:element>
         </xsd:choice>
         <xsd:attribute name="id" type="idType" use="required"/>
     </xsd:complexType>

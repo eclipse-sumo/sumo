@@ -238,6 +238,10 @@ MSRailSignal::addConstraint(const std::string& tripId, MSRailSignalConstraint* c
     myConstraints[tripId].push_back(constraint);
 }
 
+void
+MSRailSignal::addInsertionConstraint(const std::string& tripId, MSRailSignalConstraint* constraint) {
+    myInsertionConstraints[tripId].push_back(constraint);
+}
 
 // ------------ Static Information Retrieval
 int
@@ -412,6 +416,30 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
 #endif
                             return true;
                         }
+                    }
+                }
+            }
+        }
+    }
+    return false;
+}
+
+bool
+MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
+    if (link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+        const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
+        if (rs != nullptr && rs->myInsertionConstraints.size() > 0) {
+            const std::string tripID = veh->getParameter().getParameter("tripId", veh->getID());
+            auto it = rs->myInsertionConstraints.find(tripID);
+            if (it != rs->myInsertionConstraints.end()) {
+                for (MSRailSignalConstraint* c : it->second) {
+                    if (!c->cleared()) {
+#ifdef DEBUG_SIGNALSTATE
+                        if (gDebugFlag4) {
+                            std::cout << "  constraint '" << c->getDescription() << "' not cleared\n";
+                        }
+#endif
+                        return true;
                     }
                 }
             }

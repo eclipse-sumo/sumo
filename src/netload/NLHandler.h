@@ -240,6 +240,7 @@ private:
     void addWAUTSwitch(const SUMOSAXAttributes& attrs);
     void addWAUTJunction(const SUMOSAXAttributes& attrs);
     void addPredecessorConstraint(const SUMOSAXAttributes& attrs);
+    void addInsertionPredecessorConstraint(const SUMOSAXAttributes& attrs);
 
     /// Parses network location description
     void setLocation(const SUMOSAXAttributes& attrs);

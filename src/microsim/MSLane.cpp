@@ -716,6 +716,15 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     MSLane* currentLane = this;
     MSLane* nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, SUMO_const_haltingSpeed));
+    if (isRailway(aVehicle->getVClass())) {
+        MSLinkCont::const_iterator link = succLinkSec(*aVehicle, nRouteSuccs, *currentLane, bestLaneConts);
+        if (!currentLane->isLinkEnd(link) && MSRailSignal::hasInsertionConstraint(*link, aVehicle)) {
+#ifdef DEBUG_INSERTION
+            if DEBUG_COND2(aVehicle) std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
+#endif
+            return false;
+        }
+    }
     while (seen < dist && ri != bestLaneConts.end()) {
         // get the next link used...
         MSLinkCont::const_iterator link = succLinkSec(*aVehicle, nRouteSuccs, *currentLane, bestLaneConts);
