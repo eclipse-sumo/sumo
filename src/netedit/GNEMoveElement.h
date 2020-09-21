@@ -54,15 +54,13 @@ public:
 
     /// @brief constructor for elements placed over lanes (StoppingPlaces, detectors...)
     GNEMoveOperation(GNEMoveElement *moveElement, 
-        const PositionVector originalShape,
         const GNELane* lane,
-        const double originalPosOverLane);
+        const std::vector<double> originalPosOverLanes);
 
     /// @brief constructor for edit elements placed over lanes (start/end of StoppingPlaces, detectors...)
     GNEMoveOperation(GNEMoveElement *moveElement, 
-        const PositionVector originalShape,
         const GNELane* lane,
-        const double originalPosOverLane,
+        const std::vector<double> originalPosOverLanes,
         const int clickedIndex,
         const std::vector<int> geometryPointsToMove);
 
@@ -83,8 +81,8 @@ public:
     /// @brief original lane
     const GNELane* lane;
 
-    /// @brief original position over lane
-    const double originalPosOverLane;
+    /// @brief original position over lanes
+    const std::vector<double> originalPosOverLanes;
 
     /// @brief clicked index (of shapeToMove)
     const int clickedIndex;
