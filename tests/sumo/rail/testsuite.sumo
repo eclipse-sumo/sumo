@@ -1,3 +1,6 @@
+# tests for (long-range) deadlock prevention
+deadlock
+
 # tests for rail signals
 rail_signal
 
