@@ -334,17 +334,17 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
         stopEdge = stopEdges[busStop]
         node = net.getEdge(stopEdge).getToNode()
         signal = node.getID()
-        arrivals = []
+        untils = []
         for edgesBefore, stop in stops:
-            if stop.hasAttribute("arrival"):
-                arrival = parseTime(stop.arrival)
-            elif stop.hasAttribute("until"):
-                arrival = parseTime(stop.until) - parseTime(stop.getAttributeSecure("duration", "0"))
+            if stop.hasAttribute("until"):
+                until = parseTime(stop.until)
+            elif stop.hasAttribute("arrival"):
+                until = parseTime(stop.arrival) + parseTime(stop.getAttributeSecure("duration", "0"))
             else:
                 continue
-            arrivals.append((arrival, edgesBefore, stop))
-        arrivals.sort()
-        for (pArrival, pEdges, pStop), (nArrival, nEdges, nStop) in zip(arrivals[:-1], arrivals[1:]):
+            untils.append((until, edgesBefore, stop))
+        untils.sort()
+        for (pUntil, pEdges, pStop), (nUntil, nEdges, nStop) in zip(untils[:-1], untils[1:]):
             if len(nEdges) == 1 and len(pEdges) > 1:
                 # find edges after stop
                 pVehStops = vehicleStopRoutes[pStop.vehID]
