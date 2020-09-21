@@ -51,11 +51,6 @@ GNERerouterSymbol::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
-GNERerouterSymbol::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-}
-
-
 void
 GNERerouterSymbol::updateGeometry() {
     // clear geometries

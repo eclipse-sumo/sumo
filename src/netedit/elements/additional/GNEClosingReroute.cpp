@@ -46,18 +46,15 @@ GNEClosingReroute::~GNEClosingReroute() {}
 
 GNEMoveOperation* 
 GNEClosingReroute::getMoveOperation(const double shapeOffset) {
+    // GNEClosingReroutes cannot be moved
     return nullptr;
-}
-
-
-void 
-GNEClosingReroute::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
 void
 GNEClosingReroute::updateGeometry() {
-    // This additional doesn't own a geometry
+    // use geometry of rerouter parent
+    myAdditionalGeometry.updateGeometry(getParentAdditionals().front()->getAdditionalGeometry());
 }
 
 
@@ -188,12 +185,16 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void GNEClosingReroute::setMoveShape(const PositionVector& newShape)
-{
+
+void 
+GNEClosingReroute::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNEClosingReroute::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+
+void 
+GNEClosingReroute::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 

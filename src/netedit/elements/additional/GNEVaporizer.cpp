@@ -46,14 +46,10 @@ GNEVaporizer::~GNEVaporizer() {
 }
 
 
-GNEMoveOperation* GNEVaporizer::getMoveOperation(const double shapeOffset)
-{
+GNEMoveOperation* 
+GNEVaporizer::getMoveOperation(const double /*shapeOffset*/) {
+    // vaporizers cannot be moved
     return nullptr;
-}
-
-void
-GNEVaporizer::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    //
 }
 
 
@@ -292,14 +288,14 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEVaporizer::setMoveShape(const PositionVector& newShape) {
-    //
+GNEVaporizer::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
 
 void 
-GNEVaporizer::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+GNEVaporizer::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 /****************************************************************************/

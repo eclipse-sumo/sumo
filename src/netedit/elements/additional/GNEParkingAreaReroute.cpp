@@ -44,13 +44,9 @@ GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
 GNEMoveOperation* 
-GNEParkingAreaReroute::getMoveOperation(const double shapeOffset) {
+GNEParkingAreaReroute::getMoveOperation(const double /*shapeOffset*/) {
+    // GNEParkingAreaReroutes cannot be moved
     return nullptr;
-}
-
-
-void
-GNEParkingAreaReroute::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -187,12 +183,16 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void GNEParkingAreaReroute::setMoveShape(const PositionVector& newShape)
-{
+
+void
+GNEParkingAreaReroute::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNEParkingAreaReroute::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+
+void 
+GNEParkingAreaReroute::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 

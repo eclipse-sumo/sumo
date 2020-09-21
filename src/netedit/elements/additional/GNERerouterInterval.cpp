@@ -56,13 +56,9 @@ GNERerouterInterval::~GNERerouterInterval() {}
 
 
 GNEMoveOperation*
-GNERerouterInterval::getMoveOperation(const double shapeOffset) {
+GNERerouterInterval::getMoveOperation(const double /*shapeOffset*/) {
+    // rerouter intervals cannot be moved
     return nullptr;
-}
-
-
-void 
-GNERerouterInterval::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -192,12 +188,14 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void GNERerouterInterval::setMoveShape(const PositionVector& newShape)
-{
+
+void GNERerouterInterval::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNERerouterInterval::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+
+void GNERerouterInterval::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 

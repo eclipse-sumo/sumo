@@ -44,13 +44,9 @@ GNEDestProbReroute::~GNEDestProbReroute() {}
 
 
 GNEMoveOperation*
-GNEDestProbReroute::getMoveOperation(const double shapeOffset) {
+GNEDestProbReroute::getMoveOperation(const double /*shapeOffset*/) {
+    // GNEDestProbReroutes cannot be moved
     return nullptr;
-}
-
-
-void 
-GNEDestProbReroute::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -179,12 +175,16 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void GNEDestProbReroute::setMoveShape(const PositionVector& newShape)
-{
+
+void 
+GNEDestProbReroute::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNEDestProbReroute::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+
+void 
+GNEDestProbReroute::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 

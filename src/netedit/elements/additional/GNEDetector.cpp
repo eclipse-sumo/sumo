@@ -36,11 +36,11 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
                          double pos, const std::string& freq, const std::string& filename, const std::string& vehicleTypes,
                          const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes) :
     GNEAdditional(id, net, type, tag, name, blockMovement, {}, {}, parentLanes, {}, {}, {}, {}, {}),
-              myPositionOverLane(pos),
-              myFreq(freq),
-              myFilename(filename),
-              myVehicleTypes(vehicleTypes),
-myFriendlyPosition(friendlyPos) {
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myVehicleTypes(vehicleTypes),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -48,24 +48,20 @@ GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObje
                          double pos, const std::string& freq, const std::string& filename, const std::string& name, bool friendlyPos,
                          bool blockMovement, const std::vector<GNELane*>& parentLanes) :
     GNEAdditional(net, type, tag, name, blockMovement, {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {}),
-myPositionOverLane(pos),
-myFreq(freq),
-myFilename(filename),
-myFriendlyPosition(friendlyPos) {
+    myPositionOverLane(pos),
+    myFreq(freq),
+    myFilename(filename),
+    myFriendlyPosition(friendlyPos) {
 }
 
 
 GNEDetector::~GNEDetector() {}
 
 
-GNEMoveOperation* GNEDetector::getMoveOperation(const double shapeOffset)
-{
-    return nullptr;
-}
+GNEMoveOperation* 
+GNEDetector::getMoveOperation(const double shapeOffset) {
 
-void
-GNEDetector::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    //
+    return nullptr;
 }
 
 

@@ -75,6 +75,12 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
 GNEAdditional::~GNEAdditional() {}
 
 
+void 
+GNEAdditional::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // currently there isn't additionals with removable geometry points
+}
+
+
 const std::string&
 GNEAdditional::getID() const {
     return getMicrosimID();

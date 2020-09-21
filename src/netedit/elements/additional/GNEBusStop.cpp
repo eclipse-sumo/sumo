@@ -68,20 +68,20 @@ GNEBusStop::updateGeometry() {
     myBlockIcon.updatePositionAndRotation();
 
     // update child demand elements geometry
-    for (const auto& i : getChildDemandElements()) {
+    for (const auto& demandElement : getChildDemandElements()) {
         // special case for person trips
-        if (i->getTagProperty().isPersonTrip()) {
+        if (demandElement->getTagProperty().isPersonTrip()) {
             // update previous and next person plan
-            GNEDemandElement* previousDemandElement = i->getParentDemandElements().front()->getPreviousChildDemandElement(i);
+            GNEDemandElement* previousDemandElement = demandElement->getParentDemandElements().front()->getPreviousChildDemandElement(demandElement);
             if (previousDemandElement) {
                 previousDemandElement->updatePartialGeometry(getParentLanes().front());
             }
-            GNEDemandElement* nextDemandElement = i->getParentDemandElements().front()->getNextChildDemandElement(i);
+            GNEDemandElement* nextDemandElement = demandElement->getParentDemandElements().front()->getNextChildDemandElement(demandElement);
             if (nextDemandElement) {
                 nextDemandElement->updatePartialGeometry(getParentLanes().front());
             }
         }
-        i->updatePartialGeometry(getParentLanes().front());
+        demandElement->updatePartialGeometry(getParentLanes().front());
     }
 }
 

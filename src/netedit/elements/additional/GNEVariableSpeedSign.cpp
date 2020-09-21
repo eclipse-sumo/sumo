@@ -55,11 +55,6 @@ GNEMoveOperation* GNEVariableSpeedSign::getMoveOperation(const double shapeOffse
     return nullptr;
 }
 
-void
-GNEVariableSpeedSign::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    //
-}
-
 
 void
 GNEVariableSpeedSign::updateGeometry() {

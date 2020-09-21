@@ -106,8 +106,8 @@ public:
     */
     virtual GNEMoveOperation* getMoveOperation(const double shapeOffset) = 0;
 
-    /// @brief remove geometry point in the clicked position
-    virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
+    /// @brief remove geometry point in the clicked position (Currently unused in shapes)
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
 
     /// @brief get ID
     const std::string& getID() const;

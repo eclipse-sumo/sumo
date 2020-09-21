@@ -60,9 +60,6 @@ public:
     */
     GNEMoveOperation* getMoveOperation(const double shapeOffset);    
 
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
-
     /// @name members and functions relative to write additionals into XML
     /// @{
     /// @brief check if current additional is valid to be writed into XML

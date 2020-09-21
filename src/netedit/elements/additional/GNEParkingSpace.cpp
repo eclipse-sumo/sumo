@@ -45,13 +45,10 @@ GNEParkingSpace::GNEParkingSpace(GNENet* net, GNEAdditional* parkingAreaParent, 
 
 GNEParkingSpace::~GNEParkingSpace() {}
 
-GNEMoveOperation* GNEParkingSpace::getMoveOperation(const double shapeOffset)
-{
-    return nullptr;
-}
 
-void GNEParkingSpace::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList)
-{
+GNEMoveOperation* 
+GNEParkingSpace::getMoveOperation(const double shapeOffset) {
+    return nullptr;
 }
 
 

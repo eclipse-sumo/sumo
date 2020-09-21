@@ -54,11 +54,6 @@ GNEAccess::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
-GNEAccess::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-}
-
-
 void
 GNEAccess::updateGeometry() {
     // set start position
@@ -309,12 +304,16 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void GNEAccess::setMoveShape(const PositionVector& newShape)
-{
+
+void
+GNEAccess::setMoveShape(const PositionVector& newShape) {
+    //
 }
 
-void GNEAccess::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+
+void 
+GNEAccess::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    //
 }
 
 

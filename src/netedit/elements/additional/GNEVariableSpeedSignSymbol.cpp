@@ -51,11 +51,6 @@ GNEVariableSpeedSignSymbol::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
-GNEVariableSpeedSignSymbol::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-}
-
-
 void
 GNEVariableSpeedSignSymbol::updateGeometry() {
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), 1.5);
@@ -197,6 +192,7 @@ void
 GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*/) {
     throw InvalidArgument("Symbols cannot be edited");
 }
+
 
 void GNEVariableSpeedSignSymbol::setMoveShape(const PositionVector& newShape)
 {

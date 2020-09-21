@@ -49,9 +49,6 @@ public:
     */
     GNEMoveOperation* getMoveOperation(const double shapeOffset);    
 
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

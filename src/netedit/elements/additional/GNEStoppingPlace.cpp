@@ -62,11 +62,6 @@ GNEMoveOperation* GNEStoppingPlace::getMoveOperation(const double shapeOffset)
     return nullptr;
 }
 
-void
-GNEStoppingPlace::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    //
-}
-
 
 bool
 GNEStoppingPlace::isAdditionalValid() const {

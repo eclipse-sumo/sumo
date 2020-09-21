@@ -64,7 +64,6 @@ GNEContainerStop::updateGeometry() {
 
     // update block icon position
     myBlockIcon.updatePositionAndRotation();
-
 }
 
 

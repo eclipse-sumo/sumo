@@ -61,12 +61,6 @@ GNERerouter::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
-GNERerouter::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    //
-}
-
-
 void
 GNERerouter::updateGeometry() {
     // update additional geometry

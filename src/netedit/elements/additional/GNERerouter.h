@@ -57,9 +57,6 @@ public:
     */
     GNEMoveOperation* getMoveOperation(const double shapeOffset);    
 
-    /// @brief remove geometry point in the clicked position
-    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
-
     /// @brief open GNERerouterDialog
     void openAdditionalDialog();
 

@@ -64,13 +64,9 @@ GNERouteProbe::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 
 
 GNEMoveOperation* 
-GNERouteProbe::getMoveOperation(const double shapeOffset) {
+GNERouteProbe::getMoveOperation(const double /*shapeOffset*/) {
+    // routeprobes cannot be moved
     return nullptr;
-}
-
-
-void 
-GNERouteProbe::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -299,12 +295,16 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void GNERouteProbe::setMoveShape(const PositionVector& newShape)
-{
+
+void 
+GNERouteProbe::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNERouteProbe::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+
+void 
+GNERouteProbe::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 

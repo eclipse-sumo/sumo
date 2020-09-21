@@ -45,14 +45,11 @@ GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}
 
 
 GNEMoveOperation* 
-GNEVariableSpeedSignStep::getMoveOperation(const double shapeOffset) {
+GNEVariableSpeedSignStep::getMoveOperation(const double /*shapeOffset*/) {
+    // VSS Steps cannot be moved
     return nullptr;
 }
 
-
-void 
-GNEVariableSpeedSignStep::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-}
 
 double
 GNEVariableSpeedSignStep::getTime() const {
@@ -201,12 +198,16 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
     }
 }
 
-void GNEVariableSpeedSignStep::setMoveShape(const PositionVector& newShape)
-{
+
+void
+GNEVariableSpeedSignStep::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNEVariableSpeedSignStep::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+
+void 
+GNEVariableSpeedSignStep::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 

@@ -52,12 +52,8 @@ GNEDetectorE3::~GNEDetectorE3() {}
 
 GNEMoveOperation* 
 GNEDetectorE3::getMoveOperation(const double shapeOffset) {
+    //
     return nullptr;
-}
-
-
-void
-GNEDetectorE3::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 

@@ -75,19 +75,16 @@ GNECalibratorFlow::~GNECalibratorFlow() {}
 
 
 GNEMoveOperation* 
-GNECalibratorFlow::getMoveOperation(const double shapeOffset) {
+GNECalibratorFlow::getMoveOperation(const double /*shapeOffset*/) {
+    // calibrators flow cannot be moved
     return nullptr;
-}
-
-
-void 
-GNECalibratorFlow::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
 void
 GNECalibratorFlow::updateGeometry() {
-    // This additional doesn't own a geometry
+    // use geometry of calibrator parent
+    myAdditionalGeometry.updateGeometry(getParentAdditionals().front()->getAdditionalGeometry());
 }
 
 
@@ -399,12 +396,13 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void GNECalibratorFlow::setMoveShape(const PositionVector& newShape)
-{
+
+void GNECalibratorFlow::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNECalibratorFlow::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+void GNECalibratorFlow::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 

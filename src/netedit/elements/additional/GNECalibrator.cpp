@@ -62,13 +62,9 @@ GNECalibrator::~GNECalibrator() {}
 
 
 GNEMoveOperation* 
-GNECalibrator::getMoveOperation(const double shapeOffset) {
+GNECalibrator::getMoveOperation(const double /*shapeOffset*/) {
+    // calibrators cannot be moved
     return nullptr;
-}
-
-
-void 
-GNECalibrator::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
 }
 
 
@@ -378,12 +374,16 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void GNECalibrator::setMoveShape(const PositionVector& newShape)
-{
+
+void 
+GNECalibrator::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNECalibrator::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+
+void
+GNECalibrator::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 
