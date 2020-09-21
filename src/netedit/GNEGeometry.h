@@ -111,12 +111,6 @@ struct GNEGeometry {
         /// @brief scale geometry
         void scaleGeometry(const double scale);
 
-        /// @brief get Position
-        const Position& getPosition() const;
-
-        /// @brief get rotation
-        double getRotation() const;
-
         /// @brief The shape of the additional element
         const PositionVector& getShape() const;
 
@@ -132,12 +126,6 @@ struct GNEGeometry {
 
         /// @brief calculate shape rotations and lengths
         void calculateShapeRotationsAndLengths();
-
-        /// @brief get single position
-        Position myPosition;
-
-        /// @brief get single rotation
-        double myRotation;
 
         /// @brief element shape
         PositionVector myShape;

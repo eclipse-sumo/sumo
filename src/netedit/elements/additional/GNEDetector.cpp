@@ -145,7 +145,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
     // set line width
     glLineWidth(1.0);
     // translate to center geometry
-    glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
+    glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
     // rotate
     glRotated(-myBlockIcon.getRotation(), 0, 0, 1);
     // scale

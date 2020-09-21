@@ -472,8 +472,8 @@ GNEAdditional::BlockIcon::updatePositionAndRotation() {
         myRotation = myAdditional->getAdditionalGeometry().getShape().rotationDegreeAtOffset(middlePos);
     } else {
         // get position and rotation of additional geometry
-        myPosition = myAdditional->getAdditionalGeometry().getPosition();
-        myRotation = myAdditional->getAdditionalGeometry().getRotation();
+        myPosition = myAdditional->getAdditionalGeometry().getShape().front();
+        myRotation = myAdditional->getAdditionalGeometry().getShapeRotations().front();
     }
 }
 

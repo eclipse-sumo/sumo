@@ -103,9 +103,9 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // push symbol matrix
             glPushMatrix();
             // translate to position
-            glTranslated(symbolGeometry.getPosition().x(), symbolGeometry.getPosition().y(), 0);
+            glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
             // rotate
-            glRotated(-1 * symbolGeometry.getRotation(), 0, 0, 1);
+            glRotated(-1 * symbolGeometry.getShapeRotations().front(), 0, 0, 1);
             // scale
             glScaled(rerouteExaggeration, rerouteExaggeration, 1);
             // set color
@@ -154,13 +154,13 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, symbolGeometry.getPosition(), 1, 3, 0, 3, symbolGeometry.getRotation() + 90, rerouteExaggeration);
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::INSPECT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
             // iterate over symbol geometries
             for (const auto& symbolGeometry : mySymbolGeometries) {
-                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, symbolGeometry.getPosition(), 1, 3, 0, 3, symbolGeometry.getRotation() + 90, rerouteExaggeration);
+                GNEGeometry::drawDottedSquaredShape(GNEGeometry::DottedContourType::FRONT, s, symbolGeometry.getShape().front(), 1, 3, 0, 3, symbolGeometry.getShapeRotations().front() + 90, rerouteExaggeration);
             }
         }
     }

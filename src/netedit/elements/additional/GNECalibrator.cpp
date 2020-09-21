@@ -133,10 +133,10 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         // begin push name
         glPushName(getGlID());
         // draw first symbol
-        drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getPosition(), myAdditionalGeometry.getRotation());
+        drawCalibratorSymbol(s, exaggeration, myAdditionalGeometry.getShape().front(), myAdditionalGeometry.getShapeRotations().front());
         // continue with the other symbols
         for (const auto& edgeCalibratorGeometry : myEdgeCalibratorGeometries) {
-            drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getPosition(), edgeCalibratorGeometry.getRotation());
+            drawCalibratorSymbol(s, exaggeration, edgeCalibratorGeometry.getShape().front(), edgeCalibratorGeometry.getShapeRotations().front());
         }
         // pop name
         glPopName();

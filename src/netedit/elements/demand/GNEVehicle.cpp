@@ -590,7 +590,7 @@ GNEVehicle::invalidatePath() {
 
 Position
 GNEVehicle::getPositionInView() const {
-    return myDemandElementGeometry.getPosition();
+    return myDemandElementGeometry.getShape().front();
 }
 
 
@@ -630,7 +630,7 @@ GNEVehicle::getParentName() const {
 Boundary
 GNEVehicle::getCenteringBoundary() const {
     Boundary vehicleBoundary;
-    vehicleBoundary.add(myDemandElementGeometry.getPosition());
+    vehicleBoundary.add(myDemandElementGeometry.getShape().front());
     vehicleBoundary.grow(20);
     return vehicleBoundary;
 }
@@ -655,8 +655,8 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
         // obtain Position an rotation (depending of draw spread vehicles)
-        const Position vehiclePosition = drawSpreadVehicles ? mySpreadGeometry.getPosition() : myDemandElementGeometry.getPosition();
-        const double vehicleRotation = drawSpreadVehicles ? mySpreadGeometry.getRotation() : myDemandElementGeometry.getRotation();
+        const Position vehiclePosition = drawSpreadVehicles ? mySpreadGeometry.getShape().front() : myDemandElementGeometry.getShape().front();
+        const double vehicleRotation = drawSpreadVehicles ? mySpreadGeometry.getShapeRotations().front() : myDemandElementGeometry.getShapeRotations().front();
         // check that position is valid
         if (vehiclePosition != Position::INVALID) {
             // first push name

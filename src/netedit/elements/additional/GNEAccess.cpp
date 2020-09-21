@@ -138,7 +138,7 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
             GLHelper::setColor(s.stoppingPlaceSettings.busStopColor);
         }
         // translate to geometry position
-        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
+        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // draw circle
         if (s.drawForRectangleSelection) {
             GLHelper::drawFilledCircle(radius * accessExaggeration, 8);
@@ -151,10 +151,10 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         glPopName();
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getPosition(), 0.5, accessExaggeration);
+            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
         if (s.drawDottedContour() || myNet->getViewNet()->getFrontAttributeCarrier() == this) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getPosition(), 0.5, accessExaggeration);
+            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);
         }
     }
 }

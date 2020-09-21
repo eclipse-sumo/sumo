@@ -92,9 +92,9 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(getParentAdditionals().front(), GLO_VSS);
         // translate to position
-        glTranslated(myAdditionalGeometry.getPosition().x(), myAdditionalGeometry.getPosition().y(), 0);
+        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate
-        glRotated(-1 * myAdditionalGeometry.getRotation(), 0, 0, 1);
+        glRotated(-1 * myAdditionalGeometry.getShapeRotations().front(), 0, 0, 1);
         // scale
         glScaled(VSSExaggeration, VSSExaggeration, 1);
         // set color
@@ -134,10 +134,10 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(getParentAdditionals().front())) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getPosition(), 1.3, VSSExaggeration);
+            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
         }
         if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == getParentAdditionals().front())) {
-            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getPosition(), 1.3, VSSExaggeration);
+            GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::FRONT, s, myAdditionalGeometry.getShape().front(), 1.3, VSSExaggeration);
         }
     }
 }

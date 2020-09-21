@@ -53,16 +53,12 @@ GNEGeometry::ExtremeGeometry::ExtremeGeometry() :
 // ---------------------------------------------------------------------------
 
 GNEGeometry::Geometry::Geometry() :
-    myPosition(Position::INVALID),
-    myRotation(0),
     myLane(nullptr),
     myAdditional(nullptr) {
 }
 
 
 GNEGeometry::Geometry::Geometry(const PositionVector& shape) :
-    myPosition(Position::INVALID),
-    myRotation(0),
     myShape(shape),
     myLane(nullptr),
     myAdditional(nullptr) {
@@ -72,8 +68,6 @@ GNEGeometry::Geometry::Geometry(const PositionVector& shape) :
 
 
 GNEGeometry::Geometry::Geometry(const PositionVector& shape, const std::vector<double>& shapeRotations, const std::vector<double>& shapeLengths) :
-    myPosition(Position::INVALID),
-    myRotation(0),
     myShape(shape),
     myShapeRotations(shapeRotations),
     myShapeLengths(shapeLengths),
@@ -141,8 +135,8 @@ GNEGeometry::Geometry::updateGeometry(const Position& position, const double rot
     // first clear geometry
     clearGeometry();
     // set position and rotation
-    myPosition = position;
-    myRotation = rotation;
+    myShape.push_back(position);
+    myShapeRotations.push_back(rotation);
 }
 
 
@@ -154,14 +148,14 @@ GNEGeometry::Geometry::updateGeometry(const GNELane* lane, const double posOverL
     const double laneLength = lane->getLaneShape().length();
     // calculate position and rotation
     if (posOverLane < 0) {
-        myPosition = lane->getLaneShape().positionAtOffset(0);
-        myRotation = lane->getLaneShape().rotationDegreeAtOffset(0);
+        myShape.push_back(lane->getLaneShape().positionAtOffset(0));
+        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(0));
     } else if (posOverLane > laneLength) {
-        myPosition = lane->getLaneShape().positionAtOffset(laneLength);
-        myRotation = lane->getLaneShape().rotationDegreeAtOffset(laneLength);
+        myShape.push_back(lane->getLaneShape().positionAtOffset(laneLength));
+        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(laneLength));
     } else {
-        myPosition = lane->getLaneShape().positionAtOffset(posOverLane);
-        myRotation = lane->getLaneShape().rotationDegreeAtOffset(posOverLane);
+        myShape.push_back(lane->getLaneShape().positionAtOffset(posOverLane));
+        myShapeRotations.push_back(lane->getLaneShape().rotationDegreeAtOffset(posOverLane));
     }
 }
 
@@ -206,18 +200,6 @@ GNEGeometry::Geometry::scaleGeometry(const double scale) {
 }
 
 
-const Position&
-GNEGeometry::Geometry::getPosition() const {
-    return myPosition;
-}
-
-
-double
-GNEGeometry::Geometry::getRotation() const {
-    return myRotation;
-}
-
-
 const PositionVector&
 GNEGeometry::Geometry::getShape() const {
     if (myLane) {
@@ -255,9 +237,6 @@ GNEGeometry::Geometry::getShapeLengths() const {
 
 
 void GNEGeometry::Geometry::clearGeometry() {
-    // clear single position
-    myPosition.set(0, 0, 0);
-    myRotation = 0;
     // clear shapes
     myShape.clear();
     myShapeRotations.clear();
