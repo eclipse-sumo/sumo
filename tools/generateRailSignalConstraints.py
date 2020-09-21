@@ -354,7 +354,7 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                 if pIndex < len(pVehStops) - 1 and nIndex < len(nVehStops) - 1:
                     # both vehicles move past the stop
                     pNextEdges = pVehStops[pIndex + 1][0]
-                    nNextEdges = nVehStops[pIndex + 1][0]
+                    nNextEdges = nVehStops[nIndex + 1][0]
                     limit = 1 # recheck
                     pSignal = signal
                     nSignal = signal
