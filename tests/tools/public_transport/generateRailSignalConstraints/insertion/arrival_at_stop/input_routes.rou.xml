@@ -38,8 +38,7 @@
         <stop busStop="stop_c" arrival="200" until="230" duration="30"/>
     </vehicle>
     <vehicle id="t1" type="train" depart="20.00" from="aPre" to="c" departSpeed="max">
-        <route edges="aPre a b c"/>
+        <route edges="aPre a"/>
         <stop busStop="stop_a" arrival="50" until="80" duration="30"/>
-        <stop busStop="stop_c" arrival="150" until="180" duration="30"/>
     </vehicle>
 </routes>

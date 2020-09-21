@@ -1,2 +1,8 @@
-# two trains approach the same stop from different tracks
+# one train passes the stop and the other train is inserted there
 basic
+
+# signal is not at the end of the insertion stop edge
+signal_on_next_edge
+
+# foe does not move past the signal, hence no constraint
+arrival_at_stop
