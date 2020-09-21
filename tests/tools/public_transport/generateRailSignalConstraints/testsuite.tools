@@ -6,3 +6,6 @@ in_between
 
 # train reversal can have the same effect as a switch by merging two train routes from different sources
 reversal
+
+# find insertion conflicts
+insertion

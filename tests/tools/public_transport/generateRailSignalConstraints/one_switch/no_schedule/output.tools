@@ -5,3 +5,4 @@ Found 2 stops after merging switches and 2 signals that guard switches
 ignoring stop at stop_c without schedule information (arrival, until)
 ignoring stop at stop_c without schedule information (arrival, until)
 Found 0 conflicts
+Found 0 insertion conflicts
