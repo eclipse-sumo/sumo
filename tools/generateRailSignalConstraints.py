@@ -366,7 +366,9 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                             print("Ignoring insertion conflict between %s and %s at stop '%s' because no rail signal was found after the stop" % (
                                         nStop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
                             continue
-                    conflicts[nSignal].append((nStop.prevTripId, pSignal, pStop.prevTripId, limit,
+                    # predecessor tripId after stop is needed
+                    pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
+                    conflicts[nSignal].append((nStop.prevTripId, pSignal, pTripId, limit,
                         # attributes for adding comments
                         nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
                     numConflicts += 1
