@@ -1,6 +1,12 @@
 # overtaking on the right forbidden on german motorways (unless congested)
 overtaking_right_forbidden
 
+# overtaking on the right forbidden on german motorways (unless congested)
+overtaking_right_congested
+
+# overtaking on the right allowed at low road speed (regardless of speed factor)
+overtaking_right_road_speed
+
 # overtaking on the right forbidden on german motorways (unless congested) but the driver is configured to ignore it
 overtaking_right_forbidden_violate
 
