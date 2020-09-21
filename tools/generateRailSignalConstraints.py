@@ -109,6 +109,7 @@ def getStopRoutes(options, stopEdges):
     """
     uniqueRoutes = set()
     stopRoutes = defaultdict(list) # busStop -> [(edges, stopObj), ....]
+    vehicleStopRoutes = defaultdict(list) # vehID -> [(edges, stopObj), ....]
     numRoutes = 0
     numStops = 0
     begin = parseTime(options.begin)
@@ -139,12 +140,13 @@ def getStopRoutes(options, stopEdges):
             tripId = stop.getAttributeSecure("tripId", tripId)
             line = stop.getAttributeSecure("line", line)
             stopRoutes[stop.busStop].append((edgesBefore, stop))
+            vehicleStopRoutes[vehicle.id].append((edgesBefore, stop))
             lastIndex = routeIndex
 
     print("read %s routes (%s unique) and %s stops at %s busStops" % (
         numRoutes, len(uniqueRoutes), numStops, len(stopRoutes)))
 
-    return uniqueRoutes, stopRoutes
+    return uniqueRoutes, stopRoutes, vehicleStopRoutes
 
 def findMergingSwitches(options, uniqueRoutes, net):
     """find switches where routes merge and thus conflicts must be solved"""
@@ -308,7 +310,21 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
     print("Found %s conflicts" % numConflicts)
     return conflicts
 
-def findInsertionConflicts(options, net, stopEdges, stopRoutes):
+def findSignal(net, nextEdges):
+    prevEdge = None
+    for edge in nextEdges:
+        node = net.getEdge(edge).getFromNode()
+        if node.getType() == "rail_signal":
+            tls = net.getTLS(node.getID())
+            for inLane, outLane, linkNo in tls.getConnections():
+                if (outLane.getEdge().getID() == edge
+                        and (prevEdge is None or prevEdge == inLane.getEdge().getID())):
+                    return tls.getID()
+        prevEdge = edge
+    return None
+
+
+def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes):
     """find routes that start at a stop with a traffic light at end of the edge
     and routes that pass this stop. Ensure
     insertion happens in the correct order"""
@@ -330,15 +346,30 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes):
         arrivals.sort()
         for (pArrival, pEdges, pStop), (nArrival, nEdges, nStop) in zip(arrivals[:-1], arrivals[1:]):
             if len(nEdges) == 1 and len(pEdges) > 1:
-                limit = 1 # recheck
-                if node.getType() == "rail_signal":
-                    conflicts[signal].append((nStop.prevTripId, signal, pStop.prevTripId, limit,
+                # find edges after stop
+                pVehStops = vehicleStopRoutes[pStop.vehID]
+                nVehStops = vehicleStopRoutes[nStop.vehID]
+                pIndex = pVehStops.index((pEdges, pStop))
+                nIndex = nVehStops.index((nEdges, nStop))
+                if pIndex < len(pVehStops) - 1 and nIndex < len(nVehStops) - 1:
+                    # both vehicles move past the stop
+                    pNextEdges = pVehStops[pIndex + 1][0]
+                    nNextEdges = nVehStops[pIndex + 1][0]
+                    limit = 1 # recheck
+                    pSignal = signal
+                    nSignal = signal
+                    if node.getType() != "rail_signal":
+                        # find signal in nextEdges
+                        pSignal = findSignal(net, pNextEdges)
+                        nSignal = findSignal(net, nNextEdges)
+                        if pSignal == None or nSignal == None:
+                            print("Ignoring insertion conflict between %s and %s at stop '%s' because no rail signal was found after the stop" % (
+                                        nStop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
+                            continue
+                    conflicts[nSignal].append((nStop.prevTripId, pSignal, pStop.prevTripId, limit,
                         # attributes for adding comments
                         nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
                     numConflicts += 1
-                elif options.verbose:
-                    print("Ignoring insertion conflict between %s and %s at stop '%s' which has no rail signal after it's edge" % (
-                                nStop.prevTripId, pStop.prevTripId, busStop))
 
     print("Found %s insertion conflicts" % numConflicts)
     return conflicts
@@ -369,12 +400,12 @@ def writeConstraint(options, outf, tag, values):
 def main(options):
     net = sumolib.net.readNet(options.netFile)
     stopEdges = getStopEdges(options.addFile)
-    uniqueRoutes, stopRoutes = getStopRoutes(options, stopEdges)
+    uniqueRoutes, stopRoutes, vehicleStopRoutes = getStopRoutes(options, stopEdges)
     mergeSwitches = findMergingSwitches(options, uniqueRoutes, net)
     signalTimes = computeSignalTimes(options, net, stopRoutes)
     switchRoutes, mergeSignals = findStopsAfterMerge(net, stopRoutes, mergeSwitches)
     conflicts = findConflicts(options, switchRoutes, mergeSignals, signalTimes)
-    insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutes)
+    insertionConflicts = findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoutes)
 
     signals = sorted(set(list(conflicts.keys()) + list(insertionConflicts.keys())))
     with open(options.out, "w") as outf:
