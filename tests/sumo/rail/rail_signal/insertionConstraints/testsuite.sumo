@@ -1,0 +1,5 @@
+# Copy of wait_for_one
+wait_for_one
+
+# only works with eager-insertion
+wait_for_one_same_departEdge

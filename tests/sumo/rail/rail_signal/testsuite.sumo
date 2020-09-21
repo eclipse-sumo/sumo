@@ -1,5 +1,6 @@
 # test railSignalConstraints
 constraints
+insertionConstraints
 
 # switch from block signaling to moving block
 end_block_mode
