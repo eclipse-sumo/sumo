@@ -46,6 +46,7 @@
 #include "MSPhaseDefinition.h"
 #include "MSTLLogicControl.h"
 #include "MSRailSignalConstraint.h"
+#include "MSRailSignalControl.h"
 #include "MSRailSignal.h"
 
 // typical block length in germany on main lines is 3-5km on branch lines up to 7km
@@ -58,6 +59,7 @@
 //#define DEBUG_BUILD_DRIVEWAY
 //#define DEBUG_CHECK_FLANKS
 //#define DEBUG_DRIVEWAY_BUILDROUTE
+#define DEBUG_DRIVEWAY_UPDATE
 
 #define DEBUG_SIGNALSTATE
 #define DEBUG_SIGNALSTATE_PRIORITY
@@ -428,7 +430,8 @@ MSRailSignal::LinkInfo::LinkInfo(MSLink* link):
     myLastRerouteVehicle(nullptr) {
     ConstMSEdgeVector dummyRoute;
     dummyRoute.push_back(&link->getLane()->getEdge());
-    buildDriveWay(dummyRoute.begin(), dummyRoute.end());
+    DriveWay dw = buildDriveWay(dummyRoute.begin(), dummyRoute.end());
+    myDriveways.push_back(dw);
 }
 
 
@@ -487,11 +490,13 @@ MSRailSignal::LinkInfo::getDriveWay(const SUMOVehicle* veh) {
             return dw;
         }
     }
-    return buildDriveWay(firstIt, veh->getRoute().end());
+    DriveWay dw = buildDriveWay(firstIt, veh->getRoute().end());
+    myDriveways.push_back(dw);
+    return myDriveways.back();
 }
 
 
-MSRailSignal::DriveWay&
+MSRailSignal::DriveWay
 MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end) {
     // collect lanes and links that are relevant for setting this signal for the current driveWay
     // For each driveway we collect
@@ -527,6 +532,9 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
         before.push_back(fromBidi);
     }
     dw.buildRoute(myLink, 0., first, end, visited);
+    if (dw.myProtectedBidi == nullptr) {
+        dw.myCoreSize = dw.myRoute.size();
+    }
     dw.checkFlanks(dw.myForward, visited, true);
     dw.checkFlanks(dw.myBidi, visited, false);
     dw.checkFlanks(before, visited, true);
@@ -545,6 +553,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
                   << "\n    flank=" << toString(dw.myFlank)
                   << "\n    flankSwitch=" << describeLinks(dw.myFlankSwitches)
                   << "\n    protSwitch=" << describeLinks(dw.myProtectingSwitches)
+                  << "\n    coreSize=" << dw.myCoreSize
                   << "\n";
     }
 #endif
@@ -552,9 +561,12 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myForward.begin(), dw.myForward.end());
     dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myBidi.begin(), dw.myBidi.end());
     dw.myConflictLanes.insert(dw.myConflictLanes.end(), dw.myFlank.begin(), dw.myFlank.end());
+    if (dw.myProtectedBidi != nullptr) {
+        MSRailSignal* rs = const_cast<MSRailSignal*>(static_cast<const MSRailSignal*>(myLink->getTLLogic()));
+        MSRailSignalControl::getInstance().registerProtectedDriveway(rs, dw.myNumericalID, dw.myProtectedBidi);
+    }
 
-    myDriveways.push_back(dw);
-    return myDriveways.back();
+    return dw;
 }
 
 
@@ -816,7 +828,7 @@ MSRailSignal::DriveWay::findProtection(const Approaching& veh, MSLink* link) con
         return true;
     } else {
         // find protection further upstream
-        DriveWay tmp(-myIndex);
+        DriveWay tmp(-myIndex, true);
         const MSLane* before = link->getLaneBefore();
         tmp.myFlank.push_back(before);
         LaneVisitedMap visited;
@@ -825,6 +837,7 @@ MSRailSignal::DriveWay::findProtection(const Approaching& veh, MSLink* link) con
         }
         tmp.myConflictLanes = tmp.myFlank;
         tmp.myRoute = myRoute;
+        tmp.myCoreSize = myCoreSize;
         MSEdgeVector occupied;
         if (gDebugFlag4) std::cout << SIMTIME << " tmpDW flank=" << toString(tmp.myFlank)
                                        << " protSwitch=" << describeLinks(tmp.myProtectingSwitches) << " cLinks=" << describeLinks(tmp.myConflictLinks) << "\n";
@@ -835,8 +848,10 @@ MSRailSignal::DriveWay::findProtection(const Approaching& veh, MSLink* link) con
 
 bool
 MSRailSignal::DriveWay::overlap(const DriveWay& other) const {
-    for (const MSEdge* edge : myRoute) {
-        for (const MSEdge* edge2 : other.myRoute) {
+    for (int i = 0; i < myCoreSize; i++) {
+        for (int j = 0; j < other.myCoreSize; j++) {
+            const MSEdge* edge = myRoute[i];
+            const MSEdge* edge2 = other.myRoute[j];
             if (edge->getToJunction() == edge2->getToJunction()
                     || edge->getToJunction() == edge2->getFromJunction()) {
                 // XXX might be rail_crossing with parallel tracks
@@ -868,11 +883,18 @@ void
 MSRailSignal::DriveWay::writeBlocks(OutputDevice& od) const {
     od.openTag("driveWay");
     od.writeAttr(SUMO_ATTR_EDGES, toString(myRoute));
+    if (myCoreSize != (int)myRoute.size()) {
+        od.writeAttr("core", myCoreSize);
+    }
     od.openTag("forward");
     od.writeAttr(SUMO_ATTR_LANES, toString(myForward));
     od.closeTag();
     od.openTag("bidi");
     od.writeAttr(SUMO_ATTR_LANES, toString(myBidi));
+    if (myBidiExtended.size() > 0) {
+        od.lf();
+        od.writeAttr("deadlockCheck", toString(myBidiExtended));
+    }
     od.closeTag();
     od.openTag("flank");
     od.writeAttr(SUMO_ATTR_LANES, toString(myFlank));
@@ -903,6 +925,7 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                                    LaneVisitedMap& visited) {
     bool seekForwardSignal = true;
     bool seekBidiSwitch = true;
+    bool foundUnsafeSwitch = false;
     MSLane* toLane = origin->getViaLaneOrLane();
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
     gDebugFlag4 = true; //getClickableTLLinkID(origin) == "junction 's24', link 0";
@@ -939,7 +962,9 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
         length += toLane->getLength();
         MSLane* bidi = toLane->getBidiLane();
         if (seekForwardSignal) {
-            myForward.push_back(toLane);
+            if (!foundUnsafeSwitch) {
+                myForward.push_back(toLane);
+            }
         } else if (bidi == nullptr) {
             seekBidiSwitch = false;
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
@@ -949,7 +974,11 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
 #endif
         }
         if (bidi != nullptr) {
-            myBidi.push_back(bidi);
+            if (foundUnsafeSwitch) {
+                myBidiExtended.push_back(bidi);
+            } else {
+                myBidi.push_back(bidi);
+            }
             visited[bidi] = (int)visited.size();
             if (!seekForwardSignal) {
                 // look for switch that could protect from oncoming vehicles
@@ -969,7 +998,18 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                                 std::cout << "      abort: found protecting switch " << ili.viaLink->getDescription() << "\n";
                             }
 #endif
-                            return;
+                            const MSEdge* bidiNext = bidi->getNextNormal();
+                            myCoreSize = myRoute.size();
+                            if (true || MSRailSignalControl::getInstance().getUsedEdges().count(bidiNext) == 0) {
+                                // if bidi is actually used by a train (rather than
+                                // the other route) we must later adapt this driveway for additional checks (myBidiExtended)
+                                myProtectedBidi = bidiNext;
+                                return;
+                            } else {
+                                // trains along our route beyond this switch
+                                // might create deadlock
+                                foundUnsafeSwitch = true;
+                            }
                         }
                     }
                 }
@@ -1186,12 +1226,12 @@ MSRailSignal::getPriorityVehicles(int linkIndex) {
     return myPriorityVehicles;
 }
 
-const MSRailSignal::DriveWay&
-MSRailSignal::getDriveWay(int numericalID) const {
+std::pair<const MSLink*, const MSRailSignal::DriveWay&>
+MSRailSignal::getDriveWayLink(int numericalID) const {
     for (const LinkInfo& li : myLinkInfos) {
         for (const DriveWay& dw : li.myDriveways) {
             if (dw.myNumericalID == numericalID) {
-                return dw;
+                return std::make_pair(li.myLink, dw);
             }
         }
     }
@@ -1214,8 +1254,8 @@ MSRailSignal::recheckGreen() {
                         // new driveway pair
                         const MSRailSignal* rs = static_cast<const MSRailSignal*>(item.first->getTLLogic());
                         const MSRailSignal* rs2 = static_cast<const MSRailSignal*>(item2.first->getTLLogic());
-                        const DriveWay& dw = rs->getDriveWay(item.second);
-                        const DriveWay& dw2 = rs2->getDriveWay(item2.second);
+                        const DriveWay& dw = rs->getDriveWayLink(item.second).second;
+                        const DriveWay& dw2 = rs2->getDriveWayLink(item2.second).second;
                         // overlap may return true if the driveways are consecutive forward sections
                         conflict = dw.flankConflict(dw2) || dw2.flankConflict(dw);
                         myDriveWayCompatibility[code] = conflict;
@@ -1265,6 +1305,23 @@ MSRailSignal::recheckGreen() {
         }
         mySwitchedGreenFlanks.clear();
     }
+}
+
+void
+MSRailSignal::updateDriveway(int numericalID) {
+    std::pair<const MSLink*, const DriveWay&> item = getDriveWayLink(numericalID);
+    DriveWay& dw = const_cast<DriveWay&>(item.second);
+#ifdef DEBUG_DRIVEWAY_UPDATE
+    //std::cout << "MSRailSignalControl " << getID() << " requires update for driveway " << numericalID<< " (" << dw.myIndex << ")\n";
+#endif
+    LinkInfo& li = myLinkInfos[item.first->getTLIndex()];
+    /*
+    DriveWay dw2 = li.buildDriveWay(dw.myRoute.begin(), dw.myRoute.end());
+    // replace
+    dw2.myIndex = dw.myIndex;
+    dw2.myNumericalID = dw.myNumericalID;
+    li.myDriveways[dw.myIndex] = dw2;
+    */
 }
 
 /****************************************************************************/
