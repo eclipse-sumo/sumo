@@ -154,7 +154,10 @@ public:
     virtual Position getPositionInView() const = 0;
 
     /// @brief Returns the boundary to which the view shall be centered in order to show the object
-    virtual Boundary getCenteringBoundary() const = 0;
+    Boundary getCenteringBoundary() const;
+
+    /// @brief update centering boundary (implies change in RTREE)
+    void updateCenteringBoundary(const bool updateGrid);
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;
@@ -269,26 +272,6 @@ public:
     /// @}
 
 protected:
-    /// @brief struct for pack all variables related with additional move
-    struct AdditionalMove {
-        /// @brief boundary used during moving of elements (to avoid insertion in RTREE
-        Boundary movingGeometryBoundary;
-
-        /// @brief value for saving first original position over lane before moving
-        Position originalViewPosition;
-
-        /// @brief value for saving first original position over lane before moving
-        std::string firstOriginalLanePosition;
-
-        /// @brief value for saving second original position over lane before moving
-        std::string secondOriginalPosition;
-
-    private:
-        /// @brief Invalidated assignment operator
-        AdditionalMove& operator=(const AdditionalMove& other) = delete;
-
-    };
-
     /// @brief struct for pack all variables and functions related with Block Icon
     struct BlockIcon {
         /// @brief constructor
@@ -326,14 +309,14 @@ protected:
         BlockIcon& operator=(const BlockIcon& other) = delete;
     };
 
+    /// @brief Additional Boundary
+    Boundary myBoundary;
+
     /// @brief geometry to be precomputed in updateGeometry(...)
     GNEGeometry::Geometry myAdditionalGeometry;
 
     /// @brief segment geometry to be precomputed in updateGeometry(...) (used by E2Multilane)
     GNEGeometry::SegmentGeometry myAdditionalSegmentGeometry;
-
-    /// @brief variable AdditionalMove
-    AdditionalMove myMove;
 
     /// @brief name of additional
     std::string myAdditionalName;

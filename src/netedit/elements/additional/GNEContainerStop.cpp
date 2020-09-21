@@ -66,12 +66,6 @@ GNEContainerStop::updateGeometry() {
 }
 
 
-Boundary
-GNEContainerStop::getCenteringBoundary() const {
-    return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
-}
-
-
 void
 GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw

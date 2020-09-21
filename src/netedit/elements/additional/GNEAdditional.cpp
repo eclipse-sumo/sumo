@@ -235,6 +235,21 @@ GNEAdditional::openAdditionalDialog() {
 }
 
 
+Boundary 
+GNEAdditional::getCenteringBoundary() const {
+    return myBoundary;
+}
+
+
+void 
+GNEAdditional::updateCenteringBoundary(const bool updateGrid) {
+    // get boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow boundary
+    myBoundary.grow(10);
+}
+
+
 bool
 GNEAdditional::isAdditionalBlocked() const {
     return myBlockMovement;

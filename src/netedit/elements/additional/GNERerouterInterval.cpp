@@ -74,12 +74,6 @@ GNERerouterInterval::getPositionInView() const {
 }
 
 
-Boundary
-GNERerouterInterval::getCenteringBoundary() const {
-    return getParentAdditionals().at(0)->getCenteringBoundary();
-}
-
-
 void
 GNERerouterInterval::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

@@ -93,12 +93,6 @@ GNECalibratorFlow::getPositionInView() const {
 }
 
 
-Boundary
-GNECalibratorFlow::getCenteringBoundary() const {
-    return getParentAdditionals().at(0)->getCenteringBoundary();
-}
-
-
 void
 GNECalibratorFlow::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

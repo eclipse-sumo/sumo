@@ -76,12 +76,6 @@ GNERerouterSymbol::getPositionInView() const {
 }
 
 
-Boundary
-GNERerouterSymbol::getCenteringBoundary() const {
-    return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
-}
-
-
 void
 GNERerouterSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/,
                                      const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {

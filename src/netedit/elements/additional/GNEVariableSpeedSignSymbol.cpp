@@ -68,12 +68,6 @@ GNEVariableSpeedSignSymbol::getPositionInView() const {
 }
 
 
-Boundary
-GNEVariableSpeedSignSymbol::getCenteringBoundary() const {
-    return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
-}
-
-
 void
 GNEVariableSpeedSignSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/,
         const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {

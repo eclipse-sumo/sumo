@@ -49,11 +49,6 @@ GNEParkingArea::~GNEParkingArea() {}
 
 void
 GNEParkingArea::updateGeometry() {
-    // first check if object has to be removed from grid (SUMOTree)
-    if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myNet->removeGLObjectFromGrid(this);
-    }
-
     // Get value of option "lefthand"
     double offsetSign = OptionsCont::getOptions().getBool("lefthand") ? -1 : 1;
 
@@ -71,26 +66,6 @@ GNEParkingArea::updateGeometry() {
 
     // update block icon position
     myBlockIcon.updatePositionAndRotation();
-
-    // last step is to check if object has to be added into grid (SUMOTree) again
-    if (!myMove.movingGeometryBoundary.isInitialised()) {
-        myNet->addGLObjectIntoGrid(this);
-    }
-}
-
-
-Boundary
-GNEParkingArea::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMove.movingGeometryBoundary.isInitialised()) {
-        return myMove.movingGeometryBoundary;
-    } else if (myAdditionalGeometry.getShape().size() > 0) {
-        Boundary b = myAdditionalGeometry.getShape().getBoxBoundary();
-        b.grow(myWidth + 1);
-        return b;
-    } else {
-        return Boundary(-0.1, -0.1, 0.1, 0.1);
-    }
 }
 
 

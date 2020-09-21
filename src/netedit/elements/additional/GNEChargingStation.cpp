@@ -68,12 +68,6 @@ GNEChargingStation::updateGeometry() {
 }
 
 
-Boundary
-GNEChargingStation::getCenteringBoundary() const {
-    return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
-}
-
-
 void
 GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw

@@ -65,29 +65,6 @@ GNEParkingSpace::getPositionInView() const {
 }
 
 
-Boundary
-GNEParkingSpace::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMove.movingGeometryBoundary.isInitialised()) {
-        return myMove.movingGeometryBoundary;
-    } else {
-        // calculate shape using a Position vector as reference
-        PositionVector boundaryShape({
-            {-(myWidth / 2), 0},
-            { (myWidth / 2), 0},
-            { (myWidth / 2), myLength},
-            {-(myWidth / 2), myLength},
-        });
-        // rotate position vector (note: convert from degree to rads
-        boundaryShape.rotate2D(myAngle * PI / 180.0);
-        // move to space position
-        boundaryShape.add(myPosition);
-        // return boundary associated to boundaryShape
-        return boundaryShape.getBoxBoundary().grow(5);
-    }
-}
-
-
 void
 GNEParkingSpace::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

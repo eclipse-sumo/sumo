@@ -62,12 +62,6 @@ GNERouteProbReroute::getPositionInView() const {
 }
 
 
-Boundary
-GNERouteProbReroute::getCenteringBoundary() const {
-    return getParentAdditionals().at(0)->getCenteringBoundary();
-}
-
-
 void
 GNERouteProbReroute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

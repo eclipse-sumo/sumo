@@ -70,12 +70,6 @@ GNEVariableSpeedSignStep::getPositionInView() const {
 }
 
 
-Boundary
-GNEVariableSpeedSignStep::getCenteringBoundary() const {
-    return getParentAdditionals().at(0)->getCenteringBoundary();
-}
-
-
 void
 GNEVariableSpeedSignStep::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

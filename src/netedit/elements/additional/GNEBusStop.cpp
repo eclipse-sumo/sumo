@@ -84,12 +84,6 @@ GNEBusStop::updateGeometry() {
 }
 
 
-Boundary
-GNEBusStop::getCenteringBoundary() const {
-    return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
-}
-
-
 void
 GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw

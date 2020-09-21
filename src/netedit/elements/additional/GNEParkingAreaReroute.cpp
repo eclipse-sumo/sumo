@@ -64,12 +64,6 @@ GNEParkingAreaReroute::getPositionInView() const {
 }
 
 
-Boundary
-GNEParkingAreaReroute::getCenteringBoundary() const {
-    return getParentAdditionals().at(0)->getCenteringBoundary();
-}
-
-
 void
 GNEParkingAreaReroute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

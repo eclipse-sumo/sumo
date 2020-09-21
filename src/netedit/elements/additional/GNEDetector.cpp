@@ -87,21 +87,6 @@ GNEDetector::getPositionInView() const {
 }
 
 
-Boundary
-GNEDetector::getCenteringBoundary() const {
-    if (getParentLanes().size() > 1) {
-        return myAdditionalSegmentGeometry.getBoxBoundary().grow(10);
-    } else if (myAdditionalGeometry.getShape().size() > 0) {
-        return myAdditionalGeometry.getShape().getBoxBoundary().grow(10);
-    } else {
-        Boundary b;
-        b.add(myAdditionalGeometry.getPosition());
-        b.grow(10);
-        return b;
-    }
-}
-
-
 void
 GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement,
                                const GNENetworkElement* newElement, GNEUndoList* undoList) {

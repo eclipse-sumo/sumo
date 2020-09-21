@@ -87,20 +87,6 @@ GNERerouter::getPositionInView() const {
 }
 
 
-Boundary
-GNERerouter::getCenteringBoundary() const {
-    // Return Boundary depending if myMovingGeometryBoundary is initialised (important for move geometry)
-    if (myMove.movingGeometryBoundary.isInitialised()) {
-        return myMove.movingGeometryBoundary;
-    } else {
-        Boundary b;
-        b.add(myPosition);
-        b.grow(5);
-        return b;
-    }
-}
-
-
 void
 GNERerouter::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

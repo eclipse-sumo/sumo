@@ -65,12 +65,6 @@ GNEClosingLaneReroute::getPositionInView() const {
 }
 
 
-Boundary
-GNEClosingLaneReroute::getCenteringBoundary() const {
-    return myClosedLane->getCenteringBoundary();
-}
-
-
 void
 GNEClosingLaneReroute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
