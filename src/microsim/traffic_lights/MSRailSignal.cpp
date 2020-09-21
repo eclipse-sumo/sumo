@@ -426,7 +426,7 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
 
 bool
 MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
-    if (link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
+    if (link->getJunction() != nullptr && link->getJunction()->getType() == SumoXMLNodeType::RAIL_SIGNAL) {
         const MSRailSignal* rs = dynamic_cast<const MSRailSignal*>(link->getTLLogic());
         if (rs != nullptr && rs->myInsertionConstraints.size() > 0) {
             const std::string tripID = veh->getParameter().getParameter("tripId", veh->getID());

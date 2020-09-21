@@ -693,6 +693,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         return false;
     }
     bool hadRailSignal = false;
+    const bool isRail = isRailway(aVehicle->getVClass());
 
     // before looping through the continuation lanes, check if a stop is scheduled on this lane
     // (the code is duplicated in the loop)
@@ -716,16 +717,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     MSLane* currentLane = this;
     MSLane* nextLane = this;
     SUMOTime arrivalTime = MSNet::getInstance()->getCurrentTimeStep() + TIME2STEPS(seen / MAX2(speed, SUMO_const_haltingSpeed));
-    if (isRailway(aVehicle->getVClass())) {
-        MSLinkCont::const_iterator link = succLinkSec(*aVehicle, nRouteSuccs, *currentLane, bestLaneConts);
-        if (!currentLane->isLinkEnd(link) && MSRailSignal::hasInsertionConstraint(*link, aVehicle)) {
-#ifdef DEBUG_INSERTION
-            if DEBUG_COND2(aVehicle) std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
-#endif
-            return false;
-        }
-    }
-    while (seen < dist && ri != bestLaneConts.end()) {
+    while ((seen < dist || (isRail && !hadRailSignal)) && ri != bestLaneConts.end()) {
         // get the next link used...
         MSLinkCont::const_iterator link = succLinkSec(*aVehicle, nRouteSuccs, *currentLane, bestLaneConts);
         if (currentLane->isLinkEnd(link)) {
@@ -749,6 +741,12 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
                 }
             }
             break;
+        }
+        if (isRail && !hadRailSignal && MSRailSignal::hasInsertionConstraint(*link, aVehicle)) {
+#ifdef DEBUG_INSERTION
+            if DEBUG_COND2(aVehicle) std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
+#endif
+            return false;
         }
         hadRailSignal |= (*link)->getTLLogic() != nullptr;
 
