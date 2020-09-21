@@ -83,12 +83,6 @@ GNERerouter::updateGeometry() {
 }
 
 
-Position
-GNERerouter::getPositionInView() const {
-    return myPosition;
-}
-
-
 void
 GNERerouter::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

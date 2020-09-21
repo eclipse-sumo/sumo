@@ -170,12 +170,6 @@ GNEPoly::writeShape(OutputDevice& device) {
 }
 
 
-Position
-GNEPoly::getPositionInView() const {
-    return myShape.getPolygonCenter();
-}
-
-
 GUIGlID
 GNEPoly::getGlID() const {
     return GUIGlObject::getGlID();

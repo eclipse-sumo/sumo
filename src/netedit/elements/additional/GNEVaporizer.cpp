@@ -64,19 +64,6 @@ GNEVaporizer::updateGeometry() {
 }
 
 
-Position
-GNEVaporizer::getPositionInView() const {
-    if (getParentEdges().front()->getLanes().front()->getLaneShape().length() < 2.5) {
-        return getParentEdges().front()->getLanes().front()->getLaneShape().front();
-    } else {
-        Position A = getParentEdges().front()->getLanes().front()->getLaneShape().positionAtOffset(2.5);
-        Position B = getParentEdges().front()->getLanes().back()->getLaneShape().positionAtOffset(2.5);
-        // return Middle point
-        return Position((A.x() + B.x()) / 2, (A.y() + B.y()) / 2);
-    }
-}
-
-
 void
 GNEVaporizer::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

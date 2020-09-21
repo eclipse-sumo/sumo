@@ -77,12 +77,6 @@ GNEVariableSpeedSign::updateGeometry() {
 }
 
 
-Position
-GNEVariableSpeedSign::getPositionInView() const {
-    return myPosition;
-}
-
-
 void
 GNEVariableSpeedSign::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

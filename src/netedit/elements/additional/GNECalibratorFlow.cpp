@@ -91,12 +91,6 @@ GNECalibratorFlow::updateGeometry() {
 }
 
 
-Position
-GNECalibratorFlow::getPositionInView() const {
-    return getParentAdditionals().at(0)->getPositionInView();
-}
-
-
 void
 GNECalibratorFlow::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

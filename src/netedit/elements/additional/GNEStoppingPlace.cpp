@@ -148,24 +148,6 @@ GNEStoppingPlace::fixAdditionalProblem() {
 }
 
 
-Position
-GNEStoppingPlace::getPositionInView() const {
-    // calculate start and end positions as absolute values
-    double startPos = fabs((myParametersSet & STOPPINGPLACE_STARTPOS_SET) ? myStartPosition : 0);
-    double endPos = fabs((myParametersSet & STOPPINGPLACE_ENDPOS_SET) ? myEndPosition : getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength());
-    // obtain position in view depending if both positions are defined
-    if (myParametersSet == 0) {
-        return getParentLanes().front()->getLaneShape().positionAtOffset(getParentLanes().front()->getLaneShape().length() / 2);
-    } else if ((myParametersSet & STOPPINGPLACE_STARTPOS_SET) == 0) {
-        return getParentLanes().front()->getLaneShape().positionAtOffset(endPos);
-    } else if ((myParametersSet & STOPPINGPLACE_ENDPOS_SET) == 0) {
-        return getParentLanes().front()->getLaneShape().positionAtOffset(startPos);
-    } else {
-        return getParentLanes().front()->getLaneShape().positionAtOffset((startPos + endPos) / 2.0);
-    }
-}
-
-
 void
 GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // first check tat both network elements are lanes and originalElement correspond to stoppingPlace lane

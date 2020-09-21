@@ -101,6 +101,13 @@ GNEShape::draw(const Position& pos, double layer, double size) const {
     }
 }
 
+
+Position 
+GNEShape::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 Boundary 
 GNEShape::getCenteringBoundary() const {
     return myBoundary;

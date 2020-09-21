@@ -81,12 +81,6 @@ GNEDetector::getLane() const {
 }
 
 
-Position
-GNEDetector::getPositionInView() const {
-    return getLane()->getLaneShape().positionAtOffset(getGeometryPositionOverLane());
-}
-
-
 void
 GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement,
                                const GNENetworkElement* newElement, GNEUndoList* undoList) {

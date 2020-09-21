@@ -77,12 +77,6 @@ GNEDetectorE3::updateGeometry() {
 }
 
 
-Position
-GNEDetectorE3::getPositionInView() const {
-    return myPosition;
-}
-
-
 void
 GNEDetectorE3::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

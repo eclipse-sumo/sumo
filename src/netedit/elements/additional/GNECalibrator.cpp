@@ -96,19 +96,6 @@ GNECalibrator::updateGeometry() {
 }
 
 
-Position
-GNECalibrator::getPositionInView() const {
-    PositionVector shape = (getParentLanes().size() > 0) ? getParentLanes().front()->getLaneShape() : getParentEdges().front()->getLanes().at(0)->getLaneShape();
-    if (myPositionOverLane < 0) {
-        return shape.front();
-    } else if (myPositionOverLane > shape.length()) {
-        return shape.back();
-    } else {
-        return shape.positionAtOffset(myPositionOverLane);
-    }
-}
-
-
 void
 GNECalibrator::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     if (splitPosition < myPositionOverLane) {

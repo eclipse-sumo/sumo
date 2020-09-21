@@ -61,12 +61,6 @@ GNEClosingReroute::updateGeometry() {
 }
 
 
-Position
-GNEClosingReroute::getPositionInView() const {
-    return getParentAdditionals().at(0)->getPositionInView();
-}
-
-
 void
 GNEClosingReroute::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

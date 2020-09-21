@@ -241,10 +241,24 @@ GNEAdditional::getCenteringBoundary() const {
 }
 
 
+Position 
+GNEAdditional::getPositionInView() const {
+    return myBoundary.getCenter();
+}
+
+
 void 
 GNEAdditional::updateCenteringBoundary(const bool updateGrid) {
+    // update geometry
+    updateGeometry();
     // get boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    if (myAdditionalGeometry.getShape().size() > 0) {
+        myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    } else {
+        myBoundary.reset();
+        myBoundary.add(0, 0);
+
+    }
     // grow boundary
     myBoundary.grow(10);
 }

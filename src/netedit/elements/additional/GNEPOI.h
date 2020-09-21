@@ -115,9 +115,6 @@ public:
     */
     void writeShape(OutputDevice& device);
 
-    /// @brief Returns position of additional in view
-    Position getPositionInView() const;
-
     /// @brief Returns the numerical id of the object
     GUIGlID getGlID() const;
 

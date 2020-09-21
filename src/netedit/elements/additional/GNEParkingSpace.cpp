@@ -61,12 +61,6 @@ GNEParkingSpace::updateGeometry() {
 }
 
 
-Position
-GNEParkingSpace::getPositionInView() const {
-    return myPosition;
-}
-
-
 void
 GNEParkingSpace::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

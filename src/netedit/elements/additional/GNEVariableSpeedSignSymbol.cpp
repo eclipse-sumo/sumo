@@ -64,12 +64,6 @@ GNEVariableSpeedSignSymbol::updateGeometry() {
 }
 
 
-Position
-GNEVariableSpeedSignSymbol::getPositionInView() const {
-    return myAdditionalGeometry.getPosition();
-}
-
-
 void
 GNEVariableSpeedSignSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/,
         const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {

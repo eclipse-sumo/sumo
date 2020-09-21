@@ -71,13 +71,6 @@ GNERerouterSymbol::updateGeometry() {
 }
 
 
-Position
-GNERerouterSymbol::getPositionInView() const {
-    // get middle geometry
-    return mySymbolGeometries.at(int(mySymbolGeometries.size() * 0.5)).getPosition();
-}
-
-
 void
 GNERerouterSymbol::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/,
                                      const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {

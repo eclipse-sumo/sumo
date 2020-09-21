@@ -79,22 +79,6 @@ GNEAccess::updateGeometry() {
 }
 
 
-Position
-GNEAccess::getPositionInView() const {
-    if (myPositionOverLane == -1) {
-        return getParentLanes().front()->getLaneShape().front();
-    } else {
-        if (myPositionOverLane < 0) {
-            return getParentLanes().front()->getLaneShape().front();
-        } else if (myPositionOverLane > getParentLanes().front()->getLaneShape().length()) {
-            return getParentLanes().front()->getLaneShape().back();
-        } else {
-            return getParentLanes().front()->getLaneShape().positionAtOffset(myPositionOverLane);
-        }
-    }
-}
-
-
 void
 GNEAccess::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     if (splitPosition < myPositionOverLane) {

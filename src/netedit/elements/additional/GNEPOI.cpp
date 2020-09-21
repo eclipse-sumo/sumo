@@ -180,12 +180,6 @@ GNEPOI::updateCenteringBoundary(const bool updateGrid) {
 }
 
 
-Position
-GNEPOI::getPositionInView() const {
-    return Position(x(), y());
-}
-
-
 GUIGlID
 GNEPOI::getGlID() const {
     return GUIGlObject::getGlID();
