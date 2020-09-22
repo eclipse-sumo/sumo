@@ -219,6 +219,7 @@ def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
 
 def computeSignalTimes(options, net, stopRoutes):
     signalTimes = defaultdict(list) # signal -> [(timeAtSignal, stop), ...]
+    debugInfo = []
     for busStop, stops in stopRoutes.items():
         for edgesBefore, stop in stops:
             if stop.hasAttribute("arrival"):
@@ -238,13 +239,21 @@ def computeSignalTimes(options, net, stopRoutes):
                             timeAtSignal = arrival - ttSignalStop
                             signalTimes[signal].append((timeAtSignal, stop))
                             if signal == options.debugSignal:
-                                print("Route past signal %s to stop %s arrival=%s ttSignalStop=%s timeAtSignal=%s edges=%s" % (
-                                    signal, stop.busStop, arrival, ttSignalStop, timeAtSignal, edgesBefore))
+                                debugInfo.append((timeAtSignal,
+                                    "%s vehID=%s prevTripId=%s passes signal %s to stop %s arrival=%s ttSignalStop=%s edges=%s" % (
+                                        humanReadableTime(timeAtSignal),
+                                        stop.vehID, stop.prevTripId,
+                                        signal, stop.busStop,
+                                        humanReadableTime(arrival), ttSignalStop,
+                                        edgesBefore)))
                             break
     for signal in signalTimes.keys():
         signalTimes[signal] = sorted(signalTimes[signal])
 
     if options.debugSignal in signalTimes:
+        debugInfo.sort()
+        for t, info in debugInfo:
+            print(info)
         busStops = set([s.busStop for a, s in signalTimes[options.debugSignal]])
         arrivals = [a for a,s in signalTimes[options.debugSignal]]
         print("Signal %s is passed %s times between %s and %s on approach to stops %s" % (
@@ -303,6 +312,11 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                     limit = 1
                     pTimeAtSignal = pArrival - pTimeSiSt
                     nTimeAtSignal = nArrival - nTimeSiSt
+                    if options.verbose and options.debugSignal == pSignal:
+                        print("check vehicles between %s and %s at signal %s pStop=%s nStop=%s" % (
+                            humanReadableTime(pTimeAtSignal),
+                            humanReadableTime(nTimeAtSignal), pSignal,
+                            pStop, nStop))
                     limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, nTimeAtSignal, signalTimes)
                     conflicts[nSignal].append((nStop.prevTripId, pSignal, pStop.prevTripId, limit,
                         # attributes for adding comments
