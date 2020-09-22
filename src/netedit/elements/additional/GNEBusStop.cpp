@@ -65,7 +65,7 @@ GNEBusStop::updateGeometry() {
     mySignPos = tmpShape.getLineCenter();
 
     // update block icon position
-    // myBlockIcon.updatePositionAndRotation();
+    myBlockIcon.updatePositionAndRotation();
 
     // update child demand elements geometry
     for (const auto& demandElement : getChildDemandElements()) {
@@ -344,9 +344,13 @@ GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBCol
         GLHelper::setColor(color);
         // draw lines between BusStops and Access
         for (const auto& access : getChildAdditionals()) {
-            GLHelper::drawBoxLine(access->getAdditionalGeometry().getShape().front(),
-                                  RAD2DEG(myBlockIcon.getPosition().angleTo2D(access->getAdditionalGeometry().getShape().front())) - 90,
-                                  myBlockIcon.getPosition().distanceTo2D(access->getAdditionalGeometry().getShape().front()), .05);
+            // get busStop center
+            const Position busStopCenter = myAdditionalGeometry.getShape().getLineCenter();
+            // get access center
+            const Position accessCenter = access->getAdditionalGeometry().getShape().front();
+            GLHelper::drawBoxLine(accessCenter,
+                RAD2DEG(busStopCenter.angleTo2D(accessCenter)) - 90,
+                busStopCenter.distanceTo2D(accessCenter), .05);
         }
         // pop draw matrix
         glPopMatrix();
