@@ -70,12 +70,12 @@ def main(options):
                     continue
                 until = parseTime(stop.until)
                 arrival = parseTime(stop.arrival) if stop.arrival else until - parseTime(stop.duration)
-                stopTimes[stop.busStop].append((arrival, until, vehicle.id))
+                stopTimes[stop.busStop].append((arrival, until, vehicle.id, stop.getAttributeSecure("tripId", "")))
 
     for stop, times in stopTimes.items():
         times.sort()
-        for i, (a, u, v) in enumerate(times):
-            for a2, u2, v2 in times[i + 1:]:
+        for i, (a, u, v, t) in enumerate(times):
+            for a2, u2, v2, t2 in times[i + 1:]:
                 if u2 < u:
                     print("Vehicle %s (%s, %s) overtakes %s (%s, %s) at stop %s" % (
                         v2, tf(a2), tf(u2), v, tf(a), tf(u), stop), file=sys.stderr)
@@ -84,9 +84,9 @@ def main(options):
         if options.stopTable in stopTimes:
             times = stopTimes[options.stopTable]
             print("# busStop: %s" % options.stopTable)
-            print("arrival\tuntil\tveh")
-            for a, u, v in sorted(times):
-                print("%s\t%s\t%s" % (tf(a), tf(u), v))
+            print("arrival\tuntil\tveh\ttripId")
+            for a, u, v, t in sorted(times):
+                print("%s\t%s\t%s\t%s" % (tf(a), tf(u), v, t))
         else:
             print("No vehicle stops at busStop '%s' found" % options.stopTable, file=sys.stderr)
 
