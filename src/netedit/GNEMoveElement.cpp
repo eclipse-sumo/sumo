@@ -164,8 +164,9 @@ GNEMoveElement::calculateMovementOverLane(const GNEMoveOperation* moveOperation,
     if (newPosOverLanePerpendicular == -1) {
         // calculate new posOverLane non-perpendicular
         const double newPosOverLane = moveOperation->lane->getLaneShape().nearest_offset_to_point2D(lanePositionAtCentralPosition, false);
+        std::cout << newPosOverLane << std::endl;
         // out of lane shape, then place element in lane extremes
-        if ((newPosOverLane - middleLenght) < 0) {
+        if (newPosOverLane == 0) {
             posOverLaneOffset = moveOperation->originalPosOverLanes.front();
         } else {
             posOverLaneOffset = moveOperation->originalPosOverLanes.back() - laneLengt;
