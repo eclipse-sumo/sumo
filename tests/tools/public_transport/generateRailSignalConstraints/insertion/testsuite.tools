@@ -9,3 +9,6 @@ signal_on_next_edge
 
 # foe does not move past the signal, hence no constraint
 arrival_at_stop
+
+# direct predecessor does not move past the signal, so we need to use the predecessor of the predecessor as constraint
+arrival_at_stop_usePrev
