@@ -57,6 +57,8 @@ def get_options(args=None):
     #                    help="Use stop arrival time instead of 'until' time for sorting")
     #parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
     #                    help="Do not create constraints after a parking stop")
+    parser.add_argument("-d", "--delay", default="0",
+                        help="Assume given maximum delay when computing the number of intermediate vehicles that pass a given signal (for setting limit)")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -87,6 +89,8 @@ def get_options(args=None):
         sys.stdout.flush()
         subprocess.call(args)
         sys.stdout.flush()
+
+    options.delay = parseTime(options.delay)
 
     return options
 
@@ -312,12 +316,13 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                     limit = 1
                     pTimeAtSignal = pArrival - pTimeSiSt
                     nTimeAtSignal = nArrival - nTimeSiSt
+                    end = nTimeAtSignal + options.delay
                     if options.verbose and options.debugSignal == pSignal:
-                        print("check vehicles between %s and %s at signal %s pStop=%s nStop=%s" % (
+                        print("check vehicles between %s and %s (including delay %s) at signal %s pStop=%s nStop=%s" % (
                             humanReadableTime(pTimeAtSignal),
-                            humanReadableTime(nTimeAtSignal), pSignal,
+                            humanReadableTime(end), options.delay, pSignal,
                             pStop, nStop))
-                    limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, nTimeAtSignal, signalTimes)
+                    limit += countPassingTrainsToOtherStops(options, pSignal, busStop, pTimeAtSignal, end, signalTimes)
                     conflicts[nSignal].append((nStop.prevTripId, pSignal, pStop.prevTripId, limit,
                         # attributes for adding comments
                         nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
