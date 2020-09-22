@@ -1,6 +1,9 @@
 # one train passes the stop and the other train is inserted there
 basic
 
+# one train passes the stop (but stops twice) and the other train is inserted there
+prev_double_stop
+
 # passing train tripId changes at stop
 changeTripId
 
