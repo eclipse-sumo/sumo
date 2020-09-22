@@ -57,9 +57,19 @@ myFriendlyPosition(friendlyPosition) {
 GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
-GNEMoveOperation* GNEStoppingPlace::getMoveOperation(const double shapeOffset)
-{
-    return nullptr;
+GNEMoveOperation* 
+GNEStoppingPlace::getMoveOperation(const double shapeOffset) {
+    // check conditions
+    if (myParametersSet == 0) {
+        // start and end positions undefined, then nothing to move
+        return nullptr;
+    } else if (myBlockMovement) {
+        // element blocked, then nothing to move
+        return nullptr;
+    } else {
+        // return move operation for additional placed over shape
+        return new GNEMoveOperation(this, getParentLanes().front(), {myStartPosition, myEndPosition});
+    }
 }
 
 
@@ -185,6 +195,7 @@ GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetwork
         }
     }
 }
+
 /*
 
 void
@@ -433,13 +444,27 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
 
 void 
 GNEStoppingPlace::setMoveShape(const PositionVector& newShape) {
-    //
+    // change both position
+    myStartPosition = newShape.front().x();
+    myEndPosition = newShape.back().x();
+    // update geometry
+    updateGeometry();
 }
 
 
 void 
 GNEStoppingPlace::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+    // only commit geometry moving if at leats start or end positions is defined
+    if (myParametersSet > 0) {
+        undoList->p_begin("position of " + getTagStr());
+        if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(newShape.front().x())));
+        }
+        if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(newShape.back().x())));
+        }
+        undoList->p_end();
+    }
 }
 
 /****************************************************************************/

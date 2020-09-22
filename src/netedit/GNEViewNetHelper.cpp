@@ -969,14 +969,15 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveSingleElementNetworkMode() {
             return false;
         }
     } else if (myViewNet->myObjectsUnderCursor.getAdditionalFront() && (frontAC == myViewNet->myObjectsUnderCursor.getAdditionalFront())) {
-/*
-        // set additionals moved object
-        myAdditionalToMove = myViewNet->myObjectsUnderCursor.getAdditionalFront();
-        // start additional geometry moving
-        myAdditionalToMove->startGeometryMoving();
-        // there is moved items, then return true
-        return true;
-*/
+        // get move operation
+        GNEMoveOperation* moveOperation = myViewNet->myObjectsUnderCursor.getAdditionalFront()->getMoveOperation(0);
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+            return true;
+        } else {
+            return false;
+        }
     } else if (myViewNet->myObjectsUnderCursor.getTAZFront() && (frontAC == myViewNet->myObjectsUnderCursor.getTAZFront())) {
         // calculate TAZShapeOffset
         const double TAZShapeOffset = myViewNet->myObjectsUnderCursor.getTAZFront()->getTAZElementShape().nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);

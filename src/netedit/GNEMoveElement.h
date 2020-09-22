@@ -127,6 +127,9 @@ private:
     /// @brief commit move shape
     virtual void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) = 0;
 
+    /// @brief calculate movement over lane
+    static const PositionVector calculateMovementOverLane(const GNEMoveOperation* moveOperation, const Position &offset);
+
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;
 

@@ -65,7 +65,7 @@ GNEBusStop::updateGeometry() {
     mySignPos = tmpShape.getLineCenter();
 
     // update block icon position
-    myBlockIcon.updatePositionAndRotation();
+    // myBlockIcon.updatePositionAndRotation();
 
     // update child demand elements geometry
     for (const auto& demandElement : getChildDemandElements()) {
