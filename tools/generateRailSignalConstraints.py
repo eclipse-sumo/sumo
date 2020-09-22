@@ -34,7 +34,7 @@ from collections import defaultdict
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
-from sumolib.miscutils import parseTime  # noqa
+from sumolib.miscutils import parseTime, humanReadableTime  # noqa
 
 DUAROUTER = sumolib.checkBinary('duarouter')
 
@@ -66,6 +66,8 @@ def get_options(args=None):
                         help="print debug information for the given merge-switch edge")
     parser.add_argument("--debug-signal", dest="debugSignal",
                         help="print debug information for the given signal id")
+    parser.add_argument("--debug-stop", dest="debugStop",
+                        help="print debug information for the given busStop id")
 
     options = parser.parse_args(args=args)
     if (options.routeFile is None and options.tripFile is None) or options.netFile is None:
@@ -344,34 +346,50 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                 continue
             untils.append((until, edgesBefore, stop))
         untils.sort()
-        for (pUntil, pEdges, pStop), (nUntil, nEdges, nStop) in zip(untils[:-1], untils[1:]):
-            if len(nEdges) == 1 and len(pEdges) > 1:
-                # find edges after stop
-                pVehStops = vehicleStopRoutes[pStop.vehID]
-                nVehStops = vehicleStopRoutes[nStop.vehID]
-                pIndex = pVehStops.index((pEdges, pStop))
-                nIndex = nVehStops.index((nEdges, nStop))
-                if pIndex < len(pVehStops) - 1 and nIndex < len(nVehStops) - 1:
-                    # both vehicles move past the stop
-                    pNextEdges = pVehStops[pIndex + 1][0]
-                    nNextEdges = nVehStops[nIndex + 1][0]
-                    limit = 1 # recheck
-                    pSignal = signal
-                    nSignal = signal
-                    if node.getType() != "rail_signal":
-                        # find signal in nextEdges
-                        pSignal = findSignal(net, pNextEdges)
-                        nSignal = findSignal(net, nNextEdges)
-                        if pSignal == None or nSignal == None:
-                            print("Ignoring insertion conflict between %s and %s at stop '%s' because no rail signal was found after the stop" % (
-                                        nStop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
-                            continue
-                    # predecessor tripId after stop is needed
-                    pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
-                    conflicts[nSignal].append((nStop.prevTripId, pSignal, pTripId, limit,
-                        # attributes for adding comments
-                        nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
-                    numConflicts += 1
+        prevPassing = None
+        for i, (nUntil, nEdges, nStop) in enumerate(untils):
+            nVehStops = vehicleStopRoutes[nStop.vehID]
+            nIndex = nVehStops.index((nEdges, nStop))
+            nIsPassing = nIndex < len(nVehStops) - 1
+            nIsDepart = len(nEdges) == 1
+            if prevPassing is not None and nIsDepart:
+                pUntil, pEdges, pStop = prevPassing
+                # no need to constrain subsequent departures (simulation should maintain ordering)
+                if len(pEdges) > 1:
+                    # find edges after stop
+                    pVehStops = vehicleStopRoutes[pStop.vehID]
+                    pIndex = pVehStops.index((pEdges, pStop))
+                    if busStop == options.debugStop:
+                        print(i, 
+                                "p:", humanReadableTime(pUntil), pStop.tripId, pStop.vehID, pIndex, len(pVehStops),
+                                "n:", humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops))
+                    if nIsPassing:
+                        # both vehicles move past the stop
+                        pNextEdges = pVehStops[pIndex + 1][0]
+                        nNextEdges = nVehStops[nIndex + 1][0]
+                        limit = 1 # recheck
+                        pSignal = signal
+                        nSignal = signal
+                        if node.getType() != "rail_signal":
+                            # find signal in nextEdges
+                            pSignal = findSignal(net, pNextEdges)
+                            nSignal = findSignal(net, nNextEdges)
+                            if pSignal == None or nSignal == None:
+                                print("Ignoring insertion conflict between %s and %s at stop '%s' because no rail signal was found after the stop" % (
+                                            nStop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
+                                continue
+                        # predecessor tripId after stop is needed
+                        pTripId = pStop.getAttributeSecure("tripId", pStop.vehID)
+                        conflicts[nSignal].append((nStop.prevTripId, pSignal, pTripId, limit,
+                            # attributes for adding comments
+                            nStop.prevLine, pStop.prevLine, nStop.vehID, pStop.vehID))
+                        numConflicts += 1
+                        if busStop == options.debugStop:
+                            print("   found insertionConflict pSignal=%s nSignal=%s pTripId=%s" % (
+                                pSignal, nSignal, pTripId)), 
+
+            if nIsPassing:
+                prevPassing = (nUntil, nEdges, nStop)
 
     print("Found %s insertion conflicts" % numConflicts)
     return conflicts
