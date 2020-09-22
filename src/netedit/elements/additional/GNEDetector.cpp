@@ -22,6 +22,7 @@
 #include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
+#include <netedit/GNEUndoList.h.>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 
@@ -59,9 +60,15 @@ GNEDetector::~GNEDetector() {}
 
 
 GNEMoveOperation* 
-GNEDetector::getMoveOperation(const double shapeOffset) {
-
-    return nullptr;
+GNEDetector::getMoveOperation(const double /*shapeOffset*/) {
+    // check conditions
+    if (myBlockMovement) {
+        // element blocked, then nothing to move
+        return nullptr;
+    } else {
+        // return move operation for additional placed over shape
+        return new GNEMoveOperation(this, getParentLanes().front(), {myPositionOverLane});
+    }
 }
 
 
@@ -222,13 +229,19 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
 
 void 
 GNEDetector::setMoveShape(const PositionVector& newShape) {
-    //
+    // change both position
+    myPositionOverLane = newShape.front().x();
+    // update geometry
+    updateGeometry();
 }
 
 
 void 
 GNEDetector::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+    undoList->p_begin("position of " + getTagStr());
+    // now adjust start position
+    setAttribute(SUMO_ATTR_POSITION, toString(newShape.front().x()), undoList);
+    undoList->p_end();
 }
 
 /****************************************************************************/

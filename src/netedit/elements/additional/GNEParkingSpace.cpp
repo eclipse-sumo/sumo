@@ -48,7 +48,13 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 GNEMoveOperation* 
 GNEParkingSpace::getMoveOperation(const double shapeOffset) {
-    return nullptr;
+    if (myBlockMovement) {
+        // element blocked, then nothing to move
+        return nullptr;
+    } else {
+        // return move operation for additional placed in view
+        return new GNEMoveOperation(this, myPosition);
+    }
 }
 
 
@@ -240,24 +246,24 @@ void
 GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_POSITION:
-            myNet->removeGLObjectFromGrid(this);
             myPosition = parse<Position>(value);
-            myNet->addGLObjectIntoGrid(this);
+            // update boundary
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_WIDTH:
-            myNet->removeGLObjectFromGrid(this);
             myWidth = parse<double>(value);
-            myNet->addGLObjectIntoGrid(this);
+            // update boundary
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_LENGTH:
-            myNet->removeGLObjectFromGrid(this);
             myLength = parse<double>(value);
-            myNet->addGLObjectIntoGrid(this);
+            // update boundary
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_ANGLE:
-            myNet->removeGLObjectFromGrid(this);
             myAngle = parse<double>(value);
-            myNet->addGLObjectIntoGrid(this);
+            // update boundary
+            updateCenteringBoundary(true);
             break;
         case GNE_ATTR_BLOCK_MOVEMENT:
             myBlockMovement = parse<bool>(value);
@@ -280,12 +286,21 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
     }
 }
 
-void GNEParkingSpace::setMoveShape(const PositionVector& newShape)
-{
+
+void 
+GNEParkingSpace::setMoveShape(const PositionVector& newShape) {
+    // update position
+    myPosition = newShape.front();
+    // update geometry
+    updateGeometry();
 }
 
-void GNEParkingSpace::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+
+void 
+GNEParkingSpace::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+    undoList->p_begin("position of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
+    undoList->p_end();
 }
 
 

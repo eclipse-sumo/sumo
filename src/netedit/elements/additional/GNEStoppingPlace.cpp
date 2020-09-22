@@ -46,11 +46,11 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObje
                                    GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name,
                                    bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, net, type, tag, name, blockMovement,
-{}, {}, {lane}, {}, {}, {}, {}, {}),
-myStartPosition(startPos),
-myEndPosition(endPos),
-myParametersSet(parametersSet),
-myFriendlyPosition(friendlyPosition) {
+        {}, {}, {lane}, {}, {}, {}, {}, {}),
+        myStartPosition(startPos),
+        myEndPosition(endPos),
+        myParametersSet(parametersSet),
+        myFriendlyPosition(friendlyPosition) {
 }
 
 
@@ -58,7 +58,7 @@ GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
 GNEMoveOperation* 
-GNEStoppingPlace::getMoveOperation(const double shapeOffset) {
+GNEStoppingPlace::getMoveOperation(const double /*shapeOffset*/) {
     // check conditions
     if (myParametersSet == 0) {
         // start and end positions undefined, then nothing to move

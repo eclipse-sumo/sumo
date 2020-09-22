@@ -56,8 +56,14 @@ GNERerouter::~GNERerouter() {
 
 
 GNEMoveOperation* 
-GNERerouter::getMoveOperation(const double shapeOffset) {
-    return nullptr;
+GNERerouter::getMoveOperation(const double /*shapeOffset*/) {
+    if (myBlockMovement) {
+        // element blocked, then nothing to move
+        return nullptr;
+    } else {
+        // return move operation for additional placed in view
+        return new GNEMoveOperation(this, myPosition);
+    }
 }
 
 
@@ -309,9 +315,9 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_POSITION:
-            myNet->removeGLObjectFromGrid(this);
             myPosition = parse<Position>(value);
-            myNet->addGLObjectIntoGrid(this);
+            // update boundary
+            updateCenteringBoundary(true);
             break;
         case SUMO_ATTR_NAME:
             myAdditionalName = value;
@@ -352,13 +358,18 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNERerouter::setMoveShape(const PositionVector& newShape) {
-    //
+    // update position
+    myPosition = newShape.front();
+    // update geometry
+    updateGeometry();
 }
 
 
 void 
 GNERerouter::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+    undoList->p_begin("position of " + getTagStr());
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
+    undoList->p_end();
 }
 
 
