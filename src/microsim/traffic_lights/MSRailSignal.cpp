@@ -435,8 +435,8 @@ MSRailSignal::hasInsertionConstraint(MSLink* link, const MSVehicle* veh) {
                 for (MSRailSignalConstraint* c : it->second) {
                     if (!c->cleared()) {
 #ifdef DEBUG_SIGNALSTATE
-                        if (gDebugFlag4) {
-                            std::cout << "  constraint '" << c->getDescription() << "' not cleared\n";
+                        if (DEBUG_HELPER(rs)) {
+                            std::cout << SIMTIME << " rsl=" << rs->getID() << " insertion constraint '" << c->getDescription() << "' for vehicle '" << veh->getID() << "' not cleared\n";
                         }
 #endif
                         return true;
