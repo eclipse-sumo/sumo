@@ -49,8 +49,15 @@ GNEAccess::~GNEAccess() {
 
 
 GNEMoveOperation* 
-GNEAccess::getMoveOperation(const double shapeOffset) {
-    return nullptr;
+GNEAccess::getMoveOperation(const double /*shapeOffset*/) {
+    // check conditions
+    if (myBlockMovement) {
+        // element blocked, then nothing to move
+        return nullptr;
+    } else {
+        // return move operation for additional placed over shape
+        return new GNEMoveOperation(this, getParentLanes().front(), {myPositionOverLane});
+    }
 }
 
 
@@ -71,6 +78,17 @@ GNEAccess::updateGeometry() {
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor());
     // update block icon position
     myBlockIcon.updatePositionAndRotation();
+}
+
+
+void 
+GNEAccess::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // now update geometry
+    updateGeometry();
+    // add shape boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow
+    myBoundary.grow(10);
 }
 
 
@@ -307,13 +325,19 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void
 GNEAccess::setMoveShape(const PositionVector& newShape) {
-    //
+    // change both position
+    myPositionOverLane = newShape.front().x();
+    // update geometry
+    updateGeometry();
 }
 
 
 void 
 GNEAccess::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
-    //
+    undoList->p_begin("position of " + getTagStr());
+    // now adjust start position
+    setAttribute(SUMO_ATTR_POSITION, toString(newShape.front().x()), undoList);
+    undoList->p_end();
 }
 
 

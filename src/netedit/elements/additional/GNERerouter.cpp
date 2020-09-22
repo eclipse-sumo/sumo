@@ -83,6 +83,25 @@ GNERerouter::updateGeometry() {
 }
 
 
+void 
+GNERerouter::updateCenteringBoundary(const bool updateGrid) {
+    // remove additional from grid
+    if (updateGrid) {
+        myNet->removeGLObjectFromGrid(this);
+    }
+    // now update geometry
+    updateGeometry();
+    // add shape boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow
+    myBoundary.grow(10);
+    // add additional into RTREE again
+    if (updateGrid) {
+        myNet->addGLObjectIntoGrid(this);
+    }
+}
+
+
 void
 GNERerouter::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

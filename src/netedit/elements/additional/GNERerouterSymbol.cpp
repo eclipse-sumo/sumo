@@ -46,7 +46,8 @@ GNERerouterSymbol::~GNERerouterSymbol() {
 
 
 GNEMoveOperation* 
-GNERerouterSymbol::getMoveOperation(const double shapeOffset) {
+GNERerouterSymbol::getMoveOperation(const double /*shapeOffset*/) {
+    // GNERerouterSymbols cannot be moved
     return nullptr;
 }
 
@@ -63,6 +64,17 @@ GNERerouterSymbol::updateGeometry() {
     }
     // update connections
     getParentAdditionals().front()->updateHierarchicalConnections();
+}
+
+
+void 
+GNERerouterSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // now update geometry
+    updateGeometry();
+    // add shape boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow
+    myBoundary.grow(10);
 }
 
 
@@ -217,13 +229,16 @@ GNERerouterSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*
     throw InvalidArgument("Symbols cannot be edited");
 }
 
-void GNERerouterSymbol::setMoveShape(const PositionVector& newShape)
-{
+
+void 
+GNERerouterSymbol::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNERerouterSymbol::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
-}
 
+void
+GNERerouterSymbol::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/)  {
+    // nothing to do
+}
 
 /****************************************************************************/

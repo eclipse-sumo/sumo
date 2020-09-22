@@ -72,12 +72,6 @@ GNEParkingArea::updateGeometry() {
 
 
 void
-GNEParkingArea::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
-    // geometry of this element cannot be splitted
-}
-
-
-void
 GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // Obtain exaggeration of the draw
     const double parkingAreaExaggeration = s.addSize.getExaggeration(s, this);

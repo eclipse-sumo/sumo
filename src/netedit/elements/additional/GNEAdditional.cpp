@@ -253,30 +253,6 @@ GNEAdditional::getPositionInView() const {
 }
 
 
-void 
-GNEAdditional::updateCenteringBoundary(const bool updateGrid) {
-    // check if remove additional from RTREE
-    if (updateGrid && myTagProperty.isPlacedInRTree()) {
-        myNet->removeGLObjectFromGrid(this);
-    }
-    // update geometry
-    updateGeometry();
-    // get boundary
-    if (myAdditionalGeometry.getShape().size() > 0) {
-        myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    } else {
-        myBoundary.reset();
-        myBoundary.add(0, 0);
-    }
-    // grow boundary
-    myBoundary.grow(10);
-    // check if add additional into RTREE
-    if (updateGrid && myTagProperty.isPlacedInRTree()) {
-        myNet->addGLObjectIntoGrid(this);
-    }
-}
-
-
 bool
 GNEAdditional::isAdditionalBlocked() const {
     return myBlockMovement;

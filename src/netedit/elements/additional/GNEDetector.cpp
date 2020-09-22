@@ -85,6 +85,16 @@ GNEDetector::getLane() const {
 
 
 void
+GNEDetector::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // now update geometry
+    updateGeometry();
+    // add shape boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow
+    myBoundary.grow(10);
+}
+
+void
 GNEDetector::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement,
                                const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // only split geometry of E2 multilane detectors

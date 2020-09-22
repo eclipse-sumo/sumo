@@ -60,6 +60,9 @@ public:
     /// @brief update pre-computed geometry information
     void updateGeometry();
 
+    /// @brief update centering boundary (implies change in RTREE)
+    void updateCenteringBoundary(const bool updateGrid);
+
     /// @brief split geometry
     void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList);
     /// @}

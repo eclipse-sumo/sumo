@@ -92,6 +92,19 @@ GNECalibrator::updateGeometry() {
 }
 
 
+void 
+GNECalibrator::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // first reset boundary
+    myBoundary.reset();
+    // now update geometry
+    updateGeometry();
+    // add shape boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow
+    myBoundary.grow(10);
+}
+
+
 void
 GNECalibrator::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     if (splitPosition < myPositionOverLane) {

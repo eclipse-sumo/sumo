@@ -64,6 +64,31 @@ GNEParkingSpace::updateGeometry() {
 }
 
 
+void 
+GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
+    // remove additional from grid
+    if (updateGrid) {
+        myNet->removeGLObjectFromGrid(this);
+    }
+    // first reset boundary
+    myBoundary.reset();
+    // add position
+    myBoundary.add(myPosition);
+    // grow width and lenght
+    if (myWidth > myLength) {
+        myBoundary.grow(myWidth);
+    } else {
+        myBoundary.grow(myLength);
+    }
+    // grow
+    myBoundary.grow(10);
+    // add additional into RTREE again
+    if (updateGrid) {
+        myNet->addGLObjectIntoGrid(this);
+    }
+}
+
+
 void
 GNEParkingSpace::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted

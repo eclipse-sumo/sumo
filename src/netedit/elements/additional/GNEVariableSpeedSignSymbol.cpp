@@ -46,7 +46,8 @@ GNEVariableSpeedSignSymbol::~GNEVariableSpeedSignSymbol() {
 
 
 GNEMoveOperation*
-GNEVariableSpeedSignSymbol::getMoveOperation(const double shapeOffset) {
+GNEVariableSpeedSignSymbol::getMoveOperation(const double /*shapeOffset*/) {
+    // GNEVariableSpeedSignSymbols cannot be moved
     return nullptr;
 }
 
@@ -56,6 +57,17 @@ GNEVariableSpeedSignSymbol::updateGeometry() {
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), 1.5);
     // update connections
     getParentAdditionals().front()->updateHierarchicalConnections();
+}
+
+
+void 
+GNEVariableSpeedSignSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // now update geometry
+    updateGeometry();
+    // add shape boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow
+    myBoundary.grow(10);
 }
 
 
@@ -194,13 +206,14 @@ GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string&
 }
 
 
-void GNEVariableSpeedSignSymbol::setMoveShape(const PositionVector& newShape)
-{
+void 
+GNEVariableSpeedSignSymbol::setMoveShape(const PositionVector& /*newShape*/) {
+    // nothing to do
 }
 
-void GNEVariableSpeedSignSymbol::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList)
-{
+void 
+GNEVariableSpeedSignSymbol::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
-
 
 /****************************************************************************/

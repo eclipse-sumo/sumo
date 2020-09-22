@@ -153,6 +153,31 @@ GNEStoppingPlace::fixAdditionalProblem() {
 }
 
 
+
+void 
+GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {
+    // remove additional from grid
+    if (updateGrid && myTagProperty.isPlacedInRTree()) {
+        myNet->removeGLObjectFromGrid(this);
+    }
+    // update geometry
+    updateGeometry();
+    // add shape boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow with "width"
+    if (myTagProperty.hasAttribute(SUMO_ATTR_WIDTH)) {
+        // we cannot use "getAttributeDouble(...)"
+        myBoundary.growWidth(parse<double>(getAttribute(SUMO_ATTR_WIDTH)));
+    }
+    // grow
+    myBoundary.grow(10);
+    // add additional into RTREE again
+    if (updateGrid &&  myTagProperty.isPlacedInRTree()) {
+        myNet->addGLObjectIntoGrid(this);
+    }
+}
+
+
 void
 GNEStoppingPlace::splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) {
     // first check tat both network elements are lanes and originalElement correspond to stoppingPlace lane

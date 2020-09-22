@@ -157,7 +157,7 @@ public:
     Boundary getCenteringBoundary() const;
 
     /// @brief update centering boundary (implies change in RTREE)
-    void updateCenteringBoundary(const bool updateGrid);
+    virtual void updateCenteringBoundary(const bool updateGrid) = 0;
 
     /// @brief split geometry
     virtual void splitEdgeGeometry(const double splitPosition, const GNENetworkElement* originalElement, const GNENetworkElement* newElement, GNEUndoList* undoList) = 0;

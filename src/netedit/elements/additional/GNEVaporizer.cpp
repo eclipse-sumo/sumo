@@ -60,6 +60,17 @@ GNEVaporizer::updateGeometry() {
 }
 
 
+void 
+GNEVaporizer::updateCenteringBoundary(const bool updateGrid) {
+    // update geometry
+    updateGeometry();
+    // add shape boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow
+    myBoundary.grow(10);
+}
+
+
 void
 GNEVaporizer::splitEdgeGeometry(const double /*splitPosition*/, const GNENetworkElement* /*originalElement*/, const GNENetworkElement* /*newElement*/, GNEUndoList* /*undoList*/) {
     // geometry of this element cannot be splitted
