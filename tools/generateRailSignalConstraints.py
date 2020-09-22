@@ -30,6 +30,7 @@ import os
 import sys
 import subprocess
 from collections import defaultdict
+from operator import itemgetter
 
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
@@ -345,20 +346,26 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
             else:
                 continue
             untils.append((until, edgesBefore, stop))
-        untils.sort()
+        # only use 'until' for sorting and keep the result stable otherwise
+        untils.sort(key=itemgetter(0))
         prevPassing = None
         for i, (nUntil, nEdges, nStop) in enumerate(untils):
             nVehStops = vehicleStopRoutes[nStop.vehID]
             nIndex = nVehStops.index((nEdges, nStop))
             nIsPassing = nIndex < len(nVehStops) - 1
             nIsDepart = len(nEdges) == 1
+            if options.verbose and busStop == options.debugStop:
+                print(i, 
+                        "n:", humanReadableTime(nUntil), nStop.tripId, nStop.vehID, nIndex, len(nVehStops),
+                        "passing:", nIsPassing,
+                        "depart:", nIsDepart)
             if prevPassing is not None and nIsDepart:
                 pUntil, pEdges, pStop = prevPassing
+                pVehStops = vehicleStopRoutes[pStop.vehID]
+                pIndex = pVehStops.index((pEdges, pStop))
                 # no need to constrain subsequent departures (simulation should maintain ordering)
-                if len(pEdges) > 1:
+                if len(pEdges) > 1 or pIndex > 0:
                     # find edges after stop
-                    pVehStops = vehicleStopRoutes[pStop.vehID]
-                    pIndex = pVehStops.index((pEdges, pStop))
                     if busStop == options.debugStop:
                         print(i, 
                                 "p:", humanReadableTime(pUntil), pStop.tripId, pStop.vehID, pIndex, len(pVehStops),
