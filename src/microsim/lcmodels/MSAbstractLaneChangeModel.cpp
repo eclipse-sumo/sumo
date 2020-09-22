@@ -551,7 +551,7 @@ MSAbstractLaneChangeModel::updateShadowLane() {
                 std::cout << SIMTIME << "   further=" << further[i]->getID() << " (posLat=" << furtherPosLat[i] << ") shadowFurther=" << Named::getIDSecure(shadowFurther) << "\n";
             }
 #endif
-            if (shadowFurther != nullptr && MSLinkContHelper::getConnectingLink(*shadowFurther, *passed.back()) != nullptr) {
+            if (shadowFurther != nullptr && shadowFurther->getLinkTo(passed.back()) != nullptr) {
                 passed.push_back(shadowFurther);
             }
         }

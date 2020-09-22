@@ -79,7 +79,6 @@
 #include "MSVehicleType.h"
 #include "MSNet.h"
 #include "MSRoute.h"
-#include "MSLinkCont.h"
 #include "MSLeaderInfo.h"
 #include "MSDriverState.h"
 
@@ -103,6 +102,7 @@
 #define DEBUG_COND (isSelected())
 //#define DEBUG_COND2(obj) (obj->getID() == "follower")
 #define DEBUG_COND2(obj) (obj->isSelected())
+//#define PARALLEL_STOPWATCH
 
 
 #define STOPPING_PLACE_OFFSET 0.5
@@ -1340,8 +1340,8 @@ MSVehicle::getPositionAlongBestLanes(double offset) const {
                     success = false;
                     offset = 0.;
                 } else {
-                    MSLink* link = lane->getLinkTo(*nextBestLane);
-                    assert(link != 0);
+                    const MSLink* link = lane->getLinkTo(*nextBestLane);
+                    assert(link != nullptr);
                     lane = link->getViaLaneOrLane();
                     pos = 0.;
                 }
@@ -2299,7 +2299,6 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
             std::cout << STEPS2TIME(t) << " vehicle = '" << getID() << "' takes action." << std::endl;
         }
 #endif
-
         myLFLinkLanesPrev = myLFLinkLanes;
         planMoveInternal(t, ahead, myLFLinkLanes, myStopDist, myNextTurn);
 #ifdef DEBUG_PLAN_MOVE
@@ -2410,6 +2409,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const MSLane* lane = opposite ? myLane->getOpposite() : myLane;
     assert(lane != 0);
     const MSLane* leaderLane = myLane;
+#ifdef PARALLEL_STOPWATCH
+        myLane->getStopWatch()[0].start();
+#endif
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
@@ -2516,7 +2518,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
             v = MIN2(v, stopSpeed);
             if (lane->isInternal()) {
-                MSLinkCont::const_iterator exitLink = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
+                std::vector<MSLink*>::const_iterator exitLink = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
                 assert(!lane->isLinkEnd(exitLink));
                 bool dummySetRequest;
                 double dummyVLinkWait;
@@ -2530,14 +2532,14 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
 #endif
             if (!isWaypoint && !isRailway(getVClass())) {
-                lfLinks.push_back(DriveProcessItem(v, myStopDist));
+                lfLinks.emplace_back(v, myStopDist);
                 break;
             }
         }
 
         // move to next lane
         //  get the next link used
-        MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
+        std::vector<MSLink*>::const_iterator link = MSLane::succLinkSec(*this, view + 1, *lane, bestLaneConts);
 
         // Check whether this is a turn (to save info about the next upcoming turn)
         if (!encounteredTurn) {
@@ -2608,7 +2610,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             }
 #endif
             if (lane->isLinkEnd(link)) {
-                lfLinks.push_back(DriveProcessItem(v, seen));
+                lfLinks.emplace_back(v, seen);
                 break;
             }
         }
@@ -2911,6 +2913,9 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 //    }
 //#endif
 
+#ifdef PARALLEL_STOPWATCH
+        myLane->getStopWatch()[0].stop();
+#endif
 }
 
 
@@ -3006,7 +3011,7 @@ MSVehicle::checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* l
         // we want to pass the link but need to check for foes on internal lanes
         checkLinkLeader(link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
         if (getLaneChangeModel().getShadowLane() != nullptr) {
-            MSLink* parallelLink = link->getParallelLink(getLaneChangeModel().getShadowDirection());
+            const MSLink* const parallelLink = link->getParallelLink(getLaneChangeModel().getShadowDirection());
             if (parallelLink != nullptr) {
                 checkLinkLeader(parallelLink, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest, true);
             }
@@ -3282,7 +3287,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                                            ls == LINKSTATE_ZIPPER ? &collectFoes : nullptr,
                                            ignoreRedLink, this));
             if (opened && getLaneChangeModel().getShadowLane() != nullptr) {
-                MSLink* parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
+                const MSLink* const parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != nullptr) {
                     const double shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
                                                     myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
@@ -3601,7 +3606,7 @@ MSVehicle::updateDriveItems() {
         return;
     }
     // Lane must have been changed, determine the change direction
-    MSLink* parallelLink = nextPlannedLink->getParallelLink(1);
+    const MSLink* parallelLink = nextPlannedLink->getParallelLink(1);
     if (parallelLink != nullptr && parallelLink->getLaneBefore() == getLane()) {
         // lcDir = 1;
     } else {
@@ -3626,7 +3631,7 @@ MSVehicle::updateDriveItems() {
 //        DriveItemVector::iterator driveItemIt = myLFLinkLanes.begin();
     DriveItemVector::iterator driveItemIt = myNextDriveItem;
     // In the loop below, lane holds the currently considered lane on the vehicles continuation (including internal lanes)
-    MSLane* lane = myLane;
+    const MSLane* lane = myLane;
     assert(myLane == parallelLink->getLaneBefore());
     // *lit is a pointer to the next lane in best continuations for the current lane (always non-internal)
     std::vector<MSLane*>::const_iterator bestLaneIt = getBestLanesContinuation().begin() + 1;
@@ -3660,7 +3665,15 @@ MSVehicle::updateDriveItems() {
             break;
         }
         // Do the actual link-remapping for the item. And un/register approaching information on the corresponding links
-        newLink = lane->getLinkTo(*bestLaneIt);
+        const MSLane* const target = *bestLaneIt;
+        assert(!target->isInternal());
+        newLink = nullptr;
+        for (MSLink* const link : lane->getLinkCont()) {
+            if (link->getLane() == target) {
+                newLink = link;
+                break;
+            }
+        }
 
         if (newLink == driveItemIt->myLink) {
             // new continuation merged into previous - stop update
@@ -3952,7 +3965,7 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     myState.myPos = myLane->getLength();
                 } else if (reverseTrain) {
                     approachedLane = (*(myCurrEdge + 1))->getLanes()[0];
-                    link = MSLinkContHelper::getConnectingLink(*myLane, *approachedLane);
+                    link = myLane->getLinkTo(approachedLane);
                     assert(link != 0);
                     while (link->getViaLane() != nullptr) {
                         link = link->getViaLane()->getLinkCont()[0];
@@ -4245,12 +4258,16 @@ MSVehicle::executeFractionalMove(double dist) {
     for (int i = 0; i < (int)lanes.size(); i++) {
         MSLink* link = nullptr;
         if (i + 1 < (int)lanes.size()) {
-            const MSLane* from = lanes[i];
-            const MSLane* to = lanes[i + 1];
-            link = MSLinkContHelper::getConnectingLink(*from, *to);
+            const MSLane* const to = lanes[i + 1];
+            const bool internal = to->isInternal();
+            for (MSLink* const l : lanes[i]->getLinkCont()) {
+                if ((internal && l->getViaLane() == to) || (!internal && l->getLane() == to)) {
+                    link = l;
+                    break;
+                }
+            }
         }
-        myLFLinkLanes.push_back(DriveProcessItem(
-                                    link, getSpeed(), getSpeed(), true, t, getSpeed(), 0, 0, dist));
+        myLFLinkLanes.emplace_back(link, getSpeed(), getSpeed(), true, t, getSpeed(), 0, 0, dist);
     }
     // minimum execute move:
     std::vector<MSLane*> passedLanes;
@@ -4757,7 +4774,7 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
         // register on all shadow links
         for (const DriveProcessItem& dpi : myLFLinkLanes) {
             if (dpi.myLink != nullptr) {
-                MSLink* parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
+                MSLink* const parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
                 if (parallelLink != nullptr) {
                     parallelLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                                  dpi.mySetRequest, dpi.myArrivalTimeBraking, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance);
@@ -4848,9 +4865,9 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, bool onTeleporting) {
         activateReminders(MSMoveReminder::NOTIFICATION_JUNCTION, enteredLane);
         if (MSGlobals::gLateralResolution > 0) {
             // transform lateral position when the lane width changes
-            assert(oldLane != 0);
-            MSLink* link = oldLane->getLinkTo(myLane);
-            if (link) {
+            assert(oldLane != nullptr);
+            const MSLink* const link = oldLane->getLinkTo(myLane);
+            if (link != nullptr) {
                 myFurtherLanesPosLat.push_back(myState.myPosLat);
                 myState.myPosLat += link->getLateralShift();
             }
@@ -5424,7 +5441,7 @@ MSVehicle::nextLinkPriority(const std::vector<MSLane*>& conts) {
     if (conts.size() < 2) {
         return -1;
     } else {
-        MSLink* link = MSLinkContHelper::getConnectingLink(*conts[0], *conts[1]);
+        const MSLink* const link = conts[0]->getLinkTo(conts[1]);
         if (link != nullptr) {
             return link->havePriority() ? 1 : 0;
         } else {
@@ -5533,7 +5550,7 @@ MSVehicle::getUpcomingLanesUntil(double distance) const {
         assert(l != nullptr);
 
         // insert internal lanes if applicable
-        const MSLane* internalLane = lanes.size() > 0 ? MSLinkContHelper::getInternalFollowingLane(lanes.back(), l) : nullptr;
+        const MSLane* internalLane = lanes.size() > 0 ? lanes.back()->getInternalFollowingLane(l) : nullptr;
         while ((internalLane != nullptr) && internalLane->isInternal() && (distance > 0.)) {
             lanes.insert(lanes.end(), internalLane);
             distance -= internalLane->getLength();
@@ -5757,7 +5774,7 @@ MSVehicle::setBlinkerInformation() {
         }
     } else {
         const MSLane* lane = getLane();
-        MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, 1, *lane, getBestLanesContinuation());
+        std::vector<MSLink*>::const_iterator link = MSLane::succLinkSec(*this, 1, *lane, getBestLanesContinuation());
         if (link != lane->getLinkCont().end() && lane->getLength() - getPositionOnLane() < lane->getVehicleMaxSpeed(this) * (double) 7.) {
             switch ((*link)->getDirection()) {
                 case LinkDirection::TURN:
@@ -6024,7 +6041,7 @@ MSVehicle::unsafeLinkAhead(const MSLane* lane) const {
     if (seen < dist) {
         const std::vector<MSLane*>& bestLaneConts = getBestLanesContinuation(lane);
         int view = 1;
-        MSLinkCont::const_iterator link = MSLane::succLinkSec(*this, view, *lane, bestLaneConts);
+        std::vector<MSLink*>::const_iterator link = MSLane::succLinkSec(*this, view, *lane, bestLaneConts);
         DriveItemVector::const_iterator di = myLFLinkLanes.begin();
         while (!lane->isLinkEnd(link) && seen <= dist) {
             if (!lane->getEdge().isInternal()

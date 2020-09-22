@@ -297,7 +297,7 @@ private:
     void drawLinkNo(const GUIVisualizationSettings& s) const;
     void drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) const;
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
-    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, double x1, double x2) const;
+    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link, const PositionVector& shape, double x1, double x2) const;
     void drawArrows() const;
     void drawLane2LaneConnections(double exaggeration) const;
 

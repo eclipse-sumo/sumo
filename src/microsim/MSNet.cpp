@@ -927,13 +927,10 @@ MSNet::writeOutput() {
         OutputDevice& od = OutputDevice::getDeviceByOption("link-output");
         od.openTag("timestep");
         od.writeAttr(SUMO_ATTR_ID, STEPS2TIME(myStep));
-        const MSEdgeVector& edges = myEdges->getEdges();
-        for (MSEdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
-            const std::vector<MSLane*>& lanes = (*i)->getLanes();
-            for (std::vector<MSLane*>::const_iterator j = lanes.begin(); j != lanes.end(); ++j) {
-                const std::vector<MSLink*>& links = (*j)->getLinkCont();
-                for (std::vector<MSLink*>::const_iterator k = links.begin(); k != links.end(); ++k) {
-                    (*k)->writeApproaching(od, (*j)->getID());
+        for (const MSEdge* const edge : myEdges->getEdges()) {
+            for (const MSLane* const lane : edge->getLanes()) {
+                for (const MSLink* const link : lane->getLinkCont()) {
+                    link->writeApproaching(od, lane->getID());
                 }
             }
         }

@@ -941,13 +941,11 @@ int
 MSLCM_SL2015::computeSublaneShift(const MSEdge* prevEdge, const MSEdge* curEdge) {
     // find the first lane that targets the new edge
     int prevShift = 0;
-    const std::vector<MSLane*>& lanes = prevEdge->getLanes();
-    for (std::vector<MSLane*>::const_iterator it_lane = lanes.begin(); it_lane != lanes.end(); ++it_lane) {
-        const MSLane* lane = *it_lane;
-        for (MSLinkCont::const_iterator it_link = lane->getLinkCont().begin(); it_link != lane->getLinkCont().end(); ++it_link) {
-            if (&((*it_link)->getLane()->getEdge()) == curEdge) {
+    for (const MSLane* const lane : prevEdge->getLanes()) {
+        for (const MSLink* const link : lane->getLinkCont()) {
+            if (&link->getLane()->getEdge() == curEdge) {
                 int curShift = 0;
-                const MSLane* target = (*it_link)->getLane();
+                const MSLane* target = link->getLane();
                 const std::vector<MSLane*>& lanes2 = curEdge->getLanes();
                 for (std::vector<MSLane*>::const_iterator it_lane2 = lanes2.begin(); it_lane2 != lanes2.end(); ++it_lane2) {
                     const MSLane* lane2 = *it_lane2;

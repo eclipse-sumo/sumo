@@ -453,7 +453,7 @@ private:
     static NextLaneInfo getNextLane(const PState& ped, const MSLane* currentLane, const MSLane* prevLane);
 
     /// @brief return the next walkingArea in the given direction
-    static const MSLane* getNextWalkingArea(const MSLane* currentLane, const int dir, MSLink*& link);
+    static const MSLane* getNextWalkingArea(const MSLane* currentLane, const int dir, const MSLink*& link);
 
     static void initWalkingAreaPaths(const MSNet* net);
 

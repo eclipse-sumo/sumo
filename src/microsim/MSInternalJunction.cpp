@@ -22,14 +22,15 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "MSInternalJunction.h"
-#include "MSRightOfWayJunction.h"
-#include "MSLane.h"
-#include "MSEdge.h"
-#include "MSJunctionLogic.h"
 #include <algorithm>
 #include <cassert>
 #include <cmath>
+#include "MSRightOfWayJunction.h"
+#include "MSLane.h"
+#include "MSLink.h"
+#include "MSEdge.h"
+#include "MSJunctionLogic.h"
+#include "MSInternalJunction.h"
 
 
 // ===========================================================================
@@ -67,38 +68,35 @@ MSInternalJunction::postloadInit() {
     const MSLogicJunction::LinkBits& response = parent->getLogic()->getResponseFor(ownLinkIndex);
     // inform links where they have to report approaching vehicles to
     //std::cout << " special=" << specialLane->getID() << " incoming=" << toString(myIncomingLanes) << " internal=" << toString(myInternalLanes) << "\n";
-    for (std::vector<MSLane*>::iterator i = myInternalLanes.begin(); i != myInternalLanes.end(); ++i) {
-        const MSLinkCont& lc = (*i)->getLinkCont();
-        for (MSLinkCont::const_iterator q = lc.begin(); q != lc.end(); ++q) {
-            if ((*q)->getViaLane() != nullptr) {
-                const int foeIndex = (*i)->getIncomingLanes()[0].viaLink->getIndex();
+    for (MSLane* const lane : myInternalLanes) {
+        for (MSLink* const link : lane->getLinkCont()) {
+            if (link->getViaLane() != nullptr) {
+                const int foeIndex = lane->getIncomingLanes()[0].viaLink->getIndex();
                 //std::cout << "       response=" << response << " index=" << ownLinkIndex << " foeIndex=" << foeIndex << " ibct=" << indirectBicycleTurn(specialLane, thisLink, *i, *q) << "\n";
-                if (response.test(foeIndex) || indirectBicycleTurn(specialLane, thisLink, *i, *q)) {
+                if (response.test(foeIndex) || indirectBicycleTurn(specialLane, thisLink, lane, link)) {
                     // only respect vehicles before internal junctions if they
                     // have priority (see the analogous foeLinks.test() when
                     // initializing myLinkFoeInternalLanes in MSRightOfWayJunction
                     // Indirect left turns for bicycles are a special case
                     // because they both intersect on their second part with the first part of the other one
                     // and only one of the has priority
-                    myInternalLaneFoes.push_back(*i);
+                    myInternalLaneFoes.push_back(lane);
                 }
-                myInternalLaneFoes.push_back((*q)->getViaLane());
+                myInternalLaneFoes.push_back(link->getViaLane());
             } else {
-                myInternalLaneFoes.push_back(*i);
+                myInternalLaneFoes.push_back(lane);
             }
             //std::cout << "  i=" << (*i)->getID() << " qLane=" << (*q)->getLane()->getID() << " qVia=" << Named::getIDSecure((*q)->getViaLane()) << " foes=" << toString(myInternalLaneFoes) << "\n";
         }
 
     }
     for (std::vector<MSLane*>::const_iterator i = myIncomingLanes.begin() + 1; i != myIncomingLanes.end(); ++i) {
-        MSLane* l = *i;
-        const MSLinkCont& lc = l->getLinkCont();
-        for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
-            MSLane* via = (*j)->getViaLane();
+        for (MSLink* const link : (*i)->getLinkCont()) {
+            MSLane* via = link->getViaLane();
             if (std::find(myInternalLanes.begin(), myInternalLanes.end(), via) == myInternalLanes.end()) {
                 continue;
             }
-            myInternalLinkFoes.push_back(*j);
+            myInternalLinkFoes.push_back(link);
         }
     }
     // thisLinks is itself an exitLink of the preceding internal lane
@@ -113,9 +111,9 @@ MSInternalJunction::postloadInit() {
             break;
         }
     }
-    for (std::vector<MSLink*>::const_iterator k = myInternalLinkFoes.begin(); k != myInternalLinkFoes.end(); ++k) {
-        thisLink->addBlockedLink(*k);
-        (*k)->addBlockedLink(thisLink);
+    for (MSLink* const link : myInternalLinkFoes) {
+        thisLink->addBlockedLink(link);
+        link->addBlockedLink(thisLink);
     }
 }
 

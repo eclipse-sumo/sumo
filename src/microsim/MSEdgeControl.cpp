@@ -92,6 +92,13 @@ MSEdgeControl::~MSEdgeControl() {
 #endif
 #endif
 #ifdef PARALLEL_STOPWATCH
+    StopWatch<std::chrono::nanoseconds> wPlan;
+    for (MSEdge* const edge : myEdges) {
+        for (MSLane* const l : edge->getLanes()) {
+            wPlan.add(l->getStopWatch()[0]);
+        }
+    }
+    std::cout << wPlan.getHistory().size() << " lane planmove calls, average " << wPlan.getAverage() << " ns, total " << wPlan.getTotal() / double(1e9) << " s" << std::endl;
     std::cout << myStopWatch[0].getHistory().size() << " planmove calls, average " << myStopWatch[0].getAverage() << " ns, total " << myStopWatch[0].getTotal() / double(1e9) << " s" << std::endl;
     std::cout << myStopWatch[1].getHistory().size() << " execmove calls, average " << myStopWatch[1].getAverage() << " ns, total " << myStopWatch[1].getTotal() / double(1e9) << " s" << std::endl;
 #endif

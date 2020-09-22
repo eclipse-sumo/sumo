@@ -32,7 +32,6 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSLink.h>
-#include <microsim/MSLinkCont.h>
 #include <microsim/MSNet.h>
 #include <microsim/devices/MSDevice_ElecHybrid.h>
 
@@ -160,13 +159,13 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
             ovrhdSegment = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(ovrhdSegmentID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
             // If the outgoing overhead wire segment belongs to the same substation as newOverheadWireSegment
             if (ovrhdSegment->getTractionSubstation() == newOverheadWireSegment->getTractionSubstation()) {
-                connection = MSLinkContHelper::getInternalFollowingLane(&lane, *it);
+                connection = lane.getInternalFollowingLane(*it);
                 if (connection != nullptr) {
                     //is connection a forbidden lane?
                     if (!(ovrhdSegment->getTractionSubstation()->isForbidden(connection) ||
-                            ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(&lane, connection)) ||
-                            ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(connection, *it)))) {
-                        addOverheadWireInnerSegmentToCircuit(newOverheadWireSegment, ovrhdSegment, connection, MSLinkContHelper::getInternalFollowingLane(&lane, connection), MSLinkContHelper::getInternalFollowingLane(connection, *it));
+                            ovrhdSegment->getTractionSubstation()->isForbidden(lane.getInternalFollowingLane(connection)) ||
+                            ovrhdSegment->getTractionSubstation()->isForbidden(connection->getInternalFollowingLane(*it)))) {
+                        addOverheadWireInnerSegmentToCircuit(newOverheadWireSegment, ovrhdSegment, connection, lane.getInternalFollowingLane(connection), connection->getInternalFollowingLane(*it));
                     }
 
                 } else {
@@ -204,13 +203,13 @@ MSTractionSubstation::addOverheadWireSegmentToCircuit(MSOverheadWire* newOverhea
             ovrhdSegment = dynamic_cast<MSOverheadWire*>(MSNet::getInstance()->getStoppingPlace(ovrhdSegmentID, SUMO_TAG_OVERHEAD_WIRE_SEGMENT));
             // If the incoming overhead wire segment belongs to the same substation as newOverheadWireSegment
             if (ovrhdSegment->getTractionSubstation() == newOverheadWireSegment->getTractionSubstation()) {
-                connection = MSLinkContHelper::getInternalFollowingLane((*it), &lane);
+                connection = (*it)->getInternalFollowingLane(&lane);
                 if (connection != nullptr) {
                     //is connection a forbidden lane?
                     if (!(ovrhdSegment->getTractionSubstation()->isForbidden(connection) ||
-                            ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(*it, connection)) ||
-                            ovrhdSegment->getTractionSubstation()->isForbidden(MSLinkContHelper::getInternalFollowingLane(connection, &lane)))) {
-                        addOverheadWireInnerSegmentToCircuit(ovrhdSegment, newOverheadWireSegment, connection, MSLinkContHelper::getInternalFollowingLane((*it), connection), MSLinkContHelper::getInternalFollowingLane(connection, &lane));
+                            ovrhdSegment->getTractionSubstation()->isForbidden((*it)->getInternalFollowingLane(connection)) ||
+                            ovrhdSegment->getTractionSubstation()->isForbidden(connection->getInternalFollowingLane(&lane)))) {
+                        addOverheadWireInnerSegmentToCircuit(ovrhdSegment, newOverheadWireSegment, connection, (*it)->getInternalFollowingLane(connection), connection->getInternalFollowingLane(&lane));
                     }
                 } else {
                     if (MSGlobals::gOverheadWireSolver) {

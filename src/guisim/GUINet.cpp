@@ -191,7 +191,7 @@ GUINet::vehicleExists(const std::string& name) const {
 
 
 int
-GUINet::getLinkTLID(MSLink* link) const {
+GUINet::getLinkTLID(const MSLink* const link) const {
     if (myLinks2Logic.count(link) == 0) {
         assert(false);
         return 0;
@@ -206,7 +206,7 @@ GUINet::getLinkTLID(MSLink* link) const {
 
 
 int
-GUINet::getLinkTLIndex(MSLink* link) const {
+GUINet::getLinkTLIndex(const MSLink* const link) const {
     Links2LogicMap::const_iterator i = myLinks2Logic.find(link);
     if (i == myLinks2Logic.end()) {
         return -1;

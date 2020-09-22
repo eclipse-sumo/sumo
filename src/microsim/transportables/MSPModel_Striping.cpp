@@ -292,9 +292,9 @@ int
 MSPModel_Striping::connectedDirection(const MSLane* from, const MSLane* to) {
     if (from == nullptr || to == nullptr) {
         return UNDEFINED_DIRECTION;
-    } else if (MSLinkContHelper::getConnectingLink(*from, *to)) {
+    } else if (from->getLinkTo(to) != nullptr) {
         return FORWARD;
-    } else if (MSLinkContHelper::getConnectingLink(*to, *from)) {
+    } else if (to->getLinkTo(from) != nullptr) {
         return BACKWARD;
     } else {
         return UNDEFINED_DIRECTION;
@@ -352,10 +352,10 @@ MSPModel_Striping::initWalkingAreaPaths(const MSNet*) {
                 for (int k = 0; k < (int)lanes.size(); ++k) {
                     if (j != k) {
                         // build the walkingArea
-                        const MSLane* from = lanes[j];
-                        const MSLane* to = lanes[k];
-                        const int fromDir = MSLinkContHelper::getConnectingLink(*from, *walkingArea) != nullptr ? FORWARD : BACKWARD;
-                        const int toDir = MSLinkContHelper::getConnectingLink(*walkingArea, *to) != nullptr ? FORWARD : BACKWARD;
+                        const MSLane* const from = lanes[j];
+                        const MSLane* const to = lanes[k];
+                        const int fromDir = from->getLinkTo(walkingArea) != nullptr ? FORWARD : BACKWARD;
+                        const int toDir = walkingArea->getLinkTo(to) != nullptr ? FORWARD : BACKWARD;
                         PositionVector shape;
                         Position fromPos = from->getShape()[fromDir == FORWARD ? -1 : 0];
                         Position toPos = to->getShape()[toDir == FORWARD ? 0 : -1];
@@ -459,7 +459,7 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
     const MSLane* nextRouteLane = getSidewalk<MSEdge, MSLane>(nextRouteEdge);
     // result values
     const MSLane* nextLane = nextRouteLane;
-    MSLink* link = nullptr;
+    const MSLink* link = nullptr;
     int nextDir = UNDEFINED_DIRECTION;
 
     //if DEBUGCOND(ped) {
@@ -530,15 +530,15 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 }
                 assert(nextDir != UNDEFINED_DIRECTION);
                 if (nextDir == FORWARD) {
-                    link = MSLinkContHelper::getConnectingLink(*currentLane, *nextLane);
+                    link = currentLane->getLinkTo(nextLane);
                 } else {
-                    link = MSLinkContHelper::getConnectingLink(*nextLane, *currentLane);
+                    link = nextLane->getLinkTo(currentLane);
                     if (nextEdge->isCrossing() && link->getTLLogic() == nullptr) {
                         const MSLane* oppositeWalkingArea = nextLane->getLogicalPredecessorLane();
-                        link = MSLinkContHelper::getConnectingLink(*oppositeWalkingArea, *nextLane);
+                        link = oppositeWalkingArea->getLinkTo(nextLane);
                     }
                 }
-                assert(link != 0);
+                assert(link != nullptr);
             } else {
                 if DEBUGCOND(ped) {
                     std::cout << SIMTIME
@@ -571,20 +571,20 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
                 // try to use a direct link as fallback
                 // direct links only exist if built explicitly. They are used to model tl-controlled links if there are no crossings
                 if (ped.myDir == FORWARD) {
-                    link = MSLinkContHelper::getConnectingLink(*currentLane, *nextRouteLane);
+                    link = currentLane->getLinkTo(nextRouteLane);
                     if (link != nullptr) {
                         if DEBUGCOND(ped) {
                             std::cout << "  direct forward\n";
                         }
-                        nextLane = MSLinkContHelper::getInternalFollowingLane(currentLane, nextRouteLane);
+                        nextLane = currentLane->getInternalFollowingLane(nextRouteLane);
                     }
                 } else {
-                    link = MSLinkContHelper::getConnectingLink(*nextRouteLane, *currentLane);
+                    link = nextRouteLane->getLinkTo(currentLane);
                     if (link != nullptr) {
                         if DEBUGCOND(ped) {
                             std::cout << "  direct backward\n";
                         }
-                        nextLane = MSLinkContHelper::getInternalFollowingLane(nextRouteLane, currentLane);
+                        nextLane = nextRouteLane->getInternalFollowingLane(currentLane);
                         if (nextLane != nullptr) {
                             // advance to the end of consecutive internal lanes
                             while (nextLane->getLinkCont()[0]->getViaLaneOrLane()->isInternal()) {
@@ -641,13 +641,12 @@ MSPModel_Striping::getNextLane(const PState& ped, const MSLane* currentLane, con
 
 
 const MSLane*
-MSPModel_Striping::getNextWalkingArea(const MSLane* currentLane, const int dir, MSLink*& link) {
+MSPModel_Striping::getNextWalkingArea(const MSLane* currentLane, const int dir, const MSLink*& link) {
     if (dir == FORWARD) {
-        const MSLinkCont& links = currentLane->getLinkCont();
-        for (MSLinkCont::const_iterator it = links.begin(); it != links.end(); ++it) {
-            if ((*it)->getLane()->getEdge().isWalkingArea()) {
-                link = *it;
-                return (*it)->getLane();
+        for (const MSLink* const l : currentLane->getLinkCont()) {
+            if (l->getLane()->getEdge().isWalkingArea()) {
+                link = l;
+                return l->getLane();
             }
         }
     } else {

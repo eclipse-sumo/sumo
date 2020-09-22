@@ -22,7 +22,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include "MSLinkCont.h"
 #include "MSLogicJunction.h"
 #include "MSLane.h"
 

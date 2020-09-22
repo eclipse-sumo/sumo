@@ -298,12 +298,10 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
         // save foes for exit links
         if (fromInternalLane()) {
             //std::cout << " setRequestInformation link=" << getViaLaneOrLane()->getID() << " before=" << myLaneBefore->getID() << " before2=" << myLaneBefore->getIncomingLanes().front().lane->getID() << "\n";
-            const MSLinkCont& predLinks2 = myLaneBefore->getIncomingLanes().front().lane->getLinkCont();
-            for (MSLinkCont::const_iterator it = predLinks2.begin(); it != predLinks2.end(); ++it) {
-                const MSEdge* target = &((*it)->getLane()->getEdge());
-                if ((*it)->getViaLane() != myInternalLaneBefore && target == myTarget) {
+            for (const MSLink* const link : myLaneBefore->getIncomingLanes().front().lane->getLinkCont()) {
+                if (link->getViaLane() != myInternalLaneBefore && &link->getLane()->getEdge() == myTarget) {
                     //std::cout << " add sublaneFoe=" << (*it)->getViaLane()->getID() << "\n";
-                    mySublaneFoeLanes.push_back((*it)->getViaLane());
+                    mySublaneFoeLanes.push_back(link->getViaLane());
                 }
             }
         }
@@ -573,18 +571,18 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
     if (MSGlobals::gUseMesoSim && impatience == 1) {
         return true;
     }
-    for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
+    for (const MSLink* const link : myFoeLinks) {
         if (MSGlobals::gUseMesoSim) {
-            if ((*i)->haveRed()) {
+            if (link->haveRed()) {
                 continue;
             }
         }
 #ifdef MSLink_DEBUG_OPENED
         if (gDebugFlag1) {
-            std::cout << "    foeLink=" << (*i)->getViaLaneOrLane()->getID() << " numApproaching=" << (*i)->getApproaching().size() << "\n";
+            std::cout << "    foeLink=" << link->getViaLaneOrLane()->getID() << " numApproaching=" << link->getApproaching().size() << "\n";
         }
 #endif
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == (*i)->getLane(),
+        if (link->blockedAtTime(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, myLane == link->getLane(),
                                 impatience, decel, waitingTime, collectFoes, ego)) {
             return false;
         }
@@ -714,13 +712,13 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 
 bool
 MSLink::hasApproachingFoe(SUMOTime arrivalTime, SUMOTime leaveTime, double speed, double decel) const {
-    for (std::vector<MSLink*>::const_iterator i = myFoeLinks.begin(); i != myFoeLinks.end(); ++i) {
-        if ((*i)->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == (*i)->getLane(), 0, decel, 0)) {
+    for (const MSLink* const link : myFoeLinks) {
+        if (link->blockedAtTime(arrivalTime, leaveTime, speed, speed, myLane == link->getLane(), 0, decel, 0)) {
             return true;
         }
     }
-    for (std::vector<const MSLane*>::const_iterator i = myFoeLanes.begin(); i != myFoeLanes.end(); ++i) {
-        if ((*i)->getVehicleNumberWithPartials() > 0) {
+    for (const MSLane* const lane : myFoeLanes) {
+        if (lane->getVehicleNumberWithPartials() > 0) {
             return true;
         }
     }
@@ -776,10 +774,10 @@ MSLink::lastWasContMajor() const {
         if (!pred->getEdge().isInternal()) {
             return false;
         } else {
-            MSLane* pred2 = pred->getLogicalPredecessorLane();
-            assert(pred2 != 0);
-            MSLink* predLink = MSLinkContHelper::getConnectingLink(*pred2, *pred);
-            assert(predLink != 0);
+            const MSLane* const pred2 = pred->getLogicalPredecessorLane();
+            assert(pred2 != nullptr);
+            const MSLink* const predLink = pred2->getLinkTo(pred);
+            assert(predLink != nullptr);
             return predLink->havePriority() || predLink->haveYellow();
         }
     }
@@ -795,10 +793,10 @@ MSLink::lastWasContMajorGreen() const {
         if (!pred->getEdge().isInternal()) {
             return false;
         } else {
-            MSLane* pred2 = pred->getLogicalPredecessorLane();
-            assert(pred2 != 0);
-            MSLink* predLink = MSLinkContHelper::getConnectingLink(*pred2, *pred);
-            assert(predLink != 0);
+            const MSLane* const pred2 = pred->getLogicalPredecessorLane();
+            assert(pred2 != nullptr);
+            const MSLink* const predLink = pred2->getLinkTo(pred);
+            assert(predLink != nullptr);
             return predLink->getState() == LINKSTATE_TL_GREEN_MAJOR || predLink->getState() == LINKSTATE_TL_RED;
         }
     }
@@ -1155,7 +1153,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                 if (gDebugFlag1) {
                     std::cout << " leader=" << leader->getID() << " contLane=" << contLane << " cannotIgnore=" << cannotIgnore << " stopAsap=" << stopAsap << "\n";
                 }
-                result.push_back(LinkLeader(leader, gap, stopAsap ? -1 : distToCrossing, fromLeft, inTheWay));
+                result.emplace_back(leader, gap, stopAsap ? -1 : distToCrossing, fromLeft, inTheWay);
             }
 
         }
@@ -1172,7 +1170,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             if (distToPeds >= -MSPModel::SAFETY_GAP && MSNet::getInstance()->getPersonControl().getMovementModel()->blockedAtDist(foeLane, vehSideOffset, vehWidth,
                     ego->getVehicleType().getParameter().getJMParam(SUMO_ATTR_JM_CROSSING_GAP, JM_CROSSING_GAP_DEFAULT),
                     collectBlockers)) {
-                result.push_back(LinkLeader((MSVehicle*)nullptr, -1, distToPeds));
+                result.emplace_back(nullptr, -1, distToPeds);
             }
         }
     }
@@ -1223,7 +1221,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     if (gDebugFlag1) {
                         std::cout << SIMTIME << " blocked by " << leader->getID() << " (sublane split) foeLane=" << foeLane->getID() << "\n";
                     }
-                    result.push_back(LinkLeader(leader, gap, -1));
+                    result.emplace_back(leader, gap, -1);
                 }
             }
         }
@@ -1251,7 +1249,7 @@ MSLink::checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::ve
             }
         }
         if (distToPeds != std::numeric_limits<double>::max()) {
-            result.push_back(LinkLeader((MSVehicle*)nullptr, -1, distToPeds));
+            result.emplace_back(nullptr, -1, distToPeds);
         }
     }
 }
@@ -1272,13 +1270,16 @@ MSLink::getParallelLink(int direction) const {
 
 MSLink*
 MSLink::computeParallelLink(int direction) {
-    MSLane* before = getLaneBefore()->getParallelLane(direction);
-    MSLane* after = getLane()->getParallelLane(direction);
+    const MSLane* const before = getLaneBefore()->getParallelLane(direction);
+    const MSLane* const after = getLane()->getParallelLane(direction);
     if (before != nullptr && after != nullptr) {
-        return MSLinkContHelper::getConnectingLink(*before, *after);
-    } else {
-        return nullptr;
+        for (MSLink* const link : before->getLinkCont()) {
+            if (link->getLane() == after) {
+                return link;
+            }
+        }
     }
+    return nullptr;
 }
 
 

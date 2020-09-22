@@ -27,7 +27,6 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
-#include <microsim/MSLinkCont.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSXMLRawOut.h>
@@ -766,11 +765,8 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
 double
 MESegment::getMaxPenaltySeconds() const {
     double maxPenalty = 0;
-    for (std::vector<MSLane*>::const_iterator i = myEdge.getLanes().begin(); i != myEdge.getLanes().end(); ++i) {
-        MSLane* l = *i;
-        const MSLinkCont& lc = l->getLinkCont();
-        for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
-            MSLink* link = *j;
+    for (const MSLane* const l : myEdge.getLanes()) {
+        for (const MSLink* const link : l->getLinkCont()) {
             maxPenalty = MAX2(maxPenalty, STEPS2TIME(
                                   link->getMesoTLSPenalty() + (link->havePriority() ? 0 : MSGlobals::gMesoMinorPenalty)));
         }

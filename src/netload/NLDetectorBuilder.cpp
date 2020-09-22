@@ -180,8 +180,8 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, MSLane* lane, double p
         // add the file output (XXX: Where's the corresponding delete?)
         if (toLaneGiven) {
             // Detector also associated to specific link
-            MSLane* lastLane = det->getLastLane();
-            MSLink* link = MSLinkContHelper::getConnectingLink(*lastLane, *toLane);
+            const MSLane* const lastLane = det->getLastLane();
+            const MSLink* const link = lastLane->getLinkTo(toLane);
             if (link == nullptr) {
                 throw InvalidArgument(
                     "The detector '" + id + "' cannot be build as no connection between lanes '"
@@ -258,7 +258,7 @@ NLDetectorBuilder::buildE2Detector(const std::string& id, std::vector<MSLane*> l
         if (toLaneGiven) {
             // Detector also associated to specific link
             const MSLane* const lastDetLane = det->getLastLane();
-            const MSLink* const link = MSLinkContHelper::getConnectingLink(*lastDetLane, *toLane);
+            const MSLink* const link = lastDetLane->getLinkTo(toLane);
             if (link == nullptr) {
                 throw InvalidArgument(
                     "The detector '" + id + "' cannot be build as no connection between lanes '"

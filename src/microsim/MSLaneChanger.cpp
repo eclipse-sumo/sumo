@@ -914,7 +914,7 @@ MSLaneChanger::checkChange(
             const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
             int view = 1;
             MSLane* nextLane = vehicle->getLane();
-            MSLinkCont::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+            std::vector<MSLink*>::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
             while (!nextLane->isLinkEnd(link) && seen <= space2change) {
                 if ((*link)->getDirection() == LinkDirection::LEFT || (*link)->getDirection() == LinkDirection::RIGHT
                         // the lanes after an internal junction are on different
@@ -954,7 +954,7 @@ MSLaneChanger::checkChange(
                 nextLane = vehicle->getLane();
                 view = 1;
                 const double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
-                MSLinkCont::const_iterator nextLink = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
+                std::vector<MSLink*>::const_iterator nextLink = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
                 while (!nextLane->isLinkEnd(nextLink) && seen <= space2change && seen <= dist) {
                     nextLane = (*nextLink)->getViaLaneOrLane();
                     const MSLane* const parallelLane = nextLane->getParallelLane(laneOffset);
@@ -1213,8 +1213,9 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
                 break;
             }
             // do not overtake past a minor link or turn
-            if (*(it - 1) != nullptr) {
-                MSLink* link = MSLinkContHelper::getConnectingLink(**(it - 1), **it);
+            const MSLane* const prev = *(it - 1);
+            if (prev != nullptr) {
+                const MSLink* link = prev->getLinkTo(*it);
                 if (link == nullptr || link->getState() == LINKSTATE_ZIPPER
                         || (link->getDirection() != LinkDirection::STRAIGHT && vehicle->getVehicleType().getVehicleClass() != SVC_EMERGENCY)
                         || (!link->havePriority()

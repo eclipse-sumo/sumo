@@ -553,7 +553,7 @@ public:
     void initParallelLinks();
 
     /// @brief return lateral shift that must be applied when passing this link
-    double getLateralShift() {
+    inline double getLateralShift() const {
         return myLateralShift;
     }
 

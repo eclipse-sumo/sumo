@@ -402,7 +402,7 @@ Vehicle::getNextTLS(const std::string& vehicleID) {
         const std::vector<MSLane*>& bestLaneConts = veh->getBestLanesContinuation(lane);
         double seen = lane->getLength() - veh->getPositionOnLane();
         int view = 1;
-        MSLinkCont::const_iterator linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
+        std::vector<MSLink*>::const_iterator linkIt = MSLane::succLinkSec(*veh, view, *lane, bestLaneConts);
         while (!lane->isLinkEnd(linkIt)) {
             if (!lane->getEdge().isInternal()) {
                 if ((*linkIt)->isTLSControlled()) {

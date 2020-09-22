@@ -33,7 +33,14 @@ template<typename TimeT = std::chrono::milliseconds, typename ClockT =
 >
 class StopWatch {
 public:
-    StopWatch() {
+    StopWatch(const bool calibrate=true) : myTimingCost(0) {
+        if (calibrate) {
+            myStart = ClockT::now();
+            for (int i = 0; i < 1000; i++) {
+                myEnd = ClockT::now();
+            }
+            myTimingCost = std::chrono::duration_cast<TimeT>(myEnd - myStart) / 1000;
+        }
         start();
     }
 
@@ -47,9 +54,13 @@ public:
     }
 
     long long int elapsed() const {
-        const TimeT& delta = std::chrono::duration_cast<TimeT>(myEnd - myStart);
+        const TimeT& delta = std::chrono::duration_cast<TimeT>(myEnd - myStart) - (2 * myTimingCost);
         myHistory.push_back(delta);
         return (long long int)delta.count();
+    }
+
+    void add(const StopWatch<TimeT, ClockT>& other) {
+        myHistory.insert(myHistory.end(), other.myHistory.begin(), other.myHistory.end());
     }
 
     const std::vector<TimeT>& getHistory() const {
@@ -67,5 +78,6 @@ public:
 private:
     std::chrono::time_point<ClockT> myStart;
     std::chrono::time_point<ClockT> myEnd;
+    TimeT myTimingCost;
     mutable std::vector<TimeT>      myHistory;
 };

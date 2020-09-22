@@ -45,8 +45,6 @@ set(microsim_STAT_SRCS
    MSLaneChangerSublane.h
    MSLink.cpp
    MSLink.h
-   MSLinkCont.cpp
-   MSLinkCont.h
    MSLogicJunction.cpp
    MSLogicJunction.h
    MSMoveReminder.cpp

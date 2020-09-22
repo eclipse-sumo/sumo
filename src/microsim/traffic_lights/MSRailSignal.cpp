@@ -1101,10 +1101,10 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                 }
             }
         }
-        const MSLinkCont& links = toLane->getLinkCont();
+        const std::vector<MSLink*>& links = toLane->getLinkCont();
         const MSEdge* current = &toLane->getEdge();
         toLane = nullptr;
-        for (MSLink* link : links) {
+        for (const MSLink* const link : links) {
             if (((next != end && &link->getLane()->getEdge() == *next) ||
                     (next == end && link->getDirection() != LinkDirection::TURN))
                     && isRailway(link->getViaLaneOrLane()->getPermissions())) {

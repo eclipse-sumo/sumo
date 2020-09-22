@@ -306,11 +306,11 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
             }
 
             if (neigboringOvrhdSegmentTractionSubstation == substation && !(*it)->isInternal()) {
-                connection = MSLinkContHelper::getInternalFollowingLane(lane, *it);
+                connection = lane->getInternalFollowingLane(*it);
                 if (connection != nullptr) {
                     //is connection forbidden?
-                    if (!(substation->isForbidden(connection) || substation->isForbidden(MSLinkContHelper::getInternalFollowingLane(lane, connection)) || substation->isForbidden(MSLinkContHelper::getInternalFollowingLane(connection, *it)))) {
-                        buildInnerOverheadWireSegments(net, connection, MSLinkContHelper::getInternalFollowingLane(lane, connection), MSLinkContHelper::getInternalFollowingLane(connection, *it));
+                    if (!(substation->isForbidden(connection) || substation->isForbidden(lane->getInternalFollowingLane(connection)) || substation->isForbidden(connection->getInternalFollowingLane(*it)))) {
+                        buildInnerOverheadWireSegments(net, connection, lane->getInternalFollowingLane(connection), connection->getInternalFollowingLane(*it));
                     }
                 }
             }
@@ -331,11 +331,11 @@ NLTriggerBuilder::parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttr
             }
 
             if (neigboringOvrhdSegmentTractionSubstation == substation && !(*it)->isInternal()) {
-                connection = MSLinkContHelper::getInternalFollowingLane((*it), lane);
+                connection = (*it)->getInternalFollowingLane(lane);
                 if (connection != nullptr) {
                     //is connection forbidden?
-                    if (!(substation->isForbidden(connection) || substation->isForbidden(MSLinkContHelper::getInternalFollowingLane((*it), connection)) || substation->isForbidden(MSLinkContHelper::getInternalFollowingLane(connection, lane)))) {
-                        buildInnerOverheadWireSegments(net, connection, MSLinkContHelper::getInternalFollowingLane((*it), connection), MSLinkContHelper::getInternalFollowingLane(connection, lane));
+                    if (!(substation->isForbidden(connection) || substation->isForbidden((*it)->getInternalFollowingLane(connection)) || substation->isForbidden(connection->getInternalFollowingLane(lane)))) {
+                        buildInnerOverheadWireSegments(net, connection, (*it)->getInternalFollowingLane(connection), connection->getInternalFollowingLane(lane));
                     }
                 }
             }

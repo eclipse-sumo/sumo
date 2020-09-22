@@ -26,7 +26,6 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/output/MSDetectorFileOutput.h>
-#include <microsim/MSLinkCont.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/iodevices/OutputDevice.h>

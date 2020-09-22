@@ -2044,8 +2044,8 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
         // egoConflictLane is internal, i.e., lies on a junction. Besides the lead/follow situation (which may stretch over different lanes of a connection),
         // merging or crossing of the conflict lanes is possible.
         assert(foeConflictLane->isInternal());
-        MSLink* egoEntryLink = egoConflictLane->getEntryLink();
-        MSLink* foeEntryLink = foeConflictLane->getEntryLink();
+        const MSLink* egoEntryLink = egoConflictLane->getEntryLink();
+        const MSLink* foeEntryLink = foeConflictLane->getEntryLink();
         if (&(egoEntryLink->getViaLane()->getEdge()) == &(foeEntryLink->getViaLane()->getEdge())) {
             if (egoEntryLink != foeEntryLink) {
                 // XXX: this disregards conflicts for vehicles on adjacent internal lanes
@@ -2519,8 +2519,8 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         if (laneIter == foeBestLanesEnd) {
             return nullptr;
         }
-        MSLane* nextNonInternalLane = *laneIter;
-        MSLink* link = foeLane->getLinkTo(nextNonInternalLane);
+        MSLane* const nextNonInternalLane = *laneIter;
+        const MSLink* const link = foeLane->getLinkTo(nextNonInternalLane);
         // Set foeLane to first internal lane on the next junction
         foeLane = link->getViaLane();
         assert(foeLane == 0 || foeLane->isInternal());
@@ -3029,7 +3029,7 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
 
                 // Find connection for ego on the junction
                 nextNonInternalLane = *laneIter;
-                MSLink* link = lane->getLinkTo(nextNonInternalLane);
+                const MSLink* link = lane->getLinkTo(nextNonInternalLane);
                 if (isOpposite && link == nullptr) {
                     link = nextNonInternalLane->getLinkTo(lane);
                     if (link == nullptr) {

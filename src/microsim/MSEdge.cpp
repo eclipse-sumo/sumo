@@ -118,11 +118,8 @@ void MSEdge::recalcCache() {
     if (MSGlobals::gMesoTLSPenalty > 0 || MSGlobals::gMesoMinorPenalty > 0) {
         // add tls penalties to the minimum travel time
         SUMOTime minPenalty = -1;
-        for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-            MSLane* l = *i;
-            const MSLinkCont& lc = l->getLinkCont();
-            for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
-                MSLink* link = *j;
+        for (const MSLane* const l : *myLanes) {
+            for (const MSLink* const link : l->getLinkCont()) {
                 SUMOTime linkPenalty = link->getMesoTLSPenalty() + (link->havePriority() ? 0 : MSGlobals::gMesoMinorPenalty);
                 if (minPenalty == -1) {
                     minPenalty = linkPenalty;
@@ -206,11 +203,10 @@ MSEdge::allowsLaneChanging() const {
     if (isInternal() && MSGlobals::gUsingInternalLanes) {
         // allow changing only if all links leading to this internal lane have priority
         // or they are controlled by a traffic light
-        for (std::vector<MSLane*>::const_iterator it = myLanes->begin(); it != myLanes->end(); ++it) {
-            MSLane* pred = (*it)->getLogicalPredecessorLane();
-            MSLink* link = MSLinkContHelper::getConnectingLink(*pred, **it);
-            assert(link != 0);
-            LinkState state = link->getState();
+        for (const MSLane* const lane : *myLanes) {
+            const MSLink* const link = lane->getLogicalPredecessorLane()->getLinkTo(lane);
+            assert(link != nullptr);
+            const LinkState state = link->getState();
             if (state == LINKSTATE_MINOR
                     || state == LINKSTATE_EQUAL
                     || state == LINKSTATE_STOP
@@ -1083,10 +1079,9 @@ MSEdge::getOppositeEdge() const {
 
 bool
 MSEdge::hasMinorLink() const {
-    for (std::vector<MSLane*>::const_iterator i = myLanes->begin(); i != myLanes->end(); ++i) {
-        const MSLinkCont& lc = (*i)->getLinkCont();
-        for (MSLinkCont::const_iterator j = lc.begin(); j != lc.end(); ++j) {
-            if (!(*j)->havePriority()) {
+    for (const MSLane* const l : *myLanes) {
+        for (const MSLink* const link : l->getLinkCont()) {
+            if (!link->havePriority()) {
                 return true;
             }
         }

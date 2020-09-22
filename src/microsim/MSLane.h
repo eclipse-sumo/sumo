@@ -39,7 +39,6 @@
 #include <utils/common/NamedRTree.h>
 #include <utils/geom/PositionVector.h>
 #include "MSGlobals.h"
-#include "MSLinkCont.h"
 #include "MSLeaderInfo.h"
 #include "MSMoveReminder.h"
 #include <libsumo/Helper.h>
@@ -48,6 +47,7 @@
 #ifdef HAVE_FOX
 #include <utils/foxtools/FXWorkerThread.h>
 #endif
+#include <utils/common/StopWatch.h>
 
 
 // ===========================================================================
@@ -644,13 +644,18 @@ public:
 
 
     /// returns the container with all links !!!
-    const MSLinkCont& getLinkCont() const;
+    const std::vector<MSLink*>& getLinkCont() const {
+        return myLinks;
+    }
 
-    /// returns the link to the given lane or 0, if it is not connected
-    MSLink* getLinkTo(const MSLane*) const;
+    /// returns the link to the given lane or nullptr, if it is not connected
+    const MSLink* getLinkTo(const MSLane* const) const;
 
-    /// Returns the entry link if this is an internal lane, else 0
-    MSLink* getEntryLink() const;
+    /// returns the internal lane leading to the given lane or nullptr, if there is none
+    const MSLane* getInternalFollowingLane(const MSLane* const) const;
+
+    /// Returns the entry link if this is an internal lane, else nullptr
+    const MSLink* getEntryLink() const;
 
 
     /// Returns true if there is not a single vehicle on the lane.
@@ -753,7 +758,7 @@ public:
         the succeeding link could not be found;
         Returns the myLinks.end() instead; Further, the number of edges to
         look forward may be given */
-    static MSLinkCont::const_iterator succLinkSec(const SUMOVehicle& veh,
+    static std::vector<MSLink*>::const_iterator succLinkSec(const SUMOVehicle& veh,
             int nRouteSuccs,
             const MSLane& succLinkSource,
             const std::vector<MSLane*>& conts);
@@ -761,24 +766,27 @@ public:
 
     /** Returns the information whether the given link shows at the end
         of the list of links (is not valid) */
-    bool isLinkEnd(MSLinkCont::const_iterator& i) const;
+    inline bool isLinkEnd(std::vector<MSLink*>::const_iterator& i) const {
+        return i == myLinks.end();
+    }
 
     /** Returns the information whether the given link shows at the end
         of the list of links (is not valid) */
-    bool isLinkEnd(MSLinkCont::iterator& i);
+    inline bool isLinkEnd(std::vector<MSLink*>::iterator& i) {
+        return i == myLinks.end();
+    }
 
     /** Returns the information whether the lane is has no vehicle and no
         partial occupation*/
-    bool isEmpty() const;
+    inline bool isEmpty() const {
+        return myVehicles.empty() && myPartialVehicles.empty();
+    }
 
     /** Returns whether the lane pertains to an internal edge*/
     bool isInternal() const;
 
     /// @brief returns the last vehicle for which this lane is responsible or 0
     MSVehicle* getLastFullVehicle() const;
-
-    /// @brief returns the first vehicle for which this lane is responsible or 0
-    MSVehicle* getFirstFullVehicle() const;
 
     /// @brief returns the last vehicle that is fully or partially on this lane
     MSVehicle* getLastAnyVehicle() const;
@@ -1166,6 +1174,10 @@ public:
     }
 #endif
 
+    std::vector<StopWatch<std::chrono::nanoseconds> >& getStopWatch() {
+        return myStopWatch;
+    }
+
     void changeLanes(const SUMOTime time);
 
     /// @name State saving/loading
@@ -1292,7 +1304,7 @@ protected:
     bool checkForPedestrians(const MSVehicle* aVehicle, double& speed, double& dist, double pos, bool patchSpeed) const;
 
     /// @brief check whether any of the outgoing links are being approached
-    bool hasApproaching(const MSLinkCont& links) const;
+    bool hasApproaching(const std::vector<MSLink*>& links) const;
 
     /// Unique numerical ID (set on reading by netload)
     int myNumericalID;
@@ -1401,7 +1413,7 @@ protected:
 
     /** The lane's Links to it's succeeding lanes and the default
         right-of-way rule, i.e. blocked or not blocked. */
-    MSLinkCont myLinks;
+    std::vector<MSLink*> myLinks;
 
     /// All direct internal and direct (disregarding internal predecessors) non-internal predecessor lanes of this lane
     std::map<MSEdge*, std::vector<MSLane*> > myApproachingLanes;
@@ -1622,6 +1634,8 @@ private:
     /// @brief Mutex for access to the cached follower info value
     mutable FXMutex myPartialOccupatorMutex;
 #endif
+    std::vector<StopWatch<std::chrono::nanoseconds> > myStopWatch;
+
 private:
     /// @brief invalidated copy constructor
     MSLane(const MSLane&);

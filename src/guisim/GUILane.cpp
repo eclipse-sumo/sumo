@@ -220,7 +220,7 @@ GUILane::drawLinkNo(const GUIVisualizationSettings& s) const {
     // draw all links
     if (getEdge().isCrossing()) {
         // draw indices at the start and end of the crossing
-        MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+        const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
         PositionVector shape = getShape();
         shape.extrapolate(0.5); // draw on top of the walking area
         GLHelper::drawTextAtEnd(toString(link->getIndex()), shape, 0, s.drawLinkJunctionIndex, s.scale);
@@ -246,7 +246,7 @@ GUILane::drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) con
     }
     if (getEdge().isCrossing()) {
         // draw indices at the start and end of the crossing
-        MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+        const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
         int linkNo = net.getLinkTLIndex(link);
         // maybe the reverse link is controlled separately
         int linkNo2 = net.getLinkTLIndex(myLinks.front());
@@ -286,8 +286,8 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
     }
     if (getEdge().isCrossing()) {
         // draw rules at the start and end of the crossing
-        MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
-        MSLink* link2 = myLinks.front();
+        const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
+        const MSLink* link2 = myLinks.front();
         if (link2->getTLLogic() == nullptr) {
             link2 = link;
         }
@@ -328,7 +328,7 @@ GUILane::drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) con
 
 
 void
-GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, double x1, double x2) const {
+GUILane::drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link, const PositionVector& shape, double x1, double x2) const {
     const Position& end = shape.back();
     const Position& f = shape[-2];
     const double rot = RAD2DEG(atan2((end.x() - f.x()), (f.y() - end.y())));
@@ -408,9 +408,9 @@ GUILane::drawArrows() const {
     if (myWidth < SUMO_const_laneWidth) {
         glScaled(myWidth / SUMO_const_laneWidth, 1, 1);
     }
-    for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
-        LinkDirection dir = (*i)->getDirection();
-        LinkState state = (*i)->getState();
+    for (const MSLink* const link : myLinks) {
+        LinkDirection dir = link->getDirection();
+        LinkState state = link->getState();
         if (state == LINKSTATE_DEADEND || dir == LinkDirection::NODIR) {
             continue;
         }
@@ -465,12 +465,12 @@ GUILane::drawLane2LaneConnections(double exaggeration) const {
     if (exaggeration > 1) {
         centroid = myEdge->getToJunction()->getShape().getCentroid();
     }
-    for (std::vector<MSLink*>::const_iterator i = myLinks.begin(); i != myLinks.end(); ++i) {
-        const MSLane* connected = (*i)->getLane();
+    for (const MSLink* const link : myLinks) {
+        const MSLane* connected = link->getLane();
         if (connected == nullptr) {
             continue;
         }
-        GLHelper::setColor(GUIVisualizationSettings::getLinkColor((*i)->getState()));
+        GLHelper::setColor(GUIVisualizationSettings::getLinkColor(link->getState()));
         glBegin(GL_LINES);
         Position p1 = myEdge->isWalkingArea() ? getShape().getCentroid() : getShape()[-1];
         Position p2 = connected->getEdge().isWalkingArea() ? connected->getShape().getCentroid() : connected->getShape()[0];
@@ -996,7 +996,7 @@ GUILane::setFunctionalColor(const GUIColorer& c, RGBColor& col, int activeScheme
         case 0:
             if (myEdge->isCrossing()) {
                 // determine priority to decide color
-                MSLink* link = MSLinkContHelper::getConnectingLink(*getLogicalPredecessorLane(), *this);
+                const MSLink* const link = getLogicalPredecessorLane()->getLinkTo(this);
                 if (link->havePriority() || link->getTLLogic() != nullptr) {
                     col = RGBColor(230, 230, 230);
                 } else {
