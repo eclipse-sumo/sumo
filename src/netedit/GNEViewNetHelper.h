@@ -879,15 +879,19 @@ struct GNEViewNetHelper {
         /// @brief check if currently there is element being moved
         bool isMovingSelection() const;
 
+    protected:
+        /// @brief calculate junction selection
+        void calculateJunctionSelection();
+
+        /// @brief calculate edge selection
+        void calculateEdgeSelection(const GNEEdge *clickedEdge);
+
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
         /// @brief original clicked position when moveSelection is called (used for calculate offset during moveSelection())
         Position myClickedPosition;
-
-        /// @brief flag to check if a selection is being moved
-        bool myMovingSelection;
 
         /// @brief move operations
         std::vector<GNEMoveOperation*> myMoveOperations;

@@ -1144,158 +1144,23 @@ GNEViewNetHelper::MoveSingleElementValues::calculateMoveOperationShape(GNEMoveEl
 // ---------------------------------------------------------------------------
 
 GNEViewNetHelper::MoveMultipleElementValues::MoveMultipleElementValues(GNEViewNet* viewNet) :
-    myViewNet(viewNet),
-    myMovingSelection(false) {
+    myViewNet(viewNet) {
 }
 
 
 void
 GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarrier* originAC) {
-    // enable moving selection
-    myMovingSelection = true;
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
     // obtain Junctions and edges selected
     const auto movedJunctions = myViewNet->getNet()->retrieveJunctions(true);
     const auto movedEdges = myViewNet->getNet()->retrieveEdges(true);
-
-    const auto edges0180 = myViewNet->getNet()->retrieve0180AngleEdges(true);
-    const auto edges180360 = myViewNet->getNet()->retrieve180360AngleEdges(true);
-
-    const GNEEdge *clickedEdge = myViewNet->myObjectsUnderCursor.getEdgeFront();
-
-    if (clickedEdge) {
-        // calculate shape offset
-        const double shapeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
-        
-        
-        if (std::find(edges0180.begin(), edges0180.end(), clickedEdge) != edges0180.end()) {
-            for (const auto &edge : edges0180) {
-                // get move operation
-                GNEMoveOperation* moveOperation = edge->getMoveOperation(shapeOffset);
-                // continue if move operation is valid
-                if (moveOperation) {
-                    myMoveOperations.push_back(moveOperation);
-                }
-            }
-            for (const auto &edge : edges180360) {
-                // get move operation
-                GNEMoveOperation* moveOperation = edge->getMoveOperation(edge->getNBEdge()->getGeometry().length2D() - shapeOffset);
-                // continue if move operation is valid
-                if (moveOperation) {
-                    myMoveOperations.push_back(moveOperation);
-                }
-            }
-        } else if (std::find(edges180360.begin(), edges180360.end(), clickedEdge) != edges180360.end()) {
-            for (const auto &edge : edges0180) {
-                // get move operation
-                GNEMoveOperation* moveOperation = edge->getMoveOperation(edge->getNBEdge()->getGeometry().length2D() - shapeOffset);
-                // continue if move operation is valid
-                if (moveOperation) {
-                    myMoveOperations.push_back(moveOperation);
-                }
-            }
-            for (const auto &edge : edges180360) {
-                // get move operation
-                GNEMoveOperation* moveOperation = edge->getMoveOperation(shapeOffset);
-                // continue if move operation is valid
-                if (moveOperation) {
-                    myMoveOperations.push_back(moveOperation);
-                }
-            }
-        }
-
+    // continue depending of clicked element
+    if (myViewNet->myObjectsUnderCursor.getJunctionFront()) {
+        calculateJunctionSelection();
+    } else if (myViewNet->myObjectsUnderCursor.getEdgeFront()) {
+        calculateEdgeSelection(myViewNet->myObjectsUnderCursor.getEdgeFront());
     }
-
-/*
-    // make a set using of myMovedEdges
-    myMovedEdges = std::set<GNEEdge*>(movedEdges.begin(), movedEdges.end());
-    // Junctions are always moved, then save position of current selected junctions (Needed when mouse is released)
-    for (const auto& junction : myMovedJunctions) {
-*/
-/*
-        // start geometry moving
-        junction->startGeometryMoving();
-*/
-/*
-        // interate over junction edges
-        for (const auto& edge : junction->getChildEdges()) {
-            // if both junction are selected, then move shape
-            if (edge->isAttributeCarrierSelected() &&
-                    edge->getParentJunctions().front()->isAttributeCarrierSelected() &&
-                    edge->getParentJunctions().back()->isAttributeCarrierSelected()) {
-                myMovedEdges.insert(edge);
-            }
-        }
-    }
-    // make special movement depending of clicked AC
-    if (originAC->getTagProperty().getTag() == SUMO_TAG_JUNCTION) {
-        // if clicked element is a junction, move shapes of all selected edges
-        for (const auto& edge : myMovedEdges) {
-            // add edge into movedEdges
-            myMovedEdges.insert(edge);
-*/
-/*
-            // start geometry moving
-            edge->startEdgeGeometryMoving(-1, false);
-*/
-/*
-        }
-    } else if (originAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-        // get clicked edge
-        GNEEdge* clickedEdge = myViewNet->myObjectsUnderCursor.getEdgeFront();
-        GNEEdge* oppositeClickedEdge = clickedEdge->getOppositeEdge();
-        // calculate edgeShapeOffset
-        const double edgeShapeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
-        // split edges in two groups
-        std::vector<GNEEdge*> groupNormalEdges;
-        std::vector<GNEEdge*> groupOppositeEdges;
-        // add clicked edge in group A
-        groupNormalEdges.push_back(clickedEdge);
-        // remove it from copyOfMovedEdges
-        myMovedEdges.erase(clickedEdge);
-        // if opposite edge is selected, add it in group B
-        if (oppositeClickedEdge && oppositeClickedEdge->isAttributeCarrierSelected()) {
-            groupOppositeEdges.push_back(clickedEdge->getOppositeEdge());
-            // remove it from copyOfMovedEdges
-            myMovedEdges.erase(oppositeClickedEdge);
-        }
-        // iterate over copyOfMovedEdges
-        while (myMovedEdges.size() > 0) {
-            // get first and opposite edge
-            GNEEdge* edge = (*myMovedEdges.begin());
-            GNEEdge* oppositeEdge = edge->getOppositeEdge();
-            // add edge in group A
-            groupNormalEdges.push_back(edge);
-            // check if oppositeEdge exist and is selected
-            if (oppositeEdge && oppositeEdge->isAttributeCarrierSelected()) {
-                // add opposite edge in group B
-                groupOppositeEdges.push_back(oppositeEdge);
-                // remove opposite edge from setMovedEdges
-                myMovedEdges.erase(oppositeEdge);
-            }
-            // pop back element
-            myMovedEdges.erase(edge);
-        }
-        // move shapes of both groups
-        for (const auto& edge : groupNormalEdges) {
-            // insert it again in myMovedEdges
-            myMovedEdges.insert(edge);
-*/
-/*
-            // start geometry moving
-            edge->startEdgeGeometryMoving(edgeShapeOffset, false);
-*/
-/*
-        }
-        for (const auto& edge : groupOppositeEdges) {
-            // insert it again in myMovedEdges
-            myMovedEdges.insert(edge);
-            // start geometry moving using an opposite offset
-            edge->startEdgeGeometryMoving(edgeShapeOffset, true);
-        }
-    }
-*/
 }
 
 
@@ -1344,14 +1209,86 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
     }
     // clear move operations
     myMoveOperations.clear();
-    // stop moving selection
-    myMovingSelection = false;
 }
 
 
 bool
 GNEViewNetHelper::MoveMultipleElementValues::isMovingSelection() const {
-    return myMovingSelection;
+    return (myMoveOperations.size() > 0);
+}
+
+
+void 
+GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
+    // declare move operation
+    GNEMoveOperation* moveOperation = nullptr;
+    // first move all selected junctions
+    const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
+    // iterate over selected junctions
+    for (const auto &junction : selectedJunctions) {
+        moveOperation = junction->getMoveOperation(0);
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+        }
+    }
+    // now move all selected edges
+    const auto selectedEdges = myViewNet->getNet()->retrieveEdges(true);
+    // iterate over selected edges
+    for (const auto &edge : selectedEdges) {
+        moveOperation = edge->getMoveOperation(0);
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+        }
+    }
+}
+
+
+void 
+GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdge* clickedEdge) {
+    // declare move operation
+    GNEMoveOperation* moveOperation = nullptr;
+    // first move all selected junctions
+    const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
+    // iterate over selected junctions
+    for (const auto &junction : selectedJunctions) {
+        moveOperation = junction->getMoveOperation(0);
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+        }
+    }
+    // obtain selected edges in two groups (depending of angle)
+    const auto selectedEdges000180 = myViewNet->getNet()->retrieve000180AngleEdges(true);
+    const auto selectedEdges180360 = myViewNet->getNet()->retrieve180360AngleEdges(true);
+    // calculate shape offset for clicked edge
+    const double shapeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
+    // get flag for inverse offset
+    const bool useInverseOffset = (std::find(selectedEdges000180.begin(), selectedEdges000180.end(), clickedEdge) != selectedEdges000180.end());
+    // iterate over edges betwen 0º and 180º
+    for (const auto &edge : selectedEdges000180) {
+        // get move operation depending of useInverseOffset
+        if (useInverseOffset) {
+            moveOperation = edge->getMoveOperation(shapeOffset);
+        } else {
+            moveOperation = edge->getMoveOperation(edge->getNBEdge()->getGeometry().length2D() - shapeOffset);
+        }
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+        }
+    }
+    // iterate over edges betwen 180º and 360º
+    for (const auto &edge : selectedEdges180360) {
+        // get move operation depending of useInverseOffset
+        if (useInverseOffset) {
+            moveOperation = edge->getMoveOperation(edge->getNBEdge()->getGeometry().length2D() - shapeOffset);
+        } else {
+            moveOperation = edge->getMoveOperation(shapeOffset);
+        }
+        // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------

@@ -1239,7 +1239,7 @@ GNENet::retrieveEdges(bool onlySelected) {
 
 
 std::vector<GNEEdge*> 
-GNENet::retrieve0180AngleEdges(bool onlySelected) const {
+GNENet::retrieve000180AngleEdges(bool onlySelected) const {
     std::vector<GNEEdge*> result;
     // returns edges depending of selection
     for (const auto &edge : myAttributeCarriers->getEdges()) {
