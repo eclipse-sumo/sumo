@@ -80,6 +80,7 @@ GUIRunThread::init(GUINet* net, SUMOTime start, SUMOTime end) {
     myNet = net;
     mySimStartTime = start;
     mySimEndTime = end;
+    myHaveSignaledEnd = false;
     // register message callbacks
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
