@@ -11,6 +11,9 @@ cp save2/state2.sumo.meso load_remove/input_meso_state.xml
 cp save2/state.sumo load_late_insertion/input_state.xml
 cp save2/state.sumo.meso load_late_insertion/input_meso_state.xml
 
+cp save2/state.sumo load_routes_as_additional/input_state.xml
+cp save2/state.sumo.meso load_routes_as_additional/input_meso_state.xml
+
 cp save2/state.sumo load_and_save/input_state.xml
 cp save2/state.sumo.meso load_and_save/input_meso_state.xml
 

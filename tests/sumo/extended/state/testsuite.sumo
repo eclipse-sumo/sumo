@@ -38,6 +38,11 @@ load_late_insertion
 # the input is taken from test save2/state.sumo
 load_and_save
 
+# the input is taken from test save2/state.sumo	
+# 
+# load the route file again but with option -a
+load_routes_as_additional
+
 # save 2 states
 save_actionStepLength
 
