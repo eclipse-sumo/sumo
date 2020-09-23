@@ -1156,16 +1156,68 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
     // obtain Junctions and edges selected
-    myMovedJunctions = myViewNet->getNet()->retrieveJunctions(true);
+    const auto movedJunctions = myViewNet->getNet()->retrieveJunctions(true);
     const auto movedEdges = myViewNet->getNet()->retrieveEdges(true);
+
+    const auto edges0180 = myViewNet->getNet()->retrieve0180AngleEdges(true);
+    const auto edges180360 = myViewNet->getNet()->retrieve180360AngleEdges(true);
+
+    const GNEEdge *clickedEdge = myViewNet->myObjectsUnderCursor.getEdgeFront();
+
+    if (clickedEdge) {
+        // calculate shape offset
+        const double shapeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
+        
+        
+        if (std::find(edges0180.begin(), edges0180.end(), clickedEdge) != edges0180.end()) {
+            for (const auto &edge : edges0180) {
+                // get move operation
+                GNEMoveOperation* moveOperation = edge->getMoveOperation(shapeOffset);
+                // continue if move operation is valid
+                if (moveOperation) {
+                    myMoveOperations.push_back(moveOperation);
+                }
+            }
+            for (const auto &edge : edges180360) {
+                // get move operation
+                GNEMoveOperation* moveOperation = edge->getMoveOperation(edge->getNBEdge()->getGeometry().length2D() - shapeOffset);
+                // continue if move operation is valid
+                if (moveOperation) {
+                    myMoveOperations.push_back(moveOperation);
+                }
+            }
+        } else if (std::find(edges180360.begin(), edges180360.end(), clickedEdge) != edges180360.end()) {
+            for (const auto &edge : edges0180) {
+                // get move operation
+                GNEMoveOperation* moveOperation = edge->getMoveOperation(edge->getNBEdge()->getGeometry().length2D() - shapeOffset);
+                // continue if move operation is valid
+                if (moveOperation) {
+                    myMoveOperations.push_back(moveOperation);
+                }
+            }
+            for (const auto &edge : edges180360) {
+                // get move operation
+                GNEMoveOperation* moveOperation = edge->getMoveOperation(shapeOffset);
+                // continue if move operation is valid
+                if (moveOperation) {
+                    myMoveOperations.push_back(moveOperation);
+                }
+            }
+        }
+
+    }
+
+/*
     // make a set using of myMovedEdges
     myMovedEdges = std::set<GNEEdge*>(movedEdges.begin(), movedEdges.end());
     // Junctions are always moved, then save position of current selected junctions (Needed when mouse is released)
     for (const auto& junction : myMovedJunctions) {
+*/
 /*
         // start geometry moving
         junction->startGeometryMoving();
 */
+/*
         // interate over junction edges
         for (const auto& edge : junction->getChildEdges()) {
             // if both junction are selected, then move shape
@@ -1182,10 +1234,12 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
         for (const auto& edge : myMovedEdges) {
             // add edge into movedEdges
             myMovedEdges.insert(edge);
+*/
 /*
             // start geometry moving
             edge->startEdgeGeometryMoving(-1, false);
 */
+/*
         }
     } else if (originAC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         // get clicked edge
@@ -1227,20 +1281,21 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarr
         for (const auto& edge : groupNormalEdges) {
             // insert it again in myMovedEdges
             myMovedEdges.insert(edge);
+*/
 /*
             // start geometry moving
             edge->startEdgeGeometryMoving(edgeShapeOffset, false);
 */
+/*
         }
         for (const auto& edge : groupOppositeEdges) {
             // insert it again in myMovedEdges
             myMovedEdges.insert(edge);
-/*
             // start geometry moving using an opposite offset
             edge->startEdgeGeometryMoving(edgeShapeOffset, true);
-*/
         }
     }
+*/
 }
 
 
@@ -1256,44 +1311,41 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
         // leave z empty (because in this case offset only actuates over X-Y)
         offsetMovement.setz(0);
     }
-/*
-    // move junctions
-    for (const auto& junction : myMovedJunctions) {
-        junction->moveGeometry(offsetMovement);
+    // check if mouse button is pressed
+    if (true /*mouseLeftButtonPressed*/) {
+        // iterate over all operations
+        for (const auto &moveOperation : myMoveOperations) {
+            // move elements
+            GNEMoveElement::moveElement(moveOperation, offsetMovement);
+        }
+    } else {
+        // iterate over all operations
+        for (const auto &moveOperation : myMoveOperations) {
+            // commit move
+            GNEMoveElement::commitMove(moveOperation, offsetMovement, myViewNet->getUndoList());
+            // don't forget delete move operation
+            delete moveOperation;
+        }
+        // clear move operations
+        myMoveOperations.clear();
     }
-*/
-/*
-    // move edges
-    for (const auto& edge : myMovedEdges) {
-        edge->moveEdgeShape(offsetMovement);
-    }
-*/
 }
 
 
 void
 GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
-    // begin undo list
-    myViewNet->getUndoList()->p_begin("position of selected elements");
-/*
-    // commit positions of moved junctions
-    for (const auto& junction : myMovedJunctions) {
-        junction->commitGeometryMoving(myViewNet->getUndoList());
+    // calculate offset between current position and original position
+    Position offsetMovement = myViewNet->getPositionInformation() - myClickedPosition;
+    // finish all move operations
+    for (const auto &moveOperation : myMoveOperations) {
+        GNEMoveElement::commitMove(moveOperation, offsetMovement, myViewNet->getUndoList());
+        // don't forget delete move operation
+        delete moveOperation;
     }
-*/
-/*
-    // commit shapes of entired moved edges
-    for (const auto& edge : myMovedEdges) {
-        edge->commitEdgeShapeChange(myViewNet->getUndoList());
-    }
-*/
-    // end undo list
-    myViewNet->getUndoList()->p_end();
+    // clear move operations
+    myMoveOperations.clear();
     // stop moving selection
     myMovingSelection = false;
-    // clear containers
-    myMovedJunctions.clear();
-    myMovedEdges.clear();
 }
 
 

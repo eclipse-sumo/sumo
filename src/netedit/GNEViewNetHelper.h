@@ -889,11 +889,8 @@ struct GNEViewNetHelper {
         /// @brief flag to check if a selection is being moved
         bool myMovingSelection;
 
-        /// @brief container used for move junctions
-        std::vector<GNEJunction*> myMovedJunctions;
-
-        /// @brief container used for move edges
-        std::set<GNEEdge*> myMovedEdges;
+        /// @brief move operations
+        std::vector<GNEMoveOperation*> myMoveOperations;
     };
 
     /// @brief struct used to group all variables related with movement of groups of elements
