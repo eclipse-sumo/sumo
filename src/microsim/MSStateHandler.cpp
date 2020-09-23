@@ -62,8 +62,10 @@ MSStateHandler::MSStateHandler(const std::string& file, const SUMOTime offset, b
     myCurrentLane(nullptr),
     myCurrentLink(nullptr),
     myAttrs(nullptr),
+    myVCAttrs(nullptr),
     myLastParameterised(nullptr),
-    myOnlyReadTime(onlyReadTime) {
+    myOnlyReadTime(onlyReadTime),
+    myRemoved(0) {
     myAmLoadingState = true;
     const std::vector<std::string> vehIDs = OptionsCont::getOptions().getStringVector("load-state.remove-vehicles");
     myVehiclesToRemove.insert(vehIDs.begin(), vehIDs.end());
@@ -165,11 +167,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_DELAY: {
-            vc.setState(attrs.getInt(SUMO_ATTR_NUMBER),
-                        attrs.getInt(SUMO_ATTR_BEGIN),
-                        attrs.getInt(SUMO_ATTR_END),
-                        attrs.getFloat(SUMO_ATTR_DEPART),
-                        attrs.getFloat(SUMO_ATTR_TIME));
+            myVCAttrs = attrs.clone();
             break;
         }
         case SUMO_TAG_FLOWSTATE: {
@@ -311,6 +309,22 @@ MSStateHandler::myEndElement(int element) {
             myAttrs = nullptr;
             break;
         }
+        case SUMO_TAG_SNAPSHOT: {
+            if (myVCAttrs == nullptr) {
+                throw ProcessError("Could not load vehicle control state");
+            }
+            MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();
+            vc.setState(myVCAttrs->getInt(SUMO_ATTR_NUMBER),
+                        myVCAttrs->getInt(SUMO_ATTR_BEGIN),
+                        myVCAttrs->getInt(SUMO_ATTR_END),
+                        myVCAttrs->getFloat(SUMO_ATTR_DEPART),
+                        myVCAttrs->getFloat(SUMO_ATTR_TIME));
+            if (myRemoved > 0) {
+                WRITE_MESSAGE("Removed " + toString(myRemoved) + " vehicles while loading state.");
+                vc.discountStateRemoved(myRemoved);
+            }
+            break;
+        }
         default:
             break;
     }
@@ -330,8 +344,6 @@ MSStateHandler::closeVehicle() {
     const std::string vehID = myVehicleParameter->id;
     if (myVehiclesToRemove.count(vehID) == 0) {
         MSRouteHandler::closeVehicle();
-        // reset depart
-        vc.discountStateLoaded();
         SUMOVehicle* v = vc.getVehicle(vehID);
         if (v == nullptr) {
             throw ProcessError("Could not load vehicle '" + vehID + "' from state");
@@ -357,9 +369,9 @@ MSStateHandler::closeVehicle() {
             myDeviceAttrs.pop_back();
         }
     } else {
-        vc.discountStateLoaded(true);
         delete myVehicleParameter;
         myVehicleParameter = nullptr;
+        myRemoved++;
     }
     delete myAttrs;
 }

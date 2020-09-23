@@ -494,15 +494,11 @@ public:
     void clearState();
     /// @}
 
-    /// @brief avoid counting a vehicle twice if it was loaded from state and route input
-    void discountStateLoaded(bool removed = false) {
-        if (removed) {
-            myRunningVehNo--;
-            myDiscarded++;
-            myEndedVehNo++;
-        } else {
-            myLoadedVehNo--;
-        }
+    /// @brief discount vehicles that were removed during state loading
+    void discountStateRemoved(int n) {
+        myRunningVehNo -= n;
+        myDiscarded += n;
+        myEndedVehNo += n;
     }
 
 

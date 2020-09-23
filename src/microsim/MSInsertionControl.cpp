@@ -238,9 +238,8 @@ MSInsertionControl::determineCandidates(SUMOTime time) {
                     vehControl.deleteVehicle(vehicle, true);
                 }
             } else {
-                // strange: another vehicle with the same id already exists
                 if (MSGlobals::gStateLoaded) {
-                    vehControl.discountStateLoaded();
+                    /// @note probably obsolete since flows save their state
                     break;
                 }
                 throw ProcessError("Another vehicle with the id '" + newPars->id + "' exists.");
