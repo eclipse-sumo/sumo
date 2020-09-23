@@ -1,14 +1,15 @@
 Loading net-file from 'net.net.xml' ... done (1ms).
 Loading state from 'input_state.xml' ... 
-done (2ms).
+Removed 1 vehicles while loading state.
+done (1ms).
 Loading done.
-Simulation version v1_3_1+0814-be0565a24f started with time: 10.00
+Simulation version v1_7_0+0189-628139e3d6 started with time: 10.00
 Simulation ended at time: 31.00
 Reason: All vehicles have left the simulation.
 Performance: 
- Duration: 3ms
- Real time factor: 7000
- UPS: 6666.666667
+ Duration: 0.00s
+ Real time factor: 21000
+ UPS: 20000.000000
 Vehicles: 
  Inserted: 1 (Loaded: 2)
  Running: 0
