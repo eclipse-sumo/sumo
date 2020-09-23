@@ -103,6 +103,7 @@ To couple an external dispatch algorithm to SUMO, the following [TraCI](../TraCI
 - traci.vehicle.dispatchTaxi(vehID, reservations)
 
 This set of API calls can be used to simplify writing custom dispatch algorithms by letting sumo:
+
 - manage existing reservations
 - manage the taxi fleet
 - dispatch a taxi to service one or more reservations by giving a list of reservation ids (vehicle routing and stopping is then automatic).
