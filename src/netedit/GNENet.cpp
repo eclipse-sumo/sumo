@@ -1229,11 +1229,71 @@ std::vector<GNEEdge*>
 GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;
     // returns edges depending of selection
-    for (auto i : myAttributeCarriers->getEdges()) {
-        if (!onlySelected || i.second->isAttributeCarrierSelected()) {
-            result.push_back(i.second);
+    for (const auto &edge : myAttributeCarriers->getEdges()) {
+        if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
+            result.push_back(edge.second);
         }
     }
+    return result;
+}
+
+
+std::vector<GNEEdge*> 
+GNENet::retrieve0180AngleEdges(bool onlySelected) const {
+    std::vector<GNEEdge*> result;
+    // returns edges depending of selection
+    for (const auto &edge : myAttributeCarriers->getEdges()) {
+        // check selection
+        if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
+            // get junction positions
+            const Position firstJunctionPosition = edge.second->getParentJunctions().front()->getPositionInView();
+            const Position secondJunctionPosition = edge.second->getParentJunctions().back()->getPositionInView();
+            // calculate angle between both junction positions
+            double edgeAngle = RAD2DEG(firstJunctionPosition.angleTo2D(secondJunctionPosition));
+            // adjusto to 360º
+            while (edgeAngle < 0) {
+                edgeAngle += 360;
+            }
+            // fmod round towards zero which is not want we want for negative numbers
+            edgeAngle = fmod(edgeAngle, 360);
+            // check angle
+            if ((edgeAngle >= 0) && (edgeAngle < 180)) {
+                // add it in result
+                result.push_back(edge.second);
+            }
+        }
+    }
+    // return result
+    return result;
+}
+
+
+std::vector<GNEEdge*> 
+GNENet::retrieve180360AngleEdges(bool onlySelected) const {
+    std::vector<GNEEdge*> result;
+    // returns edges depending of selection
+    for (const auto &edge : myAttributeCarriers->getEdges()) {
+        // check selection
+        if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
+            // get junction positions
+            const Position firstJunctionPosition = edge.second->getParentJunctions().front()->getPositionInView();
+            const Position secondJunctionPosition = edge.second->getParentJunctions().back()->getPositionInView();
+            // calculate angle between both junction positions
+            double edgeAngle = RAD2DEG(firstJunctionPosition.angleTo2D(secondJunctionPosition));
+            // adjusto to 360º
+            while (edgeAngle < 0) {
+                edgeAngle += 360;
+            }
+            // fmod round towards zero which is not want we want for negative numbers
+            edgeAngle = fmod(edgeAngle, 360);
+            // check angle
+            if ((edgeAngle >= 180) && (edgeAngle < 360)) {
+                // add it in result
+                result.push_back(edge.second);
+            }
+        }
+    }
+    // return result
     return result;
 }
 

@@ -337,6 +337,16 @@ public:
      */
     std::vector<GNEEdge*> retrieveEdges(bool onlySelected = false);
 
+    /**@brief return edges with junction angle between 0 and 179
+     * @param[in] onlySelected Whether to return only selected edges
+     */
+    std::vector<GNEEdge*> retrieve0180AngleEdges(bool onlySelected = false) const;
+
+    /**@brief return edges with junction angle between 180 and 365
+     * @param[in] onlySelected Whether to return only selected edges
+     */
+    std::vector<GNEEdge*> retrieve180360AngleEdges(bool onlySelected = false) const;
+
     /**@brief return all lanes
      * @param[in] onlySelected Whether to return only selected lanes
      */
