@@ -1247,15 +1247,6 @@ void
 GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdge* clickedEdge) {
     // declare move operation
     GNEMoveOperation* moveOperation = nullptr;
-    // first move all selected junctions
-    const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
-    // iterate over selected junctions
-    for (const auto &junction : selectedJunctions) {
-        moveOperation = junction->getMoveOperation(0);
-        if (moveOperation) {
-            myMoveOperations.push_back(moveOperation);
-        }
-    }
     // obtain selected edges in two groups (depending of angle)
     const auto selectedEdges000180 = myViewNet->getNet()->retrieve000180AngleEdges(true);
     const auto selectedEdges180360 = myViewNet->getNet()->retrieve180360AngleEdges(true);
@@ -1285,6 +1276,15 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
             moveOperation = edge->getMoveOperation(shapeOffset);
         }
         // continue if move operation is valid
+        if (moveOperation) {
+            myMoveOperations.push_back(moveOperation);
+        }
+    }
+    // first move all selected junctions
+    const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
+    // iterate over selected junctions
+    for (const auto &junction : selectedJunctions) {
+        moveOperation = junction->getMoveOperation(0);
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
         }

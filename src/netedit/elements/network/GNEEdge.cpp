@@ -148,48 +148,66 @@ GNEEdge::getPositionInView() const {
 
 GNEMoveOperation*
 GNEEdge::getMoveOperation(const double shapeOffset) {
-    // declare shape to move
-    PositionVector shapeToMove = myNBEdge->getGeometry();
-    // first check if in the given shapeOffset there is a geometry point
-    const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
-    // check if position is valid
-    if (positionAtOffset == Position::INVALID) {
-        return nullptr;
-    } else {
-        // obtain index
-        int index = myNBEdge->getGeometry().indexOfClosest(positionAtOffset);
-        // check if we have to create a new index
-        if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS*SNAP_RADIUS)) {
-            index = shapeToMove.insertAtClosest(positionAtOffset, true);
+    if (isAttributeCarrierSelected() &&
+        getParentJunctions().front()->isAttributeCarrierSelected() && 
+        getParentJunctions().back()->isAttributeCarrierSelected()) {
+        PositionVector geometryToMove = myNBEdge->getGeometry();
+        if (true /*myNBEdge->getGeometry().front() == getParentJunctions().front()->getNBNode()->getPosition()*/) {
+            geometryToMove[0] = Position::INVALID;
         }
-        // check if attribute carrier is selected
-        if (isAttributeCarrierSelected()) {
-            // declare a vector for saving geometry points to move
-            std::vector<int> geometryPointsToMove;
-            // if edge is selected, check conditions
-            if (getParentJunctions().front()->isAttributeCarrierSelected() && 
-                getParentJunctions().back()->isAttributeCarrierSelected()) {
-                // move entire shape edge (original)
-                return new GNEMoveOperation(this, myNBEdge->getGeometry());
-            } else if (getParentJunctions().front()->isAttributeCarrierSelected()) {
-                for (int i = 0; i <= index; i++) {
-                    geometryPointsToMove.push_back(i);
+        if (true /*myNBEdge->getGeometry().back() == getParentJunctions().back()->getNBNode()->getPosition()*/) {
+            geometryToMove[geometryToMove.size() - 1] = Position::INVALID;
+        }
+        return new GNEMoveOperation(this, geometryToMove);
+    } else {
+        // declare shape to move
+        PositionVector shapeToMove = myNBEdge->getGeometry();
+        // first check if in the given shapeOffset there is a geometry point
+        const Position positionAtOffset = shapeToMove.positionAtOffset2D(shapeOffset);
+        // check if position is valid
+        if (positionAtOffset == Position::INVALID) {
+            return nullptr;
+        } else {
+            // obtain index
+            int index = myNBEdge->getGeometry().indexOfClosest(positionAtOffset);
+
+            // check if we have to create a new index
+            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS*SNAP_RADIUS)) {
+                index = shapeToMove.insertAtClosest(positionAtOffset, true);
+            }
+
+            if (myNBEdge->getGeometry().front() == getParentJunctions().front()->getNBNode()->getPosition()) {
+                shapeToMove[0] = Position::INVALID;
+            }
+            if (myNBEdge->getGeometry().back() == getParentJunctions().back()->getNBNode()->getPosition()) {
+                shapeToMove[shapeToMove.size() - 1] = Position::INVALID;
+            }
+
+            // check if attribute carrier is selected
+            if (isAttributeCarrierSelected()) {
+                // declare a vector for saving geometry points to move
+                std::vector<int> geometryPointsToMove;
+                // if edge is selected, check conditions
+                if (getParentJunctions().front()->isAttributeCarrierSelected()) {
+                    for (int i = 0; i <= index; i++) {
+                        geometryPointsToMove.push_back(i);
+                    }
+                    // move only a part of edge geometry
+                    return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, geometryPointsToMove);
+                } else if (getParentJunctions().back()->isAttributeCarrierSelected()) {
+                    for (int i = index; i < shapeToMove.size(); i++) {
+                        geometryPointsToMove.push_back(i);
+                    }
+                    // move only a part of edge geometry
+                    return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, geometryPointsToMove);
+                } else {
+                    // move as a non-selected edge
+                    return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, {index});
                 }
-                // move only a part of edge geometry
-                return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, geometryPointsToMove);
-            } else if (getParentJunctions().back()->isAttributeCarrierSelected()) {
-                for (int i = index; i < shapeToMove.size(); i++) {
-                    geometryPointsToMove.push_back(i);
-                }
-                // move only a part of edge geometry
-                return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, geometryPointsToMove);
             } else {
-                // move as a non-selected edge
+                // only move clicked edge
                 return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, {index});
             }
-        } else {
-            // only move clicked edge
-            return new GNEMoveOperation(this, myNBEdge->getGeometry(), shapeToMove, index, {index});
         }
     }
 }
@@ -200,8 +218,8 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
     // declare shape to move
     PositionVector shape = myNBEdge->getGeometry();
     // obtain flags for start and end positions
-    const bool customStartPosition = (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView());
-    const bool customEndPosition = (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView());
+    const bool customStartPosition = (myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition());
+    const bool customEndPosition = (myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition());
     // get variable for last index
     const int lastIndex = (int)myNBEdge->getGeometry().size() - 1;
     // flag to enable/disable remove geometry point
@@ -256,7 +274,7 @@ GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLi
 
 bool
 GNEEdge::clickedOverShapeStart(const Position& pos) {
-    if (myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView()) {
+    if (myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition()) {
         return (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS);
     } else {
         return false;
@@ -266,7 +284,7 @@ GNEEdge::clickedOverShapeStart(const Position& pos) {
 
 bool
 GNEEdge::clickedOverShapeEnd(const Position& pos) {
-    if (myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView()) {
+    if (myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition()) {
         return (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS);
     } else {
         return false;
@@ -483,11 +501,11 @@ GNEEdge::getSplitPos(const Position& clickPos) {
 
 void
 GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
-    if ((myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView()) && (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS)) {
+    if ((myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition()) && (myNBEdge->getGeometry().front().distanceTo2D(pos) < SNAP_RADIUS)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
         undoList->p_end();
-    } else if ((myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView()) && (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS)) {
+    } else if ((myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition()) && (myNBEdge->getGeometry().back().distanceTo2D(pos) < SNAP_RADIUS)) {
         undoList->p_begin("remove endpoint");
         setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
         undoList->p_end();
@@ -808,13 +826,13 @@ GNEEdge::getAttribute(SumoXMLAttr key) const {
         case GNE_ATTR_MODIFICATION_STATUS:
             return myConnectionStatus;
         case GNE_ATTR_SHAPE_START:
-            if (myNBEdge->getGeometry().front() == getParentJunctions().front()->getPositionInView()) {
+            if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) < 2) {
                 return "";
             } else {
                 return toString(myNBEdge->getGeometry().front());
             }
         case GNE_ATTR_SHAPE_END:
-            if (myNBEdge->getGeometry().back() == getParentJunctions().back()->getPositionInView()) {
+            if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) < 2) {
                 return "";
             } else {
                 return toString(myNBEdge->getGeometry().back());
@@ -1221,7 +1239,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
             }
             // draw line geometry, start and end points if shapeStart or shape end is edited, and depending of drawForRectangleSelection
             if (drawBigGeometryPoints) {
-                if ((myNBEdge->getGeometry().front() != getParentJunctions().front()->getPositionInView()) &&
+                if ((myNBEdge->getGeometry().front() != getParentJunctions().front()->getNBNode()->getPosition()) &&
                         (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().front()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
                     glTranslated(myNBEdge->getGeometry().front().x(), myNBEdge->getGeometry().front().y(), 0.1);
@@ -1238,13 +1256,13 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                         glPushMatrix();
                         glTranslated(0, 0, 0.1);
                         glLineWidth(4);
-                        GLHelper::drawLine(myNBEdge->getGeometry().front(), getParentJunctions().front()->getPositionInView());
+                        GLHelper::drawLine(myNBEdge->getGeometry().front(), getParentJunctions().front()->getNBNode()->getPosition());
                         // draw line between begin point of last lane shape and the first edge shape point
                         GLHelper::drawLine(myNBEdge->getGeometry().front(), myNBEdge->getLanes().back().shape.front());
                         glPopMatrix();
                     }
                 }
-                if ((myNBEdge->getGeometry().back() != getParentJunctions().back()->getPositionInView()) &&
+                if ((myNBEdge->getGeometry().back() != getParentJunctions().back()->getNBNode()->getPosition()) &&
                         (!s.drawForRectangleSelection || (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(myNBEdge->getGeometry().back()) <= (circleWidthSquared + 2)))) {
                     glPushMatrix();
                     glTranslated(myNBEdge->getGeometry().back().x(), myNBEdge->getGeometry().back().y(), 0.1);
@@ -1261,7 +1279,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
                         glPushMatrix();
                         glTranslated(0, 0, 0.1);
                         glLineWidth(4);
-                        GLHelper::drawLine(myNBEdge->getGeometry().back(), getParentJunctions().back()->getPositionInView());
+                        GLHelper::drawLine(myNBEdge->getGeometry().back(), getParentJunctions().back()->getNBNode()->getPosition());
                         // draw line between last point of first lane shape and the last edge shape point
                         GLHelper::drawLine(myNBEdge->getGeometry().back(), myNBEdge->getLanes().back().shape.back());
                         glPopMatrix();
@@ -1403,7 +1421,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             // get geometry of NBEdge, remove FIRST element with the new value (or with the Junction Source position) and set it back to edge
             Position newShapeStart;
             if (value == "") {
-                newShapeStart = getParentJunctions().front()->getPositionInView();
+                newShapeStart = getParentJunctions().front()->getNBNode()->getPosition();
             } else {
                 newShapeStart = parse<Position>(value);
             }
@@ -1417,7 +1435,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
             // get geometry of NBEdge, remove LAST element with the new value (or with the Junction Destiny position) and set it back to edge
             Position newShapeEnd;
             if (value == "") {
-                newShapeEnd = getParentJunctions().back()->getPositionInView();
+                newShapeEnd = getParentJunctions().back()->getNBNode()->getPosition();
             } else {
                 newShapeEnd = parse<Position>(value);
             }
@@ -1447,8 +1465,28 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 void 
 GNEEdge::setMoveShape(const PositionVector& newShape) {
-    // just set entire geometry (including start and end positions)
-    setGeometry(newShape, false);
+    // get start and end points
+    const Position shapeStart = newShape.front();
+    const Position shapeEnd = newShape.back();
+    // get innen shape
+    PositionVector innenShape = newShape;
+    innenShape.pop_front();
+    innenShape.pop_back();
+    // set innen geometry
+    setGeometry(innenShape, true);
+    // set shape start
+    if (shapeStart != Position::INVALID) {
+        setShapeStartPos(shapeStart);
+    } else {
+        setShapeStartPos(getParentJunctions().front()->getNBNode()->getPosition());
+    }
+    // set shape end
+    if (shapeEnd != Position::INVALID) {
+        setShapeEndPos(shapeEnd);
+    } else {
+        setShapeEndPos(getParentJunctions().back()->getNBNode()->getPosition());
+    }
+
 }
 
 
@@ -1463,21 +1501,23 @@ GNEEdge::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) 
         PositionVector innenShape = newShape;
         innenShape.pop_front();
         innenShape.pop_back();
-        // remove double points
-        innenShape.removeDoublePoints(SNAP_RADIUS);
         // commit new shape
         undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
         // check if we have to update shape start
-        if (getParentJunctions().front()->getPositionInView() != shapeStart) {
+        if (shapeStart != Position::INVALID) {
             undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
+        } else {
+            setShapeStartPos(getParentJunctions().front()->getNBNode()->getPosition());
         }
         // only update innen shape if isn't empty (example, if we move a end geometry point)
         if (innenShape.size() > 0) {
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innenShape)));
         }
         // check if we have to update shape end
-        if (getParentJunctions().back()->getPositionInView() != shapeEnd) {
+        if (shapeEnd != Position::INVALID) {
             undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
+        } else {
+            setShapeEndPos(getParentJunctions().back()->getNBNode()->getPosition());
         }
         undoList->p_end();
     }

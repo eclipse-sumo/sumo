@@ -98,11 +98,17 @@ GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &off
         newShape = calculateMovementOverLane(moveOperation, offset);
     } else if (moveOperation->geometryPointsToMove.empty()) {
         // move all geometry points
-        newShape.add(offset);
+        for (auto &geometryPoint : newShape) {
+            if (geometryPoint != Position::INVALID) {
+                geometryPoint.add(offset);
+            }
+        }
     } else {
         // only move certain geometry points
         for (const auto &index : moveOperation->geometryPointsToMove) {
-            newShape[index].add(offset);
+            if (newShape[index] != Position::INVALID) {
+                newShape[index].add(offset);
+            }
         }
     }
     // move shape element
@@ -129,11 +135,18 @@ GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offs
         moveOperation->moveElement->setMoveShape(moveOperation->originalShape);
         // check if we're moving an entire shape or  only certain geometry point
         if (moveOperation->geometryPointsToMove.empty()) {
-            newShape.add(offset);
+            // move all geometry points
+            for (auto &geometryPoint : newShape) {
+                if (geometryPoint != Position::INVALID) {
+                    geometryPoint.add(offset);
+                }
+            }
         } else {
             // only move certain geometry points
             for (const auto &index : moveOperation->geometryPointsToMove) {
-                newShape[index].add(offset);
+                if (newShape[index] != Position::INVALID) {
+                    newShape[index].add(offset);
+                }
             }
         }
     }
@@ -164,7 +177,6 @@ GNEMoveElement::calculateMovementOverLane(const GNEMoveOperation* moveOperation,
     if (newPosOverLanePerpendicular == -1) {
         // calculate new posOverLane non-perpendicular
         const double newPosOverLane = moveOperation->lane->getLaneShape().nearest_offset_to_point2D(lanePositionAtCentralPosition, false);
-        std::cout << newPosOverLane << std::endl;
         // out of lane shape, then place element in lane extremes
         if (newPosOverLane == 0) {
             posOverLaneOffset = moveOperation->originalPosOverLanes.front();
