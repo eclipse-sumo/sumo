@@ -271,6 +271,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                     dev.writeAttr(SUMO_ATTR_DEPARTPOS, personDepartPos);
                     dev.openTag(SUMO_TAG_WALK);
                     dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                    dev.writeAttr(SUMO_ATTR_FROM_TAZ, (*i).cell->origin).writeAttr(SUMO_ATTR_TO_TAZ, (*i).cell->destination);
                     dev.writeAttr(SUMO_ATTR_ARRIVALPOS, personArrivalPos);
                     dev.closeTag();
                     dev.closeTag();
@@ -279,6 +280,7 @@ ODMatrix::write(SUMOTime begin, const SUMOTime end,
                     dev.writeAttr(SUMO_ATTR_DEPARTPOS, personDepartPos);
                     dev.openTag(SUMO_TAG_PERSONTRIP);
                     dev.writeAttr(SUMO_ATTR_FROM, (*i).from).writeAttr(SUMO_ATTR_TO, (*i).to);
+                    dev.writeAttr(SUMO_ATTR_FROM_TAZ, (*i).cell->origin).writeAttr(SUMO_ATTR_TO_TAZ, (*i).cell->destination);
                     dev.writeAttr(SUMO_ATTR_ARRIVALPOS, personArrivalPos);
                     if (modes != "") {
                         dev.writeAttr(SUMO_ATTR_MODES, modes);
