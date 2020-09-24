@@ -77,7 +77,6 @@ MSRoutingEngine::initWeightUpdate() {
     if (myAdaptationInterval == -1) {
         myEdgeWeightSettingCommand = nullptr;
         myEdgeSpeeds.clear();
-        myAdaptationInterval = -1;
         myAdaptationSteps = -1;
         myLastAdaptation = -1;
         const OptionsCont& oc = OptionsCont::getOptions();
