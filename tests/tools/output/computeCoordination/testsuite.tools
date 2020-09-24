@@ -4,3 +4,6 @@ basic
 filter_route
 delay_time_output
 entry
+
+# should not crash
+no_data
