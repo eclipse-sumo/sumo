@@ -76,7 +76,7 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     const GNELane* _lane, 
     const std::vector<double> _originalPosOverLanes, 
     const int _clickedIndex, 
-    const std::vector<int> _geometryPointsToMove):
+    const std::vector<int> _geometryPointsToMove) :
     moveElement(_moveElement),
     lane(_lane), 
     originalPosOverLanes(_originalPosOverLanes),
@@ -97,18 +97,12 @@ GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &off
         // calculate movement over lane
         newShape = calculateMovementOverLane(moveOperation, offset);
     } else if (moveOperation->geometryPointsToMove.empty()) {
-        // move all geometry points
-        for (auto &geometryPoint : newShape) {
-            if (geometryPoint != Position::INVALID) {
-                geometryPoint.add(offset);
-            }
-        }
+        // move entire shape
+        newShape.add(offset);
     } else {
-        // only move certain geometry points
-        for (const auto &index : moveOperation->geometryPointsToMove) {
-            if (newShape[index] != Position::INVALID) {
-                newShape[index].add(offset);
-            }
+        // move geometry points
+        for (const auto &geometryPoint : moveOperation->geometryPointsToMove) {
+            newShape[geometryPoint].add(offset);
         }
     }
     // move shape element
