@@ -404,11 +404,11 @@ GNECalibratorFlow::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void GNECalibratorFlow::setMoveShape(const PositionVector& /*newShape*/) {
+void GNECalibratorFlow::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
     // nothing to do
 }
 
-void GNECalibratorFlow::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+void GNECalibratorFlow::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 

@@ -725,8 +725,7 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 void
-GNELane::updateCenteringBoundary(const bool updateGrid) {
-
+GNELane::updateCenteringBoundary(const bool /*updateGrid*/) {
     if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
         myBoundary = myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
     } else {
@@ -1089,13 +1088,13 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNELane::setMoveShape(const PositionVector& /*newShape*/) {
+GNELane::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
     // currently unused
 }
 
 
 void 
-GNELane::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+GNELane::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
     // currently unused
 }
 
@@ -1774,8 +1773,11 @@ GNELane::buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMe
     }
 }
 
+
+void 
+removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // currently unused
+}
+
 /****************************************************************************/
 
-void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList)
-{
-}

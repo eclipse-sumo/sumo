@@ -376,7 +376,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNERerouter::setMoveShape(const PositionVector& newShape) {
+GNERerouter::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // update position
     myPosition = newShape.front();
     // update geometry
@@ -385,7 +385,7 @@ GNERerouter::setMoveShape(const PositionVector& newShape) {
 
 
 void 
-GNERerouter::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNERerouter::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
     undoList->p_end();

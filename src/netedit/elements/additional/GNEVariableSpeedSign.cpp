@@ -322,7 +322,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEVariableSpeedSign::setMoveShape(const PositionVector& newShape) {
+GNEVariableSpeedSign::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // update position
     myPosition = newShape.front();
     // update geometry
@@ -331,7 +331,7 @@ GNEVariableSpeedSign::setMoveShape(const PositionVector& newShape) {
 
 
 void 
-GNEVariableSpeedSign::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNEVariableSpeedSign::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
     undoList->p_end();

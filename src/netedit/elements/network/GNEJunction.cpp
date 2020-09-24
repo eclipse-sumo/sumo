@@ -1441,7 +1441,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEJunction::setMoveShape(const PositionVector& newShape) {
+GNEJunction::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // set new position in NBNode without updating grid
     if (isShapeEdited()) {
         // set new shape
@@ -1453,7 +1453,7 @@ GNEJunction::setMoveShape(const PositionVector& newShape) {
 
 
 void 
-GNEJunction::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNEJunction::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     // make sure that newShape isn't empty
     if (newShape.size() > 0) {
         // check if we're editing a shape

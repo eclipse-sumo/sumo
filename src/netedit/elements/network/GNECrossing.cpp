@@ -548,7 +548,7 @@ GNECrossing::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNECrossing::setMoveShape(const PositionVector& newShape) {
+GNECrossing::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // set custom shape
     myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->customShape = newShape;
     // update geometry
@@ -557,7 +557,7 @@ GNECrossing::setMoveShape(const PositionVector& newShape) {
 
 
 void 
-GNECrossing::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNECrossing::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(newShape)));

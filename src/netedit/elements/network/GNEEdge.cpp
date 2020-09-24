@@ -278,84 +278,6 @@ GNEEdge::clickedOverShapeEnd(const Position& pos) {
 
 
 void
-GNEEdge::startShapeBegin() {
-/*
-    myPositionBeforeMoving = myNBEdge->getGeometry().front();
-    // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
-*/
-}
-
-
-void
-GNEEdge::startShapeEnd() {
-/*
-    myPositionBeforeMoving = myNBEdge->getGeometry().back();
-    // save current centering boundary
-    myMovingGeometryBoundary = getCenteringBoundary();
-*/
-}
-
-
-void
-GNEEdge::moveShapeBegin(const Position& offset) {
-    // change shape startPosition using oldPosition and offset
-    Position shapeStartEdited = myPositionBeforeMoving;
-    shapeStartEdited.add(offset);
-    // snap to active grid
-    shapeStartEdited = myNet->getViewNet()->snapToActiveGrid(shapeStartEdited, offset.z() == 0);
-    // make sure that start and end position are different
-    if (shapeStartEdited != myNBEdge->getGeometry().back()) {
-        // set shape start position without updating grid
-        setShapeStartPos(shapeStartEdited);
-        updateGeometry();
-    }
-}
-
-
-void
-GNEEdge::moveShapeEnd(const Position& offset) {
-    // change shape endPosition using oldPosition and offset
-    Position shapeEndEdited = myPositionBeforeMoving;
-    shapeEndEdited.add(offset);
-    // snap to active grid
-    shapeEndEdited = myNet->getViewNet()->snapToActiveGrid(shapeEndEdited, offset.z() == 0);
-    // make sure that start and end position are different
-    if (shapeEndEdited != myNBEdge->getGeometry().front()) {
-        // set shape end position without updating grid
-        setShapeEndPos(shapeEndEdited);
-        updateGeometry();
-    }
-}
-
-
-void
-GNEEdge::commitShapeChangeBegin(GNEUndoList* undoList) {
-    // first save current shape start position
-    Position modifiedShapeStartPos = myNBEdge->getGeometry().front();
-    // restore old shape start position
-    setShapeStartPos(myPositionBeforeMoving);
-    // set attribute using undolist
-    undoList->p_begin("shape start of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(modifiedShapeStartPos), toString(myPositionBeforeMoving)));
-    undoList->p_end();
-}
-
-
-void
-GNEEdge::commitShapeChangeEnd(GNEUndoList* undoList) {
-    // first save current shape end position
-    Position modifiedShapeEndPos = myNBEdge->getGeometry().back();
-    // restore old shape end position
-    setShapeEndPos(myPositionBeforeMoving);
-    // set attribute using undolist
-    undoList->p_begin("shape end of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(modifiedShapeEndPos), toString(myPositionBeforeMoving)));
-    undoList->p_end();
-}
-
-
-void
 GNEEdge::updateJunctionPosition(GNEJunction* junction, const Position& origPos) {
     Position delta = junction->getNBNode()->getPosition() - origPos;
     PositionVector geom = myNBEdge->getGeometry();
@@ -1449,7 +1371,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEEdge::setMoveShape(const PositionVector& newShape) {
+GNEEdge::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // get start and end points
     const Position shapeStart = newShape.front();
     const Position shapeEnd = newShape.back();
@@ -1476,7 +1398,7 @@ GNEEdge::setMoveShape(const PositionVector& newShape) {
 
 
 void 
-GNEEdge::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNEEdge::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     // make sure that newShape isn't empty
     if (newShape.size() > 0) {
         // get start and end points

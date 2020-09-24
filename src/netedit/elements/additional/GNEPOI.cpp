@@ -539,14 +539,14 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEPOI::setMoveShape(const PositionVector& newShape) {
+GNEPOI::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // set geometry
     set(newShape.front());
 }
 
 
 void 
-GNEPOI::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNEPOI::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
     undoList->p_end();

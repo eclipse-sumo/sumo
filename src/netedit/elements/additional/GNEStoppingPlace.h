@@ -192,10 +192,10 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief set move shape
-    void setMoveShape(const PositionVector& newShape);
+    void setMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove);
 
     /// @brief commit move shape
-    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
+    void commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList);
 
     /// @brief Invalidate set new position in the view
     void setPosition(const Position& pos) = delete;

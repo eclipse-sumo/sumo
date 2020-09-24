@@ -468,7 +468,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
 
 
 void 
-GNEStoppingPlace::setMoveShape(const PositionVector& newShape) {
+GNEStoppingPlace::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // change both position
     myStartPosition = newShape.front().x();
     myEndPosition = newShape.back().x();
@@ -478,7 +478,7 @@ GNEStoppingPlace::setMoveShape(const PositionVector& newShape) {
 
 
 void 
-GNEStoppingPlace::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNEStoppingPlace::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     // only commit geometry moving if at leats start or end positions is defined
     if (myParametersSet > 0) {
         undoList->p_begin("position of " + getTagStr());

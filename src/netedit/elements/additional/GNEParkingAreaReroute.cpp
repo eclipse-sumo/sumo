@@ -192,13 +192,13 @@ GNEParkingAreaReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEParkingAreaReroute::setMoveShape(const PositionVector& /*newShape*/) {
+GNEParkingAreaReroute::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
     // nothing to do
 }
 
 
 void 
-GNEParkingAreaReroute::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+GNEParkingAreaReroute::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 

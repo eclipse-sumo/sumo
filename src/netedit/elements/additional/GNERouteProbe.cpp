@@ -308,13 +308,13 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNERouteProbe::setMoveShape(const PositionVector& /*newShape*/) {
+GNERouteProbe::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
     // nothing to do
 }
 
 
 void 
-GNERouteProbe::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+GNERouteProbe::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 

@@ -65,7 +65,7 @@ public:
         const std::vector<int> geometryPointsToMove);
 
     /// @brief destructor
-    ~GNEMoveOperation() {}
+    ~GNEMoveOperation();
 
     /// @brief move element
     GNEMoveElement *moveElement;
@@ -122,10 +122,10 @@ public:
 
 private:
     /// @brief set move shape
-    virtual void setMoveShape(const PositionVector& newShape) = 0;
+    virtual void setMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove) = 0;
 
     /// @brief commit move shape
-    virtual void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) = 0;
+    virtual void commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) = 0;
 
     /// @brief calculate movement over lane
     static const PositionVector calculateMovementOverLane(const GNEMoveOperation* moveOperation, const Position &offset);

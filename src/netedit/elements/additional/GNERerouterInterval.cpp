@@ -196,12 +196,12 @@ GNERerouterInterval::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void GNERerouterInterval::setMoveShape(const PositionVector& /*newShape*/) {
+void GNERerouterInterval::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
     // nothing to do
 }
 
 
-void GNERerouterInterval::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+void GNERerouterInterval::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 

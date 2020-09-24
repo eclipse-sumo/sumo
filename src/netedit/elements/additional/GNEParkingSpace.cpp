@@ -313,7 +313,7 @@ GNEParkingSpace::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEParkingSpace::setMoveShape(const PositionVector& newShape) {
+GNEParkingSpace::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // update position
     myPosition = newShape.front();
     // update geometry
@@ -322,7 +322,7 @@ GNEParkingSpace::setMoveShape(const PositionVector& newShape) {
 
 
 void 
-GNEParkingSpace::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNEParkingSpace::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
     undoList->p_end();

@@ -231,13 +231,13 @@ GNERerouterSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*
 
 
 void 
-GNERerouterSymbol::setMoveShape(const PositionVector& /*newShape*/) {
+GNERerouterSymbol::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
     // nothing to do
 }
 
 
 void
-GNERerouterSymbol::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/)  {
+GNERerouterSymbol::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/)  {
     // nothing to do
 }
 

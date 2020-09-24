@@ -92,24 +92,6 @@ public:
 
     /// @brief return true if user clicked over ShapeEnd
     bool clickedOverShapeEnd(const Position& pos);
-
-    /// @brief start move shape begin
-    void startShapeBegin();
-
-    /// @brief start move shape begin
-    void startShapeEnd();
-
-    /// @brief move position of shape start without commiting change
-    void moveShapeBegin(const Position& offset);
-
-    /// @brief move position of shape end without commiting change
-    void moveShapeEnd(const Position& offset);
-
-    /// @brief commit position changing in shape start
-    void commitShapeChangeBegin(GNEUndoList* undoList);
-
-    /// @brief commit position changing in shape end
-    void commitShapeChangeEnd(GNEUndoList* undoList);
     /// @}
 
     /// @brief update edge geometry after junction move
@@ -332,10 +314,10 @@ private:
     void setAttribute(SumoXMLAttr key, const std::string& value);
 
     /// @brief set move shape
-    void setMoveShape(const PositionVector& newShape);
+    void setMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove);
 
     /// @brief commit move shape
-    void commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList);
+    void commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList);
 
     /**@brief changes the number of lanes.
      * When reducing the number of lanes, higher-numbered lanes are removed first.

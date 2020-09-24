@@ -194,13 +194,13 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEClosingReroute::setMoveShape(const PositionVector& /*newShape*/) {
+GNEClosingReroute::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
     // nothing to do
 }
 
 
 void 
-GNEClosingReroute::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+GNEClosingReroute::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 

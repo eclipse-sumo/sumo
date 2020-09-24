@@ -84,6 +84,9 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     geometryPointsToMove(_geometryPointsToMove) {
 }
 
+
+GNEMoveOperation::~GNEMoveOperation() {}
+
 // ===========================================================================
 // GNEMoveElement method definitions
 // ===========================================================================
@@ -106,7 +109,7 @@ GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &off
         }
     }
     // move shape element
-    moveOperation->moveElement->setMoveShape(newShape);
+    moveOperation->moveElement->setMoveShape(newShape, moveOperation->geometryPointsToMove);
 }
 
 
@@ -121,20 +124,16 @@ GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offs
         for (const auto &posOverlane : moveOperation->originalPosOverLanes) {
             originalPosOverLanes.push_back(Position(posOverlane, 0));
         }
-        moveOperation->moveElement->setMoveShape(originalPosOverLanes);
+        moveOperation->moveElement->setMoveShape(originalPosOverLanes, moveOperation->geometryPointsToMove);
         // calculate movement over lane
         newShape = calculateMovementOverLane(moveOperation, offset);
     } else {
         // first restore original geometry geometry
-        moveOperation->moveElement->setMoveShape(moveOperation->originalShape);
+        moveOperation->moveElement->setMoveShape(moveOperation->originalShape, moveOperation->geometryPointsToMove);
         // check if we're moving an entire shape or  only certain geometry point
         if (moveOperation->geometryPointsToMove.empty()) {
-            // move all geometry points
-            for (auto &geometryPoint : newShape) {
-                if (geometryPoint != Position::INVALID) {
-                    geometryPoint.add(offset);
-                }
-            }
+            // move entire shape
+            newShape.add(offset);
         } else {
             // only move certain geometry points
             for (const auto &index : moveOperation->geometryPointsToMove) {
@@ -142,10 +141,14 @@ GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offs
                     newShape[index].add(offset);
                 }
             }
+            // remove double points (only in commitMove)
+            if (newShape.size() > 2) {
+                newShape.removeDoublePoints(2);
+            }
         }
     }
     // commit move shape
-    moveOperation->moveElement->commitMoveShape(newShape, undoList);
+    moveOperation->moveElement->commitMoveShape(newShape, moveOperation->geometryPointsToMove, undoList);
 }
 
 

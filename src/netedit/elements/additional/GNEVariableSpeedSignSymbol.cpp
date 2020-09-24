@@ -207,12 +207,12 @@ GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string&
 
 
 void 
-GNEVariableSpeedSignSymbol::setMoveShape(const PositionVector& /*newShape*/) {
+GNEVariableSpeedSignSymbol::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
     // nothing to do
 }
 
 void 
-GNEVariableSpeedSignSymbol::commitMoveShape(const PositionVector& /*newShape*/, GNEUndoList* /*undoList*/) {
+GNEVariableSpeedSignSymbol::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 

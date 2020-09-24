@@ -324,7 +324,7 @@ GNEAccess::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNEAccess::setMoveShape(const PositionVector& newShape) {
+GNEAccess::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // change both position
     myPositionOverLane = newShape.front().x();
     // update geometry
@@ -333,7 +333,7 @@ GNEAccess::setMoveShape(const PositionVector& newShape) {
 
 
 void 
-GNEAccess::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNEAccess::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     // now adjust start position
     setAttribute(SUMO_ATTR_POSITION, toString(newShape.front().x()), undoList);

@@ -556,7 +556,7 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNETAZ::setMoveShape(const PositionVector& newShape) {
+GNETAZ::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
     // update new shape
     myShape = newShape;
     // update geometry
@@ -565,7 +565,7 @@ GNETAZ::setMoveShape(const PositionVector& newShape) {
 
 
 void 
-GNETAZ::commitMoveShape(const PositionVector& newShape, GNEUndoList* undoList) {
+GNETAZ::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
