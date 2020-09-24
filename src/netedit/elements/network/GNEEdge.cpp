@@ -151,8 +151,16 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
     if (isAttributeCarrierSelected() &&
         getParentJunctions().front()->isAttributeCarrierSelected() && 
         getParentJunctions().back()->isAttributeCarrierSelected()) {
-        // move entire shape (including extremes)
-        return new GNEMoveOperation(this, myNBEdge->getGeometry());
+        // declare a vector for saving geometry points to move
+        std::vector<int> geometryPointsToMove;
+        // if edge is selected, check conditions
+        if (getParentJunctions().front()->isAttributeCarrierSelected()) {
+            for (int i = 1; i < (myNBEdge->getGeometry().size() - 1); i++) {
+                geometryPointsToMove.push_back(i);
+            }
+        }
+        // move entire shape (except extremes)
+        return new GNEMoveOperation(this, myNBEdge->getGeometry(), myNBEdge->getGeometry(), -1, geometryPointsToMove);
     } else {
         // declare shape to move
         PositionVector shapeToMove = myNBEdge->getGeometry();
@@ -1371,7 +1379,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEEdge::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
+GNEEdge::setMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove) {
     // get start and end points
     const Position shapeStart = newShape.front();
     const Position shapeEnd = newShape.back();
@@ -1379,21 +1387,16 @@ GNEEdge::setMoveShape(const PositionVector& newShape, const std::vector<int> /*g
     PositionVector innenShape = newShape;
     innenShape.pop_front();
     innenShape.pop_back();
+    // set shape start
+    if (std::find(geometryPointsToMove.begin(), geometryPointsToMove.end(), 0) != geometryPointsToMove.end()) {
+        setShapeStartPos(shapeStart);
+    }
     // set innen geometry
     setGeometry(innenShape, true);
-    // set shape start
-    if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > 2) {
-        setShapeStartPos(shapeStart);
-    } else {
-        setShapeStartPos(getParentJunctions().front()->getNBNode()->getPosition());
-    }
     // set shape end
-    if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > 2) {
+    if (std::find(geometryPointsToMove.begin(), geometryPointsToMove.end(), (newShape.size() - 1)) != geometryPointsToMove.end()) {
         setShapeEndPos(shapeEnd);
-    } else {
-        setShapeEndPos(getParentJunctions().back()->getNBNode()->getPosition());
     }
-
 }
 
 
@@ -1410,29 +1413,16 @@ GNEEdge::commitMoveShape(const PositionVector& newShape, const std::vector<int> 
         innenShape.pop_back();
         // commit new shape
         undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-        // check if we have to update shape start
-        if (isAttributeCarrierSelected() && getParentJunctions().front()->isAttributeCarrierSelected()) {
+        if (std::find(geometryPointsToMove.begin(), geometryPointsToMove.end(), 0) != geometryPointsToMove.end()) {
             undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
-        } else {
-            if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) > 2) {
-                undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
-            } else {
-                setShapeStartPos(getParentJunctions().front()->getNBNode()->getPosition());
-            }
         }
         // only update innen shape if isn't empty (example, if we move a end geometry point)
         if (innenShape.size() > 0) {
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innenShape)));
         }
         // check if we have to update shape end
-        if (isAttributeCarrierSelected() && getParentJunctions().back()->isAttributeCarrierSelected()) {
+        if (std::find(geometryPointsToMove.begin(), geometryPointsToMove.end(), (newShape.size() - 1)) != geometryPointsToMove.end()) {
             undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
-        } else {
-            if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) > 2) {
-                undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
-            } else {
-                setShapeEndPos(getParentJunctions().back()->getNBNode()->getPosition());
-            }
         }
         undoList->p_end();
     }
