@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 17 09:10:11 2020 by Eclipse SUMO duarouter Version v1_4_0+0591-e091448
+<!-- generated on Thu Sep 24 16:30:42 2020 by Eclipse SUMO duarouter Version v1_7_0+0194-1ef5c1c0b7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,13 +15,14 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
         <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -30,6 +31,9 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="0" depart="0.00">
+        <personTrip from="A0-source" to="C2-sink" walkFactor="0.75" costs="360.53"/>
+    </person>
+    <person id="1" depart="0.00">
         <personTrip from="A0-source" to="C2-sink" walkFactor="0.75" costs="360.53"/>
     </person>
 </routes>
