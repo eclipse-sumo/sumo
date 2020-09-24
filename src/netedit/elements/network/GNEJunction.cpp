@@ -1375,8 +1375,8 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             break;
         }
         case SUMO_ATTR_POSITION: {
-            // set new position in NBNode without updating grid
-            moveJunctionGeometry(parse<Position>(value));
+            // set new position in NBNode updating edge boundaries
+            moveJunctionGeometry(parse<Position>(value), true);
             // mark this connections and all of the junction's Neighbours as deprecated
             markConnectionsDeprecated(true);
             // update centering boundary and grid
@@ -1447,7 +1447,7 @@ GNEJunction::setMoveShape(const PositionVector& newShape) {
         // set new shape
         myNBNode->setCustomShape(newShape);
     } else if (newShape.size() > 0) {
-        moveJunctionGeometry(newShape.front());
+        moveJunctionGeometry(newShape.front(), false);
     }
 }
 
@@ -1550,7 +1550,7 @@ GNEJunction::checkMissingConnections() {
 
 
 void
-GNEJunction::moveJunctionGeometry(const Position& pos) {
+GNEJunction::moveJunctionGeometry(const Position& pos, const bool updateEdgeBoundaries) {
     // obtain NBNode position
     const Position orig = myNBNode->getPosition();
     // reinit NBNode
@@ -1578,6 +1578,10 @@ GNEJunction::moveJunctionGeometry(const Position& pos) {
     }
     // Iterate over affected Edges
     for (const auto& affectedEdge : affectedEdges) {
+        // update edge boundaries
+        if (updateEdgeBoundaries) {
+            affectedEdge->updateCenteringBoundary(true);
+        }
         // Update edge geometry
         affectedEdge->updateGeometry();
     }
