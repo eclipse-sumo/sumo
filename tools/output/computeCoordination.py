@@ -125,7 +125,11 @@ def main(options):
 
     vehs.sort()
     n = len(vehs)
-    print("n=%s d=%s coordinationFactor=%.2f" % (n, numDelayed, (n - numDelayed) / float(n)))
+    if n > 0:
+        print("n=%s d=%s coordinationFactor=%.2f" % (n, numDelayed, (n - numDelayed) / float(n)))
+    else:
+        print("n=0")
+
 
     if options.fullOutput:
         with open(options.fullOutput, 'w') as outf:
