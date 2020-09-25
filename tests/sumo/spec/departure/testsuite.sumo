@@ -2,6 +2,9 @@ departLane
 departPos
 departSpeed
 
+# tests for starting with an offset along the route
+departEdge
+
 # one vehicle approaching a lane with a lower max speed
 approach_slow_lane
 
