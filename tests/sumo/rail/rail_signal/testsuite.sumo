@@ -1,3 +1,6 @@
+# tests which train gets to drive in case of a link conflict: two trains want to enter a section but only one of them can do so at the same time
+priority
+
 # test railSignalConstraints
 constraints
 insertionConstraints

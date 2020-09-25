@@ -1,0 +1,8 @@
+# if both trains are stopped directly ahead of the signal, the train with higher waiting time drives first
+waiting_time_top
+
+# if both trains are stopped directly ahead of the signal, the train with higher waiting time drives first
+# 
+# route files is loaded with option -a so that the vehicle with the later depart (lower waitingTime) can be defined first.
+# This way the later vehicle would be allowed to to first if the numerical-id tiebraker were used.
+waiting_time_bottom
