@@ -86,12 +86,6 @@ void
 GNEDetectorE1::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
-
-    // Set offset of the block icon
-    myBlockIcon.setOffset(1, 0);
 }
 
 
@@ -127,8 +121,8 @@ GNEDetectorE1::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDetail(s.detailSettings.detectorDetails, E1Exaggeration)) {
             // draw E1 Logo
             drawDetectorLogo(s, E1Exaggeration, "E1", textColor);
-            // Show Lock icon depending of the Edit mode
-            myBlockIcon.drawIcon(s, E1Exaggeration);
+            // draw lock icon
+            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, E1Exaggeration, 0, 0);
         }
         // pop layer matrix
         glPopMatrix();

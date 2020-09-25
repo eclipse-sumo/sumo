@@ -146,7 +146,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // Traslate matrix and draw lock icon if isn't being drawn for selecting
         glTranslated(0, lengthExaggeration * 0.5, 0.1);
         // draw lock icon
-        myBlockIcon.drawIcon(s, parkingAreaExaggeration);
+        GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0);
         // pop layer matrix
         glPopMatrix();
         // pop name

@@ -66,13 +66,6 @@ void
 GNEDetectorE3::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateGeometry(myPosition, 0);
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
-
-    // Set block icon offset
-    myBlockIcon.setOffset(-0.5, -0.5);
-
     // Update Hierarchical connections geometry
     myHierarchicalConnections.update();
 }
@@ -147,7 +140,7 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), s.detectorSettings.E3Size);
             }
             // draw lock icon
-            myBlockIcon.drawIcon(s, E3Exaggeration, 0.4);
+            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, E3Exaggeration, 0, 0, 0.4);
         }
         // pop layer matrix
         glPopMatrix();

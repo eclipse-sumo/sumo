@@ -282,10 +282,6 @@ GNEDetectorE2::updateGeometry() {
     } else {
         // Cut shape using as delimitators fixed start position and fixed end position
         myAdditionalGeometry.updateGeometry(getParentLanes().front()->getLaneShape(), startPosFixed * getParentLanes().front()->getLengthGeometryFactor(), endPosFixed * getParentLanes().back()->getLengthGeometryFactor());
-        // update block icon position
-        myBlockIcon.updatePositionAndRotation();
-        // Set offset of the block icon
-        myBlockIcon.setOffset(1, 0);
     }
 }
 
@@ -326,8 +322,8 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDetail(s.detailSettings.detectorDetails, E2Exaggeration)) {
             // draw E2 Logo
             drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
-            // Show Lock icon depending of the Edit mode
-            myBlockIcon.drawIcon(s, E2Exaggeration);
+            // draw lock icon
+            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, E2Exaggeration, 0, 0);
         }
         // pop layer matrix
         glPopMatrix();

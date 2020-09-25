@@ -65,9 +65,6 @@ GNEParkingArea::updateGeometry() {
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
 }
 
 
@@ -105,7 +102,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // draw sign
             drawSign(s, parkingAreaExaggeration, baseColor, signColor, "H");
             // draw lock icon
-            myBlockIcon.drawIcon(s, parkingAreaExaggeration);
+            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0);
         }
         // pop draw matrix
         glPopMatrix();

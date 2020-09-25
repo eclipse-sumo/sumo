@@ -71,13 +71,6 @@ void
 GNERerouter::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateGeometry(myPosition, 0);
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
-
-    // Set block icon offset
-    myBlockIcon.setOffset(-0.5, -0.5);
-
     // Update Hierarchical connections geometry
     myHierarchicalConnections.update();
 }
@@ -159,8 +152,8 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
             // just draw a square
             GLHelper::drawBoxLine(Position(0, s.additionalSettings.rerouterSize), 0, 2 * s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize);
         }
-        // draw Lock icon
-        myBlockIcon.drawIcon(s, rerouterExaggeration, 0.4);
+        // draw lock icon
+        GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, rerouterExaggeration, 0, 0, 0.4);
         // Pop layer matrix
         glPopMatrix();
         // Pop name

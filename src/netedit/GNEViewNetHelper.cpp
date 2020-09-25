@@ -30,9 +30,10 @@
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/common/GNESelectorFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 
@@ -3208,6 +3209,97 @@ GNEViewNetHelper::EditNetworkElementShapes::commitEditedShape() {
 GNENetworkElement*
 GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
     return myEditedNetworkElement;
+}
+
+// ---------------------------------------------------------------------------
+// GNEAdditional::BlockIcon - methods
+// ---------------------------------------------------------------------------
+
+void
+GNEViewNetHelper::BlockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const GNEGeometry::Geometry &geometry,
+    const double exaggeration, const double offsetx, const double offsety, const double size) {
+    // first check if icon can be drawn
+    if (checkDrawing(AC, exaggeration) && (geometry.getShape().size() > 0)) {
+        // calculate middle point
+        const double middlePoint = (geometry.getShape().length2D() * 0.5);
+        // calculate position
+        const Position pos = (geometry.getShape().size() == 1)? geometry.getShape().front() : geometry.getShape().positionAtOffset2D(middlePoint);
+        // calculate rotation
+        const double rot = (geometry.getShape().size() == 1)? geometry.getShapeRotations().front() : geometry.getShape().rotationDegreeAtOffset(middlePoint);
+        // get texture
+        const GUIGlID lockTexture = getLockIcon(AC);
+        // Start pushing matrix
+        glPushMatrix();
+        // Traslate to middle of shape
+        glTranslated(pos.x(), pos.y(), 0.1);
+        // Set draw color
+        glColor3d(1, 1, 1);
+        // Rotate depending of rotation
+        glRotated((rot * -1) + 90, 0, 0, 1);
+        // Traslate depending of the offset
+        glTranslated(offsetx, offsety, 0);
+        // Rotate again
+        glRotated(180, 0, 0, 1);
+        // Draw lock icon
+        GUITexturesHelper::drawTexturedBox(lockTexture, size);
+        // Pop matrix
+        glPopMatrix();
+    }
+}
+
+
+GNEViewNetHelper::BlockIcon::BlockIcon() {}
+
+
+const bool 
+GNEViewNetHelper::BlockIcon::checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration) {
+    // get visualization settings
+    const auto s = AC->getNet()->getViewNet()->getVisualisationSettings();
+    // check exaggeration
+    if (exaggeration == 0) {
+        return false;
+    }
+    // check visualizationSettings
+    if (s.drawForPositionSelection || s.drawForRectangleSelection) {
+        return false;
+    }
+    // check detail
+    if (!s.drawDetail(s.detailSettings.lockIcon, exaggeration)) {
+        return false;
+    }
+    // check modes
+    if (AC->getNet()->getViewNet()->showLockIcon()) {
+        return false;
+    }
+    return true;
+}
+
+const GUIGlID 
+GNEViewNetHelper::BlockIcon::getLockIcon(const GNEAttributeCarrier *AC) {
+    // Draw icon depending of the state of additional
+    if (AC->drawUsingSelectColor()) {
+        if (!AC->getTagProperty().canBlockMovement()) {
+            // Draw not movable texture if additional isn't movable and is selected
+            return GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVINGSELECTED);
+        } else if (AC->getAttribute(GNE_ATTR_BLOCK_MOVEMENT) == toString(true)) {
+            // Draw lock texture if additional is movable, is blocked and is selected
+            return GUITextureSubSys::getTexture(GNETEXTURE_LOCKSELECTED);
+        } else {
+            // Draw empty texture if additional is movable, isn't blocked and is selected
+            return GUITextureSubSys::getTexture(GNETEXTURE_EMPTYSELECTED);
+        }
+    } else {
+        if (!AC->getTagProperty().canBlockMovement()) {
+            // Draw not movable texture if additional isn't movable
+            return GUITextureSubSys::getTexture(GNETEXTURE_NOTMOVING);
+        } else if (AC->getAttribute(GNE_ATTR_BLOCK_MOVEMENT) == toString(true)) {
+            // Draw lock texture if additional is movable and is blocked
+            return GUITextureSubSys::getTexture(GNETEXTURE_LOCK);
+        } else {
+            // Draw empty texture if additional is movable and isn't blocked
+            return GUITextureSubSys::getTexture(GNETEXTURE_EMPTY);
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------

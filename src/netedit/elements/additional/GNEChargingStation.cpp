@@ -64,9 +64,6 @@ GNEChargingStation::updateGeometry() {
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
 }
 
 
@@ -106,7 +103,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // draw sign
             drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
             // draw lock icon
-            myBlockIcon.drawIcon(s, chargingStationExaggeration);
+            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, chargingStationExaggeration, 0, 0);
         }
         // pop draw matrix
         glPopMatrix();

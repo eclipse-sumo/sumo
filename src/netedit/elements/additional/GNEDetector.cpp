@@ -160,7 +160,7 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
     // translate to center geometry
     glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
     // rotate
-    glRotated(-myBlockIcon.getRotation(), 0, 0, 1);
+    glRotated(myAdditionalGeometry.getShapeRotations().front(), 0, 0, 1);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set main color
@@ -222,9 +222,9 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
         // Push matrix
         glPushMatrix();
         // translate to center geometry
-        glTranslated(myBlockIcon.getPosition().x(), myBlockIcon.getPosition().y(), 0);
+        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate
-        glRotated((myBlockIcon.getRotation() * -1) + 90, 0, 0, 1);
+        glRotated((myAdditionalGeometry.getShapeRotations().front() * -1) + 90, 0, 0, 1);
         // move
         glTranslated(-1, 0, 0);
         // scale text

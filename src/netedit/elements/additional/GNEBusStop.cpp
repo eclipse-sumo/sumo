@@ -64,9 +64,6 @@ GNEBusStop::updateGeometry() {
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
 
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
-
     // update child demand elements geometry
     for (const auto& demandElement : getChildDemandElements()) {
         // special case for person trips
@@ -122,7 +119,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw sign
             drawSign(s, busStopExaggeration, baseColor, signColor, "H");
             // draw lock icon
-            myBlockIcon.drawIcon(s, busStopExaggeration);
+            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0);
         }
         // pop draw matrix
         glPopMatrix();

@@ -31,6 +31,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 
+#include "GNEGeometry.h"
 
 // ===========================================================================
 // enum
@@ -1209,6 +1210,25 @@ struct GNEViewNetHelper {
         /// @brief the previous edit mode before edit NetworkElement's shapes
         NetworkEditMode myPreviousNetworkEditMode;
 
+    };
+
+    /// @brief struct for pack all variables and functions related with Block Icon
+    struct BlockIcon {
+        /// @brief draw lock icon
+        static void drawLockIcon(const GNEAttributeCarrier *AC, const GNEGeometry::Geometry &geometry,
+            const double exaggeration, const double offsetx, const double offsety, const double size = 0.5);
+    private:
+        /// @brief constructor
+        BlockIcon();
+
+        /// @brief check drawing
+        static const bool checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration);
+
+        /// @brief get lock icon
+        static const GUIGlID getLockIcon(const GNEAttributeCarrier *AC);
+
+        /// @brief Invalidated assignment operator
+        BlockIcon& operator=(const BlockIcon& other) = delete;
     };
 
     /// @brief get scaled rainbow colors

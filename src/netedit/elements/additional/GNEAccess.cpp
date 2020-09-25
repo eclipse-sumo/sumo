@@ -76,8 +76,6 @@ GNEAccess::updateGeometry() {
     }
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), fixedPositionOverLane * getParentLanes().front()->getLengthGeometryFactor());
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
 }
 
 
@@ -162,6 +160,8 @@ GNEAccess::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // pop gl identficador
         glPopName();
+        // draw lock icon
+        GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, accessExaggeration, 0, 0, 0.3);
         // check if dotted contours has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GNEGeometry::drawDottedContourCircle(GNEGeometry::DottedContourType::INSPECT, s, myAdditionalGeometry.getShape().front(), 0.5, accessExaggeration);

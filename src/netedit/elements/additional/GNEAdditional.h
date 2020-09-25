@@ -272,43 +272,6 @@ public:
     /// @}
 
 protected:
-    /// @brief struct for pack all variables and functions related with Block Icon
-    struct BlockIcon {
-        /// @brief constructor
-        BlockIcon(GNEAdditional* additional);
-
-        /// @brief update position and rotation using additional geometry
-        void updatePositionAndRotation();
-
-        /// @brief set offset
-        void setOffset(const double x, const double y);
-
-        /// @brief draw lock icon
-        void drawIcon(const GUIVisualizationSettings& s, const double exaggeration, const double size = 0.5) const;
-
-        /// @brief get position of the block icon
-        const Position& getPosition() const;
-
-        /// @brief get rotation of the block icon
-        double getRotation() const;
-
-    private:
-        /// @brief pointer to parent additional
-        const GNEAdditional* myAdditional;
-
-        /// @brief position of the block icon
-        Position myPosition;
-
-        /// @brief The rotation of the block icon
-        double myRotation;
-
-        /// @brief The offSet of the block icon
-        Position myOffset;
-
-        /// @brief Invalidated assignment operator
-        BlockIcon& operator=(const BlockIcon& other) = delete;
-    };
-
     /// @brief Additional Boundary
     Boundary myBoundary;
 
@@ -323,9 +286,6 @@ protected:
 
     /// @brief boolean to check if additional element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;
-
-    /// @brief variable BlockIcon
-    BlockIcon myBlockIcon;
 
     /// @brief pointer to special color (used for drawing Additional with a certain color, mainly used for selections)
     const RGBColor* mySpecialColor;

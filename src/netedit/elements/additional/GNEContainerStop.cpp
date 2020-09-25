@@ -61,9 +61,6 @@ GNEContainerStop::updateGeometry() {
 
     // Get position of the sign
     mySignPos = tmpShape.getLineCenter();
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
 }
 
 
@@ -103,7 +100,7 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw sign
             drawSign(s, containerStopExaggeration, baseColor, signColor, "C");
             // draw lock icon
-            myBlockIcon.drawIcon(s, containerStopExaggeration);
+            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, containerStopExaggeration, 0, 0);
         }
         // pop draw matrix
         glPopMatrix();

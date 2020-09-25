@@ -89,13 +89,6 @@ void
 GNEDetectorEntryExit::updateGeometry() {
     // update geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), getGeometryPositionOverLane());
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
-
-    // Set offset of the block icon
-    myBlockIcon.setOffset(1, 0);
-
     // update E3 parent children
     getParentAdditionals().at(0)->updateHierarchicalConnections();
 }
@@ -109,7 +102,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
     if (s.drawAdditionals(entryExitExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
         // Start drawing adding gl identificator
         glPushName(getGlID());
-        // Push detector matrix
+        // Push layer matrix
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_DET_ENTRY);
@@ -125,7 +118,6 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         // Push polygon matrix
         glPushMatrix();
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
-        glRotated((myBlockIcon.getRotation() * -1), 0, 0, 1);
         glScaled(entryExitExaggeration, entryExitExaggeration, 1);
         // draw details if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
@@ -159,16 +151,18 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop polygon matrix
         glPopMatrix();
-        // Pop detector matrix
+        // draw lock icon
+        GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0);
+        // Pop layer matrix
         glPopMatrix();
         // Check if the distance is enought to draw details
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.detectorDetails, entryExitExaggeration)) {
             // Push matrix
             glPushMatrix();
             // Traslate to center of detector
-            glTranslated(myAdditionalGeometry.getShape().getLineCenter().x(), myAdditionalGeometry.getShape().getLineCenter().y(), getType() + 0.1);
+            glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
             // Rotate depending of myBlockIcon.rotation
-            glRotated(myBlockIcon.getRotation(), 0, 0, -1);
+            glRotated(myAdditionalGeometry.getShapeRotations().front(), 0, 0, -1);
             //move to logo position
             glTranslated(1.9, 0, 0);
             // scale
@@ -208,7 +202,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             // pop matrix
             glPopMatrix();
             // draw lock icon
-            myBlockIcon.drawIcon(s, entryExitExaggeration, 0.4);
+            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0, 0.4);
         }
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {

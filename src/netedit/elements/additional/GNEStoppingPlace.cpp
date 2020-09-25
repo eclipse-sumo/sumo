@@ -402,7 +402,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector
             glPushMatrix();
             // translate and rotate
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            glRotated((myBlockIcon.getRotation() * -1) + 90, 0, 0, 1);
+            glRotated((myAdditionalGeometry.getShapeRotations().front() * -1) + 90, 0, 0, 1);
             // draw line with a color depending of the selection status
             if (drawUsingSelectColor()) {
                 GLHelper::drawText(lines[i].c_str(), Position(1.2, (double)i), .1, 1.f, color, 0, FONS_ALIGN_LEFT);
@@ -427,7 +427,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
             // Start drawing sign traslating matrix to signal position
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             // rotate
-            glRotated((myBlockIcon.getRotation() * -1) + 90, 0, 0, 1);
+            glRotated((myAdditionalGeometry.getShapeRotations().front() * -1) + 90, 0, 0, 1);
             // scale matrix depending of the exaggeration
             glScaled(exaggeration, exaggeration, 1);
             // set color
@@ -443,7 +443,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
         // rotate
-        glRotated((myBlockIcon.getRotation() * -1) + 90, 0, 0, 1);
+        glRotated((myAdditionalGeometry.getShapeRotations().front() * -1) + 90, 0, 0, 1);
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
         // set color

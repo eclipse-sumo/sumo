@@ -66,13 +66,6 @@ void
 GNEVariableSpeedSign::updateGeometry() {
     // update additional geometry
     myAdditionalGeometry.updateGeometry(myPosition, 0);
-
-    // update block icon position
-    myBlockIcon.updatePositionAndRotation();
-
-    // Set block icon offset
-    myBlockIcon.setOffset(-0.5, -0.5);
-
     // Update Hierarchical connections geometry
     myHierarchicalConnections.update();
 }
@@ -154,8 +147,8 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             // just draw a withe square
             GLHelper::drawBoxLine(Position(0, s.additionalSettings.VSSSize), 0, 2 * s.additionalSettings.VSSSize, s.additionalSettings.VSSSize);
         }
-        // Show Lock icon
-        myBlockIcon.drawIcon(s, VSSExaggeration, 0.4);
+        // draw lock icon
+        GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, VSSExaggeration, 0, 0, 0.4);
         // Pop layer matrix
         glPopMatrix();
         // Pop name
