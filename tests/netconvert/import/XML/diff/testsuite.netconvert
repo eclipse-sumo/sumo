@@ -39,3 +39,6 @@ remove_crossing
 rename_node
 remove_roundabout
 change_tlType
+
+# remove neight information for some lanes
+remove_opposite
