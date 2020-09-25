@@ -739,6 +739,7 @@ MSRailSignal::DriveWay::hasLinkConflict(const Approaching& veh, MSLink* foeLink)
                         << "  aT=" << veh.second.arrivalTime << " foeAT=" << foe.second.arrivalTime
                         << "  aS=" << veh.first->getSpeed() << " foeS=" << foe.first->getSpeed()
                         << "  aD=" << veh.second.dist << " foeD=" << foe.second.dist
+                        << "  aW=" << veh.first->getWaitingTime() << " foeW=" << foe.first->getWaitingTime()
                         << "  aN=" << veh.first->getNumericalID() << " foeN=" << foe.first->getNumericalID()
                         << "\n";
             }
@@ -762,8 +763,12 @@ MSRailSignal::DriveWay::mustYield(const Approaching& veh, const Approaching& foe
     if (foe.second.arrivalSpeedBraking == veh.second.arrivalSpeedBraking) {
         if (foe.second.arrivalTime == veh.second.arrivalTime) {
             if (foe.first->getSpeed() == veh.first->getSpeed()) {
-                if (foe.second.dist  == veh.second.dist) {
-                    return foe.first->getNumericalID() < veh.first->getNumericalID();
+                if (foe.second.dist == veh.second.dist) {
+                    if (foe.first->getWaitingTime() == veh.first->getWaitingTime()) {
+                        return foe.first->getNumericalID() < veh.first->getNumericalID();
+                    } else {
+                        return foe.first->getWaitingTime() > veh.first->getWaitingTime();
+                    }
                 } else {
                     return foe.second.dist < veh.second.dist;
                 }
