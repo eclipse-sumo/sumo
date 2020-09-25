@@ -3236,7 +3236,7 @@ GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const GN
         if (overlane) {
             GNEGeometry::rotateOverLane(rot);
         } else {
-            //
+            // avoid draw invert
             glRotated(180, 0, 0, 1);
         }
         // Set draw color

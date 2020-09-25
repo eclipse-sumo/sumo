@@ -111,8 +111,8 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             // translate to position
             glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
-            // rotate
-            glRotated(-1 * symbolGeometry.getShapeRotations().front(), 0, 0, 1);
+            // rotate over lane
+            GNEGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front());
             // scale
             glScaled(rerouteExaggeration, rerouteExaggeration, 1);
             // set color

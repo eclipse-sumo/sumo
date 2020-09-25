@@ -118,6 +118,9 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         // Push polygon matrix
         glPushMatrix();
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
+        // rotate over lane
+        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() - 90);
+        // scale
         glScaled(entryExitExaggeration, entryExitExaggeration, 1);
         // draw details if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
@@ -157,8 +160,8 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             glPushMatrix();
             // Traslate to center of detector
             glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), getType() + 0.1);
-            // Rotate depending of myBlockIcon.rotation
-            glRotated(myAdditionalGeometry.getShapeRotations().front(), 0, 0, -1);
+            // rotate over lane
+            GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 180);
             //move to logo position
             glTranslated(1.9, 0, 0);
             // scale
@@ -168,15 +171,15 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::setColor(s.detectorSettings.E3EntryColor);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             } else if (drawUsingSelectColor()) {
-                GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.selectedAdditionalColor);
+                GLHelper::drawText("E3", Position(), .1, 2.8, s.colorSettings.selectedAdditionalColor, 180);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                GLHelper::drawText("E3", Position(), .1, 2.8, s.detectorSettings.E3EntryColor);
+                GLHelper::drawText("E3", Position(), .1, 2.8, s.detectorSettings.E3EntryColor, 180);
             } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                GLHelper::drawText("E3", Position(), .1, 2.8, s.detectorSettings.E3ExitColor);
+                GLHelper::drawText("E3", Position(), .1, 2.8, s.detectorSettings.E3ExitColor, 180);
             }
             //move to logo position
             glTranslated(1.7, 0, 0);
-            // Rotate depending of myBlockIcon.rotation
+            // rotate 90º lane
             glRotated(90, 0, 0, 1);
             // draw Entry or Exit text if isn't being drawn for selecting
             if (s.drawForRectangleSelection || s.drawForPositionSelection) {
@@ -184,22 +187,22 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
             } else if (drawUsingSelectColor()) {
                 if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                    GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
+                    GLHelper::drawText("Entry", Position(), .1, 1, s.colorSettings.selectedAdditionalColor, 180);
                 } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                    GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.selectedAdditionalColor);
+                    GLHelper::drawText("Exit", Position(), .1, 1, s.colorSettings.selectedAdditionalColor, 180);
                 }
             } else {
                 if (myTagProperty.getTag() == SUMO_TAG_DET_ENTRY) {
-                    GLHelper::drawText("Entry", Position(), .1, 1, s.detectorSettings.E3EntryColor);
+                    GLHelper::drawText("Entry", Position(), .1, 1, s.detectorSettings.E3EntryColor, 180);
                 } else if (myTagProperty.getTag() == SUMO_TAG_DET_EXIT) {
-                    GLHelper::drawText("Exit", Position(), .1, 1, s.detectorSettings.E3ExitColor);
+                    GLHelper::drawText("Exit", Position(), .1, 1, s.detectorSettings.E3ExitColor, 180);
                 }
             }
             // pop matrix
             glPopMatrix();
         }
         // draw lock icon
-        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0, true);
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0, true, 0.4);
         // Pop layer matrix
         glPopMatrix();
         // Draw name if isn't being drawn for selecting

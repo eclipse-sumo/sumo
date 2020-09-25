@@ -1576,8 +1576,6 @@ void
 GNEGeometry::rotateOverLane(const double rot) {
     // rotate using rotation calculated in PositionVector
     glRotated((rot * -1) + 90, 0, 0, 1);
-    // Rotate again (to avoid drawing invert textures)
-    glRotated(180, 0, 0, 1);
 }
 
 

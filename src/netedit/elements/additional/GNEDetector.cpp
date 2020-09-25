@@ -159,8 +159,8 @@ GNEDetector::drawE1Shape(const GUIVisualizationSettings& s, const double exagger
     glLineWidth(1.0);
     // translate to center geometry
     glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
-    // rotate
-    glRotated(myAdditionalGeometry.getShapeRotations().front(), 0, 0, 1);
+    // rotate over lane
+    GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set main color
@@ -219,12 +219,18 @@ void
 GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double exaggeration,
                               const std::string& logo, const RGBColor& textColor) const {
     if (!s.drawForRectangleSelection && !s.drawForPositionSelection) {
-        // Push matrix
+        // calculate middle point
+        const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
+        // calculate position
+        const Position pos = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        // calculate rotation
+        const double rot = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        // Start pushing matrix
         glPushMatrix();
-        // translate to center geometry
-        glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
-        // rotate
-        glRotated((myAdditionalGeometry.getShapeRotations().front() * -1) + 90, 0, 0, 1);
+        // Traslate to position
+        glTranslated(pos.x(), pos.y(), 0.1);
+        // rotate over lane
+        GNEGeometry::rotateOverLane(rot);
         // move
         glTranslated(-1, 0, 0);
         // scale text

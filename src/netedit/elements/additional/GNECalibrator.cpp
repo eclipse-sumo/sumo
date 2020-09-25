@@ -298,8 +298,8 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_CALIBRATOR);
     // translate to position
     glTranslated(pos.x(), pos.y(), 0);
-    // rotate
-    glRotated(rot, 0, 0, 1);
+    // rotate over lane
+    GNEGeometry::rotateOverLane(rot);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set drawing mode
