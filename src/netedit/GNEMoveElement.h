@@ -104,10 +104,7 @@ class GNEMoveResult {
 
 public:
     /// @brief constructor
-    GNEMoveResult(const std::vector<int> geometryPointsToMove);
-
-    /// @brief constructor for shape and geometry points
-    GNEMoveResult(const PositionVector &shapeToUpdate, const std::vector<int> geometryPointsToMove);
+    GNEMoveResult(GNEMoveOperation* moveOperation);
 
     /// @brief destructor
     ~GNEMoveResult();
