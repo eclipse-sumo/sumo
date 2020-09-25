@@ -1,0 +1,39 @@
+# checks using the default lane (rightmost allowed - 0)
+lane_default
+
+# checks using the default lane (rightmost allowed, only accessible for busses, all should use 0)
+lane_default_3veh_bus
+
+# checks using the default lane (rightmost allowed, only accessible for busses, all must not use 0)
+lane_default_3veh_passenger
+
+# checks using a free lane (1 vehicle)
+lane_free
+
+# checks using a free lane (3 vehicles)
+lane_free_3veh
+
+# candidate lanes are occupied by vehicles of different lengths, the lane with the least occupancy should be taken
+lane_free_occupancy
+
+# checks using the best lane (3 vehicles)
+lane_best_3veh
+
+# checks using a free allowed lane (3 vehicles)
+lane_allowed_3veh
+
+# checks using a free allowed lane on a multimodal edge (3 vehicles)
+lane_allowed_3veh_multimodal
+
+# checks using a free allowed lane on a multimodal edge (3 vehicles)
+# with modified emergency decel value
+lane_allowed_3veh_multimodal_emergencyDecel
+
+# checks using the given lane (lane 0)
+lane_given0
+
+# checks using the given lane (lane 1)
+lane_given1
+
+# checks using a random lane
+lane_random

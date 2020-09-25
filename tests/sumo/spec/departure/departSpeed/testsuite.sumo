@@ -1,0 +1,40 @@
+# checks using the default speed (0)
+speed_default
+
+# checks using the given speed (0)
+speed_given0
+
+# checks using the given speed (10)
+speed_given10
+
+# checks using the given speed when speedDev is present
+speed_given_deviation
+
+# checks using the given speed when speedDev is present but quite low
+speed_given_deviation_low
+
+# checks using the maximum speed (bounded by lane's vmax)
+speed_max__lanelimit
+
+# checks using the maximum speed (bounded by veh's vmax)
+speed_max__vehlimit
+
+# checks using the maximum speed (bounded by leader vehicles)
+speed_max__leader
+
+# checks using the maximum speed (bounded by the available driving distance without lane changing)
+speed_max__laneEnd
+
+# checks using the random speed (bounded by lane's vmax)
+speed_random__lanelimit
+
+# checks using the random speed (bounded by veh's vmax)
+speed_random__vehlimit
+
+# departSpeed="desired" 
+# (should not lower speed)
+speed_desired
+
+# departSpeed="speedLimit" 
+# (should not lower speed)
+speed_speedLimit
