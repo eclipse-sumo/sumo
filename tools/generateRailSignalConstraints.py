@@ -53,10 +53,8 @@ def get_options(args=None):
                         help="Output additional file")
     parser.add_argument("-b", "--begin", default="0",
                         help="ignore vehicles departing before the given begin time (seconds or H:M:S)")
-    #parser.add_argument("--arrivals", action="store_true", default=False,
-    #                    help="Use stop arrival time instead of 'until' time for sorting")
-    #parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
-    #                    help="Do not create constraints after a parking stop")
+    parser.add_argument("--until-from-duration", action="store_true", default=False, dest="untilFromDuration",
+                        help="Use stop arrival+duration instead of 'until' to compute insertion constraints")
     parser.add_argument("-d", "--delay", default="0",
                         help="Assume given maximum delay when computing the number of intermediate vehicles that pass a given signal (for setting limit)")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
@@ -358,7 +356,7 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
         signal = node.getID()
         untils = []
         for edgesBefore, stop in stops:
-            if stop.hasAttribute("until"):
+            if stop.hasAttribute("until") and not options.untilFromDuration:
                 until = parseTime(stop.until)
             elif stop.hasAttribute("arrival"):
                 until = parseTime(stop.arrival) + parseTime(stop.getAttributeSecure("duration", "0"))
