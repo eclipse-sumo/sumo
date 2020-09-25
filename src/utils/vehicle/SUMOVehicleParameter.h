@@ -65,6 +65,7 @@ const int VEHPARS_DEPARTPOSLAT_SET = 2 << 20;
 const int VEHPARS_ARRIVALPOSLAT_SET = 2 << 21;
 const int VEHPARS_VIA_SET = 2 << 22;
 const int VEHPARS_SPEEDFACTOR_SET = 2 << 23;
+const int VEHPARS_DEPARTEDGE_SET = 2 << 24;
 
 const int STOP_INDEX_END = -1;
 const int STOP_INDEX_FIT = -2;
@@ -199,6 +200,20 @@ enum class DepartSpeedDefinition {
     DESIRED,
     /// @brief The maximum lane speed is used (speedLimit)
     LIMIT
+};
+
+
+/**
+ * @enum DepartEdgeDefinition
+ * @brief Possible ways to choose the departure edge
+ */
+enum class DepartEdgeDefinition {
+    /// @brief No information given; use default
+    DEFAULT,
+    /// @brief The edge index is given
+    GIVEN,
+    /// @brief The edge is chosen randomly
+    RANDOM,
 };
 
 
@@ -493,6 +508,18 @@ public:
     static bool parseDepartSpeed(const std::string& val, const std::string& element, const std::string& id,
                                  double& speed, DepartSpeedDefinition& dsd, std::string& error);
 
+    /** @brief Validates a given departEdge value
+     * @param[in] val The departEdge value to parse
+     * @param[in] element The name of the type of the parsed element, for building the error message
+     * @param[in] id The id of the parsed element, for building the error message
+     * @param[out] edgeIndex The parsed edge index, if given
+     * @param[out] ded The parsed departEdge definition
+     * @param[out] error Error message, if an error occures
+     * @return Whether the given value is a valid departEdge definition
+     */
+    static bool parseDepartEdge(const std::string& val, const std::string& element, const std::string& id,
+                                 int& edgeIndex, DepartEdgeDefinition& ded, std::string& error);
+
     /** @brief Validates a given arrivalLane value
      * @param[in] val The arrivalLane value to parse
      * @param[in] element The name of the type of the parsed element, for building the error message
@@ -612,6 +639,12 @@ public:
     /// @brief Information how the vehicle's initial speed shall be chosen
     DepartSpeedDefinition departSpeedProcedure;
 
+    /// @brief (optional) The initial edge within the route of the vehicle
+    int departEdge;
+
+    /// @brief Information how the vehicle's initial edge shall be chosen
+    DepartEdgeDefinition departEdgeProcedure;
+
     /// @}
 
     /// @name Arrival definition
@@ -703,6 +736,9 @@ protected:
 
     /// @brief obtain depart speed parameter in string format
     std::string getDepartSpeed() const;
+
+    /// @brief obtain depart edge parameter in string format
+    std::string getDepartEdge() const;
 
     /// @brief obtain arrival lane parameter in string format
     std::string getArrivalLane() const;

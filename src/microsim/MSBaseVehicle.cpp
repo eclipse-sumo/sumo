@@ -126,6 +126,17 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
         calculateArrivalParams();
     }
     myRoute->addReference();
+    if ((pars->parametersSet & VEHPARS_FORCE_REROUTE) == 0 && pars->departEdgeProcedure != DepartEdgeDefinition::DEFAULT) {
+        const int routeEdges = myRoute->getEdges().size();
+        if (pars->departEdgeProcedure == DepartEdgeDefinition::RANDOM) {
+            // write specific edge in vehroute output for reproducibility
+            pars->departEdge = RandHelper::rand(0, routeEdges);
+            pars->departEdgeProcedure = DepartEdgeDefinition::GIVEN;
+        }
+        assert(pars->departEdge >= 0);
+        assert(pars->departEdge < routeEdges);
+        myCurrEdge += pars->departEdge;
+    }
 }
 
 
@@ -490,7 +501,7 @@ MSBaseVehicle::hasValidRoute(std::string& msg, const MSRoute* route) const {
 
 bool
 MSBaseVehicle::hasValidRouteStart(std::string& msg) {
-    if (myRoute->getEdges().size() > 0 && !myRoute->getEdges().front()->prohibits(this)) {
+    if (myRoute->getEdges().size() > 0 && !(*myCurrEdge)->prohibits(this)) {
         myRouteValidity &= ~ROUTE_START_INVALID_PERMISSIONS;
         return true;
     } else {

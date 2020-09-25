@@ -430,6 +430,7 @@
         <xsd:attribute name="departLane" type="departLaneType"/>
         <xsd:attribute name="departPos" type="departPosType"/>
         <xsd:attribute name="departSpeed" type="departSpeedType"/>
+        <xsd:attribute name="departEdge" type="departEdgeType"/>
         <xsd:attribute name="arrivalLane" type="arrivalLaneType"/>
         <xsd:attribute name="arrivalPos" type="arrivalPosType"/>
         <xsd:attribute name="arrivalSpeed" type="arrivalSpeedType"/>
@@ -503,6 +504,7 @@
             <xsd:extension base="flowWithoutIDType">
                 <xsd:attribute name="id" type="idType" use="required"/>
                 <xsd:attribute name="reroute" type="boolType" use="optional"/>
+                <xsd:attribute name="departEdge" type="departEdgeType"/>
             </xsd:extension>
         </xsd:complexContent>
     </xsd:complexType>
@@ -617,6 +619,18 @@
             </xsd:simpleType> 
         </xsd:union>
     </xsd:simpleType>
+
+    <xsd:simpleType name="departEdgeType">
+        <xsd:union memberTypes="xsd:nonNegativeInteger">
+            <xsd:simpleType>
+                <xsd:restriction base="xsd:string">
+                    <xsd:enumeration value="random"/>
+                    <xsd:enumeration value="free"/>
+                </xsd:restriction>
+            </xsd:simpleType> 
+        </xsd:union>
+    </xsd:simpleType>
+
 
     <xsd:simpleType name="arrivalLaneType">
         <xsd:union memberTypes="xsd:nonNegativeInteger">

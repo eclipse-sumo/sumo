@@ -750,6 +750,15 @@ MSRouteHandler::closeVehicle() {
             route = addVehicleStopsToImplicitRoute(route, false);
         }
     }
+    if (myVehicleParameter->departEdgeProcedure != DepartEdgeDefinition::DEFAULT) {
+        if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) != 0) {
+            WRITE_WARNING("Ignoring attribute '" + toString(SUMO_ATTR_DEPARTEDGE) + "' for vehicle '" + myVehicleParameter->id + "' because the route is computed dynamically.");
+        } else if (myVehicleParameter->departEdgeProcedure == DepartEdgeDefinition::GIVEN &&
+                    myVehicleParameter->departEdge >= (int)route->getEdges().size()) {
+                throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has invalid departEdge index "
+                        + toString(myVehicleParameter->departEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
+        }
+    }
 
     // try to build the vehicle
     SUMOVehicle* vehicle = nullptr;

@@ -375,6 +375,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "departPos",              SUMO_ATTR_DEPARTPOS },
     { "departPosLat",           SUMO_ATTR_DEPARTPOS_LAT },
     { "departSpeed",            SUMO_ATTR_DEPARTSPEED },
+    { "departEdge",             SUMO_ATTR_DEPARTEDGE },
     { "arrivalLane",            SUMO_ATTR_ARRIVALLANE },
     { "arrivalPos",             SUMO_ATTR_ARRIVALPOS },
     { "arrivalPosLat",          SUMO_ATTR_ARRIVALPOS_LAT },

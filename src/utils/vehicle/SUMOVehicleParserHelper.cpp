@@ -382,6 +382,19 @@ SUMOVehicleParserHelper::parseCommonAttributes(const SUMOSAXAttributes& attrs, c
             handleError(hardFail, abortCreation, error);
         }
     }
+    // parse depart edge information
+    if (attrs.hasAttribute(SUMO_ATTR_DEPARTEDGE)) {
+        std::string helper = attrs.get<std::string>(SUMO_ATTR_DEPARTEDGE, ret->id.c_str(), ok);
+        int edgeIndex;
+        DepartEdgeDefinition ded;
+        if (SUMOVehicleParameter::parseDepartEdge(helper, element, ret->id, edgeIndex, ded, error)) {
+            ret->parametersSet |= VEHPARS_DEPARTEDGE_SET;
+            ret->departEdge = edgeIndex;
+            ret->departEdgeProcedure = ded;
+        } else {
+            handleError(hardFail, abortCreation, error);
+        }
+    }
     // parse arrival lane information
     if (attrs.hasAttribute(SUMO_ATTR_ARRIVALLANE)) {
         std::string helper = attrs.get<std::string>(SUMO_ATTR_ARRIVALLANE, ret->id.c_str(), ok);

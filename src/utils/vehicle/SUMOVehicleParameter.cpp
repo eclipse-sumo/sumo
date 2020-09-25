@@ -40,6 +40,7 @@ SUMOVehicleParameter::SUMOVehicleParameter()
       departPos(0), departPosProcedure(DepartPosDefinition::DEFAULT),
       departPosLat(0), departPosLatProcedure(DepartPosLatDefinition::DEFAULT),
       departSpeed(-1), departSpeedProcedure(DepartSpeedDefinition::DEFAULT),
+      departEdge(0), departEdgeProcedure(DepartEdgeDefinition::DEFAULT),
       arrivalLane(0), arrivalLaneProcedure(ArrivalLaneDefinition::DEFAULT),
       arrivalPos(0), arrivalPosProcedure(ArrivalPosDefinition::DEFAULT),
       arrivalPosLat(0), arrivalPosLatProcedure(ArrivalPosLatDefinition::DEFAULT),
@@ -100,6 +101,12 @@ SUMOVehicleParameter::write(OutputDevice& dev, const OptionsCont& oc, const Sumo
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, getDepartSpeed());
     } else if (oc.exists("departspeed") && oc.isSet("departspeed")) {
         dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTSPEED, oc.getString("departspeed"));
+    }
+    //  departedge
+    if (wasSet(VEHPARS_DEPARTEDGE_SET) && !defaultOptionOverrides(oc, "departedge")) {
+        dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTEDGE, getDepartEdge());
+    } else if (oc.exists("departedge") && oc.isSet("departedge")) {
+        dev.writeNonEmptyAttr(SUMO_ATTR_DEPARTEDGE, oc.getString("departedge"));
     }
     //  arrivallane
     if (wasSet(VEHPARS_ARRIVALLANE_SET) && !defaultOptionOverrides(oc, "arrivallane")) {
@@ -404,6 +411,35 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
             error = "Invalid departSpeed definition for " + element + ". Must be one of (\"random\", \"max\", or a float>=0)";
         } else {
             error = "Invalid departSpeed definition for " + element + " '" + id + "';\n must be one of (\"random\", \"max\", or a float>=0)";
+        }
+    }
+    return ok;
+}
+
+
+bool
+SUMOVehicleParameter::parseDepartEdge(const std::string& val, const std::string& element, const std::string& id,
+                                 int& edgeIndex, DepartEdgeDefinition& ded, std::string& error) {
+    bool ok = true;
+    edgeIndex = -1.;
+    ded = DepartEdgeDefinition::GIVEN;
+    if (val == "random") {
+        ded = DepartEdgeDefinition::RANDOM;
+    } else {
+        try {
+            edgeIndex = StringUtils::toInt(val);
+            if (edgeIndex < 0) {
+                ok = false;
+            }
+        } catch (...) {
+            ok = false;
+        }
+    }
+    if (!ok) {
+        if (id.empty()) {
+            error = "Invalid departEdge definition for " + element + ". Must be one of (\"random\", \"free\", or an int>=0)";
+        } else {
+            error = "Invalid departEdge definition for " + element + " '" + id + "';\n must be one of (\"random\", \"free\", or an int>=0)";
         }
     }
     return ok;
@@ -740,6 +776,24 @@ SUMOVehicleParameter::getDepartSpeed() const {
             val = "speedLimit";
             break;
         case DepartSpeedDefinition::DEFAULT:
+        default:
+            break;
+    }
+    return val;
+}
+
+
+std::string
+SUMOVehicleParameter::getDepartEdge() const {
+    std::string val;
+    switch (departEdgeProcedure) {
+        case DepartEdgeDefinition::GIVEN:
+            val = toString(departEdge);
+            break;
+        case DepartEdgeDefinition::RANDOM:
+            val = "random";
+            break;
+        case DepartEdgeDefinition::DEFAULT:
         default:
             break;
     }
