@@ -43,6 +43,8 @@ def get_options(args=None):
                         help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds")
     parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
                         help="Do not report conflicts with parking vehicles")
+    parser.add_argument("--until-from-duration", action="store_true", default=False, dest="untilFromDuration",
+                        help="Use stop arrival+duration instead of 'until' to compute overtaking")
     parser.add_argument("--stop-table", dest="stopTable",
                         help="Print timetable information for the given busStop")
 
@@ -68,7 +70,13 @@ def main(options):
             for stop in vehicle.stop:
                 if stop.parking in ["true", "True", "1"] and options.ignoreParking:
                     continue
-                until = parseTime(stop.until)
+                if options.untilFromDuration:
+                    if stop.arrival:
+                        until = parseTime(stop.arrival) + parseTime(stop.duration)
+                    else:
+                        print("Cannot compute 'until' for Vehicle %s because 'arrival' is not defined" % vehicle.id, file=sys.stderr)
+                else:
+                    until = parseTime(stop.until)
                 arrival = parseTime(stop.arrival) if stop.arrival else until - parseTime(stop.duration)
                 stopTimes[stop.busStop].append((arrival, until, vehicle.id, stop.getAttributeSecure("tripId", "")))
 
