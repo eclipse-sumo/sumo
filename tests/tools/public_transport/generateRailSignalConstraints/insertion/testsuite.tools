@@ -15,3 +15,8 @@ arrival_at_stop
 
 # direct predecessor does not move past the signal, so we need to use the predecessor of the predecessor as constraint
 arrival_at_stop_usePrev
+
+# one train passes the stop and the other train is inserted there
+# 
+# use arrival+duration insteald of until for insertion constraints
+until_from_duration
