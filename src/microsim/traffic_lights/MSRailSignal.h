@@ -200,13 +200,20 @@ public:
     /// @}
 
     /// @brief return vehicles that block the intersection/rail signal for vehicles that wish to pass the given linkIndex
-    VehicleVector getBlockingVehicles(int linkIndex);
+    VehicleVector getBlockingVehicles(int linkIndex) const;
+    std::string getBlockingVehicleIDs() const;
 
     /// @brief return vehicles that approach the intersection/rail signal and are in conflict with vehicles that wish to pass the given linkIndex
-    VehicleVector getRivalVehicles(int linkIndex);
+    VehicleVector getRivalVehicles(int linkIndex) const;
+    std::string getRivalVehicleIDs() const;
 
     /// @brief return vehicles that approach the intersection/rail signal and have priority over vehicles that wish to pass the given linkIndex
-    VehicleVector getPriorityVehicles(int linkIndex);
+    VehicleVector getPriorityVehicles(int linkIndex) const;
+    std::string getPriorityVehicleIDs() const;
+
+    /// @brief return information regarding active rail signal constraints for the closest approaching vehicle
+    std::string getConstraintInfo(int linkIndex) const;
+    std::string getConstraintInfo() const;
 
     /// @brief write rail signal block output for all links and driveways
     void writeBlocks(OutputDevice& od) const;
@@ -441,7 +448,7 @@ protected:
 
 protected:
     /// @brief update vehicle lists for traci calls
-    void storeTraCIVehicles(int linkIndex);
+    void storeTraCIVehicles(int linkIndex) const;
 
     /// @name traci result storage
     //@{
@@ -449,6 +456,7 @@ protected:
     static VehicleVector myBlockingVehicles;
     static VehicleVector myRivalVehicles;
     static VehicleVector myPriorityVehicles;
+    static std::string myConstraintInfo;
     //@}
 
 

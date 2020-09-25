@@ -37,6 +37,7 @@
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSDelayBasedTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_StringParam.h>
 #include <gui/GUIApplicationWindow.h>
@@ -226,6 +227,13 @@ GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("minDur", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMinDur));
     ret->mkItem("maxDur", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getCurrentMaxDur));
     ret->mkItem("running duration", true, new FunctionBinding<GUITrafficLightLogicWrapper, int>(this, &GUITrafficLightLogicWrapper::getRunningDuration));
+    MSRailSignal* rs = dynamic_cast<MSRailSignal*>(&myTLLogic);
+    if (rs != nullptr) {
+        ret->mkItem("blocking", true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getBlockingVehicleIDs));
+        ret->mkItem("rival", true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getRivalVehicleIDs));
+        ret->mkItem("priority", true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getPriorityVehicleIDs));
+        ret->mkItem("constraint", true, new FunctionBindingString<MSRailSignal>(rs, &MSRailSignal::getConstraintInfo));
+    }
     // close building
     ret->closeBuilding(&myTLLogic);
     return ret;
