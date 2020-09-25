@@ -88,6 +88,19 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
 GNEMoveOperation::~GNEMoveOperation() {}
 
 // ===========================================================================
+// GNEMoveResult method definitions
+// ===========================================================================
+
+GNEMoveResult::GNEMoveResult(const PositionVector _shapeToUpdate,
+    std::vector<int> _geometryPointsToMove) :
+    shapeToUpdate(_shapeToUpdate),
+    geometryPointsToMove(_geometryPointsToMove) {
+}
+
+
+GNEMoveResult::~GNEMoveResult() {}
+
+// ===========================================================================
 // GNEMoveElement method definitions
 // ===========================================================================
 

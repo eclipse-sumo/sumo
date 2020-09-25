@@ -99,6 +99,29 @@ private:
 };
 
 
+/// @brief move result
+class GNEMoveResult {
+
+public:
+    /// @brief constructor
+    GNEMoveResult(const PositionVector shapeToUpdate, 
+        const std::vector<int> geometryPointsToMove);
+
+    /// @brief destructor
+    ~GNEMoveResult();
+
+    /// @brief shape to update (edited in moveElement)
+    const PositionVector shapeToUpdate;
+
+    /// @brief shape points to move (of shapeToMove)
+    const std::vector<int> geometryPointsToMove;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GNEMoveResult(const GNEMoveResult&) = delete;
+};
+
+
 /// @brief move element
 class GNEMoveElement {
 
