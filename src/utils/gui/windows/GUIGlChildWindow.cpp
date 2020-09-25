@@ -115,7 +115,7 @@ GUIGlChildWindow::buildNavigationToolBar() {
                  GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_RECENTERVIEW, GUIDesignButtonToolbar);
     // add viewport button
     new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-                 "\tEdit ViewporttOpens a menu which lets you edit the viewport.",
+                 "\tEdit Viewport\tOpens a menu which lets you edit the viewport.",
                  GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT, GUIDesignButtonToolbar);
     // toggle button for zooming style
     MFXCheckableButton* zoomBut = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,

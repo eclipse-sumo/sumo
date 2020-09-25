@@ -549,13 +549,13 @@ GNEApplicationWindowHelper::EditMenuCommands::buildEditMenuCommands(FXMenuPane* 
     // build rest of menu commands
     editViewScheme = new FXMenuCommand(editMenu,
                                        "Edit Visualisation\tF9\tOpens a dialog for editing visualization settings.",
-                                       nullptr, myGNEApp, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
+                                       GUIIconSubSys::getIcon(GUIIcon::COLORWHEEL), myGNEApp, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
     editViewPort = new FXMenuCommand(editMenu,
                                      "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing are, zoom and rotation.",
-                                     nullptr, myGNEApp, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
+                                     GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), myGNEApp, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     toogleGrid = new FXMenuCommand(editMenu,
                                    "Toggle Grid\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
-                                   nullptr, myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
+                                    GUIIconSubSys::getIcon(GUIIcon::GRID1), myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
     // add separator
     new FXMenuSeparator(editMenu);
     // add clear front element
