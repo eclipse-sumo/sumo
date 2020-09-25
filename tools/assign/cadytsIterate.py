@@ -132,9 +132,9 @@ def main():
         firstRoute = options.routes.split(",")[0]
         routname = os.path.basename(firstRoute)
         if '_' in routname:
-            output = "%s_%03i.cal.xml" % (routname[:routname.rfind('_')], step)
+            output = os.path.join(pyPath,"%s_%03i.cal.xml" % (routname[:routname.rfind('_')], step))
         else:
-            output = "%s_%03i.cal.xml" % (routname[:routname.find('.')], step)
+            output = os.path.join(pyPath,"%s_%03i.cal.xml" % (routname[:routname.find('.')], step))
 
         call(calibrator + ["CHOICE", "-choicesetfile",
                            options.routes, "-choicefile", "%s" % output], log)
@@ -145,7 +145,7 @@ def main():
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
         writeSUMOConf(sumoBinary, step, options, [], ",".join(files))
-        call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
+        call([sumoBinary, "-c", "%s/iteration_%03i.sumocfg" % (step, step)], log)
         etime = datetime.now()
         print(">>> End time: %s" % etime)
         print(">>> Duration: %s" % (etime - btime))
@@ -153,11 +153,11 @@ def main():
 
         # calibration update
         if evalprefix:
-            call(calibrator + ["UPDATE", "-netfile", "dump_%03i_%s.xml" % (
-                step, options.aggregation), "-flowfile", "%s_%03i.txt" % (evalprefix, step)], log)
+            call(calibrator + ["UPDATE", "-netfile", "%s/dump_%03i_%s.xml" % (
+                step, step, options.aggregation), "-flowfile", "%s_%03i.txt" % (evalprefix, step)], log)
         else:
             call(calibrator + ["UPDATE", "-netfile",
-                               "dump_%03i_%s.xml" % (step, options.aggregation)], log)
+                               "%s/dump_%03i_%s.xml" % (step, step, options.aggregation)], log)
         print("< Step %s ended (duration: %s)" %
               (step, datetime.now() - btime))
         print("------------------\n")
@@ -166,6 +166,6 @@ def main():
     print("calibration ended (duration: %s)" % (datetime.now() - starttime))
     log.close()
 
-
+pyPath = os.path.abspath(os.path.dirname(sys.argv[0]))
 if __name__ == "__main__":
     main()
