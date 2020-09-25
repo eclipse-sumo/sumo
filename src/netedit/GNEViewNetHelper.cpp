@@ -2138,7 +2138,7 @@ GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     menuCheckShowConnections->create();
 
     menuCheckHideConnections = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("hide " + toString(SUMO_TAG_CONNECTION) + "s\t\tHide connections").c_str(),
+            ("Hide " + toString(SUMO_TAG_CONNECTION) + "s\t\tHide connections").c_str(),
             myViewNet, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS, LAYOUT_FIX_HEIGHT);
     menuCheckHideConnections->setHeight(23);
     menuCheckHideConnections->setCheck(false);
