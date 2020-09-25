@@ -259,13 +259,13 @@ GNEInternalLane::setAttribute(SumoXMLAttr key, const std::string& /*value*/) {
 
 
 void 
-GNEInternalLane::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
+GNEInternalLane::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // internal lanes cannot be moved
 }
 
 
 void
-GNEInternalLane::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
+GNEInternalLane::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // internal lanes cannot be moved
 }
 

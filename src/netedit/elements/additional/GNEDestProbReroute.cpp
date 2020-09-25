@@ -184,13 +184,13 @@ GNEDestProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEDestProbReroute::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
+GNEDestProbReroute::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
 
 void 
-GNEDestProbReroute::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
+GNEDestProbReroute::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 

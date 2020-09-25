@@ -299,13 +299,13 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEVaporizer::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
+GNEVaporizer::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
 
 void 
-GNEVaporizer::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
+GNEVaporizer::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 

@@ -556,19 +556,19 @@ GNETAZ::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void
-GNETAZ::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
+GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
     // update new shape
-    myShape = newShape;
+    myShape = moveResult.shapeToUpdate;
     // update geometry
     myTAZGeometry.updateGeometry(myShape);
 }
 
 
 void 
-GNETAZ::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
+GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
     undoList->p_end();
 }
 

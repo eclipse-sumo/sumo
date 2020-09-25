@@ -91,7 +91,12 @@ GNEMoveOperation::~GNEMoveOperation() {}
 // GNEMoveResult method definitions
 // ===========================================================================
 
-GNEMoveResult::GNEMoveResult(const PositionVector _shapeToUpdate,
+GNEMoveResult::GNEMoveResult(std::vector<int> _geometryPointsToMove) :
+    geometryPointsToMove(_geometryPointsToMove) {
+}
+
+
+GNEMoveResult::GNEMoveResult(const PositionVector &_shapeToUpdate, 
     std::vector<int> _geometryPointsToMove) :
     shapeToUpdate(_shapeToUpdate),
     geometryPointsToMove(_geometryPointsToMove) {
@@ -106,30 +111,30 @@ GNEMoveResult::~GNEMoveResult() {}
 
 void 
 GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &offset) {
-    // calculate new shape using shapeToMove
-    PositionVector newShape = moveOperation->shapeToMove;
+    // declare move result
+    GNEMoveResult moveResult(moveOperation->geometryPointsToMove);
     // check if we're moving over a lane shape, an entire shape or only certain geometry point
     if (moveOperation->lane) {
         // calculate movement over lane
-        newShape = calculateMovementOverLane(moveOperation, offset);
+        moveResult.shapeToUpdate = calculateMovementOverLane(moveOperation, offset);
     } else if (moveOperation->geometryPointsToMove.empty()) {
         // move entire shape
-        newShape.add(offset);
+        moveResult.shapeToUpdate.add(offset);
     } else {
         // move geometry points
         for (const auto &geometryPoint : moveOperation->geometryPointsToMove) {
-            newShape[geometryPoint].add(offset);
+            moveResult.shapeToUpdate[geometryPoint].add(offset);
         }
     }
     // move shape element
-    moveOperation->moveElement->setMoveShape(newShape, moveOperation->geometryPointsToMove);
+    moveOperation->moveElement->setMoveShape(moveResult);
 }
 
 
 void 
 GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList) {
-    // calculate new shape using shapeToMove
-    PositionVector newShape = moveOperation->shapeToMove;
+    // declare move result
+    GNEMoveResult moveResult(moveOperation->geometryPointsToMove);
     // check if we're moving over a lane shape, an entire shape or only certain geometry point
     if (moveOperation->lane) {
         // restore original position over lanes
@@ -137,31 +142,31 @@ GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offs
         for (const auto &posOverlane : moveOperation->originalPosOverLanes) {
             originalPosOverLanes.push_back(Position(posOverlane, 0));
         }
-        moveOperation->moveElement->setMoveShape(originalPosOverLanes, moveOperation->geometryPointsToMove);
+        moveOperation->moveElement->setMoveShape(GNEMoveResult(originalPosOverLanes, moveOperation->geometryPointsToMove));
         // calculate movement over lane
-        newShape = calculateMovementOverLane(moveOperation, offset);
+        moveResult.shapeToUpdate = calculateMovementOverLane(moveOperation, offset);
     } else {
         // first restore original geometry geometry
-        moveOperation->moveElement->setMoveShape(moveOperation->originalShape, moveOperation->geometryPointsToMove);
+        moveOperation->moveElement->setMoveShape(GNEMoveResult(moveOperation->originalShape, moveOperation->geometryPointsToMove));
         // check if we're moving an entire shape or  only certain geometry point
         if (moveOperation->geometryPointsToMove.empty()) {
             // move entire shape
-            newShape.add(offset);
+            moveResult.shapeToUpdate.add(offset);
         } else {
             // only move certain geometry points
             for (const auto &index : moveOperation->geometryPointsToMove) {
-                if (newShape[index] != Position::INVALID) {
-                    newShape[index].add(offset);
+                if (moveResult.shapeToUpdate[index] != Position::INVALID) {
+                    moveResult.shapeToUpdate[index].add(offset);
                 }
             }
             // remove double points (only in commitMove)
-            if (newShape.size() > 2) {
-                newShape.removeDoublePoints(2);
+            if (moveResult.shapeToUpdate.size() > 2) {
+                moveResult.shapeToUpdate.removeDoublePoints(2);
             }
         }
     }
     // commit move shape
-    moveOperation->moveElement->commitMoveShape(newShape, moveOperation->geometryPointsToMove, undoList);
+    moveOperation->moveElement->commitMoveShape(moveResult, undoList);
 }
 
 

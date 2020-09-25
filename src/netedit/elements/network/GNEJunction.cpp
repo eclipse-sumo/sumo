@@ -1441,30 +1441,30 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEJunction::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
+GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
     // set new position in NBNode without updating grid
     if (isShapeEdited()) {
         // set new shape
-        myNBNode->setCustomShape(newShape);
-    } else if (newShape.size() > 0) {
-        moveJunctionGeometry(newShape.front(), false);
+        myNBNode->setCustomShape(moveResult.shapeToUpdate);
+    } else if (moveResult.shapeToUpdate.size() > 0) {
+        moveJunctionGeometry(moveResult.shapeToUpdate.front(), false);
     }
 }
 
 
 void 
-GNEJunction::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
+GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // make sure that newShape isn't empty
-    if (newShape.size() > 0) {
+    if (moveResult.shapeToUpdate.size() > 0) {
         // check if we're editing a shape
         if (isShapeEdited()) {
             // commit new shape
             undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(newShape)));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
             undoList->p_end();
         } else {
             undoList->p_begin("position of " + getTagStr());
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
             undoList->p_end();
         }
     }

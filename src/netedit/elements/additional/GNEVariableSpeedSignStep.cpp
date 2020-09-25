@@ -207,13 +207,13 @@ GNEVariableSpeedSignStep::setAttribute(SumoXMLAttr key, const std::string& value
 
 
 void
-GNEVariableSpeedSignStep::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
+GNEVariableSpeedSignStep::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
 
 void 
-GNEVariableSpeedSignStep::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
+GNEVariableSpeedSignStep::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
 

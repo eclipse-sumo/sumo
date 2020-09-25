@@ -1379,41 +1379,41 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEEdge::setMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove) {
+GNEEdge::setMoveShape(const GNEMoveResult& moveResult) {
     // get start and end points
-    const Position shapeStart = newShape.front();
-    const Position shapeEnd = newShape.back();
+    const Position shapeStart = moveResult.shapeToUpdate.front();
+    const Position shapeEnd = moveResult.shapeToUpdate.back();
     // get innen shape
-    PositionVector innenShape = newShape;
+    PositionVector innenShape = moveResult.shapeToUpdate;
     innenShape.pop_front();
     innenShape.pop_back();
     // set shape start
-    if (std::find(geometryPointsToMove.begin(), geometryPointsToMove.end(), 0) != geometryPointsToMove.end()) {
+    if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), 0) != moveResult.geometryPointsToMove.end()) {
         setShapeStartPos(shapeStart);
     }
     // set innen geometry
     setGeometry(innenShape, true);
     // set shape end
-    if (std::find(geometryPointsToMove.begin(), geometryPointsToMove.end(), (newShape.size() - 1)) != geometryPointsToMove.end()) {
+    if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), (moveResult.shapeToUpdate.size() - 1)) != moveResult.geometryPointsToMove.end()) {
         setShapeEndPos(shapeEnd);
     }
 }
 
 
 void 
-GNEEdge::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
+GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // make sure that newShape isn't empty
-    if (newShape.size() > 0) {
+    if (moveResult.shapeToUpdate.size() > 0) {
         // get start and end points
-        const Position shapeStart = newShape.front();
-        const Position shapeEnd = newShape.back();
+        const Position shapeStart = moveResult.shapeToUpdate.front();
+        const Position shapeEnd = moveResult.shapeToUpdate.back();
         // get innen shape
-        PositionVector innenShape = newShape;
+        PositionVector innenShape = moveResult.shapeToUpdate;
         innenShape.pop_front();
         innenShape.pop_back();
         // commit new shape
         undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
-        if (std::find(geometryPointsToMove.begin(), geometryPointsToMove.end(), 0) != geometryPointsToMove.end()) {
+        if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), 0) != moveResult.geometryPointsToMove.end()) {
             undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_START, toString(shapeStart)));
         }
         // only update innen shape if isn't empty (example, if we move a end geometry point)
@@ -1421,7 +1421,7 @@ GNEEdge::commitMoveShape(const PositionVector& newShape, const std::vector<int> 
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(innenShape)));
         }
         // check if we have to update shape end
-        if (std::find(geometryPointsToMove.begin(), geometryPointsToMove.end(), (newShape.size() - 1)) != geometryPointsToMove.end()) {
+        if (std::find(moveResult.geometryPointsToMove.begin(), moveResult.geometryPointsToMove.end(), (moveResult.shapeToUpdate.size() - 1)) != moveResult.geometryPointsToMove.end()) {
             undoList->p_add(new GNEChange_Attribute(this, GNE_ATTR_SHAPE_END, toString(shapeEnd)));
         }
         undoList->p_end();

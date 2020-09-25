@@ -211,10 +211,10 @@ private:
     virtual void setAttribute(SumoXMLAttr key, const std::string& value) = 0;
 
     /// @brief set move shape
-    virtual void setMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove) = 0;
+    virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
 
     /// @brief commit move shape
-    virtual void commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) = 0;
+    virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief method for enabling the attribute and nothing else (used in GNEChange_EnableAttribute)
     void setEnabledAttribute(const int enabledAttributes);

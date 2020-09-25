@@ -734,9 +734,9 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEConnection::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
+GNEConnection::setMoveShape(const GNEMoveResult& moveResult) {
     // set custom shape
-    getNBEdgeConnection().customShape = newShape;
+    getNBEdgeConnection().customShape = moveResult.shapeToUpdate;
     // mark junction as deprecated
     myShapeDeprecated = true;
     // update geometry
@@ -745,10 +745,10 @@ GNEConnection::setMoveShape(const PositionVector& newShape, const std::vector<in
 
 
 void
-GNEConnection::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
+GNEConnection::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(newShape)));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_CUSTOMSHAPE, toString(moveResult.shapeToUpdate)));
     undoList->p_end();
 }
 

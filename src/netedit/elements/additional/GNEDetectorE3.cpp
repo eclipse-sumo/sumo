@@ -371,18 +371,18 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNEDetectorE3::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
+GNEDetectorE3::setMoveShape(const GNEMoveResult& moveResult) {
     // update position
-    myPosition = newShape.front();
+    myPosition = moveResult.shapeToUpdate.front();
     // update geometry
     updateGeometry();
 }
 
 
 void
-GNEDetectorE3::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
+GNEDetectorE3::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
-    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(newShape.front())));
+    undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
     undoList->p_end();
 }
 

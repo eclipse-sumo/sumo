@@ -238,19 +238,19 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
 
 
 void 
-GNEDetector::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
+GNEDetector::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myPositionOverLane = newShape.front().x();
+    myPositionOverLane = moveResult.shapeToUpdate.front().x();
     // update geometry
     updateGeometry();
 }
 
 
 void 
-GNEDetector::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
+GNEDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     // now adjust start position
-    setAttribute(SUMO_ATTR_POSITION, toString(newShape.front().x()), undoList);
+    setAttribute(SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front().x()), undoList);
     undoList->p_end();
 }
 

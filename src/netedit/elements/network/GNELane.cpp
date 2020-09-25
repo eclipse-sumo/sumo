@@ -1088,13 +1088,13 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 
 
 void 
-GNELane::setMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/) {
+GNELane::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // currently unused
 }
 
 
 void 
-GNELane::commitMoveShape(const PositionVector& /*newShape*/, const std::vector<int> /*geometryPointsToMove*/, GNEUndoList* /*undoList*/) {
+GNELane::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // currently unused
 }
 

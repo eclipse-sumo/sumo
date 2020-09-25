@@ -104,14 +104,16 @@ class GNEMoveResult {
 
 public:
     /// @brief constructor
-    GNEMoveResult(const PositionVector shapeToUpdate, 
-        const std::vector<int> geometryPointsToMove);
+    GNEMoveResult(const std::vector<int> geometryPointsToMove);
+
+    /// @brief constructor for shape and geometry points
+    GNEMoveResult(const PositionVector &shapeToUpdate, const std::vector<int> geometryPointsToMove);
 
     /// @brief destructor
     ~GNEMoveResult();
 
     /// @brief shape to update (edited in moveElement)
-    const PositionVector shapeToUpdate;
+    PositionVector shapeToUpdate;
 
     /// @brief shape points to move (of shapeToMove)
     const std::vector<int> geometryPointsToMove;
@@ -145,10 +147,10 @@ public:
 
 private:
     /// @brief set move shape
-    virtual void setMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove) = 0;
+    virtual void setMoveShape(const GNEMoveResult& moveResult) = 0;
 
     /// @brief commit move shape
-    virtual void commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) = 0;
+    virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief calculate movement over lane
     static const PositionVector calculateMovementOverLane(const GNEMoveOperation* moveOperation, const Position &offset);

@@ -468,25 +468,25 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
 
 
 void 
-GNEStoppingPlace::setMoveShape(const PositionVector& newShape, const std::vector<int> /*geometryPointsToMove*/) {
+GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
-    myStartPosition = newShape.front().x();
-    myEndPosition = newShape.back().x();
+    myStartPosition = moveResult.shapeToUpdate.front().x();
+    myEndPosition = moveResult.shapeToUpdate.back().x();
     // update geometry
     updateGeometry();
 }
 
 
 void 
-GNEStoppingPlace::commitMoveShape(const PositionVector& newShape, const std::vector<int> geometryPointsToMove, GNEUndoList* undoList) {
+GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // only commit geometry moving if at leats start or end positions is defined
     if (myParametersSet > 0) {
         undoList->p_begin("position of " + getTagStr());
         if (myParametersSet & STOPPINGPLACE_STARTPOS_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(newShape.front().x())));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_STARTPOS, toString(moveResult.shapeToUpdate.front().x())));
         }
         if (myParametersSet & STOPPINGPLACE_ENDPOS_SET) {
-            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(newShape.back().x())));
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(moveResult.shapeToUpdate.back().x())));
         }
         undoList->p_end();
     }
