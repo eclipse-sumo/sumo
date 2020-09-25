@@ -47,7 +47,7 @@ GNEParkingSpace::~GNEParkingSpace() {}
 
 
 GNEMoveOperation* 
-GNEParkingSpace::getMoveOperation(const double shapeOffset) {
+GNEParkingSpace::getMoveOperation(const double /*shapeOffset*/) {
     if (myBlockMovement) {
         // element blocked, then nothing to move
         return nullptr;
@@ -146,7 +146,7 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         // Traslate matrix and draw lock icon if isn't being drawn for selecting
         glTranslated(0, lengthExaggeration * 0.5, 0.1);
         // draw lock icon
-        GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0);
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, false);
         // pop layer matrix
         glPopMatrix();
         // pop name

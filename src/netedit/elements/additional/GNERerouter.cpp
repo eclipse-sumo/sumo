@@ -130,6 +130,8 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_REROUTER);
+        // Add layer matrix
+        glPushMatrix();
         // translate to position
         glTranslated(myPosition.x(), myPosition.y(), 0);
         // scale
@@ -152,8 +154,10 @@ GNERerouter::drawGL(const GUIVisualizationSettings& s) const {
             // just draw a square
             GLHelper::drawBoxLine(Position(0, s.additionalSettings.rerouterSize), 0, 2 * s.additionalSettings.rerouterSize, s.additionalSettings.rerouterSize);
         }
+        // Pop texture matrix
+        glPopMatrix();
         // draw lock icon
-        GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, rerouterExaggeration, 0, 0, 0.4);
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, rerouterExaggeration, -0.5, -0.5, false, 0.4);
         // Pop layer matrix
         glPopMatrix();
         // Pop name

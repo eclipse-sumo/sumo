@@ -61,7 +61,7 @@ GNEVaporizer::updateGeometry() {
 
 
 void 
-GNEVaporizer::updateCenteringBoundary(const bool updateGrid) {
+GNEVaporizer::updateCenteringBoundary(const bool /*updateGrid*/) {
     // update geometry
     updateGeometry();
     // add shape boundary

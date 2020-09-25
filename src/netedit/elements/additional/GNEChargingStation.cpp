@@ -103,7 +103,7 @@ GNEChargingStation::drawGL(const GUIVisualizationSettings& s) const {
             // draw sign
             drawSign(s, chargingStationExaggeration, baseColor, signColor, "C");
             // draw lock icon
-            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, chargingStationExaggeration, 0, 0);
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, chargingStationExaggeration, 0, 0, true);
         }
         // pop draw matrix
         glPopMatrix();

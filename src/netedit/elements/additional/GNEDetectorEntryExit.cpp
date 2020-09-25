@@ -151,10 +151,6 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         }
         // Pop polygon matrix
         glPopMatrix();
-        // draw lock icon
-        GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0);
-        // Pop layer matrix
-        glPopMatrix();
         // Check if the distance is enought to draw details
         if (!s.drawForRectangleSelection && s.drawDetail(s.detailSettings.detectorDetails, entryExitExaggeration)) {
             // Push matrix
@@ -201,9 +197,11 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             }
             // pop matrix
             glPopMatrix();
-            // draw lock icon
-            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0, 0.4);
         }
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0, true);
+        // Pop layer matrix
+        glPopMatrix();
         // Draw name if isn't being drawn for selecting
         if (!s.drawForRectangleSelection) {
             drawName(getPositionInView(), s.scale, s.addName);

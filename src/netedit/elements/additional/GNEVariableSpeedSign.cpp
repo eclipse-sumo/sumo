@@ -125,6 +125,8 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_VSS);
+        // push texture matrix
+        glPushMatrix();
         // translate to position
         glTranslated(myPosition.x(), myPosition.y(), 0);
         // scale
@@ -147,8 +149,10 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
             // just draw a withe square
             GLHelper::drawBoxLine(Position(0, s.additionalSettings.VSSSize), 0, 2 * s.additionalSettings.VSSSize, s.additionalSettings.VSSSize);
         }
+        // Pop texture matrix
+        glPopMatrix();
         // draw lock icon
-        GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, VSSExaggeration, 0, 0, 0.4);
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, VSSExaggeration, -0.5, -0.5, false, 0.4);
         // Pop layer matrix
         glPopMatrix();
         // Pop name

@@ -869,7 +869,7 @@ struct GNEViewNetHelper {
         MoveMultipleElementValues(GNEViewNet* viewNet);
 
         /// @brief begin move selection
-        void beginMoveSelection(GNEAttributeCarrier* originAC);
+        void beginMoveSelection();
 
         /// @brief move selection
         void moveSelection();
@@ -1213,13 +1213,15 @@ struct GNEViewNetHelper {
     };
 
     /// @brief struct for pack all variables and functions related with Block Icon
-    struct BlockIcon {
+    struct LockIcon {
         /// @brief draw lock icon
         static void drawLockIcon(const GNEAttributeCarrier *AC, const GNEGeometry::Geometry &geometry,
-            const double exaggeration, const double offsetx, const double offsety, const double size = 0.5);
+            const double exaggeration, const double offsetx, const double offsety, 
+            const bool overlane, const double size = 0.5);
+
     private:
         /// @brief constructor
-        BlockIcon();
+        LockIcon();
 
         /// @brief check drawing
         static const bool checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration);
@@ -1228,7 +1230,7 @@ struct GNEViewNetHelper {
         static const GUIGlID getLockIcon(const GNEAttributeCarrier *AC);
 
         /// @brief Invalidated assignment operator
-        BlockIcon& operator=(const BlockIcon& other) = delete;
+        LockIcon& operator=(const LockIcon& other) = delete;
     };
 
     /// @brief get scaled rainbow colors

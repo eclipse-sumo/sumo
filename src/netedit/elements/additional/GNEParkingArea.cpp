@@ -102,7 +102,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
             // draw sign
             drawSign(s, parkingAreaExaggeration, baseColor, signColor, "H");
             // draw lock icon
-            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0);
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, true);
         }
         // pop draw matrix
         glPopMatrix();

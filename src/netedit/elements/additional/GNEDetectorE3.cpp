@@ -118,6 +118,8 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         glPushMatrix();
         // translate to front
         myNet->getViewNet()->drawTranslateFrontAttributeCarrier(this, GLO_E3DETECTOR);
+        // Add texture matrix
+        glPushMatrix();
         // translate to position
         glTranslated(myPosition.x(), myPosition.y(), 0);
         // scale
@@ -139,11 +141,15 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
             } else {
                 GUITexturesHelper::drawTexturedBox(GUITextureSubSys::getTexture(GNETEXTURE_E3), s.detectorSettings.E3Size);
             }
-            // draw lock icon
-            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, E3Exaggeration, 0, 0, 0.4);
         }
-        // pop layer matrix
+        // Pop texture matrix
         glPopMatrix();
+        // draw lock icon
+        GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E3Exaggeration, -0.5, -0.5, false, 0.4);
+        // Pop layer matrix
+        glPopMatrix();
+        // Pop name
+        glPopName();
         // Draw name if isn't being drawn for selecting
         drawName(getPositionInView(), s.scale, s.addName);
         // Pop name

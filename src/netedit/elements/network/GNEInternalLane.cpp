@@ -206,7 +206,7 @@ GNEInternalLane::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 
 
 void
-GNEInternalLane::updateCenteringBoundary(const bool updateGrid) {
+GNEInternalLane::updateCenteringBoundary(const bool /*updateGrid*/) {
     myBoundary = myInternalLaneGeometry.getShape().getBoxBoundary();
     myBoundary.grow(10);
 }

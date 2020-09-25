@@ -220,7 +220,7 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
 
 
 GUIParameterTableWindow*
-GNEPoly::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) {
+GNEPoly::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /*parent*/) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("type", false, getShapeType());

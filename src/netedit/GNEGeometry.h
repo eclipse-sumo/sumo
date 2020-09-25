@@ -566,6 +566,9 @@ struct GNEGeometry {
     /// @brief get a circle around the given position
     static PositionVector getVertexCircleAroundPosition(const Position& pos, const double width, const int steps = 8);
 
+    /// @brief rotate over lane (used by Lock icons, detector logos, etc.)
+    static void rotateOverLane(const double rot);
+
 private:
     /// @brief Storage for precomputed sin/cos-values describing a circle
     static PositionVector myCircleCoords;

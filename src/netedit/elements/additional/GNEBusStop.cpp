@@ -119,7 +119,7 @@ GNEBusStop::drawGL(const GUIVisualizationSettings& s) const {
             // draw sign
             drawSign(s, busStopExaggeration, baseColor, signColor, "H");
             // draw lock icon
-            GNEViewNetHelper::BlockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0);
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, busStopExaggeration, 0, 0, true);
         }
         // pop draw matrix
         glPopMatrix();

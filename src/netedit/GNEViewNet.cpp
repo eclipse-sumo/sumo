@@ -1205,7 +1205,9 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, GU
 
 bool
 GNEViewNet::showLockIcon() const {
-    return (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE || myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT || myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL);
+    return ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || 
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) || 
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL));
 }
 
 
@@ -3836,7 +3838,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                     // check if we're moving a set of selected items
                     if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                         // move selected ACs
-                        myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
+                        myMoveMultipleElementValues.beginMoveSelection();
                         // update view
                         updateViewNet();
                     } else if (!myMoveSingleElementValues.beginMoveSingleElementNetworkMode()) {
@@ -4085,7 +4087,7 @@ GNEViewNet::processLeftButtonPressDemand(void* eventData) {
                 // check if we're moving a set of selected items
                 if (myObjectsUnderCursor.getAttributeCarrierFront()->isAttributeCarrierSelected()) {
                     // move selected ACs
-                    myMoveMultipleElementValues.beginMoveSelection(myObjectsUnderCursor.getAttributeCarrierFront());
+                    myMoveMultipleElementValues.beginMoveSelection();
                     // update view
                     updateViewNet();
                 } else if (!myMoveSingleElementValues.beginMoveSingleElementDemandMode()) {

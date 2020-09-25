@@ -1150,7 +1150,7 @@ GNEViewNetHelper::MoveMultipleElementValues::MoveMultipleElementValues(GNEViewNe
 
 
 void
-GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection(GNEAttributeCarrier* originAC) {
+GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection() {
     // save clicked position (to calculate offset)
     myClickedPosition = myViewNet->getPositionInformation();
     // obtain Junctions and edges selected
@@ -3212,12 +3212,12 @@ GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
 }
 
 // ---------------------------------------------------------------------------
-// GNEAdditional::BlockIcon - methods
+// GNEViewNetHelper::BlockIcon - methods
 // ---------------------------------------------------------------------------
 
 void
-GNEViewNetHelper::BlockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const GNEGeometry::Geometry &geometry,
-    const double exaggeration, const double offsetx, const double offsety, const double size) {
+GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const GNEGeometry::Geometry &geometry,
+    const double exaggeration, const double offsetx, const double offsety, const bool overlane, const double size) {
     // first check if icon can be drawn
     if (checkDrawing(AC, exaggeration) && (geometry.getShape().size() > 0)) {
         // calculate middle point
@@ -3230,16 +3230,19 @@ GNEViewNetHelper::BlockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const G
         const GUIGlID lockTexture = getLockIcon(AC);
         // Start pushing matrix
         glPushMatrix();
-        // Traslate to middle of shape
+        // Traslate to position
         glTranslated(pos.x(), pos.y(), 0.1);
+        // rotate depending of overlane
+        if (overlane) {
+            GNEGeometry::rotateOverLane(rot);
+        } else {
+            //
+            glRotated(180, 0, 0, 1);
+        }
         // Set draw color
         glColor3d(1, 1, 1);
-        // Rotate depending of rotation
-        glRotated((rot * -1) + 90, 0, 0, 1);
         // Traslate depending of the offset
         glTranslated(offsetx, offsety, 0);
-        // Rotate again
-        glRotated(180, 0, 0, 1);
         // Draw lock icon
         GUITexturesHelper::drawTexturedBox(lockTexture, size);
         // Pop matrix
@@ -3248,11 +3251,11 @@ GNEViewNetHelper::BlockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const G
 }
 
 
-GNEViewNetHelper::BlockIcon::BlockIcon() {}
+GNEViewNetHelper::LockIcon::LockIcon() {}
 
 
 const bool 
-GNEViewNetHelper::BlockIcon::checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration) {
+GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration) {
     // get visualization settings
     const auto s = AC->getNet()->getViewNet()->getVisualisationSettings();
     // check exaggeration
@@ -3268,14 +3271,14 @@ GNEViewNetHelper::BlockIcon::checkDrawing(const GNEAttributeCarrier *AC, const d
         return false;
     }
     // check modes
-    if (AC->getNet()->getViewNet()->showLockIcon()) {
+    if (!AC->getNet()->getViewNet()->showLockIcon()) {
         return false;
     }
     return true;
 }
 
 const GUIGlID 
-GNEViewNetHelper::BlockIcon::getLockIcon(const GNEAttributeCarrier *AC) {
+GNEViewNetHelper::LockIcon::getLockIcon(const GNEAttributeCarrier *AC) {
     // Draw icon depending of the state of additional
     if (AC->drawUsingSelectColor()) {
         if (!AC->getTagProperty().canBlockMovement()) {

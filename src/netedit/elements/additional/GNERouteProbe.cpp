@@ -58,7 +58,7 @@ GNERouteProbe::updateGeometry() {
 
 
 void 
-GNERouteProbe::updateCenteringBoundary(const bool updateGrid) {
+GNERouteProbe::updateCenteringBoundary(const bool /*pdateGrid*/) {
     // update geometry
     updateGeometry();
     // add shape boundary
