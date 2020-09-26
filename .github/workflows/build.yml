@@ -120,11 +120,12 @@ jobs:
         mkdir dist
         mv ./*-wheels/* dist
         mv dist/sumo-*cp38* `echo dist/sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
-    - name: Publish to Test PyPI
-      uses: pypa/gh-action-pypi-publish@master
-      with:
-        password: ${{ secrets.TEST_PYPI_TOKEN }}
-        repository_url: https://test.pypi.org/legacy/
+
+#    - name: Publish to Test PyPI
+#      uses: pypa/gh-action-pypi-publish@master
+#      with:
+#        password: ${{ secrets.TEST_PYPI_TOKEN }}
+#        repository_url: https://test.pypi.org/legacy/
 
   ###################
   # BUILDING ON macOS
