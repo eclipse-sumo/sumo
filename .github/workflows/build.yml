@@ -108,7 +108,7 @@ jobs:
   # PUBLISHING wheels
   ###################
   publish-wheels:
-    needs: [build-windows,build-manylinux-wheels]
+    needs: [build-manylinux-wheels]
     runs-on: ubuntu-latest
 
     steps:
