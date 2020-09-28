@@ -33,7 +33,7 @@ template<typename TimeT = std::chrono::milliseconds, typename ClockT =
 >
 class StopWatch {
 public:
-    StopWatch(const bool calibrate=true) : myTimingCost(0) {
+    StopWatch(const bool calibrate=false) : myTimingCost(0) {
         if (calibrate) {
             myStart = ClockT::now();
             for (int i = 0; i < 1000; i++) {
