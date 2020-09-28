@@ -1091,9 +1091,6 @@ MSLane::safeInsertionSpeed(const MSVehicle* veh, double seen, const MSLeaderInfo
 // ------ Handling vehicles lapping into lanes ------
 const MSLeaderInfo
 MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double minPos, bool allowCached) const {
-#ifdef HAVE_FOX
-    FXConditionalLock lock(myLeaderInfoMutex, MSGlobals::gNumSimThreads > 1);
-#endif
     if (myLeaderInfoTime < MSNet::getInstance()->getCurrentTimeStep() || ego != nullptr || minPos > 0 || !allowCached) {
         MSLeaderInfo leaderTmp(this, ego, latOffset);
         AnyVehicleIterator last = anyVehiclesBegin();
@@ -1121,6 +1118,9 @@ MSLane::getLastVehicleInformation(const MSVehicle* ego, double latOffset, double
             veh = *(++last);
         }
         if (ego == nullptr && minPos == 0) {
+#ifdef HAVE_FOX
+            FXConditionalLock lock(myLeaderInfoMutex, MSGlobals::gNumSimThreads > 1);
+#endif
             // update cached value
             myLeaderInfo = leaderTmp;
             myLeaderInfoTime = MSNet::getInstance()->getCurrentTimeStep();
@@ -2583,41 +2583,45 @@ MSLane::getNormalPredecessorLane() const {
 
 MSLane*
 MSLane::getLogicalPredecessorLane(const MSEdge& fromEdge) const {
-    for (std::vector<IncomingLaneInfo>::const_iterator i = myIncomingLanes.begin(); i != myIncomingLanes.end(); ++i) {
-        MSLane* cand = (*i).lane;
-        if (&(cand->getEdge()) == &fromEdge) {
-            return (*i).lane;
+    for (const IncomingLaneInfo& cand : myIncomingLanes) {
+        if (&(cand.lane->getEdge()) == &fromEdge) {
+            return cand.lane;
         }
     }
     return nullptr;
 }
+
 
 MSLane*
 MSLane::getCanonicalPredecessorLane() const {
     if (myCanonicalPredecessorLane != nullptr) {
         return myCanonicalPredecessorLane;
     }
-    if (myIncomingLanes.size() == 0) {
+    if (myIncomingLanes.empty()) {
         return nullptr;
     }
     // myCanonicalPredecessorLane has not yet been determined and there exist incoming lanes
-    std::vector<IncomingLaneInfo> candidateLanes = myIncomingLanes;
     // get the lane with the priorized (or if this does not apply the "straightest") connection
-    std::sort(candidateLanes.begin(), candidateLanes.end(), incoming_lane_priority_sorter(this));
-    IncomingLaneInfo best = *(candidateLanes.begin());
-#ifdef DEBUG_LANE_SORTER
-    std::cout << "\nBest predecessor lane for lane '" << myID << "': '" << best.lane->getID() << "'" << std::endl;
+    const auto bestLane = std::min_element(myIncomingLanes.begin(), myIncomingLanes.end(), incoming_lane_priority_sorter(this));
+    {
+#ifdef HAVE_FOX
+        FXConditionalLock lock(myLeaderInfoMutex, MSGlobals::gNumSimThreads > 1);
 #endif
-    myCanonicalPredecessorLane = best.lane;
+        myCanonicalPredecessorLane = bestLane->lane;
+    }
+#ifdef DEBUG_LANE_SORTER
+    std::cout << "\nBest predecessor lane for lane '" << myID << "': '" << myCanonicalPredecessorLane->getID() << "'" << std::endl;
+#endif
     return myCanonicalPredecessorLane;
 }
+
 
 MSLane*
 MSLane::getCanonicalSuccessorLane() const {
     if (myCanonicalSuccessorLane != nullptr) {
         return myCanonicalSuccessorLane;
     }
-    if (myLinks.size() == 0) {
+    if (myLinks.empty()) {
         return nullptr;
     }
     // myCanonicalSuccessorLane has not yet been determined and there exist outgoing links
