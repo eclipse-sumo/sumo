@@ -119,7 +119,7 @@ jobs:
         ls -lR
         mkdir dist
         mv ./*-wheels/* dist
-        mv dist/sumo-*cp38* `echo dist/sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
+#        mv dist/sumo-*cp38* `echo dist/sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
 
 #    - name: Publish to Test PyPI
 #      uses: pypa/gh-action-pypi-publish@master
