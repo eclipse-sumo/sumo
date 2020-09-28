@@ -127,7 +127,7 @@ MSBaseVehicle::MSBaseVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
     }
     myRoute->addReference();
     if ((pars->parametersSet & VEHPARS_FORCE_REROUTE) == 0 && pars->departEdgeProcedure != DepartEdgeDefinition::DEFAULT) {
-        const int routeEdges = myRoute->getEdges().size();
+        const int routeEdges = (int)myRoute->getEdges().size();
         if (pars->departEdgeProcedure == DepartEdgeDefinition::RANDOM) {
             // write specific edge in vehroute output for reproducibility
             pars->departEdge = RandHelper::rand(0, routeEdges);

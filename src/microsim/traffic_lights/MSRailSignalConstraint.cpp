@@ -231,7 +231,7 @@ MSRailSignalConstraint_Predecessor::PassedTracker::saveState(OutputDevice& out) 
 
 void
 MSRailSignalConstraint_Predecessor::PassedTracker::loadState(int index, const std::vector<std::string>& tripIDs) {
-    raiseLimit(tripIDs.size());
+    raiseLimit((int)tripIDs.size());
     for (int i = 0; i < (int)tripIDs.size(); i++) {
         myPassed[i] = tripIDs[i];
     }

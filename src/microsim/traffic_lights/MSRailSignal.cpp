@@ -565,7 +565,7 @@ MSRailSignal::LinkInfo::buildDriveWay(MSRouteIterator first, MSRouteIterator end
     }
     dw.buildRoute(myLink, 0., first, end, visited);
     if (dw.myProtectedBidi == nullptr) {
-        dw.myCoreSize = dw.myRoute.size();
+        dw.myCoreSize = (int)dw.myRoute.size();
     }
     dw.checkFlanks(dw.myForward, visited, true);
     dw.checkFlanks(dw.myBidi, visited, false);
@@ -837,7 +837,7 @@ MSRailSignal::DriveWay::deadlockLaneOccupied(bool store) const {
 #endif
             // check of foe will enter myBidi (need to check at most
             // myBidiExtended.size edges)
-            int minEdges = myBidiExtended.size();
+            const int minEdges = (int)myBidiExtended.size();
             auto foeIt = foe->getCurrentRouteEdge() + 1;
             auto foeEnd = foe->getRoute().end();
             bool conflict = false;
@@ -1070,15 +1070,15 @@ MSRailSignal::DriveWay::buildRoute(MSLink* origin, double length,
                     if (ili.viaLink->getDirection() == LinkDirection::TURN) {
                         continue;
                     }
-                    for (MSLink* link : ili.lane->getLinkCont()) {
+                    for (const MSLink* const link : ili.lane->getLinkCont()) {
                         if (link->getDirection() == LinkDirection::TURN) {
                             continue;
                         }
                         if (link->getViaLaneOrLane() != bidi) {
                             // this switch is special beause it still lies on the current route
                             //myProtectingSwitches.push_back(ili.viaLink);
-                            const MSEdge* bidiNext = bidi->getNextNormal();
-                            myCoreSize = myRoute.size();
+                            const MSEdge* const bidiNext = bidi->getNextNormal();
+                            myCoreSize = (int)myRoute.size();
                             if (MSRailSignalControl::getInstance().getUsedEdges().count(bidiNext) == 0) {
 #ifdef DEBUG_DRIVEWAY_BUILDROUTE
                                 if (gDebugFlag4) {
