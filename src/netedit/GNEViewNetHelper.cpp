@@ -1166,7 +1166,7 @@ GNEViewNetHelper::MoveMultipleElementValues::beginMoveSelection() {
 
 
 void
-GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
+GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftButtonPressed) {
     // calculate offset between current position and original position
     Position offsetMovement = myViewNet->getPositionInformation() - myClickedPosition;
     // calculate Z depending of Grid
@@ -1178,13 +1178,15 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
         offsetMovement.setz(0);
     }
     // check if mouse button is pressed
-    if (true /*mouseLeftButtonPressed*/) {
+    if (mouseLeftButtonPressed) {
         // iterate over all operations
         for (const auto &moveOperation : myMoveOperations) {
             // move elements
             GNEMoveElement::moveElement(moveOperation, offsetMovement);
         }
-    } else {
+    } else if (myMoveOperations.size() > 0) {
+        // begin undo list
+        myViewNet->getUndoList()->p_begin("moving selection");
         // iterate over all operations
         for (const auto &moveOperation : myMoveOperations) {
             // commit move
@@ -1192,6 +1194,8 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection() {
             // don't forget delete move operation
             delete moveOperation;
         }
+        // end undo list
+        myViewNet->getUndoList()->p_end();
         // clear move operations
         myMoveOperations.clear();
     }
@@ -1202,12 +1206,24 @@ void
 GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
     // calculate offset between current position and original position
     Position offsetMovement = myViewNet->getPositionInformation() - myClickedPosition;
+    // calculate Z depending of Grid
+    if (myViewNet->myNetworkViewOptions.menuCheckMoveElevation->shown() && myViewNet->myNetworkViewOptions.menuCheckMoveElevation->getCheck() == TRUE) {
+        // reset offset X and Y and use Y for Z
+        offsetMovement = Position(0, 0, offsetMovement.y());
+    } else {
+        // leave z empty (because in this case offset only actuates over X-Y)
+        offsetMovement.setz(0);
+    }
+    // begin undo list
+    myViewNet->getUndoList()->p_begin("moving selection");
     // finish all move operations
     for (const auto &moveOperation : myMoveOperations) {
         GNEMoveElement::commitMove(moveOperation, offsetMovement, myViewNet->getUndoList());
         // don't forget delete move operation
         delete moveOperation;
     }
+    // end undo list
+    myViewNet->getUndoList()->p_end();
     // clear move operations
     myMoveOperations.clear();
 }

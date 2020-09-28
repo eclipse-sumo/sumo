@@ -4015,7 +4015,7 @@ GNEViewNet::processMoveMouseNetwork(const bool mouseLeftButtonPressed) {
     // check what type of additional is moved
     if (myMoveMultipleElementValues.isMovingSelection()) {
         // move entire selection
-        myMoveMultipleElementValues.moveSelection();
+        myMoveMultipleElementValues.moveSelection(mouseLeftButtonPressed);
     } else if (mySelectingArea.selectingUsingRectangle) {
         // update selection corner of selecting area
         mySelectingArea.moveRectangleSelection();

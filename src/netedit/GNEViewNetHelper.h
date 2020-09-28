@@ -872,7 +872,7 @@ struct GNEViewNetHelper {
         void beginMoveSelection();
 
         /// @brief move selection
-        void moveSelection();
+        void moveSelection(const bool mouseLeftButtonPressed);
 
         /// @brief finish moving selection
         void finishMoveSelection();
