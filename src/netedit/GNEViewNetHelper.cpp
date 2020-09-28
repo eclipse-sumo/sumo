@@ -2197,7 +2197,7 @@ GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     menuCheckHideNonInspectedDemandElements->create();
 
     menuCheckShowAllPersonPlans = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-            ("Show person plans\t\tshow all person plans"),
+            ("Show person plans\t\tShow all person plans"),
             myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS, LAYOUT_FIX_HEIGHT);
     menuCheckShowAllPersonPlans->setHeight(23);
     menuCheckShowAllPersonPlans->setCheck(false);
