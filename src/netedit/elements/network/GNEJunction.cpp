@@ -1451,6 +1451,7 @@ GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
     } else if (moveResult.shapeToUpdate.size() > 0) {
         moveJunctionGeometry(moveResult.shapeToUpdate.front(), false);
     }
+    updateGeometry();
 }
 
 

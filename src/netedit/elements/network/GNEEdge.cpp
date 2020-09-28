@@ -185,13 +185,13 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
                 // if edge is selected, check conditions
                 if (getParentJunctions().front()->isAttributeCarrierSelected()) {
                     // fill geometry points
-                    for (int i = 0; i <= newIndex; i++) {
+                    for (int i = 1; i <= newIndex; i++) {
                         geometryPointsToMove.push_back(i);
                     }
                     // move only a part of edge geometry
                     return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, shapeToMove, geometryPointsToMove);
                 } else if (getParentJunctions().back()->isAttributeCarrierSelected()) {
-                    for (int i = index; i < shapeToMove.size(); i++) {
+                    for (int i = index; i < (shapeToMove.size() - 1); i++) {
                         geometryPointsToMove.push_back(i);
                     }
                     // move only a part of edge geometry

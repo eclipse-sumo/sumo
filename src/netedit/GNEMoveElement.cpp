@@ -106,6 +106,8 @@ GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &off
         // calculate movement over lane
         moveResult.shapeToUpdate = calculateMovementOverLane(moveOperation, offset);
     } else if (moveOperation->geometryPointsToMove.empty()) {
+        // set values in moveResult
+        moveResult.shapeToUpdate = moveOperation->shapeToMove;
         // move entire shape
         for (auto &geometryPointIndex : moveResult.shapeToUpdate) {
             if (geometryPointIndex != Position::INVALID) {
