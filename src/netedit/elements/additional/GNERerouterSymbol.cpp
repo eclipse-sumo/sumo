@@ -56,12 +56,19 @@ void
 GNERerouterSymbol::updateGeometry() {
     // clear geometries
     mySymbolGeometries.clear();
-    // draw rerouter symbol over all lanes
+    // iterate over all lanes
     for (const auto& lane : getParentEdges().front()->getLanes()) {
+        // declare geometry
         GNEGeometry::Geometry symbolGeometry;
+        // update it with lane and pos over lane
         symbolGeometry.updateGeometry(lane, lane->getLaneShape().length2D() - 6);
+        // add in mySymbolGeometries
         mySymbolGeometries.push_back(symbolGeometry);
     }
+    // add shape boundary
+    myBoundary = mySymbolGeometries.front().getShape().getBoxBoundary();
+    // grow
+    myBoundary.grow(10);
     // update connections
     getParentAdditionals().front()->updateHierarchicalConnections();
 }
@@ -69,12 +76,8 @@ GNERerouterSymbol::updateGeometry() {
 
 void 
 GNERerouterSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // now update geometry
+    // just update geometry
     updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // grow
-    myBoundary.grow(10);
 }
 
 
@@ -112,7 +115,7 @@ GNERerouterSymbol::drawGL(const GUIVisualizationSettings& s) const {
             // translate to position
             glTranslated(symbolGeometry.getShape().front().x(), symbolGeometry.getShape().front().y(), 0);
             // rotate over lane
-            GNEGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front());
+            GNEGeometry::rotateOverLane(symbolGeometry.getShapeRotations().front() + 90);
             // scale
             glScaled(rerouteExaggeration, rerouteExaggeration, 1);
             // set color

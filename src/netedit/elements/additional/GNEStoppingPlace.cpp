@@ -396,6 +396,10 @@ GNEStoppingPlace::getHierarchyName() const {
 void
 GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector<std::string>& lines, const RGBColor& color) const {
     if (!s.drawForPositionSelection) {
+        // calculate middle point
+        const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
+        // calculate rotation
+        const double rot =  myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         // Iterate over every line
         for (int i = 0; i < (int)lines.size(); ++i) {
             // push a new matrix for every line
@@ -403,7 +407,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector
             // translate
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
             // rotate over lane
-            GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
+            GNEGeometry::rotateOverLane(rot);
             // draw line with a color depending of the selection status
             if (drawUsingSelectColor()) {
                 GLHelper::drawText(lines[i].c_str(), Position(1.2, (double)i), .1, 1.f, color, 0, FONS_ALIGN_LEFT);
@@ -431,8 +435,8 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
             glPushMatrix();
             // Start drawing sign traslating matrix to signal position
             glTranslated(mySignPos.x(), mySignPos.y(), 0);
-            // rotate
-            glRotated(rot, 0, 0, 1);
+            // rotate over lane
+            GNEGeometry::rotateOverLane(rot);
             // scale matrix depending of the exaggeration
             glScaled(exaggeration, exaggeration, 1);
             // set color
@@ -447,8 +451,8 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
         glPushMatrix();
         // Start drawing sign traslating matrix to signal position
         glTranslated(mySignPos.x(), mySignPos.y(), 0);
-        // rotate
-        glRotated(rot, 0, 0, 1);
+        // rotate over lane
+        GNEGeometry::rotateOverLane(rot);
         // scale matrix depending of the exaggeration
         glScaled(exaggeration, exaggeration, 1);
         // set color

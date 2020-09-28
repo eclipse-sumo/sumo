@@ -299,7 +299,7 @@ void GNECalibrator::drawCalibratorSymbol(const GUIVisualizationSettings& s, cons
     // translate to position
     glTranslated(pos.x(), pos.y(), 0);
     // rotate over lane
-    GNEGeometry::rotateOverLane(rot);
+    GNEGeometry::rotateOverLane(rot - 90);
     // scale
     glScaled(exaggeration, exaggeration, 1);
     // set drawing mode

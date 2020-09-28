@@ -92,6 +92,8 @@ GNERerouter::updateCenteringBoundary(const bool updateGrid) {
     if (updateGrid) {
         myNet->addGLObjectIntoGrid(this);
     }
+    // Update Hierarchical connections geometry
+    myHierarchicalConnections.update();
 }
 
 

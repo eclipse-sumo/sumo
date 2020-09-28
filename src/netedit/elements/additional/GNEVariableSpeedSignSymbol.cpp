@@ -54,7 +54,13 @@ GNEVariableSpeedSignSymbol::getMoveOperation(const double /*shapeOffset*/) {
 
 void
 GNEVariableSpeedSignSymbol::updateGeometry() {
+    // update additional geometry
     myAdditionalGeometry.updateGeometry(getParentLanes().front(), 1.5);
+    // update boundary (needed for connections)
+    // add shape boundary
+    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
+    // grow
+    myBoundary.grow(10);
     // update connections
     getParentAdditionals().front()->updateHierarchicalConnections();
 }
@@ -62,12 +68,8 @@ GNEVariableSpeedSignSymbol::updateGeometry() {
 
 void 
 GNEVariableSpeedSignSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
-    // now update geometry
+    // just update geometry
     updateGeometry();
-    // add shape boundary
-    myBoundary = myAdditionalGeometry.getShape().getBoxBoundary();
-    // grow
-    myBoundary.grow(10);
 }
 
 
@@ -101,7 +103,7 @@ GNEVariableSpeedSignSymbol::drawGL(const GUIVisualizationSettings& s) const {
         // translate to position
         glTranslated(myAdditionalGeometry.getShape().front().x(), myAdditionalGeometry.getShape().front().y(), 0);
         // rotate over lane
-        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front());
+        GNEGeometry::rotateOverLane(myAdditionalGeometry.getShapeRotations().front() + 90);
         // scale
         glScaled(VSSExaggeration, VSSExaggeration, 1);
         // set color
