@@ -3270,7 +3270,7 @@ GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const GN
 GNEViewNetHelper::LockIcon::LockIcon() {}
 
 
-const bool 
+bool 
 GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration) {
     // get visualization settings
     const auto s = AC->getNet()->getViewNet()->getVisualisationSettings();
@@ -3293,7 +3293,8 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier *AC, const do
     return true;
 }
 
-const GUIGlID 
+
+GUIGlID 
 GNEViewNetHelper::LockIcon::getLockIcon(const GNEAttributeCarrier *AC) {
     // Draw icon depending of the state of additional
     if (AC->drawUsingSelectColor()) {

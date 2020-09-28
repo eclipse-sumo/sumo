@@ -1224,10 +1224,10 @@ struct GNEViewNetHelper {
         LockIcon();
 
         /// @brief check drawing
-        static const bool checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration);
+        static bool checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration);
 
         /// @brief get lock icon
-        static const GUIGlID getLockIcon(const GNEAttributeCarrier *AC);
+        static GUIGlID getLockIcon(const GNEAttributeCarrier *AC);
 
         /// @brief Invalidated assignment operator
         LockIcon& operator=(const LockIcon& other) = delete;
