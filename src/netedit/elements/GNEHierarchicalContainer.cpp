@@ -21,6 +21,11 @@
 
 #include <netedit/GNENet.h>
 
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+
+const bool GNEHierarchicalContainer::checkContainer = false;
 
 // ===========================================================================
 // member method definitions
@@ -75,7 +80,7 @@ GNEHierarchicalContainer::getContainerSize() const {
 template <> void
 GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEJunction* junction) {
     // check junction
-    if (std::find(myParentJunctions.begin(), myParentJunctions.end(), junction) != myParentJunctions.end()) {
+    if (checkContainer && (std::find(myParentJunctions.begin(), myParentJunctions.end(), junction) != myParentJunctions.end())) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentJunctions.push_back(junction);
@@ -86,7 +91,7 @@ GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarc
 template <> void
 GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEEdge* edge) {
     // check edge
-    if (std::find(myParentEdges.begin(), myParentEdges.end(), edge) != myParentEdges.end()) {
+    if (checkContainer && (std::find(myParentEdges.begin(), myParentEdges.end(), edge) != myParentEdges.end())) {
         throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentEdges.push_back(edge);
@@ -97,7 +102,7 @@ GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarc
 template <> void
 GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNELane* lane) {
     // check lane
-    if (std::find(myParentLanes.begin(), myParentLanes.end(), lane) != myParentLanes.end()) {
+    if (checkContainer && (std::find(myParentLanes.begin(), myParentLanes.end(), lane) != myParentLanes.end())) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentLanes.push_back(lane);
@@ -108,7 +113,7 @@ GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarc
 template <> void
 GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEAdditional* additional) {
     // check additional
-    if (std::find(myParentAdditionals.begin(), myParentAdditionals.end(), additional) != myParentAdditionals.end()) {
+    if (checkContainer && (std::find(myParentAdditionals.begin(), myParentAdditionals.end(), additional) != myParentAdditionals.end())) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentAdditionals.push_back(additional);
@@ -119,7 +124,7 @@ GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarc
 template <> void
 GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEShape* shape) {
     // check shape
-    if (std::find(myParentShapes.begin(), myParentShapes.end(), shape) != myParentShapes.end()) {
+    if (checkContainer && (std::find(myParentShapes.begin(), myParentShapes.end(), shape) != myParentShapes.end())) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentShapes.push_back(shape);
@@ -130,7 +135,7 @@ GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarc
 template <> void
 GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNETAZElement* TAZElement) {
     // check TAZElement
-    if (std::find(myParentTAZElements.begin(), myParentTAZElements.end(), TAZElement) != myParentTAZElements.end()) {
+    if (checkContainer && (std::find(myParentTAZElements.begin(), myParentTAZElements.end(), TAZElement) != myParentTAZElements.end())) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentTAZElements.push_back(TAZElement);
@@ -141,7 +146,7 @@ GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarc
 template <> void
 GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEDemandElement* demandElement) {
     // check TAZElement
-    if (std::find(myParentDemandElements.begin(), myParentDemandElements.end(), demandElement) != myParentDemandElements.end()) {
+    if (checkContainer && (std::find(myParentDemandElements.begin(), myParentDemandElements.end(), demandElement) != myParentDemandElements.end())) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentDemandElements.push_back(demandElement);
@@ -152,7 +157,7 @@ GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarc
 template <> void
 GNEHierarchicalContainer::addParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEGenericData* genericData) {
     // check generic data
-    if (std::find(myParentGenericDatas.begin(), myParentGenericDatas.end(), genericData) != myParentGenericDatas.end()) {
+    if (checkContainer && (std::find(myParentGenericDatas.begin(), myParentGenericDatas.end(), genericData) != myParentGenericDatas.end())) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentGenericDatas.push_back(genericData);
@@ -164,7 +169,7 @@ template <> void
 GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEJunction* junction) {
     // check junction
     auto it = std::find(myParentJunctions.begin(), myParentJunctions.end(), junction);
-    if (it == myParentJunctions.end()) {
+    if (checkContainer && (it == myParentJunctions.end())) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentJunctions.erase(it);
@@ -176,7 +181,7 @@ template <> void
 GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEEdge* edge) {
     // check edge
     auto it = std::find(myParentEdges.begin(), myParentEdges.end(), edge);
-    if (it == myParentEdges.end()) {
+    if (checkContainer && (it == myParentEdges.end())) {
         throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentEdges.erase(it);
@@ -188,7 +193,7 @@ template <> void
 GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNELane* lane) {
     // check lane
     auto it = std::find(myParentLanes.begin(), myParentLanes.end(), lane);
-    if (it == myParentLanes.end()) {
+    if (checkContainer && (it == myParentLanes.end())) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentLanes.erase(it);
@@ -200,7 +205,7 @@ template <> void
 GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEAdditional* additional) {
     // check additional
     auto it = std::find(myParentAdditionals.begin(), myParentAdditionals.end(), additional);
-    if (it == myParentAdditionals.end()) {
+    if (checkContainer && (it == myParentAdditionals.end())) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentAdditionals.erase(it);
@@ -212,7 +217,7 @@ template <> void
 GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEShape* shape) {
     // check shape
     auto it = std::find(myParentShapes.begin(), myParentShapes.end(), shape);
-    if (it == myParentShapes.end()) {
+    if (checkContainer && (it == myParentShapes.end())) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentShapes.erase(it);
@@ -224,7 +229,7 @@ template <> void
 GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNETAZElement* TAZElement) {
     // check TAZElement
     auto it = std::find(myParentTAZElements.begin(), myParentTAZElements.end(), TAZElement);
-    if (it == myParentTAZElements.end()) {
+    if (checkContainer && (it == myParentTAZElements.end())) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentTAZElements.erase(it);
@@ -236,7 +241,7 @@ template <> void
 GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEDemandElement* demandElement) {
     // check TAZElement
     auto it = std::find(myParentDemandElements.begin(), myParentDemandElements.end(), demandElement);
-    if (it == myParentDemandElements.end()) {
+    if (checkContainer && (it == myParentDemandElements.end())) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentDemandElements.erase(it);
@@ -248,7 +253,7 @@ template <> void
 GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hierarchicalElement, GNEGenericData* genericData) {
     // check generic data
     auto it = std::find(myParentGenericDatas.begin(), myParentGenericDatas.end(), genericData);
-    if (it == myParentGenericDatas.end()) {
+    if (checkContainer && (it == myParentGenericDatas.end())) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myParentGenericDatas.erase(it);
@@ -259,7 +264,7 @@ GNEHierarchicalContainer::removeParentElement(const GNEHierarchicalElement* hier
 template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEJunction* junction) {
     // check junction
-    if (std::find(myChildJunctions.begin(), myChildJunctions.end(), junction) != myChildJunctions.end()) {
+    if (checkContainer && (std::find(myChildJunctions.begin(), myChildJunctions.end(), junction) != myChildJunctions.end())) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildJunctions.push_back(junction);
@@ -270,7 +275,7 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarch
 template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEEdge* edge) {
     // check edge
-    if (std::find(myChildEdges.begin(), myChildEdges.end(), edge) != myChildEdges.end()) {
+    if (checkContainer && (std::find(myChildEdges.begin(), myChildEdges.end(), edge) != myChildEdges.end())) {
         throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildEdges.push_back(edge);
@@ -281,7 +286,7 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarch
 template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNELane* lane) {
     // check lane
-    if (std::find(myChildLanes.begin(), myChildLanes.end(), lane) != myChildLanes.end()) {
+    if (checkContainer && (std::find(myChildLanes.begin(), myChildLanes.end(), lane) != myChildLanes.end())) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildLanes.push_back(lane);
@@ -292,7 +297,7 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarch
 template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEAdditional* additional) {
     // check additional
-    if (std::find(myChildAdditionals.begin(), myChildAdditionals.end(), additional) != myChildAdditionals.end()) {
+    if (checkContainer && (std::find(myChildAdditionals.begin(), myChildAdditionals.end(), additional) != myChildAdditionals.end())) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildAdditionals.push_back(additional);
@@ -303,7 +308,7 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarch
 template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEShape* shape) {
     // check shape
-    if (std::find(myChildShapes.begin(), myChildShapes.end(), shape) != myChildShapes.end()) {
+    if (checkContainer && (std::find(myChildShapes.begin(), myChildShapes.end(), shape) != myChildShapes.end())) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildShapes.push_back(shape);
@@ -314,7 +319,7 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarch
 template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNETAZElement* TAZElement) {
     // check TAZElement
-    if (std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement) != myChildTAZElements.end()) {
+    if (checkContainer && (std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement) != myChildTAZElements.end())) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildTAZElements.push_back(TAZElement);
@@ -327,7 +332,7 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* /*hierar
     // disabled due VIA Attributes
     /*
     // check demand element
-    if (std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement) != myChildDemandElements.end()) {
+    if (checkContainer && (std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement) != myChildDemandElements.end())) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildDemandElements.push_back(demandElement);
@@ -341,7 +346,7 @@ GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* /*hierar
 template <> void
 GNEHierarchicalContainer::addChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEGenericData* genericData) {
     // check generic data
-    if (std::find(myChildGenericDatas.begin(), myChildGenericDatas.end(), genericData) != myChildGenericDatas.end()) {
+    if (checkContainer && (std::find(myChildGenericDatas.begin(), myChildGenericDatas.end(), genericData) != myChildGenericDatas.end())) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' was already inserted in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildGenericDatas.push_back(genericData);
@@ -353,7 +358,7 @@ template <> void
 GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEJunction* junction) {
     // check junction
     auto it = std::find(myChildJunctions.begin(), myChildJunctions.end(), junction);
-    if (it == myChildJunctions.end()) {
+    if (checkContainer && (it == myChildJunctions.end())) {
         throw ProcessError(junction->getTagStr() + " with ID='" + junction->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildJunctions.erase(it);
@@ -365,7 +370,7 @@ template <> void
 GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEEdge* edge) {
     // check edge
     auto it = std::find(myChildEdges.begin(), myChildEdges.end(), edge);
-    if (it == myChildEdges.end()) {
+    if (checkContainer && (it == myChildEdges.end())) {
         throw ProcessError(edge->getTagStr() + " with ID='" + edge->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildEdges.erase(it);
@@ -377,7 +382,7 @@ template <> void
 GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNELane* lane) {
     // check lane
     auto it = std::find(myChildLanes.begin(), myChildLanes.end(), lane);
-    if (it == myChildLanes.end()) {
+    if (checkContainer && (it == myChildLanes.end())) {
         throw ProcessError(lane->getTagStr() + " with ID='" + lane->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildLanes.erase(it);
@@ -389,7 +394,7 @@ template <> void
 GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEAdditional* additional) {
     // check additional
     auto it = std::find(myChildAdditionals.begin(), myChildAdditionals.end(), additional);
-    if (it == myChildAdditionals.end()) {
+    if (checkContainer && (it == myChildAdditionals.end())) {
         throw ProcessError(additional->getTagStr() + " with ID='" + additional->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildAdditionals.erase(it);
@@ -401,7 +406,7 @@ template <> void
 GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEShape* shape) {
     // check shape
     auto it = std::find(myChildShapes.begin(), myChildShapes.end(), shape);
-    if (it == myChildShapes.end()) {
+    if (checkContainer && (it == myChildShapes.end())) {
         throw ProcessError(shape->getTagStr() + " with ID='" + shape->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildShapes.erase(it);
@@ -413,7 +418,7 @@ template <> void
 GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNETAZElement* TAZElement) {
     // check TAZElement
     auto it = std::find(myChildTAZElements.begin(), myChildTAZElements.end(), TAZElement);
-    if (it == myChildTAZElements.end()) {
+    if (checkContainer && (it == myChildTAZElements.end())) {
         throw ProcessError(TAZElement->getTagStr() + " with ID='" + TAZElement->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildTAZElements.erase(it);
@@ -425,7 +430,7 @@ template <> void
 GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEDemandElement* demandElement) {
     // check demand element
     auto it = std::find(myChildDemandElements.begin(), myChildDemandElements.end(), demandElement);
-    if (it == myChildDemandElements.end()) {
+    if (checkContainer && (it == myChildDemandElements.end())) {
         throw ProcessError(demandElement->getTagStr() + " with ID='" + demandElement->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildDemandElements.erase(it);
@@ -437,7 +442,7 @@ template <> void
 GNEHierarchicalContainer::removeChildElement(const GNEHierarchicalElement* hierarchicalElement, GNEGenericData* genericData) {
     // check generic data
     auto it = std::find(myChildGenericDatas.begin(), myChildGenericDatas.end(), genericData);
-    if (it == myChildGenericDatas.end()) {
+    if (checkContainer && (it == myChildGenericDatas.end())) {
         throw ProcessError(genericData->getTagStr() + " with ID='" + genericData->getID() + "' doesn't exist in " + hierarchicalElement->getTagStr() + " with ID='" + hierarchicalElement->getID() + "'");
     } else {
         myChildGenericDatas.erase(it);

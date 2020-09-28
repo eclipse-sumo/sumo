@@ -141,4 +141,7 @@ private:
 
     /// @brief vector with the generic child data elements
     std::vector<GNEGenericData*> myChildGenericDatas;
+
+    /// @brief flag for enable/disable check duplicate elements (only used for debug purposes)
+    static const bool checkContainer;
 };
