@@ -555,7 +555,7 @@ GNEApplicationWindowHelper::EditMenuCommands::buildEditMenuCommands(FXMenuPane* 
                                      GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), myGNEApp, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     toogleGrid = new FXMenuCommand(editMenu,
                                    "Toggle Grid\tCtrl+G\tToggles background grid (and snap-to-grid functionality).",
-                                    GUIIconSubSys::getIcon(GUIIcon::GRID1), myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
+                                    GUIIconSubSys::getIcon(GUIIcon::GRID), myGNEApp, MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID);
     // add separator
     new FXMenuSeparator(editMenu);
     // add clear front element

@@ -307,6 +307,7 @@
 #include "reset.xpm"
 #include "warning.xpm"
 
+#include "grid.xpm"
 #include "grid1.xpm"
 #include "grid2.xpm"
 #include "grid3.xpm"
@@ -608,6 +609,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::RESET] = new FXXPMIcon(a, reset_xpm);
     myIcons[GUIIcon::WARNING] = new FXXPMIcon(a, warning_xpm);
 
+    myIcons[GUIIcon::GRID] = new FXXPMIcon(a, grid_xpm);
     myIcons[GUIIcon::GRID1] = new FXXPMIcon(a, grid1_xpm);
     myIcons[GUIIcon::GRID2] = new FXXPMIcon(a, grid2_xpm);
     myIcons[GUIIcon::GRID3] = new FXXPMIcon(a, grid3_xpm);

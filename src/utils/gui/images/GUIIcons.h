@@ -412,6 +412,7 @@ enum class GUIIcon {
 
     /// @name icons for grid
     /// @{
+    GRID,
     GRID1,
     GRID2,
     GRID3,
