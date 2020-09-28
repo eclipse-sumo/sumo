@@ -48,8 +48,8 @@ public:
     /// @brief constructor for elements with editable shapes (edges, polygons...)
     GNEMoveOperation(GNEMoveElement *moveElement, 
         const PositionVector originalShape,
-        const PositionVector shapeToMove, 
-        const int clickedIndex,
+        const std::vector<int> originalgeometryPoints,
+        const PositionVector shapeToMove,
         const std::vector<int> geometryPointsToMove);
 
     /// @brief constructor for elements placed over lanes (StoppingPlaces, detectors...)
@@ -61,7 +61,6 @@ public:
     GNEMoveOperation(GNEMoveElement *moveElement, 
         const GNELane* lane,
         const std::vector<double> originalPosOverLanes,
-        const int clickedIndex,
         const std::vector<int> geometryPointsToMove);
 
     /// @brief destructor
@@ -73,22 +72,22 @@ public:
     /// @brief original shape
     const PositionVector originalShape;
 
+    /// @brief original shape points to move (of original shape)
+    const std::vector<int> originalGeometryPoints;
+
     /**@brief shape to move
      * @note: it can be different of originalShape, for example due a new geometry point
      */
     const PositionVector shapeToMove;
+
+    /// @brief shape points to move (of shapeToMove)
+    const std::vector<int> geometryPointsToMove;
 
     /// @brief original lane
     const GNELane* lane;
 
     /// @brief original position over lanes
     const std::vector<double> originalPosOverLanes;
-
-    /// @brief clicked index (of shapeToMove)
-    const int clickedIndex;
-
-    /// @brief shape points to move (of shapeToMove)
-    const std::vector<int> geometryPointsToMove;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -104,7 +103,7 @@ class GNEMoveResult {
 
 public:
     /// @brief constructor
-    GNEMoveResult(GNEMoveOperation* moveOperation);
+    GNEMoveResult();
 
     /// @brief destructor
     ~GNEMoveResult();
@@ -113,7 +112,7 @@ public:
     PositionVector shapeToUpdate;
 
     /// @brief shape points to move (of shapeToMove)
-    const std::vector<int> geometryPointsToMove;
+    std::vector<int> geometryPointsToMove;
 
 private:
     /// @brief Invalidated copy constructor.

@@ -75,20 +75,22 @@ GNEPoly::getMoveOperation(const double shapeOffset) {
             return nullptr;
         } else {
             // obtain index
-            int index = myShape.indexOfClosest(positionAtOffset);
+            const int index = myShape.indexOfClosest(positionAtOffset);
+            // declare new index
+            int newIndex = index;
             // get snap radius
             const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
             // check if we have to create a new index
             if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
-                index = shapeToMove.insertAtClosest(positionAtOffset, true);
+                newIndex = shapeToMove.insertAtClosest(positionAtOffset, true);
             }
             // get last index
             const int lastIndex = ((int)shapeToMove.size() - 1);
             // return move operation for edit shape
             if (myShape.isClosed() && ((index == 0) || (index == lastIndex))) {
-                return new GNEMoveOperation(this, myShape, shapeToMove, index, {0, lastIndex});
+                return new GNEMoveOperation(this, myShape, {0, lastIndex}, shapeToMove, {0, lastIndex});
             } else {
-                return new GNEMoveOperation(this, myShape, shapeToMove, index, {index});
+                return new GNEMoveOperation(this, myShape, {index}, shapeToMove, {newIndex});
             }
         }
     } else {

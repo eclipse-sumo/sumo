@@ -92,15 +92,17 @@ GNECrossing::getMoveOperation(const double shapeOffset) {
             return nullptr;
         } else {
             // obtain index
-            int index = originalShape.indexOfClosest(positionAtOffset);
+            const int index = originalShape.indexOfClosest(positionAtOffset);
+            // declare new index
+            int newIndex = index;
             // get snap radius
             const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius;
             // check if we have to create a new index
             if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (snap_radius * snap_radius)) {
-                index = shapeToMove.insertAtClosest(positionAtOffset, true);
+                newIndex = shapeToMove.insertAtClosest(positionAtOffset, true);
             }
             // return move operation for edit shape
-            return new GNEMoveOperation(this, originalShape, shapeToMove, index, {index});
+            return new GNEMoveOperation(this, originalShape, {index}, shapeToMove, {newIndex});
         }
     } else {
         return nullptr;
