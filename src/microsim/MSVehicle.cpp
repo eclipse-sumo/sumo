@@ -1285,7 +1285,7 @@ MSVehicle::getPosition(const double offset) const {
             return shp.positionAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane() + offset));
         }
     }
-    const bool changingLanes = getLaneChangeModel().isChangingLanes();
+    const bool changingLanes = myLaneChangeModel->isChangingLanes();
     const double posLat = (MSGlobals::gLefthand ? 1 : -1) * getLateralPositionOnLane();
     if (offset == 0. && !changingLanes) {
         if (myCachedPosition == Position::INVALID) {
@@ -1303,7 +1303,7 @@ MSVehicle::getPositionAlongBestLanes(double offset) const {
     assert(MSGlobals::gUsingInternalLanes);
     const std::vector<MSLane*>& bestLanes = getBestLanesContinuation();
     auto nextBestLane = bestLanes.begin();
-    const bool opposite = getLaneChangeModel().isOpposite();
+    const bool opposite = myLaneChangeModel->isOpposite();
     double pos = opposite ? myLane->getLength() - myState.myPos : myState.myPos;
     const MSLane* lane = opposite ? myLane->getOpposite() : getLane();
     assert(lane != 0);
@@ -1453,7 +1453,7 @@ MSVehicle::computeAngle() const {
             return myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane()));
         }
     }
-    if (getLaneChangeModel().isChangingLanes()) {
+    if (myLaneChangeModel->isChangingLanes()) {
         // cannot use getPosition() because it already includes the offset to the side and thus messes up the angle
         p1 = myLane->geometryPositionAtOffset(myState.myPos, lefthandSign * posLat);
     } else {
@@ -1475,8 +1475,8 @@ MSVehicle::computeAngle() const {
     }
     double result = (p1 != p2 ? p2.angleTo2D(p1) :
                      myLane->getShape().rotationAtOffset(myLane->interpolateLanePosToGeometryPos(getPositionOnLane())));
-    if (getLaneChangeModel().isChangingLanes()) {
-        result += lefthandSign * DEG2RAD(getLaneChangeModel().getAngleOffset());
+    if (myLaneChangeModel->isChangingLanes()) {
+        result += lefthandSign * DEG2RAD(myLaneChangeModel->getAngleOffset());
     }
 #ifdef DEBUG_FURTHER
     if (DEBUG_COND) {
@@ -1494,7 +1494,7 @@ MSVehicle::getBackPosition() const {
         // vehicle is fully on the new lane
         return myLane->geometryPositionAtOffset(myState.myPos - myType->getLength(), posLat);
     } else {
-        if (getLaneChangeModel().isChangingLanes() && myFurtherLanes.size() > 0 && getLaneChangeModel().getShadowLane(myFurtherLanes.back()) == nullptr) {
+        if (myLaneChangeModel->isChangingLanes() && myFurtherLanes.size() > 0 && myLaneChangeModel->getShadowLane(myFurtherLanes.back()) == nullptr) {
             // special case where the target lane has no predecessor
 #ifdef DEBUG_FURTHER
             if (DEBUG_COND) {
@@ -1508,7 +1508,7 @@ MSVehicle::getBackPosition() const {
                 std::cout << "    getBackPosition veh=" << getID() << " myLane=" << myLane->getID() << " further=" << toString(myFurtherLanes) << " myFurtherLanesPosLat=" << toString(myFurtherLanesPosLat) << "\n";
             }
 #endif
-            return myFurtherLanes.size() > 0 && !getLaneChangeModel().isChangingLanes()
+            return myFurtherLanes.size() > 0 && !myLaneChangeModel->isChangingLanes()
                    ? myFurtherLanes.back()->geometryPositionAtOffset(getBackPositionOnLane(myFurtherLanes.back()), -myFurtherLanesPosLat.back() * (MSGlobals::gLefthand ? -1 : 1))
                    : myLane->geometryPositionAtOffset(0, posLat);
         }
@@ -2324,7 +2324,7 @@ MSVehicle::planMove(const SUMOTime t, const MSLeaderInfo& ahead, const double le
             }
         }
     }
-    getLaneChangeModel().resetChanged();
+    myLaneChangeModel->resetChanged();
 }
 
 void
@@ -2335,7 +2335,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     const MSCFModel& cfModel = getCarFollowModel();
     const double vehicleLength = getVehicleType().getLength();
     const double maxV = cfModel.maxNextSpeed(myState.mySpeed, this);
-    const bool opposite = getLaneChangeModel().isOpposite();
+    const bool opposite = myLaneChangeModel->isOpposite();
     double laneMaxV = myLane->getVehicleMaxSpeed(this);
     const double vMinComfortable = cfModel.minNextSpeed(getSpeed(), this);
     double lateralShift = 0;
@@ -2429,7 +2429,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
             // XXX make sure to look no further than leaderLane
             CLeaderDist leader = leaderLane->getOppositeLeader(this, getPositionOnLane(), true);
             ahead.clear();
-            if (leader.first != 0 && leader.first->getLane() == leaderLane && leader.first->getLaneChangeModel().isOpposite()) {
+            if (leader.first != 0 && leader.first->getLane() == leaderLane && leader.first->myLaneChangeModel->isOpposite()) {
                 ahead.addLeader(leader.first, true);
             }
         }
@@ -2444,11 +2444,11 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         }
 #endif
         // XXX efficiently adapt to shadow leaders using neighAhead by iteration over the whole edge in parallel (lanechanger-style)
-        if (getLaneChangeModel().getShadowLane() != nullptr) {
+        if (myLaneChangeModel->getShadowLane() != nullptr) {
             // also slow down for leaders on the shadowLane relative to the current lane
-            const MSLane* shadowLane = getLaneChangeModel().getShadowLane(lane);
+            const MSLane* shadowLane = myLaneChangeModel->getShadowLane(lane);
             if (shadowLane != nullptr) {
-                const double latOffset = getLane()->getRightSideOnEdge() - getLaneChangeModel().getShadowLane()->getRightSideOnEdge();
+                const double latOffset = getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge();
                 adaptToLeaders(shadowLane->getLastVehicleInformation(this, latOffset, lane->getLength() - seen),
                                latOffset,
                                seen, lastLink, shadowLane, v, vLinkPass);
@@ -2585,27 +2585,27 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                  // do not get stuck on narrow edges
                  && getVehicleType().getWidth() <= lane->getEdge().getWidth()
                  // this is the exit link of a junction. The normal edge should support the shadow
-                 && ((getLaneChangeModel().getShadowLane((*link)->getLane()) == nullptr)
+                 && ((myLaneChangeModel->getShadowLane((*link)->getLane()) == nullptr)
                      // the internal lane after an internal junction has no parallel lane. make sure there is no shadow before continuing
                      || (lane->getEdge().isInternal() && lane->getIncomingLanes()[0].lane->getEdge().isInternal()))
                  // ignore situations where the shadow lane is part of a double-connection with the current lane
-                 && (getLaneChangeModel().getShadowLane() == nullptr
-                     || getLaneChangeModel().getShadowLane()->getLinkCont().size() == 0
-                     || getLaneChangeModel().getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane())
+                 && (myLaneChangeModel->getShadowLane() == nullptr
+                     || myLaneChangeModel->getShadowLane()->getLinkCont().size() == 0
+                     || myLaneChangeModel->getShadowLane()->getLinkCont().front()->getLane() != (*link)->getLane())
                 )) {
             double va = cfModel.stopSpeed(this, getSpeed(), seen);
             if (lastLink != nullptr) {
                 lastLink->adaptLeaveSpeed(va);
             }
-            if (getLaneChangeModel().getCommittedSpeed() > 0) {
-                v = MIN2(getLaneChangeModel().getCommittedSpeed(), v);
+            if (myLaneChangeModel->getCommittedSpeed() > 0) {
+                v = MIN2(myLaneChangeModel->getCommittedSpeed(), v);
             } else {
                 v = MIN2(va, v);
             }
 #ifdef DEBUG_PLAN_MOVE
             if (DEBUG_COND) {
                 std::cout << "   braking for link end lane=" << lane->getID() << " seen=" << seen
-                          << " overlap=" << getLateralOverlap() << " va=" << va << " committed=" << getLaneChangeModel().getCommittedSpeed() << " v=" << v << "\n";
+                          << " overlap=" << getLateralOverlap() << " va=" << va << " committed=" << myLaneChangeModel->getCommittedSpeed() << " v=" << v << "\n";
 
             }
 #endif
@@ -2676,14 +2676,14 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 #endif
 
         // check whether we need to slow down in order to finish a continuous lane change
-        if (getLaneChangeModel().isChangingLanes()) {
+        if (myLaneChangeModel->isChangingLanes()) {
             if (    // slow down to finish lane change before a turn lane
                 ((*link)->getDirection() == LinkDirection::LEFT || (*link)->getDirection() == LinkDirection::RIGHT) ||
                 // slow down to finish lane change before the shadow lane ends
-                (getLaneChangeModel().getShadowLane() != nullptr &&
-                 (*link)->getViaLaneOrLane()->getParallelLane(getLaneChangeModel().getShadowDirection()) == nullptr)) {
+                (myLaneChangeModel->getShadowLane() != nullptr &&
+                 (*link)->getViaLaneOrLane()->getParallelLane(myLaneChangeModel->getShadowDirection()) == nullptr)) {
                 // XXX maybe this is too harsh. Vehicles could cut some corners here
-                const double timeRemaining = STEPS2TIME(getLaneChangeModel().remainingTime());
+                const double timeRemaining = STEPS2TIME(myLaneChangeModel->remainingTime());
                 assert(timeRemaining != 0);
                 // XXX: Euler-logic (#860), but I couldn't identify problems from this yet (Leo). Refs. #2575
                 const double va = MAX2(cfModel.stopSpeed(this, getSpeed(), seen - POSITION_EPS),
@@ -2770,8 +2770,8 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
         // - and unless they are so close that stopping is impossible (i.e. when a green light turns to yellow when close to the junction)
 
         // whether the vehicle/driver is close enough to the link to see all possible foes #2123
-        double visibilityDistance = (*link)->getFoeVisibilityDistance();
-        double determinedFoePresence = seen <= visibilityDistance;
+        const double visibilityDistance = (*link)->getFoeVisibilityDistance();
+        const double determinedFoePresence = seen <= visibilityDistance;
 //        // VARIANT: account for time needed to recognize whether relevant vehicles are on the foe lanes. (Leo)
 //        double foeRecognitionTime = 0.0;
 //        double determinedFoePresence = seen < visibilityDistance - myState.mySpeed*foeRecognitionTime;
@@ -2807,7 +2807,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
                 //std::cout << "   blocker=" << Named::getIDSecure(blocker.first) << "\n";
             }
             if (n == 0) {
-                WRITE_WARNINGF("Suspicious right_before_left junction '%s'.", lane->getEdge().getToJunction()->getID());
+                WRITE_WARNINGF("Suspicious right_before_left junction '%'.", lane->getEdge().getToJunction()->getID());
             }
             //std::cout << "   blockerLink=" << blocker.second << " link=" << *link << "\n";
             if (blocker.second == *link) {
@@ -2937,11 +2937,11 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
                                   << "\n";
 #endif
     /*
-    if (getLaneChangeModel().getCommittedSpeed() > 0) {
-        v = MIN2(v, getLaneChangeModel().getCommittedSpeed());
-        vLinkPass = MIN2(vLinkPass, getLaneChangeModel().getCommittedSpeed());
+    if (myLaneChangeModel->getCommittedSpeed() > 0) {
+        v = MIN2(v, myLaneChangeModel->getCommittedSpeed());
+        vLinkPass = MIN2(vLinkPass, myLaneChangeModel->getCommittedSpeed());
     #ifdef DEBUG_PLAN_MOVE
-        if (DEBUG_COND) std::cout << "   hasCommitted=" << getLaneChangeModel().getCommittedSpeed() << "\n";
+        if (DEBUG_COND) std::cout << "   hasCommitted=" << myLaneChangeModel->getCommittedSpeed() << "\n";
     #endif
         return;
     }
@@ -2954,7 +2954,7 @@ MSVehicle::adaptToLeaders(const MSLeaderInfo& ahead, double latOffset,
             double gap = (lastLink == nullptr
                           ? predBack - myState.myPos - getVehicleType().getMinGap()
                           : predBack + seen - lane->getLength() - getVehicleType().getMinGap());
-            if (getLaneChangeModel().isOpposite()) {
+            if (myLaneChangeModel->isOpposite()) {
                 gap *= -1;
             }
 #ifdef DEBUG_PLAN_MOVE
@@ -3010,8 +3010,8 @@ MSVehicle::checkLinkLeaderCurrentAndParallel(const MSLink* link, const MSLane* l
     if (MSGlobals::gUsingInternalLanes) {
         // we want to pass the link but need to check for foes on internal lanes
         checkLinkLeader(link, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest);
-        if (getLaneChangeModel().getShadowLane() != nullptr) {
-            const MSLink* const parallelLink = link->getParallelLink(getLaneChangeModel().getShadowDirection());
+        if (myLaneChangeModel->getShadowLane() != nullptr) {
+            const MSLink* const parallelLink = link->getParallelLink(myLaneChangeModel->getShadowDirection());
             if (parallelLink != nullptr) {
                 checkLinkLeader(parallelLink, lane, seen, lastLink, v, vLinkPass, vLinkWait, setRequest, true);
             }
@@ -3054,7 +3054,7 @@ MSVehicle::checkLinkLeader(const MSLink* link, const MSLane* lane, double seen,
                 const MSLane* conflictLane = link->getInternalLaneBefore();
                 MSLeaderInfo linkLeadersAhead = MSLeaderInfo(conflictLane);
                 linkLeadersAhead.addLeader(leader, false, 0); // assume sibling lane has the same geometry as the leader lane
-                const double latOffset = isShadowLink ? (getLane()->getRightSideOnEdge() - getLaneChangeModel().getShadowLane()->getRightSideOnEdge()) : 0;
+                const double latOffset = isShadowLink ? (getLane()->getRightSideOnEdge() - myLaneChangeModel->getShadowLane()->getRightSideOnEdge()) : 0;
                 // leader is neither on lane nor conflictLane (the conflict is only established geometrically)
                 adaptToLeaders(linkLeadersAhead, latOffset, seen, lastLink, leader->getLane(), v, vLinkPass);
 #ifdef DEBUG_PLAN_MOVE
@@ -3286,11 +3286,11 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                                            getWaitingTime(), getLateralPositionOnLane(),
                                            ls == LINKSTATE_ZIPPER ? &collectFoes : nullptr,
                                            ignoreRedLink, this));
-            if (opened && getLaneChangeModel().getShadowLane() != nullptr) {
-                const MSLink* const parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
+            if (opened && myLaneChangeModel->getShadowLane() != nullptr) {
+                const MSLink* const parallelLink = dpi.myLink->getParallelLink(myLaneChangeModel->getShadowDirection());
                 if (parallelLink != nullptr) {
-                    const double shadowLatPos = getLateralPositionOnLane() - getLaneChangeModel().getShadowDirection() * 0.5 * (
-                                                    myLane->getWidth() + getLaneChangeModel().getShadowLane()->getWidth());
+                    const double shadowLatPos = getLateralPositionOnLane() - myLaneChangeModel->getShadowDirection() * 0.5 * (
+                                                    myLane->getWidth() + myLaneChangeModel->getShadowLane()->getWidth());
                     opened = yellow || influencerPrio || (opened && parallelLink->opened(dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                                           getVehicleType().getLength(), getImpatience(),
                                                           getCarFollowModel().getMaxDecel(),
@@ -3300,8 +3300,8 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
                     if (DEBUG_COND) {
                         std::cout << SIMTIME
                                   << " veh=" << getID()
-                                  << " shadowLane=" << getLaneChangeModel().getShadowLane()->getID()
-                                  << " shadowDir=" << getLaneChangeModel().getShadowDirection()
+                                  << " shadowLane=" << myLaneChangeModel->getShadowLane()->getID()
+                                  << " shadowDir=" << myLaneChangeModel->getShadowDirection()
                                   << " parallelLink=" << (parallelLink == 0 ? "NULL" : parallelLink->getViaLaneOrLane()->getID())
                                   << " opened=" << opened
                                   << "\n";
@@ -4007,12 +4007,12 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                     if (hasArrived()) {
                         break;
                     }
-                    if (getLaneChangeModel().isChangingLanes()) {
+                    if (myLaneChangeModel->isChangingLanes()) {
                         if (link->getDirection() == LinkDirection::LEFT || link->getDirection() == LinkDirection::RIGHT) {
                             // abort lane change
                             WRITE_WARNING("Vehicle '" + getID() + "' could not finish continuous lane change (turn lane) time=" +
                                           time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-                            getLaneChangeModel().endLaneChangeManeuver();
+                            myLaneChangeModel->endLaneChangeManeuver();
                         }
                     }
                     moved = true;
@@ -4183,7 +4183,7 @@ MSVehicle::executeMove() {
             myAcceleration = 0;
         }
         const MSLane* oldBackLane = getBackLane();
-        if (getLaneChangeModel().isOpposite()) {
+        if (myLaneChangeModel->isOpposite()) {
             passedLanes.clear(); // ignore back occupation
         }
 #ifdef DEBUG_ACTIONSTEPS
@@ -4195,14 +4195,14 @@ MSVehicle::executeMove() {
         // bestLanes need to be updated before lane changing starts. NOTE: This call is also a presumption for updateDriveItems()
         updateBestLanes();
         if (moved || oldBackLane != getBackLane()) {
-            if (getLaneChangeModel().getShadowLane() != nullptr || getLateralOverlap() > POSITION_EPS) {
+            if (myLaneChangeModel->getShadowLane() != nullptr || getLateralOverlap() > POSITION_EPS) {
                 // shadow lane must be updated if the front or back lane changed
                 // either if we already have a shadowLane or if there is lateral overlap
-                getLaneChangeModel().updateShadowLane();
+                myLaneChangeModel->updateShadowLane();
             }
             if (MSGlobals::gLateralResolution > 0) {
                 // The vehicles target lane must be also be updated if the front or back lane changed
-                getLaneChangeModel().updateTargetLane();
+                myLaneChangeModel->updateTargetLane();
             }
         }
         setBlinkerInformation(); // needs updated bestLanes
@@ -4213,7 +4213,7 @@ MSVehicle::executeMove() {
         // State needs to be reset for all vehicles before the next call to MSEdgeControl::changeLanes
         if (myActionStep) {
             // check (#2681): Can this be skipped?
-            getLaneChangeModel().prepareStep();
+            myLaneChangeModel->prepareStep();
         } else {
 #ifdef DEBUG_ACTIONSTEPS
             if (DEBUG_COND) {
@@ -4230,12 +4230,12 @@ MSVehicle::executeMove() {
         gDebugFlag1 = false; // See MSLink_DEBUG_OPENED
     }
 #endif
-    if (getLaneChangeModel().isOpposite()) {
+    if (myLaneChangeModel->isOpposite()) {
         // transform back to the opposite-direction lane
         if (myLane->getOpposite() == nullptr) {
             WRITE_WARNING("Unexpected end of opposite lane for vehicle '" + getID() + "' at lane '" + myLane->getID() + "', time=" +
                           time2string(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-            getLaneChangeModel().changedToOpposite();
+            myLaneChangeModel->changedToOpposite();
         } else {
             myState.myPos = myLane->getOppositePos(myState.myPos);
             myLane = myLane->getOpposite();
@@ -4335,7 +4335,7 @@ MSVehicle::updateState(double vNext) {
         deltaPos = myInfluencer->implicitDeltaPosRemote(this);
     }
 
-    if (getLaneChangeModel().isOpposite()) {
+    if (myLaneChangeModel->isOpposite()) {
         // transform to the forward-direction lane, move and then transform back
         myState.myPos = myLane->getOppositePos(myState.myPos);
         myLane = myLane->getOpposite();
@@ -4439,25 +4439,25 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
                   << " myLane=" << myLane->getID()
                   << " further=" << toString(myFurtherLanes)
                   << " furtherPosLat=" << toString(myFurtherLanesPosLat)
-                  << "\n     shadowLane=" << Named::getIDSecure(getLaneChangeModel().getShadowLane())
-                  << " shadowFurther=" << toString(getLaneChangeModel().getShadowFurtherLanes())
-                  << " shadowFurtherPosLat=" << toString(getLaneChangeModel().getShadowFurtherLanesPosLat())
-                  << "\n     targetLane=" << Named::getIDSecure(getLaneChangeModel().getTargetLane())
-                  << " furtherTargets=" << toString(getLaneChangeModel().getFurtherTargetLanes())
+                  << "\n     shadowLane=" << Named::getIDSecure(myLaneChangeModel->getShadowLane())
+                  << " shadowFurther=" << toString(myLaneChangeModel->getShadowFurtherLanes())
+                  << " shadowFurtherPosLat=" << toString(myLaneChangeModel->getShadowFurtherLanesPosLat())
+                  << "\n     targetLane=" << Named::getIDSecure(myLaneChangeModel->getTargetLane())
+                  << " furtherTargets=" << toString(myLaneChangeModel->getFurtherTargetLanes())
                   << std::endl;
     }
 #endif
     if (lane == myLane
-            || lane == getLaneChangeModel().getShadowLane()
-            || lane == getLaneChangeModel().getTargetLane()) {
-        if (getLaneChangeModel().isOpposite()) {
+            || lane == myLaneChangeModel->getShadowLane()
+            || lane == myLaneChangeModel->getTargetLane()) {
+        if (myLaneChangeModel->isOpposite()) {
             return myState.myPos + myType->getLength();
         } else {
             return myState.myPos - myType->getLength();
         }
     } else if ((myFurtherLanes.size() > 0 && lane == myFurtherLanes.back())
-               || (getLaneChangeModel().getShadowFurtherLanes().size() > 0 && lane == getLaneChangeModel().getShadowFurtherLanes().back())
-               || (getLaneChangeModel().getFurtherTargetLanes().size() > 0 && lane == getLaneChangeModel().getFurtherTargetLanes().back())) {
+               || (myLaneChangeModel->getShadowFurtherLanes().size() > 0 && lane == myLaneChangeModel->getShadowFurtherLanes().back())
+               || (myLaneChangeModel->getFurtherTargetLanes().size() > 0 && lane == myLaneChangeModel->getFurtherTargetLanes().back())) {
         return myState.myBackPos;
     } else {
         //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myFurtherLanes=" << toString(myFurtherLanes) << "\n";
@@ -4472,10 +4472,10 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
             }
             ++i;
         }
-        //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(getLaneChangeModel().getShadowFurtherLanes()) << "\n";
+        //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(myLaneChangeModel->getShadowFurtherLanes()) << "\n";
         leftLength = myType->getLength() - myState.myPos;
-        i = getLaneChangeModel().getShadowFurtherLanes().begin();
-        while (leftLength > 0 && i != getLaneChangeModel().getShadowFurtherLanes().end()) {
+        i = myLaneChangeModel->getShadowFurtherLanes().begin();
+        while (leftLength > 0 && i != myLaneChangeModel->getShadowFurtherLanes().end()) {
             leftLength -= (*i)->getLength();
             //if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
             if (*i == lane) {
@@ -4483,10 +4483,10 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
             }
             ++i;
         }
-        //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myFurtherTargetLanes=" << toString(getLaneChangeModel().getFurtherTargetLanes()) << "\n";
+        //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myFurtherTargetLanes=" << toString(myLaneChangeModel->getFurtherTargetLanes()) << "\n";
         leftLength = myType->getLength() - myState.myPos;
         i = getFurtherLanes().begin();
-        const std::vector<MSLane*> furtherTargetLanes = getLaneChangeModel().getFurtherTargetLanes();
+        const std::vector<MSLane*> furtherTargetLanes = myLaneChangeModel->getFurtherTargetLanes();
         auto j = furtherTargetLanes.begin();
         while (leftLength > 0 && j != furtherTargetLanes.end()) {
             leftLength -= (*i)->getLength();
@@ -4520,7 +4520,7 @@ MSVehicle::getPositionOnLane(const MSLane* lane) const {
 
 bool
 MSVehicle::isFrontOnLane(const MSLane* lane) const {
-    return lane == myLane || lane == getLaneChangeModel().getShadowLane();
+    return lane == myLane || lane == myLaneChangeModel->getShadowLane();
 }
 
 
@@ -4549,7 +4549,7 @@ MSVehicle::getSpaceTillLastStanding(const MSLane* l, bool& foundStopped) const {
 
 void
 MSVehicle::checkRewindLinkLanes(const double lengthsInFront, DriveItemVector& lfLinks) const {
-    if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout() && !getLaneChangeModel().isOpposite()) {
+    if (MSGlobals::gUsingInternalLanes && !myLane->getEdge().isRoundabout() && !myLaneChangeModel->isOpposite()) {
         double seenSpace = -lengthsInFront;
 #ifdef DEBUG_CHECKREWINDLINKLANES
         if (DEBUG_COND) {
@@ -4770,15 +4770,15 @@ MSVehicle::setApproachingForAllLinks(const SUMOTime t) {
                                        dpi.mySetRequest, dpi.myArrivalTimeBraking, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance);
         }
     }
-    if (getLaneChangeModel().getShadowLane() != nullptr) {
+    if (myLaneChangeModel->getShadowLane() != nullptr) {
         // register on all shadow links
         for (const DriveProcessItem& dpi : myLFLinkLanes) {
             if (dpi.myLink != nullptr) {
-                MSLink* const parallelLink = dpi.myLink->getParallelLink(getLaneChangeModel().getShadowDirection());
+                MSLink* const parallelLink = dpi.myLink->getParallelLink(myLaneChangeModel->getShadowDirection());
                 if (parallelLink != nullptr) {
                     parallelLink->setApproaching(this, dpi.myArrivalTime, dpi.myArrivalSpeed, dpi.getLeaveSpeed(),
                                                  dpi.mySetRequest, dpi.myArrivalTimeBraking, dpi.myArrivalSpeedBraking, getWaitingTime(), dpi.myDistance);
-                    getLaneChangeModel().setShadowApproachingInformation(parallelLink);
+                    myLaneChangeModel->setShadowApproachingInformation(parallelLink);
                 }
             }
         }
@@ -4990,13 +4990,13 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
         myFurtherLanesPosLat.clear();
     }
     if (MSGlobals::gLateralResolution > 0) {
-        getLaneChangeModel().updateShadowLane();
-        getLaneChangeModel().updateTargetLane();
+        myLaneChangeModel->updateShadowLane();
+        myLaneChangeModel->updateTargetLane();
     } else if (MSGlobals::gLaneChangeDuration > 0) {
-        getLaneChangeModel().updateShadowLane();
+        myLaneChangeModel->updateShadowLane();
     }
     myAngle = computeAngle();
-    if (getLaneChangeModel().isOpposite()) {
+    if (myLaneChangeModel->isOpposite()) {
         myAngle += M_PI;
     }
 }
@@ -5096,7 +5096,7 @@ MSVehicle::updateBestLanes(bool forceRebuild, const MSLane* startLane) {
         startLane = myLane;
     }
     assert(startLane != 0);
-    if (getLaneChangeModel().isOpposite()) {
+    if (myLaneChangeModel->isOpposite()) {
         // depending on the calling context, startLane might be the forward lane
         // or the reverse-direction lane. In the latter case we need to
         // transform it to the forward lane.
@@ -5640,7 +5640,7 @@ MSVehicle::adaptBestLanesOccupation(int laneIndex, double density) {
 
 void
 MSVehicle::fixPosition() {
-    if (MSGlobals::gLaneChangeDuration > 0 && !getLaneChangeModel().isChangingLanes()) {
+    if (MSGlobals::gLaneChangeDuration > 0 && !myLaneChangeModel->isChangingLanes()) {
         myState.myPosLat = 0;
     }
 }
@@ -5752,7 +5752,7 @@ MSVehicle::addTransportable(MSTransportable* transportable) {
 void
 MSVehicle::setBlinkerInformation() {
     switchOffSignal(VEH_SIGNAL_BLINKER_RIGHT | VEH_SIGNAL_BLINKER_LEFT);
-    int state = getLaneChangeModel().getOwnState();
+    int state = myLaneChangeModel->getOwnState();
     // do not set blinker for sublane changes or when blocked from changing to the right
     const bool blinkerManoeuvre = (((state & LCA_SUBLANE) == 0) && (
                                        (state & LCA_KEEPRIGHT) == 0 || (state & LCA_BLOCKED) == 0));
@@ -5766,8 +5766,8 @@ MSVehicle::setBlinkerInformation() {
         switchOnSignal(left);
     } else if ((state & LCA_RIGHT) != 0 && blinkerManoeuvre) {
         switchOnSignal(right);
-    } else if (getLaneChangeModel().isChangingLanes()) {
-        if (getLaneChangeModel().getLaneChangeDirection() == 1) {
+    } else if (myLaneChangeModel->isChangingLanes()) {
+        if (myLaneChangeModel->getLaneChangeDirection() == 1) {
             switchOnSignal(left);
         } else {
             switchOnSignal(right);
@@ -5857,8 +5857,8 @@ double
 MSVehicle::getCenterOnEdge(const MSLane* lane) const {
     if (lane == nullptr || &lane->getEdge() == &myLane->getEdge()) {
         return myLane->getRightSideOnEdge() + myState.myPosLat + 0.5 * myLane->getWidth();
-    } else if (lane == getLaneChangeModel().getShadowLane()) {
-        if (getLaneChangeModel().getShadowDirection() == -1) {
+    } else if (lane == myLaneChangeModel->getShadowLane()) {
+        if (myLaneChangeModel->getShadowDirection() == -1) {
             return lane->getRightSideOnEdge() + lane->getWidth() + myState.myPosLat + 0.5 * myLane->getWidth();
         } else {
             return lane->getRightSideOnEdge() - myLane->getWidth() + myState.myPosLat + 0.5 * myLane->getWidth();
@@ -5875,14 +5875,14 @@ MSVehicle::getCenterOnEdge(const MSLane* lane) const {
                 return lane->getRightSideOnEdge() + myFurtherLanesPosLat[i] + 0.5 * lane->getWidth();
             }
         }
-        //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(getLaneChangeModel().getShadowFurtherLanes()) << "\n";
-        const std::vector<MSLane*>& shadowFurther = getLaneChangeModel().getShadowFurtherLanes();
+        //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(myLaneChangeModel->getShadowFurtherLanes()) << "\n";
+        const std::vector<MSLane*>& shadowFurther = myLaneChangeModel->getShadowFurtherLanes();
         for (int i = 0; i < (int)shadowFurther.size(); ++i) {
             //if (DEBUG_COND) std::cout << " comparing i=" << (*i)->getID() << " lane=" << lane->getID() << "\n";
             if (shadowFurther[i] == lane) {
-                assert(getLaneChangeModel().getShadowLane() != 0);
-                return (lane->getRightSideOnEdge() + getLaneChangeModel().getShadowFurtherLanesPosLat()[i] + 0.5 * lane->getWidth()
-                        + (myLane->getCenterOnEdge() - getLaneChangeModel().getShadowLane()->getCenterOnEdge()));
+                assert(myLaneChangeModel->getShadowLane() != 0);
+                return (lane->getRightSideOnEdge() + myLaneChangeModel->getShadowFurtherLanesPosLat()[i] + 0.5 * lane->getWidth()
+                        + (myLane->getCenterOnEdge() - myLaneChangeModel->getShadowLane()->getCenterOnEdge()));
             }
         }
         assert(false);
@@ -5897,7 +5897,7 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
     if (&lane->getEdge() == &myLane->getEdge()) {
         return myLane->getRightSideOnEdge() - lane->getRightSideOnEdge();
     } else if (myLane->getOpposite() == lane) {
-        return (myLane->getWidth() + lane->getWidth()) * 0.5 * (getLaneChangeModel().isOpposite() ? -1 : 1);
+        return (myLane->getWidth() + lane->getWidth()) * 0.5 * (myLaneChangeModel->isOpposite() ? -1 : 1);
     } else {
         // Check whether the lane is a further lane for the vehicle
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {
@@ -5912,43 +5912,43 @@ MSVehicle::getLatOffset(const MSLane* lane) const {
         }
 #ifdef DEBUG_FURTHER
         if (DEBUG_COND) {
-            std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(getLaneChangeModel().getShadowFurtherLanes()) << "\n";
+            std::cout << SIMTIME << " veh=" << getID() << " myShadowFurtherLanes=" << toString(myLaneChangeModel->getShadowFurtherLanes()) << "\n";
         }
 #endif
         // Check whether the lane is a "shadow further lane" for the vehicle
-        const std::vector<MSLane*>& shadowFurther = getLaneChangeModel().getShadowFurtherLanes();
+        const std::vector<MSLane*>& shadowFurther = myLaneChangeModel->getShadowFurtherLanes();
         for (int i = 0; i < (int)shadowFurther.size(); ++i) {
             if (shadowFurther[i] == lane) {
 #ifdef DEBUG_FURTHER
                 if (DEBUG_COND) std::cout << "    getLatOffset veh=" << getID()
-                                              << " shadowLane=" << Named::getIDSecure(getLaneChangeModel().getShadowLane())
+                                              << " shadowLane=" << Named::getIDSecure(myLaneChangeModel->getShadowLane())
                                               << " lane=" << lane->getID()
                                               << " i=" << i
                                               << " posLat=" << myState.myPosLat
-                                              << " shadowPosLat=" << getLatOffset(getLaneChangeModel().getShadowLane())
-                                              << " shadowFurtherLat=" << getLaneChangeModel().getShadowFurtherLanesPosLat()[i]
+                                              << " shadowPosLat=" << getLatOffset(myLaneChangeModel->getShadowLane())
+                                              << " shadowFurtherLat=" << myLaneChangeModel->getShadowFurtherLanesPosLat()[i]
                                               <<  "\n";
 #endif
-                return getLatOffset(getLaneChangeModel().getShadowLane()) + getLaneChangeModel().getShadowFurtherLanesPosLat()[i] - myState.myPosLat;
+                return getLatOffset(myLaneChangeModel->getShadowLane()) + myLaneChangeModel->getShadowFurtherLanesPosLat()[i] - myState.myPosLat;
             }
         }
         // Check whether the vehicle issued a maneuverReservation on the lane.
-        assert(&getLaneChangeModel().getTargetLane()->getEdge() == &myLane->getEdge()); // should have been handled in (&lane->getEdge() == &myLane->getEdge())-block
-        const std::vector<MSLane*>& furtherTargets = getLaneChangeModel().getFurtherTargetLanes();
+        assert(&myLaneChangeModel->getTargetLane()->getEdge() == &myLane->getEdge()); // should have been handled in (&lane->getEdge() == &myLane->getEdge())-block
+        const std::vector<MSLane*>& furtherTargets = myLaneChangeModel->getFurtherTargetLanes();
         for (int i = 0; i < (int)myFurtherLanes.size(); ++i) {
             // Further target lanes are just neighboring lanes of the vehicle's further lanes, @see MSAbstractLaneChangeModel::updateTargetLane()
             MSLane* targetLane = furtherTargets[i];
             if (targetLane == lane) {
-                const double targetDir = getLaneChangeModel().getManeuverDist() < 0 ? -1. : 1.;
+                const double targetDir = myLaneChangeModel->getManeuverDist() < 0 ? -1. : 1.;
                 const double latOffset = myFurtherLanesPosLat[i] - myState.myPosLat + targetDir * 0.5 * (myFurtherLanes[i]->getWidth() + targetLane->getWidth());
 #ifdef DEBUG_TARGET_LANE
                 if (DEBUG_COND) {
                     std::cout << "    getLatOffset veh=" << getID()
-                              << " wrt targetLane=" << Named::getIDSecure(getLaneChangeModel().getTargetLane())
+                              << " wrt targetLane=" << Named::getIDSecure(myLaneChangeModel->getTargetLane())
                               << "\n    i=" << i
                               << " posLat=" << myState.myPosLat
                               << " furtherPosLat=" << myFurtherLanesPosLat[i]
-                              << " maneuverDist=" << getLaneChangeModel().getManeuverDist()
+                              << " maneuverDist=" << myLaneChangeModel->getManeuverDist()
                               << " targetDir=" << targetDir
                               << " latOffset=" << latOffset
                               <<  std::endl;
@@ -6027,7 +6027,7 @@ MSVehicle::removeApproachingInformation(const DriveItemVector& lfLinks) const {
         }
     }
     // unregister on all shadow links
-    getLaneChangeModel().removeShadowApproachingInformation();
+    myLaneChangeModel->removeShadowApproachingInformation();
 }
 
 
