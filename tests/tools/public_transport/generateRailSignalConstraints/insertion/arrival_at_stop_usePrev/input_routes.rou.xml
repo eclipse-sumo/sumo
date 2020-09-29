@@ -32,17 +32,17 @@
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="train" length="50.00" vClass="rail"/>
-    <vehicle id="t0" type="train" depart="0.00" from="a" to="c" departSpeed="max">
+    <vehicle id="t0" type="train" depart="0.00" departSpeed="max">
         <route edges="a b c"/>
         <stop busStop="stop_a" arrival="100" until="130" duration="30"/>
         <stop busStop="stop_c" arrival="200" until="230" duration="30"/>
     </vehicle>
-    <vehicle id="t1" type="train" depart="20.00" from="aPre" to="c" departSpeed="max">
+    <vehicle id="t1" type="train" depart="20.00" departSpeed="max">
         <route edges="aPre a b c"/>
         <stop busStop="stop_a" arrival="50" until="80" duration="30"/>
         <stop busStop="stop_c" arrival="100" until="180" duration="30"/>
     </vehicle>
-    <vehicle id="t2" type="train" depart="40.00" from="aPre" to="c" departSpeed="max">
+    <vehicle id="t2" type="train" depart="40.00" departSpeed="max">
         <route edges="aPre a"/>
         <stop busStop="stop_a" arrival="75" until="105" duration="30"/>
     </vehicle>
