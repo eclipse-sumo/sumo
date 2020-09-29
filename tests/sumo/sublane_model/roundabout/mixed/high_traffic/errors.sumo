@@ -1,4 +1,3 @@
-Warning: Teleporting vehicle 'WE.42'; collision with vehicle 'WE.44', lane='RWS_1', gap=-0.93', latGap=-0.42, time=570.00 stage=move.
-Warning: Vehicle 'WE.42' ends teleporting on edge 'RSE', time 570.00.
-Warning: Vehicle 'SW.41' performs emergency braking with decel=-7.00 wished=4.00 severity=1.00, time=640.00.
-Warning: Vehicle 'SW.55' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=924.00.
+Warning: Vehicle 'ES.66' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=835.00.
+Warning: Vehicle 'NS.63' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=941.00.
+Warning: Vehicle 'SW.65' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=1115.00.
