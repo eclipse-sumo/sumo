@@ -58,8 +58,8 @@ jobs:
         if [[ "${{ matrix.compiler }}" == "gcc" ]]; then export CC=gcc; export CXX=g++; fi
         if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
         if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
-        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFMI=true -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi 
-        make -j4
+        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFMI=ON -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi 
+        make
     
     - name: Installing SUMO
       run: |
