@@ -231,6 +231,10 @@ void
 MSLane::checkBufferType() {
     if (MSGlobals::gNumSimThreads <= 1) {
         myVehBuffer.unsetCondition();
+//    } else {
+// this is an idea for better memory locality, lanes with nearby numerical ids get the same rng and thus the same thread
+// first tests show no visible effect though
+//        myRNGIndex = myNumericalID * myRNGs.size() / dictSize();
     }
 }
 
@@ -265,9 +269,7 @@ MSLane::addMoveReminder(MSMoveReminder* rem) {
 
 double
 MSLane::setPartialOccupation(MSVehicle* v) {
-#ifdef HAVE_FOX
-    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
-#endif
+    // multithreading: there are concurrent writes to myNeedsCollisionCheck but all of them should set it to true
     myNeedsCollisionCheck = true; // always check
 #ifdef DEBUG_CONTEXT
     if (DEBUG_COND2(v)) {
@@ -275,6 +277,9 @@ MSLane::setPartialOccupation(MSVehicle* v) {
     }
 #endif
     // XXX update occupancy here?
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myPartialOccupatorMutex, MSGlobals::gNumSimThreads > 1);
+#endif
     myPartialVehicles.push_back(v);
     return myLength;
 }
@@ -1031,7 +1036,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         return false;
     }
     // enter
-    incorporateVehicle(aVehicle, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos)), notification);
+    incorporateVehicle(aVehicle, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), [&](MSVehicle* const v) {return v->getPositionOnLane() >= pos;}), notification);
 #ifdef DEBUG_INSERTION
     if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
                                              << " isInsertionSuccess lane=" << getID()
@@ -1056,7 +1061,7 @@ MSLane::forceVehicleInsertion(MSVehicle* veh, double pos, MSMoveReminder::Notifi
     veh->updateBestLanes(true, this);
     bool dummy;
     const double speed = veh->hasDeparted() ? veh->getSpeed() : getDepartSpeed(*veh, dummy);
-    incorporateVehicle(veh, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), pos)), notification);
+    incorporateVehicle(veh, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), [&](MSVehicle* const v) {return v->getPositionOnLane() >= pos;}), notification);
 }
 
 
@@ -1754,6 +1759,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 
 void
 MSLane::executeMovements(const SUMOTime t) {
+    // multithreading: there are concurrent writes to myNeedsCollisionCheck but all of them should set it to true
     myNeedsCollisionCheck = true;
     // iterate over vehicles in reverse so that move reminders will be called in the correct order
     for (VehCont::reverse_iterator i = myVehicles.rbegin(); i != myVehicles.rend();) {
@@ -2246,14 +2252,6 @@ MSLane::isApproachedFrom(MSEdge* const edge, MSLane* const lane) {
     const std::vector<MSLane*>& lanes = (*i).second;
     return std::find(lanes.begin(), lanes.end(), lane) != lanes.end();
 }
-
-
-class by_second_sorter {
-public:
-    inline int operator()(const std::pair<const MSVehicle*, double>& p1, const std::pair<const MSVehicle*, double>& p2) const {
-        return p1.second < p2.second;
-    }
-};
 
 
 double MSLane::getMissingRearGap(const MSVehicle* leader, double backOffset, double leaderSpeed) const {
@@ -2879,12 +2877,6 @@ MSLane::getHarmonoise_NoiseEmissions() const {
     }
     releaseVehicles();
     return HelpersHarmonoise::sum(ret);
-}
-
-
-bool
-MSLane::VehPosition::operator()(const MSVehicle* cmp, double pos) const {
-    return cmp->getPositionOnLane() >= pos;
 }
 
 

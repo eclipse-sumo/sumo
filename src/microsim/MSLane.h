@@ -91,13 +91,6 @@ public:
     /// Container for vehicles.
     typedef std::vector<MSVehicle*> VehCont;
 
-    /** Function-object in order to find the vehicle, that has just
-        passed the detector. */
-    struct VehPosition : public std::binary_function < const MSVehicle*, double, bool > {
-        /// compares vehicle position to the detector position
-        bool operator()(const MSVehicle* cmp, double pos) const;
-    };
-
     // TODO: Better documentation
     /// @brief AnyVehicleIterator is a structure, which manages the iteration through all vehicles on the lane,
     ///        that may be of importance for the car-following dynamics along that lane. The relevant types of vehicles are:
