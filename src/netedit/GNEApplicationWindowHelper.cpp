@@ -174,7 +174,7 @@ GNEApplicationWindowHelper::MenuBarFile::buildRecentFiles(FXMenuPane* fileMenu) 
     new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_8);
     new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_9);
     new FXMenuCommand(fileMenu, "", nullptr, &myRecentNets, FXRecentFiles::ID_FILE_10);
-    new FXMenuCommand(fileMenu, "Cl&ear Recent Networks", nullptr, &myRecentNets, FXRecentFiles::ID_CLEAR);
+    new FXMenuCommand(fileMenu, "Cl&ear Recent Networks\t\tClear the list of recently used networks.", nullptr, &myRecentNets, FXRecentFiles::ID_CLEAR);
     myRecentNets.setTarget(myGNEApp);
     myRecentNets.setSelector(MID_RECENTFILE);
 }
@@ -211,7 +211,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                       "Import &Foreign Network...\t\tImport a foreign network such as OSM.",
                       GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_GNE_TOOLBARFILE_OPENFOREIGN);
     new FXMenuCommand(fileMenu,
-                      "&Reload\tCtrl+R\tReloads the network.",
+                      "&Reload\tCtrl+R\tReload the network.",
                       GUIIconSubSys::getIcon(GUIIcon::RELOAD), myGNEApp, MID_HOTKEY_CTRL_R_RELOAD);
     new FXMenuCommand(fileMenu,
                       "&Save Network\tCtrl+S\tSave the network.",
@@ -285,7 +285,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
     // close network
     new FXMenuSeparator(fileMenu);
     new FXMenuCommand(fileMenu,
-                      "Close\tCtrl+W\tClose the net&work.",
+                      "Close\tCtrl+W\tClose the network.",
                       GUIIconSubSys::getIcon(GUIIcon::CLOSE), myGNEApp, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
 }
 
@@ -601,16 +601,16 @@ void
 GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(FXMenuPane* fileMenu) {
     // build network processing menu commands
     computeNetwork = new FXMenuCommand(fileMenu,
-                                       "Compute Junctions\tF5\tComputes junction shape and logic.",
+                                       "Compute Junctions\tF5\tCompute junction shape and logic.",
                                        GUIIconSubSys::getIcon(GUIIcon::COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_F5_COMPUTE_NETWORK_DEMAND);
     computeNetworkVolatile = new FXMenuCommand(fileMenu,
-            "Compute Junctions with volatile options\tShift+F5\tComputes junction shape and logic using volatile junctions.",
+            "Compute Junctions with volatile options\tShift+F5\tCompute junction shape and logic using volatile junctions.",
             GUIIconSubSys::getIcon(GUIIcon::COMPUTEJUNCTIONS), myGNEApp, MID_HOTKEY_SHIFT_F5_COMPUTEJUNCTIONS_VOLATILE);
     cleanJunctions = new FXMenuCommand(fileMenu,
-                                       "Clean Junctions\tF6\tRemoves solitary junctions.",
+                                       "Clean Junctions\tF6\tRemove solitary junctions.",
                                        GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), myGNEApp, MID_HOTKEY_F6_CLEAN_SOLITARYJUNCTIONS_UNUSEDROUTES);
     joinJunctions = new FXMenuCommand(fileMenu,
-                                      "Join Selected Junctions\tF7\tJoins selected junctions into a single junction.",
+                                      "Join Selected Junctions\tF7\tJoin selected junctions into a single junction.",
                                       GUIIconSubSys::getIcon(GUIIcon::JOINJUNCTIONS), myGNEApp, MID_HOTKEY_F7_JOIN_SELECTEDJUNCTIONS_ROUTES);
     clearInvalidCrossings = new FXMenuCommand(fileMenu,
             "Clean invalid crossings\tF8\tClear invalid crossings.",
@@ -631,7 +631,7 @@ GNEApplicationWindowHelper::ProcessingMenuCommands::buildProcessingMenuCommands(
     // add separator (because optionsmenu is commmon for Network and Demand modes
     new FXMenuSeparator(fileMenu);
     optionMenus = new FXMenuCommand(fileMenu,
-                                    "Options\tF10\t\tConfigure Processing Options.",
+                                    "Options\tF10\tConfigure Processing Options.",
                                     GUIIconSubSys::getIcon(GUIIcon::OPTIONS), myGNEApp, MID_HOTKEY_F10_OPTIONSMENU);
 }
 
@@ -774,7 +774,7 @@ GNEApplicationWindowHelper::WindowsMenuCommands::buildWindowsMenuCommands(FXMenu
                     "Show &Message Window\t\tToggle the Message Window on/off.",
                     messageWindow, FXWindow::ID_TOGGLESHOWN);
     new FXMenuCommand(windowsMenu,
-                      "&Clear Message Window\t\tClear the message window.",
+                      "&Clear Message Window\t\tClear the Message Window.",
                       nullptr, myGNEApp, MID_CLEARMESSAGEWINDOW);
 }
 
