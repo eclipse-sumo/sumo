@@ -1,5 +1,10 @@
 %module libsumo
+#ifdef SWIGPYTHON
+// avoid warnings about keyword arguments with overloaded functions
 #pragma SWIG nowarn=511
+// avoid warnings about unknown base class std::runtime_error
+#pragma SWIG nowarn=401
+#endif
 
 #ifdef SWIGPYTHON
 %naturalvar;
