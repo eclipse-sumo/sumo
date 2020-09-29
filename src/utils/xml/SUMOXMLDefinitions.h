@@ -1375,20 +1375,20 @@ enum LinkState {
  * used in netbuild (formerly NBMMLDirection) and MSLink
  */
 enum class LinkDirection {
+    /// @brief The link is a (hard) right direction
+    RIGHT = 0,
+    /// @brief The link is a partial right direction
+    PARTRIGHT,
     /// @brief The link is a straight direction
-    STRAIGHT = 0,
+    STRAIGHT,
+    /// @brief The link is a partial left direction
+    PARTLEFT,
+    /// @brief The link is a (hard) left direction
+    LEFT,
     /// @brief The link is a 180 degree turn
     TURN,
     /// @brief The link is a 180 degree turn (left-hand network)
     TURN_LEFTHAND,
-    /// @brief The link is a (hard) left direction
-    LEFT,
-    /// @brief The link is a (hard) right direction
-    RIGHT,
-    /// @brief The link is a partial left direction
-    PARTLEFT,
-    /// @brief The link is a partial right direction
-    PARTRIGHT,
     /// @brief The link has no direction (is a dead end link)
     NODIR
 };
