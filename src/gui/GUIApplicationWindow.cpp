@@ -465,33 +465,33 @@ GUIApplicationWindow::fillMenuBar() {
     myLocatorMenu = new FXMenuPane(this);
     new FXMenuTitle(myMenuBar, "&Locate", nullptr, myLocatorMenu);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &Junctions\t\tOpen a Dialog for Locating a Junction.",
+                      "Locate &Junctions\tShift+J\tOpen a Dialog for Locating a Junction.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &Edges\t\tOpen a Dialog for Locating an Edge.",
+                      "Locate &Edges\tShift+E\tOpen a Dialog for Locating an Edge.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), this, MID_LOCATEEDGE);
     if (!MSGlobals::gUseMesoSim) { // there are no gui-vehicles in mesosim
         new FXMenuCommand(myLocatorMenu,
-                          "Locate &Vehicles\t\tOpen a Dialog for Locating a Vehicle.",
+                          "Locate &Vehicles\tShift+V\tOpen a Dialog for Locating a Vehicle.",
                           GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), this, MID_LOCATEVEHICLE);
     }
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &Persons\t\tOpen a Dialog for Locating a Person.",
+                      "Locate &Persons\tShift+P\tOpen a Dialog for Locating a Person.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), this, MID_LOCATEPERSON);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &Container\t\tOpen a Dialog for Locating a Container.",
+                      "Locate &Container\tShift+C\tOpen a Dialog for Locating a Container.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), this, MID_LOCATECONTAINER);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &TLS\t\tOpen a Dialog for Locating a Traffic Light.",
+                      "Locate &TLS\tShift+T\tOpen a Dialog for Locating a Traffic Light.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), this, MID_LOCATETLS);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate &Additional\t\tOpen a Dialog for Locating an Additional Structure.",
+                      "Locate &Additional\tShift+A\tOpen a Dialog for Locating an Additional Structure.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), this, MID_LOCATEADD);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate P&oI\t\tOpen a Dialog for Locating a Point of Intereset.",
+                      "Locate P&oI\tShift+O\tOpen a Dialog for Locating a Point of Intereset.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), this, MID_LOCATEPOI);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate Po&lygon\t\tOpen a Dialog for Locating a Polygon.",
+                      "Locate Po&lygon\tShift+L\tOpen a Dialog for Locating a Polygon.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), this, MID_LOCATEPOLY);
     new FXMenuSeparator(myLocatorMenu);
     new FXMenuCheck(myLocatorMenu,
