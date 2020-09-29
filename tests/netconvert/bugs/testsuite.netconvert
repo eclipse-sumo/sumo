@@ -102,6 +102,9 @@ ticket5817
 # scurve-stretch with changed default radius
 ticket5881
 
+# osm import left handed traffic and pedestrians
+ticket6115
+
 # invalid network with option geometry.remove.min-length
 ticket6333
 
