@@ -108,6 +108,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     if (MSGlobals::gLateralResolution > 0) {
         ret->mkItem("target lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getTargetLaneID));
     }
+    if (isSelected()) {
+        ret->mkItem("back lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getBackLaneID));
+    }
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getPositionOnLane));
     ret->mkItem("lateral offset [m]", true,
@@ -985,6 +988,11 @@ GUIVehicle::getLCStateCenter() const {
 std::string
 GUIVehicle::getLaneID() const {
     return Named::getIDSecure(myLane, "n/a");
+}
+
+std::string
+GUIVehicle::getBackLaneID() const {
+    return myFurtherLanes.size() > 0 ? myFurtherLanes.back()->getID() : getLaneID();
 }
 
 std::string
