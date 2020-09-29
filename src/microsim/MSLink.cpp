@@ -1082,13 +1082,15 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     && !leader->willStop()) {
                 continue;
             }
-            if (MSGlobals::gSublane && ego != nullptr && sameSource) {
+            if (MSGlobals::gSublane && ego != nullptr && (sameSource || sameTarget)) {
                 const double posLat = ego->getLateralPositionOnLane();
                 const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
                 const double latGap = (fabs(posLat - posLatLeader)
-                                        - 0.5 * ego->getVehicleType().getWidth() + leader->getVehicleType().getWidth());
+                                        - 0.5 * (ego->getVehicleType().getWidth() + leader->getVehicleType().getWidth()));
                 if (gDebugFlag1) {
-                    std::cout << " sameSource-sublaneFoe lane=" << myInternalLaneBefore->getID()
+                    std::cout << " sublaneFoe lane=" << myInternalLaneBefore->getID()
+                                << " sameSource=" << sameSource
+                                << " sameTarget=" << sameTarget
                                 << " foeLane=" << foeLane->getID()
                                 << " leader=" << leader->getID()
                                 << " egoLane=" << ego->getLane()->getID()
@@ -1099,9 +1101,39 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                                 << " latGap=" << latGap
                                 << "\n";
                 }
-                if (latGap > 0
-                        && ((posLat > posLatLeader) == (myIndex > foeLane->getIncomingLanes().front().viaLink->getIndex()))) {
-                    continue;
+                if (latGap > 0) {
+                    const MSLink* foeEntryLink = foeLane->getIncomingLanes().front().viaLink;
+                    if (sameSource) {
+                        // for lanes from the same edge, higer index implies a
+                        // connection further to the left
+                        const bool leaderFromRight = (myIndex > foeEntryLink->getIndex());
+                        if ((posLat > posLatLeader) == leaderFromRight) {
+                            // ignore speed since lanes diverge
+                            continue;
+                        }
+                    } else {
+                        /*
+                        // for lanes from different edges we cannot rely on the
+                        // index due to wrap-around issues
+                        if (myDirection != foeEntryLink->getDirection()) {
+                            bool leaderFromRight = foeEntryLink->getDirection() < myDirection;
+                            // leader vehicle should not move towards ego
+                            if (MSGlobals::gLefthand) {
+                                leaderFromRight = !leaderFromRight;
+                            }
+                            if ((posLat > posLatLeader) == leaderFromRight
+                                    // leader should keep lateral position or move away from ego
+                                    && (leader->getLaneChangeModel().getSpeedLat() == 0
+                                        || leaderFromRight == (leader->getLaneChangeModel().getSpeedLat() < latGap))
+                                    && (ego->getLaneChangeModel().getSpeedLat() == 0
+                                        || leaderFromRight == (ego->getLaneChangeModel().getSpeedLat() > latGap))) {
+                                continue;
+                            }
+                        } else {
+                            // XXX figure out relative direction somehow
+                        }
+                        */
+                    }
                 }
             }
             if (cannotIgnore || inTheWay || leader->getWaitingTime() < MSGlobals::gIgnoreJunctionBlocker) {
