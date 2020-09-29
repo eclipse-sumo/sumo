@@ -190,7 +190,10 @@ class Statistics:
             return None
 
     def histogram(self):
-        return [(k * self.scale, self.counts[k]) for k in sorted(self.counts.keys())]
+        if self.counts is not None:
+            return [(k * self.scale, self.counts[k]) for k in sorted(self.counts.keys())]
+        else:
+            return "Histogramm is deactivated"
 
     def toString(self, precision=2):
         if len(self.values) > 0:

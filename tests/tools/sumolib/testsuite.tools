@@ -26,3 +26,6 @@ getShortestRoute_rail
 
 # parsing XML and accessing objects
 xml
+
+# testing statistics 
+statistics
