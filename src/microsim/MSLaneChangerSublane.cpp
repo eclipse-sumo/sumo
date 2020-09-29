@@ -547,7 +547,8 @@ MSLaneChangerSublane::getLeaders(const ChangerIt& target, const MSVehicle* vehic
 
         double seen = vehicle->getLane()->getLength() - vehicle->getPositionOnLane();
         double speed = vehicle->getSpeed();
-        double dist = vehicle->getCarFollowModel().brakeGap(speed) + vehicle->getVehicleType().getMinGap();
+        // leader vehicle could be link leader on the next junction
+        double dist = MAX2(vehicle->getCarFollowModel().brakeGap(speed), 10.0) + vehicle->getVehicleType().getMinGap();
         if (seen > dist) {
 #ifdef DEBUG_SURROUNDING
             if (DEBUG_COND) {
