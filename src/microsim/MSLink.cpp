@@ -1112,7 +1112,6 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                             continue;
                         }
                     } else {
-                        /*
                         // for lanes from different edges we cannot rely on the
                         // index due to wrap-around issues
                         if (myDirection != foeEntryLink->getDirection()) {
@@ -1132,7 +1131,6 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                         } else {
                             // XXX figure out relative direction somehow
                         }
-                        */
                     }
                 }
             }
