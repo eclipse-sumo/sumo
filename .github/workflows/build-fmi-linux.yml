@@ -57,7 +57,7 @@ jobs:
         cd sumo/cmake-build 
         if [[ "${{ matrix.compiler }}" == "gcc" ]]; then export CC=gcc; export CXX=g++; fi
         if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
-        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
+        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake -DFMI=ON ..; fi
         if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFMI=ON -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi 
         make
     
