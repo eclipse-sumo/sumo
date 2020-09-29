@@ -6,12 +6,16 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
-- simulation
-  - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
-  - Fixed train collision due to insafe rail signal state. Issue #7534
-  - Rail signal constraints now work correctly after loading simulation state. Issue #7523
+- simulation  
   - Fixed crash when loading simulation state that includes a routeDistribution along with a route file that includes the same distribution. Issue #7539
   - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for persontTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560
+  - Fixed invalid active-vehicle count after loading state. Issue #7583
+  - Fixed bug where leader vehicles were ignored during lane-changing when using the sublane mode. Issue #7614
+  - railway fixes
+    - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
+    - Fixed train collision due to unsafe rail signal state. Issue #7534
+    - Fixed unsafe train insertion. Issue #7579
+    - Rail signal constraints now work correctly after loading simulation state. Issue #7523
 
 - netconvert
   - Fixed unsafe traffic light signals when two connections from the same edge target the same lane. Issue #7550
@@ -21,16 +25,29 @@ permalink: /ChangeLog/
   
 - sumo-gui
   - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
+  - Fixed invalid simulation end after reloading. Issue #7582
 
 ### Enhancements
+- simulation
+  - Added vehicle attribute 'departEdge' which can be used to [insert a vehicle beyond the first edge of its route](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#departedge). Issue #1129
+  - Added new input elements that can be loaded to influence rail signal operation by providing constraints on train ordering. Issue #7435
+  - Train waiting time is now taken into account when resolving conflicts between otherwise equal trains. Issue #7598  
+  
 - netedit
   - Opposite direction lanes can now be edited and selected. Issue #2653
   
+- sumo-gui
+  - Rail signal now includes internal state (reason for red) in parameter dialog. Issue #7600
+  
 - netconvert
   - Added option **--junctions.join-same** which joins junctions with identical coordinates regardless of edge topology. This is useful when merging networks. Issue #7567
+  
+- od2trips
+  - Attributes 'fromTaz' and 'toTaz' are now written for walks and personTrips. Issue #7591
 
 - Tools
   - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
+  - Added new tool [generateRailSignalConstraints.py](fixme) to generated constraint input for rain signals from a route file. Issue #7436
 
 ### Other
 
