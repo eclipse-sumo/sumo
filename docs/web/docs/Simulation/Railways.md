@@ -254,6 +254,45 @@ The rear part of the train will be joined to the front part if the followign con
 After being joined to the front part, the rear part will no longer be part of the simulation.
 The front half of the train will stop until the rear part is joined to it. Afterwards it will continue with increased length. 
 
+# Rail Signal Behavior
+Rail signals perform the following safety functions automatically
+
+- guard the track up to the next rail signal (signal block) so that only one train can enter this section at a time. This prevents rear-end collisions.
+- guard the track so that vehicles from different branches (flanks) cannot enter the same section. This prevents flanking collisions.
+- guard the track so that vehicles cannot enter bidirectional sections at the same time. This prevents head-on collisions.
+- prevent deadlocks on bidirectional sections
+
+## Schedule Constraints
+Additionally rail signals can enforce train ordering to ensure that a scheduled order at stations can be kept.
+To make use of this, the following elements can be loaded from an additional file:
+
+```
+   <railSignalConstraints id="A">
+        <predecessor tripId="t0" tl="D" foes="t1" limit="2"/>
+        <predecessor tripId="t0" tl="C" foes="t2"/>        
+        <insertionPredecessor tripId="t3" tl="E" foes="t4"/>
+    </railSignalConstraints>
+```
+
+
+
+### predecessor constraint
+This constrain defines that a given vehicle id (or tripId) can only pass the current signal after some other vehicle ('foe') with the given id or tripId has passed signal 'tl'. The foe vehicle must have been the last vehicle to do so or it must have been one of the last 'limit' vehicles at the time of switching green.
+
+### insertionPredecessor constraint
+This constrain defines that a given vehicle id (or tripId) can only be inserted on the block leading up to the current signal after some other vehicle ('foe') with the given id or tripId has passed signal 'tl'. The foe vehicle must have been the last vehicle to do so or it must have been one of the last 'limit' vehicles at the time of switching green.
+
+### generateRailSignalConstraints.py
+Constraints can be generated using the tool `generateRailSignalConstraints.py`. Example:
+
+```
+<SUMO_HOME>/tools/generateRailSignalConstraints.py -r <input-route-file> -n <input-net-file> -a <input-stop-file> -o <output-file>
+```
+The tool will analyze the order of arrival at stations (stops). 
+
+- If vehicles have successive stops at the same station but reach this station via different tracks, constraints will be generated for the signals ahead of the merging switch. The vehicle that comes later has to wait for the vehicle that comes earlier (`predecessorConstraint`).
+- If vehicles are inserted on the edge of their first stop, a `insertionPredecessor`-constraint is generated so that insertion is delayed until the train that stops earlier has passed the signal subsequent to the station.
+
 # TraCI
 
 Rail signals and rail crossings can be controlled with function *traci.trafficlight.setRedYellowGreenState*. They can also be switched off with *traci.trafficlight.setProgram(tlsID, "off")*. In either case, normal operations can be resumed by reactivating the default program "0": *traci.trafficlight.setProgram(tlsID, "0")*.
