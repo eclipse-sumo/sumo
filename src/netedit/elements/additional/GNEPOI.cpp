@@ -66,7 +66,7 @@ GNEPOI::~GNEPOI() {}
 
 
 GNEMoveOperation* 
-GNEPOI::getMoveOperation(const double shapeOffset) {
+GNEPOI::getMoveOperation(const double /* shapeOffset */) {
     // return move operation for a position
     return new GNEMoveOperation(this, *this);
 }

@@ -38,10 +38,10 @@ class GNELane;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPOI : public GNEShape, public PointOfInterest {
+class GNEPOI : public PointOfInterest, public GNEShape {
 
 public:
-    /// @brief needed to avoid diamond Problem between PointOfInterest and GNEShape
+    /// @brief needed to avoid diamond problem between PointOfInterest and GNEShape
     using GNEShape::getID;
 
     /** @brief Constructor

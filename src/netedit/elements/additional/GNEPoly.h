@@ -39,10 +39,10 @@ class GNENetworkElement;
  *  is computed using the junction's position to which an offset of 1m to each
  *  side is added.
  */
-class GNEPoly : public GNEShape, public SUMOPolygon {
+class GNEPoly : public SUMOPolygon, public GNEShape {
 
 public:
-    /// @brief needed to avoid diamond Problem between SUMOPolygon and GNEShape
+    /// @brief needed to avoid diamond problem between SUMOPolygon and GNEShape
     using GNEShape::getID;
 
     /** @brief Constructor

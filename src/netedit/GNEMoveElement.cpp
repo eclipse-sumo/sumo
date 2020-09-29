@@ -74,9 +74,9 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
     const std::vector<double> _originalPosOverLanes, 
     const std::vector<int> _geometryPointsToMove) :
     moveElement(_moveElement),
+    geometryPointsToMove(_geometryPointsToMove),
     lane(_lane), 
-    originalPosOverLanes(_originalPosOverLanes),
-    geometryPointsToMove(_geometryPointsToMove) {
+    originalPosOverLanes(_originalPosOverLanes) {
 }
 
 

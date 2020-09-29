@@ -155,7 +155,7 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
         std::vector<int> geometryPointsToMove;
         // if edge is selected, check conditions
         if (getParentJunctions().front()->isAttributeCarrierSelected()) {
-            for (int i = 1; i < (myNBEdge->getGeometry().size() - 1); i++) {
+            for (int i = 1; i < (int)myNBEdge->getGeometry().size() - 1; i++) {
                 geometryPointsToMove.push_back(i);
             }
         }
@@ -191,7 +191,7 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
                     // move only a part of edge geometry
                     return new GNEMoveOperation(this, myNBEdge->getGeometry(), geometryPointsToMove, shapeToMove, geometryPointsToMove);
                 } else if (getParentJunctions().back()->isAttributeCarrierSelected()) {
-                    for (int i = index; i < (shapeToMove.size() - 1); i++) {
+                    for (int i = index; i < (int)shapeToMove.size() - 1; i++) {
                         geometryPointsToMove.push_back(i);
                     }
                     // move only a part of edge geometry
