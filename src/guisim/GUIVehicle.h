@@ -153,6 +153,10 @@ public:
 
     /// @brief return the lane-change maneuver distance
     double getManeuverDist() const;
+    /// @brief return the speed mode as bit string
+    std::string getSpeedMode() const;
+    /// @brief return the lane change mode as bit string
+    std::string getLaneChangeMode() const;
 
     /// @brief handle route to accomodate to given stop
     void rerouteDRTStop(MSStoppingPlace* busStop);

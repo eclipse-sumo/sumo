@@ -24,6 +24,7 @@
 #include <cmath>
 #include <vector>
 #include <string>
+#include <bitset>
 #include <utils/common/StringUtils.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
 #include <utils/emissions/PollutantsInterface.h>
@@ -60,6 +61,9 @@
 #include "GUINet.h"
 #include "GUIEdge.h"
 #include "GUILane.h"
+
+#define SPEEDMODE_DEFAULT 31
+#define LANECHANGEMODE_DEFAULT 1621
 
 //#define DEBUG_FOES
 
@@ -183,6 +187,14 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getStateOfCharge));
         ret->mkItem("actual electric current [A]", true,
                     new FunctionBinding<GUIVehicle, double>(this, &MSVehicle::getElecHybridCurrent));
+    }
+    if (hasInfluencer()) {
+        if (getInfluencer().getSpeedMode() != SPEEDMODE_DEFAULT) {
+            ret->mkItem("speed mode", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getSpeedMode));
+        }
+        if (getInfluencer().getLaneChangeMode() != LANECHANGEMODE_DEFAULT) {
+            ret->mkItem("lane change mode", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLaneChangeMode));
+        }
     }
     ret->closeBuilding(&getParameter());
     return ret;
@@ -988,6 +1000,16 @@ GUIVehicle::getTargetLaneID() const {
 double
 GUIVehicle::getManeuverDist() const {
     return getLaneChangeModel().getManeuverDist();
+}
+
+std::string
+GUIVehicle::getSpeedMode() const {
+    return std::bitset<5>(getInfluencer()->getSpeedMode()).to_string();
+}
+
+std::string
+GUIVehicle::getLaneChangeMode() const {
+    return std::bitset<12>(getInfluencer()->getLaneChangeMode()).to_string();
 }
 
 void
