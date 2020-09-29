@@ -3,5 +3,8 @@ multiple
 reactiondist
 short_edge
 
+# blocking vehicle just finished a turnaround and is standing on a short edge
+short_edge_turnaround
+
 # sublane motivation for emergency lane formation must override other motivations
 override_strategic
