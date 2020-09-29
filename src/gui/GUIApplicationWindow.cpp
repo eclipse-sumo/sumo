@@ -488,7 +488,7 @@ GUIApplicationWindow::fillMenuBar() {
                       "Locate &Additional\tShift+A\tOpen a Dialog for Locating an Additional Structure.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), this, MID_LOCATEADD);
     new FXMenuCommand(myLocatorMenu,
-                      "Locate P&oI\tShift+O\tOpen a Dialog for Locating a Point of Intereset.",
+                      "Locate P&oI\tShift+O\tOpen a Dialog for Locating a Point of Interest.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), this, MID_LOCATEPOI);
     new FXMenuCommand(myLocatorMenu,
                       "Locate Po&lygon\tShift+L\tOpen a Dialog for Locating a Polygon.",
