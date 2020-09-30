@@ -12,6 +12,72 @@ on:
           
 
 jobs:
+  
+  ###########################
+  # BUILDING ON OSX
+  ###########################
+  build-osx:
+    runs-on: macos-latest
+    strategy:
+      # Allow all other matrix-jobs to continue running, even if one of the jobs fails
+      fail-fast: false
+      matrix:
+        build_type: [full, minimal]
+
+    steps:
+    - name: Cloning SUMO
+      uses: actions/checkout@v2
+      with:
+        path: sumo
+
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --prune --unshallow
+        
+    - name: Preparing Build System
+      run: |
+        brew update
+        brew cask install xquartz
+        brew install xerces-c fox proj gdal gl2ps 
+        
+    - name: Preparing Gtest
+      run: |
+        git clone https://github.com/google/googletest
+        cd googletest
+        git checkout release-1.10.0
+        mkdir build
+        cd build
+        cmake ..
+        make
+        make install
+        
+    - name: Building SUMO
+      run: |
+        mkdir -p sumo/cmake-build 
+        cd sumo/cmake-build 
+        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake -DFMI=ON ..; fi
+        if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFMI=ON -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi 
+        make
+    
+    - name: Installing SUMO
+      run: |
+        cd sumo/cmake-build 
+        sudo make install
+        
+    - name: Building FMU Compliance Checker
+      run: |
+        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
+        cd fmuChecker
+        mkdir build
+        cd build
+        cmake ../
+        make install test
+        
+    - name: Checking sumo-fmi2.fmu
+      run: |
+        ./fmuChecker/install/fmuCheck.darwin64 sumo/bin/sumo-fmi2-darwin64.fmu
+    
   ###########################
   # BUILDING ON LINUX
   ###########################
