@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed 30 Sep 2020 11:52:18 AM CEST by Eclipse SUMO netedit Version v1_7_0+0364-adf3ba0764
+<!-- generated on Wed Sep 30 12:45:25 2020 by Eclipse SUMO netconvert Version v1_7_0+0366-764136f684
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="net.net.xml"/>
     </input>
-
-    <output>
-        <output-file value="net.net.xml"/>
-    </output>
 
     <processing>
         <geometry.min-radius.fix.railways value="false"/>
@@ -19,7 +15,6 @@
     </processing>
 
     <junctions>
-        <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
         <junctions.limit-turn-speed value="5.5"/>
@@ -199,7 +194,7 @@
 
     <junction id=":C_14_0" type="internal" x="100.78" y="101.88" incLanes=":C_2_0 SC_0 SC_1" intLanes=":C_4_0 :C_5_0 :C_6_0 :C_7_0 :C_8_0 :C_9_0 :C_12_0 :C_13_0 :C_c0_0"/>
     <junction id=":C_15_0" type="internal" x="101.88" y="99.22" incLanes=":C_5_0 WC_1" intLanes=":C_1_0 :C_2_0 :C_7_0 :C_9_0 :C_10_0 :C_11_0 :C_12_0 :C_c0_0"/>
-    <junction id=":C_16_0" type="internal" x="102.38" y="95.97" incLanes=":C_8_0 SC_0" intLanes=":C_2_0 :C_7_0 :C_12_0 :C_c0_0"/>
+    <junction id=":C_16_0" type="internal" x="102.38" y="95.97" incLanes=":C_8_0 SC_0" intLanes=":C_2_0 :C_6_0 :C_7_0 :C_12_0 :C_c0_0"/>
     <junction id=":C_17_0" type="internal" x="99.17" y="98.89" incLanes=":C_10_0 NC_0" intLanes=":C_0_0 :C_1_0 :C_4_0 :C_5_0 :C_12_0 :C_13_0"/>
     <junction id=":C_18_0" type="internal" x="98.79" y="100.73" incLanes=":C_13_0 EC_1" intLanes=":C_1_0 :C_2_0 :C_3_0 :C_4_0 :C_7_0 :C_9_0 :C_10_0"/>
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 16 13:34:43 2020 by Eclipse SUMO netconvert Version v1_7_0+0100-9ecf40c297
+<!-- generated on Wed Sep 30 12:45:38 2020 by Eclipse SUMO netconvert Version v1_7_0+0366-764136f684
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -433,7 +433,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
 
     <junction id=":28095228_17_0" type="internal" x="1401.51" y="154.43" incLanes=":28095228_3_0 281046897_0 281053466_0 4579852_0" intLanes=":28095228_4_0 :28095228_7_0 :28095228_13_0"/>
-    <junction id=":28095233_16_0" type="internal" x="1401.50" y="182.58" incLanes=":28095233_3_0 68189544_1" intLanes=":28095233_1_0 :28095233_2_0 :28095233_8_0 :28095233_15_0"/>
+    <junction id=":28095233_16_0" type="internal" x="1401.50" y="182.58" incLanes=":28095233_3_0 68189544_1" intLanes=":28095233_0_0 :28095233_1_0 :28095233_2_0 :28095233_8_0 :28095233_15_0"/>
     <junction id=":28095233_17_0" type="internal" x="1397.90" y="186.63" incLanes=":28095233_15_0 -281053466_0 68189544_1 68189544_2" intLanes=":28095233_0_0 :28095233_3_0 :28095233_8_0"/>
 
     <connection from="-155605282" to="10996053" fromLane="0" toLane="1" via=":28095228_0_0" tl="28095228" linkIndex="0" dir="r" state="o"/>

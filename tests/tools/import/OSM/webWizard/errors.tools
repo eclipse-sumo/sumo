@@ -106,11 +106,12 @@ Warning: Ambiguity in turnarounds computation at junction '1206481808'.
 Warning: Ambiguity in turnarounds computation at junction '196721246'.
 Warning: Ambiguity in turnarounds computation at junction '5527777343'.
 Warning: Ambiguity in turnarounds computation at junction '740379739'.
+Warning: Found sharp turn with radius 5.72 at the end of edge '-285825377'.
+Warning: Found sharp turn with radius 6.74 at the start of edge '-330832908'.
 Warning: Found sharp turn with radius 8.20 at the start of edge '-409507435#2'.
 Warning: Found sharp turn with radius 6.39 at the start of edge '-52348720#0'.
+Warning: Found sharp turn with radius 4.03 at the start of edge '-553121566#2'.
 Warning: Found sharp turn with radius 6.03 at the start of edge '122820534#0'.
-Warning: Found sharp turn with radius 8.49 at the start of edge '23852053#1'.
-Warning: Found sharp turn with radius 5.72 at the start of edge '285825377'.
 Warning: Found sharp turn with radius 6.39 at the end of edge '52348720#0'.
 Warning: The rail crossing '1157325170' does not have any roads.
 Warning: The rail crossing '4402536776' does not have any roads.
@@ -124,6 +125,7 @@ Warning: 17 total messages of type: Ambiguous railway kilometrage direction for 
 Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
 Warning: 15 total messages of type: Discarding unusable type '%' (first occurence for edge '%').
 Warning: 69 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
+Warning: 7 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
@@ -159,15 +161,15 @@ Warning: busStop '1668497956' on lane '153537614#2_0' is too short for vehicle '
 Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 'pt_bus_N6:0.0'.
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle 'pt_bus_147:0.0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle 'pt_subway_U6:0.0'.
+Warning: Person 'ped37' is jammed on edge ':1264074482_c0', time=423.00.
 Warning: Teleporting vehicle 'pt_tram_M2:3.0'; frontal collision with vehicle 'pt_tram_M2:0.1', lane='-148458500#1_0', gap=-1.00, time=481.00 stage=move.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle 'pt_bus_N6:1.0'.
 Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '-148458500#0', time 485.00.
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#1_0', gap=-1.00, time=486.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 486.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=486.00.
-Warning: Person 'ped41' aborted waiting for N5:0 at busStop '-3867910429'.
-Warning: Person 'ped33' aborted waiting for S9:0 at busStop '2603331695'.
-Warning: Person 'ped123' aborted waiting for S7:0 at busStop '2603331695'.
-Warning: Person 'ped69' aborted waiting for S7:0 at busStop '2603331695'.
-Warning: Person 'ped142' aborted waiting for U6:0 at busStop '3043709616'.
-Warning: Person 'ped199' aborted waiting for N42:1 at busStop '270727260'.
+Warning: Person 'ped10' is jammed on edge ':990017251_c0', time=500.00.
+Warning: Person 'ped1' aborted waiting for TXL:1 at busStop '271296293'.
+Warning: Person 'ped162' aborted waiting for 147:0 at busStop '3869306762'.
+Warning: Person 'ped186' aborted waiting for S3:1 at busStop '27411231'.
+Warning: Person 'ped183' aborted waiting for N2:1 at busStop '3867910438'.
