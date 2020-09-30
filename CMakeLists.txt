@@ -126,7 +126,7 @@ execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIA
 
 if (APPLE)
     # we know that openGL is deprecated for newer MacOS
-    set(ENV{GL_SILENCE_DEPRECATION} 1)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -DGL_SILENCE_DEPRECATION")
     # http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
     link_directories(/opt/X11/lib)
     include_directories(SYSTEM /opt/X11/include)
