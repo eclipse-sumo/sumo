@@ -12,21 +12,17 @@ Debug: Invalid input parameter of parkingArea: 'length' doesn't have a valid 'fl
 Debug: Invalid input parameter of parkingArea: 'length' doesn't have a valid 'float' format
 Debug: Invalid input parameter of parkingArea: 'length' cannot be negative
 Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 9.80,-10.60,28.20,-2.20
+GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 0.80,-16.40,37.20,3.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 9.80,-10.60,28.20,-2.20
+GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 0.80,-16.40,37.20,3.60
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 9.80,-10.60,28.20,-2.20
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 9.80,-10.60,28.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 9.80,-10.60,28.20,-2.20
+GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 0.80,-16.40,37.20,3.60
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -42,10 +38,8 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 9.80,-10.60,28.20,-2.20
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 9.80,-10.60,28.20,-2.20
 Debug: Deleting unreferenced parkingArea 'parkingArea_gneE0_0_0'
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 9.80,-10.60,28.20,-2.20
+GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 0.80,-16.40,37.20,3.60
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

@@ -36,7 +36,6 @@ Debug: Setting new attribute selected 'true' into chargingStation 'chargingStati
 Debug: Additionals saving aborted
 Debug: Key DEL (delete) pressed
 Debug: Removing chargingStation 'chargingStationA' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 3 ACs remains.
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

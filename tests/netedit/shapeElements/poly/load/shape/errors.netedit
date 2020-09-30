@@ -6,18 +6,18 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Debug: Adding poly 'poly_03' into viewNet
-GLDebug: 	Inserted polygon:poly_03 into SUMORTree with boundary 8.00,-52.00,22.00,-38.00
+GLDebug: 	Inserted polygon:poly_03 into SUMORTree with boundary 0.00,-60.00,30.00,-30.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poly 'poly_04' into viewNet
-GLDebug: 	Inserted polygon:poly_04 into SUMORTree with boundary 38.00,-42.00,42.00,-38.00
+GLDebug: 	Inserted polygon:poly_04 into SUMORTree with boundary 30.00,-50.00,50.00,-30.00
 Debug: Adding poly 'poly_05' into viewNet
-GLDebug: 	Inserted polygon:poly_05 into SUMORTree with boundary -72.00,38.00,-58.00,42.00
+GLDebug: 	Inserted polygon:poly_05 into SUMORTree with boundary -80.00,30.00,-50.00,50.00
 Debug: Adding poly 'poly_06' into viewNet
-GLDebug: 	Inserted polygon:poly_06 into SUMORTree with boundary -72.00,18.00,-58.00,22.00
+GLDebug: 	Inserted polygon:poly_06 into SUMORTree with boundary -80.00,10.00,-50.00,30.00
 Debug: Adding poly 'poly_07' into viewNet
-GLDebug: 	Inserted polygon:poly_07 into SUMORTree with boundary -52.00,28.00,-38.00,42.00
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poly\load\shape\input_additionals.add.xml failed.
+GLDebug: 	Inserted polygon:poly_07 into SUMORTree with boundary -60.00,20.00,-30.00,50.00
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\shapeElements\poly\load\shape\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
@@ -36,21 +36,21 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_07' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_07 from SUMORTree with boundary -52.00,28.00,-38.00,42.00
+GLDebug: 	Removed object polygon:poly_07 from SUMORTree with boundary -60.00,20.00,-30.00,50.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poly 'poly_07' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_06' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_06 from SUMORTree with boundary -72.00,18.00,-58.00,22.00
+GLDebug: 	Removed object polygon:poly_06 from SUMORTree with boundary -80.00,10.00,-50.00,30.00
 Debug: delete poly 'poly_06' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_05' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_05 from SUMORTree with boundary -72.00,38.00,-58.00,42.00
+GLDebug: 	Removed object polygon:poly_05 from SUMORTree with boundary -80.00,30.00,-50.00,50.00
 Debug: delete poly 'poly_05' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_04' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_04 from SUMORTree with boundary 38.00,-42.00,42.00,-38.00
+GLDebug: 	Removed object polygon:poly_04 from SUMORTree with boundary 30.00,-50.00,50.00,-30.00
 Debug: delete poly 'poly_04' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_03' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_03 from SUMORTree with boundary 8.00,-52.00,22.00,-38.00
+GLDebug: 	Removed object polygon:poly_03 from SUMORTree with boundary 0.00,-60.00,30.00,-30.00
 Debug: delete poly 'poly_03' in ~GNEChange_Shape()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

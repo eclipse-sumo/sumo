@@ -5,7 +5,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 17.97,1.36,27.97,11.36
+GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.97,-3.64,32.97,16.36
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Format of optional optional boolean attribute 'friendlyPos' of detEntry is invalid; Cannot be parsed to boolean; Default value will be used.
@@ -35,7 +35,7 @@ Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 17.97,1.36,27.97,11.36
+GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 12.97,-3.64,32.97,16.36
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

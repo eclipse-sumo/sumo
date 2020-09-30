@@ -5,11 +5,11 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poly 'poly_0' into viewNet
-GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -52.00,8.00,-38.00,22.00
+GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -60.00,0.00,-30.00,30.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Error: Invalid Number Format '(double) dummyLayer'
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Apr171420.5468\netedit.gui\shapeElements\poly\load\layer\input_additionals.add.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\shapeElements\poly\load\layer\input_additionals.add.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
@@ -28,7 +28,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
-GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -52.00,8.00,-38.00,22.00
+GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -60.00,0.00,-30.00,30.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()

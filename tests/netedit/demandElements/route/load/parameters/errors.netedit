@@ -22,7 +22,7 @@ Error: Attribute 'key' in definition of a param is empty.
 Debug: Adding route 'route_0' in GNEChange_DemandElement
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
-Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Apr130613.2864\netedit.gui\demandElements\route\load\parameters\input_routes.rou.xml failed.
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\route\load\parameters\input_routes.rou.xml failed.
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Enabled toogle show grid throught alt + 1
@@ -53,8 +53,8 @@ GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -2.00,45.30,23.50
 GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -2.00,26.80,23.50,54.70
 GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 30.00,26.80,50.00,53.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
-GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -1.00,30.00,20.00,70.00
-GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary 0.00,30.00,21.00,70.00
+GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -1.60,30.00,20.00,70.00
+GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary 0.00,30.00,21.60,70.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary 0.00,8.40,80.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 55.20,10.00,80.00,70.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 60.00,10.00,84.80,70.00
@@ -83,8 +83,8 @@ GLDebug: 	Removed object junction:gneJ7 from SUMORTree with boundary -2.00,45.30
 GLDebug: 	Removed object junction:gneJ8 from SUMORTree with boundary -2.00,26.80,23.50,54.70
 GLDebug: 	Removed object junction:gneJ9 from SUMORTree with boundary 30.00,26.80,50.00,53.20
 GLDebug: Removing edges during recomputing
-GLDebug: 	Removed object edge:gneE10 from SUMORTree with boundary -1.00,30.00,20.00,70.00
-GLDebug: 	Removed object edge:gneE11 from SUMORTree with boundary 0.00,30.00,21.00,70.00
+GLDebug: 	Removed object edge:gneE10 from SUMORTree with boundary -1.60,30.00,20.00,70.00
+GLDebug: 	Removed object edge:gneE11 from SUMORTree with boundary 0.00,30.00,21.60,70.00
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary 0.00,8.40,80.00,30.00
 GLDebug: 	Removed object edge:gneE3 from SUMORTree with boundary 55.20,10.00,80.00,70.00
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary 60.00,10.00,84.80,70.00
@@ -101,8 +101,8 @@ GLDebug: 	Inserted junction:gneJ7 into SUMORTree with boundary -2.00,45.30,23.50
 GLDebug: 	Inserted junction:gneJ8 into SUMORTree with boundary -2.00,26.80,23.50,54.70
 GLDebug: 	Inserted junction:gneJ9 into SUMORTree with boundary 30.00,26.80,50.00,53.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
-GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -1.00,30.00,20.00,70.00
-GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary 0.00,30.00,21.00,70.00
+GLDebug: 	Inserted edge:gneE10 into SUMORTree with boundary -1.60,30.00,20.00,70.00
+GLDebug: 	Inserted edge:gneE11 into SUMORTree with boundary 0.00,30.00,21.60,70.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary 0.00,8.40,80.00,30.00
 GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 55.20,10.00,80.00,70.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 60.00,10.00,84.80,70.00

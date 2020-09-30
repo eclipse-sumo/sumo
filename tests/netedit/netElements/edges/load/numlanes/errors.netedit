@@ -5,7 +5,7 @@ GLDebug: 	Inserted edge:gneE12 into SUMORTree with boundary -10.00,-14.80,60.00,
 GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,-10.00,60.00,21.20
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 15.00,-15.00,25.00,-5.00
+GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 10.00,-20.00,30.00,0.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
@@ -28,7 +28,7 @@ GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,-10.00,60.00,
 Debug: Deleting unreferenced detExit 'e3Detector_0'
 Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 15.00,-15.00,25.00,-5.00
+GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 10.00,-20.00,30.00,0.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge 'gneE12' in AttributeCarriers destructor

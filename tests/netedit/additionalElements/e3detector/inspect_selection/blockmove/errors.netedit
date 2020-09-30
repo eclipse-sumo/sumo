@@ -48,11 +48,9 @@ Debug: Calling GNEUndoList::undo()
 Debug: Removing detExit 'e3Detector_B' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_B' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_B' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 1 ACs remains.
 Debug: Removing detExit 'e3Detector_A' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_A' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_A' in GNEChange_Additional
-Debug: Removed inspected element from Inspected ACs. 0 ACs remains.
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
