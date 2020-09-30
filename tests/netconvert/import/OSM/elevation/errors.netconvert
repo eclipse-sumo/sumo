@@ -13,9 +13,9 @@ Warning: Ignoring restriction relation '1727169' with unknown from-way.
 Warning: Ignoring restriction relation '1727169' with unknown to-way.
 Warning: No way found for reference '48858193' in relation '2439689'
 Warning: Ignoring restriction relation '2439689' with unknown from-way.
+Warning: Edge '-142575745' has a grade of 12.35%.
 Warning: Edge '-172014854#1' has a grade of 11.14%.
+Warning: Edge '-172014854#2' has a grade of 10.80%.
 Warning: Edge '-24214694#1' has a grade of 16.46%.
-Warning: Edge '-24214694#4' has a grade of 11.61%.
-Warning: Edge '-26816590#0' has a grade of 47.65%.
-Warning: Edge '128643753#0' has a grade of 254.75%.
-Warning: 17 total messages of type: Edge '%' has a grade of %%.
+Warning: Edge '-24214694#4' has a grade of 13.97%.
+Warning: 22 total messages of type: Edge '%' has a grade of %%.

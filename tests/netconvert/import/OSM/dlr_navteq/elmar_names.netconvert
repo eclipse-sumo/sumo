@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on Mon Dec  2 14:09:08 2019 by Eclipse SUMO netconvert Version v1_3_1+1219-1be072e
+# <!-- generated on Wed Sep 30 11:17:49 2020 by Eclipse SUMO netconvert Version v1_7_0+0361-087c97c9f0
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -65,19 +65,19 @@
 # NAME_ID	PERMANENT_ID_INFO	Name
 # [elements] 17
 10	0	A 113
-8	0	Albert-Einstein-Straße
+9	0	Albert-Einstein-Straße
 3	0	Am Glinigk
 11	0	Bendemannstraße
-9	0	Berliner Mauerweg
+5	0	Berliner Mauerweg
 1	0	Eisenhutweg
 4	0	Ernst-Ruska-Ufer
 12	0	Friedrich-Wöhler-Straße
 0	0	Hermann-Dorner-Allee
-6	0	Iselersteig
+7	0	Iselersteig
 13	0	James-Franck-Straße
 2	0	L 1081
 14	0	North-Willys-Straße
 16	0	Rudower Chaussee
-7	0	Schwarzschildstraße
-5	0	Wegedornstraße
+8	0	Schwarzschildstraße
+6	0	Wegedornstraße
 15	0	Zur Rothen Laake
