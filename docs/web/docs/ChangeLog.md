@@ -47,7 +47,7 @@ permalink: /ChangeLog/
 
 - Tools
   - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
-  - Added new tool [generateRailSignalConstraints.py](fixme) to generated constraint input for rain signals from a route file. Issue #7436
+  - Added new tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) to generated constraint input for rain signals from a route file. Issue #7436
 
 ### Other
 
