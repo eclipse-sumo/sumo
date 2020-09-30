@@ -21,8 +21,8 @@ static const char *modepersontype_xpm[] = {
 "     ......     ",
 "                ",
 "   ..........   ",
-"  .oooooooooo.+ ",
-" .oooooooooooo.+",
+"  .oooooooooo.  ",
+" .oooooooooooo. ",
 ".oooooooooooooo.",
 ".oooooooooooooo."
 };

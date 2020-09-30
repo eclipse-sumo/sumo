@@ -733,7 +733,7 @@ GNEApplicationWindowHelper::LocateMenuCommands::buildLocateMenuCommands(FXMenuPa
                       "Locate &Vehicles\tShift+V\tOpen a dialog for locating a Vehicle.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), myGNEApp, MID_LOCATEVEHICLE);
     new FXMenuCommand(locateMenu,
-                      "Locate &Person\tShift+P\tOpen a dialog for locating a Person.",
+                      "Locate &Persons\tShift+P\tOpen a dialog for locating a Person.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), myGNEApp, MID_LOCATEPERSON);
     new FXMenuCommand(locateMenu,
                       "Locate &Route\tShift+R\tOpen a dialog for locating a Route.",

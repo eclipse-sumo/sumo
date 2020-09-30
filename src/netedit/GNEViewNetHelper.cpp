@@ -1642,22 +1642,22 @@ void
 GNEViewNetHelper::SaveElements::buildSaveElementsButtons() {
     // create save network button
     saveNetwork = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                               "\tSave network\tSave network.", GUIIconSubSys::getIcon(GUIIcon::SAVENETWORKELEMENTS),
+                               "\tSave network\tSave network. (Ctrl+S)", GUIIconSubSys::getIcon(GUIIcon::SAVENETWORKELEMENTS),
                                myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK, GUIDesignButtonToolbar);
     saveNetwork->create();
     // create save additional elements button
     saveAdditionalElements = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                          "\tSave additional elements\tSave additional elements.", GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS),
+                                          "\tSave additional elements\tSave additional elements. (Ctrl+Shift+A)", GUIIconSubSys::getIcon(GUIIcon::SAVEADDITIONALELEMENTS),
                                           myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS, GUIDesignButtonToolbar);
     saveAdditionalElements->create();
     // create save demand elements button
     saveDemandElements = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                      "\tSave demand elements\tSave demand elements.", GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS),
+                                      "\tSave demand elements\tSave demand elements. (Ctrl+Shift+D)", GUIIconSubSys::getIcon(GUIIcon::SAVEDEMANDELEMENTS),
                                       myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_D_SAVEDEMANDELEMENTS, GUIDesignButtonToolbar);
     saveDemandElements->create();
     // create save data elements button
     saveDataElements = new FXButton(myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().saveElements,
-                                    "\tSave data elements\tSave data elements.", GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS),
+                                    "\tSave data elements\tSave data elements. (Ctrl+Shift+B)", GUIIconSubSys::getIcon(GUIIcon::SAVEDATAELEMENTS),
                                     myViewNet->getViewParent()->getGNEAppWindows(), MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS, GUIDesignButtonToolbar);
     saveDataElements->create();
     // recalc menu bar because there is new elements
@@ -1686,17 +1686,17 @@ void
 GNEViewNetHelper::EditModes::buildSuperModeButtons() {
     // create network button
     networkButton = new MFXCheckableButton(false,
-                                           myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Network\t\tSet mode for edit network elements.",
+                                           myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Network\t\tSet mode for edit network elements. (F2)",
                                            GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignButtonToolbarSupermode);
     networkButton->create();
     // create demand button
     demandButton = new MFXCheckableButton(false,
-                                          myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Demand\t\tSet mode for edit traffic demand.",
+                                          myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Demand\t\tSet mode for edit traffic demand. (F3)",
                                           GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignButtonToolbarSupermode);
     demandButton->create();
     // create data button
     dataButton = new MFXCheckableButton(false,
-                                        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Data\t\tSet mode for edit data demand.",
+                                        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Data\t\tSet mode for edit data demand. (F4)",
                                         GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignButtonToolbarSupermode);
     dataButton->create();
     // recalc menu bar because there is new elements
@@ -1778,7 +1778,7 @@ GNEViewNetHelper::EditModes::setNetworkEditMode(NetworkEditMode mode, const bool
             myViewNet->myCurrentFrame->focusUpperElement();
         }
     } else if (networkEditMode == NetworkEditMode::NETWORK_TLS && !myViewNet->myViewParent->getTLSEditorFrame()->isTLSSaved()) {
-        myViewNet->setStatusBarText("save modifications in TLS before change mode");
+        myViewNet->setStatusBarText("Save modifications in TLS before change mode");
         myViewNet->myCurrentFrame->focusUpperElement();
     } else {
         myViewNet->setStatusBarText("");
@@ -1936,7 +1936,7 @@ void
 GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     // create menu checks
     menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-                                        ("Grid\t\tShow grid and restrict movement to the grid (size defined in visualization options)"),
+                                        ("Grid\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
                                         myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID, LAYOUT_FIX_HEIGHT);
     menuCheckShowGrid->setHeight(23);
     menuCheckShowGrid->setCheck(false);
@@ -2168,7 +2168,7 @@ void
 GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     // create menu checks
     menuCheckShowGrid = new FXMenuCheck(myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions,
-                                        ("Grid\t\tShow grid and restrict movement to the grid (size defined in visualization options)"),
+                                        ("Grid\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
                                         myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID, LAYOUT_FIX_HEIGHT);
     menuCheckShowGrid->setHeight(23);
     menuCheckShowGrid->setCheck(false);
@@ -2809,17 +2809,17 @@ void
 GNEViewNetHelper::CommonCheckableButtons::buildCommonCheckableButtons() {
     // inspect button
     inspectButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                           "\tset inspect mode\tMode for inspect elements and change their attributes.",
+                                           "\tset inspect mode\tMode for inspect elements and change their attributes. (I)",
                                            GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myViewNet, MID_HOTKEY_I_MODES_INSPECT, GUIDesignButtonToolbarCheckable);
     inspectButton->create();
     // delete button
     deleteButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                          "\tset delete mode\tMode for delete elements.",
+                                          "\tset delete mode\tMode for delete elements. (D)",
                                           GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myViewNet, MID_HOTKEY_D_MODES_DELETE, GUIDesignButtonToolbarCheckable);
     deleteButton->create();
     // select button
     selectButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                          "\tset select mode\tMode for select elements.",
+                                          "\tset select mode\tMode for select elements. (S)",
                                           GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myViewNet, MID_HOTKEY_S_MODES_SELECT, GUIDesignButtonToolbarCheckable);
     selectButton->create();
     // always recalc menu bar after creating new elements
@@ -2880,47 +2880,47 @@ void
 GNEViewNetHelper::NetworkCheckableButtons::buildNetworkCheckableButtons() {
     // move button
     moveNetworkElementsButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tset move mode\tMode for move elements.",
+            "\tset move mode\tMode for move elements. (M)",
             GUIIconSubSys::getIcon(GUIIcon::MODEMOVE), myViewNet, MID_HOTKEY_M_MODES_MOVE, GUIDesignButtonToolbarCheckable);
     moveNetworkElementsButton->create();
     // create edge
     createEdgeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tset create edge mode\tMode for creating junction and edges.",
+            "\tset create edge mode\tMode for creating junction and edges. (E)",
             GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE), myViewNet, MID_HOTKEY_E_MODES_EDGE_EDGEDATA, GUIDesignButtonToolbarCheckable);
     createEdgeButton->create();
     // connection mode
     connectionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tset connection mode\tMode for edit connections between lanes.",
+            "\tset connection mode\tMode for edit connections between lanes. (C)",
             GUIIconSubSys::getIcon(GUIIcon::MODECONNECTION), myViewNet, MID_HOTKEY_C_MODES_CONNECT_PERSONPLAN, GUIDesignButtonToolbarCheckable);
     connectionButton->create();
     // prohibition mode
     prohibitionButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tset prohibition mode\tMode for editing connection prohibitions.",
+            "\tset prohibition mode\tMode for editing connection prohibitions. (W)",
             GUIIconSubSys::getIcon(GUIIcon::MODEPROHIBITION), myViewNet, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE, GUIDesignButtonToolbarCheckable);
     prohibitionButton->create();
     // traffic light mode
     trafficLightButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tset traffic light mode\tMode for edit traffic lights over junctions.",
+            "\tset traffic light mode\tMode for edit traffic lights over junctions. (T)",
             GUIIconSubSys::getIcon(GUIIcon::MODETLS), myViewNet, MID_HOTKEY_T_MODES_TLS_VTYPE, GUIDesignButtonToolbarCheckable);
     trafficLightButton->create();
     // additional mode
     additionalButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-            "\tset additional mode\tMode for adding additional elements.",
+            "\tset additional mode\tMode for adding additional elements. (A)",
             GUIIconSubSys::getIcon(GUIIcon::MODEADDITIONAL), myViewNet, MID_HOTKEY_A_MODES_ADDITIONAL_STOP, GUIDesignButtonToolbarCheckable);
     additionalButton->create();
     // crossing mode
     crossingButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                            "\tset crossing mode\tMode for creating crossings between edges.",
+                                            "\tset crossing mode\tMode for creating crossings between edges. (R)",
                                             GUIIconSubSys::getIcon(GUIIcon::MODECROSSING), myViewNet, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA, GUIDesignButtonToolbarCheckable);
     crossingButton->create();
     // TAZ Mode
     TAZButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                       "\tset TAZ mode\tMode for creating Traffic Assignment Zones.",
+                                       "\tset TAZ mode\tMode for creating Traffic Assignment Zones. (Z)",
                                        GUIIconSubSys::getIcon(GUIIcon::MODETAZ), myViewNet, MID_HOTKEY_Z_MODES_TAZ_TAZREL, GUIDesignButtonToolbarCheckable);
     TAZButton->create();
     // shape mode
     shapeButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-                                         "\tset polygon mode\tMode for creating polygons and POIs.",
+                                         "\tset polygon mode\tMode for creating polygons and POIs. (P)",
                                          GUIIconSubSys::getIcon(GUIIcon::MODEPOLYGON), myViewNet, MID_HOTKEY_P_MODES_POLYGON_PERSON, GUIDesignButtonToolbarCheckable);
     shapeButton->create();
     // always recalc after creating new elements

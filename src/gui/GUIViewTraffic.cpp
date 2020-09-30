@@ -115,22 +115,22 @@ GUIViewTraffic::buildViewToolBars(GUIGlChildWindow* v) {
     }
     // for junctions
     new FXButton(v->getLocatorPopup(),
-                 "\tLocate Junction\tLocate a junction within the network.",
+                 "\tLocate Junctions\tLocate a junction within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), v, MID_LOCATEJUNCTION,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for edges
     new FXButton(v->getLocatorPopup(),
-                 "\tLocate Street\tLocate a street within the network.",
+                 "\tLocate Edges\tLocate an edge within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), v, MID_LOCATEEDGE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for vehicles
     new FXButton(v->getLocatorPopup(),
-                 "\tLocate Vehicle\tLocate a vehicle within the network.",
+                 "\tLocate Vehicles\tLocate a vehicle within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), v, MID_LOCATEVEHICLE,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for persons
     new FXButton(v->getLocatorPopup(),
-                 "\tLocate Person\tLocate a person within the network.",
+                 "\tLocate Persons\tLocate a person within the network.",
                  GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), v, MID_LOCATEPERSON,
                  ICON_ABOVE_TEXT | FRAME_THICK | FRAME_RAISED);
     // for containers
