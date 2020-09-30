@@ -61,25 +61,32 @@ def _getOutputStream(name):
 def _closeOutputStream(strm):
     if strm:
         strm.close()
-
+    
 
 def makeEntries(movables, chosen, options):
     if options.boundary:
         xmin, ymin, xmax, ymax = [float(e)
                                   for e in options.boundary.split(",")]
     result = []
+    negative= False
     for v in movables:
         if v.id not in chosen:
             chosen[v.id] = random.random() < options.penetration
         if chosen[v.id]:
             v.x, v.y = disturb_gps(float(v.x), float(v.y), options.blur)
+            if v.x < 0 or v.y < 0:
+                if options.shift:
+                    v.x+= float(options.shift) 
+                    v.y+= float(options.shift) 
+                else:
+                    negative= True
             if not v.z:
                 v.z = 0
             if not options.boundary or (v.x >= xmin and v.x <= xmax and v.y >= ymin and v.y <= ymax):
                 if v.lane:
                     v.edge = sumolib._laneID2edgeID(v.lane)
-                result.append(v)
-    return result
+                result.append(v)     
+    return result, negative
 
 
 def procFCDStream(fcdstream, options):
@@ -87,6 +94,7 @@ def procFCDStream(fcdstream, options):
     lt = -1  # "last" time step
     lastExported = -1
     chosen = {}
+    hasWarning= False
     for q in fcdstream:
         pt = lt
         lt = sumolib.miscutils.parseTime(q.time)
@@ -99,11 +107,17 @@ def procFCDStream(fcdstream, options):
         lastExported = lt
         e = FCDTimeEntry(lt)
         if q.vehicle:
-            e.vehicle += makeEntries(q.vehicle, chosen, options)
+            result, warning = makeEntries(q.vehicle, chosen, options)
+            e.vehicle += result
+            hasWarning= hasWarning or warning
         if options.persons and q.person:
-            e.vehicle += makeEntries(q.person, chosen, options)
+            result, warning= makeEntries(q.person, chosen, options)
+            e.vehicle += result
+            hasWarning= hasWarning or warning
         yield e
     t = lt - pt + lt
+    if hasWarning:
+        print("One or more coordinates are negative, some applications might need strictly positive values. To avoid this use option --shift") 
     yield FCDTimeEntry(t)
 
 
@@ -208,6 +222,9 @@ output format. Optionally the output can be sampled, filtered and distorted.
                          help="Extra comments to include in fcd file")
     optParser.add_option("--fcd-filter-type", dest="fcdtype",
                          help="vehicle type to include in fcd file")
+    optParser.add_option("--shift", dest="shift",
+                         help="shift coordinates to postive values only")
+
     # parse
     if len(args) == 1:
         sys.exit(USAGE.replace('%prog', os.path.basename(__file__)))

@@ -1,1 +1,1 @@
-One or more coordinates are negative, some applications might need strictly positive values. To avoid this netconvert --offset.y --offset.x can be used
+One or more coordinates are negative, some applications might need strictly positive values. To avoid this use option --shift
