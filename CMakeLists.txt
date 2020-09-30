@@ -124,8 +124,10 @@ find_package(PythonInterp REQUIRED)
 message(STATUS "Found Python: " ${PYTHON_EXECUTABLE})
 execute_process(COMMAND ${PYTHON_EXECUTABLE} -c "import setuptools" RESULT_VARIABLE SETUPTOOLS_MISSING)
 
-#http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
 if (APPLE)
+    # we know that openGL is deprecated for newer MacOS
+    set(ENV{GL_SILENCE_DEPRECATION} 1)
+    # http://stackoverflow.com/questions/1487752/how-do-i-instruct-cmake-to-look-for-libraries-installed-by-macports
     link_directories(/opt/X11/lib)
     include_directories(SYSTEM /opt/X11/include)
     # Detect if the "port" command is valid on this system; if so, return full path
@@ -138,6 +140,7 @@ if (APPLE)
         include_directories(${MACPORTS_PREFIX}/../include)
         message(STATUS "Macports detected: ${MACPORTS_PREFIX}")
     endif ()
+
     # Recommendation, also add a "brew --prefix" custom command to detect a homebrew build environment
     execute_process(COMMAND brew --prefix RESULT_VARIABLE DETECT_BREW OUTPUT_VARIABLE BREW_PREFIX ERROR_QUIET OUTPUT_STRIP_TRAILING_WHITESPACE)
     if (${DETECT_BREW} EQUAL 0)
