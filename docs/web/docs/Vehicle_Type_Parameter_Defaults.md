@@ -74,7 +74,7 @@ vehicle types).
     <td class="tg-0lax">10m/s<sup>2</sup></td>
     <td class="tg-0lax">45km/h<sup>(24)</sup></td>
     <td class="tg-0lax">2</td>
-    <td class="tg-0lax">zero</td>
+    <td class="tg-0lax">LDV_G_EU6</td>
   </tr>
   <tr>
     <td class="tg-0lax">motorcycle</td>
@@ -103,7 +103,7 @@ vehicle types).
     <td class="tg-0lax">9m/s<sup>2</sup></td>
     <td class="tg-0lax">180km/h<sup>(29)</sup></td>
     <td class="tg-0lax">5</td>
-    <td class="tg-0lax">LDV_G_EU4</td>
+    <td class="tg-0lax">PC_G_EU4</td>
   </tr>
   <tr>
     <td class="tg-0lax"><img src="images/Wikicommons_passenger_sedan.jpg" title="wikicommons_passenger_sedan.jpg" width="200" alt="" /></td>
@@ -115,7 +115,7 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">5</td>
-    <td class="tg-0lax">LDV_G_EU4</td>
+    <td class="tg-0lax">PC_G_EU4</td>
   </tr>
   <tr>
     <td class="tg-0lax"><img src="images/Wikicommons_passenger_hatchback.jpg" title="wikicommons_passenger_hatchback.jpg" width="200" alt="" /></td>
@@ -127,7 +127,7 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">5</td>
-    <td class="tg-0lax">LDV_G_EU4</td>
+    <td class="tg-0lax">PC_G_EU4</td>
   </tr>
   <tr>
     <td class="tg-0lax"><img src="images/Wikicommons_passenger_wagon.jpg" title="wikicommons_passenger_wagon.jpg" width="200" alt="" /></td>
@@ -151,7 +151,7 @@ vehicle types).
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">6<br></td>
-    <td class="tg-0lax">LDV_G_EU4</td>
+    <td class="tg-0lax">PC_G_EU4</td>
   </tr>
   <tr>
     <td class="tg-0lax">emergency</td>
