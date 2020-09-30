@@ -8,3 +8,12 @@ short_edge_turnaround
 
 # sublane motivation for emergency lane formation must override other motivations
 override_strategic
+
+# rescue lane on three-lane road
+3lanes
+
+# rescue lane on three-lane road, rescue vehicle must turn right
+3lanes_right
+
+# rescue lane on three-lane road, rescue vehicle must turn right
+3lanes_left
