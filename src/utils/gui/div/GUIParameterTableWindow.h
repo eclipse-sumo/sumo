@@ -197,7 +197,9 @@ public:
      */
     static void updateAll() {
         FXMutexLock locker(myGlobalContainerLock);
-        std::for_each(myContainer.begin(), myContainer.end(), std::mem_fun(&GUIParameterTableWindow::updateTable));
+        for (GUIParameterTableWindow* const window : myContainer) {
+            window->updateTable();
+        }
     }
 
 protected:

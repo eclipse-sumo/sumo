@@ -954,7 +954,7 @@ GUIVehicle::getRightSublaneOnEdge() const {
             return MAX2(i - 1, 0);
         }
     }
-    return sublaneSides.size() - 1;
+    return (int)sublaneSides.size() - 1;
 }
 
 int

@@ -87,7 +87,9 @@ public:
      */
     static void updateAll() {
         FXMutexLock locker(myLock);
-        std::for_each(myContainer.begin(), myContainer.end(), std::mem_fun(&GLObjectValuePassConnector<T>::passValue));
+        for (GLObjectValuePassConnector<T>* const connector : myContainer) {
+            connector->passValue();
+        }
     }
 
 

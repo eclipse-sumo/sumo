@@ -197,24 +197,6 @@ protected:
     typedef std::map< IntervalsKey, DetectorFileVec > Intervals;
     /// @}
 
-    /**
-     * @struct detectorEquals
-     * @brief Returns true if detectors are equal.
-     *
-     * Binary predicate that compares the passed DetectorFilePair's
-     * detector to a fixed one. Returns true if detectors are
-     * equal. (Used to prevent multiple inclusion of a detector for
-     * the same interval.)
-     *
-     * @see addDetectorAndInterval
-     */
-    struct detectorEquals : public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool > {
-        /** @brief Returns true if detectors are equal. */
-        bool operator()(const DetectorFilePair& pair, const MSDetectorFileOutput* det) const {
-            return pair.first == det;
-        }
-    };
-
 protected:
     /// @brief The detectors map, first by detector type, then using NamedObjectCont (@see NamedObjectCont)
     std::map<SumoXMLTag, NamedObjectCont< MSDetectorFileOutput*> > myDetectors;
