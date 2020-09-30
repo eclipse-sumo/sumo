@@ -6,7 +6,7 @@ permalink: /Vehicle_Type_Parameter_Defaults/
 This page describes the vehicle parameter defaults depending on the
 vehicle class. If no values are given the values for passenger are used.
 It uses as default always the values in the first line for each vehicle
-class. The other values are just as an information (to be used with own
+class. The other values (marked green) are just as an information (to be used with own
 vehicle types).
 
 <style type="text/css">
@@ -36,11 +36,11 @@ vehicle types).
     <th class="tg-dr3j">speed deviation</th>
   </tr>
   <tr>
-    <td class="tg-cly1">pedestrian</td>
-    <td class="tg-cly1"><img src="images/Wikicommons_pedestrian.jpg" title="wikicommons_pedestrian.jpg" width="200" alt="" /></td>
-    <td class="tg-cly1">pedestrian</td>
-    <td class="tg-cly1">0.215m<sup>(1)</sup><br>0.478m<sup>(1)</sup><br>1.719m<sup>(1)</sup></td>
-    <td class="tg-cly1">0.25m</td>
+    <td class="tg-0lax">pedestrian</td>
+    <td class="tg-0lax"><img src="images/Wikicommons_pedestrian.jpg" title="wikicommons_pedestrian.jpg" width="200" alt="" /></td>
+    <td class="tg-0lax">pedestrian</td>
+    <td class="tg-0lax">0.215m<sup>(1)</sup><br>0.478m<sup>(1)</sup><br>1.719m<sup>(1)</sup></td>
+    <td class="tg-0lax">0.25m</td>
     <td class="tg-0lax">1.5m/s<sup>2(23)</sup></td>
     <td class="tg-0lax">2m/s<sup>2(23)</sup></td>
     <td class="tg-0lax">5m/s<sup>2</sup></td>
@@ -50,7 +50,7 @@ vehicle types).
     <td class="tg-0lax">0.1</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="11">two-wheeled vehicle</td>
+    <td class="tg-c882" colspan="12">two-wheeled vehicle</td>
   </tr>
   <tr>
     <td class="tg-0lax">bicycle</td>
@@ -95,7 +95,7 @@ vehicle types).
     <td class="tg-0lax">0.1</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="11">passenger car</td>
+    <td class="tg-c882" colspan="12">passenger car</td>
   </tr>
   <tr>
     <td class="tg-0lax" rowspan="5">passenger</td>
@@ -153,7 +153,7 @@ vehicle types).
   <tr>
     <td class="tg-0lax"><img src="images/Wikicommons_passenger_van.jpg" title="wikicommons_passenger_van.jpg" width="200" alt="" /></td>
     <td class="tg-0lax">passenger/van</td>
-    <td class="tg-0lax">see above (better values are probably: 4.7m<sup>(16)</sup><br>1.9m<sup>(16)</sup><br>1.73m<sup>(16)</sup>)</td>
+    <td class="tg-c882">4.7m<sup>(16)</sup><br>1.9m<sup>(16)</sup><br>1.73m<sup>(16)</sup></td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
     <td class="tg-0lax">see above</td>
@@ -206,7 +206,7 @@ vehicle types).
     <td class="tg-0lax">0.05</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="11">truck</td>
+    <td class="tg-c882" colspan="12">truck</td>
   </tr>
   <tr>
     <td class="tg-0lax">truck</td>
@@ -250,7 +250,7 @@ vehicle types).
     <td class="tg-0lax">0.05</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="11">bus</td>
+    <td class="tg-c882" colspan="12">bus</td>
   </tr>
   <tr>
     <td class="tg-0lax" rowspan="2">bus</td>
@@ -294,7 +294,7 @@ vehicle types).
     <td class="tg-0lax">0.05</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="11">rail</td>
+    <td class="tg-c882" colspan="12">rail</td>
   </tr>
   <tr>
     <td class="tg-0lax">tram</td>
@@ -366,7 +366,7 @@ vehicle types).
     <td class="tg-0lax">0</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="11">electric vehicle</td>
+    <td class="tg-c882" colspan="12">electric vehicle</td>
   </tr>
   <tr>
     <td class="tg-0lax">evehicle</td>
@@ -383,7 +383,7 @@ vehicle types).
     <td class="tg-0lax">0.1</td>
   </tr>
   <tr>
-    <td class="tg-c882" colspan="11">ships</td>
+    <td class="tg-c882" colspan="12">ship</td>
   </tr>
   <tr>
     <td class="tg-0lax">ship</td>
