@@ -2481,7 +2481,7 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
 
 
 void
-GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s) const {
+GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
     if (myPath.size() > 0) {
         const double lineWidth = 0.35;
         const double lineWidthin = 0.25;
@@ -2521,9 +2521,9 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings* s
             if ((myCreationMode & SHOW_CANDIDATE_EDGES) == 0) {
                 GLHelper::setColor(RGBColor::ORANGE);
             } else if (path.isConflictDisconnected()) {
-                GLHelper::setColor(s->candidateColorSettings.conflict);
+                GLHelper::setColor(s.candidateColorSettings.conflict);
             } else if (path.isConflictVClass()) {
-                GLHelper::setColor(s->candidateColorSettings.special);
+                GLHelper::setColor(s.candidateColorSettings.special);
             } else {
                 GLHelper::setColor(RGBColor::ORANGE);
             }

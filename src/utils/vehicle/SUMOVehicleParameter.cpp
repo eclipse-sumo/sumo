@@ -421,7 +421,7 @@ bool
 SUMOVehicleParameter::parseDepartEdge(const std::string& val, const std::string& element, const std::string& id,
                                  int& edgeIndex, DepartEdgeDefinition& ded, std::string& error) {
     bool ok = true;
-    edgeIndex = -1.;
+    edgeIndex = -1;
     ded = DepartEdgeDefinition::GIVEN;
     if (val == "random") {
         ded = DepartEdgeDefinition::RANDOM;

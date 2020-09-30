@@ -64,7 +64,7 @@ GNETAZ::~GNETAZ() {}
 GNEMoveOperation* 
 GNETAZ::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is blocked
-    if (true) {
+//    if (true) {
         // declare shape to move
         PositionVector shapeToMove = myShape;
         // first check if in the given shapeOffset there is a geometry point
@@ -92,17 +92,17 @@ GNETAZ::getMoveOperation(const double shapeOffset) {
                 return new GNEMoveOperation(this, myShape, {index}, shapeToMove, {newIndex});
             }
         }
-    } else {
+/*    } else {
         // return junction position
         return new GNEMoveOperation(this, myShape);
-    }
+    }*/
 }
 
 
 void 
 GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // edit depending if shape is being edited
-    if (true) {
+//    if (true) {
         // get original shape
         PositionVector shape = myShape;
         // check shape size
@@ -132,7 +132,7 @@ GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoLis
                 undoList->p_end();
             }
         }
-    }
+//    }
 }
 
 

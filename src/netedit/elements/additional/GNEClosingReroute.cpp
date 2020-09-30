@@ -45,7 +45,7 @@ GNEClosingReroute::~GNEClosingReroute() {}
 
 
 GNEMoveOperation* 
-GNEClosingReroute::getMoveOperation(const double shapeOffset) {
+GNEClosingReroute::getMoveOperation(const double /* shapeOffset */  ) {
     // GNEClosingReroutes cannot be moved
     return nullptr;
 }

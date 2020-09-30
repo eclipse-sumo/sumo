@@ -625,7 +625,7 @@ public:
         void updateEdgeColors();
 
         /// @brief draw temporal route
-        void drawTemporalRoute(const GUIVisualizationSettings* s) const;
+        void drawTemporalRoute(const GUIVisualizationSettings& s) const;
 
         /// @brief create path
         void createPath();
