@@ -902,7 +902,6 @@ GNEViewNetHelper::MouseButtonKeyPressed::mouseRightButtonPressed() const {
 
 GNEViewNetHelper::MoveSingleElementValues::MoveSingleElementValues(GNEViewNet* viewNet) :
     myViewNet(viewNet),
-    myAdditionalToMove(nullptr),
     myDemandElementToMove(nullptr) {
 }
 
@@ -1280,7 +1279,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
     const double shapeOffset = clickedEdge->getNBEdge()->getGeometry().nearest_offset_to_point2D(myViewNet->getPositionInformation());
     // get flag for inverse offset
     const bool useInverseOffset = (std::find(selectedEdges000180.begin(), selectedEdges000180.end(), clickedEdge) != selectedEdges000180.end());
-    // iterate over edges betwen 0º and 180º
+    // iterate over edges betwen 0 and 180 degrees
     for (const auto &edge : selectedEdges000180) {
         // get move operation depending of useInverseOffset
         if (useInverseOffset) {
@@ -1293,7 +1292,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
             myMoveOperations.push_back(moveOperation);
         }
     }
-    // iterate over edges betwen 180º and 360º
+    // iterate over edges betwen 180 and 360 degrees
     for (const auto &edge : selectedEdges180360) {
         // get move operation depending of useInverseOffset
         if (useInverseOffset) {
