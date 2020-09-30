@@ -1490,6 +1490,13 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent* e) {
             } else {
                 openNewView(defaultType);
             }
+
+            if (!OptionsCont::getOptions().isDefault("delay")) {
+                setDelay(OptionsCont::getOptions().getFloat("delay"));
+                mySimDelaySlider->setValue((int)mySimDelay);
+                mySimDelaySpinner->setValue(mySimDelay);
+            }
+
             if (!OptionsCont::getOptions().isDefault("breakpoints")) {
                 std::vector<SUMOTime> breakpoints;
                 for (const std::string& val : OptionsCont::getOptions().getStringVector("breakpoints")) {

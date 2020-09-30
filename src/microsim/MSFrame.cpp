@@ -561,6 +561,9 @@ MSFrame::fillOptions() {
     oc.doRegister("start", 'S', new Option_Bool(false));
     oc.addDescription("start", "GUI Only", "Start the simulation after loading");
 
+    oc.doRegister("delay", 'd', new Option_Float(0.0));
+    oc.addDescription("delay", "GUI Only", "Use FLOAT in ms as delay between simulation steps");
+
     oc.doRegister("breakpoints", 'B', new Option_StringVector());
     oc.addDescription("breakpoints", "GUI Only", "Use TIME[] as times when the simulation should halt");
 
@@ -780,6 +783,10 @@ MSFrame::checkOptions() {
                 ok = false;
             }
         }
+    }
+    if (oc.getFloat("delay") < 0.0) {
+        WRITE_ERROR("You need a non-negative delay.");
+        ok = false;
     }
     for (const std::string& val : oc.getStringVector("breakpoints")) {
         try {
