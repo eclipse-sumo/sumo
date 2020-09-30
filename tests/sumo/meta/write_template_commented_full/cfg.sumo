@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep 17 09:39:33 2020 by Eclipse SUMO sumo Version v1_7_0+0118-180bda3a75
+<!-- generated on Wed Sep 30 17:03:49 2020 by Eclipse SUMO sumo Version v1_7_0+0372-0e78adb662
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -939,6 +939,9 @@
         <!-- Start the simulation after loading -->
         <start value="false" synonymes="S" type="BOOL"/>
 
+        <!-- Use FLOAT in ms as delay between simulation steps -->
+        <delay value="0" synonymes="d" type="FLOAT"/>
+
         <!-- Use TIME[] as times when the simulation should halt -->
         <breakpoints value="" synonymes="B" type="STR[]"/>
 
@@ -962,6 +965,9 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
+
+        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
+        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

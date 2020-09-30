@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep 17 09:39:33 2020 by Eclipse SUMO sumo Version v1_7_0+0118-180bda3a75
+<!-- generated on Wed Sep 30 17:03:49 2020 by Eclipse SUMO sumo Version v1_7_0+0372-0e78adb662
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -361,6 +361,7 @@
         <game value="false" synonymes="G" type="BOOL" help="Start the GUI in gaming mode"/>
         <game.mode value="tls" type="STR" help="Select the game type (&apos;tls&apos;, &apos;drt&apos;)"/>
         <start value="false" synonymes="S" type="BOOL" help="Start the simulation after loading"/>
+        <delay value="0" synonymes="d" type="FLOAT" help="Use FLOAT in ms as delay between simulation steps"/>
         <breakpoints value="" synonymes="B" type="STR[]" help="Use TIME[] as times when the simulation should halt"/>
         <edgedata-files value="" type="FILE" help="Load edge/lane weights for visualization from FILE"/>
         <demo value="false" synonymes="D" type="BOOL" help="Restart the simulation after ending (demo mode)"/>
@@ -369,6 +370,7 @@
         <window-size value="" type="STR[]" help="Create initial window with the given x,y size"/>
         <window-pos value="" type="STR[]" help="Create initial window at the given x,y position"/>
         <tracker-interval value="1" type="FLOAT" help="The aggregation period for value tracker windows"/>
+        <osg-view value="false" type="BOOL" help="Start with an OpenSceneGraph view instead of the regular 2D view"/>
         <gui-testing value="false" type="BOOL" help="Enable ovelay for screen recognition"/>
         <gui-testing-debug value="false" type="BOOL" help="Enable output messages during GUI-Testing"/>
         <gui-testing.setting-output value="" type="FILE" help="Save gui settings in the given settings output file"/>

@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_7_0+0118-180bda3a75
+Eclipse SUMO sumo Version v1_7_0+0372-0e78adb662
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -660,6 +660,8 @@ GUI Only Options:
   -G, --game                           Start the GUI in gaming mode
   --game.mode STR                      Select the game type ('tls', 'drt')
   -S, --start                          Start the simulation after loading
+  -d, --delay FLOAT                    Use FLOAT in ms as delay between
+                                        simulation steps
   -B, --breakpoints STR[]              Use TIME[] as times when the simulation
                                         should halt
   --edgedata-files FILE                Load edge/lane weights for visualization
@@ -674,6 +676,8 @@ GUI Only Options:
                                         position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                         windows
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
