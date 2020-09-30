@@ -125,25 +125,21 @@ jobs:
         if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
         if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake -DFMI=ON ..; fi
         if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFMI=ON -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi 
-        make
+        make fmi
     
-    - name: Installing SUMO
-      run: |
-        cd sumo/cmake-build 
-        sudo make install
-        
     - name: Building FMU Compliance Checker
       run: |
         git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
         cd fmuChecker
         mkdir build
         cd build
-        cmake ../
+        cmake ..
         make install test
         
     - name: Checking sumo-fmi2.fmu
       run: |
-        ./fmuChecker/install/fmuCheck.linux64 sumo/bin/sumo-fmi2-linux64.fmu
+        cd sumo
+        ../fmuChecker/install/fmuCheck.linux64 bin/sumo-fmi2-linux64.fmu
         
    
    

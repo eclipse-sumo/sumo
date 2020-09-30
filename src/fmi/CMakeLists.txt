@@ -45,7 +45,7 @@ set(ZIP_BUILD_FOLDER_NAME "sumo-fmi2")
 
 add_custom_target(create_fmi2_zip 
   # Remove the old directory (if exists) and create a new directory
-  COMMAND ${CMAKE_COMMAND} -E rm -rf "${ZIP_BUILD_FOLDER_NAME}"
+  COMMAND ${CMAKE_COMMAND} -E remove -rf "${ZIP_BUILD_FOLDER_NAME}"
   COMMAND ${CMAKE_COMMAND} -E make_directory "${ZIP_BUILD_FOLDER_NAME}"
   # Copy the XML file with the model description
   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/${libsumofmi2_model_description}" "${ZIP_BUILD_FOLDER_NAME}"
