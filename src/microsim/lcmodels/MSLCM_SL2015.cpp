@@ -1998,7 +1998,13 @@ MSLCM_SL2015::updateExpectedSublaneSpeeds(const MSLeaderDistanceInfo& ahead, int
                         // speed over the next few seconds
                         const double foreCastTime = mySpeedGainLookahead * 2;
                         const double gapClosingTime = gap / deltaV;
-                        vSafe = (gapClosingTime * vSafe + (foreCastTime - gapClosingTime) * leader->getSpeed()) / foreCastTime;
+                        const double vSafe2 = (gapClosingTime * vSafe + (foreCastTime - gapClosingTime) * leader->getSpeed()) / foreCastTime;
+#ifdef DEBUG_EXPECTED_SLSPEED
+                        if (DEBUG_COND && vSafe2 != vSafe) {
+                            std::cout << "   foreCastTime=" << foreCastTime << " gapClosingTime=" << gapClosingTime << " extrapolated vSafe=" << vSafe << "\n";
+                        }
+#endif
+                        vSafe = vSafe2;
                     }
                 }
             }
