@@ -113,16 +113,19 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
     //std::string currentEdgeID = veh.getEdge()->getID();
     //use edges on the way of the emergency vehicle
     std::vector<const MSLane*> myUpcomingLanes = ego.getUpcomingLanesUntil(myReactionDist);
-    std::vector<std::string> myUpcomingEdges;
+    std::vector<const MSEdge*> myUpcomingEdges;
     //get edgeIDs from Lanes
     for (const MSLane* const l :  myUpcomingLanes) {
-        myUpcomingEdges.push_back(l->getEdge().getID());
+        myUpcomingEdges.push_back(&l->getEdge());
     }
     for (MSVehicleControl::constVehIt vit = vc.loadedVehBegin(); vit != vc.loadedVehEnd(); ++vit) {
         MSVehicle* veh2 = dynamic_cast<MSVehicle*>(vit->second);
         assert(veh2 != nullptr);
+        if (veh2->getLane() == nullptr) {
+            continue;
+        }
         //Vehicle only from edge should react
-        if (std::find(myUpcomingEdges.begin(), myUpcomingEdges.end(), veh2->getEdge()->getID()) != myUpcomingEdges.end()) { //currentEdgeID == veh2->getEdge()->getID()) {
+        if (std::find(myUpcomingEdges.begin(), myUpcomingEdges.end(), &veh2->getLane()->getEdge()) != myUpcomingEdges.end()) { //currentEdgeID == veh2->getEdge()->getID()) {
             if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
                 // emergency vehicles should not react
                 continue;
