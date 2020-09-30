@@ -1,0 +1,1 @@
+--fcd-input fcd.xml --kml-output output.kml tools/traceExporter.py  
