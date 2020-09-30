@@ -1876,6 +1876,16 @@ NBNode::mergeConflictYields(const NBEdge* from, int fromLane, int fromLaneFoe, N
     return myRequest->mergeConflict(from, con, from, prohibitorCon, false);
 }
 
+
+bool
+NBNode::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
+        const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+    if (myRequest == nullptr) {
+        return false;
+    }
+    return myRequest->mergeConflict(from, con, prohibitorFrom, prohibitorCon, foes);
+}
+
 bool
 NBNode::turnFoes(const NBEdge* from, const NBEdge* to, int fromLane,
                  const NBEdge* from2, const NBEdge* to2, int fromLane2,

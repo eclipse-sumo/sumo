@@ -1669,8 +1669,9 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         }
                         const bool rightTurnConflict = NBNode::rightTurnConflict(
                                                            this, con.toEdge, con.fromLane, (*i2), (*k2).toEdge, (*k2).fromLane);
+                        const bool mergeConflict = myTo->mergeConflict(this, con, *i2, *k2, true);
                         // compute foe internal lanes
-                        if (foes || rightTurnConflict || oppositeLeftIntersect) {
+                        if (foes || rightTurnConflict || oppositeLeftIntersect || mergeConflict) {
                             foeInternalLinks.push_back(index);
                         }
                         // only warn once per pair of intersecting turns
