@@ -842,10 +842,14 @@ struct GNEViewNetHelper {
         /// @brief finish moving single elements in Network AND Demand mode
         void finishMoveSingleElement();
 
-    private:
+    protected:
+        /// @brief calculate offset
+        Position calculateOffset() const;
+
         /// @brief calculate move operation for shape
         bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector &shape, const double radius);
 
+    private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
 
@@ -878,6 +882,9 @@ struct GNEViewNetHelper {
         bool isMovingSelection() const;
 
     protected:
+        /// @brief calculate offset
+        Position calculateOffset() const;
+
         /// @brief calculate junction selection
         void calculateJunctionSelection();
 

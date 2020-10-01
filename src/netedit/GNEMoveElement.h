@@ -125,7 +125,7 @@ class GNEMoveElement {
 
 public:
     /// @brief constructor
-    GNEMoveElement() {}
+    GNEMoveElement();
 
     /**@brief get move operation for the given shapeOffset
      * @note returned GNEMoveOperation can be nullptr
@@ -136,10 +136,10 @@ public:
     virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
 
     /// @brief move element the for given offset (note: offset can be X-Y-0, 0-0-Z or X-Y-Z)
-    static void moveElement(GNEMoveOperation* moveOperation, const Position &offset);
+    static void moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position &offset);
 
     /// @brief commit move element for the given offset
-    static void commitMove(GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList);
+    static void commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList);
 
 private:
     /// @brief set move shape
@@ -149,7 +149,7 @@ private:
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief calculate movement over lane
-    static const PositionVector calculateMovementOverLane(const GNEMoveOperation* moveOperation, const Position &offset);
+    static const PositionVector calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const Position &offset);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;

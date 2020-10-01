@@ -20,6 +20,7 @@
 #include <netedit/elements/network/GNEEdge.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEMoveElement.h"
 
@@ -95,8 +96,12 @@ GNEMoveResult::~GNEMoveResult() {}
 // GNEMoveElement method definitions
 // ===========================================================================
 
+GNEMoveElement::GNEMoveElement() {
+}
+
+
 void 
-GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &offset) {
+GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position &offset) {
     // declare move result
     GNEMoveResult moveResult;
     // set geometry points to move
@@ -104,14 +109,17 @@ GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &off
     // check if we're moving over a lane shape, an entire shape or only certain geometry point
     if (moveOperation->lane) {
         // calculate movement over lane
-        moveResult.shapeToUpdate = calculateMovementOverLane(moveOperation, offset);
+        moveResult.shapeToUpdate = calculateMovementOverLane(viewNet, moveOperation, offset);
     } else if (moveOperation->geometryPointsToMove.empty()) {
         // set values in moveResult
         moveResult.shapeToUpdate = moveOperation->shapeToMove;
         // move entire shape
         for (auto &geometryPointIndex : moveResult.shapeToUpdate) {
             if (geometryPointIndex != Position::INVALID) {
+                // add offset
                 geometryPointIndex.add(offset);
+                // apply snap to active grid
+                geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
             } else {
                 throw ProcessError("trying to move an invalid position");
             }
@@ -122,7 +130,10 @@ GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &off
         // move geometry points
         for (const auto &geometryPointIndex : moveOperation->geometryPointsToMove) {
             if (moveResult.shapeToUpdate[geometryPointIndex] != Position::INVALID) {
+                // add offset
                 moveResult.shapeToUpdate[geometryPointIndex].add(offset);
+                // apply snap to active grid
+                moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
             } else {
                 throw ProcessError("trying to move an invalid position");
             }
@@ -134,7 +145,7 @@ GNEMoveElement::moveElement(GNEMoveOperation* moveOperation, const Position &off
 
 
 void 
-GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList) {
+GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList) {
     // declare move result
     GNEMoveResult moveResult;
     // check if we're moving over a lane shape, an entire shape or only certain geometry point
@@ -151,7 +162,7 @@ GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offs
         // set originalPosOverLanes in element
         moveOperation->moveElement->setMoveShape(moveResult);
         // calculate movement over lane
-        moveResult.shapeToUpdate = calculateMovementOverLane(moveOperation, offset);
+        moveResult.shapeToUpdate = calculateMovementOverLane(viewNet, moveOperation, offset);
     } else {
         // set original geometry points to move
         moveResult.geometryPointsToMove = moveOperation->originalGeometryPoints;
@@ -168,7 +179,10 @@ GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offs
             // move entire shape
             for (auto &geometryPointIndex : moveResult.shapeToUpdate) {
                 if (geometryPointIndex != Position::INVALID) {
+                    // add offset
                     geometryPointIndex.add(offset);
+                    // apply snap to active grid
+                    geometryPointIndex = viewNet->snapToActiveGrid(geometryPointIndex);
                 } else {
                     throw ProcessError("trying to move an invalid position");
                 }
@@ -177,7 +191,10 @@ GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offs
             // only move certain geometry points
             for (const auto &geometryPointIndex : moveOperation->geometryPointsToMove) {
                 if (moveResult.shapeToUpdate[geometryPointIndex] != Position::INVALID) {
+                    // add offset
                     moveResult.shapeToUpdate[geometryPointIndex].add(offset);
+                    // apply snap to active grid
+                    moveResult.shapeToUpdate[geometryPointIndex] = viewNet->snapToActiveGrid(moveResult.shapeToUpdate[geometryPointIndex]);
                 } else {
                     throw ProcessError("trying to move an invalid position");
                 }
@@ -194,7 +211,7 @@ GNEMoveElement::commitMove(GNEMoveOperation* moveOperation, const Position &offs
 
 
 const PositionVector
-GNEMoveElement::calculateMovementOverLane(const GNEMoveOperation* moveOperation, const Position &offset) {
+GNEMoveElement::calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const Position &offset) {
     // declare new shape
     PositionVector newShape;
     // calculate lenght between pos over lanes
@@ -209,6 +226,8 @@ GNEMoveElement::calculateMovementOverLane(const GNEMoveOperation* moveOperation,
     Position lanePositionAtCentralPosition = moveOperation->lane->getLaneShape().positionAtOffset2D(centralPosition);
     // apply offset to positionAtCentralPosition
     lanePositionAtCentralPosition.add(offset);
+    // snap to grid
+    lanePositionAtCentralPosition = viewNet->snapToActiveGrid(lanePositionAtCentralPosition);
     // calculate new posOverLane perpendicular
     const double newPosOverLanePerpendicular = moveOperation->lane->getLaneShape().nearest_offset_to_point2D(lanePositionAtCentralPosition);
     // calculate posOverLaneOffset
