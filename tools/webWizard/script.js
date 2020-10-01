@@ -277,21 +277,21 @@ on("ready", function(){
     }
 
     function setPositionByString() {
-      query = elem("#address").value
-      var url = "https://nominatim.openstreetmap.org/search?q=" + query + "&format=json&polygon=0&addressdetails=0&limit=1&callback";
-      getJSON(url,
-          function(err, data) {
-            if (err != null) {
-              window.alert('Could not locate address: ' + err);
-            } else if (data.length == 0) {
-              window.alert('Could not locate address');
-            } else {
-              var result = data[0];
-              lon = parseFloat(result.lon);
-              lat = parseFloat(result.lat);
-              setPosition(lon, lat);
+        query = elem("#address").value
+        $.ajax({
+        url: "https://nominatim.openstreetmap.org/search?q=" + query + "&format=json&polygon=0&addressdetails=0&limit=1&callback",
+        cache: false,
+        dataType: "json",
+            success: function(data) {
+                var result = data[0];
+                lon = parseFloat(result.lon);
+                lat = parseFloat(result.lat);
+                setPosition(lon, lat);
+            },
+            error: function (request, status, err) {
+                window.alert('Could not locate address: ' + err);
             }
-          });
+        });
     }
 
     elem("#address").on("keyup", function(e){
