@@ -51,26 +51,24 @@ public:
     void calculateProbabilities(std::vector<R*> alternatives, const V* const veh, const SUMOTime time) {
         const double theta = myTheta >= 0 ? myTheta : getThetaForCLogit(alternatives);
         const double beta = myBeta >= 0 ? myBeta : getBetaForCLogit(alternatives);
+        const double t = STEPS2TIME(time);
         if (beta > 0) {
             // calculate commonalities
-            for (typename std::vector<R*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-                const R* pR = *i;
+            for (const R* const pR: alternatives) {
                 double lengthR = 0;
                 const std::vector<const E*>& edgesR = pR->getEdgeVector();
-                for (typename std::vector<const E*>::const_iterator edge = edgesR.begin(); edge != edgesR.end(); ++edge) {
+                for (const E* const edge : edgesR) {
                     //@todo we should use costs here
-                    lengthR += (*edge)->getTravelTime(veh, STEPS2TIME(time));
+                    lengthR += edge->getTravelTime(veh, t);
                 }
                 double overlapSum = 0;
-                for (typename std::vector<R*>::const_iterator j = alternatives.begin(); j != alternatives.end(); j++) {
-                    const R* pS = *j;
+                for (const R* const pS : alternatives) {
                     double overlapLength = 0.;
                     double lengthS = 0;
-                    const std::vector<const E*>& edgesS = pS->getEdgeVector();
-                    for (typename std::vector<const E*>::const_iterator edge = edgesS.begin(); edge != edgesS.end(); ++edge) {
-                        lengthS += (*edge)->getTravelTime(veh, STEPS2TIME(time));
-                        if (std::find(edgesR.begin(), edgesR.end(), *edge) != edgesR.end()) {
-                            overlapLength += (*edge)->getTravelTime(veh, STEPS2TIME(time));
+                    for (const E* const edge : pS->getEdgeVector()) {
+                        lengthS += edge->getTravelTime(veh, t);
+                        if (std::find(edgesR.begin(), edgesR.end(), edge) != edgesR.end()) {
+                            overlapLength += edge->getTravelTime(veh, t);
                         }
                     }
                     overlapSum += pow(overlapLength / sqrt(lengthR * lengthS), myGamma);
@@ -78,11 +76,9 @@ public:
                 myCommonalities[pR] = beta * log(overlapSum);
             }
         }
-        for (typename std::vector<R*>::iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-            R* pR = *i;
+        for (R* const pR : alternatives) {
             double weightedSum = 0;
-            for (typename std::vector<R*>::iterator j = alternatives.begin(); j != alternatives.end(); j++) {
-                R* pS = *j;
+            for (const R* const pS : alternatives) {
                 weightedSum += exp(theta * (pR->getCosts() - pS->getCosts() + myCommonalities[pR] - myCommonalities[pS]));
             }
             pR->setProbability(1. / weightedSum);
@@ -94,8 +90,8 @@ private:
     /** @brief calculate the scaling factor in the logit model */
     double getBetaForCLogit(const std::vector<R*> alternatives) const {
         double min = std::numeric_limits<double>::max();
-        for (typename std::vector<R*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-            const double cost = (*i)->getCosts() / 3600.;
+        for (const R* const pR : alternatives) {
+            const double cost = pR->getCosts() / 3600.;
             if (cost < min) {
                 min = cost;
             }
@@ -109,23 +105,23 @@ private:
         double sum = 0.;
         double diff = 0.;
         double min = std::numeric_limits<double>::max();
-        for (typename std::vector<R*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-            const double cost = (*i)->getCosts() / 3600.;
+        for (const R* const pR : alternatives) {
+            const double cost = pR->getCosts() / 3600.;
             sum += cost;
             if (cost < min) {
                 min = cost;
             }
         }
         const double meanCost = sum / double(alternatives.size());
-        for (typename std::vector<R*>::const_iterator i = alternatives.begin(); i != alternatives.end(); i++) {
-            diff += pow((*i)->getCosts() / 3600. - meanCost, 2);
+        for (const R* const pR : alternatives) {
+            diff += pow(pR->getCosts() / 3600. - meanCost, 2);
         }
         const double cvCost = sqrt(diff / double(alternatives.size())) / meanCost;
         // @todo re-evaluate function
-        //    if (cvCost > 0.04) { // Magic numbers from Lohse book
-        return 3.1415926535897932384626433832795 / (sqrt(6.) * cvCost * (min + 1.1)) / 3600.;
-        //    }
-        //    return 1./3600.;
+        if (cvCost > 0) { // all Magic numbers from Lohse book, original says this should be cvCost > 0.04
+            return 3.1415926535897932384626433832795 / (sqrt(6.) * cvCost * (min + 1.1)) / 3600.;
+        }
+        return 1./3600.;
     }
 
 
