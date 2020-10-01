@@ -318,10 +318,13 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     import scipy.version
     import numpy as np
 
-    k = routes.number
     m = len(countData)
 
     priorRouteCounts = getRouteCounts(routes, usedRoutes)
+
+    relevantRoutes = [i for i in range(routes.number) if routeUsage[i]]
+    priorRelevantRouteCounts = [priorRouteCounts[r] for r in relevantRoutes]
+    k = len(relevantRoutes)
 
     if options.optimize == "full":
         # allow changing all prior usedRoutes
@@ -332,7 +335,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
             print("Optimization skipped")
             return
         # limited optimization: change prior routeCounts by at most u per route
-        bounds = [(max(0, p - u), p + u) for p in priorRouteCounts] + [(0, None)] * m
+        bounds = [(max(0, p - u), p + u) for p in priorRelevantRouteCounts] + [(0, None)] * m
 
     # Ax <= b
     # x + s = b
@@ -342,7 +345,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     A = np.zeros((m, k))
     for i in range(0, m):
         for j in range(0, k):
-            A[i][j] = int(j in countData[i].routeSet)
+            A[i][j] = int(relevantRoutes[j] in countData[i].routeSet)
     A_eq = np.concatenate((A, np.identity(m)), 1)
 
     # constraint: achieve counts
@@ -352,7 +355,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     c = np.concatenate((np.zeros(k), np.ones(m)))  # [x, s], only s counts for minimization
 
     # set x to prior counts and slack to deficit (otherwise solver may fail to find any soluton
-    x0 = priorRouteCounts + [cd.origCount - cd.count for cd in countData]
+    x0 = priorRelevantRouteCounts + [cd.origCount - cd.count for cd in countData]
 
     # print("k=%s" % k)
     # print("m=%s" % m)
@@ -377,7 +380,17 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     if res.success:
         print("Optimization succeeded")
         del usedRoutes[:]
-        routeCounts = res.x[:k]  # cut of slack variables
+        routeCountsR = res.x[:k]  # cut of slack variables
+        # translate to original route indices
+        routeCounts = [0] * routes.number
+        for index, count in zip(relevantRoutes, routeCountsR):
+            routeCounts[index] = count
+
+        #print("priorRouteCounts", priorRouteCounts)
+        #print("relevantRoutes", relevantRoutes)
+        #print("priorRelevantRouteCounts", priorRelevantRouteCounts)
+        #print("routeCountsR", routeCountsR)
+        #print("routeCounts", routeCounts)
         # slack = res.x[k:]
         # print("routeCounts (n=%s, sum=%s, intSum=%s, roundSum=%s) %s" % (
         #    len(routeCounts),
