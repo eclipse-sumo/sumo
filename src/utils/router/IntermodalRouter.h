@@ -247,10 +247,11 @@ public:
 private:
     IntermodalRouter(Network* net, const int carWalkTransfer, const std::string& routingAlgorithm,
                      const int routingMode, EffortCalculator* calc) :
-        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone", true, nullptr, nullptr, false, false), myAmClone(true),
-        myInternalRouter(new _InternalDijkstra(net->getAllEdges(), true,
-                                               gWeightsRandomFactor > 1 ? & _IntermodalEdge::getTravelTimeStaticRandomized : & _IntermodalEdge::getTravelTimeStatic, nullptr, false, nullptr, true)),
-        myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {}
+        SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone", true, nullptr, nullptr, false, false),
+        myAmClone(true), myInternalRouter(nullptr), myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer),
+        myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {
+        createNet();
+    }
 
     static inline double getCombined(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
         return edge->getTravelTime(trip, time) + trip->externalFactor * trip->calc->getEffort(edge->getNumericalID());
@@ -261,6 +262,8 @@ private:
             myIntermodalNet = new Network(E::getAllEdges(), false, myCarWalkTransfer);
             myIntermodalNet->addCarEdges(E::getAllEdges());
             myCallback(*this);
+        }
+        if (myInternalRouter == nullptr) {
             switch (myRoutingMode) {
                 case 0:
                     if (myRoutingAlgorithm == "astar") {
