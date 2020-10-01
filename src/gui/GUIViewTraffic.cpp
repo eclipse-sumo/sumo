@@ -337,12 +337,11 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     glEnable(GL_DEPTH_TEST);
 
     // draw decals (if not in grabbing mode)
-    if (!myUseToolTips) {
-        drawDecals();
-        if (myVisualizationSettings->showGrid) {
-            paintGLGrid();
-        }
+    drawDecals();
+    if (myVisualizationSettings->showGrid) {
+        paintGLGrid();
     }
+    
 
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

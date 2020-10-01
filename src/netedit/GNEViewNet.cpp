@@ -725,7 +725,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
     // compute lane width
     double lw = m2p(SUMO_const_laneWidth);
     // draw decals (if not in grabbing mode)
-    if (!myUseToolTips && !myVisualizationSettings->drawForRectangleSelection) {
+    if (!myVisualizationSettings->drawForRectangleSelection) {
         drawDecals();
         // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
