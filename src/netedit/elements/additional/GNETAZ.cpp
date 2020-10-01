@@ -64,7 +64,13 @@ GNETAZ::~GNETAZ() {}
 GNEMoveOperation* 
 GNETAZ::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is blocked
-//    if (true) {
+    if (myBlockMovement) {
+        // nothing to move
+        return nullptr;
+    } else if (myBlockShape) {
+        // move entire shape
+        return new GNEMoveOperation(this, myShape);
+    } else {
         // declare shape to move
         PositionVector shapeToMove = myShape;
         // first check if in the given shapeOffset there is a geometry point
@@ -92,47 +98,41 @@ GNETAZ::getMoveOperation(const double shapeOffset) {
                 return new GNEMoveOperation(this, myShape, {index}, shapeToMove, {newIndex});
             }
         }
-/*    } else {
-        // return junction position
-        return new GNEMoveOperation(this, myShape);
-    }*/
+    }
 }
 
 
 void 
 GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    // edit depending if shape is being edited
-//    if (true) {
-        // get original shape
-        PositionVector shape = myShape;
-        // check shape size
-        if (shape.size() > 3) {
-            // obtain index
-            int index = shape.indexOfClosest(clickedPosition);
-            // get last index
-            const int lastIndex = ((int)shape.size() - 1);
-            // get snap radius
-            const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
-            // check if we have to create a new index
-            if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
-                // check if we're deleting the first point
-                if ((index == 0) || (index == lastIndex)) {
-                    // remove both geometry point
-                    shape.erase(shape.begin() + lastIndex);
-                    shape.erase(shape.begin());
-                    // close shape
-                    shape.closePolygon();
-                } else {
-                    // remove geometry point
-                    shape.erase(shape.begin() + index);
-                }
-                // commit new shape
-                undoList->p_begin("remove geometry point of " + getTagStr());
-                undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
-                undoList->p_end();
+    // get original shape
+    PositionVector shape = myShape;
+    // check shape size
+    if (shape.size() > 3) {
+        // obtain index
+        int index = shape.indexOfClosest(clickedPosition);
+        // get last index
+        const int lastIndex = ((int)shape.size() - 1);
+        // get snap radius
+        const double snap_radius = myNet->getViewNet()->getVisualisationSettings().neteditSizeSettings.polygonGeometryPointRadius;
+        // check if we have to create a new index
+        if ((index != -1) && shape[index].distanceSquaredTo2D(clickedPosition) < (snap_radius * snap_radius)) {
+            // check if we're deleting the first point
+            if ((index == 0) || (index == lastIndex)) {
+                // remove both geometry point
+                shape.erase(shape.begin() + lastIndex);
+                shape.erase(shape.begin());
+                // close shape
+                shape.closePolygon();
+            } else {
+                // remove geometry point
+                shape.erase(shape.begin() + index);
             }
+            // commit new shape
+            undoList->p_begin("remove geometry point of " + getTagStr());
+            undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(shape)));
+            undoList->p_end();
         }
-//    }
+    }
 }
 
 
