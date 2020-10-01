@@ -44,7 +44,7 @@ netedit.createSquaredTAZ(referencePosition, 372, 144, 200, True)
 netedit.moveMode()
 
 # move new vertex TAZ
-netedit.moveElement(referencePosition, 335, 144, 335, 335)
+netedit.moveElement(referencePosition, 315, 144, 315, 315)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)
