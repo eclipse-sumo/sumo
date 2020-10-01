@@ -27,6 +27,9 @@ permalink: /ChangeLog/
   - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
   - Fixed invalid simulation end after reloading. Issue #7582
 
+- Tools
+  - osmWebWizard search now works for IE users. Issue #6119
+
 ### Enhancements
 - simulation
   - Added vehicle attribute 'departEdge' which can be used to [insert a vehicle beyond the first edge of its route](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#departedge). Issue #1129
