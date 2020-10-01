@@ -44,3 +44,6 @@ ticket6162
 
 # mashup of parallel warnings
 ticket6579
+
+# parallel intermodal routing
+ticket7672
