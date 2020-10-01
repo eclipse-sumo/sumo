@@ -91,7 +91,8 @@ class ArgumentParser(argparse.ArgumentParser):
             return
         with open(out_file, "w") as out:
             out.write('<configuration>\n')
-            for k, v in vars(namespace).items():
+            for k in sorted(vars(namespace).keys()):
+                v = vars(namespace)[k]
                 if k not in ("save_configuration", "save_template", "configuration_file"):
                     key = k
                     default = ''
