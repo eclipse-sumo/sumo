@@ -146,6 +146,7 @@ districts:districts.xml
 restrictions:restrictions.txt
 parking:input_routes.rou.parking.xml
 parking:parking_parkingLot.add.xml
+toolcfg:out.toolcfg
 
 [run_dependent_text]
 output:Begin time

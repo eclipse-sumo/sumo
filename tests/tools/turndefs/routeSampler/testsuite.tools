@@ -9,6 +9,12 @@ intervals
 weighted
 verbose
 
+# save configuration file
+save_config
+
+# save configuration file template
+save_template
+
 # using edgedata as input
 edgedata
 
