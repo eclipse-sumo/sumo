@@ -1,1 +1,0 @@
---fcd-input fcd.xml --dri-output test.dri tools/traceExporter.py  

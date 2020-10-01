@@ -1,1 +1,0 @@
---fcd-input fcd.xml --omnet-output omnet.xml tools/traceExporter.py  

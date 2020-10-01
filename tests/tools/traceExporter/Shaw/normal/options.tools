@@ -1,1 +1,0 @@
---fcd-input fcd.xml --shawn-output shawn.xml tools/traceExporter.py  

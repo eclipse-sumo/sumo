@@ -1,1 +1,0 @@
---fcd-input fcd.xml --ns2activity-output activityfile.tcl mobilityfile.tcl tools/traceExporter.py  

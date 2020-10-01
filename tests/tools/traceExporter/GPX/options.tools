@@ -1,1 +1,0 @@
---fcd-input fcd.xml --gpx-output output.gpx tools/traceExporter.py  
