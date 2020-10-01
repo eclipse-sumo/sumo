@@ -46,6 +46,10 @@ small_input_noSampling_optimize
 # input contains duplicate routes. optimize it.
 small_input_duplicates_noSampling
 
+# use linear programming to optimize route usage
+# Many routes do not pass any counting locations and should not appear in the result
+optimize_few_detectors
+
 # define multi-edge sequence restrictions
 via
 
