@@ -249,7 +249,7 @@ private:
                      const int routingMode, EffortCalculator* calc) :
         SUMOAbstractRouter<E, _IntermodalTrip>("IntermodalRouterClone", true, nullptr, nullptr, false, false), myAmClone(true),
         myInternalRouter(new _InternalDijkstra(net->getAllEdges(), true,
-                                               gWeightsRandomFactor > 1 ? & _IntermodalEdge::getTravelTimeStaticRandomized : & _IntermodalEdge::getTravelTimeStatic)),
+                                               gWeightsRandomFactor > 1 ? & _IntermodalEdge::getTravelTimeStaticRandomized : & _IntermodalEdge::getTravelTimeStatic, nullptr, false, nullptr, true)),
         myIntermodalNet(net), myCarWalkTransfer(carWalkTransfer), myRoutingAlgorithm(routingAlgorithm), myRoutingMode(routingMode), myExternalEffort(calc) {}
 
     static inline double getCombined(const _IntermodalEdge* const edge, const _IntermodalTrip* const trip, double time) {
