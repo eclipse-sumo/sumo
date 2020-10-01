@@ -1465,7 +1465,7 @@ GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoL
             undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_SHAPE, toString(moveResult.shapeToUpdate)));
             undoList->p_end();
-        } else {
+        } else if (!myNet->getViewNet()->mergeJunctions(this, myNet->getViewNet()->getObjectsUnderCursor().getJunctionFront())) {
             undoList->p_begin("position of " + getTagStr());
             undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));
             undoList->p_end();

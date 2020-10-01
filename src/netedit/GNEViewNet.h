@@ -74,6 +74,9 @@ public:
     /// @brief get AttributeCarriers in Boundary
     std::set<std::pair<std::string, GNEAttributeCarrier*> > getAttributeCarriersInBoundary(const Boundary& boundary, bool forceSelectEdges = false);
 
+    /// @brief get objects under cursor
+    const GNEViewNetHelper::ObjectsUnderCursor &getObjectsUnderCursor() const;
+
     /** @brief Builds an entry which allows to (de)select the object
      * @param ret The popup menu to add the entry to
      * @param AC AttributeCarrier that will be select/unselected
@@ -416,6 +419,9 @@ public:
     /// @brief return true if junction must be showed as bubbles
     bool showJunctionAsBubbles() const;
 
+    /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
+    bool mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction);
+
 protected:
     /// @brief FOX needs this
     GNEViewNet();
@@ -566,9 +572,6 @@ private:
 
     /// @brief delete all currently selected TAZ Elements
     void deleteSelectedTAZElements();
-
-    /// @brief try to merge moved junction with another junction in that spot return true if merging did take place
-    bool mergeJunctions(GNEJunction* moved);
 
     /// @brief try to retrieve an edge at popup position
     GNEEdge* getEdgeAtPopupPosition();

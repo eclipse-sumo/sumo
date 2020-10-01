@@ -357,6 +357,12 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
 }
 
 
+const GNEViewNetHelper::ObjectsUnderCursor& 
+GNEViewNet::getObjectsUnderCursor() const {
+    return myObjectsUnderCursor;
+}
+
+
 void
 GNEViewNet::buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier* AC) {
     if (AC->isAttributeCarrierSelected()) {
@@ -579,6 +585,42 @@ GNEViewNet::showJunctionAsBubbles() const {
 }
 
 
+bool
+GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction) {
+    if (movedJunction && targetJunction && (movedJunction != targetJunction)) {
+        // optionally ask for confirmation
+        if (myNetworkViewOptions.menuCheckWarnAboutMerge->getCheck()) {
+            WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
+            // open question box
+            FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
+                "Confirm Junction Merger", "%s",
+                ("Do you wish to merge junctions '" + movedJunction->getMicrosimID() +
+                    "' and '" + targetJunction->getMicrosimID() + "'?\n" +
+                    "('" + movedJunction->getMicrosimID() +
+                    "' will be eliminated and its roads added to '" +
+                    targetJunction->getMicrosimID() + "')").c_str());
+            if (answer != 1) { //1:yes, 2:no, 4:esc
+                               // write warning if netedit is running in testing mode
+                if (answer == 2) {
+                    WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'No'");
+                } else if (answer == 4) {
+                    WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'ESC'");
+                }
+                return false;
+            } else {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'Yes'");
+            }
+        }
+        // merge moved and targed junctions
+        myNet->mergeJunctions(movedJunction, targetJunction, myUndoList);
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 GNEViewNet::GNEViewNet() :
     myEditModes(this),
     myTestingMode(this),
@@ -794,18 +836,24 @@ long
 GNEViewNet::onLeftBtnRelease(FXObject* obj, FXSelector sel, void* eventData) {
     // process parent function
     GUISUMOAbstractView::onLeftBtnRelease(obj, sel, eventData);
-    // first update MouseButtonKeyPressed
+    // update MouseButtonKeyPressed
     myMouseButtonKeyPressed.update(eventData);
+    // interpret object under cursor
+    if (makeCurrent()) {
+        // fill objects under cursor
+        myObjectsUnderCursor.updateObjectUnderCursor(getGUIGlObjectsUnderCursor());
+        // process left button release function depending of supermode
+        if (myEditModes.isCurrentSupermodeNetwork()) {
+            processLeftButtonReleaseNetwork();
+        } else if (myEditModes.isCurrentSupermodeDemand()) {
+            processLeftButtonReleaseDemand();
+        } else if (myEditModes.isCurrentSupermodeData()) {
+            processLeftButtonReleaseData();
+        }
+        makeNonCurrent();
+    }
     // update cursor
     updateCursor();
-    // process left button release function depending of supermode
-    if (myEditModes.isCurrentSupermodeNetwork()) {
-        processLeftButtonReleaseNetwork();
-    } else if (myEditModes.isCurrentSupermodeDemand()) {
-        processLeftButtonReleaseDemand();
-    } else if (myEditModes.isCurrentSupermodeData()) {
-        processLeftButtonReleaseData();
-    }
     // update view
     updateViewNet();
     return 1;
@@ -3469,65 +3517,6 @@ GNEViewNet::deleteSelectedTAZElements() {
             myNet->deleteTAZElement(i, myUndoList);
         }
         myUndoList->p_end();
-    }
-}
-
-
-bool
-GNEViewNet::mergeJunctions(GNEJunction* moved) {
-    const Position& newPos = moved->getNBNode()->getPosition();
-    GNEJunction* mergeTarget = nullptr;
-    // try to find another junction to merge with
-    if (makeCurrent()) {
-        Boundary selection;
-        selection.add(newPos);
-        selection.grow(0.1);
-        const std::vector<GUIGlID> ids = getObjectsInBoundary(selection, false);
-        GUIGlObject* object = nullptr;
-        for (auto it_ids : ids) {
-            if (it_ids == 0) {
-                continue;
-            }
-            object = GUIGlObjectStorage::gIDStorage.getObjectBlocking(it_ids);
-            if (!object) {
-                throw ProcessError("Unkown object in selection (id=" + toString(it_ids) + ").");
-            }
-            if ((object->getType() == GLO_JUNCTION) && (it_ids != moved->getGlID())) {
-                mergeTarget = dynamic_cast<GNEJunction*>(object);
-            }
-            GUIGlObjectStorage::gIDStorage.unblockObject(it_ids);
-        }
-    }
-    if (mergeTarget) {
-        // optionally ask for confirmation
-        if (myNetworkViewOptions.menuCheckWarnAboutMerge->getCheck()) {
-            WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
-            // open question box
-            FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
-                                                   "Confirm Junction Merger", "%s",
-                                                   ("Do you wish to merge junctions '" + moved->getMicrosimID() +
-                                                    "' and '" + mergeTarget->getMicrosimID() + "'?\n" +
-                                                    "('" + moved->getMicrosimID() +
-                                                    "' will be eliminated and its roads added to '" +
-                                                    mergeTarget->getMicrosimID() + "')").c_str());
-            if (answer != 1) { //1:yes, 2:no, 4:esc
-                // write warning if netedit is running in testing mode
-                if (answer == 2) {
-                    WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'No'");
-                } else if (answer == 4) {
-                    WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'ESC'");
-                }
-                return false;
-            } else {
-                // write warning if netedit is running in testing mode
-                WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'Yes'");
-            }
-        }
-        // merge moved and targed junctions
-        myNet->mergeJunctions(moved, mergeTarget, myUndoList);
-        return true;
-    } else {
-        return false;
     }
 }
 
