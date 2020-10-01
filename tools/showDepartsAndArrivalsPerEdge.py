@@ -37,6 +37,8 @@ def parse_args():
                          help="count all edges of a route")
     optParser.add_option("--taz", action="store_true", default=False,
                          help="use fromTaz and toTaz instead of from and to")
+    optParser.add_option("--elements",  default="trip,route,walk",
+                         help="include edges for the given elements in output")
     options, args = optParser.parse_args()
     try:
         options.routefile, = args
@@ -51,6 +53,8 @@ def parse_args():
     if options.subpart_file is not None:
         for line in open(options.subpart_file):
             options.subparts.append(line.strip().split(','))
+
+    options.elements = options.elements.split(',')
 
     return options
 
@@ -71,38 +75,32 @@ def main():
     arrivalCounts = defaultdict(lambda: 0)
     intermediateCounts = defaultdict(lambda: 0)
 
-    for route in parse_fast(options.routefile, 'route', ['edges']):
-        edges = route.edges.split()
-        if not hasSubpart(edges, options.subparts):
-            continue
-        departCounts[edges[0]] += 1
-        arrivalCounts[edges[-1]] += 1
-        for e in edges:
-            intermediateCounts[e] += 1
-
-    for walk in parse_fast(options.routefile, 'walk', ['edges']):
-        edges = walk.edges.split()
-        if not hasSubpart(edges, options.subparts):
-            continue
-        departCounts[edges[0]] += 1
-        arrivalCounts[edges[-1]] += 1
-        for e in edges:
-            intermediateCounts[e] += 1
+    for element in options.elements:
+        for route in parse_fast(options.routefile, element, ['edges']):
+            edges = route.edges.split()
+            if not hasSubpart(edges, options.subparts):
+                continue
+            departCounts[edges[0]] += 1
+            arrivalCounts[edges[-1]] += 1
+            for e in edges:
+                intermediateCounts[e] += 1
 
     # warn about potentially missing edges
     fromAttr, toAttr = ('fromTaz', 'toTaz') if options.taz else ('from', 'to')
-    for trip in parse_fast(options.routefile, 'trip', ['id', fromAttr, toAttr]):
-        if options.subparts:
-            sys.stderr.write("Warning: Ignoring trips when using --subpart\n")
-            break
-        departCounts[trip[1]] += 1
-        arrivalCounts[trip[2]] += 1
-    for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
-        if options.subparts:
-            sys.stderr.write("Warning: Ignoring trips when using --subpart\n")
-            break
-        departCounts[walk.attr_from] += 1
-        arrivalCounts[walk.to] += 1
+    if 'trip' in options.elements:
+        for trip in parse_fast(options.routefile, 'trip', ['id', fromAttr, toAttr]):
+            if options.subparts:
+                sys.stderr.write("Warning: Ignoring trips when using --subpart\n")
+                break
+            departCounts[trip[1]] += 1
+            arrivalCounts[trip[2]] += 1
+    if 'walk' in options.elements:
+        for walk in parse_fast(options.routefile, 'walk', ['from', 'to']):
+            if options.subparts:
+                sys.stderr.write("Warning: Ignoring trips when using --subpart\n")
+                break
+            departCounts[walk.attr_from] += 1
+            arrivalCounts[walk.to] += 1
 
     departStats = Statistics("departEdges")
     arrivalStats = Statistics("arrivalEdges")
