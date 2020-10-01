@@ -14,7 +14,7 @@ generateITetrisIntersectionMetrics
 generateMeanDataDefinitions
 
 # Tests for output converters
-converter
+traceExporter
 vehrouteDiff
 tripinfoDiff
 
