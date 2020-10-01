@@ -351,7 +351,7 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     # minimization objective
     c = np.concatenate((np.zeros(k), np.ones(m)))  # [x, s], only s counts for minimization
 
-    # set x to prior counts and slack to deficit (otherwise solver may fail to any find soluton
+    # set x to prior counts and slack to deficit (otherwise solver may fail to find any soluton
     x0 = priorRouteCounts + [cd.origCount - cd.count for cd in countData]
 
     # print("k=%s" % k)
@@ -374,9 +374,9 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
                   % scipy.version.version, file=sys.stderr)
         res = opt.linprog(c, A_eq=A_eq, b_eq=b, bounds=bounds, options=linProgOpts)
 
-    del usedRoutes[:]
     if res.success:
         print("Optimization succeeded")
+        del usedRoutes[:]
         routeCounts = res.x[:k]  # cut of slack variables
         # slack = res.x[k:]
         # print("routeCounts (n=%s, sum=%s, intSum=%s, roundSum=%s) %s" % (
