@@ -67,8 +67,13 @@ FXIMPLEMENT(GNECrossingFrame::CreateCrossing,       FXGroupBox,     CreateCrossi
 
 GNECrossingFrame::CurrentJunction::CurrentJunction(GNECrossingFrame* crossingFrameParent) :
     FXGroupBox(crossingFrameParent->myContentFrame, "Junction", GUIDesignGroupBoxFrame) {
-    // create junction label
-    myCurrentJunctionLabel = new FXLabel(this, "No junction selected", 0, GUIDesignLabelLeft);
+    // Create frame for junction ID
+    FXHorizontalFrame* junctionIDFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create label
+    new FXLabel(junctionIDFrame, "", nullptr, GUIDesignLabelAttribute);
+    // create text field and disable it
+    myTextFieldJunctionID = new FXTextField(junctionIDFrame, GUIDesignTextFieldNCol, this, MID_GNE_TLSFRAME_SELECT_JUNCTION, GUIDesignTextField);
+    myTextFieldJunctionID->disable();
 }
 
 
@@ -78,9 +83,9 @@ GNECrossingFrame::CurrentJunction::~CurrentJunction() {}
 void
 GNECrossingFrame::CurrentJunction::updateCurrentJunctionLabel(const std::string& junctionID) {
     if (junctionID.empty()) {
-        myCurrentJunctionLabel->setText("No junction selected");
+        myTextFieldJunctionID->setText("");
     } else {
-        myCurrentJunctionLabel->setText((std::string("Current Junction: ") + junctionID).c_str());
+        myTextFieldJunctionID->setText(junctionID.c_str());
     }
 }
 

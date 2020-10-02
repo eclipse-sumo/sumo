@@ -49,9 +49,8 @@ public:
         void updateCurrentJunctionLabel(const std::string& junctionID);
 
     private:
-        /// @brief Label for current Junction
-        FXLabel* myCurrentJunctionLabel;
-
+        /// @brief Text field for junction ID
+        FXTextField* myTextFieldJunctionID; 
     };
 
     // ===========================================================================
