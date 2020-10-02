@@ -1630,7 +1630,7 @@ To make a unidirectional track usable in both directions,
     [Simulation/OppositeDirectionDriving](Simulation/OppositeDirectionDriving.md).
 
     !!! note
-        Currently, the only support is in switching on **--opposites.guess** via the [F10-menu](#processing_menu_options).
+        Currently, you may either switching on **--opposites.guess** via the [F10-menu](#processing_menu_options) or set lane attribute 'oppositeID'.
 
   - Editing [walkingarea
     shapes](Networks/PlainXML.md#walking_areas)
