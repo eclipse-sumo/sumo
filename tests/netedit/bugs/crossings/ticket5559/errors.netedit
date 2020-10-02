@@ -38,12 +38,12 @@ GLDebug: 	Inserted junction:S into SUMORTree with boundary 79.10,-10.00,120.90,1
 GLDebug: 	Inserted junction:W into SUMORTree with boundary -10.00,86.80,10.00,113.20
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:CE into SUMORTree with boundary 90.00,88.40,210.00,110.00
-GLDebug: 	Inserted edge:CN into SUMORTree with boundary 90.00,90.00,119.40,210.00
-GLDebug: 	Inserted edge:CS into SUMORTree with boundary 80.60,-10.00,110.00,110.00
+GLDebug: 	Inserted edge:CN into SUMORTree with boundary 90.00,90.00,121.20,210.00
+GLDebug: 	Inserted edge:CS into SUMORTree with boundary 78.80,-10.00,110.00,110.00
 GLDebug: 	Inserted edge:CW into SUMORTree with boundary -10.00,90.00,110.00,111.60
 GLDebug: 	Inserted edge:EC into SUMORTree with boundary 90.00,90.00,210.00,111.60
-GLDebug: 	Inserted edge:NC into SUMORTree with boundary 80.60,90.00,110.00,210.00
-GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,119.40,110.00
+GLDebug: 	Inserted edge:NC into SUMORTree with boundary 78.80,90.00,110.00,210.00
+GLDebug: 	Inserted edge:SC into SUMORTree with boundary 90.00,-10.00,121.20,110.00
 GLDebug: 	Inserted edge:WC into SUMORTree with boundary -10.00,88.40,110.00,110.00
 Debug: Created connection 'fromEC_0toCW_0' in retrieveGNEConnection()
 Debug: Created connection 'fromNC_2toCS_2' in retrieveGNEConnection()
