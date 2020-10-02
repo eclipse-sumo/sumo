@@ -126,6 +126,9 @@
 /tools/libsumo/libsumocpp.dylib
 # extracted tests
 /tests/_*
+# netedit test
+/tests/netedit/__pycache__
+/tests/netedit/filter_files
 # global patterns
 Makefile
 Makefile.in
