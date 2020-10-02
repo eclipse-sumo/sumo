@@ -62,7 +62,7 @@ jobs:
         cd sumo
         mkdir build_msvc
         cd build_msvc
-        cmake .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=true
+        cmake -DFMI=ON .. -G"Visual Studio 16 2019" -A x64 -DCHECK_OPTIONAL_LIBS=true
         cmake --build . --config Release
 
     - name: Building SUMO Wheels
@@ -148,3 +148,20 @@ jobs:
       with:
         name: Py3-sumo-wheels
         path: sumo/dist
+
+    - name: Building FMU Compliance Checker
+      if: matrix.build_type == 'extra'
+      run: |
+        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
+        cd fmuChecker
+        mkdir build
+        cd build
+        cmake ..
+        make install test
+ 
+    - name: Checking sumo-fmi2.fmu
+      if: matrix.build_type == 'extra'
+      run: |
+        cd sumo
+        ../fmuChecker/install/fmuCheck.win64 bin/sumo-fmi2-win64.fmu 
+        
