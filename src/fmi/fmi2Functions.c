@@ -255,7 +255,7 @@ fmi2DoStep(fmi2Component c, fmi2Real currentCommunicationPoint, fmi2Real communi
         return fmi2Error;
     }
 
-    return step(comp, currentCommunicationPoint + communicationStepSize);
+    return myStep(comp, currentCommunicationPoint + communicationStepSize);
 }
 
 fmi2Status 
