@@ -855,10 +855,6 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* un
             break;
         case SUMO_ATTR_NUMLANES:
             if (value != getAttribute(key)) {
-                // Remove edge from crossings of junction source
-                removeEdgeFromCrossings(getParentJunctions().front(), undoList);
-                // Remove edge from crossings of junction destiny
-                removeEdgeFromCrossings(getParentJunctions().back(), undoList);
                 // set num lanes
                 setNumLanes(parse<int>(value), undoList);
             }
