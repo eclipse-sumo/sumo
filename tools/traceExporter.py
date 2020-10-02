@@ -32,7 +32,7 @@ sys.path.append(os.path.join(os.environ.get(
 
 from sumolib.miscutils import getSocketStream  # noqa
 import sumolib.net  # noqa
-from sumolib.output.convert import phem, omnet, shawn, ns2, gpsdat, kml, gpx, poi, fcdfilter, keplerjson  # noqa
+from sumolib.output.convert import phem, omnet, shawn, ns2, gpsdat, kml, gpx, poi, ipg, fcdfilter, keplerjson  # noqa
 
 
 class FCDTimeEntry:
@@ -224,6 +224,9 @@ output format. Optionally the output can be sampled, filtered and distorted.
                          help="vehicle type to include in fcd file")
     optParser.add_option("--shift", dest="shift",
                          help="shift coordinates to postive values only")
+    #IPG
+    optParser.add_option("--ipg-output", dest="ipg", metavar="FILE",
+                         help="Defines the name of the ipg trace file to generate")
 
     # parse
     if len(args) == 1:
@@ -331,6 +334,11 @@ output format. Optionally the output can be sampled, filtered and distorted.
         phem.vehicleTypes2flt(o, vtIDm)
         _closeOutputStream(o)
     # ----- PHEM
+    
+    # ----- IPG
+    if options.ipg:
+        runMethod(options.fcd, options.ipg, ipg.fcd2ipg, options)
+    # ----- IPG
     return 0
 
 
