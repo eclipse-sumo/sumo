@@ -30,5 +30,5 @@ def fcd2ipg(inpFCD, outSTRM, further):
     for timestep in inpFCD:
         if timestep.vehicle:
             for v in timestep.vehicle:
-                print('%s %s %s %s\n'
-                      % (timestep.time, v.x, v.y, v.z), file=outSTRM)
+                print('%s %s %s %s %s 0 0\n'
+                      % (timestep.time, v.x, v.y, v.z, v.angle), file=outSTRM)
