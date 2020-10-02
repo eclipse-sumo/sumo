@@ -50,6 +50,9 @@ small_input_duplicates_noSampling
 # Many routes do not pass any counting locations and should not appear in the result
 optimize_few_detectors
 
+# use linear programming to optimize route usage , prefer fewer vehicles
+optimize_minimize-vehs
+
 # define multi-edge sequence restrictions
 via
 

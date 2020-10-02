@@ -5,6 +5,7 @@
     <end value="None" help="custom end time (seconds or H:M:S)"/>
     <geh-ok value="5" help="threshold for acceptable GEH values"/>
     <interval value="None" help="custom aggregation interval (seconds or H:M:S)"/>
+    <minimize-vehicles value="0" help="Set optimization factor from [0, 1[ for reducing the number of vehicles(prefer routes that pass multiple counting locations over routes that pass fewer)"/>
     <mismatch-output value="None" help="write cout-data with overflow/underflow information to FILE"/>
     <od-files value="None" help="Input edgeRelation file for origin-destination counts"/>
     <optimize value="None" help="set optimization method level (full, INT boundary)"/>
