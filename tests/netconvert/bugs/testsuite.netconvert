@@ -33,6 +33,8 @@ ticket267
 # Test for false foe determination (on inner-continuation-intersections) yielding in a teleport
 ticket19_falseFoe
 ticket606
+#geometry-remove option
+ticket637
 ticket727
 
 # crossed connections at off-ramp
