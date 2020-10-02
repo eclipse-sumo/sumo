@@ -43,14 +43,18 @@ set(libsumofmi2_lib_name "sumo-fmi2-${PLATFORM_FOLDER_NAME}.fmu")
 # Set the temporary folder name to collect the contents for the ZIP archive
 set(ZIP_BUILD_FOLDER_NAME "sumo-fmi2")
 
+# The command and parameters for rm / remove_directory change in cmake
 if (${CMAKE_VERSION} VERSION_GREATER 3.17.0)
   set(remove_command "rm")
+  set(remove_options "-rf")
 else()
   set(remove_command "remove_directory")
+  set(remove_options "")
 endif()
+
 add_custom_target(create_fmi2_zip 
   # Remove the old directory (if exists) and create a new directory
-  COMMAND ${CMAKE_COMMAND} -E ${remove_command} -rf "${ZIP_BUILD_FOLDER_NAME}"
+  COMMAND ${CMAKE_COMMAND} -E ${remove_command} "${remove_options}" "${ZIP_BUILD_FOLDER_NAME}"
   COMMAND ${CMAKE_COMMAND} -E make_directory "${ZIP_BUILD_FOLDER_NAME}"
   # Copy the XML file with the model description
   COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/${libsumofmi2_model_description}" "${ZIP_BUILD_FOLDER_NAME}"
