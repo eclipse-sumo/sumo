@@ -3,7 +3,7 @@ input route edge count: count 98, min 2.00 (7), max 16.00 (39), mean 8.66 Q1 6.0
  histogram: [(2, 2), (3, 3), (4, 8), (5, 6), (6, 10), (7, 8), (8, 12), (9, 10), (10, 12), (11, 7), (12, 3), (13, 7), (14, 4), (15, 4), (16, 2)]
 input route detector count: count 98, min 1.00 (7), max 15.00 (39), mean 7.66 Q1 5.00, median 8.00, Q3 10.00
  histogram: [(1, 2), (2, 3), (3, 8), (4, 6), (5, 10), (6, 8), (7, 12), (8, 10), (9, 12), (10, 7), (11, 3), (12, 7), (13, 4), (14, 4), (15, 2)]
-Wrote 93 routes (81 distinct) achieving total count 721 at 138 locations. GEH<5 for 97.83%
+Wrote 93 routes (81 distinct) achieving total count 721 (96.01%) at 138 locations. GEH<5 for 97.83%
 result route edge count: count 93, min 2.00 (52), max 16.00 (49), mean 8.75 Q1 6.00, median 8.00, Q3 11.00
  histogram: [(2, 2), (3, 3), (4, 8), (5, 5), (6, 10), (7, 6), (8, 13), (9, 8), (10, 10), (11, 8), (12, 2), (13, 6), (14, 6), (15, 4), (16, 2)]
 result route detector count: count 93, min 1.00 (52), max 15.00 (49), mean 7.75 Q1 5.00, median 7.00, Q3 10.00
