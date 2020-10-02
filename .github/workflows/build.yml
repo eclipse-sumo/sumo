@@ -95,6 +95,14 @@ jobs:
         cd sumo
         ../fmuChecker/install/fmuCheck.linux64 bin/sumo-fmi2-linux64.fmu 
 
+    - name: Uploading FMI 2.0 FMU artifacts
+      if: matrix.build_type == 'full'
+      uses: actions/upload-artifact@v1
+      with:
+        name: sumo-fmi2-linux64
+        path: sumo/bin/sumo-fmi2-linux64.fmu 
+
+
   ###################
   # BUILDING wheels
   ###################
@@ -217,4 +225,9 @@ jobs:
       run: |
         cd sumo
         ../fmuChecker/install/fmuCheck.darwin64  bin/sumo-fmi2-darwin64.fmu    
-        
+    
+    - name: Uploading FMI 2.0 FMU artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: sumo-fmi2-darwin64
+        path: sumo/bin/sumo-fmi2-darwin64.fmu
