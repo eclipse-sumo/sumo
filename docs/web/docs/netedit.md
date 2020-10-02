@@ -1511,6 +1511,11 @@ original junction positions.
 
 ## Converting an intersection into a roundabout
 
+1. set junction attribute 'radius' to the desired roundabout radius
+2. right-click on junction and select 'Convert to roundabout'
+
+## Converting an intersection into a roundabout (old manual method)
+
 1.  For each of the 'legs' of the intersection do a right click and
     select 'split edges in both directions' at some distance from the
     intersection (this will be the radius of the roundabout)
