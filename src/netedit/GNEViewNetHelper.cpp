@@ -3251,7 +3251,12 @@ GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const GN
         // calculate position
         const Position pos = (geometry.getShape().size() == 1)? geometry.getShape().front() : geometry.getShape().positionAtOffset2D(middlePoint);
         // calculate rotation
-        const double rot = (geometry.getShape().size() == 1)? geometry.getShapeRotations().front() : geometry.getShape().rotationDegreeAtOffset(middlePoint);
+        double rot = 0; 
+        if ((geometry.getShape().size() == 1) && (geometry.getShapeRotations().size() > 0)) {
+            rot = geometry.getShapeRotations().front();
+        } else if (geometry.getShape().size() > 1) {
+            rot = geometry.getShape().rotationDegreeAtOffset(middlePoint);
+        }
         // get texture
         const GUIGlID lockTexture = getLockIcon(AC);
         // Start pushing matrix

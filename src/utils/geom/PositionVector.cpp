@@ -291,7 +291,7 @@ PositionVector::positionAtOffset2D(double pos, double lateralOffset) const {
 
 double
 PositionVector::rotationAtOffset(double pos) const {
-    if (size() == 0) {
+    if ((size() == 0) || (size() == 1)) {
         return INVALID_DOUBLE;
     }
     if (pos < 0) {

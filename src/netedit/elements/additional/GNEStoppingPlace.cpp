@@ -399,7 +399,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate rotation
-        const double rot =  myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        const double rot = (myAdditionalGeometry.getShape().size() <= 1)? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         // Iterate over every line
         for (int i = 0; i < (int)lines.size(); ++i) {
             // push a new matrix for every line
@@ -427,7 +427,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
     // calculate middle point
     const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
     // calculate rotation
-    const double rot =  myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+    const double rot = (myAdditionalGeometry.getShape().size() <= 1)? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
     if (s.drawForPositionSelection) {
         // only draw circle depending of distance between sign and mouse cursor
         if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
