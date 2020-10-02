@@ -1595,6 +1595,12 @@ settings may help
 When setting coloring to *by selection* it may also help to modify
 transparency for selected or unselected edges.
 
+## Defining a linear referencing scheme [(kilometrage / mileage/ chainage)](Simulation/Railways.md#kilometrage_mileage_chainage)
+
+1. [Define a route](#route_mode) through your network along which you want to define kilometrage (in forward direction)
+2. (optional) Use inspect mode to et the initial distance value of the first edge of the route (default 0)
+3) Right click the route element (in demand mode) and select 'Apply distance along route'
+
 ## Creating [bidirectional railway tracks](Simulation/Railways.md)
 
 ### Make an existing track bidirectional
