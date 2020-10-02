@@ -730,9 +730,11 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
     numGehOK = 0.0
     hourFraction = (end - begin) / 3600.0
     totalCount = 0
+    totalOrigCount = 0
     for cd in countData:
         localCount = cd.origCount - cd.count
         totalCount += localCount
+        totalOrigCount += cd.origCount
         if cd.count > 0:
             underflow.add(cd.count, cd.edgeTuple)
         elif cd.count < 0:
@@ -746,11 +748,13 @@ def solveInterval(options, routes, begin, end, intervalPrefix, outf, mismatchf, 
             ' '.join(cd.edgeTuple), int(origHourly), int(localHourly)))
 
     outputIntervalPrefix = "" if intervalPrefix == "" else "%s: " % int(begin)
-    gehOKNum = (100 * numGehOK / len(countData)) if countData else 100
+    countPercentage = gehOK = "%.2f%%" % (100 * totalCount / float(totalOrigCount)) if totalOrigCount else "-"
+    gehOKNum = 100 * numGehOK / float(len(countData)) if countData else 100
     gehOK = "%.2f%%" % gehOKNum if countData else "-"
-    print("%sWrote %s routes (%s distinct) achieving total count %s at %s locations. GEH<%s for %s" % (
+    print("%sWrote %s routes (%s distinct) achieving total count %s (%s) at %s locations. GEH<%s for %s" % (
         outputIntervalPrefix,
-        len(usedRoutes), len(set(usedRoutes)), totalCount, len(countData),
+        len(usedRoutes), len(set(usedRoutes)),
+        totalCount, countPercentage, len(countData),
         options.gehOk, gehOK))
 
     if options.verboseHistogram:
