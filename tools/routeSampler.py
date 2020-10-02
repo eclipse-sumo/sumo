@@ -94,6 +94,9 @@ def get_options(args=None):
                         help="set optimization method level (full, INT boundary)")
     parser.add_argument("--optimize-input", dest="optimizeInput", action="store_true", default=False,
                         help="Skip resampling and run optimize directly on the input routes")
+    parser.add_argument("--minimize-vehicles", dest="minimizeVehs", type=float, default=0,
+                        help="Set optimization factor from [0, 1[ for reducing the number of vehicles" 
+                           + "(prefer routes that pass multiple counting locations over routes that pass fewer)")
     parser.add_argument("--geh-ok", dest="gehOk", default=5,
                         help="threshold for acceptable GEH values")
     parser.add_argument("-f", "--write-flows", dest="writeFlows",
@@ -351,8 +354,8 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
     # constraint: achieve counts
     b = np.asarray([cd.origCount for cd in countData])
 
-    # minimization objective
-    c = np.concatenate((np.zeros(k), np.ones(m)))  # [x, s], only s counts for minimization
+    # minimization objective [routeCounts] + [slack]
+    c = [options.minimizeVehs] * k + [1] * m 
 
     # set x to prior counts and slack to deficit (otherwise solver may fail to find any soluton
     x0 = priorRelevantRouteCounts + [cd.origCount - cd.count for cd in countData]
