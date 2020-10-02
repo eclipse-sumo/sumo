@@ -61,8 +61,8 @@ def _getOutputStream(name):
 def _closeOutputStream(strm):
     if strm:
         strm.close()
-    
-
+  
+          
 def makeEntries(movables, chosen, options):
     if options.boundary:
         xmin, ymin, xmax, ymax = [float(e)
@@ -76,8 +76,8 @@ def makeEntries(movables, chosen, options):
             v.x, v.y = disturb_gps(float(v.x), float(v.y), options.blur)
             if v.x < 0 or v.y < 0:
                 if options.shift:
-                    v.x+= float(options.shift) 
-                    v.y+= float(options.shift) 
+                    v.x= round(v.x+ float(options.shift), 2)
+                    v.y= round(v.y+ float(options.shift), 2)
                 else:
                     negative= True
             if not v.z:
