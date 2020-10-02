@@ -180,7 +180,7 @@ jobs:
       run: |
         mkdir -p sumo/cmake-build 
         cd sumo/cmake-build 
-        cmake .. 
+        cmake -DFMI=ON .. 
         make -j4
 
     - name: Building Traas
@@ -203,3 +203,18 @@ jobs:
       with:
         name: macOS
         path: sumo/bin
+        
+    - name: Building FMU Compliance Checker
+      run: |
+        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
+        cd fmuChecker
+        mkdir build
+        cd build
+        cmake ../
+        make install test
+        
+    - name: Checking sumo-fmi2.fmu
+      run: |
+        cd sumo
+        ../fmuChecker/install/fmuCheck.darwin64  bin/sumo-fmi2-darwin64.fmu    
+        
