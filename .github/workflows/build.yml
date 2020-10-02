@@ -54,7 +54,7 @@ jobs:
         cd sumo/cmake-build 
         if [[ "${{ matrix.compiler }}" == "gcc" ]]; then export CC=gcc; export CXX=g++; fi
         if [[ "${{ matrix.compiler }}" == "clang" ]]; then export CC=clang; export CXX=clang++; fi
-        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake ..; fi
+        if [[ "${{ matrix.build_type }}" == "full" ]]; then cmake -DFMI=ON ..; fi
         if [[ "${{ matrix.build_type }}" == "minimal" ]]; then cmake -DFOX_CONFIG= -DPROJ_LIBRARY= -DCHECK_OPTIONAL_LIBS=OFF ..; fi 
         make -j4
 
@@ -78,6 +78,22 @@ jobs:
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: sumo/bin
+        
+    - name: Building FMU Compliance Checker
+      if: matrix.build_type == 'full'
+      run: |
+        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
+        cd fmuChecker
+        mkdir build
+        cd build
+        cmake ..
+        make install test
+        
+    - name: Checking sumo-fmi2.fmu
+      if: matrix.build_type == 'full'
+      run: |
+        cd sumo
+        ../fmuChecker/install/fmuCheck.linux64 bin/sumo-fmi2-linux64.fmu 
 
   ###################
   # BUILDING wheels
