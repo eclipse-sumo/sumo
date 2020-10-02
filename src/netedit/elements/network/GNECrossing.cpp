@@ -178,10 +178,12 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
     if (drawCrossing) {
         // get NBCrossing
         const auto NBCrossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);
+        // draw crossing checking whether it is not too small if isn't being drawn for selecting
+        const double selectionScale = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
         // set default values
-        const double length = 0.5;
-        const double spacing = 1.0;
-        const double halfWidth = NBCrossing->width * 0.5;
+        const double length = 0.5 * selectionScale;
+        const double spacing = 1.0 * selectionScale;
+        const double halfWidth = NBCrossing->width * 0.5 * selectionScale;
         // get color
         RGBColor crossingColor;
         // first check if we're editing shape
@@ -239,13 +241,13 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
             }
             // draw shape points only in Network supemode
-            if (myShapeEdited && s.drawMovingGeometryPoint(1, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
+            if (myShapeEdited && s.drawMovingGeometryPoint(selectionScale, s.neteditSizeSettings.crossingGeometryPointRadius) && myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
                 // color
                 const RGBColor darkerColor = crossingColor.changedBrightness(-32);
                 // draw geometry points
-                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, 1);
+                GNEGeometry::drawGeometryPoints(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
                 // draw moving hint
-                GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, 1);
+                GNEGeometry::drawMovingHint(s, myNet->getViewNet(), myCrossingGeometry.getShape(), darkerColor, s.neteditSizeSettings.crossingGeometryPointRadius, selectionScale);
             }
             // pop layer matrix
             glPopMatrix();
@@ -258,7 +260,7 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         }
         // check if dotted contour has to be drawn (not useful at high zoom)
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
-            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth, 1);
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth, selectionScale);
         }
     }
 }

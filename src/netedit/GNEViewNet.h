@@ -407,8 +407,8 @@ public:
     /// @brief whether to autoselect nodes or to lanes
     bool autoSelectNodes();
 
-    /// @brief set selection scaling
-    void setSelectionScaling(double selectionScale);
+    /// @brief set selection scaling (in GNESelectorFrame)
+    void setSelectorFrameScale(double selectionScale);
 
     /// @brief update control contents after undo/redo or recompute
     void updateControls();

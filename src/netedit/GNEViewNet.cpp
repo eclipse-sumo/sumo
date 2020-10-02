@@ -568,8 +568,8 @@ GNEViewNet::autoSelectNodes() {
 
 
 void
-GNEViewNet::setSelectionScaling(double selectionScale) {
-    myVisualizationSettings->selectionScale = selectionScale;
+GNEViewNet::setSelectorFrameScale(double selectionScale) {
+    myVisualizationSettings->selectorFrameScale = selectionScale;
 }
 
 

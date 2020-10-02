@@ -286,13 +286,21 @@ GUIVisualizationSizeSettings::GUIVisualizationSizeSettings(double _minSize, doub
 
 double
 GUIVisualizationSizeSettings::getExaggeration(const GUIVisualizationSettings& s, const GUIGlObject* o, double factor) const {
+    // declare exaggeration final
+    double exaggerationFinal;
     /// @note should look normal-sized at zoom 1000
     if (constantSize && (!constantSizeSelected || (o == nullptr) || gSelected.isSelected(o))) {
-        return MAX2((double)exaggeration, exaggeration * factor / s.scale);
+        exaggerationFinal = MAX2((double)exaggeration, exaggeration * factor / s.scale);
     } else if (!constantSizeSelected || (o == nullptr) || gSelected.isSelected(o)) {
-        return exaggeration;
+        exaggerationFinal  = exaggeration;
     } else {
-        return 1;
+        exaggerationFinal = 1;
+    }
+    // add selectorFrameScale
+    if ((o != nullptr) && gSelected.isSelected(o)) {
+        return (exaggerationFinal * s.selectorFrameScale);
+    } else {
+        return exaggerationFinal;
     }
 }
 
@@ -451,7 +459,7 @@ GUIVisualizationSettings::GUIVisualizationSettings(bool _netedit) :
     showVehicleColorLegend(false),
     gaming(false),
     drawBoundaries(false),
-    selectionScale(1.),
+    selectorFrameScale(1.),
     drawForPositionSelection(false),
     drawForRectangleSelection(false),
     forceDrawForPositionSelection(false),

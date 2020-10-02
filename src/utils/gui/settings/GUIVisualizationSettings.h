@@ -813,8 +813,8 @@ public:
     /// @brief enable or disable draw boundaries
     bool drawBoundaries;
 
-    /// @brief the current selection scaling in NETEDIT (temporary)
-    double selectionScale;
+    /// @brief the current selection scaling in NETEDIT (set in SelectorFrame)
+    double selectorFrameScale;
 
     /// @brief whether drawing is performed for the purpose of selecting objects with a single click
     bool drawForPositionSelection;

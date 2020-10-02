@@ -349,7 +349,7 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
     // Check if connection must be drawed
     if (drawConnection) {
         // draw connection checking whether it is not too small if isn't being drawn for selecting
-        const double selectionScale = isAttributeCarrierSelected() ? s.selectionScale : 1;
+        const double selectionScale = isAttributeCarrierSelected() ? s.selectorFrameScale : 1;
         // get color
         RGBColor connectionColor;
         // first check if we're editing shape

@@ -1187,7 +1187,7 @@ GNESelectorFrame::VisualScaling::~VisualScaling() {}
 long
 GNESelectorFrame::VisualScaling::onCmdScaleSelection(FXObject*, FXSelector, void*) {
     // set scale in viewnet
-    mySelectorFrameParent->myViewNet->setSelectionScaling(mySelectionScaling->getValue());
+    mySelectorFrameParent->myViewNet->setSelectorFrameScale(mySelectionScaling->getValue());
     mySelectorFrameParent->myViewNet->updateViewNet();
     return 1;
 }
