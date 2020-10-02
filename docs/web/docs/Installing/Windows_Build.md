@@ -51,8 +51,15 @@ using `git clone --recursive https://github.com/eclipse/sumo` or download and ex
 The command for the [\#Libraries](#libraries) is: `git clone --recursive https://github.com/DLR-TS/SUMOLibraries`. If you do not place the libraries in the same folder as sumo, you will need to set the SUMO_LIBRARIES environment variable to the directory.
 
 It Visual Studio fails at first try (maybe SUMOLibraries are not cloned yet or are in an unusual location, the errors talk about not finding Xerces)
-  - Select Project->"Generate Cache" to try again (it is CMake->Generate in earlier Visual Studio versions)
-    - If it still fails, edit CMakeCache.txt from the CMake menu and set the path (e.g. SUMO_LIBRARIES:PATH=C:/Users/testus/source/repos/SUMOLibraries) and retry
+  - Select Project->"Generate Cache" to try again (it is CMake->Generate in earlier Visual Studio versions) or see below
+
+### Adapting settings
+
+If you need to modify settings, you can edit the CMakeCache.txt by opening it in your favorite text editor or via the Project->Cmake-Cache menu. The following things might be useful
+    - If the libraries are not found, set SUMO_LIBRARIES:PATH to something like C:/Users/testus/source/repos/SUMOLibraries) and retry
+    - If the wrong python interpreter or library is found, edit the PYTHON_* variables
+    - If you want to disable the build of the GUI (Fox) or usage of Proj, set the according library entries to the empty string
+To make a debug build, you should *not* change CMAKE_BUILD_TYPE in the cache file. You should choose a different configuration in the GUI instead.
 
 ## Libraries
 
