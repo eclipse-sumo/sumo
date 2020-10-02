@@ -164,4 +164,10 @@ jobs:
       run: |
         cd sumo
         ../fmuChecker/install/fmuCheck.win64 bin/sumo-fmi2-win64.fmu 
-        
+      
+    - name: Uploading FMI 2.0 FMU artifacts
+      if: matrix.build_type == 'extra'
+      uses: actions/upload-artifact@v1
+      with:
+        name: sumo-fmi2-win64
+        path: sumo/bin/sumo-fmi2-win64.fmu 
