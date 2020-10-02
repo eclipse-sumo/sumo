@@ -253,8 +253,13 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         if platform == "x64":
             status.printLog("Creating sumo-game.zip.", log)
             try:
-                setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
-                subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
+                try:
+                    import py2exe
+                    setup = os.path.join(env["SUMO_HOME"], 'tools', 'game', 'setup.py')
+                    subprocess.call(['python', setup, binaryZip], stdout=log, stderr=subprocess.STDOUT)
+                except ImportError:
+                    subprocess.call(["cmake", "--build", ".", "--target", "game"],
+                                    cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
             except Exception as e:
                 status.printLog("Warning: Could not create nightly sumo-game.zip! (%s)" % e, log)
         with open(makeAllLog, 'a') as debugLog:
