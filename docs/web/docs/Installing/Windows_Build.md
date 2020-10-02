@@ -56,9 +56,11 @@ It Visual Studio fails at first try (maybe SUMOLibraries are not cloned yet or a
 ### Adapting settings
 
 If you need to modify settings, you can edit the CMakeCache.txt by opening it in your favorite text editor or via the Project->Cmake-Cache menu. The following things might be useful
-    - If the libraries are not found, set SUMO_LIBRARIES:PATH to something like C:/Users/testus/source/repos/SUMOLibraries) and retry
-    - If the wrong python interpreter or library is found, edit the PYTHON_* variables
-    - If you want to disable the build of the GUI (Fox) or usage of Proj, set the according library entries to the empty string
+
+  - If the libraries are not found, set SUMO_LIBRARIES:PATH to something like C:/Users/testus/source/repos/SUMOLibraries) and retry
+  - If the wrong python interpreter or library is found, edit the PYTHON_* variables
+  - If you want to disable the build of the GUI (Fox) or usage of Proj, set the according library entries to the empty string
+
 To make a debug build, you should *not* change CMAKE_BUILD_TYPE in the cache file. You should choose a different configuration in the GUI instead.
 
 ## Libraries
