@@ -16,7 +16,7 @@
             <Component Id='SumoHome' Guid='67D3110C-F900-461F-B836-177A7AE88BB9'>
               <Condition>MODIFYENV</Condition>
               <CreateFolder/>
-              <Environment Id="SUMO_HOME" Name="SUMO_HOME" Value="[INSTALLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+              <Environment Id="SUMO_HOME" Name="SUMO_HOME" Value="[INSTALLDIR]" Permanent="no" Part="all" Action="set" System="yes" />
             </Component>
             <Directory Id='BINDIR' Name='bin'>
               <Component Id='MainExecutables' Guid='BD1FC8EE-2B15-11E1-BA48-028037EC0200'>
@@ -73,17 +73,17 @@
                 </File>
               </Component>
             </Directory>
-			
-  	        <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
-    		  <Condition>MODIFYENV</Condition>
+
+            <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
+              <Condition>MODIFYENV</Condition>
               <CreateFolder/>
-			  <Environment Id="PATH" Name="PATH" Value="[BINDIR];[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
-		    </Component>
-  	        <Component Id='PythonPath' Guid='3C6E4C8E-C4D3-483D-93C0-546A04D360F0'>
-    		  <Condition>MODIFYENV</Condition>
+              <Environment Id="PATH" Name="PATH" Value="[BINDIR];[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
+            <Component Id='PythonPath' Guid='3C6E4C8E-C4D3-483D-93C0-546A04D360F0'>
+              <Condition>MODIFYENV</Condition>
               <CreateFolder/>
-			  <Environment Id="PYTHONPATH" Name="PYTHONPATH" Value="[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
-		    </Component>
+              <Environment Id="PYTHONPATH" Name="PYTHONPATH" Value="[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
           </Directory>
         </Directory>
       </Directory>
