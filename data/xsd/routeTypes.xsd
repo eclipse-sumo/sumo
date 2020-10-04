@@ -445,14 +445,12 @@
     </xsd:complexType>
 
     <xsd:complexType name="flowWithoutIDType">
-        <xsd:sequence>
-            <xsd:choice minOccurs="0">
-                <xsd:element name="route" type="vehicleRouteType"/>
-                <xsd:element name="routeDistribution" type="vehicleRouteDistributionType"/>
-            </xsd:choice>
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="route" type="vehicleRouteType" maxOccurs="1"/>
+            <xsd:element name="routeDistribution" type="vehicleRouteDistributionType" maxOccurs="1"/>
             <xsd:element name="stop" type="stopType" minOccurs="0" maxOccurs="unbounded"/>
             <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
-        </xsd:sequence>
+        </xsd:choice>
         <xsd:attribute name="route" type="xsd:string"/>
         <xsd:attribute name="fromTaz" type="xsd:string"/>
         <xsd:attribute name="toTaz" type="xsd:string"/>
