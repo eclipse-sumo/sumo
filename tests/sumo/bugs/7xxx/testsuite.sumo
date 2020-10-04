@@ -15,3 +15,6 @@ ticket7154
 
 # bluelight device with short final edge should not crash
 ticket7473
+
+# invalid xsd validation error
+ticket7647
