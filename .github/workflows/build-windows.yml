@@ -156,7 +156,7 @@ jobs:
         cd fmuChecker
         mkdir build
         cd build
-        cmake -G "Visual Studio 10" ..
+        cmake -G "Visual Studio 16 2019" ..
         cmake --build . --config MinSizeRel --target install
  
     - name: Checking sumo-fmi2.fmu
