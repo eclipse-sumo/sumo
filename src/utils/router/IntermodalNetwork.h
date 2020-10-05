@@ -417,12 +417,17 @@ public:
         }
         for (const auto& edgePair : myCarLookup) {
             _IntermodalEdge* const carEdge = edgePair.second;
+            // connectivity within the car network
             for (const auto& suc : edgePair.first->getViaSuccessors()) {
                 _IntermodalEdge* const sucCarEdge = getCarEdge(suc.first);
                 _IntermodalEdge* const sucViaEdge = getCarEdge(suc.second);
                 if (sucCarEdge != nullptr) {
                     carEdge->addSuccessor(sucCarEdge, sucViaEdge);
                 }
+            }
+            // connectivity to the pedestrian network (only for normal edges)
+            if (edgePair.first->getFunction() != SumoXMLEdgeFunc::NORMAL) {
+                continue;
             }
             if ((myCarWalkTransfer & ALL_JUNCTIONS) != 0) {
                 _IntermodalEdge* const walkCon = getWalkingConnector(edgePair.first);
