@@ -119,6 +119,10 @@ In most cases, public transport runs according to a fixed schedule. Such a sched
 
 !!! note
     Defining a public transport schedule is necessary for [intermodal routing](../IntermodalRouting.md).
+    
+!!! caution
+    A public transport schedule for [intermodal routing](../IntermodalRouting.md) must be fully defined when loading the simulation. Stops that are defined during the simulation via rerouters or TraCI will not be considered when routing a [`<personTrip>`](../Specification/Persons.md#persontrips).
+  
 
 ## Single vehicles and trips
 When defining until values for a vehicle and trip, the values denote absolute simulation. Times. Note, that seconds or human-readable times may be used.
@@ -158,6 +162,37 @@ The example below defines a flow that inserts two vehicles. The first vehicle wi
 <flow id="bus" route="busRoute" line="bus" begin="500" end="801" period="300"/>
 
 ```
+
+## Looped routes
+Looped routes can be defined by repeating edges and stops in the above definitions. To shorten the inpput description, a route may also be defined with the attributes 'repeat' and 'cycleTime':
+
+```xml
+<route id="busRoute" edges="A B C D E" repeat="3" cycleTime="300">
+                <stop busStop="busStopA" until="10"/>
+                <stop busStop="busStopB" until="110"/>
+                <stop busStop="busStopC" until="210"/>
+</route>
+```
+
+This repeats the route edges and the stops three times. The until-times of the stops are shifted by 300s in each cycle and thus the simulation expeands this o the following schedule:
+```xml
+<route id="busRoute" edges="A B C D E A B C D E A B C D E" repeat="3" cycleTime="300">
+                <stop busStop="busStopA" until="10"/>
+                <stop busStop="busStopB" until="110"/>
+                <stop busStop="busStopC" until="210"/>
+                <stop busStop="busStopA" until="310"/>
+                <stop busStop="busStopB" until="410"/>
+                <stop busStop="busStopC" until="510"/>
+                <stop busStop="busStopA" until="610"/>
+                <stop busStop="busStopB" until="710"/>
+                <stop busStop="busStopC" until="810"/>
+</route>
+
+```
+In contrast to a period flow (which also repeats a given stop sequence), this simulation keeps a single vehicle in the loop. This allows for delays from one loop to be carried over into the next iteration. Flow definitions can make use of repeating routes in order to have multiple vehicles serving the repeating loop at the same time.
+
+!!! caution
+    When using attribute 'repeat', the last edge of the route must be connected to the first edge of the route in order to have a valid route definition.
 
 # Stopping without defining a bus stop
 
