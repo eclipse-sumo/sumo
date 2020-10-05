@@ -55,6 +55,7 @@ GNEDataInterval::~GNEDataInterval() {}
 
 void
 GNEDataInterval::updateGenericDataIDs() {
+/*
     // iterate over generic data childrens
     for (const auto& genericData : myGenericDataChildren) {
         if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
@@ -67,11 +68,13 @@ GNEDataInterval::updateGenericDataIDs() {
                                        genericData->getParentEdges().front()->getID() + "->" + genericData->getParentEdges().back()->getID());
         }
     }
+*/
 }
 
 
 void
 GNEDataInterval::updateAttributeColors() {
+/*
     // first clear both container
     myAllAttributeColors.clear();
     mySpecificAttributeColors.clear();
@@ -88,6 +91,7 @@ GNEDataInterval::updateAttributeColors() {
             }
         }
     }
+*/
 }
 
 
