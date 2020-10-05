@@ -11,33 +11,35 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    fmi2main.c
+/// @file    sumo2fmi_bridge.c
 /// @author  Robert Hilbrich
 /// @date    Tue, 03 Mar 2020
 ///
-// Implementation of the FMI2 to sumolib bridge features
+// Implementation of the FMI to SUMO bridge features
 /****************************************************************************/
 
-#define FMI_VERSION 2
+//#define FMI_VERSION 2
 
 #include <foreign/fmi/fmi2Functions.h>
 
 #include "libsumocpp2c.h"
-#include "fmi2main.h"
+#include "sumo2fmi_bridge.h"
 
+/* Explicit definition of unused parameters to avoid compiler warnings */
+#define UNREFERENCED_PARAMETER(P) (P)
 
 void 
-logError(ModelInstance *comp, const char *message, ...) {
+sumo2fmi_logError(ModelInstance *comp, const char *message, ...) {
     if (!comp->logErrors) return;
 
     va_list args;
     va_start(args, message);
-    logMessage(comp, fmi2Error, "logStatusError", message, args);
+    sumo2fmi_logMessage(comp, fmi2Error, "logStatusError", message, args);
     va_end(args); 
 }
 
 void 
-logMessage(ModelInstance *comp, int status, const char *category, const char *message, va_list args) {
+sumo2fmi_logMessage(ModelInstance *comp, int status, const char *category, const char *message, va_list args) {
     va_list args1;
     size_t len = 0;
     char *buf = "";
@@ -58,8 +60,9 @@ logMessage(ModelInstance *comp, int status, const char *category, const char *me
 
 // Retrieve the integer value for a single variable
 fmi2Status
-getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value) {
- 
+sumo2fmi_getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value) {
+    UNREFERENCED_PARAMETER(comp);
+
     // Do we need the pointer to comp here?
     switch (vr) {
         case 0:
@@ -71,7 +74,9 @@ getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value) {
 }
 
 fmi2Status 
-myStep(ModelInstance *comp, double tNext) {
+sumo2fmi_step(ModelInstance *comp, double tNext) {
+    UNREFERENCED_PARAMETER(comp);
+
     libsumo_step(tNext);
     return fmi2OK;
 }

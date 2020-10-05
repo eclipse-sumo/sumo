@@ -3,7 +3,7 @@
 # Building of the libsumo-FMI2 library 
 set (libsumofmi2_SRCS
   fmi2Functions.c 
-  fmi2main.c 
+  sumo2fmi_bridge.c
   libsumocpp2c.cpp 
 )
 

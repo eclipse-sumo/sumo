@@ -28,7 +28,7 @@
 #include <stdio.h>
 #include <stdarg.h>
 #include <foreign/fmi/fmi2Functions.h>
-#include "fmi2main.h"
+#include "sumo2fmi_bridge.h"
 #include "libsumocpp2c.h"
 
 /* Explicit definition of unused parameters to avoid compiler warnings */
@@ -119,14 +119,14 @@ fmi2SetDebugLogging(fmi2Component c, fmi2Boolean loggingOn, size_t nCategories, 
     if (loggingOn) {
         for (size_t i = 0; i < nCategories; i++) {
             if (categories[i] == NULL) {
-                logError(comp, "Log category[%d] must not be NULL", i);
+                sumo2fmi_logError(comp, "Log category[%d] must not be NULL", i);
                 return fmi2Error;
             } else if (strcmp(categories[i], "logStatusError") == 0) {
                 comp->logErrors = true;
             } else if (strcmp(categories[i], "logEvents") == 0) {
                 comp->logEvents = true;
             } else {
-                logError(comp, "Log category[%d] must be one of logEvents or logStatusError but was %s", i, categories[i]);
+                sumo2fmi_logError(comp, "Log category[%d] must be one of logEvents or logStatusError but was %s", i, categories[i]);
                 return fmi2Error;
             }
         }
@@ -207,7 +207,7 @@ fmi2GetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2I
 
     // Go through the list of arrays and save all requested values
     for (int i = 0; i < nvr; i++) { 
-        fmi2Status s = getInteger(comp, vr[i], &(value[i])); 
+        fmi2Status s = sumo2fmi_getInteger(comp, vr[i], &(value[i])); 
         status = s > status ? s : status; 
 
         if (status > fmi2Warning) 
@@ -322,7 +322,7 @@ fmi2DoStep(fmi2Component c, fmi2Real currentCommunicationPoint, fmi2Real communi
         return fmi2Error;
     }
 
-    return myStep(comp, currentCommunicationPoint + communicationStepSize);
+    return sumo2fmi_step(comp, currentCommunicationPoint + communicationStepSize);
 }
 
 fmi2Status 

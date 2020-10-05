@@ -11,15 +11,15 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    fmi2main.h
+/// @file    sumo2fmi_bridge.h
 /// @author  Robert Hilbrich
 /// @date    Mon, 24 Aug 2020
 ///
-//  Basic declarations for the FMI model
+// Declarations for the logic and data strcutures for the SUMO to FMI bridge
 /****************************************************************************/
 
-#ifndef FMI2MAIN_H
-#define FMI2MAIN_H
+#ifndef SUMO2FMI_BRIDGE_H
+#define SUMO2FMI_BRIDGE_H
 
 #include <stdio.h>
 #include <stdbool.h>
@@ -55,13 +55,13 @@ typedef struct {
 } ModelInstance;
 
 /* Declarations of utility functions */
-void logError(ModelInstance* comp, const char* message, ...);
-static void logMessage(ModelInstance* comp, int status, const char* category, const char* message, va_list args);
+void sumo2fmi_logError(ModelInstance* comp, const char* message, ...);
+static void sumo2fmi_logMessage(ModelInstance* comp, int status, const char* category, const char* message, va_list args);
 
 /* Getter Functions */
-fmi2Status getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value);
+fmi2Status sumo2fmi_getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value);
 
 /* Stepping Functions */
-fmi2Status myStep(ModelInstance* comp, double tNext);
+fmi2Status sumo2fmi_step(ModelInstance* comp, double tNext);
 
-#endif /* FMI2MAIN_H */
+#endif /* SUMO2FMI_BRIDGE_H */
