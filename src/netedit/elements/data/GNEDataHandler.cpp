@@ -71,7 +71,7 @@ GNEDataLoadDialog::increase() {
     // update counter
     myCounter++;
     // update label
-    myLabel->setText(("Data elements loaded: " + toString(myCounter)).c_str());
+    myLabel->setText(("Loaded: " + toString(myCounter)).c_str());
     // repaint
     repaint();
 }
