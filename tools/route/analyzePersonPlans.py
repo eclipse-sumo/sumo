@@ -53,6 +53,8 @@ def stageName(options, person, stage):
     if stage.name == 'ride':
         if stage.lines.startswith(person.id):
             return 'car'
+        elif stage.lines == 'taxi':
+            return 'taxi'
         else:
             if stage.intended is not None:
                 for pType in options.public:
