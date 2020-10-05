@@ -156,8 +156,8 @@ jobs:
         cd fmuChecker
         mkdir build
         cd build
-        cmake ..
-        make install test
+        cmake -G "Visual Studio 10" ..
+        cmake --build . --config MinSizeRel --target install
  
     - name: Checking sumo-fmi2.fmu
       if: matrix.build-type == 'extra'
