@@ -380,7 +380,7 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
                     record = Record(*m.groups())
 
 
-def writeHeader(outf, script=None, root=None, schemaPath=None):
+def writeHeader(outf, script=None, root=None, schemaPath=None, extraRootAttrs=""):
     script = os.path.basename(sys.argv[0]) + " " + version.gitDescribe()
     outf.write(u"""<?xml version="1.0" encoding="UTF-8"?>
 <!-- generated on %s by %s
@@ -391,8 +391,8 @@ def writeHeader(outf, script=None, root=None, schemaPath=None):
     if root is not None:
         if schemaPath is None:
             schemaPath = root + "_file.xsd"
-        outf.write((u'<%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                    u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, schemaPath))
+        outf.write((u'<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                    u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, extraRootAttrs, schemaPath))
 
 
 def quoteattr(val):

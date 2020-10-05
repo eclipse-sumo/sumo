@@ -481,20 +481,20 @@ def create_plain(netfile, netconvert):
 # (only children of the root element and their attrs are compared)
 def xmldiff(source, dest, diff, type, copy_tags, patchImport):
     attributeStore = AttributeStore(type, copy_tags)
-    root_open = None
+    root = None
     have_source = os.path.isfile(source)
     have_dest = os.path.isfile(dest)
     if have_source:
-        root_open, root_close = handle_children(source, attributeStore.store)
+        root, schema, version = handle_children(source, attributeStore.store)
     if have_dest:
         if patchImport:
             # run diff twice to determine edges with changed connections
             AttributeStore.patchImport = True
-            root_open, root_close = handle_children(dest, attributeStore.compare)
+            root, schema, version = handle_children(dest, attributeStore.compare)
             AttributeStore.patchImport = False
-            root_open, root_close = handle_children(dest, attributeStore.compare)
+            root, schema, version = handle_children(dest, attributeStore.compare)
         else:
-            root_open, root_close = handle_children(dest, attributeStore.compare)
+            root, schema, version = handle_children(dest, attributeStore.compare)
 
     if not have_source and not have_dest:
         print("Skipping %s due to lack of input files" % diff)
@@ -507,8 +507,7 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport):
                 "Dest file %s is missing. Assuming all elements are deleted" % dest)
 
         with codecs.open(diff, 'w', 'utf-8') as diff_file:
-            diff_file.write('<?xml version="1.0" encoding="UTF-8"?>\n')
-            diff_file.write(root_open)
+            sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, extra=version)
             if copy_tags:
                 attributeStore.write(diff_file, "<!-- Copied Elements -->\n")
                 attributeStore.writeCopies(diff_file, copy_tags)
@@ -530,27 +529,29 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport):
                 attributeStore.writeCreated(diff_file)
                 attributeStore.write(diff_file, "<!-- Changed Elements -->\n")
                 attributeStore.writeChanged(diff_file)
-            diff_file.write(root_close)
+            diff_file.write("</%s>\n" % root)
 
 
 # calls function handle_parsenode for all children of the root element
 # returns opening and closing tag of the root element
 def handle_children(xmlfile, handle_parsenode):
-    root_open = None
-    root_close = None
+    root = None
+    schema = None
+    version = ""
     level = 0
     xml_doc = pulldom.parse(xmlfile)
     for event, parsenode in xml_doc:
         if event == pulldom.START_ELEMENT:
             # print level, parsenode.getAttribute(ID_ATTR)
             if level == 0:
-                root_open = parsenode.toprettyxml(indent="")
                 # since we did not expand root_open contains the closing slash
-                root_open = root_open[:-3] + ">\n"
-                # change the schema for edge diffs
-                root_open = root_open.replace(
-                    "edges_file.xsd", "edgediff_file.xsd")
-                root_close = "</%s>\n" % parsenode.localName
+                root = parsenode.localName
+                if root == "edges":
+                    schema = "edgediff_file.xsd"
+                elif root == "tlLogics":
+                    schema = "tllogic_file.xsd"
+                if parsenode.hasAttribute("version"):
+                    version = ' version="%s"' % parsenode.getAttribute("version")
             if level == 1:
                 # consumes END_ELEMENT, no level increase
                 xml_doc.expandNode(parsenode)
@@ -559,7 +560,7 @@ def handle_children(xmlfile, handle_parsenode):
                 level += 1
         elif event == pulldom.END_ELEMENT:
             level -= 1
-    return root_open, root_close
+    return root, schema, version
 
 
 # run

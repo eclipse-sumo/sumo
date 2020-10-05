@@ -229,6 +229,11 @@ image:http:{REPLACE https:}
 image-600:http:{REPLACE https:}
 image-800:http:{REPLACE https:}
 csv:\r$
+diff_con:<!-- generated on{[->]}-->
+diff_edg:<!-- generated on{[->]}-->
+diff_nod:<!-- generated on{[->]}-->
+diff_tll:<!-- generated on{[->]}-->
+diff_xml:<!-- generated on{[->]}-->
 
 [floating_point_tolerance]
 net:0.0101
