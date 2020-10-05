@@ -954,6 +954,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
     int nolanes = 0;
     double speed = 0;
     int priority = -1;
+    bool joinEdges = true;
     std::string id;
     sort(edges.begin(), edges.end(), NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
@@ -982,56 +983,59 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
         }
         else { 
             priority = -1;
+            joinEdges = false;
         }
     }
-    speed /= edges.size();
-    // build the new edge
-    NBEdge* newEdge = new NBEdge(id, from, to, "", speed, nolanes, priority,
-                                 NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
-                                 tpledge->getStreetName(), tpledge->myLaneSpreadFunction);
-    // copy lane attributes
-    int laneIndex = 0;
-    for (i = edges.begin(); i != edges.end(); ++i) {
-        const std::vector<NBEdge::Lane>& lanes = (*i)->getLanes();
-        for (int j = 0; j < (int)lanes.size(); ++j) {
-            newEdge->setPermissions(lanes[j].permissions, laneIndex);
-            newEdge->setLaneWidth(laneIndex, lanes[j].width);
-            newEdge->setEndOffset(laneIndex, lanes[j].endOffset);
-            laneIndex++;
+    if (joinEdges) {
+        speed /= edges.size();
+        // build the new edge
+        NBEdge* newEdge = new NBEdge(id, from, to, "", speed, nolanes, priority,
+            NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
+            tpledge->getStreetName(), tpledge->myLaneSpreadFunction);
+        // copy lane attributes
+        int laneIndex = 0;
+        for (i = edges.begin(); i != edges.end(); ++i) {
+            const std::vector<NBEdge::Lane>& lanes = (*i)->getLanes();
+            for (int j = 0; j < (int)lanes.size(); ++j) {
+                newEdge->setPermissions(lanes[j].permissions, laneIndex);
+                newEdge->setLaneWidth(laneIndex, lanes[j].width);
+                newEdge->setEndOffset(laneIndex, lanes[j].endOffset);
+                laneIndex++;
+            }
         }
-    }
-    insert(newEdge, true);
-    // replace old edge by current within the nodes
-    //  and delete the old
-    from->replaceOutgoing(edges, newEdge);
-    to->replaceIncoming(edges, newEdge);
-    // patch connections
-    //  add edge2edge-information
-    for (i = edges.begin(); i != edges.end(); i++) {
-        EdgeVector ev = (*i)->getConnectedEdges();
-        for (EdgeVector::iterator j = ev.begin(); j != ev.end(); j++) {
-            newEdge->addEdge2EdgeConnection(*j);
+        insert(newEdge, true);
+        // replace old edge by current within the nodes
+        //  and delete the old
+        from->replaceOutgoing(edges, newEdge);
+        to->replaceIncoming(edges, newEdge);
+        // patch connections
+        //  add edge2edge-information
+        for (i = edges.begin(); i != edges.end(); i++) {
+            EdgeVector ev = (*i)->getConnectedEdges();
+            for (EdgeVector::iterator j = ev.begin(); j != ev.end(); j++) {
+                newEdge->addEdge2EdgeConnection(*j);
+            }
         }
-    }
-    //  copy outgoing connections to the new edge
-    int currLane = 0;
-    for (i = edges.begin(); i != edges.end(); i++) {
-        newEdge->moveOutgoingConnectionsFrom(*i, currLane);
-        currLane += (*i)->getNumLanes();
-    }
-    // patch tl-information
-    currLane = 0;
-    for (i = edges.begin(); i != edges.end(); i++) {
-        int noLanes = (*i)->getNumLanes();
-        for (int j = 0; j < noLanes; j++, currLane++) {
-            // replace in traffic lights
-            tlc.replaceRemoved(*i, j, newEdge, currLane, true);
-            tlc.replaceRemoved(*i, j, newEdge, currLane, false);
+        //  copy outgoing connections to the new edge
+        int currLane = 0;
+        for (i = edges.begin(); i != edges.end(); i++) {
+            newEdge->moveOutgoingConnectionsFrom(*i, currLane);
+            currLane += (*i)->getNumLanes();
         }
-    }
-    // delete joined edges
-    for (i = edges.begin(); i != edges.end(); i++) {
-        extract(dc, *i, true);
+        // patch tl-information
+        currLane = 0;
+        for (i = edges.begin(); i != edges.end(); i++) {
+            int noLanes = (*i)->getNumLanes();
+            for (int j = 0; j < noLanes; j++, currLane++) {
+                // replace in traffic lights
+                tlc.replaceRemoved(*i, j, newEdge, currLane, true);
+                tlc.replaceRemoved(*i, j, newEdge, currLane, false);
+            }
+        }
+        // delete joined edges
+        for (i = edges.begin(); i != edges.end(); i++) {
+            extract(dc, *i, true);
+        }
     }
 }
 
