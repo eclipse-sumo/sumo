@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 18 08:14:39 2020 by Eclipse SUMO netconvert Version v1_7_0+0138-b785e36aa2
+<!-- generated on Mon Oct  5 12:37:45 2020 by Eclipse SUMO netconvert Version v1_7_0+0461-873c47b3cc
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -303,6 +303,7 @@
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guess the proper projection"/>
         <shapefile.traditional-axis-mapping value="false" type="BOOL" help="Use traditional axis order (lon, lat)"/>
         <dlr-navteq.tolerant-permissions value="false" type="BOOL" help="Allow more vehicle classes by default"/>
+        <dlr-navteq.keep-length value="false" type="BOOL" help="The edge lengths given in the DLR Navteq-file will be kept"/>
         <vissim.join-distance value="5" synonymes="vissim.offset" type="FLOAT" help="Structure join offset"/>
         <vissim.default-speed value="50" type="FLOAT" help="Use FLOAT as default speed"/>
         <vissim.speed-norm value="1" type="FLOAT" help="Factor for edge velocity"/>

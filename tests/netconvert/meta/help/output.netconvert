@@ -1,4 +1,4 @@
-Eclipse SUMO netconvert Version v1_7_0+0138-b785e36aa2
+Eclipse SUMO netconvert Version v1_7_0+0461-873c47b3cc
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Network importer / builder for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -535,6 +535,8 @@ Formats Options:
   --shapefile.guess-projection         Guess the proper projection
   --shapefile.traditional-axis-mapping  Use traditional axis order (lon, lat)
   --dlr-navteq.tolerant-permissions    Allow more vehicle classes by default
+  --dlr-navteq.keep-length             The edge lengths given in the DLR
+                                        Navteq-file will be kept
   --vissim.join-distance FLOAT         Structure join offset
   --vissim.default-speed FLOAT         Use FLOAT as default speed
   --vissim.speed-norm FLOAT            Factor for edge velocity
