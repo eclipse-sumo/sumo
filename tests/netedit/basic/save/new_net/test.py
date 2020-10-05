@@ -32,8 +32,8 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--n
 netedit.createEdgeMode()
 
 # Create two nodes
-netedit.leftClick(referencePosition, 100, 300)
-netedit.leftClick(referencePosition, 500, 300)
+netedit.leftClick(referencePosition, 115, 240)
+netedit.leftClick(referencePosition, 536, 240)
 
 # Check undo and redo
 netedit.undo(referencePosition, 1)

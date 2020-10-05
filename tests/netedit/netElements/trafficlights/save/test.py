@@ -35,19 +35,19 @@ netedit.rebuildNetwork()
 netedit.selectTLSMode()
 
 # select first junction
-netedit.leftClick(referencePosition, 95, 225)
+netedit.leftClick(referencePosition, 95, 240)
 
 # create TLS
 netedit.createTLS()
 
 # select second junction
-netedit.leftClick(referencePosition, 325, 225)
+netedit.leftClick(referencePosition, 325, 240)
 
 # create TLS
 netedit.createTLS()
 
 # select thrid junction
-netedit.leftClick(referencePosition, 550, 225)
+netedit.leftClick(referencePosition, 550, 240)
 
 # create TLS
 netedit.createTLS()

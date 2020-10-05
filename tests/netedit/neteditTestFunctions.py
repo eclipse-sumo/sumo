@@ -1737,8 +1737,8 @@ def createTLS():
     """
     # focus current frame
     focusOnFrame()
-    # type tab 3 times to jump to create TLS button
-    for _ in range(3):
+    # type tab 2 times to jump to create TLS button
+    for _ in range(2):
         typeTab()
     # create TLS
     typeSpace()
