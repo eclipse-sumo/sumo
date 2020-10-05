@@ -52,6 +52,7 @@
 const std::string NIImporter_DlrNavteq::GEO_SCALE("1e-5");
 const int NIImporter_DlrNavteq::EdgesHandler::MISSING_COLUMN = std::numeric_limits<int>::max();
 const std::string NIImporter_DlrNavteq::UNDEFINED("-1");
+bool NIImporter_DlrNavteq::keepLength= false;
 
 // ===========================================================================
 // method definitions
@@ -67,6 +68,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     }
     time_t csTime;
     time(&csTime);
+    keepLength = oc.getBool("dlr-navteq.keep-length");
     // parse file(s)
     LineReader lr;
     // load nodes
@@ -145,6 +147,7 @@ NIImporter_DlrNavteq::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
         handler5.printSummary();
         PROGRESS_DONE_MESSAGE();
     }
+
 }
 
 double
@@ -376,6 +379,12 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
         const std::string origID = OptionsCont::getOptions().getBool("output.original-names") ? id : "";
         e = new NBEdge(id, from, to, myTypeCont.knows(navTeqTypeId) ? navTeqTypeId : "", speed, numLanes, priority,
                        NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, geoms, streetName, origID, LaneSpreadFunction::CENTER);
+    }
+
+    //Import length or edges from input file
+    if (keepLength) {
+        const double length = StringUtils::toDouble(getColumn(st, LENGTH));
+        e->setLoadedLength(length);
     }
 
     // NavTeq imports can be done with a typemap (if supplied), if not, the old defaults are used

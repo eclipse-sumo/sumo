@@ -67,6 +67,9 @@ public:
     /// @brief scaling factor for geo coordinates (DLRNavteq format uses this to increase floating point precisions)
     static const std::string GEO_SCALE;
 
+    /// @brief decides whether the edge length of the input format should be used
+    static bool keepLength;
+
     /// @brief magic value for undefined stuff
     static const std::string UNDEFINED;
 

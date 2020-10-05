@@ -260,6 +260,9 @@ NIFrame::fillOptions(bool forNetedit) {
     oc.doRegister("dlr-navteq.tolerant-permissions", new Option_Bool(false));
     oc.addDescription("dlr-navteq.tolerant-permissions", "Formats", "Allow more vehicle classes by default");
 
+    oc.doRegister("dlr-navteq.keep-length", new Option_Bool(false));
+    oc.addDescription("dlr-navteq.keep-length", "Formats", "The edge lengths given in the DLR Navteq-file will be kept");
+
 
     // register vissim options
     oc.doRegister("vissim.join-distance", new Option_Float(5.0f));
