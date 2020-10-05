@@ -33,6 +33,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEDataHandler.h"
 
@@ -40,6 +41,41 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
+
+GNEDataLoadDialog::GNEDataLoadDialog(GNEViewNet* viewNet) :
+    FXDialogBox(viewNet, "Netedit Parameters Help", GUIDesignDialogBox),
+    myViewNet(viewNet),
+    myCounter (0) {
+    // set decoration
+    setDecorations(DECOR_BORDER);
+    // create label
+    myLabel = new FXLabel(this, "counter:", 0, GUIDesignLabelFrameInformation);
+    // create Dialog
+    create();
+    // show in the given position
+    show(PLACEMENT_SCREEN);
+    // refresh APP
+    viewNet->getApp()->refresh();
+    // open as modal dialog (will block all windows until stop() or stopModal() is called)
+    viewNet->getApp()->runModalWhileEvents(this);
+}
+
+
+GNEDataLoadDialog::~GNEDataLoadDialog() {
+    myViewNet->getApp()->stopModal(this);
+}
+
+
+void
+GNEDataLoadDialog::increase() {
+    // update counter
+    myCounter++;
+    // update label
+    myLabel->setText(("Data elements loaded: " + toString(myCounter)).c_str());
+    // repaint
+    repaint();
+}
+
 
 // ---------------------------------------------------------------------------
 // GNEAdditionalHandler::HierarchyInsertedDatas method definitions
@@ -144,10 +180,15 @@ GNEDataHandler::HierarchyInsertedDatas::getLastInsertedGenericData() const {
 GNEDataHandler::GNEDataHandler(const std::string& file, GNENet* net) :
     SUMOSAXHandler(file),
     myNet(net) {
+    // create loadDialog
+    myLoadDialog = new GNEDataLoadDialog(net->getViewNet());
 }
 
 
-GNEDataHandler::~GNEDataHandler() {}
+GNEDataHandler::~GNEDataHandler() {
+    // delete loadDialog
+    delete myLoadDialog;
+}
 
 
 void
@@ -165,6 +206,8 @@ GNEDataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         myHierarchyInsertedGenericDatas.insertElement(tag);
         // build data
         buildData(myNet, true, tag, attrs, &myHierarchyInsertedGenericDatas);
+        // increase load dialog
+        myLoadDialog->increase();
     }
 }
 

@@ -25,6 +25,7 @@
 
 #include <config.h>
 
+#include <fx.h>
 #include <utils/geom/Position.h>
 #include <utils/xml/SUMOSAXAttributes.h>
 #include <utils/xml/SUMOSAXHandler.h>
@@ -45,10 +46,37 @@ class GNEDataSet;
 class GNEDataInterval;
 class GNEDataSet;
 class GNEUndoList;
+class GNEViewNet;
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+
+/// @class GNEDataLoadDialog
+class GNEDataLoadDialog : protected FXDialogBox {
+
+public:
+    /// @brief constructor
+    GNEDataLoadDialog(GNEViewNet *viewNet);
+
+    /// @brief destructor
+    ~GNEDataLoadDialog();
+
+    /// @brief increase counter
+    void increase();
+
+private:
+    /// @brief pointer to viewNet
+    GNEViewNet *myViewNet;
+
+    /// @brief label
+    FXLabel* myLabel;
+
+    /// @brief counter
+    int myCounter;
+};
+
+
 
 /// @class GNEDataHandler
 /// @brief Builds data objects for GNENet (busStops, chargingStations, detectors, etc..)
@@ -217,6 +245,9 @@ private:
 
     /// @brief pointer to net
     GNENet* myNet;
+
+    /// @brief load dialog
+    GNEDataLoadDialog *myLoadDialog;
 
     /// @brief HierarchyInsertedDatas used for insert children
     HierarchyInsertedDatas myHierarchyInsertedGenericDatas;
