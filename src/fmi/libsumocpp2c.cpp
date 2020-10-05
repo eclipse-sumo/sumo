@@ -18,7 +18,8 @@
 // Implementation of the libsumo c++ to c wrapper
 /****************************************************************************/
 
-
+#include <stdlib.h>
+#include <libsumo/TraCIDefs.h>
 #include <libsumo/Simulation.h>
 #include <utils/geom/PositionVector.h>
 #include <libsumo/Vehicle.h>
@@ -28,7 +29,12 @@
 void
 libsumo_load() {
     std::vector<std::string> options = {"-c", "tools/game/grid6.sumocfg"};
-    libsumo::Simulation::load(options);
+    try {
+        libsumo::Simulation::load(options);
+    } catch (const libsumo::TraCIException& e) {
+        std::cerr << "libsumo::Simulation::load() failed - reason: " << e.what() << std::endl;
+        abort();
+    }
 }
 
 int
