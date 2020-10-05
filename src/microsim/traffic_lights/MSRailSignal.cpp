@@ -826,7 +826,7 @@ MSRailSignal::DriveWay::conflictLaneOccupied(const std::string& joinVehicle, boo
 bool
 MSRailSignal::DriveWay::deadlockLaneOccupied(bool store) const {
     for (MSLane* lane : myBidiExtended) {
-        if (!lane->isEmpty()) {
+        if (!lane->empty()) {
             assert(myBidi.size() != 0);
             const MSEdge* lastBidi = myBidi.back()->getNextNormal();
             MSVehicle* foe = lane->getVehiclesSecure().front();
