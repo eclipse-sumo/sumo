@@ -18,9 +18,15 @@
 // Implementation of the FMI2 interface functions
 /****************************************************************************/
 
+#ifdef _MSC_VER
+// Avoid warnings in windows build because of strcpy instead of strcpy_s,
+// because the latter is not available on all platforms
+#define _CRT_SECURE_NO_WARNINGS
+#endif
+
+#include <string.h>
 #include <stdio.h>
 #include <stdarg.h>
-#include <string.h>
 #include <foreign/fmi/fmi2Functions.h>
 #include "fmi2main.h"
 #include "libsumocpp2c.h"
@@ -68,13 +74,14 @@ fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
         comp->freeMemory = (freeMemoryType)functions->freeMemory;
 
         comp->instanceName = (char *)comp->allocateMemory(1 + strlen(instanceName), sizeof(char));
-        strcpy_s((char *)comp->instanceName, sizeof ((char *)comp->instanceName), (char *)instanceName);
+        
+        strcpy((char *)comp->instanceName, (char *)instanceName);
 
         if (fmuResourceLocation) {
-             comp->resourceLocation = (char *)comp->allocateMemory(1 + strlen(fmuResourceLocation), sizeof(char));
-             strcpy_s((char *)comp->resourceLocation, sizeof ((char *)comp->resourceLocation), (char *)fmuResourceLocation);
+            comp->resourceLocation = (char *)comp->allocateMemory(1 + strlen(fmuResourceLocation), sizeof(char));
+            strcpy((char *)comp->resourceLocation, (char *)fmuResourceLocation);
         } else {
-             comp->resourceLocation = NULL;
+            comp->resourceLocation = NULL;
         }
 
         comp->modelData = (ModelData *)comp->allocateMemory(1, sizeof(ModelData));
