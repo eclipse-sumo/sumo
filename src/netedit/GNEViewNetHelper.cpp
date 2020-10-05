@@ -2569,7 +2569,7 @@ GNEViewNetHelper::IntervalBar::hideIntervalBar() {
 
 void
 GNEViewNetHelper::IntervalBar::updateIntervalBar() {
-    if (myIntervalBarUpdate) {
+    if (false) {
         // first save current data set
         const std::string previousDataSet = myDataSetsComboBox->getNumItems() > 0 ? myDataSetsComboBox->getItem(myDataSetsComboBox->getCurrentItem()).text() : "";
         // first clear items
