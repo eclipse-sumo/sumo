@@ -25,7 +25,7 @@
 // static member definitions
 // ===========================================================================
 
-const bool GNEHierarchicalContainer::checkContainer = false;
+const bool GNEHierarchicalContainer::checkContainer = true;
 
 // ===========================================================================
 // member method definitions
