@@ -12,3 +12,6 @@ walk_last
 
 # use taxi and then walk (taxi transfer enabled with option)
 walk_last_transferTaxi
+
+# even when using shared space, transfer should only happen on "normal" edges (not on junction internal edges)
+transfer_allJunctions_shared_space
