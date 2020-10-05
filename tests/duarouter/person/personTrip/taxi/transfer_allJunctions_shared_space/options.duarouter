@@ -3,3 +3,4 @@
 --persontrip.transfer.walk-taxi allJunctions
 --persontrip.transfer.taxi-walk allJunctions
 -o routes.rou.xml
+--intermodal-network-output additional.xml
