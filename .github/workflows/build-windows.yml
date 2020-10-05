@@ -150,7 +150,7 @@ jobs:
         path: sumo/dist
 
     - name: Building FMU Compliance Checker
-      if: matrix.build_type == 'extra'
+      if: matrix.build-type == 'extra'
       run: |
         git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
         cd fmuChecker
@@ -160,13 +160,13 @@ jobs:
         make install test
  
     - name: Checking sumo-fmi2.fmu
-      if: matrix.build_type == 'extra'
+      if: matrix.build-type == 'extra'
       run: |
         cd sumo
         ../fmuChecker/install/fmuCheck.win64 bin/sumo-fmi2-win64.fmu 
       
     - name: Uploading FMI 2.0 FMU artifacts
-      if: matrix.build_type == 'extra'
+      if: matrix.build-type == 'extra'
       uses: actions/upload-artifact@v1
       with:
         name: sumo-fmi2-win64
