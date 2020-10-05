@@ -1,25 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct  5 19:51:57 2020 by Eclipse SUMO netconvert Version v1_7_0+0478-f9ae653b95
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Sa 03 Okt 2020 10:58:02 CEST by Eclipse SUMO netedit Version v1_7_0+0452-378334051c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="input_net.net.xml"/>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/netconvert/bugs/ticket637/simple_remove/input_net.net.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
-        <output-file value="net.net.xml"/>
+        <output-file value="/home/kobo/dlr/sumo/tests/netconvert/bugs/ticket637/simple_remove/input_net.net.xml"/>
         <output.street-names value="true"/>
     </output>
 
     <processing>
-        <geometry.remove value="true"/>
         <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
@@ -39,7 +32,6 @@ SPDX-License-Identifier: EPL-2.0
     </pedestrian>
 
     <report>
-        <xml-validation value="never"/>
         <aggregate-warnings value="5"/>
     </report>
 
@@ -53,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="-143878730#0" from="1000236940" to="1516725765" name="autobahn" priority="9" type="highway.primary" shape="1074.17,1637.73 1081.66,1638.71 1181.43,1652.68 1195.68,1653.21 1212.09,1652.27 1222.35,1651.10 1234.21,1648.99 1286.90,1636.50 1406.24,1610.31">
         <lane id="-143878730#0_0" index="0" speed="26.82" length="337.70" shape="1074.52,1636.16 1081.87,1637.12 1181.57,1651.08 1195.66,1651.61 1211.95,1650.68 1222.12,1649.52 1233.89,1647.42 1286.54,1634.94 1405.76,1608.78"/>
     </edge>
-    <edge id="-143878730#1" from="1574468867" to="1000236940" name="autobahn2" priority="9" type="highway.primary" shape="949.81,1631.16 955.93,1629.63 965.70,1627.85 980.71,1627.91 992.72,1628.68 1016.56,1630.99 1042.40,1633.83 1074.17,1637.73">
+    <edge id="-143878730#1" from="1574468867" to="1000236940" name="autobahn" priority="9" type="highway.primary" shape="949.81,1631.16 955.93,1629.63 965.70,1627.85 980.71,1627.91 992.72,1628.68 1016.56,1630.99 1042.40,1633.83 1074.17,1637.73">
         <lane id="-143878730#1_0" index="0" speed="26.82" length="125.24" shape="949.42,1629.61 955.59,1628.07 965.56,1626.25 980.76,1626.31 992.85,1627.08 1016.72,1629.40 1042.58,1632.24 1074.22,1636.12"/>
     </edge>
     <edge id="-53332519#0" from="1516725765" to="26910797" priority="9" type="highway.primary" shape="1406.24,1610.31 1673.18,1556.36 1726.54,1543.14 1771.41,1525.92 1959.77,1441.07 1979.84,1430.93 1987.54,1426.59 1997.40,1420.99 2017.52,1407.98 2047.61,1386.76 2057.18,1378.28 2070.33,1365.88 2081.51,1353.52 2096.28,1328.55 2106.10,1300.36 2122.70,1233.55 2136.80,1166.08 2149.64,1099.30 2160.96,1031.76 2207.76,840.14 2226.26,791.52 2247.57,754.92 2285.56,707.32">
