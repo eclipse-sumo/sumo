@@ -3236,6 +3236,10 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
             return false;
         }
     }
+    // if given identically osm names 
+    if (!OptionsCont::getOptions().isDefault("output.street-names") && myStreetName != possContinuation->getStreetName()) {
+        return false;
+    }
 
     return true;
 }
