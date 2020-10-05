@@ -25,10 +25,12 @@
 #include "fmi2main.h"
 #include "libsumocpp2c.h"
 
+/* Explicit definition of unused parameters to avoid compiler warnings */
+#define UNREFERENCED_PARAMETER(P) (P)
+
 /* **********************************************************************************************
  * * IMPLEMENTATION OF GENERIC FUNCTIONALITY
  * **********************************************************************************************/
-
 const char* fmi2GetVersion() {
     return fmi2Version;
 }
@@ -48,55 +50,57 @@ fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
                   fmi2String fmuResourceLocation, const fmi2CallbackFunctions *functions,
                   fmi2Boolean visible, fmi2Boolean loggingOn)
 {
-  
-   allocateMemoryType funcAllocateMemory = (allocateMemoryType)functions->allocateMemory;
-
-   ModelInstance* comp = (ModelInstance *) funcAllocateMemory(1, sizeof(ModelInstance));
-
-   if (comp) {
-    	comp->componentEnvironment = functions->componentEnvironment;
-		
-		/* Callback functions for specific logging, malloc and free;
-		   we need callback functions because we cannot know, which functions
-		   the environment will provide for us */
-		comp->logger = (loggerType)functions->logger;
-		comp->allocateMemory = (allocateMemoryType)functions->allocateMemory;
-		comp->freeMemory = (freeMemoryType)functions->freeMemory;
-
-		comp->instanceName = (char *)comp->allocateMemory(1 + strlen(instanceName), sizeof(char));
-		strcpy((char *)comp->instanceName, (char *)instanceName);
-
-		if (fmuResourceLocation) {
-		 	comp->resourceLocation = (char *)comp->allocateMemory(1 + strlen(fmuResourceLocation), sizeof(char));
-		 	strcpy((char *)comp->resourceLocation, (char *)fmuResourceLocation);
-		} else {
-		 	comp->resourceLocation = NULL;
-		}
-
-		comp->modelData = (ModelData *)comp->allocateMemory(1, sizeof(ModelData));
+    UNREFERENCED_PARAMETER(fmuType);
+	UNREFERENCED_PARAMETER(fmuGUID);
+	UNREFERENCED_PARAMETER(visible);
+    
+    allocateMemoryType funcAllocateMemory = (allocateMemoryType)functions->allocateMemory;
+    ModelInstance* comp = (ModelInstance *) funcAllocateMemory(1, sizeof(ModelInstance));
+    
+	if (comp) {
+        comp->componentEnvironment = functions->componentEnvironment;
         
-      	comp->logEvents = loggingOn;
-      	comp->logErrors = true; // always log errors
-	}
+        /* Callback functions for specific logging, malloc and free;
+           we need callback functions because we cannot know, which functions
+           the environment will provide for us */
+        comp->logger = (loggerType)functions->logger;
+        comp->allocateMemory = (allocateMemoryType)functions->allocateMemory;
+        comp->freeMemory = (freeMemoryType)functions->freeMemory;
 
-	return comp;
+        comp->instanceName = (char *)comp->allocateMemory(1 + strlen(instanceName), sizeof(char));
+        strcpy_s((char *)comp->instanceName, sizeof ((char *)comp->instanceName), (char *)instanceName);
+
+        if (fmuResourceLocation) {
+             comp->resourceLocation = (char *)comp->allocateMemory(1 + strlen(fmuResourceLocation), sizeof(char));
+             strcpy_s((char *)comp->resourceLocation, sizeof ((char *)comp->resourceLocation), (char *)fmuResourceLocation);
+        } else {
+             comp->resourceLocation = NULL;
+        }
+
+        comp->modelData = (ModelData *)comp->allocateMemory(1, sizeof(ModelData));
+        
+          comp->logEvents = loggingOn;
+          comp->logErrors = true; // always log errors
+    }
+
+    return comp;
 }
 
 /* Disposes the given instance, unloads the loaded model, and frees all the allocated memory
 and other resources that have been allocated by the functions of the FMU interface. */
 void 
 fmi2FreeInstance(fmi2Component c) {
-	ModelInstance *comp = (ModelInstance *)c;
+    ModelInstance *comp = (ModelInstance *)c;
 
-	/* Store the pointer to the freeMemory function, because we
-	   are going to free comp as well */
-	freeMemoryType freeMemoryFunc = comp->freeMemory;
+    /* Store the pointer to the freeMemory function, because we
+       are going to free comp as well */
+    freeMemoryType freeMemoryFunc = comp->freeMemory;
 
-	/* We want to free everything that we allocated in fmi2Instantiate */
-	freeMemoryFunc((void *)comp->instanceName);
-	freeMemoryFunc((void *)comp->resourceLocation); 
-	freeMemoryFunc((void *)comp->modelData);
-	freeMemoryFunc((void *)comp);
+    /* We want to free everything that we allocated in fmi2Instantiate */
+    freeMemoryFunc((void *)comp->instanceName);
+    freeMemoryFunc((void *)comp->resourceLocation); 
+    freeMemoryFunc((void *)comp->modelData);
+    freeMemoryFunc((void *)comp);
 }
 
 /* Define what should be logged - if logging is enabled globally */ 
@@ -105,7 +109,7 @@ fmi2SetDebugLogging(fmi2Component c, fmi2Boolean loggingOn, size_t nCategories, 
     
     ModelInstance *comp = (ModelInstance *)c;
 
-	if (loggingOn) {
+    if (loggingOn) {
         for (size_t i = 0; i < nCategories; i++) {
             if (categories[i] == NULL) {
                 logError(comp, "Log category[%d] must not be NULL", i);
@@ -120,7 +124,7 @@ fmi2SetDebugLogging(fmi2Component c, fmi2Boolean loggingOn, size_t nCategories, 
             }
         }
     } else {
-		// Logging is disabled globally, no need for a more fine grained logging
+        // Logging is disabled globally, no need for a more fine grained logging
         comp->logEvents = false;
         comp->logErrors = false;
     }
@@ -130,14 +134,18 @@ fmi2SetDebugLogging(fmi2Component c, fmi2Boolean loggingOn, size_t nCategories, 
 
 fmi2Status 
 fmi2SetupExperiment(fmi2Component c, fmi2Boolean toleranceDefined, fmi2Real tolerance,
-					fmi2Real startTime, fmi2Boolean stopTimeDefined, fmi2Real stopTime) {
+                    fmi2Real startTime, fmi2Boolean stopTimeDefined, fmi2Real stopTime) {
 
-    // ignore arguments: toleranceDefined, tolerance
+    UNREFERENCED_PARAMETER(toleranceDefined);
+	UNREFERENCED_PARAMETER(tolerance);
+	UNREFERENCED_PARAMETER(stopTimeDefined);
+	
+	// ignore arguments: toleranceDefined, tolerance
     ModelInstance *comp = (ModelInstance *)c;
 
-	// Store the start and stop times of the experiment
+    // Store the start and stop times of the experiment
     comp->startTime = startTime;
-	comp->stopTime = stopTime;
+    comp->stopTime = stopTime;
 
     return fmi2OK;
 }
@@ -145,13 +153,17 @@ fmi2SetupExperiment(fmi2Component c, fmi2Boolean toleranceDefined, fmi2Real tole
 // Will be called after instantiation and after initial variables have been set 
 fmi2Status 
 fmi2EnterInitializationMode(fmi2Component c) {
+    UNREFERENCED_PARAMETER(c);
+
     return fmi2OK;
 }
 
 // Informs the FMU to exit Initialization Mode
 fmi2Status 
 fmi2ExitInitializationMode(fmi2Component c) {
-	libsumo_load();
+    UNREFERENCED_PARAMETER(c);
+
+    libsumo_load();
     return fmi2OK;
 }
 
@@ -159,16 +171,18 @@ fmi2ExitInitializationMode(fmi2Component c) {
 // --> let libsumo know, that we want to close the simulation
 fmi2Status 
 fmi2Terminate(fmi2Component c) {
-    ModelInstance *comp = (ModelInstance *)c;
-	libsumo_close();
+    UNREFERENCED_PARAMETER(c);
+
+    libsumo_close();
     return fmi2OK;
 }
 
 // Is called by the environment to reset the FMU after a simulation run
 fmi2Status 
 fmi2Reset(fmi2Component c) {
-    ModelInstance* comp = (ModelInstance *)c;
-	// Should we set some start values?
+    UNREFERENCED_PARAMETER(c);
+
+    // Should we set some start values?
     return fmi2OK;
 }
 
@@ -177,78 +191,124 @@ fmi2Status
 fmi2GetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Integer value[]) {
 
     ModelInstance *comp = (ModelInstance *)c;
-	
-	// Check for null pointer errors 
+    
+    // Check for null pointer errors 
     if (nvr > 0 && (!vr || !value))
         return fmi2Error;
 
-	fmi2Status status = fmi2OK;
+    fmi2Status status = fmi2OK;
 
-	// Go through the list of arrays and save all requested values
-	for (int i = 0; i < nvr; i++) { 
-		fmi2Status s = getInteger(comp, vr[i], &(value[i])); 
-		status = s > status ? s : status; 
+    // Go through the list of arrays and save all requested values
+    for (int i = 0; i < nvr; i++) { 
+        fmi2Status s = getInteger(comp, vr[i], &(value[i])); 
+        status = s > status ? s : status; 
 
-		if (status > fmi2Warning) 
-			return status; 
-	} 
+        if (status > fmi2Warning) 
+            return status; 
+    } 
 
-	return status;
+    return status;
 }
 
 fmi2Status 
 fmi2GetReal(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Real value[]) {
-	return fmi2Error;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Error;
 }
 
 fmi2Status 
 fmi2GetBoolean(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2Boolean value[]) {
-	return fmi2Error;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Error;
 }
 
 fmi2Status 
 fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2String value[]) {
-	return fmi2Error;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Error;
 }
 
 // Implementation of the setter features
 
 fmi2Status 
 fmi2SetInteger(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Integer value[]) {
-	return fmi2Error;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Error;
 }
 
 fmi2Status 
 fmi2SetReal (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Real value[]) {
-	return fmi2Error;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(value);
+    return fmi2Error;
 }
 
 fmi2Status 
 fmi2SetBoolean(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Boolean value[]) {
-	return fmi2Error;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Error;
 }
 
 fmi2Status 
 fmi2SetString (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2String value[]) {
-	return fmi2Error;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Error;
 }
 
 /* Further functions for interpolation */
 fmi2Status 
 fmi2SetRealInputDerivatives(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Integer order[], const fmi2Real value[]) {
-	return fmi2Error; /* Ignoring - SUMO cannot interpolate inputs */
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(nvr);
+    UNREFERENCED_PARAMETER(order);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Error; /* Ignoring - SUMO cannot interpolate inputs */
 }
 
 fmi2Status 
 fmi2GetRealOutputDerivatives(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2Integer order[], fmi2Real value[]) {
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(vr);
+    UNREFERENCED_PARAMETER(order);
+    
     for (int i = 0; i < nvr; i++) 
-		value[i] = 0;	/* We cannot compute derivatives of outputs */
-	return fmi2Error;
+        value[i] = 0;    /* We cannot compute derivatives of outputs */
+    return fmi2Error;
 }
 
 /* Stepping */
 fmi2Status 
 fmi2DoStep(fmi2Component c, fmi2Real currentCommunicationPoint, fmi2Real communicationStepSize, fmi2Boolean noSetFMUStatePriorToCurrentPoint) {
+    UNREFERENCED_PARAMETER(noSetFMUStatePriorToCurrentPoint);
+    
     ModelInstance *comp = (ModelInstance *)c;
 
     if (communicationStepSize <= 0) {
@@ -260,39 +320,53 @@ fmi2DoStep(fmi2Component c, fmi2Real currentCommunicationPoint, fmi2Real communi
 
 fmi2Status 
 fmi2CancelStep(fmi2Component c) {
+    UNREFERENCED_PARAMETER(c);
+
     return fmi2Error; /* We will never have a modelStepInProgress state */
 }
 
 /* Status functions */
 fmi2Status 
 fmi2GetStatus(fmi2Component c, const fmi2StatusKind s, fmi2Status *value) {
-	return fmi2Discard;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(s);
+    UNREFERENCED_PARAMETER(value);
+    
+    return fmi2Discard;
 }
 
 fmi2Status 
 fmi2GetRealStatus(fmi2Component c, const fmi2StatusKind s, fmi2Real *value) {
-	return fmi2Discard;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(s);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Discard;
 }
 
 fmi2Status 
 fmi2GetIntegerStatus(fmi2Component c, const fmi2StatusKind s, fmi2Integer *value) {
-	return fmi2Discard;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(s);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Discard;
 }
 
 fmi2Status 
 fmi2GetBooleanStatus(fmi2Component c, const fmi2StatusKind s, fmi2Boolean *value) {
-	return fmi2Discard;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(s);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Discard;
 }
 
 fmi2Status 
 fmi2GetStringStatus(fmi2Component c, const fmi2StatusKind s, fmi2String *value) {
-	return fmi2Discard;
+    UNREFERENCED_PARAMETER(c);
+    UNREFERENCED_PARAMETER(s);
+    UNREFERENCED_PARAMETER(value);
+
+    return fmi2Discard;
 }
-
-
-
-
-
-
-
-
