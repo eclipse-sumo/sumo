@@ -1,4 +1,4 @@
-name: build-windows
+name: windows
 
 on: 
   push:            # run on push events
@@ -9,7 +9,7 @@ on:
       - 'docs/**'
 
 jobs:
-  build-windows:
+  build:
     runs-on: windows-latest
     strategy:
       matrix:
