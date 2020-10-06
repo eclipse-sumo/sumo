@@ -26,6 +26,8 @@ permalink: /ChangeLog/
   - Fixed missing right-turn connections from bicycle lanes to mixed traffic road. Issue #7548  
   - Road lanes that prohibit bicycles no longer receive bicycle permissions when a bicycle lane ends. Instead the bicycle lane receives a double-connection to allowed target edges where needed. Issue #2350
   - Fixed invalid right of way for right-turning double-connections at intersections with one incoming road. The rightmost lane now gets priority. Issue #7552
+  - Fixed inconsistent OSM-typemap that artificially restricted bicycle driving direction on edge type 'highway.path'. Issue #7615
+  - Fixed unsafe intersection rules for double connection with internal junction. Issue #7622
   
 - netedit
   - Visual scaling of selected objects (via selection frame) is now working for junctions (regression in 1.7.0). Issue #7571
@@ -61,8 +63,6 @@ permalink: /ChangeLog/
   
 - netconvert
   - Added option **--junctions.join-same** which joins junctions with identical coordinates regardless of edge topology. This is useful when merging networks. Issue #7567
-  - Fixed inconsistent OSM-typemap that artificially restricted bicycle driving direction on edge type 'highway.path'. Issue #7615
-  - Fixed unsafe intersection rules for double connection with internal junction. Issue #7622
   - Added option **--dlr-navteq.keep-length** to make use of explicit edge lengths in the input. Issue #749
   
 - od2trips
