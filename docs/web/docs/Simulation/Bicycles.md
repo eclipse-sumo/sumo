@@ -48,7 +48,7 @@ different cyclist types can be modelled.
   - define multiple vehicle types with different 'maxSpeed' for the bicycle fleet. This can be done efficiently with [createVehTypeDistribution.py](../Tools/Misc.md#createvehtypedistributionpy]
   speed distribution for bicycles there are several options
   - define a meaningful speed limit for bicycle lanes (only useful if bikes always mostly use dedicated lanes)
-  - define [vClass-specific speed limits for bicycles](Networks/PlainXML.html#vehicle-class_specific_speed_limits) on all edges where bicycles are used 
+  - define [vClass-specific speed limits for bicycles](../Networks/PlainXML.md#vehicle-class_specific_speed_limits) on all edges where bicycles are used 
 
 One way for overcoming most of these problems is to control bicycle
 movements at intersections with an [external control
