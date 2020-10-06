@@ -44,11 +44,11 @@ different cyclist types can be modelled.
 - The intersection model has no special adaptations for bicycles. This
   results in unrealistic (large) safety gaps when bicycles are
   approaching a large priority intersection from a prioritized road
-- The road speed limit is not meaningful for bicycles. To [model a
-  speed distribution for bicycles with a single vehicle
-  type](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions),
-  a speed limit corresponding to the median speed of the bicycles
-  should be set for the cycling lanes.
+- The road speed limit is not meaningful for bicycles. This is a problem because the [default way of modelling speed distributions is by setting a random multiplier for the speed limit](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#speed_distributions). There are several possibilities remedies:
+  - define multiple vehicle types with different 'maxSpeed' for the bicycle fleet. This can be done efficiently with [createVehTypeDistribution.py](../Tools/Misc.md#createvehtypedistributionpy]
+  speed distribution for bicycles there are several options
+  - define a meaningful speed limit for bicycle lanes (only useful if bikes always mostly use dedicated lanes)
+  - define [vClass-specific speed limits for bicycles](Networks/PlainXML.html#vehicle-class_specific_speed_limits) on all edges where bicycles are used 
 
 One way for overcoming most of these problems is to control bicycle
 movements at intersections with an [external control
