@@ -76,7 +76,7 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorExtended) AttributesEditorExt
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::ParametersEditor) ParametersEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters)
 };
 
@@ -2093,7 +2093,7 @@ GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspector
     myAttrType(Parameterised::ParameterisedAttrType::STRING) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    myButtonEditParameters = new FXButton(this, "Edit parameters", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButton);
+    myButtonEditParameters = new FXButton(this, "Edit parameters", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
 }
 
 
@@ -2231,12 +2231,13 @@ GNEFrameAttributesModuls::ParametersEditor::getParametersStr() const {
     return result;
 }
 
+
 std::vector<std::pair<std::string, std::string> >
 GNEFrameAttributesModuls::ParametersEditor::getParametersVectorStr() const {
     std::vector<std::pair<std::string, std::string> > result;
-    // Generate an vector string using the following structure: "<key1,value1>, <key2, value2>,...
-    for (const auto& i : myParameters) {
-        result.push_back(std::make_pair(i.first, i.second));
+    // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
+    for (const auto& parameter : myParameters) {
+        result.push_back(std::make_pair(parameter.first, parameter.second));
     }
     return result;
 }
