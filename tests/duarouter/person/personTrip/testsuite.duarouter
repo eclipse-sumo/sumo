@@ -161,6 +161,9 @@ trip_output_geo
 # trip with fromTaz and toTaz
 taz
 
+# walk past a train stop to reach  the destination edge (access both ways) and then ride a taxi
+walk_via_trainStop_ride_taxi
+
 # test routing taxi trips
 taxi
 errors
