@@ -1,0 +1,88 @@
+
+name: macos
+
+on: 
+  push:            # run on push events
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+  pull_request:    # run on pull requests
+    paths-ignore:  # but ignore everything in the docs subfolder 
+      - 'docs/**'
+
+jobs:
+  build:
+    runs-on: macos-latest
+    steps:
+      
+    - name: Cloning SUMO
+      uses: actions/checkout@v2
+      with:
+        path: sumo
+
+    - name: Fetching SUMO tags
+      run: |
+        cd sumo
+        git fetch --prune --unshallow
+
+    - name: Preparing Build System
+      run: |
+        brew cask install xquartz
+        brew install xerces-c fox proj gdal gl2ps  
+
+    - name: Installing Google Test
+      run: |
+        git clone https://github.com/google/googletest
+        cd googletest
+        git checkout release-1.10.0
+        mkdir build
+        cd build
+        cmake ..
+        make
+        make install
+        
+    - name: Building SUMO
+      run: |
+        mkdir -p sumo/cmake-build 
+        cd sumo/cmake-build 
+        cmake -DFMI=ON .. 
+        make -j4
+        
+    - name: Building Traas
+      run: |
+        cd sumo/cmake-build 
+        make traas
+    - name: Installing SUMO
+      run: |
+        cd sumo/cmake-build 
+        sudo make install
+        
+    - name: Building Examples and Tests
+      run: |
+        cd sumo/cmake-build
+        make CTEST_OUTPUT_ON_FAILURE=1 examples test
+        
+    - name: Uploading artifacts (SUMO binaries)
+      uses: actions/upload-artifact@v1
+      with:
+        name: macOS
+        path: sumo/bin
+        
+    - name: Building FMU Compliance Checker
+      run: |
+        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
+        cd fmuChecker
+        mkdir build
+        cd build
+        cmake ../
+        make install test
+        
+    - name: Checking sumo-fmi2.fmu
+      run: |
+        cd sumo
+        ../fmuChecker/install/fmuCheck.darwin64  bin/sumo-fmi2-darwin64.fmu    
+    
+    - name: Uploading FMI 2.0 FMU artifacts
+      uses: actions/upload-artifact@v1
+      with:
+        name: sumo-fmi2-darwin64
+        path: sumo/bin/sumo-fmi2-darwin64.fmu
