@@ -149,6 +149,9 @@ public:
             /// @brief get parameters as vector of strings
             std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
 
+            /// @brief set parameters
+            void setParameters(const std::vector<std::pair<std::string, std::string> >& parameters);
+
             /// @brief refresh netedit attributes
             void refreshParametersEditor();
 

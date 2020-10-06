@@ -536,7 +536,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue() {
         // set text of myTextField using current value of VType
         myTextField->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
         // set color depending if is a default value
-        if (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != myTextField->getText().text()) {
+        if ((myAttr == GNE_ATTR_PARAMETERS) || (myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getTagProperty().getDefaultValue(myAttr) != myTextField->getText().text())) {
             myTextField->setTextColor(FXRGB(0, 0, 0));
         } else {
             myTextField->setTextColor(FXRGB(195, 195, 195));
@@ -677,6 +677,25 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::getParametersVectorStr(
         result.push_back(std::make_pair(parameter.first, parameter.second));
     }
     return result;
+}
+
+
+void
+GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::setParameters(const std::vector<std::pair<std::string, std::string> >& parameters) {
+    myParameters.clear();
+    // declare result string
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (const auto& i : parameters) {
+        result += i.first + "=" + i.second + "|";
+        myParameters[i.first] = i.second;
+    }
+    // remove the last "|"
+    if (!result.empty()) {
+        result.pop_back();
+    }
+    // set result in textField (and call onCmdEditParameters)
+    myTextField->setText(result.c_str(), TRUE);
 }
 
 
@@ -1043,6 +1062,8 @@ GNEVehicleTypeDialog::VTypeAtributes::updateValues() {
     myLCATurnAlignmentDistance->updateValue();
     myLCAOvertakeRight->updateValue();
     /* myLCAExperimental->updateValue(); */
+    myPersonCapacity->refreshParametersEditor();
+    myParameters->refreshParametersEditor();
 }
 
 
@@ -1133,53 +1154,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdSetAttribute(FXObject*, FXSelector, v
     myLCATurnAlignmentDistance->setVariable();
     myLCAOvertakeRight->setVariable();
     /* myLCAExperimental->setVariable(); */
-
-
-
-/*
-    // check if current given string is valid
-    if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true, myAttrType)) {
-        // parsed parameters ok, then set text field black and continue
-        myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
-        myTextFieldParameters->killFocus();
-        // obtain parameters "key=value"
-        std::vector<std::string> parameters = StringTokenizer(myTextFieldParameters->getText().text(), "|", true).getVector();
-        // clear current existent parameters and set parsed parameters
-        myParameters.clear();
-        // iterate over parameters
-        for (const auto& parameter : parameters) {
-            // obtain key, value
-            std::vector<std::string> keyParam = StringTokenizer(parameter, "=", true).getVector();
-            // save it in myParameters
-            myParameters[keyParam.front()] = keyParam.back();
-        }
-        // overwritte myTextFieldParameters (to remove duplicated parameters
-        myTextFieldParameters->setText(getParametersStr().c_str(), FALSE);
-        // if we're editing parameters of an AttributeCarrier, set it
-        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            // begin undo list
-            myFrameParent->myViewNet->getUndoList()->p_begin("change parameters");
-            // set parameters
-            myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
-            // end undo list
-            myFrameParent->myViewNet->getUndoList()->p_end();
-        } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-            // begin undo list
-            myFrameParent->myViewNet->getUndoList()->p_begin("change multiple parameters");
-            // set parameters in all ACs
-            for (const auto& i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                i->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
-            }
-            // end undo list
-            myFrameParent->myViewNet->getUndoList()->p_end();
-            // update frame parent after attribute sucesfully set
-            myFrameParent->attributeUpdated();
-        }
-    } else {
-        myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
-    }
-    return 1;
-*/
+    myParameters->setVariable();
     return true;
 }
 
