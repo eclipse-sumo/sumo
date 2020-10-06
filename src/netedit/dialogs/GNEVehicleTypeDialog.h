@@ -152,9 +152,6 @@ public:
             /// @brief set parameters
             void setParameters(const std::vector<std::pair<std::string, std::string> >& parameters);
 
-            /// @brief refresh netedit attributes
-            void refreshParametersEditor();
-
         private:
             /// @brief pointer to VTypeAttributeParameters parent
             VTypeAtributes* myVTypeAtributesParent;
@@ -174,7 +171,7 @@ public:
             /// @brief ComboBox for attributes with limited values
             FXComboBox* myComboBox;
 
-            /// @brief pointer to current map of parameters
+            /// @brief pointer to current parameter map
             std::map<std::string, std::string> myParameters;
 
             /// @brief filter attribute name
