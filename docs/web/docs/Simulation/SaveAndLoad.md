@@ -64,6 +64,7 @@ When setting option **--save-state.rng**, the state of all random number generat
 - The internal state of the laneChangeModel is not saved
 - the internal state of the carFollowModel is not saved (not all models have this).
 - Persons are not saved
+- Traffic light states with dynamic / modified timings may not be restored correctly.
 
 # Older Versions of SUMO
 
