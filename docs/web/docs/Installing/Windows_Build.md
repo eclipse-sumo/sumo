@@ -12,10 +12,10 @@ may also [download pre-build Windows binaries](../Downloads.md).
 
 ## Recommended Windows setup
 
-- Download [Visual C++ Community Edition](https://www.visualstudio.com/vs/community/)
+- Download [Visual Studio Community Edition](https://www.visualstudio.com/vs/community/)
   - Start the installer and select:
-    - Python Development (including native tools)
-    - C++ for desktop
+    - Python development (including native tools)
+    - Desktop development with C++
 
 ![](../images/VSInstall.png)
 
