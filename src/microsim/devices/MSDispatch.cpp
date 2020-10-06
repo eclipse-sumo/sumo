@@ -65,7 +65,8 @@ MSDispatch::addReservation(MSTransportable* person,
                            SUMOTime pickupTime,
                            const MSEdge* from, double fromPos,
                            const MSEdge* to, double toPos,
-                           const std::string& group) {
+                           const std::string& group,
+                           int maxCapacity) {
     // no new reservation nedded if the person can be added to an existing group
     Reservation* result = nullptr;
     bool added = false;
@@ -77,7 +78,8 @@ MSDispatch::addReservation(MSTransportable* person,
                     && res->from == from
                     && res->to == to
                     && res->fromPos == fromPos
-                    && res->toPos == toPos) {
+                    && res->toPos == toPos
+                    && (int)res->persons.size() < maxCapacity) {
                 res->persons.insert(person);
                 result = res;
                 added = true;

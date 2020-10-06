@@ -54,6 +54,7 @@ MSDispatch* MSDevice_Taxi::myDispatcher(nullptr);
 Command* MSDevice_Taxi::myDispatchCommand(nullptr);
 // @brief the list of available taxis
 std::vector<MSDevice_Taxi*> MSDevice_Taxi::myFleet;
+int MSDevice_Taxi::myMaxCapacity(0);
 
 #define TAXI_SERVICE "taxi"
 
@@ -109,6 +110,7 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
             WRITE_WARNING("Vehicle '" + v.getID() + "' with device.taxi should have vClass taxi instead of '" + toString(v.getVClass()) + "'.");
         }
         const int personCapacity = v.getVehicleType().getPersonCapacity();
+        myMaxCapacity = MAX2(myMaxCapacity, personCapacity);
         if (personCapacity < 1) {
             WRITE_WARNINGF("Vehicle '%' with personCapacity % is not usable as taxi.", v.getID(), toString(personCapacity));
         }
@@ -156,7 +158,7 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
         if (myDispatchCommand == nullptr) {
             initDispatch();
         }
-        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group);
+        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, myMaxCapacity);
     }
 }
 
@@ -212,6 +214,11 @@ MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
 
 MSDevice_Taxi::~MSDevice_Taxi() {
     myFleet.erase(std::find(myFleet.begin(), myFleet.end(), this));
+    // recompute myMaxCapacity
+    myMaxCapacity = 0;
+    for (MSDevice_Taxi* taxi : myFleet) {
+        myMaxCapacity = MAX2(myMaxCapacity, taxi->getHolder().getVehicleType().getPersonCapacity());
+    }
 }
 
 
