@@ -162,7 +162,7 @@ jobs:
     - name: Checking sumo-fmi2.fmu
       if: matrix.build-type == 'extra'
       run: |
-        $env:Path = "$env:Path;($pwd).path/sumo/bin"
+        $env:Path = "$env:Path;$pwd\sumo\bin"
         echo $env:Path
         cd sumo
         ../fmuChecker/install/fmuCheck.win64 bin/sumo-fmi2-win64.fmu 
