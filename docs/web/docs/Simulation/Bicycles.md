@@ -38,7 +38,7 @@ different cyclist types can be modelled.
 - Turning left by crossing twice does not work. Extra edges need to be
   added to accommodate these trajectories.
 - No bi-directional movements on bicycle lanes
-- No shared space for bicycles and pedestrians
+- No shared space for bicycles and pedestrians by default. This can be fixed by using the [Sublane Model](../Simulation/SublaneModel.md) and defining lanes that allow bicycles and pedestrians.
 - No overtaking by vehicles on a single-lane road. This can be fixed
   by using the [Sublane Model](../Simulation/SublaneModel.md).
 - The intersection model has no special adaptations for bicycles. This
