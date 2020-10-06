@@ -23,6 +23,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/frames/GNEFrameAttributesModuls.h>
+#include <netedit/dialogs/GNEVehicleTypeDialog.h>
 
 // ===========================================================================
 // class definitions
@@ -223,8 +224,11 @@ public:
         FXButton* myHelpButton;
     };
 
-    /// @brief Constructor
+    /// @brief Constructor for parameter editor
     GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor);
+
+    /// @brief Constructor
+    GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet *viewNet);
 
     /// @brief destructor
     ~GNESingleParametersDialog();
@@ -246,6 +250,9 @@ protected:
 
     /// @brief pointer to ParametersEditor
     GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
+
+    /// @brief pointer to VTypeAttributeRow
+    GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow;
 
     /// @brief pointer to  parameters values
     ParametersValues* myParametersValues;
@@ -269,6 +276,9 @@ protected:
     const std::vector<std::pair<std::string, std::string> > myCopyOfParameters;
 
 private:
+    /// @brief auxiliar constructor
+    void constructor();
+
     /// @brief Invalidated copy constructor.
     GNESingleParametersDialog(const GNESingleParametersDialog&) = delete;
 

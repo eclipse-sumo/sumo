@@ -470,27 +470,23 @@ GNESingleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElemen
 GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor) :
     FXDialogBox(ParametersEditor->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditor(ParametersEditor),
+    VTypeAttributeRow(nullptr),
     myEditedParameters(ParametersEditor->getParametersVectorStr()),
     myCopyOfParameters(ParametersEditor->getParametersVectorStr()) {
-    // set vehicle icon for this dialog
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
-    // create main frame
-    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create frame for Parameters and options
-    FXHorizontalFrame* horizontalFrameParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
-    // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrameParametersAndOptions, this);
-    // create parameters options
-    myParametersOptions = new ParametersOptions(horizontalFrameParametersAndOptions, this);
-    // add separator
-    new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
-    // create dialog buttons bot centered
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
-    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
-    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
-    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
-    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    // call auxiliar constructor
+    constructor();
+}
+
+
+
+GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet *viewNet) :
+    FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myParametersEditor(nullptr),
+    VTypeAttributeRow(VTypeAttributeRow),
+    myEditedParameters(VTypeAttributeRow->getParametersVectorStr()),
+    myCopyOfParameters(VTypeAttributeRow->getParametersVectorStr()) {
+    // call auxiliar constructor
+    constructor();
 }
 
 
@@ -566,5 +562,28 @@ GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+
+void
+GNESingleParametersDialog::constructor() {
+    // set vehicle icon for this dialog
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
+    // create main frame
+    FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
+    // create frame for Parameters and options
+    FXHorizontalFrame* horizontalFrameParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
+    // create parameters values
+    myParametersValues = new ParametersValues(horizontalFrameParametersAndOptions, this);
+    // create parameters options
+    myParametersOptions = new ParametersOptions(horizontalFrameParametersAndOptions, this);
+    // add separator
+    new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
+    // create dialog buttons bot centered
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(mainFrame, GUIDesignHorizontalFrame);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+    myAcceptButton = new FXButton(buttonsFrame, "accept\t\tclose", GUIIconSubSys::getIcon(GUIIcon::ACCEPT), this, MID_GNE_BUTTON_ACCEPT, GUIDesignButtonAccept);
+    myCancelButton = new FXButton(buttonsFrame, "cancel\t\tclose", GUIIconSubSys::getIcon(GUIIcon::CANCEL), this, MID_GNE_BUTTON_CANCEL, GUIDesignButtonCancel);
+    myResetButton = new FXButton(buttonsFrame,  "reset\t\tclose",  GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_BUTTON_RESET,  GUIDesignButtonReset);
+    new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
+}
 
 /****************************************************************************/
