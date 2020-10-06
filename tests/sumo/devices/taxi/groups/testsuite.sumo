@@ -15,3 +15,6 @@
 
 # 5 persons wish to share a taxi but only some taxis are applicable
 5persons_taxi_size_greedyCloseset
+
+# 5 persons wish to share a taxi but maximum personCapacity is 4
+5persons_small_taxi
