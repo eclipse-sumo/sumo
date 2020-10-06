@@ -2,8 +2,5 @@ basic
 merge_walks
 filter_bus
 
-# detect taxi ridership
-taxi
-
 # list person ids
 examples
