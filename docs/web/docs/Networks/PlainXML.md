@@ -770,6 +770,9 @@ modeled by setting a lower `maxSpeed` for trucks, that approach would preclude t
 use of `speedDev` and `speedFactor` to easily model the variation of speeds around the legal
 speed limit.
 
+!!! note
+    vClass-specific speed limit restrictions can also be loaded directly into [sumo](../sumo.md) from an additional file (only type attribute 'id' is needed)
+
 # Connection Descriptions
 
 | **Connection Descriptions** | |
