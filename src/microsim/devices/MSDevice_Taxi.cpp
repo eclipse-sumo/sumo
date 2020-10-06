@@ -42,6 +42,8 @@
 #include "MSRoutingEngine.h"
 #include "MSDevice_Taxi.h"
 
+//#define DEBUG_DISPATCH
+
 // ===========================================================================
 // static member variables
 // ===========================================================================
@@ -105,6 +107,10 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
         }
         if (v.getVClass() != SVC_TAXI) {
             WRITE_WARNING("Vehicle '" + v.getID() + "' with device.taxi should have vClass taxi instead of '" + toString(v.getVClass()) + "'.");
+        }
+        const int personCapacity = v.getVehicleType().getPersonCapacity();
+        if (personCapacity < 1) {
+            WRITE_WARNINGF("Vehicle '%' with personCapacity % is not usable as taxi.", v.getID(), toString(personCapacity));
         }
     }
 }
@@ -227,6 +233,14 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
 
 void
 MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservations) {
+#ifdef DEBUG_DISPATCH
+    if (true) {
+        std::cout << SIMTIME << " taxi=" << myHolder.getID() << " dispatch:\n";
+        for (const Reservation* res : reservations) {
+            std::cout << "   persons=" << toString(res->persons) << "\n";
+        }
+    }
+#endif
     if (isEmpty()) {
         const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         myHolder.abortNextStop();
