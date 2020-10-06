@@ -11,6 +11,10 @@ permalink: /ChangeLog/
   - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for persontTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560
   - Fixed invalid active-vehicle count after loading state. Issue #7583
   - Fixed bug where leader vehicles were ignored during lane-changing when using the sublane mode. Issue #7614
+  - Fixed invalid conflict check for vehicles on the same intersection. Issue #7618, #7173
+  - Fixed failure to create a rescue lane. Issue #7173
+  - Fixed crash on parallel intermodal routing. Issue #7627
+  - Parallel intermodal routing now respects the option **--routing-algorithm**. Issue #7628
   - railway fixes
     - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
     - Fixed train collision due to unsafe rail signal state. Issue #7534
@@ -23,12 +27,24 @@ permalink: /ChangeLog/
   - Road lanes that prohibit bicycles no longer receive bicycle permissions when a bicycle lane ends. Instead the bicycle lane receives a double-connection to allowed target edges where needed. Issue #2350
   - Fixed invalid right of way for right-turning double-connections at intersections with one incoming road. The rightmost lane now gets priority. Issue #7552
   
+- netedit
+  - Visual scaling of selected objects (via selection frame) is now working for junctions (regression in 1.7.0). Issue #7571
+  - Crossings no longer disappear when changing lane count of crossed edges. Issue #7626
+  
 - sumo-gui
   - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
   - Fixed invalid simulation end after reloading. Issue #7582
-
+  
+- duarouter
+  - Fixed crash on parallel intermodal routing. Issue #7627
+  - Parallel intermodal routing now respects the option **--routing-algorithm**. Issue #7628
+  - Fixed NaN value int output when using option **--logit**. Issue #7621
+  - Fixed invalid intermodal plans where switching between riding and walking happend on intersection. Issue #7652
+  
 - Tools
   - osmWebWizard search now works for IE users. Issue #6119
+  - Tools that support option **--C** for saving their configuration now use proper xml-escaing for their option values. Issue #7633
+  - [routeSampler.py](Tools/Turns.md#routesampler.py) no longer includes routes which do not pass any counting location when using option **--optimize**. This also speeds up execution.
 
 ### Enhancements
 - simulation
@@ -41,9 +57,13 @@ permalink: /ChangeLog/
   
 - sumo-gui
   - Rail signal now includes internal state (reason for red) in parameter dialog. Issue #7600
+  - Added option **--delay** (shortcut **-d**) to set the simulation delay. Issue #6380
   
 - netconvert
   - Added option **--junctions.join-same** which joins junctions with identical coordinates regardless of edge topology. This is useful when merging networks. Issue #7567
+  - Fixed inconsistent OSM-typemap that artificially restricted bicycle driving direction on edge type 'highway.path'. Issue #7615
+  - Fixed unsafe intersection rules for double connection with internal junction. Issue #7622
+  - Added option **--dlr-navteq.keep-length** to make use of explicit edge lengths in the input. Issue #749
   
 - od2trips
   - Attributes 'fromTaz' and 'toTaz' are now written for walks and personTrips. Issue #7591
@@ -51,6 +71,9 @@ permalink: /ChangeLog/
 - Tools
   - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
   - Added new tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) to generated constraint input for rain signals from a route file. Issue #7436
+  - Added [traceExporter.py](Tools/TraceExporter.md) option **--shift** which allows shifting output coordinates by a fixed amount (i.e. to avoid negative values).
+   Added [traceExporter.py](Tools/TraceExporter.md) now supports option **--ipg-output** for generating car-maker tracefiles. Issue #6190
+  [routeSampler.py](Tools/Turns.md#routesampler.py) now supports option **--minimize-vehicles FLOAT** which allows configuring a preference for fewer generated vehicles (where each vehicle passes multiple counting locations). Issue #7635
 
 ### Other
 
