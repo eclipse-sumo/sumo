@@ -202,7 +202,7 @@ generated.
 
 ## computeCoordination.py
 
-This tool reads fcd-outut and a corridor definition. It computes the fraction of vehicles that passed the corridor without significant slow-dow.
+This tool reads fcd-output and a corridor definition. It computes the fraction of vehicles that passed the corridor without significant slow-down.
 
 Example:
 ```
