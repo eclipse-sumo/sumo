@@ -152,6 +152,9 @@ private:
     std::map<std::string, std::vector<NBPTStop*> >  myRouteStops;
     std::map<std::string, EdgeVector >  myRouteEdges;
 
+    /// @brief whether the current stop should be discarded
+    bool myCurrentStopWasIgnored;
+
 private:
 
     /** @brief Parses an public transport stop
