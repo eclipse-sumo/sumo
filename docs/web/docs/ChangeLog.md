@@ -73,7 +73,7 @@ permalink: /ChangeLog/
   - Added new tool [generateRailSignalConstraints.py](Simulation/Railways.md#generaterailsignalconstraintspy) to generated constraint input for rain signals from a route file. Issue #7436
   - Added [traceExporter.py](Tools/TraceExporter.md) option **--shift** which allows shifting output coordinates by a fixed amount (i.e. to avoid negative values).
    Added [traceExporter.py](Tools/TraceExporter.md) now supports option **--ipg-output** for generating car-maker tracefiles. Issue #6190
-  [routeSampler.py](Tools/Turns.md#routesampler.py) now supports option **--minimize-vehicles FLOAT** which allows configuring a preference for fewer generated vehicles (where each vehicle passes multiple counting locations). Issue #7635
+  - [routeSampler.py](Tools/Turns.md#routesampler.py) now supports option **--minimize-vehicles FLOAT** which allows configuring a preference for fewer generated vehicles (where each vehicle passes multiple counting locations). Issue #7635
 
 ### Other
 
