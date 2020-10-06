@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri May 15 09:11:14 2020 by Eclipse SUMO netconvert Version v1_6_0+0257-5a63b61eda
+<!-- generated on Tue Oct  6 13:32:38 2020 by Eclipse SUMO netconvert Version v1_7_0+0512-6daea31f98
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,6 +38,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_4o_0_2" lane="4o_0" startPos="190.00" endPos="200.00" friendlyPos="true"/>
+    <busStop id="busStop_4o_0_2" lane="4o_0" startPos="190.00" endPos="200.00" friendlyPos="true">
+        <access lane="3o_0" pos="100.00" length="20.00" friendlyPos="1"/>
+    </busStop>
     <busStop id="busStop_4si_0_3" lane="4si_0" startPos="54.69" endPos="64.69" friendlyPos="true"/>
 </additional>
