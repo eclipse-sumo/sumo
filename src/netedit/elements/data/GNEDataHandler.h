@@ -246,8 +246,8 @@ private:
     /// @brief pointer to net
     GNENet* myNet;
 
-    /// @brief load dialog
-    GNEDataLoadDialog *myLoadDialog;
+    /// @brief load dialog (currently disabled)
+    /* GNEDataLoadDialog *myLoadDialog; */
 
     /// @brief HierarchyInsertedDatas used for insert children
     HierarchyInsertedDatas myHierarchyInsertedGenericDatas;
