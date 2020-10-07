@@ -1629,7 +1629,22 @@ long
 GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != nullptr) {
-        edge->resetEndpoint(getPopupPosition(), myUndoList);
+        // check if edge is selected
+        if (edge->isAttributeCarrierSelected()){
+            // get all selected edges
+            const auto selectedEdges = myNet->retrieveEdges(true);
+            // begin operation
+            myUndoList->p_begin("reset geometry points");
+            // iterate over selected edges
+            for (const auto &selectedEdge : selectedEdges) {
+                // reset both end points
+                selectedEdge->resetBothEndpoint(myUndoList);
+            }
+            // end operation
+            myUndoList->p_end();
+        } else {
+            edge->resetEndpoint(getPopupPosition(), myUndoList);
+        }
     }
     return 1;
 }

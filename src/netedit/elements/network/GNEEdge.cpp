@@ -474,6 +474,16 @@ GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
 
 
 void
+GNEEdge::resetBothEndpoint(GNEUndoList* undoList) {
+    // reset shape start
+    setAttribute(GNE_ATTR_SHAPE_END, toString(getParentJunctions().back()->getNBNode()->getPosition()), undoList);
+    getParentJunctions().back()->invalidateShape();
+    // reset shape end
+    setAttribute(GNE_ATTR_SHAPE_START, toString(getParentJunctions().front()->getNBNode()->getPosition()), undoList);
+    getParentJunctions().front()->invalidateShape();
+}
+
+void
 GNEEdge::setGeometry(PositionVector geom, bool inner) {
     // set new geometry
     const bool lefthand = OptionsCont::getOptions().getBool("lefthand");

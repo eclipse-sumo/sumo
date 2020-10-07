@@ -133,6 +133,9 @@ public:
     /// @brief restores the endpoint to the junction position at the appropriate end
     void resetEndpoint(const Position& pos, GNEUndoList* undoList);
 
+    /// @brief restores both endpoint to the junction position at the appropriate end
+    void resetBothEndpoint(GNEUndoList* undoList);
+
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
