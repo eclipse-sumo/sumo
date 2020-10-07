@@ -507,7 +507,7 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport):
                 "Dest file %s is missing. Assuming all elements are deleted" % dest)
 
         with codecs.open(diff, 'w', 'utf-8') as diff_file:
-            sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, extraRootAttrs=version)
+            sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, rootAttrs=version)
             if copy_tags:
                 attributeStore.write(diff_file, "<!-- Copied Elements -->\n")
                 attributeStore.writeCopies(diff_file, copy_tags)
@@ -552,6 +552,9 @@ def handle_children(xmlfile, handle_parsenode):
                     schema = "tllogic_file.xsd"
                 if parsenode.hasAttribute("version"):
                     version = ' version="%s"' % parsenode.getAttribute("version")
+                if root not in ("edges", "nodes", "connections", "tlLogics"):
+                    # do not write schema information
+                    version = None
             if level == 1:
                 # consumes END_ELEMENT, no level increase
                 xml_doc.expandNode(parsenode)
