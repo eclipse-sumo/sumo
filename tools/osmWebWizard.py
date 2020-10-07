@@ -110,8 +110,6 @@ vehicleNames = {
 }
 
 
-RANDOMSEED = "42"
-
 # all can read and execute, only user can read batch files
 BATCH_MODE = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH
 BATCH_MODE |= stat.S_IWUSR
@@ -351,7 +349,7 @@ class Builder(object):
 
         period = 3600 / (length / 1000) / options["count"]
 
-        opts = ["-n", self.files["net"], "--seed", RANDOMSEED, "--fringe-factor", options["fringeFactor"],
+        opts = ["-n", self.files["net"], "--fringe-factor", options["fringeFactor"],
                 "-p", period, "-o", self.files["trips"], "-e", self.data["duration"]]
         if "--validate" not in vehicleParameters[vehicle]:
             opts += ["-r", self.files["route"]]
