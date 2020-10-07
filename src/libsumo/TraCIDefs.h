@@ -35,6 +35,11 @@
 // ===========================================================================
 // global definitions
 // ===========================================================================
+#ifdef LIBTRACI
+#define LIBSUMO_NAMESPACE libtraci
+#else
+#define LIBSUMO_NAMESPACE libsumo
+#endif
 
 #define LIBSUMO_SUBSCRIPTION_API \
 static void subscribe(const std::string& objectID, const std::vector<int>& varIDs = std::vector<int>({-1}), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE); \

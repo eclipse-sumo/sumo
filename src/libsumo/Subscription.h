@@ -19,6 +19,7 @@
 /****************************************************************************/
 #pragma once
 #include <vector>
+#include <set>
 #include <libsumo/TraCIDefs.h>
 #include <utils/common/SUMOTime.h>
 
