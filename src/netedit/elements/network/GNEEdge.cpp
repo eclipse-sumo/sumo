@@ -476,10 +476,10 @@ GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
 void
 GNEEdge::resetBothEndpoint(GNEUndoList* undoList) {
     // reset shape start
-    setAttribute(GNE_ATTR_SHAPE_END, toString(getParentJunctions().back()->getNBNode()->getPosition()), undoList);
+    setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
     getParentJunctions().back()->invalidateShape();
     // reset shape end
-    setAttribute(GNE_ATTR_SHAPE_START, toString(getParentJunctions().front()->getNBNode()->getPosition()), undoList);
+    setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
     getParentJunctions().front()->invalidateShape();
 }
 
