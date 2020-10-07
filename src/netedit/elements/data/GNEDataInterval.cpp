@@ -55,43 +55,43 @@ GNEDataInterval::~GNEDataInterval() {}
 
 void
 GNEDataInterval::updateGenericDataIDs() {
-/*
-    // iterate over generic data childrens
-    for (const auto& genericData : myGenericDataChildren) {
-        if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
-            // {dataset}[{begin}m{end}]{edge}
-            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
-                                       genericData->getParentEdges().front()->getID());
-        } else if (genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
-            // {dataset}[{begin}m{end}]{from}->{to}
-            genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
-                                       genericData->getParentEdges().front()->getID() + "->" + genericData->getParentEdges().back()->getID());
+    if (myNet->isUpdateDataEnabled()) {
+        // iterate over generic data childrens
+        for (const auto& genericData : myGenericDataChildren) {
+            if (genericData->getTagProperty().getTag() == SUMO_TAG_MEANDATA_EDGE) {
+                // {dataset}[{begin}m{end}]{edge}
+                genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
+                                           genericData->getParentEdges().front()->getID());
+            } else if (genericData->getTagProperty().getTag() == SUMO_TAG_EDGEREL) {
+                // {dataset}[{begin}m{end}]{from}->{to}
+                genericData->setMicrosimID(myDataSetParent->getID() + "[" + toString(myBegin) + "," + toString(myEnd) + "]" +
+                                           genericData->getParentEdges().front()->getID() + "->" + genericData->getParentEdges().back()->getID());
+            }
         }
     }
-*/
 }
 
 
 void
 GNEDataInterval::updateAttributeColors() {
-/*
-    // first clear both container
-    myAllAttributeColors.clear();
-    mySpecificAttributeColors.clear();
-    // iterate over generic data children
-    for (const auto& genericData : myGenericDataChildren) {
-        for (const auto& param : genericData->getParametersMap()) {
-            // check if value can be parsed
-            if (canParse<double>(param.second)) {
-                // parse param value
-                const double value = parse<double>(param.second);
-                // update values in both containers
-                myAllAttributeColors.updateValues(param.first, value);
-                mySpecificAttributeColors[genericData->getTagProperty().getTag()].updateValues(param.first, value);
+    if (myNet->isUpdateDataEnabled()) {
+        // first clear both container
+        myAllAttributeColors.clear();
+        mySpecificAttributeColors.clear();
+        // iterate over generic data children
+        for (const auto& genericData : myGenericDataChildren) {
+            for (const auto& param : genericData->getParametersMap()) {
+                // check if value can be parsed
+                if (canParse<double>(param.second)) {
+                    // parse param value
+                    const double value = parse<double>(param.second);
+                    // update values in both containers
+                    myAllAttributeColors.updateValues(param.first, value);
+                    mySpecificAttributeColors[genericData->getTagProperty().getTag()].updateValues(param.first, value);
+                }
             }
         }
     }
-*/
 }
 
 
