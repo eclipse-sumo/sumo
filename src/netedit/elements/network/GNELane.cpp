@@ -24,10 +24,6 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEShape.h>
-#include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netbuild/NBEdgeCont.h>
@@ -38,8 +34,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNELane.h"
-#include "GNEEdge.h"
-#include "GNEJunction.h"
 #include "GNEInternalLane.h"
 #include "GNEConnection.h"
 

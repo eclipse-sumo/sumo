@@ -30,9 +30,6 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Connection.h>
 #include <netedit/changes/GNEChange_TLS.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
@@ -40,8 +37,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GNEEdge.h"
-#include "GNELane.h"
 #include "GNEConnection.h"
 #include "GNEJunction.h"
 #include "GNECrossing.h"

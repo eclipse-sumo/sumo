@@ -27,19 +27,10 @@
 #include <version.h>
 #endif
 
-#include <ctime>
 #include <csignal>
-#include <string>
-#include <iostream>
 #include <netload/NLBuilder.h>
-#include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/common/MsgHandler.h>
 #include <utils/common/SystemFrame.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/common/ToString.h>
-#include <utils/common/StdDefs.h>
 #include <utils/xml/XMLSubSys.h>
 #include <traci-server/TraCIServer.h>
 

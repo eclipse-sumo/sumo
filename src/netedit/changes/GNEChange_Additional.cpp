@@ -20,8 +20,6 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 
 #include "GNEChange_Additional.h"
 

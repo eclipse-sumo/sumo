@@ -22,7 +22,6 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/dialogs/GNERerouterDialog.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNENet.h>
 
 #include "GNERerouterInterval.h"
 

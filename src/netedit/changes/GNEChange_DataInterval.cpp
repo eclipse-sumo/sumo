@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/data/GNEDataSet.h>
 
 #include "GNEChange_DataInterval.h"
 

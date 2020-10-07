@@ -21,10 +21,7 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/elements/network/GNELane.h>
 #include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEStopFrame.h"

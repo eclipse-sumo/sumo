@@ -32,9 +32,6 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNEConnection.h"
-#include "GNEJunction.h"
-#include "GNEEdge.h"
-#include "GNELane.h"
 #include "GNEInternalLane.h"
 
 

@@ -22,15 +22,11 @@
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/demand/GNEPerson.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <utils/vehicle/SUMOVehicleParserHelper.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
 
 #include "GNEPersonFrame.h"
-#include "GNEStopFrame.h"
 
 // ===========================================================================
 // method definitions
