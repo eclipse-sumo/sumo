@@ -35,6 +35,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSDriverState.h>
 #include <microsim/MSNet.h>
+#include <microsim/MSStop.h>
 #include "MSLCHelper.h"
 #include "MSLCM_LC2013.h"
 

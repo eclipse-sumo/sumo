@@ -22,6 +22,7 @@
 #include <limits>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSStop.h>
 #include <microsim/transportables/MSTransportable.h>
 #include "MSRoutingEngine.h"
 #include "MSIdling.h"
@@ -65,7 +66,7 @@ MSIdling_Stop::idle(MSDevice_Taxi* taxi) {
         }
     } else {
         //std::cout << SIMTIME << " MSIdling_Stop reuse stop\n";
-        MSVehicle::Stop& stop = veh.getNextStop();
+        MSStop& stop = veh.getNextStop();
         stop.triggered = true;
     }
 }

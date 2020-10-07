@@ -54,6 +54,7 @@ class MSLaneChanger;
 class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSStoppingPlace;
+class MSStop;
 class MSChargingStation;
 class MSOverheadWire;
 class MSParkingArea;
@@ -960,69 +961,6 @@ public:
     /// @name vehicle stops definitions and i/o
     //@{
 
-    /** @class Stop
-     * @brief Definition of vehicle stop (position and duration)
-     */
-    class Stop {
-    public:
-        Stop(const SUMOVehicleParameter::Stop& par) : pars(par) {}
-        /// @brief The edge in the route to stop at
-        MSRouteIterator edge;
-        /// @brief The lane to stop at
-        const MSLane* lane = nullptr;
-        /// @brief (Optional) bus stop if one is assigned to the stop
-        MSStoppingPlace* busstop = nullptr;
-        /// @brief (Optional) container stop if one is assigned to the stop
-        MSStoppingPlace* containerstop = nullptr;
-        /// @brief (Optional) parkingArea if one is assigned to the stop
-        MSParkingArea* parkingarea = nullptr;
-        /// @brief (Optional) charging station if one is assigned to the stop
-        MSStoppingPlace* chargingStation = nullptr;
-        /// @brief (Optional) overhead wire segment if one is assigned to the stop
-        /// @todo Check that this should really be a stopping place instance
-        MSStoppingPlace* overheadWireSegment = nullptr;
-        /// @brief The stop parameter
-        const SUMOVehicleParameter::Stop pars;
-        /// @brief The stopping duration
-        SUMOTime duration = -1;
-        /// @brief whether an arriving person lets the vehicle continue
-        bool triggered = false;
-        /// @brief whether an arriving container lets the vehicle continue
-        bool containerTriggered = false;
-        /// @brief whether coupling another vehicle (train) the vehicle continue
-        bool joinTriggered = false;
-        /// @brief Information whether the stop has been reached
-        bool reached = false;
-        /// @brief The number of still expected persons
-        int numExpectedPerson = 0;
-        /// @brief The number of still expected containers
-        int numExpectedContainer = 0;
-        /// @brief The time at which the vehicle is able to board another person
-        SUMOTime timeToBoardNextPerson = 0;
-        /// @brief The time at which the vehicle is able to load another container
-        SUMOTime timeToLoadNextContainer = 0;
-        /// @brief Whether this stop was triggered by a collision
-        bool collision = false;
-        /// @brief the maximum time at which persons may board this vehicle
-        SUMOTime endBoarding = SUMOTime_MAX;
-
-        /// @brief Write the current stop configuration (used for state saving)
-        void write(OutputDevice& dev) const;
-
-        /// @brief return halting position for upcoming stop;
-        double getEndPos(const SUMOVehicle& veh) const;
-
-        /// @brief get a short description for showing in the gui
-        std::string getDescription() const;
-
-        /// @brief initialize attributes from the given stop parameters
-        void initPars(const SUMOVehicleParameter::Stop& stopPar);
-
-    private:
-        /// @brief Invalidated assignment operator
-        Stop& operator=(const Stop& src);
-
-    };
 
 
     /** @brief Adds a stop
@@ -1315,7 +1253,7 @@ public:
     * returns the next imminent stop in the stop queue
     * @return the upcoming stop
     */
-    Stop& getNextStop();
+    MSStop& getNextStop();
 
     /// @brief return parameters for the next stop (SUMOVehicle Interface)
     const SUMOVehicleParameter::Stop* getNextStopParameter() const;
@@ -1324,7 +1262,7 @@ public:
     * returns the list of stops not yet reached in the stop queue
     * @return the list of upcoming stops
     */
-    inline const std::list<Stop>& getStops() {
+    inline const std::list<MSStop>& getStops() {
         return myStops;
     }
 
@@ -1928,7 +1866,7 @@ protected:
     virtual void drawOutsideNetwork(bool /*add*/) {};
 
     /// @brief board persons and load transportables at the given stop
-    void boardTransportables(Stop& stop);
+    void boardTransportables(MSStop& stop);
 
     /// @brief try joining the given vehicle to the rear of this one (to resolve joinTriggered)
     bool joinTrainPart(MSVehicle* veh);
@@ -1982,7 +1920,7 @@ protected:
     static std::vector<MSLane*> myEmptyLaneVector;
 
     /// @brief The vehicle's list of stops
-    std::list<Stop> myStops;
+    std::list<MSStop> myStops;
 
     /// @brief The list of stops that the vehicle has already reached
     std::vector<SUMOVehicleParameter::Stop> myPastStops;

@@ -21,6 +21,7 @@
 /****************************************************************************/
 #pragma once
 #include <vector>
+#include <map>
 #include <limits>
 #include <string>
 #include <sstream>

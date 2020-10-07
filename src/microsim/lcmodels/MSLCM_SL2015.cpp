@@ -27,6 +27,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSDriverState.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/MSStop.h>
 #include <microsim/transportables/MSTransportableControl.h>
 #include <microsim/transportables/MSPModel.h>
 #include "MSLCHelper.h"

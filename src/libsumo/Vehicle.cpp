@@ -30,6 +30,7 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include <microsim/devices/MSDevice.h>
 #include <microsim/MSEdgeWeightsStorage.h>
+#include <microsim/MSStop.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleType.h>
@@ -475,7 +476,7 @@ Vehicle::getStops(const std::string& vehicleID, int limit) {
             result.push_back(buildStopData(pastStops[i]));
         }
     } else {
-        for (const MSVehicle::Stop& stop : veh->getStops()) {
+        for (const MSStop& stop : veh->getStops()) {
             if (!stop.collision) {
                 TraCINextStopData nsd = buildStopData(stop.pars);
                 if (stop.reached) {
@@ -502,7 +503,7 @@ Vehicle::getStopState(const std::string& vehicleID) {
     }
     int result = 0;
     if (veh->isStopped()) {
-        const MSVehicle::Stop& stop = veh->getNextStop();
+        const MSStop& stop = veh->getNextStop();
         result = ((stop.reached ? 1 : 0) +
                   (stop.pars.parking ? 2 : 0) +
                   (stop.pars.triggered ? 4 : 0) +
@@ -960,7 +961,7 @@ Vehicle::resume(const std::string& vehicleID) {
         throw TraCIException("Failed to resume vehicle '" + veh->getID() + "', it has no stops.");
     }
     if (!veh->resumeFromStopping()) {
-        MSVehicle::Stop& sto = veh->getNextStop();
+        MSStop& sto = veh->getNextStop();
         std::ostringstream strs;
         strs << "reached: " << sto.reached;
         strs << ", duration:" << sto.duration;
