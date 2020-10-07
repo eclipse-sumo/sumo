@@ -507,7 +507,7 @@ def xmldiff(source, dest, diff, type, copy_tags, patchImport):
                 "Dest file %s is missing. Assuming all elements are deleted" % dest)
 
         with codecs.open(diff, 'w', 'utf-8') as diff_file:
-            sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, extra=version)
+            sumolib.xml.writeHeader(diff_file, root=root, schemaPath=schema, extraRootAttrs=version)
             if copy_tags:
                 attributeStore.write(diff_file, "<!-- Copied Elements -->\n")
                 attributeStore.writeCopies(diff_file, copy_tags)
