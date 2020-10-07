@@ -535,6 +535,21 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
             }
         }
     }
+    if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE) {
+        scheme.clear();
+        // add threshold for every distinct value
+        std::set<SVCPermissions> codes;
+        for (GNELane* lane : myNet->retrieveLanes()) {
+            codes.insert(lane->getParentEdge()->getNBEdge()->getPermissions(lane->getIndex()));
+        }
+        int step = MAX2(1, 360 / (int)codes.size());
+        int hue = 0;
+        for (SVCPermissions p : codes) {
+            scheme.addColor(RGBColor::fromHSV(hue, 1, 1), p);
+            hue = (hue + step) % 360;
+        }
+        return;
+    }
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
