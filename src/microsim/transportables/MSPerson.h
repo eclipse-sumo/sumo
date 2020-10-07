@@ -46,6 +46,7 @@ class SUMOVehicle;
 class MSVehicleType;
 class MSPModel;
 class MSTransportableStateAdapter;
+class MSMoveReminder;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 
@@ -150,6 +151,9 @@ public:
 
         /// the time the person entered the edge
         SUMOTime myLastEdgeEntryTime;
+
+        /// @brief the MoveReminders encountered while walking
+        std::vector<MSMoveReminder*> myMoveReminders;
 
         class arrival_finder {
         public:
