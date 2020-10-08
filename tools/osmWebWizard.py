@@ -122,10 +122,7 @@ def quoted_str(s):
     elif type(s) != str:
         return str(s)
     elif '"' in s or ' ' in s:
-        if os.name == "nt":
-            return '"' + s.replace('"', '\\"') + '"'
-        else:
-            return "'%s'" % s
+        return '"' + s.replace('"', '\\"') + '"'
     else:
         return s
 
