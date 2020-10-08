@@ -35,6 +35,7 @@
     <trip id="t0" type="train" depart="0.00" from="a" to="c" departSpeed="max">
         <stop busStop="stop_c" arrival="100" until="130" duration="30"/>
     </trip>
+    <trip id="between" type="train" depart="0.00" from="d" to="e" departSpeed="max"/>
     <trip id="t1" type="train" depart="20.00" from="d" to="c" departSpeed="max">
         <stop busStop="stop_c" arrival="50" until="80" duration="30"/>
     </trip>
