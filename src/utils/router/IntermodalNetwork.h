@@ -466,7 +466,6 @@ public:
                     }
                 }
             }
-            /*
             // use intermediate access edge that prevents taxi departure
             _IntermodalEdge* departConn = getDepartConnector(edgePair.first);
             _AccessEdge* access = new _AccessEdge(myNumericalID++, departConn, carEdge, 0, (SVCAll & ~SVC_TAXI));
@@ -480,20 +479,6 @@ public:
                 departConn->addSuccessor(taxiAccess);
                 taxiAccess->addSuccessor(carEdge);
             }
-            */
-            UNUSED_PARAMETER(taxiWait);
-            if ((myCarWalkTransfer & TAXI_PICKUP_PT) == 0) {
-                // taxi (as all other cars) may depart anywhere
-                getDepartConnector(edgePair.first)->addSuccessor(carEdge);
-            } else {
-                // use intermediate access edge that prevents taxi departure
-                _IntermodalEdge* departConn = getDepartConnector(edgePair.first);
-                _AccessEdge* access = new _AccessEdge(myNumericalID++, departConn, carEdge, 0, (SVCAll & ~SVC_TAXI));
-                addEdge(access);
-                departConn->addSuccessor(access);
-                access->addSuccessor(carEdge);
-            }
-
             if ((myCarWalkTransfer & TAXI_DROPOFF_PT) == 0) {
                 // taxi (as all other cars) may arrive anywhere
                 carEdge->addSuccessor(getArrivalConnector(edgePair.first));

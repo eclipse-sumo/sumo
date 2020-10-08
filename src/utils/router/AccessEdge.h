@@ -37,7 +37,8 @@ public:
                SVCPermissions modeRestriction = SVC_IGNORING,
                SVCPermissions vehicleRestriction = SVC_IGNORING,
                double traveltime = -1) :
-        _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID(), numericalID, outEdge->getEdge(), "!access"),
+        _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID() + (modeRestriction == SVC_TAXI ? ":taxi" : ""),
+                numericalID, outEdge->getEdge(), "!access"),
         myLength(length > 0. ? length : NUMERICAL_EPS),
         myTraveltime(traveltime),
         myModeRestrictions(modeRestriction),
@@ -59,7 +60,7 @@ public:
     }
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
-        return ((trip->modeSet & myModeRestrictions) != myModeRestrictions
+        return ((myModeRestrictions != SVC_IGNORING && (trip->modeSet & myModeRestrictions) == 0)
                 || (myVehicleRestriction != SVC_IGNORING &&
                     ((trip->vehicle == nullptr ? SVC_PEDESTRIAN : trip->vehicle->getVClass()) & myVehicleRestriction) == 0));
     }

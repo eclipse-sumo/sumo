@@ -79,6 +79,12 @@ ROPerson::addTrip(const ROEdge* const from, const ROEdge* const to, const SVCPer
         }
         pars.id = getID() + "_" + toString(trip->getVehicles().size());
         trip->addVehicle(new ROVehicle(pars, new RORouteDef("!" + pars.id, 0, false, false), type, net));
+        // update modeset with routing-category vClass
+        if (type->vehicleClass == SVC_BICYCLE) {
+            trip->updateMOdes(SVC_BICYCLE);
+        } else {
+            trip->updateMOdes(SVC_PASSENGER);
+        }
     }
     if (trip->getVehicles().empty()) {
         if ((modeSet & SVC_PASSENGER) != 0) {
