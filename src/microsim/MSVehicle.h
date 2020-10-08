@@ -963,15 +963,6 @@ public:
 
 
 
-    /** @brief Adds a stop
-     *
-     * The stop is put into the sorted list.
-     * @param[in] stop The stop to add
-     * @return Whether the stop could be added
-     */
-    bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
-                 MSRouteIterator* searchStart = 0);
-
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
     bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg);
@@ -983,23 +974,11 @@ public:
     /** @brief get the current  parking area stop or nullptr */
     MSParkingArea* getCurrentParkingArea();
 
-    /** @brief Returns whether the vehicle has to stop somewhere
-     * @return Whether the vehicle has to stop somewhere
-     */
-    bool hasStops() const {
-        return !myStops.empty();
-    }
-
     /** @brief Whether this vehicle is equipped with a MSDriverState
      */
     inline bool hasDriverState() const {
         return myDriverState != nullptr;
     }
-
-    /** @brief Returns whether the vehicle is at a stop
-     * @return Whether the vehicle has stopped
-     */
-    bool isStopped() const;
 
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
@@ -1249,6 +1228,8 @@ public:
      */
     bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, std::string& errorMsg);
 
+    bool handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg);
+
     /**
     * returns the next imminent stop in the stop queue
     * @return the upcoming stop
@@ -1259,25 +1240,10 @@ public:
     const SUMOVehicleParameter::Stop* getNextStopParameter() const;
 
     /**
-    * returns the list of stops not yet reached in the stop queue
-    * @return the list of upcoming stops
-    */
-    inline const std::list<MSStop>& getStops() {
-        return myStops;
-    }
-
-    inline const std::vector<SUMOVehicleParameter::Stop>& getPastStops() {
-        return myPastStops;
-    }
-
-    /**
     * resumes a vehicle from stopping
     * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
     */
     bool resumeFromStopping();
-
-    /// @brief deletes the next stop at the given index if it exists
-    bool abortNextStop(int nextStopIndex = 0);
 
     /// @brief update a vector of further lanes and return the new backPos
     double updateFurtherLanes(std::vector<MSLane*>& furtherLanes,
@@ -1716,9 +1682,6 @@ public:
     /// @brief sets position outside the road network
     void setRemoteState(Position xyPos);
 
-    /// @brief departure position where the vehicle fits fully onto the edge (if possible)
-    double basePos(const MSEdge* edge) const;
-
     /// @brief compute safe speed for following the given leader
     double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
                               const double seen, const MSLane* const lane, double distToCrossing) const;
@@ -1848,14 +1811,6 @@ protected:
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
 
-    /** @brief Returns the list of still pending stop edges
-     * also returns the first and last stop position
-     */
-    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
-
-    /// @brief return list of route indices for the remaining stops
-    std::vector<std::pair<int, double> > getStopIndices() const;
-
     /// @brief get distance for coming to a stop (used for rerouting checks)
     double getBrakeGap() const;
 
@@ -1918,12 +1873,6 @@ protected:
     std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
 
     static std::vector<MSLane*> myEmptyLaneVector;
-
-    /// @brief The vehicle's list of stops
-    std::list<MSStop> myStops;
-
-    /// @brief The list of stops that the vehicle has already reached
-    std::vector<SUMOVehicleParameter::Stop> myPastStops;
 
     /// @brief The current acceleration after dawdling in m/s
     double myAcceleration;
@@ -2123,9 +2072,6 @@ protected:
     /// @brief decide whether a red (or yellow light) may be ignore
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 
-
-    /// @brief check whether all stop.edge MSRouteIterators are valid and in order
-    bool haveValidStopEdges() const;
 
 private:
     /// @brief The per vehicle variables of the car following model

@@ -79,7 +79,7 @@ public:
     * @return The vehicle's current lane
     */
     MSLane* getLane() const {
-        return 0;
+        return nullptr;
     }
 
     /** @brief Return current position (x/y, cartesian)
@@ -155,21 +155,6 @@ public:
      */
     bool isParking() const;
 
-    /** @brief Adds a stop
-     *
-     * The stop is put into the sorted list.
-     * @param[in] stop The stop to add
-     * @return Whether the stop could be added
-     */
-    bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
-                 MSRouteIterator* searchStart = 0);
-
-
-    /** @brief Returns whether the vehicle is at a stop
-     * @return Whether it has stopped
-     */
-    bool isStopped() const;
-
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const {
         return 0;
@@ -196,23 +181,16 @@ public:
         return false;
     };
 
-    /** @brief Returns until when to stop at the given segment
-     * @param[in] seg The segment in question
+    /** @brief Check whether we reached a stop and modify the stop attributes accordingly
+     */
+    bool checkStopped();
+
+    /** @brief Returns until when to stop at the current segment
      * @param[in] time the current time
      * @return stop time for the segment
      */
-    SUMOTime getStoptime(const MESegment* const seg, SUMOTime time) const;
+    SUMOTime getStoptime(SUMOTime time) const;
 
-
-    /** @brief Returns the list of still pending stop edges
-     */
-    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
-
-    /// @brief return list of route indices for the remaining stops
-    std::vector<std::pair<int, double> > getStopIndices() const;
-
-    /// @brief deletes the next stop at the given index if it exists
-    bool abortNextStop(int nextStopIndex = 0);
 
     /// @brief get distance for coming to a stop (used for rerouting checks)
     double getBrakeGap() const {
@@ -419,12 +397,6 @@ protected:
 
     /// @brief The time at which the vehicle was blocked on its current segment
     SUMOTime myBlockTime;
-
-    /// @brief where to stop
-    std::map<const MESegment* const, std::vector<SUMOVehicleParameter::Stop> > myStops;
-
-    /// @brief edges to stop
-    ConstMSEdgeVector myStopEdges;
 
     /// @brief An instance of a velocity/lane influencing instance; built in "getInfluencer"
     BaseInfluencer* myInfluencer;

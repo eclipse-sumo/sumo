@@ -463,20 +463,15 @@ std::vector<TraCINextStopData>
 Vehicle::getStops(const std::string& vehicleID, int limit) {
     std::vector<TraCINextStopData> result;
     MSBaseVehicle* vehicle = Helper::getVehicle(vehicleID);
-    MSVehicle* veh = dynamic_cast<MSVehicle*>(vehicle);
-    if (veh == nullptr) {
-        WRITE_WARNING("getNextStops not yet implemented for meso");
-        return result;
-    }
     if (limit < 0) {
         // return past stops up to the given limit
-        const std::vector<SUMOVehicleParameter::Stop>& pastStops = veh->getPastStops();
+        const std::vector<SUMOVehicleParameter::Stop>& pastStops = vehicle->getPastStops();
         const int n = (int)pastStops.size();
         for (int i = MAX2(0, n + limit); i < n; i++) {
             result.push_back(buildStopData(pastStops[i]));
         }
     } else {
-        for (const MSStop& stop : veh->getStops()) {
+        for (const MSStop& stop : vehicle->getStops()) {
             if (!stop.collision) {
                 TraCINextStopData nsd = buildStopData(stop.pars);
                 if (stop.reached) {

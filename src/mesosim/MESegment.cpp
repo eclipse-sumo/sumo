@@ -553,8 +553,8 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     Queue& q = myQueues[qIdx];
     std::vector<MEVehicle*>& cars = q.getModifiableVehicles();
     MEVehicle* newLeader = nullptr; // first vehicle in the current queue
-    SUMOTime tleave = MAX2(veh->getStoptime(this, time) + TIME2STEPS(myLength / uspeed) + getLinkPenalty(veh), q.getBlockTime());
-    if (veh->isStopped()) {
+    SUMOTime tleave = MAX2(veh->getStoptime(time) + TIME2STEPS(myLength / uspeed) + getLinkPenalty(veh), q.getBlockTime());
+    if (veh->checkStopped()) {
         myEdge.addWaiting(veh);
     }
     myEdge.lock();

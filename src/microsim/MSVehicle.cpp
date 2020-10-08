@@ -1446,167 +1446,6 @@ MSVehicle::getBackPosition() const {
     }
 }
 
-// ------------
-bool
-MSVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision,
-                   MSRouteIterator* searchStart) {
-    MSStop stop(stopPar);
-    stop.lane = MSLane::dictionary(stopPar.lane);
-    if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
-        errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
-        return false;
-    }
-    stop.initPars(stopPar);
-    if (stopPar.until != -1) {
-        // !!! it would be much cleaner to invent a constructor for stops which takes "until" as an argument
-        const_cast<SUMOVehicleParameter::Stop&>(stop.pars).until += untilOffset;
-    }
-    if (stopPar.arrival != -1) {
-        const_cast<SUMOVehicleParameter::Stop&>(stop.pars).arrival += untilOffset;
-    }
-    stop.collision = collision;
-    std::string stopType = "stop";
-    std::string stopID = "";
-    if (stop.busstop != nullptr) {
-        stopType = "busStop";
-        stopID = stop.busstop->getID();
-    } else if (stop.containerstop != nullptr) {
-        stopType = "containerStop";
-        stopID = stop.containerstop->getID();
-    } else if (stop.chargingStation != nullptr) {
-        stopType = "chargingStation";
-        stopID = stop.chargingStation->getID();
-    } else if (stop.overheadWireSegment != nullptr) {
-        stopType = "overheadWireSegment";
-        stopID = stop.overheadWireSegment->getID();
-    } else if (stop.parkingarea != nullptr) {
-        stopType = "parkingArea";
-        stopID = stop.parkingarea->getID();
-    }
-    const std::string errorMsgStart = stopID == "" ? stopType : stopType + " '" + stopID + "'";
-
-    if (stop.pars.startPos < 0 || stop.pars.endPos > stop.lane->getLength()) {
-        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' has an invalid position.";
-        return false;
-    }
-    if (stopType != "stop" && stopType != "parkingArea" && myType->getLength() / 2. > stop.pars.endPos - stop.pars.startPos
-            && MSNet::getInstance()->warnOnce(stopType + ":" + stopID)) {
-        errorMsg = errorMsgStart + " on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
-    }
-    // if stop is on an internal edge the normal edge before the intersection is used
-    const MSEdge* stopEdge = stop.lane->getEdge().getNormalBefore();
-    if (searchStart == nullptr) {
-        searchStart = &myCurrEdge;
-    }
-    stop.edge = std::find(*searchStart, myRoute->end(), stopEdge);
-    MSRouteIterator prevStopEdge = myCurrEdge;
-    const MSEdge* prevEdge = (myLane == nullptr ? getEdge() : &myLane->getEdge());
-    double prevStopPos = myState.myPos;
-    // where to insert the stop
-    std::list<MSStop>::iterator iter = myStops.begin();
-    if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myStops.size())) {
-        if (myStops.size() > 0) {
-            prevStopEdge = myStops.back().edge;
-            prevEdge = &myStops.back().lane->getEdge();
-            prevStopPos = myStops.back().pars.endPos;
-            iter = myStops.end();
-            stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
-            if (prevStopEdge == stop.edge                // laneEdge check is insufficient for looped routes
-                    && prevEdge == &stop.lane->getEdge() // route iterator check insufficient for internal lane stops
-                    && prevStopPos > stop.pars.endPos) {
-                stop.edge = std::find(prevStopEdge + 1, myRoute->end(), stopEdge);
-            }
-        }
-    } else {
-        if (stopPar.index == STOP_INDEX_FIT) {
-            while (iter != myStops.end() && (iter->edge < stop.edge ||
-                                             (iter->pars.endPos < stop.pars.endPos && iter->edge == stop.edge))) {
-                prevStopEdge = iter->edge;
-                prevStopPos = iter->pars.endPos;
-                ++iter;
-            }
-        } else {
-            int index = stopPar.index;
-            while (index > 0) {
-                prevStopEdge = iter->edge;
-                prevStopPos = iter->pars.endPos;
-                ++iter;
-                --index;
-            }
-            stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
-        }
-    }
-    const bool sameEdgeAsLastStop = prevStopEdge == stop.edge && prevEdge == &stop.lane->getEdge();
-    if (stop.edge == myRoute->end() || prevStopEdge > stop.edge ||
-            (sameEdgeAsLastStop && prevStopPos > stop.pars.endPos && !collision)
-            || (stop.lane->getEdge().isInternal() && stop.lane->getNextNormal() != *(stop.edge + 1))) {
-        if (stop.edge != myRoute->end()) {
-            // check if the edge occurs again later in the route
-            MSRouteIterator next = stop.edge + 1;
-            return addStop(stopPar, errorMsg, untilOffset, collision, &next);
-        }
-        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is not downstream the current route.";
-        //std::cout << " could not add stop " << errorMsgStart << " prevStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin()) << " route=" << toString(myRoute->getEdges())  << "\n";
-        return false;
-    }
-    // David.C:
-    //if (!stop.parking && (myCurrEdge == stop.edge && myState.myPos > stop.endPos - getCarFollowModel().brakeGap(myState.mySpeed))) {
-    const double endPosOffset = stop.lane->getEdge().isInternal() ? (*stop.edge)->getLength() : 0;
-    const double distToStop = stop.pars.endPos + endPosOffset - myState.myPos;
-    if (myCurrEdge == stop.edge && distToStop + POSITION_EPS < getCarFollowModel().brakeGap(myState.mySpeed)) {
-        if (collision) {
-            if (distToStop < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)) {
-                double vNew = getCarFollowModel().maximumSafeStopSpeed(distToStop, getSpeed(), false, 0);
-                //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop
-                //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
-                //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed)
-                //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
-                //    << " vNew=" << vNew
-                //    << "\n";
-                myState.mySpeed = MIN2(myState.mySpeed, vNew + ACCEL2SPEED(getCarFollowModel().getEmergencyDecel()));
-                myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
-                myCachedPosition = Position::INVALID;
-            }
-        } else {
-            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is too close to brake.";
-            return false;
-        }
-    }
-    if (!hasDeparted() && myCurrEdge == stop.edge) {
-        double pos = -1;
-        if (myParameter->departPosProcedure == DepartPosDefinition::GIVEN) {
-            pos = myParameter->departPos;
-            if (pos < 0.) {
-                pos += (*myCurrEdge)->getLength();
-            }
-        }
-        if (myParameter->departPosProcedure == DepartPosDefinition::BASE || myParameter->departPosProcedure == DepartPosDefinition::DEFAULT) {
-            pos = MIN2(stop.pars.endPos + endPosOffset, basePos(*myCurrEdge));
-        }
-        if (pos > stop.pars.endPos + endPosOffset) {
-            if (stop.edge != myRoute->end()) {
-                // check if the edge occurs again later in the route
-                MSRouteIterator next = stop.edge + 1;
-                return addStop(stopPar, errorMsg, untilOffset, collision, &next);
-            }
-            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is before departPos.";
-            return false;
-        }
-    }
-    if (iter != myStops.begin()) {
-        std::list<MSStop>::iterator iter2 = iter;
-        iter2--;
-        if (stop.pars.until >= 0 && iter2->pars.until > stop.pars.until) {
-            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' ends earlier than previous stop.";
-        }
-    }
-    myStops.insert(iter, stop);
-    //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin())
-    //    << " routeIndex=" << (stop.edge - myRoute->begin())
-    //    << " route=" << toString(myRoute->getEdges())  << "\n";
-    return true;
-}
-
 
 bool
 MSVehicle::replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) {
@@ -1666,12 +1505,6 @@ MSVehicle::getCurrentParkingArea() {
         currentParkingArea = myStops.begin()->parkingarea;
     }
     return currentParkingArea;
-}
-
-
-bool
-MSVehicle::isStopped() const {
-    return !myStops.empty() && myStops.begin()->reached /*&& myState.mySpeed < SUMO_const_haltingSpeed @todo #1864#*/;
 }
 
 
@@ -2076,43 +1909,6 @@ MSVehicle::joinTrainPartFront(MSVehicle* veh) {
     }
 }
 
-const ConstMSEdgeVector
-MSVehicle::getStopEdges(double& firstPos, double& lastPos) const {
-    assert(haveValidStopEdges());
-    ConstMSEdgeVector result;
-    const MSStop* prev = nullptr;
-    for (const MSStop& stop : myStops) {
-        if (stop.reached) {
-            continue;
-        }
-        const double stopPos = stop.getEndPos(*this);
-        if (prev == nullptr
-                || prev->edge != stop.edge
-                || prev->getEndPos(*this) > stopPos) {
-            result.push_back(*stop.edge);
-        }
-        prev = &stop;
-        if (firstPos < 0) {
-            firstPos = stopPos;
-        }
-        lastPos = stopPos;
-    }
-    //std::cout << "getStopEdges veh=" << getID() << " result=" << toString(result) << "\n";
-    return result;
-}
-
-
-std::vector<std::pair<int, double> >
-MSVehicle::getStopIndices() const {
-    std::vector<std::pair<int, double> > result;
-    for (std::list<MSStop>::const_iterator iter = myStops.begin(); iter != myStops.end(); ++iter) {
-        result.push_back(std::make_pair(
-                             (int)(iter->edge - myRoute->begin()),
-                             iter->getEndPos(*this)));
-    }
-    return result;
-}
-
 bool
 MSVehicle::stopsAt(MSStoppingPlace* stop) const {
     if (stop == nullptr) {
@@ -2142,18 +1938,6 @@ MSVehicle::stopsAtEdge(const MSEdge* edge) const {
 double
 MSVehicle::getBrakeGap() const {
     return getCarFollowModel().brakeGap(getSpeed());
-}
-
-
-double
-MSVehicle::basePos(const MSEdge* edge) const {
-    double result = MIN2(getVehicleType().getLength() + POSITION_EPS, edge->getLength());
-    if (hasStops()
-            && myStops.front().edge == myRoute->begin()
-            && (&myStops.front().lane->getEdge()) == *myStops.front().edge) {
-        result = MIN2(result, MAX2(0.0, myStops.front().getEndPos(*this)));
-    }
-    return result;
 }
 
 
@@ -6262,6 +6046,32 @@ MSVehicle::replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const
 
 
 bool
+MSVehicle::handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg) {
+    if (myCurrEdge == stop.edge && distToStop + POSITION_EPS < getCarFollowModel().brakeGap(myState.mySpeed)) {
+        if (collision) {
+            if (distToStop < getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)) {
+                double vNew = getCarFollowModel().maximumSafeStopSpeed(distToStop, getSpeed(), false, 0);
+                //std::cout << SIMTIME << " veh=" << getID() << " v=" << myState.mySpeed << " distToStop=" << distToStop
+                //    << " vMinNex=" << getCarFollowModel().minNextSpeed(getSpeed(), this)
+                //    << " bg1=" << getCarFollowModel().brakeGap(myState.mySpeed)
+                //    << " bg2=" << getCarFollowModel().brakeGap(myState.mySpeed, getCarFollowModel().getEmergencyDecel(), 0)
+                //    << " vNew=" << vNew
+                //    << "\n";
+                myState.mySpeed = MIN2(myState.mySpeed, vNew + ACCEL2SPEED(getCarFollowModel().getEmergencyDecel()));
+                myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
+                myCachedPosition = Position::INVALID;
+            }
+        }
+        else {
+            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.pars.lane + "' is too close to brake.";
+            return false;
+        }
+    }
+    return true;
+}
+
+
+bool
 MSVehicle::resumeFromStopping() {
     if (isStopped()) {
         if (myAmRegisteredAsWaitingForPerson) {
@@ -6332,23 +6142,6 @@ MSVehicle::getNextStopParameter() const {
     }
     return nullptr;
 }
-
-bool
-MSVehicle::abortNextStop(int nextStopIndex) {
-    if (hasStops() && nextStopIndex < (int)myStops.size()) {
-        if (nextStopIndex == 0 && isStopped()) {
-            resumeFromStopping();
-        } else {
-            auto stopIt = myStops.begin();
-            std::advance(stopIt, nextStopIndex);
-            myStops.erase(stopIt);
-        }
-        return true;
-    } else {
-        return false;
-    }
-}
-
 
 MSVehicle::Influencer&
 MSVehicle::getInfluencer() {
@@ -6662,53 +6455,6 @@ MSVehicle::loadPreviousApproaching(MSLink* link, bool setRequest,
 
 }
 
-bool
-MSVehicle::haveValidStopEdges() const {
-    MSRouteIterator start = myCurrEdge;
-    const std::string err = "for vehicle '" + getID() + "' at time " + time2string(MSNet::getInstance()->getCurrentTimeStep());
-    int i = 0;
-    bool ok = true;
-    double lastPos = getPositionOnLane();
-    if (myLane != nullptr && myLane->isInternal()
-            && myStops.size() > 0 && !myStops.front().lane->isInternal()) {
-        // start edge is still incoming to the intersection so lastPos
-        // relative to that edge must be adapted
-        lastPos += (*myCurrEdge)->getLength();
-    }
-    for (const MSStop& stop : myStops) {
-        const double endPos = stop.getEndPos(*this);
-        const MSEdge* const stopEdge = &stop.lane->getEdge();
-        const MSRouteIterator it = std::find(start, myRoute->end(), stopEdge);
-        const std::string prefix = "Stop " + toString(i) + " on edge '" + stopEdge->getID() + "' ";
-        if (it == myRoute->end()) {
-            WRITE_ERROR(prefix + "is not found after edge '" + (*start)->getID() + "' (" + toString(start - myCurrEdge) + " after current " + err);
-            ok = false;
-        } else {
-            MSRouteIterator it2;
-            for (it2 = myRoute->begin(); it2 != myRoute->end(); it2++) {
-                if (it2 == stop.edge) {
-                    break;
-                }
-            }
-            if (it2 == myRoute->end()) {
-                WRITE_ERROR(prefix + "used invalid route index " + err);
-                ok = false;
-            } else if (it2 < start) {
-                WRITE_ERROR(prefix + "used invalid (relative) route index " + toString(it2 - myCurrEdge) + " expected after " + toString(start - myCurrEdge) + " " + err);
-                ok = false;
-            } else {
-                if (it != stop.edge && endPos >= lastPos) {
-                    WRITE_WARNING(prefix + "is used in " + toString(stop.edge - myCurrEdge) + " edges but first encounter is in "
-                                  + toString(it - myCurrEdge) + " edges " + err);
-                }
-                start = stop.edge;
-            }
-        }
-        lastPos = endPos;
-        i++;
-    }
-    return ok;
-}
 
 std::shared_ptr<MSSimpleDriverState>
 MSVehicle::getDriverState() const {

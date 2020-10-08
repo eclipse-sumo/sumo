@@ -29,6 +29,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class MESegment;
 class MSStoppingPlace;
 class MSParkingArea;
 class SUMOVehicle;
@@ -45,8 +46,10 @@ public:
     MSStop(const SUMOVehicleParameter::Stop& par) : pars(par) {}
     /// @brief The edge in the route to stop at
     MSRouteIterator edge;
-    /// @brief The lane to stop at
+    /// @brief The lane to stop at (microsim only)
     const MSLane* lane = nullptr;
+    /// @brief The segment to stop at (mesosim only)
+    const MESegment* segment = nullptr;
     /// @brief (Optional) bus stop if one is assigned to the stop
     MSStoppingPlace* busstop = nullptr;
     /// @brief (Optional) container stop if one is assigned to the stop
