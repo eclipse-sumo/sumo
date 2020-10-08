@@ -499,14 +499,7 @@ public:
 
     //@}
 
-    virtual bool handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg) {
-        UNUSED_PARAMETER(stop);
-        UNUSED_PARAMETER(collision);
-        UNUSED_PARAMETER(distToStop);
-        UNUSED_PARAMETER(errorMsgStart);
-        UNUSED_PARAMETER(errorMsg);
-        return true;
-    }
+    virtual bool handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg);
 
     /** @brief Returns whether the vehicle is at a stop
      * @return Whether the vehicle has stopped

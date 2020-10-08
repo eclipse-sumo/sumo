@@ -678,6 +678,17 @@ MSBaseVehicle::saveState(OutputDevice& out) {
 
 
 bool
+MSBaseVehicle::handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg) {
+    UNUSED_PARAMETER(stop);
+    UNUSED_PARAMETER(collision);
+    UNUSED_PARAMETER(distToStop);
+    UNUSED_PARAMETER(errorMsgStart);
+    UNUSED_PARAMETER(errorMsg);
+    return true;
+}
+
+
+bool
 MSBaseVehicle::isStopped() const {
     return !myStops.empty() && myStops.begin()->reached /*&& myState.mySpeed < SUMO_const_haltingSpeed @todo #1864#*/;
 }
