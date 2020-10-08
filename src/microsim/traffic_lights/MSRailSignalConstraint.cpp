@@ -30,6 +30,9 @@
 #include "MSRailSignal.h"
 #include "MSRailSignalConstraint.h"
 
+//#define DEBUG_PASSED
+//#define DEBUG_LANE
+
 // ===========================================================================
 // static value definitions
 // ===========================================================================
@@ -173,13 +176,18 @@ MSRailSignalConstraint_Predecessor::getDescription() const {
 MSRailSignalConstraint_Predecessor::PassedTracker::PassedTracker(MSLane* lane) :
     MSMoveReminder("PassedTracker_" + lane->getID(), lane, true),
     myPassed(1, ""),
-    myLastIndex(0)
+    myLastIndex(-1)
 { }
 
 bool
 MSRailSignalConstraint_Predecessor::PassedTracker::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification /*reason*/, const MSLane* /*enteredLane*/) {
     myLastIndex = (myLastIndex + 1) % myPassed.size();
     myPassed[myLastIndex] = veh.getParameter().getParameter("tripId", veh.getID());
+#ifdef DEBUG_PASSED
+    if (myLane->getID() == DEBUG_LANE) {
+        std::cout << SIMTIME << " hasPassed " << veh.getID() << " tripId=" << veh.getParameter().getParameter("tripId", veh.getID()) << " index=" << myLastIndex << "\n";
+    }
+#endif
     return true;
 }
 
@@ -188,6 +196,11 @@ MSRailSignalConstraint_Predecessor::PassedTracker::raiseLimit(int limit) {
     while (limit > (int)myPassed.size()) {
         myPassed.insert(myPassed.begin() + myLastIndex + 1, "");
     }
+#ifdef DEBUG_PASSED
+    if (myLane->getID() == DEBUG_LANE) {
+        std::cout << " raiseLimit=" << limit << "\n";
+    }
+#endif
 }
 
 bool
@@ -216,7 +229,7 @@ MSRailSignalConstraint_Predecessor::PassedTracker::clearState() {
 void
 MSRailSignalConstraint_Predecessor::PassedTracker::saveState(OutputDevice& out) {
     const std::string state = toString(myPassed.back() == "" 
-            ? std::vector<std::string>(myPassed.begin(), myPassed.begin() + myLastIndex)
+            ? std::vector<std::string>(myPassed.begin(), myPassed.begin() + myLastIndex + 1)
             // wrapped around
             : myPassed);
     // no need to save state if no vehicles have passed this tracker
@@ -235,6 +248,14 @@ MSRailSignalConstraint_Predecessor::PassedTracker::loadState(int index, const st
     for (int i = 0; i < (int)tripIDs.size(); i++) {
         myPassed[i] = tripIDs[i];
     }
+#ifdef DEBUG_PASSED
+    if (myLane->getID() == DEBUG_LANE) {
+        std::cout << " loadState limit=" << tripIDs.size() << " index=" << index << "\n";
+        for (int i = 0; i < (int)myPassed.size(); i++) {
+            std::cout << " i=" << i << " passed=" << myPassed[i] << "\n";
+        }
+    }
+#endif
     myLastIndex = index;
 }
 
