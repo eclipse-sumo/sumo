@@ -7,6 +7,9 @@
 #endif
 
 #define LIBTRACI 1
+%{
+#define LIBTRACI 1
+%}
 
 #ifdef SWIGPYTHON
 %naturalvar;
@@ -103,7 +106,6 @@
 
 
 %{
-#define LIBTRACI 1
 #include <libsumo/TraCIDefs.h>
 
 static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsumo::TraCIResult> >& subMap) {
