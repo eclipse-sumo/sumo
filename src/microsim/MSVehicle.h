@@ -54,6 +54,7 @@ class MSLaneChanger;
 class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSStoppingPlace;
+class MSStop;
 class MSChargingStation;
 class MSOverheadWire;
 class MSParkingArea;
@@ -960,79 +961,7 @@ public:
     /// @name vehicle stops definitions and i/o
     //@{
 
-    /** @class Stop
-     * @brief Definition of vehicle stop (position and duration)
-     */
-    class Stop {
-    public:
-        Stop(const SUMOVehicleParameter::Stop& par) : pars(par) {}
-        /// @brief The edge in the route to stop at
-        MSRouteIterator edge;
-        /// @brief The lane to stop at
-        const MSLane* lane = nullptr;
-        /// @brief (Optional) bus stop if one is assigned to the stop
-        MSStoppingPlace* busstop = nullptr;
-        /// @brief (Optional) container stop if one is assigned to the stop
-        MSStoppingPlace* containerstop = nullptr;
-        /// @brief (Optional) parkingArea if one is assigned to the stop
-        MSParkingArea* parkingarea = nullptr;
-        /// @brief (Optional) charging station if one is assigned to the stop
-        MSStoppingPlace* chargingStation = nullptr;
-        /// @brief (Optional) overhead wire segment if one is assigned to the stop
-        /// @todo Check that this should really be a stopping place instance
-        MSStoppingPlace* overheadWireSegment = nullptr;
-        /// @brief The stop parameter
-        const SUMOVehicleParameter::Stop pars;
-        /// @brief The stopping duration
-        SUMOTime duration = -1;
-        /// @brief whether an arriving person lets the vehicle continue
-        bool triggered = false;
-        /// @brief whether an arriving container lets the vehicle continue
-        bool containerTriggered = false;
-        /// @brief whether coupling another vehicle (train) the vehicle continue
-        bool joinTriggered = false;
-        /// @brief Information whether the stop has been reached
-        bool reached = false;
-        /// @brief The number of still expected persons
-        int numExpectedPerson = 0;
-        /// @brief The number of still expected containers
-        int numExpectedContainer = 0;
-        /// @brief The time at which the vehicle is able to board another person
-        SUMOTime timeToBoardNextPerson = 0;
-        /// @brief The time at which the vehicle is able to load another container
-        SUMOTime timeToLoadNextContainer = 0;
-        /// @brief Whether this stop was triggered by a collision
-        bool collision = false;
-        /// @brief the maximum time at which persons may board this vehicle
-        SUMOTime endBoarding = SUMOTime_MAX;
 
-        /// @brief Write the current stop configuration (used for state saving)
-        void write(OutputDevice& dev) const;
-
-        /// @brief return halting position for upcoming stop;
-        double getEndPos(const SUMOVehicle& veh) const;
-
-        /// @brief get a short description for showing in the gui
-        std::string getDescription() const;
-
-        /// @brief initialize attributes from the given stop parameters
-        void initPars(const SUMOVehicleParameter::Stop& stopPar);
-
-    private:
-        /// @brief Invalidated assignment operator
-        Stop& operator=(const Stop& src);
-
-    };
-
-
-    /** @brief Adds a stop
-     *
-     * The stop is put into the sorted list.
-     * @param[in] stop The stop to add
-     * @return Whether the stop could be added
-     */
-    bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
-                 MSRouteIterator* searchStart = 0);
 
     /** @brief replace the current parking area stop with a new stop with merge duration
      */
@@ -1045,23 +974,11 @@ public:
     /** @brief get the current  parking area stop or nullptr */
     MSParkingArea* getCurrentParkingArea();
 
-    /** @brief Returns whether the vehicle has to stop somewhere
-     * @return Whether the vehicle has to stop somewhere
-     */
-    bool hasStops() const {
-        return !myStops.empty();
-    }
-
     /** @brief Whether this vehicle is equipped with a MSDriverState
      */
     inline bool hasDriverState() const {
         return myDriverState != nullptr;
     }
-
-    /** @brief Returns whether the vehicle is at a stop
-     * @return Whether the vehicle has stopped
-     */
-    bool isStopped() const;
 
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const;
@@ -1311,35 +1228,22 @@ public:
      */
     bool replaceStop(int nextStopIndex, SUMOVehicleParameter::Stop stop, const std::string& info, std::string& errorMsg);
 
+    bool handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg);
+
     /**
     * returns the next imminent stop in the stop queue
     * @return the upcoming stop
     */
-    Stop& getNextStop();
+    MSStop& getNextStop();
 
     /// @brief return parameters for the next stop (SUMOVehicle Interface)
     const SUMOVehicleParameter::Stop* getNextStopParameter() const;
-
-    /**
-    * returns the list of stops not yet reached in the stop queue
-    * @return the list of upcoming stops
-    */
-    inline const std::list<Stop>& getStops() {
-        return myStops;
-    }
-
-    inline const std::vector<SUMOVehicleParameter::Stop>& getPastStops() {
-        return myPastStops;
-    }
 
     /**
     * resumes a vehicle from stopping
     * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
     */
     bool resumeFromStopping();
-
-    /// @brief deletes the next stop at the given index if it exists
-    bool abortNextStop(int nextStopIndex = 0);
 
     /// @brief update a vector of further lanes and return the new backPos
     double updateFurtherLanes(std::vector<MSLane*>& furtherLanes,
@@ -1778,9 +1682,6 @@ public:
     /// @brief sets position outside the road network
     void setRemoteState(Position xyPos);
 
-    /// @brief departure position where the vehicle fits fully onto the edge (if possible)
-    double basePos(const MSEdge* edge) const;
-
     /// @brief compute safe speed for following the given leader
     double getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderInfo,
                               const double seen, const MSLane* const lane, double distToCrossing) const;
@@ -1910,14 +1811,6 @@ protected:
     /// updates LaneQ::nextOccupation and myCurrentLaneInBestLanes
     void updateOccupancyAndCurrentBestLane(const MSLane* startLane);
 
-    /** @brief Returns the list of still pending stop edges
-     * also returns the first and last stop position
-     */
-    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
-
-    /// @brief return list of route indices for the remaining stops
-    std::vector<std::pair<int, double> > getStopIndices() const;
-
     /// @brief get distance for coming to a stop (used for rerouting checks)
     double getBrakeGap() const;
 
@@ -1928,7 +1821,7 @@ protected:
     virtual void drawOutsideNetwork(bool /*add*/) {};
 
     /// @brief board persons and load transportables at the given stop
-    void boardTransportables(Stop& stop);
+    void boardTransportables(MSStop& stop);
 
     /// @brief try joining the given vehicle to the rear of this one (to resolve joinTriggered)
     bool joinTrainPart(MSVehicle* veh);
@@ -1980,12 +1873,6 @@ protected:
     std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
 
     static std::vector<MSLane*> myEmptyLaneVector;
-
-    /// @brief The vehicle's list of stops
-    std::list<Stop> myStops;
-
-    /// @brief The list of stops that the vehicle has already reached
-    std::vector<SUMOVehicleParameter::Stop> myPastStops;
 
     /// @brief The current acceleration after dawdling in m/s
     double myAcceleration;
@@ -2185,9 +2072,6 @@ protected:
     /// @brief decide whether a red (or yellow light) may be ignore
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 
-
-    /// @brief check whether all stop.edge MSRouteIterators are valid and in order
-    bool haveValidStopEdges() const;
 
 private:
     /// @brief The per vehicle variables of the car following model

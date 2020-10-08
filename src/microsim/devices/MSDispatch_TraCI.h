@@ -50,7 +50,8 @@ public:
                                 SUMOTime pickupTime,
                                 const MSEdge* from, double fromPos,
                                 const MSEdge* to, double toPos,
-                                const std::string& group);
+                                const std::string& group,
+                                int maxCapacity);
 
     /// @brief do nothing (dispatch happens via TraCI calls)
     virtual void computeDispatch(SUMOTime /*now*/, const std::vector<MSDevice_Taxi*>& /*fleet*/) {}

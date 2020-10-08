@@ -79,11 +79,6 @@ public:
     /// @brief return TraCI API and SUMO version
     std::pair<int, std::string> getVersion();
 
-    const tcpip::Storage& getCommandStorage() const {
-        return myOutput;
-    }
-
-
     /** @class TraCIScopeWrapper
      * @brief An abstract interface for accessing type-dependent values
      *

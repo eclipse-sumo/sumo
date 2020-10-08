@@ -19,10 +19,8 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/dialogs/GNEVariableSpeedSignDialog.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNENet.h>
 
 #include "GNEVariableSpeedSignStep.h"
 

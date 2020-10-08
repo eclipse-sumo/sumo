@@ -24,10 +24,6 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/elements/additional/GNEAdditional.h>
-#include <netedit/elements/additional/GNEShape.h>
-#include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
 #include <netedit/frames/demand/GNERouteFrame.h>
 #include <netbuild/NBEdgeCont.h>
@@ -38,8 +34,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNELane.h"
-#include "GNEEdge.h"
-#include "GNEJunction.h"
 #include "GNEInternalLane.h"
 #include "GNEConnection.h"
 
@@ -1637,7 +1631,16 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     new FXMenuCommand(edgeOperations, "Split edge here", nullptr, &parent, MID_GNE_EDGE_SPLIT);
     new FXMenuCommand(edgeOperations, "Split edge in both directions here", nullptr, &parent, MID_GNE_EDGE_SPLIT_BIDI);
     new FXMenuCommand(edgeOperations, "Set geometry endpoint here (shift-click)", nullptr, &parent, MID_GNE_EDGE_EDIT_ENDPOINT);
-    new FXMenuCommand(edgeOperations, "Restore geometry endpoint (shift-click)", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+    // restore geometry points depending of selection status
+    if (myParentEdge->isAttributeCarrierSelected()) {
+        if (edgeSelSize == 1) {
+            new FXMenuCommand(edgeOperations, "Restore both geometry endpoints", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+        } else {
+            new FXMenuCommand(edgeOperations, "Restore geometry endpoints of all selected edges", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+        }
+    } else {
+        new FXMenuCommand(edgeOperations, "Restore geometry endpoint (shift-click)", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
+    }
     new FXMenuCommand(edgeOperations, ("Reverse " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_REVERSE);
     new FXMenuCommand(edgeOperations, ("Add reverse direction for " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE);
     new FXMenuCommand(edgeOperations, ("Reset lengths for " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_RESET_LENGTH);

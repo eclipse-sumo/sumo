@@ -1245,10 +1245,11 @@ MSNet::getIntermodalRouter(const int rngIndex, const int routingMode, const MSEd
             carWalk |= MSIntermodalRouter::Network::TAXI_PICKUP_ANYWHERE;
         }
         const std::string routingAlgorithm = OptionsCont::getOptions().getString("routing-algorithm");
+        double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
         if (routingMode == libsumo::ROUTING_MODE_COMBINED) {
-            myIntermodalRouter[key] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode, new FareModul());
+            myIntermodalRouter[key] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm, routingMode, new FareModul());
         } else {
-            myIntermodalRouter[key] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, routingAlgorithm, routingMode);
+            myIntermodalRouter[key] = new MSIntermodalRouter(MSNet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm, routingMode);
         }
     }
     myIntermodalRouter[key]->prohibit(prohibited);
@@ -1258,19 +1259,20 @@ MSNet::getIntermodalRouter(const int rngIndex, const int routingMode, const MSEd
 
 void
 MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
+    double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
     // add access to all parking areas
     for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_PARKING_AREA]) {
         const MSEdge* const edge = &i.second->getLane().getEdge();
-        router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge), i.second->getAccessDistance(edge), SUMO_TAG_PARKING_AREA);
+        router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge), i.second->getAccessDistance(edge), SUMO_TAG_PARKING_AREA, taxiWait);
     }
     EffortCalculator* const external = router.getExternalEffort();
     // add access to all public transport stops
     for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
         const MSEdge* const edge = &i.second->getLane().getEdge();
         router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge),
-                                       i.second->getAccessDistance(edge), SUMO_TAG_BUS_STOP);
+                                       i.second->getAccessDistance(edge), SUMO_TAG_BUS_STOP, taxiWait);
         for (const auto& a : i.second->getAllAccessPos()) {
-            router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP);
+            router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, taxiWait);
         }
         if (external != nullptr) {
             external->addStop(router.getNetwork()->getStopEdge(i.first)->getNumericalID(), *i.second);
@@ -1282,7 +1284,7 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
     if ((router.getCarWalkTransfer() & MSIntermodalRouter::Network::TAXI_PICKUP_ANYWHERE) != 0) {
         for (MSEdge* edge : myInstance->getEdgeControl().getEdges()) {
             if ((edge->getPermissions() & SVC_PEDESTRIAN) != 0 && (edge->getPermissions() & SVC_TAXI) != 0) {
-                router.getNetwork()->addCarAccess(edge, SVC_TAXI);
+                router.getNetwork()->addCarAccess(edge, SVC_TAXI, taxiWait);
             }
         }
     }

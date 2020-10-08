@@ -96,7 +96,8 @@ GNENet::GNENet(NBNetBuilder* netBuilder) :
     myTLSProgramsSaved(true),
     myDemandElementsSaved(true),
     myDataElementsSaved(true),
-    myUpdateGeometryEnabled(true) {
+    myUpdateGeometryEnabled(true),
+    myUpdateDataEnabled(true) {
     // set net in gIDStorage
     GUIGlObjectStorage::gIDStorage.setNetObject(this);
     // Write GL debug information
@@ -3085,6 +3086,31 @@ GNENet::disableUpdateGeometry() {
 bool
 GNENet::isUpdateGeometryEnabled() const {
     return myUpdateGeometryEnabled;
+}
+
+
+void
+GNENet::enableUpdateData() {
+    myUpdateDataEnabled = true;
+    // update data elements
+    for (const auto &dataSet : myAttributeCarriers->getDataSets()) {
+        for (const auto &dataInterval : dataSet.second->getDataIntervalChildren()) {
+            dataInterval.second->updateGenericDataIDs();
+            dataInterval.second->updateAttributeColors();
+        }
+    }
+}
+
+
+void
+GNENet::disableUpdateData() {
+    myUpdateDataEnabled = false;
+}
+
+
+bool
+GNENet::isUpdateDataEnabled() const {
+    return myUpdateDataEnabled;
 }
 
 // ===========================================================================

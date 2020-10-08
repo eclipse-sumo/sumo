@@ -109,7 +109,8 @@ public:
                                         SUMOTime pickupTime,
                                         const MSEdge* from, double fromPos,
                                         const MSEdge* to, double toPos,
-                                        const std::string& group);
+                                        const std::string& group,
+                                        int maxCapacity);
 
     /// @brief computes dispatch and updates reservations
     virtual void computeDispatch(SUMOTime now, const std::vector<MSDevice_Taxi*>& fleet) = 0;

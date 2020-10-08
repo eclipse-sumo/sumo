@@ -29,8 +29,6 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNECrossing.h"
-#include "GNEJunction.h"
-#include "GNEEdge.h"
 
 
 // ===========================================================================

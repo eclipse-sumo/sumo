@@ -318,6 +318,9 @@ public:
         SVCPermissions getModes() const {
             return modes;
         }
+        void updateMOdes(SVCPermissions additionalModes) {
+            modes |= additionalModes;
+        }
 
         const std::string& getGroup() const {
             return group;
@@ -342,7 +345,7 @@ public:
     private:
         const ROEdge* from;
         const ROEdge* to;
-        const SVCPermissions modes;
+        SVCPermissions modes;
         const double dep, arr;
         const std::string stopDest;
         /// @brief the fully specified trips

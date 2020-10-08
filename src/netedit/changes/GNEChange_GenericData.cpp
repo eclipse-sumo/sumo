@@ -24,11 +24,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/data/GNEDataSet.h>
 #include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/data/GNEGenericData.h>
-#include <netedit/elements/data/GNEDataInterval.h>
-#include <netedit/elements/network/GNEJunction.h>
 
 #include "GNEChange_GenericData.h"
 

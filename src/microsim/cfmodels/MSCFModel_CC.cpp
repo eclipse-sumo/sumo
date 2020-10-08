@@ -17,22 +17,24 @@
 ///
 // A series of automatic Cruise Controllers (CC, ACC, CACC)
 /****************************************************************************/
-#include "MSCFModel_CC.h"
+#include <algorithm>
+#include <utils/common/RandHelper.h>
+#include <utils/common/SUMOTime.h>
+#include <utils/common/StringUtils.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSEdge.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SUMOTime.h>
-#include <utils/common/StringUtils.h>
+#include <microsim/MSStop.h>
 #include <microsim/cfmodels/ParBuffer.h>
 #include <libsumo/Vehicle.h>
 #include <libsumo/TraCIDefs.h>
-#include <algorithm>
+#include "MSCFModel_CC.h"
 
 #ifndef sgn
 #define sgn(x) ((x > 0) - (x < 0))
 #endif
+
 
 // ===========================================================================
 // method definitions
@@ -173,7 +175,7 @@ MSCFModel_CC::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 
     //check whether the vehicle has collided and set the flag in case
     if (!vars->crashed) {
-        for (const MSVehicle::Stop& s : veh->getStops()) {
+        for (const MSStop& s : veh->getStops()) {
             if (s.collision) {
                 vars->crashed = true;
             }

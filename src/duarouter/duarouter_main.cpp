@@ -199,6 +199,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
             carWalk |= ROIntermodalRouter::Network::TAXI_PICKUP_ANYWHERE;
         }
     }
+    double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
 
     RailwayRouter<ROEdge, ROVehicle>* railRouter = nullptr;
     if (net.hasBidiEdges()) {
@@ -207,7 +208,7 @@ computeRoutes(RONet& net, ROLoader& loader, OptionsCont& oc) {
                 oc.getFloat("railway.max-train-length"));
     }
     RORouterProvider provider(router, new PedestrianRouter<ROEdge, ROLane, RONode, ROVehicle>(),
-                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk, routingAlgorithm),
+                              new ROIntermodalRouter(RONet::adaptIntermodalRouter, carWalk, taxiWait, routingAlgorithm),
                               railRouter);
     // process route definitions
     try {

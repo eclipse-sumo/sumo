@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jan 10 10:15:18 2020 by Eclipse SUMO duarouter Version v1_4_0+0427-e973ab2
+<!-- generated on Thu Oct  8 02:55:52 2020 by Eclipse SUMO duarouter Version v1_7_0+0541-53431a797a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,17 +15,19 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
         <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
     <processing>
-        <persontrip.transfer.car-walk value="taxi"/>
+        <persontrip.transfer.taxi-walk value="allJunctions"/>
+        <persontrip.transfer.walk-taxi value="allJunctions"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -34,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p0" depart="0.00">
-        <personTrip from="accessA" to="B0B1" modes="taxi" walkFactor="0.75" costs="34.65 106.94 0.00"/>
+        <personTrip from="accessA" to="B0B1" modes="taxi" walkFactor="0.75" costs="334.65 106.94 0.00"/>
     </person>
     <person id="p_mustwalk" depart="10.00">
         <personTrip from="accessA" to="B0B1" modes="car" walkFactor="0.75" costs="966.93"/>

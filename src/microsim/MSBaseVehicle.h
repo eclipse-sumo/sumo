@@ -35,6 +35,7 @@
 // class declarations
 // ===========================================================================
 class MSLane;
+class MSStop;
 class MSDevice_Transportable;
 class MSVehicleDevice;
 class MSEdgeWeightsStorage;
@@ -498,6 +499,32 @@ public:
 
     //@}
 
+    virtual bool handleCollisionStop(MSStop& stop, const bool collision, const double distToStop, const std::string& errorMsgStart, std::string& errorMsg);
+
+    /** @brief Returns whether the vehicle is at a stop
+     * @return Whether the vehicle has stopped
+     */
+    bool isStopped() const;
+
+    /** @brief Returns whether the vehicle has to stop somewhere
+     * @return Whether the vehicle has to stop somewhere
+     */
+    bool hasStops() const {
+        return !myStops.empty();
+    }
+
+    /// @brief departure position where the vehicle fits fully onto the edge (if possible)
+    double basePos(const MSEdge* edge) const;
+
+    /** @brief Adds a stop
+     *
+     * The stop is put into the sorted list.
+     * @param[in] stop The stop to add
+     * @return Whether the stop could be added
+     */
+    bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
+                 MSRouteIterator* searchStart = nullptr);
+
     /** @brief Adds stops to the built vehicle
      *
      * This code needs to be separated from the MSBaseVehicle constructor
@@ -505,7 +532,41 @@ public:
      *
      * @param[in] ignoreStopErrors whether invalid stops trigger a warning only
      */
-    void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = 0);
+    void addStops(const bool ignoreStopErrors, MSRouteIterator* searchStart = nullptr);
+
+    /// @brief check whether all stop.edge MSRouteIterators are valid and in order
+    bool haveValidStopEdges() const;
+
+    /** @brief Returns the list of still pending stop edges
+     * also returns the first and last stop position
+     */
+    const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const;
+
+    /// @brief return list of route indices for the remaining stops
+    std::vector<std::pair<int, double> > getStopIndices() const;
+
+    /**
+    * returns the list of stops not yet reached in the stop queue
+    * @return the list of upcoming stops
+    */
+    inline const std::list<MSStop>& getStops() const {
+        return myStops;
+    }
+
+    inline const std::vector<SUMOVehicleParameter::Stop>& getPastStops() const {
+        return myPastStops;
+    }
+
+    /**
+    * resumes a vehicle from stopping
+    * @return true on success, the resuming fails if the vehicle wasn't parking in the first place
+    */
+    virtual bool resumeFromStopping() {
+        return false;
+    }
+
+    /// @brief deletes the next stop at the given index if it exists
+    bool abortNextStop(int nextStopIndex = 0);
 
     /// @brief whether this vehicle is selected in the GUI
     virtual bool isSelected() const {
@@ -694,10 +755,6 @@ protected:
      */
     void calculateArrivalParams();
 
-    /** @brief Returns the list of still pending stop edges
-     */
-    virtual const ConstMSEdgeVector getStopEdges(double& firstPos, double& lastPos) const = 0;
-
 protected:
     /// @brief This vehicle's parameter.
     const SUMOVehicleParameter* myParameter;
@@ -713,6 +770,12 @@ protected:
 
     /// @brief A precomputed factor by which the driver wants to be faster than the speed limit
     double myChosenSpeedFactor;
+
+    /// @brief The vehicle's list of stops
+    std::list<MSStop> myStops;
+
+    /// @brief The list of stops that the vehicle has already reached
+    std::vector<SUMOVehicleParameter::Stop> myPastStops;
 
 
     /// @name Move reminder structures

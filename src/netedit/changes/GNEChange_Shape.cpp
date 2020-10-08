@@ -20,7 +20,6 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/additional/GNEShape.h>
 
 #include "GNEChange_Shape.h"
 

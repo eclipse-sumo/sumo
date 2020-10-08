@@ -20,9 +20,6 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/frames/demand/GNEVehicleTypeFrame.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/GNEViewNet.h>

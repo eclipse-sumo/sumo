@@ -52,8 +52,9 @@ NIXMLPTHandler::NIXMLPTHandler(NBEdgeCont& ec, NBPTStopCont& sc, NBPTLineCont& l
     myEdgeCont(ec),
     myStopCont(sc),
     myLineCont(lc),
-    myCurrentLine(nullptr) {
-}
+    myCurrentLine(nullptr),
+    myCurrentStopWasIgnored(false)
+{ }
 
 
 NIXMLPTHandler::~NIXMLPTHandler() {}
@@ -113,6 +114,7 @@ NIXMLPTHandler::myEndElement(int element) {
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
             myCurrentStop = nullptr;
+            myCurrentStopWasIgnored = false;
             break;
         case SUMO_TAG_PT_LINE:
         case SUMO_TAG_FLOW:
@@ -145,6 +147,8 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
     if (edge == nullptr) {
         if (!myEdgeCont.wasIgnored(edgeID)) {
             WRITE_ERROR("Edge '" + edgeID + "' for stop '" + id + "' not found");
+        } else {
+            myCurrentStopWasIgnored = true;
         }
         return;
     }
@@ -169,7 +173,11 @@ NIXMLPTHandler::addPTStop(const SUMOSAXAttributes& attrs) {
 void
 NIXMLPTHandler::addAccess(const SUMOSAXAttributes& attrs) {
     if (myCurrentStop == nullptr) {
-        throw InvalidArgument("Could not add access outside a stopping place.");
+        if (myCurrentStopWasIgnored) {
+            return;
+        } else {
+            throw InvalidArgument("Could not add access outside a stopping place.");
+        }
     }
     bool ok = true;
     const std::string lane = attrs.get<std::string>(SUMO_ATTR_LANE, "access", ok);

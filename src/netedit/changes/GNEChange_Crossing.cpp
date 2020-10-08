@@ -21,7 +21,6 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/elements/network/GNECrossing.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <netbuild/NBNetBuilder.h>
 
 #include "GNEChange_Crossing.h"

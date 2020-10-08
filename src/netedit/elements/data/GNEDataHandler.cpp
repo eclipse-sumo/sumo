@@ -180,14 +180,18 @@ GNEDataHandler::HierarchyInsertedDatas::getLastInsertedGenericData() const {
 GNEDataHandler::GNEDataHandler(const std::string& file, GNENet* net) :
     SUMOSAXHandler(file),
     myNet(net) {
+    /* currently disabled
     // create loadDialog
     myLoadDialog = new GNEDataLoadDialog(net->getViewNet());
+    */
 }
 
 
 GNEDataHandler::~GNEDataHandler() {
+    /* currently disabled
     // delete loadDialog
     delete myLoadDialog;
+    */
 }
 
 
@@ -206,8 +210,10 @@ GNEDataHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
         myHierarchyInsertedGenericDatas.insertElement(tag);
         // build data
         buildData(myNet, true, tag, attrs, &myHierarchyInsertedGenericDatas);
+        /* currently disabled
         // increase load dialog
         myLoadDialog->increase();
+        */
     }
 }
 

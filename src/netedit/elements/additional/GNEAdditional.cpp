@@ -25,7 +25,6 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
-#include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEAdditional.h"

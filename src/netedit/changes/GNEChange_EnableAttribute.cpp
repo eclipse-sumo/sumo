@@ -20,7 +20,6 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/elements/network/GNENetworkElement.h>
 
 #include "GNEChange_EnableAttribute.h"
 

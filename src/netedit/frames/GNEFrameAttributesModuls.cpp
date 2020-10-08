@@ -25,13 +25,10 @@
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/dialogs/GNEAllowDisallow.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
-#include <netedit/elements/network/GNELane.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/vehicle/SUMOVehicleParameter.h>
 
 #include "GNEFrame.h"
 #include "GNEFrameAttributesModuls.h"
@@ -1437,14 +1434,25 @@ GNEFrameAttributesModuls::AttributesEditorRow::onCmdSetAttribute(FXObject*, FXSe
 
 long
 GNEFrameAttributesModuls::AttributesEditorRow::onCmdSelectCheckButton(FXObject*, FXSelector, void*) {
+    // obtain undoList (To improve code legibly)
+    GNEUndoList* undoList = myAttributesEditorParent->getFrameParent()->myViewNet->getUndoList();
+    // check if we have to enable or disable
     if (myAttributeCheckButton->getCheck()) {
         // enable input values
         myValueCheckButton->enable();
         myValueTextField->enable();
+        // enable attribute
+        undoList->p_begin("enable attribute '" + myACAttr.getAttrStr() + "'");
+        myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->enableAttribute(myACAttr.getAttr(), undoList);
+        undoList->p_end();
     } else {
         // disable input values
         myValueCheckButton->disable();
         myValueTextField->disable();
+        // disable attribute
+        undoList->p_begin("disable attribute '" + myACAttr.getAttrStr() + "'");
+        myAttributesEditorParent->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->disableAttribute(myACAttr.getAttr(), undoList);
+        undoList->p_end();
     }
     return 0;
 }
@@ -2177,35 +2185,38 @@ GNEFrameAttributesModuls::ParametersEditor::hideParametersEditor() {
 
 void
 GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
+    GNEAttributeCarrier *frontAC = myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0? myFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
     // update text field depending of AC
-    if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-        myTextFieldParameters->setText(myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS).c_str());
-        myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
-        // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-        if (isSupermodeValid(myFrameParent->myViewNet, myFrameParent->getViewNet()->getInspectedAttributeCarriers().front())) {
-            myTextFieldParameters->enable();
-            myButtonEditParameters->enable();
-        } else {
-            myTextFieldParameters->disable();
-            myButtonEditParameters->disable();
-        }
-    } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-        // check if parameters of all inspected ACs are different
-        std::string parameters = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
-        for (auto i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-            if (parameters != i->getAttribute(GNE_ATTR_PARAMETERS)) {
-                parameters = "different parameters";
+    if (frontAC && frontAC->getTagProperty().hasParameters()) {
+        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            myTextFieldParameters->setText(frontAC->getAttribute(GNE_ATTR_PARAMETERS).c_str());
+            myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+            // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+            if (isSupermodeValid(myFrameParent->myViewNet, frontAC)) {
+                myTextFieldParameters->enable();
+                myButtonEditParameters->enable();
+            } else {
+                myTextFieldParameters->disable();
+                myButtonEditParameters->disable();
             }
-        }
-        myTextFieldParameters->setText(parameters.c_str());
-        myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
-        // disable myTextFieldParameters if we're in demand mode and inspected AC isn't a demand element (or viceversa)
-        if (isSupermodeValid(myFrameParent->myViewNet, myFrameParent->getViewNet()->getInspectedAttributeCarriers().front())) {
-            myTextFieldParameters->enable();
-            myButtonEditParameters->enable();
-        } else {
-            myTextFieldParameters->disable();
-            myButtonEditParameters->disable();
+        } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+            // check if parameters of all inspected ACs are different
+            std::string parameters = frontAC->getAttribute(GNE_ATTR_PARAMETERS);
+            for (const auto &AC : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
+                if (parameters != AC->getAttribute(GNE_ATTR_PARAMETERS)) {
+                    parameters = "different parameters";
+                }
+            }
+            myTextFieldParameters->setText(parameters.c_str());
+            myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+            // disable myTextFieldParameters if we're in demand mode and inspected AC isn't a demand element (or viceversa)
+            if (isSupermodeValid(myFrameParent->myViewNet, frontAC)) {
+                myTextFieldParameters->enable();
+                myButtonEditParameters->enable();
+            } else {
+                myTextFieldParameters->disable();
+                myButtonEditParameters->disable();
+            }
         }
     }
 }

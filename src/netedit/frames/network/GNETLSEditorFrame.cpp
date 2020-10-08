@@ -22,15 +22,11 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netbuild/NBLoadedSUMOTLDef.h>
-#include <netbuild/NBOwnTLDef.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netimport/NIXMLTrafficLightsHandler.h>
 #include <netedit/changes/GNEChange_TLS.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
-#include <netedit/elements/network/GNEJunction.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/elements/network/GNEInternalLane.h>
 #include <utils/options/OptionsCont.h>

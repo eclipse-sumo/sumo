@@ -535,6 +535,21 @@ GNEViewNet::buildColorRainbow(const GUIVisualizationSettings& s, GUIColorScheme&
             }
         }
     }
+    if (scheme.getName() == GUIVisualizationSettings::SCHEME_NAME_PERMISSION_CODE) {
+        scheme.clear();
+        // add threshold for every distinct value
+        std::set<SVCPermissions> codes;
+        for (GNELane* lane : myNet->retrieveLanes()) {
+            codes.insert(lane->getParentEdge()->getNBEdge()->getPermissions(lane->getIndex()));
+        }
+        int step = MAX2(1, 360 / (int)codes.size());
+        int hue = 0;
+        for (SVCPermissions p : codes) {
+            scheme.addColor(RGBColor::fromHSV(hue, 1, 1), p);
+            hue = (hue + step) % 360;
+        }
+        return;
+    }
     if (minValue != std::numeric_limits<double>::infinity()) {
         scheme.clear();
         // add new thresholds
@@ -1614,7 +1629,22 @@ long
 GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != nullptr) {
-        edge->resetEndpoint(getPopupPosition(), myUndoList);
+        // check if edge is selected
+        if (edge->isAttributeCarrierSelected()){
+            // get all selected edges
+            const auto selectedEdges = myNet->retrieveEdges(true);
+            // begin operation
+            myUndoList->p_begin("reset geometry points");
+            // iterate over selected edges
+            for (const auto &selectedEdge : selectedEdges) {
+                // reset both end points
+                selectedEdge->resetBothEndpoint(myUndoList);
+            }
+            // end operation
+            myUndoList->p_end();
+        } else {
+            edge->resetEndpoint(getPopupPosition(), myUndoList);
+        }
     }
     return 1;
 }

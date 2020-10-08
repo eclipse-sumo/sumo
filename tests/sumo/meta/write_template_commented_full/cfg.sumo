@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 30 17:03:49 2020 by Eclipse SUMO sumo Version v1_7_0+0372-0e78adb662
+<!-- generated on Thu Oct  8 04:13:34 2020 by Eclipse SUMO sumo Version v1_7_0+0543-38a9bf14c0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -422,6 +422,9 @@
 
         <!-- When set, trips between the same origin and destination will share a taxi by default -->
         <persontrip.default.group value="" type="STR"/>
+
+        <!-- Estimated time for taxi pickup -->
+        <persontrip.taxi.waiting-time value="300" type="TIME"/>
 
         <!-- Use FLOAT as a maximum train length when initializing the railway router -->
         <railway.max-train-length value="5000" type="FLOAT"/>
@@ -965,9 +968,6 @@
 
         <!-- The aggregation period for value tracker windows -->
         <tracker-interval value="1" type="FLOAT"/>
-
-        <!-- Start with an OpenSceneGraph view instead of the regular 2D view -->
-        <osg-view value="false" type="BOOL"/>
 
         <!-- Enable ovelay for screen recognition -->
         <gui-testing value="false" type="BOOL"/>

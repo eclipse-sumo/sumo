@@ -228,6 +228,13 @@ traffic assignment zone.
 ### Routing between Junctions
 Trips and flows may use the attributes `fromJunction`, `toJunction`, and `viaJunctions` to describe origin, destination and intermediate locations. This is a special form of TAZ-routing and it must be enabled by either setting the SUMO option **--junction-taz** or by loading TAZ-definitions that use the respective junction IDs. When using option **--junction-taz**, all edges outgoing from a junction may be used at the origin and all edges incoming to a junction may be used to reach the intermediate and final junctions.
 
+### Implicit Origin and Destination from Stops
+If a trip or flow defines at least one stop as child element, the attributes 'from' and 'to' may be omitted.
+In this case the edge of the first stop will be used as the 'from'-edge and the edge of the last stop will be used as the 'to'-edge.
+
+!!! note
+    A good combination with an implicit origin is also setting the attribute `departPos="stop"` to make the vehicle start at the exact position of the first stop.
+
 ## A Vehicle's depart and arrival parameter
 
 Using the `depart...` and

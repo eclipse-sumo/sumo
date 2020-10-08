@@ -22,7 +22,6 @@
 
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBOwnTLDef.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/GNENet.h>
 
 #include "GNEChange_TLS.h"

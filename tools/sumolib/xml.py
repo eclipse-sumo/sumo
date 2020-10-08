@@ -380,19 +380,33 @@ def parse_fast_nested(xmlfile, element_name, attrnames, element_name2, attrnames
                     record = Record(*m.groups())
 
 
-def writeHeader(outf, script=None, root=None, schemaPath=None, extraRootAttrs=""):
-    script = os.path.basename(sys.argv[0]) + " " + version.gitDescribe()
+def writeHeader(outf, script=None, root=None, schemaPath=None, rootAttrs=""):
+    """
+    Writes an XML header with schema information and a comment on how the file has been generated
+    (script name, arguments and datetime). Please use this as first call whenever you open a
+    SUMO related XML file for writing from your script.
+    If script name is not given, it is determined from the command line call.
+    If root is not given, no root element is printed (and thus no schema).
+    If schemaPath is not given, it is derived from the root element.
+    If rootAttrs is given as a string, it can be used to add further attributes to the root element.
+    If rootAttrs is set to None, the schema related attributes are not printed.
+    """
+    if script is None:
+        script = os.path.basename(sys.argv[0])
     outf.write(u"""<?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on %s by %s
+<!-- generated on %s by %s %s
   options: %s
 -->
-""" % (datetime.datetime.now(), script,
+""" % (datetime.datetime.now(), script, version.gitDescribe(),
        (' '.join(sys.argv[1:]).replace('--', '<doubleminus>'))))
     if root is not None:
-        if schemaPath is None:
-            schemaPath = root + "_file.xsd"
-        outf.write((u'<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
-                    u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, extraRootAttrs, schemaPath))
+        if rootAttrs is None:
+            outf.write((u'<%s>\n') % root)
+        else:
+            if schemaPath is None:
+                schemaPath = root + "_file.xsd"
+            outf.write((u'<%s%s xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" ' +
+                        u'xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/%s">\n') % (root, rootAttrs, schemaPath))
 
 
 def quoteattr(val):

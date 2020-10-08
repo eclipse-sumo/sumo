@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 11 13:17:35 2019 by Eclipse SUMO duarouter Version v1_3_1+0234-c526b02
+<!-- generated on Thu Oct  8 10:55:25 2020 by Eclipse SUMO duarouter Version v1_7_0+0544-036d5ed53f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,8 +15,8 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
-        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
+        <write-license value="true"/>
         <alternatives-output value="routes.rou.alt.xml"/>
         <intermodal-network-output value="edges.xml"/>
         <intermodal-weight-output value="weights.xml"/>
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
     </report>
 
@@ -81,6 +82,22 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="left_car-1.00" traveltime="35.91" effort="0.00"/>
         <edge id="left2end_car-1.00" traveltime="17.96" effort="0.00"/>
         <edge id="rend_car-1.00" traveltime="17.99" effort="0.00"/>
+        <edge id="beg2left_depart_connector:beg2left_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left_depart_connector:beg2left_car-1.00:taxi" traveltime="300.00" effort="0.00"/>
+        <edge id="end_depart_connector:end_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="end_depart_connector:end_car-1.00:taxi" traveltime="300.00" effort="0.00"/>
+        <edge id="beg2left2_depart_connector:beg2left2_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg2left2_depart_connector:beg2left2_car-1.00:taxi" traveltime="300.00" effort="0.00"/>
+        <edge id="gneE0_depart_connector:gneE0_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="gneE0_depart_connector:gneE0_car-1.00:taxi" traveltime="300.00" effort="0.00"/>
+        <edge id="beg_depart_connector:beg_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="beg_depart_connector:beg_car-1.00:taxi" traveltime="300.00" effort="0.00"/>
+        <edge id="left_depart_connector:left_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="left_depart_connector:left_car-1.00:taxi" traveltime="300.00" effort="0.00"/>
+        <edge id="left2end_depart_connector:left2end_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="left2end_depart_connector:left2end_car-1.00:taxi" traveltime="300.00" effort="0.00"/>
+        <edge id="rend_depart_connector:rend_car-1.00" traveltime="0.00" effort="0.00"/>
+        <edge id="rend_depart_connector:rend_car-1.00:taxi" traveltime="300.00" effort="0.00"/>
         <edge id="beg2left" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_fwd250.00" traveltime="0.00" effort="0.00"/>
         <edge id="beg2left_fwd-1.00:beg2left" traveltime="0.00" effort="0.00"/>

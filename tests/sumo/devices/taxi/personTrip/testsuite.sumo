@@ -7,6 +7,9 @@ short
 # walk to the next road edge and use taxi to destination
 walk_first
 
+# walk the whole way because assumed taxi waitingtime is too high
+walk_first_longTaxiWait
+
 # take the taxi as far as possible and then walk
 walk_last
 
@@ -15,6 +18,9 @@ taxiflow
 
 # persontrip triggers taxi call
 pickup_ptStops
+
+# person prefers walking due to assumed waiting time
+pickup_ptStops_longTaxiWait
 
 # persontrip triggers taxi call
 dropoff_ptStops

@@ -21,18 +21,11 @@
 
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
-#include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/changes/GNEChange_DemandElement.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewParent.h>
-#include <netedit/GNEApplicationWindow.h>
 
 #include "GNERouteFrame.h"
 

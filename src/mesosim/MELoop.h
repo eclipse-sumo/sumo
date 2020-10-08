@@ -22,6 +22,7 @@
 
 #include <vector>
 #include <map>
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================

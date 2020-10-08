@@ -66,6 +66,7 @@
 #include "MSVehicleControl.h"
 #include "MSLeaderInfo.h"
 #include "MSVehicle.h"
+#include "MSStop.h"
 
 //#define DEBUG_INSERTION
 //#define DEBUG_PLAN_MOVE
@@ -702,7 +703,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
     // before looping through the continuation lanes, check if a stop is scheduled on this lane
     // (the code is duplicated in the loop)
     if (aVehicle->hasStops()) {
-        const MSVehicle::Stop& nextStop = aVehicle->getNextStop();
+        const MSStop& nextStop = aVehicle->getNextStop();
         if (nextStop.lane == this) {
             std::stringstream msg;
             msg << "scheduled stop on lane '" << myID << "' too close";
@@ -801,7 +802,7 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             // check if there are stops on the next lane that should be regarded
             // (this block is duplicated before the loop to deal with the insertion lane)
             if (aVehicle->hasStops()) {
-                const MSVehicle::Stop& nextStop = aVehicle->getNextStop();
+                const MSStop& nextStop = aVehicle->getNextStop();
                 if (nextStop.lane == nextLane) {
                     std::stringstream msg;
                     msg << "scheduled stop on lane '" << nextStop.lane->getID() << "' too close";

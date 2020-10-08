@@ -43,7 +43,11 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <busStop id="busStop_3o_0_1" lane="3o_0" startPos="123.29" endPos="133.29"/>
-    <busStop id="busStop_3si_0_0" lane="3si_0" startPos="121.56" endPos="131.56"/>
-    <busStop id="busStop_4o_0_2" lane="4o_0" startPos="190.00" endPos="200.00"/>
+    <busStop id="busStop_3si_0_0" lane="3si_0" startPos="121.56" endPos="131.56">
+        <access lane="3o_0" pos="100" length="20"/>
+    </busStop>
+    <busStop id="busStop_4o_0_2" lane="4o_0" startPos="190.00" endPos="200.00">
+        <access lane="3o_0" pos="100" length="20"/>
+    </busStop>
     <busStop id="busStop_4si_0_3" lane="4si_0" startPos="54.69" endPos="64.69"/>
 </additional>

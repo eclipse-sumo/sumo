@@ -19,10 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/GNENet.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEUndoList.h>
-#include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 
 #include "GNENetworkElement.h"

@@ -19,17 +19,12 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/common/MsgHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GLHelper.h>
-#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/xml/SUMOSAXAttributesImpl_Cached.h>
-#include <netedit/elements/network/GNEEdge.h>
-#include <netedit/elements/network/GNELane.h>
 #include <netedit/elements/network/GNEConnection.h>
-#include <netedit/elements/additional/GNEAdditional.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>

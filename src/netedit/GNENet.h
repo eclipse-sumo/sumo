@@ -710,6 +710,19 @@ public:
 
     /// @}
 
+    /// @name Functions related to Enable or disable update data of elements after insertio
+    /// @{
+    /// @brief enable update data elements after inserting or removing an element in net
+    void enableUpdateData();
+
+    /// @brief disable update data elements after inserting or removing an element in net
+    void disableUpdateData();
+
+    /// @brief check if update data after inserting or removing has to be updated
+    bool isUpdateDataEnabled() const;
+
+    /// @}
+
 protected:
     /// @brief the rtree which contains all GUIGlObjects (so named for historical reasons)
     SUMORTree myGrid;
@@ -755,6 +768,9 @@ protected:
 
     /// @brief Flag to enable or disable update geometry of elements after inserting or removing element in net
     bool myUpdateGeometryEnabled;
+
+    /// @brief Flag to enable or disable update data elements after inserting or removing element in net
+    bool myUpdateDataEnabled;
 
 private:
     /// @brief Init Junctions and edges

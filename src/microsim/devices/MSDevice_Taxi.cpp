@@ -30,6 +30,7 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/MSVehicle.h>
 #include <microsim/MSEdge.h>
+#include <microsim/MSStop.h>
 
 #include "MSDispatch.h"
 #include "MSDispatch_Greedy.h"
@@ -42,6 +43,8 @@
 #include "MSRoutingEngine.h"
 #include "MSDevice_Taxi.h"
 
+//#define DEBUG_DISPATCH
+
 // ===========================================================================
 // static member variables
 // ===========================================================================
@@ -52,6 +55,7 @@ MSDispatch* MSDevice_Taxi::myDispatcher(nullptr);
 Command* MSDevice_Taxi::myDispatchCommand(nullptr);
 // @brief the list of available taxis
 std::vector<MSDevice_Taxi*> MSDevice_Taxi::myFleet;
+int MSDevice_Taxi::myMaxCapacity(0);
 
 #define TAXI_SERVICE "taxi"
 
@@ -106,6 +110,11 @@ MSDevice_Taxi::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>
         if (v.getVClass() != SVC_TAXI) {
             WRITE_WARNING("Vehicle '" + v.getID() + "' with device.taxi should have vClass taxi instead of '" + toString(v.getVClass()) + "'.");
         }
+        const int personCapacity = v.getVehicleType().getPersonCapacity();
+        myMaxCapacity = MAX2(myMaxCapacity, personCapacity);
+        if (personCapacity < 1) {
+            WRITE_WARNINGF("Vehicle '%' with personCapacity % is not usable as taxi.", v.getID(), toString(personCapacity));
+        }
     }
 }
 
@@ -150,7 +159,7 @@ MSDevice_Taxi::addReservation(MSTransportable* person,
         if (myDispatchCommand == nullptr) {
             initDispatch();
         }
-        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group);
+        myDispatcher->addReservation(person, reservationTime, pickupTime, from, fromPos, to, toPos, group, myMaxCapacity);
     }
 }
 
@@ -206,6 +215,11 @@ MSDevice_Taxi::MSDevice_Taxi(SUMOVehicle& holder, const std::string& id) :
 
 MSDevice_Taxi::~MSDevice_Taxi() {
     myFleet.erase(std::find(myFleet.begin(), myFleet.end(), this));
+    // recompute myMaxCapacity
+    myMaxCapacity = 0;
+    for (MSDevice_Taxi* taxi : myFleet) {
+        myMaxCapacity = MAX2(myMaxCapacity, taxi->getHolder().getVehicleType().getPersonCapacity());
+    }
 }
 
 
@@ -227,6 +241,14 @@ MSDevice_Taxi::dispatch(const Reservation& res) {
 
 void
 MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservations) {
+#ifdef DEBUG_DISPATCH
+    if (true) {
+        std::cout << SIMTIME << " taxi=" << myHolder.getID() << " dispatch:\n";
+        for (const Reservation* res : reservations) {
+            std::cout << "   persons=" << toString(res->persons) << "\n";
+        }
+    }
+#endif
     if (isEmpty()) {
         const SUMOTime t = MSNet::getInstance()->getCurrentTimeStep();
         myHolder.abortNextStop();

@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/elements/demand/GNEDemandElement.h>
 #include <netedit/GNENet.h>
 
 #include "GNEChange_Children.h"

@@ -19,7 +19,6 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netedit/elements/network/GNEEdge.h>
 #include <netedit/GNENet.h>
 
 #include "GNEChange_Connection.h"

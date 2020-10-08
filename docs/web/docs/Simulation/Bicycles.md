@@ -35,8 +35,6 @@ different cyclist types can be modelled.
 
 ### Problems and workarounds
 
-- Turning left by crossing twice does not work. Extra edges need to be
-  added to accommodate these trajectories.
 - No bi-directional movements on bicycle lanes
 - No shared space for bicycles and pedestrians by default. This can be fixed by using the [Sublane Model](../Simulation/SublaneModel.md) and defining lanes that allow bicycles and pedestrians.
 - No overtaking by vehicles on a single-lane road. This can be fixed
@@ -134,9 +132,16 @@ right-of-way rules and builds internal junctions where appropriate.
 
 Likewise, left-turning bicycles one a bicycle lane (on the right side of
 the road) must yield to straight-going vehicles.
+    
+## Indirect left turn
+In reality, left-turning bicycles may move in two stages
+1. move straight across
+2. turn 90° left and then move straight across
 
-!!! caution
-    The trajectories of left-turning bicycles use a wide curve rather than going straight twice. Currently, this can only be remedied by setting [custom shapes for these internal lanes](../Networks/PlainXML.md#custom_shapes_for_internal_lanes_crossings_and_walkingareas).
+By default, [netconvert](../netconvert.md) generates a wide curve rather than going straight twice as above. Currently, this can only be remedied by setting [custom shapes for these internal lanes](../netedit.md#connection). To adjust the waiting position of the bicycle (the point where the first stage ends), [connection attribute 'contPos' must be set](../netedit.md#setting_connection_attributes).
+
+To define a controlled in direct turn where both stages respect the traffic light corresponding to the current movement direction another custom setting is needed. The first part of the left-turn connection will be controlled automatically by the traffic ligh according to the 'linkIndex' attribute of the connection.
+The second part can be controlled by [setting the optional attribute 'linkIndex2'](../netedit.md#setting_connection_attributes). The easiest setup is to copy the linkIndex that controlls the movement of vehicles (or pedestrians) going straight from right to left.
     
 # Bicycle routing
 

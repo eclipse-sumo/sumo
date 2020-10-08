@@ -26,9 +26,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <netedit/changes/GNEChange_Lane.h>
-#include <netedit/elements/additional/GNEDetectorE2.h>
 #include <netedit/elements/additional/GNERouteProbe.h>
-#include <netedit/elements/data/GNEGenericData.h>
 #include <netedit/elements/demand/GNERoute.h>
 #include <netedit/frames/common/GNEDeleteFrame.h>
 #include <utils/gui/div/GLHelper.h>
@@ -37,8 +35,6 @@
 
 #include "GNEConnection.h"
 #include "GNECrossing.h"
-#include "GNEJunction.h"
-#include "GNELane.h"
 #include "GNEEdge.h"
 
 //#define DEBUG_SMOOTH_GEOM
@@ -476,6 +472,16 @@ GNEEdge::resetEndpoint(const Position& pos, GNEUndoList* undoList) {
     }
 }
 
+
+void
+GNEEdge::resetBothEndpoint(GNEUndoList* undoList) {
+    // reset shape start
+    setAttribute(GNE_ATTR_SHAPE_END, "", undoList);
+    getParentJunctions().back()->invalidateShape();
+    // reset shape end
+    setAttribute(GNE_ATTR_SHAPE_START, "", undoList);
+    getParentJunctions().front()->invalidateShape();
+}
 
 void
 GNEEdge::setGeometry(PositionVector geom, bool inner) {

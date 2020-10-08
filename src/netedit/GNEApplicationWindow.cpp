@@ -688,6 +688,10 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         // udpate current folder
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
+        // disable interval bar update
+        myViewNet->getIntervalBar().disableIntervalBarUpdate();
+        // disable update data
+        myViewNet->getNet()->disableUpdateData();
         // disable validation for additionals
         XMLSubSys::setValidation("never", "auto", "auto");
         // Create additional handler
@@ -698,11 +702,16 @@ GNEApplicationWindow::onCmdOpenDataElements(FXObject*, FXSelector, void*) {
         if (!XMLSubSys::runParser(dataHandler, file, false)) {
             WRITE_ERROR("Loading of " + file + " failed.");
         }
-        // end undoList operation and update view
-        myUndoList->p_end();
-        update();
         // restore validation for data
         XMLSubSys::setValidation("auto", "auto", "auto");
+        // end undoList operation and update view
+        myUndoList->p_end();
+        // enable update data
+        myViewNet->getNet()->enableUpdateData();
+        // enable interval bar update
+        myViewNet->getIntervalBar().enableIntervalBarUpdate();
+        // update 
+        update();
     } else {
         // write debug information
         WRITE_DEBUG("Cancel data element dialog");
@@ -959,10 +968,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
     if (oc.isSet("data-files") && !oc.getString("data-files").empty() && myNet) {
         // obtain vector of data files
         std::vector<std::string> dataElementsFiles = oc.getStringVector("data-files");
-        // begin undolist
-        myUndoList->p_begin("Loading data elements from '" + toString(dataElementsFiles) + "'");
         // disable interval bar update
         myViewNet->getIntervalBar().disableIntervalBarUpdate();
+        // disable update data
+        myViewNet->getNet()->disableUpdateData();
+        // begin undolist
+        myUndoList->p_begin("Loading data elements from '" + toString(dataElementsFiles) + "'");
         // iterate over every data file
         for (const auto& dataElementsFile : dataElementsFiles) {
             WRITE_MESSAGE("Loading data elements from '" + dataElementsFile + "'");
@@ -975,9 +986,12 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             // disable validation for data elements
             XMLSubSys::setValidation("auto", "auto", "auto");
         }
+        // end undolist
+        myUndoList->p_end();
+        // enable update data
+        myViewNet->getNet()->enableUpdateData();
         // enable interval bar update
         myViewNet->getIntervalBar().enableIntervalBarUpdate();
-        myUndoList->p_end();
     }
     // check if additionals output must be changed
     if (oc.isSet("additionals-output")) {
