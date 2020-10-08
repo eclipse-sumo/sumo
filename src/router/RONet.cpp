@@ -723,13 +723,13 @@ RONet::adaptIntermodalRouter(ROIntermodalRouter& router) {
     double taxiWait = STEPS2TIME(string2time(OptionsCont::getOptions().getString("persontrip.taxi.waiting-time")));
     // add access to all parking areas
     for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_PARKING_AREA]) {
-        router.getNetwork()->addAccess(i.first, myInstance->getEdgeForLaneID(i.second->lane), (i.second->startPos + i.second->endPos) / 2., 0., SUMO_TAG_PARKING_AREA, taxiWait);
+        router.getNetwork()->addAccess(i.first, myInstance->getEdgeForLaneID(i.second->lane), (i.second->startPos + i.second->endPos) / 2., 0., SUMO_TAG_PARKING_AREA, false, taxiWait);
     }
     // add access to all public transport stops
     for (const auto& stop : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
-        router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2., 0., SUMO_TAG_BUS_STOP, taxiWait);
+        router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(stop.second->lane), (stop.second->startPos + stop.second->endPos) / 2., 0., SUMO_TAG_BUS_STOP, false, taxiWait);
         for (const auto& a : stop.second->accessPos) {
-            router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(std::get<0>(a)), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, taxiWait);
+            router.getNetwork()->addAccess(stop.first, myInstance->getEdgeForLaneID(std::get<0>(a)), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, true, taxiWait);
         }
     }
     // fill the public transport router with pre-parsed public transport lines

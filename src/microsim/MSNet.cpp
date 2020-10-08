@@ -1263,16 +1263,16 @@ MSNet::adaptIntermodalRouter(MSIntermodalRouter& router) {
     // add access to all parking areas
     for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_PARKING_AREA]) {
         const MSEdge* const edge = &i.second->getLane().getEdge();
-        router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge), i.second->getAccessDistance(edge), SUMO_TAG_PARKING_AREA, taxiWait);
+        router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge), i.second->getAccessDistance(edge), SUMO_TAG_PARKING_AREA, false, taxiWait);
     }
     EffortCalculator* const external = router.getExternalEffort();
     // add access to all public transport stops
     for (const auto& i : myInstance->myStoppingPlaces[SUMO_TAG_BUS_STOP]) {
         const MSEdge* const edge = &i.second->getLane().getEdge();
         router.getNetwork()->addAccess(i.first, edge, i.second->getAccessPos(edge),
-                                       i.second->getAccessDistance(edge), SUMO_TAG_BUS_STOP, taxiWait);
+                                       i.second->getAccessDistance(edge), SUMO_TAG_BUS_STOP, false, taxiWait);
         for (const auto& a : i.second->getAllAccessPos()) {
-            router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, taxiWait);
+            router.getNetwork()->addAccess(i.first, &std::get<0>(a)->getEdge(), std::get<1>(a), std::get<2>(a), SUMO_TAG_BUS_STOP, true, taxiWait);
         }
         if (external != nullptr) {
             external->addStop(router.getNetwork()->getStopEdge(i.first)->getNumericalID(), *i.second);

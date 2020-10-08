@@ -519,8 +519,10 @@ public:
     * @param[in] stopEdge The edge on which the stop is located
     * @param[in] pos The relative position on the edge where the stop is located
     * @param[in] category The type of stop
+    * @param[in] isAccess Whether an <access> element is being connected
+    * @param[in] taxiWait Expected time to wait for a taxi
     */
-    void addAccess(const std::string& stopId, const E* stopEdge, const double pos, const double length, const SumoXMLTag category, double taxiWait) {
+    void addAccess(const std::string& stopId, const E* stopEdge, const double pos, const double length, const SumoXMLTag category, bool isAccess, double taxiWait) {
         assert(stopEdge != nullptr);
         const bool transferCarWalk = ((category == SUMO_TAG_PARKING_AREA && (myCarWalkTransfer & PARKING_AREAS) != 0) ||
                                       (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & PT_STOPS) != 0));
@@ -568,7 +570,7 @@ public:
                         }
                     }
                 }
-                if (carSplit != nullptr && transferWalkTaxi) {
+                if (carSplit != nullptr && transferWalkTaxi && !isAccess) {
                     _AccessEdge* access = new _AccessEdge(myNumericalID++, stopConn, carSplit, 0, SVC_TAXI, SVC_IGNORING, taxiWait);
                     addEdge(access);
                     stopConn->addSuccessor(access);
