@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_7_0+0372-0e78adb662
+Eclipse SUMO sumo Version v1_7_0+0543-38a9bf14c0
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -299,6 +299,7 @@ Routing Options:
   --persontrip.default.group STR       When set, trips between the same origin
                                         and destination will share a taxi by
                                         default
+  --persontrip.taxi.waiting-time TIME  Estimated time for taxi pickup
   --railway.max-train-length FLOAT     Use FLOAT as a maximum train length when
                                         initializing the railway router
   --device.rerouting.probability FLOAT  The probability for a vehicle to have a
@@ -676,8 +677,6 @@ GUI Only Options:
                                         position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                         windows
-  --osg-view                           Start with an OpenSceneGraph view
-                                        instead of the regular 2D view
   --gui-testing                        Enable ovelay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
