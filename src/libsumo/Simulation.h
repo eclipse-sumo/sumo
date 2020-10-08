@@ -22,7 +22,6 @@
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
-#include "Domain.h"
 
 
 // ===========================================================================
@@ -43,7 +42,7 @@ namespace LIBSUMO_NAMESPACE {
  * @class Simulation
  * @brief C++ TraCI client API implementation
  */
-class Simulation : public Domain<libsumo::CMD_GET_SIM_VARIABLE, libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_CONTEXT> {
+class Simulation {
 public:
 #ifdef LIBTRACI
     static std::pair<int, std::string> init(int port=8813, int numRetries=10, const std::string& host="localhost", const std::string& label="default");
@@ -158,6 +157,13 @@ public:
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 #endif
+
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
+    /// @brief invalidated standard constructor
+    Simulation() = delete;
 };
 
 

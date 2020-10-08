@@ -58,6 +58,13 @@
 
 namespace libsumo {
 // ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Simulation::mySubscriptionResults;
+ContextSubscriptionResults Simulation::myContextSubscriptionResults;
+
+
+// ===========================================================================
 // static member definitions
 // ===========================================================================
 void

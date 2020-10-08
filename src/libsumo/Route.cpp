@@ -33,6 +33,13 @@
 
 namespace libsumo {
 // ===========================================================================
+// static member initializations
+// ===========================================================================
+SubscriptionResults Route::mySubscriptionResults;
+ContextSubscriptionResults Route::myContextSubscriptionResults;
+
+
+// ===========================================================================
 // static member definitions
 // ===========================================================================
 std::vector<std::string>
@@ -66,6 +73,9 @@ Route::getParameter(const std::string& routeID, const std::string& param) {
 }
 
 
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Route)
+
+
 void
 Route::setParameter(const std::string& routeID, const std::string& key, const std::string& value) {
     MSRoute* r = const_cast<MSRoute*>(getRoute(routeID));
@@ -91,6 +101,9 @@ Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) 
         throw TraCIException("Could not add route.");
     }
 }
+
+
+LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Route, ROUTE)
 
 
 const MSRoute*

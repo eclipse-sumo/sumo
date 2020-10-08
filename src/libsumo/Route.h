@@ -24,7 +24,6 @@
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
-#include "Domain.h"
 
 
 // ===========================================================================
@@ -46,19 +45,19 @@ class VariableWrapper;
  * @brief C++ TraCI client API implementation
  */
 namespace LIBSUMO_NAMESPACE {
-class Route : public Domain<libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT> {
+class Route {
 public:
 
     static std::vector<std::string> getIDList();
     static int getIDCount();
     static std::vector<std::string> getEdges(const std::string& routeID);
     static std::string getParameter(const std::string& routeID, const std::string& param);
-    static const std::pair<std::string, std::string> getParameterWithKey(const std::string& objectID, const std::string& key) {
-        return std::make_pair(key, getParameter(objectID, key));
-    }
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
     static void add(const std::string& routeID, const std::vector<std::string>& edges);
     static void setParameter(const std::string& routeID, const std::string& param, const std::string& value); // not needed so far
+
+    LIBSUMO_SUBSCRIPTION_API
 
 #ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
@@ -68,6 +67,13 @@ public:
 private:
     static const MSRoute* getRoute(const std::string& id);
 #endif
+
+private:
+    static SubscriptionResults mySubscriptionResults;
+    static ContextSubscriptionResults myContextSubscriptionResults;
+
+    /// @brief invalidated standard constructor
+    Route() = delete;
 };
 
 
