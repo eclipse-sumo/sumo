@@ -137,8 +137,8 @@ class Builder(object):
 
         self.tmp = None
         if local:
-            now = data.get("testOutputDir",
-                           datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+            now = data.get("outputDir",
+                    datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
                     self.tmp = os.path.abspath(os.path.join(base, now))
@@ -452,6 +452,7 @@ class Builder(object):
 class OSMImporterWebSocket(WebSocket):
 
     local = False
+    outputDir = None
 
     def report(self, message):
         print(message)
@@ -466,6 +467,8 @@ class OSMImporterWebSocket(WebSocket):
         thread.start()
 
     def build(self, data):
+        if self.outputDir is not None:
+            data['outputDir'] = self.outputDir
         builder = Builder(data, self.local)
         builder.report = self.report
 
@@ -501,6 +504,8 @@ parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", he
 parser.add_argument("--test-output", default=None, dest="testOutputDir",
                     help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
                     "write output to the given directory.")
+parser.add_argument("-o" "--output", default=None, dest="outputDir",
+                    help="Write output to the given folder rather than creating a name based on the timestamp")
 parser.add_argument("--address", default="", help="Address for the Websocket.")
 parser.add_argument("--port", type=int, default=8010,
                     help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
@@ -508,6 +513,7 @@ parser.add_argument("--port", type=int, default=8010,
 if __name__ == "__main__":
     args = parser.parse_args()
     OSMImporterWebSocket.local = args.testOutputDir is not None or not args.remote
+    OSMImporterWebSocket.outputDir = args.outputDir
     if args.testOutputDir is not None:
         data = {u'duration': 900,
                 u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
@@ -520,7 +526,7 @@ if __name__ == "__main__":
                 u'leftHand': False,
                 u'decal': False,
                 u'carOnlyNetwork': False,
-                u'testOutputDir': args.testOutputDir,
+                u'outputDir': args.testOutputDir,
                 }
         builder = Builder(data, True)
         builder.build()
