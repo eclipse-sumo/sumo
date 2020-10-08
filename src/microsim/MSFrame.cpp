@@ -465,6 +465,9 @@ MSFrame::fillOptions() {
     oc.doRegister("persontrip.default.group", new Option_String());
     oc.addDescription("persontrip.default.group", "Routing", "When set, trips between the same origin and destination will share a taxi by default");
 
+    oc.doRegister("persontrip.taxi.waiting-time", new Option_String("300", "TIME"));
+    oc.addDescription("persontrip.taxi.waiting-time", "Routing", "Estimated time for taxi pickup");
+
     oc.doRegister("railway.max-train-length", new Option_Float(5000.0));
     oc.addDescription("railway.max-train-length", "Routing", "Use FLOAT as a maximum train length when initializing the railway router");
 
