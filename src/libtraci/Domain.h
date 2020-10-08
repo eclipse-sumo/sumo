@@ -115,7 +115,7 @@ public:
     }
 
     static libsumo::TraCIStage getTraCIStage(int var, const std::string& id, tcpip::Storage* add=nullptr) {
-        return libtraci::Connection::getActive().createCommand(GET, var, id, add);
+        return libtraci::Connection::getActive().getTraCIStage(GET, var, id, add);
     }
 
     static void setInt(int var, const std::string& id, int value) {
