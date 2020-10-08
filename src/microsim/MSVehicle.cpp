@@ -6450,7 +6450,7 @@ MSVehicle::loadPreviousApproaching(MSLink* link, bool setRequest,
                                    SUMOTime arrivalTimeBraking, double arrivalSpeedBraking,
                                    double dist, double leaveSpeed) {
     // ensure that approach information is reset on the next call to setApproachingForAllLinks
-    myLFLinkLanes.push_back(DriveProcessItem(link, -1, -1, setRequest,
+    myLFLinkLanes.push_back(DriveProcessItem(link, 0, 0, setRequest,
                             arrivalTime, arrivalSpeed, arrivalTimeBraking, arrivalSpeedBraking, dist, leaveSpeed));
 
 }
