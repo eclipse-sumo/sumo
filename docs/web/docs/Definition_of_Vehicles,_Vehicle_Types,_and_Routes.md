@@ -770,10 +770,10 @@ model as in [{{SUMO}}/src/microsim/cfmodels/MSCFModel_Krauss.cpp]({{Source}}src/
   without violating safety (the original model allowed for collisions
   in this case)
 - The formula for safe velocity was adapted to maintain safety when
-  using the *Euler*-position update rule. This was done by
+  using the *Ballistic*-position update rule. This was done by
   discretizing some of the continuous terms. The original model was
-  defined for the *Ballistic*-position updated rule and would produce
-  collisions when using *Euler*. See also
+  defined for the *Euler*-position updated rule and would produce
+  collisions when using *Ballistic*. See also
   [Simulation/Basic_Definition\#Defining_the_Integration_Method](Simulation/Basic_Definition.md#defining_the_integration_method).
 
 ## Lane-Changing Models
