@@ -22,11 +22,16 @@
 #include <cstdlib>
 
 #define LIBTRACI 1
-#include <libsumo/Simulation.h>
 #include "Connection.h"
+#include "Domain.h"
+#include <libsumo/Simulation.h>
 
 
 namespace libtraci {
+
+typedef Domain<libsumo::CMD_GET_SIM_VARIABLE, libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_CONTEXT> Dom;
+
+
 // ===========================================================================
 // static member definitions
 // ===========================================================================
@@ -123,179 +128,179 @@ Simulation::getVersion() {
 
 int
 Simulation::getCurrentTime() {
-    return getInt(libsumo::VAR_TIME_STEP, "");
+    return Dom::getInt(libsumo::VAR_TIME_STEP, "");
 }
 
 
 double
 Simulation::getTime() {
-    return getDouble(libsumo::VAR_TIME, "");
+    return Dom::getDouble(libsumo::VAR_TIME, "");
 }
 
 
 int
 Simulation::getLoadedNumber() {
-    return getInt(libsumo::VAR_LOADED_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_LOADED_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getLoadedIDList() {
-    return getStringVector(libsumo::VAR_LOADED_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_LOADED_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getDepartedNumber() {
-    return getInt(libsumo::VAR_DEPARTED_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_DEPARTED_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getDepartedIDList() {
-    return getStringVector(libsumo::VAR_DEPARTED_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_DEPARTED_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getArrivedNumber() {
-    return getInt(libsumo::VAR_ARRIVED_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_ARRIVED_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getArrivedIDList() {
-    return getStringVector(libsumo::VAR_ARRIVED_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_ARRIVED_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getParkingStartingVehiclesNumber() {
-    return getInt(libsumo::VAR_PARKING_STARTING_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_PARKING_STARTING_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getParkingStartingVehiclesIDList() {
-    return getStringVector(libsumo::VAR_PARKING_STARTING_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_PARKING_STARTING_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getParkingEndingVehiclesNumber() {
-    return getInt(libsumo::VAR_PARKING_ENDING_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_PARKING_ENDING_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getParkingEndingVehiclesIDList() {
-    return getStringVector(libsumo::VAR_PARKING_ENDING_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_PARKING_ENDING_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getStopStartingVehiclesNumber() {
-    return getInt(libsumo::VAR_STOP_STARTING_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_STOP_STARTING_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getStopStartingVehiclesIDList() {
-    return getStringVector(libsumo::VAR_STOP_STARTING_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_STOP_STARTING_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getStopEndingVehiclesNumber() {
-    return getInt(libsumo::VAR_STOP_ENDING_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_STOP_ENDING_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getStopEndingVehiclesIDList() {
-    return getStringVector(libsumo::VAR_STOP_ENDING_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_STOP_ENDING_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getCollidingVehiclesNumber() {
-    return getInt(libsumo::VAR_COLLIDING_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_COLLIDING_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getCollidingVehiclesIDList() {
-    return getStringVector(libsumo::VAR_COLLIDING_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_COLLIDING_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getEmergencyStoppingVehiclesNumber() {
-    return getInt(libsumo::VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_EMERGENCYSTOPPING_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getEmergencyStoppingVehiclesIDList() {
-    return getStringVector(libsumo::VAR_EMERGENCYSTOPPING_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_EMERGENCYSTOPPING_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getStartingTeleportNumber() {
-    return getInt(libsumo::VAR_TELEPORT_STARTING_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_TELEPORT_STARTING_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getStartingTeleportIDList() {
-    return getStringVector(libsumo::VAR_TELEPORT_STARTING_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_TELEPORT_STARTING_VEHICLES_IDS, "");
 }
 
 
 int
 Simulation::getEndingTeleportNumber() {
-    return getInt(libsumo::VAR_TELEPORT_ENDING_VEHICLES_NUMBER, "");
+    return Dom::getInt(libsumo::VAR_TELEPORT_ENDING_VEHICLES_NUMBER, "");
 }
 
 
 std::vector<std::string>
 Simulation::getEndingTeleportIDList() {
-    return getStringVector(libsumo::VAR_TELEPORT_ENDING_VEHICLES_IDS, "");
+    return Dom::getStringVector(libsumo::VAR_TELEPORT_ENDING_VEHICLES_IDS, "");
 }
 
 
 std::vector<std::string>
 Simulation::getBusStopIDList() {
-    return getStringVector(libsumo::VAR_BUS_STOP_ID_LIST, "");
+    return Dom::getStringVector(libsumo::VAR_BUS_STOP_ID_LIST, "");
 }
 
 int
 Simulation::getBusStopWaiting(const std::string& stopID) {
-    return getInt(libsumo::VAR_BUS_STOP_WAITING, stopID);
+    return Dom::getInt(libsumo::VAR_BUS_STOP_WAITING, stopID);
 }
 
 std::vector<std::string>
 Simulation::getBusStopWaitingIDList(const std::string& stopID) {
-    return getStringVector(libsumo::VAR_BUS_STOP_WAITING_IDS, stopID);
+    return Dom::getStringVector(libsumo::VAR_BUS_STOP_WAITING_IDS, stopID);
 }
 
 
 double
 Simulation::getDeltaT() {
-    return getDouble(libsumo::VAR_DELTA_T, "");
+    return Dom::getDouble(libsumo::VAR_DELTA_T, "");
 }
 
 
 libsumo::TraCIPositionVector
 Simulation::getNetBoundary() {
-    return getPolygon(libsumo::VAR_NET_BOUNDING_BOX, "");
+    return Dom::getPolygon(libsumo::VAR_NET_BOUNDING_BOX, "");
 }
 
 
 int
 Simulation::getMinExpectedNumber() {
-    return getInt(libsumo::VAR_MIN_EXPECTED_VEHICLES, "");
+    return Dom::getInt(libsumo::VAR_MIN_EXPECTED_VEHICLES, "");
 }
 
 /*
@@ -352,24 +357,24 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Simulation)
 
 void
 Simulation::clearPending(const std::string& routeID) {
-    setString(libsumo::CMD_CLEAR_PENDING_VEHICLES, "", routeID);
+    Dom::setString(libsumo::CMD_CLEAR_PENDING_VEHICLES, "", routeID);
 }
 
 
 void
 Simulation::saveState(const std::string& fileName) {
-    setString(libsumo::CMD_SAVE_SIMSTATE, "", fileName);
+    Dom::setString(libsumo::CMD_SAVE_SIMSTATE, "", fileName);
 }
 
 double
 Simulation::loadState(const std::string& fileName) {
-    setString(libsumo::CMD_LOAD_SIMSTATE, "", fileName);
+    Dom::setString(libsumo::CMD_LOAD_SIMSTATE, "", fileName);
     return 0.;
 }
 
 void
 Simulation::writeMessage(const std::string& msg) {
-    setString(libsumo::CMD_MESSAGE, "", msg);
+    Dom::setString(libsumo::CMD_MESSAGE, "", msg);
 }
 
 

@@ -54,7 +54,7 @@ VariableSpeedSign::getIDCount() {
 }
 
 std::vector<std::string>
-VariableSpeedSign::getLaneIDs(const std::string& vssID) {
+VariableSpeedSign::getLanes(const std::string& vssID) {
     std::vector<std::string> result;
     MSLaneSpeedTrigger* vss = getVariableSpeedSign(vssID);
     for (MSLane* lane : vss->getLanes()) {
@@ -105,7 +105,7 @@ VariableSpeedSign::handleVariable(const std::string& objID, const int variable, 
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
         case VAR_LANES:
-            return wrapper->wrapStringList(objID, variable, getLaneIDs(objID));
+            return wrapper->wrapStringList(objID, variable, getLanes(objID));
         default:
             return false;
     }

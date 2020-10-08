@@ -57,9 +57,9 @@ public:
     static void add(const std::string& routeID, const std::vector<std::string>& edges);
     static void setParameter(const std::string& routeID, const std::string& param, const std::string& value); // not needed so far
 
+#ifndef LIBTRACI
     LIBSUMO_SUBSCRIPTION_API
 
-#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
@@ -69,8 +69,10 @@ private:
 #endif
 
 private:
+#ifndef LIBTRACI
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 
     /// @brief invalidated standard constructor
     Route() = delete;

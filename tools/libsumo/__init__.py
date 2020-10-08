@@ -17,10 +17,60 @@
 
 from functools import wraps
 import sys
+from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation
+from traci.connection import StepListener 
 from .libsumo import vehicle, simulation
 from .libsumo import *  # noqa
 
+_stepListeners = {}
+_nextStepListenerID = 0
+
 _traceFile = [None]
+
+def wrapAsClassMethod(func, module):
+    def wrapper(*args, **kwargs):
+        return func(module, *args, **kwargs)
+    return wrapper
+
+TraCIStage.__attr_repr__ = _simulation.Stage.__attr_repr__
+TraCIStage.__repr__ = _simulation.Stage.__repr__
+
+TraCINextStopData.__attr_repr__ = _vehicle.StopData.__attr_repr__
+TraCINextStopData.__repr__ = _vehicle.StopData.__repr__
+
+TraCIReservation.__attr_repr__ = _person.Reservation.__attr_repr__
+TraCIReservation.__repr__ = _person.Reservation.__repr__
+
+TraCILogic.getPhases = _trafficlight.Logic.getPhases
+TraCILogic.__repr__ = _trafficlight.Logic.__repr__
+
+TraCIPhase.__repr__ = _trafficlight.Phase.__repr__
+
+exceptions.TraCIException = TraCIException
+simulation.Stage = TraCIStage
+vehicle.StopData = TraCINextStopData
+person.Reservation = TraCIReservation
+trafficlight.Phase = TraCIPhase
+trafficlight.Logic = TraCILogic
+vehicle.addFull = vehicle.add
+vehicle.addLegacy = wrapAsClassMethod(_vehicle.VehicleDomain.addLegacy, vehicle)
+vehicle.couldChangeLane = wrapAsClassMethod(_vehicle.VehicleDomain.couldChangeLane, vehicle)
+vehicle.wantsAndCouldChangeLane = wrapAsClassMethod(_vehicle.VehicleDomain.wantsAndCouldChangeLane, vehicle)
+vehicle.isStopped = wrapAsClassMethod(_vehicle.VehicleDomain.isStopped, vehicle)
+vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
+vehicle.setParkingAreaStop = wrapAsClassMethod(_vehicle.VehicleDomain.setParkingAreaStop, vehicle)
+vehicle.getRightFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getRightFollowers, vehicle)
+vehicle.getRightLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getRightLeaders, vehicle)
+vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollowers, vehicle)
+vehicle.getLeftLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftLeaders, vehicle)
+vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getLaneChangeStatePretty, vehicle)
+vehicle._legacyGetLeader = True
+person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
+_trafficlight.TraCIException = TraCIException
+trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
+addStepListener = wrapAsClassMethod(connection.Connection.addStepListener, sys.modules[__name__])
+removeStepListener = wrapAsClassMethod(connection.Connection.removeStepListener, sys.modules[__name__])
+_manageStepListeners = wrapAsClassMethod(connection.Connection._manageStepListeners, sys.modules[__name__])
 
 
 def isLibsumo():
@@ -41,6 +91,17 @@ def load(args):
 
 def isLoaded():
     return simulation.isLoaded()
+
+
+def simulationStep(step=0):
+    simulation.step(step)
+    result = []
+    for domain in (edge, inductionloop, junction, lane, lanearea, multientryexit,
+                   person, poi, polygon, route, trafficlight, vehicle, vehicletype):
+        result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
+        result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
+    _manageStepListeners(step)
+    return result
 
 
 def getVersion():
@@ -81,15 +142,19 @@ def _startTracing(traceFile, cmd, traceGetters):
             junction,  # noqa
             lanearea,  # noqa
             lane,  # noqa
+            meandata,  # noqa
             multientryexit,  # noqa
             overheadwire,  # noqa
             parkingarea,  # noqa
             person,  # noqa
             poi,  # noqa
             polygon,  # noqa
+            rerouter,  # noqa
             route,  # noqa
+            routeprobe,  # noqa
             simulation,  # noqa
             trafficlight,  # noqa
+            variablespeedsign,  # noqa
             vehicle,  # noqa
             vehicletype,  # noqa
     ]:

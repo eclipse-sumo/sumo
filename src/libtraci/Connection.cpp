@@ -29,6 +29,7 @@ namespace libtraci {
 // static member initializations
 // ===========================================================================
 Connection* Connection::myActive = nullptr;
+std::map<const std::string, Connection> Connection::myConnections;
 
 
 // ===========================================================================

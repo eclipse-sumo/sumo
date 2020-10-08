@@ -30,26 +30,6 @@
 %rename(chargingstation) ChargingStation;
 %rename(overheadwire) OverheadWire;
 
-// adding dummy init and close for easier traci -> libsumo transfer
-%pythoncode %{
-import sys
-from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation
-from traci.connection import StepListener 
-
-def simulationStep(step=0):
-    simulation.step(step)
-    result = []
-    for domain in (edge, inductionloop, junction, lane, lanearea, multientryexit,
-                   person, poi, polygon, route, trafficlight, vehicle, vehicletype):
-        result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
-        result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
-    _manageStepListeners(step)
-    return result
-
-_stepListeners = {}
-_nextStepListenerID = 0
-%}
-
 /* There is currently no TraCIPosition used as input so this is only for future usage
 %typemap(in) const libsumo::TraCIPosition& (libsumo::TraCIPosition pos) {
     const Py_ssize_t size = PySequence_Size($input);
@@ -455,26 +435,26 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %template(TraCIStageVector) std::vector<libsumo::TraCIStage>;
 %template(TraCINextStopDataVector2) std::vector<libsumo::TraCINextStopData>;
 %template(TraCIReservationVector) std::vector<libsumo::TraCIReservation>;
-%include "../libsumo/Edge.h"
-%include "../libsumo/InductionLoop.h"
-%include "../libsumo/Junction.h"
-%include "../libsumo/LaneArea.h"
-%include "../libsumo/Lane.h"
-%include "../libsumo/MultiEntryExit.h"
-%include "../libsumo/POI.h"
-%include "../libsumo/Polygon.h"
+// %include "../libsumo/Edge.h"
+// %include "../libsumo/InductionLoop.h"
+// %include "../libsumo/Junction.h"
+// %include "../libsumo/LaneArea.h"
+// %include "../libsumo/Lane.h"
+// %include "../libsumo/MultiEntryExit.h"
+// %include "../libsumo/POI.h"
+// %include "../libsumo/Polygon.h"
 %include "../libsumo/Route.h"
 %include "../libsumo/Simulation.h"
 %include "../libsumo/TraCIConstants.h"
-%include "../libsumo/TrafficLight.h"
-%include "../libsumo/VehicleType.h"
-%include "../libsumo/Vehicle.h"
-%include "../libsumo/Person.h"
-%include "../libsumo/Calibrator.h"
-%include "../libsumo/BusStop.h"
-%include "../libsumo/ParkingArea.h"
-%include "../libsumo/ChargingStation.h"
-%include "../libsumo/OverheadWire.h"
+// %include "../libsumo/TrafficLight.h"
+// %include "../libsumo/VehicleType.h"
+// %include "../libsumo/Vehicle.h"
+// %include "../libsumo/Person.h"
+// %include "../libsumo/Calibrator.h"
+// %include "../libsumo/BusStop.h"
+// %include "../libsumo/ParkingArea.h"
+// %include "../libsumo/ChargingStation.h"
+// %include "../libsumo/OverheadWire.h"
 
 #ifdef SWIGPYTHON
 %pythoncode %{

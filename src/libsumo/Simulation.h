@@ -118,6 +118,8 @@ public:
     static int getMinExpectedNumber();
 
 #ifndef LIBTRACI
+// the following functions are not implemented in libtraci, yet
+
     static libsumo::TraCIPosition convert2D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
 
     static libsumo::TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
@@ -159,8 +161,10 @@ public:
 #endif
 
 private:
+#ifndef LIBTRACI
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 
     /// @brief invalidated standard constructor
     Simulation() = delete;

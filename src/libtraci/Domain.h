@@ -29,28 +29,20 @@
 #include <stdexcept>
 #include <sstream>
 #include <memory>
-#ifdef LIBTRACI
 #include <foreign/tcpip/storage.h>
 #include <libtraci/Connection.h>
-#else
-#include <libsumo/Helper.h>
-#endif
 
 
 // ===========================================================================
 // class and type definitions
 // ===========================================================================
-namespace LIBSUMO_NAMESPACE {
+namespace libtraci {
 template<int GET, int SET, int SUBSCRIBE, int CONTEXT>
 class Domain {
 public:
     static void subscribe(const std::string& objectID, const std::vector<int>& varIDs = std::vector<int>({-1}),
                           double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE) {
-#ifdef LIBTRACI
         libtraci::Connection::getActive().subscribeObjectVariable(SUBSCRIBE, objectID, begin, end, varIDs);
-#else
-        libsumo::Helper::subscribe(SUBSCRIBE, objectID, varIDs, begin, end);
-#endif
     }
 
     static void unsubscribe(const std::string& objectID) {
@@ -59,11 +51,7 @@ public:
 
     static void subscribeContext(const std::string& objectID, int domain, double dist, const std::vector<int>& varIDs = std::vector<int>({-1}),
                                  double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE) {
-#ifdef LIBTRACI
         libtraci::Connection::getActive().subscribeObjectContext(CONTEXT, objectID, begin, end, domain, dist, varIDs);
-#else
-        libsumo::Helper::subscribe(CONTEXT, objectID, varIDs, begin, end, domain, dist);
-#endif
     }
 
     static void unsubscribeContext(const std::string& objectID, int domain, double dist) {
@@ -71,39 +59,21 @@ public:
     }
 
     static const libsumo::SubscriptionResults getAllSubscriptionResults() {
-#ifdef LIBTRACI
         return libtraci::Connection::getActive().getAllSubscriptionResults(SUBSCRIBE);
-#else
-        return mySubscriptionResults;
-#endif
     }
 
     static const libsumo::TraCIResults getSubscriptionResults(const std::string& objectID) {
-#ifdef LIBTRACI
         return libtraci::Connection::getActive().getAllSubscriptionResults(SUBSCRIBE)[objectID];
-#else
-        return mySubscriptionResults[objectID];
-#endif
     }
 
     static const libsumo::ContextSubscriptionResults getAllContextSubscriptionResults() {
-#ifdef LIBTRACI
         return libtraci::Connection::getActive().getAllContextSubscriptionResults(CONTEXT);
-#else
-        return myContextSubscriptionResults;
-#endif
     }
 
     static const libsumo::SubscriptionResults getContextSubscriptionResults(const std::string& objectID) {
-#ifdef LIBTRACI
         return libtraci::Connection::getActive().getAllContextSubscriptionResults(SUBSCRIBE)[objectID];
-#else
-        return myContextSubscriptionResults[objectID];
-#endif
     }
 
-protected:
-#ifdef LIBTRACI
     static int getUnsignedByte(int var, const std::string& id, tcpip::Storage* add=nullptr) {
         return libtraci::Connection::getActive().getUnsignedByte(GET, var, id, add);
     }
@@ -163,18 +133,6 @@ protected:
     static void setStringVector(int var, const std::string& id, const std::vector<std::string>& value) {
         libtraci::Connection::getActive().setStringVector(SET, var, id, value);
     }
-#else
-
-    static libsumo::SubscriptionResults mySubscriptionResults;
-    static libsumo::ContextSubscriptionResults myContextSubscriptionResults;
-#endif
 };
-
-#ifndef LIBTRACI
-template<int GET, int SET, int SUBSCRIBE, int CONTEXT>
-libsumo::SubscriptionResults Domain<GET, SET, SUBSCRIBE, CONTEXT>::mySubscriptionResults;
-template<int GET, int SET, int SUBSCRIBE, int CONTEXT>
-libsumo::ContextSubscriptionResults Domain<GET, SET, SUBSCRIBE, CONTEXT>::myContextSubscriptionResults;
-#endif
 
 }

@@ -47,7 +47,7 @@ public:
     static std::vector<std::string> getIDList();
     static int getIDCount();
 
-    static std::vector<std::string> getLaneIDs(const std::string& vssID);
+    static std::vector<std::string> getLanes(const std::string& vssID);
 
     //static std::vector<double> getTimes(const std::string& vssID);
     //static std::vector<double> getSpeeds(const std::string& vssID);

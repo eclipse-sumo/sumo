@@ -8,6 +8,8 @@ if (${CMAKE_VERSION} VERSION_GREATER 3.14.0)
 endif()
 set(libtracistatic_STAT_SRCS
     Connection.cpp
+	Connection.h
+	Domain.h
 #    Edge.cpp
 #    InductionLoop.cpp
 #    Junction.cpp

@@ -26,21 +26,26 @@
 #define LIBTRACI 1
 #include <libsumo/Route.h>
 #include "Connection.h"
+#include "Domain.h"
 
 
 namespace libtraci {
+
+typedef Domain<libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT> Dom;
+
+
 // ===========================================================================
 // static member definitions
 // ===========================================================================
 std::vector<std::string>
 Route::getIDList() {
-    return getStringVector(libsumo::TRACI_ID_LIST, "");
+    return Dom::getStringVector(libsumo::TRACI_ID_LIST, "");
 }
 
 
 std::vector<std::string>
 Route::getEdges(const std::string& routeID) {
-    return getStringVector(libsumo::VAR_EDGES, routeID);
+    return Dom::getStringVector(libsumo::VAR_EDGES, routeID);
 }
 
 
@@ -55,8 +60,11 @@ Route::getParameter(const std::string& routeID, const std::string& param) {
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_STRING);
     content.writeString(param);
-    return getString(libsumo::VAR_PARAMETER, routeID, &content);
+    return Dom::getString(libsumo::VAR_PARAMETER, routeID, &content);
 }
+
+
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Route)
 
 
 void
@@ -75,7 +83,7 @@ Route::setParameter(const std::string& routeID, const std::string& key, const st
 
 void
 Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) {
-    setStringVector(libsumo::CMD_SET_ROUTE_VARIABLE, routeID, edgeIDs);
+    Dom::setStringVector(libsumo::CMD_SET_ROUTE_VARIABLE, routeID, edgeIDs);
 }
 }
 

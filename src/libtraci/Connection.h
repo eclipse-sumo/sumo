@@ -27,6 +27,7 @@
 #include <sstream>
 #include <iomanip>
 #include <foreign/tcpip/socket.h>
+#include <libsumo/Subscription.h>
 
 
 // ===========================================================================
