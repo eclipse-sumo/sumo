@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct  8 02:55:52 2020 by Eclipse SUMO duarouter Version v1_7_0+0541-53431a797a
+<!-- generated on Thu Oct  8 02:57:10 2020 by Eclipse SUMO duarouter Version v1_7_0+0541-53431a797a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,6 +23,7 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <persontrip.transfer.taxi-walk value="allJunctions"/>
         <persontrip.transfer.walk-taxi value="allJunctions"/>
+        <persontrip.taxi.waiting-time value="3600"/>
     </processing>
 
     <report>
@@ -36,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p0" depart="0.00">
-        <personTrip from="accessA" to="B0B1" modes="taxi" walkFactor="0.75" costs="334.65 106.94 0.00"/>
+        <personTrip from="accessA" to="B0B1" modes="taxi" walkFactor="0.75" costs="966.93"/>
     </person>
     <person id="p_mustwalk" depart="10.00">
         <personTrip from="accessA" to="B0B1" modes="car" walkFactor="0.75" costs="966.93"/>

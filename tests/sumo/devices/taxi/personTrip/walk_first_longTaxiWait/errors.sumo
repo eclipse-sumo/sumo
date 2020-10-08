@@ -1,0 +1,2 @@
+Warning: Ignoring vehicle type 'DEFAULT_VEHTYPE' when routing person 'p_mustwalk' because it is not allowed on the start edge.
+Warning: Vehicle 'trip_0' aborted waiting for a person or container that will never come.
