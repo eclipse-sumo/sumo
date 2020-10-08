@@ -110,6 +110,8 @@ public:
 
     static void addSubscriptionParam(double param);
 
+    static void addSubscriptionParam(const std::string& param);
+
     static void handleSubscriptions(const SUMOTime t);
 
     static bool needNewSubscription(libsumo::Subscription& s, std::vector<Subscription>& subscriptions, libsumo::Subscription*& modifiedSubscription);

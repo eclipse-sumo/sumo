@@ -44,7 +44,8 @@ static void unsubscribeContext(const std::string& objectID, int domain, double d
 static const SubscriptionResults getAllSubscriptionResults(); \
 static const TraCIResults getSubscriptionResults(const std::string& objectID); \
 static const ContextSubscriptionResults getAllContextSubscriptionResults(); \
-static const SubscriptionResults getContextSubscriptionResults(const std::string& objectID);
+static const SubscriptionResults getContextSubscriptionResults(const std::string& objectID); \
+static void subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE);
 
 #define LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOMAIN) \
 void \
@@ -78,6 +79,11 @@ CLASS::getAllContextSubscriptionResults() { \
 const SubscriptionResults \
 CLASS::getContextSubscriptionResults(const std::string& objectID) { \
     return myContextSubscriptionResults[objectID]; \
+} \
+void \
+CLASS::subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime, double endTime) { \
+    libsumo::Helper::subscribe(CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, std::vector<int>({libsumo::VAR_PARAMETER_WITH_KEY}), beginTime, endTime); \
+    libsumo::Helper::addSubscriptionParam(key); \
 }
 
 

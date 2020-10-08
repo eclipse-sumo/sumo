@@ -175,6 +175,15 @@ Helper::addSubscriptionParam(double param) {
 
 
 void
+Helper::addSubscriptionParam(const std::string& param) {
+    std::vector<unsigned char> dest(param.size());
+    std::memcpy(dest.data(), &param, param.size());
+    mySubscriptions.back().parameters.pop_back();
+    mySubscriptions.back().parameters.emplace_back(dest);
+}
+
+
+void
 Helper::handleSubscriptions(const SUMOTime t) {
     for (auto& wrapper : myWrapper) {
         wrapper.second->clear();
