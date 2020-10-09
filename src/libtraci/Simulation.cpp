@@ -21,6 +21,7 @@
 #include <config.h>
 #include <cstdlib>
 
+#include <foreign/tcpip/socket.h>
 #define LIBTRACI 1
 #include "Connection.h"
 #include "Domain.h"
@@ -46,8 +47,7 @@ Simulation::init(int port, int numRetries, const std::string& host, const std::s
 std::pair<int, std::string>
 Simulation::start(const std::vector<std::string>& cmd, int port, int numRetries, const std::string& label, const bool verbose) {
     if (port == -1) {
-        // TODO find a proper port
-        port = rand() % 60000 + 1024;
+        port = tcpip::Socket::getFreeSocketPort();
     }
     std::ostringstream oss;
     for (const std::string& s : cmd) {

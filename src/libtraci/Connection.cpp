@@ -20,6 +20,8 @@
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
+#include <thread>
+#include <chrono>
 #include <libsumo/TraCIDefs.h>
 #include "Connection.h"
 
@@ -37,7 +39,17 @@ std::map<const std::string, Connection> Connection::myConnections;
 // ===========================================================================
 Connection::Connection(const std::string& host, int port, int numRetries, const std::string& label) :
     myLabel(label), mySocket(host, port) {
-    mySocket.connect();
+    for (int i = 0; i <= numRetries; i++) {
+        try {
+            mySocket.connect();
+            break;
+        } catch (tcpip::SocketException&) {
+            if (i == numRetries) {
+                throw;
+            }
+            std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    }
 }
 
 
