@@ -238,10 +238,6 @@ fmi2GetBoolean(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2B
 
 fmi2Status 
 fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2String value[]) {
-    UNREFERENCED_PARAMETER(c);
-    UNREFERENCED_PARAMETER(vr);
-    UNREFERENCED_PARAMETER(nvr);
-    UNREFERENCED_PARAMETER(value);
 
     ModelInstance *comp = (ModelInstance *)c;
     
@@ -253,7 +249,7 @@ fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2St
 
     // Go through the list of arrays and save all requested values
     for (int i = 0; i < nvr; i++) { 
-        fmi2Status s = sumo2fmi_getString(comp, vr[i], &(value[i])); 
+        fmi2Status s = sumo2fmi_getString(comp, vr[i], value[i]); 
         status = s > status ? s : status; 
 
         if (status > fmi2Warning) 
@@ -295,13 +291,18 @@ fmi2SetBoolean(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const
 }
 
 fmi2Status 
-fmi2SetString (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2String value[]) {
-    UNREFERENCED_PARAMETER(c);
-    UNREFERENCED_PARAMETER(vr);
-    UNREFERENCED_PARAMETER(nvr);
-    UNREFERENCED_PARAMETER(value);
-    printf("SetString got called");
-    return fmi2Error;
+fmi2SetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const fmi2String value[]) {
+   
+    ModelInstance *comp = (ModelInstance *)c;
+    fmi2Status status = fmi2OK;
+
+    for (int i = 0; i < nvr; i++) { 
+        fmi2Status s = sumo2fmi_setString(comp, vr[i], value[i]); 
+        status = s > status ? s : status; 
+        if (status > fmi2Warning) return status; 
+    } 
+    
+    return status;
 }
 
 /* Further functions for interpolation */

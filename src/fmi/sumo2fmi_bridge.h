@@ -53,9 +53,10 @@ typedef struct {
 void        sumo2fmi_logError(ModelInstance* comp, const char* message, ...);
 void        sumo2fmi_logMessage(ModelInstance* comp, int status, const char* category, const char* message, va_list args);
 
-/* Getter Functions */
-fmi2Status  sumo2fmi_getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value);
-fmi2Status  sumo2fmi_getString(ModelInstance* comp, fmi2ValueReference vr, char* value);
+/* Getter/Setter Functions */
+fmi2Status  sumo2fmi_getInteger(ModelInstance* comp, const fmi2ValueReference vr, int* value);
+fmi2Status  sumo2fmi_getString(ModelInstance* comp, const fmi2ValueReference vr, const char* value);
+fmi2Status  sumo2fmi_setString(ModelInstance* comp, fmi2ValueReference vr, const char* value);
 
 /* Stepping Functions */
 fmi2Status  sumo2fmi_step(ModelInstance* comp, double tNext);

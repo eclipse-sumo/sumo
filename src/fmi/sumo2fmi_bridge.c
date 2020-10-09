@@ -73,7 +73,7 @@ sumo2fmi_logMessage(ModelInstance *comp, int status, const char *category, const
 
 // Retrieve the integer value for a single variable
 fmi2Status
-sumo2fmi_getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value) {
+sumo2fmi_getInteger(ModelInstance* comp, const fmi2ValueReference vr, int* value) {
     UNREFERENCED_PARAMETER(comp);
 
     // Do we need the pointer to comp here?
@@ -87,10 +87,23 @@ sumo2fmi_getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value) {
 }
 
 fmi2Status  
-sumo2fmi_getString(ModelInstance* comp, fmi2ValueReference vr, char* value) {
+sumo2fmi_getString(ModelInstance* comp, const fmi2ValueReference vr, const char* value) {
     switch (vr) {
         case 0:
             value = comp->libsumoCallOptions;
+            return fmi2OK;
+        default:
+            return fmi2Error;
+    }
+}
+
+fmi2Status  
+sumo2fmi_setString(ModelInstance* comp, fmi2ValueReference vr, const char* value) {
+    switch (vr) {
+        case 0:
+            comp->freeMemory(comp->libsumoCallOptions);
+            comp->libsumoCallOptions = (char *)comp->allocateMemory(1 + strlen(value), sizeof(char));
+            strcpy(comp->libsumoCallOptions, value);     
             return fmi2OK;
         default:
             return fmi2Error;
