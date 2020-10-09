@@ -8,7 +8,7 @@
   <CoSimulation modelIdentifier="libsumofmi2" canHandleVariableCommunicationStepSize="true" />
   
   <!-- In CoSimulation the stepSize defines the preferred communication StepSize.  -->
-  <DefaultExperiment  stepSize="1"/>
+  <DefaultExperiment  stepSize="1" stopTime="60"/>
 
   <ModelVariables>
     <ScalarVariable name="simulation.libsumo.callOptions" valueReference="0" causality="parameter" variability="fixed" initial="exact">
