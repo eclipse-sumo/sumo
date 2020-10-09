@@ -74,7 +74,6 @@ fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
         comp->freeMemory = (freeMemoryType)functions->freeMemory;
 
         comp->instanceName = (char *)comp->allocateMemory(1 + strlen(instanceName), sizeof(char));
-        
         strcpy((char *)comp->instanceName, (char *)instanceName);
 
         if (fmuResourceLocation) {
@@ -84,10 +83,10 @@ fmi2Instantiate(fmi2String instanceName, fmi2Type fmuType, fmi2String fmuGUID,
             comp->resourceLocation = NULL;
         }
 
-        comp->modelData = (ModelData *)comp->allocateMemory(1, sizeof(ModelData));
-        
-          comp->logEvents = loggingOn;
-          comp->logErrors = true; // always log errors
+        sumo2fmi_set_startValues(comp);
+
+        comp->logEvents = loggingOn;
+        comp->logErrors = true; // always log errors
     }
 
     return comp;
@@ -106,7 +105,7 @@ fmi2FreeInstance(fmi2Component c) {
     /* We want to free everything that we allocated in fmi2Instantiate */
     freeMemoryFunc((void *)comp->instanceName);
     freeMemoryFunc((void *)comp->resourceLocation); 
-    freeMemoryFunc((void *)comp->modelData);
+    freeMemoryFunc((void *)comp->libsumoCallOptions);
     freeMemoryFunc((void *)comp);
 }
 
@@ -168,9 +167,9 @@ fmi2EnterInitializationMode(fmi2Component c) {
 // Informs the FMU to exit Initialization Mode
 fmi2Status 
 fmi2ExitInitializationMode(fmi2Component c) {
-    UNREFERENCED_PARAMETER(c);
+    ModelInstance *comp = (ModelInstance *)c;
 
-    libsumo_load();
+    libsumo_load(comp->libsumoCallOptions);
     return fmi2OK;
 }
 
@@ -244,7 +243,24 @@ fmi2GetString(fmi2Component c, const fmi2ValueReference vr[], size_t nvr, fmi2St
     UNREFERENCED_PARAMETER(nvr);
     UNREFERENCED_PARAMETER(value);
 
-    return fmi2Error;
+    ModelInstance *comp = (ModelInstance *)c;
+    
+    // Check for null pointer errors 
+    if (nvr > 0 && (!vr || !value))
+        return fmi2Error;
+
+    fmi2Status status = fmi2OK;
+
+    // Go through the list of arrays and save all requested values
+    for (int i = 0; i < nvr; i++) { 
+        fmi2Status s = sumo2fmi_getString(comp, vr[i], &(value[i])); 
+        status = s > status ? s : status; 
+
+        if (status > fmi2Warning) 
+            return status; 
+    } 
+
+    return status;
 }
 
 // Implementation of the setter features
@@ -284,7 +300,7 @@ fmi2SetString (fmi2Component c, const fmi2ValueReference vr[], size_t nvr, const
     UNREFERENCED_PARAMETER(vr);
     UNREFERENCED_PARAMETER(nvr);
     UNREFERENCED_PARAMETER(value);
-
+    printf("SetString got called");
     return fmi2Error;
 }
 

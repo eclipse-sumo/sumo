@@ -30,18 +30,11 @@ typedef void* (*allocateMemoryType)(size_t nobj, size_t size);
 typedef void (*loggerType)(void* componentEnvironment, const char* instanceName, int status, const char* category, const char* message, ...);
 typedef void (*freeMemoryType)(void* obj);
 
-/* The core date (= variables of the model) */
-typedef struct {
-    double vehicleCount;
-} ModelData;
-
 /* Several declarations for the model component (housekeeping stuff) */
 typedef struct {
     void* componentEnvironment;
     const char* instanceName;
     const char* resourceLocation;
-
-    ModelData* modelData;
 
     loggerType logger;
     allocateMemoryType allocateMemory;
@@ -50,18 +43,24 @@ typedef struct {
     double startTime;
     double stopTime;
 
+    char *libsumoCallOptions;
+
     bool logEvents;
     bool logErrors;
 } ModelInstance;
 
 /* Declarations of utility functions */
-void sumo2fmi_logError(ModelInstance* comp, const char* message, ...);
-static void sumo2fmi_logMessage(ModelInstance* comp, int status, const char* category, const char* message, va_list args);
+void        sumo2fmi_logError(ModelInstance* comp, const char* message, ...);
+void        sumo2fmi_logMessage(ModelInstance* comp, int status, const char* category, const char* message, va_list args);
 
 /* Getter Functions */
-fmi2Status sumo2fmi_getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value);
+fmi2Status  sumo2fmi_getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value);
+fmi2Status  sumo2fmi_getString(ModelInstance* comp, fmi2ValueReference vr, char* value);
 
 /* Stepping Functions */
-fmi2Status sumo2fmi_step(ModelInstance* comp, double tNext);
+fmi2Status  sumo2fmi_step(ModelInstance* comp, double tNext);
+
+/* Setting the start values for all parameters */
+void        sumo2fmi_set_startValues(ModelInstance *comp);
 
 #endif /* SUMO2FMI_BRIDGE_H */

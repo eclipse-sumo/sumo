@@ -11,14 +11,17 @@
   <DefaultExperiment  stepSize="1"/>
 
   <ModelVariables>
-    <ScalarVariable name="simulation.totalVehicleCount" valueReference="0" causality="output" variability="discrete">
+    <ScalarVariable name="simulation.libsumo.callOptions" valueReference="0" causality="parameter" variability="fixed" initial="exact">
+      <String start="-c tools/game/grid6.sumocfg"/>
+    </ScalarVariable>
+    <ScalarVariable name="simulation.totalVehicleCount" valueReference="1" causality="output" variability="discrete">
       <Integer/>
     </ScalarVariable>
   </ModelVariables>
   
   <ModelStructure>
     <Outputs>
-      <Unknown index="1"/>
+      <Unknown index="2"/>
     </Outputs>
   </ModelStructure>
 

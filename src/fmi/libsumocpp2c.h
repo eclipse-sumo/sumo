@@ -26,10 +26,10 @@
 extern "C" {
 #endif
 
-void libsumo_load();
+void libsumo_load(char*);
 void libsumo_close();
 int libsumo_vehicle_getIDCount();
-void libsumo_step(double time);
+void libsumo_step(double);
 
 #ifdef __cplusplus
 }

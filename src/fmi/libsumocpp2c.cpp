@@ -23,12 +23,21 @@
 #include <libsumo/Simulation.h>
 #include <utils/geom/PositionVector.h>
 #include <libsumo/Vehicle.h>
+#include <sstream>
 
 #include "libsumocpp2c.h"
 
 void
-libsumo_load() {
-    std::vector<std::string> options = {"-c", "tools/game/grid6.sumocfg"};
+libsumo_load(char* callOptions) {
+    
+    // Tokenize the string, because Simulation::load expects a vector
+    std::vector<std::string> options;
+    std::stringstream ss(callOptions); 
+    std::string temp_str;
+    while(std::getline(ss, temp_str, ' ')) {
+        options.push_back(temp_str);
+    }
+
     try {
         libsumo::Simulation::load(options);
     } catch (const libsumo::TraCIException& e) {

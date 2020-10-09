@@ -18,15 +18,28 @@
 // Implementation of the FMI to SUMO bridge features
 /****************************************************************************/
 
-//#define FMI_VERSION 2
+#ifdef _MSC_VER
+// Avoid warnings in windows build because of strcpy instead of strcpy_s,
+// because the latter is not available on all platforms
+#define _CRT_SECURE_NO_WARNINGS
+#endif
 
 #include <foreign/fmi/fmi2Functions.h>
-
+#include <string.h>
 #include "libsumocpp2c.h"
 #include "sumo2fmi_bridge.h"
 
 /* Explicit definition of unused parameters to avoid compiler warnings */
 #define UNREFERENCED_PARAMETER(P) (P)
+
+void
+sumo2fmi_set_startValues(ModelInstance *comp) {
+    comp->freeMemory(comp->libsumoCallOptions);
+
+    char* defaultCallOptions = "-c tools/game/grid6.sumocfg";
+    comp->libsumoCallOptions = (char *)comp->allocateMemory(1 + strlen(defaultCallOptions), sizeof(char));
+    strcpy((char *)comp->libsumoCallOptions, (char *)defaultCallOptions);
+}
 
 void 
 sumo2fmi_logError(ModelInstance *comp, const char *message, ...) {
@@ -65,8 +78,19 @@ sumo2fmi_getInteger(ModelInstance* comp, fmi2ValueReference vr, int* value) {
 
     // Do we need the pointer to comp here?
     switch (vr) {
-        case 0:
+        case 1:
             *value = libsumo_vehicle_getIDCount();
+            return fmi2OK;
+        default:
+            return fmi2Error;
+    }
+}
+
+fmi2Status  
+sumo2fmi_getString(ModelInstance* comp, fmi2ValueReference vr, char* value) {
+    switch (vr) {
+        case 0:
+            value = comp->libsumoCallOptions;
             return fmi2OK;
         default:
             return fmi2Error;
