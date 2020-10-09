@@ -563,7 +563,7 @@ NBRequest::computeLaneResponse(NBEdge* from, int fromLane, int pos, const bool c
         assert(c.toEdge != 0);
         pos++;
         const std::string foes = getFoesString(from, c.toEdge, fromLane, c.toLane, checkLaneFoes);
-        const std::string response = myJunction->getType() == SumoXMLNodeType::ZIPPER ? foes : getResponseString(from, c, checkLaneFoes);
+        const std::string response = getResponseString(from, c, checkLaneFoes);
         myFoes.push_back(foes);
         myResponse.push_back(response);
         myHaveVia.push_back(c.haveVia);
@@ -616,6 +616,7 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
         idx = getIndex(from, to);
     }
     std::string result;
+    const bool zipper = myJunction->getType() == SumoXMLNodeType::ZIPPER;
     // crossings
     auto crossings = myJunction->getCrossings();
     for (std::vector<NBNode::Crossing*>::const_reverse_iterator i = crossings.rbegin(); i != crossings.rend(); i++) {
@@ -665,10 +666,10 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
                     const bool hasLaneConflict = (!(checkLaneFoes || checkLaneFoesByClass(queryCon, *i, connected[k])
                                                     || checkLaneFoesByCooperation(from, queryCon, *i, connected[k]))
                                                   || laneConflict(from, to, toLane, *i, connected[k].toEdge, connected[k].toLane));
-                    if ((myForbids[idx2][idx] && hasLaneConflict)
+                    if (((myForbids[idx2][idx] || (zipper && myForbids[idx][idx2])) && hasLaneConflict)
                             || rightTurnConflict(from, queryCon, *i, connected[k])
-                            || mergeConflict(from, queryCon, *i, connected[k], false)
-                            || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], false)
+                            || mergeConflict(from, queryCon, *i, connected[k], zipper)
+                            || oppositeLeftTurnConflict(from, queryCon, *i, connected[k], zipper)
                             || myJunction->rightOnRedConflict(c.tlLinkIndex, connected[k].tlLinkIndex)
                             || (myJunction->tlsContConflict(from, c, *i, connected[k]) && hasLaneConflict
                                 && !OptionsCont::getOptions().getBool("tls.ignore-internal-junction-jam"))
