@@ -336,6 +336,13 @@ gdb --args sumoD -c debug.sumocfg
 (where sumoD is sumo [compiled in debug
 mode](../Installing/Linux_Build.md#building_the_sumo_binaries_with_cmake_recommended))
 
+### Generating a log of all traci commands
+To share a traci scenario (i.e. in a bug report) it may be useful to seperate the logic of the traci script from the actual commands.
+For this, the function `traci.start` accepts the optional arguments `traceFile` and `traceGetters`.
+When calling `traci.start([<commands>], traceFile=<LOG_FILE_PATH>)` all traci commands that were sent to sumo will be written to the given LOG_FILE_PATH.
+This allows re-running the scenario without the original runner script.
+When option `traceGetters=False` is set, only functions that change the simulation state are included in the log file. Functions that retrieve simulation data are technically not needed to reproduce a scenario but it may be useful to include them if the data retrieval functions are themselves the cause of a bug.
+
 ## Usage Examples
 
 ### Run a simulation until all vehicles have arrived
