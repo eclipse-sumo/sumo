@@ -107,6 +107,8 @@
 /tools/[0-9]*
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
+/tools/game/netstate.xml
+/tools/game/tlsstate.xml
 /tools/game/*.tripinfos.xml
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
@@ -166,3 +168,4 @@ lib*.a
 .vscode
 *.aps
 .gdb_history
+
