@@ -632,6 +632,9 @@ NBRequest::getResponseString(const NBEdge* const from, const NBEdge::Connection&
             for (int k = size; k-- > 0;) {
                 if (c.mayDefinitelyPass) {
                     result += '0';
+#ifdef DEBUG_RESPONSE
+                    if (DEBUGCOND) std::cout << " c=" << queryCon.getDescription(from) << " pass\n";
+#endif
                 } else if ((*i) == from && fromLane == j) {
                     // do not prohibit a connection by others from same lane
                     result += '0';
