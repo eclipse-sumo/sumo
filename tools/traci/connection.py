@@ -218,14 +218,21 @@ class Connection:
                             "Cannot handle subscription response %02x for %s." % (response, objectID))
         return objectID, response
 
-    def _subscribe(self, cmdID, begin, end, objID, varIDs, parameters=None):
+    def _subscribe(self, cmdID, begin, end, objID, varIDs, parameters):
         format = "u"
         args = [len(varIDs)]
         for v in varIDs:
             format += "u"
             args.append(v)
             if parameters is not None and v in parameters:
-                f, a = parameters[v]
+                if isinstance(parameters[v], tuple):
+                    f, a = parameters[v]
+                elif isinstance(parameters[v], int):
+                    f, a = "i", parameters[v]
+                elif isinstance(parameters[v], float):
+                    f, a = "d", parameters[v]
+                else:
+                    f, a = "s", parameters[v]
                 format += f
                 args.append(a)
         result = self._sendCmd(cmdID, (begin, end), objID, format, *args)
@@ -238,7 +245,7 @@ class Connection:
     def _getSubscriptionResults(self, cmdID):
         return self._subscriptionMapping[cmdID]
 
-    def _subscribeContext(self, cmdID, begin, end, objID, domain, dist, varIDs):
+    def _subscribeContext(self, cmdID, begin, end, objID, domain, dist, varIDs, parameters=None):
         result = self._sendCmd(cmdID, (begin, end), objID, "uDu" + (len(varIDs) * "u"),
                                domain, dist, len(varIDs), *varIDs)
         if varIDs:

@@ -198,22 +198,21 @@ class Domain:
         """
         return self._getUniversal(tc.ID_COUNT, "")
 
-    def subscribe(self, objectID, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
-        """subscribe(string, list(integer), double, double) -> None
+    def subscribe(self, objectID, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE, parameters=None):
+        """subscribe(string, list(integer), double, double, map(string->tuple)) -> None
 
         Subscribe to one or more object values for the given interval.
         """
         if varIDs is None:
             varIDs = self._subscriptionDefault
-        self._connection._subscribe(self._subscribeID, begin, end, objectID, varIDs)
+        self._connection._subscribe(self._subscribeID, begin, end, objectID, varIDs, parameters)
 
     def unsubscribe(self, objectID):
         """unsubscribe(string) -> None
 
         Unsubscribe from receiving object values.
         """
-        self._connection._subscribe(
-            self._subscribeID, tc.INVALID_DOUBLE_VALUE, tc.INVALID_DOUBLE_VALUE, objectID, [])
+        self.subscribe(objectID, [])
 
     def getSubscriptionResults(self, objectID):
         """getSubscriptionResults(string) -> dict(integer: <value_type>)
@@ -236,7 +235,7 @@ class Domain:
         return self._connection._getSubscriptionResults(self._subscribeResponseID).get(None)
 
     def subscribeContext(self, objectID, domain, dist, varIDs=None,
-                         begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE):
+                         begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE, parameters=None):
         """subscribeContext(string, int, double, list(integer), double, double) -> None
 
         Subscribe to objects of the given domain (specified as domain=traci.constants.CMD_GET_<DOMAIN>_VARIABLE),
@@ -245,7 +244,7 @@ class Domain:
         if varIDs is None:
             varIDs = self._subscriptionDefault
         self._connection._subscribeContext(
-            self._contextID, begin, end, objectID, domain, dist, varIDs)
+            self._contextID, begin, end, objectID, domain, dist, varIDs, parameters)
 
     def unsubscribeContext(self, objectID, domain, dist):
         self.subscribeContext(objectID, domain, dist, [])
@@ -275,8 +274,7 @@ class Domain:
 
         Subscribe for a generic parameter with the given key.
         """
-        self._connection._subscribe(self._subscribeID, begin, end, objID, (tc.VAR_PARAMETER_WITH_KEY,),
-                                    {tc.VAR_PARAMETER_WITH_KEY: ("s", key)})
+        self.subscribe(objID, (tc.VAR_PARAMETER_WITH_KEY,), begin, end, {tc.VAR_PARAMETER_WITH_KEY: ("s", key)})
 
     def setParameter(self, objID, param, value):
         """setParameter(string, string, string) -> None
