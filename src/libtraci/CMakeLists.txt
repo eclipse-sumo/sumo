@@ -40,9 +40,9 @@ add_dependencies(libtracistatic generate-version-h)
 set_property(TARGET libtracistatic PROPERTY FOLDER "libtraci")
 
 if (MSVC)
-	set(libtcpip foreign_tcpip ws2_32)
+    set(libtcpip foreign_tcpip ws2_32)
 else()
-	set(libtcpip foreign_tcpip)
+    set(libtcpip foreign_tcpip)
 endif()
 
 if(SWIG_FOUND)
