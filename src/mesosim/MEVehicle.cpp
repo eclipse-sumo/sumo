@@ -233,19 +233,9 @@ MEVehicle::isStoppedInRange(const double /* pos */, const double /* tolerance */
 }
 
 
-bool
-MEVehicle::checkStopped() {
-    if (!myStops.empty() && myStops.front().edge == myCurrEdge && myStops.front().segment == mySegment) {
-        myStops.front().reached = true;
-        return true;
-    }
-    return false;
-}
-
-
 SUMOTime
-MEVehicle::getStoptime(SUMOTime time) const {
-    for (const MSStop& stop : myStops) {
+MEVehicle::getStoptime(SUMOTime time) {
+    for (MSStop& stop : myStops) {
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {
             return time;
         }
@@ -255,6 +245,7 @@ MEVehicle::getStoptime(SUMOTime time) const {
             // travel time is overestimated of the stop is not at the start of the segment
             time = stop.pars.until;
         }
+        stop.reached = true;
     }
     return time;
 }
@@ -262,7 +253,20 @@ MEVehicle::getStoptime(SUMOTime time) const {
 
 double
 MEVehicle::getCurrentStoppingTimeSeconds() const {
-    return STEPS2TIME(getStoptime(myLastEntryTime) - myLastEntryTime);
+    SUMOTime time = myLastEntryTime;
+    for (const MSStop& stop : myStops) {
+        if (stop.reached) {
+            time += stop.duration;
+            if (stop.pars.until > time) {
+                // @note: this assumes the stop is reached at time. With the way this is called in MESegment (time == entryTime),
+                // travel time is overestimated of the stop is not at the start of the segment
+                time = stop.pars.until;
+            }
+        } else {
+            break;
+        }
+    }
+    return STEPS2TIME(time - myLastEntryTime);
 }
 
 

@@ -181,15 +181,11 @@ public:
         return false;
     };
 
-    /** @brief Check whether we reached a stop and modify the stop attributes accordingly
-     */
-    bool checkStopped();
-
     /** @brief Returns until when to stop at the current segment
      * @param[in] time the current time
      * @return stop time for the segment
      */
-    SUMOTime getStoptime(SUMOTime time) const;
+    SUMOTime getStoptime(SUMOTime time);
 
 
     /// @brief get distance for coming to a stop (used for rerouting checks)

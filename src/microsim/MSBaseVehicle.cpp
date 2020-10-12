@@ -716,7 +716,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         return false;
     }
     if (MSGlobals::gUseMesoSim) {
-        stop.segment = MSGlobals::gMesoNet->getSegmentForEdge(**myCurrEdge, stop.getEndPos(*this));
+        stop.segment = MSGlobals::gMesoNet->getSegmentForEdge(stop.lane->getEdge(), stop.getEndPos(*this));
         if (stop.lane->isInternal()) {
             errorMsg = "Mesoscopic simulation does not allow stopping on internal lane '" + stopPar.lane + "' for vehicle '" + myParameter->id + "'.";
             return false;
