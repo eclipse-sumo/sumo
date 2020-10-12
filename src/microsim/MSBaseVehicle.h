@@ -251,6 +251,17 @@ public:
      */
     bool replaceRouteEdges(ConstMSEdgeVector& edges, double cost, double savings, const std::string& info, bool onInit = false, bool check = false, bool removeStops = true);
 
+    /** @brief Replaces the current route by the given one
+     *
+     * It is possible that the new route is not accepted, if it does not
+     *  contain the vehicle's current edge.
+     *
+     * @param[in] route The new route to pass
+     * @param[in] info Information regarding the replacement
+     * @param[in] removeStops Whether stops should be removed if they do not fit onto the new route
+     * @return Whether the new route was accepted
+     */
+    virtual bool replaceRoute(const MSRoute* route, const std::string& info, bool onInit = false, int offset = 0, bool addStops = true, bool removeStops = true);
 
     /** @brief Returns the vehicle's acceleration
      *

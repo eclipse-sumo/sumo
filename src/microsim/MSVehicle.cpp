@@ -1008,6 +1008,7 @@ MSVehicle::hasValidRouteStart(std::string& msg) {
     return true;
 }
 
+
 bool
 MSVehicle::hasArrived() const {
     return (myCurrEdge == myRoute->end() - 1
@@ -1019,102 +1020,15 @@ MSVehicle::hasArrived() const {
 
 bool
 MSVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info, bool onInit, int offset, bool addRouteStops, bool removeStops) {
-    const ConstMSEdgeVector& edges = newRoute->getEdges();
-    // rebuild in-vehicle route information
-    if (onInit) {
-        myCurrEdge = newRoute->begin();
-    } else {
-        MSRouteIterator newCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);
-        if (newCurrEdge == edges.end()) {
-            return false;
-        }
-        if (myLane->getEdge().isInternal() && (
-                    (newCurrEdge + 1) == edges.end() || (*(newCurrEdge + 1)) != &(myLane->getOutgoingViaLanes().front().first->getEdge()))) {
-            return false;
-        }
-        myCurrEdge = newCurrEdge;
+    if (MSBaseVehicle::replaceRoute(newRoute, info, onInit, offset, addRouteStops, removeStops)) {
+        // update best lanes (after stops were added)
+        myLastBestLanesEdge = nullptr;
+        myLastBestLanesInternalLane = nullptr;
+        updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
+        assert(!removeStops || haveValidStopEdges());
+        return true;
     }
-    const bool stopsFromScratch = onInit && myRoute->getStops().empty();
-    // check whether the old route may be deleted (is not used by anyone else)
-    newRoute->addReference();
-    myRoute->release();
-    // assign new route
-    myRoute = newRoute;
-    // update arrival definition
-    calculateArrivalParams();
-    // save information that the vehicle was rerouted
-    myNumberReroutes++;
-    myStopUntilOffset += myRoute->getPeriod();
-    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE, info);
-    // if we did not drive yet it may be best to simply reassign the stops from scratch
-    if (stopsFromScratch) {
-        myStops.clear();
-        addStops(!MSGlobals::gCheckRoutes);
-    } else {
-        // recheck old stops
-        MSRouteIterator searchStart = myCurrEdge;
-        double lastPos = getPositionOnLane();
-        if (myLane != nullptr && myLane->isInternal()
-                && myStops.size() > 0 && !myStops.front().lane->isInternal()) {
-            // searchStart is still incoming to the intersection so lastPos
-            // relative to that edge must be adapted
-            lastPos += (*myCurrEdge)->getLength();
-        }
-#ifdef DEBUG_REPLACE_ROUTE
-        if (DEBUG_COND) {
-            std::cout << "  replaceRoute on " << (*myCurrEdge)->getID() << " lane=" << myLane->getID() << " stopsFromScratch=" << stopsFromScratch << "\n";
-        }
-#endif
-        for (std::list<MSStop>::iterator iter = myStops.begin(); iter != myStops.end();) {
-            double endPos = iter->getEndPos(*this);
-#ifdef DEBUG_REPLACE_ROUTE
-            if (DEBUG_COND) {
-                std::cout << "     stopEdge=" << iter->lane->getEdge().getID() << " start=" << (searchStart - myCurrEdge) << " endPos=" << endPos << " lastPos=" << lastPos << "\n";
-            }
-#endif
-            if (*searchStart != &iter->lane->getEdge()
-                    || endPos < lastPos) {
-                if (searchStart != edges.end() && !iter->reached) {
-                    searchStart++;
-                }
-            }
-            lastPos = endPos;
-
-            iter->edge = std::find(searchStart, edges.end(), &iter->lane->getEdge());
-#ifdef DEBUG_REPLACE_ROUTE
-            if (DEBUG_COND) {
-                std::cout << "        foundIndex=" << (iter->edge - myCurrEdge) << " end=" << (edges.end() - myCurrEdge) << "\n";
-            }
-#endif
-            if (iter->edge == edges.end()) {
-                if (removeStops) {
-                    iter = myStops.erase(iter);
-                    continue;
-                } else  {
-                    assert(false);
-                }
-            } else {
-                searchStart = iter->edge;
-            }
-            ++iter;
-        }
-        // add new stops
-        if (addRouteStops) {
-            for (std::vector<SUMOVehicleParameter::Stop>::const_iterator i = newRoute->getStops().begin(); i != newRoute->getStops().end(); ++i) {
-                std::string error;
-                addStop(*i, error, myParameter->depart + myStopUntilOffset);
-                if (error != "") {
-                    WRITE_WARNING(error);
-                }
-            }
-        }
-    }
-    // update best lanes (after stops were added)
-    myLastBestLanesEdge = nullptr;
-    myLastBestLanesInternalLane = nullptr;
-    updateBestLanes(true, onInit ? (*myCurrEdge)->getLanes().front() : 0);
-    assert(!removeStops || haveValidStopEdges());
-    return true;
+    return false;
 }
 
 

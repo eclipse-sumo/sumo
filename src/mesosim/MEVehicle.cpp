@@ -179,45 +179,22 @@ MEVehicle::isParking() const {
 
 
 bool
-MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool onInit, int offset, bool addStops, bool removeStops) {
-    UNUSED_PARAMETER(addStops); // @todo recheck!
-    UNUSED_PARAMETER(removeStops); // @todo recheck!
-    const ConstMSEdgeVector& edges = newRoute->getEdges();
-    // assert the vehicle may continue (must not be "teleported" or whatever to another position)
-    if (!onInit && !newRoute->contains(*myCurrEdge)) {
-        return false;
+MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool onInit, int offset, bool addRouteStops, bool removeStops) {
+    if (MSBaseVehicle::replaceRoute(newRoute, info, onInit, offset, addRouteStops, removeStops)) {
+        if (mySegment != nullptr) {
+            MSLink* const oldLink = mySegment->getLink(this);
+            MSLink* const newLink = mySegment->getLink(this);
+            // update approaching vehicle information
+            if (oldLink != newLink) {
+                if (oldLink != nullptr) {
+                    oldLink->removeApproaching(this);
+                }
+                MELoop::setApproaching(this, newLink);
+            }
+        }
+        return true;
     }
-    MSLink* oldLink = nullptr;
-    MSLink* newLink = nullptr;
-    if (mySegment != nullptr) {
-        oldLink = mySegment->getLink(this);
-    }
-    // rebuild in-vehicle route information
-    if (onInit) {
-        myCurrEdge = newRoute->begin();
-    } else {
-        myCurrEdge = std::find(edges.begin() + offset, edges.end(), *myCurrEdge);
-    }
-    // check whether the old route may be deleted (is not used by anyone else)
-    newRoute->addReference();
-    myRoute->release();
-    // assign new route
-    myRoute = newRoute;
-    if (mySegment != nullptr) {
-        newLink = mySegment->getLink(this);
-    }
-    // update approaching vehicle information
-    if (oldLink != nullptr && oldLink != newLink) {
-        oldLink->removeApproaching(this);
-        MELoop::setApproaching(this, newLink);
-    }
-    // update arrival definition
-    calculateArrivalParams();
-    // save information that the vehicle was rerouted
-    myNumberReroutes++;
-    MSNet::getInstance()->informVehicleStateListener(this, MSNet::VEHICLE_STATE_NEWROUTE, info);
-    calculateArrivalParams();
-    return true;
+    return false;
 }
 
 
