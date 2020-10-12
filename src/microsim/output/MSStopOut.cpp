@@ -67,7 +67,7 @@ MSStopOut::stopStarted(const SUMOVehicle* veh, int numPersons, int numContainers
                       + "', time " + time2string(time)
                       + " without ending the previous stop entered at time " + time2string(myStopped[veh].started));
     }
-    StopInfo stopInfo(MSNet::getInstance()->getCurrentTimeStep(), numPersons, numContainers);
+    StopInfo stopInfo(time, numPersons, numContainers);
     myStopped[veh] = stopInfo;
 }
 
