@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Oct 12 11:59:25 2020 by Eclipse SUMO sumo Version v1_7_0+0588-e883836b67
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="v0.6" depart="12.00" departEdge="5" arrival="18.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.8" depart="16.00" departEdge="5" arrival="22.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.9" depart="18.00" departEdge="5" arrival="24.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.1" depart="2.00" departEdge="3" arrival="97.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.2" depart="4.00" departEdge="3" arrival="99.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.5" depart="10.00" departEdge="4" arrival="100.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.3" depart="6.00" departEdge="3" arrival="101.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.4" depart="8.00" departEdge="2" arrival="105.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.7" depart="14.00" departEdge="3" arrival="109.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.11" depart="22.00" departEdge="3" arrival="117.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.12" depart="24.00" departEdge="3" arrival="119.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.16" depart="32.00" departEdge="4" arrival="121.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.14" depart="28.00" departEdge="3" arrival="123.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.18" depart="36.00" departEdge="4" arrival="125.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.15" depart="30.00" departEdge="2" arrival="127.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.19" depart="38.00" departEdge="4" arrival="129.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.17" depart="34.00" departEdge="3" arrival="130.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.0" depart="0.00" departEdge="1" arrival="180.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.10" depart="20.00" departEdge="1" arrival="200.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+    <vehicle id="v0.13" depart="26.00" departEdge="1" arrival="206.00">
+        <route edges="beg beg2 merge end end2 end3"/>
+    </vehicle>
+
+</routes>
