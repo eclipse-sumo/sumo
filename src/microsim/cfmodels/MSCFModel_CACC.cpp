@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    MSCFModel_CACC.cpp
 /// @author  Kallirroi Porfyri
+/// @author  Karagounis Vasilios
 /// @date    Nov 2018
 ///
 // CACC car-following model based on [1], [2].
@@ -73,8 +74,11 @@ std::map<std::string, MSCFModel_CACC::CommunicationsOverrideMode> MSCFModel_CACC
 };
 
 std::map<MSCFModel_CACC::VehicleMode, std::string> MSCFModel_CACC::VehicleModeNames = {
+    {CC_MODE, "CC"},
     {ACC_MODE, "ACC"},
-    {CACC_MODE, "CACC"}
+    {CACC_GAP_CLOSING_MODE, "CACC_GAP_CL"},
+    {CACC_GAP_MODE, "CACC_GAP"},
+    {CACC_COLLISION_AVOIDANCE_MODE, "CACC_CA"}
 };
 
 // ===========================================================================
@@ -100,7 +104,7 @@ double
 MSCFModel_CACC::freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion) const {
     // set "caccVehicleMode" parameter to default value
     if (!MSGlobals::gComputeLC) {
-        const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[CACC_MODE]);
+        const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[CC_MODE]);
     }
     return MSCFModel::freeSpeed(veh, speed, seen, maxSpeed, onInsertion);
 }
@@ -110,9 +114,8 @@ MSCFModel_CACC::followSpeed(const MSVehicle* const veh, double speed, double gap
 
     const double desSpeed = veh->getLane()->getVehicleMaxSpeed(veh);
     const double vCACC = _v(veh, pred, gap2pred, speed, predSpeed, desSpeed, true);
-    //gDebugFlag1 = DEBUG_COND;
     const double vSafe = maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel);
-    //gDebugFlag1 = false;
+
 #if DEBUG_CACC == 1
     if (DEBUG_COND) {
         std::cout << SIMTIME << " veh=" << veh->getID() << " pred=" << Named::getIDSecure(pred)
@@ -154,7 +157,7 @@ MSCFModel_CACC::getSecureGap(const MSVehicle* const veh, const MSVehicle* const 
         desSpacing = acc_CFM.myGapControlGainSpeed * (speed - leaderSpeed) / acc_CFM.myGapControlGainSpace + myHeadwayTimeACC * speed; // MSCFModel_ACC::accelGapControl
     } else {
         desSpacing = myHeadwayTime * speed; // speedGapControl
-    };
+    }
     const double desSpacingDefault = MSCFModel::getSecureGap(veh, pred, speed, leaderSpeed, leaderMaxDecel);
 #if DEBUG_CACC_SECURE_GAP == 1
     std::cout << SIMTIME << "MSCFModel_ACC::getSecureGap speed=" << speed << " leaderSpeed=" << leaderSpeed
@@ -237,117 +240,84 @@ MSCFModel_CACC::setParameter(MSVehicle* veh, const std::string& key, const std::
 }
 
 
-double MSCFModel_CACC::speedSpeedControl(const double speed, double vErr, VehicleMode& vehMode) const {
+double
+MSCFModel_CACC::speedSpeedControl(const double speed, double vErr, VehicleMode& vehMode) const {
     // Speed control law
-    vehMode = CACC_MODE;
+    vehMode = CC_MODE;
     double sclAccel = mySpeedControlGain * vErr;
     double newSpeed = speed + ACCEL2SPEED(sclAccel);
     return newSpeed;
 }
 
-double MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pred,
-                                       const double speed, const double predSpeed, const double desSpeed, double vErr,
-                                       const MSVehicle* const pred, VehicleMode& vehMode) const {
+double
+MSCFModel_CACC::speedGapControl(const MSVehicle* const veh, const double gap2pred,
+                                const double speed, const double predSpeed, const double desSpeed, double vErr,
+                                const MSVehicle* const pred, VehicleMode& vehMode) const {
     // Gap control law
     double newSpeed = 0.0;
 
-    CACCVehicleVariables* vars = (CACCVehicleVariables*) veh->getCarFollowVariables();
-    CommunicationsOverrideMode commMode = vars->CACC_CommunicationsOverrideMode;
-
-#if DEBUG_CACC == 1
-    if (pred == nullptr) {
-        std::cout << "CACC_ControlModeOverride for : " << veh->getID() << " is " << mode << std::endl;
-    } else {
-        std::cout << "CACC_ControlModeOverride for : " << veh->getID() << " is " << mode << ". Leader is : " << pred->getID() << std::endl;
-    }
-#endif
-
-    if (commMode == CACC_NO_OVERRIDE) {  // old CACC logic
-        if (pred != nullptr) {
-            if (pred->getCarFollowModel().getModelID() != SUMO_TAG_CF_CACC) {
-                vehMode = ACC_MODE;
-                newSpeed = acc_CFM._v(veh, gap2pred, speed, predSpeed, desSpeed, true);
-#if DEBUG_CACC == 1
-                if (DEBUG_COND) {
-                    std::cout << "        acc control mode" << std::endl;
-                }
-#endif
-            } else {
-                vehMode = CACC_MODE;
-#if DEBUG_CACC == 1
-                if (DEBUG_COND) {
-                    std::cout << "        CACC control mode" << std::endl;
-                }
-#endif
-                double desSpacing = myHeadwayTime * speed;
-                double gap = gap2pred - veh->getVehicleType().getMinGap();
-                double spacingErr = gap - desSpacing;
-                double accel = veh->getAcceleration();
-                double spacingErr1 = predSpeed - speed + myHeadwayTime * accel;
-
-                if ((spacingErr > 0 && spacingErr < 0.2) && (vErr < 0.1)) {
-                    // gap mode
-                    //newSpeed = speed + 0.45 * spacingErr + 0.0125 *spacingErr1;
-#if DEBUG_CACC == 1
-                    if (DEBUG_COND) {
-                        std::cout << "        applying gap control" << std::endl;
-                    }
-#endif
-                    newSpeed = speed + myGapControlGainGap * spacingErr + myGapControlGainGapDot * spacingErr1;
-                } else if (spacingErr < 0) {
-                    // collision avoidance mode
-                    //newSpeed = speed + 0.45 * spacingErr + 0.05 *spacingErr1;
-#if DEBUG_CACC == 1
-                    if (DEBUG_COND) {
-                        std::cout << "        applying collision avoidance err=" << spacingErr << " err1=" << spacingErr1 << "\n";
-                    }
-#endif
-                    newSpeed = speed + myCollisionAvoidanceGainGap * spacingErr + myCollisionAvoidanceGainGapDot * spacingErr1;
-                } else {
-                    // gap closing mode
-#if DEBUG_CACC == 1
-                    if (DEBUG_COND) {
-                        std::cout << "        applying gap closing" << std::endl;
-                    }
-#endif
-                    newSpeed = speed + myGapClosingControlGainGap * spacingErr + myGapClosingControlGainGapDot * spacingErr1;
-                }
-            }
-        } else {
-            /* no leader */
+    if (pred != nullptr) {
+        if (pred->getCarFollowModel().getModelID() != SUMO_TAG_CF_CACC) {
+            vehMode = ACC_MODE;
+            newSpeed = acc_CFM._v(veh, gap2pred, speed, predSpeed, desSpeed, true);
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
-                std::cout << "        no leader" << std::endl;
+                std::cout << "        acc control mode" << std::endl;
             }
 #endif
-            newSpeed = speedSpeedControl(speed, vErr, vehMode);
-        }
-    } else if (commMode == CACC_MODE_NO_LEADER) {  // no leader
-        newSpeed = speedSpeedControl(speed, vErr, vehMode);
-    } else if (commMode == CACC_MODE_LEADER_NO_CAV) {  // leader is not CAV or CV or crucialCAV
-        vehMode = ACC_MODE;
-        newSpeed = acc_CFM._v(veh, gap2pred, speed, predSpeed, desSpeed, true);
-    } else if (commMode == CACC_MODE_LEADER_CAV) {  // leader is CAV or CV or crucialCAV
-        vehMode = CACC_MODE;
-
-        double desSpacing = myHeadwayTime * speed;
-        double gap = gap2pred - veh->getVehicleType().getMinGap();
-        double spacingErr = gap - desSpacing;
-        double accel = veh->getAcceleration();
-        double spacingErr1 = predSpeed - speed + myHeadwayTime * accel;
-
-        if ((spacingErr > 0 && spacingErr < 0.2) && (vErr < 0.1)) {
-            // gap mode
-            //newSpeed = speed + 0.45 * spacingErr + 0.0125 *spacingErr1;
-            newSpeed = speed + myGapControlGainGap * spacingErr + myGapControlGainGapDot * spacingErr1;
-        } else if (spacingErr < 0) {
-            // collision avoidance mode
-            //newSpeed = speed + 0.45 * spacingErr + 0.05 *spacingErr1;
-            newSpeed = speed + myCollisionAvoidanceGainGap * spacingErr + myCollisionAvoidanceGainGapDot * spacingErr1;
         } else {
-            // gap closing mode
-            newSpeed = speed + myGapClosingControlGainGap * spacingErr + myGapClosingControlGainGapDot * spacingErr1;
+#if DEBUG_CACC == 1
+            if (DEBUG_COND) {
+                std::cout << "        CACC control mode" << std::endl;
+            }
+#endif
+            double desSpacing = myHeadwayTime * speed;
+            double gap = gap2pred - veh->getVehicleType().getMinGap();
+            double spacingErr = gap - desSpacing;
+            double accel = veh->getAcceleration();
+            double spacingErr1 = predSpeed - speed + myHeadwayTime * accel;
+
+            if ((spacingErr > 0 && spacingErr < 0.2) && (vErr < 0.1)) {
+                // gap mode
+                //newSpeed = speed + 0.45 * spacingErr + 0.0125 *spacingErr1;
+#if DEBUG_CACC == 1
+                if (DEBUG_COND) {
+                    std::cout << "        applying gap control" << std::endl;
+                }
+#endif
+                newSpeed = speed + myGapControlGainGap * spacingErr + myGapControlGainGapDot * spacingErr1;
+
+                vehMode = CACC_GAP_MODE;
+            } else if (spacingErr < 0) {
+                // collision avoidance mode
+                //newSpeed = speed + 0.45 * spacingErr + 0.05 *spacingErr1;
+#if DEBUG_CACC == 1
+                if (DEBUG_COND) {
+                    std::cout << "        applying collision avoidance err=" << spacingErr << " err1=" << spacingErr1 << "\n";
+                }
+#endif
+                newSpeed = speed + myCollisionAvoidanceGainGap * spacingErr + myCollisionAvoidanceGainGapDot * spacingErr1;
+                vehMode = CACC_COLLISION_AVOIDANCE_MODE;
+            } else {
+                // gap closing mode
+#if DEBUG_CACC == 1
+                if (DEBUG_COND) {
+                    std::cout << "        applying gap closing" << std::endl;
+                }
+#endif
+                newSpeed = speed + myGapClosingControlGainGap * spacingErr + myGapClosingControlGainGapDot * spacingErr1;
+
+                vehMode = CACC_GAP_CLOSING_MODE;
+            }
         }
+    } else {
+        /* no leader */
+#if DEBUG_CACC == 1
+        if (DEBUG_COND) {
+            std::cout << "        no leader" << std::endl;
+        }
+#endif
+        newSpeed = speedSpeedControl(speed, vErr, vehMode);
     }
 
     return newSpeed;
@@ -357,7 +327,7 @@ double
 MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double speed,
                    const double predSpeed, const double desSpeed, const bool /* respectMinGap */) const {
     double newSpeed = 0.0;
-    VehicleMode vehMode = CACC_MODE;
+    VehicleMode vehMode = CC_MODE;
 
 #if DEBUG_CACC == 1
     if (DEBUG_COND) {
@@ -376,77 +346,97 @@ MSCFModel_CACC::_v(const MSVehicle* const veh, const MSVehicle* const pred, cons
         setControlMode = true;
     }
 
-    double time_gap = gap2pred / speed;
-    if (time_gap > 2) {
-#if DEBUG_CACC == 1
-        if (DEBUG_COND) {
-            std::cout << "        applying speedControl" << std::endl;
-        }
-#endif
-        // Find acceleration - Speed control law
-        newSpeed = speedSpeedControl(speed, vErr, vehMode);
-        // Set cl to vehicle parameters
-        if (setControlMode) {
-            vars->CACC_ControlMode = 0;
-            if (!MSGlobals::gComputeLC) {
-                const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[vehMode]);
-            }
-        }
-    } else if (time_gap < 1.5) {
-        // Find acceleration - Gap control law
-#if DEBUG_CACC == 1
-        if (DEBUG_COND) {
-            std::cout << "        speedGapControl" << std::endl;
-        }
-#endif
+    CommunicationsOverrideMode commMode = vars->CACC_CommunicationsOverrideMode;
 
-        newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred, vehMode);
-        // Set cl to vehicle parameters
-        if (setControlMode) {
-            CommunicationsOverrideMode commMode = vars->CACC_CommunicationsOverrideMode;
+    if (commMode == CACC_NO_OVERRIDE) { // old CACC logic (rely on time gap from predecessor)
+        double time_gap = gap2pred / speed;
 
-            if (commMode == CACC_NO_OVERRIDE) {  // old code
-                vars->CACC_ControlMode = 1;
-            } else if (commMode == CACC_MODE_NO_LEADER) {
-                vars->CACC_ControlMode = 1;
-            } else if (commMode == CACC_MODE_LEADER_NO_CAV) {
-                vars->CACC_ControlMode = 0;
-            } else if (commMode == CACC_MODE_LEADER_CAV) {
-                vars->CACC_ControlMode = 1;
-            }
-
-            if (!MSGlobals::gComputeLC) {
-                const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[vehMode]);
-            }
-        }
-    } else {
-        // Follow previous applied law
-        int cm = vars->CACC_ControlMode;
-        if (!cm) {  // CACC_ControlMode = speed control
-
+        if (time_gap > 2) {
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
-                std::cout << "        applying speedControl (previous)" << std::endl;
+                std::cout << "        applying speedControl" << std::endl;
             }
 #endif
+            // Find acceleration - Speed control law
             newSpeed = speedSpeedControl(speed, vErr, vehMode);
-        } else {  // CACC_ControlMode = gap control
+            // Set cl to vehicle parameters
+            if (setControlMode) {
+                vars->CACC_ControlMode = 0;
+            }
+        } else if (time_gap < 1.5) {
+            // Find acceleration - Gap control law
 #if DEBUG_CACC == 1
             if (DEBUG_COND) {
-                std::cout << "        previous speedGapControl (previous)" << std::endl;
+                std::cout << "        speedGapControl" << std::endl;
             }
 #endif
-            newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred, vehMode);
-        }
 
-        if (setControlMode && !MSGlobals::gComputeLC) {
-            const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[vehMode]);
+            newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred, vehMode);
+            // Set cl to vehicle parameters
+            if (setControlMode) {
+                vars->CACC_ControlMode = 1;
+            }
+        } else {
+            // Follow previous applied law
+            int cm = vars->CACC_ControlMode;
+            if (!cm) {
+                // CACC_ControlMode = speed control
+
+#if DEBUG_CACC == 1
+                if (DEBUG_COND) {
+                    std::cout << "        applying speedControl (previous)" << std::endl;
+                }
+#endif
+                newSpeed = speedSpeedControl(speed, vErr, vehMode);
+            } else {
+                // CACC_ControlMode = gap control
+#if DEBUG_CACC == 1
+                if (DEBUG_COND) {
+                    std::cout << "        previous speedGapControl (previous)" << std::endl;
+                }
+#endif
+                newSpeed = speedGapControl(veh, gap2pred, speed, predSpeed, desSpeed, vErr, pred, vehMode);
+            }
+        }
+    } else if (commMode == CACC_MODE_NO_LEADER) {
+        newSpeed = speedSpeedControl(speed, vErr, vehMode);
+    } else if (commMode == CACC_MODE_LEADER_NO_CAV) {
+        newSpeed = acc_CFM._v(veh, gap2pred, speed, predSpeed, desSpeed, true);
+        vehMode = ACC_MODE;
+    } else if (commMode == CACC_MODE_LEADER_CAV) {
+        double desSpacing = myHeadwayTime * speed;
+        double gap = gap2pred - veh->getVehicleType().getMinGap();
+        double spacingErr = gap - desSpacing;
+        double accel = veh->getAcceleration();
+        double spacingErr1 = predSpeed - speed + myHeadwayTime * accel;
+
+        if ((spacingErr > 0 && spacingErr < 0.2) && (vErr < 0.1)) {
+            // gap mode
+            //newSpeed = speed + 0.45 * spacingErr + 0.0125 *spacingErr1;
+            newSpeed = speed + myGapControlGainGap * spacingErr + myGapControlGainGapDot * spacingErr1;
+            vehMode = CACC_GAP_MODE;
+        } else if (spacingErr < 0) {
+            // collision avoidance mode
+            //newSpeed = speed + 0.45 * spacingErr + 0.05 *spacingErr1;
+            newSpeed = speed + myCollisionAvoidanceGainGap * spacingErr + myCollisionAvoidanceGainGapDot * spacingErr1;
+            vehMode = CACC_COLLISION_AVOIDANCE_MODE;
+        } else {
+            // gap closing mode
+            newSpeed = speed + myGapClosingControlGainGap * spacingErr + myGapClosingControlGainGapDot * spacingErr1;
+            vehMode = CACC_GAP_CLOSING_MODE;
         }
     }
 
+    if (setControlMode && !MSGlobals::gComputeLC) {
+        const_cast<SUMOVehicleParameter&>(veh->getParameter()).setParameter("caccVehicleMode", VehicleModeNames[vehMode]);
+    }
+
+    //std::cout << veh->getID() << " commMode: " << commMode << ", caccVehicleMode: " << VehicleModeNames[vehMode]
+    //            << ", gap2pred: " << gap2pred << ", newSpeed: " << newSpeed << std::endl;
+
 #if DEBUG_CACC == 1
-    if (DEBUG_COND) std::cout << "        result: accel=" << SPEED2ACCEL(newSpeed - speed) {
-                << " newSpeed="  << newSpeed << std::endl;
+    if (DEBUG_COND) {
+        std::cout << "        result: accel=" << SPEED2ACCEL(newSpeed - speed) << " newSpeed=" << newSpeed << std::endl;
     }
 #endif
 

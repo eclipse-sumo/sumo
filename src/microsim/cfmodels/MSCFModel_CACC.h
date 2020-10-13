@@ -186,8 +186,11 @@ private:
     /// @brief Vehicle mode (default is CACC)
     /// Switch to ACC mode if CACC_ControlMode = 1 (gap control mode) _and_ leader's CFModel != CACC
     enum VehicleMode {
-        ACC_MODE = 0,
-        CACC_MODE
+        CC_MODE = 0,
+        ACC_MODE,
+        CACC_GAP_MODE,
+        CACC_GAP_CLOSING_MODE,
+        CACC_COLLISION_AVOIDANCE_MODE
     };
 
     /// @brief Vehicle mode name map
