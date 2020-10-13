@@ -553,7 +553,7 @@ MESegment::receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isD
     Queue& q = myQueues[qIdx];
     std::vector<MEVehicle*>& cars = q.getModifiableVehicles();
     MEVehicle* newLeader = nullptr; // first vehicle in the current queue
-    SUMOTime tleave = MAX2(veh->getStoptime(time) + TIME2STEPS(myLength / uspeed) + getLinkPenalty(veh), q.getBlockTime());
+    SUMOTime tleave = MAX2(veh->checkStop(time) + TIME2STEPS(myLength / uspeed) + getLinkPenalty(veh), q.getBlockTime());
     if (veh->isStopped()) {
         myEdge.addWaiting(veh);
     }
@@ -672,14 +672,23 @@ MESegment::getEventTime() const {
 
 
 void
-MESegment::saveState(OutputDevice& out) {
-    out.openTag(SUMO_TAG_SEGMENT);
+MESegment::saveState(OutputDevice& out) const {
+    bool write = false;
     for (const Queue& q : myQueues) {
-        out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES).writeAttr(SUMO_ATTR_TIME, toString<SUMOTime>(q.getBlockTime()));
-        out.writeAttr(SUMO_ATTR_VALUE, q.getVehicles());
+        if (q.getBlockTime() != -1 || !q.getVehicles().empty()) {
+            write = true;
+            break;
+        }
+    }
+    if (write) {
+        out.openTag(SUMO_TAG_SEGMENT).writeAttr(SUMO_ATTR_ID, getID());
+        for (const Queue& q : myQueues) {
+            out.openTag(SUMO_TAG_VIEWSETTINGS_VEHICLES).writeAttr(SUMO_ATTR_TIME, toString<SUMOTime>(q.getBlockTime()));
+            out.writeAttr(SUMO_ATTR_VALUE, q.getVehicles());
+            out.closeTag();
+        }
         out.closeTag();
     }
-    out.closeTag();
 }
 
 

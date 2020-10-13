@@ -175,17 +175,17 @@ public:
     /** @brief Returns whether the vehicle stops at the given stopping place */
     bool stopsAt(MSStoppingPlace* /*stop*/) const {
         return false;
-    };
+    }
 
     bool stopsAtEdge(const MSEdge* /*edge*/) const {
         return false;
-    };
+    }
 
-    /** @brief Returns until when to stop at the current segment
+    /** @brief Returns until when to stop at the current segment and sets the information that the stop has been reached
      * @param[in] time the current time
      * @return stop time for the segment
      */
-    SUMOTime getStoptime(SUMOTime time);
+    SUMOTime checkStop(SUMOTime time);
 
 
     /// @brief get distance for coming to a stop (used for rerouting checks)

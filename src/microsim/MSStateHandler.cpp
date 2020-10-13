@@ -199,11 +199,11 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_SEGMENT: {
-            if (mySegment == nullptr) {
-                mySegment = MSGlobals::gMesoNet->getSegmentForEdge(*MSEdge::getAllEdges()[0]);
-            } else if (mySegment->getNextSegment() == nullptr) {
-                mySegment = MSGlobals::gMesoNet->getSegmentForEdge(*MSEdge::getAllEdges()[mySegment->getEdge().getNumericalID() + 1]);
-            } else {
+            const std::string& segmentID = attrs.getString(SUMO_ATTR_ID);
+            const MSEdge* const edge = MSEdge::dictionary(segmentID.substr(0, segmentID.rfind(":")));
+            int idx = StringUtils::toInt(segmentID.substr(segmentID.rfind(":") + 1));
+            mySegment = MSGlobals::gMesoNet->getSegmentForEdge(*edge);
+            while (idx-- > 0) {
                 mySegment = mySegment->getNextSegment();
             }
             myQueIndex = 0;
@@ -214,7 +214,7 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             const std::string laneID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
             myCurrentLane = MSLane::dictionary(laneID);
             if (myCurrentLane == nullptr) {
-                throw ProcessError("Unknown lane '" + laneID + "' in loaded state");
+                throw ProcessError("Unknown lane '" + laneID + "' in loaded state.");
             }
             break;
         }

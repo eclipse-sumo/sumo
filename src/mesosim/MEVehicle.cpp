@@ -211,7 +211,7 @@ MEVehicle::isStoppedInRange(const double /* pos */, const double /* tolerance */
 
 
 SUMOTime
-MEVehicle::getStoptime(SUMOTime time) {
+MEVehicle::checkStop(SUMOTime time) {
     for (MSStop& stop : myStops) {
         if (stop.edge != myCurrEdge || stop.segment != mySegment) {
             return time;
@@ -258,6 +258,7 @@ MEVehicle::processStop() {
             break;
         }
         lastPos = stop.pars.endPos;
+        stop.pars.actualArrival = myLastEntryTime;
         if (MSStopOut::active()) {
             MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
         }
@@ -384,7 +385,7 @@ MEVehicle::saveState(OutputDevice& out) {
         return;
     }
     MSBaseVehicle::saveState(out);
-    assert(mySegment == 0 || *myCurrEdge == &mySegment->getEdge());
+    assert(mySegment == nullptr || *myCurrEdge == &mySegment->getEdge());
     std::vector<SUMOTime> internals;
     internals.push_back(myDeparture);
     internals.push_back((SUMOTime)distance(myRoute->begin(), myCurrEdge));
@@ -395,10 +396,18 @@ MEVehicle::saveState(OutputDevice& out) {
     internals.push_back(myLastEntryTime);
     internals.push_back(myBlockTime);
     out.writeAttr(SUMO_ATTR_STATE, toString(internals));
-    // save stops and parameters
+    // save past stops
+    for (SUMOVehicleParameter::Stop stop : myPastStops) {
+        stop.write(out, false);
+        out.writeAttr("actualArrival", time2string(stop.actualArrival));
+        out.writeAttr(SUMO_ATTR_DEPART, time2string(stop.depart));
+        out.closeTag();
+    }
+    // save upcoming stops
     for (const MSStop& stop : myStops) {
         stop.write(out);
     }
+    // save parameters
     myParameter->writeParams(out);
     for (MSDevice* dev : myDevices) {
         dev->saveState(out);

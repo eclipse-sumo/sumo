@@ -373,7 +373,7 @@ public:
      * @param[in, filled] out The (possibly binary) device to write the state into
      * @todo What about throwing an IOError?
      */
-    void saveState(OutputDevice& out);
+    void saveState(OutputDevice& out) const;
 
     /** @brief Remove all vehicles before quick-loading state */
     void clearState();

@@ -404,7 +404,7 @@ public:
         double speed = 0.;
 
         /// @brief the time at which this stop was reached
-        SUMOTime actualArrival = -1;
+        mutable SUMOTime actualArrival = -1;
 
         /// @brief the time at which this stop was ended
         SUMOTime depart = -1;
