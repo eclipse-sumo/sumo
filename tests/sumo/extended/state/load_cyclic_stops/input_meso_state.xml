@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 17 09:28:57 2020 by Eclipse SUMO Version v1_5_0+1186-45cd1c69fe
+<!-- generated on Tue Oct 13 11:08:47 2020 by Eclipse SUMO sumo Version v1_7_0+0592-51838c0a76
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -38,134 +39,33 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_5_0+1186-45cd1c69fe" time="350.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+0592-51838c0a76" time="350.00">
     <route id="!v0!var#1" state="0" edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
-    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
-    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
-    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
     <vType id="DEFAULT_VEHTYPE"/>
-    <vehicle id="v0" type="DEFAULT_VEHTYPE" depart="0.00" route="!v0!var#1" speedFactor="1.00" state="0 0 0 0 0 486620 0 9223372036854775807">
-        <stop lane="CN_0" until="120.00"/>
-        <stop lane="CN_0" until="300.00"/>
-        <stop lane="CN_0" until="420.00"/>
-        <stop lane="CN_0" until="540.00"/>
-        <stop lane="SC_0" until="60.00"/>
-        <stop lane="SC_0" until="240.00"/>
-        <stop lane="SC_0" until="360.00"/>
-        <stop lane="SC_0" until="480.00"/>
+    <vehicle id="v0" type="DEFAULT_VEHTYPE" depart="0.00" route="!v0!var#1" speedFactor="1.00" state="0 8 0 0 0 366620 319860 9223372036854775807">
+        <stop lane="SC_0" until="60.00" actualArrival="0.00" depart="67.00"/>
+        <stop lane="CN_0" until="120.00" actualArrival="66.62" depart="127.00"/>
+        <stop lane="SC_0" until="240.00" actualArrival="139.86" depart="247.00"/>
+        <stop lane="CN_0" until="300.00" actualArrival="246.62" depart="307.00"/>
+        <stop lane="SC_0" startPos="91.75" endPos="91.95" until="360.00"/>
+        <stop lane="CN_0" startPos="91.75" endPos="91.95" until="420.00"/>
+        <stop lane="SC_0" startPos="91.75" endPos="91.95" until="480.00"/>
+        <stop lane="CN_0" startPos="91.75" endPos="91.95" until="540.00"/>
         <device id="routing_v0" state="0"/>
     </vehicle>
-    <segment>
+    <segment id="CN:0">
+        <vehicles time="307454" value=""/>
+    </segment>
+    <segment id="CS:0">
+        <vehicles time="320694" value=""/>
+    </segment>
+    <segment id="NC:0">
+        <vehicles time="314909" value=""/>
         <vehicles time="-1" value=""/>
     </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value="v0"/>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
+    <segment id="SC:0">
+        <vehicles time="248289" value="v0"/>
         <vehicles time="-1" value=""/>
     </segment>
 </snapshot>

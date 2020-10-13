@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 18 10:05:59 2019 by Eclipse SUMO Version v1_4_0+0173-908b4d0
+<!-- generated on Mon Oct 12 21:52:42 2020 by Eclipse SUMO sumo Version v1_7_0+0591-54c0d1ca00
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -38,29 +39,19 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0173-908b4d0" time="20.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+0591-54c0d1ca00" time="20.00">
     <route id="r0" state="1" edges="beg middle end"/>
     <delay number="1" begin="1" end="0" depart="0.00" time="0.00"/>
-    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
-    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
-    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
-    <vType id="DEFAULT_VEHTYPE"/>
     <vType id="t0" sigma="0"/>
     <vehicle id="v0" type="t0" depart="0.00" route="r0" speedFactor="1.00" state="0 1 0 0 0 36199 7000 9223372036854775807">
-        <stop lane="middle_0" endPos="150.00" duration="20.00" parking="1"/>
-        <stop lane="middle_0" endPos="10.00" duration="2.00" parking="1"/>
-        <stop lane="middle_0" endPos="60.00" duration="20.00" parking="1"/>
+        <stop lane="middle_0" startPos="9.80" endPos="10.00" duration="2.00" parking="1"/>
+        <stop lane="middle_0" startPos="59.80" endPos="60.00" duration="20.00" parking="1"/>
+        <stop lane="middle_0" startPos="149.80" endPos="150.00" duration="20.00" parking="1"/>
     </vehicle>
-    <segment>
-        <vehicles time="8669" value=""/>
+    <segment id="beg:0">
+        <vehicles time="15630" value=""/>
     </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
+    <segment id="middle:0">
         <vehicles time="-1" value="v0"/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
     </segment>
 </snapshot>
