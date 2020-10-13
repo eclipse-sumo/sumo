@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 27 09:35:18 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
+<!-- generated on Tue Oct 13 11:31:54 2020 by Eclipse SUMO sumo Version v1_7_0+0592-51838c0a76
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,6 +28,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -41,7 +42,7 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <routeDistribution id="middle_10.00">
-        <route id="r0_10.00" edges="beg middle end" probability="2.00"/>
+        <route id="r0_10.00" edges="beg middle end" probability="1.00"/>
     </routeDistribution>
     <routeDistribution id="middle_20.00">
         <route id="r0_20.00" edges="beg middle end" probability="1.00"/>
@@ -50,7 +51,7 @@ SPDX-License-Identifier: EPL-2.0
         <route id="r0_20.00" edges="beg middle end" probability="1.00"/>
     </routeDistribution>
     <routeDistribution id="middle_30.00">
-        <route id="r0_30.00" edges="beg middle end" probability="1.00"/>
+        <route id="r0_30.00" edges="beg middle end" probability="2.00"/>
     </routeDistribution>
     <routeDistribution id="end_30.00">
         <route id="r0_30.00" edges="beg middle end" probability="1.00"/>
@@ -59,9 +60,12 @@ SPDX-License-Identifier: EPL-2.0
         <route id="r0_40.00" edges="beg middle end" probability="1.00"/>
     </routeDistribution>
     <routeDistribution id="end_40.00">
-        <route id="r0_40.00" edges="beg middle end" probability="2.00"/>
+        <route id="r0_40.00" edges="beg middle end" probability="1.00"/>
     </routeDistribution>
     <routeDistribution id="end_50.00">
         <route id="r0_50.00" edges="beg middle end" probability="1.00"/>
+    </routeDistribution>
+    <routeDistribution id="end_60.00">
+        <route id="r0_60.00" edges="beg middle end" probability="1.00"/>
     </routeDistribution>
 </routes>
