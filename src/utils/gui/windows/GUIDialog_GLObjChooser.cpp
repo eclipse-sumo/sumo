@@ -227,6 +227,8 @@ GUIDialog_GLObjChooser::onCmdFilterSubstr(FXObject*, FXSelector, void*) {
         }
     }
     refreshList(selectedGlIDs);
+    // filter ACs in NETEDIT
+    filterACs(selectedGlIDs);
     myHaveFilteredSubstring = true;
     onChgText(nullptr, 0, nullptr);
     return 1;
@@ -310,5 +312,10 @@ GUIDialog_GLObjChooser::toggleSelection(int listIndex) {
     gSelected.toggleSelection(*glID);
 }
 
+
+void 
+GUIDialog_GLObjChooser::filterACs(const std::vector<GUIGlID> &GLIDs) {
+    // overrided in GNEDialogACChooser
+}
 
 /****************************************************************************/

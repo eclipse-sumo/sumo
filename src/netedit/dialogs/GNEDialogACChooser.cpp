@@ -33,13 +33,14 @@
 GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
     GUIDialog_GLObjChooser(viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
     myACs(ACs),
+    myFilteredACs(ACs),
     myViewParent(viewParent),
     myLocateTLS(title.find("TLS") != std::string::npos) {
     // @note refresh must be called here because the base class constructor cannot
     // call the virtual function getObjectName
     std::vector<GUIGlID> ids;
-    for (auto ac : ACs) {
-        ids.push_back(dynamic_cast<GUIGlObject*>(ac)->getGlID());
+    for (const auto &AC : ACs) {
+        ids.push_back(AC->getGUIGlObject()->getGlID());
     }
     refreshList(ids);
 }
@@ -52,7 +53,8 @@ GNEDialogACChooser::~GNEDialogACChooser() {
 
 void
 GNEDialogACChooser::toggleSelection(int listIndex) {
-    GNEAttributeCarrier* ac = myACs[listIndex];
+    // always filtered ACs
+    GNEAttributeCarrier* ac = myFilteredACs[listIndex];
     if (ac->isAttributeCarrierSelected()) {
         ac->unselectAttributeCarrier();
     } else {
@@ -61,13 +63,41 @@ GNEDialogACChooser::toggleSelection(int listIndex) {
 }
 
 
+void 
+GNEDialogACChooser::filterACs(const std::vector<GUIGlID> &GLIDs) {
+    if (GLIDs.empty()) {
+        myFilteredACs = myACs;
+    } else {
+        // clear myFilteredACs
+        myFilteredACs.clear();
+        // iterate over myACs
+        for (const auto &AC : myACs) {
+            // search in GLIDs
+            if (std::find(GLIDs.begin(), GLIDs.end(), AC->getGUIGlObject()->getGlID()) != GLIDs.end()) {
+                myFilteredACs.push_back(AC);
+            }
+        }
+    }
+}
+
+
 std::string
 GNEDialogACChooser::getObjectName(GUIGlObject* o) const {
+    // check if we're locating a TLS
     if (myLocateTLS) {
+        // obtain junction
         GNEJunction* junction = dynamic_cast<GNEJunction*>(o);
-        assert(junction != nullptr);
+        // check that junction exist
+        if (junction == nullptr) {
+            throw ProcessError("Invalid Junction");
+        }
+        // get definitions
         const std::set<NBTrafficLightDefinition*>& defs = junction->getNBNode()->getControllingTLS();
-        assert(defs.size() > 0);
+        // check that junction exist
+        if (defs.size() > 0) {
+            throw ProcessError("Invalid number of TLSs");
+        }
+        // get TLDefinition
         NBTrafficLightDefinition* tlDef = *defs.begin();
         if (tlDef->getID() == o->getMicrosimID()) {
             return o->getMicrosimID();

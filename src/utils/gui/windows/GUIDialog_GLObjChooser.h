@@ -113,9 +113,11 @@ public:
     void show();
 
 protected:
-
     /// @brief toggle selection (handled differently in NETEDIT)
     virtual void toggleSelection(int listIndex);
+
+    /// @brief filter ACs (needed in NETEDIT)
+    virtual void filterACs(const std::vector<GUIGlID> &GLIDs);
 
     /// update the list with the given ids
     void refreshList(const std::vector<GUIGlID>& ids);

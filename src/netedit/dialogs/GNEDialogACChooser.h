@@ -60,16 +60,24 @@ public:
 protected:
     FOX_CONSTRUCTOR(GNEDialogACChooser)
 
+    /// @brief toogle selection
     void toggleSelection(int listIndex) override;
+
+    /// @brief filter ACs
+    void filterACs(const std::vector<GUIGlID> &GLIDs) override;
 
     /// @bbrief retrieve name for the given object (special case for TLS)
     std::string getObjectName(GUIGlObject* o) const override;
 
 private:
-    /// @brief list of displayed ACs
-    std::vector<GNEAttributeCarrier*> myACs;
+    /// @brief pointer to view parent
     GNEViewParent* myViewParent;
 
+    /// @brief list of displayed ACs
+    std::vector<GNEAttributeCarrier*> myACs;
+
+    /// @brief list of filtered ACs
+    std::vector<GNEAttributeCarrier*> myFilteredACs;
 
     /// @brief whether the current locator is for TLS
     bool myLocateTLS;
