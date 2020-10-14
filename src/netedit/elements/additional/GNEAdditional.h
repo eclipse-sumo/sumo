@@ -304,6 +304,9 @@ protected:
 
     /// @}
 
+    /// @brief draw additional ID
+    void drawAdditionalID(const GUIVisualizationSettings& s) const;
+
     /// @brief draw additional name
     void drawAdditionalName(const GUIVisualizationSettings& s) const;
 

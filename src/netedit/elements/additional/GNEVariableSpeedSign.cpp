@@ -167,6 +167,8 @@ GNEVariableSpeedSign::drawGL(const GUIVisualizationSettings& s) const {
         drawHierarchicalConnections(s, this, VSSExaggeration);
         // Pop connection matrix
         glPopMatrix();
+        // Draw additional ID
+        drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contour has to be drawn

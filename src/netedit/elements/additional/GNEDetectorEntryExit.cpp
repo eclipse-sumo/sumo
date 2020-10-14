@@ -205,16 +205,14 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
         GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, entryExitExaggeration, 0, 0, true, 0.4);
         // Pop layer matrix
         glPopMatrix();
-        // Draw name if isn't being drawn for selecting
-        if (!s.drawForRectangleSelection) {
-            drawName(getPositionInView(), s.scale, s.addName);
-        }
         // check if dotted contour has to be drawn
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             // GNEGeometry::drawShapeDottedContour(s, getType(), entryExitExaggeration, myDottedGeometry);
         }
         // pop gl identificator
         glPopName();
+        // draw additional name
+        drawAdditionalName(s);
     }
 }
 

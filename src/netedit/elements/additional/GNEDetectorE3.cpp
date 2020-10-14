@@ -150,8 +150,6 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // Pop name
         glPopName();
-        // Draw name if isn't being drawn for selecting
-        drawName(getPositionInView(), s.scale, s.addName);
         // Pop name
         glPopName();
         // push connection matrix
@@ -162,6 +160,8 @@ GNEDetectorE3::drawGL(const GUIVisualizationSettings& s) const {
         drawHierarchicalConnections(s, this, E3Exaggeration);
         // Pop connection matrix
         glPopMatrix();
+        // Draw additional ID
+        drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn

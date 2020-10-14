@@ -151,6 +151,8 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
         glPopMatrix();
         // pop name
         glPopName();
+        // Draw additional ID
+        drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn

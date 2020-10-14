@@ -150,7 +150,7 @@ GNECalibrator::drawGL(const GUIVisualizationSettings& s) const {
         // pop name
         glPopName();
         // draw name
-        drawName(getPositionInView(), s.scale, s.addName);
+        drawAdditionalID(s);
     }
 }
 

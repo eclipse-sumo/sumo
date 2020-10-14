@@ -104,10 +104,10 @@ GNEContainerStop::drawGL(const GUIVisualizationSettings& s) const {
         }
         // pop draw matrix
         glPopMatrix();
-        // Draw name if isn't being drawn for selecting
-        drawName(getPositionInView(), s.scale, s.addName);
         // Pop name
         glPopName();
+        // Draw additional ID
+        drawAdditionalID(s);
         // draw additional name
         drawAdditionalName(s);
         // check if dotted contours has to be drawn

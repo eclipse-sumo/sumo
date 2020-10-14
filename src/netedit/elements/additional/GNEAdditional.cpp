@@ -370,7 +370,7 @@ GNEAdditional::drawPartialGL(const GUIVisualizationSettings& s, const GNELane* l
         }
         // Pop last matrix
         glPopMatrix();
-        // Draw name if isn't being drawn for selecting
+        // draw additional ID
         if (!s.drawForRectangleSelection) {
             drawName(getCenteringBoundary().getCenter(), s.scale, s.addName);
         }
@@ -476,16 +476,39 @@ GNEAdditional::isValidDetectorID(const std::string& newID) const {
 
 
 void
-GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
-    if (s.addFullName.show && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+GNEAdditional::drawAdditionalID(const GUIVisualizationSettings& s) const {
+    if (s.addName.show && (myAdditionalGeometry.getShape().size() > 0) && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position
         const Position pos = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
         // calculate rotation
         const double rot = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
-        // get texture
-        GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, rot);
+        // draw additional ID
+        if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
+            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(rot - 90));
+        } else {
+            GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, 0);
+        }
+    }
+}
+
+
+void
+GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
+    if (s.addFullName.show && (myAdditionalGeometry.getShape().size() > 0) && (myAdditionalName != "") && !s.drawForRectangleSelection && !s.drawForPositionSelection) {
+        // calculate middle point
+        const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
+        // calculate position
+        const Position pos = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        // calculate rotation
+        const double rot = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        // draw additional name
+        if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
+            GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(rot - 90));
+        } else {
+            GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, 0);
+        }
     }
 }
 
