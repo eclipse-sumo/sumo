@@ -54,32 +54,17 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 46, 181)
 
 # Change block movement
-netedit.modifyBoolAttribute(7, True)
+netedit.modifyBoolAttribute(8, True)
 
 # go to move mode
 netedit.moveMode()
 
 # try to move Acces
-netedit.moveElement(referencePosition, -160, 165, 100, 165)
-
-# go to inspect mode
-netedit.inspectMode()
-
-# inspect Access
-netedit.leftClick(referencePosition, 46, 181)
-
-# Change block movement
-netedit.modifyBoolAttribute(7, True)
-
-# go to move mode
-netedit.moveMode()
-
-# move Acces
-netedit.moveElement(referencePosition, -160, 165, 100, 165)
+netedit.moveElement(referencePosition, 46, 185, 352, 185)
 
 # Check undo redo
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 2)
+netedit.redo(referencePosition, 2)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

@@ -7,58 +7,15 @@ Debug: Format of optional positive optional integer attribute 'personCapacity' o
 Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Setting new attribute startPos '20.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '30.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute blockMovement 'true' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute blockMovement 'false' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute startPos '28.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '38.00' into busStop 'busStop_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '30.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '20.00' into busStop 'busStop_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute blockMovement '1' into busStop 'busStop_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute blockMovement '0' into busStop 'busStop_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '22.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting previous attribute startPos '12.00' into busStop 'busStop_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Removing busStop 'busStop_gneE0_0_0' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Adding busStop 'busStop_gneE0_0_0' in GNEChange_Additional
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '20.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '30.00' into busStop 'busStop_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute blockMovement 'true' into busStop 'busStop_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute blockMovement 'false' into busStop 'busStop_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '28.00' into busStop 'busStop_gneE0_0_0'
-Debug: Setting new attribute endPos '38.00' into busStop 'busStop_gneE0_0_0'
-Debug: Additionals saved
-Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
-Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
+Debug: Setting new attribute startPos '22.00' into busStop 'busStop_gneE0_0_0'
+Debug: Setting new attribute endPos '32.00' into busStop 'busStop_gneE0_0_0'
+Debug: Opening FXMessageBox 'Save additionals before quit'
+Debug: Closed FXMessageBox 'Save additionals before quit' with 'Quit'
 Debug: Deleting unreferenced busStop 'busStop_gneE0_0_0'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced edge 'gneE1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
-Debug: Deleting unreferenced connection 'fromgneE1_0togneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced junction 'gneJ0' in AttributeCarriers destructor
 Debug: Deleting unreferenced junction 'gneJ1' in AttributeCarriers destructor
 Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destructor

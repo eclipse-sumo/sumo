@@ -44,7 +44,7 @@ netedit.leftClick(referencePosition, 250, 258)
 netedit.moveMode()
 
 # move chargingStation to right
-netedit.moveElement(referencePosition, 150, 258, 250, 258)
+netedit.moveElement(referencePosition, 250, 250, 400, 250)
 
 # go to inspect mode
 netedit.inspectMode()
@@ -53,32 +53,17 @@ netedit.inspectMode()
 netedit.leftClick(referencePosition, 350, 258)
 
 # block additional
-netedit.modifyBoolAttribute(13, True)
+netedit.modifyBoolAttribute(14, True)
 
 # change to move mode
 netedit.moveMode()
 
-# try to move chargingStation to right (must be blocked)
-netedit.moveElement(referencePosition, 250, 258, 350, 258)
-
-# go to inspect mode
-netedit.inspectMode()
-
-# inspect chargingStation
-netedit.leftClick(referencePosition, 350, 258)
-
-# unblock additional
-netedit.modifyBoolAttribute(13, True)
-
-# change to move mode
-netedit.moveMode()
-
-# move chargingStation to right (must be allowed)
-netedit.moveElement(referencePosition, 250, 258, 350, 258)
+# move chargingStation to right
+netedit.moveElement(referencePosition, 400, 250, 250, 250)
 
 # Check undos and redos
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 3)
+netedit.redo(referencePosition, 3)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

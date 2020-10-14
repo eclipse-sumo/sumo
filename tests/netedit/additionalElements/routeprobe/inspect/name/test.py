@@ -44,7 +44,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # inspect first routeProbe
-netedit.leftClick(referencePosition, 320, 220)
+netedit.leftClick(referencePosition, 325, 223)
 
 # Change parameter 3 with an non valid value
 netedit.modifyAttribute(3, "%%%;:..&&%$%$", True)

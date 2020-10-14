@@ -11,19 +11,9 @@ Debug: Selected item 'chargingStation' in TagSelector
 Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Setting new attribute startPos '20.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '30.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute startPos '27.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute endPos '37.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Setting new attribute blockMovement 'true' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute blockMovement 'false' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute startPos '28.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '38.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '30.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '20.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute blockMovement '1' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute blockMovement '0' into chargingStation 'chargingStation_gneE0_0_0'
@@ -39,18 +29,11 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '20.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '30.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute startPos '27.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute endPos '37.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute blockMovement 'true' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute blockMovement 'false' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '28.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '38.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

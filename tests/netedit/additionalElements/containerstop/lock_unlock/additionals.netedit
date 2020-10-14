@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.10.2018 13:08:16 by Eclipse SUMO netedit Version v1_0_1+0269-07f0f88abc
+<!-- generated on 14.10.2020 15:07:20 by Eclipse SUMO netedit Version v1_7_0+0604-f6c630f3c7
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,26 +30,32 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\shapes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_16Oct125820.1772/netedit.gui/additionalElements/containerStop/lock_unlock\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.14Oct150632.10208\netedit.gui\additionalElements\containerstop\lock_unlock\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="28.00" endPos="38.00"/>
+    <containerStop id="containerStop_gneE0_0_0" lane="gneE0_0" startPos="22.00" endPos="32.00"/>
 </additional>

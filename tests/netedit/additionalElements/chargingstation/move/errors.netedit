@@ -11,50 +11,14 @@ Debug: Selected item 'chargingStation' in TagSelector
 Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Setting new attribute startPos '4.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '14.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute startPos '27.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute endPos '37.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Setting new attribute startPos '12.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Setting new attribute endPos '22.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute startPos '20.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '30.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute startPos '12.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '22.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute startPos '0.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '10.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute startPos '18.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '28.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute startPos '40.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '50.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute startPos '25.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '35.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '50.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '40.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '28.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '18.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '10.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '0.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '22.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '12.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '30.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '20.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '22.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '12.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute endPos '14.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting previous attribute startPos '4.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting previous attribute endPos '37.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting previous attribute startPos '27.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute endPos '22.00' into chargingStation 'chargingStation_gneE0_0_0'
@@ -68,36 +32,12 @@ Debug: Calling GNEUndoList::redo()
 Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '4.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '14.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute startPos '27.00' into chargingStation 'chargingStation_gneE0_0_0'
+Debug: Setting new attribute endPos '37.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute startPos '12.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Setting new attribute endPos '22.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '20.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '30.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '12.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '22.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '0.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '10.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '18.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '28.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '40.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '50.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute startPos '25.00' into chargingStation 'chargingStation_gneE0_0_0'
-Debug: Setting new attribute endPos '35.00' into chargingStation 'chargingStation_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing

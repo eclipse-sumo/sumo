@@ -51,10 +51,10 @@ netedit.leftClick(referencePosition, 50, 200)
 netedit.moveMode()
 
 # move Acces 1
-netedit.moveElement(referencePosition, -160, 165, 100, 165)
+netedit.moveElement(referencePosition, 46, 185, 325, 185)
 
 # move Acces 2
-netedit.moveElement(referencePosition, 100, 165, -100, 165)
+netedit.moveElement(referencePosition, 298, 185, 46, 185)
 
 # Check undo redo
 netedit.undo(referencePosition, 4)

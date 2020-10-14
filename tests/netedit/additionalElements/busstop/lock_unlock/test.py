@@ -44,41 +44,26 @@ netedit.leftClick(referencePosition, 250, 255)
 netedit.moveMode()
 
 # move busStop to right
-netedit.moveElement(referencePosition, 150, 275, 250, 275)
+netedit.moveElement(referencePosition, 250, 270, 350, 270)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect busStop
-netedit.leftClick(referencePosition, 350, 275)
-
-# block additional
-netedit.modifyBoolAttribute(8, True)
-
-# change to move mode
-netedit.moveMode()
-
-# try to move busStop to right (must be blocked)
-netedit.moveElement(referencePosition, 250, 275, 350, 275)
-
-# go to inspect mode
-netedit.inspectMode()
-
-# inspect busStop
-netedit.leftClick(referencePosition, 350, 275)
+netedit.leftClick(referencePosition, 350, 270)
 
 # unblock additional
-netedit.modifyBoolAttribute(8, True)
+netedit.modifyBoolAttribute(9, True)
 
 # change to move mode
 netedit.moveMode()
 
-# move busStop to right (must be allowed)
-netedit.moveElement(referencePosition, 250, 275, 350, 275)
+# move busStop to right
+netedit.moveElement(referencePosition, 350, 270, 250, 270, )
 
 # Check undos and redos
-netedit.undo(referencePosition, 5)
-netedit.redo(referencePosition, 5)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)
