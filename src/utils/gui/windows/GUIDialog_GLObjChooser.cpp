@@ -314,7 +314,7 @@ GUIDialog_GLObjChooser::toggleSelection(int listIndex) {
 
 
 void 
-GUIDialog_GLObjChooser::filterACs(const std::vector<GUIGlID> &GLIDs) {
+GUIDialog_GLObjChooser::filterACs(const std::vector<GUIGlID> &/*GLIDs*/) {
     // overrided in GNEDialogACChooser
 }
 
