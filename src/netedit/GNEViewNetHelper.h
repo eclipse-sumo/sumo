@@ -392,6 +392,9 @@ struct GNEViewNetHelper {
         /// @brief check if CONTROL is pressed during current event
         bool controlKeyPressed() const;
 
+        /// @brief check if ALT is pressed during current event
+        bool altKeyPressed() const;
+
         /// @brief check if mouse left button is pressed during current event
         bool mouseLeftButtonPressed() const;
 

@@ -878,6 +878,16 @@ GNEViewNetHelper::MouseButtonKeyPressed::controlKeyPressed() const {
 
 
 bool
+GNEViewNetHelper::MouseButtonKeyPressed::altKeyPressed() const {
+    if (myEventInfo) {
+        return (myEventInfo->state & ALTMASK) != 0;
+    } else {
+        return false;
+    }
+}
+
+
+bool
 GNEViewNetHelper::MouseButtonKeyPressed::mouseLeftButtonPressed() const {
     if (myEventInfo) {
         return (myEventInfo->state & LEFTBUTTONMASK) != 0;

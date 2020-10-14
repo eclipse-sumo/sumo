@@ -216,7 +216,7 @@ GNETAZ::drawGL(const GUIVisualizationSettings& s) const {
         const RGBColor color = isAttributeCarrierSelected() ? s.colorSettings.selectionColor : getShapeColor();
         const RGBColor invertedColor = color.invertedColor();
         const RGBColor darkerColor = color.changedBrightness(-32);
-        // obtain scaled geometry
+        // obtain scaled geometryte
         GNEGeometry::Geometry scaledGeometry = myTAZGeometry;
         if (TAZExaggeration != 1) {
             scaledGeometry.scaleGeometry(TAZExaggeration);

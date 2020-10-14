@@ -933,11 +933,16 @@ GNEViewNet::onKeyPress(FXObject* o, FXSelector sel, void* eventData) {
     myMouseButtonKeyPressed.update(eventData);
     // update cursor
     updateCursor();
-    // change "delete last created point" depending of shift key
-    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+    // continue depending of current edit mode
+    if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
+        // update viewNet (for temporal junction)
+        updateViewNet();
+    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+        // change "delete last created point" depending of shift key
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
         updateViewNet();
     } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
+        // change "delete last created point" depending of shift key
         myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
         updateViewNet();
     }
@@ -951,9 +956,17 @@ GNEViewNet::onKeyRelease(FXObject* o, FXSelector sel, void* eventData) {
     myMouseButtonKeyPressed.update(eventData);
     // update cursor
     updateCursor();
-    // change "delete last created point" depending of shift key
-    if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+    // continue depending of current edit mode
+    if (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) {
+        // update viewNet (for temporal junction)
+        updateViewNet();
+    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_POLYGON) && myViewParent->getPolygonFrame()->getDrawingShapeModul()->isDrawing()) {
+        // change "delete last created point" depending of shift key
         myViewParent->getPolygonFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
+        updateViewNet();
+    } else if ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_TAZ) && myViewParent->getTAZFrame()->getDrawingShapeModul()->isDrawing()) {
+        // change "delete last created point" depending of shift key
+        myViewParent->getTAZFrame()->getDrawingShapeModul()->setDeleteLastCreatedPoint(myMouseButtonKeyPressed.shiftKeyPressed());
         updateViewNet();
     }
     // check if selecting using rectangle has to be disabled
@@ -3680,7 +3693,10 @@ GNEViewNet::drawTemporalDrawShape() const {
 void
 GNEViewNet::drawTemporalJunction() const {
     // first check if we're in correct mode
-    if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {
+    if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) &&
+        !myMouseButtonKeyPressed.controlKeyPressed() &&
+        !myMouseButtonKeyPressed.shiftKeyPressed() &&
+        !myMouseButtonKeyPressed.altKeyPressed()) {
         // get mouse position
         const Position mousePosition = snapToActiveGrid(getPositionInformation());
         // get buble color
@@ -3814,8 +3830,23 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             }
             break;
         case NetworkEditMode::NETWORK_CREATE_EDGE: {
-            // make sure that Control key isn't pressed
-            if (!myMouseButtonKeyPressed.controlKeyPressed()) {
+            // check what buttons are pressed
+            if (myMouseButtonKeyPressed.shiftKeyPressed()) {
+                // get edge under cursor
+                GNEEdge *edge = myObjectsUnderCursor.getEdgeFront();
+                if (edge) {
+                    // obtain reverse edge
+                    GNEEdge* reverseEdge = edge->getOppositeEdge();
+                    // check if we're split one or both edges
+                    if (myMouseButtonKeyPressed.altKeyPressed()) {
+                        myNet->splitEdge(edge, edge->getSplitPos(getPositionInformation()), myUndoList);
+                    } else if (reverseEdge) {
+                        myNet->splitEdgesBidi(edge, reverseEdge, edge->getSplitPos(getPositionInformation()), myUndoList);
+                    } else {
+                        myNet->splitEdge(edge, edge->getSplitPos(getPositionInformation()), myUndoList);
+                    }
+                }
+            } else if (!myMouseButtonKeyPressed.controlKeyPressed()) {
                 // check if we have to update objects under snapped cursor
                 if (myVisualizationSettings->showGrid) {
                     myViewParent->getCreateEdgeFrame()->updateObjectsUnderSnappedCursor(getGUIGlObjectsUnderSnappedCursor());

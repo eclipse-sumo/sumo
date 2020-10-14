@@ -25,6 +25,7 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 
 // ===========================================================================
@@ -35,6 +36,21 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Create Edge"),
     myObjectsUnderSnappedCursor(viewNet),
     myCreateEdgeSource(nullptr) {
+    // crate information
+    std::ostringstream information;
+    // create helpBox
+    FXGroupBox* helpBox = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
+    // add label for shift+click
+    information
+        << "- Control+Click:" << "\n"
+        << "  Move view" << "\n"
+        << "\n"
+        << "- Shift+Click:" << "\n"
+        << "  Splits edge in both directions" << "\n"
+        << "\n"
+        << "- Alt+Shift+Click:" << "\n"
+        << "  Splits edge in one direction";
+    new FXLabel(helpBox, information.str().c_str(), 0, GUIDesignLabelFrameThicked);
 }
 
 
