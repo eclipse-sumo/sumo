@@ -50,8 +50,6 @@ class Vehicle {
 public:
     /// @name Value retrieval
     /// @{
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static double getSpeed(const std::string& vehicleID);
     static double getLateralSpeed(const std::string& vehicleID);
     static double getAcceleration(const std::string& vehicleID);
@@ -103,8 +101,6 @@ public:
     static std::vector<std::string> getVia(const std::string& vehicleID);
     static std::pair<int, int> getLaneChangeState(const std::string& vehicleID, int direction);
     static double getLastActionTime(const std::string& vehicleID);
-    static std::string getParameter(const std::string& vehicleID, const std::string& param);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
     static std::vector<std::pair<std::string, double> > getNeighbors(const std::string& vehicleID, const int mode);
     static double getFollowSpeed(const std::string& vehicleID, double speed, double gap, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
     static double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
@@ -114,6 +110,7 @@ public:
     static std::vector<std::string> getTaxiFleet(int taxiState = 0);
     /// @}
 
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_VEHICLE_TYPE_GETTER
 
     /// @name State Changing
@@ -190,7 +187,6 @@ public:
     static void remove(const std::string& vehicleID, char reason = REMOVE_VAPORIZED);
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
-    static void setParameter(const std::string& vehicleID, const std::string& param, const std::string& value);
     static void highlight(const std::string& vehicleID, const TraCIColor& col = TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
     static void dispatchTaxi(const std::string& vehicleID,  const std::vector<std::string>& reservations);
     /// @}

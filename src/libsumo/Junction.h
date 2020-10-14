@@ -48,11 +48,10 @@ class VariableWrapper;
 namespace libsumo {
 class Junction {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static TraCIPosition getPosition(const std::string& junctionID, const bool includeZ = false);
     static TraCIPositionVector getShape(const std::string& junctionID);
 
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Returns a tree filled with junction instances

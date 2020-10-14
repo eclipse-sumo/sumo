@@ -46,8 +46,6 @@ class VariableWrapper;
 namespace libsumo {
 class InductionLoop {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static double getPosition(const std::string& detID);
     static std::string getLaneID(const std::string& detID);
     static int getLastStepVehicleNumber(const std::string& detID);
@@ -58,6 +56,7 @@ public:
     static double getTimeSinceDetection(const std::string& detID);
     static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& detID);
 
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Returns a tree filled with inductive loop instances

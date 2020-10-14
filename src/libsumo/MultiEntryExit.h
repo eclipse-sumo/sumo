@@ -43,13 +43,12 @@ class VariableWrapper;
 namespace libsumo {
 class MultiEntryExit {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static int getLastStepVehicleNumber(const std::string& detID);
     static double getLastStepMeanSpeed(const std::string& detID);
     static std::vector<std::string> getLastStepVehicleIDs(const std::string& detID);
     static int getLastStepHaltingNumber(const std::string& detID);
 
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
     static std::shared_ptr<VariableWrapper> makeWrapper();

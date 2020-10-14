@@ -49,8 +49,6 @@ namespace libsumo {
 
 class Edge {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static double getAdaptedTraveltime(const std::string& id, double time);
     static double getEffort(const std::string& id, double time);
     static double getTraveltime(const std::string& id);
@@ -72,17 +70,16 @@ public:
     static double getLastStepLength(const std::string& id);
     static int getLaneNumber(const std::string& id);
     static std::string getStreetName(const std::string& id);
-    static std::string getParameter(const std::string& id, const std::string& paramName);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
+
+    LIBSUMO_ID_PARAMETER_API
+    LIBSUMO_SUBSCRIPTION_API
+
     static void setAllowedVehicleClasses(const std::string& id, std::vector<std::string> vector);
     static void setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes);
     static void setAllowedSVCPermissions(const std::string& id, int permissions);
     static void adaptTraveltime(const std::string& id, double value, double begTime = 0., double endTime = std::numeric_limits<double>::max());
     static void setEffort(const std::string& id, double value, double begTime = 0., double endTime = std::numeric_limits<double>::max());
     static void setMaxSpeed(const std::string& id, double value);
-    static void setParameter(const std::string& id, const std::string& name, const std::string& value);
-
-    LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the edge to retrieve

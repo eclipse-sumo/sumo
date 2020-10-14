@@ -692,9 +692,6 @@ Simulation::getParameter(const std::string& objectID, const std::string& key) {
 }
 
 
-LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Simulation)
-
-
 void
 Simulation::clearPending(const std::string& routeID) {
     MSNet::getInstance()->getInsertionControl().clearPendingVehicles(routeID);

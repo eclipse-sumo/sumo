@@ -43,10 +43,6 @@ class VariableWrapper;
 namespace libsumo {
 class OverheadWire {
 public:
-
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-
     static std::string getLaneID(const std::string& stopID);
     static double getStartPos(const std::string& stopID);
     static double getEndPos(const std::string& stopID);
@@ -54,11 +50,7 @@ public:
     static int getVehicleCount(const std::string& stopID);
     static std::vector<std::string> getVehicleIDs(const std::string& stopID);
 
-    static std::string getParameter(const std::string& stopID, const std::string& param);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
-
-    static void setParameter(const std::string& stopID, const std::string& key, const std::string& value); // not needed so far
-
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
     static std::shared_ptr<VariableWrapper> makeWrapper();

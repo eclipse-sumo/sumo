@@ -89,18 +89,14 @@ class VariableWrapper;
 namespace libsumo {
 class VehicleType {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     LIBSUMO_VEHICLE_TYPE_GETTER
-    static std::string getParameter(const std::string& typeID, const std::string& key);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
+    LIBSUMO_ID_PARAMETER_API
 
     LIBSUMO_VEHICLE_TYPE_SETTER
     static void copy(const std::string& origTypeID, const std::string& newTypeID);
     static MSVehicleType* getVType(std::string id);
 
     static void setSpeedDeviation(const std::string& typeID, double deviation);
-    static void setParameter(const std::string& id, const std::string& name, const std::string& value);
 
     LIBSUMO_SUBSCRIPTION_API
 

@@ -39,8 +39,6 @@ class MSE2Collector;
 namespace libsumo {
 class LaneArea {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static int getJamLengthVehicle(const std::string& detID);
     static double getJamLengthMeters(const std::string& detID);
     static double getLastStepMeanSpeed(const std::string& detID);
@@ -52,6 +50,7 @@ public:
     static int getLastStepVehicleNumber(const std::string& detID);
     static int getLastStepHaltingNumber(const std::string& detID);
 
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
     static std::shared_ptr<VariableWrapper> makeWrapper();

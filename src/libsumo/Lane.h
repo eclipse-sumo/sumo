@@ -48,8 +48,6 @@ namespace libsumo {
 class Lane {
 public:
     // Getter
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static int getLinkNumber(std::string laneID);
     static std::string getEdgeID(std::string laneID);
     static double getLength(std::string laneID);
@@ -78,19 +76,15 @@ public:
     static std::vector<std::string> getFoes(const std::string& laneID, const std::string& toLaneID);
     static std::vector<std::string> getInternalFoes(const std::string& laneID);
 
+    LIBSUMO_ID_PARAMETER_API
+    LIBSUMO_SUBSCRIPTION_API
+
     // Setter
     static void setAllowed(std::string laneID, std::string allowedClass);
     static void setAllowed(std::string laneID, std::vector<std::string> allowedClasses);
     static void setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses);
     static void setMaxSpeed(std::string laneID, double speed);
     static void setLength(std::string laneID, double length);
-
-    // Generic parameter get/set
-    static std::string getParameter(const std::string& laneID, const std::string& param);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
-    static void setParameter(const std::string& routeID, const std::string& key, const std::string& value); // not needed so far
-
-    LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the lane to retrieve

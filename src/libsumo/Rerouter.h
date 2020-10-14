@@ -43,14 +43,7 @@ class VariableWrapper;
 namespace libsumo {
 class Rerouter {
 public:
-
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-    static std::string getParameter(const std::string& rerouterID, const std::string& param);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
-
-    static void setParameter(const std::string& rerouterID, const std::string& key, const std::string& value); // not needed so far
-
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
     static std::shared_ptr<VariableWrapper> makeWrapper();

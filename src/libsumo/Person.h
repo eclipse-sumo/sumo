@@ -47,8 +47,6 @@ class VariableWrapper;
 namespace libsumo {
 class Person {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static double getSpeed(const std::string& personID);
     static TraCIPosition getPosition(const std::string& personID, const bool includeZ = false);
     static TraCIPosition getPosition3D(const std::string& personID);
@@ -61,14 +59,13 @@ public:
     static int getRemainingStages(const std::string& personID);
     static TraCIStage getStage(const std::string& personID, int nextStageIndex = 0);
     static std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0);
-    static std::string getParameter(const std::string& personID, const std::string& param);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
     static double getAngle(const std::string& personID);
     static double getSlope(const std::string& personID);
     static double getLanePosition(const std::string& personID);
 
     static std::vector<TraCIReservation> getTaxiReservations(int onlyNew = false);
 
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_VEHICLE_TYPE_GETTER
 
     static void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
@@ -81,7 +78,6 @@ public:
     static void rerouteTraveltime(const std::string& personID);
     static void moveTo(const std::string& personID, const std::string& edgeID, double position);
     static void moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle = INVALID_DOUBLE_VALUE, const int keepRoute = 1);
-    static void setParameter(const std::string& personID, const std::string& param, const std::string& value);
     static void setSpeed(const std::string& personID, double speed);
     static void setType(const std::string& personID, const std::string& typeID);
 
