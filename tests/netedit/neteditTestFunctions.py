@@ -214,7 +214,7 @@ def leftClickControl(referencePosition, positionx, positiony):
     """
     @brief do left click over a position relative to referencePosition (pink square) while control key is pressed
     """
-    # Leave Shift key pressed
+    # Leave Control key pressed
     pyautogui.keyDown('ctrl')
     # wait before every operation
     time.sleep(DELAY_MOUSE)
@@ -228,8 +228,36 @@ def leftClickControl(referencePosition, positionx, positiony):
     pyautogui.click(button='left')
     # show debug
     print("TestFunctions: Clicked with Control key pressed over position", clickedPosition[0], '-', clickedPosition[1])
-    # Release Shift key
+    # Release Control key
     pyautogui.keyUp('ctrl')
+    # wait after key up
+    time.sleep(DELAY_KEY)
+
+
+def leftClickAltShift(referencePosition, positionx, positiony):
+    """
+    @brief do left click over a position relative to referencePosition (pink square) while alt key is pressed
+    """
+    # Leave alt key pressed
+    pyautogui.keyDown('alt')
+    # Leave shift key pressed
+    pyautogui.keyDown('shift')
+    # wait before every operation
+    time.sleep(DELAY_MOUSE)
+    # obtain clicked position
+    clickedPosition = [referencePosition[0] + positionx, referencePosition[1] + positiony]
+    # move mouse to position
+    pyautogui.moveTo(clickedPosition)
+    # wait
+    time.sleep(DELAY_MOVE)
+    # click over position
+    pyautogui.click(button='left')
+    # show debug
+    print("TestFunctions: Clicked with alt and shift key pressed over position", clickedPosition[0], '-', clickedPosition[1])
+    # Release alt key
+    pyautogui.keyUp('alt')
+    # Release shift key
+    pyautogui.keyUp('shift')
     # wait after key up
     time.sleep(DELAY_KEY)
 
