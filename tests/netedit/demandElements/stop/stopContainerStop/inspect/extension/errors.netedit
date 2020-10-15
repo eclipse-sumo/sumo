@@ -30,6 +30,11 @@ Debug: Selected item 'trip' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopContainerStop' in TagSelector
 Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Setting new attribute into stopContainerStop 'trip'
+Debug: Setting new attribute extension '0' into stopContainerStop 'trip'
+Debug: Setting new attribute into stopContainerStop 'trip'
+Debug: Setting new attribute into stopContainerStop 'trip'
+Debug: Setting new attribute extension '0' into stopContainerStop 'trip'
 Debug: Value 'dummyValue' for attribute extension of stopContainerStop isn't valid
 Debug: Setting new attribute extension '0' into stopContainerStop 'trip'
 Debug: Value '-5' for attribute extension of stopContainerStop isn't valid
@@ -43,25 +48,29 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute extension '0.00' into stopContainerStop 'trip'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute extension '' into stopContainerStop 'trip'
+Debug: Setting previous attribute extension '0.00' into stopContainerStop 'trip'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Setting previous attribute extension '0.00' into stopContainerStop 'trip'
+Debug: Setting previous attribute into stopContainerStop 'trip'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing trip 'trip' in GNEChange_DemandElement
+Debug: Setting previous attribute into stopContainerStop 'trip'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing containerStop 'containerStopB' in GNEChange_Additional
+Debug: Setting previous attribute extension '-0.00' into stopContainerStop 'trip'
+Debug: Setting previous attribute into stopContainerStop 'trip'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding containerStop 'containerStopB' in GNEChange_Additional
+Debug: Setting new attribute into stopContainerStop 'trip'
+Debug: Setting new attribute extension '0' into stopContainerStop 'trip'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding trip 'trip' in GNEChange_DemandElement
+Debug: Setting new attribute into stopContainerStop 'trip'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopContainerStop 'trip' in GNEChange_DemandElement
+Debug: Setting new attribute into stopContainerStop 'trip'
+Debug: Setting new attribute extension '0' into stopContainerStop 'trip'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute extension '0' into stopContainerStop 'trip'

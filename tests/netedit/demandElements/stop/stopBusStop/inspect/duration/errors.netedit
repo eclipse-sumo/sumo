@@ -31,6 +31,9 @@ Debug: Selected item 'vehicle_0' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopBusStop' in TagSelector
 Debug: Adding stopBusStop 'vehicle_0' in GNEChange_DemandElement
+Debug: Setting new attribute into stopBusStop 'vehicle_0'
+Debug: Setting new attribute into stopBusStop 'vehicle_0'
+Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0'
 Debug: Value 'dummyValue' for attribute duration of stopBusStop isn't valid
 Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0'
 Debug: Value '-5' for attribute duration of stopBusStop isn't valid
@@ -47,18 +50,18 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute duration '60.00' into stopBusStop 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopBusStop 'vehicle_0' in GNEChange_DemandElement
+Debug: Setting previous attribute duration '60.00' into stopBusStop 'vehicle_0'
+Debug: Setting previous attribute into stopBusStop 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing vehicle 'vehicle_0' in GNEChange_DemandElement
-Debug: Removing route 'route_0' in GNEChange_DemandElement
+Debug: Setting previous attribute into stopBusStop 'vehicle_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: Adding vehicle 'vehicle_0' in GNEChange_DemandElement
+Debug: Setting new attribute into stopBusStop 'vehicle_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopBusStop 'vehicle_0' in GNEChange_DemandElement
+Debug: Setting new attribute into stopBusStop 'vehicle_0'
+Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute duration '60' into stopBusStop 'vehicle_0'

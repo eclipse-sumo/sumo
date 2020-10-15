@@ -5,9 +5,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary -0.10,-0.10,0.10,0.10
-GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 0.80,2.20,19.20,10.60
+GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary -8.20,-3.60,28.20,16.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
@@ -30,12 +28,15 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 0.80,2.20,19.20,10.60
-GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 0.80,2.20,19.20,10.60
 Debug: Selected item 'vehicle_0' in DemandElementSelector
 Debug: Selected item 'stopLane' in TagSelector
 Debug: Selected item 'stopParkingArea' in TagSelector
 Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Setting new attribute into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute extension '0' into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute extension '0' into stopParkingArea 'vehicle_0'
 Debug: Value 'dummyValue' for attribute extension of stopParkingArea isn't valid
 Debug: Setting new attribute extension '0' into stopParkingArea 'vehicle_0'
 Debug: Value '-5' for attribute extension of stopParkingArea isn't valid
@@ -49,31 +50,29 @@ Debug: Calling GNEUndoList::undo()
 Debug: Setting previous attribute extension '0.00' into stopParkingArea 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute extension '' into stopParkingArea 'vehicle_0'
+Debug: Setting previous attribute extension '0.00' into stopParkingArea 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Setting previous attribute extension '0.00' into stopParkingArea 'vehicle_0'
+Debug: Setting previous attribute into stopParkingArea 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing routeEmbedded 'vehicle_0' in GNEChange_DemandElement
-Debug: Removing vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
+Debug: Setting previous attribute into stopParkingArea 'vehicle_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing parkingArea 'parkingAreaB' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 0.80,2.20,19.20,10.60
+Debug: Setting previous attribute extension '-0.00' into stopParkingArea 'vehicle_0'
+Debug: Setting previous attribute into stopParkingArea 'vehicle_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 0.80,2.20,19.20,10.60
-GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 0.80,2.20,19.20,10.60
-GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 0.80,2.20,19.20,10.60
+Debug: Setting new attribute into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute extension '0' into stopParkingArea 'vehicle_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
-Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
+Debug: Setting new attribute into stopParkingArea 'vehicle_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
+Debug: Setting new attribute into stopParkingArea 'vehicle_0'
+Debug: Setting new attribute extension '0' into stopParkingArea 'vehicle_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute extension '0' into stopParkingArea 'vehicle_0'
@@ -97,15 +96,13 @@ GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 15.00,-13.20,35.0
 GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,35.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
-GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 0.80,2.20,19.20,10.60
-GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 0.80,2.20,19.20,10.60
 Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_0'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_0'
 Debug: DemandElements has to be saved
 Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingAreaB'
-GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary 0.80,2.20,19.20,10.60
+GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary -8.20,-3.60,28.20,16.40
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
