@@ -159,6 +159,7 @@
 #include "cut.xpm"
 #include "ext.xpm"
 #include "tracker.xpm"
+#include "hall_of_fame.xpm"
 
 #include "savenetworkelements.xpm"
 #include "saveaditionalelements.xpm"
@@ -367,6 +368,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::ALLOWROTATION] = new FXXPMIcon(a, allow_rotation_xpm);
     myIcons[GUIIcon::EDITVIEWPORT] = new FXXPMIcon(a, magnify_xpm);
     myIcons[GUIIcon::ZOOMSTYLE] = new FXXPMIcon(a, zoomstyle_xpm);
+    myIcons[GUIIcon::HALL_OF_FAME] = new FXXPMIcon(a, hall_of_fame_xpm);   /** temporal? **/
 
     myIcons[GUIIcon::APP_TRACKER] = new FXXPMIcon(a, app_tracker_xpm);
     myIcons[GUIIcon::APP_FINDER] = new FXXPMIcon(a, app_finder_xpm);

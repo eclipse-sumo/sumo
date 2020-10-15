@@ -188,6 +188,9 @@ public:
     /// @brief Shows the about dialog
     long onCmdAbout(FXObject*, FXSelector, void*);
 
+    /// @brief Shows the Hall of Fame dialog
+    long onCmdHallOfFame(FXObject*, FXSelector, void*);
+
     /// @brief Called on "play"
     long onCmdStart(FXObject*, FXSelector, void*);
 

@@ -108,6 +108,7 @@ GUIShortcutsSubSys::buildSUMOAccelerators(GUIApplicationWindow* GUIApp) {
 
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_F1),  GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F1_ONLINEDOCUMENTATION));
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_F9),  GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F9_EDIT_VIEWSCHEME));
+    GUIApp->getAccelTable()->addAccel(parseKey(KEY_F11, KEYMODIFIER_SHIFT), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_SHIFT_F11_HALLOFFAME));
     GUIApp->getAccelTable()->addAccel(parseKey(KEY_F12), GUIApp, FXSEL(SEL_COMMAND, MID_HOTKEY_F12_ABOUT));
 }
 

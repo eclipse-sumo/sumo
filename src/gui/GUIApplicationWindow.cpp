@@ -84,6 +84,7 @@
 #include <utils/options/OptionsCont.h>
 #include "GUIGlobals.h"
 #include "dialogs/GUIDialog_AboutSUMO.h"
+#include "dialogs/GUIDialog_HallOfFame.h"
 #include "dialogs/GUIDialog_AppSettings.h"
 #include "dialogs/GUIDialog_Breakpoints.h"
 
@@ -119,6 +120,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_LISTINTERNAL,                           GUIApplicationWindow::onCmdListInternal),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTPARKING,                            GUIApplicationWindow::onCmdListParking),
     FXMAPFUNC(SEL_COMMAND,  MID_LISTTELEPORTING,                        GUIApplicationWindow::onCmdListTeleporting),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F11_HALLOFFAME,            GUIApplicationWindow::onCmdHallOfFame),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_F12_ABOUT,                       GUIApplicationWindow::onCmdAbout),
     FXMAPFUNC(SEL_COMMAND,  MID_NEW_MICROVIEW,                          GUIApplicationWindow::onCmdNewView),
 #ifdef HAVE_OSG
@@ -1353,6 +1355,14 @@ GUIApplicationWindow::onCmdAbout(FXObject*, FXSelector, void*) {
     GUIDialog_AboutSUMO* about = new GUIDialog_AboutSUMO(this);
     about->create();
     about->show(PLACEMENT_OWNER);
+    return 1;
+}
+
+long
+GUIApplicationWindow::onCmdHallOfFame(FXObject*, FXSelector, void*) {
+    GUIDialog_HallOfFame* hall = new GUIDialog_HallOfFame(this);
+    hall->create();
+    hall->show(PLACEMENT_OWNER);
     return 1;
 }
 

@@ -183,6 +183,8 @@ enum {
     MID_HOTKEY_F10_OPTIONSMENU,
     /// @brief set/clear front element
     MID_HOTKEY_F11_FRONTELEMENT,
+    /// @brief show the hall of fame dialog
+    MID_HOTKEY_SHIFT_F11_HALLOFFAME,
     /// @brief open about dialog
     MID_HOTKEY_F12_ABOUT,
     /// @}
