@@ -131,6 +131,22 @@
 
 #include "frontelement.xpm"
 
+#include "checkbox_askformerge.xpm"
+#include "checkbox_autoselectjunctions.xpm"
+#include "checkbox_bubbles.xpm"
+#include "checkbox_chain.xpm"
+#include "checkbox_elevation.xpm"
+#include "checkbox_grid.xpm"
+#include "checkbox_hideconnections.xpm"
+#include "checkbox_hideshapes.xpm"
+#include "checkbox_lockperson.xpm"
+#include "checkbox_selectededges.xpm"
+#include "checkbox_showconnections.xpm"
+#include "checkbox_showdemandelements.xpm"
+#include "checkbox_showpersonplans.xpm"
+#include "checkbox_spreadvehicle.xpm"
+#include "checkbox_twoway.xpm"
+
 #include "lanebike.xpm"
 #include "lanebus.xpm"
 #include "lanepedestrian.xpm"
@@ -425,6 +441,24 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::BIGARROWLEFT] = new FXXPMIcon(a, bigarrowleft_xpm);
     myIcons[GUIIcon::BIGARROWRIGHT] = new FXXPMIcon(a, bigarrowright_xpm);
     myIcons[GUIIcon::FRONTELEMENT] = new FXXPMIcon(a, frontelement_xpm);
+
+    myIcons[GUIIcon::COMMONMODE_CHECKBOX_GRID] = new FXXPMIcon(a, checkbox_grid_xpm);
+    myIcons[GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE] = new FXXPMIcon(a, checkbox_spreadvehicle_xpm);
+    myIcons[GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS] = new FXXPMIcon(a, checkbox_showdemandelements_xpm);
+
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_SELECTEDGES] = new FXXPMIcon(a, checkbox_selectededges_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_SHOWCONNECTIONS] = new FXXPMIcon(a, checkbox_showconnections_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS] = new FXXPMIcon(a, checkbox_autoselectjunctions_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE] = new FXXPMIcon(a, checkbox_askformerge_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES] = new FXXPMIcon(a, checkbox_bubbles_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_ELEVATION] = new FXXPMIcon(a, checkbox_elevation_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_CHAIN] = new FXXPMIcon(a, checkbox_chain_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_TWOWAY] = new FXXPMIcon(a, checkbox_twoway_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS] = new FXXPMIcon(a, checkbox_hideconnections_xpm);
+
+    myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES] = new FXXPMIcon(a, checkbox_hideshapes_xpm);
+    myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS] = new FXXPMIcon(a, checkbox_showpersonplans_xpm);
+    myIcons[GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON] = new FXXPMIcon(a, checkbox_lockperson_xpm);
 
     myIcons[GUIIcon::ARROW_UP] = new FXXPMIcon(a, arrowup_xpm);
     myIcons[GUIIcon::ARROW_DOWN] = new FXXPMIcon(a, arrowdown_xpm);
