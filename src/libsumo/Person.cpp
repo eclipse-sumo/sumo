@@ -534,7 +534,15 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
             if (stage.line.empty()) {
                 throw TraCIException("Empty lines parameter for person: '" + personID + "'");
             }
-            return new MSStageDriving(edge, bs, edge->getLength() - NUMERICAL_EPS, StringTokenizer(stage.line).getVector());
+            double arrivalPos = stage.arrivalPos;
+            if (arrivalPos == INVALID_DOUBLE_VALUE) {
+                if (bs != nullptr) {
+                    arrivalPos = bs->getEndLanePosition();
+                } else {
+                    arrivalPos = edge->getLength();
+                }
+            }
+            return new MSStageDriving(edge, bs, arrivalPos, StringTokenizer(stage.line).getVector());
         }
 
         case STAGE_WALKING: {
