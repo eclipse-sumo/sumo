@@ -437,14 +437,15 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
         switch (FXSELID(sel)) {
             case MID_LOCATEJUNCTION: {
                 if (myACChoosers.ACChooserJunction) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserJunction->restore();
                     myACChoosers.ACChooserJunction->setFocus();
                 } else {
                     // fill ACsToLocate with junctions
                     std::vector<GNEJunction*> junctions = viewNet->getNet()->retrieveJunctions();
                     ACsToLocate.reserve(junctions.size());
-                    for (auto i : junctions) {
-                        ACsToLocate.push_back(i);
+                    for (const auto &junction : junctions) {
+                        ACsToLocate.push_back(junction);
                     }
                     myACChoosers.ACChooserJunction = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser", ACsToLocate);
                 }
@@ -452,14 +453,15 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATEEDGE: {
                 if (myACChoosers.ACChooserEdges) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserEdges->restore();
                     myACChoosers.ACChooserEdges->setFocus();
                 } else {
                     // fill ACsToLocate with edges
                     std::vector<GNEEdge*> edges = viewNet->getNet()->retrieveEdges();
                     ACsToLocate.reserve(edges.size());
-                    for (auto i : edges) {
-                        ACsToLocate.push_back(i);
+                    for (const auto &edge : edges) {
+                        ACsToLocate.push_back(edge);
                     }
                     myACChoosers.ACChooserEdges = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser", ACsToLocate);
                 }
@@ -467,7 +469,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATEVEHICLE: {
                 if (myACChoosers.ACChooserVehicles) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserVehicles->restore();
                     myACChoosers.ACChooserVehicles->setFocus();
                 } else {
                     // reserve memory
@@ -476,20 +479,20 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE).size() +
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW).size());
                     // fill ACsToLocate with vehicles
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& vehicle : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_VEHICLE)) {
+                        ACsToLocate.push_back(vehicle.second);
                     }
                     // fill ACsToLocate with vehicles
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& trip : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_TRIP)) {
+                        ACsToLocate.push_back(trip.second);
                     }
                     // fill ACsToLocate with routeFlows
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& flowRoute : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(GNE_TAG_FLOW_ROUTE)) {
+                        ACsToLocate.push_back(flowRoute.second);
                     }
                     // fill ACsToLocate with routeFlowsFromTo
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& flow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_FLOW)) {
+                        ACsToLocate.push_back(flow.second);
                     }
                     myACChoosers.ACChooserVehicles = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), "Vehicle Chooser", ACsToLocate);
                 }
@@ -497,19 +500,20 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATEPERSON: {
                 if (myACChoosers.ACChooserPersons) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserPersons->restore();
                     myACChoosers.ACChooserPersons->setFocus();
                 } else {
                     // reserve memory
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON).size() +
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW).size());
                     // fill ACsToLocate with persons
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& person : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSON)) {
+                        ACsToLocate.push_back(person.second);
                     }
                     // fill ACsToLocate with personFlows
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& personFlow : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_PERSONFLOW)) {
+                        ACsToLocate.push_back(personFlow.second);
                     }
                     myACChoosers.ACChooserPersons = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), "Person Chooser", ACsToLocate);
                 }
@@ -517,14 +521,15 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATEROUTE: {
                 if (myACChoosers.ACChooserRoutes) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserRoutes->restore();
                     myACChoosers.ACChooserRoutes->setFocus();
                 } else {
                     // reserve memory
                     ACsToLocate.reserve(viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE).size());
                     // fill ACsToLocate with routes
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& route : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_ROUTE)) {
+                        ACsToLocate.push_back(route.second);
                     }
                     myACChoosers.ACChooserRoutes = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEROUTE), "Route Chooser", ACsToLocate);
                 }
@@ -532,7 +537,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATESTOP: {
                 if (myACChoosers.ACChooserStops) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserStops->restore();
                     myACChoosers.ACChooserStops->setFocus();
                 } else {
                     // reserve memory
@@ -542,24 +548,24 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION).size() +
                                         viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA).size());
                     // fill ACsToLocate with stop over lanes
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& stopLane : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_LANE)) {
+                        ACsToLocate.push_back(stopLane.second);
                     }
                     // fill ACsToLocate with stop over busstops
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& stopBusStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_BUSSTOP)) {
+                        ACsToLocate.push_back(stopBusStop.second);
                     }
                     // fill ACsToLocate with stop over container stops
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& stopContainerStop : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CONTAINERSTOP)) {
+                        ACsToLocate.push_back(stopContainerStop.second);
                     }
                     // fill ACsToLocate with stop over charging stations
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& stopChargingStation : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_CHARGINGSTATION)) {
+                        ACsToLocate.push_back(stopChargingStation.second);
                     }
                     // fill ACsToLocate with stop over parking areas
-                    for (const auto& i : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
-                        ACsToLocate.push_back(i.second);
+                    for (const auto& stopParkingArea : viewNet->getNet()->getAttributeCarriers()->getDemandElements().at(SUMO_TAG_STOP_PARKINGAREA)) {
+                        ACsToLocate.push_back(stopParkingArea.second);
                     }
                     myACChoosers.ACChooserStops = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATESTOP), "Stop Chooser", ACsToLocate);
                 }
@@ -567,15 +573,16 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATETLS: {
                 if (myACChoosers.ACChooserTLS) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserTLS->restore();
                     myACChoosers.ACChooserTLS->setFocus();
                 } else {
                     // fill ACsToLocate with junctions that haven TLS
                     std::vector<GNEJunction*> junctions = viewNet->getNet()->retrieveJunctions();
                     ACsToLocate.reserve(junctions.size());
-                    for (auto i : junctions) {
-                        if (i->getNBNode()->getControllingTLS().size() > 0) {
-                            ACsToLocate.push_back(i);
+                    for (const auto &junction : junctions) {
+                        if (junction->getNBNode()->getControllingTLS().size() > 0) {
+                            ACsToLocate.push_back(junction);
                         }
                     }
                     myACChoosers.ACChooserTLS = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), "TLS Chooser", ACsToLocate);
@@ -584,7 +591,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATEADD: {
                 if (myACChoosers.ACChooserAdditional) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserAdditional->restore();
                     myACChoosers.ACChooserAdditional->setFocus();
                 } else {
                     // fill ACsToLocate with additionals
@@ -599,7 +607,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATEPOI: {
                 if (myACChoosers.ACChooserPOI) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserPOI->restore();
                     myACChoosers.ACChooserPOI->setFocus();
                 } else {
                     // fill ACsToLocate with POIs
@@ -615,7 +624,8 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
             }
             case MID_LOCATEPOLY: {
                 if (myACChoosers.ACChooserPolygon) {
-                    // set focus in the existent chooser dialog
+                    // restore focus in the existent chooser dialog
+                    myACChoosers.ACChooserPolygon->restore();
                     myACChoosers.ACChooserPolygon->setFocus();
                 } else {
                     // fill ACsToLocate with polys
