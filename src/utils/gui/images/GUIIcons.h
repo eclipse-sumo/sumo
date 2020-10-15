@@ -173,7 +173,7 @@ enum class GUIIcon {
     TRACKER,
     /// @}
 
-    /// @name net edit icons
+    /// @name NETEDIT icons
     /// @{
     UNDO,
     REDO,
@@ -185,6 +185,40 @@ enum class GUIIcon {
     BIGARROWLEFT,
     BIGARROWRIGHT,
     FRONTELEMENT,
+    /// @}
+
+    /// @name NETEDIT common mode specific icons
+    /// @{
+    COMMONMODE_CHECKBOX_GRID,
+    COMMONMODE_CHECKBOX_SPREADVEHICLE,
+    COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS,
+    /// @}
+
+    /// @name NETEDIT network mode specific icons
+    /// @{
+    NETWORKMODE_CHECKBOX_SELECTEDGES,
+    NETWORKMODE_CHECKBOX_SHOWCONNECTIONS,
+    NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS,
+    NETWORKMODE_CHECKBOX_ASKFORMERGE,
+    NETWORKMODE_CHECKBOX_BUBBLES,
+    NETWORKMODE_CHECKBOX_ELEVATION,
+    NETWORKMODE_CHECKBOX_CHAIN,
+    NETWORKMODE_CHECKBOX_TWOWAY,
+    NETWORKMODE_CHECKBOX_HIDECONNECTIONS,
+    NETWORKMODE_CHECKBOX_APPLYTOALLPHASES,
+    /// @}
+
+    /// @name NETEDIT demand mode specific icons
+    /// @{
+    DEMANDMODE_CHECKBOX_HIDESHAPES,
+    DEMANDMODE_CHECKBOX_SHOWPERSONPLANS,
+    DEMANDMODE_CHECKBOX_LOCKPERSON,
+    /// @}
+
+    /// @name NETEDIT data mode specific icons
+    /// @{
+    DATAMODE_CHECKBOX_SHOWADDITIONALS,
+    DATAMODE_CHECKBOX_SHOWSHAPES,
     /// @}
 
     /// @name arrows
