@@ -147,6 +147,9 @@
 #include "checkbox_showpersonplans.xpm"
 #include "checkbox_spreadvehicle.xpm"
 #include "checkbox_twoway.xpm"
+#include "checkbox_applytoallphases.xpm"
+#include "checkbox_showadditionals.xpm"
+#include "checkbox_showshapes.xpm"
 
 #include "lanebike.xpm"
 #include "lanebus.xpm"
@@ -456,11 +459,15 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_CHAIN] = new FXXPMIcon(a, checkbox_chain_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_TWOWAY] = new FXXPMIcon(a, checkbox_twoway_xpm);
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS] = new FXXPMIcon(a, checkbox_hideconnections_xpm);
+    myIcons[GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES] = new FXXPMIcon(a, checkbox_applytoallphases_xpm);
 
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES] = new FXXPMIcon(a, checkbox_hideshapes_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS] = new FXXPMIcon(a, checkbox_hidenoninspecteddemandelements_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS] = new FXXPMIcon(a, checkbox_showpersonplans_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON] = new FXXPMIcon(a, checkbox_lockperson_xpm);
+
+    myIcons[GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS] = new FXXPMIcon(a, checkbox_showadditionals_xpm);
+    myIcons[GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES] = new FXXPMIcon(a, checkbox_showshapes_xpm);
 
     myIcons[GUIIcon::ARROW_UP] = new FXXPMIcon(a, arrowup_xpm);
     myIcons[GUIIcon::ARROW_DOWN] = new FXXPMIcon(a, arrowdown_xpm);
