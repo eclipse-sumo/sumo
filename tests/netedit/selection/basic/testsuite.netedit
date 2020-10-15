@@ -1,6 +1,9 @@
 # default values of selection
 default
 
+# default values of selection (button)
+default_button
+
 # select using click
 click
 

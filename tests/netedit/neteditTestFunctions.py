@@ -1690,13 +1690,27 @@ def selectionRectangle(referencePosition, startX, startY, endX, endY):
     time.sleep(DELAY_SELECT)
 
 
+def selectionApply():
+    """
+    @brief apply selection
+    """
+    # focus current frame
+    focusOnFrame()
+    for _ in range(21):
+        typeTab()
+    # type space to select clear option
+    typeSpace()
+    # wait for gl debug
+    time.sleep(DELAY_SELECT)
+	
+	
 def selectionClear():
     """
     @brief clear selection
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(23):
+    for _ in range(24):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1710,7 +1724,7 @@ def selectionInvert():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(24):
+    for _ in range(25):
         typeTab()
     # type space to select invert operation
     typeSpace()
@@ -1724,7 +1738,7 @@ def selectionClearDemand():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(25):
+    for _ in range(26):
         typeTab()
     # type space to select clear option
     typeSpace()
@@ -1738,7 +1752,7 @@ def selectionInvertDemand():
     """
     # focus current frame
     focusOnFrame()
-    for _ in range(25):
+    for _ in range(27):
         typeTab()
     # type space to select invert operation
     typeSpace()
