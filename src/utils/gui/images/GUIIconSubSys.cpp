@@ -139,6 +139,7 @@
 #include "checkbox_grid.xpm"
 #include "checkbox_hideconnections.xpm"
 #include "checkbox_hideshapes.xpm"
+#include "checkbox_hidenoninspecteddemandelements.xpm"
 #include "checkbox_lockperson.xpm"
 #include "checkbox_selectededges.xpm"
 #include "checkbox_showconnections.xpm"
@@ -457,6 +458,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS] = new FXXPMIcon(a, checkbox_hideconnections_xpm);
 
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES] = new FXXPMIcon(a, checkbox_hideshapes_xpm);
+    myIcons[GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS] = new FXXPMIcon(a, checkbox_hidenoninspecteddemandelements_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS] = new FXXPMIcon(a, checkbox_showpersonplans_xpm);
     myIcons[GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON] = new FXXPMIcon(a, checkbox_lockperson_xpm);
 
