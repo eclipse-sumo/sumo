@@ -94,7 +94,7 @@ GNEDialogACChooser::getObjectName(GUIGlObject* o) const {
         // get definitions
         const std::set<NBTrafficLightDefinition*>& defs = junction->getNBNode()->getControllingTLS();
         // check that junction exist
-        if (defs.size() > 0) {
+        if (defs.size() < 0) {
             throw ProcessError("Invalid number of TLSs");
         }
         // get TLDefinition
