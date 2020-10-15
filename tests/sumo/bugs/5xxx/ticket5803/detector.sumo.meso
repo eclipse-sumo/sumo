@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 15 10:41:00 2020 by Eclipse SUMO sumo Version v1_7_0+0607-7eecb231ba
+<!-- generated on Thu Oct 15 10:43:53 2020 by Eclipse SUMO sumo Version v1_7_0+0607-7eecb231ba
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="three_split.net.xml"/>
+        <net-file value="net2.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
@@ -17,10 +17,6 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
     </output>
-
-    <time>
-        <end value="5401"/>
-    </time>
 
     <processing>
         <default.speeddev value="0"/>
@@ -30,18 +26,17 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <xml-validation value="never"/>
         <xml-validation.routes value="never"/>
-        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
     <mesoscopic>
         <mesosim value="true"/>
+        <meso-junction-control value="true"/>
     </mesoscopic>
 
 </configuration>
 -->
 
-<calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
-    <interval begin="0.00" end="3600.00" id="swallow_jam" nVehContrib="550" removed="0" inserted="209" cleared="1649" flow="550.00" aspiredFlow="2500.00" speed="1.38" aspiredSpeed="27.80"/>
-    <interval begin="3600.00" end="5400.00" id="swallow_jam" nVehContrib="234" removed="0" inserted="234" cleared="10" flow="468.00" aspiredFlow="2500.00" speed="1.15" aspiredSpeed="27.80"/>
-</calibratorstats>
+<detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
+    <interval begin="0.00" end="35.00" id="e1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
+</detector>
