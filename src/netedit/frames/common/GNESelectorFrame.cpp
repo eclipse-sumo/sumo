@@ -455,6 +455,8 @@ GNESelectorFrame::MatchAttribute::MatchAttribute(GNESelectorFrame* selectorFrame
     myMatchAttrComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SELECTORFRAME_SELECTATTRIBUTE, GUIDesignComboBox);
     // Create TextField for Match string
     myMatchString = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignTextField);
+    // create button
+    myMatchStringButton = new FXButton(this, "Apply selection", nullptr, this, MID_GNE_SELECTORFRAME_PROCESSSTRING, GUIDesignButton);
     // Create help button
     new FXButton(this, "Help", nullptr, this, MID_HELP, GUIDesignButtonRectangular);
     // Fill list of sub-items (first element will be "edge")
@@ -472,10 +474,11 @@ GNESelectorFrame::MatchAttribute::~MatchAttribute() {}
 
 void
 GNESelectorFrame::MatchAttribute::enableMatchAttribute() {
-    // enable comboboxes and text field
+    // enable comboBox, text field and button
     myMatchTagComboBox->enable();
     myMatchAttrComboBox->enable();
     myMatchString->enable();
+    myMatchStringButton->enable();
     // Clear items of myMatchTagComboBox
     myMatchTagComboBox->clearItems();
     // Set items depending of current item set
@@ -511,6 +514,7 @@ GNESelectorFrame::MatchAttribute::disableMatchAttribute() {
     myMatchTagComboBox->disable();
     myMatchAttrComboBox->disable();
     myMatchString->disable();
+    myMatchStringButton->disable();
     // change colors to black (even if there are invalid values)
     myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
     myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
@@ -563,6 +567,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         myMatchTagComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchAttrComboBox->enable();
         myMatchString->enable();
+        myMatchStringButton->enable();
         myMatchAttrComboBox->clearItems();
         // fill attribute combo box
         for (const auto& attribute : tagValue) {
@@ -599,6 +604,7 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBTag(FXObject*, FXSelector, void*) {
         myMatchTagComboBox->setTextColor(FXRGB(255, 0, 0));
         myMatchAttrComboBox->disable();
         myMatchString->disable();
+        myMatchStringButton->disable();
     }
     update();
     return 1;
@@ -663,9 +669,11 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBAttribute(FXObject*, FXSelector, voi
     if (myCurrentAttribute != SUMO_ATTR_NOTHING) {
         myMatchAttrComboBox->setTextColor(FXRGB(0, 0, 0));
         myMatchString->enable();
+        myMatchStringButton->enable();
     } else {
         myMatchAttrComboBox->setTextColor(FXRGB(255, 0, 0));
         myMatchString->disable();
+        myMatchStringButton->disable();
     }
     return 1;
 }
@@ -716,8 +724,10 @@ GNESelectorFrame::MatchAttribute::onCmdSelMBString(FXObject*, FXSelector, void*)
     if (valid) {
         myMatchString->setTextColor(FXRGB(0, 0, 0));
         myMatchString->killFocus();
+        myMatchStringButton->enable();
     } else {
         myMatchString->setTextColor(FXRGB(255, 0, 0));
+        myMatchStringButton->disable();
     }
     return 1;
 }
@@ -1982,11 +1992,11 @@ GNESelectorFrame::handleIDs(const std::vector<GNEAttributeCarrier*>& ACs, const 
     }
     // select junctions and their connections if Auto select junctions is enabled (note: only for "add mode")
     if (myViewNet->autoSelectNodes() && (setop == ModificationMode::Operation::ADD)) {
-        std::vector<GNEEdge*> edgesToSelect;
+        std::set<GNEEdge*> edgesToSelect;
         // iterate over ACsToSelect and extract edges
         for (const auto& AC : ACsToSelect) {
             if (AC.second->getTagProperty().getTag() == SUMO_TAG_EDGE) {
-                edgesToSelect.push_back(myViewNet->getNet()->retrieveEdge(AC.second->getID()));
+                edgesToSelect.insert(myViewNet->getNet()->retrieveEdge(AC.second->getID()));
             }
         }
         // iterate over extracted edges

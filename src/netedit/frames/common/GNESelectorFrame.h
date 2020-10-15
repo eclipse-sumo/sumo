@@ -310,6 +310,9 @@ public:
 
         /// @brief string of the match
         FXTextField* myMatchString;
+
+        /// @brief match string button
+        FXButton *myMatchStringButton;
     };
 
     // ===========================================================================
