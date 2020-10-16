@@ -67,28 +67,30 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     const double lastV = v - ACCEL2SPEED(a);
     const double mass = param->find(SUMO_ATTR_VEHICLEMASS)->second;
 
-    // calculate potential energy difference
-    double energyDiff = mass * GRAVITY * sin(DEG2RAD(slope)) * SPEED2DIST(v);
+    // calculate power needed for potential energy difference
+    double power = mass * GRAVITY * sin(DEG2RAD(slope)) * v;
 
-    // kinetic energy difference of vehicle
-    energyDiff += 0.5 * mass * (v * v - lastV * lastV);
+    // power needed for kinetic energy difference of vehicle
+    power += 0.5 * mass * (v * v - lastV * lastV) / TS;
 
-    // add rotational energy diff of internal rotating elements
-    energyDiff += param->find(SUMO_ATTR_INTERNALMOMENTOFINERTIA)->second * (v * v - lastV * lastV);
+    // add power needed for rotational energy diff of internal rotating elements
+    power += 0.5 * param->find(SUMO_ATTR_INTERNALMOMENTOFINERTIA)->second * (v * v - lastV * lastV) / TS;
 
-    // Energy loss through Air resistance [Ws]
+    // power needed for Energy loss through Air resistance [Ws]
     // Calculate energy losses:
     // EnergyLoss,Air = 1/2 * rho_air [kg/m^3] * myFrontSurfaceArea [m^2] * myAirDragCoefficient [-] * v_Veh^2 [m/s] * s [m]
     //                    ... with rho_air [kg/m^3] = 1,2041 kg/m^3 (at T = 20C)
     //                    ... with s [m] = v_Veh [m/s] * TS [s]
-    energyDiff += 0.5 * 1.2041 * param->find(SUMO_ATTR_FRONTSURFACEAREA)->second * param->find(SUMO_ATTR_AIRDRAGCOEFFICIENT)->second * v * v * SPEED2DIST(v);
+    // divided by TS to get power instead of energy
+    power += 0.5 * 1.2041 * param->find(SUMO_ATTR_FRONTSURFACEAREA)->second * param->find(SUMO_ATTR_AIRDRAGCOEFFICIENT)->second * v * v * v;
 
-    // Energy loss through Roll resistance [Ws]
+    // power needed for Energy loss through Roll resistance [Ws]
     //                    ... (fabs(veh.getSpeed())>=0.01) = 0, if vehicle isn't moving
     // EnergyLoss,Tire = c_R [-] * F_N [N] * s [m]
     //                    ... with c_R = ~0.012    (car tire on asphalt)
     //                    ... with F_N [N] = myMass [kg] * g [m/s^2]
-    energyDiff += param->find(SUMO_ATTR_ROLLDRAGCOEFFICIENT)->second * GRAVITY * mass * SPEED2DIST(v);
+    // divided by TS to get power instead of energy
+    power += param->find(SUMO_ATTR_ROLLDRAGCOEFFICIENT)->second * GRAVITY * mass * v;
 
     // Energy loss through friction by radial force [Ws]
     // If angle of vehicle was changed
@@ -105,20 +107,21 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
         }
         // EnergyLoss,internalFrictionRadialForce = c [m] * F_rad [N];
         // Energy loss through friction by radial force [Ws]
-        energyDiff += param->find(SUMO_ATTR_RADIALDRAGCOEFFICIENT)->second * mass * v * v / radius;
+        // divided by TS to get power instead of energy
+        power += param->find(SUMO_ATTR_RADIALDRAGCOEFFICIENT)->second * mass * v * v / radius * v;
     }
 
     // EnergyLoss,constantConsumers
-    // Energy loss through constant loads (e.g. A/C) [Ws]
-    energyDiff += param->find(SUMO_ATTR_CONSTANTPOWERINTAKE)->second;
+    // Energy loss through constant loads (e.g. A/C) [W]
+    power += param->find(SUMO_ATTR_CONSTANTPOWERINTAKE)->second;
 
     // E_Bat = E_kin_pot + EnergyLoss;
-    if (energyDiff > 0) {
+    if (power > 0) {
         // Assumption: Efficiency of myPropulsionEfficiency when accelerating
-        energyDiff /= param->find(SUMO_ATTR_PROPULSIONEFFICIENCY)->second;
+        power /= param->find(SUMO_ATTR_PROPULSIONEFFICIENCY)->second;
     } else {
         // Assumption: Efficiency of myRecuperationEfficiency when recuperating
-        energyDiff *= param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY)->second;
+        power *= param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY)->second;
         if (a != 0) {
             // Fiori, Chiara & Ahn, Kyoungho & Rakha, Hesham. (2016).
             // Power-based electric vehicle energy consumption model: Model
@@ -129,13 +132,14 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
             // Improving The Accuracy of The Energy Consumption Model for
             // Electric Vehicle in SUMO Considering The Ambient Temperature
             // Effects
-            energyDiff *= (1 / exp(param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION)->second / fabs(a)));
+            power *= (1 / exp(param->find(SUMO_ATTR_RECUPERATIONEFFICIENCY_BY_DECELERATION)->second / fabs(a)));
         }
     }
 
-    // convert from [Ws], i.e. [J]  to [Wh] (3600s / 1h):
-    return energyDiff / 3600.;
+    // convert from [W], to [Wh/s] (3600s / 1h):
+    return power / 3600.;
 }
+
 
 double
 HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInterface::EmissionType e, const double v, const double P, const double slope, const std::map<int, double>* param) const {
@@ -148,7 +152,7 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     }
 
     // Inverse formula for the function compute()
-    // Computes the achievable acceleartion using the given speed and amount of consumed electric power
+    // Computes the achievable acceleration using the given speed and amount of consumed electric power
     // It does not consider loss through friction by radial force and the recuperation efficiency dependent on |a| (eta_reuperation is considered constant)
     // Prest = const1*a + const2*a^2 + const3*a^3
 

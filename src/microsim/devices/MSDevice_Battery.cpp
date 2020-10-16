@@ -110,9 +110,9 @@ bool MSDevice_Battery::notifyMove(SUMOTrafficObject& tObject, double /* oldPos *
     // Update Energy from the battery
     if (getMaximumBatteryCapacity() != 0) {
         myParam[SUMO_ATTR_ANGLE] = myLastAngle == std::numeric_limits<double>::infinity() ? 0. : GeomHelper::angleDiff(myLastAngle, veh.getAngle());
-        myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam);
+        myConsum = PollutantsInterface::getEnergyHelper().compute(0, PollutantsInterface::ELEC, veh.getSpeed(), veh.getAcceleration(), veh.getSlope(), &myParam) * TS;
         if (veh.isParking()) {
-            // recupration from last braking step is ok but further consumption should cease
+            // recuperation from last braking step is ok but further consumption should cease
             myConsum = MIN2(myConsum, 0.0);
         }
 
