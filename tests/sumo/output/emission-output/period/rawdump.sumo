@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue May 26 21:28:53 2020 by Eclipse SUMO Version v1_6_0+0391-d890cd7141
+<!-- generated on Fri Oct 16 10:33:40 2020 by Eclipse SUMO sumo Version v1_7_0+0625-fbb42d88cd
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,6 +24,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -92,7 +93,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="601.69" CO="6.37" HC="0.35" NOx="0.84" PMx="0.02" fuel="0.24" electricity="0.00" noise="55.94" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="WC_0" pos="5.10" speed="0.00" angle="90.00" x="5.10" y="95.05"/>
     </timestep>
     <timestep time="95.00">
-        <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="5721.57" CO="88.30" HC="1.91" NOx="12.53" PMx="0.75" fuel="2.28" electricity="0.00" noise="69.33" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="WC_0" pos="35.63" speed="10.09" angle="90.00" x="35.63" y="95.05"/>
+        <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="5723.54" CO="88.35" HC="1.91" NOx="12.54" PMx="0.75" fuel="2.28" electricity="0.00" noise="69.33" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="WC_0" pos="35.63" speed="10.09" angle="90.00" x="35.63" y="95.05"/>
     </timestep>
     <timestep time="100.00">
         <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="49.80" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="WC_0" pos="89.38" speed="5.52" angle="90.00" x="89.38" y="95.05"/>
@@ -116,10 +117,10 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="601.69" CO="6.37" HC="0.35" NOx="0.84" PMx="0.02" fuel="0.24" electricity="0.00" noise="55.94" route="r1" type="HBEFA2/P_7_7" waiting="29.00" lane="WC_0" pos="90.95" speed="0.00" angle="90.00" x="90.95" y="95.05"/>
     </timestep>
     <timestep time="135.00">
-        <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="2111.76" CO="31.93" HC="0.83" NOx="4.34" PMx="0.25" fuel="0.84" electricity="0.00" noise="67.48" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane=":C_16_0" pos="1.41" speed="2.41" angle="90.00" x="93.36" y="95.05"/>
+        <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="2112.38" CO="31.95" HC="0.83" NOx="4.34" PMx="0.25" fuel="0.84" electricity="0.00" noise="67.48" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane=":C_16_0" pos="1.41" speed="2.41" angle="90.00" x="93.36" y="95.05"/>
     </timestep>
     <timestep time="140.00">
-        <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="6152.43" CO="91.90" HC="1.99" NOx="13.38" PMx="0.77" fuel="2.45" electricity="0.00" noise="69.59" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="CE_0" pos="27.55" speed="12.17" angle="90.00" x="135.60" y="95.05"/>
+        <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="6154.45" CO="91.95" HC="2.00" NOx="13.38" PMx="0.77" fuel="2.45" electricity="0.00" noise="69.59" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="CE_0" pos="27.55" speed="12.17" angle="90.00" x="135.60" y="95.05"/>
     </timestep>
     <timestep time="145.00">
         <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="0.00" CO="0.00" HC="0.00" NOx="0.00" PMx="0.00" fuel="0.00" electricity="0.00" noise="55.38" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="CE_0" pos="49.98" speed="0.11" angle="90.00" x="158.03" y="95.05"/>
@@ -137,7 +138,7 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="601.69" CO="6.37" HC="0.35" NOx="0.84" PMx="0.02" fuel="0.24" electricity="0.00" noise="55.94" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="CE_0" pos="50.00" speed="0.00" angle="90.00" x="158.05" y="95.05"/>
     </timestep>
     <timestep time="170.00">
-        <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="5228.50" CO="77.39" HC="1.72" NOx="11.30" PMx="0.66" fuel="2.08" electricity="0.00" noise="68.67" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="CE_0" pos="79.65" speed="9.73" angle="90.00" x="187.70" y="95.05"/>
+        <vehicle id="1" eclass="HBEFA2/P_7_7" CO2="5230.22" CO="77.44" HC="1.72" NOx="11.31" PMx="0.66" fuel="2.09" electricity="0.00" noise="68.67" route="r1" type="HBEFA2/P_7_7" waiting="0.00" lane="CE_0" pos="79.65" speed="9.73" angle="90.00" x="187.70" y="95.05"/>
     </timestep>
     <timestep time="175.00"/>
     <timestep time="180.00">
