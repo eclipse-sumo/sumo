@@ -28,7 +28,7 @@ for f in flow parking parking_busStop stopped cyclic_stops rng routeDistribution
     cp save_$f/state.sumo.meso load_$f/input_meso_state.xml
 done
 
-for f in rail_signal on_rail_signal rail_signal_constraint; do
+for f in rail_signal on_rail_signal rail_signal_constraint collision_stopped; do
     cp save_$f/state.sumo load_$f/input_state.xml
 done
 
