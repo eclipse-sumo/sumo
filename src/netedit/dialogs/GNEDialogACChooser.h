@@ -21,10 +21,7 @@
 #pragma once
 #include <config.h>
 
-#include <string>
-#include <vector>
-#include <set>
-#include <utils/gui/windows/GUIDialog_GLObjChooser.h>
+#include <utils/gui/windows/GUIDialog_ChooserAbstract.h>
 
 
 // ===========================================================================
@@ -43,7 +40,7 @@ class GNEViewParent;
  * from a given artifact like vehicles, edges or junctions and allow
  * one of their items
  */
-class GNEDialogACChooser : public GUIDialog_GLObjChooser {
+class GNEDialogACChooser : public GUIDialog_ChooserAbstract {
 
 public:
     /** @brief Constructor

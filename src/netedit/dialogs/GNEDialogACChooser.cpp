@@ -31,7 +31,7 @@
 // ===========================================================================
 
 GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
-    GUIDialog_GLObjChooser(nullptr, viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
+    GUIDialog_ChooserAbstract(nullptr, viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
     myACs(ACs),
     myFilteredACs(ACs),
     myViewParent(viewParent),
@@ -105,7 +105,7 @@ GNEDialogACChooser::getObjectName(GUIGlObject* o) const {
             return tlDef->getID() + " (" + o->getMicrosimID() + ")";
         }
     } else {
-        return GUIDialog_GLObjChooser::getObjectName(o);
+        return GUIDialog_ChooserAbstract::getObjectName(o);
     }
 }
 

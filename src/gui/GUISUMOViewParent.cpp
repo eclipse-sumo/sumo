@@ -228,9 +228,8 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                 myGLObjChooser.ACChooserJunction->restore();
                 myGLObjChooser.ACChooserJunction->setFocus();
             } else {
-                myGLObjChooser.ACChooserJunction = new GUIDialog_GLObjChooser(this, nullptr,
-                    GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), 
-                    "Junction Chooser", 
+                myGLObjChooser.ACChooserJunction = new GUIDialog_GLObjChooser(this,
+                    GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser", 
                     static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal()), 
                     GUIGlObjectStorage::gIDStorage);
             }
