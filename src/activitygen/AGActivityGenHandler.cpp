@@ -370,11 +370,34 @@ AGActivityGenHandler::parsePopulation() {
 void
 AGActivityGenHandler::parseBracket(const SUMOSAXAttributes& attrs) {
     try {
-//TODO beginAge needs to be evaluated
-//        int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE); //included in the bracket
+
+        int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE); //included in the bracket
         int endAge = attrs.getInt(AGEN_ATTR_ENDAGE); //NOT included in the bracket
-        if (myCurrentObject == "population") {
-            myCity.statData.population[endAge] = attrs.getInt(AGEN_ATTR_PEOPLENBR);
+        bool overlapping = false;
+        // evaluate age 
+        if (beginAge < endAge) {
+            for (auto it= myCity.statData.ageSpan.begin(); it != myCity.statData.ageSpan.end(); ++it) {
+                if (!(beginAge >= it->second || endAge <= it->first)) {
+                    overlapping = true;
+                }
+            }
+            if (!overlapping) {
+                myCity.statData.ageSpan[beginAge] = endAge;
+
+                if (myCurrentObject == "population") {
+                    myCity.statData.population[endAge] = attrs.getInt(AGEN_ATTR_PEOPLENBR);
+                }
+            }
+            else {
+                WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BRACKET) + ": begin and end age of the population is overlapping");
+                throw ProcessError();
+            }
+        }
+        else {
+            WRITE_ERROR("Error while parsing the element " +
+                SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BRACKET) + ": begin and end age of the population are not properly set" );
+            throw ProcessError();
         }
 
     } catch (const std::exception& e) {
