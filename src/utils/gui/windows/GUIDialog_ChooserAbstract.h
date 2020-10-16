@@ -54,15 +54,15 @@ class GUIDialog_ChooserAbstract : public FXMainWindow {
 
 public:
     /** @brief Constructor
-     * @param[in] SUMOViewParent The calling view (SUMO-GUI)
+     * @param[in] windowsParent The calling view
      * @param[in] viewParent The calling view (NETEDIT)
      * @param[in] icon The icon to use
      * @param[in] title The title to use
      * @param[in] glStorage The storage to retrieve ids from
      */
-    GUIDialog_ChooserAbstract(GUISUMOViewParent* SUMOViewParent, GNEViewParent* viewParent,
-                           FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids,
-                           GUIGlObjectStorage& glStorage);
+    GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsParent,
+        FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids,
+        GUIGlObjectStorage& glStorage);
 
     /// @brief Destructor
     virtual ~GUIDialog_ChooserAbstract();
@@ -126,11 +126,8 @@ protected:
     virtual std::string getObjectName(GUIGlObject* o) const;
 
 private:
-    /// @brief SUMO-GUI View parent
-    GUISUMOViewParent* mySUMOViewParent;
-
-    /// @brief GNE view parent
-    GNEViewParent* myGNEViewParent;
+    /// @brief window parent
+    GUIGlChildWindow* myWindowsParent;
 
     /// @brief The list that holds the ids
     FXList* myList;

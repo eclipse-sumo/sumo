@@ -61,4 +61,8 @@ public:
 
     /// @brief Destructor
     virtual ~GUIDialog_GLObjChooser();
+
+private:
+    /// @brief SUMO-GUI View parent
+    GUISUMOViewParent* mySUMOViewParent;
 };

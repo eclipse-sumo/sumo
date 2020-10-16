@@ -51,6 +51,7 @@
 #include <guisim/GUITransportableControl.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSGlobals.h>
+
 #include "GUIGlobals.h"
 #include "GUIViewTraffic.h"
 #include "GUIApplicationWindow.h"

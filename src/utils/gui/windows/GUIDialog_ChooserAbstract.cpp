@@ -61,11 +61,10 @@ FXIMPLEMENT(GUIDialog_ChooserAbstract, FXMainWindow, GUIDialog_ChooserAbstractMa
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUISUMOViewParent* SUMOViewParent, GNEViewParent* viewParent, 
+GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsParent, 
         FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :
-    FXMainWindow(SUMOViewParent? SUMOViewParent->getApp() : viewParent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
-    mySUMOViewParent(SUMOViewParent),
-    myGNEViewParent(viewParent),
+    FXMainWindow(windowsParent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
+    myWindowsParent(windowsParent),
     myLocateByName(false),
     myHaveFilteredSubstring(false) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -91,8 +90,8 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUISUMOViewParent* SUMOView
     new FXButton(layoutRight, "By &Name\tLocate item by name\t", nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
-    // add child ind viewNet
-    SUMOViewParent? SUMOViewParent->getParent()->addChild(this) : viewParent->getParent()->addChild(this);
+    // add child in windowsParent
+    myWindowsParent->getParent()->addChild(this);
     // create and show dialog
     create();
     show();
@@ -100,10 +99,8 @@ GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUISUMOViewParent* SUMOView
 
 
 GUIDialog_ChooserAbstract::~GUIDialog_ChooserAbstract() {
-    if (mySUMOViewParent) {
-        //mySUMOViewParent->eraseGLObjChooser(this);
-        mySUMOViewParent->getParent()->removeChild(this);
-    }
+    // remove child from windowsParent
+    myWindowsParent->getParent()->removeChild(this);
 }
 
 
@@ -124,11 +121,8 @@ long
 GUIDialog_ChooserAbstract::onCmdCenter(FXObject*, FXSelector, void*) {
     int selected = myList->getCurrentItem();
     if (selected >= 0) {
-        if (mySUMOViewParent) {
-            mySUMOViewParent->getView()->stopTrack();
-        } else {
-            myGNEViewParent->getView()->stopTrack();
-        }
+        myWindowsParent->getView()->stopTrack();
+        myWindowsParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
     }
     return 1;
 }
@@ -138,19 +132,11 @@ long
 GUIDialog_ChooserAbstract::onCmdTrack(FXObject*, FXSelector, void*) {
     int selected = myList->getCurrentItem();
     if (selected >= 0) {
-        if (mySUMOViewParent) {
-            mySUMOViewParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
-        } else {
-            myGNEViewParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
-        }
+        myWindowsParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
         GUIGlID id = *static_cast<GUIGlID*>(myList->getItemData(selected));
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o->getType() == GLO_VEHICLE) {
-            if (mySUMOViewParent) {
-                mySUMOViewParent->getView()->startTrack(o->getGlID());
-            } else {
-                myGNEViewParent->getView()->startTrack(o->getGlID());
-            }
+            myWindowsParent->getView()->startTrack(o->getGlID());
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
     }
@@ -203,11 +189,7 @@ long
 GUIDialog_ChooserAbstract::onCmdText(FXObject*, FXSelector, void*) {
     int current = myList->getCurrentItem();
     if (current >= 0 && myList->isItemSelected(current)) {
-        if (mySUMOViewParent) {
-            mySUMOViewParent->setView(*static_cast<GUIGlID*>(myList->getItemData(current)));
-        } else {
-            myGNEViewParent->setView(*static_cast<GUIGlID*>(myList->getItemData(current)));
-        }
+        myWindowsParent->setView(*static_cast<GUIGlID*>(myList->getItemData(current)));
     }
     return 1;
 }
@@ -282,7 +264,7 @@ GUIDialog_ChooserAbstract::refreshList(const std::vector<GUIGlID>& ids) {
             continue;
         }
         const std::string& name = getObjectName(o);
-        bool selected = mySUMOViewParent? mySUMOViewParent->isSelected(o) : myGNEViewParent->isSelected(o);
+        bool selected = myWindowsParent->isSelected(o);
         FXIcon* icon = selected ? GUIIconSubSys::getIcon(GUIIcon::FLAG) : nullptr;
         myIDs.insert(o->getGlID());
         myList->appendItem(name.c_str(), icon, (void*) & (*myIDs.find(o->getGlID())));
@@ -305,11 +287,7 @@ GUIDialog_ChooserAbstract::onCmdToggleSelection(FXObject*, FXSelector, void*) {
         }
     }
     myList->update();
-    if (mySUMOViewParent) {
-        mySUMOViewParent->getView()->update();
-    } else {
-        myGNEViewParent->getView()->update();
-    }
+    myWindowsParent->getView()->update();
     return 1;
 }
 

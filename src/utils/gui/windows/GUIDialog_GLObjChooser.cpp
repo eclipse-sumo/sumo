@@ -44,17 +44,13 @@
 // ===========================================================================
 GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent* SUMOViewParent,
         FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& glStorage) :
-    GUIDialog_ChooserAbstract(SUMOViewParent, nullptr, icon, title,ids, glStorage) {
+    GUIDialog_ChooserAbstract(SUMOViewParent, icon, title,ids, glStorage),
+    mySUMOViewParent(SUMOViewParent) {
 }
 
 
 GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser() {
-/*
-    if (mySUMOViewParent) {
-        //mySUMOViewParent->eraseGLObjChooser(this);
-        mySUMOViewParent->getParent()->removeChild(this);
-    }
-*/
+    mySUMOViewParent->eraseGLObjChooser(this);
 }
 
 /****************************************************************************/
