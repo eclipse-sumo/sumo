@@ -66,7 +66,6 @@ public:
         VIEW_3D_OSG
     };
 
-
     /** @brief Constructor
      * @param[in] p The MDI-pane this window is shown within
      * @param[in] mdimenu The MDI-menu for alignment
@@ -92,10 +91,8 @@ public:
      */
     virtual GUISUMOAbstractView* init(FXGLCanvas* share, GUINet& net, ViewType type);
 
-
     /// @brief Destructor
     ~GUISUMOViewParent();
-
 
     /// @brief Called if the user wants to make a snapshot (screenshot)
     long onCmdMakeSnapshot(FXObject* sender, FXSelector, void*);
@@ -103,10 +100,10 @@ public:
     /// @brief Called on a simulation step
     long onSimStep(FXObject* sender, FXSelector, void*);
 
-    /// @brief  locator-callback
+    /// @brief locator-callback
     long onCmdLocate(FXObject*, FXSelector, void*);
 
-    /// @brief  speedFactor-callback
+    /// @brief speedFactor-callback
     long onCmdSpeedFactor(FXObject*, FXSelector, void*);
     long onUpdSpeedFactor(FXObject*, FXSelector, void*);
 
@@ -117,18 +114,73 @@ public:
     /// @brief true if the object is selected (may include extra logic besides calling gSelected)
     bool isSelected(GUIGlObject* o) const;
 
-    /// @notify about toggled gaming status
+    /// @brief about toggled gaming status
     void setToolBarVisibility(const bool value);
 
-protected:
-    void buildSpeedControlToolbar();
-
-    FXToolBarShell* myToolBarDragSpeed = nullptr;
-    FXToolBar* myToolBarSpeed = nullptr;
-    FXSlider* mySpeedFactorSlider = nullptr;
-
+    /// @brief erase GLObjChooser
+    void eraseGLObjChooser(GUIDialog_GLObjChooser* GLObjChooser);
 
 protected:
+    /// @brief fox need this
     FOX_CONSTRUCTOR(GUISUMOViewParent)
 
+    /// @brief build speed control toolbar
+    void buildSpeedControlToolbar();
+
+    /// @brief toolbar shell for speed
+    FXToolBarShell* myToolBarDragSpeed = nullptr;
+
+    /// @brief toolbar for speed
+    FXToolBar* myToolBarSpeed = nullptr;
+
+    /// @brief slider for speedfactor
+    FXSlider* mySpeedFactorSlider = nullptr;
+
+private:
+    /// @brief struct for GLObjChooser dialog
+    class GLObjChooser {
+
+    public:
+        /// @brief constructor
+        GLObjChooser();
+
+        /// @brief destructor
+        ~GLObjChooser();
+
+        /// @brief pointer to ACChooser dialog used for locate junctions
+        GUIDialog_GLObjChooser* ACChooserJunction;
+
+        /// @brief pointer to ACChooser dialog used for locate edges
+        GUIDialog_GLObjChooser* ACChooserEdges;
+
+        /// @brief pointer to ACChooser dialog used for locate vehicles
+        GUIDialog_GLObjChooser* ACChooserVehicles;
+
+        /// @brief pointer to ACChooser dialog used for locate persons
+        GUIDialog_GLObjChooser* ACChooserPersons;
+
+        /// @brief pointer to ACChooser dialog used for locate routes
+        GUIDialog_GLObjChooser* ACChooserRoutes;
+
+        /// @brief pointer to ACChooser dialog used for locate stops
+        GUIDialog_GLObjChooser* ACChooserStops;
+
+        /// @brief pointer to ACChooser dialog used for locate TLSs
+        GUIDialog_GLObjChooser* ACChooserTLS;
+
+        /// @brief pointer to ACChooser dialog used for locate additional
+        GUIDialog_GLObjChooser* ACChooserAdditional;
+
+        /// @brief pointer to ACChooser dialog used for locate POIs
+        GUIDialog_GLObjChooser* ACChooserPOI;
+
+        /// @brief pointer to ACChooser dialog used for locate Polygons
+        GUIDialog_GLObjChooser* ACChooserPolygon;
+
+        /// @brief pointer to ACChooser dialog used for locate Prohibitions
+        GUIDialog_GLObjChooser* ACChooserProhibition;
+    };
+
+    /// @brief GLObjChooser
+    GLObjChooser myGLObjChooser;
 };

@@ -33,6 +33,9 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
+#include <gui/GUISUMOViewParent.h>
+#include <netedit/GNEViewParent.h>
+
 #include "GUIDialog_GLObjChooser.h"
 
 
@@ -40,16 +43,16 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CENTER, GUIDialog_GLObjChooser::onCmdCenter),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TRACK,  GUIDialog_GLObjChooser::onCmdTrack),
-    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdClose),
-    FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onChgText),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdText),
-    FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER, GUIDialog_GLObjChooser::onCmdFilter),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER_SUBSTR, GUIDialog_GLObjChooser::onCmdFilterSubstr),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,  GUIDialog_GLObjChooser::onCmdToggleSelection),
-    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_NAME,  GUIDialog_GLObjChooser::onCmdLocateByName),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CENTER,         GUIDialog_GLObjChooser::onCmdCenter),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TRACK,          GUIDialog_GLObjChooser::onCmdTrack),
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                 GUIDialog_GLObjChooser::onCmdClose),
+    FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,           GUIDialog_GLObjChooser::onChgText),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,           GUIDialog_GLObjChooser::onCmdText),
+    FXMAPFUNC(SEL_KEYPRESS, MID_CHOOSER_LIST,           GUIDialog_GLObjChooser::onListKeyPress),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER,         GUIDialog_GLObjChooser::onCmdFilter),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_FILTER_SUBSTR,  GUIDialog_GLObjChooser::onCmdFilterSubstr),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_INVERT,         GUIDialog_GLObjChooser::onCmdToggleSelection),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_NAME,           GUIDialog_GLObjChooser::onCmdLocateByName),
 };
 
 FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARRAYNUMBER(GUIDialog_GLObjChooserMap))
@@ -58,9 +61,11 @@ FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARR
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :
-    FXMainWindow(parent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
-    myParent(parent),
+GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent* SUMOViewParent, GNEViewParent* viewParent, 
+        FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :
+    FXMainWindow(SUMOViewParent? SUMOViewParent->getApp() : viewParent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
+    mySUMOViewParent(SUMOViewParent),
+    myGNEViewParent(viewParent),
     myLocateByName(false),
     myHaveFilteredSubstring(false) {
     FXHorizontalFrame* hbox = new FXHorizontalFrame(this, GUIDesignAuxiliarFrame);
@@ -86,8 +91,8 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon*
     new FXButton(layoutRight, "By &Name\tLocate item by name\t", nullptr, this, MID_CHOOSEN_NAME, GUIDesignChooserButtons);
     new FXHorizontalSeparator(layoutRight, GUIDesignHorizontalSeparator);
     new FXButton(layoutRight, "&Close\t\t", GUIIconSubSys::getIcon(GUIIcon::NO), this, MID_CANCEL, GUIDesignChooserButtons);
-
-    myParent->getParent()->addChild(this);
+    // add child ind viewNet
+    SUMOViewParent? SUMOViewParent->getParent()->addChild(this) : viewParent->getParent()->addChild(this);
     // create and show dialog
     create();
     show();
@@ -95,7 +100,16 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon*
 
 
 GUIDialog_GLObjChooser::~GUIDialog_GLObjChooser() {
-    myParent->getParent()->removeChild(this);
+    if (mySUMOViewParent) {
+        //mySUMOViewParent->eraseGLObjChooser(this);
+        mySUMOViewParent->getParent()->removeChild(this);
+    }
+}
+
+
+GUIGlObject* 
+GUIDialog_GLObjChooser::getObject() const {
+    return static_cast<GUIGlObject*>(mySelected);
 }
 
 
@@ -110,8 +124,11 @@ long
 GUIDialog_GLObjChooser::onCmdCenter(FXObject*, FXSelector, void*) {
     int selected = myList->getCurrentItem();
     if (selected >= 0) {
-        myParent->getView()->stopTrack();
-        myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
+        if (mySUMOViewParent) {
+            mySUMOViewParent->getView()->stopTrack();
+        } else {
+            myGNEViewParent->getView()->stopTrack();
+        }
     }
     return 1;
 }
@@ -121,11 +138,19 @@ long
 GUIDialog_GLObjChooser::onCmdTrack(FXObject*, FXSelector, void*) {
     int selected = myList->getCurrentItem();
     if (selected >= 0) {
-        myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
+        if (mySUMOViewParent) {
+            mySUMOViewParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
+        } else {
+            myGNEViewParent->setView(*static_cast<GUIGlID*>(myList->getItemData(selected)));
+        }
         GUIGlID id = *static_cast<GUIGlID*>(myList->getItemData(selected));
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(id);
         if (o->getType() == GLO_VEHICLE) {
-            myParent->getView()->startTrack(o->getGlID());
+            if (mySUMOViewParent) {
+                mySUMOViewParent->getView()->startTrack(o->getGlID());
+            } else {
+                myGNEViewParent->getView()->startTrack(o->getGlID());
+            }
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(id);
     }
@@ -178,7 +203,11 @@ long
 GUIDialog_GLObjChooser::onCmdText(FXObject*, FXSelector, void*) {
     int current = myList->getCurrentItem();
     if (current >= 0 && myList->isItemSelected(current)) {
-        myParent->setView(*static_cast<GUIGlID*>(myList->getItemData(current)));
+        if (mySUMOViewParent) {
+            mySUMOViewParent->setView(*static_cast<GUIGlID*>(myList->getItemData(current)));
+        } else {
+            myGNEViewParent->setView(*static_cast<GUIGlID*>(myList->getItemData(current)));
+        }
     }
     return 1;
 }
@@ -253,7 +282,7 @@ GUIDialog_GLObjChooser::refreshList(const std::vector<GUIGlID>& ids) {
             continue;
         }
         const std::string& name = getObjectName(o);
-        bool selected = myParent->isSelected(o);
+        bool selected = mySUMOViewParent? mySUMOViewParent->isSelected(o) : myGNEViewParent->isSelected(o);
         FXIcon* icon = selected ? GUIIconSubSys::getIcon(GUIIcon::FLAG) : nullptr;
         myIDs.insert(o->getGlID());
         myList->appendItem(name.c_str(), icon, (void*) & (*myIDs.find(o->getGlID())));
@@ -276,7 +305,11 @@ GUIDialog_GLObjChooser::onCmdToggleSelection(FXObject*, FXSelector, void*) {
         }
     }
     myList->update();
-    myParent->getView()->update();
+    if (mySUMOViewParent) {
+        mySUMOViewParent->getView()->update();
+    } else {
+        myGNEViewParent->getView()->update();
+    }
     return 1;
 }
 

@@ -32,6 +32,8 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class GUISUMOViewParent;
+class GNEViewParent;
 class GUIGlChildWindow;
 class GUIGlObjectStorage;
 class GUIGlObject;
@@ -52,28 +54,23 @@ class GUIDialog_GLObjChooser : public FXMainWindow {
 
 public:
     /** @brief Constructor
-     * @param[in] parent The calling view
+     * @param[in] SUMOViewParent The calling view (SUMO-GUI)
+     * @param[in] viewParent The calling view (NETEDIT)
      * @param[in] icon The icon to use
      * @param[in] title The title to use
      * @param[in] glStorage The storage to retrieve ids from
      */
-    GUIDialog_GLObjChooser(GUIGlChildWindow* parent, FXIcon* icon, const FXString& title,
-                           const std::vector<GUIGlID>& ids,
+    GUIDialog_GLObjChooser(GUISUMOViewParent* SUMOViewParent, GNEViewParent* viewParent,
+                           FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids,
                            GUIGlObjectStorage& glStorage);
-
 
     /// @brief Destructor
     virtual ~GUIDialog_GLObjChooser();
 
-
     /** @brief Returns the chosen (selected) object
      * @return The selected object
      */
-    GUIGlObject* getObject() const {
-        return static_cast<GUIGlObject*>(mySelected);
-    }
-
-
+    GUIGlObject* getObject() const;
 
     /// @name FOX-callbacks
     /// @{
@@ -113,6 +110,9 @@ public:
     void show();
 
 protected:
+    /// @brief fox need this
+    FOX_CONSTRUCTOR(GUIDialog_GLObjChooser)
+
     /// @brief toggle selection (handled differently in NETEDIT)
     virtual void toggleSelection(int listIndex);
 
@@ -126,6 +126,12 @@ protected:
     virtual std::string getObjectName(GUIGlObject* o) const;
 
 private:
+    /// @brief SUMO-GUI View parent
+    GUISUMOViewParent* mySUMOViewParent;
+
+    /// @brief GNE view parent
+    GNEViewParent* myGNEViewParent;
+
     /// @brief The list that holds the ids
     FXList* myList;
 
@@ -135,17 +141,13 @@ private:
     /// @brief The button that triggers tracking on the select vehicle
     FXButton* myTrackButton;
 
-    /// @brief The parent window
-    GUIGlChildWindow* myParent;
-
     /// @brief The chosen id
     GUIGlObject* mySelected;
 
     /// @brief The text field
     FXTextField* myTextEntry;
 
-    /// myList contains (void) pointers to elements of myIDs instead of the more
-    //volatile pointers to GUIGlObject
+    /// @brief myList contains (void) pointers to elements of myIDs instead of the more volatile pointers to GUIGlObject
     std::set<GUIGlID> myIDs;
 
     /// @brief whether to locate by object name instead of id
@@ -153,8 +155,4 @@ private:
 
     /// @brief whether the list was filter by substring
     bool myHaveFilteredSubstring;
-
-protected:
-    FOX_CONSTRUCTOR(GUIDialog_GLObjChooser)
-
 };

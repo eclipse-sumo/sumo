@@ -139,6 +139,38 @@ GUISUMOViewParent::setToolBarVisibility(const bool value) {
 }
 
 
+void 
+GUISUMOViewParent::eraseGLObjChooser(GUIDialog_GLObjChooser* GLObjChooser) {
+    if (GLObjChooser == nullptr) {
+        throw ProcessError("ChooserDialog already deleted");
+    } else if (GLObjChooser == myGLObjChooser.ACChooserJunction) {
+        myGLObjChooser.ACChooserJunction = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserEdges) {
+        myGLObjChooser.ACChooserEdges = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserVehicles) {
+        myGLObjChooser.ACChooserVehicles = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserPersons) {
+        myGLObjChooser.ACChooserPersons = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserRoutes) {
+        myGLObjChooser.ACChooserRoutes = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserStops) {
+        myGLObjChooser.ACChooserStops = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserTLS) {
+        myGLObjChooser.ACChooserTLS = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserAdditional) {
+        myGLObjChooser.ACChooserAdditional = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserPOI) {
+        myGLObjChooser.ACChooserPOI = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserPolygon) {
+        myGLObjChooser.ACChooserPolygon = nullptr;
+    } else if (GLObjChooser == myGLObjChooser.ACChooserProhibition) {
+        myGLObjChooser.ACChooserProhibition = nullptr;
+    } else {
+        throw ProcessError("Unregistered chooserDialog");
+    }
+}
+
+
 long
 GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
     MFXCheckableButton* button = dynamic_cast<MFXCheckableButton*>(sender);
@@ -191,9 +223,17 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     std::string chooserTitle;
     switch (FXSELID(sel)) {
         case MID_LOCATEJUNCTION:
-            ids = static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal());
-            icon = GUIIcon::LOCATEJUNCTION;
-            chooserTitle = "Junction Chooser";
+            if (myGLObjChooser.ACChooserJunction) {
+                // restore focus in the existent chooser dialog
+                myGLObjChooser.ACChooserJunction->restore();
+                myGLObjChooser.ACChooserJunction->setFocus();
+            } else {
+                myGLObjChooser.ACChooserJunction = new GUIDialog_GLObjChooser(this, nullptr,
+                    GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), 
+                    "Junction Chooser", 
+                    static_cast<GUINet*>(GUINet::getInstance())->getJunctionIDs(myParent->listInternal()), 
+                    GUIGlObjectStorage::gIDStorage);
+            }
             break;
         case MID_LOCATEEDGE:
             ids = GUIEdge::getIDs(myParent->listInternal());
@@ -246,7 +286,6 @@ GUISUMOViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
     myLocatorPopup->popdown();
     myLocatorButton->killFocus();
     myLocatorPopup->update();
-    new GUIDialog_GLObjChooser(this, GUIIconSubSys::getIcon(icon), chooserTitle.c_str(), ids, GUIGlObjectStorage::gIDStorage);
     return 1;
 }
 
@@ -361,5 +400,60 @@ GUISUMOViewParent::onUpdSpeedFactor(FXObject* sender, FXSelector, void* ptr) {
     return 1;
 }
 
+// ===========================================================================
+// private
+// ===========================================================================
+
+GUISUMOViewParent::GLObjChooser::GLObjChooser() :
+    ACChooserJunction(nullptr),
+    ACChooserEdges(nullptr),
+    ACChooserVehicles(nullptr),
+    ACChooserPersons(nullptr),
+    ACChooserRoutes(nullptr),
+    ACChooserStops(nullptr),
+    ACChooserTLS(nullptr),
+    ACChooserAdditional(nullptr),
+    ACChooserPOI(nullptr),
+    ACChooserPolygon(nullptr),
+    ACChooserProhibition(nullptr) {
+}
+
+
+GUISUMOViewParent::GLObjChooser::~GLObjChooser() {
+    // remove all  dialogs if are active
+    if (ACChooserJunction) {
+        delete ACChooserJunction;
+    }
+    if (ACChooserEdges) {
+        delete ACChooserEdges;
+    }
+    if (ACChooserRoutes) {
+        delete ACChooserRoutes;
+    }
+    if (ACChooserStops) {
+        delete ACChooserStops;
+    }
+    if (ACChooserVehicles) {
+        delete ACChooserVehicles;
+    }
+    if (ACChooserPersons) {
+        delete ACChooserPersons;
+    }
+    if (ACChooserTLS) {
+        delete ACChooserTLS;
+    }
+    if (ACChooserAdditional) {
+        delete ACChooserAdditional;
+    }
+    if (ACChooserPOI) {
+        delete ACChooserPOI;
+    }
+    if (ACChooserPolygon) {
+        delete ACChooserPolygon;
+    }
+    if (ACChooserProhibition) {
+        delete ACChooserProhibition;
+    }
+}
 
 /****************************************************************************/

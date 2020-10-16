@@ -31,7 +31,7 @@
 // ===========================================================================
 
 GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
-    GUIDialog_GLObjChooser(viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
+    GUIDialog_GLObjChooser(nullptr, viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
     myACs(ACs),
     myFilteredACs(ACs),
     myViewParent(viewParent),
