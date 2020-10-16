@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 18 10:05:59 2019 by Eclipse SUMO Version v1_4_0+0173-908b4d0
+<!-- generated on Tue Oct 13 11:31:53 2020 by Eclipse SUMO sumo Version v1_7_0+0592-51838c0a76
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,11 +17,12 @@ SPDX-License-Identifier: EPL-2.0
     <output>
         <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
-        <save-state.times value="10"/>
-        <save-state.files value="state.xml"/>
+        <save-state.times value="10,600"/>
+        <save-state.files value="state.xml,state2.xml"/>
     </output>
 
     <processing>
+        <ignore-route-errors value="true"/>
         <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
@@ -29,6 +30,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -40,43 +42,30 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0173-908b4d0" time="10.00">
-    <route id="!flowFromTo" state="1" edges="beg end"/>
-    <route id="!flowFromTo.0!var#1" state="0" edges="beg middle end"/>
-    <route id="r0" state="1" edges="beg middle end"/>
-    <flowState id="flowNumber" index="2"/>
-    <flowState id="flowFromTo" index="1" reroute="1"/>
-    <flowState id="flowPeriod" index="1"/>
-    <flowState id="flowProb" index="0"/>
-    <delay number="2" begin="4" end="0" depart="7.00" time="0.00"/>
-    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
-    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
-    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
-    <vType id="DEFAULT_VEHTYPE"/>
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+0592-51838c0a76" time="10.00">
+    <route id="!tripFromTo!var#1" state="0" edges="middle"/>
+    <route id="!tripFromTo2" state="0" edges="1-source 1-sink"/>
+    <route id="!tripFromTo3" state="0" edges="1-source 1-sink"/>
+    <route id="!tripFromTo4" state="0" edges="1-source 1-sink"/>
+    <delay number="1" begin="4" end="0" depart="0.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="flowFromTo.0" type="t0" depart="0.00" route="!flowFromTo.0!var#1" speedFactor="1.00" state="7000 0 0 0 0 14000 7000 9223372036854775807">
-        <device id="tripinfo_flowFromTo.0" state="1.00 -0.00"/>
-        <device id="routing_flowFromTo.0" state="0"/>
+    <vehicle id="tripFromTo" type="t0" depart="9.00" fromTaz="1" toTaz="1" route="!tripFromTo!var#1" speedFactor="1.00" state="9000 0 0 0 0 16199 9000 9223372036854775807">
+        <device id="tripinfo_tripFromTo" state="13.8908 -0 0 0 0 0 -1"/>
+        <device id="routing_tripFromTo" state="0"/>
     </vehicle>
-    <vehicle id="flowNumber.0" type="t0" depart="0.00" route="r0" speedFactor="1.00" state="0 1 0 0 0 14199 7000 9223372036854775807">
-        <device id="tripinfo_flowNumber.0" state="1.00 7.00"/>
+    <vehicle id="tripFromTo2" type="t0" depart="10.00" fromTaz="1" toTaz="1" route="!tripFromTo2" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
+        <device id="tripinfo_tripFromTo2" state="-1 0 0 0 0 0 -1"/>
+        <device id="routing_tripFromTo2" state="0"/>
     </vehicle>
-    <vehicle id="flowNumber.1" type="t0" depart="8.00" route="r0" speedFactor="1.00" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
-        <device id="tripinfo_flowNumber.1" state="-1.00 0.00"/>
+    <vehicle id="tripFromTo3" type="t0" depart="199.00" fromTaz="1" toTaz="1" route="!tripFromTo3" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
+        <device id="tripinfo_tripFromTo3" state="-1 0 0 0 0 0 -1"/>
+        <device id="routing_tripFromTo3" state="0"/>
     </vehicle>
-    <vehicle id="flowPeriod.0" type="t0" depart="5.00" route="r0" speedFactor="1.00" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
-        <device id="tripinfo_flowPeriod.0" state="-1.00 0.00"/>
+    <vehicle id="tripFromTo4" type="t0" depart="399.00" fromTaz="1" toTaz="1" route="!tripFromTo4" speedFactor="1.00" reroute="1" state="9223372036854775807 0 -1000 -1 0 -9223372036854775808 -9223372036854775808 9223372036854775807">
+        <device id="tripinfo_tripFromTo4" state="-1 0 0 0 0 0 -1"/>
+        <device id="routing_tripFromTo4" state="0"/>
     </vehicle>
-    <segment>
-        <vehicles time="8669" value="flowFromTo.0"/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value="flowNumber.0"/>
-    </segment>
-    <segment>
-        <vehicles time="-1" value=""/>
+    <segment id="middle:0">
+        <vehicles time="-1" value="tripFromTo"/>
     </segment>
 </snapshot>

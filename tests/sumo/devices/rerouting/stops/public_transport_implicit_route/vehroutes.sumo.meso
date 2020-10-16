@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Sep  3 17:20:19 2020 by Eclipse SUMO sumo Version v1_6_0+1961-95c187100c
+<!-- generated on Fri Oct 16 09:29:42 2020 by Eclipse SUMO sumo Version v1_7_0+0617-aa52bbe0d7
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,7 +39,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="bus.0" type="bus" depart="0.00" arrival="736.00">
+    <vehicle id="bus.0" type="bus" depart="0.00" arrival="616.00">
         <route edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>
@@ -55,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0
         <stop busStop="busStop_-a" duration="10.00"/>
     </vehicle>
 
-    <vehicle id="bus.1" type="bus" depart="100.00" arrival="836.00">
+    <vehicle id="bus.1" type="bus" depart="100.00" arrival="716.00">
         <route edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>
@@ -71,7 +71,7 @@ SPDX-License-Identifier: EPL-2.0
         <stop busStop="busStop_-a" duration="10.00"/>
     </vehicle>
 
-    <vehicle id="bus_single" type="bus" depart="300.00" arrival="1036.00">
+    <vehicle id="bus_single" type="bus" depart="300.00" arrival="916.00">
         <route edges="a b c -c -b -a a b c -c -b -a a b c -c -b -a"/>
         <stop busStop="busStop_a" duration="10.00"/>
         <stop busStop="busStop_c" duration="10.00"/>
