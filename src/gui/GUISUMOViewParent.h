@@ -165,6 +165,9 @@ private:
         /// @brief pointer to ACChooser dialog used for locate stops
         GUIDialog_GLObjChooser* ACChooserStops;
 
+        /// @brief pointer to ACChooser dialog used for locate Containers
+        GUIDialog_GLObjChooser* ACChooserContainer;
+
         /// @brief pointer to ACChooser dialog used for locate TLSs
         GUIDialog_GLObjChooser* ACChooserTLS;
 
