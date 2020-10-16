@@ -70,7 +70,7 @@ public:
     double getAngle() const;
 
 
-    /** @brief Returns the slope of the road at vehicle's position
+    /** @brief Returns the slope of the road at vehicle's position in degrees
      * @return The slope
      */
     double getSlope() const;

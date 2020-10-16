@@ -34,6 +34,7 @@
 
 #define DEG2RAD(x) static_cast<double>((x) * M_PI / 180.)
 #define RAD2DEG(x) static_cast<double>((x) * 180. / M_PI)
+#define GRAVITY 9.80665
 
 
 // ===========================================================================

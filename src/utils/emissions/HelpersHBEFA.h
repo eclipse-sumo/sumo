@@ -81,7 +81,7 @@ public:
             return 0.;
         }
         const double* f = myFunctionParameter[index] + 6 * e;
-        const double alpha = asin(a / 9.81) * 180. / M_PI;
+        const double alpha = RAD2DEG(asin(a / GRAVITY));
         return (double) MAX2((f[0] + f[1] * alpha * kmh + f[2] * alpha * alpha * kmh + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
     }
 

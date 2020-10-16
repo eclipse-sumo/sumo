@@ -68,7 +68,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     const double mass = param->find(SUMO_ATTR_VEHICLEMASS)->second;
 
     // calculate potential energy difference
-    double energyDiff = mass * 9.81 * sin(DEG2RAD(slope)) * SPEED2DIST(v);
+    double energyDiff = mass * GRAVITY * sin(DEG2RAD(slope)) * SPEED2DIST(v);
 
     // kinetic energy difference of vehicle
     energyDiff += 0.5 * mass * (v * v - lastV * lastV);
@@ -88,7 +88,7 @@ HelpersEnergy::compute(const SUMOEmissionClass /* c */, const PollutantsInterfac
     // EnergyLoss,Tire = c_R [-] * F_N [N] * s [m]
     //                    ... with c_R = ~0.012    (car tire on asphalt)
     //                    ... with F_N [N] = myMass [kg] * g [m/s^2]
-    energyDiff += param->find(SUMO_ATTR_ROLLDRAGCOEFFICIENT)->second * 9.81 * mass * SPEED2DIST(v);
+    energyDiff += param->find(SUMO_ATTR_ROLLDRAGCOEFFICIENT)->second * GRAVITY * mass * SPEED2DIST(v);
 
     // Energy loss through friction by radial force [Ws]
     // If angle of vehicle was changed
@@ -167,16 +167,16 @@ HelpersEnergy::acceleration(const SUMOEmissionClass /* c */, const PollutantsInt
     }
 
     // calculate power drop due to a potential energy difference
-    Prest -= mass * 9.81 * sin(DEG2RAD(slope)) * (v);
-    const1 = mass * 9.81 * sin(DEG2RAD(slope)) * (TS);
+    Prest -= mass * GRAVITY * sin(DEG2RAD(slope)) * (v);
+    const1 = mass * GRAVITY * sin(DEG2RAD(slope)) * (TS);
 
     // Power loss through Roll resistance [W]
     //                    ... (fabs(veh.getSpeed())>=0.01) = 0, if vehicle isn't moving
     // EnergyLoss,Tire = c_R [-] * F_N [N] * s [m]
     //                    ... with c_R = ~0.012    (car tire on asphalt)
     //                    ... with F_N [N] = myMass [kg] * g [m/s^2]
-    Prest -= param->find(SUMO_ATTR_ROLLDRAGCOEFFICIENT)->second * 9.81 * mass * v;
-    const1 += param->find(SUMO_ATTR_ROLLDRAGCOEFFICIENT)->second * 9.81 * mass * (TS);
+    Prest -= param->find(SUMO_ATTR_ROLLDRAGCOEFFICIENT)->second * GRAVITY * mass * v;
+    const1 += param->find(SUMO_ATTR_ROLLDRAGCOEFFICIENT)->second * GRAVITY * mass * (TS);
 
     //Constant loads are omitted. We assume P as the max limit for the main traction drive. Constant loads are often covered by an auxiliary drive
     //Power loss through constant loads (e.g. A/C) [W]

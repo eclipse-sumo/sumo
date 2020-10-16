@@ -27,8 +27,6 @@
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSCFModel_Rail.h"
 
-#define G  9.80665
-
 MSCFModel_Rail::MSCFModel_Rail(const MSVehicleType* vtype) :
     MSCFModel(vtype) {
     const std::string trainType = vtype->getParameter().getCFParamString(SUMO_ATTR_TRAIN_TYPE, "NGT400");
@@ -117,7 +115,7 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
     double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
 
     double slope = veh->getSlope();
-    double gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
+    double gr = myTrainParams.weight * GRAVITY * sin(DEG2RAD(slope)); //kN
 
     double totalRes = res + gr; //kN
 
@@ -143,7 +141,7 @@ double MSCFModel_Rail::maxNextSpeed(double speed, const MSVehicle* const veh) co
 double MSCFModel_Rail::minNextSpeed(double speed, const MSVehicle* const veh) const {
 
     const double slope = veh->getSlope();
-    const double gr = myTrainParams.weight * G * sin(DEG2RAD(slope)); //kN
+    const double gr = myTrainParams.weight * GRAVITY * sin(DEG2RAD(slope)); //kN
     const double res = getInterpolatedValueFromLookUpMap(speed, &(myTrainParams.resistance)); // kN
     const double totalRes = res + gr; //kN
     const double a = myTrainParams.decl + totalRes / myTrainParams.rotWeight;
@@ -205,7 +203,7 @@ double MSCFModel_Rail::getInterpolatedValueFromLookUpMap(double speed, const Loo
 double MSCFModel_Rail::getSpeedAfterMaxDecel(double /* speed */) const {
 
 //    //TODO: slope not known here
-//    double gr = 0; //trainParams.weight * 9.81 * edge.grade
+//    double gr = 0; //trainParams.weight * GRAVITY * edge.grade
 //
 //    double a = 0;//trainParams.decl - gr/trainParams.rotWeight;
 //
