@@ -64,7 +64,7 @@ netedit.moveElement(referencePosition, 120, 250, 120, 50)
 netedit.inspectMode()
 
 # inspect E3
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 90)
 
 # block additional
 netedit.modifyBoolAttribute(11, False)
@@ -79,7 +79,7 @@ netedit.moveElement(referencePosition, 120, 50, 300, 50)
 netedit.inspectMode()
 
 # inspect E3
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 250, 90)
 
 # unblock additional
 netedit.modifyBoolAttribute(11, False)

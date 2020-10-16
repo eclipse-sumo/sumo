@@ -9,7 +9,7 @@ Debug: Current saving Status: net unsaved, additionals saved, demand elements sa
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding taz 'taz_0' into viewNet
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -8.00,-26.00,48.00,30.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -8.00,-28.00,48.00,28.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding tazSource 'taz_0tazSource0' into viewNet
@@ -19,11 +19,11 @@ Debug: Adding tazSink 'taz_0tazSink3' into viewNet
 Debug: Key ENTER pressed
 Debug: Key ENTER pressed
 Debug: Adding taz 'taz_1' into viewNet
-GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary -18.00,-26.00,38.00,30.00
+GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary -18.00,-28.00,38.00,28.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing taz 'taz_1' from viewNet
-GLDebug: 	Removed object taz:taz_1 from SUMORTree with boundary -18.00,-26.00,38.00,30.00
+GLDebug: 	Removed object taz:taz_1 from SUMORTree with boundary -18.00,-28.00,38.00,28.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing tazSink 'taz_0tazSink3' from viewNet
@@ -31,11 +31,11 @@ Debug: Removing tazSource 'taz_0tazSource2' from viewNet
 Debug: Removing tazSink 'taz_0tazSink1' from viewNet
 Debug: Removing tazSource 'taz_0tazSource0' from viewNet
 Debug: Removing taz 'taz_0' from viewNet
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -8.00,-26.00,48.00,30.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -8.00,-28.00,48.00,28.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding taz 'taz_0' into viewNet
-GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -8.00,-26.00,48.00,30.00
+GLDebug: 	Inserted taz:taz_0 into SUMORTree with boundary -8.00,-28.00,48.00,28.00
 Debug: Adding tazSource 'taz_0tazSource0' into viewNet
 Debug: Adding tazSink 'taz_0tazSink1' into viewNet
 Debug: Adding tazSource 'taz_0tazSource2' into viewNet
@@ -43,7 +43,7 @@ Debug: Adding tazSink 'taz_0tazSink3' into viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding taz 'taz_1' into viewNet
-GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary -18.00,-26.00,38.00,30.00
+GLDebug: 	Inserted taz:taz_1 into SUMORTree with boundary -18.00,-28.00,38.00,28.00
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -60,7 +60,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing taz 'taz_1' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:taz_1 from SUMORTree with boundary -18.00,-26.00,38.00,30.00
+GLDebug: 	Removed object taz:taz_1 from SUMORTree with boundary -18.00,-28.00,38.00,28.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete taz 'taz_1' in ~GNEChange_TAZElement()
@@ -73,7 +73,7 @@ Debug: delete tazSink 'taz_0tazSink1' in ~GNEChange_TAZElement()
 Debug: Removing tazSource 'taz_0tazSource0' from net in ~GNEChange_TAZElement()
 Debug: delete tazSource 'taz_0tazSource0' in ~GNEChange_TAZElement()
 Debug: Removing taz 'taz_0' from net in ~GNEChange_TAZElement()
-GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -8.00,-26.00,48.00,30.00
+GLDebug: 	Removed object taz:taz_0 from SUMORTree with boundary -8.00,-28.00,48.00,28.00
 Debug: delete taz 'taz_0' in ~GNEChange_TAZElement()
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

@@ -38,19 +38,19 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(9, "dummyHeight")
 
 # try to create poi
-netedit.leftClick(referencePosition, 150, 225)
+netedit.leftClick(referencePosition, 150, 210)
 
 # change height (invalid, negative)
 netedit.changeDefaultValue(9, "-3")
 
 # try to create poi
-netedit.leftClick(referencePosition, 200, 225)
+netedit.leftClick(referencePosition, 200, 210)
 
 # change height (valid)
 netedit.changeDefaultValue(9, "4.4")
 
 # create poi
-netedit.leftClick(referencePosition, 250, 225)
+netedit.leftClick(referencePosition, 250, 210)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

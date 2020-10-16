@@ -38,19 +38,19 @@ netedit.changeElement("poiLane")
 netedit.changeDefaultValue(7, "dummyLayer")
 
 # try to create poi
-netedit.leftClick(referencePosition, 150, 225)
+netedit.leftClick(referencePosition, 150, 210)
 
 # change layer (valid, negative)
 netedit.changeDefaultValue(7, "-2")
 
 # create poi
-netedit.leftClick(referencePosition, 200, 225)
+netedit.leftClick(referencePosition, 200, 210)
 
 # change layer (valid, positive)
 netedit.changeDefaultValue(7, "6.5")
 
 # create poi
-netedit.leftClick(referencePosition, 250, 225)
+netedit.leftClick(referencePosition, 250, 210)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

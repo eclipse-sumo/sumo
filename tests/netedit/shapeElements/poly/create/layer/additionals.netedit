@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.08.2020 10:35:03 by Eclipse SUMO netedit Version v1_6_0+1707-2370e97800
+<!-- generated on 16.10.2020 12:24:49 by Eclipse SUMO netedit Version v1_7_0+0629-16c73f8974
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,35 +30,35 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Aug102709.11756\netedit.gui\shapeElements\poly\create\layer\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.16Oct112353.14820\netedit.gui\shapeElements\poly\create\layer\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="2.000000,20.000000 2.000000,26.000000 -4.000000,26.000000 -4.000000,20.000000 2.000000,20.000000"/>
-    <poly id="poly_1" color="red" fill="0" layer="-2.50" shape="12.000000,20.000000 12.000000,26.000000 6.000000,26.000000 6.000000,20.000000 12.000000,20.000000"/>
-    <poly id="poly_2" color="red" fill="0" layer="3.00" shape="22.000000,20.000000 22.000000,26.000000 16.000000,26.000000 16.000000,20.000000 22.000000,20.000000"/>
+    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="2.000000,18.000000 2.000000,24.000000 -4.000000,24.000000 -4.000000,18.000000 2.000000,18.000000"/>
+    <poly id="poly_1" color="red" fill="0" layer="-2.50" shape="12.000000,18.000000 12.000000,24.000000 6.000000,24.000000 6.000000,18.000000 12.000000,18.000000"/>
+    <poly id="poly_2" color="red" fill="0" layer="3.00" shape="22.000000,18.000000 22.000000,24.000000 16.000000,24.000000 16.000000,18.000000 22.000000,18.000000"/>
 </additional>

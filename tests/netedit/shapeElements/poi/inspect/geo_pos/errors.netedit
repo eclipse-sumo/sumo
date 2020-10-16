@@ -9,29 +9,29 @@ Debug: Current saving Status: net unsaved, additionals saved, demand elements sa
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poi' in TagSelector
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,9.00,13.00,31.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,7.00,13.00,29.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute lon/lat '3.73,74.30' into poi 'poi_0'
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,9.00,13.00,31.00
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,7.00,13.00,29.00
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 161479.74,8277668.01,161501.74,8277690.01
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute lon/lat '10.511050,0.000180' into poi 'poi_0'
+Debug: Setting previous attribute lon/lat '10.511050,0.000162' into poi 'poi_0'
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary 161479.74,8277668.01,161501.74,8277690.01
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.01,8.96,12.99,30.96
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.01,6.96,12.99,28.96
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'poi_0' from viewNet
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.01,8.96,12.99,30.96
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.01,6.96,12.99,28.96
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.01,8.96,12.99,30.96
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.01,6.96,12.99,28.96
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute lon/lat '3.73,74.30' into poi 'poi_0'
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.01,8.96,12.99,30.96
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.01,6.96,12.99,28.96
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 161479.74,8277668.01,161501.74,8277690.01
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing

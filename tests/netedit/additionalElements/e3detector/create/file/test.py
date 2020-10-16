@@ -41,27 +41,27 @@ netedit.changeElement("e3Detector")
 netedit.changeDefaultValue(5, "%%%$$%%$%")
 
 # try to create E3 with invalid file
-netedit.leftClick(referencePosition, 100, 100)
+netedit.leftClick(referencePosition, 100, 90)
 
 # set valid file
 netedit.changeDefaultValue(5, "myOwnFile.txt")
 
 # create E3 with valid file
-netedit.leftClick(referencePosition, 100, 100)
+netedit.leftClick(referencePosition, 100, 90)
 
 # select entry detector
 netedit.changeElement("detEntry")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 100)  # select E3
+netedit.leftClick(referencePosition, 100, 90)  # select E3
 netedit.leftClick(referencePosition, 300, 250)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 100)  # select E3
-netedit.leftClick(referencePosition, 300, 400)
+netedit.leftClick(referencePosition, 100, 90)  # select E3
+netedit.leftClick(referencePosition, 300, 370)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

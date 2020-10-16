@@ -35,13 +35,13 @@ netedit.shapeMode()
 netedit.changeElement("poiLane")
 
 # create POILane
-netedit.leftClick(referencePosition, 140, 225)
+netedit.leftClick(referencePosition, 140, 210)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first POILane
-netedit.leftClick(referencePosition, 140, 225)
+netedit.leftClick(referencePosition, 140, 210)
 
 # Change parameter color with a non valid value (dummy)
 netedit.modifyAttribute(5, "dummyColor", True)

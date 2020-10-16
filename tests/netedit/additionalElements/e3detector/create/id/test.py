@@ -44,27 +44,27 @@ netedit.changeDefaultBoolValue(2)
 netedit.changeDefaultValue(3, ";;;;;;")
 
 # create E3 with valid frequency
-netedit.leftClick(referencePosition, 100, 100)
+netedit.leftClick(referencePosition, 100, 90)
 
 # set valid id
 netedit.changeDefaultValue(3, "customID")
 
 # create E3 with valid frequency
-netedit.leftClick(referencePosition, 100, 100)
+netedit.leftClick(referencePosition, 100, 90)
 
 # select entry detector
 netedit.changeElement("detEntry")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 100)  # select E3
+netedit.leftClick(referencePosition, 100, 90)  # select E3
 netedit.leftClick(referencePosition, 300, 250)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 100)  # select E3
-netedit.leftClick(referencePosition, 300, 400)
+netedit.leftClick(referencePosition, 100, 90)  # select E3
+netedit.leftClick(referencePosition, 300, 370)
 
 # Check undo redo
 netedit.undo(referencePosition, 3)

@@ -9,30 +9,30 @@ Debug: Current saving Status: net unsaved, additionals saved, demand elements sa
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poi' in TagSelector
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,9.00,13.00,31.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,7.00,13.00,29.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Value 'dummyPosition' for attribute pos of poi isn't valid
 Debug: Setting new attribute pos '20.40,7.50' into poi 'poi_0'
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,9.00,13.00,31.00
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,7.00,13.00,29.00
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 9.40,-3.50,31.40,18.50
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '2.00,20.00' into poi 'poi_0'
+Debug: Setting previous attribute pos '2.00,18.00' into poi 'poi_0'
 GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary 9.40,-3.50,31.40,18.50
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,9.00,13.00,31.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,7.00,13.00,29.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing poi 'poi_0' from viewNet
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,9.00,13.00,31.00
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,7.00,13.00,29.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding poi 'poi_0' into viewNet
-GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,9.00,13.00,31.00
+GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary -9.00,7.00,13.00,29.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute pos '20.40,7.50' into poi 'poi_0'
-GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,9.00,13.00,31.00
+GLDebug: 	Removed object poi:poi_0 from SUMORTree with boundary -9.00,7.00,13.00,29.00
 GLDebug: 	Inserted poi:poi_0 into SUMORTree with boundary 9.40,-3.50,31.40,18.50
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
