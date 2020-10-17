@@ -636,6 +636,10 @@ max-width: 800px;
 border: none !important;
 }
 
+.gsc-control-cse {
+padding: 0 !important;
+}
+
 .gsc-above-wrapper-area-container td {
 border: none !important;
 }
