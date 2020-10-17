@@ -1651,16 +1651,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
         std::string dummyError;
         SUMOVehicleParameter::Stop stop;
         stop.duration = myCollisionStopTime;
-        stop.busstop = "";
-        stop.containerstop = "";
-        stop.chargingStation = "";
-        stop.overheadWireSegment = "";
-        stop.parkingarea = "";
-        stop.until = 0;
-        stop.triggered = false;
-        stop.containerTriggered = false;
-        stop.parking = false;
-        stop.index = 0;
+        stop.parametersSet |= STOP_DURATION_SET;
         const double collisionAngle = RAD2DEG(fabs(GeomHelper::angleDiff(victim->getAngle(), collider->getAngle())));
         // determine new speeds from collision angle (@todo account for vehicle mass)
         double victimSpeed = victim->getSpeed();
@@ -1686,7 +1677,6 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
             // @todo: push victim forward?
             stop.startPos = victimStopPos;
             stop.endPos = stop.startPos;
-            stop.duration = myCollisionStopTime;
             victim->addStop(stop, dummyError, 0, true);
         }
         if (collider->collisionStopTime() < 0) {
