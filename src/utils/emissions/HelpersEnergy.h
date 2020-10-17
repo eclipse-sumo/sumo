@@ -60,7 +60,7 @@ public:
      */
     double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const;
 
-    /** @brief Computes the achievable acceleartion using the given speed and amount of consumed electric power
+    /** @brief Computes the achievable acceleration using the given speed and amount of consumed electric power
      *
      * @param[in] c emission class for the function parameters to use
      * @param[in] e the type of emission (CO, CO2, ...), only electricity gives valid results
