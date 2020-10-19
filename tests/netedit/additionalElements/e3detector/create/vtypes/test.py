@@ -41,26 +41,26 @@ netedit.changeElement("e3Detector")
 netedit.changeDefaultValue(6, "@%%;$$$ %%$$ type.3@")
 
 # try to create E3 with invalid vehicle type
-netedit.leftClick(referencePosition, 100, 90)
+netedit.leftClick(referencePosition, 100, 85)
 
 # set valid vehicle types
 netedit.changeDefaultValue(6, "type1 type2 type3")
 
 # create E3 with valid vehicle types
-netedit.leftClick(referencePosition, 100, 90)
+netedit.leftClick(referencePosition, 100, 85)
 
 # select entry detector
 netedit.changeElement("detEntry")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 90)  # select E3
+netedit.leftClick(referencePosition, 100, 85)  # select E3
 netedit.leftClick(referencePosition, 300, 250)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 90)  # select E3
+netedit.leftClick(referencePosition, 100, 85)  # select E3
 netedit.leftClick(referencePosition, 300, 370)
 
 # Check undo redo

@@ -41,32 +41,32 @@ netedit.changeElement("e3Detector")
 netedit.changeDefaultValue(7, "dummyTimeTreshold")
 
 # try to create E3 with invalid timeTreshold
-netedit.leftClick(referencePosition, 100, 90)
+netedit.leftClick(referencePosition, 100, 85)
 
 # set invalid timeTreshold
 netedit.changeDefaultValue(7, "-4")
 
 # try to create E3 with invalid timeTreshold
-netedit.leftClick(referencePosition, 100, 90)
+netedit.leftClick(referencePosition, 100, 85)
 
 # set valid timeTreshold
 netedit.changeDefaultValue(7, "5")
 
 # create E3 with valid timeTreshold
-netedit.leftClick(referencePosition, 100, 90)
+netedit.leftClick(referencePosition, 100, 85)
 
 # select entry detector
 netedit.changeElement("detEntry")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 90)  # select E3
+netedit.leftClick(referencePosition, 100, 85)  # select E3
 netedit.leftClick(referencePosition, 300, 250)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 90)  # select E3
+netedit.leftClick(referencePosition, 100, 85)  # select E3
 netedit.leftClick(referencePosition, 300, 370)
 
 # Check undo redo

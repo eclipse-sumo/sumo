@@ -42,7 +42,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 250)
+netedit.leftClick(referencePosition, 250, 245)
 
 # go to shape mode
 netedit.shapeMode()
@@ -60,8 +60,8 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 160, 250)
-netedit.leftClick(referencePosition, 160, 225)
+netedit.leftClick(referencePosition, 160, 245)
+netedit.leftClick(referencePosition, 160, 210)
 
 # press enter to create route
 netedit.typeEnter()

@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E3s
-netedit.leftClick(referencePosition, 160, 260)
+netedit.leftClick(referencePosition, 160, 245)
 
 # Change parameter name with an non valid value
 netedit.modifyAttribute(1, "%%%;:..&&%$%$", True)

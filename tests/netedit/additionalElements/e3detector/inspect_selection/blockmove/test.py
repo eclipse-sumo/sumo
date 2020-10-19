@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect E3s
-netedit.leftClick(referencePosition, 160, 260)
+netedit.leftClick(referencePosition, 160, 245)
 
 # change block movement
 netedit.modifyBoolAttribute(9, True)

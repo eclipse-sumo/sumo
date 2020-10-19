@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 245, 140)
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 287, 240)
+netedit.leftClick(referencePosition, 287, 225)
 
 # Change parameter lane with a non valid value (non existent)
 netedit.modifyAttribute(1, "dummylane", True)

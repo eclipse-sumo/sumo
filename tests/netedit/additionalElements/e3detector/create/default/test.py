@@ -38,20 +38,20 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, 100, 90)
+netedit.leftClick(referencePosition, 100, 85)
 
 # select entry detector
 netedit.changeElement("detEntry")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 90)  # select E3
+netedit.leftClick(referencePosition, 100, 85)  # select E3
 netedit.leftClick(referencePosition, 300, 250)
 
 # select entry detector
 netedit.changeElement("detExit")
 
 # Create Entry and exit detectors for all E3 detectors (except for the first, that only have one Entry)
-netedit.leftClick(referencePosition, 100, 90)  # select E3
+netedit.leftClick(referencePosition, 100, 85)  # select E3
 netedit.leftClick(referencePosition, 300, 370)
 
 # Check undo redo

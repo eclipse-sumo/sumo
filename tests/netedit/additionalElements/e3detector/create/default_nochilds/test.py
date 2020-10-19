@@ -38,7 +38,7 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, 100, 90)
+netedit.leftClick(referencePosition, 100, 85)
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

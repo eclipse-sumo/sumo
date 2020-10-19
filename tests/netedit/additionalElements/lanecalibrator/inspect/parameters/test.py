@@ -41,7 +41,7 @@ netedit.leftClick(referencePosition, 245, 140)
 netedit.inspectMode()
 
 # inspect calibrator
-netedit.leftClick(referencePosition, 287, 240)
+netedit.leftClick(referencePosition, 287, 225)
 
 # check parameters
 netedit.checkParameters(referencePosition, 8, True)

@@ -14,7 +14,7 @@ Debug: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e3Detector' in TagSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.00,20.00,32.00,40.00
+GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.00,19.00,32.00,39.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'detEntry' in TagSelector
@@ -23,7 +23,7 @@ Debug: Selected item 'detExit' in TagSelector
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Value 'dummy position' for attribute pos of e3Detector isn't valid
 Debug: Setting new attribute pos '0,0' into e3Detector 'e3Detector_0'
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 12.00,20.00,32.00,40.00
+GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 12.00,19.00,32.00,39.00
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -10.00,-10.00,10.00,10.00
 Debug: Setting new attribute pos '25,25' into e3Detector 'e3Detector_0'
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -10.00,-10.00,10.00,10.00
@@ -35,9 +35,9 @@ GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 15
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -10.00,-10.00,10.00,10.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute pos '22.00,30.00' into e3Detector 'e3Detector_0'
+Debug: Setting previous attribute pos '22.00,29.00' into e3Detector 'e3Detector_0'
 GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary -10.00,-10.00,10.00,10.00
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.00,20.00,32.00,40.00
+GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.00,19.00,32.00,39.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
@@ -47,11 +47,11 @@ Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 12.00,20.00,32.00,40.00
+GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 12.00,19.00,32.00,39.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.00,20.00,32.00,40.00
+GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.00,19.00,32.00,39.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
@@ -61,7 +61,7 @@ Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute pos '0,0' into e3Detector 'e3Detector_0'
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 12.00,20.00,32.00,40.00
+GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 12.00,19.00,32.00,39.00
 GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary -10.00,-10.00,10.00,10.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
