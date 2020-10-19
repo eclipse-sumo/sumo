@@ -154,18 +154,21 @@ permalink: /Other/Projects/
 
 ## Code repositories with SUMO related stuff
 
-- [NetPopulate](https://github.com/maslab-ufrgs/net-populate) Demand
-  generation for SUMO
+- [NetPopulate](https://github.com/maslab-ufrgs/net-populate) Demand generation for SUMO
 - [C\# and ANSI C TraCI interface](https://github.com/CodingConnected/CodingConnected.Traci)
-- [Unity frontend for SUMO](https://github.com/Andrew-Stebel/Unity-SUMO)
 - [Integrated Framework for Mathematical Simulations (IFMS)](https://github.com/nitindesh/IFMS)
 - [Veins](https://github.com/sommer/veins)
 - [Secure Cycle project established during the BCX 2018](https://github.com/kratz00/bcx18_secureCycle)
 - [An open source traffic light control program](https://github.com/MartijnHarmenzon/openTLC)
-- [Web-based 3D visualization of SUMO microsimulations using TraCI and three.js](https://github.com/sidewalklabs/sumo-web3d)
-- [Unity based 3D driving simulator](https://github.com/DarraghMac97/Real-time-Traffic-Simulation-with-3D-Visualisation)
-- [Unity visualization of pedestrian trajectories](https://github.com/danielbuechele/SumoVizUnity) based on a [WebGL project](https://github.com/danielbuechele/SumoViz3D)
 - [PyPML - Python Parking Monitoring Library](https://github.com/lcodeca/PyPML)
 - [SAGA](https://github.com/lcodeca/SUMOActivityGen) - An Activity-based Multi-modal Mobility Scenario Generator for SUMO.
 - [RLLIB+SUMO Utils](https://github.com/lcodeca/rllibsumoutils) is a connector between the RLLIB library and SUMO that uses TraCI. It can be tested using [RLLIB+SUMO Docker](https://github.com/lcodeca/rllibsumodocker) based on a GPU-enabled official TensorFlow image.
+
+### Visualization related
+
+- [Web-based 3D visualization of SUMO microsimulations using TraCI and three.js](https://github.com/sidewalklabs/sumo-web3d)
+- [Unity based 3D driving simulator](https://github.com/DarraghMac97/Real-time-Traffic-Simulation-with-3D-Visualisation)
+- [Unity visualization of pedestrian trajectories](https://github.com/danielbuechele/SumoVizUnity) based on a [WebGL project](https://github.com/danielbuechele/SumoViz3D)
 - [SUMO3d - A partial unity 3D project for coupling SUMO and Unity3D](https://github.com/SvenMertin/SUMO3d)
+- [Unity frontend for SUMO](https://github.com/Andrew-Stebel/Unity-SUMO)
+- https://github.com/BMEAutomatedDrive/SUMO-Unity3D-connection
