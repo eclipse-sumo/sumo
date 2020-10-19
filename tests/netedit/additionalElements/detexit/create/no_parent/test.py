@@ -38,7 +38,7 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # create E3 with default parameters
-netedit.leftClick(referencePosition, 275, 50)
+netedit.leftClick(referencePosition, 270, 29)
 
 # select Entry detector
 netedit.changeElement("detExit")

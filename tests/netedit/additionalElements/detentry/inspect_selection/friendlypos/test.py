@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect entry
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 183, 240)
 
 # Change boolean parameter friendlypos
 netedit.modifyAttribute(0, "true", True)

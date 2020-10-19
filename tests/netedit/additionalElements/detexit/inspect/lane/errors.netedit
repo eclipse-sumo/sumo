@@ -14,7 +14,7 @@ Debug: Current Viewport values: 25.00, 25.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e3Detector' in TagSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 17.00,25.00,27.00,35.00
+GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.00,20.00,32.00,40.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'detExit' in TagSelector
@@ -36,11 +36,11 @@ Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 17.00,25.00,27.00,35.00
+GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 12.00,20.00,32.00,40.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 17.00,25.00,27.00,35.00
+GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 12.00,20.00,32.00,40.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
@@ -82,7 +82,7 @@ Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced detExit 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 17.00,25.00,27.00,35.00
+GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 12.00,20.00,32.00,40.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

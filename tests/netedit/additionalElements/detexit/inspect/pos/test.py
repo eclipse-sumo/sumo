@@ -38,18 +38,18 @@ netedit.additionalMode()
 netedit.changeElement("e3Detector")
 
 # create E3
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 240, 86)
 
 # select Entry detector
 netedit.changeElement("detExit")
 
 # Create Entry detector E3
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 240, 86)
 netedit.leftClick(referencePosition, 180, 240)
 
 # select Exit detector and create it
 netedit.changeElement("detEntry")
-netedit.leftClick(referencePosition, 250, 100)
+netedit.leftClick(referencePosition, 240, 86)
 netedit.leftClick(referencePosition, 400, 240)
 
 # go to inspect mode

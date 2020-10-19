@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect Entry
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 183, 240)
 
 # check parameters
 netedit.checkParameters(referencePosition, 2, True)

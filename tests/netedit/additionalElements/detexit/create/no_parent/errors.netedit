@@ -10,7 +10,7 @@ Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e3Detector' in TagSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 18.00,2.00,28.00,12.00
+GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 13.00,-3.00,33.00,17.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'detExit' in TagSelector
@@ -18,11 +18,11 @@ Debug: Invalid input parameter of detExit: A e3Detector must be selected before 
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 18.00,2.00,28.00,12.00
+GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 13.00,-3.00,33.00,17.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 18.00,2.00,28.00,12.00
+GLDebug: 	Inserted e3Detector:e3Detector_0 into SUMORTree with boundary 13.00,-3.00,33.00,17.00
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -39,7 +39,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 18.00,2.00,28.00,12.00
+GLDebug: 	Removed object e3Detector:e3Detector_0 from SUMORTree with boundary 13.00,-3.00,33.00,17.00
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

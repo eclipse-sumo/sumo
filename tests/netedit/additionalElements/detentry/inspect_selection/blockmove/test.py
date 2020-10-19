@@ -38,7 +38,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect entry
-netedit.leftClick(referencePosition, 150, 240)
+netedit.leftClick(referencePosition, 183, 240)
 
 # Change boolean parameter block move
 netedit.modifyBoolAttribute(5, True)
