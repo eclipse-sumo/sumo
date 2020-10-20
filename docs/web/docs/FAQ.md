@@ -38,6 +38,12 @@ permalink: /FAQ/
   you do not find the topic of interest listed there use the site search.
   Alternatively, use a general purpose search engine as this will also include the mailing list archives.
 
+### Are there any tutorials or ready to use scenarios?
+
+  The main page for [tutorials](Tutorials.md) lists several for beginners and advanced topics, there 
+  are also some [videos on YouTube](https://www.youtube.com/results?search_query=sumo+simulation+tutorial).
+  For scenarios have a look at our [scenario page](Data/Scenarios.md).
+
 ### How can I contribute to SUMO?
 
 - Tell us about your extensions on the [developer mailing list](https://accounts.eclipse.org/mailing-list/sumo-dev)
