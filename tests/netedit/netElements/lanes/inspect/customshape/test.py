@@ -38,7 +38,7 @@ netedit.changeEditMode('4')
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 180)
+netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter 6 with an non valid value (dummy)
 netedit.modifyAttribute(8, "dummyShape", True)
@@ -50,7 +50,7 @@ netedit.modifyAttribute(8, "", True)
 netedit.rebuildNetwork()
 
 # inspect edge again after recomputing
-netedit.leftClick(referencePosition, 250, 180)
+netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter 6 with a valid value
 netedit.modifyAttribute(6, "13.112,16.22 34.19,16.11", True)

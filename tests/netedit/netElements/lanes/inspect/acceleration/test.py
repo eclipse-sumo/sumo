@@ -38,7 +38,7 @@ netedit.changeEditMode('4')
 netedit.inspectMode()
 
 # inspect edge
-netedit.leftClick(referencePosition, 250, 180)
+netedit.leftClick(referencePosition, 250, 165)
 
 # Change parameter 5 with a valid value
 netedit.modifyBoolAttribute(7, True)

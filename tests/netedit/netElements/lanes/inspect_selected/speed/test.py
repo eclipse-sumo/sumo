@@ -38,16 +38,16 @@ netedit.changeEditMode('4')
 netedit.selectMode()
 
 # select first lane
-netedit.leftClick(referencePosition, 250, 173)
+netedit.leftClick(referencePosition, 250, 165)
 
 # select second lane
-netedit.leftClick(referencePosition, 250, 112)
+netedit.leftClick(referencePosition, 250, 105)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect lane
-netedit.leftClick(referencePosition, 250, 112)
+netedit.leftClick(referencePosition, 250, 105)
 
 # Change parameter 0 with a non valid value (empty speed)
 netedit.modifyAttribute(0, "", True)

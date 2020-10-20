@@ -63,7 +63,7 @@ Debug: Created crossing ':gneJ3_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ3_c1' in retrieveGNECrossing()
 Debug: Adding lane 'gneE2_0' into edge
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: net has to be saved
 Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
@@ -76,7 +76,7 @@ GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:-gneE2 from SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary 38.40,-10.00,60.00,30.00
 GLDebug: 	Removed object edge:gneE5 from SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Removed object edge:gneE8 from SUMORTree with boundary -11.60,-10.00,10.00,30.00
@@ -90,7 +90,7 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:-gneE2 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 38.40,-10.00,60.00,30.00
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,30.00
@@ -98,7 +98,7 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary -10.00,-10.00,11.60,3
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing lane 'gneE2_0' from edge
-GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -133,7 +133,7 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding lane 'gneE2_0' into edge
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -13.20,-13.20,13.20,13.20
@@ -144,7 +144,7 @@ GLDebug: Removing edges during recomputing
 GLDebug: 	Removed object edge:-gneE2 from SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Removed object edge:gneE0 from SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary 38.40,-10.00,60.00,30.00
 GLDebug: 	Removed object edge:gneE5 from SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Removed object edge:gneE8 from SUMORTree with boundary -11.60,-10.00,10.00,30.00
@@ -158,7 +158,7 @@ GLDebug: Add edges during recomputing after calling myNetBuilder->compute(...)
 GLDebug: 	Inserted edge:-gneE2 into SUMORTree with boundary -10.00,10.00,60.00,31.60
 GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,10.00
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
-GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,5.20,60.00,30.00
+GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 38.40,-10.00,60.00,30.00
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary 40.00,-10.00,61.60,30.00
 GLDebug: 	Inserted edge:gneE8 into SUMORTree with boundary -11.60,-10.00,10.00,30.00
