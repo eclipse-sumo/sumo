@@ -51,7 +51,7 @@ sumo/sublane_model/1edge_2lanes_compact_mixed;../docs/examples/sumo/sublane_mode
 sumo/rail/model_railroad;../docs/examples/sumo/model_railroad
 tools/assign/dua-iterate/simple;../docs/examples/tools/dua-iterate
 tools/detector/flowrouter/bell_pfe/plain;../docs/examples/tools/flowrouter
-tools/output/converter/ns2/mobility_only;../docs/examples/tools/traceExporter
+tools/output/traceExporter/ns2/mobility_only;../docs/examples/tools/traceExporter
 complex/tutorial/quickstart;../docs/tutorial/quickstart
 complex/tutorial/hello;../docs/tutorial/hello
 complex/tutorial/traci_tls/plain;../docs/tutorial/traci_tls

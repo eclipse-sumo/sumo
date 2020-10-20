@@ -161,11 +161,11 @@ for p in [
                     break
         haveVariant = False
         for variant in set(optionsFiles.keys()) | set(configFiles.keys()):
+            if options.application not in ("ALL", "SMART", variant, variant.split(".")[-1]):
+                continue
             if options.application == "SMART" and len(glob.glob(os.path.join(source, "*" + variant))) == 0:
                 if options.verbose:
                     print("ignoring variant %s for '%s'" % (variant, source))
-                continue
-            if options.application not in ("ALL", variant, variant.split(".")[-1]):
                 continue
             haveVariant = True
             cfg = configFiles[variant] + configFiles[app]
