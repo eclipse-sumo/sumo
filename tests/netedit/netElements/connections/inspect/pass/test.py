@@ -35,10 +35,10 @@ netedit.rebuildNetwork()
 netedit.changeEditMode('5')
 
 # inspect connection
-netedit.leftClick(referencePosition, 223, 164)
+netedit.leftClick(referencePosition, 228, 164)
 
 # Change pass
-netedit.modifyBoolAttribute(1, True)
+netedit.modifyBoolAttribute(0, True)
 
 # rebuild
 netedit.rebuildNetwork()

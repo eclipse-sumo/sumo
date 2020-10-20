@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.changeEditMode('5')
 
 # inspect connection
-netedit.leftClick(referencePosition, 223, 164)
+netedit.leftClick(referencePosition, 228, 164)
 
 # Change linkIndex with an invalid value
 netedit.modifyAttribute(5, "dummyLinkIndex", True)

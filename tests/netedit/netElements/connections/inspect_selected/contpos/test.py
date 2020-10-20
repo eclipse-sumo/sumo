@@ -44,7 +44,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selected connections
-netedit.leftClick(referencePosition, 223, 170)
+netedit.leftClick(referencePosition, 228, 170)
 
 # Change constPos with an invalid value
 netedit.modifyAttribute(2, "dummyContPos", True)

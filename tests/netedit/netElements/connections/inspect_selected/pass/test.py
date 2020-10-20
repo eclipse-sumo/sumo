@@ -44,10 +44,10 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selected connections
-netedit.leftClick(referencePosition, 223, 170)
+netedit.leftClick(referencePosition, 228, 170)
 
 # Change pass
-netedit.modifyBoolAttribute(1, True)
+netedit.modifyBoolAttribute(0, True)
 
 # rebuild
 netedit.rebuildNetwork()

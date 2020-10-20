@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.08.2020 14:38:36 by Eclipse SUMO netedit Version v1_6_0+1752-8f7fae36af
+<!-- generated on 20.10.2020 10:41:24 by Eclipse SUMO netedit Version v1_7_0+0644-c2b60a409c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug143803.11524\netedit.gui\netElements\connections\inspect\pass\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.20Oct103700.2772\netedit.gui\netElements\connections\inspect\pass\log.txt"/>
     </report>
 
 </configuration>
@@ -122,7 +122,7 @@
     <connection from="5" to="2" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="5" to="3" fromLane="1" toLane="1" dir="l" state="m"/>
     <connection from="6" to="3" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="6" to="1" fromLane="0" toLane="0" keepClear="0" dir="s" state="M"/>
+    <connection from="6" to="1" fromLane="0" toLane="0" pass="1" dir="s" state="M"/>
     <connection from="6" to="1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="6" to="4" fromLane="1" toLane="1" dir="l" state="m"/>
     <connection from="7" to="1" fromLane="0" toLane="0" dir="r" state="m"/>
