@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 274, 416)
+netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 60)
+netedit.leftClick(referencePosition, 280, 55)
 netedit.leftClick(referencePosition, 64, 160)
 netedit.leftClick(referencePosition, 190, 256)
 

@@ -3,17 +3,17 @@ Finding reference
 TestFunctions: 'reference.png' found. Position: 304 - 168
 flow (from-to)
 dummyPos
-TestFunctions: Clicked over position 578 - 584
-TestFunctions: Clicked over position 584 - 228
+TestFunctions: Clicked over position 578 - 560
+TestFunctions: Clicked over position 584 - 223
 -12
-TestFunctions: Clicked over position 578 - 584
-TestFunctions: Clicked over position 584 - 228
+TestFunctions: Clicked over position 578 - 560
+TestFunctions: Clicked over position 584 - 223
 random_free
-TestFunctions: Clicked over position 578 - 584
-TestFunctions: Clicked over position 584 - 228
+TestFunctions: Clicked over position 578 - 560
+TestFunctions: Clicked over position 584 - 223
 20
-TestFunctions: Clicked over position 578 - 584
-TestFunctions: Clicked over position 584 - 228
+TestFunctions: Clicked over position 578 - 560
+TestFunctions: Clicked over position 584 - 223
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

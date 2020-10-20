@@ -35,9 +35,9 @@ netedit.supermodeDemand()
 netedit.routeMode()
 
 # create route using three edges
-netedit.leftClick(referencePosition, 274, 416)
+netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 280, 60)
+netedit.leftClick(referencePosition, 280, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -52,25 +52,25 @@ netedit.changeElement("flow (over route)")
 netedit.changeDefaultValue(15, "dummyContainerNumber")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, 274, 416)
+netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid containerNumber
 netedit.changeDefaultValue(15, "-12")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, 274, 416)
+netedit.leftClick(referencePosition, 274, 392)
 
 # set invalid containerNumber
 netedit.changeDefaultValue(15, "3.5")
 
 # try to create vehicle
-netedit.leftClick(referencePosition, 274, 416)
+netedit.leftClick(referencePosition, 274, 392)
 
 # set valid containerNumber
 netedit.changeDefaultValue(15, "13")
 
 # create vehicle
-netedit.leftClick(referencePosition, 274, 416)
+netedit.leftClick(referencePosition, 274, 392)
 
 # Check undo redo
 netedit.undo(referencePosition, 2)

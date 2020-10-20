@@ -41,8 +41,8 @@ netedit.changePersonPlan("walks", "walk: edges")
 netedit.changeDefaultValue(6, "dummyColor")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -51,8 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(6, "cyan")
 
 # create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -61,8 +61,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(6, "12,13,14")
 
 # create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()

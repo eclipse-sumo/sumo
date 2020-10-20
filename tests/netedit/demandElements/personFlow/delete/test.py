@@ -38,9 +38,9 @@ netedit.personMode()
 netedit.changeElement("personFlow")
 
 # create person using three edges
-netedit.leftClick(referencePosition, 274, 416)
+netedit.leftClick(referencePosition, 274, 392)
 netedit.leftClick(referencePosition, 570, 250)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create person
 netedit.typeEnter()

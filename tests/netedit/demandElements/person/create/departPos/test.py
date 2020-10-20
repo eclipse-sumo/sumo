@@ -41,8 +41,8 @@ netedit.changePersonPlan("walks", "walk: edges")
 netedit.changeDefaultValue(7, "dummyDepartPos")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -51,8 +51,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(7, "-12")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -61,8 +61,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(7, "5000")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -71,8 +71,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(7, "20")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -81,8 +81,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(7, "random")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -91,8 +91,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(7, "free")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -101,8 +101,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(7, "base")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -111,8 +111,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(7, "random_free")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
@@ -121,8 +121,8 @@ netedit.typeEnter()
 netedit.changeDefaultValue(7, "last")
 
 # try to create person
-netedit.leftClick(referencePosition, 274, 416)
-netedit.leftClick(referencePosition, 180, 60)
+netedit.leftClick(referencePosition, 274, 392)
+netedit.leftClick(referencePosition, 180, 55)
 
 # press enter to create route
 netedit.typeEnter()
