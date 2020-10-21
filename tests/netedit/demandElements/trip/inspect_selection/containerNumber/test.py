@@ -41,7 +41,7 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 91, 392)
+netedit.leftClick(referencePosition, 586, 303)
 
 # change containerNumber with an invalid value
 netedit.modifyAttribute(11, "", True)
