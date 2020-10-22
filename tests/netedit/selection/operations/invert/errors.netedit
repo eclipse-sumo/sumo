@@ -45,7 +45,6 @@ Debug: Setting new attribute selected '1' into edge '6'
 Debug: Setting new attribute selected '1' into edge '7'
 Debug: Setting new attribute selected '1' into edge '8'
 Debug: Setting new attribute selected '1' into junction 'Center'
-Debug: Setting new attribute selected '1' into poi 'POI_3'
 Debug: Setting new attribute selected '1' into taz 'TAZ'
 Debug: Setting new attribute selected '1' into e1Detector 'detector2'
 Debug: Setting new attribute selected '1' into e1Detector 'detector6'
@@ -92,7 +91,7 @@ Debug: Setting new attribute selected 'false' into taz 'TAZ'
 Debug: Setting new attribute selected 'true' into poi 'POI_0'
 Debug: Setting new attribute selected 'true' into poi 'POI_1'
 Debug: Setting new attribute selected 'true' into poi 'POI_2'
-Debug: Setting new attribute selected 'false' into poi 'POI_3'
+Debug: Setting new attribute selected 'true' into poi 'POI_3'
 Debug: Setting new attribute selected 'true' into poiLane 'POI_4'
 Debug: Setting new attribute selected 'true' into poiLane 'POI_5'
 Debug: Key DEL (delete) pressed
@@ -335,8 +334,10 @@ Debug: Removing junction 'D' from net
 Debug: Removing poi 'POI_0' from viewNet
 Debug: Removing poi 'POI_1' from viewNet
 Debug: Removing poi 'POI_2' from viewNet
+Debug: Removing poi 'POI_3' from viewNet
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
+Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_1' into viewNet
 Debug: Adding poi 'POI_0' into viewNet
@@ -845,6 +846,7 @@ Debug: Removing junction 'D' from net
 Debug: Removing poi 'POI_0' from viewNet
 Debug: Removing poi 'POI_1' from viewNet
 Debug: Removing poi 'POI_2' from viewNet
+Debug: Removing poi 'POI_3' from viewNet
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Deleting unreferenced junction 'D' in GNEChange_Attribute
@@ -905,14 +907,13 @@ Debug: Deleting unreferenced lane '1_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '1_2' in GNEEdge destructor
 Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_4' in ~GNEChange_Shape()
-Debug: Removing poi 'POI_3' from net in ~GNEChange_Shape()
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'POI_3' in ~GNEChange_Shape()
 Debug: delete poi 'POI_2' in ~GNEChange_Shape()
 Debug: delete poi 'POI_1' in ~GNEChange_Shape()
 Debug: delete poi 'POI_0' in ~GNEChange_Shape()
 Debug: Removing taz 'TAZ' from net in ~GNEChange_TAZElement()
+Debug: Additionals has to be saved
+Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete taz 'TAZ' in ~GNEChange_TAZElement()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()

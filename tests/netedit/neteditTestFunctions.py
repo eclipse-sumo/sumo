@@ -1551,7 +1551,7 @@ def saveSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(25):
+    for _ in range(26):
         typeTab()
     typeSpace()
     # jump to filename TextField
@@ -1567,7 +1567,7 @@ def loadSelection():
     """
     focusOnFrame()
     # jump to save
-    for _ in range(26):
+    for _ in range(27):
         typeTab()
     typeSpace()
     # jump to filename TextField

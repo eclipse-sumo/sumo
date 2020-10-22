@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2020 09:16:51 by Eclipse SUMO netedit Version v1_6_0+1929-72c132134b
+<!-- generated on 22/10/2020 11:36:10 by Eclipse SUMO netedit Version v1_7_0+0659-2ea3cbf21a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\net.net.xml"/>
+        <output-file value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,32 +30,32 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\datas.xml"/>
+        <additional-files value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\additionals.xml"/>
+        <additionals-output value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\additionals.xml"/>
+        <route-files value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\routes.xml"/>
+        <demandelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\routes.xml"/>
+        <data-files value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\datas.xml"/>
+        <dataelements-output value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep091619.2376\netedit.gui\TAZElements\basic\TAZ_saveDialog\log.txt"/>
+        <error-log value="C:\Users\palva\.texttest\tmp\netedit.gui.22Oct113547.7976\netedit.gui\TAZElements\basic\TAZ_saveDialog\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <taz id="taz_0" shape="2.00,20.00 2.00,26.00 -4.00,26.00 -4.00,20.00 2.00,20.00" color="blue"/>
+    <taz id="taz_0" shape="2.00,18.00 2.00,24.00 -4.00,24.00 -4.00,18.00 2.00,18.00" color="blue"/>
 </additional>

@@ -6,16 +6,16 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 25
 e3Detector
 dummySpeedTreshold
-TestFunctions: Clicked over position 404 - 258
+TestFunctions: Clicked over position 404 - 253
 -3.80
-TestFunctions: Clicked over position 404 - 258
+TestFunctions: Clicked over position 404 - 253
 2.51
-TestFunctions: Clicked over position 404 - 258
+TestFunctions: Clicked over position 404 - 253
 detEntry
-TestFunctions: Clicked over position 404 - 258
+TestFunctions: Clicked over position 404 - 253
 TestFunctions: Clicked over position 604 - 418
 detExit
-TestFunctions: Clicked over position 404 - 258
+TestFunctions: Clicked over position 404 - 253
 TestFunctions: Clicked over position 604 - 538
 TestFunctions: Clicked over position 304 - 168
 TestFunctions: Clicked over position 304 - 168

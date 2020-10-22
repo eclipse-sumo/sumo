@@ -4,7 +4,7 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 parkingArea
 TestFunctions: Clicked over position 554 - 348
 space
-TestFunctions: Clicked over position 535 - 469
+TestFunctions: Clicked over position 535 - 453
 TestFunctions: Clicked over position 534 - 443
 dummyLenght
 -6

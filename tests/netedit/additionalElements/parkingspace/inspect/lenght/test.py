@@ -42,7 +42,7 @@ netedit.changeElement("space")
 
 # create first space
 netedit.selectAdditionalChild(8, 0)
-netedit.leftClick(referencePosition, 231, 301)
+netedit.leftClick(referencePosition, 231, 285)
 
 # go to inspect mode
 netedit.inspectMode()
