@@ -38,15 +38,15 @@ netedit.additionalMode()
 netedit.changeElement("e2MultilaneDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 255)
-netedit.leftClick(referencePosition, 440, 255)
+netedit.leftClick(referencePosition, 190, 240)
+netedit.leftClick(referencePosition, 440, 240)
 netedit.typeEnter()
 
 # go to additional mode
 netedit.inspectMode()
 
 # inspect E2
-netedit.leftClick(referencePosition, 320, 255)
+netedit.leftClick(referencePosition, 320, 240)
 
 # Change parameter vtypes with a invalid value
 netedit.modifyAttribute(8, "Type%%%%%1 T;;yp$2 Type3", True)

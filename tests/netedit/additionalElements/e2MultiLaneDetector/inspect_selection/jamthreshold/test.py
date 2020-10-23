@@ -41,7 +41,7 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect selection
-netedit.leftClick(referencePosition, 320, 255)
+netedit.leftClick(referencePosition, 320, 240)
 
 # Change parameter JamThreshold with a non valid value
 netedit.modifyAttribute(7, "dummyJamThreshold", True)

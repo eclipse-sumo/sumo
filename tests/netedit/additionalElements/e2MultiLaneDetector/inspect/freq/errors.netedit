@@ -11,21 +11,21 @@ Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
 Debug: Additionals has to be saved
 Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
-Debug: Value 'dummyFrequency' for attribute freq of e2MultilaneDetector isn't valid
-Debug: Value '-100' for attribute freq of e2MultilaneDetector isn't valid
-Debug: Setting new attribute freq '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute tl 'dummyFrequency' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute tl '-100' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute tl '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Setting previous attribute freq '900.00' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting previous attribute tl '-100' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Debug: Setting previous attribute tl 'dummyFrequency' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
+Debug: Setting new attribute tl '-100' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Setting new attribute freq '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
+Debug: Setting new attribute tl '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Additionals has to be saved
