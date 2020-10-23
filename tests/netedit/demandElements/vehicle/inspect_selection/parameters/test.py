@@ -41,7 +41,7 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 108, 415)
+netedit.leftClick(referencePosition, 112, 394)
 
 # check parameters
 netedit.checkParameters(referencePosition, 16, True)

@@ -41,7 +41,7 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 91, 392)
+netedit.leftClick(referencePosition, 114, 392)
 
 # change departPosLat with an invalid value
 netedit.modifyAttribute(12, "", True)

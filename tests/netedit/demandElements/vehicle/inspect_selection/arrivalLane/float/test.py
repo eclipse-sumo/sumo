@@ -41,7 +41,7 @@ netedit.selectionInvertDemand()
 netedit.inspectMode()
 
 # inspect vehicle
-netedit.leftClick(referencePosition, 108, 415)
+netedit.leftClick(referencePosition, 112, 394)
 
 # change arrivalLane with an invalid value
 netedit.modifyAttribute(6, "", True)
