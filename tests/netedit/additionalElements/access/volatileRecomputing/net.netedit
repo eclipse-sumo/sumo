@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 09:20:21 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 3/11/2020 3:22:09 PM by Eclipse SUMO netedit Version v1_5_0+0577-c86610ca2e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/access/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\access\volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/access/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\access\volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -30,29 +32,32 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/access/volatileRecomputing\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/access/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/access/volatileRecomputing\shapes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\access\volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\access\volatileRecomputing\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\access\volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\access\volatileRecomputing\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/access/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\access\volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\access\volatileRecomputing\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/access/volatileRecomputing\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\additionalElements\access\volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -66,7 +71,7 @@
         <lane id=":gneJ2_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="50.00,18.40 51.20,19.20 51.60,20.00 51.20,20.80 50.00,21.60"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="3.65" length="4.67" shape="0.00,21.60 -1.20,20.80 -1.60,20.00 -1.20,19.20 0.00,18.40"/>
+        <lane id=":gneJ3_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="0.00,21.60 -1.20,20.80 -1.60,20.00 -1.20,19.20 0.00,18.40"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">

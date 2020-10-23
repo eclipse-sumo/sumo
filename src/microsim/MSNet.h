@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSNet.h
 /// @author  Christian Roessel
@@ -15,18 +19,12 @@
 /// @author  Eric Nicolay
 /// @author  Clemens Honomichl
 /// @author  Michael Behrisch
+/// @author  Leonhard Luecken
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
 ///
 // The simulated network and simulation performer
 /****************************************************************************/
-#ifndef MSNet_h
-#define MSNet_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <typeinfo>
@@ -37,13 +35,17 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
+#include <memory>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/NamedObjectCont.h>
 #include <utils/common/NamedRTree.h>
 #include <utils/router/SUMOAbstractRouter.h>
-#include <microsim/trigger/MSChargingStation.h>
 #include "MSJunction.h"
+
+#ifdef HAVE_FOX
+#include <utils/foxtools/FXConditionalLock.h>
+#endif
 
 
 // ===========================================================================
@@ -64,14 +66,17 @@ class MSTLLogicControl;
 class MSTrafficLightLogic;
 class MSDetectorControl;
 class ShapeContainer;
-class BinaryInputDevice;
+class MSDynamicShapeUpdater;
+class PolygonDynamics;
 class MSEdgeWeightsStorage;
 class SUMOVehicle;
+class MSTractionSubstation;
 class MSStoppingPlace;
 template<class E, class L, class N, class V>
 class IntermodalRouter;
 template<class E, class L, class N, class V>
 class PedestrianRouter;
+class OptionsCont;
 
 
 // ===========================================================================
@@ -115,6 +120,19 @@ public:
      * @exception ProcessError If a network was not yet constructed
      */
     static MSNet* getInstance();
+
+    /**
+     * @brief Returns whether this is a GUI Net
+     */
+    virtual bool isGUINet() const {
+        return false;
+    }
+
+    /// @brief Place for static initializations of simulation components (called after successful net build)
+    static void initStatic();
+
+    /// @brief Place for static initializations of simulation components (called after successful net build)
+    static void cleanupStatic();
 
 
     /** @brief Returns whether the network was already constructed
@@ -160,14 +178,13 @@ public:
      * @param[in] stateDumpTimes List of time steps at which state shall be written
      * @param[in] stateDumpFiles Filenames for states
      * @param[in] hasInternalLinks Whether the network actually contains internal links
-     * @param[in] lefthand Whether the network was built for left-hand traffic
      * @param[in] version The network version
      * @todo Try to move all this to the constructor?
      */
     void closeBuilding(const OptionsCont& oc, MSEdgeControl* edges, MSJunctionControl* junctions,
                        SUMORouteLoaderControl* routeLoaders, MSTLLogicControl* tlc,
                        std::vector<SUMOTime> stateDumpTimes, std::vector<std::string> stateDumpFiles,
-                       bool hasInternalLinks, bool hasNeighs, bool lefthand,
+                       bool hasInternalLinks, bool hasNeighs,
                        double version);
 
 
@@ -233,6 +250,8 @@ public:
      */
     const std::string generateStatistics(SUMOTime start);
 
+    /// @brief write statistic output to (xml) file
+    void writeStatistics() const;
 
     /** @brief Closes the simulation (all files, connections, etc.)
      *
@@ -240,15 +259,23 @@ public:
      *
      * @param[in] start The step the simulation was started with
      */
-    void closeSimulation(SUMOTime start);
+    void closeSimulation(SUMOTime start, const std::string& reason = "");
 
 
-    /** @brief Called after a simulation step, this method returns the current simulation state
+    /** @brief This method returns the current simulation state. It should not modify status.
      * @param[in] stopTime The time the simulation shall stop at
      * @return The current simulation state
      * @see SimulationState
      */
     SimulationState simulationState(SUMOTime stopTime) const;
+
+
+    /** @brief Called after a simulation step, this method adapts the current simulation state if necessary
+     * @param[in] state The current simulation state
+     * @return The new simulation state
+     * @see SimulationState
+     */
+    SimulationState adaptToState(const SimulationState state) const;
 
 
     /** @brief Returns the message to show if a certain state occurs
@@ -272,6 +299,11 @@ public:
         myStep = step;
     }
 
+
+    /** @brief Resets events when quick-loading state
+     * @param step The new simulation step
+     */
+    void clearState(const SUMOTime step);
 
     /** @brief Write netstate, summary and detector output
      * @todo Which exceptions may occur?
@@ -331,7 +363,7 @@ public:
     /** @brief Returns whether persons are simulated
      */
     bool hasPersons() const {
-        return myPersonControl != 0;
+        return myPersonControl != nullptr;
     }
 
     /** @brief Returns the container control
@@ -347,7 +379,7 @@ public:
     /** @brief Returns whether containers are simulated
     */
     bool hasContainers() const {
-        return myContainerControl != 0;
+        return myContainerControl != nullptr;
     }
 
 
@@ -440,6 +472,18 @@ public:
         return *myShapeContainer;
     }
 
+    /** @brief Returns the dynamic shapes updater
+     * @see PolygonDynamics
+     */
+    MSDynamicShapeUpdater* getDynamicShapeUpdater() {
+        return myDynamicShapeUpdater.get();
+    }
+
+    /** @brief Creates and returns a dynamic shapes updater
+     * @see PolygonDynamics
+     */
+    MSDynamicShapeUpdater* makeDynamicShapeUpdater();
+
     /** @brief Returns the net's internal edge travel times/efforts container
      *
      * If the net does not have such a container, it is built.
@@ -464,6 +508,17 @@ public:
     bool addStoppingPlace(const SumoXMLTag category, MSStoppingPlace* stop);
 
 
+    /** @brief Adds a traction substation
+     *
+     * If another traction substation with the same id and category exists, false is returned.
+     *  Otherwise, the traction substation is added to the internal substations container.
+     *
+     * @param[in] substation The traction substation to add
+     * @return Whether the stop could be added
+     */
+    bool addTractionSubstation(MSTractionSubstation* substation);
+
+
     /** @brief Returns the named stopping place of the given category
      * @param[in] id The id of the stop to return.
      * @param[in] category The type of stop
@@ -480,12 +535,22 @@ public:
     std::string getStoppingPlaceID(const MSLane* lane, const double pos, const SumoXMLTag category) const;
     /// @}
 
+    const NamedObjectCont<MSStoppingPlace*>& getStoppingPlaces(SumoXMLTag category) const;
 
     /// @brief write charging station output
     void writeChargingStationOutput() const;
 
+    /// @brief write rail signal block output
+    void writeRailSignalBlocks() const;
+
     /// @brief creates a wrapper for the given logic (see GUINet)
     virtual void createTLWrapper(MSTrafficLightLogic*) {};
+
+    /// @brief write the output generated by an overhead wire segment
+    void writeOverheadWireSegmentOutput() const;
+
+    /// @brief write electrical substation output
+    void writeSubstationOutput() const;
 
     /// @brief return wheter the given logic (or rather it's wrapper) is selected in the GUI
     virtual bool isSelected(const MSTrafficLightLogic*) const {
@@ -520,7 +585,9 @@ public:
         /// @brief The vehicle is involved in a collision
         VEHICLE_STATE_COLLISION,
         /// @brief The vehicle had to brake harder than permitted
-        VEHICLE_STATE_EMERGENCYSTOP
+        VEHICLE_STATE_EMERGENCYSTOP,
+        /// @brief Vehicle maneuvering either entering or exiting a parking space
+        VEHICLE_STATE_MANEUVERING
     };
 
 
@@ -591,20 +658,15 @@ public:
     /* @brief get the router, initialize on first use
      * @param[in] prohibited The vector of forbidden edges (optional)
      */
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
-        const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(
-        const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSPedestrianRouter& getPedestrianRouter(const MSEdgeVector& prohibited = MSEdgeVector()) const;
-    MSIntermodalRouter& getIntermodalRouter(const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex,
+            const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterEffort(const int rngIndex,
+            const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSPedestrianRouter& getPedestrianRouter(const int rngIndex, const MSEdgeVector& prohibited = MSEdgeVector()) const;
+    MSIntermodalRouter& getIntermodalRouter(const int rngIndex, const int routingMode = 0, const MSEdgeVector& prohibited = MSEdgeVector()) const;
 
     static void adaptIntermodalRouter(MSIntermodalRouter& router);
 
-
-    /** @brief Returns an RTree that contains lane IDs
-     * @return An Rtree containing lane IDs
-     */
-    const NamedRTree& getLanesRTree() const;
 
     /// @brief return whether the network contains internal links
     bool hasInternalLinks() const {
@@ -616,9 +678,14 @@ public:
         return myHasElevation;
     }
 
-    /// @brief return whether the network was built for lefthand traffic
-    bool lefthand() const {
-        return myLefthand;
+    /// @brief return whether the network contains walkingareas and crossings
+    bool hasPedestrianNetwork() const {
+        return myHasPedestrianNetwork;
+
+    }
+    /// @brief return whether the network contains bidirectional rail edges
+    bool hasBidiEdges() const {
+        return myHasBidiEdges;
     }
 
     /// @brief return the network version
@@ -637,10 +704,21 @@ public:
         return myAmInterrupted;
     }
 
+    /// @brief find electrical substation by its id
+    MSTractionSubstation* findTractionSubstation(const std::string& substationId);
+
+    /// @brief return whether given electrical substation exists in the network
+    bool existTractionSubstation(const std::string& substationId);
+
 protected:
     /// @brief check all lanes for elevation data
     bool checkElevation();
 
+    /// @brief check all lanes for type walkingArea
+    bool checkWalkingarea();
+
+    /// @brief check wether bidirectional edges occur in the network
+    bool checkBidiEdges();
 
 protected:
     /// @brief Unique instance of MSNet
@@ -701,15 +779,18 @@ protected:
 
     /// @brief Information whether the number of the simulation step shall be logged
     bool myLogStepNumber;
+    /// @brief Period between successive step-log outputs
+    int myLogStepPeriod;
 
     /// @brief The last simulation step duration
-    long myTraCIStepDuration, mySimStepDuration;
+    long myTraCIStepDuration = 0, mySimStepDuration = 0;
 
     /// @brief The overall simulation duration
     long mySimBeginMillis;
 
     /// @brief The overall number of vehicle movements
     long long int myVehiclesMoved;
+    long long int myPersonsMoved;
     //}
 
 
@@ -742,6 +823,12 @@ protected:
     /// @brief Whether the network contains elevation data
     bool myHasElevation;
 
+    /// @brief Whether the network contains pedestrian network elements
+    bool myHasPedestrianNetwork;
+
+    /// @brief Whether the network contains bidirectional rail edges
+    bool myHasBidiEdges;
+
     /// @brief Whether the network was built for left-hand traffic
     bool myLefthand;
 
@@ -754,8 +841,16 @@ protected:
     /// @brief Dictionary of bus / container stops
     std::map<SumoXMLTag, NamedObjectCont<MSStoppingPlace*> > myStoppingPlaces;
 
+    /// @brief Dictionary of traction substations
+    std::vector<MSTractionSubstation*> myTractionSubstations;
+
     /// @brief Container for vehicle state listener
     std::vector<VehicleStateListener*> myVehicleStateListeners;
+
+#ifdef HAVE_FOX
+    /// @brief to avoid concurrent access to the state update function
+    FXMutex myStateListenerMutex;
+#endif
 
     /// @brief container to record warnings that shall only be issued once
     std::map<std::string, bool> myWarnedOnce;
@@ -763,15 +858,20 @@ protected:
     /* @brief The router instance for routing by trigger and by traci
      * @note MSDevice_Routing has its own instance since it uses a different weight function
      * @note we provide one member for every switchable router type
-     * because the class structure makes it inconvenient to use a superclass*/
-    mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterTT;
-    mutable SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouterEffort;
-    mutable MSPedestrianRouter* myPedestrianRouter;
+     * because the class structure makes it inconvenient to use a superclass
+     */
+    mutable std::map<int, SUMOAbstractRouter<MSEdge, SUMOVehicle>*> myRouterTT;
+    mutable std::map<int, SUMOAbstractRouter<MSEdge, SUMOVehicle>*> myRouterEffort;
+    mutable std::map<int, MSPedestrianRouter*> myPedestrianRouter;
     mutable std::map<int, MSIntermodalRouter*> myIntermodalRouter;
-
 
     /// @brief An RTree structure holding lane IDs
     mutable std::pair<bool, NamedRTree> myLanesRTree;
+
+    /// @brief Updater for dynamic shapes that are tracking traffic objects
+    ///        (ensures removal of shape dynamics when the objects are removed)
+    /// @see utils/shapes/PolygonDynamics
+    std::unique_ptr<MSDynamicShapeUpdater> myDynamicShapeUpdater;
 
 
     /// @brief string constants for simstep stages
@@ -789,9 +889,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

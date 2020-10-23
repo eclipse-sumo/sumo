@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.11.2018 08:42:20 by Eclipse SUMO netedit Version v1_0_0+1004-1c7613c4e7
+<!-- generated on 07.08.2019 12:04:08 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov084136.7028/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov084136.7028/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov084136.7028/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov084136.7028/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov084136.7028/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov084136.7028/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,19 +45,19 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov084136.7028/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/inspect_selection/vtypes\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <instantInductionLoop id="E1_A" name="DetectorA" vTypes="Type1 Type2 Type3" lane="gneE0_0" pos="6.00" file="fileA.txt">
+    <instantInductionLoop id="E1_A" lane="gneE0_0" pos="6.00" name="DetectorA" file="fileA.txt" vTypes="Type1 Type2 Type3">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </instantInductionLoop>
-    <instantInductionLoop id="E1_B" name="DetectorB" vTypes="Type1 Type2 Type3" lane="gneE0_0" pos="10.00" file="fileB.txt" friendlyPos="1">
+    <instantInductionLoop id="E1_B" lane="gneE0_0" pos="10.00" name="DetectorB" file="fileB.txt" vTypes="Type1 Type2 Type3" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

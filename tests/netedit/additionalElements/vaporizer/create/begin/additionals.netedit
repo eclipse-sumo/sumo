@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11.03.2019 14:03:06 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Mar140123.9936/netedit.gui/additionalElements/vaporizer/create/begin\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Mar140123.9936/netedit.gui/additionalElements/vaporizer/create/begin\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Mar140123.9936/netedit.gui/additionalElements/vaporizer/create/begin\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Mar140123.9936/netedit.gui/additionalElements/vaporizer/create/begin\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Mar140123.9936/netedit.gui/additionalElements/vaporizer/create/begin\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Mar140123.9936/netedit.gui/additionalElements/vaporizer/create/begin\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <vaporizer id="gneE1" begin="10.00" end="3600.00"/>
+</additional>

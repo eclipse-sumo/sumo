@@ -1,0 +1,14 @@
+--edge-files input_plain.edg.xml --node-files input_plain.nod.xml 
+--output net.net.xml
+-R
+
+--tls.discard-simple
+--tls.guess
+--tls.guess.threshold 52
+--tls.guess.joining
+--tls.guess-signals
+
+--no-internal-links
+--no-turnarounds.tls
+
+--ignore-errors.edge-type

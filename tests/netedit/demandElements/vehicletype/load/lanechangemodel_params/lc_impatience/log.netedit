@@ -1,0 +1,5 @@
+Error: Invalid Lane-Change-Model Attribute lcImpatience. Cannot be parsed to float
+Error: Invalid Lane Change Model Parameters
+Error: Invalid Lane-Change-Model Attribute lcImpatience. Must be equal or greater than 0
+Error: Invalid Lane Change Model Parameters
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.01Aug112532.10832/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_impatience\input_routes.rou.xml failed.

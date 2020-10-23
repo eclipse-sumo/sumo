@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct 19 14:47:33 2017 by SUMO Version svn
+<!-- generated on Fri Apr 17 08:19:38 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,11 +15,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <vehroute-output value="vehroutes.xml"/>
     </output>
 
     <processing>
         <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -36,5 +38,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <calibratorstats xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/calibratorstats_file.xsd">
-    <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="50" removed="0" inserted="40" cleared="0" flow="1800.00" aspiredFlow="1800.00" speed="20.60" aspiredSpeed="-1.00"/>
+    <interval begin="0.00" end="100.00" id="calibtest" nVehContrib="42" removed="0" inserted="40" cleared="8" flow="1512.00" aspiredFlow="1800.00" speed="12.07" aspiredSpeed="-1.00" vaporizedOnNextEdge="6"/>
 </calibratorstats>

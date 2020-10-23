@@ -1,8 +1,0 @@
-Warning: No way found for reference '381308070' in relation '3235687'
-Warning: Ignoring restriction relation '3235687' with unknown to-way.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_247120010_267009909_291194164_291194165'.
-Warning: Ambiguity in turnarounds computation at junction 'cluster_2476940049_2476940061_2476940071_2476940083'.
-Warning: Found sharp turn with radius 7.50 at the start of edge '4054008#5'.
-Warning: Found angle of 131.59 degrees at edge '441932172#2', segment 7
-Warning: Found angle of 130.97 degrees at edge '441932172#2', segment 8
-Warning: The rail crossing 'cluster_2476940049_2476940061_2476940071_2476940083' does not have any roads.

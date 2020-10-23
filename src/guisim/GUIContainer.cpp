@@ -1,32 +1,28 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIContainer.cpp
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @date    Wed, 01.08.2014
-/// @version $Id$
 ///
 // A MSContainer extended by some values for usage within the gui
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
 #include <vector>
 #include <string>
-#include <microsim/MSContainer.h>
-#include <microsim/MSCModel_NonInteracting.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/MSVehicleControl.h>
@@ -55,23 +51,14 @@
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-/*
 FXDEFMAP(GUIContainer::GUIContainerPopupMenu) GUIContainerPopupMenuMap[] = {
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_ALLROUTES, GUIContainer::GUIContainerPopupMenu::onCmdShowAllRoutes),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_ALLROUTES, GUIContainer::GUIContainerPopupMenu::onCmdHideAllRoutes),
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_CURRENTROUTE, GUIContainer::GUIContainerPopupMenu::onCmdShowCurrentRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_CURRENTROUTE, GUIContainer::GUIContainerPopupMenu::onCmdHideCurrentRoute),
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_BEST_LANES, GUIContainer::GUIContainerPopupMenu::onCmdShowBestLanes),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_BEST_LANES, GUIContainer::GUIContainerPopupMenu::onCmdHideBestLanes),
     FXMAPFUNC(SEL_COMMAND, MID_START_TRACK, GUIContainer::GUIContainerPopupMenu::onCmdStartTrack),
-    FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK, GUIContainer::GUIContainerPopupMenu::onCmdStopTrack),
-    FXMAPFUNC(SEL_COMMAND, MID_SHOW_LFLINKITEMS, GUIContainer::GUIContainerPopupMenu::onCmdShowLFLinkItems),
-    FXMAPFUNC(SEL_COMMAND, MID_HIDE_LFLINKITEMS, GUIContainer::GUIContainerPopupMenu::onCmdHideLFLinkItems),
+    FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK,  GUIContainer::GUIContainerPopupMenu::onCmdStopTrack),
+    FXMAPFUNC(SEL_COMMAND, MID_SHOWPLAN,    GUIContainer::GUIContainerPopupMenu::onCmdShowPlan),
 };
 
 // Object implementation
 FXIMPLEMENT(GUIContainer::GUIContainerPopupMenu, GUIGLObjectPopupMenu, GUIContainerPopupMenuMap, ARRAYNUMBER(GUIContainerPopupMenuMap))
-*/
 
 #define WATER_WAY_OFFSET 6.0
 
@@ -82,13 +69,48 @@ FXIMPLEMENT(GUIContainer::GUIContainerPopupMenu, GUIGLObjectPopupMenu, GUIContai
  * GUIContainer::GUIContainerPopupMenu - methods
  * ----------------------------------------------------------------------- */
 GUIContainer::GUIContainerPopupMenu::GUIContainerPopupMenu(
-    GUIMainWindow& app, GUISUMOAbstractView& parent,
-    GUIGlObject& o, std::map<GUISUMOAbstractView*, int>& additionalVisualizations)
-    : GUIGLObjectPopupMenu(app, parent, o), myVehiclesAdditionalVisualizations(additionalVisualizations) {
+    GUIMainWindow& app, GUISUMOAbstractView& parent, GUIGlObject& o)
+    : GUIGLObjectPopupMenu(app, parent, o) {
 }
 
 
 GUIContainer::GUIContainerPopupMenu::~GUIContainerPopupMenu() {}
+
+
+long
+GUIContainer::GUIContainerPopupMenu::onCmdShowPlan(FXObject*, FXSelector, void*) {
+    GUIContainer* p = dynamic_cast<GUIContainer*>(myObject);
+    if (p == nullptr) {
+        return 1;
+    }
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(*myApplication, *p);
+    // add items
+    for (int stage = 1; stage < p->getNumStages(); stage++) {
+        ret->mkItem(toString(stage).c_str(), false, p->getStageSummary(stage));
+    }
+    // close building (use an object that is not Parameterised as argument)
+    Parameterised dummy;
+    ret->closeBuilding(&dummy);
+    return 1;
+}
+
+
+long
+GUIContainer::GUIContainerPopupMenu::onCmdStartTrack(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    if (myParent->getTrackedID() != static_cast<GUIContainer*>(myObject)->getGlID()) {
+        myParent->startTrack(static_cast<GUIContainer*>(myObject)->getGlID());
+    }
+    return 1;
+}
+
+long
+GUIContainer::GUIContainerPopupMenu::onCmdStopTrack(FXObject*, FXSelector, void*) {
+    assert(myObject->getType() == GLO_PERSON);
+    myParent->stopTrack();
+    return 1;
+}
+
 
 
 
@@ -96,7 +118,7 @@ GUIContainer::GUIContainerPopupMenu::~GUIContainerPopupMenu() {}
  * GUIContainer - methods
  * ----------------------------------------------------------------------- */
 GUIContainer::GUIContainer(const SUMOVehicleParameter* pars, MSVehicleType* vtype, MSTransportable::MSTransportablePlan* plan) :
-    MSContainer(pars, vtype, plan),
+    MSTransportable(pars, vtype, plan, false),
     GUIGlObject(GLO_CONTAINER, pars->id) {
 }
 
@@ -108,13 +130,23 @@ GUIContainer::~GUIContainer() {
 GUIGLObjectPopupMenu*
 GUIContainer::getPopUpMenu(GUIMainWindow& app,
                            GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIContainerPopupMenu(app, parent, *this, myAdditionalVisualizations);
+    GUIGLObjectPopupMenu* ret = new GUIContainerPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
+    new FXMenuSeparator(ret);
+    if (parent.getTrackedID() != getGlID()) {
+        new FXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
+    } else {
+        new FXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
+    }
     //
+
     buildShowParamsPopupEntry(ret);
+    buildShowTypeParamsPopupEntry(ret);
+    new FXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
+    new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;
 }
@@ -123,12 +155,14 @@ GUIContainer::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIContainer::getParameterWindow(GUIMainWindow& app,
                                  GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 12 + (int)getParameter().getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("stage", false, getCurrentStageDescription());
+    // there is always the "start" stage which we do not count here because it is not strictly part of the plan
+    ret->mkItem("stage index", false, toString(getNumStages() - getNumRemainingStages()) + " of " + toString(getNumStages() - 1));
     ret->mkItem("start edge [id]", false, getFromEdge()->getID());
     ret->mkItem("dest edge [id]", false, getDestination()->getID());
+    ret->mkItem("arrivalPos [m]", false, toString(getCurrentStage()->getArrivalPos()));
     ret->mkItem("edge [id]", false, getEdge()->getID());
     ret->mkItem("position [m]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getEdgePos));
     ret->mkItem("speed [m/s]", true, new FunctionBinding<GUIContainer, double>(this, &GUIContainer::getSpeed));
@@ -145,8 +179,7 @@ GUIContainer::getParameterWindow(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUIContainer::getTypeParameterWindow(GUIMainWindow& app,
                                      GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 8 + (int)myVType->getParameter().getParametersMap().size());
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("Type Information:", false, "");
     ret->mkItem("type [id]", false, myVType->getID());
@@ -176,12 +209,13 @@ GUIContainer::drawGL(const GUIVisualizationSettings& s) const {
     glPushName(getGlID());
     glPushMatrix();
     Position p1 = getPosition();
-    if (getCurrentStageType() == DRIVING && !isWaiting4Vehicle()) {
-        p1 = myPositionInVehicle;
+    double angle = getAngle();
+    if (getCurrentStageType() == MSStageType::DRIVING && !isWaiting4Vehicle()) {
+        p1 = myPositionInVehicle.pos;
+        angle = myPositionInVehicle.angle;
     }
     glTranslated(p1.x(), p1.y(), getType());
-    glRotated(90, 0, 0, 1);
-    // XXX use container specific gui settings
+    glRotated(RAD2DEG(angle), 0, 0, 1);
     // set container color
     setColor(s);
     // scale
@@ -263,7 +297,7 @@ void
 GUIContainer::setColor(const GUIVisualizationSettings& s) const {
     const GUIColorer& c = s.containerColorer;
     if (!setFunctionalColor(c.getActive())) {
-        GLHelper::setColor(c.getScheme().getColor(getColorValue(c.getActive())));
+        GLHelper::setColor(c.getScheme().getColor(getColorValue(s, c.getActive())));
     }
 }
 
@@ -308,7 +342,7 @@ GUIContainer::setFunctionalColor(int activeScheme) const {
 
 
 double
-GUIContainer::getColorValue(int activeScheme) const {
+GUIContainer::getColorValue(const GUIVisualizationSettings& /* s */, int activeScheme) const {
     switch (activeScheme) {
         case 4:
             return getSpeed();
@@ -330,47 +364,46 @@ GUIContainer::getColorValue(int activeScheme) const {
 double
 GUIContainer::getEdgePos() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getEdgePos();
+    return MSTransportable::getEdgePos();
 }
 
 
 Position
 GUIContainer::getPosition() const {
     FXMutexLock locker(myLock);
-    if (getCurrentStageType() == WAITING && getEdge()->getPermissions() == SVC_SHIP) {
+    if (getCurrentStageType() == MSStageType::WAITING && getEdge()->getPermissions() == SVC_SHIP) {
         MSLane* lane = getEdge()->getLanes().front();   //the most right lane of the water way
         PositionVector laneShape = lane->getShape();
         return laneShape.positionAtOffset2D(getEdgePos(), WATER_WAY_OFFSET);
     }
-    return MSContainer::getPosition();
+    return MSTransportable::getPosition();
 }
 
 
 double
 GUIContainer::getAngle() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getAngle();
+    return MSTransportable::getAngle();
 }
 
 
 double
 GUIContainer::getWaitingSeconds() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getWaitingSeconds();
+    return MSTransportable::getWaitingSeconds();
 }
 
 
 double
 GUIContainer::getSpeed() const {
     FXMutexLock locker(myLock);
-    return MSContainer::getSpeed();
+    return MSTransportable::getSpeed();
 }
 
 
 void
 GUIContainer::drawAction_drawAsPoly(const GUIVisualizationSettings& /* s */) const {
     // draw pedestrian shape
-    glRotated(RAD2DEG(getAngle() + M_PI / 2.), 0, 0, 1);
     glScaled(getVehicleType().getLength(), getVehicleType().getWidth(), 1);
     glBegin(GL_QUADS);
     glVertex2d(0, 0.5);
@@ -409,5 +442,6 @@ GUIContainer::drawAction_drawAsImage(const GUIVisualizationSettings& s) const {
         drawAction_drawAsPoly(s);
     }
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

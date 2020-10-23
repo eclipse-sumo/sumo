@@ -7,5 +7,8 @@ stops_in_veh
 # reroutes with stops defined in route
 stops_in_route
 
+# reroutes with until-stops defined in route
+stops_in_route_until
+
 # load everything in a single file to have an easier example
 simple_example

@@ -1,32 +1,32 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    StringUtils.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
+/// @author  Robert Hilbrich
 /// @date    unknown
-/// @version $Id$
 ///
 // Some static methods for string processing
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
 #include <iostream>
 #include <cstdio>
 #include <cstring>
+#include <regex>
 #include <xercesc/util/TransService.hpp>
 #include <xercesc/util/TranscodingException.hpp>
 #include <utils/common/UtilExceptions.h>
@@ -117,6 +117,37 @@ StringUtils::replace(std::string str, const char* what,
     return str;
 }
 
+
+std::string StringUtils::substituteEnvironment(std::string str) {
+    // Expression for an environment variables, e.g. ${NAME}
+    // Note: - R"(...)" is a raw string literal syntax to simplify a regex declaration
+    //       - .+? looks for the shortest match (non-greedy)
+    //       - (.+?) defines a "subgroup" which is already stripped of the $ and {, }
+    std::regex envVarExpr(R"(\$\{(.+?)\})");
+
+    // Are there any variables in this string?
+    std::smatch match;
+    std::string strIter = str;
+
+    // Loop over the entire value string and look for variable names
+    while (std::regex_search(strIter, match, envVarExpr)) {
+        std::string varName = match[1];
+
+        // Find the variable in the environment and its value
+        std::string varValue;
+        if (std::getenv(varName.c_str()) != nullptr) {
+            varValue = std::getenv(varName.c_str());
+        }
+
+        // Replace the variable placeholder with its value in the original string
+        str = std::regex_replace(str, std::regex("\\$\\{" + varName + "\\}"), varValue);
+
+        // Continue the loop with the remainder of the string
+        strIter = match.suffix();
+    }
+
+    return str;
+}
 
 std::string
 StringUtils::toTimeString(int time) {
@@ -227,17 +258,13 @@ StringUtils::charToHex(unsigned char c) {
 unsigned char
 StringUtils::hexToChar(const std::string& str) {
     short c = 0;
-
     if (!str.empty()) {
         std::istringstream in(str);
-
         in >> std::hex >> c;
-
         if (in.fail()) {
-            throw std::runtime_error("stream decode failure");
+            throw NumberFormatException(str + " could not be interpreted as hex");
         }
     }
-
     return static_cast<unsigned char>(c);
 }
 
@@ -268,7 +295,8 @@ StringUtils::toLong(const std::string& sData) {
         throw EmptyData();
     }
     char* end;
-#ifdef _MSC_VER
+    errno = 0;
+#ifdef WIN32
     long long int ret = _strtoi64(data, &end, 10);
 #else
     long long int ret = strtoll(data, &end, 10);
@@ -378,6 +406,26 @@ StringUtils::transcode(const XMLCh* const data, int length) {
         return "?";
     }
 #endif
+}
+
+
+std::string
+StringUtils::trim_left(const std::string s, const std::string& t) {
+    std::string result = s;
+    result.erase(0, s.find_first_not_of(t));
+    return result;
+}
+
+std::string
+StringUtils::trim_right(const std::string s, const std::string& t) {
+    std::string result = s;
+    result.erase(s.find_last_not_of(t) + 1);
+    return result;
+}
+
+std::string
+StringUtils::trim(const std::string s, const std::string& t) {
+    return trim_right(trim_left(s, t), t);
 }
 
 

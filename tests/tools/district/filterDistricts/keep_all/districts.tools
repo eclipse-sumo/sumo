@@ -9,13 +9,13 @@
         <tazSink id="g" weight="1"/>
     </taz>
     <taz id="5">
+        <tazSink id="g" weight="1"/>
         <tazSource id="e" weight="2.5"/>
         <tazSource id="f" weight="1.5"/>
-        <tazSink id="g" weight="1"/>
     </taz>
     <taz edges="a b" id="6">
+        <tazSink id="g" weight="1"/>
         <tazSource id="e" weight="2.5"/>
         <tazSource id="f" weight="1.5"/>
-        <tazSink id="g" weight="1"/>
     </taz>
 </tazs>

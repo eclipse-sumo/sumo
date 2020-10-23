@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/02/13 14:08:41 by SUMO od2trips Version 0.17.0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
+
+    <input>
+        <net-file value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_o.fma"/>
+    </input>
+
+    <output>
+        <output-file value="trips.trips.xml"/>
+        <flow-output value="routes.rou.xml"/>
+    </output>
+
+    <processing>
+        <no-step-log value="true"/>
+    </processing>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="0" begin="0.00" end="86400.00" number="100" fromTaz="1" toTaz="2" departLane="free" departSpeed="max"/>
+</routes>

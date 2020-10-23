@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RONetHandler.cpp
 /// @author  Daniel Krajzewicz
@@ -14,15 +18,9 @@
 /// @author  Michael Behrisch
 /// @author  Yun-Pang Floetteroed
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The handler for SUMO-Networks
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -31,6 +29,8 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/PositionVector.h>
+#include <utils/geom/GeoConvHelper.h>
 #include <utils/vehicle/SUMORouteHandler.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
@@ -47,7 +47,9 @@
 // ===========================================================================
 RONetHandler::RONetHandler(RONet& net, ROAbstractEdgeBuilder& eb, const bool ignoreInternal, const double minorPenalty) :
     SUMOSAXHandler("sumo-network"),
-    myNet(net), myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
+    myNet(net),
+    myNetworkVersion(0),
+    myEdgeBuilder(eb), myIgnoreInternal(ignoreInternal),
     myCurrentName(), myCurrentEdge(nullptr), myCurrentStoppingPlace(nullptr),
     myMinorPenalty(minorPenalty)
 {}
@@ -60,6 +62,14 @@ void
 RONetHandler::myStartElement(int element,
                              const SUMOSAXAttributes& attrs) {
     switch (element) {
+        case SUMO_TAG_LOCATION:
+            setLocation(attrs);
+            break;
+        case SUMO_TAG_NET: {
+            bool ok;
+            myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, nullptr, ok, false);
+            break;
+        }
         case SUMO_TAG_EDGE:
             // in the first step, we do need the name to allocate the edge
             // in the second, we need it to know to which edge we have to add
@@ -107,6 +117,9 @@ RONetHandler::myStartElement(int element,
             }
             break;
         }
+        case SUMO_TAG_PARAM:
+            addParam(attrs);
+            break;
         default:
             break;
     }
@@ -129,6 +142,19 @@ RONetHandler::myEndElement(int element) {
 
 
 void
+RONetHandler::addParam(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    const std::string key = attrs.get<std::string>(SUMO_ATTR_KEY, nullptr, ok);
+    // circumventing empty string test
+    const std::string val = attrs.hasAttribute(SUMO_ATTR_VALUE) ? attrs.getString(SUMO_ATTR_VALUE) : "";
+    // add parameter in current created element, or in myLoadedParameterised
+    if (myCurrentEdge != nullptr) {
+        myCurrentEdge->setParameter(key, val);
+    }
+}
+
+
+void
 RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     // get the id, report an error if not given or empty...
     bool ok = true;
@@ -146,7 +172,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     std::string to;
     int priority;
     myCurrentEdge = nullptr;
-    if (func == EDGEFUNC_INTERNAL || func == EDGEFUNC_CROSSING || func == EDGEFUNC_WALKINGAREA) {
+    if (func == SumoXMLEdgeFunc::INTERNAL || func == SumoXMLEdgeFunc::CROSSING || func == SumoXMLEdgeFunc::WALKINGAREA) {
         assert(myCurrentName[0] == ':');
         const std::string junctionID = myCurrentName.substr(1, myCurrentName.rfind('_') - 1);
         from = junctionID;
@@ -181,6 +207,10 @@ RONetHandler::parseEdge(const SUMOSAXAttributes& attrs) {
     if (myNet.addEdge(myCurrentEdge)) {
         fromNode->addOutgoing(myCurrentEdge);
         toNode->addIncoming(myCurrentEdge);
+        const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, myCurrentName.c_str(), ok, "");
+        if (bidi != "") {
+            myBidiEdges[myCurrentEdge] = bidi;
+        }
     } else {
         myCurrentEdge = nullptr;
     }
@@ -204,18 +234,23 @@ RONetHandler::parseLane(const SUMOSAXAttributes& attrs) {
     double length = attrs.get<double>(SUMO_ATTR_LENGTH, id.c_str(), ok);
     std::string allow = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id.c_str(), ok, "");
     std::string disallow = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id.c_str(), ok, "");
+    const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     if (!ok) {
+        return;
+    }
+    if (shape.size() < 2) {
+        WRITE_ERROR("Ignoring lane '" + id + "' with broken shape.");
         return;
     }
     // get the length
     // get the vehicle classes
-    SVCPermissions permissions = parseVehicleClasses(allow, disallow);
+    SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
     if (permissions != SVCAll) {
         myNet.setPermissionsFound();
     }
     // add when both values are valid
     if (maxSpeed > 0 && length > 0 && id.length() > 0) {
-        myCurrentEdge->addLane(new ROLane(id, myCurrentEdge, length, maxSpeed, permissions));
+        myCurrentEdge->addLane(new ROLane(id, myCurrentEdge, length, maxSpeed, permissions, shape));
     } else {
         WRITE_WARNING("Ignoring lane '" + id + "' with speed " + toString(maxSpeed) + " and length " + toString(length));
     }
@@ -227,7 +262,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     // get the id, report an error if not given or empty...
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
-    if (attrs.getNodeType(ok) == NODETYPE_INTERNAL) {
+    if (attrs.getNodeType(ok) == SumoXMLNodeType::INTERNAL) {
         return;
     }
     myUnseenNodeIDs.erase(id);
@@ -308,7 +343,7 @@ RONetHandler::parseStoppingPlace(const SUMOSAXAttributes& attrs, const SumoXMLTa
     myCurrentStoppingPlace->startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, id.c_str(), ok, 0.);
     myCurrentStoppingPlace->endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, id.c_str(), ok, edge->getLength());
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, id.c_str(), ok, false);
-    if (!ok || !SUMORouteHandler::checkStopPos(myCurrentStoppingPlace->startPos, myCurrentStoppingPlace->endPos, edge->getLength(), POSITION_EPS, friendlyPos)) {
+    if (!ok || (SUMORouteHandler::checkStopPos(myCurrentStoppingPlace->startPos, myCurrentStoppingPlace->endPos, edge->getLength(), POSITION_EPS, friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
         throw InvalidArgument("Invalid position for " + toString(element) + " '" + id + "'.");
     }
     // this is a hack: the busstop attribute is meant to hold the id within the simulation context but this is not used within the router context
@@ -325,10 +360,14 @@ RONetHandler::parseAccess(const SUMOSAXAttributes& attrs) {
     if (edge == nullptr) {
         throw InvalidArgument("Unknown lane '" + lane + "' for access.");
     }
+    if ((edge->getPermissions() & SVC_PEDESTRIAN) == 0) {
+        WRITE_WARNING("Ignoring invalid access from non-pedestrian edge '" + edge->getID() + "'.");
+        return;
+    }
     double pos = attrs.getOpt<double>(SUMO_ATTR_POSITION, "access", ok, 0.);
     const double length = attrs.getOpt<double>(SUMO_ATTR_LENGTH, "access", ok, -1);
     const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, "access", ok, false);
-    if (!ok || !SUMORouteHandler::checkStopPos(pos, pos, edge->getLength(), 0., friendlyPos)) {
+    if (!ok || (SUMORouteHandler::checkStopPos(pos, pos, edge->getLength(), 0., friendlyPos) != SUMORouteHandler::StopPos::STOPPOS_VALID)) {
         throw InvalidArgument("Invalid position " + toString(pos) + " for access on lane '" + lane + "'.");
     }
     if (!ok) {
@@ -362,6 +401,19 @@ RONetHandler::parseDistrictEdge(const SUMOSAXAttributes& attrs, bool isSource) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, myCurrentName.c_str(), ok);
     myNet.addDistrictEdge(myCurrentName, id, isSource);
+}
+
+void
+RONetHandler::setLocation(const SUMOSAXAttributes& attrs) {
+    bool ok = true;
+    PositionVector s = attrs.get<PositionVector>(SUMO_ATTR_NET_OFFSET, nullptr, ok);
+    Boundary convBoundary = attrs.get<Boundary>(SUMO_ATTR_CONV_BOUNDARY, nullptr, ok);
+    Boundary origBoundary = attrs.get<Boundary>(SUMO_ATTR_ORIG_BOUNDARY, nullptr, ok);
+    std::string proj = attrs.get<std::string>(SUMO_ATTR_ORIG_PROJ, nullptr, ok);
+    if (ok) {
+        Position networkOffset = s[0];
+        GeoConvHelper::init(proj, networkOffset, origBoundary, convBoundary);
+    }
 }
 
 

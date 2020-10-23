@@ -1,0 +1,7 @@
+--device.rerouting.probability 1 --no-step-log -b 0 --no-duration-log --net-file=net.net.xml -a=input_trips.trips.xml 
+--vehroute-output=vehroutes.xml
+--vehroute-output.cost
+--device.rerouting.adaptation-weight 0.5
+--device.rerouting.adaptation-interval 20 
+--device.rerouting.bike-speeds
+--device.rerouting.output weights.xml

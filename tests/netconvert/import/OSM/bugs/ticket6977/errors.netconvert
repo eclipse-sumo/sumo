@@ -1,0 +1,7 @@
+Warning: The traffic light '7001612211' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '7001612211'
+Warning: Speed of straight connection '98385800#0_0->146666974_0' reduced by 5.73 due to turning radius of 12.09 (length=12.75, angle=79.69).
+Warning: Speed of straight connection '98385800#0_1->146666974_1' reduced by 6.58 due to turning radius of 9.70 (length=10.05, angle=79.69).
+Warning: Speed of straight connection '394648768#0_0->20428609#0_0' reduced by 13.31 due to turning radius of 24.84 (length=8.03, angle=34.14).
+Warning: Speed of straight connection '20429779#0_0->20428609#0_0' reduced by 18.76 due to turning radius of 14.79 (length=7.40, angle=45.30).
+Warning: Speed of straight connection '693788385_0->5011573#0_0' reduced by 15.61 due to turning radius of 16.03 (length=6.90, angle=40.98).

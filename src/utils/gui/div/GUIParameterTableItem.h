@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIParameterTableItem.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date
-/// @version $Id$
 ///
 // A single line in a parameter window
 /****************************************************************************/
-#ifndef GUIParameterTableItem_h
-#define GUIParameterTableItem_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -133,24 +130,6 @@ public:
         init(dynamic, toString<T>(value));
     }
 
-    /** @brief Constructor for string-typed, non-changing (static) values
-     *
-     * @param[in] table The table this item belongs to
-     * @param[in] pos The row of the table this item fills
-     * @param[in] name The name of the represented value
-     * @param[in] dynamic Information whether this value changes over time
-     * @param[in] value The value
-     * @todo Consider using a reference to the table
-     * @todo Check whether the name should be stored in GUIParameterTableItemInterface
-     * @todo Should never be dynamic!?
-     */
-    GUIParameterTableItem(FXTable* table, unsigned pos, const std::string& name,
-                          bool dynamic, std::string value) :
-        myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos),
-        mySource(0), myValue(0), myTable(table) {
-        init(dynamic, value);
-    }
-
     /// @brief Destructor
     ~GUIParameterTableItem() {
         delete mySource;
@@ -168,9 +147,13 @@ public:
         myTable->setItemText(myTablePosition, 0, myName.c_str());
         myTable->setItemText(myTablePosition, 1, value.c_str());
         if (dynamic) {
-            myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_YES));
+            if (getdoubleSourceCopy() == nullptr) {
+                myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(GUIIcon::YES));
+            } else {
+                myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(GUIIcon::TRACKER));
+            }
         } else {
-            myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(ICON_NO));
+            myTable->setItemIcon(myTablePosition, 2, GUIIconSubSys::getIcon(GUIIcon::NO));
         }
         myTable->setItemJustify(myTablePosition, 2, FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
     }
@@ -238,9 +221,3 @@ private:
     /// @brief The table this entry belongs to
     FXTable* myTable;
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -1,0 +1,20 @@
+
+[Reported by erdm_ja at 13Nov15:12:47]
+search_string:collision
+search_file:errors
+full_description:collision
+brief_description:see #3595
+
+[Reported by leo at 14Nov17:00:13]
+search_string:performs emergency stop
+search_file:errors
+ignore_other_errors:1
+bug_id:sublane ballistic issue
+full_description:sublane ballistic issue
+brief_description:sublane ballistic issue
+
+[Reported by leo at 03Apr14:00:25]
+search_string:.
+search_file:errors
+full_description:#5079
+brief_description:#5079

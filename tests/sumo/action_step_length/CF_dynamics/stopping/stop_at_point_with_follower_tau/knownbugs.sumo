@@ -5,3 +5,9 @@ search_file:fcd
 bug_id:stopping is still not smooth
 full_description:stopping is still not smooth
 brief_description:stopping is still not smooth
+
+[Reported by leo at 03Apr14:03:21]
+search_string:.
+search_file:errors
+full_description:#5079
+brief_description:#5079

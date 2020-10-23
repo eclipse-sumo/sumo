@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<connections version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <connection from="SC" fromLane="0" to="CE" toLane="0" />
+    <connection from="SC" fromLane="0" to="CN" toLane="0" />
+    <connection from="SC" fromLane="1" to="CN" toLane="1" />
+    <connection from="SC" fromLane="1" to="CW" toLane="0" />
+    <connection from="SC" fromLane="1" to="CS" toLane="1" />
+    <!-- Changed Elements -->
+</connections>

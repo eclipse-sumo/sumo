@@ -3,22 +3,22 @@
         <detEntry lane="E3E2_0" pos="7.50"/>
         <detEntry lane="E3E2_1" pos="7.50"/>
         <detEntry lane="E3E2_2" pos="7.50"/>
-        <detEntry lane="N3bN2b_0" pos="240.31"/>
-        <detEntry lane="N3cN2b_0" pos="7.50"/>
-        <detEntry lane="NN3_0" pos="232.16"/>
-        <detEntry lane="SS3_0" pos="235.91"/>
-        <detEntry lane="W3W2_0" pos="7.50"/>
-        <detEntry lane="W3W2_1" pos="7.50"/>
-        <detEntry lane="W3W2_2" pos="7.50"/>
         <detExit lane="E1C_0" pos="-.1"/>
         <detExit lane="E1C_1" pos="-.1"/>
         <detExit lane="E1C_2" pos="-.1"/>
+        <detEntry lane="N3bN2b_0" pos="240.31"/>
+        <detEntry lane="N3cN2b_0" pos="7.50"/>
+        <detEntry lane="NN3_0" pos="232.16"/>
         <detExit lane="N1C_0" pos="-.1"/>
         <detExit lane="N1C_1" pos="-.1"/>
         <detExit lane="N1C_2" pos="-.1"/>
+        <detEntry lane="SS3_0" pos="235.91"/>
         <detExit lane="S1C_0" pos="-.1"/>
         <detExit lane="S1C_1" pos="-.1"/>
         <detExit lane="S1C_2" pos="-.1"/>
+        <detEntry lane="W3W2_0" pos="7.50"/>
+        <detEntry lane="W3W2_1" pos="7.50"/>
+        <detEntry lane="W3W2_2" pos="7.50"/>
         <detExit lane="W1C_0" pos="-.1"/>
         <detExit lane="W1C_1" pos="-.1"/>
         <detExit lane="W1C_2" pos="-.1"/>

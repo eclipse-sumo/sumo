@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Sep 16 21:22:27 2019 by Eclipse SUMO Version v1_3_1+0351-74273b056e
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <bt-output value="bt.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <communication>
+        <device.btreceiver.explicit value="right"/>
+        <device.btreceiver.range value="50"/>
+        <device.btsender.explicit value="left"/>
+    </communication>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<bt-output>
+    <bt id="right">
+        <seen id="left" tBeg="3.00" observerPosBeg="0.00,498.35" observerSpeedBeg="13.89" observerLaneIDBeg="beg" observerLanePosBeg="0.00" seenPosBeg="0.00,498.35" seenSpeedBeg="5.00" seenLaneIDBeg="beg" seenLanePosBeg="0.00" tEnd="7.50" observerPosEnd="50.00,498.35" observerSpeedEnd="13.89" observerLaneIDEnd="beg" observerLanePosEnd="100.00" seenPosEnd="0.00,498.35" seenSpeedEnd="5.00" seenLaneIDEnd="beg" seenLanePosEnd="0.00" observerRoute="beg" seenRoute="beg">
+            <recognitionPoint t="4.00" observerPos="0.00,498.35" observerSpeed="13.89" observerLaneID="beg" observerLanePos="0.00" seenPos="0.00,498.35" seenSpeed="5.00" seenLaneID="beg" seenLanePos="0.00"/>
+        </seen>
+    </bt>
+</bt-output>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:48 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:55 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,42 +33,43 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-399534.03,-5809646.09" convBoundary="0.00,0.00,300.42,169.95" origBoundary="1352237.090000,5242780.520000,1352677.530000,5242933.050000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="415852837" from="4167993267" to="1560223943" priority="-3" spreadType="center" shape="115.34,79.36 109.52,170.05">
-        <lane id="415852837_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="92.58" shape="114.66,89.93 109.52,170.05"/>
+        <lane id="415852837_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="92.58" shape="114.66,89.93 109.52,170.05"/>
     </edge>
     <edge id="415852838" from="1560223615" to="4167993267" priority="-3" spreadType="center" shape="121.00,0.11 115.33,79.43">
-        <lane id="415852838_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="81.21" shape="121.00,0.11 116.08,68.92"/>
+        <lane id="415852838_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="81.21" shape="121.00,0.11 116.08,68.92"/>
     </edge>
     <edge id="415852901" from="1392924660" to="4167993267" priority="-3" spreadType="center" shape="250.88,105.61 245.11,104.02 208.88,95.93 171.29,89.11 113.20,82.44">
-        <lane id="415852901_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="140.25" shape="250.45,107.16 244.72,105.57 208.56,97.50 171.06,90.70 120.92,84.93"/>
-        <lane id="415852901_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="140.25" shape="251.31,104.07 245.50,102.47 209.20,94.37 171.52,87.53 121.05,81.73"/>
+        <lane id="415852901_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="140.25" shape="250.45,107.16 244.72,105.57 208.56,97.50 171.06,90.70 120.92,84.93"/>
+        <lane id="415852901_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="140.25" shape="251.31,104.07 245.50,102.47 209.20,94.37 171.52,87.53 121.05,81.73"/>
     </edge>
     <edge id="415852902" from="4167993267" to="4167993266" priority="-3" spreadType="center" shape="113.60,82.48 -0.23,74.34">
-        <lane id="415852902_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="117.91" shape="106.21,83.56 -0.34,75.94"/>
-        <lane id="415852902_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="117.91" shape="106.44,80.36 -0.11,72.74"/>
+        <lane id="415852902_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="117.91" shape="106.21,83.56 -0.34,75.94"/>
+        <lane id="415852902_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="117.91" shape="106.44,80.36 -0.11,72.74"/>
     </edge>
     <edge id="415852908" from="1560223943" to="4167993267" priority="-3" spreadType="center" shape="106.32,169.85 112.14,79.15">
-        <lane id="415852908_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="92.58" shape="106.32,169.85 111.47,89.72"/>
+        <lane id="415852908_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="92.58" shape="106.32,169.85 111.47,89.72"/>
     </edge>
     <edge id="415852909" from="4167993267" to="1560223615" priority="-3" spreadType="center" shape="112.14,79.20 117.81,-0.11">
-        <lane id="415852909_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="81.21" shape="112.89,68.70 117.81,-0.11"/>
+        <lane id="415852909_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="81.21" shape="112.89,68.70 117.81,-0.11"/>
     </edge>
     <edge id="415852970" from="4167993266" to="4167993267" priority="-3" spreadType="center" shape="-0.12,67.95 45.67,69.50 114.19,76.12">
-        <lane id="415852970_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="118.14" shape="0.16,66.36 45.78,67.90 106.91,73.81"/>
-        <lane id="415852970_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="118.14" shape="0.05,69.56 45.57,71.10 106.68,77.00"/>
+        <lane id="415852970_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="118.14" shape="0.16,66.36 45.78,67.90 106.91,73.81"/>
+        <lane id="415852970_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="118.14" shape="0.05,69.56 45.57,71.10 106.68,77.00"/>
     </edge>
     <edge id="415852971" from="4167993267" to="4167993268" priority="-3" spreadType="center" shape="113.63,76.08 156.82,77.76 202.28,84.63 281.36,102.58 300.42,112.82">
-        <lane id="415852971_0" index="0" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="192.35" shape="121.33,74.78 156.97,76.16 202.58,83.06 281.93,101.07 301.18,111.41"/>
-        <lane id="415852971_1" index="1" allow="emergency passenger hov taxi bus coach delivery truck trailer motorcycle bicycle pedestrian" speed="13.89" length="192.35" shape="121.20,77.98 156.67,79.35 201.99,86.20 280.80,104.09 299.66,114.22"/>
+        <lane id="415852971_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="192.35" shape="121.33,74.78 156.97,76.16 202.58,83.06 281.93,101.07 301.18,111.41"/>
+        <lane id="415852971_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="192.35" shape="121.20,77.98 156.67,79.35 201.99,86.20 280.80,104.09 299.66,114.22"/>
     </edge>
 
     <junction id="1392924660" type="dead_end" x="250.88" y="105.61" incLanes="" intLanes="" shape="251.73,102.53 250.03,108.70"/>
@@ -109,6 +110,6 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="415852970" to="415852909" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="415852970" to="415852971" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="415852970" to="415852971" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from="415852970" to="415852837" fromLane="1" toLane="0" dir="L" state="m"/>
+    <connection from="415852970" to="415852837" fromLane="1" toLane="0" dir="l" state="m"/>
 
 </net>

@@ -1,36 +1,35 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PCTypeDefHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // A handler for loading polygon type maps
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/RGBColor.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/common/RGBColor.h>
+#include <utils/shapes/Shape.h>
 #include "PCTypeMap.h"
 #include "PCTypeDefHandler.h"
 
@@ -62,8 +61,10 @@ PCTypeDefHandler::myStartElement(int element,
         const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, myOptions.getString("type"));
         const std::string prefix = attrs.getOpt<std::string>(SUMO_ATTR_PREFIX, id.c_str(), ok, myOptions.getString("prefix"));
         const std::string color = attrs.getOpt<std::string>(SUMO_ATTR_COLOR, id.c_str(), ok, myOptions.getString("color"));
+        const double angle = attrs.getOpt<double>(SUMO_ATTR_ANGLE, id.c_str(), ok, Shape::DEFAULT_ANGLE);
+        const std::string imgFile = attrs.getOpt<std::string>(SUMO_ATTR_IMGFILE, id.c_str(), ok, Shape::DEFAULT_IMG_FILE);
         // !!! what about error handling?
-        if (!myContainer.add(id, type, color, prefix, layer, discard, allowFill)) {
+        if (!myContainer.add(id, type, color, prefix, layer, angle, imgFile, discard, allowFill)) {
             WRITE_ERROR("Could not add polygon type '" + id + "' (probably the id is already used).");
         }
     }
@@ -71,4 +72,3 @@ PCTypeDefHandler::myStartElement(int element,
 
 
 /****************************************************************************/
-

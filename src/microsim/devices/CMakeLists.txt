@@ -29,11 +29,29 @@ set(microsim_devices_STAT_SRCS
    MSDevice_Bluelight.h
    MSDevice_FCD.cpp
    MSDevice_FCD.h
-   MSPersonDevice.h
-   MSPersonDevice_Routing.cpp
-   MSPersonDevice_Routing.h
+   MSDevice_ElecHybrid.cpp
+   MSDevice_ElecHybrid.h
+   MSDevice_Taxi.cpp
+   MSDevice_Taxi.h
+   MSTransportableDevice.h
+   MSTransportableDevice_Routing.cpp
+   MSTransportableDevice_Routing.h
+   MSTransportableDevice_FCD.cpp
+   MSTransportableDevice_FCD.h
    MSRoutingEngine.cpp
    MSRoutingEngine.h
+   MSDispatch.cpp
+   MSDispatch.h
+   MSDispatch_Greedy.cpp
+   MSDispatch_Greedy.h
+   MSDispatch_GreedyShared.cpp
+   MSDispatch_GreedyShared.h
+   MSDispatch_RouteExtension.cpp
+   MSDispatch_RouteExtension.h
+   MSDispatch_TraCI.h
+   MSDispatch_TraCI.cpp
+   MSIdling.cpp
+   MSIdling.h
    MSVehicleDevice.h
 )
 

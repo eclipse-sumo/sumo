@@ -1,4 +1,4 @@
-Warning: Shape for junction '2078932912' has distance 42.04 to its given position
+Warning: Shape for junction '2078932912' has distance 42.04 to its given position.
 Warning: The traffic light 'cluster_3548410431_4494632692' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light 'cluster_3548410431_4494632692'
-Warning: Speed of straight connection '8091275#0_0->7796753_0' reduced by 11.24 due to turning radius of 21.92 (length=6.09 angle=31.53)
+Warning: Speed of straight connection '8091275#0_0->7796753_0' reduced by 11.24 due to turning radius of 21.92 (length=6.09, angle=31.53).

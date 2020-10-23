@@ -1,0 +1,27 @@
+# import train stops
+railway_stop_position
+
+# automatically detect rail crossing
+rail_crossing
+
+# automatically detect rail crossing, also guess pedestrian crossings
+rail_crossing_with_peds
+
+# import high speed railway line
+rail_highspeed
+
+# test import of preferred_direction values
+rail_preferred_direction
+
+# test import of local track numbering
+railway_track_ref
+
+# test import of railway usage typemap
+railway_usage
+
+# guess road acesses for rail stop
+rail_stop_road_access
+railway_bidirectional
+
+# double track with spreadType="right" (no bidi)
+oneway_no

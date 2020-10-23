@@ -1,0 +1,2 @@
+--no-step-log --no-duration-log -n motorway.net.xml -a input_additional.add.xml
+-r input_routes.rou.xml -e 100

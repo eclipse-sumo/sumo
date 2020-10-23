@@ -1,0 +1,8 @@
+Error: Attribute 'personNumber' in definition of flow 'flow_0' is not of type int.
+Error: personNumber cannot be negative
+Error: Attribute 'personNumber' in definition of flow 'flow_1' is empty.
+Error: personNumber cannot be negative
+Error: personNumber cannot be negative
+Error: Attribute 'personNumber' in definition of flow 'flow_4' is not of type int.
+Error: personNumber cannot be negative
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug142435.9756/netedit.gui/demandElements/flow/load/personNumber\input_routes.rou.xml failed.

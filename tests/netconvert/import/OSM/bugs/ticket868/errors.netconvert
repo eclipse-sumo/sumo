@@ -1,9 +1,9 @@
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '198188181#0').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '198188181').
 Warning: No way found for reference '204001555' in relation '1995435'
 Warning: Ignoring restriction relation '1995435' with unknown from-way.
 Warning: No way found for reference '4045173' in relation '2080223'
 Warning: Ignoring restriction relation '2080223' with unknown from-way.
-Warning: Found angle of 101.37 degrees at edge '151059738#0', segment 0
+Warning: Found angle of 101.37 degrees at edge '151059738#0', segment 0.
 Warning: The traffic light '249536359' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '249536359'
 Warning: The traffic light '255072664' does not control any links; it will not be build.

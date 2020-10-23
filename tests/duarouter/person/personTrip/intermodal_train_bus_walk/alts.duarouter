@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug  9 14:40:01 2018 by Eclipse SUMO duarouter Version 4a44066
+<!-- generated on Wed Dec 11 23:04:44 2019 by Eclipse SUMO duarouter Version v1_4_0+0051-3f8840f55f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,10 +31,6 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="avoidWalking" maxSpeed="0.50"/>
     <person id="p0" type="avoidWalking" depart="0.00" departPos="900.00">
-        <walk cost="503.55" edges="A0B0 accessC" departPos="900.00" arrivalPos="100.00" busStop="stopC_W"/> <!-- C -->
-        <ride cost="238.45" busStop="stopA_W" lines="train2:1" intended="train_train2:1.0" depart="599.00"/> <!-- A -->
-        <walk cost="10.56" edges="accessA" departPos="900.00" arrivalPos="100.00" busStop="stopA_N"/> <!-- A -->
-        <ride cost="348.44" busStop="stopB_N" lines="train1:0" intended="train_train1:0.1" depart="1001.00"/> <!-- B -->
-        <walk cost="566.45" edges="accessB A1B1" departPos="900.00" arrivalPos="100.00"/>
+        <personTrip from="A0B0" to="A1B1" modes="public" departPos="900.00" arrivalPos="100.00" walkFactor="0.75" costs="503.55 238.45 10.56 348.44 566.45"/>
     </person>
 </routes>

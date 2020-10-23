@@ -4,6 +4,9 @@ output
 # Test whether parameter values specified in xml are parsed correctly
 spec
 
+# Test whether parameter values can be specified in the sumocfg
+spec_cfg
+
 # Test whether manual and automated type can be vehType distributions
 spec_vTypeDist
 
@@ -18,6 +21,9 @@ default_spec
 
 # The equipped vehicle's vType must initially either be the specified manual or automated type.
 invalid_vType
+
+# The equipped vehicle's vType must initially either be the specified manual or automated type.
+invalid_vType_param
 
 # Starting in manual mode and repeatedly requesting ToCs.
 start_manual
@@ -35,8 +41,29 @@ complete_MRM
 # This also tests that the vehicle is controllable during the PREPARE_TOC phase
 LC_during_MRM
 
+# Test internal triggering of TORs if route cannot be pursued
+dynamic_ToC
+
+# Test internal triggering of TORs if route cannot be pursued and abort if vehicle re-enters route during preparation
+dynamic_ToC_aborted
+
+# Test that no dynamic ToC is triggered if a stop lies on the vehicle's current lane continuation.
+dynamic_ToC_stop
+
 # see test LC_during_MRM. Here only the lcAbstinence is set to 1.0 which should result in preventing lane changes during the RECOVERY phase.
 LC_during_MRM_with_lcAbstinence
+
+# Tests the ToC Device parameter keepRightDuringMRM, which induces the vehicle to try to change to the rightmost lane during an MRM.
+Keep_right_during_MRM
+
+# Tests whether a positive value for the ToC Device parameter maxPreparationAccel will allow acceleration during the ToC preparation phase.
+Accel_during_ToC_preparation
+
+# Tests whether the vehicle does not accelerate during the ToC preparation phase if no value is given for the ToC Device parameter maxPreparationAccel.
+No_accel_during_ToC_preparation_default
+
+# Test prevention of lane changes during the ToC preparation phase.
+No_LC_during_ToC_preparation
 
 # Schedule ToC to happen during slow-down phase of the MRM
 incomplete_MRM
@@ -44,11 +71,17 @@ incomplete_MRM
 # Schedule ToC before initialization of MRM
 successful_ToC
 
+# Schedule ToC down- and upwards. Reset to original vehicle color after upward ToC.
+ToC_down_up_reset_color
+
 # Request only MRM without any ToC
 request_MRMs
 
 # Schedule ToCs during car-following situations
 CF_situation1
+
+# No response time specified in config => random sample at TOR. Also tests truncation of MRM probability parameter to admissible range.
+ToC_with_sampled_responseTime
 
 # Schedule ToC during car-following situation when leader stops. ToC vehicle should not change lanes during the ToC-Preparation/MRM.
 CF_situation2

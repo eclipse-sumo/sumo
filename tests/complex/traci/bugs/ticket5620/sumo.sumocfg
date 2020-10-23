@@ -1,0 +1,8 @@
+<configuration>
+    <input>
+        <net-file value="input_net.net.xml" />
+        <additional-files value="input_additional.add.xml,input_routes.rou.xml" />
+        <no-step-log value="true"/>
+    </input>
+    <tripinfo-output value="tripinfo.xml"/>
+</configuration>

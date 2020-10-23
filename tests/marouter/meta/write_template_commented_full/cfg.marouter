@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 14:26:50 2018 by Eclipse SUMO marouter Version 7cc56db
+<!-- generated on Mon Sep  7 13:28:02 2020 by Eclipse SUMO marouter Version v1_6_0+2015-336b3d6f93
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -52,26 +52,14 @@
         <weight-adaption value="0" type="FLOAT"/>
 
         <!-- Parameter key(s) defining source (and sink) taz -->
-        <taz-param value="" type="STR"/>
+        <taz-param value="" type="STR[]"/>
+
+        <!-- Initialize a TAZ for every junction to use attributes toJunction and fromJunction -->
+        <junction-taz value="false" type="BOOL"/>
 
     </input>
 
     <output>
-        <!-- Include license info into every output file -->
-        <write-license value="false" type="BOOL"/>
-
-        <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
-        <output-prefix value="" type="STR"/>
-
-        <!-- Defines the number of digits after the comma for floating point output -->
-        <precision value="2" type="INT"/>
-
-        <!-- Defines the number of digits after the comma for lon,lat output -->
-        <precision.geo value="6" type="INT"/>
-
-        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
-        <human-readable-time value="false" synonymes="H" type="BOOL"/>
-
         <!-- Write flow definitions with route distributions to FILE -->
         <output-file value="" synonymes="o output" type="FILE"/>
 
@@ -86,6 +74,21 @@
 
         <!-- Writes complete distance matrix into FILE -->
         <all-pairs-output value="" type="FILE"/>
+
+        <!-- Include license info into every output file -->
+        <write-license value="false" type="BOOL"/>
+
+        <!-- Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time. -->
+        <output-prefix value="" type="STR"/>
+
+        <!-- Defines the number of digits after the comma for floating point output -->
+        <precision value="2" type="INT"/>
+
+        <!-- Defines the number of digits after the comma for lon,lat output -->
+        <precision.geo value="6" type="INT"/>
+
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
+        <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- Write exit times (weights) for each edge -->
         <exit-times value="false" type="BOOL"/>
@@ -104,6 +107,9 @@
 
         <!-- Expand weights behind the simulation&apos;s end -->
         <weights.expand value="false" synonymes="expand-weights" type="BOOL"/>
+
+        <!-- Consider edge priorities in addition to travel times, weighted by factor -->
+        <weights.priority-factor value="0" type="FLOAT"/>
 
         <!-- Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;] -->
         <routing-algorithm value="dijkstra" type="STR"/>
@@ -126,8 +132,8 @@
         <!-- Defines the prefix for vehicle flow names -->
         <prefix value="" type="STR"/>
 
-        <!-- Uses STR as a timeline definition -->
-        <timeline value="" type="STR"/>
+        <!-- Uses STR[] as a timeline definition -->
+        <timeline value="" type="STR[]"/>
 
         <!-- Uses STR as a 24h-timeline definition -->
         <timeline.day-in-hours value="false" type="BOOL"/>
@@ -159,7 +165,7 @@
         <!-- maximal number of iterations for new route searching in incremental and stochastic user assignment -->
         <max-iterations value="20" synonymes="i" type="INT"/>
 
-        <!-- maximal number of inner iterations for user equilibrium calcuation in the stochastic user assignment -->
+        <!-- maximal number of inner iterations for user equilibrium calculation in the stochastic user assignment -->
         <max-inner-iterations value="1000" type="INT"/>
 
         <!-- Choose a route choice method: gawron, logit, or lohse -->
@@ -225,7 +231,7 @@
         <!-- Prints option values before processing -->
         <print-options value="false" type="BOOL"/>
 
-        <!-- Prints this screen -->
+        <!-- Prints this screen or selected topics -->
         <help value="false" synonymes="?" type="BOOL"/>
 
         <!-- Prints the current version -->
@@ -237,8 +243,14 @@
         <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation.net value="never" type="STR"/>
 
+        <!-- Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
+        <xml-validation.routes value="auto" type="STR"/>
+
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+
+        <!-- Aggregate warnings of the same type whenever more than INT occur -->
+        <aggregate-warnings value="-1" type="INT"/>
 
         <!-- Writes all messages to FILE (implies verbose) -->
         <log value="" synonymes="l log-file" type="FILE"/>

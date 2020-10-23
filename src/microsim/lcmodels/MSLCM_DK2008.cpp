@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2005-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLCM_DK2008.cpp
 /// @author  Daniel Krajzewicz
@@ -14,15 +18,9 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Tue, 29.05.2005
-/// @version $Id$
 ///
 // A lane change model developed by D. Krajzewicz between 2004 and 2010
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -612,7 +610,8 @@ MSLCM_DK2008::informBlocker(MSAbstractLaneChangeModel::MSLCMessager& msgPass,
             neighFollow.second
             + SPEED2DIST(myVehicle.getSpeed()) * (double) 2.0
             - MAX2(nv->getSpeed() - (double) ACCEL2DIST(nv->getCarFollowModel().getMaxDecel()) * (double) 2.0, (double) 0);
-        if (neighFollow.second > 0 && decelGap > 0 && decelGap >= nv->getCarFollowModel().getSecureGap(nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel())) {
+        if (neighFollow.second > 0 && decelGap > 0 && decelGap >= nv->getCarFollowModel().getSecureGap(nv, &myVehicle,
+                nv->getSpeed(), myVehicle.getSpeed(), myVehicle.getCarFollowModel().getMaxDecel())) {
             double vsafe = myCarFollowModel.followSpeed(&myVehicle, myVehicle.getSpeed(), neighFollow.second, neighFollow.first->getSpeed(), neighFollow.first->getCarFollowModel().getMaxDecel());
             msgPass.informNeighFollower(new Info(vsafe, dir | LCA_AMBLOCKINGFOLLOWER), &myVehicle);
         } else {
@@ -642,4 +641,3 @@ MSLCM_DK2008::prepareStep() {
 
 
 /****************************************************************************/
-

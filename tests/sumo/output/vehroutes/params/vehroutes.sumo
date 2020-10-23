@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Sep 16 12:34:01 2019 by Eclipse SUMO Version v1_3_1+0318-571cf5d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="1" depart="5.00" departPos="50.00" departSpeed="5.00" arrival="131.00">
+        <route edges="2/1to1/1 1/1to0/1"/>
+        <param key="tripKey" value="tripValue"/>
+    </vehicle>
+
+    <vehicle id="1.0" depart="10.00" departSpeed="10.00" arrival="133.00">
+        <route edges="2/1to1/1 1/1to0/1"/>
+        <param key="flowKey" value="flowValue"/>
+    </vehicle>
+
+    <vehicle id="1.1" depart="15.00" departSpeed="10.00" arrival="135.00">
+        <route edges="2/1to1/1 1/1to0/1"/>
+        <param key="flowKey" value="flowValue"/>
+    </vehicle>
+
+    <vehicle id="0" type="type0" depart="0.00" departPos="100.00" departSpeed="10.00" arrival="213.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+        <param key="vehKey" value="vehValue"/>
+    </vehicle>
+
+</routes>

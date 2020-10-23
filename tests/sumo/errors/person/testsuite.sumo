@@ -10,3 +10,6 @@ unconnected_stop
 
 # warn when trying to define a vehicle with vClass=pedestrian
 vehicle_as_person
+
+# consecutive stops at different positions on the same edge
+unconnected_stops_same_edge

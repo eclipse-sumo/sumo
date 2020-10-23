@@ -1,0 +1,3 @@
+Error: Invalid arrivalPosLat definition for vehicle 'vehicle_0';
+ must be one of ("right", "center", "left", or a float)
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.01Aug093001.10208/netedit.gui/demandElements/vehicle/load/arrivalPosLat\input_routes.rou.xml failed.

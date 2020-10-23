@@ -1,0 +1,1839 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.55.9 ab41fea6">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2020-01-31T10:14:02Z"/>
+
+  <node id="13801788" lat="50.9375286" lon="6.8902642"/>
+  <node id="26052298" lat="50.9374378" lon="6.8929815"/>
+  <node id="26052300" lat="50.9372146" lon="6.8942490"/>
+  <node id="26052305" lat="50.9355583" lon="6.8897815"/>
+  <node id="26052306" lat="50.9345368" lon="6.8914011"/>
+  <node id="43076579" lat="50.9346593" lon="6.8937740"/>
+  <node id="207160370" lat="50.9372011" lon="6.8995299">
+    <tag k="VRS:gemeinde" v="KÖLN"/>
+    <tag k="VRS:ortsteil" v="Braunsfeld"/>
+    <tag k="VRS:ref" v="13412"/>
+    <tag k="name" v="Maarweg"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="tram_stop"/>
+    <tag k="ref" v="1"/>
+    <tag k="tram" v="yes"/>
+    <tag k="website" v="http://www.kvb-koeln.de/german/hst/overview/179/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wheelchair:description" v="alle Infos direkt über den Link erreichbar"/>
+  </node>
+  <node id="207160371" lat="50.9371847" lon="6.9003817">
+    <tag k="crossing:barrier" v="no"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="207511329" lat="50.9374275" lon="6.8902863">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="207511336" lat="50.9375610" lon="6.8858529">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="207511337" lat="50.9374453" lon="6.8895515">
+    <tag k="VRS:gemeinde" v="KÖLN"/>
+    <tag k="VRS:ortsteil" v="Braunsfeld"/>
+    <tag k="VRS:ref" v="13414"/>
+    <tag k="name" v="Eupener Straße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="tram_stop"/>
+    <tag k="ref" v="1"/>
+    <tag k="tram" v="yes"/>
+    <tag k="website" v="http://www.kvb-koeln.de/german/hst/overview/181/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wheelchair:description" v="alle Infos direkt über den Link erreichbar"/>
+  </node>
+  <node id="207511340" lat="50.9372956" lon="6.8944312">
+    <tag k="VRS:gemeinde" v="KÖLN"/>
+    <tag k="VRS:ortsteil" v="Braunsfeld"/>
+    <tag k="VRS:ref" v="13413"/>
+    <tag k="name" v="Clarenbachstift"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="tram_stop"/>
+    <tag k="ref" v="1"/>
+    <tag k="tram" v="yes"/>
+    <tag k="website" v="http://www.kvb-koeln.de/german/hst/overview/180/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wheelchair:description" v="alle Infos direkt über den Link erreichbar"/>
+  </node>
+  <node id="207511342" lat="50.9372137" lon="6.8987028">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="246962187" lat="50.9398506" lon="6.8893572"/>
+  <node id="246962188" lat="50.9398445" lon="6.8906262"/>
+  <node id="246962190" lat="50.9402649" lon="6.8912676"/>
+  <node id="246962192" lat="50.9413567" lon="6.8923568"/>
+  <node id="246962193" lat="50.9400448" lon="6.8922019"/>
+  <node id="246962194" lat="50.9399731" lon="6.8941627"/>
+  <node id="246962195" lat="50.9383693" lon="6.8937616"/>
+  <node id="246962196" lat="50.9374952" lon="6.8934651"/>
+  <node id="246962197" lat="50.9376085" lon="6.8902571"/>
+  <node id="246962220" lat="50.9413793" lon="6.8914642"/>
+  <node id="246962222" lat="50.9402907" lon="6.8906764"/>
+  <node id="248415749" lat="50.9377724" lon="6.8861121"/>
+  <node id="248415750" lat="50.9378295" lon="6.8844356"/>
+  <node id="248415751" lat="50.9383079" lon="6.8844355"/>
+  <node id="248415752" lat="50.9390058" lon="6.8860727"/>
+  <node id="248415753" lat="50.9397652" lon="6.8861958"/>
+  <node id="248415922" lat="50.9398371" lon="6.8885867"/>
+  <node id="250108125" lat="50.9353314" lon="6.8916485"/>
+  <node id="250108127" lat="50.9344297" lon="6.8894236"/>
+  <node id="250163149" lat="50.9346356" lon="6.8913411"/>
+  <node id="250163151" lat="50.9345152" lon="6.8893295"/>
+  <node id="250163153" lat="50.9344383" lon="6.8885202"/>
+  <node id="250163154" lat="50.9348759" lon="6.8884231"/>
+  <node id="250163156" lat="50.9352417" lon="6.8881168"/>
+  <node id="250163157" lat="50.9355998" lon="6.8874580"/>
+  <node id="250163159" lat="50.9358879" lon="6.8861589"/>
+  <node id="250163161" lat="50.9362216" lon="6.8850501"/>
+  <node id="250163162" lat="50.9366165" lon="6.8847961"/>
+  <node id="250163164" lat="50.9370899" lon="6.8846470"/>
+  <node id="250163166" lat="50.9371175" lon="6.8840770"/>
+  <node id="250163167" lat="50.9374499" lon="6.8840919"/>
+  <node id="250163173" lat="50.9372883" lon="6.8882021"/>
+  <node id="250163174" lat="50.9371711" lon="6.8920035"/>
+  <node id="255562064" lat="50.9370350" lon="6.9073403">
+    <tag k="VRS:gemeinde" v="KÖLN"/>
+    <tag k="VRS:name" v="Aachener Straße/Gürtel"/>
+    <tag k="VRS:ortsteil" v="Braunsfeld"/>
+    <tag k="VRS:ref" v="13411"/>
+    <tag k="name" v="Aachener Straße / Gürtel"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="tram_stop"/>
+    <tag k="ref" v="1"/>
+    <tag k="tram" v="yes"/>
+    <tag k="website" v="http://www.kvb-koeln.de/german/hst/overview/178/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wheelchair:description" v="Linien 1 (Bensberg), moderne Niederflurfahrzeuge, Linie 1 rechtsrheinisch teilweise als U-Bahn"/>
+  </node>
+  <node id="257032075" lat="50.9369846" lon="6.9085581">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="666373964" lat="50.9357635" lon="6.8932892"/>
+  <node id="666373965" lat="50.9358718" lon="6.8932431"/>
+  <node id="666373967" lat="50.9359882" lon="6.8932204"/>
+  <node id="666373969" lat="50.9362486" lon="6.8931277"/>
+  <node id="666373971" lat="50.9361223" lon="6.8931550"/>
+  <node id="666373973" lat="50.9366583" lon="6.8931972"/>
+  <node id="666373975" lat="50.9365191" lon="6.8931648"/>
+  <node id="666373976" lat="50.9363986" lon="6.8931417"/>
+  <node id="666374015" lat="50.9370353" lon="6.8933168"/>
+  <node id="666374016" lat="50.9367811" lon="6.8932329"/>
+  <node id="666374029" lat="50.9371485" lon="6.8933663"/>
+  <node id="666374034" lat="50.9380176" lon="6.8936178"/>
+  <node id="666374036" lat="50.9377378" lon="6.8935515"/>
+  <node id="666374069" lat="50.9381701" lon="6.8936781"/>
+  <node id="765966446" lat="50.9374812" lon="6.8928905"/>
+  <node id="1376684094" lat="50.9370092" lon="6.9081285">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="1637693809" lat="50.9372256" lon="6.8938441"/>
+  <node id="1637693810" lat="50.9372515" lon="6.8934201">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="1637693811" lat="50.9372915" lon="6.8921752"/>
+  <node id="1637693813" lat="50.9373209" lon="6.8934433">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="1637693814" lat="50.9373398" lon="6.8928560"/>
+  <node id="1637693817" lat="50.9374986" lon="6.8935003">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="1696142786" lat="50.9373425" lon="6.8903049"/>
+  <node id="1704280163" lat="50.9371819" lon="6.9005004">
+    <tag k="crossing:barrier" v="no"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="1704280179" lat="50.9391620" lon="6.8939693"/>
+  <node id="1704280184" lat="50.9395682" lon="6.8940659"/>
+  <node id="1726927626" lat="50.9370602" lon="6.8985132"/>
+  <node id="1726927645" lat="50.9371746" lon="6.9007878">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="1726927650" lat="50.9371980" lon="6.8999314">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="1726927702" lat="50.9373945" lon="6.8986579"/>
+  <node id="1759978344" lat="50.9370820" lon="6.9037378">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="1759978346" lat="50.9370921" lon="6.9032751">
+    <tag k="bicycle" v="yes"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="1759978349" lat="50.9370954" lon="6.9029770">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="2120499318" lat="50.9374759" lon="6.8899975"/>
+  <node id="2120499319" lat="50.9374442" lon="6.8888904"/>
+  <node id="2120499321" lat="50.9375092" lon="6.8889072"/>
+  <node id="2120499322" lat="50.9374218" lon="6.8900049"/>
+  <node id="2234537542" lat="50.9373902" lon="6.8863641"/>
+  <node id="2234537543" lat="50.9374372" lon="6.8851468">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2234537545" lat="50.9374598" lon="6.8839927"/>
+  <node id="2234537553" lat="50.9377298" lon="6.8860607">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2234537555" lat="50.9377764" lon="6.8847701"/>
+  <node id="2234537557" lat="50.9377888" lon="6.8845065"/>
+  <node id="2234537559" lat="50.9378098" lon="6.8844202"/>
+  <node id="2234537562" lat="50.9378212" lon="6.8841399"/>
+  <node id="2234537563" lat="50.9378251" lon="6.8840506"/>
+  <node id="2234537566" lat="50.9378432" lon="6.8835870"/>
+  <node id="2234537568" lat="50.9378442" lon="6.8838072">
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2234537580" lat="50.9378515" lon="6.8842167">
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2234537589" lat="50.9378728" lon="6.8842726"/>
+  <node id="2234575876" lat="50.9370947" lon="6.8966756"/>
+  <node id="2234575879" lat="50.9371455" lon="6.8941904"/>
+  <node id="2234575881" lat="50.9371707" lon="6.8933930">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="2234575884" lat="50.9372025" lon="6.8922311"/>
+  <node id="2234575887" lat="50.9372670" lon="6.8903051">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2234575890" lat="50.9373137" lon="6.8888954">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2234575893" lat="50.9374311" lon="6.8969902"/>
+  <node id="2234575895" lat="50.9374703" lon="6.8948394">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2234575899" lat="50.9375120" lon="6.8929780">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2234575902" lat="50.9375989" lon="6.8907532"/>
+  <node id="2234575905" lat="50.9376149" lon="6.8902182">
+    <tag k="crossing" v="uncontrolled"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2269846333" lat="50.9375000" lon="6.8933426"/>
+  <node id="2269849553" lat="50.9378297" lon="6.8834683"/>
+  <node id="2344550321" lat="50.9372839" lon="6.8951987">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="2344550325" lat="50.9374951" lon="6.8937956"/>
+  <node id="2344550329" lat="50.9372863" lon="6.8950620">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="2344550849" lat="50.9373158" lon="6.8937204">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="2344550851" lat="50.9372310" lon="6.8937602">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2344550855" lat="50.9374968" lon="6.8936591"/>
+  <node id="2344550857" lat="50.9371604" lon="6.8937372"/>
+  <node id="2344551625" lat="50.9370955" lon="6.8968461"/>
+  <node id="2344551628" lat="50.9374356" lon="6.8967313"/>
+  <node id="2344551631" lat="50.9372499" lon="6.8967885">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="2344551633" lat="50.9374688" lon="6.8949236"/>
+  <node id="2344551646" lat="50.9372863" lon="6.8949067">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="2344551647" lat="50.9371301" lon="6.8950094"/>
+  <node id="2344570079" lat="50.9375468" lon="6.8920460"/>
+  <node id="2344570080" lat="50.9374653" lon="6.8920401">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2344570081" lat="50.9373607" lon="6.8921163">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="2344570082" lat="50.9373398" lon="6.8920930"/>
+  <node id="2344570083" lat="50.9374091" lon="6.8920360"/>
+  <node id="2344570084" lat="50.9372927" lon="6.8921449">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="2344570085" lat="50.9373385" lon="6.8921647"/>
+  <node id="2344570087" lat="50.9374065" lon="6.8921674"/>
+  <node id="2344570088" lat="50.9372066" lon="6.8921078"/>
+  <node id="2415405884" lat="50.9369698" lon="6.9088830">
+    <tag k="railway" v="switch"/>
+    <tag k="railway:turnout_side" v="left"/>
+  </node>
+  <node id="2415878697" lat="50.9369861" lon="6.9085133">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="2492625552" lat="50.9370046" lon="6.9081914">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="2560508504" lat="50.9355003" lon="6.8934124"/>
+  <node id="2560508667" lat="50.9372377" lon="6.8922297"/>
+  <node id="2560508668" lat="50.9372641" lon="6.8922208"/>
+  <node id="2560527563" lat="50.9369431" lon="6.8912764"/>
+  <node id="2560527564" lat="50.9369471" lon="6.8912109"/>
+  <node id="2560527567" lat="50.9369588" lon="6.8911211"/>
+  <node id="2560527569" lat="50.9369726" lon="6.8910534"/>
+  <node id="2560527571" lat="50.9369915" lon="6.8914568"/>
+  <node id="2560527574" lat="50.9369971" lon="6.8912808"/>
+  <node id="2560527576" lat="50.9369984" lon="6.8906323"/>
+  <node id="2560527578" lat="50.9370042" lon="6.8910560"/>
+  <node id="2560527579" lat="50.9370177" lon="6.8906385"/>
+  <node id="2560527581" lat="50.9370260" lon="6.8904124"/>
+  <node id="2560527583" lat="50.9371191" lon="6.8914677"/>
+  <node id="2560527585" lat="50.9371201" lon="6.8904540"/>
+  <node id="2560527587" lat="50.9371206" lon="6.8904420"/>
+  <node id="2560527588" lat="50.9371216" lon="6.8913964"/>
+  <node id="2560527589" lat="50.9371347" lon="6.8912600"/>
+  <node id="2560527590" lat="50.9371350" lon="6.8913974"/>
+  <node id="2560527591" lat="50.9371393" lon="6.8912605"/>
+  <node id="2560527592" lat="50.9371468" lon="6.8907486"/>
+  <node id="2560527593" lat="50.9371471" lon="6.8908784"/>
+  <node id="2560527594" lat="50.9371498" lon="6.8906511"/>
+  <node id="2560527595" lat="50.9371510" lon="6.8907581"/>
+  <node id="2560527596" lat="50.9371512" lon="6.8907489"/>
+  <node id="2560527597" lat="50.9371539" lon="6.8908790"/>
+  <node id="2560527598" lat="50.9371544" lon="6.8906515"/>
+  <node id="2560527599" lat="50.9371578" lon="6.8907588"/>
+  <node id="2560527600" lat="50.9371606" lon="6.8904573"/>
+  <node id="2560597700" lat="50.9369656" lon="6.8918898"/>
+  <node id="2560597703" lat="50.9369671" lon="6.8917645"/>
+  <node id="2560597706" lat="50.9369682" lon="6.8900345"/>
+  <node id="2560597709" lat="50.9369694" lon="6.8900223"/>
+  <node id="2560597713" lat="50.9369837" lon="6.8916781"/>
+  <node id="2560597716" lat="50.9369840" lon="6.8919596"/>
+  <node id="2560597724" lat="50.9369852" lon="6.8918906"/>
+  <node id="2560597730" lat="50.9369874" lon="6.8915020"/>
+  <node id="2560597732" lat="50.9369880" lon="6.8898635"/>
+  <node id="2560597748" lat="50.9370120" lon="6.8916795"/>
+  <node id="2560597773" lat="50.9370120" lon="6.8916830"/>
+  <node id="2560597782" lat="50.9370221" lon="6.8920000"/>
+  <node id="2560597784" lat="50.9370229" lon="6.8919801"/>
+  <node id="2560597788" lat="50.9370257" lon="6.8917696"/>
+  <node id="2560597793" lat="50.9370274" lon="6.8916839"/>
+  <node id="2560597796" lat="50.9370317" lon="6.8900631"/>
+  <node id="2560597798" lat="50.9370326" lon="6.8900546"/>
+  <node id="2560597802" lat="50.9370328" lon="6.8915060"/>
+  <node id="2560597806" lat="50.9370342" lon="6.8914647"/>
+  <node id="2560597808" lat="50.9370352" lon="6.8920065"/>
+  <node id="2560597814" lat="50.9370512" lon="6.8899161"/>
+  <node id="2560597820" lat="50.9370553" lon="6.8898834"/>
+  <node id="2560597827" lat="50.9370680" lon="6.8920188"/>
+  <node id="2560597828" lat="50.9370683" lon="6.8920009"/>
+  <node id="2560597832" lat="50.9370803" lon="6.8895765"/>
+  <node id="2560597833" lat="50.9370832" lon="6.8894856"/>
+  <node id="2560597842" lat="50.9371010" lon="6.8918260"/>
+  <node id="2560597844" lat="50.9371018" lon="6.8917765"/>
+  <node id="2560597846" lat="50.9371021" lon="6.8916879"/>
+  <node id="2560597852" lat="50.9371093" lon="6.8896156"/>
+  <node id="2560597854" lat="50.9371105" lon="6.8895789"/>
+  <node id="2560597856" lat="50.9371122" lon="6.8898407"/>
+  <node id="2560597860" lat="50.9371151" lon="6.8897559"/>
+  <node id="2560597870" lat="50.9371188" lon="6.8897560"/>
+  <node id="2560597875" lat="50.9371208" lon="6.8897010"/>
+  <node id="2560597877" lat="50.9371210" lon="6.8920132"/>
+  <node id="2560597882" lat="50.9371230" lon="6.8899397"/>
+  <node id="2560597891" lat="50.9371235" lon="6.8918281"/>
+  <node id="2560597893" lat="50.9371242" lon="6.8916889"/>
+  <node id="2560597903" lat="50.9371272" lon="6.8898452"/>
+  <node id="2560597915" lat="50.9371322" lon="6.8914727"/>
+  <node id="2560597925" lat="50.9371346" lon="6.8897021"/>
+  <node id="2560597929" lat="50.9371374" lon="6.8896181"/>
+  <node id="2560597952" lat="50.9371576" lon="6.8901049"/>
+  <node id="2560597953" lat="50.9371591" lon="6.8900937"/>
+  <node id="2560597959" lat="50.9371644" lon="6.8900954"/>
+  <node id="2560597973" lat="50.9371732" lon="6.8897053"/>
+  <node id="2560597983" lat="50.9371760" lon="6.8896213"/>
+  <node id="2560597985" lat="50.9371760" lon="6.8899519"/>
+  <node id="2560597990" lat="50.9371789" lon="6.8898679"/>
+  <node id="2560597999" lat="50.9371832" lon="6.8899537"/>
+  <node id="2560598001" lat="50.9371841" lon="6.8897616"/>
+  <node id="2560598006" lat="50.9371842" lon="6.8898684"/>
+  <node id="2560598009" lat="50.9371845" lon="6.8896218"/>
+  <node id="2560598012" lat="50.9371850" lon="6.8898469"/>
+  <node id="2560598016" lat="50.9371859" lon="6.8897066"/>
+  <node id="2560598020" lat="50.9371867" lon="6.8895548"/>
+  <node id="2560598022" lat="50.9371904" lon="6.8902943">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="2560598026" lat="50.9371880" lon="6.8895088"/>
+  <node id="2560598030" lat="50.9371886" lon="6.8894938"/>
+  <node id="2560598035" lat="50.9371901" lon="6.8895502"/>
+  <node id="2560598039" lat="50.9371902" lon="6.8895117"/>
+  <node id="2560598048" lat="50.9371929" lon="6.8895436"/>
+  <node id="2560598050" lat="50.9371932" lon="6.8895190"/>
+  <node id="2560598056" lat="50.9371943" lon="6.8895376"/>
+  <node id="2560598058" lat="50.9371946" lon="6.8895266"/>
+  <node id="2560598060" lat="50.9371947" lon="6.8895318"/>
+  <node id="2560598069" lat="50.9371961" lon="6.8898479"/>
+  <node id="2560598071" lat="50.9371990" lon="6.8897630"/>
+  <node id="2560598262" lat="50.9376473" lon="6.8900066"/>
+  <node id="2560598263" lat="50.9376524" lon="6.8898612"/>
+  <node id="2560598265" lat="50.9376555" lon="6.8897709"/>
+  <node id="2560598267" lat="50.9376588" lon="6.8896778"/>
+  <node id="2560598269" lat="50.9376620" lon="6.8895847"/>
+  <node id="2560598283" lat="50.9377165" lon="6.8898946"/>
+  <node id="2560598286" lat="50.9377174" lon="6.8898669"/>
+  <node id="2560598289" lat="50.9377207" lon="6.8900130"/>
+  <node id="2560598292" lat="50.9377220" lon="6.8899740"/>
+  <node id="2560598294" lat="50.9377245" lon="6.8899042"/>
+  <node id="2560598296" lat="50.9377248" lon="6.8898953"/>
+  <node id="2560598297" lat="50.9377430" lon="6.8898692"/>
+  <node id="2560598305" lat="50.9377462" lon="6.8897789"/>
+  <node id="2560598309" lat="50.9377473" lon="6.8897460"/>
+  <node id="2560598314" lat="50.9377507" lon="6.8897463"/>
+  <node id="2560598318" lat="50.9377528" lon="6.8896861"/>
+  <node id="2560598320" lat="50.9377561" lon="6.8895930"/>
+  <node id="2560598344" lat="50.9377999" lon="6.8898684"/>
+  <node id="2560598352" lat="50.9378072" lon="6.8899097"/>
+  <node id="2560598367" lat="50.9378187" lon="6.8899758"/>
+  <node id="2560598375" lat="50.9378246" lon="6.8900096"/>
+  <node id="2560598401" lat="50.9378539" lon="6.8898446"/>
+  <node id="2560598412" lat="50.9378787" lon="6.8899858"/>
+  <node id="2563533335" lat="50.9370843" lon="6.8906546"/>
+  <node id="2563533337" lat="50.9371049" lon="6.8904371"/>
+  <node id="2590233584" lat="50.9382797" lon="6.8855313"/>
+  <node id="2590233759" lat="50.9389526" lon="6.8855695"/>
+  <node id="2590257265" lat="50.9377678" lon="6.8903294"/>
+  <node id="2590257266" lat="50.9377830" lon="6.8903227"/>
+  <node id="2590257267" lat="50.9377850" lon="6.8903085"/>
+  <node id="2590257268" lat="50.9377989" lon="6.8905222"/>
+  <node id="2590257269" lat="50.9377997" lon="6.8903019"/>
+  <node id="2590257270" lat="50.9378112" lon="6.8903100"/>
+  <node id="2590257271" lat="50.9378305" lon="6.8905080"/>
+  <node id="2590257272" lat="50.9378331" lon="6.8905228"/>
+  <node id="2590257273" lat="50.9378333" lon="6.8903003"/>
+  <node id="2590257276" lat="50.9378703" lon="6.8905061"/>
+  <node id="2590573073" lat="50.9375709" lon="6.8924154"/>
+  <node id="2590573075" lat="50.9375738" lon="6.8923023"/>
+  <node id="2590573078" lat="50.9375795" lon="6.8921303"/>
+  <node id="2590573081" lat="50.9375997" lon="6.8915402"/>
+  <node id="2590573083" lat="50.9376036" lon="6.8914194"/>
+  <node id="2590573085" lat="50.9376050" lon="6.8913617"/>
+  <node id="2590573089" lat="50.9376098" lon="6.8913446"/>
+  <node id="2590573091" lat="50.9376191" lon="6.8909223"/>
+  <node id="2590573094" lat="50.9376209" lon="6.8909636"/>
+  <node id="2590573096" lat="50.9376213" lon="6.8913380"/>
+  <node id="2590573100" lat="50.9376236" lon="6.8908814"/>
+  <node id="2590573102" lat="50.9376307" lon="6.8909750"/>
+  <node id="2590573104" lat="50.9376311" lon="6.8909646"/>
+  <node id="2590573107" lat="50.9376329" lon="6.8913389"/>
+  <node id="2590573109" lat="50.9376339" lon="6.8908823"/>
+  <node id="2590573112" lat="50.9376375" lon="6.8907727"/>
+  <node id="2590573114" lat="50.9376437" lon="6.8907723"/>
+  <node id="2590573116" lat="50.9376443" lon="6.8909762"/>
+  <node id="2590573120" lat="50.9376628" lon="6.8907367"/>
+  <node id="2590573129" lat="50.9376842" lon="6.8924253"/>
+  <node id="2590573130" lat="50.9376884" lon="6.8923121"/>
+  <node id="2590573131" lat="50.9376885" lon="6.8921398"/>
+  <node id="2590573142" lat="50.9376926" lon="6.8920181"/>
+  <node id="2590573144" lat="50.9376942" lon="6.8921402"/>
+  <node id="2590573147" lat="50.9377025" lon="6.8907183"/>
+  <node id="2590573149" lat="50.9377074" lon="6.8915891"/>
+  <node id="2590573151" lat="50.9377087" lon="6.8915496"/>
+  <node id="2590573154" lat="50.9377283" lon="6.8915512"/>
+  <node id="2590573156" lat="50.9377285" lon="6.8914300"/>
+  <node id="2590573158" lat="50.9377324" lon="6.8914304"/>
+  <node id="2590573161" lat="50.9377337" lon="6.8912724"/>
+  <node id="2590573163" lat="50.9377337" lon="6.8923171"/>
+  <node id="2590573166" lat="50.9377353" lon="6.8922730"/>
+  <node id="2590573171" lat="50.9377409" lon="6.8907425"/>
+  <node id="2590573173" lat="50.9377421" lon="6.8922736"/>
+  <node id="2590573179" lat="50.9377445" lon="6.8922067"/>
+  <node id="2590573182" lat="50.9377446" lon="6.8910966"/>
+  <node id="2590573185" lat="50.9377458" lon="6.8910621"/>
+  <node id="2590573188" lat="50.9377471" lon="6.8912736"/>
+  <node id="2590573195" lat="50.9377530" lon="6.8910974"/>
+  <node id="2590573197" lat="50.9377542" lon="6.8910628"/>
+  <node id="2590573201" lat="50.9377570" lon="6.8922079"/>
+  <node id="2590573203" lat="50.9377583" lon="6.8907809"/>
+  <node id="2590573206" lat="50.9377591" lon="6.8921453"/>
+  <node id="2590573208" lat="50.9377636" lon="6.8907814"/>
+  <node id="2590573212" lat="50.9377902" lon="6.8923226"/>
+  <node id="2590573221" lat="50.9378258" lon="6.8921507"/>
+  <node id="2590573223" lat="50.9378346" lon="6.8920304"/>
+  <node id="2590573225" lat="50.9378438" lon="6.8917627"/>
+  <node id="2590573227" lat="50.9378493" lon="6.8916014"/>
+  <node id="2590780855" lat="50.9375846" lon="6.8919799"/>
+  <node id="2590780856" lat="50.9375896" lon="6.8918351"/>
+  <node id="2590780857" lat="50.9375946" lon="6.8916900"/>
+  <node id="2590780858" lat="50.9376408" lon="6.8910875"/>
+  <node id="2590780860" lat="50.9376936" lon="6.8919893"/>
+  <node id="2590780861" lat="50.9376986" lon="6.8918446"/>
+  <node id="2590780862" lat="50.9377036" lon="6.8916994"/>
+  <node id="2867640715" lat="50.9349981" lon="6.8883860"/>
+  <node id="2867640716" lat="50.9351306" lon="6.8884342"/>
+  <node id="2867640718" lat="50.9351706" lon="6.8882700"/>
+  <node id="2867640757" lat="50.9357624" lon="6.8869216"/>
+  <node id="2867640758" lat="50.9359845" lon="6.8855338"/>
+  <node id="2867640761" lat="50.9362590" lon="6.8855141"/>
+  <node id="3274779239" lat="50.9398461" lon="6.8883989"/>
+  <node id="3424911345" lat="50.9371366" lon="6.8913460">
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="623"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+  </node>
+  <node id="3424911346" lat="50.9371402" lon="6.8910894">
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="625"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+  </node>
+  <node id="3424911347" lat="50.9371567" lon="6.8905810">
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="627"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+  </node>
+  <node id="3548467961" lat="50.9373225" lon="6.8944328">
+    <tag k="VRS:gemeinde" v="KÖLN"/>
+    <tag k="VRS:ortsteil" v="Braunsfeld"/>
+    <tag k="VRS:ref" v="13413"/>
+    <tag k="name" v="Clarenbachstift"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="tram_stop"/>
+    <tag k="ref" v="1"/>
+    <tag k="tram" v="yes"/>
+    <tag k="website" v="http://www.kvb-koeln.de/german/hst/overview/180/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wheelchair:description" v="alle Infos direkt über den Link erreichbar"/>
+  </node>
+  <node id="3548467962" lat="50.9374722" lon="6.8895533">
+    <tag k="VRS:gemeinde" v="KÖLN"/>
+    <tag k="VRS:ortsteil" v="Braunsfeld"/>
+    <tag k="VRS:ref" v="13414"/>
+    <tag k="name" v="Eupener Straße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="tram_stop"/>
+    <tag k="ref" v="1"/>
+    <tag k="tram" v="yes"/>
+    <tag k="website" v="http://www.kvb-koeln.de/german/hst/overview/181/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wheelchair:description" v="alle Infos direkt über den Link erreichbar"/>
+  </node>
+  <node id="3548467963" lat="50.9372281" lon="6.8995306">
+    <tag k="VRS:gemeinde" v="KÖLN"/>
+    <tag k="VRS:ortsteil" v="Braunsfeld"/>
+    <tag k="VRS:ref" v="13412"/>
+    <tag k="name" v="Maarweg"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="railway" v="tram_stop"/>
+    <tag k="ref" v="1"/>
+    <tag k="tram" v="yes"/>
+    <tag k="website" v="http://www.kvb-koeln.de/german/hst/overview/179/"/>
+    <tag k="wheelchair" v="yes"/>
+    <tag k="wheelchair:description" v="alle Infos direkt über den Link erreichbar"/>
+  </node>
+  <node id="3548467964" lat="50.9370160" lon="6.9085218">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="3548467965" lat="50.9370140" lon="6.9085683">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="3548467966" lat="50.9370617" lon="6.9073431"/>
+  <node id="3548467970" lat="50.9371226" lon="6.9030015">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3548467971" lat="50.9371208" lon="6.9033064">
+    <tag k="bicycle" v="yes"/>
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548467972" lat="50.9371089" lon="6.9037389">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3548467973" lat="50.9371337" lon="6.9018792"/>
+  <node id="3548467974" lat="50.9371606" lon="6.9018817"/>
+  <node id="3548467975" lat="50.9372006" lon="6.9008265">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548467976" lat="50.9372249" lon="6.8999327">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548467977" lat="50.9372136" lon="6.9003438">
+    <tag k="crossing:barrier" v="no"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3548467978" lat="50.9372089" lon="6.9005259">
+    <tag k="crossing:barrier" v="no"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3548467979" lat="50.9372386" lon="6.8987231">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548467980" lat="50.9372798" lon="6.8968238">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548467981" lat="50.9373133" lon="6.8949344">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548467982" lat="50.9373102" lon="6.8950674">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3548467983" lat="50.9373108" lon="6.8952127">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3548467984" lat="50.9373463" lon="6.8934518">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="3548467985" lat="50.9373425" lon="6.8937431">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548467986" lat="50.9373667" lon="6.8928581"/>
+  <node id="3548467987" lat="50.9373875" lon="6.8921462">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548467988" lat="50.9374073" lon="6.8859207"/>
+  <node id="3548467989" lat="50.9374546" lon="6.8902804">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3548467991" lat="50.9374980" lon="6.8877413"/>
+  <node id="3548467992" lat="50.9375119" lon="6.8911398"/>
+  <node id="3548468195" lat="50.9375249" lon="6.8877434"/>
+  <node id="3548468196" lat="50.9375855" lon="6.8858774">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548468212" lat="50.9377420" lon="6.8857502"/>
+  <node id="3548475097" lat="50.9372762" lon="6.8900287"/>
+  <node id="3548475098" lat="50.9373179" lon="6.8887571"/>
+  <node id="3548475100" lat="50.9373515" lon="6.8900287">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3548475101" lat="50.9373924" lon="6.8888009">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3548475102" lat="50.9374211" lon="6.8900188"/>
+  <node id="3548475103" lat="50.9374203" lon="6.8900386"/>
+  <node id="3548475106" lat="50.9374338" lon="6.8900332">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548475107" lat="50.9374683" lon="6.8887694">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548475108" lat="50.9374757" lon="6.8900300"/>
+  <node id="3548475109" lat="50.9374599" lon="6.8900625">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548475110" lat="50.9374749" lon="6.8900795"/>
+  <node id="3548475111" lat="50.9374948" lon="6.8888097">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3548475114" lat="50.9375360" lon="6.8900310">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3548475115" lat="50.9375748" lon="6.8888207">
+    <tag k="crossing" v="traffic_signals"/>
+    <tag k="highway" v="crossing"/>
+  </node>
+  <node id="3548475116" lat="50.9376202" lon="6.8900324"/>
+  <node id="3548475117" lat="50.9376530" lon="6.8889007"/>
+  <node id="3554928714" lat="50.9370017" lon="6.9082416">
+    <tag k="railway" v="switch"/>
+    <tag k="railway:turnout_side" v="left"/>
+  </node>
+  <node id="3554928717" lat="50.9370296" lon="6.9077327"/>
+  <node id="3554928718" lat="50.9370213" lon="6.9079029">
+    <tag k="railway" v="switch"/>
+    <tag k="railway:turnout_side" v="right"/>
+  </node>
+  <node id="3554928721" lat="50.9370346" lon="6.9081911">
+    <tag k="railway" v="switch"/>
+    <tag k="railway:turnout_side" v="left"/>
+  </node>
+  <node id="3554928724" lat="50.9370228" lon="6.9084009">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="3554928726" lat="50.9370502" lon="6.9079152">
+    <tag k="railway" v="switch"/>
+    <tag k="railway:turnout_side" v="right"/>
+  </node>
+  <node id="3554936439" lat="50.9369801" lon="6.9086612">
+    <tag k="railway" v="railway_crossing"/>
+  </node>
+  <node id="3554936448" lat="50.9370031" lon="6.9088276">
+    <tag k="railway" v="switch"/>
+    <tag k="railway:turnout_side" v="left"/>
+  </node>
+  <node id="3554941081" lat="50.9369773" lon="6.9087214">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3554941084" lat="50.9370002" lon="6.9082672">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3554941086" lat="50.9370099" lon="6.9086652">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3554941087" lat="50.9370072" lon="6.9087314">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3554941089" lat="50.9370069" lon="6.9087371">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3554941193" lat="50.9370340" lon="6.9082021">
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="3554941194" lat="50.9370297" lon="6.9082785">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="3664331249" lat="50.9374836" lon="6.8834782"/>
+  <node id="3664331251" lat="50.9376367" lon="6.8834601"/>
+  <node id="3664331253" lat="50.9376643" lon="6.8834661"/>
+  <node id="4042468486" lat="50.9369803" lon="6.9086556">
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="4042468488" lat="50.9370176" lon="6.9079773">
+    <tag k="crossing:light" v="yes"/>
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="4042468690" lat="50.9370450" lon="6.9080215">
+    <tag k="crossing:light" v="yes"/>
+    <tag k="railway" v="crossing"/>
+  </node>
+  <node id="4531301856" lat="50.9377099" lon="6.8902852">
+    <tag k="traffic_sign" v="DE:274.1[30]"/>
+  </node>
+  <node id="4899273282" lat="50.9376482" lon="6.8865112"/>
+  <node id="4899273283" lat="50.9373633" lon="6.8904293"/>
+  <node id="4899273284" lat="50.9373389" lon="6.8904763"/>
+  <node id="4899273285" lat="50.9373836" lon="6.8904132"/>
+  <node id="4899273286" lat="50.9374225" lon="6.8904201">
+    <tag k="crossing:light" v="yes"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="4899273287" lat="50.9374486" lon="6.8904525">
+    <tag k="crossing:light" v="yes"/>
+    <tag k="railway" v="level_crossing"/>
+  </node>
+  <node id="4899273288" lat="50.9374843" lon="6.8905125"/>
+  <node id="4899273289" lat="50.9375213" lon="6.8906465">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="4899273290" lat="50.9374896" lon="6.8915784"/>
+  <node id="4905777434" lat="50.9376627" lon="6.8902730">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="operator" v="Bild"/>
+    <tag k="payment:coins" v="yes"/>
+    <tag k="vending" v="newspapers"/>
+  </node>
+  <node id="4905840038" lat="50.9378980" lon="6.8900922"/>
+  <node id="4905840039" lat="50.9376612" lon="6.8903088">
+    <tag k="amenity" v="vending_machine"/>
+    <tag k="operator" v="Express"/>
+    <tag k="payment:coins" v="yes"/>
+    <tag k="vending" v="newspapers"/>
+  </node>
+  <node id="5066965852" lat="50.9372573" lon="6.8932402">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="5066965854" lat="50.9374639" lon="6.8921105">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="5066965855" lat="50.9372942" lon="6.8920352">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="5066965856" lat="50.9376709" lon="6.8901933">
+    <tag k="highway" v="traffic_signals"/>
+    <tag k="traffic_signals:direction" v="forward"/>
+  </node>
+  <node id="5066965857" lat="50.9373540" lon="6.8899526">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="5066965859" lat="50.9375697" lon="6.8889742">
+    <tag k="highway" v="traffic_signals"/>
+  </node>
+  <node id="5066967344" lat="50.9377374" lon="6.8857837"/>
+  <node id="5066967345" lat="50.9377505" lon="6.8857006"/>
+  <node id="5615673313" lat="50.9398207" lon="6.8881187"/>
+  <node id="5615673314" lat="50.9398206" lon="6.8881631"/>
+  <node id="5615702763" lat="50.9379283" lon="6.8844356"/>
+  <node id="6200768485" lat="50.9371536" lon="6.8904874">
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:housenumber" v="625"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="amenity" v="restaurant"/>
+    <tag k="capacity" v="200"/>
+    <tag k="cuisine" v="mediterranean"/>
+    <tag k="name" v="Restaurant La Bussola"/>
+    <tag k="outdoor_seating" v="yes"/>
+    <tag k="toilets:wheelchair" v="yes"/>
+    <tag k="wheelchair" v="yes"/>
+  </node>
+  <node id="6670695231" lat="50.9398451" lon="6.8884207"/>
+  <node id="6688301628" lat="50.9407841" lon="6.8913194"/>
+  <node id="6688301633" lat="50.9407828" lon="6.8913859"/>
+  <node id="6763989485" lat="50.9372826" lon="6.8902399">
+    <tag k="amenity" v="clock"/>
+    <tag k="display" v="analog"/>
+    <tag k="faces" v="2"/>
+    <tag k="support" v="pole"/>
+    <tag k="visibility" v="street"/>
+  </node>
+  <node id="6884641543" lat="50.9376572" lon="6.8887458"/>
+  <node id="6884641544" lat="50.9375777" lon="6.8887296"/>
+  <node id="6884641548" lat="50.9376441" lon="6.8893573"/>
+  <node id="6884641549" lat="50.9375578" lon="6.8894014"/>
+  <node id="6884641554" lat="50.9376479" lon="6.8892605"/>
+  <node id="6884641555" lat="50.9375598" lon="6.8892841"/>
+  <node id="7021491519" lat="50.9373577" lon="6.8898429">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Eupener Straße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="ref" v="A"/>
+    <tag k="start_date" v="2019-12-15"/>
+  </node>
+  <node id="7021491520" lat="50.9375669" lon="6.8890605">
+    <tag k="bus" v="yes"/>
+    <tag k="name" v="Eupener Straße"/>
+    <tag k="public_transport" v="stop_position"/>
+    <tag k="ref" v="B"/>
+    <tag k="start_date" v="2019-12-15"/>
+  </node>
+  <node id="7021492712" lat="50.9372588" lon="6.8898574"/>
+  <node id="7021492713" lat="50.9372618" lon="6.8897477"/>
+  <way id="23151660">
+    <nd ref="250108127"/>
+    <nd ref="26052305"/>
+    <nd ref="2560598022"/>
+    <nd ref="2234575887"/>
+    <nd ref="1696142786"/>
+    <tag k="cycleway" v="opposite"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Vincenz-Statz-Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="smoothness" v="excellent"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="zone:maxspeed" v="DE:30"/>
+  </way>
+  <way id="27602718">
+    <nd ref="3664331251"/>
+    <nd ref="207511336"/>
+    <nd ref="3548467991"/>
+    <nd ref="3548475107"/>
+    <nd ref="207511337"/>
+    <nd ref="3548475106"/>
+    <nd ref="207511329"/>
+    <nd ref="4899273286"/>
+    <nd ref="2344570081"/>
+    <nd ref="1637693814"/>
+    <nd ref="1637693813"/>
+    <nd ref="2344550849"/>
+    <nd ref="207511340"/>
+    <nd ref="2344551646"/>
+    <nd ref="2344550329"/>
+    <nd ref="2344550321"/>
+    <nd ref="2344551631"/>
+    <nd ref="207511342"/>
+    <nd ref="207160370"/>
+    <nd ref="1726927650"/>
+    <nd ref="207160371"/>
+    <nd ref="1704280163"/>
+    <nd ref="1726927645"/>
+    <nd ref="3548467973"/>
+    <nd ref="1759978349"/>
+    <nd ref="1759978346"/>
+    <nd ref="1759978344"/>
+    <nd ref="255562064"/>
+    <nd ref="3554928717"/>
+    <nd ref="3554928718"/>
+    <nd ref="4042468488"/>
+    <nd ref="1376684094"/>
+    <nd ref="2492625552"/>
+    <nd ref="3554928714"/>
+    <nd ref="3554941084"/>
+    <nd ref="2415878697"/>
+    <nd ref="257032075"/>
+    <nd ref="4042468486"/>
+    <nd ref="3554936439"/>
+    <nd ref="3554941081"/>
+    <nd ref="2415405884"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="operator" v="KVB"/>
+    <tag k="railway" v="light_rail"/>
+    <tag k="railway:preferred_direction" v="forward"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="75068681">
+    <nd ref="1726927702"/>
+    <nd ref="2234575893"/>
+    <nd ref="2344551628"/>
+    <nd ref="2344551633"/>
+    <nd ref="2234575895"/>
+    <nd ref="2344550325"/>
+    <nd ref="2344550855"/>
+    <nd ref="1637693817"/>
+    <nd ref="2269846333"/>
+    <nd ref="2234575899"/>
+    <nd ref="2344570079"/>
+    <nd ref="2234575902"/>
+    <nd ref="2234575905"/>
+    <nd ref="3548475116"/>
+    <nd ref="6884641548"/>
+    <nd ref="6884641554"/>
+    <nd ref="3548475117"/>
+    <nd ref="6884641543"/>
+    <nd ref="2234537553"/>
+    <nd ref="5066967344"/>
+    <nd ref="3548468212"/>
+    <nd ref="5066967345"/>
+    <nd ref="2234537555"/>
+    <nd ref="2234537557"/>
+    <nd ref="2234537559"/>
+    <nd ref="2234537589"/>
+    <nd ref="2234537580"/>
+    <nd ref="2234537562"/>
+    <nd ref="2234537563"/>
+    <nd ref="2234537568"/>
+    <nd ref="2234537566"/>
+    <nd ref="2269849553"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="lit" v="yes"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+    <tag k="traffic_sign" v="DE:241"/>
+  </way>
+  <way id="154880048">
+    <nd ref="2560598352"/>
+    <nd ref="2560598294"/>
+    <nd ref="2560598292"/>
+    <nd ref="2560598367"/>
+    <nd ref="2560598352"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="3"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Eupener Straße"/>
+    <tag k="building" v="terrace"/>
+    <tag k="building:use" v="residential"/>
+    <tag k="source" v="HiRes aerial imagery"/>
+  </way>
+  <way id="154880067">
+    <nd ref="2560598401"/>
+    <nd ref="2560598344"/>
+    <nd ref="2560598352"/>
+    <nd ref="2560598367"/>
+    <nd ref="2560598375"/>
+    <nd ref="2560598412"/>
+    <nd ref="2560598401"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="5"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Eupener Straße"/>
+    <tag k="building" v="terrace"/>
+    <tag k="building:use" v="residential"/>
+    <tag k="source" v="HiRes aerial imagery"/>
+  </way>
+  <way id="154880072">
+    <nd ref="2560598296"/>
+    <nd ref="2560598283"/>
+    <nd ref="2560598286"/>
+    <nd ref="2560598263"/>
+    <nd ref="2560598262"/>
+    <nd ref="2560598289"/>
+    <nd ref="2560598292"/>
+    <nd ref="2560598294"/>
+    <nd ref="2560598296"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="1"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Eupener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;industrial"/>
+    <tag k="source" v="HiRes aerial imagery"/>
+  </way>
+  <way id="154880098">
+    <nd ref="2590257273"/>
+    <nd ref="2590257270"/>
+    <nd ref="2590257269"/>
+    <nd ref="2590257267"/>
+    <nd ref="2590257266"/>
+    <nd ref="2590257265"/>
+    <nd ref="2590257268"/>
+    <nd ref="2590257271"/>
+    <nd ref="2590257272"/>
+    <nd ref="2590257276"/>
+    <nd ref="2590257273"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="4"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Eupener Straße"/>
+    <tag k="building" v="terrace"/>
+    <tag k="building:use" v="residential"/>
+    <tag k="source" v="HiRes aerial imagery"/>
+  </way>
+  <way id="157393142">
+    <nd ref="1637693811"/>
+    <nd ref="2560508668"/>
+    <nd ref="2560508667"/>
+    <nd ref="2234575884"/>
+    <nd ref="250108125"/>
+    <nd ref="26052306"/>
+    <tag k="cycleway:opposite" v="lane"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="yes"/>
+    <tag k="name" v="Raschdorffstraße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="oneway:bicycle" v="no"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="smoothness" v="intermediate"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="158196031">
+    <nd ref="250163154"/>
+    <nd ref="2867640715"/>
+    <nd ref="2867640716"/>
+    <nd ref="2867640718"/>
+    <nd ref="250163156"/>
+    <nd ref="250163157"/>
+    <nd ref="2867640757"/>
+    <nd ref="250163159"/>
+    <nd ref="2867640758"/>
+    <nd ref="2867640761"/>
+    <nd ref="250163161"/>
+    <nd ref="250163162"/>
+    <nd ref="250163164"/>
+    <nd ref="250163166"/>
+    <nd ref="250163167"/>
+    <nd ref="250163173"/>
+    <nd ref="250163174"/>
+    <nd ref="666374029"/>
+    <nd ref="666374015"/>
+    <nd ref="666374016"/>
+    <nd ref="666373973"/>
+    <nd ref="666373975"/>
+    <nd ref="666373976"/>
+    <nd ref="666373969"/>
+    <nd ref="666373971"/>
+    <nd ref="666373967"/>
+    <nd ref="666373965"/>
+    <nd ref="666373964"/>
+    <nd ref="2560508504"/>
+    <nd ref="43076579"/>
+    <nd ref="250163149"/>
+    <nd ref="250163151"/>
+    <nd ref="250163153"/>
+    <nd ref="250163154"/>
+    <tag k="landuse" v="residential"/>
+  </way>
+  <way id="158196605">
+    <nd ref="1704280184"/>
+    <nd ref="1704280179"/>
+    <nd ref="246962195"/>
+    <nd ref="666374069"/>
+    <nd ref="666374034"/>
+    <nd ref="666374036"/>
+    <nd ref="246962196"/>
+    <nd ref="765966446"/>
+    <nd ref="246962197"/>
+    <nd ref="6884641548"/>
+    <nd ref="6884641554"/>
+    <nd ref="248415749"/>
+    <nd ref="248415750"/>
+    <nd ref="5615702763"/>
+    <nd ref="248415751"/>
+    <nd ref="2590233584"/>
+    <nd ref="2590233759"/>
+    <nd ref="248415752"/>
+    <nd ref="248415753"/>
+    <nd ref="5615673313"/>
+    <nd ref="5615673314"/>
+    <nd ref="3274779239"/>
+    <nd ref="6670695231"/>
+    <nd ref="248415922"/>
+    <nd ref="246962187"/>
+    <nd ref="246962188"/>
+    <nd ref="246962222"/>
+    <nd ref="246962190"/>
+    <nd ref="6688301628"/>
+    <nd ref="6688301633"/>
+    <nd ref="246962220"/>
+    <nd ref="246962192"/>
+    <nd ref="246962193"/>
+    <nd ref="246962194"/>
+    <nd ref="1704280184"/>
+    <tag k="landuse" v="residential"/>
+  </way>
+  <way id="202065857">
+    <nd ref="2120499319"/>
+    <nd ref="2120499322"/>
+    <tag k="name" v="Eupener Straße"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="railway" v="platform"/>
+    <tag k="tram" v="yes"/>
+  </way>
+  <way id="202065858">
+    <nd ref="2120499321"/>
+    <nd ref="2120499318"/>
+    <tag k="name" v="Eupener Straße"/>
+    <tag k="public_transport" v="platform"/>
+    <tag k="railway" v="platform"/>
+    <tag k="tram" v="yes"/>
+  </way>
+  <way id="212675917">
+    <nd ref="2560527579"/>
+    <nd ref="2560527578"/>
+    <nd ref="2560527569"/>
+    <nd ref="2560527567"/>
+    <nd ref="2560527564"/>
+    <nd ref="2560527563"/>
+    <nd ref="2560527574"/>
+    <nd ref="2560527571"/>
+    <nd ref="2560527583"/>
+    <nd ref="2560527588"/>
+    <nd ref="2560527590"/>
+    <nd ref="3424911345"/>
+    <nd ref="2560527591"/>
+    <nd ref="2560527589"/>
+    <nd ref="3424911346"/>
+    <nd ref="2560527593"/>
+    <nd ref="2560527597"/>
+    <nd ref="2560527599"/>
+    <nd ref="2560527595"/>
+    <nd ref="2560527596"/>
+    <nd ref="2560527592"/>
+    <nd ref="2560527594"/>
+    <nd ref="2560527598"/>
+    <nd ref="3424911347"/>
+    <nd ref="2560527600"/>
+    <nd ref="2560527585"/>
+    <nd ref="2560527587"/>
+    <nd ref="2563533337"/>
+    <nd ref="2563533335"/>
+    <nd ref="2560527579"/>
+    <tag k="amenity" v="nursing_home"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential"/>
+    <tag k="name" v="Residenz Braunsfeld"/>
+  </way>
+  <way id="212675932">
+    <nd ref="2560598016"/>
+    <nd ref="2560597973"/>
+    <nd ref="2560597925"/>
+    <nd ref="2560597875"/>
+    <nd ref="2560597870"/>
+    <nd ref="2560598001"/>
+    <nd ref="2560598016"/>
+    <tag k="building" v="garage"/>
+  </way>
+  <way id="212675953">
+    <nd ref="2560597999"/>
+    <nd ref="2560597985"/>
+    <nd ref="2560597882"/>
+    <nd ref="2560597814"/>
+    <nd ref="2560597798"/>
+    <nd ref="2560597796"/>
+    <nd ref="2560597952"/>
+    <nd ref="2560597953"/>
+    <nd ref="2560597959"/>
+    <nd ref="2560597999"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="25"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Vincenz-Statz-Straße"/>
+    <tag k="building" v="apartments"/>
+    <tag k="building:use" v="residential"/>
+  </way>
+  <way id="212675957">
+    <nd ref="2560597820"/>
+    <nd ref="2560597732"/>
+    <nd ref="2560597709"/>
+    <nd ref="2560597706"/>
+    <nd ref="2560597798"/>
+    <nd ref="2560597814"/>
+    <nd ref="2560597820"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="23"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Vincenz-Statz-Straße"/>
+    <tag k="building" v="terrace"/>
+    <tag k="building:use" v="residential"/>
+  </way>
+  <way id="212675995">
+    <nd ref="2560597891"/>
+    <nd ref="2560597842"/>
+    <nd ref="2560597844"/>
+    <nd ref="2560597788"/>
+    <nd ref="2560597703"/>
+    <nd ref="2560597700"/>
+    <nd ref="2560597724"/>
+    <nd ref="2560597716"/>
+    <nd ref="2560597784"/>
+    <nd ref="2560597782"/>
+    <nd ref="2560597808"/>
+    <nd ref="2560597827"/>
+    <nd ref="2560597828"/>
+    <nd ref="2560597877"/>
+    <nd ref="2560597891"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="619"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="house"/>
+    <tag k="building:use" v="residential"/>
+  </way>
+  <way id="223276865">
+    <nd ref="1696142786"/>
+    <nd ref="4899273284"/>
+    <nd ref="5066965855"/>
+    <nd ref="2344570084"/>
+    <nd ref="1637693811"/>
+    <nd ref="5066965852"/>
+    <nd ref="1637693810"/>
+    <nd ref="2344550851"/>
+    <nd ref="1637693809"/>
+    <nd ref="26052300"/>
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="1"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Aachener Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B 55"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="225703449">
+    <nd ref="2344570079"/>
+    <nd ref="2344570080"/>
+    <nd ref="2344570083"/>
+    <nd ref="2344570087"/>
+    <nd ref="3548467987"/>
+    <nd ref="2344570081"/>
+    <nd ref="2344570082"/>
+    <nd ref="2344570085"/>
+    <nd ref="2344570084"/>
+    <nd ref="2344570088"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="249463472">
+    <nd ref="2560597846"/>
+    <nd ref="2560597893"/>
+    <nd ref="2560597915"/>
+    <nd ref="2560597806"/>
+    <nd ref="2560597802"/>
+    <nd ref="2560597730"/>
+    <nd ref="2560597713"/>
+    <nd ref="2560597748"/>
+    <nd ref="2560597773"/>
+    <nd ref="2560597793"/>
+    <nd ref="2560597788"/>
+    <nd ref="2560597844"/>
+    <nd ref="2560597846"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="621"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="amenity" v="social_facility"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="gathering"/>
+  </way>
+  <way id="249463474">
+    <nd ref="2560597990"/>
+    <nd ref="2560598006"/>
+    <nd ref="2560598012"/>
+    <nd ref="2560598069"/>
+    <nd ref="2560598071"/>
+    <nd ref="2560598001"/>
+    <nd ref="2560597870"/>
+    <nd ref="2560597860"/>
+    <nd ref="2560597856"/>
+    <nd ref="2560597903"/>
+    <nd ref="2560597882"/>
+    <nd ref="2560597985"/>
+    <nd ref="2560597990"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="629"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="semidetached_house"/>
+    <tag k="building:use" v="residential"/>
+  </way>
+  <way id="249463495">
+    <nd ref="2560597983"/>
+    <nd ref="2560598009"/>
+    <nd ref="2560598020"/>
+    <nd ref="2560598035"/>
+    <nd ref="2560598048"/>
+    <nd ref="2560598056"/>
+    <nd ref="2560598060"/>
+    <nd ref="2560598058"/>
+    <nd ref="2560598050"/>
+    <nd ref="2560598039"/>
+    <nd ref="2560598026"/>
+    <nd ref="2560598030"/>
+    <nd ref="2560597833"/>
+    <nd ref="2560597832"/>
+    <nd ref="2560597854"/>
+    <nd ref="2560597852"/>
+    <nd ref="2560597929"/>
+    <nd ref="2560597925"/>
+    <nd ref="2560597973"/>
+    <nd ref="2560597983"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="631"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="semidetached_house"/>
+    <tag k="building:use" v="residential"/>
+  </way>
+  <way id="249463502">
+    <nd ref="2560598320"/>
+    <nd ref="2560598269"/>
+    <nd ref="2560598267"/>
+    <nd ref="2560598318"/>
+    <nd ref="2560598320"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="538"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="terrace"/>
+    <tag k="building:levels" v="2"/>
+    <tag k="building:use" v="residential"/>
+    <tag k="roof:levels" v="1"/>
+  </way>
+  <way id="249463560">
+    <nd ref="2560598305"/>
+    <nd ref="2560598265"/>
+    <nd ref="2560598263"/>
+    <nd ref="2560598286"/>
+    <nd ref="2560598297"/>
+    <nd ref="2560598305"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="534"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="terrace"/>
+    <tag k="building:levels" v="2"/>
+    <tag k="building:use" v="residential"/>
+    <tag k="roof:levels" v="1"/>
+  </way>
+  <way id="249463590">
+    <nd ref="2560598318"/>
+    <nd ref="2560598267"/>
+    <nd ref="2560598265"/>
+    <nd ref="2560598305"/>
+    <nd ref="2560598309"/>
+    <nd ref="2560598314"/>
+    <nd ref="2560598318"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="536"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="terrace"/>
+    <tag k="building:levels" v="2"/>
+    <tag k="building:use" v="residential"/>
+    <tag k="roof:levels" v="1"/>
+  </way>
+  <way id="249800138">
+    <nd ref="2563533337"/>
+    <nd ref="2560527581"/>
+    <nd ref="2560527576"/>
+    <nd ref="2560527579"/>
+    <nd ref="2563533335"/>
+    <nd ref="2563533337"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="26"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Vincenz-Statz-Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="industrial"/>
+  </way>
+  <way id="253079939">
+    <nd ref="2590780858"/>
+    <nd ref="2590573107"/>
+    <nd ref="2590573096"/>
+    <nd ref="2590573089"/>
+    <nd ref="2590573085"/>
+    <nd ref="2590573083"/>
+    <nd ref="2590573156"/>
+    <nd ref="2590573161"/>
+    <nd ref="2590573188"/>
+    <nd ref="2590573195"/>
+    <nd ref="2590573182"/>
+    <nd ref="2590780858"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="524"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;commercial"/>
+  </way>
+  <way id="253079946">
+    <nd ref="2590573130"/>
+    <nd ref="2590573075"/>
+    <nd ref="2590573073"/>
+    <nd ref="2590573129"/>
+    <nd ref="2590573130"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="510"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;industrial"/>
+  </way>
+  <way id="253079961">
+    <nd ref="2590573144"/>
+    <nd ref="2590573131"/>
+    <nd ref="2590573078"/>
+    <nd ref="2590573075"/>
+    <nd ref="2590573130"/>
+    <nd ref="2590573144"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="512"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;industrial"/>
+  </way>
+  <way id="253079976">
+    <nd ref="2590573225"/>
+    <nd ref="2590573227"/>
+    <nd ref="2590573149"/>
+    <nd ref="2590780862"/>
+    <nd ref="2590780861"/>
+    <nd ref="2590780860"/>
+    <nd ref="2590573142"/>
+    <nd ref="2590573223"/>
+    <nd ref="2590573225"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="253079988">
+    <nd ref="2590573158"/>
+    <nd ref="2590573156"/>
+    <nd ref="2590573083"/>
+    <nd ref="2590573081"/>
+    <nd ref="2590573151"/>
+    <nd ref="2590573154"/>
+    <nd ref="2590573158"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="522"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;industrial"/>
+  </way>
+  <way id="253080003">
+    <nd ref="2590780862"/>
+    <nd ref="2590573149"/>
+    <nd ref="2590573151"/>
+    <nd ref="2590573081"/>
+    <nd ref="2590780857"/>
+    <nd ref="2590780862"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="520"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;industrial"/>
+  </way>
+  <way id="253080020">
+    <nd ref="2590573221"/>
+    <nd ref="2590573206"/>
+    <nd ref="2590573201"/>
+    <nd ref="2590573179"/>
+    <nd ref="2590573173"/>
+    <nd ref="2590573166"/>
+    <nd ref="2590573163"/>
+    <nd ref="2590573212"/>
+    <nd ref="2590573221"/>
+    <tag k="building" v="yes"/>
+  </way>
+  <way id="253101888">
+    <nd ref="2590780855"/>
+    <nd ref="2590573078"/>
+    <nd ref="2590573131"/>
+    <nd ref="2590573142"/>
+    <nd ref="2590780860"/>
+    <nd ref="2590780855"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="514"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;industrial"/>
+  </way>
+  <way id="253101889">
+    <nd ref="2590780860"/>
+    <nd ref="2590780861"/>
+    <nd ref="2590780856"/>
+    <nd ref="2590780855"/>
+    <nd ref="2590780860"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="516"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;industrial"/>
+  </way>
+  <way id="253101890">
+    <nd ref="2590780861"/>
+    <nd ref="2590780862"/>
+    <nd ref="2590780857"/>
+    <nd ref="2590780856"/>
+    <nd ref="2590780861"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="518"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;industrial"/>
+  </way>
+  <way id="253101891">
+    <nd ref="2590573182"/>
+    <nd ref="2590573185"/>
+    <nd ref="2590573197"/>
+    <nd ref="2590573208"/>
+    <nd ref="2590573203"/>
+    <nd ref="2590573171"/>
+    <nd ref="2590573147"/>
+    <nd ref="2590573120"/>
+    <nd ref="2590573114"/>
+    <nd ref="2590573112"/>
+    <nd ref="2590573109"/>
+    <nd ref="2590573100"/>
+    <nd ref="2590573091"/>
+    <nd ref="2590573094"/>
+    <nd ref="2590573104"/>
+    <nd ref="2590573102"/>
+    <nd ref="2590573116"/>
+    <nd ref="2590780858"/>
+    <nd ref="2590573182"/>
+    <tag k="addr:city" v="Köln"/>
+    <tag k="addr:country" v="DE"/>
+    <tag k="addr:housenumber" v="526"/>
+    <tag k="addr:postcode" v="50933"/>
+    <tag k="addr:street" v="Aachener Straße"/>
+    <tag k="building" v="yes"/>
+    <tag k="building:use" v="residential;commercial"/>
+  </way>
+  <way id="348785788">
+    <nd ref="3548475097"/>
+    <nd ref="3548475100"/>
+    <nd ref="3548475103"/>
+    <nd ref="3548475102"/>
+    <nd ref="3548475106"/>
+    <nd ref="3548475109"/>
+    <nd ref="3548475110"/>
+    <nd ref="3548475108"/>
+    <nd ref="3548475114"/>
+    <nd ref="3548475116"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="348785791">
+    <nd ref="3548475102"/>
+    <nd ref="2120499322"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="348785792">
+    <nd ref="3548475108"/>
+    <nd ref="2120499318"/>
+    <tag k="highway" v="footway"/>
+  </way>
+  <way id="349644584">
+    <nd ref="3554936448"/>
+    <nd ref="3554941089"/>
+    <nd ref="3554941087"/>
+    <nd ref="3554941086"/>
+    <nd ref="3548467965"/>
+    <nd ref="3548467964"/>
+    <nd ref="3554928724"/>
+    <nd ref="3554941194"/>
+    <nd ref="3554941193"/>
+    <nd ref="3554928721"/>
+    <nd ref="4042468690"/>
+    <nd ref="3554928726"/>
+    <nd ref="3548467966"/>
+    <nd ref="3548467972"/>
+    <nd ref="3548467971"/>
+    <nd ref="3548467970"/>
+    <nd ref="3548467974"/>
+    <nd ref="3548467975"/>
+    <nd ref="3548467978"/>
+    <nd ref="3548467977"/>
+    <nd ref="3548467976"/>
+    <nd ref="3548467963"/>
+    <nd ref="3548467979"/>
+    <nd ref="3548467980"/>
+    <nd ref="3548467983"/>
+    <nd ref="3548467982"/>
+    <nd ref="3548467981"/>
+    <nd ref="3548467961"/>
+    <nd ref="3548467985"/>
+    <nd ref="3548467984"/>
+    <nd ref="3548467986"/>
+    <nd ref="3548467987"/>
+    <nd ref="4899273287"/>
+    <nd ref="3548467989"/>
+    <nd ref="3548475109"/>
+    <nd ref="3548467962"/>
+    <nd ref="3548475111"/>
+    <nd ref="3548468195"/>
+    <nd ref="3548468196"/>
+    <nd ref="3664331253"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="0"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="operator" v="KVB"/>
+    <tag k="railway" v="light_rail"/>
+    <tag k="railway:preferred_direction" v="forward"/>
+    <tag k="voltage" v="750"/>
+  </way>
+  <way id="362049113">
+    <nd ref="3664331249"/>
+    <nd ref="2234537545"/>
+    <nd ref="2234537543"/>
+    <nd ref="3548467988"/>
+    <nd ref="2234537542"/>
+    <nd ref="3548475098"/>
+    <nd ref="2234575890"/>
+    <nd ref="3548475097"/>
+    <nd ref="2234575887"/>
+    <nd ref="2344570088"/>
+    <nd ref="2234575884"/>
+    <nd ref="2234575881"/>
+    <nd ref="2344550857"/>
+    <nd ref="2234575879"/>
+    <nd ref="2344551647"/>
+    <nd ref="2234575876"/>
+    <nd ref="2344551625"/>
+    <nd ref="1726927626"/>
+    <tag k="bicycle" v="designated"/>
+    <tag k="foot" v="designated"/>
+    <tag k="highway" v="path"/>
+    <tag k="lit" v="yes"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="segregated" v="yes"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="paving_stones"/>
+  </way>
+  <way id="456889315">
+    <nd ref="3548475101"/>
+    <nd ref="7021491519"/>
+    <nd ref="5066965857"/>
+    <nd ref="3548475100"/>
+    <nd ref="1696142786"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Aachener Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B 55"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes" v="left|through|through"/>
+  </way>
+  <way id="498531126">
+    <nd ref="3548475114"/>
+    <nd ref="6884641549"/>
+    <nd ref="6884641555"/>
+    <nd ref="7021491520"/>
+    <nd ref="5066965859"/>
+    <nd ref="3548475115"/>
+    <nd ref="6884641544"/>
+    <nd ref="4899273282"/>
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Aachener Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B 55"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="498531127">
+    <nd ref="4899273289"/>
+    <nd ref="13801788"/>
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Aachener Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B 55"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="498531128">
+    <nd ref="4899273289"/>
+    <nd ref="4899273288"/>
+    <nd ref="4899273287"/>
+    <nd ref="4899273286"/>
+    <nd ref="4899273285"/>
+    <nd ref="4899273283"/>
+    <nd ref="4899273284"/>
+    <tag k="foot" v="use_sidepath"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="1"/>
+    <tag k="oneway" v="yes"/>
+  </way>
+  <way id="498531129">
+    <nd ref="4899273290"/>
+    <nd ref="3548467992"/>
+    <nd ref="4899273289"/>
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Aachener Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B 55"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes" v="left||"/>
+  </way>
+  <way id="498531130">
+    <nd ref="2344570080"/>
+    <nd ref="4899273290"/>
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Aachener Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B 55"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes" v="|merge_to_right|"/>
+  </way>
+  <way id="498531131">
+    <nd ref="26052298"/>
+    <nd ref="5066965854"/>
+    <nd ref="2344570080"/>
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Aachener Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B 55"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="499277773">
+    <nd ref="13801788"/>
+    <nd ref="3548467989"/>
+    <nd ref="207511329"/>
+    <nd ref="1696142786"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Eupener Straße"/>
+    <tag k="oneway" v="no"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="zone:maxspeed" v="DE:30"/>
+  </way>
+  <way id="499284738">
+    <nd ref="4905840038"/>
+    <nd ref="5066965856"/>
+    <nd ref="2234575905"/>
+    <nd ref="13801788"/>
+    <tag k="hgv:lanes:backward" v="no"/>
+    <tag k="highway" v="residential"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lanes:backward" v="1"/>
+    <tag k="lanes:forward" v="2"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="30"/>
+    <tag k="name" v="Eupener Straße"/>
+    <tag k="oneway" v="no"/>
+    <tag k="sidewalk" v="both"/>
+    <tag k="smoothness" v="good"/>
+    <tag k="surface" v="asphalt"/>
+    <tag k="turn:lanes:forward" v="left|right"/>
+    <tag k="zone:maxspeed" v="DE:30"/>
+  </way>
+  <way id="543689796">
+    <nd ref="13801788"/>
+    <nd ref="3548475114"/>
+    <tag k="bicycle" v="use_sidepath"/>
+    <tag k="highway" v="primary"/>
+    <tag k="lanes" v="3"/>
+    <tag k="lit" v="yes"/>
+    <tag k="maxspeed" v="50"/>
+    <tag k="name" v="Aachener Straße"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="ref" v="B 55"/>
+    <tag k="surface" v="asphalt"/>
+  </way>
+  <way id="751028673">
+    <nd ref="7021492713"/>
+    <nd ref="7021492712"/>
+    <tag k="name" v="Eupener Straße"/>
+    <tag k="public_transport" v="platform"/>
+  </way>
+  <relation id="2961877">
+    <member type="way" ref="23151660" role="from"/>
+    <member type="way" ref="223276865" role="to"/>
+    <member type="node" ref="1696142786" role="via"/>
+    <tag k="except" v="bicycle"/>
+    <tag k="restriction" v="only_right_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="7770760">
+    <member type="way" ref="499277773" role="from"/>
+    <member type="node" ref="13801788" role="via"/>
+    <member type="way" ref="543689796" role="to"/>
+    <tag k="restriction" v="no_left_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+  <relation id="7770761">
+    <member type="way" ref="499277773" role="from"/>
+    <member type="node" ref="13801788" role="via"/>
+    <member type="way" ref="499277773" role="to"/>
+    <tag k="restriction" v="no_u_turn"/>
+    <tag k="type" v="restriction"/>
+  </relation>
+
+</osm>

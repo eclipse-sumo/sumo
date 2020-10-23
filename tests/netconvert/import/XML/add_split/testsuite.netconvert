@@ -4,6 +4,9 @@ three_minus_right
 # beginning with two lanes, adding one to the left
 two_plus_left
 
+# beginning with two lanes, adding one to the left
+two_plus_left_lefthand
+
 # the edge has per default two lanes but begins with three lanes
 def_two_three_minus_right
 
@@ -59,3 +62,9 @@ pos0
 
 # trying to re-use one of the existing end points as split id should result in error
 attach_invalid
+
+# adding splits too close to each other
+too_close
+
+# adding splits with duplicate id
+duplicate_id

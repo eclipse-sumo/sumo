@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-08-12 13:29:44.440546 by additional
+  options: -n net.net.xml -a input_additional.add.xml -o out.add.xml <doubleminus>max-number-alternatives 4 <doubleminus>max-distance-alternatives 100 <doubleminus>min-capacity-visibility-true 50 <doubleminus>max-distance-visibility-true 1000
+-->
+<additional>
+
+    <rerouter id="parking_b" edges="b">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parking_b" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parking_c" visible="true"/> <!-- dist: 38.6 -->
+            <parkingAreaReroute id="parking_d" visible="true"/> <!-- dist: 82.2 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parking_c" edges="c">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parking_c" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parking_d" visible="true"/> <!-- dist: 43.6 -->
+            <parkingAreaReroute id="parking_e" visible="true"/> <!-- dist: 82.2 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parking_d" edges="d">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parking_d" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parking_e" visible="true"/> <!-- dist: 38.6 -->
+            <parkingAreaReroute id="parking_b" visible="true"/> <!-- dist: 72.2 -->
+        </interval>
+    </rerouter>
+
+    <rerouter id="parking_e" edges="e">
+        <interval begin="0.0" end="86400">
+            <!-- in order of distance --> 
+            <parkingAreaReroute id="parking_e" visible="true"/> <!-- dist: 0.0 -->
+            <parkingAreaReroute id="parking_b" visible="true"/> <!-- dist: 33.6 -->
+            <parkingAreaReroute id="parking_c" visible="true"/> <!-- dist: 72.2 -->
+        </interval>
+    </rerouter>
+</additional>

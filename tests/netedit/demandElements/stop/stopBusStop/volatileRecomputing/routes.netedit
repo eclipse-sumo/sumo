@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 26.08.2019 14:31:53 by Eclipse SUMO netedit Version v1_3_0+0089-e417f0f6df
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug143147.9836/netedit.gui/demandElements/stop/stopBusStop/volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug143147.9836/netedit.gui/demandElements/stop/stopBusStop/volatileRecomputing\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <sidewalks.guess value="true"/>
+        <crossings.guess value="true"/>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug143147.9836/netedit.gui/demandElements/stop/stopBusStop/volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug143147.9836/netedit.gui/demandElements/stop/stopBusStop/volatileRecomputing\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug143147.9836/netedit.gui/demandElements/stop/stopBusStop/volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug143147.9836/netedit.gui/demandElements/stop/stopBusStop/volatileRecomputing\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug143147.9836/netedit.gui/demandElements/stop/stopBusStop/volatileRecomputing\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug143147.9836/netedit.gui/demandElements/stop/stopBusStop/volatileRecomputing\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route edges="gneE2 gneE4" color="yellow" id="route_0">
+        <stop busStop="busStopH" duration="60.00"/>
+        <stop busStop="busStopG" duration="60.00"/>
+        <stop busStop="busStopF" duration="60.00"/>
+        <stop busStop="busStopE" duration="60.00"/>
+        <stop busStop="busStopD" duration="60.00"/>
+        <stop busStop="busStopC" duration="60.00"/>
+    </route>
+    <route edges="gneE0 gneE1" color="yellow" id="route_1">
+        <stop busStop="busStopH" duration="60.00"/>
+        <stop busStop="busStopG" duration="60.00"/>
+        <stop busStop="busStopF" duration="60.00"/>
+        <stop busStop="busStopE" duration="60.00"/>
+        <stop busStop="busStopD" duration="60.00"/>
+        <stop busStop="busStopC" duration="60.00"/>
+        <stop busStop="busStopH" duration="60.00"/>
+        <stop busStop="busStopG" duration="60.00"/>
+        <stop busStop="busStopF" duration="60.00"/>
+        <stop busStop="busStopE" duration="60.00"/>
+        <stop busStop="busStopD" duration="60.00"/>
+        <stop busStop="busStopC" duration="60.00"/>
+        <stop busStop="busStopB" duration="60.00"/>
+        <stop busStop="busStopA" duration="60.00"/>
+    </route>
+</routes>

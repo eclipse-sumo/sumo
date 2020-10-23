@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:04 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0
     </projection>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -41,11 +42,18 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="o" from="0" to="1" priority="-1" numLanes="1" speed="13.90" shape="12.014694,48.121459 12.029602,48.095699 12.061386,48.087529"/>
+<edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-gneE1" from="gneJ1" to="0" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="-gneE2" from="gneJ2" to="0" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="gneE0" from="gneJ0" to="0" priority="-1" numLanes="1" speed="13.89" shape="12.013354,48.121383 12.014007,48.121249 12.014696,48.121418"/>
+    <edge id="gneE1" from="0" to="gneJ1" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="gneE2" from="0" to="gneJ2" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="gneE3" from="0" to="gneJ0" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="o" from="0" to="1" priority="-1" numLanes="1" speed="13.90" shape="12.014696,48.121418 12.029602,48.095699 12.061386,48.087529"/>
 </edges>

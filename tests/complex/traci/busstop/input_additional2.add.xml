@@ -1,0 +1,4 @@
+<add>
+    <busStop id="stop1" lane="WC_0" startPos="25" endPos="45" name="Paris"/>
+    <busStop id="stop2" lane="CE_0" startPos="35" endPos="65" name="Berlin"/>
+</add>

@@ -1,0 +1,7 @@
+Error: route needs a valid ID.
+Warning: Format of essential unique string attribute 'id' of route is invalid; ID cannot be empty; route cannot be created
+Error: route ID='' contains invalid characters.
+Warning: Format of essential unique string attribute 'id' of route is invalid; Demand Element ID contains invalid characters; route cannot be created
+Error: route ID='' contains invalid characters.
+Error: There is another route with the same ID='route_0'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/route/load/id\input_routes.rou.xml failed.

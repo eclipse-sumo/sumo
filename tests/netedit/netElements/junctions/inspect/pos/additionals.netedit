@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.12.2018 09:08:38 by Eclipse SUMO netedit Version v1_0_0+1123-7e66fbd65e
+<!-- generated on 30.09.2019 12:55:03 by Eclipse SUMO netedit Version v1_3_1+0518-618d6833cc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec090809.8960/netedit.gui/netElements/junctions/inspect/pos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Sep125145.248/netedit.gui/netElements/junctions/inspect/pos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec090809.8960/netedit.gui/netElements/junctions/inspect/pos\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Sep125145.248/netedit.gui/netElements/junctions/inspect/pos\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -29,13 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec090809.8960/netedit.gui/netElements/junctions/inspect/pos\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec090809.8960/netedit.gui/netElements/junctions/inspect/pos\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec090809.8960/netedit.gui/netElements/junctions/inspect/pos\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Sep125145.248/netedit.gui/netElements/junctions/inspect/pos\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Sep125145.248/netedit.gui/netElements/junctions/inspect/pos\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Sep125145.248/netedit.gui/netElements/junctions/inspect/pos\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Sep125145.248/netedit.gui/netElements/junctions/inspect/pos\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec090809.8960/netedit.gui/netElements/junctions/inspect/pos\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Sep125145.248/netedit.gui/netElements/junctions/inspect/pos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,7 +47,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.03Dec090809.8960/netedit.gui/netElements/junctions/inspect/pos\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Sep125145.248/netedit.gui/netElements/junctions/inspect/pos\log.txt"/>
     </report>
 
 </configuration>
@@ -58,6 +60,6 @@
     <busStop id="busStop_4_0_5" lane="4_0" startPos="16.00" endPos="26.00"/>
     <busStop id="busStop_5_0_6" lane="5_0" startPos="20.00" endPos="30.00"/>
     <busStop id="busStop_6_1_3" lane="6_1" startPos="20.00" endPos="30.00"/>
-    <busStop id="busStop_7_0_1" lane="7_0" startPos="21.00" endPos="31.00"/>
+    <busStop id="busStop_7_0_1" lane="7_0" startPos="21.00" endPos="30.30"/>
     <busStop id="busStop_8_0_4" lane="8_0" startPos="17.00" endPos="27.00"/>
 </additional>

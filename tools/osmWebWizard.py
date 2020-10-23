@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2014-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    osmWebWizard.py
 # @author  Jakob Stigloher
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2014-14-10
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -35,6 +38,7 @@ import osmGet
 import osmBuild
 import randomTrips
 import ptlines2flows
+import tileGet
 import sumolib  # noqa
 from webWizard.SimpleWebSocketServer import SimpleWebSocketServer, WebSocket
 
@@ -106,8 +110,6 @@ vehicleNames = {
 }
 
 
-RANDOMSEED = "42"
-
 # all can read and execute, only user can read batch files
 BATCH_MODE = stat.S_IRUSR | stat.S_IRGRP | stat.S_IROTH
 BATCH_MODE |= stat.S_IWUSR
@@ -120,10 +122,7 @@ def quoted_str(s):
     elif type(s) != str:
         return str(s)
     elif '"' in s or ' ' in s:
-        if os.name == "nt":
-            return '"' + s.replace('"', '\\"') + '"'
-        else:
-            return "'%s'" % s
+        return '"' + s.replace('"', '\\"') + '"'
     else:
         return s
 
@@ -138,8 +137,8 @@ class Builder(object):
 
         self.tmp = None
         if local:
-            now = data.get("testOutputDir",
-                           datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+            now = data.get("outputDir",
+                    datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
                     self.tmp = os.path.abspath(os.path.join(base, now))
@@ -225,6 +224,11 @@ class Builder(object):
             netconvertOptions += ",--railway.topology.repair"
         if self.data["leftHand"]:
             netconvertOptions += ",--lefthand"
+        if self.data["carOnlyNetwork"]:
+            if self.data["publicTransport"]:
+                options += ["--vehicle-classes", "publicTransport"]
+            else:
+                options += ["--vehicle-classes", "passenger"]
 
         options += ["--netconvert-typemap", ','.join(typefiles)]
         options += ["--netconvert-options", netconvertOptions]
@@ -252,9 +256,31 @@ class Builder(object):
                 "--stopinfos-file", self.files["pt_stopinfos"],
                 "--routes-file", self.files["pt_vehroutes"],
                 "--trips-file", self.files["pt_trips"],
+                "--min-stops", "0",
+                "--extend-to-fringe",
                 "--verbose",
             ]
             ptlines2flows.main(ptlines2flows.get_options(ptOptions))
+
+        if self.data["decal"]:
+            self.report("Downloading background images")
+            tileOptions = [
+                "-n", self.files["net"],
+                "-t", "100",
+                "-d", "background_images",
+                "-l", "-300",
+            ]
+            try:
+                os.chdir(self.tmp)
+                os.mkdir("background_images")
+                tileGet.get(tileOptions)
+                self.report("Success.")
+                self.decalError = False
+            except Exception:
+                os.chdir(self.tmp)
+                shutil.rmtree("background_images", ignore_errors=True)
+                self.report("Error while downloading background images")
+                self.decalError = True
 
         if self.data["vehicles"] or ptOptions:
             # routenames stores all routefiles and will join the items later, will
@@ -320,7 +346,7 @@ class Builder(object):
 
         period = 3600 / (length / 1000) / options["count"]
 
-        opts = ["-n", self.files["net"], "--seed", RANDOMSEED, "--fringe-factor", options["fringeFactor"],
+        opts = ["-n", self.files["net"], "--fringe-factor", options["fringeFactor"],
                 "-p", period, "-o", self.files["trips"], "-e", self.data["duration"]]
         if "--validate" not in vehicleParameters[vehicle]:
             opts += ["-r", self.files["route"]]
@@ -338,7 +364,16 @@ class Builder(object):
 
         self.filename("guisettings", ".view.xml")
         with open(self.files["guisettings"], 'w') as f:
-            f.write("""
+            if self.data["decal"] and not self.decalError:
+                f.write("""
+<viewsettings>
+    <scheme name="real world"/>
+    <delay value="20"/>
+    <include href="background_images/settings.xml"/>
+</viewsettings>
+""")
+            else:
+                f.write("""
 <viewsettings>
     <scheme name="real world"/>
     <delay value="20"/>
@@ -417,6 +452,7 @@ class Builder(object):
 class OSMImporterWebSocket(WebSocket):
 
     local = False
+    outputDir = None
 
     def report(self, message):
         print(message)
@@ -431,6 +467,8 @@ class OSMImporterWebSocket(WebSocket):
         thread.start()
 
     def build(self, data):
+        if self.outputDir is not None:
+            data['outputDir'] = self.outputDir
         builder = Builder(data, self.local)
         builder.report = self.report
 
@@ -466,6 +504,8 @@ parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", he
 parser.add_argument("--test-output", default=None, dest="testOutputDir",
                     help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
                     "write output to the given directory.")
+parser.add_argument("-o" "--output", default=None, dest="outputDir",
+                    help="Write output to the given folder rather than creating a name based on the timestamp")
 parser.add_argument("--address", default="", help="Address for the Websocket.")
 parser.add_argument("--port", type=int, default=8010,
                     help="Port for the Websocket. Please edit script.js when using an other port than 8010.")
@@ -473,6 +513,7 @@ parser.add_argument("--port", type=int, default=8010,
 if __name__ == "__main__":
     args = parser.parse_args()
     OSMImporterWebSocket.local = args.testOutputDir is not None or not args.remote
+    OSMImporterWebSocket.outputDir = args.outputDir
     if args.testOutputDir is not None:
         data = {u'duration': 900,
                 u'vehicles': {u'passenger': {u'count': 6, u'fringeFactor': 5},
@@ -483,7 +524,9 @@ if __name__ == "__main__":
                 u'poly': True,
                 u'publicTransport': True,
                 u'leftHand': False,
-                u'testOutputDir': args.testOutputDir,
+                u'decal': False,
+                u'carOnlyNetwork': False,
+                u'outputDir': args.testOutputDir,
                 }
         builder = Builder(data, True)
         builder.build()

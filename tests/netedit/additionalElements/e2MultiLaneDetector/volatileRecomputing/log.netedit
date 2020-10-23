@@ -1,10 +1,6 @@
-Warning: Speed of turning connection 'gneE4_0->gneE12_0' reduced by 30.44 due to turning radius of 7.70 (length=9.03 angle=90.00)
-Warning: Speed of turning connection 'gneE13_0->gneE4_0' reduced by 30.44 due to turning radius of 7.70 (length=9.03 angle=90.00)
-Warning: Speed of turning connection 'gneE4_0->gneE12_1' reduced by 30.96 due to turning radius of 6.52 (length=7.49 angle=90.00)
-Warning: Speed of turning connection 'gneE13_1->gneE4_0' reduced by 30.96 due to turning radius of 6.52 (length=7.49 angle=90.00)
-Warning: Speed of turning connection 'gneE4_0->gneE12_1' reduced by 30.96 due to turning radius of 6.52 (length=7.49 angle=90.00)
-Warning: Speed of turning connection 'gneE13_1->gneE4_0' reduced by 30.96 due to turning radius of 6.52 (length=7.49 angle=90.00)
-Warning: Speed of turning connection 'gneE4_0->gneE12_0' reduced by 31.77 due to turning radius of 4.87 (length=5.33 angle=90.00)
-Warning: Speed of turning connection 'gneE4_0->gneE12_1' reduced by 30.96 due to turning radius of 6.52 (length=7.49 angle=90.00)
-Warning: Speed of turning connection 'gneE13_0->gneE4_0' reduced by 31.93 due to turning radius of 4.57 (length=5.33 angle=90.00)
-Warning: Speed of turning connection 'gneE13_1->gneE4_0' reduced by 30.96 due to turning radius of 6.52 (length=7.49 angle=90.00)
+Warning: Speed of turning connection 'gneE4_0->gneE12_0' reduced by 30.44 due to turning radius of 7.70 (length=9.03, angle=90.00).
+Warning: Speed of turning connection 'gneE13_0->gneE4_0' reduced by 30.44 due to turning radius of 7.70 (length=9.03, angle=90.00).
+Warning: Speed of turning connection 'gneE4_0->gneE12_1' reduced by 30.96 due to turning radius of 6.52 (length=7.49, angle=90.00).
+Warning: Speed of turning connection 'gneE13_1->gneE4_0' reduced by 30.96 due to turning radius of 6.52 (length=7.49, angle=90.00).
+Warning: Speed of turning connection 'gneE4_0->gneE12_1' reduced by 30.96 due to turning radius of 6.52 (length=7.49, angle=90.00).
+Warning: 10 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

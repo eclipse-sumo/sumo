@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBTrafficLightLogic.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A SUMO-compliant built logic for a traffic light
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -67,7 +65,7 @@ NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic* logic) :
 NBTrafficLightLogic::~NBTrafficLightLogic() {}
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, const std::vector<int>& next, const std::string& name, int index) {
     addStep(duration, state,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
             NBTrafficLightDefinition::UNSPECIFIED_DURATION,
@@ -75,7 +73,7 @@ NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, int ne
 }
 
 void
-NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next, const std::string& name, int index) {
+NBTrafficLightLogic::addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name, int index) {
     // check state size
     if (myNumLinks == 0) {
         // initialize
@@ -123,6 +121,16 @@ NBTrafficLightLogic::setStateLength(int numLinks, LinkState fill) {
     myNumLinks = numLinks;
 }
 
+void
+NBTrafficLightLogic::deleteStateIndex(int index) {
+    assert(index >= 0);
+    assert(index < myNumLinks);
+    for (PhaseDefinition& p : myPhases) {
+        p.state.erase(index, 1);
+    }
+    myNumLinks--;
+}
+
 
 void
 NBTrafficLightLogic::resetPhases() {
@@ -144,7 +152,7 @@ NBTrafficLightLogic::getDuration() const {
 void
 NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
     for (int i = 0; i < (int)myPhases.size() - 1;) {
-        if (myPhases[i].state != myPhases[i + 1].state) {
+        if (myPhases[i].state != myPhases[i + 1].state || myPhases[i].next.size() > 0) {
             ++i;
             continue;
         }
@@ -167,7 +175,7 @@ NBTrafficLightLogic::closeBuilding(bool checkVarDurations) {
     }
     // check if actuated lights are defined correctly
     if (checkVarDurations) {
-        if (myType != TLTYPE_STATIC) {
+        if (myType != TrafficLightType::STATIC) {
             bool found = false;
             for (auto p : myPhases) {
                 if (p.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION
@@ -212,7 +220,7 @@ NBTrafficLightLogic::setPhaseMaxDuration(int phaseIndex, SUMOTime duration) {
 }
 
 void
-NBTrafficLightLogic::setPhaseNext(int phaseIndex, int next) {
+NBTrafficLightLogic::setPhaseNext(int phaseIndex, const std::vector<int>& next) {
     assert(phaseIndex < (int)myPhases.size());
     myPhases[phaseIndex].next = next;
 }
@@ -223,5 +231,5 @@ NBTrafficLightLogic::setPhaseName(int phaseIndex, const std::string& name) {
     myPhases[phaseIndex].name = name;
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

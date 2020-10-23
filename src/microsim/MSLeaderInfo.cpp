@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLeaderInfo.cpp
 /// @author  Jakob Erdmann
 /// @date    Oct 2015
-/// @version $Id$
 ///
 // Information about vehicles ahead (may be multiple vehicles if
 // lateral-resolution is active)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -146,8 +144,9 @@ void
 MSLeaderInfo::getSublaneBorders(int sublane, double latOffset, double& rightSide, double& leftSide) const {
     assert(sublane >= 0);
     assert(sublane < (int)myVehicles.size());
-    rightSide = sublane * MSGlobals::gLateralResolution + latOffset;
-    leftSide = MIN2((sublane + 1) * MSGlobals::gLateralResolution, myWidth) + latOffset;
+    const double res = MSGlobals::gLateralResolution > 0 ? MSGlobals::gLateralResolution : myWidth;
+    rightSide = sublane * res + latOffset;
+    leftSide = MIN2((sublane + 1) * res, myWidth) + latOffset;
 }
 
 
@@ -204,6 +203,7 @@ MSLeaderDistanceInfo::MSLeaderDistanceInfo(const CLeaderDist& cLeaderDist, const
     myDistances(1, cLeaderDist.second) {
     assert(myVehicles.size() == 1);
     myVehicles[0] = cLeaderDist.first;
+    myHasVehicles = cLeaderDist.first != nullptr;
 }
 
 MSLeaderDistanceInfo::~MSLeaderDistanceInfo() { }
@@ -235,14 +235,14 @@ MSLeaderDistanceInfo::addLeader(const MSVehicle* veh, double gap, double latOffs
     }
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
-    for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
-        if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
-                && gap < myDistances[sublane]) {
-            if (myVehicles[sublane] == 0) {
+    for (int sublaneIdx = rightmost; sublaneIdx <= leftmost; ++sublaneIdx) {
+        if ((egoRightMost < 0 || (egoRightMost <= sublaneIdx && sublaneIdx <= egoLeftMost))
+                && gap < myDistances[sublaneIdx]) {
+            if (myVehicles[sublaneIdx] == 0) {
                 myFreeSublanes--;
             }
-            myVehicles[sublane] = veh;
-            myDistances[sublane] = gap;
+            myVehicles[sublaneIdx] = veh;
+            myDistances[sublaneIdx] = gap;
             myHasVehicles = true;
         }
     }
@@ -305,7 +305,7 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     if (veh == nullptr) {
         return myFreeSublanes;
     }
-    const double requiredGap = veh->getCarFollowModel().getSecureGap(veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel());
+    const double requiredGap = veh->getCarFollowModel().getSecureGap(veh, ego, veh->getSpeed(), ego->getSpeed(), ego->getCarFollowModel().getMaxDecel());
     const double missingGap = requiredGap - gap;
     /*
     if (ego->getID() == "disabled" || gDebugFlag1) {
@@ -353,22 +353,22 @@ MSCriticalFollowerDistanceInfo::addFollower(const MSVehicle* veh, const MSVehicl
     }
     int rightmost, leftmost;
     getSubLanes(veh, latOffset, rightmost, leftmost);
-    for (int sublane = rightmost; sublane <= leftmost; ++sublane) {
-        if ((egoRightMost < 0 || (egoRightMost <= sublane && sublane <= egoLeftMost))
+    for (int sublaneIdx = rightmost; sublaneIdx <= leftmost; ++sublaneIdx) {
+        if ((egoRightMost < 0 || (egoRightMost <= sublaneIdx && sublaneIdx <= egoLeftMost))
                 // overlapping vehicles are stored preferably
                 // among those vehicles with missing gap, closer ones are preferred
-                && (missingGap > myMissingGaps[sublane]
-                    || (missingGap > 0 && gap < myDistances[sublane])
-                    || (gap < 0 && myDistances[sublane] > 0))
-                && !(gap > 0 && myDistances[sublane] < 0)
-                && !(myMissingGaps[sublane] > 0 && myDistances[sublane] < gap)
+                && (missingGap > myMissingGaps[sublaneIdx]
+                    || (missingGap > 0 && gap < myDistances[sublaneIdx])
+                    || (gap < 0 && myDistances[sublaneIdx] > 0))
+                && !(gap > 0 && myDistances[sublaneIdx] < 0)
+                && !(myMissingGaps[sublaneIdx] > 0 && myDistances[sublaneIdx] < gap)
            ) {
-            if (myVehicles[sublane] == 0) {
+            if (myVehicles[sublaneIdx] == 0) {
                 myFreeSublanes--;
             }
-            myVehicles[sublane] = veh;
-            myDistances[sublane] = gap;
-            myMissingGaps[sublane] = missingGap;
+            myVehicles[sublaneIdx] = veh;
+            myDistances[sublaneIdx] = gap;
+            myMissingGaps[sublaneIdx] = missingGap;
             myHasVehicles = true;
         }
     }
@@ -402,5 +402,6 @@ MSCriticalFollowerDistanceInfo::toString() const {
     oss << " free=" << myFreeSublanes;
     return oss.str();
 }
-/****************************************************************************/
 
+
+/****************************************************************************/

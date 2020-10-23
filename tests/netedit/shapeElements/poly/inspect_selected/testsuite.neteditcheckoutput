@@ -26,8 +26,8 @@ angle
 # edit use geo
 geo_use
 
-# edit generic parameters
-genericparameters
+# edit parameters
+parameters
 
 # edit block move
 blockmove

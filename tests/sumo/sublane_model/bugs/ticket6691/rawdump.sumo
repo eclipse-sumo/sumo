@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun Feb 23 21:57:38 2020 by Eclipse SUMO Version v1_5_0+0218-ce8f5870f3
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <netstate-dump value="rawdump.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="1.6"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<netstate xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netstate_file.xsd">
+    <timestep time="0.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="5.10" speed="0.00" posLat="1.20" speedLat="0.00"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="5.10" speed="0.00" posLat="1.20" speedLat="0.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="1.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="6.77" speed="1.67" posLat="0.20" speedLat="-1.00"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="6.85" speed="1.75" posLat="0.20" speedLat="-1.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="2.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="10.32" speed="3.56" posLat="0.00" speedLat="-0.20"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="10.82" speed="3.97" posLat="0.00" speedLat="-0.20"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="3.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="15.73" speed="5.41" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="16.47" speed="5.65" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="4.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="22.61" speed="6.88" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="24.18" speed="7.71" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="5.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="31.97" speed="9.36" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="33.68" speed="9.50" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="6.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="43.24" speed="11.26" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="44.64" speed="10.96" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="7.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="57.09" speed="13.86" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="57.38" speed="12.74" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="8.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="70.90" speed="13.80" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="70.63" speed="13.25" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="9.00">
+        <edge id="EC">
+            <lane id="EC_0"/>
+            <lane id="EC_1">
+                <vehicle id="v1" pos="83.81" speed="12.92" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="EC_2"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="81.82" speed="11.19" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="10.00">
+        <edge id=":C_5">
+            <lane id=":C_5_0">
+                <vehicle id="v1" pos="7.67" speed="13.46" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id=":C_5_1"/>
+        </edge>
+        <edge id="WC">
+            <lane id="WC_0"/>
+            <lane id="WC_1">
+                <vehicle id="v0" pos="89.11" speed="7.30" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="WC_2"/>
+        </edge>
+    </timestep>
+    <timestep time="11.00">
+        <edge id="CS">
+            <lane id="CS_0"/>
+            <lane id="CS_1">
+                <vehicle id="v0" pos="0.27" speed="9.78" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CS_2"/>
+        </edge>
+        <edge id="CW">
+            <lane id="CW_0"/>
+            <lane id="CW_1">
+                <vehicle id="v1" pos="0.65" speed="13.78" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CW_2"/>
+        </edge>
+    </timestep>
+    <timestep time="12.00">
+        <edge id="CS">
+            <lane id="CS_0"/>
+            <lane id="CS_1">
+                <vehicle id="v0" pos="11.44" speed="11.17" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CS_2"/>
+        </edge>
+        <edge id="CW">
+            <lane id="CW_0"/>
+            <lane id="CW_1">
+                <vehicle id="v1" pos="14.30" speed="13.65" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CW_2"/>
+        </edge>
+    </timestep>
+    <timestep time="13.00">
+        <edge id="CS">
+            <lane id="CS_0"/>
+            <lane id="CS_1">
+                <vehicle id="v0" pos="24.28" speed="12.85" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CS_2"/>
+        </edge>
+        <edge id="CW">
+            <lane id="CW_0"/>
+            <lane id="CW_1">
+                <vehicle id="v1" pos="26.96" speed="12.65" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CW_2"/>
+        </edge>
+    </timestep>
+    <timestep time="14.00">
+        <edge id="CS">
+            <lane id="CS_0"/>
+            <lane id="CS_1">
+                <vehicle id="v0" pos="37.29" speed="13.01" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CS_2"/>
+        </edge>
+        <edge id="CW">
+            <lane id="CW_0"/>
+            <lane id="CW_1">
+                <vehicle id="v1" pos="39.86" speed="12.91" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CW_2"/>
+        </edge>
+    </timestep>
+    <timestep time="15.00">
+        <edge id="CS">
+            <lane id="CS_0"/>
+            <lane id="CS_1">
+                <vehicle id="v0" pos="50.47" speed="13.17" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CS_2"/>
+        </edge>
+        <edge id="CW">
+            <lane id="CW_0"/>
+            <lane id="CW_1">
+                <vehicle id="v1" pos="52.88" speed="13.02" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CW_2"/>
+        </edge>
+    </timestep>
+    <timestep time="16.00">
+        <edge id="CS">
+            <lane id="CS_0"/>
+            <lane id="CS_1">
+                <vehicle id="v0" pos="63.18" speed="12.71" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CS_2"/>
+        </edge>
+        <edge id="CW">
+            <lane id="CW_0"/>
+            <lane id="CW_1">
+                <vehicle id="v1" pos="65.91" speed="13.02" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CW_2"/>
+        </edge>
+    </timestep>
+    <timestep time="17.00">
+        <edge id="CS">
+            <lane id="CS_0"/>
+            <lane id="CS_1">
+                <vehicle id="v0" pos="76.57" speed="13.39" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CS_2"/>
+        </edge>
+        <edge id="CW">
+            <lane id="CW_0"/>
+            <lane id="CW_1">
+                <vehicle id="v1" pos="79.47" speed="13.56" posLat="0.00" speedLat="0.00"/>
+            </lane>
+            <lane id="CW_2"/>
+        </edge>
+    </timestep>
+    <timestep time="18.00"/>
+</netstate>

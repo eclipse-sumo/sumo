@@ -1,0 +1,41 @@
+# No maxDecel given, low changeRate
+without_maxDecel_slow
+
+# No maxDecel given, high changeRate
+without_maxDecel_fast
+
+# maxDecel given -> no difference between low and high changeRate in simple situation with constant leader speed (results should match with_low_maxDecel_slow).
+with_low_maxDecel_fast
+
+# like with_low_maxDecel_fast just using CACC
+with_low_maxDecel_fast_CACC
+
+# maxDecel given -> no difference between low and high changeRate in simple situation with constant leader speed (results should match with_low_maxDecel_fast).
+with_low_maxDecel_slow
+
+# Vehicle on the left lane is allowed to merge by gap creation. Deactivates gap control after merging is successful.
+merger
+
+# Vehicle on the left lane is allowed to merge by gap creation. Deactivates gap control after merging is successful. This test disables the avoidOvertaking on the right mechanism, which induces harsh braking at t=63 in test 'merger' (refs #4747)
+merger_overtakeRightCheckDisabled
+
+# Leader brakes, follower's reaction should override the gap creation mechanism.
+braking_leader
+
+# Leader brakes, follower's reaction should override the gap creation mechanism.
+braking_leader_spaceGap
+
+# No maxDecel given, low changeRate, only space gap specified
+without_maxDecel_slow_spacegap
+
+# Giving a smaller time headway than the original should trigger a warning
+warning_smaller_headway
+
+# Vehicle on the left lane is allowed to merge by gap creation. Gap control stays active after merge with original reference vehicle
+merger_with_reference_vehicle
+
+# Vehicle on the left lane is allowed to merge by gap creation. Gap control uses merger as reference vehicle
+merger_as_reference_vehicle
+
+# Vehicle on the left lane is is used as reference vehicle but is removed during gap creation process.
+reference_vehicle_removed

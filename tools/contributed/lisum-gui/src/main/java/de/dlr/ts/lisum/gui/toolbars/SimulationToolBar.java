@@ -1,16 +1,19 @@
 /****************************************************************************/
-// Eclipse SUMO, LisumSimulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    SimulationToolBar.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -40,129 +43,111 @@ import javafx.scene.control.Tooltip;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public final class SimulationToolBar extends ToolBar implements ToolBarInterface
-{
+public final class SimulationToolBar extends ToolBar implements ToolBarInterface {
     private String lastFile = null;
-        
+
     private final SplitMenuButton split = new SplitMenuButton();
     {
         split.setPrefWidth(150);
         split.setPrefHeight(32);
-        
+
         //split.setText("Edit simulation files");
         split.setTooltip(new Tooltip("Edit simulation project files"));
-        
-        split.setOnAction((ActionEvent event) -> 
-        {
-            if(lastFile != null)
+
+        split.setOnAction((ActionEvent event) -> {
+            if (lastFile != null)
                 editTextFile(lastFile);
         });
     }
-    
+
     private final Button playButton = new Button("", Icons.getInstance().getIconImageView("Start", 24));
     {
         playButton.setOnAction((ActionEvent event) -> Actions.getInstance().execCurrentSimulation());
         playButton.setTooltip(new Tooltip("Open SUMO"));
     }
-    
+
     private final Button reloadProjectButton = new Button("", Icons.getInstance().getIconImageView("Refresh", 24));
     {
-        reloadProjectButton.setOnAction((ActionEvent event) ->
-        {
-            try
-            {
+        reloadProjectButton.setOnAction((ActionEvent event) -> {
+            try {
                 SystemProperties.getInstance().getCurrentSimulation().load();
-            } catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 DLRLogger.severe(this, ex);
             }
         });
         reloadProjectButton.setTooltip(new Tooltip("Reload simulation project files"));
-    }        
+    }
 
     private final Button exploreProjectFolderButton = new Button("", Icons.getInstance().getIconImageView("Folder3", 24));
     {
-        exploreProjectFolderButton.setOnAction((ActionEvent event) ->
-        {
-            try
-            {
+        exploreProjectFolderButton.setOnAction((ActionEvent event) -> {
+            try {
                 openSimulationFolder();
-            } catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 DLRLogger.severe(this, ex);
             }
         });
         exploreProjectFolderButton.setTooltip(new Tooltip("Explore simulation project folder"));
-    }        
-    
+    }
+
     private final Button controlUnitsPreferencesButton = new Button("", Icons.getInstance().getIconImageView("Dots", 24));
     {
-        controlUnitsPreferencesButton.setOnAction((ActionEvent event) ->
-        {
-            try
-            {
+        controlUnitsPreferencesButton.setOnAction((ActionEvent event) -> {
+            try {
                 Actions.getInstance().openControlUnitPreferences();
-            } catch (Exception ex)
-            {
+            } catch (Exception ex) {
                 DLRLogger.severe(this, ex);
             }
         });
         controlUnitsPreferencesButton.setTooltip(new Tooltip("Control Units Management"));
     }
-    
+
     /**
-     * 
+     *
      */
-    public SimulationToolBar()
-    {
+    public SimulationToolBar() {
         this.getItems().addAll(new Separator(), playButton, reloadProjectButton, split, exploreProjectFolderButton, controlUnitsPreferencesButton);
-        
+
         SystemProperties.getInstance().simulationOpenedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) ->
-                    this.setEnabled(SystemProperties.getInstance().simulationOpenedProperty().get())
-        );
-        
+        .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) ->
+                     this.setEnabled(SystemProperties.getInstance().simulationOpenedProperty().get())
+                    );
+
         SystemProperties.getInstance().simulationStartedProperty()
-                .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) -> 
-                        this.setSimulationStarted(oldValue));
-        
+        .addListener((ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) ->
+                     this.setSimulationStarted(oldValue));
+
         this.setEnabled(false);
     }
 
     /**
-     * 
+     *
      * @param enabled
      */
     @Override
-    public void setEnabled(boolean enabled)
-    {
+    public void setEnabled(boolean enabled) {
         playButton.setDisable(!enabled);
         reloadProjectButton.setDisable(!enabled);
         split.setDisable(!enabled);
         exploreProjectFolderButton.setDisable(!enabled);
         controlUnitsPreferencesButton.setDisable(!enabled);
-                
+
         split.getItems().clear();
-        
-        if(enabled)
-        {
+
+        if (enabled) {
             LisumSimulation cp = SystemProperties.getInstance().getCurrentSimulation();
-            for (String s : cp.getSimulationFiles().getSimulationDirectory().list())
-            {
-                if(s.endsWith(".xml") || s.endsWith(".sumocfg"))
-                {
+            for (String s : cp.getSimulationFiles().getSimulationDirectory().list()) {
+                if (s.endsWith(".xml") || s.endsWith(".sumocfg")) {
                     MenuItem mi = new MenuItem(s);
                     split.getItems().add(mi);
-                    mi.addEventHandler(EventType.ROOT, (Event event) ->
-                    {
+                    mi.addEventHandler(EventType.ROOT, (Event event) -> {
                         editTextFile(s);
                         split.setText(s);
                     });
                 }
             }
-            
-            if(!split.getItems().isEmpty() && lastFile == null)
-            {
+
+            if (!split.getItems().isEmpty() && lastFile == null) {
                 split.setText(split.getItems().get(0).getText());
                 lastFile = split.getItems().get(0).getText();
             }
@@ -170,98 +155,85 @@ public final class SimulationToolBar extends ToolBar implements ToolBarInterface
     }
 
     /**
-     * 
-     * @param enabled 
+     *
+     * @param enabled
      */
     @Override
-    public void setSimulationStarted(boolean enabled)
-    {
+    public void setSimulationStarted(boolean enabled) {
         setEnabled(enabled);
         controlUnitsPreferencesButton.setDisable(false);
     }
-    
+
     /**
-     * 
+     *
      */
-    private void openSimulationFolder()
-    {
+    private void openSimulationFolder() {
         String ff = SystemProperties.getInstance().getCurrentSimulation().getSimulationFiles()
-                   .getSimulationDirectory().getAbsolutePath();
-        
+                    .getSimulationDirectory().getAbsolutePath();
+
         String program = GlobalConfig.getInstance().getFilesExplorer();
-        
-        if(program.isEmpty())
-        {
-            if(System.getProperty("os.name").toUpperCase().contains("WIN"))
+
+        if (program.isEmpty()) {
+            if (System.getProperty("os.name").toUpperCase().contains("WIN")) {
                 program = "explorer.exe";
-            else
-            {
+            } else {
                 ErrorMessage em = new ErrorMessage("Please set a files explorer program in the System Preferences");
                 em.show();
                 return;
             }
-        }
-        else
-        {
-            if(!System.getProperty("os.name").toUpperCase().contains("WIN"))
-                if(program.endsWith(".exe"))
-                {
+        } else {
+            if (!System.getProperty("os.name").toUpperCase().contains("WIN"))
+                if (program.endsWith(".exe")) {
                     ErrorMessage em = new ErrorMessage("Please set a suitable files explorer program in the System Preferences");
                     em.show();
                     return;
-                }                    
+                }
         }
-        
-        try
-        {
+
+        try {
             new ProcessBuilder(program, ff).start();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             ex.printStackTrace();
         }
     }
-    
+
     /**
-     * 
-     * @param name 
+     *
+     * @param name
      */
-    private void editTextFile(String name)            
-    {
+    private void editTextFile(String name) {
         DLRLogger.finest(this, "Opening " + name);
-        
+
         File dd = new File(name);
-        if(!dd.isAbsolute())
-        {
+        if (!dd.isAbsolute()) {
             String ff = SystemProperties.getInstance().getCurrentSimulation().getSimulationFiles()
-                   .getSimulationDirectory().getAbsolutePath();
+                        .getSimulationDirectory().getAbsolutePath();
             ff += File.separator + name;
-            
+
             dd = new File(ff);
         }
 
         lastFile = dd.getAbsolutePath();
-        
+
         //String program = "C:/Program Files (x86)/Notepad++/notepad++.exe";
         String program = GlobalConfig.getInstance().getTextEditor();
-        
+
         DLRLogger.finest(this, "Text editor " + program);
-        
-        if(program.isEmpty())  // || !new File(program).exists()
-        {
-            if(System.getProperty("os.name").toUpperCase().contains("WIN"))
+
+        if (program.isEmpty()) { // || !new File(program).exists()
+            if (System.getProperty("os.name").toUpperCase().contains("WIN")) {
                 program = "notepad.exe";
-            else
+            } else {
                 program = "gedit";
+            }
         }
-        
-        try
-        {
+
+        try {
             new ProcessBuilder(program, dd.getAbsolutePath()).start();
-        } catch (IOException ex)
-        {
+        } catch (IOException ex) {
             DLRLogger.severe(this, "Error opening text editor: " + program);
             //ex.printStackTrace();
         }
     }
-    
+
 }

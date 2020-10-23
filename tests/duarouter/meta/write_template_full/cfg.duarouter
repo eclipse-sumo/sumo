@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jan 12 20:50:51 2019 by Eclipse SUMO duarouter Version v1_0_1+1015-8e01b2d
+<!-- generated on Thu Oct  8 04:16:53 2020 by Eclipse SUMO duarouter Version v1_7_0+0543-38a9bf14c0
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
@@ -17,25 +17,28 @@
         <net-file value="" synonymes="n net" type="FILE" help="Use FILE as SUMO-network to route on"/>
         <additional-files value="" synonymes="a additional d districts taz-files" type="FILE" help="Read additional network data (districts, bus stops) from FILE(s)"/>
         <route-files value="" synonymes="alternative-files alternatives-files f flow-files flows r t trip-files trips" type="FILE" help="Read sumo routes, alternatives, flows, and trips from FILE(s)"/>
+        <phemlight-path value="./PHEMlight/" type="FILE" help="Determines where to load PHEMlight definitions from."/>
+        <junction-taz value="false" type="BOOL" help="Initialize a TAZ for every junction to use attributes toJunction and fromJunction"/>
         <weight-files value="" synonymes="w weights" type="FILE" help="Read network weights from FILE(s)"/>
         <lane-weight-files value="" type="FILE" help="Read lane-based network weights from FILE(s)"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
-        <phemlight-path value="./PHEMlight/" type="FILE" help="Determines where to load PHEMlight definitions from."/>
     </input>
 
     <output>
+        <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
+        <vtype-output value="" synonymes="vtype" type="FILE" help="Write used vehicle types into separate FILE"/>
+        <keep-vtype-distributions value="false" type="BOOL" help="Keep vTypeDistribution ids when writing vehicles and their types"/>
         <write-license value="false" type="BOOL" help="Include license info into every output file"/>
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
-        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
-        <output-file value="" synonymes="o output" type="FILE" help="Write generated routes to FILE"/>
-        <vtype-output value="" synonymes="vtype" type="FILE" help="Write used vehicle types into separate FILE"/>
-        <keep-vtype-distributions value="false" type="BOOL" help="Keep vTypeDistribution ids when writing vehicles and their types"/>
+        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <alternatives-output value="" synonymes="alternatives" type="FILE" help="Write generated route alternatives to FILE"/>
         <intermodal-network-output value="" type="FILE" help="Write edge splits and connectivity to FILE"/>
         <intermodal-weight-output value="" type="FILE" help="Write intermodal edges with lengths and travel times to FILE"/>
         <write-trips value="false" type="BOOL" help="Write trips instead of vehicles (for validating trip input)"/>
+        <write-trips.geo value="false" type="BOOL" help="Write trips with geo-coordinates"/>
+        <write-trips.junctions value="false" type="BOOL" help="Write trips with fromJunction and toJunction"/>
         <exit-times value="false" type="BOOL" help="Write exit times (weights) for each edge"/>
     </output>
 
@@ -52,11 +55,16 @@
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <weights.minor-penalty value="1.5" type="FLOAT" help="Apply the given time penalty when computing routing costs for minor-link internal lanes"/>
         <with-taz value="false" type="BOOL" help="Use origin and destination zones (districts) for in- and output"/>
+        <mapmatch.distance value="100" type="FLOAT" help="Maximum distance when mapping input coordinates (fromXY etc.) to the road network"/>
+        <mapmatch.junctions value="false" type="BOOL" help="Match positions to junctions instead of edges"/>
         <bulk-routing value="false" type="BOOL" help="Aggregate routing queries with the same origin"/>
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
+        <restriction-params value="" type="STR[]" help="Comma separated list of param keys to compare for additional restrictions"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
+        <weights.random-factor value="1" type="FLOAT" help="Edge weights for routing are dynamically disturbed by a random factor drawn uniformly from [1,FLOAT)"/>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <weight-period value="3600" type="TIME" help="Aggregation period for the given weight files; triggers rebuilding of Contraction Hierarchy"/>
+        <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>
         <astar.all-distances value="" type="FILE" help="Initialize lookup table for astar from the given file (generated by marouter --all-pairs-output)"/>
         <astar.landmark-distances value="" type="FILE" help="Initialize lookup table for astar ALT-variant from the given file"/>
         <astar.save-landmark-distances value="" type="FILE" help="Save lookup table for astar ALT-variant to the given file"/>
@@ -71,7 +79,11 @@
         <logit.gamma value="1" synonymes="lGamma" type="FLOAT" help="Use FLOAT as logit&apos;s gamma"/>
         <logit.theta value="-1" synonymes="lTheta" type="FLOAT" help="Use FLOAT as logit&apos;s theta (negative values mean auto-estimation)"/>
         <persontrip.walkfactor value="0.75" type="FLOAT" help="Use FLOAT as a factor on pedestrian maximum speed during intermodal routing"/>
-        <persontrip.transfer.car-walk value="parkingAreas" type="STR" help="Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations)"/>
+        <persontrip.transfer.car-walk value="parkingAreas" type="STR[]" help="Where are mode changes from car to walking allowed (possible values: &apos;parkingAreas&apos;, &apos;ptStops&apos;, &apos;allJunctions&apos; and combinations)"/>
+        <persontrip.transfer.taxi-walk value="" type="STR[]" help="Where taxis can drop off customers (&apos;allJunctions, &apos;ptStops&apos;)"/>
+        <persontrip.transfer.walk-taxi value="" type="STR[]" help="Where taxis can pick up customers (&apos;allJunctions, &apos;ptStops&apos;)"/>
+        <persontrip.taxi.waiting-time value="300" type="TIME" help="Estimated time for taxi pickup"/>
+        <railway.max-train-length value="5000" type="FLOAT" help="Use FLOAT as a maximum train length when initializing the railway router"/>
     </processing>
 
     <defaults>
@@ -92,11 +104,13 @@
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
         <print-options value="false" type="BOOL" help="Prints option values before processing"/>
-        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen or selected topics"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
+        <xml-validation.routes value="auto" type="STR" help="Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>

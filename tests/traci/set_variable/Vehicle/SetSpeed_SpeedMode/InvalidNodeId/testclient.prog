@@ -1,3 +1,5 @@
 simstep2 0
 setvalue 0xc4 0x40 xxx <double> 10
 simstep2 0
+simstep2 0
+

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.12.2018 13:49:47 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
+<!-- generated on 3/11/2020 2:23:05 PM by Eclipse SUMO netedit Version v1_5_0+0577-c86610ca2e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec134932.2172/netedit.gui/netElements/lanes/contextual_menu/add_restricte_lane/sidewalk\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec134932.2172/netedit.gui/netElements/lanes/contextual_menu/add_restricte_lane/sidewalk\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -30,29 +31,32 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec134932.2172/netedit.gui/netElements/lanes/contextual_menu/add_restricte_lane/sidewalk\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec134932.2172/netedit.gui/netElements/lanes/contextual_menu/add_restricte_lane/sidewalk\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec134932.2172/netedit.gui/netElements/lanes/contextual_menu/add_restricte_lane/sidewalk\shapes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec134932.2172/netedit.gui/netElements/lanes/contextual_menu/add_restricte_lane/sidewalk\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec134932.2172/netedit.gui/netElements/lanes/contextual_menu/add_restricte_lane/sidewalk\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.11Mar090907.5180\netedit.gui\netElements\lanes\contextual_menu\add_restricted_lane\sidewalk\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -66,7 +70,7 @@
         <lane id=":gneJ0_2_0" index="0" speed="3.65" length="2.08" shape="3.20,1.60 2.00,0.80 1.71,0.23"/>
     </edge>
     <edge id=":gneJ0_3" function="internal">
-        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,-0.00 2.00,-0.80 3.20,-1.60"/>
+        <lane id=":gneJ0_3_0" index="0" speed="3.65" length="2.59" shape="1.71,0.23 1.60,0.00 2.00,-0.80 3.20,-1.60"/>
     </edge>
     <edge id=":gneJ0_w0" function="walkingarea">
         <lane id=":gneJ0_w0_0" index="0" allow="pedestrian" speed="1.00" length="4.26" width="3.20" shape="-3.20,3.20 0.00,3.20 0.00,3.20 3.20,3.20 3.20,3.20 3.20,0.00 3.20,0.00 3.20,-3.20 -3.02,1.24 -2.49,-0.36 -1.60,-1.60 -0.36,-2.49 1.24,-3.02"/>
@@ -105,7 +109,7 @@
         <lane id=":gneJ3_0_0" index="0" speed="7.58" length="12.62" shape="51.60,12.80 51.17,16.65 49.90,19.40 47.78,21.05 44.80,21.60"/>
     </edge>
     <edge id=":gneJ3_1" function="internal">
-        <lane id=":gneJ3_1_0" index="0" speed="5.99" length="7.49" shape="44.80,18.40 46.38,18.05 47.50,17.00 48.17,15.25 48.40,12.80"/>
+        <lane id=":gneJ3_1_0" index="0" disallow="pedestrian" speed="5.99" length="7.49" shape="44.80,18.40 46.38,18.05 47.50,17.00 48.17,15.25 48.40,12.80"/>
     </edge>
     <edge id=":gneJ3_c1" function="crossing" crossingEdges="-gneE2 gneE2">
         <lane id=":gneJ3_c1_0" index="0" allow="pedestrian" speed="1.00" length="6.40" width="4.00" shape="46.80,23.20 46.80,16.80"/>

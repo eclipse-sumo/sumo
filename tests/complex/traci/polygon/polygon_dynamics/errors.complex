@@ -1,0 +1,6 @@
+Error: Answered with error to command 0xc8: Could not add polygon dynamics for polygon 'poly0': dynamics underspecified (either a tracked object ID or a time span have to be provided).
+Error: Answered with error to command 0xc8: Could not add polygon dynamics for polygon 'poly0': entries of time span must be ordered ascendingly.
+Error: Answered with error to command 0xc8: Could not add polygon dynamics for polygon 'poly0': first element of time span must be zero.
+Error: Answered with error to command 0xc8: Could not add polygon dynamics for polygon 'poly0': alpha span must have length zero or equal to time span length.
+Error: Answered with error to command 0xc8: Could not add polygon dynamics for polygon 'poly0': time span cannot have length one.
+Error: Answered with error to command 0xc8: Could not add polygon dynamics for polygon 'poly0': looped==true requires time line of positive length.

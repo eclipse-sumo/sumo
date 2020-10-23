@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 01 Apr 2019 10:42:54 AM CEST by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/acosta_net/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+        <check-lane-foes.all value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-683542.41,-4928877.56" convBoundary="522.06,613.44,1176.38,919.94" origBoundary="-346.830000,0.000000,1817.580000,2148.550000" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="15" x="798.63" y="778.69" type="traffic_light" tl="220" controlledInner="69 72[1]"/>
+    <node id="16" x="666.63" y="853.07" type="dead_end"/>
+    <node id="17" x="820.88" y="849.19" type="priority"/>
+    <node id="222-end" x="979.38" y="840.57" type="dead_end"/>
+    <node id="23" x="522.06" y="713.69" type="dead_end"/>
+    <node id="52" x="977.75" y="829.69" type="traffic_light" tl="220" controlledInner="69 72[1]"/>
+    <node id="53" x="768.63" y="816.34" type="traffic_light" tl="220" controlledInner="69 72[1]"/>
+    <node id="62" x="966.81" y="642.88" type="dead_end"/>
+    <node id="79" x="1174.31" y="827.32" type="dead_end"/>
+    <node id="81" x="852.00" y="919.94" type="dead_end"/>
+    <node id="82" x="778.00" y="613.44" type="dead_end"/>
+    <node id="87" x="985.56" y="876.38" type="dead_end"/>
+    <node id="9" x="583.69" y="854.50" type="dead_end"/>
+</nodes>

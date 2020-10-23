@@ -1,10 +1,6 @@
 Warning: Discarding unusable type 'highway.residential_tunnel' (first occurence for edge '182').
-Warning: Reducing junction cluster 11382,21319,3149,9428 (5 incoming edges)
-Warning: Speed of straight connection '-1748#0_1->-61421#1_1' reduced by 17.77 due to turning radius of 18.22 (length=10.25 angle=48.69)
-Warning: Speed of straight connection '-1748#0_2->-61421#1_2' reduced by 16.76 due to turning radius of 22.08 (length=12.52 angle=48.69)
-Warning: Speed of straight connection '-61421#2_1->-61421#0_1' reduced by 16.09 due to turning radius of 24.85 (length=3.05 angle=22.25)
-Warning: Speed of straight connection '-61421#2_2->-61421#0_2' reduced by 18.70 due to turning radius of 14.99 (length=1.80 angle=22.25)
-Warning: Speed of straight connection '2128#2_1->2128#3_1' reduced by 15.70 due to turning radius of 26.55 (length=20.20 angle=59.96)
-Warning: Speed of straight connection '2128#2_2->2128#3_2' reduced by 16.41 due to turning radius of 23.51 (length=17.82 angle=59.96)
-Warning: Speed of straight connection '-61421#1_1->-61421#2_1' reduced by 9.79 due to turning radius of 58.87 (length=12.60 angle=27.43)
-Warning: Speed of straight connection '-61421#1_2->-61421#2_2' reduced by 10.91 due to turning radius of 51.76 (length=11.06 angle=27.43)
+Warning: Reducing junction cluster 11382,21319,3149,9428 (5 incoming edges).
+Warning: Speed of straight connection '-1748#0_1->-61421#1_1' reduced by 19.25 due to turning radius of 13.22 (length=9.21, angle=57.49).
+Warning: Speed of straight connection '-61421#2_1->-61421#0_1' reduced by 18.70 due to turning radius of 14.99 (length=1.80, angle=22.25).
+Warning: Speed of straight connection '2128#2_1->2128#3_1' reduced by 17.77 due to turning radius of 18.21 (length=13.66, angle=59.96).
+Warning: Speed of straight connection '-61421#1_1->-61421#2_1' reduced by 11.75 due to turning radius of 46.69 (length=9.96, angle=27.43).

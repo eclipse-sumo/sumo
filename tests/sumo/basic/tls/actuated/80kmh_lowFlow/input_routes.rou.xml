@@ -1,0 +1,12 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+   <route id="SW" edges="SC CW"/>
+   <route id="S2W" edges="S2S SC CW"/>
+   <flow id="SE1" begin="0" route="SW" period="82" end="500"/>
+   <flow id="SE2" begin="0" route="SW" period="82" end="500"/>
+   <flow id="SE3" begin="0" route="SW" period="82" end="500"/>
+   <flow id="SE4" begin="0" route="SW" period="82" end="500"/>
+   <!--
+   <flow id="SE5" begin="0" route="SW" period="82" end="500"/>
+   -->
+</routes>

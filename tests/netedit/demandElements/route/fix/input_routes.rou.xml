@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 22.07.2019 15:11:57 by Eclipse SUMO netedit Version v1_2_0+1274-9019d043e4
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\route\fix\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\demandElements\route\fix\input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="D:\sumo\tests\netedit\demandElements\route\fix\input_routes.rou.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route edges="gneE2 gneE4" color="yellow" id="route_0"/>
+	<route edges="gneE4 gneE5" color="orange" id="route_1"/>
+	<route edges="gneE2 gneE4 gneE5" color="pink" id="route_2"/>
+	<route edges="gneE5 gneE8" color="white" id="route_3"/>
+</routes>

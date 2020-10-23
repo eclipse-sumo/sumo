@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    od2trips_main.cpp
 /// @author  Daniel Krajzewicz
@@ -14,15 +18,9 @@
 /// @author  Laura Bieker
 /// @author  Yun-Pang Floetteroed
 /// @date    Thu, 12 September 2002
-/// @version $Id$
 ///
 // Main for OD2TRIPS
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -109,6 +107,9 @@ fillOptions() {
     oc.doRegister("persontrips", new Option_Bool(false));
     oc.addDescription("persontrips", "Output", "Writes persontrips instead of vehicles");
 
+    oc.doRegister("persontrips.modes", new Option_StringVector());
+    oc.addDescription("persontrips.modes", "Output", "Add modes attribute to personTrips");
+
     oc.doRegister("ignore-vehicle-type", new Option_Bool(false));
     oc.addSynonyme("ignore-vehicle-type", "no-vtype", true);
     oc.addDescription("ignore-vehicle-type", "Output", "Does not save vtype information");
@@ -138,8 +139,8 @@ fillOptions() {
     oc.doRegister("prefix", new Option_String(""));
     oc.addDescription("prefix", "Processing", "Defines the prefix for vehicle names");
 
-    oc.doRegister("timeline", new Option_String());
-    oc.addDescription("timeline", "Processing", "Uses STR as a timeline definition");
+    oc.doRegister("timeline", new Option_StringVector());
+    oc.addDescription("timeline", "Processing", "Uses STR[] as a timeline definition");
 
     oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
     oc.addDescription("timeline.day-in-hours", "Processing", "Uses STR as a 24h-timeline definition");
@@ -187,12 +188,12 @@ checkOptions() {
         WRITE_ERROR("No input specified.");
         ok = false;
     }
-    if (!oc.isSet("output-file")) {
-        WRITE_ERROR("No trip table output file (-o) specified.");
+    if (!oc.isSet("output-file") && !oc.isSet("flow-output")) {
+        WRITE_ERROR("No trip table output file (-o) or flow-output is specified.");
         ok = false;
     }
     if (oc.getBool("pedestrians") && oc.getBool("persontrips")) {
-        WRITE_ERROR("Only of the the options 'pedestrians' and 'persontrips' may be set.");
+        WRITE_ERROR("Only one of the the options 'pedestrians' and 'persontrips' may be set.");
         ok = false;
     }
     //
@@ -249,7 +250,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+        XMLSubSys::setValidation(oc.getString("xml-validation"), "never", "never");
         MsgHandler::initOutputOptions();
         if (!checkOptions()) {
             throw ProcessError();
@@ -280,6 +281,7 @@ main(int argc, char** argv) {
         if (oc.isSet("timeline")) {
             matrix.applyCurve(matrix.parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
+        const std::string modes = toString(oc.getStringVector("persontrips.modes"));
         // write
         bool haveOutput = false;
         if (OutputDevice::createDeviceByOption("output-file", "routes", "routes_file.xsd")) {
@@ -289,14 +291,15 @@ main(int argc, char** argv) {
                          oc.getBool("ignore-vehicle-type"),
                          oc.getString("prefix"), !oc.getBool("no-step-log"),
                          oc.getBool("pedestrians"),
-                         oc.getBool("persontrips"));
+                         oc.getBool("persontrips"), modes);
             haveOutput = true;
         }
         if (OutputDevice::createDeviceByOption("flow-output", "routes", "routes_file.xsd")) {
             matrix.writeFlows(string2time(oc.getString("begin")), string2time(oc.getString("end")),
                               OutputDevice::getDeviceByOption("flow-output"),
                               oc.getBool("ignore-vehicle-type"), oc.getString("prefix"),
-                              oc.getBool("flow-output.probability"));
+                              oc.getBool("flow-output.probability"), oc.getBool("pedestrians"),
+                              oc.getBool("persontrips"), modes);
             haveOutput = true;
         }
         if (!haveOutput) {
@@ -330,6 +333,4 @@ main(int argc, char** argv) {
 }
 
 
-
 /****************************************************************************/
-

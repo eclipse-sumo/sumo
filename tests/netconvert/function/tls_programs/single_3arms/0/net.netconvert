@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:54 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:02 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,12 +24,13 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-14540.75,-27867.00" convBoundary="0.00,0.00,226.38,266.00" origBoundary="14540.75,27867.00,14767.13,28133.00" projParameter="!"/>
 
@@ -104,11 +105,11 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="n6" type="static" programID="0" offset="0">
-        <phase duration="38" state="GGgGggrrr"/>
-        <phase duration="3"  state="yygyggrrr"/>
-        <phase duration="6"  state="rrGrGGrrr"/>
-        <phase duration="3"  state="rryryyrrr"/>
-        <phase duration="37" state="GrrrrrGGg"/>
+        <phase duration="27" state="GGgGrrrrr"/>
+        <phase duration="3"  state="yyyyrrrrr"/>
+        <phase duration="27" state="rrrGGgGrr"/>
+        <phase duration="3"  state="rrryyyyrr"/>
+        <phase duration="27" state="GrrrrrGGg"/>
         <phase duration="3"  state="yrrrrryyy"/>
     </tlLogic>
 
@@ -122,7 +123,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="n6" type="traffic_light" x="128.56" y="197.00" incLanes="e18_0 e18_1 e17_0 e17_1 e15_0" intLanes=":n6_0_0 :n6_1_0 :n6_9_0 :n6_3_0 :n6_10_0 :n6_11_0 :n6_6_0 :n6_7_0 :n6_12_0" shape="140.83,198.95 137.23,190.05 135.04,190.46 134.15,190.22 133.39,189.69 132.78,188.86 132.30,187.74 123.16,190.68 123.62,193.54 123.43,194.73 122.96,195.75 122.21,196.62 121.17,197.33 124.20,202.97 127.50,201.49 130.10,200.84 132.37,200.64 134.67,200.52 137.37,200.08">
-        <request index="0" response="000000000" foes="100010000" cont="0"/>
+        <request index="0" response="000010000" foes="100010000" cont="0"/>
         <request index="1" response="000000000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
         <request index="3" response="000000000" foes="010000100" cont="0"/>
@@ -134,7 +135,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
 
     <junction id=":n6_9_0" type="internal" x="136.97" y="193.39" incLanes=":n6_2_0 e15_0 e17_0" intLanes=":n6_3_0 :n6_7_0"/>
-    <junction id=":n6_10_0" type="internal" x="128.47" y="193.06" incLanes=":n6_4_0 e18_0 e18_1" intLanes=":n6_0_0 :n6_1_0 :n6_7_0 :n6_8_0"/>
+    <junction id=":n6_10_0" type="internal" x="128.47" y="193.06" incLanes=":n6_4_0 e18_1" intLanes=":n6_0_0 :n6_1_0 :n6_7_0 :n6_8_0"/>
     <junction id=":n6_11_0" type="internal" x="126.94" y="190.98" incLanes=":n6_5_0 e15_0 e18_1" intLanes=":n6_1_0 :n6_6_0"/>
     <junction id=":n6_12_0" type="internal" x="124.10" y="199.63" incLanes=":n6_8_0 e17_1 e18_0" intLanes=":n6_0_0 :n6_4_0"/>
 

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 10:10:54 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 11.03.2019 12:59:25 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_shapeend\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/edges/inspect/shapeend\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_shapeend\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/edges/inspect/shapeend\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_shapeend\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_shapeend\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_shapeend\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/edges/inspect/shapeend\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/edges/inspect/shapeend\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/edges/inspect/shapeend\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_shapeend\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/edges/inspect/shapeend\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,13 +44,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_shapeend\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar120521.2252/netedit.gui/netElements/edges/inspect/shapeend\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -90,7 +91,7 @@
         <lane id=":gneJ2_3_0" index="0" speed="7.08" length="11.96" shape="1.60,9.12 1.99,13.03 3.14,15.71 5.07,17.15 7.77,17.36"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="10.56" length="25.49" shape="51.60,3.84 51.70,11.34 51.19,18.07 48.79,22.93 43.27,24.80"/>
+        <lane id=":gneJ3_0_0" index="0" speed="10.36" length="24.50" shape="51.60,3.84 51.08,13.01 49.52,19.56 46.92,23.49 43.27,24.80"/>
     </edge>
     <edge id=":gneJ3_1" function="internal">
         <lane id=":gneJ3_1_0" index="0" speed="9.75" length="21.58" shape="51.60,3.84 51.08,11.61 49.52,17.16 46.92,20.49 43.28,21.60"/>

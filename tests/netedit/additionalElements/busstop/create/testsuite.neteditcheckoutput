@@ -1,17 +1,19 @@
 default
 
+id
+
 name
+
+friendlypos
 
 lines
 
-friendlypos
+personcapacity
+
+parkingLength
 
 blockmovement
 
 references
 
 references_lenght
-
-fix_positions
-
-fix_friendlypos

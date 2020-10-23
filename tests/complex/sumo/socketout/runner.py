@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Michael Behrisch
 # @date    2012-01-14
-# @version $Id$
 
 from __future__ import absolute_import
 
@@ -31,24 +34,23 @@ sumoBinary = sumolib.checkBinary('sumo')
 def main(bailOut=False):
     sys.stdout.flush()
     # create an INET, STREAMing socket
-    serversocket = socket.socket(
-        socket.AF_INET, socket.SOCK_STREAM)
+    serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     serversocket.bind(("localhost", PORT))
     serversocket.listen(5)
-    (clientsocket, address) = serversocket.accept()
+    clientsocket, _ = serversocket.accept()
     while True:
         # accept connections from outside
         # now do something with the clientsocket
-        msg = ''
+        msg = b''
         while len(msg) < 100:
             chunk = clientsocket.recv(100 - len(msg))
             if bailOut:
                 return
-            if chunk == '':
-                sys.stdout.write(msg)
+            if chunk == b'':
+                sys.stdout.write(msg.decode("UTF8"))
                 return
-            msg = msg + chunk
-        sys.stdout.write(msg)
+            msg += chunk
+        sys.stdout.write(msg.decode("UTF8"))
 
 
 threading.Thread(target=main).start()

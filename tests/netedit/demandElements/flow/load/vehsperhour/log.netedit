@@ -1,0 +1,9 @@
+Error: At most one of 'period' and 'vehsPerHour' has to be given in the definition of flow 'flow_0'.
+Error: At least one of 'period', 'vehsPerHour', 'probability', and 'number' is needed in flow 'flow_1'.
+Error: Attribute 'vehsPerHour' in definition of flow 'flow_2' is not of type float.
+Error: Flow cannot be created
+Error: Attribute 'vehsPerHour' in definition of flow 'flow_3' is empty.
+Error: Flow cannot be created
+Error: Invalid repetition rate in the definition of flow 'flow_4'.
+Error: Invalid repetition rate in the definition of flow 'flow_5'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug134741.10088/netedit.gui/demandElements/flow/load/vehsperhour\input_routes.rou.xml failed.

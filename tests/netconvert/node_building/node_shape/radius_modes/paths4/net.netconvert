@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun Jun  7 10:46:31 2020 by Eclipse SUMO netconvert Version v1_6_0+0576-90196f05a1
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="CE" from="C" to="E" priority="-1">
+        <lane id="CE_0" index="0" allow="pedestrian" speed="13.89" length="98.50" shape="101.50,98.40 200.00,98.40"/>
+    </edge>
+    <edge id="CS" from="C" to="S" priority="-1">
+        <lane id="CS_0" index="0" allow="pedestrian" speed="13.89" length="95.30" shape="98.40,95.30 98.40,0.00"/>
+    </edge>
+    <edge id="NC" from="N" to="C" priority="-1">
+        <lane id="NC_0" index="0" allow="pedestrian" speed="13.89" length="98.50" shape="98.40,200.00 98.40,101.50"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="-1">
+        <lane id="WC_0" index="0" allow="pedestrian" speed="13.89" length="95.30" shape="0.00,98.40 95.30,98.40"/>
+    </edge>
+
+    <junction id="C" type="dead_end" x="100.00" y="100.00" incLanes="NC_0 WC_0" intLanes="" shape="96.80,101.50 100.00,101.50 100.17,100.67 100.38,100.38 100.67,100.17 101.04,100.04 101.50,100.00 101.50,96.80 100.67,96.63 100.38,96.43 100.17,96.13 100.04,95.76 100.00,95.30 96.80,95.30 96.63,96.13 96.43,96.42 96.13,96.63 95.76,96.76 95.30,96.80 95.30,100.00 96.13,100.17 96.43,100.38 96.63,100.67 96.76,101.04"/>
+    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="CE_0" intLanes="" shape="200.00,96.80 200.00,100.00"/>
+    <junction id="N" type="dead_end" x="100.00" y="200.00" incLanes="" intLanes="" shape="100.00,200.00 96.80,200.00"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="CS_0" intLanes="" shape="96.80,0.00 100.00,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 0.00,96.80"/>
+
+</net>

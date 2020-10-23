@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
-# @version $Id$
 
 # import common functions for netedit tests
 import os
@@ -25,28 +28,30 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 
-
 # rebuild network
 netedit.rebuildNetwork()
 
 # Change to delete mode
 netedit.deleteMode()
 
+# disable 'Automatically delete additionals'
+netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
+
 # remove one way edge
-netedit.leftClick(referencePosition, 50, 50)
+netedit.leftClick(referencePosition, 50, 60)
 
 # remove two way edges
-netedit.leftClick(referencePosition, 260, 50)
+netedit.leftClick(referencePosition, 260, 60)
 
 # remove two way edges
-netedit.leftClick(referencePosition, 500, 50)
+netedit.leftClick(referencePosition, 500, 60)
 
 # remove square
-netedit.leftClick(referencePosition, 60, 160)
-netedit.leftClick(referencePosition, 150, 280)
+netedit.leftClick(referencePosition, 50, 180)
+netedit.leftClick(referencePosition, 160, 290)
 
 # remove circular road
-netedit.leftClick(referencePosition, 450, 270)
+netedit.leftClick(referencePosition, 430, 290)
 
 # rebuild network
 netedit.rebuildNetwork()
@@ -61,10 +66,10 @@ netedit.rebuildNetwork()
 netedit.redo(referencePosition, 6)
 
 # save additionals
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

@@ -1,0 +1,4 @@
+Warning: No connection between edge 'beg' and edge 'end2' found.
+Warning: No route for vehicle 'tripClosedAlready' found.
+Warning: Teleporting vehicle 'tripClosedAlready'; waited too long (wrong lane), lane='beg_0', time=1320.00.
+Warning: Vehicle 'tripClosedAlready' ends teleporting on edge 'end2', time 1320.00.

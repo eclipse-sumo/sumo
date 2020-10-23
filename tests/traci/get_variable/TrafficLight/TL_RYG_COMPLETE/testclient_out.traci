@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Thu Jan 10 08:25:31 2019
+TraCITestClient output file. Date: Mon Mar 25 18:25:55 2019
 
 
 -> Command sent: <SimulationStep>:
@@ -18,7 +18,8 @@ TraCITestClient output file. Date: Thu Jan 10 08:25:31 2019
  valueDataType=12 string value: GGggrrrrGGggrrrr
  valueDataType=11 Double value: 31.00
  valueDataType=11 Double value: 31.00
- valueDataType=9 Int value: -1
+ valueDataType=15 compound value with 0 members: [ 
+ ]
  valueDataType=12 string value: 
  ]
  valueDataType=15 compound value with 6 members: [ 
@@ -26,7 +27,8 @@ TraCITestClient output file. Date: Thu Jan 10 08:25:31 2019
  valueDataType=12 string value: yyggrrrryyggrrrr
  valueDataType=11 Double value: 4.00
  valueDataType=11 Double value: 4.00
- valueDataType=9 Int value: -1
+ valueDataType=15 compound value with 0 members: [ 
+ ]
  valueDataType=12 string value: 
  ]
  valueDataType=15 compound value with 6 members: [ 
@@ -34,7 +36,8 @@ TraCITestClient output file. Date: Thu Jan 10 08:25:31 2019
  valueDataType=12 string value: rrGGrrrrrrGGrrrr
  valueDataType=11 Double value: 6.00
  valueDataType=11 Double value: 6.00
- valueDataType=9 Int value: -1
+ valueDataType=15 compound value with 0 members: [ 
+ ]
  valueDataType=12 string value: 
  ]
  valueDataType=15 compound value with 6 members: [ 
@@ -42,7 +45,8 @@ TraCITestClient output file. Date: Thu Jan 10 08:25:31 2019
  valueDataType=12 string value: rryyrrrrrryyrrrr
  valueDataType=11 Double value: 4.00
  valueDataType=11 Double value: 4.00
- valueDataType=9 Int value: -1
+ valueDataType=15 compound value with 0 members: [ 
+ ]
  valueDataType=12 string value: 
  ]
  valueDataType=15 compound value with 6 members: [ 
@@ -50,7 +54,8 @@ TraCITestClient output file. Date: Thu Jan 10 08:25:31 2019
  valueDataType=12 string value: rrrrGGggrrrrGGgg
  valueDataType=11 Double value: 31.00
  valueDataType=11 Double value: 31.00
- valueDataType=9 Int value: -1
+ valueDataType=15 compound value with 0 members: [ 
+ ]
  valueDataType=12 string value: 
  ]
  valueDataType=15 compound value with 6 members: [ 
@@ -58,7 +63,8 @@ TraCITestClient output file. Date: Thu Jan 10 08:25:31 2019
  valueDataType=12 string value: rrrryyggrrrryygg
  valueDataType=11 Double value: 4.00
  valueDataType=11 Double value: 4.00
- valueDataType=9 Int value: -1
+ valueDataType=15 compound value with 0 members: [ 
+ ]
  valueDataType=12 string value: 
  ]
  valueDataType=15 compound value with 6 members: [ 
@@ -66,7 +72,8 @@ TraCITestClient output file. Date: Thu Jan 10 08:25:31 2019
  valueDataType=12 string value: rrrrrrGGrrrrrrGG
  valueDataType=11 Double value: 6.00
  valueDataType=11 Double value: 6.00
- valueDataType=9 Int value: -1
+ valueDataType=15 compound value with 0 members: [ 
+ ]
  valueDataType=12 string value: 
  ]
  valueDataType=15 compound value with 6 members: [ 
@@ -74,7 +81,8 @@ TraCITestClient output file. Date: Thu Jan 10 08:25:31 2019
  valueDataType=12 string value: rrrrrryyrrrrrryy
  valueDataType=11 Double value: 4.00
  valueDataType=11 Double value: 4.00
- valueDataType=9 Int value: -1
+ valueDataType=15 compound value with 0 members: [ 
+ ]
  valueDataType=12 string value: 
  ]
  ]

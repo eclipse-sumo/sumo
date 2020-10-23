@@ -1,0 +1,995 @@
+Loading configuration ... done.
+ Retrying in 1 seconds
+step 0.0
+step 1.0
+step 2.0
+vehicles ('horiz',)
+vehicle count 1
+examining horiz
+speed 11.1096298271
+speedLat 0.0
+speed w/o traci 11.1096298271
+acceleration 0.0
+pos (1000.0, 501.65)
+pos3D (1000.0, 501.65, 0.0)
+angle 270.0
+road 2fi
+lane 
+laneIndex -1073741824
+type DEFAULT_VEHTYPE
+routeID horizontal
+routeIndex 0
+route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
+lanePos 0.0
+color (255, 255, 0, 255)
+bestLanes ()
+CO2 2152.12517008
+CO 10.2449494987
+HC 0.093063072504
+PMx 0.0110729357103
+NOx 0.685726646725
+fuel 0.925130265075
+noise 62.5812448395
+Elec 0.0
+traveltime -1073741824.0
+effort -1073741824.0
+route valid True
+signals 0
+routingMode 0
+length 5.0
+maxSpeed 55.5555555556
+speedFactor 1.0
+allowedSpeed 11.11
+accel 2.6
+decel 4.5
+emergencyDecel 9.0
+apparentDecel 4.5
+actionStepLength 1.0
+lastActionTime 7.501
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+maxSpeedLat 1.0
+minGapLat 0.6
+lateralAlignment center
+lanePosLat 0.0
+person number 0
+personCapacity 4
+waiting time 0.0
+accumulated waiting time -1073741824.0
+driving dist 3002.0
+driving dist 2D 1099.59758551
+line 
+via ()
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+{80: '2fi', 86: 0.0}
+step 3.0
+{80: '2fi', 86: 0.0}
+step 4.0
+{80: '2fi', 86: 0.0}
+step 5.0
+{80: '2fi', 86: 0.0}
+new decel=5.1, automatically increased emergencyDecel=5.1
+vehicles ('horiz',)
+vehicle count 1
+examining horiz
+speed 11.1096298271
+speedLat 0.0
+speed w/o traci 11.1096298271
+acceleration 0.0
+pos (1000.0, 501.65)
+pos3D (1000.0, 501.65, 0.0)
+angle 270.0
+road 2fi
+lane 
+laneIndex -1073741824
+type DEFAULT_VEHTYPE@horiz
+routeID horizontal
+routeIndex 0
+route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
+lanePos 0.0
+color (255, 0, 0, 255)
+bestLanes ()
+CO2 0.0
+CO 0.0
+HC 0.0
+PMx 0.0
+NOx 0.0
+fuel 0.0
+noise 0.0
+Elec 0.0
+traveltime 55.0
+effort 54.0
+route valid True
+signals 0
+routingMode 1
+length 1.0
+maxSpeed 9.0
+speedFactor 1.1
+allowedSpeed 9.0
+accel 1.1
+decel 5.1
+emergencyDecel 5.2
+apparentDecel 5.3
+actionStepLength 1.0
+lastActionTime 7.501
+imperfection 0.1
+tau 1.1
+vClass bicycle
+emissionclass HBEFA2/zero
+shape bicycle
+MinGap 1.1
+width 1.1
+height 1.6
+maxSpeedLat 1.5
+minGapLat 0.5
+lateralAlignment arbitrary
+lanePosLat 0.0
+person number 0
+personCapacity 4
+waiting time 0.0
+accumulated waiting time -1073741824.0
+driving dist 3002.0
+driving dist 2D 1099.59758551
+line S46
+via ('3o', '4o')
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+reset traveltime -1073741824.0
+reset effort -1073741824.0
+set traveltime (default range) 23.0
+set effort (default range) 24.0
+vehicles ('horiz',)
+vehicle count 1
+examining bla
+recovering from exception after asking for unknown vehicle
+vehicles ('horiz',)
+vehicle count 1
+examining 1
+speed -1073741824.0
+speedLat -1073741824.0
+speed w/o traci -1073741824.0
+acceleration -1073741824.0
+pos invalid
+pos3D invalid
+angle -1073741824.0
+road 
+lane 
+laneIndex -1073741824
+type DEFAULT_VEHTYPE
+routeID horizontal
+routeIndex -1073741824
+route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
+lanePos -1073741824.0
+color (255, 255, 0, 255)
+bestLanes ()
+CO2 -1073741824.0
+CO -1073741824.0
+HC -1073741824.0
+PMx -1073741824.0
+NOx -1073741824.0
+fuel -1073741824.0
+noise -1073741824.0
+Elec -1073741824.0
+traveltime -1073741824.0
+effort -1073741824.0
+route valid True
+signals 0
+routingMode 0
+length 5.0
+maxSpeed 55.5555555556
+speedFactor 1.0
+allowedSpeed -1073741824.0
+accel 2.6
+decel 4.5
+emergencyDecel 9.0
+apparentDecel 4.5
+actionStepLength 1.0
+lastActionTime -9.22337203685e+15
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+maxSpeedLat 1.0
+minGapLat 0.6
+lateralAlignment center
+lanePosLat -1073741824.0
+person number 0
+personCapacity 4
+waiting time 0.001
+accumulated waiting time -1073741824.0
+driving dist -1073741824.0
+driving dist 2D -1073741824.0
+line 
+via ()
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+routeID horizontal
+route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
+step 6.0
+getIDList ('1', 'horiz')
+step 7.0
+{80: '2fi', 86: 0.0}
+()
+step 8.0
+{80: '2fi', 86: 83.33333333333333}
+()
+step 9.0
+{80: '2fi', 86: 83.33333333333333}
+()
+step 10.0
+{80: '2fi', 86: 83.33333333333333}
+()
+step 11.0
+{80: '2fi', 86: 83.33333333333333}
+()
+step 12.0
+{80: '2fi', 86: 83.33333333333333}
+()
+vehicles ('1', '2', 'horiz')
+vehicle count 3
+examining 2
+speed 10.032907938
+speedLat 0.0
+speed w/o traci 10.032907938
+acceleration 0.0
+pos (1000.0, 501.65)
+pos3D (1000.0, 501.65, 0.0)
+angle 270.0
+road 2fi
+lane 
+laneIndex -1073741824
+type DEFAULT_VEHTYPE
+routeID horizontal
+routeIndex 0
+route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
+lanePos 0.0
+color (255, 255, 0, 255)
+bestLanes ()
+CO2 2113.12746455
+CO 18.9624088085
+HC 0.131767937503
+PMx 0.0124176828272
+NOx 0.694859583407
+fuel 0.908370440946
+noise 61.7987047221
+Elec 0.0
+traveltime -1073741824.0
+effort -1073741824.0
+route valid True
+signals 0
+routingMode 0
+length 5.0
+maxSpeed 55.5555555556
+speedFactor 1.0
+allowedSpeed 11.11
+accel 2.6
+decel 4.5
+emergencyDecel 9.0
+apparentDecel 4.5
+actionStepLength 1.0
+lastActionTime 15.306
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+maxSpeedLat 1.0
+minGapLat 0.6
+lateralAlignment center
+lanePosLat 0.0
+person number 0
+personCapacity 4
+waiting time 0.0
+accumulated waiting time -1073741824.0
+driving dist 3002.0
+driving dist 2D 1099.59758551
+line t
+via ()
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+nextTLS ()
+speedmode -1073741824
+lanechangemode -1073741824
+slope 0.0
+leader None
+step 13.0
+{104: None}
+{80: '2fi', 86: 83.33333333333333}
+()
+step 14.0
+{104: None}
+{80: '2fi', 86: 83.33333333333333}
+()
+step 15.0
+{104: None}
+{80: '2fi', 86: 83.33333333333333}
+()
+step 16.0
+{104: None}
+{80: '2fi', 86: 83.33333333333333}
+()
+step 17.0
+{104: None}
+{80: '2fi', 86: 166.66666666666666}
+()
+step 18.0
+{104: None}
+{80: '2fi', 86: 166.66666666666666}
+()
+Invalid departure position.
+vehicles ('2', 'horiz')
+vehicle count 2
+examining anotherOne
+step 19.0
+{80: '2fi', 86: 166.66666666666666}
+step 20.0
+{80: '2fi', 86: 166.66666666666666}
+speed before moveToXY 9.00025200706
+step 21.0
+speed after moveToVTD 9.00025200706
+{80: '2fi', 86: 166.66666666666666}
+step 22.0
+{80: '2fi', 86: 166.66666666666666}
+step 23.0
+vehicles ('2', 'departInThePast', 'horiz')
+step 24.0
+vehicles ('2', 'departInThePast', 'horiz')
+step 25.0
+vehicles ('2', 'departInThePast', 'horiz')
+step 26.0
+vehicles ('2', 'departInThePast', 'horiz')
+step 27.0
+vehicles ('2', 'departInThePast', 'horiz')
+step 28.0
+vehicles ('2', 'departInThePast', 'horiz')
+step 29.0
+vehicles ('2', 'departInThePast', 'horiz')
+step 30.0
+vehicles ('2', 'departInTheFuture', 'departInThePast', 'horiz')
+step 31.0
+vehicles ('2', 'departInTheFuture', 'departInThePast', 'horiz')
+step 32.0
+vehicles ('2', 'departInTheFuture', 'departInThePast', 'horiz')
+step 33.0
+vehicles ('2', 'departInTheFuture', 'departInThePast', 'departTriggered', 'horiz')
+step 34.0
+vehicle 'routeTest' routeID=horizontal
+step 35.0
+vehicle 'routeTest' routeID=withStop
+step 36.0
+vehicle routeTest lane  lanePos 0.0 stopped False
+step 37.0
+vehicle routeTest lane  lanePos 0.0 stopped False
+step 38.0
+vehicle routeTest lane  lanePos 0.0 stopped False
+step 39.0
+vehicle routeTest lane  lanePos 0.0 stopped False
+step 40.0
+vehicle routeTest lane  lanePos 0.0 stopped False
+step 41.0
+vehicle routeTest lane  lanePos 0.0 stopped False
+step 42.0
+vehicle routeTest lane  lanePos 0.0 stopped False
+step 43.0
+vehicle routeTest lane  lanePos 83.3333333333 stopped False
+step 44.0
+vehicle routeTest lane  lanePos 83.3333333333 stopped False
+step 45.0
+vehicle routeTest lane  lanePos 83.3333333333 stopped False
+step 46.0
+vehicle routeTest lane  lanePos 83.3333333333 stopped False
+step 47.0
+vehicle routeTest lane  lanePos 83.3333333333 stopped False
+step 48.0
+vehicle routeTest lane  lanePos 83.3333333333 stopped False
+step 49.0
+vehicle routeTest lane  lanePos 83.3333333333 stopped False
+step 50.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 51.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 52.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 53.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 54.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 55.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 56.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 57.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 58.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 59.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 60.0
+vehicle routeTest2 lane  lanePos 0.0 stopped False
+step 61.0
+vehicle routeTest2 lane  lanePos 83.3333333333 stopped False
+step 62.0
+vehicle routeTest2 lane  lanePos 83.3333333333 stopped False
+step 63.0
+vehicle routeTest2 lane  lanePos 83.3333333333 stopped False
+step 64.0
+vehicle bus lane  lanePos 0.0 stopped False
+step 65.0
+vehicle bus lane  lanePos 0.0 stopped False
+step 66.0
+vehicle bus lane  lanePos 0.0 stopped False
+step 67.0
+vehicle bus lane  lanePos 0.0 stopped False
+step 68.0
+vehicle bus lane  lanePos 0.0 stopped False
+step 69.0
+vehicle bus lane  lanePos 0.0 stopped False
+step 70.0
+vehicle bus lane  lanePos 0.0 stopped False
+step 71.0
+vehicle bus lane  lanePos 0.0 stopped False
+step 72.0
+vehicle bus lane  lanePos 83.3333333333 stopped False
+step 73.0
+vehicle bus lane  lanePos 83.3333333333 stopped False
+step 74.0
+vehicle bus lane  lanePos 83.3333333333 stopped False
+step 75.0
+vehicle bus lane  lanePos 83.3333333333 stopped False
+step 76.0
+vehicle bus lane  lanePos 83.3333333333 stopped False
+step 77.0
+vehicle bus lane  lanePos 83.3333333333 stopped False
+triptest route: ('3si', '2o', '2fi', '2si', '4o', '4fi', '4si')
+nextStop: ()
+step 78.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2152.1251700847642)
+step 79.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2152.1251700847642)
+step 80.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2152.1251700847642)
+step 81.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2152.1251700847642)
+step 82.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2152.1251700847642)
+step 83.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2152.1251700847642)
+step 84.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2152.1251700847642)
+step 85.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2152.1251700847642)
+step 86.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 87.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 88.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 89.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 90.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 91.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 92.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 93.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 94.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(834.3333333333334, 501.65)', 'pos3d', '(834.3333333333334, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 166.66666666666666, 'CO2', 2152.1251700847642)
+step 95.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(834.3333333333334, 501.65)', 'pos3d', '(834.3333333333334, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 166.66666666666666, 'CO2', 2152.1251700847642)
+step 96.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(834.3333333333334, 501.65)', 'pos3d', '(834.3333333333334, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 166.66666666666666, 'CO2', 2152.1251700847642)
+step 97.0
+('veh', 'parking', 'speed', 11.109629827134158, 'pos', '(834.3333333333334, 501.65)', 'pos3d', '(834.3333333333334, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 166.66666666666666, 'CO2', 2152.1251700847642)
+step 98.0
+step 99.0
+step 100.0
+step 101.0
+step 102.0
+step 103.0
+step 104.0
+step 105.0
+step 106.0
+('veh', 'parking2', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 107.0
+('veh', 'parking2', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 108.0
+('veh', 'parking2', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 109.0
+('veh', 'parking2', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 110.0
+('veh', 'parking2', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 111.0
+('veh', 'parking2', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 112.0
+('veh', 'parking2', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+step 113.0
+('veh', 'parking2', 'speed', 11.109629827134158, 'pos', '(917.1666666666666, 501.65)', 'pos3d', '(917.1666666666666, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 83.33333333333333, 'CO2', 2152.1251700847642)
+('veh', 'offRoad', 'speed', -1073741824.0, 'pos', 'invalid', 'pos3d', 'invalid', 'angle', -1073741824.0, 'road', '', 'lane', '', 'lanePos', -1073741824.0, 'CO2', -1073741824.0)
+step 114.0
+('veh', 'offRoad', 'speed', 8.954796188838742, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2092.3161587719765)
+step 115.0
+('veh', 'offRoad', 'speed', 8.954796188838742, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2092.3161587719765)
+step 116.0
+('veh', 'offRoad', 'speed', 8.954796188838742, 'pos', '(1000.0, 501.65)', 'pos3d', '(1000.0, 501.65, 0.0)', 'angle', 270.0, 'road', '2fi', 'lane', '', 'lanePos', 0.0, 'CO2', 2092.3161587719765)
+('veh', 'collider', 'speed', -1073741824.0, 'pos', 'invalid', 'pos3d', 'invalid', 'angle', -1073741824.0, 'road', '', 'lane', '', 'lanePos', -1073741824.0, 'CO2', -1073741824.0)
+step 117.0
+('veh', 'collider', 'speed', -1073741824.0, 'pos', 'invalid', 'pos3d', 'invalid', 'angle', -1073741824.0, 'road', '', 'lane', '', 'lanePos', -1073741824.0, 'CO2', -1073741824.0)
+step 118.0
+('veh', 'collider', 'speed', -1073741824.0, 'pos', 'invalid', 'pos3d', 'invalid', 'angle', -1073741824.0, 'road', '', 'lane', '', 'lanePos', -1073741824.0, 'CO2', -1073741824.0)
+step 119.0
+('veh', 'collider', 'speed', -1073741824.0, 'pos', 'invalid', 'pos3d', 'invalid', 'angle', -1073741824.0, 'road', '', 'lane', '', 'lanePos', -1073741824.0, 'CO2', -1073741824.0)
+step 120.0
+('veh', 'collider', 'speed', -1073741824.0, 'pos', 'invalid', 'pos3d', 'invalid', 'angle', -1073741824.0, 'road', '', 'lane', '', 'lanePos', -1073741824.0, 'CO2', -1073741824.0)
+step 121.0
+('veh', 'collider', 'speed', -1073741824.0, 'pos', 'invalid', 'pos3d', 'invalid', 'angle', -1073741824.0, 'road', '', 'lane', '', 'lanePos', -1073741824.0, 'CO2', -1073741824.0)
+step 122.0
+('veh', 'collider', 'speed', -1073741824.0, 'pos', 'invalid', 'pos3d', 'invalid', 'angle', -1073741824.0, 'road', '', 'lane', '', 'lanePos', -1073741824.0, 'CO2', -1073741824.0)
+step 123.0
+('veh', 'collider', 'speed', -1073741824.0, 'pos', 'invalid', 'pos3d', 'invalid', 'angle', -1073741824.0, 'road', '', 'lane', '', 'lanePos', -1073741824.0, 'CO2', -1073741824.0)
+step 124.0
+bus waiting time 0.0
+bus accumulated waiting time -1073741824.0
+step 125.0
+step 126.0
+vehicles ('2', 'blocker', 'bus', 'departInTheFuture', 'departInThePast', 'departTriggered', 'horiz', 'movedVeh', 'offRoad', 'parking', 'parking2', 'routeTest', 'routeTest2', 'triptest', 'victim')
+vehicle count 15
+examining movedVeh
+speed 11.1096298271
+speedLat 0.0
+speed w/o traci 11.1096298271
+acceleration 0.0
+pos (501.65, 0.0)
+pos3D (501.65, 0.0, 0.0)
+angle 0.0
+road 3fi
+lane 
+laneIndex -1073741824
+type DEFAULT_VEHTYPE
+routeID vertical
+routeIndex 0
+route ('3fi', '3si', '4o')
+lanePos 0.0
+color (255, 255, 0, 255)
+bestLanes ()
+CO2 2152.12517008
+CO 10.2449494987
+HC 0.093063072504
+PMx 0.0110729357103
+NOx 0.685726646725
+fuel 0.925130265075
+noise 62.5812448395
+Elec 0.0
+traveltime -1073741824.0
+effort -1073741824.0
+route valid True
+signals 0
+routingMode 0
+length 5.0
+maxSpeed 55.5555555556
+speedFactor 1.0
+allowedSpeed 11.11
+accel 2.6
+decel 4.5
+emergencyDecel 9.0
+apparentDecel 4.5
+actionStepLength 1.0
+lastActionTime 132.501
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+maxSpeedLat 1.0
+minGapLat 0.6
+lateralAlignment center
+lanePosLat 0.0
+person number 0
+personCapacity 4
+waiting time 0.0
+accumulated waiting time -1073741824.0
+driving dist -1073741824.0
+driving dist 2D -1073741824.0
+line 
+via ()
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+tazVeh edges ('taz34-source', 'taz12-sink')
+step 127.0
+tazVeh pos=0.0 edges=('4fi', '4si', '2o', '2fi')
+failVeh edges ('3fi', 'disconnected')
+step 128.0
+failVeh pos=0.0 edges=('3fi', 'disconnected')
+step 129.0
+failVeh pos=0.0 edges=('3fi', 'disconnected')
+step 130.0
+failVeh pos=0.0 edges=('3fi', 'disconnected')
+step 131.0
+failVeh pos=0.0 edges=('3fi', 'disconnected')
+step 132.0
+failVeh pos=0.0 edges=('3fi', 'disconnected')
+step 133.0
+{80: '1fi', 86: 166.66666666666666}
+step 134.0
+pav edge=2fi pos=0.0 stopState=0
+step 135.0
+pav edge=2fi pos=0.0 stopState=0
+step 136.0
+pav edge=2fi pos=0.0 stopState=0
+step 137.0
+pav edge=2fi pos=0.0 stopState=0
+step 138.0
+pav edge=2fi pos=0.0 stopState=0
+step 139.0
+pav edge=2fi pos=0.0 stopState=0
+step 140.0
+pav edge=2fi pos=0.0 stopState=0
+step 141.0
+pav edge=2fi pos=0.0 stopState=0
+step 142.0
+pav edge=2fi pos=0.0 stopState=0
+step 143.0
+pav edge=2fi pos=0.0 stopState=0
+step 144.0
+pav edge=2fi pos=0.0 stopState=0
+step 145.0
+pav edge=2fi pos=83.3333333333 stopState=0
+step 146.0
+pav edge=2fi pos=83.3333333333 stopState=0
+step 147.0
+pav edge=2fi pos=83.3333333333 stopState=0
+step 148.0
+pav edge=2fi pos=83.3333333333 stopState=0
+step 149.0
+pav edge=2fi pos=83.3333333333 stopState=0
+step 150.0
+pav edge=2fi pos=83.3333333333 stopState=0
+step 151.0
+pav edge=2fi pos=83.3333333333 stopState=0
+has battery device: true
+has vehroute device: true
+has rerouting device: false
+has rerouting device: true
+routing period: 0.00
+routing period: 45.00
+edge rerouting traveltime: 36.77
+edge rerouting traveltime: 123.00
+vehicles ('2', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'movedVeh', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteEffort', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim')
+vehicle count 21
+examining elVeh
+speed -1073741824.0
+speedLat -1073741824.0
+speed w/o traci -1073741824.0
+acceleration -1073741824.0
+pos invalid
+pos3D invalid
+angle -1073741824.0
+road 
+lane 
+laneIndex -1073741824
+type long
+routeID horizontal
+routeIndex -1073741824
+route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
+lanePos -1073741824.0
+color (255, 255, 0, 255)
+bestLanes ()
+CO2 -1073741824.0
+CO -1073741824.0
+HC -1073741824.0
+PMx -1073741824.0
+NOx -1073741824.0
+fuel -1073741824.0
+noise -1073741824.0
+Elec -1073741824.0
+traveltime -1073741824.0
+effort -1073741824.0
+route valid True
+signals 0
+routingMode 0
+length 7.0
+maxSpeed 55.5555555556
+speedFactor 1.0
+allowedSpeed -1073741824.0
+accel 2.6
+decel 4.5
+emergencyDecel 9.0
+apparentDecel 4.5
+actionStepLength 1.0
+lastActionTime -9.22337203685e+15
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+maxSpeedLat 1.0
+minGapLat 0.6
+lateralAlignment center
+lanePosLat -1073741824.0
+person number 0
+personCapacity 4
+waiting time 0.001
+accumulated waiting time -1073741824.0
+driving dist -1073741824.0
+driving dist 2D -1073741824.0
+line 
+via ()
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+vehicles ('2', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'movedVeh', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteEffort', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim')
+vehicle count 21
+examining elVeh
+speed -1073741824.0
+speedLat -1073741824.0
+speed w/o traci -1073741824.0
+acceleration -1073741824.0
+pos invalid
+pos3D invalid
+angle -1073741824.0
+road 
+lane 
+laneIndex -1073741824
+type long@elVeh
+routeID horizontal
+routeIndex -1073741824
+route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
+lanePos -1073741824.0
+color (255, 255, 0, 255)
+bestLanes ()
+CO2 -1073741824.0
+CO -1073741824.0
+HC -1073741824.0
+PMx -1073741824.0
+NOx -1073741824.0
+fuel -1073741824.0
+noise -1073741824.0
+Elec -1073741824.0
+traveltime -1073741824.0
+effort -1073741824.0
+route valid True
+signals 0
+routingMode 0
+length 8.0
+maxSpeed 10.0
+speedFactor 1.0
+allowedSpeed -1073741824.0
+accel 2.6
+decel 4.5
+emergencyDecel 9.0
+apparentDecel 4.5
+actionStepLength 1.0
+lastActionTime -9.22337203685e+15
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+maxSpeedLat 1.0
+minGapLat 0.6
+lateralAlignment center
+lanePosLat -1073741824.0
+person number 0
+personCapacity 4
+waiting time 0.001
+accumulated waiting time -1073741824.0
+driving dist -1073741824.0
+driving dist 2D -1073741824.0
+line 
+via ()
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+vehicles ('2', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'movedVeh', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteEffort', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim')
+vehicle count 21
+examining elVeh
+speed -1073741824.0
+speedLat -1073741824.0
+speed w/o traci -1073741824.0
+acceleration -1073741824.0
+pos invalid
+pos3D invalid
+angle -1073741824.0
+road 
+lane 
+laneIndex -1073741824
+type long
+routeID horizontal
+routeIndex -1073741824
+route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
+lanePos -1073741824.0
+color (255, 255, 0, 255)
+bestLanes ()
+CO2 -1073741824.0
+CO -1073741824.0
+HC -1073741824.0
+PMx -1073741824.0
+NOx -1073741824.0
+fuel -1073741824.0
+noise -1073741824.0
+Elec -1073741824.0
+traveltime -1073741824.0
+effort -1073741824.0
+route valid True
+signals 0
+routingMode 0
+length 7.0
+maxSpeed 55.5555555556
+speedFactor 1.0
+allowedSpeed -1073741824.0
+accel 2.6
+decel 4.5
+emergencyDecel 9.0
+apparentDecel 4.5
+actionStepLength 1.0
+lastActionTime -9.22337203685e+15
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+maxSpeedLat 1.0
+minGapLat 0.6
+lateralAlignment center
+lanePosLat -1073741824.0
+person number 0
+personCapacity 4
+waiting time 0.001
+accumulated waiting time -1073741824.0
+driving dist -1073741824.0
+driving dist 2D -1073741824.0
+line 
+via ()
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+vehicles ('2', 'blocker', 'bus', 'collider', 'departInTheFuture', 'departInThePast', 'departTriggered', 'failVeh', 'horiz', 'movedVeh', 'offRoad', 'parking', 'parking2', 'pav', 'rerouteEffort', 'rerouteTT', 'routeTest', 'routeTest2', 'tazVeh', 'triptest', 'victim')
+vehicle count 21
+examining elVeh
+speed -1073741824.0
+speedLat -1073741824.0
+speed w/o traci -1073741824.0
+acceleration -1073741824.0
+pos invalid
+pos3D invalid
+angle -1073741824.0
+road 
+lane 
+laneIndex -1073741824
+type long@elVeh
+routeID horizontal
+routeIndex -1073741824
+route ('2fi', '2si', '1o', '1fi', '1si', '3o', '3fi', '3si', '4o', '4fi', '4si')
+lanePos -1073741824.0
+color (255, 255, 0, 255)
+bestLanes ()
+CO2 -1073741824.0
+CO -1073741824.0
+HC -1073741824.0
+PMx -1073741824.0
+NOx -1073741824.0
+fuel -1073741824.0
+noise -1073741824.0
+Elec -1073741824.0
+traveltime -1073741824.0
+effort -1073741824.0
+route valid True
+signals 0
+routingMode 0
+length 8.0
+maxSpeed 10.0
+speedFactor 1.0
+allowedSpeed -1073741824.0
+accel 2.6
+decel 4.5
+emergencyDecel 9.0
+apparentDecel 4.5
+actionStepLength 1.0
+lastActionTime -9.22337203685e+15
+imperfection 0.5
+tau 1.0
+vClass passenger
+emissionclass HBEFA3/PC_G_EU4
+shape passenger
+MinGap 2.5
+width 1.8
+height 1.5
+maxSpeedLat 1.0
+minGapLat 0.6
+lateralAlignment center
+lanePosLat -1073741824.0
+person number 0
+personCapacity 4
+waiting time 0.001
+accumulated waiting time -1073741824.0
+driving dist -1073741824.0
+driving dist 2D -1073741824.0
+line 
+via ()
+lane change state right (1073741824, 1073741824)
+lane change state left (1073741824, 1073741824)
+lane change able right False
+lane change able left False
+lane change wish right False
+lane change wish left False
+recovering from exception after asking for unknown device
+recovering from exception after asking for unknown device parameter
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (1000.0, 501.65, 0.0)), (66, (1000.0, 501.65))]
+elVeh speed="10.000400016" consumed="0.00" charged="0.00" cap="17500.00" maxCap="40000.00" station="NULL" mass=1024.00 emissionClass=Energy/unknown electricityConsumption=0.891174690404
+[(57, (917.1666666666666, 501.65, 0.0)), (66, (917.1666666666666, 501.65))]
+triptest route: ('3si', '4si')
+triptest route: ('3si', '4o', '4fi', '4si')
+noRouteGiven routeID: DUMMY_ROUTE_passenger edges: ('1fi',)

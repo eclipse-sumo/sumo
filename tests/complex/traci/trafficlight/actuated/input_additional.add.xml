@@ -1,0 +1,16 @@
+<add>
+    <timedEvent type="SaveTLSProgram" source="C" dest="tls_state.xml"/>
+
+
+    <tlLogic id="C" type="actuated" programID="1" offset="0">
+        <phase duration="33" state="GGGggrrrrrGGGggrrrrr" minDur="5" maxDur="60"/>
+        <phase duration="3" state="yyyggrrrrryyyggrrrrr"/>
+        <phase duration="6" state="rrrGGrrrrrrrrGGrrrrr"/>
+        <phase duration="3" state="rrryyrrrrrrrryyrrrrr"/>
+        <phase duration="33" state="rrrrrGGGggrrrrrGGGgg" minDur="5" maxDur="60"/>
+        <phase duration="3" state="rrrrryyyggrrrrryyygg"/>
+        <phase duration="6" state="rrrrrrrrGGrrrrrrrrGG"/>
+        <phase duration="3" state="rrrrrrrryyrrrrrrrryy"/>
+    </tlLogic>
+
+</add>

@@ -1,0 +1,5 @@
+Warning: Vehicle 'flow.8' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=20.00.
+Warning: Vehicle 'flow.8' performs emergency stop at the end of lane 'beg2_2' because there is no connection to the next edge (decel=-27.80, offset=13.10), time=20.00.
+Warning: Vehicle 'flow.21' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=21.00.
+Warning: Vehicle 'flow.21' performs emergency stop at the end of lane 'beg_2' because there is no connection to the next edge (decel=-18.80, offset=0.50), time=22.00.
+Warning: Vehicle 'flow.24' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=23.00.

@@ -25,6 +25,9 @@ teleport_multihop
 # write output for departed vehicles which have not arrived at simulation end
 write_unfinished
 
+# write output for departed persons which have not arrived at simulation end
+write_unfinished_person
+
 # count length of internal lanes as well
 internal_lanes
 
@@ -33,6 +36,9 @@ depart_triggered
 
 # compute correct departDelay for triggered vehicle (insertion is delayed due to a blocking vehicle)
 depart_triggered_delayed
+
+# disable tripinfo output by default and enable it for selected vType
+enable_by_type
 
 # Testing error cases
 errors

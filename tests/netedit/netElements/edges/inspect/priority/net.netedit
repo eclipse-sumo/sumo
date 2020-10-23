@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 09:57:33 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 11.03.2019 10:22:16 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_priority\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_11Mar094917.1536/netedit.gui/netElements/edges/inspect/priority\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_priority\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_11Mar094917.1536/netedit.gui/netElements/edges/inspect/priority\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,13 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_priority\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_priority\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_priority\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_11Mar094917.1536/netedit.gui/netElements/edges/inspect/priority\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_11Mar094917.1536/netedit.gui/netElements/edges/inspect/priority\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_11Mar094917.1536/netedit.gui/netElements/edges/inspect/priority\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_priority\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_11Mar094917.1536/netedit.gui/netElements/edges/inspect/priority\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,13 +44,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/edges/inspect/inspect_priority\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_11Mar094917.1536/netedit.gui/netElements/edges/inspect/priority\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -108,7 +109,7 @@
     <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
         <lane id="gneE1_0" index="0" speed="13.89" length="43.60" shape="46.80,1.60 3.20,1.60"/>
     </edge>
-    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="-1">
+    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="-6">
         <lane id="gneE2_0" index="0" speed="13.89" length="35.60" shape="7.20,15.20 42.80,15.20"/>
         <lane id="gneE2_1" index="1" speed="13.89" length="35.60" shape="7.20,18.40 42.80,18.40"/>
     </edge>

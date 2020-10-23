@@ -1,8 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    XMLAdmin2.java
+/// @author  Maximiliano Bottazzi
+/// @date    2016
+///
+//
+/****************************************************************************/
 package de.dlr.ts.utils.xmladmin2;
 
 import de.dlr.ts.commons.logger.DLRLogger;
@@ -56,9 +70,9 @@ public class XMLAdmin2 {
 
     /**
      *
-     * @return     
-     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException @throws     
-     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException     
+     * @return
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException @throws
+     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException
      */
     public int getNodesCount() throws MalformedKeyOrNameException, XMLNodeNotFoundException {
         return rootNode.getNodesCount("*");
@@ -71,14 +85,14 @@ public class XMLAdmin2 {
         String exceptionAsString = sw.toString();
         err.print(exceptionAsString);
         */
-        
+
         DLRLogger.severe("XMLAdmin2", throwable);
     }
-    
+
     static void printException(String message) {
         DLRLogger.severe("XMLAdmin2", message);
     }
-    
+
     /**
      *
      *
@@ -140,8 +154,8 @@ public class XMLAdmin2 {
      * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
      * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException
      */
-    public XMLNode getNode(String key) throws MalformedKeyOrNameException, 
-            XMLNodeNotFoundException {
+    public XMLNode getNode(String key) throws MalformedKeyOrNameException,
+        XMLNodeNotFoundException {
         return rootNode.getNode(key);
     }
 
@@ -149,7 +163,7 @@ public class XMLAdmin2 {
      *
      * @param key
      * @return
-     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException     
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
      */
     public boolean hasNode(String key) throws MalformedKeyOrNameException {
         return rootNode.hasNode(key);
@@ -171,14 +185,14 @@ public class XMLAdmin2 {
      *
      *
      * @param key
-     * @return     
-     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException     
-     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException     
+     * @return
+     * @throws de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException
+     * @throws de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException
      */
     public int getNodesCount(String key) throws MalformedKeyOrNameException, XMLNodeNotFoundException {
         return rootNode.getNodesCount(key);
     }
-    
+
     /**
      *
      */

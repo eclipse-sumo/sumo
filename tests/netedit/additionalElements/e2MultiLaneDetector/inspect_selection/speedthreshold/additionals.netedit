@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 21.11.2018 09:45:40 by Eclipse SUMO netedit Version v1_0_0+1004-1c7613c4e7
+<!-- generated on 07.08.2019 10:48:14 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov094352.3364/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov094352.3364/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov094352.3364/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov094352.3364/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov094352.3364/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov094352.3364/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,19 +45,19 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.21Nov094352.3364/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/inspect_selection/speedthreshold\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="e2MultilaneDetector_0" name="nameA" vTypes="type1 type2 type3" lanes="gneE2_0 gneE3_0" pos="11.00" freq="100.00" file="fileA.txt" speedThreshold="6.30" friendlyPos="1" endPos="11.00">
+    <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE3_0" pos="11.00" endPos="11.00" freq="100.00" name="nameA" file="fileA.txt" vTypes="type1 type2 type3" speedThreshold="6.30" friendlyPos="1">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </e2Detector>
-    <e2Detector id="e2MultilaneDetector_1" name="nameB" vTypes="type4 type5 type6" lanes="gneE4_0 gneE5_0" pos="14.00" freq="200.00" file="fileB.xml" speedThreshold="6.30" friendlyPos="1" endPos="14.00">
+    <e2Detector id="e2MultilaneDetector_1" lanes="gneE4_0 gneE5_0" pos="14.00" endPos="14.00" freq="200.00" name="nameB" file="fileB.xml" vTypes="type4 type5 type6" speedThreshold="6.30" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

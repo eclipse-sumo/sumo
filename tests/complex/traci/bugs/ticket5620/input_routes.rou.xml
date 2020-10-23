@@ -1,0 +1,6 @@
+<routes>
+    <person id="person" depart="0">
+        <walk from="1" busStop="busStop1" />
+        <stop busStop="busStop1" duration="10"/>
+    </person>
+</routes>

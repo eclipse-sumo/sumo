@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Mar 12 09:42:26 2020 by Eclipse SUMO Version v1_5_0+0671-ab1576c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <persontrip.transfer.car-walk value="ptStops"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="p0_0" depart="triggered" arrival="29.00">
+        <routeDistribution>
+            <route replacedOnEdge="" reason="person:p0" replacedAtTime="0.00" probability="0" edges="beg"/>
+            <route edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+
+    <person id="p0" depart="0.00" arrival="824.00">
+        <ride from="beg" to="beg2left" busStop="beg2left" lines="p0_0"/>
+        <ride from="gneE0" to="gneE0" busStop="left2end" lines="train" intended="train.1" depart="310.00"/>
+        <walk edges="left2end end"/>
+    </person>
+
+</routes>

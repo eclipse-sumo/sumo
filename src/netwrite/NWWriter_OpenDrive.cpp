@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NWWriter_OpenDrive.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 04.05.2011
-/// @version $Id$
 ///
 // Exporter writing networks using the openDRIVE format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <ctime>
@@ -32,7 +30,6 @@
 #include <netbuild/NBNetBuilder.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/geom/bezier.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/StringUtils.h>
@@ -121,7 +118,7 @@ NWWriter_OpenDrive::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     device.lf();
 
     // write junction-internal edges (road). In OpenDRIVE these are called 'paths' or 'connecting roads'
-    OutputDevice_String junctionOSS(false, 3);
+    OutputDevice_String junctionOSS(3);
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
         int connectionID = 0; // unique within a junction
@@ -226,9 +223,9 @@ NWWriter_OpenDrive::writeNormalEdge(OutputDevice& device, const NBEdge* e,
                                     const double straightThresh,
                                     const ShapeContainer& shc) {
     // buffer output because some fields are computed out of order
-    OutputDevice_String elevationOSS(false, 3);
+    OutputDevice_String elevationOSS(3);
     elevationOSS.setPrecision(8);
-    OutputDevice_String planViewOSS(false, 2);
+    OutputDevice_String planViewOSS(2);
     planViewOSS.setPrecision(8);
     double length = 0;
 
@@ -374,13 +371,13 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
             endShape = getRightLaneBorder(outEdge, cLeft.toLane);
             init = NBNode::bezierControlPoints(begShape, endShape, turnaround, 25, 25, ok, nullptr, straightThresh);
             if (init.size() != 0) {
-                length = bezier(init, 12).length2D();
+                length = init.bezier(12).length2D();
                 laneOffset = outEdge->getLaneWidth(cLeft.toLane);
                 //std::cout << " internalLane=" << cLeft.getInternalLaneID() << " length=" << length << "\n";
             }
         }
     } else {
-        length = bezier(init, 12).length2D();
+        length = init.bezier(12).length2D();
     }
 
     junctionDevice << "        <connection id=\"" << connectionID << "\" incomingRoad=\"" << inEdgeID << "\" connectingRoad=\"" << edgeID << "\" contactPoint=\"start\">\n";
@@ -406,7 +403,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
     device.openTag("type").writeAttr("s", 0).writeAttr("type", "town").closeTag();
     device.openTag("planView");
     device.setPrecision(8); // geometry hdg requires higher precision
-    OutputDevice_String elevationOSS(false, 3);
+    OutputDevice_String elevationOSS(3);
     elevationOSS.setPrecision(8);
 #ifdef DEBUG_SMOOTH_GEOM
     if (DEBUGCOND) {
@@ -454,7 +451,7 @@ NWWriter_OpenDrive::writeInternalEdge(OutputDevice& device, OutputDevice& juncti
         } else if (!inEdge->getToNode()->geometryLike()) {
             // draw shorter road marks to indicate turning paths
             LinkDirection dir = inEdge->getToNode()->getDirection(inEdge, outEdge, OptionsCont::getOptions().getBool("lefthand"));
-            if (dir == LINKDIR_LEFT || dir == LINKDIR_RIGHT || dir == LINKDIR_PARTLEFT || dir == LINKDIR_PARTRIGHT) {
+            if (dir == LinkDirection::LEFT || dir == LinkDirection::RIGHT || dir == LinkDirection::PARTLEFT || dir == LinkDirection::PARTRIGHT) {
                 // XXX <type><line/><type> is not rendered by odrViewer so cannot be validated
                 // device << "                             <type name=\"broken\" width=\"0.13\">\n";
                 // device << "                                  <line length=\"0.5\" space=\"0.5\" tOffset=\"0\" sOffset=\"0\" rule=\"none\"/>\n";
@@ -540,6 +537,7 @@ NWWriter_OpenDrive::getLaneType(SVCPermissions permissions) {
         case SVC_RAIL:
         case SVC_RAIL_URBAN:
         case SVC_RAIL_ELECTRIC:
+        case SVC_RAIL_FAST:
             return "rail";
         case SVC_TRAM:
             return "tram";
@@ -729,8 +727,8 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, double speed, O
         if (dAngle > straightThresh
                 && (length1 > longThresh || j == 1)
                 && (length2 > longThresh || j == (int)shape.size() - 2)) {
-            shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 - MIN2(length1 - POSITION_EPS, curveCutout)));
-            shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 + MIN2(length2 - POSITION_EPS, curveCutout)));
+            shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 - MIN2(length1 - POSITION_EPS, curveCutout)), false);
+            shape2.insertAtClosest(shape.positionAtOffset2D(offset + length1 + MIN2(length2 - POSITION_EPS, curveCutout)), false);
             shape2.removeClosest(p1);
         }
         offset += length1;
@@ -813,7 +811,7 @@ NWWriter_OpenDrive::writeGeomSmooth(const PositionVector& shape, double speed, O
 #endif
             } else {
                 // write bezier
-                const double curveLength = bezier(init, 12).length2D();
+                const double curveLength = init.bezier(12).length2D();
                 offset = writeGeomPP3(device, elevationDevice, init, curveLength, offset);
 #ifdef DEBUG_SMOOTH_GEOM
                 if (DEBUGCOND) {
@@ -930,5 +928,5 @@ NWWriter_OpenDrive::writeRoadObjects(OutputDevice& device, const NBEdge* e, cons
     }
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

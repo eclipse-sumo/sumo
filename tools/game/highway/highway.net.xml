@@ -3,7 +3,7 @@
 <!-- generated on 07.04.2014 15:08:57 by Netedit Version dev-SVN-r16105
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/netedit.exeConfiguration.xsd">
 
     <input>
         <sumo-net-file value="highway\highway.net.xml"/>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/net_file.xsd">
+<net version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/net_file.xsd">
 
     <location netOffset="-498221.06,-5876450.52" convBoundary="166.09,0.00,2986.43,1606.94" origBoundary="8.973461,53.037575,9.019344,53.059235" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

@@ -1,49 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 07.12.2018 15:16:11 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on Tue Feb 19 09:11:17 2019 by Eclipse SUMO netconvert Version v1_1_0+0919-80296dbfce
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="D:\sumo\tests\netedit\netElements\edges\load\spreadtype\input_net.net.xml"/>
+        <node-files value=".\netedit\netElements\edges\load\spreadtype\input_net.nod.xml"/>
+        <edge-files value=".\netedit\netElements\edges\load\spreadtype\input_net.edg.xml"/>
+        <connection-files value=".\netedit\netElements\edges\load\spreadtype\input_net.con.xml"/>
     </input>
 
     <output>
-        <output-file value="D:\sumo\tests\netedit\netElements\edges\load\spreadtype\input_net.net.xml"/>
+        <output-file value=".\netedit\netElements\edges\load\spreadtype\input_net.net.xml"/>
     </output>
 
-    <processing>
-        <geometry.max-grade.fix value="false"/>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-internal-links value="true"/>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
+    <report>
+        <verbose value="true"/>
+    </report>
 
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,-50.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,-50.00" convBoundary="0.00,0.00,50.05,1.60" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="gneE12" from="gneJ21" to="gneJ22" priority="-1">
         <lane id="gneE12_0" index="0" speed="13.89" length="50.00" shape="0.00,-1.60 50.00,-1.60"/>
     </edge>
     <edge id="gneE13" from="gneJ22" to="gneJ21" priority="-1" spreadType="center" shape="50.05,1.60 0.00,1.60">
-        <lane id="gneE13_0" index="0" speed="13.89" length="53.25" shape="50.05,1.60 0.00,1.60"/>
+        <lane id="gneE13_0" index="0" speed="13.89" length="50.05" shape="50.05,1.60 0.00,1.60"/>
     </edge>
 
-    <junction id="gneJ21" type="dead_end" x="0.00" y="0.00" incLanes="gneE13_0" intLanes="" shape="0.00,0.00 0.00,3.20 -0.00,-0.00"/>
+    <junction id="gneJ21" type="dead_end" x="0.00" y="0.00" incLanes="gneE13_0" intLanes="" shape="0.00,0.00 0.00,3.20 0.00,-0.00"/>
     <junction id="gneJ22" type="dead_end" x="50.00" y="0.00" incLanes="gneE12_0" intLanes="" shape="50.00,-0.00 50.00,-3.20 50.00,0.00"/>
 
 </net>

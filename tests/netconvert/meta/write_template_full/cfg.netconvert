@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Jan 15 10:27:06 2019 by Eclipse SUMO netconvert Version v1_0_1+0838-aa85bdd
+<!-- generated on Mon Oct  5 12:37:45 2020 by Eclipse SUMO netconvert Version v1_7_0+0461-873c47b3cc
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
@@ -14,7 +14,7 @@
     </configuration>
 
     <input>
-        <sumo-net-file value="" synonymes="s sumo-net" type="FILE" help="Read SUMO-net from FILE"/>
+        <sumo-net-file value="" synonymes="net-file s sumo-net" type="FILE" help="Read SUMO-net from FILE"/>
         <node-files value="" synonymes="n nodes xml-node-files xml-nodes" type="FILE" help="Read XML-node defs from FILE"/>
         <edge-files value="" synonymes="e edges xml-edge-files xml-edges" type="FILE" help="Read XML-edge defs from FILE"/>
         <connection-files value="" synonymes="connections x xml-connection-files xml-connections" type="FILE" help="Read XML-connection defs from FILE"/>
@@ -41,7 +41,7 @@
         <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
         <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
         <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
-        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
+        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <output-file value="" synonymes="o output sumo-output" type="FILE" help="The generated net will be written to FILE"/>
         <plain-output-prefix value="" synonymes="plain plain-output" type="FILE" help="Prefix of files to write plain xml nodes, edges and connections to"/>
         <junctions.join-output value="" type="FILE" help="Writes information about joined junctions to FILE (can be loaded as additional node-file to reproduce joins"/>
@@ -58,8 +58,8 @@
         <ptline-output value="" type="FILE" help="Writes public transport lines to FILE"/>
         <ptline-clean-up value="false" type="BOOL" help="Clean-up pt stops that are not served by any line"/>
         <parking-output value="" type="FILE" help="Writes parking areas to FILE"/>
-        <railway.topology.output value="" type="FILE" help="Analyse topology of the railway network"/>
-        <polygon-output value="" type="FILE" help="Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)"/>
+        <railway.topology.output value="" type="FILE" help="Analyze topology of the railway network"/>
+        <polygon-output value="" synonymes="taz-output" type="FILE" help="Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)"/>
         <opendrive-output.straight-threshold value="1e-08" type="FLOAT" help="Builds parameterized curves whenever the angular change  between straight segments exceeds FLOAT degrees"/>
     </output>
 
@@ -81,62 +81,79 @@
         <flatten value="false" type="BOOL" help="Remove all z-data"/>
         <plain.extend-edge-shape value="false" synonymes="xml.keep-shape" type="BOOL" help="If edge shapes do not end at the node positions, extend them"/>
         <numerical-ids value="false" type="BOOL" help="Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers"/>
-        <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format)"/>
+        <numerical-ids.node-start value="2147483647" type="INT" help="Remaps IDs of nodes to integers starting at INT"/>
+        <numerical-ids.edge-start value="2147483647" type="INT" help="Remaps IDs of edges to integers starting at INT"/>
+        <reserved-ids value="" type="FILE" help="Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format)"/>
         <dismiss-vclasses value="false" type="BOOL" help="Removes vehicle class restrictions from imported edges"/>
         <geometry.split value="false" synonymes="split-geometry" type="BOOL" help="Splits edges across geometry nodes"/>
         <geometry.remove value="false" synonymes="R remove-geometry" type="BOOL" help="Replace nodes which only define edge geometry by geometry points (joins edges)"/>
-        <geometry.remove.keep-edges.explicit value="" type="STR" help="Ensure that the given list of edges is not modified"/>
-        <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
+        <geometry.remove.keep-edges.explicit value="" type="STR[]" help="Ensure that the given list of edges is not modified"/>
+        <geometry.remove.keep-edges.input-file value="" type="FILE" help="Ensure that the edges in FILE are not modified (Each id on a single line. Selection files from sumo-gui are also supported)"/>
+        <geometry.remove.min-length value="0" type="FLOAT" help="Allow merging edges with differing attributes when their length is below min-length"/>
+        <geometry.remove.width-tolerance value="0" type="FLOAT" help="Allow merging edges with differing lane widths if the difference is below FLOAT"/>
         <geometry.max-segment-length value="0" type="FLOAT" help="splits geometry to restrict segment length"/>
         <geometry.min-dist value="-1" type="FLOAT" help="reduces too similar geometry points"/>
         <geometry.max-angle value="99" type="FLOAT" help="Warn about edge geometries with an angle above DEGREES in successive segments"/>
         <geometry.min-radius value="9" type="FLOAT" help="Warn about edge geometries with a turning radius less than METERS at the start or end"/>
         <geometry.min-radius.fix value="false" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius"/>
+        <geometry.min-radius.fix.railways value="true" type="BOOL" help="Straighten edge geometries to avoid turning radii less than geometry.min-radius (only railways)"/>
         <geometry.junction-mismatch-threshold value="20" type="FLOAT" help="Warn if the junction shape is to far away from the original node position"/>
         <geometry.check-overlap value="0" type="FLOAT" help="Warn if edges overlap by more than the given threshold value"/>
         <geometry.check-overlap.vertical-threshold value="4" type="FLOAT" help="Ignore overlapping edges if they are separated vertically by the given threshold."/>
         <geometry.avoid-overlap value="true" type="BOOL" help="Modify edge geometries to avoid overlap at junctions"/>
+        <join-lanes value="false" type="BOOL" help="join adjacent lanes that have the same permissions and which do not admit lane-changing (sidewalks and disallowed lanes)"/>
+        <ptline.match-dist value="100" type="FLOAT" help="Matches stops outside the road network to the referencing pt line when below the given distance"/>
+        <ptstop-output.no-bidi value="false" type="BOOL" help="Skips automatic generation of stops on the bidi-edge of a loaded stop"/>
         <geometry.max-grade value="10" type="FLOAT" help="Warn about edge geometries with a grade in % above FLOAT."/>
         <geometry.max-grade.fix value="true" type="BOOL" help="Smooth edge edge geometries with a grade in above the warning threshold."/>
         <offset.disable-normalization value="false" synonymes="disable-normalize-node-positions" type="BOOL" help="Turn off normalizing node positions"/>
         <offset.x value="0" synonymes="x-offset-to-apply" type="FLOAT" help="Adds FLOAT to net x-positions"/>
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT" help="Adds FLOAT to net y-positions"/>
+        <offset.z value="0" type="FLOAT" help="Adds FLOAT to net z-positions"/>
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL" help="Flips the y-coordinate along zero"/>
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL" help="Enable roundabout-guessing"/>
+        <roundabouts.visibility-distance value="9" type="FLOAT" help="Default visibility when approaching a roundabout"/>
         <opposites.guess value="false" type="BOOL" help="Enable guessing of opposite direction lanes usable for overtaking"/>
         <opposites.guess.fix-lengths value="false" type="BOOL" help="Ensure that opposite edges have the same length"/>
+        <fringe.guess value="false" type="BOOL" help="Enable guessing of network fringe nodes"/>
         <lefthand value="false" type="BOOL" help="Assumes left-hand traffic on the network"/>
         <edges.join value="false" type="BOOL" help="Merges edges which connect the same nodes and are close to each other (recommended for VISSIM import)"/>
         <speed.offset value="0" type="FLOAT" help="Modifies all edge speeds by adding FLOAT"/>
         <speed.factor value="1" type="FLOAT" help="Modifies all edge speeds by multiplying by FLOAT"/>
         <speed.minimum value="0" type="FLOAT" help="Modifies all edge speeds to at least FLOAT"/>
+        <edges.join-tram-dist value="-1" type="FLOAT" help="Joins tram edges into road lanes with similar geometry (within FLOAT distance)"/>
     </processing>
 
     <building_defaults>
         <default.lanenumber value="1" synonymes="L lanenumber" type="INT" help="The default number of lanes in an edge"/>
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT" help="The default width of lanes"/>
+        <default.spreadtype value="right" type="STR" help="The default method for computing lane shapes from edge shapes"/>
         <default.speed value="13.89" synonymes="S speed" type="FLOAT" help="The default speed on an edge (in m/s)"/>
         <default.priority value="-1" synonymes="P priority" type="INT" help="The default priority of an edge"/>
+        <default.type value="" type="STR" help="The default edge type"/>
         <default.sidewalk-width value="2" type="FLOAT" help="The default width of added sidewalks"/>
+        <default.bikelane-width value="1" type="FLOAT" help="The default width of added bike lanes"/>
         <default.crossing-width value="4" type="FLOAT" help="The default width of a pedestrian crossing"/>
         <default.disallow value="" type="STR" help="The default for disallowed vehicle classes"/>
         <default.junctions.keep-clear value="true" type="BOOL" help="Whether junctions should be kept clear by default"/>
         <default.junctions.radius value="4" type="FLOAT" help="The default turning radius of intersections"/>
+        <default.connection-length value="-1" type="FLOAT" help="The default length when overriding connection lengths"/>
         <default.right-of-way value="default" type="STR" help="The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;)"/>
     </building_defaults>
 
     <tls_building>
         <tls.discard-loaded value="false" type="BOOL" help="Does not instatiate traffic lights loaded from other formats than plain-XML"/>
         <tls.discard-simple value="false" type="BOOL" help="Does not instatiate traffic lights at geometry-like nodes loaded from other formats than plain-XML"/>
-        <tls.set value="" synonymes="explicite-tls" type="STR" help="Interprets STR as list of junctions to be controlled by TLS"/>
-        <tls.unset value="" synonymes="explicite-no-tls" type="STR" help="Interprets STR as list of junctions to be not controlled by TLS"/>
+        <tls.set value="" synonymes="explicite-tls" type="STR[]" help="Interprets STR[] as list of junctions to be controlled by TLS"/>
+        <tls.unset value="" synonymes="explicite-no-tls" type="STR[]" help="Interprets STR[] as list of junctions to be not controlled by TLS"/>
         <tls.guess value="false" synonymes="guess-tls" type="BOOL" help="Turns on TLS guessing"/>
         <tls.guess.threshold value="69.4444" type="FLOAT" help="Sets minimum value for the sum of all incoming lane speeds when guessing TLS"/>
         <tls.taz-nodes value="false" synonymes="tls-guess.district-nodes" type="BOOL" help="Sets district nodes as tls-controlled"/>
-        <tls-guess.joining value="false" type="BOOL" help="Includes node clusters into guess"/>
+        <tls.guess.joining value="false" synonymes="tls-guess.joining" type="BOOL" help="Includes node clusters into guess"/>
         <tls.join value="false" synonymes="try-join-tls" type="BOOL" help="Tries to cluster tls-controlled nodes"/>
         <tls.join-dist value="20" type="FLOAT" help="Determines the maximal distance for joining traffic lights (defaults to 20)"/>
         <tls.uncontrolled-within value="false" type="BOOL" help="Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used"/>
+        <tls.ignore-internal-junction-jam value="false" type="BOOL" help="Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended"/>
         <tls.guess-signals value="false" type="BOOL" help="Interprets tls nodes surrounding an intersection as signal positions for a larger TLS. This is typical pattern for OSM-derived networks"/>
         <tls.guess-signals.dist value="25" type="FLOAT" help="Distance for interpreting nodes as signal locations"/>
         <tls.cycle.time value="90" type="INT" help="Use INT as cycle duration"/>
@@ -151,12 +168,14 @@
         <tls.crossing-min.time value="4" type="INT" help="Use INT as minimum green duration for pedestrian crossings (s)."/>
         <tls.crossing-clearance.time value="5" type="INT" help="Use INT as clearance time for pedestrian crossings (s)."/>
         <tls.scramble.time value="5" type="INT" help="Use INT as green phase duration for pedestrian scramble phase (s)."/>
-        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR" help="TLSs in STR will be shifted by half-phase"/>
-        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR" help="TLSs in STR will be shifted by quarter-phase"/>
+        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR[]" help="TLSs in STR[] will be shifted by half-phase"/>
+        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR[]" help="TLSs in STR[] will be shifted by quarter-phase"/>
         <tls.default-type value="static" type="STR" help="TLSs with unspecified type will use STR as their algorithm"/>
         <tls.layout value="opposites" type="STR" help="Set phase layout four grouping opposite directions or grouping all movements for one incoming edge [&apos;opposites&apos;, &apos;incoming&apos;]"/>
         <tls.min-dur value="5" type="INT" help="Default minimum phase duration for traffic lights with variable phase length"/>
         <tls.max-dur value="50" type="INT" help="Default maximum phase duration for traffic lights with variable phase length"/>
+        <tls.group-signals value="false" type="BOOL" help="Assign the same tls link index to connections that share the same states"/>
+        <tls.ungroup-signals value="false" type="BOOL" help="Assign a distinct tls link index to every connection"/>
     </tls_building>
 
     <ramp_guessing>
@@ -165,43 +184,49 @@
         <ramps.max-ramp-speed value="-1" synonymes="ramp-guess.max-ramp-speed" type="FLOAT" help="Treat edges with speed &gt; FLOAT as no ramps"/>
         <ramps.min-highway-speed value="21.9444" synonymes="ramp-guess.min-highway-speed" type="FLOAT" help="Treat edges with speed &lt; FLOAT as no highways"/>
         <ramps.ramp-length value="100" synonymes="ramp-guess.ramp-length" type="FLOAT" help="Use FLOAT as ramp-length"/>
-        <ramps.set value="" synonymes="ramp-guess.explicite" type="STR" help="Tries to handle the given edges as ramps"/>
-        <ramps.unset value="" type="STR" help="Do not consider the given edges as ramps"/>
+        <ramps.min-weave-length value="50" type="FLOAT" help="Use FLOAT as minimum ramp-length"/>
+        <ramps.set value="" synonymes="ramp-guess.explicite" type="STR[]" help="Tries to handle the given edges as ramps"/>
+        <ramps.unset value="" type="STR[]" help="Do not consider the given edges as ramps"/>
         <ramps.no-split value="false" synonymes="ramp-guess.no-split" type="BOOL" help="Avoids edge splitting"/>
     </ramp_guessing>
 
     <edge_removal>
         <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT" help="Only keep edges with speed in meters/second &gt; FLOAT"/>
-        <remove-edges.explicit value="" synonymes="remove-edges" type="STR" help="Remove edges in STR"/>
-        <keep-edges.explicit value="" synonymes="keep-edges" type="STR" help="Only keep edges in STR or those which are kept due to other keep-edges or remove-edges options"/>
-        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options"/>
-        <remove-edges.input-file value="" type="FILE" help="Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported)"/>
+        <remove-edges.explicit value="" synonymes="remove-edges" type="STR[]" help="Remove edges in STR[]"/>
+        <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]" help="Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options"/>
+        <keep-edges.input-file value="" type="FILE" help="Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options"/>
+        <remove-edges.input-file value="" type="FILE" help="Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported)"/>
         <keep-edges.postload value="false" type="BOOL" help="Remove edges after joining"/>
-        <keep-edges.in-boundary value="" type="STR" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)"/>
-        <keep-edges.in-geo-boundary value="" type="STR" help="Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;)"/>
-        <keep-edges.by-vclass value="" type="STR" help="Only keep edges which allow one of the vclasss in STR"/>
-        <remove-edges.by-vclass value="" type="STR" help="Remove edges which allow only vclasses from STR"/>
-        <keep-edges.by-type value="" type="STR" help="Only keep edges where type is in STR"/>
+        <keep-edges.in-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;)"/>
+        <keep-edges.in-geo-boundary value="" type="STR[]" help="Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;)"/>
+        <keep-edges.by-vclass value="" type="STR[]" help="Only keep edges which allow one of the vclasss in STR[]"/>
+        <remove-edges.by-vclass value="" type="STR[]" help="Remove edges which allow only vclasses from STR[]"/>
+        <keep-edges.by-type value="" type="STR[]" help="Only keep edges where type is in STR[]"/>
         <keep-edges.components value="0" type="INT" help="Only keep the INT largest weakly connected components"/>
-        <remove-edges.by-type value="" type="STR" help="Remove edges where type is in STR"/>
+        <remove-edges.by-type value="" type="STR[]" help="Remove edges where type is in STR[]"/>
         <remove-edges.isolated value="false" synonymes="remove-isolated" type="BOOL" help="Removes isolated edges"/>
     </edge_removal>
 
     <unregulated_nodes>
         <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL" help="All nodes will be unregulated"/>
-        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR" help="Do not regulate nodes in STR"/>
+        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR[]" help="Do not regulate nodes in STR[]"/>
         <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes" type="BOOL" help="Do not regulate district nodes"/>
     </unregulated_nodes>
 
     <junctions>
+        <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT" help="Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s)"/>
         <no-internal-links value="false" type="BOOL" help="Omits internal links"/>
         <no-turnarounds value="false" type="BOOL" help="Disables building turnarounds"/>
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL" help="Disables building turnarounds at tls-controlled junctions"/>
+        <no-turnarounds.geometry value="true" type="BOOL" help="Disables building turnarounds at geometry-like junctions"/>
         <no-turnarounds.except-deadend value="false" type="BOOL" help="Disables building turnarounds except at dead end junctions"/>
+        <no-turnarounds.except-turnlane value="false" type="BOOL" help="Disables building turnarounds except at at junctions with a dedicated turning lane"/>
+        <no-turnarounds.fringe value="false" type="BOOL" help="Disables building turnarounds at fringe junctions"/>
         <no-left-connections value="false" type="BOOL" help="Disables building connections to left"/>
         <junctions.join value="false" type="BOOL" help="Joins junctions that are close to each other (recommended for OSM import)"/>
         <junctions.join-dist value="10" type="FLOAT" help="Determines the maximal distance for joining junctions (defaults to 10)"/>
-        <junctions.join-exclude value="" type="STR" help="Interprets STR as list of junctions to exclude from joining"/>
+        <junctions.join-exclude value="" type="STR[]" help="Interprets STR[] as list of junctions to exclude from joining"/>
+        <junctions.join-same value="false" type="BOOL" help="Joins junctions that have the same coordinates even if not connected"/>
         <junctions.corner-detail value="5" type="INT" help="Generate INT intermediate points to smooth out intersection corners"/>
         <junctions.internal-link-detail value="5" type="INT" help="Generate INT intermediate points to smooth out lanes within the intersection"/>
         <junctions.scurve-stretch value="0" type="FLOAT" help="Generate longer intersections to allow for smooth s-curves when the number of lanes changes"/>
@@ -222,23 +247,36 @@
         <sidewalks.guess.max-speed value="13.89" type="FLOAT" help="Add sidewalks for edges with a speed equal or below the given limit"/>
         <sidewalks.guess.min-speed value="5.8" type="FLOAT" help="Add sidewalks for edges with a speed above the given limit"/>
         <sidewalks.guess.from-permissions value="false" type="BOOL" help="Add sidewalks for edges that allow pedestrians on any of their lanes regardless of speed"/>
-        <sidewalks.guess.exclude value="" type="STR" help="Do not guess sidewalks for the given list of edges"/>
+        <sidewalks.guess.exclude value="" type="STR[]" help="Do not guess sidewalks for the given list of edges"/>
         <crossings.guess value="false" type="BOOL" help="Guess pedestrian crossings based on the presence of sidewalks"/>
         <crossings.guess.speed-threshold value="13.89" type="FLOAT" help="At uncontrolled nodes, do not build crossings across edges with a speed above the threshold"/>
         <walkingareas value="false" type="BOOL" help="Always build walking areas even if there are no crossings"/>
+        <walkingareas.join-dist value="15" type="FLOAT" help="Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT"/>
     </pedestrian>
+
+    <bicycle>
+        <bikelanes.guess value="false" type="BOOL" help="Guess bike lanes based on edge speed"/>
+        <bikelanes.guess.max-speed value="22.22" type="FLOAT" help="Add bike lanes for edges with a speed equal or below the given limit"/>
+        <bikelanes.guess.min-speed value="5.8" type="FLOAT" help="Add bike lanes for edges with a speed above the given limit"/>
+        <bikelanes.guess.from-permissions value="false" type="BOOL" help="Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed"/>
+        <bikelanes.guess.exclude value="" type="STR[]" help="Do not guess bikelanes for the given list of edges"/>
+    </bicycle>
 
     <railway>
         <railway.signals.discard value="false" type="BOOL" help="Discard all railway signal information loaded from other formats than plain-xml"/>
         <railway.topology.repair value="false" type="BOOL" help="Repair topology of the railway network"/>
         <railway.topology.repair.connect-straight value="false" type="BOOL" help="Allow bidiretional rail use wherever rails with opposite directions meet at a straight angle"/>
+        <railway.topology.repair.stop-turn value="false" type="BOOL" help="Add turn-around connections at all loaded stops."/>
         <railway.topology.all-bidi value="false" type="BOOL" help="Make all rails usable in both direction"/>
+        <railway.topology.all-bidi.input-file value="" type="FILE" help="Make all rails edge ids from FILE usable in both direction"/>
+        <railway.topology.direction-priority value="false" type="BOOL" help="Set edge priority values based on estimated main direction"/>
         <railway.access-distance value="150" synonymes="osm.stop-output.footway-access-distance" type="FLOAT" help="The search radius for finding suitable road accesses for rail stops"/>
         <railway.max-accesses value="5" synonymes="osm.stop-output.footway-max-accesses" type="INT" help="The maximum roud accesses registered per rail stops"/>
         <railway.access-factor value="1.5" synonymes="osm.stop-output.footway-access-factor" type="FLOAT" help="The walking length of the access is computed as air-line distance multiplied by FLOAT"/>
     </railway>
 
     <formats>
+        <discard-params value="" type="STR[]" help="Remove the list of keys from all params"/>
         <osm.skip-duplicates-check value="false" type="BOOL" help="Skips the check for duplicate nodes and edges"/>
         <osm.elevation value="false" type="BOOL" help="Imports elevation data"/>
         <osm.layer-elevation value="0" type="FLOAT" help="Reconstruct (relative) elevation based on layer data. Each layer is raised by FLOAT m"/>
@@ -259,27 +297,31 @@
         <shapefile.speed value="" type="STR" help="Read speed from column STR"/>
         <shapefile.name value="" type="STR" help="Read (non-unique) name from column STR"/>
         <shapefile.node-join-dist value="0" type="FLOAT" help="Distance threshold for determining whether distinct shapes are connected (used when from-id and to-id are not available)"/>
-        <shapefile.add-params value="" type="STR" help="Add the list of field names as edge params"/>
+        <shapefile.add-params value="" type="STR[]" help="Add the list of field names as edge params"/>
         <shapefile.use-defaults-on-failure value="false" synonymes="arcview.use-defaults-on-failure" type="BOOL" help="Uses edge type defaults on problems"/>
         <shapefile.all-bidirectional value="false" synonymes="arcview.all-bidi shapefile.all-bidi" type="BOOL" help="Insert edges in both directions"/>
         <shapefile.guess-projection value="false" synonymes="arcview.guess-projection" type="BOOL" help="Guess the proper projection"/>
+        <shapefile.traditional-axis-mapping value="false" type="BOOL" help="Use traditional axis order (lon, lat)"/>
+        <dlr-navteq.tolerant-permissions value="false" type="BOOL" help="Allow more vehicle classes by default"/>
+        <dlr-navteq.keep-length value="false" type="BOOL" help="The edge lengths given in the DLR Navteq-file will be kept"/>
         <vissim.join-distance value="5" synonymes="vissim.offset" type="FLOAT" help="Structure join offset"/>
         <vissim.default-speed value="50" type="FLOAT" help="Use FLOAT as default speed"/>
         <vissim.speed-norm value="1" type="FLOAT" help="Factor for edge velocity"/>
         <vissim.report-unset-speeds value="false" type="BOOL" help="Writes lanes without an explicit speed set"/>
+        <visum.language-file value="" type="FILE" help="Load language mappings from FILE"/>
         <visum.use-type-priority value="false" type="BOOL" help="Uses priorities from types"/>
         <visum.use-type-laneno value="false" type="BOOL" help="Uses lane numbers from types"/>
         <visum.use-type-speed value="false" type="BOOL" help="Uses speeds from types"/>
         <visum.connector-speeds value="100" type="FLOAT" help="Sets connector speed"/>
         <visum.connectors-lane-number value="3" synonymes="visum.connector-laneno" type="INT" help="Sets connector lane number"/>
-        <visum.no-connectors value="false" type="BOOL" help="Excludes connectors"/>
+        <visum.no-connectors value="true" type="BOOL" help="Excludes connectors"/>
         <visum.recompute-lane-number value="false" synonymes="visum.recompute-laneno" type="BOOL" help="Computes the number of lanes from the edges&apos; capacities"/>
         <visum.verbose-warnings value="false" type="BOOL" help="Prints all warnings, some of which are due to VISUM misbehaviour"/>
         <visum.lanes-from-capacity.norm value="1800" synonymes="capacity-norm lanes-from-capacity.norm" type="FLOAT" help="The factor for flow to no. lanes conversion"/>
         <opendrive.import-all-lanes value="false" type="BOOL" help="Imports all lane types"/>
         <opendrive.ignore-widths value="false" type="BOOL" help="Whether lane widths shall be ignored."/>
         <opendrive.curve-resolution value="2" type="FLOAT" help="The geometry resolution in m when importing curved geometries as line segments."/>
-        <opendrive.advance-stopline value="12" type="FLOAT" help="Allow stop lines to be built beyond the start of the junction if the geometries allow so"/>
+        <opendrive.advance-stopline value="0" type="FLOAT" help="Allow stop lines to be built beyond the start of the junction if the geometries allow so"/>
         <opendrive.min-width value="1.8" type="FLOAT" help="The minimum lane width for determining start or end of variable-width lanes"/>
         <opendrive.internal-shapes value="false" type="BOOL" help="Import internal lane shapes"/>
     </formats>
@@ -287,11 +329,12 @@
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
         <print-options value="false" type="BOOL" help="Prints option values before processing"/>
-        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen or selected topics"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>

@@ -1,0 +1,9 @@
+Error: Attribute 'friendlyPos' in definition of a stop is not of type bool.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Attribute 'friendlyPos' in definition of a stop is empty.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Attribute 'friendlyPos' in definition of a stop is not of type bool.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Attribute 'friendlyPos' in definition of a stop is not of type bool.
+Error: Invalid start or end position for stop on lane 'gneE1_0' in person 'person_0'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Aug124439.4540/netedit.gui/demandElements/stop/stopLane/load/friendlyPos\input_routes.rou.xml failed.

@@ -12,31 +12,42 @@
                 <xsd:element name="routeDistribution" type="routeDistributionStateType" minOccurs="0"/>
                 <xsd:element name="vType" type="vTypeType" minOccurs="0"/>
                 <xsd:element name="vehicle" type="vehicleStateType" minOccurs="0"/>
+                <xsd:element name="transportables" type="transportablesStateType" minOccurs="0"/>
                 <xsd:element name="route" type="routeStateType" minOccurs="0"/>
                 <xsd:element name="flowState" type="flowStateType" minOccurs="0"/>
                 <xsd:element name="lane" type="laneStateType" minOccurs="0"/>
                 <xsd:element name="segment" type="segmentStateType" minOccurs="0"/>
                 <xsd:element name="vehicleTransfer" type="vehicleTransferType" minOccurs="0"/>
+                <xsd:element name="railSignalConstraintTracker" type="railSignalConstraintTrackerType" minOccurs="0"/>
             </xsd:choice>
             <xsd:attribute name="version" type="xsd:string"/>
-            <xsd:attribute name="time" type="nonNegativeFloatType"/>
+            <xsd:attribute name="time" type="timeType"/>
         </xsd:complexType>
     </xsd:element>
 
     <xsd:complexType name="rngStateType">
+        <xsd:choice maxOccurs="unbounded">
+            <xsd:element name="rngLane" type="rngLaneType" minOccurs="0"/>
+        </xsd:choice>
         <xsd:attribute name="default" type="xsd:string" use="required"/>
         <xsd:attribute name="routeHandler" type="xsd:string" use="optional"/>
         <xsd:attribute name="insertionControl" type="xsd:string" use="optional"/>
         <xsd:attribute name="device" type="xsd:string" use="optional"/>
         <xsd:attribute name="device.btreceiver" type="xsd:string" use="optional"/>
+        <xsd:attribute name="device.toc" type="xsd:string" use="optional"/>
         <xsd:attribute name="driverState" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="rngLaneType">
+        <xsd:attribute name="index" type="xsd:int" use="required"/>
+        <xsd:attribute name="state" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="delayStateType">
         <xsd:attribute name="number" type="xsd:int" use="required"/>
         <xsd:attribute name="begin" type="xsd:int" use="required"/>
         <xsd:attribute name="end" type="xsd:int" use="required"/>
-        <xsd:attribute name="depart" type="nonNegativeFloatType" use="required"/>
+        <xsd:attribute name="depart" type="xsd:float" use="required"/>
         <xsd:attribute name="time" type="nonNegativeFloatType" use="required"/>
     </xsd:complexType>
 
@@ -57,6 +68,7 @@
     <xsd:complexType name="flowStateType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="index" type="xsd:nonNegativeInteger" use="required"/>
+        <xsd:attribute name="reroute" type="boolType" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="vehicleStateType">
@@ -97,6 +109,31 @@
         <xsd:attribute name="state" type="xsd:string" use="required"/>
     </xsd:complexType>
 
+    <xsd:complexType name="transportablesStateType">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="person" type="personStateType" minOccurs="0" maxOccurs="unbounded"/>
+            <xsd:element name="container" type="containerStateType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
+        <xsd:attribute name="type" type="xsd:string" use="required"/>
+        <xsd:attribute name="state" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="personStateType">
+        <xsd:complexContent>
+            <xsd:extension base="personType">
+                <xsd:attribute name="state" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
+    <xsd:complexType name="containerStateType">
+        <xsd:complexContent>
+            <xsd:extension base="containerType">
+                <xsd:attribute name="state" type="xsd:string" use="required"/>
+            </xsd:extension>
+        </xsd:complexContent>
+    </xsd:complexType>
+
     <xsd:complexType name="routeStateType">
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="state" type="xsd:string" use="required"/>
@@ -104,9 +141,10 @@
     </xsd:complexType>
 
     <xsd:complexType name="laneStateType">
-        <xsd:sequence>
-            <xsd:element name="vehicles" type="vehiclesType" minOccurs="1" maxOccurs="1"/>
-        </xsd:sequence>
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="vehicles" type="vehiclesType" minOccurs="0" maxOccurs="1"/>
+            <xsd:element name="link" type="linkType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
     </xsd:complexType>
 
@@ -114,11 +152,30 @@
         <xsd:attribute name="value" type="xsd:string" use="required"/>
     </xsd:complexType>
 
+    <xsd:complexType name="linkType">
+        <xsd:sequence>
+            <xsd:element name="approaching" type="approachingType" minOccurs="1" maxOccurs="unbounded"/>
+        </xsd:sequence>
+        <xsd:attribute name="to" type="xsd:string" use="required"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="approachingType">
+        <xsd:attribute name="id" type="idType" use="required"/>
+        <xsd:attribute name="arrivalTime" type="xsd:int" use="required"/>
+        <xsd:attribute name="arrivalSpeed" type="xsd:float" use="required"/>
+        <xsd:attribute name="departSpeed" type="xsd:float" use="required"/>
+        <xsd:attribute name="request" type="boolType" use="required"/>
+        <xsd:attribute name="arrivalTimeBraking" type="xsd:int" use="required"/>
+        <xsd:attribute name="arrivalSpeedBraking" type="xsd:float" use="required"/>
+        <xsd:attribute name="waitingTime" type="xsd:int" use="required"/>
+        <xsd:attribute name="distance" type="xsd:float" use="required"/>
+    </xsd:complexType>
+
     <xsd:complexType name="segmentStateType">
         <xsd:sequence>
             <xsd:element name="vehicles" type="queueType" minOccurs="1" maxOccurs="unbounded"/>
         </xsd:sequence>
-        <!-- <xsd:attribute name="id" type="xsd:string" use="required"/> -->
+        <xsd:attribute name="id" type="xsd:string" use="required"/>
     </xsd:complexType>
 
     <xsd:complexType name="queueType">
@@ -130,6 +187,12 @@
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="depart" type="xsd:int" use="required"/>
         <xsd:attribute name="parking" type="xsd:string" use="optional"/>
+    </xsd:complexType>
+
+    <xsd:complexType name="railSignalConstraintTrackerType">
+        <xsd:attribute name="lane" type="xsd:string" use="required"/>
+        <xsd:attribute name="index" type="xsd:int" use="required"/>
+        <xsd:attribute name="state" type="xsd:string" use="required"/>
     </xsd:complexType>
 
 </xsd:schema>

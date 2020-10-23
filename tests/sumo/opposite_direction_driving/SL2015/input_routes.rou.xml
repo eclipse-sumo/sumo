@@ -1,0 +1,16 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="emergency" vClass="emergency" sigma="0" laneChangeModel="SL2015"/>
+
+    <route id="r0" edges="WE"/>
+    <vehicle id="stopped"  route="r0" departPos="1000" depart="0" departLane="0">
+        <stop lane="WE_0" endPos="1000" duration="100"/>
+    </vehicle>
+    <vehicle id="stopped1"  route="r0" departPos="1000" depart="0" departLane="1">
+        <stop lane="WE_1" endPos="1000" duration="100"/>
+    </vehicle>
+
+    <vehicle id="overtaking" type="emergency" route="r0" departPos="0"  depart="1" departLane="0"/>
+    <vehicle id="overtaking1" type="emergency" route="r0" departPos="0"  depart="1" departLane="1"/>
+
+</routes>

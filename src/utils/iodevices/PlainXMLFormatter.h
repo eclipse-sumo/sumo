@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PlainXMLFormatter.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    2012
-/// @version $Id$
 ///
 // Output formatter for plain XML output
 /****************************************************************************/
-#ifndef PlainXMLFormatter_h
-#define PlainXMLFormatter_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "OutputFormatter.h"
@@ -149,9 +146,3 @@ private:
     /// @brief whether a closing ">" might be missing
     bool myHavePendingOpener;
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -52,9 +52,39 @@ bike_lane_starts
 # special case a)
 case_a_with_sidewalk
 
+# consider permissions when computing turn-around
+tram_turnaround
+
 # complete 4-arm intersection, real world example (Berlin)
 4arm_rw1
 
 # complete 4-arm intersection, real world example (Berlin)
 4arm_rw2
+
+# complete 4-arm intersection, real world example (Berlin)
+4arm_rw3
+
+# add a lane on the right but it's a dead-end
+add_right_deadend
+
+# add a lane on the right for turning
+add_right_turn
+
+# add 2 lanes on the right for turning
+add2_right_turn
+
+# add 2 lanes and one is for turning right
+add2_right_straight
+
+# add a lane on the left for turning
+add_left_turn
+
+# add 2 lanes on the left for turning
+add2_left_turn
+
+# add 2 lanes and one is for turning left
+add2_left_straight
+
+# add a lane on the right and a lane on the left for turning
+add_right_left_turn
 ramps

@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:10 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <railway.topology.output value="topology.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <railway>
+        <railway.topology.repair value="true"/>
+        <railway.topology.repair.connect-straight value="true"/>
+    </railway>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-83.66,-394.74,174.55,-352.02" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ39_0" function="internal" bidi=":gneJ39_3">
+        <lane id=":gneJ39_0_0" index="0" allow="rail" speed="27.78" length="14.48" shape="33.45,-352.13 18.97,-352.03"/>
+    </edge>
+    <edge id=":gneJ39_1" function="internal" bidi=":gneJ39_2">
+        <lane id=":gneJ39_1_0" index="0" allow="rail" speed="27.78" length="14.48" shape="32.92,-355.68 29.42,-354.50 26.02,-353.30 22.59,-352.39 18.97,-352.03"/>
+    </edge>
+    <edge id=":gneJ39_2" function="internal" bidi=":gneJ39_1">
+        <lane id=":gneJ39_2_0" index="0" allow="rail" speed="27.78" length="14.48" shape="18.97,-352.03 22.59,-352.39 26.02,-353.30 29.42,-354.50 32.92,-355.68"/>
+    </edge>
+    <edge id=":gneJ39_3" function="internal" bidi=":gneJ39_0">
+        <lane id=":gneJ39_3_0" index="0" allow="rail" speed="27.78" length="14.48" shape="18.97,-352.03 33.45,-352.13"/>
+    </edge>
+
+    <edge id="-gneE31" from="gneJ39" to="gneJ38" priority="-1" spreadType="center" bidi="gneE31">
+        <lane id="-gneE31_0" index="0" allow="rail" speed="27.78" length="102.63" shape="18.97,-352.03 -83.66,-352.67"/>
+    </edge>
+    <edge id="-gneE32" from="gneJ40" to="gneJ39" priority="-1" spreadType="center" bidi="gneE32">
+        <lane id="-gneE32_0" index="0" allow="rail" speed="27.78" length="141.10" shape="174.55,-353.31 33.45,-352.13"/>
+    </edge>
+    <edge id="-gneE33" from="gneJ41" to="gneJ39" priority="-1" spreadType="center" bidi="gneE33">
+        <lane id="-gneE33_0" index="0" allow="rail" speed="27.78" length="136.12" shape="163.31,-394.74 32.92,-355.68"/>
+    </edge>
+    <edge id="gneE31" from="gneJ38" to="gneJ39" priority="-1" spreadType="center" bidi="-gneE31">
+        <lane id="gneE31_0" index="0" allow="rail" speed="27.78" length="102.63" shape="-83.66,-352.67 18.97,-352.03"/>
+    </edge>
+    <edge id="gneE32" from="gneJ39" to="gneJ40" priority="-1" spreadType="center" bidi="-gneE32">
+        <lane id="gneE32_0" index="0" allow="rail" speed="27.78" length="141.10" shape="33.45,-352.13 174.55,-353.31"/>
+    </edge>
+    <edge id="gneE33" from="gneJ39" to="gneJ41" priority="-1" spreadType="center" bidi="-gneE33">
+        <lane id="gneE33_0" index="0" allow="rail" speed="27.78" length="136.12" shape="32.92,-355.68 163.31,-394.74"/>
+    </edge>
+
+    <junction id="gneJ38" type="dead_end" x="-83.66" y="-352.67" incLanes="-gneE31_0" intLanes="" shape="-83.67,-351.07 -83.65,-354.27 -83.67,-351.07 -83.65,-354.27">
+        <param key="buffer_stop" value="true"/>
+    </junction>
+    <junction id="gneJ39" type="priority" x="20.71" y="-352.02" incLanes="-gneE32_0 -gneE33_0 gneE31_0" intLanes=":gneJ39_0_0 :gneJ39_1_0 :gneJ39_2_0 :gneJ39_3_0" shape="33.47,-350.53 33.44,-353.73 33.38,-354.14 32.46,-357.21 29.63,-356.25 27.55,-355.38 25.83,-354.65 24.09,-354.09 21.94,-353.74 18.98,-353.63 18.96,-350.43">
+        <request index="0" response="0000" foes="0010" cont="0"/>
+        <request index="1" response="1001" foes="1001" cont="0"/>
+        <request index="2" response="0000" foes="0000" cont="0"/>
+        <request index="3" response="0000" foes="0010" cont="0"/>
+    </junction>
+    <junction id="gneJ40" type="dead_end" x="174.55" y="-353.31" incLanes="gneE32_0" intLanes="" shape="174.54,-354.91 174.56,-351.71 174.54,-354.91 174.56,-351.71"/>
+    <junction id="gneJ41" type="dead_end" x="163.31" y="-394.74" incLanes="gneE33_0" intLanes="" shape="162.85,-396.27 163.77,-393.21 162.85,-396.27 163.77,-393.21"/>
+
+    <connection from="-gneE32" to="-gneE31" fromLane="0" toLane="0" via=":gneJ39_0_0" dir="s" state="M"/>
+    <connection from="-gneE33" to="-gneE31" fromLane="0" toLane="0" via=":gneJ39_1_0" dir="s" state="M"/>
+    <connection from="gneE31" to="gneE33" fromLane="0" toLane="0" via=":gneJ39_2_0" dir="R" state="M"/>
+    <connection from="gneE31" to="gneE32" fromLane="0" toLane="0" via=":gneJ39_3_0" dir="s" state="M"/>
+
+    <connection from=":gneJ39_0" to="-gneE31" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ39_1" to="-gneE31" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ39_2" to="gneE33" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from=":gneJ39_3" to="gneE32" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

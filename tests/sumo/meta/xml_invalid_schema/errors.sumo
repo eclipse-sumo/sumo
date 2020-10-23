@@ -1,5 +1,5 @@
-Warning: Cannot find local schema '/scr1/sumo/data/xsd/blub_file.xsd', will try website lookup.
-Error: unable to open file 'http://sumo.dlr.de/xsd/blub_file.xsd'
+Warning: Cannot read local schema '/scr1/sumo/data/xsd/blub_file.xsd', will try website lookup.
+Error: unable to open file 'https://sumo.dlr.de/xsd/blub_file.xsd'
  In file 'input_routes.rou.xml'
  At line/column 1/0.
 

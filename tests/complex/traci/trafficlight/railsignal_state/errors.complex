@@ -1,0 +1,2 @@
+Warning: Found circular block after railSignal junction '11', link 0 (0 edges, length 0.10)
+Warning: Vehicle 'rail3' performs emergency stop at the end of lane 'T12_1_0' because of a red traffic light (decel=-20.22, offset=16.69), time=39.00.

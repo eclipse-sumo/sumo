@@ -1,0 +1,9 @@
+Error: Attribute 'id' is missing in definition of trip
+Error: trip cannot be created
+Error: Attribute 'id' in definition of a trip is empty.
+Error: Invalid trip id ''.
+Error: trip cannot be created
+Error: Invalid trip id 'id with spaces'. Contains invalid characters.
+Error: trip cannot be created
+Error: There is another trip with the same ID='trip_valid'.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Mar085257.660\netedit.gui\demandElements\trip\load\id\input_routes.rou.xml failed.

@@ -224,12 +224,5 @@ Warning: The signal '53222' could not be assigned to tl '532'.
 Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
 Warning: Could not set 4 of 37 signals.
-Warning: Found sharp turn with radius 7.29 at the end of edge '3[1][1][0]'.
-Warning: Found sharp turn with radius 8.90 at the end of edge '3[1][1][1][1][1][1][0]'.
-Warning: Found sharp turn with radius 5.33 at the end of edge '6[0]'.
-Warning: Found angle of 143.67 degrees at edge '6[1][1][1][1][1][0]', segment 0
-Warning: Found sharp turn with radius 3.45 at the start of edge '6[1][1][1][1][1][0]'.
-Warning: Found sharp turn with radius 3.90 at the end of edge '82[0]'.
-Warning: Found sharp turn with radius 4.20 at the start of edge '82[1]'.
-Warning: Found sharp turn with radius 5.98 at the start of edge '83[1]'.
-Warning: Found sharp turn with radius 7.81 at the end of edge '85[1][1][0]'.
+Warning: Found sharp turn with radius 4.37 at the end of edge '82[0]'.
+Warning: Found sharp turn with radius 6.53 at the start of edge '82[1]'.

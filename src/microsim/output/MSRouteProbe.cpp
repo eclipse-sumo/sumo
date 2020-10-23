@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSRouteProbe.cpp
 /// @author  Michael Behrisch
@@ -13,15 +17,9 @@
 /// @author  Tino Morenz
 /// @author  Jakob Erdmann
 /// @date    Thu, 04.12.2008
-/// @version $Id$
 ///
 // Writes route distributions at a certain edge
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -42,7 +40,8 @@
 // ===========================================================================
 MSRouteProbe::MSRouteProbe(const std::string& id, const MSEdge* edge, const std::string& distID, const std::string& lastID,
                            const std::string& vTypes) :
-    MSDetectorFileOutput(id, vTypes), MSMoveReminder(id) {
+    MSDetectorFileOutput(id, vTypes), MSMoveReminder(id),
+    myEdge(edge) {
     myCurrentRouteDistribution = std::make_pair(distID, MSRoute::distDictionary(distID));
     if (myCurrentRouteDistribution.second == 0) {
         myCurrentRouteDistribution.second = new RandomDistributor<const MSRoute*>();
@@ -68,13 +67,16 @@ MSRouteProbe::~MSRouteProbe() {
 
 
 bool
-MSRouteProbe::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSRouteProbe::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (!vehicleApplies(veh)) {
         return false;
     }
     if (reason != MSMoveReminder::NOTIFICATION_SEGMENT && reason != MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
-        if (myCurrentRouteDistribution.second->add(&veh.getRoute(), 1.)) {
-            veh.getRoute().addReference();
+        SUMOVehicle* vehicle = dynamic_cast<SUMOVehicle*>(&veh);
+        if (vehicle != nullptr) {
+            if (myCurrentRouteDistribution.second->add(&vehicle->getRoute(), 1.)) {
+                vehicle->getRoute().addReference();
+            }
         }
     }
     return false;
@@ -119,8 +121,8 @@ MSRouteProbe::writeXMLDetectorProlog(OutputDevice& dev) const {
 
 
 const MSRoute*
-MSRouteProbe::getRoute() const {
-    if (myLastRouteDistribution.second == 0) {
+MSRouteProbe::sampleRoute(bool last) const {
+    if (myLastRouteDistribution.second == 0 || !last) {
         if (myCurrentRouteDistribution.second->getOverallProb() > 0) {
             return myCurrentRouteDistribution.second->get();
         }

@@ -1,0 +1,15 @@
+initialized device 'example_veh0' with myCustomValue1=23.00, myCustomValue2=42.00, myCustomValue3=113.00
+device 'example_veh0' notifyEnter: reason=0 currentEdge=right2end
+device 'example_veh0' notifyLeave: reason=2 currentEdge=right2end
+device 'example_veh0' notifyEnter: reason=2 currentEdge=right2end
+device 'example_veh0' notifyLeave: reason=1 currentEdge=right2end
+device 'example_veh0' notifyEnter: reason=1 currentEdge=end
+device 'example_veh0' notifyLeave: reason=2 currentEdge=end
+device 'example_veh0' notifyEnter: reason=2 currentEdge=end
+device 'example_veh0' notifyLeave: reason=2 currentEdge=end
+device 'example_veh0' notifyEnter: reason=2 currentEdge=end
+device 'example_veh0' notifyLeave: reason=2 currentEdge=end
+device 'example_veh0' notifyEnter: reason=2 currentEdge=end
+device 'example_veh0' notifyLeave: reason=2 currentEdge=end
+device 'example_veh0' notifyEnter: reason=2 currentEdge=end
+device 'example_veh0' notifyLeave: reason=7 currentEdge=end

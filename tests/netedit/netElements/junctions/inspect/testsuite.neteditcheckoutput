@@ -19,5 +19,8 @@ keepclear
 # edit attribute right of way
 rightofway
 
-# edit attribute genericparameters
-genericparameters
+# edit attribute fringe
+fringe
+
+# edit attribute parameters
+parameters

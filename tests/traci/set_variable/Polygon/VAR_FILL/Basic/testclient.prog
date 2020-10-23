@@ -3,3 +3,5 @@ getvariable 0xa8 0x55 p1
 setvalue 0xc8 0x55 p1 <int> 0
 getvariable 0xa8 0x55 p1
 simstep2 0
+simstep2 0
+

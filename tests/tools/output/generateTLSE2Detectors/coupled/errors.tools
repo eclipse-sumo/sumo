@@ -1,0 +1,15 @@
+INFO:root:Reading net...
+INFO:root:Generating detectors...
+WARNING:root:Detector for lane 1i_0 already generated
+WARNING:root:Detector for lane 1i_0 already generated
+WARNING:root:Detector for lane 1i_0 already generated
+WARNING:root:Detector for lane 2i_0 already generated
+WARNING:root:Detector for lane 2i_0 already generated
+WARNING:root:Detector for lane 2i_0 already generated
+WARNING:root:Detector for lane 3i_0 already generated
+WARNING:root:Detector for lane 3i_0 already generated
+WARNING:root:Detector for lane 3i_0 already generated
+WARNING:root:Detector for lane 4i_0 already generated
+WARNING:root:Detector for lane 4i_0 already generated
+WARNING:root:Detector for lane 4i_0 already generated
+INFO:root:4 e2 detectors generated!

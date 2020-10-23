@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jan  7 12:11:09 2019
+TraCITestClient output file. Date: Wed Aug 12 15:59:14 2020
 
 
 -> Command sent: <SetOrder>:
@@ -7,6 +7,7 @@ TraCITestClient output file. Date: Mon Jan  7 12:11:09 2019
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]
 testAPI:
+  getVersion: 20, SUMO v1_6_0+1531-1eb0ee76d1
   setOrder:
   edge:
     getIDList: :n_m1_0 :n_m2_0 :n_m3_0 :n_m4_0 :n_m4_2 :n_m4_4 :n_m4_7 :n_m5_0 :n_m5_2 :n_m5_4 :n_m6_0 :n_m6_2 :n_m6_4 :n_m7_0 :n_m7_3 :n_o0_0 :n_o1_0 :n_o1_3 :n_o2_0 :n_o2_3 :n_u0_0 :n_u1_0 :n_u1_2 :n_u2_0 :n_u2_2 :n_x1_0 e_m0 e_m1 e_m2 e_m3 e_m4 e_m5 e_m6 e_o0 e_o1 e_shape0 e_shape1 e_u0 e_u1 e_vo0 e_vo1 e_vo2 e_vu0 e_vu1 e_vu2 e_x0 e_x1
@@ -16,6 +17,7 @@ testAPI:
     effort: 420.00
     laneNumber: 3
     streetName: exampleStreetName1
+    maxSpeed: 42.00
   lane:
     getIDList: :n_m1_0_0 :n_m1_0_1 :n_m1_0_2 :n_m2_0_0 :n_m2_0_1 :n_m2_0_2 :n_m3_0_0 :n_m3_0_1 :n_m3_0_2 :n_m4_0_0 :n_m4_0_1 :n_m4_2_0 :n_m4_2_1 :n_m4_4_0 :n_m4_4_1 :n_m4_4_2 :n_m4_7_0 :n_m5_0_0 :n_m5_0_1 :n_m5_2_0 :n_m5_2_1 :n_m5_4_0 :n_m5_4_1 :n_m5_4_2 :n_m6_0_0 :n_m6_0_1 :n_m6_2_0 :n_m6_2_1 :n_m6_4_0 :n_m6_4_1 :n_m6_4_2 :n_m7_0_0 :n_m7_0_1 :n_m7_0_2 :n_m7_3_0 :n_m7_3_1 :n_m7_3_2 :n_o0_0_0 :n_o0_0_1 :n_o1_0_0 :n_o1_0_1 :n_o1_0_2 :n_o1_3_0 :n_o1_3_1 :n_o2_0_0 :n_o2_0_1 :n_o2_0_2 :n_o2_3_0 :n_o2_3_1 :n_u0_0_0 :n_u0_0_1 :n_u1_0_0 :n_u1_0_1 :n_u1_2_0 :n_u1_2_1 :n_u1_2_2 :n_u2_0_0 :n_u2_0_1 :n_u2_2_0 :n_u2_2_1 :n_u2_2_2 :n_x1_0_0 :n_x1_0_1 e_m0_0 e_m0_1 e_m0_2 e_m1_0 e_m1_1 e_m1_2 e_m2_0 e_m2_1 e_m2_2 e_m3_0 e_m3_1 e_m3_2 e_m4_0 e_m4_1 e_m4_2 e_m5_0 e_m5_1 e_m5_2 e_m6_0 e_m6_1 e_m6_2 e_o0_0 e_o0_1 e_o0_2 e_o1_0 e_o1_1 e_o1_2 e_shape0_0 e_shape0_1 e_shape0_2 e_shape1_0 e_shape1_1 e_shape1_2 e_u0_0 e_u0_1 e_u0_2 e_u1_0 e_u1_1 e_u1_2 e_vo0_0 e_vo0_1 e_vo1_0 e_vo1_1 e_vo2_0 e_vo2_1 e_vu0_0 e_vu0_1 e_vu1_0 e_vu1_1 e_vu2_0 e_vu2_1 e_x0_0 e_x0_1 e_x1_0 e_x1_1
     getIDCount: 118
@@ -29,6 +31,7 @@ testAPI:
     getFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: No connection from lane 'e_vu0_0' to lane 'e_m4_1'])
     getInternalFoes: :n_m4_7_0 :n_m4_0_1 :n_m4_4_0 :n_m4_4_1 :n_m4_4_2
     getInternalFoes (invalid):     caught TraCIException(.. Answered with error to command (163), [description: Lane 'dummy' is not known])
+    maxSpeed: 42.00
   POI:
     getIDList: poi0 poi1
     getIDCount: 2
@@ -41,11 +44,15 @@ testAPI:
     getShape: TraCIPosition(800,1000,0) TraCIPosition(1200,1000,0) TraCIPosition(1200,900,0) TraCIPosition(800,900,0) 
     getColor: TraCIColor(0,255,255,255)
     getShape after modification: TraCIPosition(42,1000,0) TraCIPosition(1200,1000,0) TraCIPosition(1200,900,0) TraCIPosition(800,900,0) 
+  junction:
+    getIDList: :n_m4_7_0 n_m0 n_m1 n_m2 n_m3 n_m4 n_m5 n_m6 n_m7 n_o0 n_o1 n_o2 n_u0 n_u1 n_u2 n_x0 n_x1 n_x2
+    getIDCount: 18
+    getShape: TraCIPosition(1993.45,501.45,0) TraCIPosition(1999.95,501.45,0) TraCIPosition(2008.05,499.95,0) TraCIPosition(2008.05,490.15,0) TraCIPosition(2006.55,488.65,0) TraCIPosition(2000.05,488.65,0) TraCIPosition(1991.95,490.15,0) TraCIPosition(1991.95,499.95,0) TraCIPosition(1993.45,501.45,0) 
   route:
     add:
     getIDList: e_m4 e_u1 r1
   vehicleType:
-    getIDList: DEFAULT_BIKETYPE DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1
+    getIDList: DEFAULT_BIKETYPE DEFAULT_CONTAINERTYPE DEFAULT_PEDTYPE DEFAULT_TAXITYPE DEFAULT_VEHTYPE stilts t1
     getEmergencyDecel: 9.90
     getApparentDecel: 99.90
     getWidth: 1.90
@@ -53,8 +60,9 @@ testAPI:
     setMinGapLat: 1.50
     setMaxSpeedLat: 1.20
     getLateralAlignment: compact
+    getPersonCapacity: 4
     copy type 't1' to 't1_copy' and set accel to 100.
-    getIDList: DEFAULT_BIKETYPE DEFAULT_PEDTYPE DEFAULT_VEHTYPE stilts t1 t1_copy
+    getIDList: DEFAULT_BIKETYPE DEFAULT_CONTAINERTYPE DEFAULT_PEDTYPE DEFAULT_TAXITYPE DEFAULT_VEHTYPE stilts t1 t1_copy
     getAccel('t1'): 0.80
     getAccel('t1_copy'): 100.00
   vehicle:
@@ -65,14 +73,22 @@ testAPI:
     getLanePosition: 140.00
     getLateralLanePosition: 0.00
     getSpeed: 10.00
+    getLateralSpeed: 0.00
     getAcceleration: 0.00
+    getFollowSpeed: 10.00
+    getSecureGap: 12.00
+    getStopSpeed: 10.00
     getSpeedMode: 31
     getSlope: 0.00
     getLine: S42
     getVia: e_shape1
+    getPersonCapacity: 4
     getMaxSpeed: 30.00
     isRouteValid: 1
+    getStopState: 0
+    getStopDelay: -1.00
     param: 42
+    parameterWithKey: (meaningOfLife, 42)
     getColor:  r=255 g=255 b=0 a=128
     getSignals: 0
     getRoutingMode: 1
@@ -89,51 +105,70 @@ testAPI:
     getWaitingTime: 0.00
     getAccumulatedWaitingTime: 0.00
     getShapeClass: bicycle
-    getLeader: 2, 494.88
+    getLeader: 2, 493.85
+    getFollower: , -1.00
     getLaneChangeState (left): 1073741824, 1073741824
     getLaneChangeState (right): 1073741824, 1073741824
+    getSpeedMode after change: 0
+    getLaneChangeMode after change: 0
     remove:
     getIDCount: 2
   inductionloop:
     getIDList: det1
     getVehicleData:
   simulation:
+    convert2D: TraCIPosition(2508.05,491.75,-1.07374e+09)
+    convert2DGeo: TraCIPosition(12.0501,48.0917,-1.07374e+09)
+    convert3D: TraCIPosition(2508.05,491.75,0)
+    convert3DGeo: TraCIPosition(12.0501,48.0917,0)
+    convertRoad: TraCIRoadPosition(:n_m5_0_1,3.02524)
+    convertRoadBus: TraCIRoadPosition(:n_m5_0_1,3.02524)
+    convertGeo: TraCIPosition(12.05,48.0917,-1.07374e+09)
+    convertCartesian: TraCIPosition(16227.4,435082,-1.07374e+09)
     getDistance2D_air: 500.00
-    getDistance2D_driving: 3368.41
+    getDistance2D_driving: 3367.88
     getDistanceRoad_air: 500.00
     getDistanceRoad_driving: 3370.76
     getCurrentTime: 7000
     getDeltaT: 1.00
     parkingArea param: 5
+    busStopWaiting: 1
+    busStopWaitingIDs: pWaiting
     subscribe to road and pos of vehicle '1':
+    findRoute: e_m5 e_m6 e_shape0 e_o1 e_o0 e_vo0 e_m4
     subscription results:
-      roadID=e_u1 pos=7.37825
+      roadID=e_u1 pos=7.34774
     subscribe to vehicles around edge 'e_u1':
     context subscription results:
-      vehicle=1 pos=11.2878
-      vehicle=2 pos=19.0044
+      vehicle=1 pos=11.4581
+      vehicle=2 pos=16.3564
+    subscribe to vehicles around vehicle '1':
+    context subscription results:
+      vehicle=2
   person:
-    getIDList: p0
+    getIDList: p0 pWaiting
     getRoadID: e_m3
+    getLaneID: e_m3_0
     getTypeID: stilts
     getWaitingTime: 0.00
     getNextEdge: :n_m4_4
-    getStage: 2
+    getStage: walking
     getRemainingStages: 1
     getVehicle: 
     getEdges: e_m3 e_m4
-    getPosition: TraCIPosition(1500,490.47,0)
-    getPosition3D: TraCIPosition(1500,490.47,0)
+    getPosition: TraCIPosition(1501.64,490.47,0)
+    getPosition3D: TraCIPosition(1501.64,490.47,0)
     getAngle: 90.00
-    getLanePosition: 0.00
+    getSlope: 0.00
+    getLanePosition: 1.64
     getLength: 0.21
     getColor: TraCIColor(255,255,0,128)
     param: bar
-    getSpeed: 2.60
+    getSpeed: 2.57
     getRemainingStages: 4
     getRemainingStages: 3
     getRemainingStages: 1
-    getStage: 1
+    getStage: waiting (last stage removed)
     getEdges after rerouting: e_u1 e_vu2 e_m5
   trafficlights:
     getIDList: n_m4
@@ -143,7 +178,7 @@ testAPI:
     phase: 0
     phaseName: nameSetByTraCI
     phaseDuration: 12.00
-    nextSwitch: 23.00
+    nextSwitch: 25.00
     controlledLanes: e_vo0_0 e_vo0_1 e_vu0_0 e_vu0_1 e_m3_0 e_m3_1 e_m3_2
     controlledLinks:
       index=0 link=0 fromLane=e_vo0_0 viaLane=:n_m4_0_0 toLane=e_m4_1

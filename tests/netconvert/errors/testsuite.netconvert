@@ -20,3 +20,6 @@ ignore_errors_and_unknown_vclass
 # allowed vClass or disallowed vClass contains unrecognized attributes (#2148)
 # 
 unknown_vclass
+
+# aggregate some error messages
+aggregate

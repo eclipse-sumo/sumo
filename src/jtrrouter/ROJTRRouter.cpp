@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ROJTRRouter.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Jan 2004
-/// @version $Id$
 ///
 // Computes routes using junction turning percentages
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <router/RONet.h>
@@ -33,12 +31,16 @@
 // method definitions
 // ===========================================================================
 ROJTRRouter::ROJTRRouter(bool unbuildIsWarningOnly, bool acceptAllDestinations,
-                         int maxEdges, bool ignoreClasses, bool allowLoops) :
-    SUMOAbstractRouter<ROEdge, ROVehicle>("JTRRouter", &ROEdge::getTravelTimeStatic),
+                         int maxEdges, bool ignoreClasses,
+                         bool allowLoops,
+                         bool discountSources) :
+    SUMOAbstractRouter<ROEdge, ROVehicle>("JTRRouter", unbuildIsWarningOnly, &ROEdge::getTravelTimeStatic, nullptr, false, false),
     myUnbuildIsWarningOnly(unbuildIsWarningOnly),
     myAcceptAllDestination(acceptAllDestinations), myMaxEdges(maxEdges),
-    myIgnoreClasses(ignoreClasses), myAllowLoops(allowLoops) {
-}
+    myIgnoreClasses(ignoreClasses),
+    myAllowLoops(allowLoops),
+    myDiscountSources(discountSources)
+{ }
 
 
 ROJTRRouter::~ROJTRRouter() {}
@@ -47,15 +49,19 @@ ROJTRRouter::~ROJTRRouter() {}
 bool
 ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
                      const ROVehicle* const vehicle,
-                     SUMOTime time, ConstROEdgeVector& into) {
+                     SUMOTime time, ConstROEdgeVector& into, bool silent) {
     const ROJTREdge* current = static_cast<const ROJTREdge*>(from);
+    if (myDiscountSources && current->getSourceFlow() <= 0) {
+        return true;
+    }
     double timeS = STEPS2TIME(time);
     std::set<const ROEdge*> avoidEdges;
     // route until a sinks has been found
     while (current != nullptr && current != to &&
-            !current->isSink() &&
+            (!current->isSink() || current == from || current->getSourceFlow() > 0) &&
             (int)into.size() < myMaxEdges) {
         into.push_back(current);
+        const_cast<ROJTREdge*>(current)->changeSourceFlow(-1);
         if (!myAllowLoops) {
             avoidEdges.insert(current);
         }
@@ -68,8 +74,10 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
         if (myAcceptAllDestination) {
             return true;
         } else {
-            MsgHandler* mh = myUnbuildIsWarningOnly ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
-            mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
+            if (!silent) {
+                MsgHandler* mh = myUnbuildIsWarningOnly ? MsgHandler::getWarningInstance() : MsgHandler::getErrorInstance();
+                mh->inform("The route starting at edge '" + from->getID() + "' could not be closed.");
+            }
             return false;
         }
     }
@@ -82,4 +90,3 @@ ROJTRRouter::compute(const ROEdge* from, const ROEdge* to,
 
 
 /****************************************************************************/
-

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 30.09.2019 14:57:05 by Eclipse SUMO netedit Version v1_3_1+0535-f8c85d5067
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep145653.8672/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep145653.8672/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <sidewalks.guess value="true"/>
+        <crossings.guess value="true"/>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep145653.8672/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep145653.8672/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep145653.8672/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep145653.8672/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep145653.8672/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep145653.8672/netedit.gui/demandElements/stop/stopLane/volatileRecomputing\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="person_0" depart="0.00" color="cyan">
+        <stop lane="gneE4_0" startPos="15.00" endPos="20.00" duration="60.00"/>
+        <walk edges="gneE4 gneE2"/>
+        <stop lane="gneE2_4" startPos="20.00" endPos="22.00" duration="60.00"/>
+        <stop lane="gneE2_3" startPos="24.00" endPos="30.00" duration="60.00"/>
+        <stop lane="gneE2_2" startPos="31.00" endPos="35.00" duration="60.00"/>
+        <stop lane="gneE2_1" startPos="38.00" endPos="42.00" duration="60.00"/>
+        <stop lane="gneE2_0" startPos="42.00" endPos="44.00" duration="60.00"/>
+    </person>
+    <person id="person_1" depart="0.00" color="cyan">
+        <stop lane="gneE1_0" startPos="25.00" endPos="35.00" duration="60.00"/>
+        <walk edges="gneE1 gneE0"/>
+        <stop lane="gneE0_0" startPos="35.00" endPos="45.00" duration="60.00"/>
+    </person>
+</routes>

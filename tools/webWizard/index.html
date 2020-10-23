@@ -7,6 +7,7 @@
         <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
         <script type="text/javascript" src="lib.js"></script>
         <script type="text/javascript" src="http://www.openlayers.org/api/OpenLayers.js"></script>
+        <script type="text/javascript" src="jquery-3.5.1.min.js"></script>
         <script type="text/javascript" src="script.js"></script>
     </head>
     <body>
@@ -15,14 +16,11 @@
 
         <div id="side">
             <div id="tabs">
-                <div class="tab" title="Map">
-                    <img src="images/map.png" />
+                <div class="tab" title="Options">
+                    <img src="images/generate.png" />
                 </div>
                 <div class="tab" title="Vehicles">
                     <img src="images/passenger.png" />
-                </div>
-                <div class="tab" title="Options">
-                    <img src="images/generate.png" />
                 </div>
                 <div class="tab" title="Copyright">©</div>
             </div>
@@ -51,29 +49,28 @@
                         <label>Select Area <input type="checkbox" id="canvas-toogle" /></label>
                     </div>
                 </div>
+
+                <div class="container" style="margin-top: 20px;">
+                    <h4>Options</h4>
+
+                    <div class="options open">
+                        <label>Add Polygons <input id="polygons" type="checkbox" checked /></label>
+                        <label>Duration <input id="duration" type="number" value="3600" min="0" step="1" /></label>
+                        <label>Import Public Transport <input id="publicTransport" type="checkbox" /></label>
+                        <label>Car-only Network <input id="carOnlyNetwork" type="checkbox" /></label>
+                        <label>Satellite background <input id="decal" type="checkbox" /></label>
+                        <label>Left Hand Traffic <input id="leftHand" type="checkbox" /></label>
+                    </div>
+                </div>
             </div>
 
             <div class="controls" id="vehicle-controls"></div>
 
             <div class="controls">
                 <div class="container">
-                    <h4>Options</h4>
-
-                    <div class="options open">
-                        <label>Add Polygons <input id="polygons" type="checkbox" checked /></label>
-                        <label>Duration <input id="duration" type="number" value="3600" step="1" /></label>
-                        <label>Import Public Transport <input id="publicTransport" type="checkbox" /></label>
-                        <label>Left Hand Traffic <input id="leftHand" type="checkbox" /></label>
-                    </div>
-                </div>
-            </div>
-
-            <div class="controls">
-                <div class="container">
                     <h4>Icon Copyrights</h4>
 
                     <div class="images">
-                        <img src="images/map.png" />
                         <img src="images/generate.png" />
                         <img src="images/passenger.png" />
                         <img src="images/truck.png" />

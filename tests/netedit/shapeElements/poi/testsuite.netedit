@@ -1,24 +1,15 @@
-# all test check also the undo-redo of modifications and save the poi into a file
-# create poi
 create
 
-# delete poi
 delete
 
-# inspect poi
 inspect
 
-# inspect selected poi
 inspect_selected
 
-# load poi
 load
 
-# lock/unlock poi
 lock_unlock
 
-# move poi
 move
 
-# volatile recomputing
 volatileRecomputing

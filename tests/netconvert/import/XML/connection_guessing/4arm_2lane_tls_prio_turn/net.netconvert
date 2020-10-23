@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:46 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:53 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,12 +25,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -68,10 +69,14 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="42" state="rrrrGGGGGgggrrrr"/>
-        <phase duration="3"  state="rrrryyyyyyyyrrrr"/>
-        <phase duration="42" state="GgggrrrrrrrrGGGG"/>
-        <phase duration="3"  state="yyyyrrrrrrrryyyy"/>
+        <phase duration="18" state="rrrrrrrrGGGGGrrr"/>
+        <phase duration="3"  state="rrrrrrrryyyyyrrr"/>
+        <phase duration="20" state="rrrrGGGGGrrrrrrr"/>
+        <phase duration="3"  state="rrrryyyyyrrrrrrr"/>
+        <phase duration="20" state="GrrrrrrrrrrrGGGG"/>
+        <phase duration="3"  state="yrrrrrrrrrrryyyy"/>
+        <phase duration="20" state="GGGGGrrrrrrrrrrr"/>
+        <phase duration="3"  state="yyyyyrrrrrrrrrrr"/>
     </tlLogic>
 
     <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 EC_0 EC_1 SC_0 SC_1 WC_0 WC_1" intLanes="" shape="93.60,110.40 106.40,110.40 106.84,108.18 107.40,107.40 108.18,106.84 109.18,106.51 110.40,106.40 110.40,93.60 108.18,93.16 107.40,92.60 106.84,91.82 106.51,90.82 106.40,89.60 93.60,89.60 93.16,91.82 92.60,92.60 91.82,93.16 90.82,93.49 89.60,93.60 89.60,106.40 91.82,106.84 92.60,107.40 93.16,108.18 93.49,109.18">

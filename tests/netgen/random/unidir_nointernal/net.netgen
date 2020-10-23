@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:03 2018 by Eclipse SUMO netgenerate Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:41 2020 by Eclipse SUMO netgenerate Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,7 +30,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="1263.68,1880.98" convBoundary="0.00,0.00,2463.28,3477.43" origBoundary="-1263.68,-1880.98,1199.60,1596.45" projParameter="!"/>
 
@@ -1566,7 +1566,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="11" to="728" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="11" to="698" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="117" to="319" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="117" to="325" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="117" to="325" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="117" to="313" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="119" to="332" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="119" to="330" fromLane="0" toLane="0" dir="l" state="M"/>
@@ -1662,7 +1662,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1882" to="2200" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1883" to="1942" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1891" to="2120" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="1891" to="2112" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1891" to="2112" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="1891" to="2110" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1891" to="2128" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="19" to="121" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -1726,7 +1726,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="2494" to="3825" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="2494" to="3835" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="25" to="126" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="25" to="210" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="25" to="210" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="25" to="128" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="25" to="138" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="2502" to="3131" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -1858,7 +1858,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="625" to="732" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="625" to="734" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="639" to="882" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="639" to="876" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="639" to="876" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="639" to="880" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="64" to="326" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="642" to="846" fromLane="0" toLane="0" dir="R" state="M"/>

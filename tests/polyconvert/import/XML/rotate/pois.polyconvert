@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat Oct 26 18:11:37 2019 by Eclipse SUMO polyconvert Version v1_3_1+0704-ef50b19ca23
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/polyconvertConfiguration.xsd">
+
+    <input>
+        <xml-files value="input_poi.poi.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="pois.poi.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="1"/>
+        <proj.rotate value="5"/>
+    </projection>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="test" type="unknown" color="51,128,255" fill="1" layer="-1.00" shape="0.000000,0.000000 9.961947,-0.871557 10.833504,9.090390"/>
+</additional>

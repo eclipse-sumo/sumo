@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:38 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:44 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,45 +24,46 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-391480.55,-5819869.20" convBoundary="0.00,0.00,99.77,62.18" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="-23121445#5" from="cluster_1472911017_697323164" to="2121324849" priority="4" type="highway.residential" shape="23.41,22.38 8.09,47.46">
         <lane id="-23121445#5_0" index="0" allow="pedestrian" speed="8.33" length="34.14" width="2.00" shape="22.65,31.67 11.67,49.65"/>
-        <lane id="-23121445#5_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="8.33" length="34.14" shape="20.44,30.32 9.46,48.29"/>
+        <lane id="-23121445#5_1" index="1" disallow="pedestrian rail_urban rail rail_electric" speed="8.33" length="34.14" shape="20.44,30.32 9.46,48.29"/>
     </edge>
     <edge id="23121445#5" from="2121324849" to="cluster_1472911017_697323164" priority="4" type="highway.residential" shape="8.09,47.46 23.41,22.38">
         <lane id="23121445#5_0" index="0" allow="pedestrian" speed="8.33" length="34.14" width="2.00" shape="4.51,45.27 15.49,27.29"/>
-        <lane id="23121445#5_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="8.33" length="34.14" shape="6.72,46.63 17.71,28.65"/>
+        <lane id="23121445#5_1" index="1" disallow="pedestrian rail_urban rail rail_electric" speed="8.33" length="34.14" shape="6.72,46.63 17.71,28.65"/>
     </edge>
     <edge id="4067932" from="1472911019" to="cluster_1472911017_697323164" priority="9" type="highway.primary" spreadType="center" shape="89.54,62.18 22.66,23.68">
         <lane id="4067932_0" index="0" allow="pedestrian" speed="13.89" length="81.03" width="3.00" shape="87.94,64.95 26.76,29.73"/>
-        <lane id="4067932_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="81.03" shape="89.49,62.27 28.36,27.07"/>
-        <lane id="4067932_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="81.03" shape="91.09,59.49 30.01,24.33"/>
+        <lane id="4067932_1" index="1" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="81.03" shape="89.49,62.27 28.36,27.07"/>
+        <lane id="4067932_2" index="2" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="81.03" shape="91.09,59.49 30.01,24.33"/>
     </edge>
     <edge id="54048862#1" from="cluster_258127854_29194675" to="cluster_1472911017_697323164" priority="9" type="highway.primary" spreadType="center" shape="7.18,0.00 24.72,10.36 29.21,13.03">
         <lane id="54048862#1_0" index="0" allow="pedestrian" speed="13.89" length="34.52" width="3.00" shape="9.83,-4.01 23.74,4.20"/>
-        <lane id="54048862#1_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="34.52" shape="8.37,-1.27 22.41,7.02"/>
-        <lane id="54048862#1_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="34.52" shape="6.87,1.56 21.05,9.93"/>
-        <lane id="54048862#1_3" index="3" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="34.52" shape="5.37,4.39 19.69,12.85"/>
+        <lane id="54048862#1_1" index="1" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="34.52" shape="8.37,-1.27 22.41,7.02"/>
+        <lane id="54048862#1_2" index="2" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="34.52" shape="6.87,1.56 21.05,9.93"/>
+        <lane id="54048862#1_3" index="3" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="34.52" shape="5.37,4.39 19.69,12.85"/>
     </edge>
     <edge id="54048862#2" from="cluster_1472911017_697323164" to="29207821" priority="9" type="highway.primary" spreadType="center" shape="29.21,13.03 31.77,14.57 69.94,37.38 99.77,55.19">
         <lane id="54048862#2_0" index="0" allow="pedestrian" speed="13.89" length="86.28" width="3.00" shape="37.27,12.26 72.40,33.26 102.23,51.07"/>
-        <lane id="54048862#2_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="86.28" shape="35.67,14.92 70.81,35.92 100.64,53.73"/>
-        <lane id="54048862#2_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="86.28" shape="34.02,17.66 69.17,38.67 99.00,56.48"/>
-        <lane id="54048862#2_3" index="3" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="86.28" shape="32.37,20.40 67.53,41.41 97.36,59.23"/>
+        <lane id="54048862#2_1" index="1" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="86.28" shape="35.67,14.92 70.81,35.92 100.64,53.73"/>
+        <lane id="54048862#2_2" index="2" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="86.28" shape="34.02,17.66 69.17,38.67 99.00,56.48"/>
+        <lane id="54048862#2_3" index="3" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="86.28" shape="32.37,20.40 67.53,41.41 97.36,59.23"/>
     </edge>
     <edge id="61584187#0" from="cluster_1472911017_697323164" to="cluster_258127854_29194675" priority="9" type="highway.primary" spreadType="center" shape="22.77,23.74 0.00,13.11">
         <lane id="61584187#0_0" index="0" allow="pedestrian" speed="13.89" length="34.65" width="3.00" shape="14.69,23.50 -0.91,16.22"/>
-        <lane id="61584187#0_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="34.65" shape="16.01,20.69 0.54,13.47"/>
-        <lane id="61584187#0_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="34.65" shape="17.37,17.80 2.05,10.64"/>
+        <lane id="61584187#0_1" index="1" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="34.65" shape="16.01,20.69 0.54,13.47"/>
+        <lane id="61584187#0_2" index="2" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="34.65" shape="17.37,17.80 2.05,10.64"/>
     </edge>
 
     <junction id="1472911019" type="dead_end" x="90.29" y="60.88" incLanes="" intLanes="" shape="91.89,58.11 87.20,66.25"/>

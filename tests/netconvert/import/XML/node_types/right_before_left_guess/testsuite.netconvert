@@ -10,3 +10,5 @@ rbl_overwrite
 # The node is marked as a traffic-light node
 tls_overwrite
 
+# set a lowe speed threshold so that the junction will be classified as priority
+speed-threshold

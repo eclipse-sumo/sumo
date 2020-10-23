@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 27 13:23:41 2017 by SUMO Version dev-SVN-r26249
+<!-- generated on Thu May 16 10:00:43 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,11 +14,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="rawdump.xml"/>
     </output>
 
     <processing>
         <lateral-resolution value="0.2"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -33,10 +35,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="0.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="10.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="10.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="6.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="6.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -44,10 +46,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="1.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="20.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="20.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="16.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="16.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -55,10 +57,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="2.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="30.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="30.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="26.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="26.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -66,10 +68,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="3.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="40.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="40.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="36.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="36.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -77,10 +79,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="4.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="50.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="50.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="46.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="46.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -88,10 +90,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="5.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="60.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="60.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="56.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="56.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -99,10 +101,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="6.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="70.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="70.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="66.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="66.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -110,10 +112,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="7.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="80.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="80.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="76.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="76.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -121,10 +123,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="8.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="90.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="90.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="86.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="86.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -132,10 +134,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="9.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="100.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="100.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="96.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="96.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -143,10 +145,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="10.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="110.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="110.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="106.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="106.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -154,10 +156,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="11.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="120.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="120.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="116.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="116.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -165,10 +167,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="12.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="130.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="130.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="126.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="126.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -176,10 +178,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="13.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="140.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="140.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="136.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="136.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -187,10 +189,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="14.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="150.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="150.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="146.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="146.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -198,10 +200,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="15.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="160.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="160.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="156.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="156.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -209,10 +211,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="16.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="170.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="170.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="166.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="166.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -220,10 +222,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="17.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="180.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="180.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="176.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="176.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -231,10 +233,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="18.00">
         <edge id="beg">
             <lane id="beg_0">
-                <vehicle id="other" pos="190.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="other" pos="190.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_1">
-                <vehicle id="ego" pos="186.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="186.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>
@@ -243,7 +245,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="beg">
             <lane id="beg_0"/>
             <lane id="beg_1">
-                <vehicle id="ego" pos="196.00" speed="10.00" posLat="0.00"/>
+                <vehicle id="ego" pos="196.00" speed="10.00" posLat="0.00" speedLat="0.00"/>
             </lane>
             <lane id="beg_2"/>
         </edge>

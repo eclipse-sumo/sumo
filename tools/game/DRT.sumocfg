@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep 30 21:10:23 2020 by Eclipse SUMO sumo Version v1_7_0+0372-0e78adb662b
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="DRT/osm.net.xml"/>
+        <route-files value="DRT/rides.xml,DRT/drt.rou.xml"/>
+        <additional-files value="DRT/drtstops.xml,DRT/drt.pois.xml"/>
+    </input>
+
+    <output>
+        <human-readable-time value="false"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <end value="2400"/>
+        <step-length value="0.2"/>
+    </time>
+
+    <processing>
+        <tls.all-off value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="DRT/gv.xml"/>
+        <game value="true"/>
+        <game.mode value="drt"/>
+        <start value="true"/>
+    </gui_only>
+
+</configuration>

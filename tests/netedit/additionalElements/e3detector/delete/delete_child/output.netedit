@@ -5,29 +5,29 @@ TestFunctions: 'reference.png' found. Position: 304 - 168
 0
 25
 e3Detector
-TestFunctions: Clicked over position 404 - 190
+TestFunctions: Clicked over position 404 - 218
 detEntry
-TestFunctions: Clicked over position 404 - 340
+TestFunctions: Clicked over position 404 - 368
 detExit
-TestFunctions: Clicked over position 554 - 340
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 554 - 368
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 e3Detector
-TestFunctions: Clicked over position 404 - 190
+TestFunctions: Clicked over position 404 - 218
 detEntry
-TestFunctions: Clicked over position 404 - 340
+TestFunctions: Clicked over position 404 - 368
 detExit
-TestFunctions: Clicked over position 554 - 340
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 554 - 368
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 detEntry
-TestFunctions: Clicked over position 404 - 340
+TestFunctions: Clicked over position 404 - 368
 detExit
-TestFunctions: Clicked over position 554 - 340
-TestFunctions: Clicked over position 404 - 340
-TestFunctions: Clicked over position 554 - 340
-TestFunctions: Clicked over position 754 - 340
-TestFunctions: Clicked over position 904 - 340
-TestFunctions: Clicked over position 304 - 140
-TestFunctions: Clicked over position 304 - 140
+TestFunctions: Clicked over position 554 - 368
+TestFunctions: Clicked over position 404 - 368
+TestFunctions: Clicked over position 554 - 368
+TestFunctions: Clicked over position 754 - 368
+TestFunctions: Clicked over position 904 - 368
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

@@ -1,0 +1,5 @@
+Error: Vehicle 'flowB.4' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowB.5' will not be able to depart using the given velocity (slow lane ahead)!
+Error: Vehicle 'flowB.7' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
+Error: Vehicle 'flowB.9' will not be able to depart using the given velocity (slow lane ahead)!

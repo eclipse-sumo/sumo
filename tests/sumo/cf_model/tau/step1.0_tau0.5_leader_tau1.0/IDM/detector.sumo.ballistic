@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 30 09:19:31 2018 by Eclipse SUMO Version baab8c4
+<!-- generated on Wed Apr  3 11:03:07 2019 by Eclipse SUMO Version v1_1_0+0417-c407ef5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -41,8 +42,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <instantE1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/instant_e1_file.xsd">
-    <instantOut id="beg_end" time="24.15" state="enter" vehID="leader" speed="19.79" length="5.00" type="leader"/>
-    <instantOut id="beg_end" time="24.40" state="leave" vehID="leader" speed="19.77" length="5.00" type="leader" occupancy="0.25"/>
-    <instantOut id="beg_end" time="25.01" state="enter" vehID="follower" speed="19.97" length="5.00" type="follower" gap="0.61"/>
-    <instantOut id="beg_end" time="25.26" state="leave" vehID="follower" speed="19.90" length="5.00" type="follower" occupancy="0.25"/>
+    <instantOut id="beg_end" time="24.18" state="enter" vehID="leader" speed="19.73" length="5.00" type="leader"/>
+    <instantOut id="beg_end" time="24.43" state="leave" vehID="leader" speed="19.70" length="5.00" type="leader" occupancy="0.25"/>
+    <instantOut id="beg_end" time="25.04" state="enter" vehID="follower" speed="19.90" length="5.00" type="follower" gap="0.61"/>
+    <instantOut id="beg_end" time="25.29" state="leave" vehID="follower" speed="19.83" length="5.00" type="follower" occupancy="0.25"/>
 </instantE1>

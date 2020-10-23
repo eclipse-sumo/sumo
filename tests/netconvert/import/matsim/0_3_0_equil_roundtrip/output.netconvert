@@ -1,31 +1,31 @@
-Parsing nodes from matsim-file 'matsim.xml'... done.
-Parsing edges from matsim-file 'matsim.xml'... done.
+Parsing nodes from matsim-file 'matsim.xml' ... done.
+Parsing edges from matsim-file 'matsim.xml' ... done.
  Import done:
    15 nodes loaded.
    23 edges loaded.
-Removing self-loops... done (0ms).
-Removing empty nodes... done (0ms).
+Removing self-loops ... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... 
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... 
 done (1ms).
-Computing edge shapes... done (1ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (1ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
-Computing traffic light logics... done (0ms).
+Computing edge shapes ... done (1ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (1ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (1ms).
+Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges... 
-done (3ms).
+Building inner edges ... 
+done (5ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
@@ -37,5 +37,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -20000.00,-10000.00,5000.00,5925.00
 -----------------------------------------------------
-Writing network... done (0ms).
+Writing network ... done (0ms).
 Success.

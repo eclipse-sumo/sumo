@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/10/18 13:02:09 by Eclipse SUMO Version UNKNOWN
+<!-- generated on Wed Nov 27 09:35:13 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,6 +49,13 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
 
+    <vehicle id="flow_dest_forbidden.0" depart="200.00" arrival="204.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="200.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="flow_detour.1" depart="10.00" arrival="208.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="10.00" probability="0" edges="beg middle end rend"/>
@@ -56,24 +63,17 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
 
+    <vehicle id="flow_dest_forbidden.1" depart="210.00" arrival="214.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="210.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="flow_detour.2" depart="20.00" arrival="218.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="20.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_dest_forbidden.0" depart="200.00" arrival="218.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="200.00" probability="0" edges="beg middle"/>
-            <route edges="beg"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_dest_forbidden.2" depart="220.00" arrival="224.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="220.00" probability="0" edges="beg middle"/>
-            <route edges="beg"/>
         </routeDistribution>
     </vehicle>
 
@@ -85,13 +85,6 @@ SPDX-License-Identifier: EPL-2.0
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="30.00" probability="0" edges="beg middle end rend"/>
             <route edges="beg beg2right right right2end end rend"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_dest_forbidden.1" depart="210.00" arrival="228.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="210.00" probability="0" edges="beg middle"/>
-            <route edges="beg"/>
         </routeDistribution>
     </vehicle>
 
@@ -135,6 +128,20 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
 
+    <vehicle id="flow_dest_forbidden.4" depart="240.00" arrival="258.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="240.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow_dest_forbidden.6" depart="260.00" arrival="264.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="260.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="flow_unaffected.4" depart="140.00" arrival="267.00">
         <route edges="beg beg2left left"/>
     </vehicle>
@@ -168,8 +175,22 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
 
+    <vehicle id="flow_dest_forbidden.9" depart="290.00" arrival="294.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="290.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
+    </vehicle>
+
     <vehicle id="flow_unaffected.7" depart="170.00" arrival="297.00">
         <route edges="beg beg2left left"/>
+    </vehicle>
+
+    <vehicle id="flow_dest_forbidden.8" depart="280.00" arrival="298.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="280.00" probability="0" edges="beg middle"/>
+            <route edges="beg"/>
+        </routeDistribution>
     </vehicle>
 
     <vehicle id="flow_unaffected.8" depart="180.00" arrival="307.00">
@@ -180,9 +201,9 @@ SPDX-License-Identifier: EPL-2.0
         <route edges="beg beg2left left"/>
     </vehicle>
 
-    <vehicle id="flow_dest_forbidden.4" depart="240.00" arrival="366.00">
+    <vehicle id="flow_dest_forbidden.2" depart="220.00" arrival="346.00">
         <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="240.00" probability="0" edges="beg middle"/>
+            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="220.00" probability="0" edges="beg middle"/>
             <route edges="beg beg2right right"/>
         </routeDistribution>
     </vehicle>
@@ -194,30 +215,9 @@ SPDX-License-Identifier: EPL-2.0
         </routeDistribution>
     </vehicle>
 
-    <vehicle id="flow_dest_forbidden.6" depart="260.00" arrival="386.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="260.00" probability="0" edges="beg middle"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
-    </vehicle>
-
     <vehicle id="flow_dest_forbidden.7" depart="270.00" arrival="396.00">
         <routeDistribution>
             <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="270.00" probability="0" edges="beg middle"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_dest_forbidden.8" depart="280.00" arrival="406.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="280.00" probability="0" edges="beg middle"/>
-            <route edges="beg beg2right right"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="flow_dest_forbidden.9" depart="290.00" arrival="416.00">
-        <routeDistribution>
-            <route replacedOnEdge="beg" reason="rerouter" replacedAtTime="290.00" probability="0" edges="beg middle"/>
             <route edges="beg beg2right right"/>
         </routeDistribution>
     </vehicle>

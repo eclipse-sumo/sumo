@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:54 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:01 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,12 +29,13 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="963.58,-181.11" convBoundary="0.00,0.00,2707.33,850.72" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -243,10 +244,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
     <junction id="cluster_gneJ33_gneJ37_gneJ38" type="priority" x="1363.58" y="418.89" incLanes="-gneE23_0 gneE26_0" intLanes="" shape="1360.38,422.09 1366.78,422.09 1366.78,415.69 1363.22,416.40 1361.98,417.29 1361.09,418.53 1360.56,420.13">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ1" type="priority" x="1163.58" y="18.89" incLanes="gneE0_0" intLanes="" shape="1163.58,18.89 1166.78,18.89 1166.42,17.11 1165.98,16.49 1165.36,16.05 1164.56,15.78 1163.58,15.69">
         <request index="0" response="0" foes="0"/>
@@ -270,79 +269,55 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="gneJ29" type="priority" x="1263.58" y="618.89" incLanes="-gneE20_0 gneE19_0" intLanes="" shape="1266.78,614.20 1260.38,614.20 1258.04,620.16 1260.71,620.94 1262.90,621.02 1264.60,620.38 1265.81,619.03 1266.54,616.97">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ3" type="priority" x="963.58" y="218.89" incLanes="gneE2_0" intLanes="" shape="963.58,222.09 963.58,218.89 960.38,218.89 960.74,220.67 961.18,221.29 961.80,221.73 962.60,222.00">
         <request index="0" response="0" foes="0"/>
     </junction>
     <junction id="gneJ30" type="priority" x="1263.58" y="418.89" incLanes="gneE20_0 -gneE21_0" intLanes="" shape="1260.38,425.60 1266.78,425.60 1266.49,421.73 1265.62,419.08 1264.17,417.65 1262.15,417.43 1259.54,418.42 1256.35,420.63">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ34" type="priority" x="1363.58" y="618.89" incLanes="-gneE24_0 gneE23_0" intLanes="" shape="1366.78,622.09 1366.78,615.69 1360.38,615.69 1361.09,619.25 1361.98,620.49 1363.22,621.38 1364.82,621.91">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ35" type="priority" x="1563.58" y="618.89" incLanes="-gneE25_0 gneE24_0" intLanes="" shape="1566.78,615.69 1560.38,615.69 1560.38,622.09 1563.94,621.38 1565.18,620.49 1566.07,619.25 1566.60,617.65">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ36" type="priority" x="1563.58" y="418.89" incLanes="gneE25_0 -gneE26_0" intLanes="" shape="1560.38,422.09 1566.78,422.09 1566.07,418.53 1565.18,417.29 1563.94,416.40 1562.34,415.87 1560.38,415.69">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ41" type="priority" x="2586.56" y="850.72" incLanes="-gneE29_0 gneE35_0" intLanes="" shape="2590.34,850.84 2585.04,847.26 2584.09,853.58 2586.56,853.55 2587.65,853.20 2588.64,852.63 2589.54,851.85">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ42" type="priority" x="2707.33" y="672.39" incLanes="-gneE30_0 gneE29_0" intLanes="" shape="2709.47,669.40 2703.66,672.10 2708.96,675.68 2709.92,673.65 2710.11,672.61 2710.09,671.56 2709.88,670.49">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ43" type="priority" x="2619.55" y="483.52" incLanes="gneE30_0 -gneE31_0" intLanes="" shape="2617.33,486.33 2623.13,483.63 2622.03,481.94 2621.32,481.28 2620.52,480.75 2619.61,480.34 2618.61,480.06">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ44" type="priority" x="2418.46" y="442.41" incLanes="gneE31_0 -gneE32_0" intLanes="" shape="2418.96,445.78 2420.24,439.51 2418.59,439.25 2417.99,439.27 2417.41,439.42 2416.75,439.71 2415.91,440.15">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ45" type="priority" x="2270.69" y="522.40" incLanes="-gneE33_0 gneE32_0" intLanes="" shape="2267.87,525.12 2274.20,524.14 2271.15,518.51 2269.02,520.20 2268.35,521.24 2267.93,522.40 2267.77,523.70">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ46" type="priority" x="2300.69" y="716.83" incLanes="-gneE34_0 gneE33_0" intLanes="" shape="2299.01,719.72 2303.70,715.37 2297.38,716.35 2297.64,717.74 2297.82,718.22 2298.08,718.65 2298.47,719.12">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ47" type="priority" x="2398.46" y="822.38" incLanes="-gneE35_0 gneE34_0" intLanes="" shape="2399.09,825.71 2400.05,819.38 2395.35,823.73 2396.49,824.87 2396.98,825.19 2397.51,825.40 2398.19,825.56">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="gneJ55" type="dead_end" x="1391.20" y="0.00" incLanes="" intLanes="" shape="1391.20,0.00 1392.58,-2.89"/>
     <junction id="gneJ56" type="priority" x="1576.86" y="88.73" incLanes="gneE40_0" intLanes="" shape="1582.10,87.39 1581.31,84.29 1579.26,84.96 1578.50,85.19 1577.77,85.27 1576.92,85.12 1575.84,84.70 1574.46,87.58 1575.73,88.38 1576.13,88.79 1576.36,89.23 1576.42,89.67 1576.33,90.13 1579.32,91.26 1580.22,89.28 1580.68,88.54 1581.15,87.98 1581.62,87.60">
@@ -380,31 +355,18 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-gneE19" to="-gneE21" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="-gneE19" to="gneE19" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE20" to="-gneE19" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE20" to="gneE20" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE21" to="-gneE20" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE21" to="gneE21" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE23" to="-gneE26" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE23" to="gneE23" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE24" to="-gneE23" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE24" to="gneE24" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE25" to="-gneE24" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE25" to="gneE25" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE26" to="-gneE25" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE26" to="gneE26" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE29" to="-gneE35" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE29" to="gneE29" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE30" to="-gneE29" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE30" to="gneE30" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE31" to="-gneE30" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE31" to="gneE31" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE32" to="-gneE31" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-gneE32" to="gneE32" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE33" to="-gneE32" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="-gneE33" to="gneE33" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE34" to="-gneE33" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-gneE34" to="gneE34" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="-gneE35" to="-gneE34" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="-gneE35" to="gneE35" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="gneE1" to="gneE2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="gneE13" to="-gneE14" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -427,36 +389,23 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="gneE18" to="gneE19" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="gneE18" to="-gneE18" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE19" to="gneE20" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE19" to="-gneE19" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE2" to="gneE3" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="gneE20" to="gneE21" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE20" to="-gneE20" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE21" to="gneE19" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="gneE21" to="-gneE18" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="gneE21" to="-gneE21" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE23" to="gneE24" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE23" to="-gneE23" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE24" to="gneE25" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE24" to="-gneE24" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE25" to="gneE26" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE25" to="-gneE25" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE26" to="gneE23" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE26" to="-gneE26" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE29" to="gneE30" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE29" to="-gneE29" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE3" to="gneE0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="gneE30" to="gneE31" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE30" to="-gneE30" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE31" to="gneE32" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE31" to="-gneE31" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE32" to="gneE33" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE32" to="-gneE32" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE33" to="gneE34" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE33" to="-gneE33" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE34" to="gneE35" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="gneE34" to="-gneE34" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE35" to="gneE29" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="gneE35" to="-gneE35" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="gneE40" to="gneE42" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="gneE40" to="gneE41" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="gneE45" to="gneE44" fromLane="0" toLane="0" dir="r" state="M"/>

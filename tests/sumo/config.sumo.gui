@@ -8,6 +8,9 @@ copy_test_path:dlr.tif
 copy_test_path:forklift.png
 copy_test_path:forklift_right.png
 
+[run_dependent_text]
+output:Warning: detected OpenGL error 'invalid enumerant' at Before Renderer::compile
+
 [batch_extra_version]
 default:{CLEAR perf}
 meso:{CLEAR perf}

@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:30:55 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <dlr-navteq-prefix value="elmar"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="1e-05"/>
+        <proj.utm value="true"/>
+    </projection>
+
+    <processing>
+        <geometry.remove value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <junctions.join value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-406053.41,-5802746.30" convBoundary="0.00,0.00,310.15,145.59" origBoundary="1362016.870000,5236695.590000,1362470.650000,5236825.640000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-11" from="cluster_24_25_26_27" to="20" priority="-3" shape="125.89,73.65 82.38,62.49 69.79,56.87 0.00,43.96">
+        <lane id="-11_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="139.70" shape="112.95,78.59 79.74,70.07 67.40,64.56 -1.46,51.82"/>
+        <lane id="-11_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="139.70" shape="113.75,75.49 80.80,67.04 68.35,61.48 -0.87,48.68"/>
+        <lane id="-11_2" index="2" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="139.70" shape="114.54,72.39 81.85,64.01 69.31,58.41 -0.29,45.53"/>
+    </edge>
+    <edge id="-12" from="22" to="cluster_24_25_26_27" priority="-3" shape="310.15,101.75 208.44,92.81 142.44,78.05">
+        <lane id="-12_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="178.55" shape="309.45,109.72 207.22,100.74 153.19,88.65"/>
+        <lane id="-12_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="178.55" shape="309.73,106.53 207.71,97.57 153.86,85.52"/>
+        <lane id="-12_2" index="2" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="178.55" shape="310.01,103.34 208.20,94.40 154.52,82.39"/>
+    </edge>
+    <edge id="-13" from="23" to="cluster_24_25_26_27" priority="-3" shape="111.18,145.59 106.52,128.09 125.89,73.65">
+        <lane id="-13_0" index="0" speed="13.89" length="84.48" shape="106.54,146.83 101.49,127.88 116.59,85.47"/>
+        <lane id="-13_1" index="1" speed="13.89" length="84.48" shape="109.63,146.00 104.84,128.02 119.58,86.61"/>
+    </edge>
+    <edge id="-14" from="28" to="cluster_24_25_26_27" priority="-3" shape="158.09,0.00 160.97,17.91 146.52,66.24">
+        <lane id="-14_0" index="0" speed="13.89" length="76.90" shape="162.83,-0.76 165.89,18.24 155.16,54.09"/>
+        <lane id="-14_1" index="1" speed="13.89" length="76.90" shape="159.67,-0.25 162.61,18.02 152.08,53.23"/>
+    </edge>
+    <edge id="10" from="20" to="cluster_24_25_26_27" priority="-3" shape="0.00,43.96 69.79,56.87 91.90,52.47 130.14,61.96">
+        <lane id="10_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="141.73" shape="1.46,36.09 69.74,48.72 92.10,44.28 119.98,51.20"/>
+        <lane id="10_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="141.73" shape="0.87,39.24 69.76,51.98 92.02,47.56 119.18,54.30"/>
+        <lane id="10_2" index="2" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="141.73" shape="0.29,42.38 69.78,55.24 91.94,50.84 118.39,57.40"/>
+    </edge>
+    <edge id="12" from="cluster_24_25_26_27" to="22" priority="-3" shape="146.52,66.24 215.22,80.89 310.15,101.75">
+        <lane id="12_0" index="0" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="177.51" shape="159.14,60.75 216.91,73.07 311.87,93.93"/>
+        <lane id="12_1" index="1" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="177.51" shape="158.47,63.88 216.23,76.20 311.18,97.06"/>
+        <lane id="12_2" index="2" allow="emergency pedestrian passenger hov taxi bus coach delivery truck trailer motorcycle bicycle" speed="13.89" length="177.51" shape="157.80,67.01 215.56,79.33 310.50,100.19"/>
+    </edge>
+    <edge id="13" from="cluster_24_25_26_27" to="23" priority="-3" shape="142.44,78.05 122.67,129.96 111.18,145.59">
+        <lane id="13_0" index="0" speed="13.89" length="81.97" shape="141.18,94.84 126.92,132.28 115.05,148.43"/>
+        <lane id="13_1" index="1" speed="13.89" length="81.97" shape="138.19,93.70 124.09,130.73 112.47,146.54"/>
+    </edge>
+    <edge id="14" from="cluster_24_25_26_27" to="28" priority="-3" shape="130.14,61.96 143.74,13.37 158.09,0.00">
+        <lane id="14_0" index="0" speed="13.89" length="77.67" shape="129.38,46.87 139.48,10.78 154.82,-3.51"/>
+        <lane id="14_1" index="1" speed="13.89" length="77.67" shape="132.46,47.73 142.32,12.50 157.00,-1.17"/>
+    </edge>
+
+    <junction id="20" type="priority" x="0.00" y="43.96" incLanes="-11_0 -11_1 -11_2" intLanes="" shape="-0.00,43.96 -1.75,53.40 -0.00,43.96">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="22" type="priority" x="310.15" y="101.75" incLanes="12_0 12_1 12_2" intLanes="" shape="310.15,101.75 309.31,111.31 312.21,92.37">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="23" type="priority" x="111.18" y="145.59" incLanes="13_0 13_1" intLanes="" shape="111.18,145.59 105.00,147.24 116.34,149.38">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="28" type="priority" x="158.09" y="0.00" incLanes="14_0 14_1" intLanes="" shape="158.09,-0.00 164.41,-1.02 153.73,-4.68">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="cluster_24_25_26_27" type="priority" x="136.25" y="69.97" incLanes="-12_0 -12_1 -12_2 -14_0 -14_1 10_0 10_1 10_2 -13_0 -13_1" intLanes="" shape="152.86,90.21 159.47,59.19 157.43,58.30 156.82,57.61 156.50,56.74 156.46,55.72 156.71,54.52 127.84,46.44 126.42,48.90 125.31,49.61 123.93,49.97 122.29,49.98 120.37,49.65 112.56,80.14 114.56,81.11 115.13,81.83 115.41,82.70 115.39,83.72 115.09,84.90 142.68,95.41 143.69,93.35 144.97,91.77 146.53,90.67 148.37,90.04 150.47,89.89">
+        <request index="0"  response="000000000000000000000000000000000" foes="110000000011000000001100000000000"/>
+        <request index="1"  response="000000000000000000000000000000000" foes="001111111111000001111100000000000"/>
+        <request index="2"  response="000000000000000000000000000000000" foes="001111111111000001111100000000000"/>
+        <request index="3"  response="000000000000000000000000000000000" foes="001111111111000001111100000000000"/>
+        <request index="4"  response="000000000000111000000000000000000" foes="001111100000111111111100000000000"/>
+        <request index="5"  response="000000000000111000000000000000000" foes="001111100000111111111100000000000"/>
+        <request index="6"  response="001110000000100000000011000000000" foes="001110000000100000000011000000000"/>
+        <request index="7"  response="001110000000100000000011000000000" foes="001110000000100000000011000000000"/>
+        <request index="8"  response="001110000000100000000011000000000" foes="001110000000100000000011000000000"/>
+        <request index="9"  response="000000000000100000000000000000000" foes="001110000000100000000000111000000"/>
+        <request index="10" response="000000000000100000000000000000000" foes="001110000000100000000000111000000"/>
+        <request index="11" response="000000000011100000000000000111111" foes="111110000011100000000000000111111"/>
+        <request index="12" response="000000000011100000000000000111111" foes="111110000011100000000000000111111"/>
+        <request index="13" response="000001111011100000000000000111110" foes="000001111111100000000000000111110"/>
+        <request index="14" response="000001111011100000000000000111110" foes="000001111111100000000000000111110"/>
+        <request index="15" response="000001111011100000000000000111110" foes="000001111111100000000000000111110"/>
+        <request index="16" response="000001100000011000000000000110000" foes="000001100000011000000000000110000"/>
+        <request index="17" response="000001100000011000000000000110000" foes="000001100000011000000000000110000"/>
+        <request index="18" response="000000000000000000000000000000000" foes="000001100000000110000000000110000"/>
+        <request index="19" response="000000000000000000000000000000000" foes="000001100000000110000000000110000"/>
+        <request index="20" response="000000000000000000000000000000000" foes="001111100000000001111111111110000"/>
+        <request index="21" response="000000000000000000000000000001111" foes="111111100000000001111100000001111"/>
+        <request index="22" response="000000000000000000000000000001111" foes="111111100000000001111100000001111"/>
+        <request index="23" response="000000000000000001110000000001110" foes="000000000000000001110000000001110"/>
+        <request index="24" response="000000000000000000000000000001110" foes="000000000000000001110000000001110"/>
+        <request index="25" response="000000000000000000000000000001110" foes="000000000000000001110000000001110"/>
+        <request index="26" response="000000000011111000000000000111110" foes="000000000011111111110000000111110"/>
+        <request index="27" response="000000000011111000000000000111110" foes="000000000011111111110000000111110"/>
+        <request index="28" response="000000000011100000001111000111110" foes="000000000011100000001111111111110"/>
+        <request index="29" response="000000000011100000001111000111110" foes="000000000011100000001111111111110"/>
+        <request index="30" response="000000000011100000001111000111110" foes="000000000011100000001111111111110"/>
+        <request index="31" response="000000000011000000001100000000001" foes="000000000011000000001100000000001"/>
+        <request index="32" response="000000000011000000001100000000001" foes="000000000011000000001100000000001"/>
+    </junction>
+
+    <connection from="-11" to="10" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="-12" to="13" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="-12" to="-11" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="-12" to="-11" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="-12" to="-11" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="-12" to="14" fromLane="2" toLane="0" dir="l" state="m"/>
+    <connection from="-12" to="14" fromLane="2" toLane="1" dir="l" state="m"/>
+    <connection from="-12" to="12" fromLane="2" toLane="0" dir="t" state="m"/>
+    <connection from="-12" to="12" fromLane="2" toLane="1" dir="t" state="m"/>
+    <connection from="-12" to="12" fromLane="2" toLane="2" dir="t" state="m"/>
+    <connection from="-13" to="-11" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-13" to="-11" fromLane="1" toLane="1" dir="r" state="m"/>
+    <connection from="-13" to="14" fromLane="1" toLane="0" dir="s" state="m"/>
+    <connection from="-13" to="14" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="-13" to="12" fromLane="1" toLane="0" dir="l" state="m"/>
+    <connection from="-13" to="12" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="-13" to="12" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="-13" to="13" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="-13" to="13" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="-14" to="12" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="-14" to="12" fromLane="1" toLane="1" dir="r" state="m"/>
+    <connection from="-14" to="13" fromLane="1" toLane="0" dir="s" state="m"/>
+    <connection from="-14" to="13" fromLane="1" toLane="1" dir="s" state="m"/>
+    <connection from="-14" to="-11" fromLane="1" toLane="0" dir="l" state="m"/>
+    <connection from="-14" to="-11" fromLane="1" toLane="1" dir="l" state="m"/>
+    <connection from="-14" to="-11" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="-14" to="14" fromLane="1" toLane="0" dir="t" state="m"/>
+    <connection from="-14" to="14" fromLane="1" toLane="1" dir="t" state="m"/>
+    <connection from="10" to="14" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="10" to="14" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from="10" to="12" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="10" to="13" fromLane="1" toLane="0" dir="l" state="m"/>
+    <connection from="10" to="13" fromLane="2" toLane="1" dir="l" state="m"/>
+    <connection from="10" to="-11" fromLane="2" toLane="2" dir="t" state="m"/>
+    <connection from="12" to="-12" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="13" to="-13" fromLane="1" toLane="1" dir="t" state="M"/>
+    <connection from="14" to="-14" fromLane="1" toLane="1" dir="t" state="M"/>
+
+</net>

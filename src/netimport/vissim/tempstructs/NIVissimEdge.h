@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIVissimEdge.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    End of 2002
-/// @version $Id$
 ///
 // A temporary storage for edges imported from Vissim
 /****************************************************************************/
-#ifndef NIVissimEdge_h
-#define NIVissimEdge_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "NIVissimConnectionCluster.h"
@@ -55,7 +52,9 @@ class NIVissimEdge
 public:
     /// Constructor
     NIVissimEdge(int id, const std::string& name,
-                 const std::string& type, int noLanes, double zuschlag1,
+                 const std::string& type,
+                 std::vector<double> laneWidths,
+                 double zuschlag1,
                  double zuschlag2, double length,
                  const PositionVector& geom,
                  const NIVissimClosedLanesVector& clv);
@@ -256,6 +255,7 @@ private:
 
     /// The number of lanes the edge has
     int myNoLanes;
+    std::vector<double> myLaneWidths;
 
     /// Additional load values for this edge
     double myZuschlag1, myZuschlag2;
@@ -296,9 +296,3 @@ private:
     static std::vector<std::string> myLanesWithMissingSpeeds;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

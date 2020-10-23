@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 12:42:34 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 3/13/2020 11:07:23 AM by Eclipse SUMO netedit Version v1_5_0+0577-c86610ca2e
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_allowed/select_vtypes_allowed_rail_urban\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\allowed\rail_urban\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_allowed/select_vtypes_allowed_rail_urban\net.net.xml"/>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\allowed\rail_urban\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,27 +30,31 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_allowed/select_vtypes_allowed_rail_urban\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_allowed/select_vtypes_allowed_rail_urban\shapes.xml"/>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\allowed\rail_urban\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\allowed\rail_urban\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\allowed\rail_urban\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\allowed\rail_urban\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_allowed/select_vtypes_allowed_rail_urban\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\allowed\rail_urban\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\allowed\rail_urban\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/select_vtypes/select_vtypes_allowed/select_vtypes_allowed_rail_urban\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_11Mar090907.2972\netedit.gui\netElements\lanes\select_vtypes\allowed\rail_urban\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,-30.00" convBoundary="0.00,0.00,80.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -56,7 +62,7 @@
         <lane id=":gneJ2_0_0" index="0" allow="passenger" speed="3.65" length="4.67" shape="0.00,41.60 -1.20,40.80 -1.60,40.00 -1.20,39.20 0.00,38.40"/>
     </edge>
     <edge id=":gneJ3_0" function="internal">
-        <lane id=":gneJ3_0_0" index="0" speed="3.65" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>
+        <lane id=":gneJ3_0_0" index="0" allow="passenger" speed="3.65" length="4.67" shape="20.00,38.40 21.20,39.20 21.60,40.00 21.20,40.80 20.00,41.60"/>
     </edge>
 
     <edge id="-gneE14" from="gneJ4" to="gneJ5" priority="1">

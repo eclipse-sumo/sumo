@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    IntermodalNetwork.h
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @author  Robert Hilbrich
 /// @date    Mon, 03 March 2014
-/// @version $Id$
 ///
 // The Edge definition for the Intermodal Router
 /****************************************************************************/
-#ifndef IntermodalNetwork_h
-#define IntermodalNetwork_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -43,6 +40,7 @@
 #include "StopEdge.h"
 
 //#define IntermodalRouter_DEBUG_NETWORK
+//#define IntermodalRouter_DEBUG_ACCESS
 
 
 // ===========================================================================
@@ -91,7 +89,15 @@ public:
         /// @brief public transport stops and access
         PT_STOPS = 2,
         /// @brief junctions with edges allowing the additional mode
-        ALL_JUNCTIONS = 4
+        ALL_JUNCTIONS = 4,
+        /// @brief taxi customer may exit anywhere
+        TAXI_DROPOFF_ANYWHERE = 8,
+        /// @brief taxi customer may be picked up anywhere
+        TAXI_PICKUP_ANYWHERE = 16,
+        /// @brief taxi customer may be picked up at public transport stop
+        TAXI_PICKUP_PT = 32,
+        /// @brief taxi customer may be picked up at public transport stop
+        TAXI_DROPOFF_PT = 64
     };
 
     /* @brief build the pedestrian part of the intermodal network (once)
@@ -107,29 +113,34 @@ public:
         bool haveSeenWalkingArea = false;
         for (const E* const edge : edges) {
             if (edge->isTazConnector()) {
-                continue;
-            }
-            const L* lane = getSidewalk<E, L>(edge);
-            if (lane != 0) {
-                if (edge->isWalkingArea()) {
-                    // only a single edge
-                    addEdge(new _PedestrianEdge(myNumericalID++, edge, lane, true));
-                    myBidiLookup[edge] = std::make_pair(myEdges.back(), myEdges.back());
-                    myDepartLookup[edge].push_back(myEdges.back());
-                    myArrivalLookup[edge].push_back(myEdges.back());
-                    haveSeenWalkingArea = true;
-                } else { // regular edge or crossing
-                    // forward and backward edges
-                    addEdge(new _PedestrianEdge(myNumericalID++, edge, lane, true));
-                    addEdge(new _PedestrianEdge(myNumericalID++, edge, lane, false));
-                    myBidiLookup[edge] = std::make_pair(myEdges[myNumericalID - 2], myEdges.back());
+                // only a single edge
+                _AccessEdge* access = new _AccessEdge(myNumericalID++, edge->getID(), edge);
+                addEdge(access);
+                myDepartLookup[edge].push_back(access);
+                myArrivalLookup[edge].push_back(access);
+            } else {
+                const L* lane = getSidewalk<E, L>(edge);
+                if (lane != 0) {
+                    if (edge->isWalkingArea()) {
+                        // only a single edge
+                        addEdge(new _PedestrianEdge(myNumericalID++, edge, lane, true));
+                        myBidiLookup[edge] = std::make_pair(myEdges.back(), myEdges.back());
+                        myDepartLookup[edge].push_back(myEdges.back());
+                        myArrivalLookup[edge].push_back(myEdges.back());
+                        haveSeenWalkingArea = true;
+                    } else { // regular edge or crossing
+                        // forward and backward edges
+                        addEdge(new _PedestrianEdge(myNumericalID++, edge, lane, true));
+                        addEdge(new _PedestrianEdge(myNumericalID++, edge, lane, false));
+                        myBidiLookup[edge] = std::make_pair(myEdges[myNumericalID - 2], myEdges.back());
+                    }
                 }
-            }
-            if (!edge->isWalkingArea()) {
-                // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
-                _IntermodalEdge* const departConn = new _IntermodalEdge(edge->getID() + "_depart_connector", myNumericalID++, edge, "!connector");
-                _IntermodalEdge* const arrivalConn = new _IntermodalEdge(edge->getID() + "_arrival_connector", myNumericalID++, edge, "!connector");
-                addConnectors(departConn, arrivalConn, 0);
+                if (!edge->isWalkingArea()) {
+                    // depart and arrival edges (the router can decide the initial direction to take and the direction to arrive from)
+                    _IntermodalEdge* const departConn = new _IntermodalEdge(edge->getID() + "_depart_connector", myNumericalID++, edge, "!connector");
+                    _IntermodalEdge* const arrivalConn = new _IntermodalEdge(edge->getID() + "_arrival_connector", myNumericalID++, edge, "!connector");
+                    addConnectors(departConn, arrivalConn, 0);
+                }
             }
         }
 
@@ -160,6 +171,23 @@ public:
         }
         // build the connections
         for (const E* const edge : edges) {
+            if (edge->isTazConnector()) {
+                // since pedestrians walk in both directions, also allow departing at sinks and arriving at sources
+                _IntermodalEdge* const tazDepart = getDepartConnector(edge);
+                _IntermodalEdge* const tazArrive = getArrivalConnector(edge);
+                const E* other = edge->getOtherTazConnector();
+                _IntermodalEdge* const otherTazDepart = other != nullptr ? getDepartConnector(other) : tazDepart;
+                _IntermodalEdge* const otherTazArrive = other != nullptr ? getArrivalConnector(other) : tazArrive;
+                for (const E* out : edge->getSuccessors()) {
+                    tazDepart->addSuccessor(getDepartConnector(out));
+                    getArrivalConnector(out)->addSuccessor(otherTazArrive);
+                }
+                for (const E* in : edge->getPredecessors()) {
+                    getArrivalConnector(in)->addSuccessor(tazArrive);
+                    otherTazDepart->addSuccessor(getDepartConnector(in));
+                }
+                continue;
+            }
             const L* const sidewalk = getSidewalk<E, L>(edge);
             if (sidewalk == nullptr) {
                 continue;
@@ -290,19 +318,43 @@ public:
     }
 
     /// @brief Returns the departing intermodal edge
-    _IntermodalEdge* getDepartEdge(const E* e, const double pos) const {
+    const _IntermodalEdge* getDepartEdge(const E* e, const double pos) const {
         typename std::map<const E*, std::vector<_IntermodalEdge*> >::const_iterator it = myDepartLookup.find(e);
         if (it == myDepartLookup.end()) {
             throw ProcessError("Depart edge '" + e->getID() + "' not found in intermodal network.");
         }
-        const std::vector<_IntermodalEdge*>& splitList = it->second;
-        typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
-        double totalLength = 0.;
-        while (splitIt != splitList.end() && totalLength + (*splitIt)->getLength() < pos) {
-            totalLength += (*splitIt)->getLength();
-            ++splitIt;
+        if ((e->getPermissions() & SVC_PEDESTRIAN) == 0) {
+            // use closest split (best trainStop, quay etc)
+            double totalLength = 0.;
+            double bestDist = std::numeric_limits<double>::max();
+            const _IntermodalEdge* best = nullptr;
+            for (const _IntermodalEdge* split : it->second) {
+                totalLength += split->getLength();
+                double dist = fabs(totalLength - pos);
+                if (dist < bestDist) {
+                    // make sure to use a stop rather than the final departConnector since walking is not possible
+                    if (bestDist != std::numeric_limits<double>::max() && split == it->second.back()) {
+                        break;
+                    }
+                    bestDist = dist;
+                    best = split;
+                } else {
+                    break;
+                }
+            }
+            assert(best != 0);
+            return best;
+        } else {
+            // use next downstream edge
+            const std::vector<_IntermodalEdge*>& splitList = it->second;
+            typename std::vector<_IntermodalEdge*>::const_iterator splitIt = splitList.begin();
+            double totalLength = 0.;
+            while (splitIt + 1 != splitList.end() && totalLength + (*splitIt)->getLength() < pos) {
+                totalLength += (*splitIt)->getLength();
+                ++splitIt;
+            }
+            return *splitIt;
         }
-        return *splitIt;
     }
 
     /// @brief Returns the departing intermodal connector at the given split offset
@@ -356,21 +408,26 @@ public:
         return it->second;
     }
 
-    void addCarEdges(const std::vector<E*>& edges) {
+    void addCarEdges(const std::vector<E*>& edges, double taxiWait) {
         for (const E* const edge : edges) {
-            if (edge->getFunction() == EDGEFUNC_NORMAL || edge->getFunction() == EDGEFUNC_INTERNAL) {
+            if (edge->getFunction() == SumoXMLEdgeFunc::NORMAL || edge->getFunction() == SumoXMLEdgeFunc::INTERNAL) {
                 myCarLookup[edge] = new CarEdge<E, L, N, V>(myNumericalID++, edge);
                 addEdge(myCarLookup[edge]);
             }
         }
         for (const auto& edgePair : myCarLookup) {
             _IntermodalEdge* const carEdge = edgePair.second;
+            // connectivity within the car network
             for (const auto& suc : edgePair.first->getViaSuccessors()) {
                 _IntermodalEdge* const sucCarEdge = getCarEdge(suc.first);
                 _IntermodalEdge* const sucViaEdge = getCarEdge(suc.second);
                 if (sucCarEdge != nullptr) {
                     carEdge->addSuccessor(sucCarEdge, sucViaEdge);
                 }
+            }
+            // connectivity to the pedestrian network (only for normal edges)
+            if (edgePair.first->getFunction() != SumoXMLEdgeFunc::NORMAL) {
+                continue;
             }
             if ((myCarWalkTransfer & ALL_JUNCTIONS) != 0) {
                 _IntermodalEdge* const walkCon = getWalkingConnector(edgePair.first);
@@ -390,8 +447,45 @@ public:
                     }
                 }
             }
-            getDepartConnector(edgePair.first)->addSuccessor(carEdge);
-            carEdge->addSuccessor(getArrivalConnector(edgePair.first));
+            if ((myCarWalkTransfer & ALL_JUNCTIONS) == 0 && (myCarWalkTransfer & TAXI_DROPOFF_ANYWHERE) != 0) {
+                // add access edges that allow exiting a taxi
+                _IntermodalEdge* const walkCon = getWalkingConnector(edgePair.first);
+                if (walkCon != 0) {
+                    addRestrictedCarExit(carEdge, walkCon, SVC_TAXI);
+                } else {
+                    // we are on an edge where pedestrians are forbidden and want to continue on an arbitrary pedestrian edge
+                    for (const E* const out : edgePair.first->getToJunction()->getOutgoing()) {
+                        if (!out->isInternal() && !out->isTazConnector() && getSidewalk<E, L>(out) != 0) {
+                            addRestrictedCarExit(carEdge, getBothDirections(out).first, SVC_TAXI);
+                        }
+                    }
+                    for (const E* const in : edgePair.first->getToJunction()->getIncoming()) {
+                        if (!in->isInternal() && !in->isTazConnector() && getSidewalk<E, L>(in) != 0) {
+                            addRestrictedCarExit(carEdge, getBothDirections(in).second, SVC_TAXI);
+                        }
+                    }
+                }
+            }
+            // use intermediate access edge that prevents taxi departure
+            _IntermodalEdge* departConn = getDepartConnector(edgePair.first);
+            _AccessEdge* access = new _AccessEdge(myNumericalID++, departConn, carEdge, 0, (SVCAll & ~SVC_TAXI));
+            addEdge(access);
+            departConn->addSuccessor(access);
+            access->addSuccessor(carEdge);
+            if ((myCarWalkTransfer & TAXI_PICKUP_PT) == 0) {
+                // taxi may depart anywhere but there is a time penalty
+                _AccessEdge* taxiAccess = new _AccessEdge(myNumericalID++, departConn, carEdge, 0, SVC_TAXI, SVC_IGNORING, taxiWait);
+                addEdge(taxiAccess);
+                departConn->addSuccessor(taxiAccess);
+                taxiAccess->addSuccessor(carEdge);
+            }
+            if ((myCarWalkTransfer & TAXI_DROPOFF_PT) == 0) {
+                // taxi (as all other cars) may arrive anywhere
+                carEdge->addSuccessor(getArrivalConnector(edgePair.first));
+            } else {
+                // use intermediate access edge that prevents taxi arrival
+                addRestrictedCarExit(carEdge, getArrivalConnector(edgePair.first), (SVCAll & ~SVC_TAXI));
+            }
         }
     }
 
@@ -425,16 +519,25 @@ public:
     * @param[in] stopEdge The edge on which the stop is located
     * @param[in] pos The relative position on the edge where the stop is located
     * @param[in] category The type of stop
+    * @param[in] isAccess Whether an <access> element is being connected
+    * @param[in] taxiWait Expected time to wait for a taxi
     */
-    void addAccess(const std::string& stopId, const E* stopEdge, const double pos, const double length, const SumoXMLTag category) {
-        assert(stopEdge != 0);
+    void addAccess(const std::string& stopId, const E* stopEdge, const double pos, const double length, const SumoXMLTag category, bool isAccess, double taxiWait) {
+        assert(stopEdge != nullptr);
+        const bool transferCarWalk = ((category == SUMO_TAG_PARKING_AREA && (myCarWalkTransfer & PARKING_AREAS) != 0) ||
+                                      (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & PT_STOPS) != 0));
+        const bool transferTaxiWalk = (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & TAXI_DROPOFF_PT) != 0);
+        const bool transferWalkTaxi = (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & TAXI_PICKUP_PT) != 0);
+#ifdef IntermodalRouter_DEBUG_ACCESS
+        std::cout << "addAccess stopId=" << stopId << " stopEdge=" << stopEdge->getID() << " pos=" << pos << " length=" << length << " cat=" << category << "\n";
+#endif
         if (myStopConnections.count(stopId) == 0) {
             myStopConnections[stopId] = new StopEdge<E, L, N, V>(stopId, myNumericalID++, stopEdge);
             addEdge(myStopConnections[stopId]);
         }
         _IntermodalEdge* const stopConn = myStopConnections[stopId];
         const L* lane = getSidewalk<E, L>(stopEdge);
-        if (lane != 0) {
+        if (lane != nullptr) {
             const std::pair<_IntermodalEdge*, _IntermodalEdge*>& pair = getBothDirections(stopEdge);
             double relPos;
             bool needSplit;
@@ -448,20 +551,30 @@ public:
                 if (needSplit) {
                     carSplit = new CarEdge<E, L, N, V>(myNumericalID++, stopEdge, pos);
                 }
-                splitEdge(myCarLookup[stopEdge], splitIndex, carSplit, relPos, length, needSplit, stopConn, true, false);
+                splitEdge(myCarLookup[stopEdge], splitIndex, carSplit, relPos, length, needSplit, stopConn, true, false, transferCarWalk);
             }
             if (needSplit) {
-                if (carSplit != nullptr && ((category == SUMO_TAG_PARKING_AREA && (myCarWalkTransfer & PARKING_AREAS) != 0) || (category == SUMO_TAG_BUS_STOP && (myCarWalkTransfer & PT_STOPS) != 0))) {
+                if (carSplit != nullptr && (transferCarWalk || transferTaxiWalk)) {
                     // adding access from car to walk
                     _IntermodalEdge* const beforeSplit = myAccessSplits[myCarLookup[stopEdge]][splitIndex];
                     for (_IntermodalEdge* conn : {
                                 fwdSplit, backSplit
                             }) {
-                        _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn, length);
-                        addEdge(access);
-                        beforeSplit->addSuccessor(access);
-                        access->addSuccessor(conn);
+                        if (transferCarWalk) {
+                            _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, conn, length);
+                            addEdge(access);
+                            beforeSplit->addSuccessor(access);
+                            access->addSuccessor(conn);
+                        } else {
+                            addRestrictedCarExit(beforeSplit, conn, SVC_TAXI);
+                        }
                     }
+                }
+                if (carSplit != nullptr && transferWalkTaxi && !isAccess) {
+                    _AccessEdge* access = new _AccessEdge(myNumericalID++, stopConn, carSplit, 0, SVC_TAXI, SVC_IGNORING, taxiWait);
+                    addEdge(access);
+                    stopConn->addSuccessor(access);
+                    access->addSuccessor(carSplit);
                 }
 
                 // fixing depart connections for the forward pedestrian, the backward pedestrian and the car edge
@@ -490,12 +603,38 @@ public:
                 fwdBeforeSplit->addSuccessor(prevArr);
                 prevArr->setLength(backSplit->getLength());
                 if (carSplit != nullptr) {
-                    carSplit->addSuccessor(arrConn);
-                    carSplit->removeSuccessor(prevArr);
-                    myAccessSplits[myCarLookup[stopEdge]][splitIndex]->addSuccessor(prevArr);
+                    if (carSplit->removeSuccessor(prevArr)) {
+                        carSplit->addSuccessor(arrConn);
+                        myAccessSplits[myCarLookup[stopEdge]][splitIndex]->addSuccessor(prevArr);
+                    }
                 }
                 addConnectors(depConn, arrConn, splitIndex + 1);
             }
+        } else {
+            // pedestrians cannot walk here:
+            // add depart connectors on the stop edge so that pedestrians may start at the stop
+            std::vector<_IntermodalEdge*>& splitList = myDepartLookup[stopEdge];
+            assert(splitList.size() > 0);
+            typename std::vector<_IntermodalEdge*>::iterator splitIt = splitList.begin();
+            double totalLength = 0.;
+            _IntermodalEdge* last = nullptr;
+            while (splitIt != splitList.end() && totalLength < pos) {
+                totalLength += (*splitIt)->getLength();
+                last = *splitIt;
+                ++splitIt;
+            }
+            // insert before last
+            const double newLength = pos - (totalLength - last->getLength());
+            stopConn->setLength(newLength);
+            splitList.insert(splitIt - 1, stopConn);
+            // correct length of subsequent edge
+            last->setLength(last->getLength() - newLength);
+#ifdef IntermodalRouter_DEBUG_ACCESS
+            std::cout << "  splitList:\n";
+            for (auto conEdge : splitList) {
+                std::cout << "    " << conEdge->getID() << " length=" << conEdge->getLength() << "\n";
+            }
+#endif
         }
     }
 
@@ -524,10 +663,12 @@ public:
                 validStops.push_back(stop);
                 lastUntil = stop.until;
             } else {
-                WRITE_WARNING("Ignoring stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                if (stop.busstop != "" && stop.until >= 0) {
+                    WRITE_WARNING("Ignoring stop at '" + stop.busstop + "' until " + time2string(stop.until) + "  for vehicle '" + pars.id + "'.");
+                }
             }
         }
-        if (validStops.size() < 2) {
+        if (validStops.size() < 2 && pars.line != "taxi") {
             WRITE_WARNING("Not using public transport line '" + pars.line + "' for routing persons. It has less than two usable stops.");
             return;
         }
@@ -580,6 +721,34 @@ public:
         }
     }
 
+    /** @brief Adds access edges for transfering from walking to vehicle use
+    * @param[in] edge The edge on which the transfer takes place
+    * @param[in] svc The permitted vehicle class for transfering
+    */
+    void addCarAccess(const E* edge, SUMOVehicleClass svc, double traveltime) {
+        assert(edge != nullptr);
+        assert(myCarLookup.count(edge) != 0);
+        assert(myBidiLookup.count(edge) != 0);
+        EdgePair pedestrianEdges = myBidiLookup[edge];
+        _IntermodalEdge* carEdge = myCarLookup[edge];
+        _AccessEdge* access = new _AccessEdge(myNumericalID++, pedestrianEdges.first, carEdge, 0, svc, SVC_IGNORING, traveltime);
+        addEdge(access);
+        pedestrianEdges.first->addSuccessor(access);
+        pedestrianEdges.second->addSuccessor(access);
+        access->addSuccessor(carEdge);
+    }
+
+    /** @brief Adds access edges for transfering from driving to walking that are only usable by a particular vehicle class
+    * @param[in] from The origin edge of the transfer
+    * @param[in] to The destination edge of the transfer
+    * @param[in] svc The permitted vehicle class for transfering
+    */
+    void addRestrictedCarExit(_IntermodalEdge* from, _IntermodalEdge* to, SVCPermissions vehicleRestriction) {
+        _AccessEdge* access = new _AccessEdge(myNumericalID++, from, to, 0, SVC_IGNORING, vehicleRestriction);
+        addEdge(access);
+        from->addSuccessor(access);
+        access->addSuccessor(to);
+    }
 
 private:
     /** @brief Returns where to insert or use the split edge
@@ -628,7 +797,7 @@ private:
     */
     void splitEdge(_IntermodalEdge* const toSplit, int splitIndex,
                    _IntermodalEdge* afterSplit, const double relPos, const double length, const bool needSplit,
-                   _IntermodalEdge* const stopConn, const bool forward = true, const bool addExit = true) {
+                   _IntermodalEdge* const stopConn, const bool forward = true, const bool addExit = true, const bool addEntry = true) {
         std::vector<_IntermodalEdge*>& splitList = myAccessSplits[toSplit];
         if (splitList.empty()) {
             splitList.push_back(toSplit);
@@ -661,10 +830,12 @@ private:
             afterSplit = splitList[splitIndex + 1];
         }
         // add access to / from edge
-        _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, stopConn, length);
-        addEdge(access);
-        beforeSplit->addSuccessor(access);
-        access->addSuccessor(stopConn);
+        if (addEntry) {
+            _AccessEdge* access = new _AccessEdge(myNumericalID++, beforeSplit, stopConn, length);
+            addEdge(access);
+            beforeSplit->addSuccessor(access);
+            access->addSuccessor(stopConn);
+        }
         if (addExit) {
             // pedestrian case only, exit from public to pedestrian
             _AccessEdge* exit = new _AccessEdge(myNumericalID++, stopConn, afterSplit, length);
@@ -711,8 +882,3 @@ private:
     IntermodalNetwork& operator=(const IntermodalNetwork& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/

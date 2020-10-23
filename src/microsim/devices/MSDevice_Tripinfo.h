@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2009-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_Tripinfo.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Fri, 30.01.2009
-/// @version $Id$
 ///
 // A device which collects info on the vehicle trip
 /****************************************************************************/
-#ifndef MSDevice_Tripinfo_h
-#define MSDevice_Tripinfo_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "MSVehicleDevice.h"
@@ -32,6 +29,7 @@
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class SUMOTrafficObject;
 
 // ===========================================================================
 // class definitions
@@ -46,6 +44,11 @@ class SUMOVehicle;
  */
 class MSDevice_Tripinfo : public MSVehicleDevice {
 public:
+    /** @brief Inserts MSDevice_Tripinfo-options
+     * @param[filled] oc The options container to add the options to
+     */
+    static void insertOptions(OptionsCont& oc);
+
     /** @brief Build devices for the given vehicle, if needed
      *
      * The options are read and evaluated whether a tripinfo-device shall be built
@@ -58,23 +61,25 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
-    /// @brief update tripinfo statistics
-    void updateStatistics(SUMOTime timeLoss) const;
-
     /// @brief generate output for vehicles which are still in the network
     static void generateOutputForUnfinished();
 
     /// @brief record tripinfo data for pedestrians
     static void addPedestrianData(double walkLength, SUMOTime walkDuration, SUMOTime walkTimeLoss);
 
-    /// @brief record tripinfo data for rides
-    static void addRideData(double rideLength, SUMOTime rideDuration, SUMOVehicleClass vClass, const std::string& line, SUMOTime waitingTime);
+    /// @brief record tripinfo data for rides and transports
+    static void addRideTransportData(const bool isPerson, const double distance, const SUMOTime duration,
+                                     const SUMOVehicleClass vClass, const std::string& line, const SUMOTime waitingTime);
 
     /// @brief get statistics for printing to stdout
     static std::string printStatistics();
 
+    /// @brief write statistic output to (xml) file
+    static void writeStatistics(OutputDevice& od);
+
     /// @brief accessors for GUINet-Parameters
     static double getAvgRouteLength();
+    static double getAvgTripSpeed();
     static double getAvgDuration();
     static double getAvgWaitingTime();
     static double getAvgTimeLoss();
@@ -108,8 +113,16 @@ public:
      * @param[in] newSpeed Moving speed.
      * @return True (always).
      */
-    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
 
+    /** @brief record idling as waiting time - cf issue 2233
+     *
+     * @param[in] veh The idling vehicle.
+     * @return Always true
+     *
+     * @see MSMoveReminder::notifyIdle
+     */
+    bool notifyIdle(SUMOTrafficObject& veh);
 
     /** @brief Saves departure info on insertion
      *
@@ -119,7 +132,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
     /** @brief Saves arrival info
@@ -130,7 +143,7 @@ public:
      * @param[in] isLaneChange whether the vehicle changed from the lane
      * @return True if it did not leave the net.
      */
-    bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
     /// @}
 
 
@@ -145,7 +158,7 @@ public:
      * @exception IOError not yet implemented
      * @see MSDevice::generateOutput
      */
-    void generateOutput() const;
+    void generateOutput(OutputDevice* tripinfoOut) const;
 
     /** @brief Saves the state of the device
      *
@@ -169,19 +182,11 @@ private:
     MSDevice_Tripinfo(SUMOVehicle& holder, const std::string& id);
 
 
-    /// @brief dummy constructor
-    MSDevice_Tripinfo();
-
-
-    /* @brief compute trip length and duration (depending on whether the
-       vehicle arrived or not */
-    void computeLengthAndDuration(double& routeLength, SUMOTime& duration) const;
-
 protected:
     /** @brief Internal notification about the vehicle moves, see MSMoveReminder::notifyMoveInternal()
      *
      */
-    void notifyMoveInternal(const SUMOVehicle& veh,
+    void notifyMoveInternal(const SUMOTrafficObject& veh,
                             const double frontOnLane,
                             const double timeOnLane,
                             const double meanSpeedFrontOnLane,
@@ -189,6 +194,13 @@ protected:
                             const double travelledDistanceFrontOnLane,
                             const double travelledDistanceVehicleOnLane,
                             const double /* meanLengthOnLane */);
+
+    /// @brief update stopping time after parking
+    void updateParkingStopTime();
+
+    static void printRideStatistics(std::ostringstream& msg, const std::string& category, const std::string& modeName, const int index);
+
+    static void writeRideStatistics(OutputDevice& od, const std::string& category, const int index);
 
 private:
     /// @brief The lane the vehicle departed at
@@ -230,8 +242,14 @@ private:
     /// @brief The speed when arriving
     double myArrivalSpeed;
 
+    /// @brief The reason for vehicle arrival
+    MSMoveReminder::Notification myArrivalReason;
+
     /// @brief The time loss when compared to the desired and allowed speed
     SUMOTime myMesoTimeLoss;
+
+    /// @brief The route length
+    double myRouteLength;
 
     /// @brief devices which may still need to produce output
     static std::set<const MSDevice_Tripinfo*, ComparatorNumericalIdLess> myPendingOutput;
@@ -239,6 +257,7 @@ private:
     /// @brief global tripinfo statistics
     static double myVehicleCount;
     static double myTotalRouteLength;
+    static double myTotalSpeed;
     static SUMOTime myTotalDuration;
     static SUMOTime myTotalWaitingTime;
     static SUMOTime myTotalTimeLoss;
@@ -250,14 +269,15 @@ private:
     static SUMOTime myTotalWalkDuration;
     static SUMOTime myTotalWalkTimeLoss;
 
-    static int myRideCount;
-    static int myRideBusCount;
-    static int myRideRailCount;
-    static int myRideBikeCount;
-    static int myRideAbortCount;
-    static double myTotalRideWaitingTime;
-    static double myTotalRideRouteLength;
-    static SUMOTime myTotalRideDuration;
+    static std::vector<int> myRideCount;
+    static std::vector<int> myRideBusCount;
+    static std::vector<int> myRideRailCount;
+    static std::vector<int> myRideTaxiCount;
+    static std::vector<int> myRideBikeCount;
+    static std::vector<int> myRideAbortCount;
+    static std::vector<double> myTotalRideWaitingTime;
+    static std::vector<double> myTotalRideRouteLength;
+    static std::vector<SUMOTime> myTotalRideDuration;
 
 private:
     /// @brief Invalidated copy constructor.
@@ -268,9 +288,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

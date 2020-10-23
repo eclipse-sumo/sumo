@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/13/18 16:09:14 by SUMO Version v0_32_0+0193-b79a12bb06
+<!-- generated on Wed Mar 11 22:24:14 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,10 @@ SPDX-License-Identifier: EPL-2.0
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <duration-log.disable value="true"/>
@@ -28,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="bus_1" depart="0.00" departLane="2/0to2/1_0" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="511.00" arrivalLane="2/0to2/1_0" arrivalPos="191.00" arrivalSpeed="13.90" duration="511.00" routeLength="3381.58" waitingTime="147.00" waitingCount="5" stopTime="84.00" timeLoss="182.79" rerouteNo="0" devices="tripinfo_bus_1" vType="bus" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="bus_2" depart="2.00" departLane="2/0to2/1_0" departPos="0.00" departSpeed="0.00" departDelay="2.00" arrival="540.00" arrivalLane="2/0to2/1_0" arrivalPos="191.00" arrivalSpeed="13.90" duration="538.00" routeLength="3393.68" waitingTime="163.00" waitingCount="7" stopTime="84.00" timeLoss="208.95" rerouteNo="0" devices="tripinfo_bus_2" vType="bus" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="bus_3" depart="7.00" departLane="2/0to2/1_0" departPos="12.10" departSpeed="0.00" departDelay="3.00" arrival="591.00" arrivalLane="2/0to2/1_0" arrivalPos="191.00" arrivalSpeed="13.90" duration="584.00" routeLength="3381.58" waitingTime="212.00" waitingCount="7" stopTime="84.00" timeLoss="255.79" rerouteNo="0" devices="tripinfo_bus_3" vType="bus" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bus_1" depart="0.00" departLane="2/0to2/1_0" departPos="12.10" departSpeed="0.00" departDelay="0.00" arrival="511.00" arrivalLane="2/0to2/1_0" arrivalPos="191.00" arrivalSpeed="13.90" duration="511.00" routeLength="3381.58" waitingTime="151.00" waitingCount="5" stopTime="80.00" timeLoss="186.79" rerouteNo="0" devices="tripinfo_bus_1" vType="bus" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bus_2" depart="2.00" departLane="2/0to2/1_0" departPos="0.00" departSpeed="0.00" departDelay="2.00" arrival="540.00" arrivalLane="2/0to2/1_0" arrivalPos="191.00" arrivalSpeed="13.90" duration="538.00" routeLength="3393.68" waitingTime="167.00" waitingCount="7" stopTime="80.00" timeLoss="212.95" rerouteNo="0" devices="tripinfo_bus_2" vType="bus" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="bus_3" depart="7.00" departLane="2/0to2/1_0" departPos="12.10" departSpeed="0.00" departDelay="3.00" arrival="591.00" arrivalLane="2/0to2/1_0" arrivalPos="191.00" arrivalSpeed="13.90" duration="584.00" routeLength="3381.58" waitingTime="216.00" waitingCount="7" stopTime="80.00" timeLoss="259.79" rerouteNo="0" devices="tripinfo_bus_3" vType="bus" speedFactor="1.00" vaporized=""/>
 </tripinfos>

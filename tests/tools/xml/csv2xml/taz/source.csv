@@ -1,0 +1,5 @@
+taz_id;tazSource_id;tazSource_weight;tazSink_id;tazSink_weight
+1;a1;1;;
+1;;;a2;1
+2;b1;1;;
+2;;;b2;1

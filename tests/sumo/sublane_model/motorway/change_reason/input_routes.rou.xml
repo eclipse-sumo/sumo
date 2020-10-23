@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+
+    <vType id="truck_lead" accel="1.3" decel="4"  minGap="2.5" length="14" maxSpeed="11.11" width="2.5" sigma="0.5" lcKeepRight="100" speedFactor="1" guiShape="truck"/>
+    <vType id="truck_overtake" accel="1.3" decel="4"  minGap="2.5" length="14" maxSpeed="16.67" width="2.5" sigma="0.5" lcKeepRight="100" speedFactor="1" guiShape="truck"/>
+    <vType id="car_ACC" carFollowModel="ACC" lcKeepRight="100" guiShape="passenger/wagon" maxSpeed="11.11"/>
+
+    <route id="route_1" edges="gneE0 gneE1 gneE2 gneE3 gneE4 gneE5 gneE6 gneE7 gneE8 gneE9 gneE9.34 gneE10 gneE11 gneE12 gneE13 gneE14 gneE15 gneE16 gneE17 gneE18 gneE19 gneE20 gneE21 gneE22 gneE23 gneE24 gneE25 gneE26 gneE27 gneE28"/>
+
+    <vehicle id="car_Lead" type="truck_lead" route="route_1" depart="0"  departSpeed="11.11" departLane="0" arrivalLane="0" departPos="14" color="1,0,0"/>
+    <vehicle id="car_TJC" type="car_ACC" route="route_1" depart="9"  departSpeed="11.11" departLane="0" arrivalLane="0" departPos="5" color="0,0,1"/>
+    <vehicle id="car_overtake" type="truck_overtake" route="route_1" depart="12.15"  departSpeed="16.67" departLane="1" arrivalLane="0" departPos="14" color="0,1,0"/>
+
+</routes>

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Apr  3 11:27:44 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <personinfo id="p1.0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <walk depart="0.00" departPos="0.00" arrival="14.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.1" depart="3.60" type="DEFAULT_PEDTYPE">
+        <walk depart="4.00" departPos="0.00" arrival="18.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.2" depart="7.20" type="DEFAULT_PEDTYPE">
+        <walk depart="8.00" departPos="0.00" arrival="22.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.3" depart="10.80" type="DEFAULT_PEDTYPE">
+        <walk depart="11.00" departPos="0.00" arrival="25.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.4" depart="14.40" type="DEFAULT_PEDTYPE">
+        <walk depart="15.00" departPos="0.00" arrival="29.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.5" depart="18.00" type="DEFAULT_PEDTYPE">
+        <walk depart="18.00" departPos="0.00" arrival="32.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.6" depart="21.60" type="DEFAULT_PEDTYPE">
+        <walk depart="22.00" departPos="0.00" arrival="36.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.7" depart="25.20" type="DEFAULT_PEDTYPE">
+        <walk depart="26.00" departPos="0.00" arrival="40.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.8" depart="28.80" type="DEFAULT_PEDTYPE">
+        <walk depart="29.00" departPos="0.00" arrival="43.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+    <personinfo id="p1.9" depart="32.40" type="DEFAULT_PEDTYPE">
+        <walk depart="33.00" departPos="0.00" arrival="47.00" arrivalPos="250.00" duration="14.00" routeLength="750.00" timeLoss="0.50" maxSpeed="55.56"/>
+    </personinfo>
+</tripinfos>

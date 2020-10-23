@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    netgen_main.cpp
 /// @author  Markus Hartinger
@@ -13,15 +17,9 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mar, 2003
-/// @version $Id$
 ///
 // Main for NETGENERATE
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -38,6 +36,8 @@
 #include <netbuild/NBNetBuilder.h>
 #include <netbuild/NBFrame.h>
 #include <netwrite/NWFrame.h>
+#include <netimport/NITypeLoader.h>
+#include <netimport/NIXMLTypesHandler.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
 #include <utils/options/Option.h>
@@ -70,6 +70,7 @@ fillOptions() {
     oc.addOptionSubTopic("Grid Network");
     oc.addOptionSubTopic("Spider Network");
     oc.addOptionSubTopic("Random Network");
+    oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Building Defaults");
@@ -78,6 +79,7 @@ fillOptions() {
     oc.addOptionSubTopic("Unregulated Nodes");
     oc.addOptionSubTopic("Junctions");
     oc.addOptionSubTopic("Pedestrian");
+    oc.addOptionSubTopic("Bicycle");
     SystemFrame::addReportOptions(oc); // this subtopic is filled here, too
 
     NGFrame::fillOptions();
@@ -151,8 +153,8 @@ buildNetwork(NBNetBuilder& nb) {
         }
         // check values
         bool hadError = false;
-        if (attachLength == 0 && (xNo < 2 || yNo < 2)) {
-            WRITE_ERROR("The number of nodes must be at least 2 in both directions.");
+        if (xNo < 1 || yNo < 1 || (attachLength == 0 && (xNo < 2 && yNo < 2))) {
+            WRITE_ERROR("The number of nodes must be positive and at least 2 in one direction.");
             hadError = true;
         }
         if (xLength < 10. || yLength < 10.) {
@@ -181,7 +183,7 @@ buildNetwork(NBNetBuilder& nb) {
     neighborDist.add(6, oc.getFloat("rand.neighbor-dist6"));
     NGNet* net = new NGNet(nb);
     NGRandomNetBuilder randomNet(*net,
-                                 oc.getFloat("rand.min-angle"),
+                                 DEG2RAD(oc.getFloat("rand.min-angle")),
                                  oc.getFloat("rand.min-distance"),
                                  oc.getFloat("rand.max-distance"),
                                  oc.getFloat("rand.connectivity"),
@@ -210,7 +212,7 @@ main(int argc, char** argv) {
             SystemFrame::close();
             return 0;
         }
-        XMLSubSys::setValidation(oc.getString("xml-validation"), oc.getString("xml-validation.net"));
+        XMLSubSys::setValidation(oc.getString("xml-validation"), "never", "never");
         MsgHandler::initOutputOptions();
         if (!checkOptions()) {
             throw ProcessError();
@@ -221,6 +223,10 @@ main(int argc, char** argv) {
         RandHelper::initRandGlobal();
         NBNetBuilder nb;
         nb.applyOptions(oc);
+        if (oc.isSet("type-files")) {
+            NIXMLTypesHandler* handler = new NIXMLTypesHandler(nb.getTypeCont());
+            NITypeLoader::load(handler, oc.getStringVector("type-files"), "types");
+        }
         // build the netgen-network description
         NGNet* net = buildNetwork(nb);
         // ... and we have to do this...
@@ -260,6 +266,4 @@ main(int argc, char** argv) {
 }
 
 
-
 /****************************************************************************/
-

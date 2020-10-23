@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Fri Sep 05 13:18:02 2014
+TraCITestClient output file. Date: Fri Aug 16 10:25:13 2019
 
 
 -> Command sent: <SimulationStep>:
@@ -52,23 +52,26 @@ TraCITestClient output file. Date: Fri Sep 05 13:18:02 2014
 
 -> Command sent: <GetVariable>:
   domID=164 varID=64 objID=veh1
-.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known.]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=86 objID=veh1
-.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known.]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=82 objID=veh1
-.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known.]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=79 objID=veh1
-.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known.]
 
 -> Command sent: <GetVariable>:
   domID=164 varID=83 objID=veh1
-.. Answered with error to command (164), [description: Vehicle 'veh1' is not known]
+.. Answered with error to command (164), [description: Vehicle 'veh1' is not known.]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

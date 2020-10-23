@@ -1,3 +1,4 @@
 simstep2 5
 getvariable_plus 0xaa 0x58 1/1to0/1 <double> 0
-simstep2 6
+simstep2 7
+

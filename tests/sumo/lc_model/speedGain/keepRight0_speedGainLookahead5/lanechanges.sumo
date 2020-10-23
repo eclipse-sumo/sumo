@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Jan 28 15:03:27 2020 by Eclipse SUMO Version v1_4_0+0816-902b08d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="ego" type="ego" time="23.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="324.57" reason="speedGain" leaderGap="254.43" leaderSecureGap="25.06" leaderSpeed="8.00" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="54.43" origLeaderSecureGap="25.06" origLeaderSpeed="8.00"/>
+    <change id="ego" type="ego" time="62.00" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="866.28" reason="speedGain" leaderGap="224.72" leaderSecureGap="25.06" leaderSpeed="8.00" followerGap="165.28" followerSecureGap="0.00" followerSpeed="8.00" origLeaderGap="24.72" origLeaderSecureGap="25.06" origLeaderSpeed="8.00"/>
+    <change id="ego" type="ego" time="91.00" from="beg_0" to="beg_1" dir="1" speed="13.89" pos="1269.09" reason="speedGain" leaderGap="253.91" leaderSecureGap="25.06" leaderSpeed="8.00" followerGap="136.09" followerSecureGap="0.00" followerSpeed="8.00" origLeaderGap="53.91" origLeaderSecureGap="25.06" origLeaderSpeed="8.00"/>
+    <change id="ego" type="ego" time="130.00" from="beg_1" to="beg_0" dir="-1" speed="13.89" pos="1810.80" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="165.80" followerSecureGap="0.00" followerSpeed="8.00" origLeaderGap="24.20" origLeaderSecureGap="25.06" origLeaderSpeed="8.00"/>
+</lanechanges>

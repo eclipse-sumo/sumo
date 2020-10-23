@@ -1,3 +1,4 @@
 repeat 5 simstep2 0
 setvalue 0xc4 0x5c veh0 <compound> 2 <string> xxx <double> 10
-repeat 5 simstep2 0
+repeat 6 simstep2 0
+

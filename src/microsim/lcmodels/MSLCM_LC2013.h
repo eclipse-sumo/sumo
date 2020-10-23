@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSLCM_LC2013.h
 /// @author  Daniel Krajzewicz
@@ -14,17 +18,10 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Fri, 08.10.2013
-/// @version $Id$
 ///
 // A lane change model developed by D. Krajzewicz, J. Erdmann et al. between 2004 and 2013
 /****************************************************************************/
-#ifndef MSLCM_LC2013_h
-#define MSLCM_LC2013_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "MSAbstractLaneChangeModel.h"
@@ -114,7 +111,7 @@ public:
     void setParameter(const std::string& key, const std::string& value);
 
     /// @brief decides the next lateral speed (for continuous lane changing)
-    double computeSpeedLat(double latDist, double& maneuverDist);
+    double computeSpeedLat(double latDist, double& maneuverDist) const;
 
     /// @brief Returns a deceleration value which is used for the estimation of the duration of a lane change.
     /// @note  Effective only for continuous lane-changing when using attributes myMaxSpeedLatFactor and myMaxSpeedLatStanding. See #3771
@@ -165,37 +162,16 @@ protected:
     /// @brief compute useful slowdowns for blocked vehicles
     int slowDownForBlocked(MSVehicle** blocked, int state);
 
-
-    // XXX: consider relocation of the roundabout functions (perhaps to MSVehicle or the abstract LC Model...) (Leo)
-    /// @brief computes the distance and number of edges in the next upcoming
-    ///        roundabout along the lane continuations given in curr and neigh
-    /// @param[in] veh The considered ego Vehicle
-    /// @param[in] curr continuation info along veh's current lane
-    /// @param[in] neigh continuation info along a neighboring lane (in MSLCM_2013::_wantsChange() the considered lane for a lanechange)
-    /// @param[out] roundaboutDistanceAhead Accumulated length of lanes in the next oncoming roundabout in curr
-    /// @param[out] roundaboutDistanceAheadNeigh Accumulated length of lanes in the next oncoming roundabout in neigh
-    /// @param[out] roundaboutEdgesAhead  Number of lanes in the next oncoming roundabout in curr
-    /// @param[out] roundaboutEdgesAheadNeigh Number of lanes in the next oncoming roundabout in neigh
-    static void
-    getRoundaboutAheadInfo(const MSLCM_LC2013* lcm, const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh,
-                           double& roundaboutDistanceAhead, double& roundaboutDistanceAheadNeigh, int& roundaboutEdgesAhead, int& roundaboutEdgesAheadNeigh);
+    /// @brief anticipate future follow speed for the given leader
+    double anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderDist, double dist, double vMax, bool acceleratingLeader);
 
     /// @brief Computes the artificial bonus distance for roundabout lanes
     ///        this additional distance reduces the sense of urgency within
     ///        roundabouts and thereby promotes the use of the inner roundabout
     ///        lane in multi-lane roundabouts.
-    /// @param[in] roundaboutDistAhead Distance on roundabout
-    /// @param[in] roundaboutEdgesAhead number of edges on roundabout
-    double
-    roundaboutDistBonus(double roundaboutDistAhead, int roundaboutEdgesAhead) const;
-
-    /// @brief compute the distance on the next upcoming roundabout along a given sequence of lanes.
-    /// @param[in] position position of the vehicle on the initial lane
-    /// @param[in] initialLane starting lane for the computation (may be internal)
-    /// @param[in] continuationLanes sequence of lanes along which the roundabout distance is to be computed (only containing non-internal lanes)
-    /// @return distance along next upcoming roundabout on the given sequence of lanes continuationLanes
-    static double
-    distanceAlongNextRoundabout(double position, const MSLane* initialLane, const std::vector<MSLane*>& continuationLanes);
+    /// @param[in] curr continuation info along veh's current lane
+    /// @param[in] neigh continuation info along a neighboring lane (in MSLCM_2013::_wantsChange() the considered lane for a lanechange)
+    double getRoundaboutDistBonus(const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh, const MSVehicle::LaneQ& best);
 
     /// @brief save space for vehicles which need to counter-lane-change
     void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
@@ -275,8 +251,18 @@ protected:
 
     // @brief willingness to undercut longitudinal safe gaps
     double myAssertive;
+    // @brief lookahead for speedGain in seconds
+    double mySpeedGainLookahead;
+    // @brief bounus factor staying on the inside of multi-lane roundabout
+    double myRoundaboutBonus;
+    // @brief factor for cooperative speed adjustment
+    double myCooperativeSpeed;
+    // allow overtaking right even though it is prohibited
+    double myOvertakeRightParam;
 
-    const double myExperimentalParam1; // for feature testing
+    // for feature testing
+    const double myExperimentalParam1;
+
     //@}
 
     /// @name derived parameters
@@ -286,9 +272,3 @@ protected:
     double myChangeProbThresholdLeft;
     //@}
 };
-
-
-#endif
-
-/****************************************************************************/
-

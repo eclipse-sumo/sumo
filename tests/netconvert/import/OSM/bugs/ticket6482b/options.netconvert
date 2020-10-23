@@ -1,0 +1,7 @@
+--osm-files osm.xml
+--keep-edges.by-vclass passenger
+--keep-edges.components 1 
+--junctions.join
+--tls.guess-signals
+--tls.discard-simple
+-R

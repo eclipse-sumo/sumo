@@ -12,3 +12,6 @@ clogit_example
 
 # book example of c-logit with self defined theta
 theta_example
+
+# logit with route input
+logit_routes

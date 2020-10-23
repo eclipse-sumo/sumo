@@ -1,0 +1,3 @@
+Error: Invalid departPosLat definition for vehicle 'trip_0';
+ must be one of ("random", "random_free", "free", "right", "center", "left", or a float)
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug092338.744/netedit.gui/demandElements/trip/load/departPosLat\input_routes.rou.xml failed.

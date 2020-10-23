@@ -1,0 +1,38 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <timedEvent dest="tls_state_switch.xml" source="C" type="SaveTLSSwitchStates"/>
+
+   <tlLogic id="C" type="static" programID="mon">
+      <phase duration="50" state="Grrrrrrrrrrrrrrrrrrr"/>
+   </tlLogic>
+   <tlLogic id="C" type="static" programID="tue">
+      <phase duration="50" state="rGrrrrrrrrrrrrrrrrrr"/>
+   </tlLogic>
+   <tlLogic id="C" type="static" programID="wed">
+      <phase duration="50" state="rrGrrrrrrrrrrrrrrrrr"/>
+   </tlLogic>
+   <tlLogic id="C" type="static" programID="thu">
+      <phase duration="50" state="rrrGrrrrrrrrrrrrrrrr"/>
+   </tlLogic>
+   <tlLogic id="C" type="static" programID="fri">
+      <phase duration="50" state="rrrrGrrrrrrrrrrrrrrr"/>
+   </tlLogic>
+   <tlLogic id="C" type="static" programID="sat">
+      <phase duration="50" state="rrrrrGrrrrrrrrrrrrrr"/>
+   </tlLogic>
+   <tlLogic id="C" type="static" programID="sun">
+      <phase duration="50" state="rrrrrrGrrrrrrrrrrrrr"/>
+   </tlLogic>
+
+
+	<WAUT startProg="0" id="w1" period="0">
+        <wautSwitch to="mon" time="0"/>
+        <wautSwitch to="tue" time="1:0:0:0"/>
+        <wautSwitch to="wed" time="2:0:0:0"/>
+        <wautSwitch to="thu" time="3:0:0:0"/>
+        <wautSwitch to="fri" time="4:0:0:0"/>
+        <wautSwitch to="sat" time="5:0:0:0"/>
+        <wautSwitch to="sun" time="6:0:0:0"/>
+	</WAUT>
+
+    <wautJunction junctionID="C" wautID="w1"/>
+</additional>

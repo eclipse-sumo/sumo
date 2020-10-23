@@ -1,10 +1,14 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    connection.py
 # @author  Daniel Krajzewicz
@@ -13,7 +17,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2011-11-28
-# @version $Id$
 
 
 class Connection:
@@ -37,6 +40,7 @@ class Connection:
         self._tlLink = tllink
         self._state = state
         self._via = viaLaneID
+        self._params = {}
 
     def __str__(self):
         return '<connection from="%s" to="%s" fromLane="%s" toLane="%s" %sdirection="%s">' % (
@@ -47,6 +51,15 @@ class Connection:
             ('' if self._tls == '' else 'tl="%s" linkIndex="%s" ' %
              (self._tls, self._tlLink)),
             self._direction)
+
+    def setParam(self, key, value):
+        self._params[key] = value
+
+    def getParam(self, key, default=None):
+        return self._params.get(key, default)
+
+    def getParams(self):
+        return self._params
 
     def getFrom(self):
         return self._fromLane.getEdge()

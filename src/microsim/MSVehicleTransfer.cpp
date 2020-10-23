@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSVehicleTransfer.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sep 2003
-/// @version $Id$
 ///
 // A mover of vehicles that got stucked due to grid locks
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <iostream>
@@ -30,6 +28,7 @@
 #include "MSLane.h"
 #include "MSEdge.h"
 #include "MSVehicle.h"
+#include "MSParkingArea.h"
 #include <microsim/lcmodels/MSAbstractLaneChangeModel.h>
 #include "MSVehicleControl.h"
 #include "MSInsertionControl.h"
@@ -62,7 +61,7 @@ MSVehicleTransfer::add(const SUMOTime t, MSVehicle* veh) {
         veh->getLaneChangeModel().endLaneChangeManeuver(MSMoveReminder::NOTIFICATION_TELEPORT);
         MSNet::getInstance()->informVehicleStateListener(veh, MSNet::VEHICLE_STATE_STARTING_TELEPORT);
         if (veh->succEdge(1) == nullptr) {
-            WRITE_WARNING("Vehicle '" + veh->getID() + "' teleports beyond arrival edge '" + veh->getEdge()->getID() + "', time " + time2string(t) + ".");
+            WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time %.", veh->getID(), veh->getEdge()->getID(), time2string(t));
             veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
             return;
@@ -115,19 +114,37 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
         const MSEdge* e = desc.myVeh->getEdge();
         const MSEdge* nextEdge = desc.myVeh->succEdge(1);
 
-        const double departPos = desc.myParking ? desc.myVeh->getPositionOnLane() : 0;
 
         if (desc.myParking) {
+            MSParkingArea* pa = desc.myVeh->getCurrentParkingArea();
+            const double departPos = pa != nullptr ? pa->getInsertionPosition(*desc.myVeh) : desc.myVeh->getPositionOnLane();
             // handle parking vehicles
+            desc.myVeh->setIdling(true);
             if (desc.myVeh->getLane()->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(),
                     false, MSMoveReminder::NOTIFICATION_PARKING)) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
                 desc.myVeh->getLane()->removeParking(desc.myVeh);
+                // at this point we are in the lane, blocking traffic & if required we configure the exit manoeuvre
+                if (MSGlobals::gModelParkingManoeuver && desc.myVeh->setExitManoeuvre()) {
+                    MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_MANEUVERING);
+                }
+                desc.myVeh->setIdling(false);
                 i = vehInfos.erase(i);
             } else {
+                // blocked from entering the road - engine assumed to be idling.
+                desc.myVeh->workOnIdleReminders();
+                if (!desc.myVeh->signalSet(MSVehicle::VEH_SIGNAL_BLINKER_LEFT | MSVehicle::VEH_SIGNAL_BLINKER_RIGHT)) {
+                    // signal wish to re-enter the road
+                    desc.myVeh->switchOnSignal(MSGlobals::gLefthand ? MSVehicle::VEH_SIGNAL_BLINKER_RIGHT : MSVehicle::VEH_SIGNAL_BLINKER_LEFT);
+                    if (pa) {
+                        // update freePosition so other vehicles can help with insertion
+                        desc.myVeh->getCurrentParkingArea()->notifyEgressBlocked();
+                    }
+                }
                 i++;
             }
         } else {
+            const double departPos = 0;
             // get the lane on which this vehicle should continue
             // first select all the lanes which allow continuation onto nextEdge
             //   then pick the one which is least occupied
@@ -135,7 +152,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                          e->getFreeLane(nullptr, vclass, departPos));
             // handle teleporting vehicles, lane may be 0 because permissions were modified by a closing rerouter or TraCI
             if (l != nullptr && l->freeInsertion(*(desc.myVeh), MIN2(l->getSpeedLimit(), desc.myVeh->getMaxSpeed()), 0, MSMoveReminder::NOTIFICATION_TELEPORT)) {
-                WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' ends teleporting on edge '" + e->getID() + "', time " + time2string(time) + ".");
+                WRITE_WARNINGF("Vehicle '%' ends teleporting on edge '%', time %.", desc.myVeh->getID(), e->getID(), time2string(time));
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_TELEPORT);
                 i = vehInfos.erase(i);
             } else {
@@ -145,7 +162,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
                     desc.myProceedTime = time + TIME2STEPS(e->getCurrentTravelTime(TeleportMinSpeed));
                 } else if (desc.myProceedTime < time) {
                     if (desc.myVeh->succEdge(1) == nullptr) {
-                        WRITE_WARNING("Vehicle '" + desc.myVeh->getID() + "' teleports beyond arrival edge '" + e->getID() + "', time " + time2string(time) + ".");
+                        WRITE_WARNINGF("Vehicle '%' teleports beyond arrival edge '%', time %.", desc.myVeh->getID(), e->getID(), time2string(time));
                         desc.myVeh->leaveLane(MSMoveReminder::NOTIFICATION_TELEPORT_ARRIVED);
                         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(desc.myVeh);
                         i = vehInfos.erase(i);
@@ -195,6 +212,12 @@ MSVehicleTransfer::saveState(OutputDevice& out) {
         out.closeTag();
     }
     myVehicles.unlock();
+}
+
+
+void
+MSVehicleTransfer::clearState() {
+    myVehicles.clear();
 }
 
 

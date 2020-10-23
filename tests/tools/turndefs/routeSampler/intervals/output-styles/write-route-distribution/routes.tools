@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-10 14:10:42.830557 by routeSampler.py v1_5_0+0601-bd9a2a1
+  options: -r input_routes.rou.xml -t input_turns.xml -o out.rou.xml <doubleminus>write-route-distribution routeDist
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="200.0" -->
+    <routeDistribution id="0_routeDist"/>
+        <route id="0_2" edges="-3 -3.180.00 5" probability="10"/>
+    </routeDistribution>
+
+    <vehicle id="0_0" depart="0.00" route="0_routeDist"/>
+    <vehicle id="0_1" depart="20.00" route="0_routeDist"/>
+    <vehicle id="0_2" depart="40.00" route="0_routeDist"/>
+    <vehicle id="0_3" depart="60.00" route="0_routeDist"/>
+    <vehicle id="0_4" depart="80.00" route="0_routeDist"/>
+    <vehicle id="0_5" depart="100.00" route="0_routeDist"/>
+    <vehicle id="0_6" depart="120.00" route="0_routeDist"/>
+    <vehicle id="0_7" depart="140.00" route="0_routeDist"/>
+    <vehicle id="0_8" depart="160.00" route="0_routeDist"/>
+    <vehicle id="0_9" depart="180.00" route="0_routeDist"/>
+<!-- begin="200.0" end="400.0" -->
+    <routeDistribution id="200_routeDist"/>
+        <route id="200_0" edges="-3 -3.180.00 11" probability="8"/>
+    </routeDistribution>
+
+    <vehicle id="200_0" depart="200.00" route="200_routeDist"/>
+    <vehicle id="200_1" depart="225.00" route="200_routeDist"/>
+    <vehicle id="200_2" depart="250.00" route="200_routeDist"/>
+    <vehicle id="200_3" depart="275.00" route="200_routeDist"/>
+    <vehicle id="200_4" depart="300.00" route="200_routeDist"/>
+    <vehicle id="200_5" depart="325.00" route="200_routeDist"/>
+    <vehicle id="200_6" depart="350.00" route="200_routeDist"/>
+    <vehicle id="200_7" depart="375.00" route="200_routeDist"/>
+</routes>

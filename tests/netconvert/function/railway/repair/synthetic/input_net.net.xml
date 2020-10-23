@@ -82,7 +82,10 @@
         <lane id="buffer2_0" index="0" allow="rail" speed="27.78" length="60.80" shape="-8.87,-34.33 -69.67,-34.62"/>
     </edge>
     <edge id="buffer3" from="gneJ23" to="gneJ24" priority="-1" spreadType="center">
-        <lane id="buffer3_0" index="0" allow="rail" speed="27.78" length="60.49" shape="-8.36,-112.12 -68.85,-112.38"/>
+        <lane id="buffer3_0" index="0" allow="rail" speed="27.78" length="60.49" shape="-8.36,-112.12 -68.85,-112.38">
+            <param key="origId" value="foobar"/>
+        </lane>
+        <param key="railway:track_ref" value="2"/>
     </edge>
     <edge id="gneE1" from="gneJ1" to="gneJ2" priority="-1" spreadType="center">
         <lane id="gneE1_0" index="0" allow="rail" speed="27.78" length="77.27" shape="42.96,52.05 120.22,53.22"/>

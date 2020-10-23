@@ -4,5 +4,4 @@ net.net.xml routes.rou.xml -o pois.add.xml
 --scale-width 0.01
 --spread 1
 --hue cycle
---seed 42
 tools/route/route2poly.py

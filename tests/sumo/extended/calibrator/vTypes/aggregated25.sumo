@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 31 09:33:54 2020 by Eclipse SUMO Version v1_5_0+1023-63f9a82342
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="motorway.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="100.00" id="expect10vehs">
+        <edge id="beg">
+            <lane id="beg_0" sampledSeconds="11.95" traveltime="84.80" overlapTraveltime="84.95" density="0.04" laneDensity="0.04" occupancy="0.02" waitingTime="0.00" speed="35.33" departed="4" arrived="0" entered="0" left="4" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="beg2">
+            <lane id="beg2_0" sampledSeconds="244.03" traveltime="83.13" overlapTraveltime="83.28" density="0.82" laneDensity="0.82" occupancy="0.46" waitingTime="0.00" speed="35.99" departed="2" arrived="1" entered="4" left="0" laneChangedFrom="1" laneChangedTo="2"/>
+            <lane id="beg2_1" sampledSeconds="199.59" traveltime="83.21" overlapTraveltime="83.41" density="0.67" laneDensity="0.67" occupancy="0.47" waitingTime="0.00" speed="35.96" departed="7" arrived="1" entered="0" left="0" laneChangedFrom="2" laneChangedTo="1"/>
+        </edge>
+        <edge id="end">
+            <lane id="end_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="end_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end2">
+            <lane id="end2_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end3">
+            <lane id="end3_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="merge">
+            <lane id="merge_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="offRamp">
+            <lane id="offRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="onRamp">
+            <lane id="onRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+    </interval>
+    <interval begin="200.00" end="400.00" id="expect31vehs">
+        <edge id="beg">
+            <lane id="beg_0" sampledSeconds="20.70" traveltime="84.12" overlapTraveltime="84.27" density="0.03" laneDensity="0.03" occupancy="0.02" waitingTime="0.00" speed="35.61" departed="7" arrived="0" entered="0" left="7" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="beg2">
+            <lane id="beg2_0" sampledSeconds="1619.03" traveltime="83.14" overlapTraveltime="83.32" density="2.71" laneDensity="2.71" occupancy="1.76" waitingTime="0.00" speed="35.99" departed="2" arrived="15" entered="6" left="0" laneChangedFrom="0" laneChangedTo="21"/>
+            <lane id="beg2_1" sampledSeconds="584.00" traveltime="83.11" overlapTraveltime="83.31" density="0.98" laneDensity="0.98" occupancy="0.69" waitingTime="0.00" speed="36.00" departed="28" arrived="1" entered="0" left="0" laneChangedFrom="21" laneChangedTo="0"/>
+        </edge>
+        <edge id="end">
+            <lane id="end_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="end_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end2">
+            <lane id="end2_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end3">
+            <lane id="end3_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="merge">
+            <lane id="merge_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="offRamp">
+            <lane id="offRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="onRamp">
+            <lane id="onRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+    </interval>
+    <interval begin="400.00" end="700.00" id="expect100vehs">
+        <edge id="beg">
+            <lane id="beg_0" sampledSeconds="23.33" traveltime="83.22" overlapTraveltime="83.36" density="0.03" laneDensity="0.03" occupancy="0.01" waitingTime="0.00" speed="36.00" departed="8" arrived="0" entered="0" left="8" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="beg2">
+            <lane id="beg2_0" sampledSeconds="6499.25" traveltime="83.11" overlapTraveltime="83.30" density="7.24" laneDensity="7.24" occupancy="4.97" waitingTime="0.00" speed="36.00" departed="0" arrived="93" entered="9" left="0" laneChangedFrom="0" laneChangedTo="91"/>
+            <lane id="beg2_1" sampledSeconds="2167.00" traveltime="83.11" overlapTraveltime="83.31" density="2.41" laneDensity="2.41" occupancy="1.71" waitingTime="0.00" speed="36.00" departed="100" arrived="8" entered="0" left="0" laneChangedFrom="91" laneChangedTo="0"/>
+        </edge>
+        <edge id="end">
+            <lane id="end_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="end_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end2">
+            <lane id="end2_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end3">
+            <lane id="end3_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="merge">
+            <lane id="merge_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="offRamp">
+            <lane id="offRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="onRamp">
+            <lane id="onRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+    </interval>
+    <interval begin="2000.00" end="2100.00" id="expect10vehs">
+        <edge id="beg">
+            <lane id="beg_0" sampledSeconds="134.37" traveltime="83.87" overlapTraveltime="84.02" density="0.45" laneDensity="0.45" occupancy="0.23" waitingTime="0.00" speed="35.72" departed="47" arrived="0" entered="0" left="45" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="beg2">
+            <lane id="beg2_0" sampledSeconds="1916.61" traveltime="83.12" overlapTraveltime="83.26" density="6.41" laneDensity="6.41" occupancy="3.20" waitingTime="0.00" speed="36.00" departed="0" arrived="6" entered="44" left="0" laneChangedFrom="4" laneChangedTo="0"/>
+            <lane id="beg2_1" sampledSeconds="316.59" traveltime="83.13" overlapTraveltime="83.33" density="1.06" laneDensity="1.06" occupancy="0.75" waitingTime="0.00" speed="35.99" departed="6" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="4"/>
+        </edge>
+        <edge id="end">
+            <lane id="end_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="end_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end2">
+            <lane id="end2_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end3">
+            <lane id="end3_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="merge">
+            <lane id="merge_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="offRamp">
+            <lane id="offRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="onRamp">
+            <lane id="onRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+    </interval>
+    <interval begin="2200.00" end="2400.00" id="expect31vehs">
+        <edge id="beg">
+            <lane id="beg_0" sampledSeconds="268.57" traveltime="83.77" overlapTraveltime="83.92" density="0.45" laneDensity="0.45" occupancy="0.23" waitingTime="0.00" speed="35.76" departed="92" arrived="0" entered="0" left="92" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="beg2">
+            <lane id="beg2_0" sampledSeconds="6977.21" traveltime="83.12" overlapTraveltime="83.26" density="11.66" laneDensity="11.66" occupancy="5.83" waitingTime="0.00" speed="36.00" departed="0" arrived="84" entered="91" left="0" laneChangedFrom="7" laneChangedTo="0"/>
+            <lane id="beg2_1" sampledSeconds="1893.75" traveltime="83.12" overlapTraveltime="83.31" density="3.16" laneDensity="3.16" occupancy="2.25" waitingTime="0.00" speed="36.00" departed="23" arrived="15" entered="0" left="0" laneChangedFrom="0" laneChangedTo="7"/>
+        </edge>
+        <edge id="end">
+            <lane id="end_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="end_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end2">
+            <lane id="end2_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end3">
+            <lane id="end3_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="merge">
+            <lane id="merge_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="offRamp">
+            <lane id="offRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="onRamp">
+            <lane id="onRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+    </interval>
+    <interval begin="2400.00" end="2700.00" id="expect100vehs">
+        <edge id="beg">
+            <lane id="beg_0" sampledSeconds="404.94" traveltime="83.80" overlapTraveltime="83.95" density="0.45" laneDensity="0.45" occupancy="0.23" waitingTime="0.00" speed="35.75" departed="138" arrived="0" entered="0" left="137" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="beg_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="beg2">
+            <lane id="beg2_0" sampledSeconds="10464.57" traveltime="83.12" overlapTraveltime="83.25" density="11.66" laneDensity="11.66" occupancy="5.83" waitingTime="0.00" speed="36.00" departed="0" arrived="126" entered="137" left="0" laneChangedFrom="12" laneChangedTo="0"/>
+            <lane id="beg2_1" sampledSeconds="7892.12" traveltime="83.11" overlapTraveltime="83.31" density="8.79" laneDensity="8.79" occupancy="6.24" waitingTime="0.00" speed="36.00" departed="88" arrived="91" entered="0" left="0" laneChangedFrom="0" laneChangedTo="12"/>
+        </edge>
+        <edge id="end">
+            <lane id="end_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="end_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end2">
+            <lane id="end2_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="end3">
+            <lane id="end3_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="merge">
+            <lane id="merge_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="merge_2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="offRamp">
+            <lane id="offRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+        <edge id="onRamp">
+            <lane id="onRamp_0" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        </edge>
+    </interval>
+</meandata>

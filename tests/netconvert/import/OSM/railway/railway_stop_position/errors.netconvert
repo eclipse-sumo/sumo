@@ -1,0 +1,17 @@
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '-67388').
+Warning: Discarding unknown compound 'usage.industrial' in type 'railway.rail|usage.industrial' (first occurence for edge '39029310').
+Warning: Discarding unusable type 'railway.loading_ramp' (first occurence for edge '311795142').
+Warning: No way found for reference '70516819' in relation '5474070'
+Warning: Ignoring restriction relation '5474070' with unknown from-way.
+Warning: Ignoring restriction relation '5474070' with unknown to-way.
+Warning: Ignoring restriction relation '5474070' with unknown via.
+Warning: Ignoring restriction relation '5974241' with unknown from-way.
+Warning: Ignoring restriction relation '5974241' with unknown to-way.
+Warning: Ignoring restriction relation '5974241' with unknown via.
+Warning: No way found for reference '136723960' in relation '5974249'
+Warning: No way found for reference '136039791' in relation '5974249'
+Warning: Ignoring restriction relation '5974249' with unknown from-way.
+Warning: Ignoring restriction relation '5974249' with unknown to-way.
+Warning: Ignoring restriction relation '5974249' with unknown via.
+Warning: Connection '313088548_0->254150073#1_0' is only 0.09m short.
+Warning: Speed of turning connection '56392724_0->56392722#2_0' reduced by 41.59 due to turning radius of 1.48 (length=1.61, angle=170.23).

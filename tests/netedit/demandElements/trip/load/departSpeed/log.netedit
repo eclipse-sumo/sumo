@@ -1,0 +1,6 @@
+Error: Invalid departSpeed definition for vehicle 'trip_0';
+ must be one of ("random", "max", or a float>=0)
+Error: Invalid departSpeed definition for vehicle 'trip_1';
+ must be one of ("random", "max", or a float>=0)
+Error: Invalid departSpeed used in trip 'trip_3'. 500.00 is greater than vTypemaxSpeed
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.06Aug125600.6944/netedit.gui/demandElements/trip/load/departSpeed\input_routes.rou.xml failed.

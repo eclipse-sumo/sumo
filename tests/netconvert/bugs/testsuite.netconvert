@@ -33,12 +33,15 @@ ticket267
 # Test for false foe determination (on inner-continuation-intersections) yielding in a teleport
 ticket19_falseFoe
 ticket606
+#geometry-remove option
+ticket637
 ticket727
 
 # crossed connections at off-ramp
 ticket731
 ticket731b
 ticket731c
+ticket749
 ticket810
 ticket850
 ticket854
@@ -51,6 +54,9 @@ ticket936
 # test the code path where a ramp is recognized
 ticket936b
 ticket947
+
+# using another junction geometry to expose the issue
+ticket947b
 ticket1031
 ticket1037
 ticket1177
@@ -84,3 +90,32 @@ ticket3385
 
 # For merging right turning lanes the right lane should  have priority, i.e.  0>3 and 11>14
 ticket4188
+ticket5159
+
+# consider edge permissions when computing link direction
+ticket5512
+
+# mutual conflict at junction cluster_2351978965_3491058798_606104206_606104215
+# between links 5 and 6 (right-turning car and left-turning bike)
+ticket5609
+
+# extreme lane widths
+ticket5817
+
+# scurve-stretch with changed default radius
+ticket5881
+
+# osm import left handed traffic and pedestrians
+ticket6115
+
+# invalid network with option geometry.remove.min-length
+ticket6333
+
+# override right-turn-conflict
+ticket6497
+
+# rail turn-arounds should always have linkdir 't'
+ticket6924
+
+# split edge within joined tls
+ticket7016

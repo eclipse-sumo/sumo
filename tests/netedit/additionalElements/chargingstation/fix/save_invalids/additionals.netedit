@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04.10.2019 10:43:00 by Eclipse SUMO netedit Version v1_3_1+0555-c0a1b3e52e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_04Oct092610.992/netedit.gui/additionalElements/chargingstation/fix/save_invalids\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_04Oct092610.992/netedit.gui/additionalElements/chargingstation/fix/save_invalids\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_04Oct092610.992/netedit.gui/additionalElements/chargingstation/fix/save_invalids\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_04Oct092610.992/netedit.gui/additionalElements/chargingstation/fix/save_invalids\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_04Oct092610.992/netedit.gui/additionalElements/chargingstation/fix/save_invalids\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_04Oct092610.992/netedit.gui/additionalElements/chargingstation/fix/save_invalids\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_04Oct092610.992/netedit.gui/additionalElements/chargingstation/fix/save_invalids\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.8_from_04Oct092610.992/netedit.gui/additionalElements/chargingstation/fix/save_invalids\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <chargingStation id="chargingStationA" lane="gneE0_0" startPos="11.90" endPos="12.00"/>
+    <chargingStation id="chargingStationB" lane="gneE0_0" startPos="38.00" endPos="50.00"/>
+    <chargingStation id="chargingStationC" lane="gneE1_0" startPos="12.00" endPos="48.00"/>
+    <chargingStation id="chargingStationD" lane="gneE1_0" startPos="37.90" endPos="38.00"/>
+</additional>

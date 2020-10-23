@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2017-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    createTlsCsv.py
 # @author  Harald Schaefer
 # @author  Michael Behrisch
 # @date    2017-04-22
-# @version $Id$
 
 """
 Create tls links from sumo net as needed by tls_csv2SUMO.py.
@@ -48,5 +51,5 @@ for conn in doc.xpath('//connection'):
         # conn.attrib['linkIndex']
 
 for conn in sorted(connections):
-        # print conn, connections[conn]
+    # print conn, connections[conn]
     print("link;g;{};0".format(connections[conn]).ljust(50) + '#' + str(conn).rjust(3))

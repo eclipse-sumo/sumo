@@ -13,9 +13,6 @@ output
 # tests for additional structures
 extended
 
-# error handling tests
-errors
-
 # testing car-following model properties
 cf_model
 
@@ -27,12 +24,24 @@ junction_model
 
 # testing the dynamics and interaction of different pedestrian models
 pedestrian_model
+
+rail
+
+# testing opposite-direction driving
 opposite_direction_driving
+
+# testing the sublane model
 sublane_model
 
 # Basic tests with action step length != simulation step length.
 # Note that this suite uses the ballistic update
 action_step_length
+
+# test for vehicle and transportable devices
+devices
+
+# error handling tests
+errors
 
 # demonstration and regression tests for known bugs
 bugs

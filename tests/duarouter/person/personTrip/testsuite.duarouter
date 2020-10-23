@@ -1,3 +1,6 @@
+# test attributes fromJunction toJunction and viaJunctions
+junctionTaz
+
 # Copy of basic
 basic
 
@@ -6,6 +9,9 @@ vtype
 
 # car use requested
 car
+
+# car use requested, network contains bicycle lanes
+car_intermodal_net
 
 # car use of a special type requested
 car_type
@@ -18,6 +24,9 @@ car_walk_sidewalk
 
 # car and walk possible with arrivalpos 0
 car_walk_arrivalpos
+
+# car and walk possible with departPos > 0
+car_walk_departPos
 
 # public transport and walk possible
 public_walk
@@ -132,4 +141,29 @@ walk_no_connections
 # see #4314
 walk_strange_network
 intermodal_train_bus_walk
+
+# walking from one access-stop to another access-stop
+# 
+stop_access_stop
+
+# start directly at a stop and then ride
+ride_from_stop
+
+# arrive with a ride at a busStop and continue with a trip
+ride_trip
+
+# arrive with a ride at a train stop and continue with a trip that requires access.
+# 
+ride_trip_access
+trip_output
+trip_output_geo
+
+# trip with fromTaz and toTaz
+taz
+
+# walk past a train stop to reach  the destination edge (access both ways) and then ride a taxi
+walk_via_trainStop_ride_taxi
+
+# test routing taxi trips
+taxi
 errors

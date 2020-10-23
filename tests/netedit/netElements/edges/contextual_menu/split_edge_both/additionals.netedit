@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.12.2018 13:18:53 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
+<!-- generated on 10.12.2019 10:37:07 by Eclipse SUMO netedit Version v1_3_1+1335-13e298d933
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_12Dec131314.1516/netedit.gui/netElements/edges/contextual_menu/split_edge_both\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec103611.14280\netedit.gui\netElements\edges\contextual_menu\split_edge_both\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_12Dec131314.1516/netedit.gui/netElements/edges/contextual_menu/split_edge_both\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec103611.14280\netedit.gui\netElements\edges\contextual_menu\split_edge_both\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -30,30 +31,33 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_12Dec131314.1516/netedit.gui/netElements/edges/contextual_menu/split_edge_both\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_12Dec131314.1516/netedit.gui/netElements/edges/contextual_menu/split_edge_both\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_12Dec131314.1516/netedit.gui/netElements/edges/contextual_menu/split_edge_both\shapes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec103611.14280\netedit.gui\netElements\edges\contextual_menu\split_edge_both\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec103611.14280\netedit.gui\netElements\edges\contextual_menu\split_edge_both\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec103611.14280\netedit.gui\netElements\edges\contextual_menu\split_edge_both\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec103611.14280\netedit.gui\netElements\edges\contextual_menu\split_edge_both\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_12Dec131314.1516/netedit.gui/netElements/edges/contextual_menu/split_edge_both\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec103611.14280\netedit.gui\netElements\edges\contextual_menu\split_edge_both\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec103611.14280\netedit.gui\netElements\edges\contextual_menu\split_edge_both\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_12Dec131314.1516/netedit.gui/netElements/edges/contextual_menu/split_edge_both\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec103611.14280\netedit.gui\netElements\edges\contextual_menu\split_edge_both\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop1" lane="gneE0_0" friendlyPos="1" startPos="37.00" endPos="43.60"/>
-    <busStop id="busStop2" lane="gneE1_0" friendlyPos="1" startPos="3.00" endPos="13.00"/>
-    <busStop id="busStop3" lane="gneE2_0" friendlyPos="1" startPos="37.00" endPos="43.60"/>
+    <busStop id="busStop1" lane="gneE0_0" startPos="37.00" endPos="43.60" friendlyPos="1"/>
+    <busStop id="busStop2" lane="gneE1_0" startPos="3.00" endPos="13.00" friendlyPos="1"/>
+    <busStop id="busStop3" lane="gneE2.16_0" startPos="23.23" endPos="29.83" friendlyPos="1"/>
 </additional>

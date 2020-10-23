@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.09.2018 12:20:02 by Eclipse SUMO netedit Version d6cfaccbb6
+<!-- generated on 19.06.2019 08:29:09 by Eclipse SUMO netedit Version v1_2_0+0826-9f68c0f442
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/inspect_selected/inspect_selected_endoffset\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_19Jun082102.1328/netedit.gui/netElements/lanes/inspect_selected/endoffset\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/inspect_selected/inspect_selected_endoffset\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_19Jun082102.1328/netedit.gui/netElements/lanes/inspect_selected/endoffset\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/inspect_selected/inspect_selected_endoffset\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/inspect_selected/inspect_selected_endoffset\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/inspect_selected/inspect_selected_endoffset\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_19Jun082102.1328/netedit.gui/netElements/lanes/inspect_selected/endoffset\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_19Jun082102.1328/netedit.gui/netElements/lanes/inspect_selected/endoffset\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_19Jun082102.1328/netedit.gui/netElements/lanes/inspect_selected/endoffset\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_19Jun082102.1328/netedit.gui/netElements/lanes/inspect_selected/endoffset\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/inspect_selected/inspect_selected_endoffset\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_19Jun082102.1328/netedit.gui/netElements/lanes/inspect_selected/endoffset\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,13 +45,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085207.2868/netedit.gui/netElements/lanes/inspect_selected/inspect_selected_endoffset\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_19Jun082102.1328/netedit.gui/netElements/lanes/inspect_selected/endoffset\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -78,7 +80,7 @@
         <lane id=":gneJ1_3_0" index="0" speed="3.65" length="2.01" shape="48.26,0.29 48.00,0.80 46.80,1.60"/>
     </edge>
     <edge id=":gneJ2_0" function="internal">
-        <lane id=":gneJ2_0_0" index="0" speed="9.32" length="19.63" shape="7.20,24.80 3.35,23.85 0.60,21.00 -1.05,16.25 -1.60,9.60"/>
+        <lane id=":gneJ2_0_0" index="0" speed="11.81" length="32.13" shape="19.70,24.80 7.20,24.80 3.35,23.85 0.60,21.00 -1.05,16.25 -1.60,9.60"/>
     </edge>
     <edge id=":gneJ2_1" function="internal">
         <lane id=":gneJ2_1_0" index="0" speed="3.65" length="4.67" shape="7.20,21.60 6.00,20.80 5.60,20.00 6.00,19.20 7.20,18.40"/>
@@ -99,7 +101,7 @@
         <lane id=":gneJ3_2_0" index="0" speed="6.51" length="9.03" shape="42.80,15.20 45.25,14.85 47.00,13.80 48.05,12.05 48.40,9.60"/>
     </edge>
     <edge id=":gneJ3_3" function="internal">
-        <lane id=":gneJ3_3_0" index="0" speed="3.65" length="4.67" shape="42.80,18.40 44.00,19.20 44.40,20.00 44.00,20.80 42.80,21.60"/>
+        <lane id=":gneJ3_3_0" index="0" speed="6.10" length="17.17" shape="30.30,18.40 42.80,18.40 44.00,19.20 44.40,20.00 44.00,20.80 42.80,21.60"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
@@ -109,12 +111,12 @@
         <lane id="gneE1_0" index="0" speed="13.89" length="43.60" shape="46.80,1.60 3.20,1.60"/>
     </edge>
     <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1">
-        <lane id="gneE2_0" index="0" speed="13.89" length="35.60" shape="7.20,15.20 42.80,15.20"/>
-        <lane id="gneE2_1" index="1" speed="13.89" length="35.60" shape="7.20,18.40 42.80,18.40"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="29.35" shape="7.20,15.20 42.80,15.20"/>
+        <lane id="gneE2_1" index="1" speed="13.89" length="29.35" endOffset="12.50" shape="7.20,18.40 30.30,18.40"/>
     </edge>
     <edge id="gneE3" from="gneJ3" to="gneJ2" priority="1">
-        <lane id="gneE3_0" index="0" speed="13.89" length="35.60" shape="42.80,24.80 7.20,24.80"/>
-        <lane id="gneE3_1" index="1" speed="13.89" length="35.60" shape="42.80,21.60 7.20,21.60"/>
+        <lane id="gneE3_0" index="0" speed="13.89" length="29.35" endOffset="12.50" shape="42.80,24.80 19.70,24.80"/>
+        <lane id="gneE3_1" index="1" speed="13.89" length="29.35" shape="42.80,21.60 7.20,21.60"/>
     </edge>
     <edge id="gneE4" from="gneJ3" to="gneJ1" priority="1">
         <lane id="gneE4_0" index="0" speed="13.89" length="6.40" shape="48.40,9.60 48.40,3.20"/>

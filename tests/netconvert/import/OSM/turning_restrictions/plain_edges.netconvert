@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:52 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:59 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,34 +24,35 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="-101" from="6" to="1" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-102" from="7" to="2" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-103" from="8" to="3" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-104" from="9" to="4" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-105" from="11" to="5" priority="7" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-106" from="12" to="5" priority="7" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-200" from="1" to="0" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-201" from="2" to="1" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-202" from="3" to="2" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-203" from="4" to="3" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-204" from="5" to="4" priority="7" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="-205" from="10" to="5" priority="7" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="101" from="1" to="6" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="102" from="2" to="7" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="103" from="3" to="8" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="104" from="4" to="9" priority="7" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="105" from="5" to="11" priority="7" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="106" from="5" to="12" priority="7" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="200" from="0" to="1" priority="7" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="201" from="1" to="2" priority="7" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="202" from="2" to="3" priority="7" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="203" from="3" to="4" priority="7" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="204" from="4" to="5" priority="7" type="highway.secondary" numLanes="4" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
-    <edge id="205" from="5" to="10" priority="7" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric ship"/>
+<edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-101" from="6" to="1" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-102" from="7" to="2" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-103" from="8" to="3" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-104" from="9" to="4" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-105" from="11" to="5" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-106" from="12" to="5" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-200" from="1" to="0" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-201" from="2" to="1" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-202" from="3" to="2" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-203" from="4" to="3" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-204" from="5" to="4" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="-205" from="10" to="5" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="101" from="1" to="6" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="102" from="2" to="7" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="103" from="3" to="8" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="104" from="4" to="9" priority="11" type="highway.secondary" numLanes="1" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="105" from="5" to="11" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="106" from="5" to="12" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="200" from="0" to="1" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="201" from="1" to="2" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="202" from="2" to="3" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="203" from="3" to="4" priority="11" type="highway.secondary" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="204" from="4" to="5" priority="11" type="highway.secondary" numLanes="4" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
+    <edge id="205" from="5" to="10" priority="11" type="highway.secondary" numLanes="3" speed="27.78" disallow="tram rail_urban rail rail_electric rail_fast ship"/>
 </edges>

@@ -1,2 +1,2 @@
-Error: Begin time is larger than end time.
+Error: Matrix begin time 7200.00 is larger than end time 3600.00.
 Quitting (on error).

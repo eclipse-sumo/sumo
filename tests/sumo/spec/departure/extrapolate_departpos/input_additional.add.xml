@@ -1,0 +1,3 @@
+<add>
+    <edgeData id="test" file="aggregated.xml" excludeEmpty="true"/>
+</add>

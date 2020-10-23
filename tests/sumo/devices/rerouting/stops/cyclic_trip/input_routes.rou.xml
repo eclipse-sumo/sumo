@@ -1,0 +1,19 @@
+<routes>
+    <vType id="bus" sigma="0"/>
+    <trip id="bus" type="bus" depart="0" departPos="stop">
+        <stop busStop="busStop_a" duration="10"/>
+        <stop busStop="busStop_c" duration="10"/>
+        <stop busStop="busStop_-c" duration="10"/>
+        <stop busStop="busStop_-a" duration="10"/>
+
+        <stop busStop="busStop_a" duration="10"/>
+        <stop busStop="busStop_c" duration="10"/>
+        <stop busStop="busStop_-c" duration="10"/>
+        <stop busStop="busStop_-a" duration="10"/>
+
+        <stop busStop="busStop_a" duration="10"/>
+        <stop busStop="busStop_c" duration="10"/>
+        <stop busStop="busStop_-c" duration="10"/>
+        <stop busStop="busStop_-a" duration="10"/>
+    </trip>
+</routes>

@@ -11,22 +11,16 @@ Warning: Done reading first coherent chunk of pt stops. Further stops in relatio
 Warning: PT stop: 3959807201 has been moved to edge: -391493954#3
 Warning: PT stop: 3959807220 has been moved to edge: -110450334#1
 Warning: PT stop: 4032629820 has been moved to edge: -53356539#0
-Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz. Ignoring!
-Warning: Incomplete route for ptline '4' (Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz)
-Warning: Cannot revise pt stop localization for incomplete pt line: Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz. Ignoring!
-Warning: Incomplete route for ptline '5' (Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz)
+Warning: Incomplete route for ptline '6187328' (Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz)
+Warning: Cannot assign stop '3959807201' on edge '391493954' to pt line '6187328'. Ignoring!
+Warning: Incomplete route for ptline '6187329' (Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz)
+Warning: Cannot assign stop '3959807200' on edge '391493954' to pt line '6187329'. Ignoring!
 Warning: Found sharp turn with radius 3.48 at the start of edge '-338392750'.
 Warning: Found sharp turn with radius 6.74 at the start of edge '-41292662#2'.
-Warning: Found sharp turn with radius 1.76 at the start of edge '165358541'.
 Warning: Found sharp turn with radius 4.75 at the start of edge '187160639'.
-Warning: Found sharp turn with radius 6.62 at the end of edge '22495188#1'.
-Warning: Found sharp turn with radius 8.42 at the start of edge '22495189'.
-Warning: Found sharp turn with radius 5.22 at the end of edge '22495189'.
-Warning: Found sharp turn with radius 6.71 at the start of edge '332385846#0'.
-Warning: Found sharp turn with radius 6.06 at the end of edge '332385846#0'.
 Warning: Found sharp turn with radius 6.45 at the start of edge '338392750'.
 Warning: The traffic light '29325954' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '29325954'
 Warning: The traffic light '29325955' does not control any links; it will not be build.
 Warning: Could not build program '0' for traffic light '29325955'
-Warning: Speed of straight connection '-28362838#0_0->28362836#0_1' reduced by 5.10 due to turning radius of 14.05 (length=4.24 angle=33.35)
+Warning: Speed of straight connection '-28362838#0_0->28362836#0_1' reduced by 5.12 due to turning radius of 13.97 (length=4.22, angle=33.35).

@@ -22,3 +22,6 @@ select_vtypes
 
 # check contextual menu
 contextual_menu
+
+# check templates
+templates

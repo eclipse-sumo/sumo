@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<additionals xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<route id="two"  edges="1 2" />
+	<rerouter id="bug" edges="1" vTypes="egoCar">
+		<interval begin="0" end="9999">
+			<routeProbReroute id="two" />
+		</interval>
+	</rerouter>
+</additionals>

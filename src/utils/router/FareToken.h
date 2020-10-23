@@ -1,22 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    FareModul.h
+/// @file    FareToken.h
 /// @author  Ricardo Euler
 /// @date    Thu, 17 August 2018
-/// @version $Id$
 ///
 // Fare Modul for calculating prices during intermodal routing
 /****************************************************************************/
 
-#ifndef SUMO_FARETOKEN_H
-#define SUMO_FARETOKEN_H
+#pragma once
 enum class FareToken : int {
     None =  0,
     Free =  1, // walking and other things can be free
@@ -203,4 +205,3 @@ inline FareToken stringToToken(std::string str) {
 }
 
 }
-#endif //SUMO_FARETOKEN_H

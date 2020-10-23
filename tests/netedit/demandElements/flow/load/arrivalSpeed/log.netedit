@@ -1,0 +1,5 @@
+Error: Invalid arrivalSpeed definition for flow 'flow_0';
+ must be one of ("current", or a float>=0)
+Error: Invalid arrivalSpeed definition for flow 'flow_1';
+ must be one of ("current", or a float>=0)
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug134741.10088/netedit.gui/demandElements/flow/load/arrivalSpeed\input_routes.rou.xml failed.

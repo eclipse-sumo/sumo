@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIVissimEdge.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A temporary storage for edges imported from Vissim
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -106,20 +104,23 @@ NIVissimEdge::connection_cluster_position_sorter::operator()(
 
 
 NIVissimEdge::NIVissimEdge(int id, const std::string& name,
-                           const std::string& type, int noLanes,
+                           const std::string& type,
+                           std::vector<double> laneWidths,
                            double zuschlag1, double zuschlag2,
                            double /*length*/, const PositionVector& geom,
-                           const NIVissimClosedLanesVector& clv)
-    : NIVissimAbstractEdge(id, geom),
-      myName(name), myType(type), myNoLanes(noLanes),
-      myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
-      myClosedLanes(clv), myAmWithinJunction(false) { //, mySpeed(-1)
-    assert(noLanes >= 0);
+                           const NIVissimClosedLanesVector& clv) :
+    NIVissimAbstractEdge(id, geom),
+    myName(name), myType(type), myNoLanes((int)laneWidths.size()),
+    myLaneWidths(laneWidths),
+    myZuschlag1(zuschlag1), myZuschlag2(zuschlag2),
+    myClosedLanes(clv),
+    myLaneSpeeds(myNoLanes, -1),
+    myAmWithinJunction(false)
+    //, mySpeed(-1)
+{
+    assert(myNoLanes >= 0);
     if (myMaxID < myID) {
         myMaxID = myID;
-    }
-    for (int i = 0; i < noLanes; i++) {
-        myLaneSpeeds.push_back(-1);
     }
 }
 
@@ -138,8 +139,8 @@ NIVissimEdge::dictionary(int id, const std::string& name,
                          double zuschlag1, double zuschlag2, double length,
                          const PositionVector& geom,
                          const NIVissimClosedLanesVector& clv) {
-    NIVissimEdge* o = new NIVissimEdge(id, name, type, noLanes, zuschlag1,
-                                       zuschlag2, length, geom, clv);
+    NIVissimEdge* o = new NIVissimEdge(id, name, type, std::vector<double>(noLanes, NBEdge::UNSPECIFIED_WIDTH),
+                                       zuschlag1, zuschlag2, length, geom, clv);
     if (!dictionary(id, o)) {
         delete o;
         return false;
@@ -458,7 +459,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     if (fromNode == nullptr) {
         fromInf.first = 0;
         Position pos = myGeom[0];
-        fromNode = new NBNode(toString<int>(myID) + "-SourceNode", pos, NODETYPE_NOJUNCTION);
+        fromNode = new NBNode(toString<int>(myID) + "-SourceNode", pos, SumoXMLNodeType::NOJUNCTION);
         if (!nc.insert(fromNode)) {
             throw ProcessError("Could not insert node '" + fromNode->getID() + "' to nodes container.");
         }
@@ -466,7 +467,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     if (toNode == nullptr) {
         toInf.first = 0;
         Position pos = myGeom[-1];
-        toNode = new NBNode(toString<int>(myID) + "-DestinationNode", pos, NODETYPE_NOJUNCTION);
+        toNode = new NBNode(toString<int>(myID) + "-DestinationNode", pos, SumoXMLNodeType::NOJUNCTION);
         if (!nc.insert(toNode)) {
             throw ProcessError("Could not insert node '" + toNode->getID() + "' to nodes container.");
         }
@@ -493,8 +494,9 @@ NIVissimEdge::buildNBEdge(NBDistrictCont& dc, NBNodeCont& nc, NBEdgeCont& ec,
     NBEdge* buildEdge = new NBEdge(toString<int>(myID), fromNode, toNode, myType,
                                    avgSpeed / (double) 3.6, myNoLanes, -1,
                                    NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
-                                   myGeom, myName, "", LANESPREAD_CENTER, true);
+                                   myGeom, myName, "", LaneSpreadFunction::CENTER, true);
     for (int i = 0; i < myNoLanes; i++) {
+        buildEdge->setLaneWidth(i, myLaneWidths[i]);
         if ((int) myLaneSpeeds.size() <= i || myLaneSpeeds[i] == -1) {
             buildEdge->setSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed") / (double) 3.6);
         } else {
@@ -587,7 +589,7 @@ NIVissimEdge::getFromNode(NBNodeCont& nc, ConnectionClusters& clusters) {
     if (myDistrictConnections.size() > 0) {
         double pos = *(myDistrictConnections.begin());
         if (pos < 10) {
-            NBNode* node = new NBNode(toString<int>(myID) + "-begin", beg, NODETYPE_NOJUNCTION);
+            NBNode* node = new NBNode(toString<int>(myID) + "-begin", beg, SumoXMLNodeType::NOJUNCTION);
             if (!nc.insert(node)) {
                 throw 1;
             }
@@ -598,7 +600,7 @@ NIVissimEdge::getFromNode(NBNodeCont& nc, ConnectionClusters& clusters) {
         }
     }
     // build a new node for the edge's begin otherwise
-    NBNode* node = new NBNode(toString<int>(myID) + "-begin", beg, NODETYPE_NOJUNCTION);
+    NBNode* node = new NBNode(toString<int>(myID) + "-begin", beg, SumoXMLNodeType::NOJUNCTION);
     if (!nc.insert(node)) {
         throw 1;
     }
@@ -623,7 +625,7 @@ NIVissimEdge::getToNode(NBNodeCont& nc, ConnectionClusters& clusters) {
     if (myDistrictConnections.size() > 0) {
         double pos = *(myDistrictConnections.end() - 1);
         if (pos > myGeom.length() - 10) {
-            NBNode* node = new NBNode(toString<int>(myID) + "-end", end, NODETYPE_NOJUNCTION);
+            NBNode* node = new NBNode(toString<int>(myID) + "-end", end, SumoXMLNodeType::NOJUNCTION);
             if (!nc.insert(node)) {
                 throw 1;
             }
@@ -635,7 +637,7 @@ NIVissimEdge::getToNode(NBNodeCont& nc, ConnectionClusters& clusters) {
     }
 
     // build a new node for the edge's end otherwise
-    NBNode* node = new NBNode(toString<int>(myID) + "-end", end, NODETYPE_NOJUNCTION);
+    NBNode* node = new NBNode(toString<int>(myID) + "-end", end, SumoXMLNodeType::NOJUNCTION);
     if (!nc.insert(node)) {
         throw 1;
     }
@@ -664,14 +666,14 @@ NIVissimEdge::remapOneOfNodes(NBNodeCont& nc,
 
         NBNode* newNode = new NBNode(nid,
                                      fromNode->getPosition(),
-                                     NODETYPE_NOJUNCTION);
+                                     SumoXMLNodeType::NOJUNCTION);
         nc.erase(fromNode);
         nc.insert(newNode);
         return std::pair<NBNode*, NBNode*>(newNode, toNode);
     } else {
         NBNode* newNode = new NBNode(nid,
                                      toNode->getPosition(),
-                                     NODETYPE_NOJUNCTION);
+                                     SumoXMLNodeType::NOJUNCTION);
         nc.erase(toNode);
         nc.insert(newNode);
         return std::pair<NBNode*, NBNode*>(fromNode, newNode);
@@ -696,7 +698,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, double offset,
             NBNode* node = nc.retrieve(nid);
             if (node == nullptr) {
                 node = new NBNode(nid,
-                                  pos, NODETYPE_NOJUNCTION);
+                                  pos, SumoXMLNodeType::NOJUNCTION);
                 if (!nc.insert(node)) {
                     throw 1;
                 }
@@ -708,7 +710,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, double offset,
             std::string nid = "ParkingPlace" + toString<int>(d->getID());
             NBNode* node = nc.retrieve(nid);
             if (node == nullptr) {
-                node = new NBNode(nid, pos, NODETYPE_NOJUNCTION);
+                node = new NBNode(nid, pos, SumoXMLNodeType::NOJUNCTION);
                 if (!nc.insert(node)) {
                     throw 1;
                 }
@@ -729,7 +731,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, double offset,
             NBNode* end = new NBNode(
                 toString<int>(myID) + "-End",
                 myGeom.back(),
-                NODETYPE_NOJUNCTION);
+                SumoXMLNodeType::NOJUNCTION);
             if (!nc.insert(end)) {
                 throw 1;
             }
@@ -741,7 +743,7 @@ NIVissimEdge::resolveSameNode(NBNodeCont& nc, double offset,
             NBNode* beg = new NBNode(
                 toString<int>(myID) + "-Begin",
                 myGeom.front(),
-                NODETYPE_NOJUNCTION);
+                SumoXMLNodeType::NOJUNCTION);
             if (!nc.insert(beg)) {
                 std::cout << "nope, NIVissimDisturbance" << std::endl;
                 throw 1;
@@ -1018,6 +1020,4 @@ NIVissimEdge::getBestOutgoing() const {
 }
 
 
-
 /****************************************************************************/
-

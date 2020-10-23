@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2010-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2010-01-30
-# @version $Id$
 
 """
 This script runs the gaming GUI for the LNdW traffic light game.
@@ -36,6 +39,12 @@ from optparse import OptionParser
 from xml.dom import pulldom
 from collections import defaultdict
 
+SUMO_HOME = os.environ.get('SUMO_HOME',
+                           os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
+sys.path.append(os.path.join(SUMO_HOME, 'tools'))
+import sumolib  # noqa
+
+
 _UPLOAD = False if "noupload" in sys.argv else True
 _SCOREFILE = "scores.pkl"
 if _UPLOAD:
@@ -55,7 +64,10 @@ _LANGUAGE_EN = {'title': 'Interactive Traffic Light',
                 'bs3Dosm': '3D Junction OpenStreetMap',
                 'ramp': 'Highway Ramp',
                 'corridor': 'Corridor',
-                'A10KW': 'Highway Ramp A10 (new)',
+                'A10KW': 'Highway Ramp A10',
+                'DRT': 'Demand Responsive Transport (new)',
+                'DRT2': 'DRT - Advanced (new)',
+                'DRT_demo': 'DRT - Demo',
                 'high': 'Highscore',
                 'reset': 'Reset Highscore',
                 'lang': 'Deutsch',
@@ -74,7 +86,10 @@ _LANGUAGE_DE = {'title': 'Interaktives Ampelspiel',
                 'bs3d': '3D Forschungskreuzung Virtuelle Welt',
                 'bs3Dosm': '3D Forschungskreuzung OpenStreetMap',
                 'ramp': 'Autobahnauffahrt',
-                'A10KW': 'A10 KW (neu)',
+                'A10KW': 'A10 KW',
+                'DRT': 'Bedarfsbus (neu)',
+                'DRT2': 'Bedarfsbus für Fortgeschrittene (neu)',
+                'DRT_demo': 'Bedarfsbus - Demo',
                 'corridor': 'Strecke',
                 'high': 'Bestenliste',
                 'reset': 'Bestenliste zurücksetzen',
@@ -182,9 +197,81 @@ def computeScoreFromTimeLoss(gamename):
         return score, totalArrived, True
 
 
+def computeScoreDRT(gamename):
+    rideWaitingTime = 0
+    rideDuration = 0
+    rideStarted = 0
+    rideFinished = 0
+    tripinfos = gamename + ".tripinfos.xml"
+    rideCount = 0
+    for ride in sumolib.xml.parse(tripinfos, 'ride'):
+        if float(ride.waitingTime) < 0:
+            if _DEBUG:
+                print("negative waitingTime")
+            ride.waitingTime = 10000
+        rideWaitingTime += float(ride.waitingTime)
+        if float(ride.duration) >= 0:
+            rideDuration += float(ride.duration)
+            rideStarted += 1
+        if float(ride.arrival) >= 0:
+            rideFinished += 1
+
+        rideCount += 1
+
+    if rideCount == 0:
+        return 0, 0, False
+    else:
+        avgWT = rideWaitingTime / rideCount
+        avgDur = 0 if rideStarted == 0 else rideDuration / rideStarted
+        score = 5000 - int(avgWT + avgDur)
+        if _DEBUG:
+            print("rideWaitingTime=%s rideDuration=%s persons=%s started=%s finished=%s avgWT=%s avgDur=%s" % (
+                rideWaitingTime, rideDuration, rideCount, rideStarted, rideFinished, avgWT, avgDur))
+        return score, rideCount, True
+
+
+def computeScoreSquare(gamename):
+    rideWaitingTime = 0
+    rideDuration = 0
+    rideStarted = 0
+    rideFinished = 0
+    tripinfos = gamename + ".tripinfos.xml"
+    rideCount = 0
+    for ride in sumolib.xml.parse(tripinfos, 'tripinfo'):
+        if float(ride.waitingTime) < 0:
+            if _DEBUG:
+                print("negative waitingTime")
+            ride.waitingTime = 10000
+        rideWaitingTime += float(ride.waitingTime)
+        if ride.vType.startswith("ev"):
+            rideWaitingTime += 10 * float(ride.waitingTime)
+        if float(ride.duration) >= 0:
+            rideDuration += float(ride.duration)
+            rideStarted += 1
+        if float(ride.arrival) >= 0:
+            rideFinished += 1
+
+        rideCount += 1
+
+    if rideCount == 0:
+        return 0, 0, False
+    else:
+        avgWT = rideWaitingTime / rideCount
+        avgDur = 0 if rideStarted == 0 else rideDuration / rideStarted
+        score = 1000 - int(avgWT + avgDur)
+        if _DEBUG:
+            print("rideWaitingTime=%s rideDuration=%s persons=%s started=%s finished=%s avgWT=%s avgDur=%s" % (
+                rideWaitingTime, rideDuration, rideCount, rideStarted, rideFinished, avgWT, avgDur))
+        return score, rideCount, True
+
+
 _SCORING_FUNCTION = defaultdict(lambda: computeScoreFromWaitingTime)
 _SCORING_FUNCTION.update({
     'A10KW': computeScoreFromTimeLoss,
+    'DRT': computeScoreDRT,
+    'DRT2': computeScoreDRT,
+    'DRT_demo': computeScoreDRT,
+    'square': computeScoreSquare,
 })
 
 
@@ -337,14 +424,16 @@ class StartDialog(Tkinter.Frame):
         # parse switches
         switch = []
         lastProg = {}
-        for line in open(os.path.join(base, "%s.tlsstate.xml" % start.category)):
-            m = re.search(r'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
-            if m:
-                tls = m.group(3)
-                program = m.group(4)
-                if tls not in lastProg or lastProg[tls] != program:
-                    lastProg[tls] = program
-                    switch += [m.group(3), m.group(1)]
+        tlsfile = os.path.join(base, "%s.tlsstate.xml" % start.category)
+        if os.path.exists(tlsfile):
+            for line in open(tlsfile):
+                m = re.search(r'tlsstate time="(\d+(.\d+)?)" id="([^"]*)" programID="([^"]*)"', line)
+                if m:
+                    tls = m.group(3)
+                    program = m.group(4)
+                    if tls not in lastProg or lastProg[tls] != program:
+                        lastProg[tls] = program
+                        switch += [m.group(3), m.group(1)]
 
         lang = start._language_text
         if _DEBUG:
@@ -466,21 +555,8 @@ base = os.path.dirname(sys.argv[0])
 high = loadHighscore()
 
 
-def findSumoBinary(guisimBinary):
-    if os.name != "posix":
-        guisimBinary += ".exe"
-    if os.path.exists(os.path.join(base, guisimBinary)):
-        guisimPath = os.path.join(base, guisimBinary)
-    else:
-        guisimPath = os.environ.get(
-            "GUISIM_BINARY", os.path.join(base, '..', '..', 'bin', guisimBinary))
-    if not os.path.exists(guisimPath):
-        guisimPath = guisimBinary
-    return guisimPath
-
-
-guisimPath = findSumoBinary("sumo-gui")
-haveOSG = "OSG" in subprocess.check_output(findSumoBinary("sumo"), universal_newlines=True)
+guisimPath = sumolib.checkBinary("sumo-gui")
+haveOSG = "OSG" in subprocess.check_output(sumolib.checkBinary("sumo"), universal_newlines=True)
 
 if options.stereo:
     for m in stereoModes:
@@ -499,7 +575,7 @@ else:
 
 root = Tkinter.Tk()
 IMAGE.dlrLogo = Tkinter.PhotoImage(file='dlr.gif')
-IMAGE.sumoLogo = Tkinter.PhotoImage(file='logo.gif')
+IMAGE.sumoLogo = Tkinter.PhotoImage(file='sumo_logo.gif')
 IMAGE.qrCode = Tkinter.PhotoImage(file='qr_sumo.dlr.de.gif')
 start = StartDialog(root, lang)
 root.mainloop()

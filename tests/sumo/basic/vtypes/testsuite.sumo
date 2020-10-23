@@ -28,3 +28,6 @@ vclass_specific_speed_limit
 
 # load the vclass-specific speed limit from an additional file rather than from the .net.xml
 vclass_specific_speed_limit_from_additional
+
+# The vehicles are defined with an invalid type
+invalid_type

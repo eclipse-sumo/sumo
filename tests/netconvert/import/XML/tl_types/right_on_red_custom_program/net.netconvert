@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:39 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Tue Mar 10 20:58:13 2020 by Eclipse SUMO netconvert Version v1_5_0+0624-19070087e2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,12 +21,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="15.47,-42.66" convBoundary="0.00,0.00,103.08,9.99" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -52,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
     </tlLogic>
 
     <junction id="C" type="traffic_light_right_on_red" x="54.50" y="9.74" incLanes="SC_0 WC_0" intLanes=":C_0_0 :C_1_0" shape="55.96,1.85 55.94,9.67 63.56,9.37 63.72,6.33" customShape="1">
-        <request index="0" response="10" foes="10" cont="0"/>
+        <request index="0" response="00" foes="10" cont="0"/>
         <request index="1" response="01" foes="01" cont="0"/>
     </junction>
     <junction id="gneJ0" type="dead_end" x="0.00" y="9.99" incLanes="" intLanes="" shape="0.00,9.99 -0.01,6.79"/>

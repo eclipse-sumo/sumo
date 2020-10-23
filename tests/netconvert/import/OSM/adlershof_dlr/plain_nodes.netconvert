@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:51 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:59 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -35,13 +35,14 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <node id="175648134" x="13.519887" y="52.426741" type="priority"/>
+<nodes version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="175648134" x="13.519887" y="52.426742" type="priority"/>
     <node id="261599791" x="13.520153" y="52.426821" type="traffic_light" tl="261599791"/>
     <node id="261636677" x="13.536137" y="52.426459" type="priority"/>
     <node id="261636678" x="13.536086" y="52.425910" type="priority"/>
@@ -73,13 +74,13 @@ SPDX-License-Identifier: EPL-2.0
     <node id="294169342" x="13.526893" y="52.428083" type="priority"/>
     <node id="294169618" x="13.527618" y="52.426680" type="priority"/>
     <node id="294829385" x="13.532190" y="52.429720" type="priority"/>
-    <node id="294829798" x="13.533153" y="52.429053" type="priority"/>
+    <node id="294829798" x="13.533153" y="52.429054" type="priority"/>
     <node id="294829881" x="13.532672" y="52.429987" type="priority"/>
     <node id="294830184" x="13.533106" y="52.429692" type="right_before_left"/>
     <node id="294830188" x="13.533834" y="52.429685" type="priority"/>
     <node id="294831560" x="13.527610" y="52.427957" type="right_before_left"/>
     <node id="294831562" x="13.527010" y="52.427524" type="priority"/>
-    <node id="301292612" x="13.526904" y="52.428909" type="priority"/>
+    <node id="301292612" x="13.526904" y="52.428910" type="priority"/>
     <node id="306982585" x="13.532724" y="52.430784" type="priority"/>
     <node id="32266935" x="13.526713" y="52.426404" type="traffic_light" tl="32266935"/>
     <node id="32266936" x="13.526643" y="52.425755" type="priority"/>
@@ -103,18 +104,18 @@ SPDX-License-Identifier: EPL-2.0
     <node id="36268421" x="13.536524" y="52.425891" type="priority"/>
     <node id="36268431" x="13.533700" y="52.429356" type="priority"/>
     <node id="38918157" x="13.535191" y="52.432321" type="dead_end"/>
-    <node id="38919605" x="13.531043" y="52.430547" type="priority"/>
+    <node id="38919605" x="13.531044" y="52.430547" type="priority"/>
     <node id="38919652" x="13.528606" y="52.430390" type="priority"/>
     <node id="38919668" x="13.529650" y="52.429542" type="priority"/>
     <node id="38919703" x="13.529341" y="52.429401" type="priority"/>
-    <node id="38919712" x="13.528635" y="52.430191" type="priority"/>
+    <node id="38919712" x="13.528636" y="52.430191" type="priority"/>
     <node id="38919797" x="13.527211" y="52.432059" type="dead_end"/>
     <node id="38919808" x="13.528423" y="52.430401" type="priority"/>
     <node id="38919841" x="13.526923" y="52.430362" type="priority"/>
     <node id="38919854" x="13.525252" y="52.429832" type="priority"/>
     <node id="38919880" x="13.524557" y="52.429373" type="priority"/>
     <node id="38919927" x="13.523945" y="52.429291" type="priority"/>
-    <node id="38919945" x="13.526709" y="52.428875" type="priority"/>
+    <node id="38919945" x="13.526710" y="52.428875" type="priority"/>
     <node id="38920501" x="13.526898" y="52.428123" type="priority"/>
     <node id="38920557" x="13.527113" y="52.432016" type="dead_end"/>
     <node id="38920778" x="13.532819" y="52.430717" type="priority"/>
@@ -125,7 +126,7 @@ SPDX-License-Identifier: EPL-2.0
     <node id="56242441" x="13.528620" y="52.429186" type="priority"/>
     <node id="57343359" x="13.519602" y="52.428360" type="priority"/>
     <node id="57343487" x="13.535388" y="52.432190" type="dead_end"/>
-    <node id="57343510" x="13.519871" y="52.426842" type="priority"/>
+    <node id="57343510" x="13.519872" y="52.426842" type="priority"/>
     <node id="59993001" x="13.526752" y="52.428754" type="priority"/>
     <node id="94487954" x="13.545248" y="52.425722" type="traffic_light" tl="94487954"/>
 </nodes>

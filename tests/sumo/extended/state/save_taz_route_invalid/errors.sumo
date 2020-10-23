@@ -1,0 +1,3 @@
+Warning: No connection between edge '3-source' and edge '3-sink' found.
+Warning: No route for vehicle 'tripFromTo5' found.
+Warning: Removing vehicle 'tripFromTo5' which has no valid route.

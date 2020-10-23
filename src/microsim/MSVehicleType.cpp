@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSVehicleType.cpp
 /// @author  Christian Roessel
@@ -14,19 +18,12 @@
 /// @author  Thimor Bohn
 /// @author  Michael Behrisch
 /// @date    Tue, 06 Mar 2001
-/// @version $Id$
 ///
 // The car-following model and parameter
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
-#include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RandHelper.h>
@@ -44,9 +41,11 @@
 #include "cfmodels/MSCFModel_Daniel1.h"
 #include "cfmodels/MSCFModel_PWag2009.h"
 #include "cfmodels/MSCFModel_Wiedemann.h"
+#include "cfmodels/MSCFModel_W99.h"
 #include "cfmodels/MSCFModel_ACC.h"
 #include "cfmodels/MSCFModel_CACC.h"
 #include "MSVehicleControl.h"
+#include "cfmodels/MSCFModel_CC.h"
 #include "MSVehicleType.h"
 
 
@@ -59,8 +58,13 @@ int MSVehicleType::myNextIndex = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter)
-    : myParameter(parameter), myWarnedActionStepLengthTauOnce(false), myIndex(myNextIndex++), myCarFollowModel(nullptr), myOriginalType(nullptr) {
+MSVehicleType::MSVehicleType(const SUMOVTypeParameter& parameter) :
+    myParameter(parameter),
+    myWarnedActionStepLengthTauOnce(false),
+    myWarnedActionStepLengthBallisticOnce(false),
+    myIndex(myNextIndex++),
+    myCarFollowModel(nullptr),
+    myOriginalType(nullptr) {
     assert(getLength() > 0);
     assert(getMaxSpeed() > 0);
 
@@ -322,6 +326,9 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
         case SUMO_TAG_CF_WIEDEMANN:
             vtype->myCarFollowModel = new MSCFModel_Wiedemann(vtype);
             break;
+        case SUMO_TAG_CF_W99:
+            vtype->myCarFollowModel = new MSCFModel_W99(vtype);
+            break;
         case SUMO_TAG_CF_RAIL:
             vtype->myCarFollowModel = new MSCFModel_Rail(vtype);
             break;
@@ -331,15 +338,29 @@ MSVehicleType::build(SUMOVTypeParameter& from) {
         case SUMO_TAG_CF_CACC:
             vtype->myCarFollowModel = new MSCFModel_CACC(vtype);
             break;
+        case SUMO_TAG_CF_CC:
+            vtype->myCarFollowModel = new MSCFModel_CC(vtype);
+            break;
         case SUMO_TAG_CF_KRAUSS:
         default:
             vtype->myCarFollowModel = new MSCFModel_Krauss(vtype);
             break;
     }
+    // init Rail visualization parameters
+    vtype->initRailVisualizationParameters();
     vtype->check();
     return vtype;
 }
 
+SUMOTime
+MSVehicleType::getEntryManoeuvreTime(const int angle) const {
+    return (getParameter().getEntryManoeuvreTime(angle));
+}
+
+SUMOTime
+MSVehicleType::getExitManoeuvreTime(const int angle) const {
+    return (getParameter().getExitManoeuvreTime(angle));
+}
 
 MSVehicleType*
 MSVehicleType::buildSingularType(const std::string& id) const {
@@ -373,6 +394,20 @@ MSVehicleType::check() {
           << "' is larger than its parameter tau (=" << getCarFollowModel().getHeadwayTime() << ")!"
           << " This may lead to collisions. (This warning is only issued once per vehicle type).";
         WRITE_WARNING(s.str());
+    }
+    if (!myWarnedActionStepLengthBallisticOnce
+            && myParameter.actionStepLength != DELTA_T
+            && MSGlobals::gSemiImplicitEulerUpdate) {
+        myWarnedActionStepLengthBallisticOnce = true;
+        std::string warning2;
+        if (OptionsCont::getOptions().isDefault("step-method.ballistic")) {
+            warning2 = " Setting it now to avoid collisions.";
+            MSGlobals::gSemiImplicitEulerUpdate = false;
+        } else {
+            warning2 = " This may cause collisions.";
+        }
+        WRITE_WARNINGF("Action step length '%' is used for vehicle type '%' but step-method.ballistic was not set." + warning2
+                       , STEPS2TIME(myParameter.actionStepLength), getID())
     }
 }
 
@@ -431,5 +466,48 @@ MSVehicleType::setTau(double tau) {
 }
 
 
-/****************************************************************************/
+void
+MSVehicleType::initRailVisualizationParameters() {
+    if (myParameter.knowsParameter("carriageLength")) {
+        myParameter.carriageLength = StringUtils::toDouble(myParameter.getParameter("carriageLength"));
+    } else if (myParameter.wasSet(VTYPEPARS_SHAPE_SET)) {
+        switch (myParameter.shape) {
+            case SVS_BUS_FLEXIBLE:
+                myParameter.carriageLength = 8.25; // 16.5 overall, 2 modules http://de.wikipedia.org/wiki/Ikarus_180
+                myParameter.carriageGap = 0;
+                break;
+            case SVS_RAIL:
+                myParameter.carriageLength = 24.5; // http://de.wikipedia.org/wiki/UIC-Y-Wagen_%28DR%29
+                break;
+            case SVS_RAIL_CAR:
+                myParameter.carriageLength = 16.85;  // 67.4m overall, 4 carriages http://de.wikipedia.org/wiki/DB-Baureihe_423
+                break;
+            case SVS_RAIL_CARGO:
+                myParameter.carriageLength = 13.86; // UIC 571-1 http://de.wikipedia.org/wiki/Flachwagen
+                break;
+            case SVS_TRUCK_SEMITRAILER:
+                myParameter.carriageLength = 13.5;
+                myParameter.locomotiveLength = 2.5;
+                myParameter.carriageGap = 0.5;
+                break;
+            case SVS_TRUCK_1TRAILER:
+                myParameter.carriageLength = 6.75;
+                myParameter.locomotiveLength = 2.5 + 6.75;
+                myParameter.carriageGap = 0.5;
+                break;
+            default:
+                break;
+        }
+    }
+    if (myParameter.knowsParameter("locomotiveLength")) {
+        myParameter.locomotiveLength = StringUtils::toDouble(myParameter.getParameter("locomotiveLength"));
+    } else if (myParameter.locomotiveLength <= 0) {
+        myParameter.locomotiveLength = myParameter.carriageLength;
+    }
+    if (myParameter.knowsParameter("carriageGap")) {
+        myParameter.carriageGap = StringUtils::toDouble(myParameter.getParameter("carriageGap"));
+    }
+}
 
+
+/****************************************************************************/

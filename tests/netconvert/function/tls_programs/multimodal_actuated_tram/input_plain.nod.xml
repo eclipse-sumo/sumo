@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Apr  3 14:51:16 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="DetectorPosition.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-598668.09,-5783261.49" convBoundary="4621.99,8428.82,5066.38,8793.27" origBoundary="10.393336,52.146541,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="26154024" x="4813.90" y="8536.06" type="dead_end"/>
+    <node id="2619649590" x="4785.77" y="8518.78" type="dead_end"/>
+    <node id="2961509140" x="4716.05" y="8603.52" type="dead_end"/>
+    <node id="30229839" x="4661.54" y="8480.26" type="dead_end"/>
+    <node id="3404653526" x="4622.90" y="8625.39" type="dead_end"/>
+    <node id="380479927" x="5066.38" y="8512.14" type="dead_end"/>
+    <node id="3833322970" x="5062.02" y="8509.46" type="dead_end"/>
+    <node id="468444799" x="4743.77" y="8607.54" type="priority"/>
+    <node id="469443715" x="4621.99" y="8604.73" type="dead_end"/>
+    <node id="5689801350" x="4940.29" y="8793.27" type="right_before_left"/>
+    <node id="Gueldenstr" x="4708.87" y="8560.76" type="traffic_light" tl="Gueldenstr"/>
+    <node id="cluster_28201752_3801334753" x="4662.63" y="8428.95" type="dead_end"/>
+</nodes>

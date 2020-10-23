@@ -1,0 +1,29 @@
+Loading configuration ... done.
+ Retrying in 1 seconds
+old lanechangemode 011001010101
+old speedmode 31
+new lanechangemode 010001010101
+new speedmode 0
+[000] lane 1, lateral pos: 0.00
+[001] lane 1, lateral pos: 0.00
+[002] lane 1, lateral pos: 0.00
+[003] lane 1, lateral pos: 0.00
+[004] lane 1, lateral pos: 0.00
+trying to change lane...
+[005] lane 1, lateral pos: 0.00
+[006] lane 2, lateral pos: 0.00
+[007] lane 2, lateral pos: 0.00
+[008] lane 2, lateral pos: 0.00
+[009] lane 2, lateral pos: 0.00
+[010] lane 2, lateral pos: 0.00
+[011] lane 2, lateral pos: 0.00
+[012] lane 2, lateral pos: 0.00
+[013] lane 2, lateral pos: 0.00
+[014] lane 2, lateral pos: 0.00
+[015] lane 2, lateral pos: 0.00
+[016] lane 2, lateral pos: 0.00
+[017] lane 2, lateral pos: 0.00
+[018] lane 2, lateral pos: 0.00
+[019] lane 2, lateral pos: 0.00
+[020] Vehicle 'collider' has arrived at destination
+Print ended at step 21

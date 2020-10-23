@@ -1,0 +1,36 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_00" lane="gneE0_0" startPos="5" endPos="10" file="fileA.txt" lines="line1 line2" friendlyPos="false">
+	
+    <!-- valid generic parameter (valid) -->
+    <param key="key1" value="value1"/>
+
+    <!-- empty generic parameter (invalid -->
+    <param/>
+    
+    <!-- missin key (invalid) -->
+    <param value="value2"/>
+
+    <!-- empty key (invalid) -->
+    <param key="" value="value3"/>
+
+    <!-- key contains invalid characters (invalid) -->
+    <param key="$$key with spaces%%" value="value4"/>
+
+    <!-- duplicated key (valid, overwrites the first one, show warning) -->
+    <param key="key1" value="value5"/>
+
+    <!-- missing value (invalid, value must exist)-->
+    <param key="key2"/>
+
+    <!-- empty value (valid, value may be empty) -->
+    <param key="key2" value=""/>
+
+    <!-- value contains invalid characters (valid - no restrictions on value) -->
+    <param key="key3" value="$$value with spaces%%"/>
+    
+     <!-- valid generic parameter (valid) -->
+     <param key="keyFinal" value="valueFinal"/>
+	
+	</busStop>
+	
+</additional>

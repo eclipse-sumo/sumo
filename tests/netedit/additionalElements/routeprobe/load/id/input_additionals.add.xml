@@ -1,0 +1,21 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+	<!-- Without problem -->
+    <routeProbe id="routeProbe_0" edge="gneE1" freq="100.00" file="routeProbe_0.txt" begin="0.00"/>
+	
+	<!-- missing ID -->
+    <routeProbe edge="gneE1" freq="100.00" file="routeProbe_01a.txt" begin="0.00"/>
+	
+	<!-- non valid ID -->
+    <routeProbe id="id with spaces" edge="gneE1" freq="100.00" file="file.txt" begin="0.00"/>
+	
+	<!-- non valid ID (empty) -->
+    <routeProbe id="" edge="gneE1" freq="100.00" file="file.txt" begin="0.00"/>
+	
+	<!-- non valid ID (duplicated) -->
+    <routeProbe id="routeProbe_0" edge="gneE1" freq="100.00" file="routeProbe_0.txt" begin="0.00"/>
+	
+	<!-- valid ID-->
+    <routeProbe id="routeProbe_1" edge="gneE1" freq="100.00" file="routeProbe_1.txt" begin="0.00"/>
+	
+</additional>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2003-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSE3Collector.h
 /// @author  Christian Roessel
@@ -13,17 +17,10 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Tue Dec 02 2003 22:17 CET
-/// @version $Id$
 ///
 // A detector of vehicles passing an area between entry/exit points
 /****************************************************************************/
-#ifndef MSE3Collector_h
-#define MSE3Collector_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -34,12 +31,15 @@
 #include <utils/common/Named.h>
 #include <microsim/output/MSCrossSection.h>
 #include <utils/common/UtilExceptions.h>
+#ifdef HAVE_FOX
+#include <fx.h>
+#endif
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class SUMOVehicle;
+class SUMOTrafficObject;
 class OutputDevice;
 
 
@@ -83,7 +83,7 @@ public:
          * @return True if vehicle enters the reminder.
          * @see Notification
          */
-        bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane);
+        bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane);
 
         /** @brief Checks whether the vehicle enters
          *
@@ -100,7 +100,7 @@ public:
          * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::enter
          */
-        bool notifyMove(SUMOVehicle& veh, double, double newPos, double);
+        bool notifyMove(SUMOTrafficObject& veh, double, double newPos, double);
 
 
         /** @brief Processes state changes of a vehicle
@@ -113,7 +113,7 @@ public:
         * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         /// @}
 
 
@@ -161,7 +161,7 @@ public:
          * @return True if vehicle enters the reminder.
          * @see Notification
          */
-        bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane);
+        bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane);
 
         /** @brief Checks whether the vehicle leaves
          *
@@ -178,7 +178,7 @@ public:
          * @see MSMoveReminder::notifyMove
          * @see MSE3Collector::leave
          */
-        bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double);
+        bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double);
 
         /** @brief Processes state changes of a vehicle
         *
@@ -189,7 +189,7 @@ public:
         * @param[in] reason The reason for the state change
         * @see MSMoveReminder::notifyLeave
         */
-        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
 
 
@@ -244,7 +244,7 @@ public:
      *  @param[in] entryTimestep The time in seconds the vehicle entered the area
      *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle already spent on the detector
      */
-    void enter(const SUMOVehicle& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder);
+    void enter(const SUMOTrafficObject& veh, const double entryTimestep, const double fractionTimeOnDet, MSE3EntryReminder* entryReminder);
 
 
     /** @brief Called if a vehicle front passes a leave-cross-section.
@@ -252,7 +252,7 @@ public:
     *  @param[in] veh The vehicle that left the area
     *  @param[in] leaveTimestep The time in seconds the vehicle started crossing the line
     */
-    void leaveFront(const SUMOVehicle& veh, const double leaveTimestep);
+    void leaveFront(const SUMOTrafficObject& veh, const double leaveTimestep);
 
 
     /** @brief Called if a vehicle back passes a leave-cross-section.
@@ -263,7 +263,7 @@ public:
     *  @param[in] leaveTimestep The time in seconds the vehicle left the area
     *  @param[in] fractionTimeOnDet The interpolated time in seconds the vehicle still spent on the detector
     */
-    void leave(const SUMOVehicle& veh, const double leaveTimestep, const double fractionTimeOnDet);
+    void leave(const SUMOTrafficObject& veh, const double leaveTimestep, const double fractionTimeOnDet);
 
 
     /// @name Methods returning current values
@@ -338,6 +338,8 @@ public:
      */
     void detectorUpdate(const SUMOTime step);
 
+    /** @brief Remove all vehicles before quick-loading state */
+    virtual void clearState();
 
 protected:
     /// @brief The detector's entries
@@ -395,11 +397,15 @@ protected:
     };
 
     /// @brief Container for vehicles that have entered the area
-    std::map<const SUMOVehicle*, E3Values> myEnteredContainer;
+    std::map<const SUMOTrafficObject*, E3Values> myEnteredContainer;
 
     /// @brief Container for vehicles that have left the area
     std::vector<E3Values> myLeftContainer;
 
+#ifdef HAVE_FOX
+    /// @brief the mutex for access to the containers
+    FXMutex myContainerMutex;
+#endif
 
     /// @name Storages for current values
     /// @{
@@ -427,9 +433,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

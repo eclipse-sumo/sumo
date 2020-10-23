@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed May 30 09:19:33 2018 by Eclipse SUMO Version baab8c4
+<!-- generated on Wed Apr  3 11:03:15 2019 by Eclipse SUMO Version v1_1_0+0417-c407ef5
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -21,6 +21,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <processing>
         <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -32,8 +33,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="oncoming1" depart="0.00" departLane="-VODUGES_beg_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="11.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.55" duration="11.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.90" rerouteNo="0" devices="tripinfo_oncoming1 fcd_oncoming1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="oncoming2" depart="0.00" departLane="-VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="19.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="12.68" duration="19.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.44" rerouteNo="0" devices="tripinfo_oncoming2 fcd_oncoming2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="33.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.75" duration="33.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="17.82" rerouteNo="0" devices="tripinfo_overtaking fcd_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="slow" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="213.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="0.82" duration="213.00" routeLength="160.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="52.53" rerouteNo="0" devices="tripinfo_slow fcd_slow" vType="slow" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="oncoming1" depart="0.00" departLane="-VODUGES_beg_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="10.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="10.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_oncoming1 fcd_oncoming1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="oncoming2" depart="0.00" departLane="-VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="18.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_oncoming2 fcd_oncoming2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="29.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="29.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.49" rerouteNo="0" devices="tripinfo_overtaking fcd_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="slow" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="161.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="1.00" duration="161.00" routeLength="160.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_slow fcd_slow" vType="slow" speedFactor="1.00" vaporized=""/>
 </tripinfos>

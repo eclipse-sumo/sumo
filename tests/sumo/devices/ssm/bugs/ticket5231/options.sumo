@@ -1,0 +1,6 @@
+-n net.net.xml -r input_routes.rou.xml --device.ssm.probability 1
+--device.ssm.measures 'TTC DRAC'
+--device.ssm.thresholds '5 3'
+--device.ssm.range 200
+--device.ssm.file ssm.xml
+--no-step-log

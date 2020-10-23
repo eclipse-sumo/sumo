@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10.12.2018 12:38:40 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 07.08.2019 13:30:37 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/name\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/name\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/name\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/name\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/name\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/name\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/name\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/name\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/name\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/name\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/name\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/name\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/name\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,14 +46,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec123754.8076/netedit.gui/additionalElements/parkingarea/load/name\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingarea/load/name\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_0" width="12.00" length="5.00" lane="gneE0_0" startPos="5.00" endPos="10.00"/>
-    <parkingArea id="parkingArea_1" width="12.00" length="5.00" lane="gneE0_0" startPos="5.00" endPos="10.00"/>
-    <parkingArea id="parkingArea_2" name="custom Parking Name" width="12.00" length="5.00" lane="gneE0_0" startPos="5.00" endPos="10.00"/>
+    <parkingArea id="parkingArea_0" lane="gneE0_0" startPos="5" endPos="10" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_1" lane="gneE0_0" startPos="5" endPos="10" width="12.00" length="5.00"/>
+    <parkingArea id="parkingArea_2" lane="gneE0_0" startPos="5" endPos="10" name="custom Parking Name" width="12.00" length="5.00"/>
 </additional>

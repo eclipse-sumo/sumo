@@ -1,0 +1,48 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route id="r0" edges="WE2 WE3 WE4"/>
+    <route id="r1" edges="NS3"/>
+    <route id="r2" edges="WE4"/>
+    <route id="r3" edges="EW1"/>
+    <route id="r4" edges="NS1"/>
+    <route id="r5" edges="EW4"/>
+    <route id="r6" edges="NS2"/>
+    <route id="r7" edges="WE1"/>
+    <route id="r8" edges="EW3"/>
+
+    <vehicle id="ego" route="r0" depart="0" departPos="50" color="red">
+        <stop lane="WE2_1" endPos="50" duration="100" />
+    </vehicle>
+
+    <person id="p1" depart="0" departPos="50">
+        <stop lane="NS3_0" endPos="50" duration="100" />
+    </person>
+    <person id="p2" depart="0" departPos="11">
+        <stop lane="WE4_0" endPos="11" duration="100" />
+    </person>
+    <person id="p3" depart="0" departPos="10">
+        <stop lane="EW1_0" endPos="10" duration="100" />
+    </person>
+    <person id="p4" depart="0" departPos="80">
+        <stop lane="NS1_0" endPos="80" duration="100" />
+    </person>
+    <person id="p5" depart="0" departPos="10">
+        <stop lane="EW4_0" endPos="10" duration="100" />
+    </person>
+    <person id="p6" depart="0" departPos="50">
+        <stop lane="NS2_0" endPos="50" duration="100" />
+    </person>
+    <person id="p7" depart="0" departPos="10">
+        <stop lane="WE1_0" endPos="10" duration="100" />
+    </person>
+    <person id="p8" depart="0" departPos="23">
+        <stop lane="WE2_0" endPos="23" duration="100" />
+    </person>
+    <person id="p9" depart="0" departPos="82">
+        <stop lane="WE2_0" endPos="82" duration="100" />
+    </person>
+    <person id="p10" depart="0" departPos="38">
+        <stop lane="EW3_0" endPos="38" duration="100" />
+    </person>
+
+</routes>
+

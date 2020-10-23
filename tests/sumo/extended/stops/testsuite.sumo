@@ -19,6 +19,9 @@ busstop_out_of_order_ignore
 # Tests whether stops can be on cyclic routes
 cyclic_route
 
+# Tests whether cyclical stops can be handled within a trip
+cyclic_trip
+
 # Tests whether max-depart-delay can be handled
 max_delay
 
@@ -37,6 +40,9 @@ at_start
 # Tests whether parking can be handled
 parking
 
+# test stop timing
+parking_until
+
 # vehicle cannot resume from parking immediately due to traffic on the road
 parking_delay_insertion
 
@@ -46,6 +52,9 @@ triggered_defaults_to_parking
 
 # test behavior of a vehicle with triggered stop as well as stop duration
 triggered_duration
+
+# test behavior of a vehicle with triggered stop as well as stop duration, the person does not come and eventually the stop is aborted
+triggered_duration_abort
 
 # Tests whether stopped vehicles can be overtaken
 overtaking
@@ -107,6 +116,9 @@ busstop_stopping_position_assignment
 
 # Tests for flexible assignment of stopping positions (#3937)
 busstop_stopping_position_assignment_parking
+
+# provide more parking length than the distance between endPos and startPos
+busstop_parkingLength
 
 # check consistency of stop positions and depar/arrival position
 departPos_arrivalPos

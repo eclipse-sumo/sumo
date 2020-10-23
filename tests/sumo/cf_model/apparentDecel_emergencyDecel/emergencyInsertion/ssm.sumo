@@ -1,7 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Mar 11 22:23:26 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
 <SSMLog>
     <globalMeasures ego="brakingVeh">
-        <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00"/>
-        <BRSpan values="0.00 4.50 4.50 3.13 1.34 0.02 0.00 0.00 0.00"/>
+        <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00"/>
+        <BRSpan values="0.00 4.50 4.50 3.13 1.34 0.00 0.00 0.00"/>
         <maxBR time="1.00" position="14.10,0.00" value="4.50"/>
     </globalMeasures>
 </SSMLog>

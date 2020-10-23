@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:39 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:46 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,12 +19,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -35,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_1_0" index="0" speed="11.11" length="21.09" shape="495.20,510.40 495.70,503.63 496.80,498.12 497.90,493.55 498.40,489.60"/>
     </edge>
     <edge id=":0_2" function="internal">
-        <lane id=":0_2_0" index="0" speed="9.26" length="19.35" shape="498.40,510.40 499.15,505.15 501.40,501.40 505.15,499.15 510.40,498.40"/>
+        <lane id=":0_2_0" index="0" speed="9.02" length="18.33" shape="498.40,510.40 499.48,506.14 502.28,502.28 506.14,499.48 510.40,498.40"/>
     </edge>
     <edge id=":0_3" function="internal">
         <lane id=":0_3_0" index="0" speed="3.65" length="4.67" shape="498.40,510.40 499.20,509.20 500.00,508.80 500.80,509.20 501.60,510.40"/>
@@ -47,7 +48,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_5_0" index="0" speed="11.11" length="21.09" shape="510.40,504.80 503.63,504.30 498.12,503.20 493.55,502.10 489.60,501.60"/>
     </edge>
     <edge id=":0_6" function="internal">
-        <lane id=":0_6_0" index="0" speed="9.26" length="19.35" shape="510.40,501.60 505.15,500.85 501.40,498.60 499.15,494.85 498.40,489.60"/>
+        <lane id=":0_6_0" index="0" speed="9.02" length="18.33" shape="510.40,501.60 506.14,500.52 502.28,497.72 499.48,493.86 498.40,489.60"/>
     </edge>
     <edge id=":0_7" function="internal">
         <lane id=":0_7_0" index="0" speed="3.65" length="4.67" shape="510.40,501.60 509.20,500.80 508.80,500.00 509.20,499.20 510.40,498.40"/>
@@ -59,7 +60,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_9_0" index="0" speed="11.11" length="21.09" shape="504.80,489.60 504.30,496.37 503.20,501.88 502.10,506.45 501.60,510.40"/>
     </edge>
     <edge id=":0_10" function="internal">
-        <lane id=":0_10_0" index="0" speed="9.26" length="19.35" shape="501.60,489.60 500.85,494.85 498.60,498.60 494.85,500.85 489.60,501.60"/>
+        <lane id=":0_10_0" index="0" speed="9.02" length="18.33" shape="501.60,489.60 500.52,493.86 497.72,497.72 493.86,500.52 489.60,501.60"/>
     </edge>
     <edge id=":0_11" function="internal">
         <lane id=":0_11_0" index="0" speed="3.65" length="4.67" shape="501.60,489.60 500.80,490.80 500.00,491.20 499.20,490.80 498.40,489.60"/>
@@ -71,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_13_0" index="0" speed="11.11" length="21.09" shape="489.60,495.20 496.37,495.70 501.88,496.80 506.45,497.90 510.40,498.40"/>
     </edge>
     <edge id=":0_14" function="internal">
-        <lane id=":0_14_0" index="0" speed="9.26" length="19.35" shape="489.60,498.40 494.85,499.15 498.60,501.40 500.85,505.15 501.60,510.40"/>
+        <lane id=":0_14_0" index="0" speed="9.02" length="18.33" shape="489.60,498.40 493.86,499.48 497.72,502.28 500.52,506.14 501.60,510.40"/>
     </edge>
     <edge id=":0_15" function="internal">
         <lane id=":0_15_0" index="0" speed="3.65" length="4.67" shape="489.60,498.40 490.80,499.20 491.20,500.00 490.80,500.80 489.60,501.60"/>

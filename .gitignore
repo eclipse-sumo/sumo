@@ -17,17 +17,21 @@
 /compile
 /latex
 /mirror
-# eclipse project files
+# IDE project files
 /.settings
 /.cproject
 /.project
 /.pydevproject
+/.vs
 # build dir 
 /cmake-build*
 /cmake_build*
 /build/cmake-build*
 /build/cmake_build*
 /build/cmake-codeblocks*
+/build/cmake-clang*
+/build/cmake-mingw*
+/out
 # bin dir
 /bin/TraCITestClient*
 /bin/activitygen*
@@ -50,20 +54,28 @@
 /bin/testmicrosim*
 /bin/testnetbuild*
 /bin/testlibsumo*
+/bin/testthreadpool*
 /bin/*.dll
 /bin/*.so
 /bin/*.pyd
 /bin/osgPlugins*
-/bin/TraaS.jar
-/bin/RelWithDebInfo
-/bin/libsumo.py
+/bin/libsumoc*
+/bin/liblibsumojni.jnilib
+/bin/libsumofmi2.dylib
+# data dir
+/data/proj
 # docs dir, make artifacts
 /docs/doxygen
 /docs/examples
 /docs/javadoc
+/docs/lcov
+/docs/man
 /docs/pydoc
 /docs/tutorial
 /docs/userdoc
+/docs/web/site/
+/docs/web/__pycache__/
+/docs/web/*.pyc
 # src dir, mostly configure / make stuff
 /src/config.h
 /src/config.h.in
@@ -88,10 +100,16 @@
 /src/tools/emissionsDrivingCycle
 /src/tools/emissionsMap
 /src/traci_testclient/TraCITestClient
+/src/utils/empty.cpp
 /unittest/src/sumo-unittest
 # tools dir
+/tools/*.egg-info
+/tools/[0-9]*
 /tools/game/*.netstate.xml
 /tools/game/*.tlsstate.xml
+/tools/game/netstate.xml
+/tools/game/tlsstate.xml
+/tools/game/*.tripinfos.xml
 /tools/game/racing/log
 /tools/game/racing/tripinfos.xml
 /tools/game/A10KW/*
@@ -100,15 +118,23 @@
 /tools/contributed/traas/dist
 /tools/contributed/traas/javadoc
 /tools/contributed/traas/release
-/tools/contributed/traas/examples/simulation/loops.out.xml
-/tools/libsumo/_libsumo.so
+/tools/contributed/traas/target
 /tools/libsumo/java/
+/tools/libsumo/_libsumo.*
 /tools/libsumo/libsumo.py
-/tools/libsumo/_libsumo.pyd
 /tools/libsumo/libsumoPYTHON_wrap.cxx
-/tools/libsumo/setup.py
+/tools/libsumo/libsumoc.so
+/tools/libsumo/libsumocpp.so
+/tools/libsumo/libsumocpp.dylib
+/tools/libtraci/_libtraci.so
+/tools/libtraci/libtraci.py
+/tools/libtraci/libtraciPYTHON_wrap.cxx
+/tools/libtraci/libtracicpp.so
 # extracted tests
 /tests/_*
+# netedit test
+/tests/netedit/__pycache__
+/tests/netedit/filter_files
 # global patterns
 Makefile
 Makefile.in
@@ -116,6 +142,7 @@ Makefile.in
 *.class
 lib*.a
 .deps
+**/.DS_Store
 .libs
 *.o
 *.pyc
@@ -138,4 +165,7 @@ lib*.a
 *.lib
 *.res
 *.ipch
+.vscode
+*.aps
+.gdb_history
 

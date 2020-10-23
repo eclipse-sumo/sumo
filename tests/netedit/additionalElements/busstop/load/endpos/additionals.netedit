@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.11.2018 13:20:22 by Eclipse SUMO netedit Version v1_0_0+0907-4934d005c3
+<!-- generated on 02.10.2019 16:01:34 by Eclipse SUMO netedit Version v1_3_1+0551-ceb93c1039
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov131947.8104/netedit.gui/additionalElements/busstop/load/endpos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct155540.10884/netedit.gui/additionalElements/busstop/load/endpos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov131947.8104/netedit.gui/additionalElements/busstop/load/endpos\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct155540.10884/netedit.gui/additionalElements/busstop/load/endpos\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov131947.8104/netedit.gui/additionalElements/busstop/load/endpos\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov131947.8104/netedit.gui/additionalElements/busstop/load/endpos\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov131947.8104/netedit.gui/additionalElements/busstop/load/endpos\shapes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct155540.10884/netedit.gui/additionalElements/busstop/load/endpos\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct155540.10884/netedit.gui/additionalElements/busstop/load/endpos\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct155540.10884/netedit.gui/additionalElements/busstop/load/endpos\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct155540.10884/netedit.gui/additionalElements/busstop/load/endpos\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov131947.8104/netedit.gui/additionalElements/busstop/load/endpos\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct155540.10884/netedit.gui/additionalElements/busstop/load/endpos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,13 +46,17 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov131947.8104/netedit.gui/additionalElements/busstop/load/endpos\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.02Oct155540.10884/netedit.gui/additionalElements/busstop/load/endpos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_01" name="busStop" lane="gneE0_0" lines="line1 line2" startPos="35.00"/>
-    <busStop id="busStop_02" name="busStop" lane="gneE0_0" lines="line1 line2" startPos="35.00"/>
+    <busStop id="busStop_01" lane="gneE0_0" startPos="35.00" name="busStop" lines="line1 line2"/>
+    <busStop id="busStop_02" lane="gneE0_0" startPos="35.00" name="busStop" lines="line1 line2"/>
+    <busStop id="busStop_03" lane="gneE0_0" startPos="0.00" endPos="50.00" name="busStop" lines="line1 line2"/>
+    <busStop id="busStop_04" lane="gneE0_0" startPos="0.00" endPos="50.00" name="busStop" lines="line1 line2"/>
+    <busStop id="busStop_05" lane="gneE0_0" startPos="0.00" endPos="50.00" name="busStop" lines="line1 line2"/>
+    <busStop id="busStop_06" lane="gneE0_0" startPos="35.00" endPos="45.00" name="busStop" lines="line1 line2"/>
 </additional>

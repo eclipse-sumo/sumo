@@ -1,4 +1,4 @@
 Warning: Essential unique string attribute 'id' of laneCalibrator is missing; laneCalibrator cannot be created
 Warning: Format of essential unique string attribute 'id' of laneCalibrator is invalid; ID contains invalid characters; laneCalibrator cannot be created
 Warning: Format of essential unique string attribute 'id' of laneCalibrator is invalid; ID cannot be empty; laneCalibrator cannot be created
-Warning: There is another laneCalibrator with the same ID='calibrator01'.
+Warning: There is another calibrator with the same ID='calibrator01'.

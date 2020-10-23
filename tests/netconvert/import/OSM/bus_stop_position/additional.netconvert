@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 27 09:35:11 2017 by SUMO netconvert Version dev-SVN-r26241
+<!-- generated on Tue Nov 19 13:32:30 2019 by Eclipse SUMO netconvert Version v1_3_1+0952-b855ad8
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="net.net.xml"/>
         <ptstop-output value="additional.xml"/>
     </output>
@@ -22,9 +23,9 @@ SPDX-License-Identifier: EPL-2.0
         <proj.utm value="true"/>
     </projection>
 
-    <processing>
+    <formats>
         <osm.stop-output.length value="200"/>
-    </processing>
+    </formats>
 
     <report>
         <xml-validation value="never"/>
@@ -34,9 +35,9 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="3357557585" name="Fontanestraße/Flughafenstraße" lane="10996053_1" startPos="24.32" endPos="35.89" friendlyPos="true"/>
-    <busStop id="3357557586" name="Fontanestraße/Flughafenstraße" lane="10996029_0" startPos="37.41" endPos="52.06" friendlyPos="true"/>
-    <busStop id="3357557587" name="Fontanestraße/Flughafenstraße" lane="4579853_1" startPos="208.08" endPos="221.26" friendlyPos="true"/>
-    <busStop id="3357557588" name="U Boddinstraße" lane="68189545_1" startPos="94.04" endPos="101.54" friendlyPos="true"/>
-    <busStop id="821551864" name="U Boddinstraße" lane="68189545_1" startPos="78.81" endPos="93.81" friendlyPos="true"/>
+    <busStop id="3357557585" name="Fontanestraße/Flughafenstraße" lane="10996053_2" startPos="24.32" endPos="35.98" friendlyPos="true"/>
+    <busStop id="3357557586" name="Fontanestraße/Flughafenstraße" lane="10996029_0" startPos="37.41" endPos="52.07" friendlyPos="true"/>
+    <busStop id="3357557587" name="Fontanestraße/Flughafenstraße" lane="4579853_2" startPos="208.08" endPos="221.26" friendlyPos="true"/>
+    <busStop id="3357557588" name="U Boddinstraße" lane="68189545_2" startPos="94.04" endPos="101.53" friendlyPos="true"/>
+    <busStop id="821551864" name="U Boddinstraße" lane="68189545_2" startPos="78.81" endPos="93.81" friendlyPos="true"/>
 </additional>

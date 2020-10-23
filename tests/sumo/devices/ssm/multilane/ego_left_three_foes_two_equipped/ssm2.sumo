@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Jun 18 14:50:21 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <step-length value="0.1"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<SSMLog>
+    <conflict begin="5.50" end="12.50" ego="ego" foe="foe1">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="5.50" position="100.52,50.23" type="11" value="3.49"/>
+        <PET time="9.98" position="100.52,50.23" type="17" value="2.46"/>
+    </conflict>
+    <conflict begin="6.30" end="13.30" ego="ego" foe="foe2">
+        <minTTC time="NA" position="NA" type="NA" value="NA"/>
+        <maxDRAC time="6.30" position="100.52,50.23" type="11" value="4.12"/>
+        <PET time="9.98" position="100.52,50.23" type="17" value="1.59"/>
+    </conflict>
+    <conflict begin="7.10" end="14.20" ego="ego" foe="foe3">
+        <minTTC time="7.10" position="108.05,48.35" type="7" value="2.23"/>
+        <maxDRAC time="7.10" position="108.05,48.35" type="7" value="1.19"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <globalMeasures ego="ego">
+        <timeSpan values="1.00 1.10 1.20 1.30 1.40 1.50 1.60 1.70 1.80 1.90 2.00 2.10 2.20 2.30 2.40 2.50 2.60 2.70 2.80 2.90 3.00 3.10 3.20 3.30 3.40 3.50 3.60 3.70 3.80 3.90 4.00 4.10 4.20 4.30 4.40 4.50 4.60 4.70 4.80 4.90 5.00 5.10 5.20 5.30 5.40 5.50 5.60 5.70 5.80 5.90 6.00 6.10 6.20 6.30 6.40 6.50 6.60 6.70 6.80 6.90 7.00 7.10 7.20 7.30 7.40 7.50 7.60 7.70 7.80 7.90 8.00 8.10 8.20 8.30 8.40 8.50 8.60 8.70 8.80 8.90 9.00 9.10 9.20 9.30 9.40 9.50 9.60 9.70 9.80 9.90 10.00 10.10 10.20 10.30 10.40 10.50 10.60 10.70 10.80 10.90 11.00 11.10 11.20 11.30 11.40 11.50 11.60 11.70 11.80 11.90 12.00 12.10 12.20 12.30 12.40 12.50 12.60 12.70 12.80 12.90 13.00 13.10 13.20 13.30 13.40 13.50 13.60 13.70 13.80 13.90 14.00 14.10 14.20 14.30 14.40 14.50 14.60 14.70 14.80 14.90 15.00 15.10 15.20 15.30 15.40 15.50 15.60 15.70 15.80 15.90 16.00 16.10 16.20 16.30 16.40 16.50 16.60 16.70 16.80 16.90 17.00 17.10 17.20 17.30 17.40 17.50"/>
+        <BRSpan values="0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.43 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 4.50 3.47 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00 0.00"/>
+        <maxBR time="5.90" position="98.35,63.07" value="4.50"/>
+        <SGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA -1.91 -0.52 NA NA NA NA -0.71 0.68 2.07 3.46 4.83 6.18 7.51 8.81 10.08 11.32 12.54 13.74 14.91 16.05 17.16 18.25 19.32 20.36 21.37 22.35 23.31 24.25 25.16 26.04 26.89 27.72 28.53 29.31 30.06 30.78 31.48 32.16 32.81 33.43 34.02 34.59 35.14 35.66 36.15 36.61 37.05 37.47 37.86 38.22 38.56 38.87 39.15 39.41 39.64 39.85 40.03 40.18 40.31 40.41 NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
+        <minSGAP time="8.30" position="99.98,50.82" value="-1.91" leader="foe2"/>
+        <TGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA 18.60 11.89 9.63 8.47 7.75 7.26 6.89 6.61 6.37 6.17 6.00 5.85 5.72 5.59 5.48 5.37 5.27 5.18 5.09 5.01 4.93 4.85 4.77 4.70 4.62 4.55 4.49 4.42 4.35 4.29 4.22 4.16 4.10 4.03 3.97 3.91 3.85 3.79 3.73 3.67 3.62 3.56 3.50 3.44 3.39 3.33 3.28 3.22 3.16 3.11 NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
+        <minTGAP time="14.20" position="131.85,48.35" value="3.11" leader="foe3"/>
+    </globalMeasures>
+</SSMLog>

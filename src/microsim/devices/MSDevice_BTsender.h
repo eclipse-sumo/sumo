@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_BTsender.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    14.08.2013
-/// @version $Id$
 ///
 // A BT sender
 /****************************************************************************/
-#ifndef MSDevice_BTsender_h
-#define MSDevice_BTsender_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <set>
@@ -35,6 +32,7 @@
 // class declarations
 // ===========================================================================
 class SUMOVehicle;
+class SUMOTrafficObject;
 
 
 // ===========================================================================
@@ -94,7 +92,7 @@ public:
      * @see MSMoveReminder::notifyEnter
      * @see MSMoveReminder::Notification
      */
-    bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane = 0);
 
 
     /** @brief Checks whether the reminder still has to be notified about the vehicle moves
@@ -110,7 +108,7 @@ public:
      *
      * @return True if vehicle hasn't passed the reminder completely.
      */
-    bool notifyMove(SUMOVehicle& veh, double oldPos, double newPos, double newSpeed);
+    bool notifyMove(SUMOTrafficObject& veh, double oldPos, double newPos, double newSpeed);
 
 
     /** @brief Moves (the known) vehicle from running to arrived vehicles' list
@@ -119,11 +117,10 @@ public:
      * @param[in] lastPos Position on the lane when leaving.
      * @param[in] isArrival whether the vehicle arrived at its destination
      * @param[in] isLaneChange whether the vehicle changed from the lane
-     * @see leaveDetectorByLaneChange
      * @see MSMoveReminder
      * @see MSMoveReminder::notifyLeave
      */
-    bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
+    bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0);
     /// @}
 
     /// @brief return the name for this type of device
@@ -230,9 +227,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

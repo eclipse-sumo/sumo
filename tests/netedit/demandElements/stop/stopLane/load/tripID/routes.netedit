@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 28.08.2019 14:30:52 by Eclipse SUMO netedit Version v1_3_1+0011-f5e097af11
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopLane/load/tripID\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopLane/load/tripID\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopLane/load/tripID\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopLane/load/tripID\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopLane/load/tripID\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopLane/load/tripID\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopLane/load/tripID\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.28Aug142833.8020/netedit.gui/demandElements/stop/stopLane/load/tripID\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="vehicle_0" depart="0.00">
+        <route edges="gneE0 gneE1" color="yellow"/>
+        <stop lane="lane"/>
+        <stop lane="lane"/>
+        <stop lane="lane"/>
+        <stop lane="lane"/>
+    </vehicle>
+</routes>

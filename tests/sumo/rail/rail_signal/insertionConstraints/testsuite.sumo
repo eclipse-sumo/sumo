@@ -1,0 +1,8 @@
+# Copy of wait_for_one
+wait_for_one
+
+# signal isn't at the end of the insertion edge but on the next edge
+signal_on_next_edge
+
+# only works with eager-insertion
+wait_for_one_same_departEdge

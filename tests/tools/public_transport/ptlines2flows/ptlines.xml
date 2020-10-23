@@ -45,23 +45,23 @@ SPDX-License-Identifier: EPL-2.0
         <busStop id="3959807201" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="3959807220" name="Kolonnenbrücke"/>
     </ptLine>
-    <ptLine id="2" name="Buslinie 140: S+U Tempelhof => S Ostbahnhof &quot;test mixed quotes'" line="140" type="bus" completeness="0.06">
+    <ptLine id="2" name="Buslinie 140: S+U Tempelhof => S Ostbahnhof &quot;test mixed quotes'" line="140" type="bus" completeness="0.06" nightService="yes">
         <route edges=" 391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0"/>
         <busStop id="2029039195" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="4032629820" name="Monumentenstraße"/>
     </ptLine>
-    <ptLine id="3" name="Buslinie 140: S Ostbahnhof => S + U Tempelhof" line="140" type="bus" completeness="0.13">
+    <ptLine id="3" name="Buslinie 140: S Ostbahnhof => S + U Tempelhof" line="140" type="bus" completeness="0.13" nightService="no">
         <route edges=" 53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3"/>
         <busStop id="4032629811" name="Katzbachstraße/Kreuzbergstraße"/>
         <busStop id="4032629819" name="Monumentenstraße"/>
         <busStop id="2029039199" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="2029039146" name="Badener Ring"/>
     </ptLine>
-    <ptLine id="4" name="Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz" line="N42" type="bus" completeness="0.12">
+    <ptLine id="4" name="Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz" line="N42" type="bus" completeness="0.12" nightService="only">
         <busStop id="3959807201" name="Dudenstraße/Katzbachstraße"/>
         <busStop id="3959807220" name="Kolonnenbrücke"/>
     </ptLine>
-    <ptLine id="5" name="Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz" line="N42" type="bus" completeness="0.11">
+    <ptLine id="5" name="Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz" line="N42" type="bus" completeness="0.11" nightService="only">
         <route edges=" 110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 456455657#0 456455657#1 391493953#0 391493953#1 391493946 391493948 456455656 391493951 456455655"/>
         <busStop id="3959807221" name="Kolonnenbrücke"/>
         <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>

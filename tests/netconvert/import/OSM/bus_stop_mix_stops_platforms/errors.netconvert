@@ -1,0 +1,52 @@
+Warning: Ignoring track count 2 for edge '25211335'.
+Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.trunk' (first occurence for edge '4060821').
+Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '8401517').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '25211335').
+Warning: Discarding unknown compound 'cycleway.opposite_lane' in type 'cycleway.opposite_lane|highway.residential' (first occurence for edge '43873883').
+Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.unclassified' (first occurence for edge '204657039').
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 194651 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 312147 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 312674 are ignored
+Warning: No way found for reference '682488207' in relation '1057486'
+Warning: No way found for reference '5001019' in relation '1057486'
+Warning: Ignoring restriction relation '1057486' with unknown from-way.
+Warning: Ignoring restriction relation '1057486' with unknown to-way.
+Warning: PT line in relation 2755611 with no stops ignored. Probably OSM file is incomplete.
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2807957 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2850927 are ignored
+Warning: PT line in relation 3068086 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 4622890 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 5659550 with no stops ignored. Probably OSM file is incomplete.
+Warning: PT line in relation 5664147 with no stops ignored. Probably OSM file is incomplete.
+Warning: No way found for reference '634042794' in relation '9082479'
+Warning: No way found for reference '85644410' in relation '9082479'
+Warning: Ignoring restriction relation '9082479' with unknown from-way.
+Warning: Ignoring restriction relation '9082479' with unknown to-way.
+Warning: No way found for reference '85644410' in relation '9082480'
+Warning: Ignoring restriction relation '9082480' with unknown from-way.
+Warning: Ignoring restriction relation '9082480' with unknown to-way.
+Warning: direction of restriction relation could not be determined
+Warning: Ignoring restriction relation '10271759'.
+Warning: PT stop: 4589475946 has been moved to edge: -266550338#3
+Warning: PT stop: 4589475948 has been moved to edge: -572772256#3
+Warning: PT stop: 4701534125 has been moved to edge: -253362216#2
+Warning: PT stop: 4701534129 has been moved to edge: -66924592#7
+Warning: PT stop: 4701534132 has been moved to edge: -66924592#4
+Warning: PT stop: 4703199264 has been moved to edge: -66924592#3
+Warning: PT stop: 4703199266 has been moved to edge: -66924592#0
+Warning: PT stop: 4701534127 has been moved to edge: -504900413#0
+Warning: Found sharp turn with radius 2.22 at the start of edge '-24787423'.
+Warning: Found sharp turn with radius 2.22 at the end of edge '24787423'.
+Warning: Found sharp turn with radius 3.44 at the end of edge '572772262'.
+Warning: Found sharp turn with radius 3.34 at the start of edge '722316229'.
+Warning: Found sharp turn with radius 5.80 at the start of edge '743127577'.
+Warning: Found sharp turn with radius 5.14 at the start of edge '743127581#2'.
+Warning: Speed of straight connection '24546642#0_0->24546642#1_0' reduced by 6.42 due to turning radius of 8.89 (length=1.23, angle=23.69).
+Warning: Speed of straight connection '253362218_0->253362220#0_0' reduced by 7.47 due to turning radius of 6.42 (length=4.51, angle=60.95).
+Warning: Speed of straight connection '572772262_0->572772257_0' reduced by 5.52 due to turning radius of 1.43 (length=1.44, angle=84.78).
+Warning: Speed of straight connection '300873532#2_0->300873532#3_0' reduced by 8.92 due to turning radius of 3.67 (length=1.07, angle=36.47).
+Warning: Speed of straight connection '300873532#2_1->300873532#3_1' reduced by 7.31 due to turning radius of 6.77 (length=2.24, angle=36.47).
+Warning: 9 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
+Warning: 33 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
+Warning: 6 total messages of type: No way found for reference '%' in relation '%'
+Warning: 9 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.

@@ -203,69 +203,133 @@ Error: Attribute 'length' is missing in definition of lane '2_1'.
 Error: invalid toLane '1' in connection to '2'.
 Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:
- Wrong error code returned (0)!
+Error: Ignoring lane '1_0' with broken shape.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:
- Wrong error code returned (0)!
+Error: Ignoring lane '1_1' with broken shape.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:
- Wrong error code returned (0)!
+Error: Ignoring lane '2_0' with broken shape.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:
- Wrong error code returned (0)!
+Error: Ignoring lane '2_1' with broken shape.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:<remove>
- Wrong error code returned (0)!
+Error: Attribute 'shape' is missing in definition of lane '1_0'.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:<remove>
- Wrong error code returned (0)!
+Error: Attribute 'shape' is missing in definition of lane '1_1'.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:<remove>
- Wrong error code returned (0)!
+Error: Attribute 'shape' is missing in definition of lane '2_0'.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:<remove>
- Wrong error code returned (0)!
+Error: Attribute 'shape' is missing in definition of lane '2_1'.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:a,-4.95 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:a,-4.95 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:a,-4.95 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:a,-4.95 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,a 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,a 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,a 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,a 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_0' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '1_1' is not of type PositionVector.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_0' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
- Wrong error code returned (0)!
+Error: Attribute 'shape' in definition of lane '2_1' is not of type PositionVector.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]@shape:100.00,-4.95
- Wrong error code returned (0)!
+Error: Ignoring lane '1_0' with broken shape.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[1]@shape:0100.00,-4.95
- Wrong error code returned (0)!
+Error: Ignoring lane '1_1' with broken shape.
+Error: invalid fromLane '1' in connection from '1'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[0]@shape:100.00,-4.95
- Wrong error code returned (0)!
+Error: Ignoring lane '2_0' with broken shape.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[1]/lane[1]@shape:100.00,-4.95
- Wrong error code returned (0)!
+Error: Ignoring lane '2_1' with broken shape.
+Error: invalid toLane '1' in connection to '2'.
+Quitting (on error).
 ------------------ net/edge[0]/lane[0]:<remove>
 Error: invalid fromLane '1' in connection from '1'.
 Quitting (on error).

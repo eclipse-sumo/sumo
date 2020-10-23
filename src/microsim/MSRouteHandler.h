@@ -1,35 +1,32 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSRouteHandler.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // Parser and container for routes during their loading
 /****************************************************************************/
-#ifndef MSRouteHandler_h
-#define MSRouteHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
 #include <utils/common/SUMOTime.h>
 #include <utils/vehicle/SUMORouteHandler.h>
-#include <microsim/pedestrians/MSPerson.h>
-#include "MSContainer.h"
+#include <microsim/transportables/MSPerson.h>
+#include <microsim/transportables/MSTransportable.h>
 #include "MSVehicle.h"
 
 
@@ -53,13 +50,13 @@ class MSVehicleType;
  */
 class MSRouteHandler : public SUMORouteHandler {
 public:
-    /// standard constructor
-    MSRouteHandler(const std::string& file,
-                   bool addVehiclesDirectly);
+    /// @brief standard constructor
+    MSRouteHandler(const std::string& file, bool addVehiclesDirectly);
 
-    /// standard destructor
+    /// @brief standard destructor
     virtual ~MSRouteHandler();
 
+    /// @brief get parsing RNG
     static std::mt19937* getParsingRNG() {
         return &myParsingRNG;
     }
@@ -77,17 +74,7 @@ protected:
      */
     virtual void myStartElement(int element,
                                 const SUMOSAXAttributes& attrs);
-
-
-    /** @brief Called when a closing tag occurs
-     *
-     * @param[in] element ID of the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myEndElement
-     */
-    virtual void myEndElement(int element);
     //@}
-
 
     /** @brief Called for parsing from and to and the corresponding taz attributes
      *
@@ -95,45 +82,62 @@ protected:
      * @param[in] attrs Attributes within the currently opened element
      * @exception ProcessError If something fails
      */
-    void parseFromViaTo(std::string element,
-                        const SUMOSAXAttributes& attrs);
+    void parseFromViaTo(SumoXMLTag tag, const SUMOSAXAttributes& attrs);
 
-
-    /** opens a type distribution for reading */
+    /// @brief opens a type distribution for reading
     void openVehicleTypeDistribution(const SUMOSAXAttributes& attrs);
 
-    /** closes (ends) the building of a distribution */
+    /// @brief closes (ends) the building of a distribution
     void closeVehicleTypeDistribution();
 
-    /** opens a route for reading */
+    /// @brief opens a route for reading
     void openRoute(const SUMOSAXAttributes& attrs);
 
-    /** closes (ends) the building of a route.
-        Afterwards no edges may be added to it;
-        this method may throw exceptions when
-        a) the route is empty or
-        b) another route with the same id already exists */
+    /// @brief opens a flow for reading
+    void openFlow(const SUMOSAXAttributes& attrs);
+
+    /// @brief opens a route flow for reading
+    void openRouteFlow(const SUMOSAXAttributes& attrs);
+
+    /// @brief opens a trip for reading
+    void openTrip(const SUMOSAXAttributes& attrs);
+
+    /**@brief closes (ends) the building of a route.
+     * @note Afterwards no edges may be added to it;
+     *       this method may throw exceptions when
+     *       a) the route is empty or
+     *       b) another route with the same id already exists
+     */
     void closeRoute(const bool mayBeDisconnected = false);
 
-    /** opens a route distribution for reading */
+    /// @brief opens a route distribution for reading
     void openRouteDistribution(const SUMOSAXAttributes& attrs);
 
-    /** closes (ends) the building of a distribution */
+    /// @brief closes (ends) the building of a distribution
     void closeRouteDistribution();
 
-    /// Ends the processing of a vehicle
+    /// @brief Ends the processing of a vehicle (note: is virtual because is reimplemented in MSStateHandler)
     virtual void closeVehicle();
 
-    /// Ends the processing of a person
+    /// @brief Ends the processing of a vehicle type
+    void closeVType();
+
+    /// @brief Ends the processing of a person
     void closePerson();
 
-    /// Ends the processing of a container
+    /// @brief Ends the processing of a personFlow
+    void closePersonFlow();
+
+    /// @brief Ends the processing of a container
     void closeContainer();
 
-    /// Ends the processing of a flow
+    /// @brief Ends the processing of a flow
     void closeFlow();
 
-    /// Processing of a stop
+    /// @brief Ends the processing of a trip
+    void closeTrip();
+
+    /// @brief Processing of a stop
     void addStop(const SUMOSAXAttributes& attrs);
 
     /// @brief add a routing request for a walking or intermodal person
@@ -142,15 +146,34 @@ protected:
     /// @brief add a fully specified walk
     void addWalk(const SUMOSAXAttributes& attrs);
 
+    /// @brief Processing of a person
+    void addPerson(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a container
+    void addContainer(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a ride
+    void addRide(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a transport
+    void addTransport(const SUMOSAXAttributes& attrs);
+
+    /// @brief Processing of a tranship
+    void addTranship(const SUMOSAXAttributes& attrs);
+
     ///@ brief parse depart- and arrival positions of a walk
     void parseWalkPositions(const SUMOSAXAttributes& attrs, const std::string& personID,
                             const MSEdge* fromEdge, const MSEdge*& toEdge,
                             double& departPos, double& arrivalPos, MSStoppingPlace*& bs,
-                            const MSTransportable::Stage* const lastStage, bool& ok);
+                            const MSStage* const lastStage, bool& ok);
 
 protected:
     /// @brief The current route
     ConstMSEdgeVector myActiveRoute;
+
+    /// @brief number of repetitions of the active route
+    int myActiveRouteRepeat;
+    SUMOTime myActiveRoutePeriod;
 
     /// @brief The plan of the current person
     MSTransportable::MSTransportablePlan* myActivePlan;
@@ -183,16 +206,18 @@ private:
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
     void deleteActivePlans();
 
+    /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
+    void addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+
+    /// @brief determine the default group for rides and trips
+    static std::string getDefaultGroup(const std::string& personID);
+
+    /// @brief adapt implicit route (edges derived from stops) to additional vehicle-stops
+    MSRoute* addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPermanent);
+
     /// @brief Invalidated copy constructor
-    MSRouteHandler(const MSRouteHandler& s);
+    MSRouteHandler(const MSRouteHandler& s) = delete;
 
     /// @brief Invalidated assignment operator
-    MSRouteHandler& operator=(const MSRouteHandler& s);
-
+    MSRouteHandler& operator=(const MSRouteHandler& s) = delete;
 };
-
-
-#endif
-
-/****************************************************************************/
-

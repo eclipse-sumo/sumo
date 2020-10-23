@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2007-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOSAXAttributes.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Fri, 30 Mar 2007
-/// @version $Id$
 ///
 // Encapsulated SAX-Attributes
 /****************************************************************************/
-#ifndef SUMOSAXAttributes_h
-#define SUMOSAXAttributes_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -320,6 +317,8 @@ public:
      */
     virtual RightOfWay getRightOfWay(bool& ok) const = 0;
 
+    /// @brief returns fringe type
+    virtual FringeType getFringeType(bool& ok) const = 0;
 
     /**
      * @brief Returns the value of the named attribute
@@ -356,6 +355,19 @@ public:
 
     /// @brief convenience function to avoid the default argument and the template stuff at getOpt<>
     const std::vector<std::string> getOptStringVector(int attr, const char* objectid, bool& ok, bool report = true) const;
+
+    /** @brief Tries to read given attribute assuming it is an int vector
+     *
+     * The behavior is similar to Python's string.split(), so multiple consecutive
+     *  whitespace do not generate empty strings and leading and trailing whitespace is silently omitted.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @return The read value if given and not empty; empty vector if an error occurred
+     */
+    const std::vector<int> getIntVector(int attr) const;
+
+    /// @brief convenience function to avoid the default argument and the template stuff at getOpt<>
+    const std::vector<int> getOptIntVector(int attr, const char* objectid, bool& ok, bool report = true) const;
     //}
 
 
@@ -468,6 +480,11 @@ template<> struct invalid_return<std::vector<std::string> > {
     static const std::string type;
 };
 
+template<> struct invalid_return<std::vector<int> > {
+    static const std::vector<int> value;
+    static const std::string type;
+};
+
 
 template <typename T>
 T SUMOSAXAttributes::get(int attr, const char* objectid,
@@ -515,9 +532,3 @@ T SUMOSAXAttributes::getOpt(int attr, const char* objectid,
     ok = false;
     return invalid_return<T>::value;
 }
-
-
-#endif
-
-/****************************************************************************/
-

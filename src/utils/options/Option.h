@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Option.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // Classes representing a single program option (with different types)
 /****************************************************************************/
-#ifndef Option_h
-#define Option_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -40,11 +37,10 @@
  */
 typedef std::vector<int> IntVector;
 /**
- * @typedef FloatVector
- * @brief Definition of a vector of doubles
+ * @typedef StringVector
+ * @brief Definition of a vector of strings
  */
-typedef std::vector<double> FloatVector;
-
+typedef std::vector<std::string> StringVector;
 
 /* -------------------------------------------------------------------------
  * Option
@@ -115,11 +111,12 @@ public:
 
     /** @brief Returns the stored string value
      *
-     * Option_String and Option_FileName return the stored string in this method's reimplementation.
+     * Option_String returns the stored string in this method's reimplementation.
+     *  Option_FileName's reimplementation is only to be used for single filename string-vector options.
      *  All other option classes do not override this method which throws an InvalidArgument-exception.
      *
-     * @return Returns the stored string if being an instance of Option_String
-     * @exception InvalidArgument If the class is not an instance of Option_String
+     * @return Returns the stored string if being an instance of Option_String or Option_FileName
+     * @exception InvalidArgument If the class is not an instance of Option_String or Option_FileName
      */
     virtual std::string getString() const;
 
@@ -145,16 +142,15 @@ public:
      */
     virtual const IntVector& getIntVector() const;
 
-    /** @brief Returns the stored float vector
+    /** @brief Returns the stored string vector
      *
-     * Option_FloatVector returns the stored float vector in this method's reimplementation.
+     * Option_StringVector returns the stored string vector in this method's reimplementation.
      *  All other option classes do not override this method which throws an InvalidArgument-exception.
      *
-     * @return Returns the stored float vector if being an instance of Option_FloatVector
-     * @exception InvalidArgument If the class is not an instance of Option_FloatVector
+     * @return Returns the stored string vector if being an instance of Option_StringVector
+     * @exception InvalidArgument If the class is not an instance of Option_StringVector
      */
-    virtual const FloatVector& getFloatVector() const;
-
+    virtual const StringVector& getStringVector() const;
 
     /** @brief Stores the given value
      *
@@ -567,6 +563,65 @@ public:
     bool getBool() const;
 
     /** sets the given value (converts it to bool) */
+    virtual bool set(const std::string& v);
+
+
+    /** @brief Returns the string-representation of the value
+     *
+     * If myValue is true, "true" is returned, "false" otherwise.
+     *
+     * @see std::string Option::getValueString()
+     * @return The stored value encoded into a string
+     */
+    virtual std::string getValueString() const;
+
+
+    /** @brief Returns true, the information whether the option is a bool option
+     *
+     * Returns true.
+     *
+     * @see bool Option::isBool()
+     * @return true
+     */
+    bool isBool() const;
+
+
+protected:
+    /** the value, valid only when the base-classes "myAmSet"-member is true */
+    bool        myValue;
+
+};
+
+
+
+/* -------------------------------------------------------------------------
+ * Option_BoolExtended
+ * ----------------------------------------------------------------------- */
+class Option_BoolExtended : public Option_Bool {
+public:
+    /** @brief Constructor for an option that can be used without an argument
+     * like Option_BoolExtended but which also handles value strings
+     *
+     * Calls Option(true)
+     *
+     * @param[in] value This option's default value
+     */
+    Option_BoolExtended(bool value);
+
+
+    /** @brief Copy constructor */
+    Option_BoolExtended(const Option_BoolExtended& s);
+
+
+    /** @brief Destructor */
+    ~Option_BoolExtended();
+
+
+    /** @brief Assignment operator */
+    Option_BoolExtended& operator=(const Option_BoolExtended& s);
+
+
+    /** sets the given value (converts it to bool) */
     bool set(const std::string& v);
 
 
@@ -580,69 +635,9 @@ public:
     std::string getValueString() const;
 
 
-    /** @brief Returns true, the information whether the option is a bool option
-     *
-     * Returns true.
-     *
-     * @see bool Option::isBool()
-     * @return true
-     */
-    bool isBool() const;
-
-
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
-    bool        myValue;
-
-};
-
-
-/* -------------------------------------------------------------------------
- * Option_FileName
- * ----------------------------------------------------------------------- */
-class Option_FileName : public Option_String {
-public:
-    /** @brief Constructor for an option with no default value
-     */
-    Option_FileName();
-
-
-    /** @brief Constructor for an option with a default value
-     *
-     * @param[in] value This option's default value
-     */
-    Option_FileName(const std::string& value);
-
-
-    /** @brief Copy constructor */
-    Option_FileName(const Option_String& s);
-
-
-    /** @brief Destructor */
-    virtual ~Option_FileName();
-
-    /** @brief Assignment operator */
-    Option_FileName& operator=(const Option_FileName& s);
-
-
-    /** @brief Returns true, the information whether this option is a file name
-     *
-     * Returns true.
-     *
-     * @return true
-     */
-    bool isFileName() const;
-
-
-    /** @brief Returns the string-representation of the value
-     *
-     * The value is URL-encoded using StringUtils::urlEncode and returned.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const;
-
+    std::string myValueString;
 
 };
 
@@ -718,58 +713,52 @@ private:
 
 
 /* -------------------------------------------------------------------------
- * Option_FloatVector
+ * Option_StringVector
  * ----------------------------------------------------------------------- */
-class Option_FloatVector : public Option {
+class Option_StringVector : public Option {
 public:
     /** @brief Constructor for an option with no default value
      */
-    Option_FloatVector();
-
+    Option_StringVector();
 
     /** @brief Constructor for an option with a default value
      *
      * @param[in] value This option's default value
      */
-    Option_FloatVector(const FloatVector& value);
-
+    Option_StringVector(const StringVector& value);
 
     /** @brief Copy constructor */
-    Option_FloatVector(const Option_FloatVector& s);
-
+    Option_StringVector(const Option_StringVector& s);
 
     /** @brief Destructor */
-    virtual ~Option_FloatVector();
-
+    virtual ~Option_StringVector();
 
     /** @brief Assignment operator */
-    Option_FloatVector& operator=(const Option_FloatVector& s);
+    Option_StringVector& operator=(const Option_StringVector& s);
 
-
-    /** @brief Returns the stored float vector
-     * @see const FloatVector &Option::getFloatVector()
-     * @return Returns the stored float vector
+    /** @brief Returns the stored string vector
+     * @see const StringVector &Option::getStringVector()
+     * @return Returns the stored string vector
      */
-    const FloatVector& getFloatVector() const;
+    const StringVector& getStringVector() const;
 
-
-    /** @brief Stores the given value after parsing it into a vector of integers
+    /** @brief Stores the given value after parsing it into a vector of strings
      *
-     *  The value is converted into a vector of integers and stored in "myValue".
+     *  The value is converted into a vector of strings and stored in "myValue".
      *  Then, "markSet" is called in order to know that a value has been set.
      *
      * The method returns whether the value could be set (the return value from
      *  "markSet").
      *
-     * If the string could not be converted into a vector of integers, an InvalidArgument
-     *  is thrown.
+     * If the string could not be converted into a vector of strings, an
+     * InvalidArgument is thrown.
      *
      * @see bool Option::set(std::string v)
      * @return Whether the new value could be set
-     * @exception InvalidArgument If the value could not be converted into a vector of integers
+     * @exception InvalidArgument If the value could not be converted into a
+     * vector of strings
      */
     bool set(const std::string& v);
-
 
     /** @brief Returns the string-representation of the value
      *
@@ -780,12 +769,60 @@ public:
      */
     std::string getValueString() const;
 
-
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
-    FloatVector myValue;
+    StringVector myValue;
 };
-#endif
 
-/****************************************************************************/
 
+/* -------------------------------------------------------------------------
+ * Option_FileName
+ * ----------------------------------------------------------------------- */
+class Option_FileName : public Option_StringVector {
+public:
+    /** @brief Constructor for an option with no default value
+     */
+    Option_FileName();
+
+    /** @brief Constructor for an option with a default value
+     *
+     * @param[in] value This option's default value
+     */
+    Option_FileName(const StringVector& value);
+
+    /** @brief Copy constructor */
+    Option_FileName(const Option_FileName& s);
+
+    /** @brief Destructor */
+    virtual ~Option_FileName();
+
+    /** @brief Assignment operator */
+    Option_FileName& operator=(const Option_FileName& s);
+
+    /** @brief Returns true, the information whether this option is a file name
+     *
+     * Returns true.
+     *
+     * @return true
+     */
+    bool isFileName() const;
+
+    /** @brief Legacy method that returns the stored filenames as a comma-separated string.
+     *
+     * @see std::string Option::getString()
+     * @see std::string StringVector::getValueString()
+     * @return Returns comma-separated string of the stored filenames
+     * @deprecated Legacy method used when Option_FileName was still derived from Option_String;
+     * not in line with code style of the Options sub-system.
+     */
+    std::string getString() const;
+
+    /** @brief Returns the string-representation of the value
+     *
+     * The value is URL-encoded using StringUtils::urlEncode and returned.
+     *
+     * @see std::string Option::getValueString()
+     * @return The stored value encoded into a string
+     */
+    std::string getValueString() const;
+};

@@ -2,4 +2,5 @@
 
 createVehTypeDistribution
 generateParkingLots
-addStops2Routes
+generateParkingAreaRerouters
+generateContinuousRerouters

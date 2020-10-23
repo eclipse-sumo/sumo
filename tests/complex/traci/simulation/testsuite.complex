@@ -1,0 +1,7 @@
+loadState
+
+# Tests the simulation API
+simulation
+
+# test loading a simulation
+load

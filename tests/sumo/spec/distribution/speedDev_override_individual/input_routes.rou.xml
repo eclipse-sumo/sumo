@@ -1,0 +1,8 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="v" speedFactor="1.1" speedDev="0.1" sigma="0"/>
+    <route id="r0" edges="beg end"/>
+    <vehicle id="veh0" route="r0" depart="0" type="v" departSpeed="max"/>
+    <vehicle id="veh1" route="r0" depart="2" type="v" departSpeed="max" speedFactor="0.5"/>
+    <trip id="trip0" from="beg" to="end" depart="4" type="v" departSpeed="max"/>
+    <trip id="trip1" from="beg" to="end" depart="6" type="v" departSpeed="max" speedFactor="0.7"/>
+</routes>

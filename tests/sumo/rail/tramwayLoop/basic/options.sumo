@@ -1,0 +1,13 @@
+--no-step-log 
+--net-file=net.net.xml
+--routes=input_routes.rou.xml
+-a input_additional.add.xml
+
+--device.rerouting.adaptation-steps 10
+--device.rerouting.period 10
+--device.rerouting.railsignal false
+
+--vehroute-output vehroutes.xml
+--tripinfo-output tripinfos.xml
+--stop-output stopinfos.xml
+--duration-log.statistics

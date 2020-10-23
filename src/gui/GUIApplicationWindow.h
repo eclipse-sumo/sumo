@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIApplicationWindow.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Christian Roessel
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The main window of the SUMO-gui.
 /****************************************************************************/
-#ifndef GUIApplicationWindow_h
-#define GUIApplicationWindow_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -97,7 +94,7 @@ public:
 
     void setStatusBarText(const std::string& text);
 
-    void addRecentFile(const FX::FXString& f, const bool isNet);
+    void addRecentFile(const FX::FXString& f);
 
     FXGLCanvas* getBuildGLCanvas() const;
     SUMOTime getCurrentSimTime() const;
@@ -140,6 +137,9 @@ public:
 
     /// @brief Called on opening a recent file
     long onCmdOpenRecent(FXObject*, FXSelector, void*);
+
+    /// @brief Called on menu File->Close
+    long onCmdSaveConfig(FXObject*, FXSelector, void*);
 
     /// @brief Called on menu File->Close
     long onCmdClose(FXObject*, FXSelector, void*);
@@ -187,6 +187,9 @@ public:
 
     /// @brief Shows the about dialog
     long onCmdAbout(FXObject*, FXSelector, void*);
+
+    /// @brief Shows the Hall of Fame dialog
+    long onCmdHallOfFame(FXObject*, FXSelector, void*);
 
     /// @brief Called on "play"
     long onCmdStart(FXObject*, FXSelector, void*);
@@ -298,7 +301,7 @@ protected:
 
 private:
     /** starts to load a simulation */
-    void loadConfigOrNet(const std::string& file, bool isNet);
+    void loadConfigOrNet(const std::string& file);
 
     /** this method closes all windows and deletes the current simulation */
     void closeAllWindows();
@@ -311,10 +314,10 @@ private:
 
     /// @brief handles additional game-related events
     void checkGamingEvents();
+    void checkGamingEventsDRT();
 
 protected:
-    /// FOX needs this for static members
-    GUIApplicationWindow() { }
+    FOX_CONSTRUCTOR(GUIApplicationWindow)
 
 protected:
     /// Builds the menu bar
@@ -334,7 +337,7 @@ protected:
     GUIRunThread* myRunThread;
 
     /// @brief  the information whether the simulation was started before
-    bool myWasStarted;
+    bool myWasStarted = false;
 
     /// @brief The current view number
     int myViewNumber;
@@ -343,35 +346,35 @@ protected:
     bool myAmLoading;
 
     /// @brief the submenus
-    FXMenuPane* myFileMenu, *myEditMenu, *mySelectByPermissions, *mySettingsMenu,
-                *myLocatorMenu, *myControlMenu,
-                *myWindowsMenu, *myHelpMenu;
+    FXMenuPane* myFileMenu = nullptr, *myEditMenu = nullptr, *mySelectByPermissions = nullptr, *mySettingsMenu = nullptr,
+                *myLocatorMenu, *myControlMenu = nullptr,
+                                 *myWindowsMenu, *myHelpMenu = nullptr;
 
     /// @brief the menu cascades
-    FXMenuCascade* mySelectLanesMenuCascade;
+    FXMenuCascade* mySelectLanesMenuCascade = nullptr;
 
     /// @brief Buttons showing and running values and triggering statistic windows
     std::vector<FXButton*> myStatButtons;
 
     /// @brief A window to display messages, warnings and error in
-    GUIMessageWindow* myMessageWindow;
+    GUIMessageWindow* myMessageWindow = nullptr;
 
-    /// @brief The splitter that divides the main window into vies and the log window
-    FXSplitter* myMainSplitter;
+    /// @brief The splitter that divides the main window into views and the log window
+    FXSplitter* myMainSplitter = nullptr;
 
     /// @brief for some menu detaching fun
-    FXToolBarShell* myToolBarDrag1, *myToolBarDrag2, *myToolBarDrag3,
-                    *myToolBarDrag4, *myToolBarDrag5, *myMenuBarDrag,
-                    *myToolBarDrag8;
+    FXToolBarShell* myToolBarDrag1 = nullptr, *myToolBarDrag2 = nullptr, *myToolBarDrag3 = nullptr,
+                    *myToolBarDrag4 = nullptr, *myToolBarDrag5 = nullptr, *myMenuBarDrag = nullptr,
+                     *myToolBarDrag8 = nullptr;
 
     /// @brief the simulation delay in milliseconds
-    double mySimDelay;
-    FXDataTarget* mySimDelayTarget;
-    FXRealSpinner* mySimDelaySpinner;
-    FXSlider* mySimDelaySlider;
+    double mySimDelay = 0.;
+    FXDataTarget* mySimDelayTarget = nullptr;
+    FXRealSpinner* mySimDelaySpinner = nullptr;
+    FXSlider* mySimDelaySlider = nullptr;
 
     /// @brief the demand scale
-    FXRealSpinner* myDemandScaleSpinner;
+    FXRealSpinner* myDemandScaleSpinner = nullptr;
 
     /// @brief The alternate simulation delay in milliseconds for toggling
     double myAlternateSimDelay;
@@ -380,16 +383,16 @@ protected:
     FXSynchQue<GUIEvent*> myEvents;
 
     /// @brief The menu used for the MDI-windows
-    FXMDIMenu* myMDIMenu;
+    FXMDIMenu* myMDIMenu = nullptr;
 
     /// @brief The application menu bar
-    FXMenuBar* myMenuBar;
+    FXMenuBar* myMenuBar = nullptr;
 
     /// @brief The application tool bar
-    FXToolBar* myToolBar1, *myToolBar2, *myToolBar3, *myToolBar4, *myToolBar5, *myToolBar8;
+    FXToolBar* myToolBar1 = nullptr, *myToolBar2 = nullptr, *myToolBar3 = nullptr, *myToolBar4 = nullptr, *myToolBar5 = nullptr, *myToolBar8 = nullptr;
 
     /// @brief the simulation step display
-    FXEX::FXLCDLabel* myLCDLabel;
+    FXEX::FXLCDLabel* myLCDLabel = nullptr;
 
     /// @brief io-event with the load-thread
     FXEX::FXThreadEvent myLoadThreadEvent;
@@ -397,11 +400,8 @@ protected:
     /// @brief io-event with the run-thread
     FXEX::FXThreadEvent myRunThreadEvent;
 
-    /// @brief List of recent config files
-    FXRecentFiles myRecentConfigs;
-
-    /// @brief List of recent nets
-    FXRecentFiles myRecentNets;
+    /// @brief List of recent files
+    FXRecentFiles myRecentFiles;
 
     /// @brief Input file pattern
     std::string myConfigPattern;
@@ -429,20 +429,20 @@ protected:
     /// @brief A random number generator used to choose a gaming sound
     static std::mt19937 myGamingRNG;
     int myPreviousCollisionNumber;
+    /// @brief current game mode
+    bool myTLSGame;
 
     /// @brief performance indicators
-    FXEX::FXLCDLabel* myWaitingTimeLabel;
-    FXEX::FXLCDLabel* myTimeLossLabel;
+    FXEX::FXLCDLabel* myWaitingTimeLabel = nullptr;
+    FXEX::FXLCDLabel* myTimeLossLabel = nullptr;
+    FXEX::FXLCDLabel* myTotalDistanceLabel = nullptr;
+    FXEX::FXLCDLabel* myEmergencyVehicleLabel = nullptr;
     SUMOTime myWaitingTime;
     SUMOTime myTimeLoss;
-    FXToolBar* myToolBar6, *myToolBar7;
-    FXToolBarShell* myToolBarDrag6, *myToolBarDrag7;
+    SUMOTime myEmergencyVehicleCount;
+    double myTotalDistance;
+    FXToolBar* myToolBar6 = nullptr, *myToolBar7 = nullptr, *myToolBar9 = nullptr, *myToolBar10 = nullptr;
+    FXToolBarShell* myToolBarDrag6 = nullptr, *myToolBarDrag7 = nullptr, *myToolBarDrag9 = nullptr, *myToolBarDrag10 = nullptr;
     ////}
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

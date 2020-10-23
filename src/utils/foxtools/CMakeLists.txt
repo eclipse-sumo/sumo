@@ -14,11 +14,11 @@ set(utils_foxtools_STAT_SRCS
    FXSingleEventThread.cpp
    FXSingleEventThread.h
    FXSynchQue.h
+   FXSynchSet.h
    FXThreadEvent.cpp
    FXThreadEvent.h
    FXWorkerThread.h
    MsgHandlerSynchronized.h
-   MsgHandlerSynchronized.cpp
    MFXCheckableButton.cpp
    MFXCheckableButton.h
    MFXInterThreadEventClient.h

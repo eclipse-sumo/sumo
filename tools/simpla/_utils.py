@@ -1,15 +1,18 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2017-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    _utils.py
 # @author Leonhard Luecken
 # @date   2018-06-26
-# @version $Id$
 
 '''
 Utility functions and classes for simpla
@@ -98,7 +101,7 @@ class GapController(traci.StepListener):
             return
 
         (leaderID, gap) = leaderInfo
-        assert(leaderID is not "")
+        assert(leaderID != "")
 
         self._egoSpeed = traci.vehicle.getSpeed(self._vehID)
         self._leaderSpeed = traci.vehicle.getSpeed(leaderID)

@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUITriggerBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 26.04.2004
-/// @version $Id$
 ///
 // Builds trigger objects for guisim
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -33,6 +31,7 @@
 #include <guisim/GUIParkingArea.h>
 #include <guisim/GUICalibrator.h>
 #include <guisim/GUIChargingStation.h>
+#include <guisim/GUIOverheadWire.h>
 #include "GUITriggerBuilder.h"
 
 
@@ -70,12 +69,13 @@ GUITriggerBuilder::buildRerouter(MSNet& net, const std::string& id,
 
 void
 GUITriggerBuilder::buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
-                                      double frompos, double topos, const SumoXMLTag element, std::string name) {
+                                      double frompos, double topos, const SumoXMLTag element, std::string name,
+                                      int personCapacity, double parkingLength) {
     if (element == SUMO_TAG_CONTAINER_STOP) {
         //TODO: shall we also allow names for container stops? might make sense [GL March '17]
-        myCurrentStop = new GUIContainerStop(id, lines, *lane, frompos, topos);
+        myCurrentStop = new GUIContainerStop(id, lines, *lane, frompos, topos, name, personCapacity, parkingLength);
     } else {
-        myCurrentStop = new GUIBusStop(id, lines, *lane, frompos, topos, name);
+        myCurrentStop = new GUIBusStop(id, lines, *lane, frompos, topos, name, personCapacity, parkingLength);
     }
     if (!net.addStoppingPlace(element, myCurrentStop)) {
         delete myCurrentStop;
@@ -112,20 +112,26 @@ GUITriggerBuilder::buildChargingStation(MSNet& net, const std::string& id, MSLan
         delete chargingStation;
         throw InvalidArgument("Could not build charging station '" + id + "'; probably declared twice.");
     }
+    myCurrentStop = chargingStation;
     static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(chargingStation);
 }
 
 
-MSCalibrator*
-GUITriggerBuilder::buildCalibrator(MSNet& net, const std::string& id,
-                                   MSEdge* edge, MSLane* lane, double pos,
-                                   const std::string& file,
-                                   const std::string& outfile,
-                                   const SUMOTime freq,
-                                   const MSRouteProbe* probe) {
-    GUICalibrator* cali = new GUICalibrator(id, edge, lane, pos, file, outfile, freq, probe);
-    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(cali);
-    return cali;
+void
+GUITriggerBuilder::buildOverheadWireSegment(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos,
+        bool voltageSource) {
+    GUIOverheadWire* overheadWire = new GUIOverheadWire(id, *lane, frompos, topos, voltageSource);
+    if (!net.addStoppingPlace(SUMO_TAG_OVERHEAD_WIRE_SEGMENT, overheadWire)) {
+        delete overheadWire;
+        throw InvalidArgument("Could not build overheadWireSegment '" + id + "'; probably declared twice.");
+    }
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(overheadWire);
+}
+
+void
+GUITriggerBuilder::buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end) {
+    GUIOverheadWireClamp* overheadWireClamp = new GUIOverheadWireClamp(id, *lane_start, *lane_end);
+    static_cast<GUINet&>(net).getVisualisationSpeedUp().addAdditionalGLObject(overheadWireClamp);
 }
 
 
@@ -150,5 +156,5 @@ GUITriggerBuilder::endStoppingPlace() {
     }
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

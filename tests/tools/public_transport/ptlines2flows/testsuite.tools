@@ -13,6 +13,13 @@ stop_duration
 # write with human readable time
 hrtime
 name_missing
+few_stops
 
 # input taken from netconvert/function/railway/repair/stops_reverse_en_route/
 reverse_at_stop
+
+# Copy of basic
+night
+
+# extend train route beyond terminal stops (for incomplete line)
+extendFringe

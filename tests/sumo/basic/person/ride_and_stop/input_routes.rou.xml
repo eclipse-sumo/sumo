@@ -15,7 +15,7 @@
         <stop lane="middle_0" duration="100"/>
     </person>
     <person id="p3" depart="0" departPos="100">
-        <ride from="beg" to="middle" arrivalPos="500" lines="v1"/>
+        <ride from="beg" to="middle" arrivalPos="105" lines="v1"/>
         <stop lane="middle_0" duration="100"/>
     </person>
     <person id="p4" depart="0" departPos="100">

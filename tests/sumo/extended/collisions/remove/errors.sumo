@@ -20,5 +20,5 @@ Warning: Removing collision participants: vehicle 'always_right.17', vehicle 'ho
 Warning: Removing collision participants: vehicle 'always_right.18', vehicle 'horizontal.18', lane='2o_0', gap=-5.00, time=99.00 stage=move.
 Warning: Teleporting vehicle 'horizontal.19'; waited too long (yield), lane='1si_1', time=404.00.
 Warning: Teleporting vehicle 'always_right.19'; waited too long (yield), lane='3si_0', time=404.00.
-Warning: Vehicle 'horizontal.19' ends teleporting on edge '2o', time 404.00.
 Warning: Vehicle 'always_right.19' ends teleporting on edge '2o', time 404.00.
+Warning: Vehicle 'horizontal.19' ends teleporting on edge '2o', time 404.00.

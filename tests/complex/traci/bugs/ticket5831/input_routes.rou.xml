@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<routes xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <vType id="egoCar" />
+  <route id="one" edges="0 1" />
+  <flow  id="egoVehicle" begin="2" number="1" route="one" type="egoCar" />
+</routes>

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="moped" vClass="moped" lcTurnAlignmentDistance="50"/>
+    <flow id="WE" type="moped" begin="0" from="WC" to="CE" end="100" period="1.8" departSpeed="max" departPosLat="-1" color="blue"/>
+    <flow id="WS" type="moped" begin="0" from="WC" to="CS" end="100" period="2.0" departSpeed="max" departPosLat="1" color="red"/>
+</routes>

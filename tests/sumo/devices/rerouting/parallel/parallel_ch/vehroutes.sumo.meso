@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 31 12:21:51 2020 by Eclipse SUMO Version v1_5_0+1025-83bc0d0af0
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <additional-files value="input_trips.trips.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <routing>
+        <routing-algorithm value="CHWrapper"/>
+        <device.rerouting.adaptation-interval value="0"/>
+        <device.rerouting.threads value="2"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0.0" depart="0.00" arrival="90.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.1" depart="1.00" arrival="92.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.2" depart="1.00" arrival="93.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.3" depart="4.00" arrival="95.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.4" depart="5.00" arrival="96.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.5" depart="7.00" arrival="97.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.6" depart="8.00" arrival="99.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.7" depart="10.00" arrival="100.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.8" depart="11.00" arrival="102.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="0.9" depart="12.00" arrival="103.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+</routes>

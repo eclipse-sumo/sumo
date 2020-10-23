@@ -1,66 +1,21 @@
-+++ running this Java
-+++ trying to run SikuliX
-+++ using: -Xms64M -Xmx512M -Dfile.encoding=UTF-8 -Dsikuli.FromCommandLine -jar C:\Sikulix\sikulix.jar -run test.sikuli
 TestFunctions: Netedit opened successfully
 Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
-[log]  TYPE "#F5."
-[log]  TYPE "s"
-[log] CLICK on L(354,190)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 354 - 190
-[log] CLICK on L(464,190)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 464 - 190
-[log]  TYPE "#F7."
-[log]  TYPE "#F5."
-[log] CLICK on L(569,190)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 569 - 190
-[log] CLICK on L(684,190)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 684 - 190
-[log]  TYPE "#F7."
-[log]  TYPE "#F5."
-[log] CLICK on L(359,318)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 359 - 318
-[log] CLICK on L(454,318)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 454 - 318
-[log]  TYPE "#F7."
-[log]  TYPE "#F5."
-[log] CLICK on L(644,310)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 644 - 310
-[log] CLICK on L(754,310)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 754 - 310
-[log] CLICK on L(854,310)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 854 - 310
-[log] CLICK on L(644,415)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 644 - 415
-[log] CLICK on L(754,415)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 754 - 415
-[log] CLICK on L(854,415)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 854 - 415
-[log] CLICK on L(644,530)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 644 - 530
-[log] CLICK on L(754,530)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 754 - 530
-[log] CLICK on L(854,530)@S(0)[0,0 1280x720] (235 msec)
-TestFunctions: Clicked over position 854 - 530
-[log]  TYPE "#F7."
-[log]  TYPE "#F5."
-[log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log] ( Ctrl )  TYPE "z"
-[log]  TYPE "#F5."
-[log]  TYPE "i"
-[log] CLICK on L(304,140)@S(0)[0,0 1280x720] (234 msec)
-TestFunctions: Clicked over position 304 - 140
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log] ( Ctrl )  TYPE "y"
-[log]  TYPE "#F5."
-[log] ( Ctrl+Shift )  TYPE "d"
-[log] ( Ctrl )  TYPE "s"
-[log] ( Ctrl )  TYPE "q"
+TestFunctions: 'reference.png' found. Position: 304 - 168
+TestFunctions: Clicked over position 354 - 233
+TestFunctions: Clicked over position 464 - 233
+TestFunctions: Clicked over position 569 - 233
+TestFunctions: Clicked over position 684 - 233
+TestFunctions: Clicked over position 359 - 353
+TestFunctions: Clicked over position 454 - 353
+TestFunctions: Clicked over position 636 - 353
+TestFunctions: Clicked over position 754 - 353
+TestFunctions: Clicked over position 854 - 353
+TestFunctions: Clicked over position 644 - 458
+TestFunctions: Clicked over position 754 - 458
+TestFunctions: Clicked over position 854 - 458
+TestFunctions: Clicked over position 644 - 573
+TestFunctions: Clicked over position 754 - 573
+TestFunctions: Clicked over position 854 - 573
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
 TestFunctions: Netedit closed successfully

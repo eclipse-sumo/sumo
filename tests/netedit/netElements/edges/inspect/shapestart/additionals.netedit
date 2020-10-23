@@ -1,50 +1,62 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.06.2018 08:41:55 by Eclipse SUMO netedit Version 7725fee923
+<!-- generated on 28.11.2019 10:30:03 by Eclipse SUMO netedit Version v1_3_1+1171-952e03109a
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Nov102000.11360\netedit.gui\netElements\edges\inspect\shapestart\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\net.net.xml"/>
-        <output.street-names value="true"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Nov102000.11360\netedit.gui\netElements\edges\inspect\shapestart\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Nov102000.11360\netedit.gui\netElements\edges\inspect\shapestart\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Nov102000.11360\netedit.gui\netElements\edges\inspect\shapestart\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Nov102000.11360\netedit.gui\netElements\edges\inspect\shapestart\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Nov102000.11360\netedit.gui\netElements\edges\inspect\shapestart\routes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Nov102000.11360\netedit.gui\netElements\edges\inspect\shapestart\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Nov102000.11360\netedit.gui\netElements\edges\inspect\shapestart\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Jun211908.3056/netedit.gui/netElements/edges/inspectB\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.28Nov102000.11360\netedit.gui\netElements\edges\inspect\shapestart\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop1" lane="gneE0_0" friendlyPos="1" startPos="37.00" endPos="47.00"/>
-    <busStop id="busStop2" lane="gneE1_0" friendlyPos="1" startPos="3.00" endPos="13.00"/>
-    <busStop id="busStop3" lane="gneE2_0" friendlyPos="1" startPos="37.00" endPos="47.00"/>
-    <busStop id="busStop4" lane="gneE2_1" friendlyPos="1" startPos="37.00" endPos="47.00"/>
-    <busStop id="busStop5" lane="gneE3_0" friendlyPos="1" startPos="3.00" endPos="13.00"/>
-    <busStop id="busStop6" lane="gneE3_1" friendlyPos="1" startPos="3.00" endPos="13.00"/>
+    <busStop id="busStop1" lane="gneE0_0" startPos="10.00" endPos="15.00" friendlyPos="1"/>
+    <busStop id="busStop2" lane="gneE1_0" startPos="3.00" endPos="13.00" friendlyPos="1"/>
+    <busStop id="busStop3" lane="gneE2_0" endPos="30.00" friendlyPos="1"/>
+    <busStop id="busStop4" lane="gneE2_1" startPos="25.00" friendlyPos="1"/>
+    <busStop id="busStop5" lane="gneE3_0" startPos="3.00" endPos="13.00" friendlyPos="1"/>
+    <busStop id="busStop6" lane="gneE3_1" startPos="3.00" endPos="13.00" friendlyPos="1"/>
 </additional>

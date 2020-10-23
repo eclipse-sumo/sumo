@@ -1,0 +1,34 @@
+<add>
+    <tlLogic id="C" offset="0" programID="1" type="actuated">
+        <!--                                               012345678901 -->
+        <phase duration="99" maxDur="60" minDur="0" state="rrrrrGrrrrrG" name="1+5" next="10 8 9"/>   <!-- 00 -->
+        <phase duration="99" maxDur="60" minDur="0" state="rrrGGGrrrrrr" name="1+6" next="11"/>       <!-- 01 -->
+        <phase duration="99" maxDur="60" minDur="0" state="rrrrrrrrrGGG" name="2+5" next="12"/>       <!-- 02 -->
+        <phase duration="99" maxDur="60" minDur="0" state="rrrGGrrrrGGr" name="2+6" next="13"/>       <!-- 03 -->
+        <phase duration="99" maxDur="60" minDur="0" state="rrGrrrrrGrrr" name="3+7" next="16 14 15"/> <!-- 04 -->
+        <phase duration="99" maxDur="60" minDur="0" state="rrrrrrGGGrrr" name="3+8" next="17"/>       <!-- 05 -->
+        <phase duration="99" maxDur="60" minDur="0" state="GGGrrrrrrrrr" name="4+7" next="18"/>       <!-- 06 -->
+        <phase duration="99" maxDur="60" minDur="0" state="GGrrrrGGrrrr" name="4+8" next="19"/>       <!-- 07 -->
+        <phase duration="3" name="1+5-1+6" next="1" state="rrrrrGrrrrry"/>                            <!-- 08 -->
+        <phase duration="3" name="1+5-2+5" next="2" state="rrrrryrrrrrG"/>                            <!-- 09 -->
+        <phase duration="3" name="1+5-2+6" next="3" state="rrrrryrrrrry"/>                            <!-- 10 -->
+        <phase duration="3" name="1+6-2+6" next="3" state="rrrGGyrrrrrr"/>                            <!-- 11 -->
+        <phase duration="3" name="2+5-2+6" next="3" state="rrrrrrrrrGGy"/>                            <!-- 12 -->
+        <phase duration="3" name="2+6-3+7" next="4" state="rrryyrrrryyr"/>                            <!-- 13 -->
+        <phase duration="3" name="3+7-3+8" next="5" state="rryrrrrrGrrr"/>                            <!-- 14 -->
+        <phase duration="3" name="3+7-4+7" next="6" state="rrGrrrrryrrr"/>                            <!-- 15 -->
+        <phase duration="3" name="3+7-4+8" next="7" state="rryrrrrryrrr"/>                            <!-- 16 -->
+        <phase duration="3" name="3+8-4+8" next="7" state="rrrrrrGGyrrr"/>                            <!-- 17 -->
+        <phase duration="3" name="4+7-4+8" next="7" state="GGyrrrrrrrrr"/>                            <!-- 18 -->
+        <phase duration="3" name="4+8-1+5" next="0" state="yyrrrryyrrrr"/>                            <!-- 19 -->
+        <param key="linkMinDur:0"  value="15"/>
+        <param key="linkMinDur:2"  value="5"/>
+        <param key="linkMinDur:3"  value="5"/>
+        <param key="linkMinDur:5"  value="5"/>
+        <param key="linkMinDur:6"  value="15"/>
+        <param key="linkMinDur:8"  value="5"/>
+        <param key="linkMinDur:9"  value="15"/>
+        <param key="linkMinDur:11" value="5"/>
+    </tlLogic>
+
+</add>

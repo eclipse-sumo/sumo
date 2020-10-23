@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    TraCITestClient.h
 /// @author  Friedemann Wesner
@@ -13,18 +17,10 @@
 /// @author  Axel Wegener
 /// @author  Michael Behrisch
 /// @date    2008/04/07
-/// @version $Id$
 ///
 // A test execution class
 /****************************************************************************/
-#ifndef TRACITESTCLIENT_H
-#define TRACITESTCLIENT_H
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
+#pragma once
 #include <string>
 #include <sstream>
 #include <vector>
@@ -186,6 +182,34 @@ private:
     /// @brief call all API methods once
     void testAPI();
 
+    inline std::string joinToString(const std::vector<std::string>& s, const std::string& between) {
+        std::ostringstream oss;
+        bool connect = false;
+        for (const std::string& it : s) {
+            if (connect) {
+                oss << between;
+            } else {
+                connect = true;
+            }
+            oss << it;
+        }
+        return oss.str();
+    }
+
+    inline std::string joinToString(const std::map<std::string, std::string>& m) {
+        std::ostringstream oss;
+        bool connect = false;
+        for (const auto& it : m) {
+            if (connect) {
+                oss << " ";
+            } else {
+                connect = true;
+            }
+            oss << it.first << ":" << it.second;
+        }
+        return oss.str();
+    }
+
 private:
     /// @brief The name of the file to write the results log into
     std::string outputFileName;
@@ -195,4 +219,3 @@ private:
 
 };
 
-#endif

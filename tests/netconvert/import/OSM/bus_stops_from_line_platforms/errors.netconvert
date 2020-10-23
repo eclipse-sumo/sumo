@@ -1,0 +1,11 @@
+Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '537914721').
+Warning: Discarding unusable type 'railway.construction' (first occurence for edge '736823803').
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 8614125 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 8617712 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 8617761 are ignored
+Warning: Incomplete route for ptline '8617712' (社区巴士9003路)
+Warning: Incomplete route for ptline '8617761' (社区巴士9004路)
+Warning: Incomplete route for ptline '8617761' (社区巴士9004路)
+Warning: Speed of turning connection '69707916#2_0->131443652#2_0' reduced by 22.10 due to turning radius of 5.86 (length=10.43, angle=133.20).
+Warning: Speed of straight connection '69707916#2_0->-451504028#3_0' reduced by 14.03 due to turning radius of 21.90 (length=10.39, angle=43.22).
+Warning: Speed of turning connection '69707916#2_0->69707955#0_0' reduced by 22.32 due to turning radius of 5.43 (length=10.40, angle=143.87).

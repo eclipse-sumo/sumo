@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-03-25 08:08:58.864413 by $Id$
+  options: -n net.net.xml -s 42 <doubleminus>flows 36 <doubleminus>jtrrouter
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="0" begin="0" end="3600" period="36" from="3si"/>
+    <flow id="1" begin="0" end="3600" period="36" from="2fi"/>
+    <flow id="2" begin="0" end="3600" period="36" from="3si"/>
+    <flow id="3" begin="0" end="3600" period="36" from="4si"/>
+    <flow id="4" begin="0" end="3600" period="36" from="2si"/>
+    <flow id="5" begin="0" end="3600" period="36" from="1si"/>
+    <flow id="6" begin="0" end="3600" period="36" from="1fi"/>
+    <flow id="7" begin="0" end="3600" period="36" from="3si"/>
+    <flow id="8" begin="0" end="3600" period="36" from="1si"/>
+    <flow id="9" begin="0" end="3600" period="36" from="4fi"/>
+    <flow id="10" begin="0" end="3600" period="36" from="4fi"/>
+    <flow id="11" begin="0" end="3600" period="36" from="2fi"/>
+    <flow id="12" begin="0" end="3600" period="36" from="4si"/>
+    <flow id="13" begin="0" end="3600" period="36" from="1fi"/>
+    <flow id="14" begin="0" end="3600" period="36" from="4fi"/>
+    <flow id="15" begin="0" end="3600" period="36" from="4fi"/>
+    <flow id="16" begin="0" end="3600" period="36" from="3fi"/>
+    <flow id="17" begin="0" end="3600" period="36" from="2si"/>
+    <flow id="18" begin="0" end="3600" period="36" from="4fi"/>
+    <flow id="19" begin="0" end="3600" period="36" from="4fi"/>
+    <flow id="20" begin="0" end="3600" period="36" from="3si"/>
+    <flow id="21" begin="0" end="3600" period="36" from="1si"/>
+    <flow id="22" begin="0" end="3600" period="36" from="1fi"/>
+    <flow id="23" begin="0" end="3600" period="36" from="1fi"/>
+    <flow id="24" begin="0" end="3600" period="36" from="3si"/>
+    <flow id="25" begin="0" end="3600" period="36" from="2fi"/>
+    <flow id="26" begin="0" end="3600" period="36" from="2fi"/>
+    <flow id="27" begin="0" end="3600" period="36" from="3si"/>
+    <flow id="28" begin="0" end="3600" period="36" from="1si"/>
+    <flow id="29" begin="0" end="3600" period="36" from="1si"/>
+    <flow id="30" begin="0" end="3600" period="36" from="4si"/>
+    <flow id="31" begin="0" end="3600" period="36" from="3fi"/>
+    <flow id="32" begin="0" end="3600" period="36" from="4fi"/>
+    <flow id="33" begin="0" end="3600" period="36" from="1si"/>
+    <flow id="34" begin="0" end="3600" period="36" from="2fi"/>
+    <flow id="35" begin="0" end="3600" period="36" from="1si"/>
+</routes>

@@ -1,0 +1,7 @@
+default
+
+# set option --geometry.avoid-overlap
+avoid_overlap
+
+# import network where geometr.avoid-verlap false was set
+sumo_net

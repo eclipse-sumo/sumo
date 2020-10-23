@@ -1,11 +1,15 @@
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    _lane.py
 # @author  Michael Behrisch
@@ -13,11 +17,9 @@
 # @author  Laura Bieker
 # @author  Jakob Erdmann
 # @date    2011-03-17
-# @version $Id$
 
 from __future__ import absolute_import
 from .domain import Domain
-from .storage import Storage
 from . import constants as tc
 
 
@@ -25,7 +27,7 @@ def _readLinks(result):
     result.read("!Bi")  # Type Compound, Length
     nbLinks = result.readInt()
     links = []
-    for i in range(nbLinks):
+    for _ in range(nbLinks):
         result.read("!B")                           # Type String
         approachedLane = result.readString()
         result.read("!B")                           # Type String
@@ -47,32 +49,7 @@ def _readLinks(result):
     return links
 
 
-_RETURN_VALUE_FUNC = {tc.VAR_LENGTH: Storage.readDouble,
-                      tc.VAR_MAXSPEED: Storage.readDouble,
-                      tc.VAR_WIDTH: Storage.readDouble,
-                      tc.LANE_ALLOWED: Storage.readStringList,
-                      tc.LANE_DISALLOWED: Storage.readStringList,
-                      tc.LANE_LINK_NUMBER: Storage.readInt,
-                      tc.LANE_LINKS: _readLinks,
-                      tc.VAR_SHAPE: Storage.readShape,
-                      tc.LANE_EDGE_ID: Storage.readString,
-                      tc.VAR_CO2EMISSION: Storage.readDouble,
-                      tc.VAR_COEMISSION: Storage.readDouble,
-                      tc.VAR_HCEMISSION: Storage.readDouble,
-                      tc.VAR_PMXEMISSION: Storage.readDouble,
-                      tc.VAR_NOXEMISSION: Storage.readDouble,
-                      tc.VAR_FUELCONSUMPTION: Storage.readDouble,
-                      tc.VAR_NOISEEMISSION: Storage.readDouble,
-                      tc.VAR_ELECTRICITYCONSUMPTION: Storage.readDouble,
-                      tc.LAST_STEP_MEAN_SPEED: Storage.readDouble,
-                      tc.LAST_STEP_OCCUPANCY: Storage.readDouble,
-                      tc.LAST_STEP_LENGTH: Storage.readDouble,
-                      tc.VAR_WAITING_TIME: Storage.readDouble,
-                      tc.VAR_CURRENT_TRAVELTIME: Storage.readDouble,
-                      tc.LAST_STEP_VEHICLE_NUMBER: Storage.readInt,
-                      tc.LAST_STEP_VEHICLE_HALTING_NUMBER: Storage.readInt,
-                      tc.VAR_FOES: Storage.readStringList,
-                      tc.LAST_STEP_VEHICLE_ID_LIST: Storage.readStringList}
+_RETURN_VALUE_FUNC = {tc.LANE_LINKS: _readLinks}
 
 
 class LaneDomain(Domain):
@@ -81,7 +58,7 @@ class LaneDomain(Domain):
         Domain.__init__(self, "lane", tc.CMD_GET_LANE_VARIABLE, tc.CMD_SET_LANE_VARIABLE,
                         tc.CMD_SUBSCRIBE_LANE_VARIABLE, tc.RESPONSE_SUBSCRIBE_LANE_VARIABLE,
                         tc.CMD_SUBSCRIBE_LANE_CONTEXT, tc.RESPONSE_SUBSCRIBE_LANE_CONTEXT,
-                        _RETURN_VALUE_FUNC)
+                        _RETURN_VALUE_FUNC, subscriptionDefault=(tc.LAST_STEP_VEHICLE_NUMBER,))
 
     def getLength(self, laneID):
         """getLength(string) -> double
@@ -125,7 +102,7 @@ class LaneDomain(Domain):
         """
         return self._getUniversal(tc.LANE_LINK_NUMBER, laneID)
 
-    def getLinks(self, laneID, extended=False):
+    def getLinks(self, laneID, extended=True):
         """getLinks(string) -> list((string, bool, bool, bool))
         A list containing id of successor lane together with priority, open and foe
         for each link.
@@ -271,11 +248,7 @@ class LaneDomain(Domain):
         """getFoes(string, string) -> list(string)
         Returns the ids of incoming lanes that have right of way over the connection from laneID to toLaneID
         """
-        self._connection._beginMessage(
-            tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID, 1 + 4 + len(toLaneID))
-        self._connection._packString(toLaneID)
-        return Storage.readStringList(
-            self._connection._checkResult(tc.CMD_GET_LANE_VARIABLE, tc.VAR_FOES, laneID))
+        return self._getUniversal(tc.VAR_FOES, laneID, "s", toLaneID)
 
     def getInternalFoes(self, laneID):
         """getFoes(string) -> list(string)
@@ -290,10 +263,7 @@ class LaneDomain(Domain):
         """
         if isinstance(allowedClasses, str):
             allowedClasses = [allowedClasses]
-        self._connection._beginMessage(tc.CMD_SET_LANE_VARIABLE, tc.LANE_ALLOWED, laneID,
-                                       1 + 4 + sum(map(len, allowedClasses)) + 4 * len(allowedClasses))
-        self._connection._packStringList(allowedClasses)
-        self._connection._sendExact()
+        self._setCmd(tc.LANE_ALLOWED, laneID, "l", allowedClasses)
 
     def setDisallowed(self, laneID, disallowedClasses):
         """setDisallowed(string, list) -> None
@@ -302,26 +272,18 @@ class LaneDomain(Domain):
         """
         if isinstance(disallowedClasses, str):
             disallowedClasses = [disallowedClasses]
-        self._connection._beginMessage(tc.CMD_SET_LANE_VARIABLE, tc.LANE_DISALLOWED, laneID,
-                                       1 + 4 + sum(map(len, disallowedClasses)) + 4 * len(disallowedClasses))
-        self._connection._packStringList(disallowedClasses)
-        self._connection._sendExact()
+        self._setCmd(tc.LANE_DISALLOWED, laneID, "l", disallowedClasses)
 
     def setMaxSpeed(self, laneID, speed):
         """setMaxSpeed(string, double) -> None
 
         Sets a new maximum allowed speed on the lane in m/s.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_LANE_VARIABLE, tc.VAR_MAXSPEED, laneID, speed)
+        self._setCmd(tc.VAR_MAXSPEED, laneID, "d", speed)
 
     def setLength(self, laneID, length):
         """setLength(string, double) -> None
 
         Sets the length of the lane in m.
         """
-        self._connection._sendDoubleCmd(
-            tc.CMD_SET_LANE_VARIABLE, tc.VAR_LENGTH, laneID, length)
-
-
-LaneDomain()
+        self._setCmd(tc.VAR_LENGTH, laneID, "d", length)

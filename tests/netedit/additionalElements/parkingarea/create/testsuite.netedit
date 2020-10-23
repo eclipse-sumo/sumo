@@ -1,5 +1,7 @@
 default
 
+id
+
 name
 
 roadsidecapacity
@@ -17,7 +19,3 @@ angle
 references
 
 references_lenght
-
-fix_friendlypos
-
-fix_positions

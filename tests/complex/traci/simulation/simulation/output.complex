@@ -1,0 +1,193 @@
+Loading configuration ... done.
+loaded? False
+version at start (20, 'SUMO v1_7_0+0035-5d14e96350')
+version (20, 'SUMO v1_7_0+0035-5d14e96350')
+loaded? True
+{114: ('horiz', 'horiz1'), 116: ()}
+step 0
+{114: (), 116: ('horiz',)}
+step 1
+{114: (), 116: ()}
+step 2
+{114: (), 116: ()}
+step 3
+{114: (), 116: ()}
+step 4
+{114: (), 116: ()}
+step 5
+{114: ('horiz2', 'suddenStop', 'collider', 'emergencyStopper'), 116: ('horiz1',)}
+time 6.0
+#loaded 4
+loaded ('horiz2', 'suddenStop', 'collider', 'emergencyStopper')
+#departed 1
+departed ('horiz1',)
+#arrived 0
+arrived ()
+#parkstart 0
+parkstart ()
+#parkend 0
+parkend ()
+#stopstart 0
+stopstart ()
+#stopend 0
+stopend ()
+#colliding 0
+colliding ()
+#emergencystopping 0
+emergencystopping ()
+min#expected 6
+#teleportStart 0
+teleportStart ()
+#teleportEnd 0
+teleportEnd ()
+deltaT 1.0
+boundary ((0.0, 0.0), (3500.0, 3904.56))
+convertRoad2D (-1.22, 3903.52)
+convertRoad3D (-1.22, 3903.52, 2.0)
+convertRoadGeo (12.014678141837997, 48.121449189894975)
+convertRoadGeoAlt (12.014678141837997, 48.121449189894975, 2.0)
+convertRoad2D length (667.2699999999995, 3124.688)
+convert2DGeo (12.023018905461857, 48.09105459778215)
+convertGeo2D (-1619.565396778169, -9550.720808432437)
+convert2DRoad ('o', 2906.189220451069, 0)
+convertGeoRoad ('o', 1012.1569043554978, 0)
+convertGeoRoadBus ('o', 1012.1569043554978, 0)
+convertGeoRoadBusDisallowed ('2o', 8027.707315024791, 0)
+distance2D 10.0
+drivingDistance2D 6.489345613324986
+distanceRoad 5131.878972316085
+drivingDistanceRoad 5136.55
+clearing pending
+save simstate
+getParameter charginStation.totalEnergyCharged 0.00
+getParameter chargingStation.name megaCharger
+getParameter chargingStation.lane o_0
+getParameter chargingStation.key1 val1
+getParameter parkingArea.capacity 6
+getParameter parkingArea.occupancy 0
+getParameter parkingArea.name DLR
+getParameter parkingArea.lane 2o_0
+getParameter parkingArea.key3 val3
+getParameter busStop.name Magnusstr.
+getParameter busStop.lane o_0
+getParameter busStop.key2 val2
+getBusStopIDList ('bs',)
+getBusStopWaiting 1
+getBusStopWaitingIDList ('p1',)
+findRoute Stage(type=3, edges=('o', '2o'), travelTime=1088.9604316546763, cost=1088.9604316546763, length=15136.55, depart=INVALID, departPos=INVALID, arrivalPos=INVALID)
+findRoute with routing mode Stage(type=3, edges=('o', '2o'), travelTime=1681.8363846480145, cost=1681.8363846480145, length=15136.55, depart=INVALID, departPos=INVALID, arrivalPos=INVALID)
+findIntermodalRoute (Stage(type=2, edges=('footpath', 'footpath2'), travelTime=144.00000000000003, cost=144.00000000000003, length=300.0, depart=6.0, departPos=0.0, arrivalPos=100.0),)
+findIntermodalRoute (walk)
+  Stage(type=2, edges=('o', '2o'), travelTime=4804.484160000001, cost=4804.484160000001, length=19979.67, depart=6.0, departPos=25.0, arrivalPos=25.0)
+
+findIntermodalRoute (bike)
+  Stage(type=3, vType=DEFAULT_BIKETYPE, line=bicycle, edges=('o', '2o'), travelTime=1824.5790000000002, cost=1824.5790000000002, length=25111.55, intended=bicycle, depart=6.0, departPos=0.0, arrivalPos=25.0)
+
+findIntermodalRoute (car)
+  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=729.2482014388489, cost=729.2482014388489, length=25111.55, intended=car, depart=6.0, departPos=0.0, arrivalPos=25.0)
+
+findIntermodalRoute (bike,car,public)
+  Stage(type=3, vType=DEFAULT_VEHTYPE, line=car, edges=('o', '2o'), travelTime=729.2482014388489, cost=729.2482014388489, length=25111.55, intended=car, depart=6.0, departPos=0.0, arrivalPos=25.0)
+
+step 0
+{114: (), 116: ()}
+step 1
+{114: (), 116: ()}
+step 2
+{114: (), 116: ('suddenStop',)}
+step 3
+{114: (), 116: ()}
+step 4
+{114: (), 116: ()}
+step 5
+{114: (), 116: ('collider',)}
+step 6
+{114: (), 116: ()}
+step 7
+detected collision
+time 14.0
+#loaded 0
+loaded ()
+#departed 0
+departed ()
+#arrived 0
+arrived ()
+#parkstart 0
+parkstart ()
+#parkend 0
+parkend ()
+#stopstart 0
+stopstart ()
+#stopend 0
+stopend ()
+#colliding 2
+colliding ('suddenStop', 'collider')
+#emergencystopping 0
+emergencystopping ()
+min#expected 5
+#teleportStart 1
+teleportStart ('collider',)
+#teleportEnd 0
+teleportEnd ()
+{114: (), 116: ()}
+step 8
+{114: (), 116: ('emergencyStopper',)}
+step 9
+{114: (), 116: ()}
+step 10
+detected emergency stop
+time 17.0
+#loaded 0
+loaded ()
+#departed 0
+departed ()
+#arrived 0
+arrived ()
+#parkstart 0
+parkstart ()
+#parkend 0
+parkend ()
+#stopstart 0
+stopstart ()
+#stopend 0
+stopend ()
+#colliding 0
+colliding ()
+#emergencystopping 1
+emergencystopping ('emergencyStopper',)
+min#expected 4
+#teleportStart 0
+teleportStart ()
+#teleportEnd 0
+teleportEnd ()
+{114: (), 116: ()}
+step 11
+detected emergency stop
+time 18.0
+#loaded 0
+loaded ()
+#departed 0
+departed ()
+#arrived 0
+arrived ()
+#parkstart 0
+parkstart ()
+#parkend 0
+parkend ()
+#stopstart 0
+stopstart ()
+#stopend 0
+stopend ()
+#colliding 0
+colliding ()
+#emergencystopping 1
+emergencystopping ('emergencyStopper',)
+min#expected 4
+#teleportStart 0
+teleportStart ()
+#teleportEnd 0
+teleportEnd ()
+{114: (), 116: ()}
+check whether GUI is present False
+loaded? True
+loaded? False

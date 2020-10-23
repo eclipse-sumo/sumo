@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 20 Feb 2019 01:11:05 PM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop_-a" lane="-a_0" startPos="65.12" endPos="75.12"/>
+    <busStop id="busStop_-c" lane="-c_0" startPos="74.38" endPos="84.38"/>
+    <busStop id="busStop_a" lane="a_0" startPos="20.69" endPos="30.69"/>
+    <busStop id="busStop_c" lane="c_0" startPos="77.86" endPos="87.86"/>
+
+    <!-- temporary close edge to ensure a route change while the vehicle is on an intersection -->
+    <rerouter id="rr" edges="-c">
+        <interval begin="11" end="14">
+            <closingReroute id="-b" allow="authority"/>
+        </interval>
+    </rerouter>
+</additional>

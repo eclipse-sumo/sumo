@@ -1,0 +1,47 @@
+Loading configuration ... done.
+step 0
+step 1
+step 2
+inductionloops ('0',)
+inductionloop count 1
+examining 0
+vehNum 1
+meanSpeed 4.033343723951839
+vehIDs ('horiz',)
+occupancy 14.062612603401092
+meanLength 5.0
+timeSinceDet 0.0
+vehData [('horiz', 5.0, 2.859373873965989, -1.0, 'DEFAULT_VEHTYPE')]
+position 10.0
+laneID 2fi_0
+{16: 1}
+step 3
+{16: 1}
+step 4
+{16: 0}
+step 5
+{16: 0}
+step=6.0 detVehs=() vehData=[]
+step=7.0 detVehs=() vehData=[]
+step=8.0 detVehs=() vehData=[]
+step=9.0 detVehs=() vehData=[]
+step=10.0 detVehs=('jump',) vehData=[('jump', 5.0, 9.217991643355125, 9.762970751742937, 'DEFAULT_VEHTYPE')]
+step=11.0 detVehs=('departOnDet',) vehData=[('departOnDet', 5.0, 10.0, -1.0, 'DEFAULT_VEHTYPE')]
+step=12.0 detVehs=('departOnDet',) vehData=[('departOnDet', 5.0, 10.0, 11.520954348148399, 'DEFAULT_VEHTYPE')]
+step=13.0 detVehs=() vehData=[]
+step=14.0 detVehs=() vehData=[]
+step=15.0 detVehs=('onDet1',) vehData=[('onDet1', 5.0, 14.796187261392792, -1.0, 'DEFAULT_VEHTYPE')]
+step=16.0 detVehs=('onDet1',) vehData=[('onDet1', 5.0, 14.796187261392792, 15.675780308314552, 'DEFAULT_VEHTYPE')]
+step=17.0 detVehs=() vehData=[]
+step=18.0 detVehs=() vehData=[]
+step=19.0 detVehs=() vehData=[]
+step=20.0 detVehs=('onDet2',) vehData=[('onDet2', 15.0, 19.862852973742708, -1.0, 'long')]
+step=21.0 detVehs=('onDet2',) vehData=[('onDet2', 15.0, 19.862852973742708, -1.0, 'long')]
+step=22.0 detVehs=('onDet2',) vehData=[('onDet2', 15.0, 19.862852973742708, -1.0, 'long')]
+step=23.0 detVehs=('onDet2',) vehData=[('onDet2', 15.0, 19.862852973742708, 22.383218725601356, 'long')]
+step=24.0 detVehs=() vehData=[]
+step=25.0 detVehs=() vehData=[]
+step=26.0 detVehs=() vehData=[]
+step=27.0 detVehs=() vehData=[]
+step=28.0 detVehs=() vehData=[]
+step=29.0 detVehs=() vehData=[]

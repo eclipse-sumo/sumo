@@ -1,3 +1,6 @@
+# no calculation of new routes but detect defect route
+skip_new_routes_defect
+
 # Tests what happens if the net is not given
 no_net
 
@@ -61,3 +64,6 @@ unknown_vType_ignore
 
 # Tests what happens if invalid stops are loaded (duplicate IDs)
 invalid_stops
+
+# Tests what happens if invalid vTypes without attributes are present
+empty_vtype

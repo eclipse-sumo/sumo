@@ -1,26 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMORTree.h
 /// @author  Daniel Krajzewicz
 /// @date    27.10.2008
-/// @version $Id$
 ///
 // A RT-tree for efficient storing of SUMO's GL-objects
 /****************************************************************************/
-#ifndef SUMORTree_h
-#define SUMORTree_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <fx.h>
@@ -69,9 +66,10 @@ inline GUI_RTREE_QUAL::Rect GUI_RTREE_QUAL::CombineRect(Rect* a_rectA, Rect* a_r
 class SUMORTree : private GUI_RTREE_QUAL, public Boundary {
 public:
     /// @brief Constructor
-    SUMORTree() : GUI_RTREE_QUAL(&GUIGlObject::drawGL),
-        myLock(true)
-    { }
+    SUMORTree() : 
+        GUI_RTREE_QUAL(&GUIGlObject::drawGL),
+        myLock(true) {
+    }
 
     /// @brief Destructor
     virtual ~SUMORTree() {
@@ -125,8 +123,8 @@ public:
      */
     void addAdditionalGLObject(GUIGlObject *o) {
         // check if lock is locked before insert objects
-        if(myLock.locked()) {
-            ProcessError("Mutex of SUMORTree is locked before object insertion");
+        if (myLock.locked()) {
+            throw ProcessError("Mutex of SUMORTree is locked before object insertion");
         }
         // lock mutex
         FXMutexLock locker(myLock);
@@ -135,11 +133,13 @@ public:
         // show information in gui testing debug gl mode
         if (MsgHandler::writeDebugGLMessages()) {
             if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
-                throw ProcessError("boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
+                throw ProcessError("Boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
+            } else if (myTreeDebug.count(o) > 0) {
+                throw ProcessError("GUIGlObject was already inserted");
             } else {
                 myTreeDebug[o] = b;
                 // write GL Debug
-                WRITE_GLDEBUG("Inserted " + o->getFullName() + " into SUMORTree with boundary " + toString(b));
+                WRITE_GLDEBUG("\tInserted " + o->getFullName() + " into SUMORTree with boundary " + toString(b));
             }
         }
         // insert it in Tree
@@ -153,20 +153,26 @@ public:
      */
     void removeAdditionalGLObject(GUIGlObject *o) {
         // check if lock is locked remove insert objects
-        if(myLock.locked()) {
-            ProcessError("Mutex of SUMORTree is locked before object remove");
+        if (myLock.locked()) {
+            throw ProcessError("Mutex of SUMORTree is locked before object remove");
         }
         // lock mutex
         FXMutexLock locker(myLock);
         // obtain boundary of object
         Boundary b = o->getCenteringBoundary();
         // show information in gui testing debug gl mode
-        if (MsgHandler::writeDebugGLMessages() && (myTreeDebug.count(o) != 0)) {
-            if (b != myTreeDebug.at(o)) {
-                 throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of remove boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
+        if (MsgHandler::writeDebugGLMessages()) {
+            if ((b.getWidth() == 0) || (b.getHeight() == 0)) {
+                throw ProcessError("Boundary of GUIGlObject " + o->getMicrosimID() + " has an invalid size");
+            } else if (myTreeDebug.count(o) == 0) {
+                throw ProcessError("GUIGlObject wasn't inserted");
+            } else if (toString(b) != toString(myTreeDebug.at(o))) {
+                // show information in console before throwing exception
+                std::cout << "Tree: " << toString(myTreeDebug.at(o)) << " original: " << toString(b) << std::endl;
+                throw ProcessError("add boundary of GUIGlObject " + o->getMicrosimID() + " is different of removed boundary (" + toString(b) + " != " + toString(myTreeDebug.at(o)) + ")");
             } else {
                 myTreeDebug.erase(o);
-                WRITE_GLDEBUG("Removed object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));
+                WRITE_GLDEBUG("\tRemoved object " + o->getFullName() + " from SUMORTree with boundary " + toString(b));
             }
         }
         // remove it from Tree
@@ -185,9 +191,3 @@ private:
      */
     std::map<GUIGlObject*, Boundary> myTreeDebug;
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:57 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:06 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,12 +25,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -243,7 +244,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="yyyyyyrrrrrryyyyyyrrrrrrrrrr"/>
     </tlLogic>
 
-    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 NC_4 EC_0 EC_1 EC_2 EC_3 EC_4 SC_0 SC_1 SC_2 SC_3 SC_4 WC_0 WC_1 WC_2 WC_3 WC_4 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_24_0 :C_1_0 :C_25_0 :C_3_0 :C_3_1 :C_26_0 :C_27_0 :C_7_0 :C_28_0 :C_9_0 :C_9_1 :C_29_0 :C_30_0 :C_13_0 :C_31_0 :C_15_0 :C_15_1 :C_32_0 :C_33_0 :C_19_0 :C_34_0 :C_21_0 :C_21_1 :C_35_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="88.10,112.65 111.90,112.65 112.07,111.40 112.28,110.96 112.57,110.65 112.94,110.46 113.40,110.40 113.40,87.35 112.57,87.18 112.28,86.97 112.07,86.68 111.94,86.31 111.90,85.85 88.10,85.85 87.93,87.10 87.72,87.54 87.43,87.85 87.06,88.04 86.60,88.10 86.60,111.15 87.43,111.32 87.72,111.53 87.93,111.82 88.06,112.19">
+    <junction id="C" type="traffic_light" x="100.00" y="100.00" incLanes="NC_0 NC_1 NC_2 NC_3 NC_4 EC_0 EC_1 EC_2 EC_3 EC_4 SC_0 SC_1 SC_2 SC_3 SC_4 WC_0 WC_1 WC_2 WC_3 WC_4 :C_w1_0 :C_w2_0 :C_w3_0 :C_w0_0" intLanes=":C_24_0 :C_1_0 :C_25_0 :C_3_0 :C_3_1 :C_26_0 :C_27_0 :C_7_0 :C_28_0 :C_9_0 :C_9_1 :C_29_0 :C_30_0 :C_13_0 :C_31_0 :C_15_0 :C_15_1 :C_32_0 :C_33_0 :C_19_0 :C_34_0 :C_21_0 :C_21_1 :C_35_0 :C_c0_0 :C_c1_0 :C_c2_0 :C_c3_0" shape="88.10,112.65 111.90,112.65 112.07,111.40 112.28,110.96 112.57,110.65 112.94,110.46 113.40,110.40 113.40,87.35 112.57,87.18 112.28,86.97 112.07,86.68 111.94,86.31 111.90,85.85 88.10,85.85 87.93,87.10 87.72,87.54 87.43,87.85 87.06,88.04 86.60,88.10 86.60,111.15 87.43,111.32 87.73,111.53 87.93,111.82 88.06,112.19">
         <request index="0"  response="1001000000000000000010000000" foes="1001000000000000000010000000" cont="1"/>
         <request index="1"  response="0101111111000000011010000000" foes="0101111111100000011010000100" cont="0"/>
         <request index="2"  response="1001000000000000011010000010" foes="1001000000000000011010000010" cont="1"/>

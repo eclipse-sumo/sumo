@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.11.2018 12:21:23 by Eclipse SUMO netedit Version v1_0_0+0907-4934d005c3
+<!-- generated on 07.08.2019 08:31:52 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov122112.4128/netedit.gui/additionalElements/busstop/inspect/lines\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/inspect/lines\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov122112.4128/netedit.gui/additionalElements/busstop/inspect/lines\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/inspect/lines\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,27 +29,28 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov122112.4128/netedit.gui/additionalElements/busstop/inspect/lines\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov122112.4128/netedit.gui/additionalElements/busstop/inspect/lines\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/inspect/lines\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/inspect/lines\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/inspect/lines\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/inspect/lines\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov122112.4128/netedit.gui/additionalElements/busstop/inspect/lines\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/inspect/lines\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov122112.4128/netedit.gui/additionalElements/busstop/inspect/lines\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/busstop/inspect/lines\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop_gneE2_1_0" lane="gneE2_1" lines="line1 line2" startPos="12.00" endPos="22.00"/>
+    <busStop id="busStop_gneE2_1_0" lane="gneE2_1" startPos="12.00" endPos="22.00" lines="line1 line2"/>
 </additional>

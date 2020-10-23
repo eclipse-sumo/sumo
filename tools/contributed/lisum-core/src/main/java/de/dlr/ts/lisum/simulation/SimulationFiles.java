@@ -1,19 +1,22 @@
-/** ************************************************************************* */
+/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
-/** ************************************************************************* */
-/// @file    Constants.java
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    SimulationFiles.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
-/** ************************************************************************* */
+/****************************************************************************/
 package de.dlr.ts.lisum.simulation;
 
 import de.dlr.ts.commons.logger.DLRLogger;
@@ -57,7 +60,7 @@ public class SimulationFiles {
     public void setLisaDataDirectory(File lisaDataDirectory) {
         if (!lisaDataDirectory.isAbsolute()) {
             lisaDataDirectory = new File(simulationDirectory.getAbsolutePath()
-                    + File.separator + lisaDataDirectory.getName());
+                                         + File.separator + lisaDataDirectory.getName());
         }
 
         this.lisaDataDirectory = lisaDataDirectory;
@@ -81,7 +84,7 @@ public class SimulationFiles {
 
         if (!lisumConfigFile.exists()) {
             throw new LisumException("Fatal error: Configuration file '"
-                    + lisumConfigFile.getAbsolutePath() + "' does not exist.");
+                                     + lisumConfigFile.getAbsolutePath() + "' does not exist.");
         }
 
         /**
@@ -110,65 +113,68 @@ public class SimulationFiles {
         }
 
         DLRLogger.config(this, "Setting Sumo configuration file: " + sumoConfigFile);
-        
+
         String tmp = null;
-        try {            
+        try {
             /**
-            * Setting sumo net file         
-            */            
+            * Setting sumo net file
+            */
             XMLAdmin2 x = new XMLAdmin2().load(sumoConfigFile);
             try {
                 tmp = x.getNode("input.net-file").getAttributes().get("value").getValue();
-                
-                if (tmp == null)
-                    throw new LisumException("Fatal error: no Sumo net.xml file could be found");        
+
+                if (tmp == null) {
+                    throw new LisumException("Fatal error: no Sumo net.xml file could be found");
+                }
 
                 sumoNetFile = new File(tmp);
-                if(!sumoNetFile.isAbsolute())
-                    sumoNetFile = new File(sumoConfigFile.getParent() + File.separator + tmp);            
+                if (!sumoNetFile.isAbsolute()) {
+                    sumoNetFile = new File(sumoConfigFile.getParent() + File.separator + tmp);
+                }
 
                 DLRLogger.config(this, "Setting Sumo net.xml file: " + sumoNetFile);
             } catch (XMLNodeNotFoundException ex) {
                 Logger.getLogger(SimulationFiles.class.getName()).log(Level.SEVERE, null, ex);
-            }                        
-                        
+            }
+
             try {
                 /**
                  * Setting sumo add file
                  */
                 tmp = x.getNode("input.additional-files").getAttributes().get("value").getValue();
-                
-                if (tmp != null) {                
+
+                if (tmp != null) {
                     sumoAddFile = new File(tmp);
-                    if(!sumoAddFile.isAbsolute())                
+                    if (!sumoAddFile.isAbsolute()) {
                         sumoAddFile = new File(sumoConfigFile.getParent() + File.separator + tmp);
+                    }
 
                     DLRLogger.config(this, "Setting Sumo add.xml file: " + sumoAddFile);
-                }                
+                }
             } catch (XMLNodeNotFoundException ex) {
                 Logger.getLogger(SimulationFiles.class.getName()).log(Level.SEVERE, null, ex);
             }
-                        
+
             try {
                 /**
                  * Setting rou file
                  */
                 tmp = x.getNode("input.route-files").getAttributes().get("value").getValue();
-                
-                if (tmp != null) {                
+
+                if (tmp != null) {
                     sumoRouFile = new File(tmp);
-                    if(!sumoRouFile.isAbsolute())                
+                    if (!sumoRouFile.isAbsolute()) {
                         sumoRouFile = new File(sumoConfigFile.getParent() + File.separator + tmp);
+                    }
 
                     DLRLogger.config(this, "Setting Sumo rou.xml file: " + sumoRouFile);
                 }
             } catch (XMLNodeNotFoundException ex) {
                 Logger.getLogger(SimulationFiles.class.getName()).log(Level.SEVERE, null, ex);
-            }            
-        } 
-        catch (SAXException | IOException | MalformedKeyOrNameException ex) {
+            }
+        } catch (SAXException | IOException | MalformedKeyOrNameException ex) {
             Logger.getLogger(SimulationFiles.class.getName()).log(Level.SEVERE, null, ex);
-        }        
+        }
     }
 
     /**

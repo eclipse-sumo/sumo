@@ -1,0 +1,13 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <trip id="blocker" from="C0C1" to="C2C3" depart="0">
+        <stop parkingArea="parkC0C1" duration="20"/>
+    </trip>
+
+    <trip id="ego" from="C0C1" to="C2C3" depart="0">
+        <stop parkingArea="parkC0C1" duration="10"/>
+        <stop parkingArea="parkA2A3" duration="10"/>
+        <param key="parking.distancefrom.weight" value="1"/>
+    </trip>
+
+</routes>

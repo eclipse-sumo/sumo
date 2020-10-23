@@ -1,31 +1,28 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBHeightMapper.h
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Sept 2011
-/// @version $Id$
 ///
 // Set z-values for all network positions based on data from a height map
 /****************************************************************************/
-#ifndef NBHeightMapper_h
-#define NBHeightMapper_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
-#ifdef _MSC_VER
+#ifdef WIN32
 typedef __int16 int16_t;
 #else
 #include <stdint.h>
@@ -60,7 +57,7 @@ class NBHeightMapper {
     friend class NBHeightMapperTest;
 
 public:
-    /** @brief loads heigh map data if any loading options are set
+    /** @brief loads height map data if any loading options are set
      *
      * @param[in] oc The options container to get further options from
      * @exception ProcessError if something fails
@@ -75,7 +72,7 @@ public:
 
     /// @brief returns the convex boundary of all known triangles
     const Boundary& getBoundary() {
-        return Singleton.myBoundary;
+        return myInstance.myBoundary;
     }
 
     /// @brief returns height for the given geo coordinate (WGS84)
@@ -126,7 +123,7 @@ public:
 
 private:
     /// @brief the singleton instance
-    static NBHeightMapper Singleton;
+    static NBHeightMapper myInstance;
 
     Triangles myTriangles;
 
@@ -195,9 +192,3 @@ inline TRIANGLE_RTREE_QUAL::Rect TRIANGLE_RTREE_QUAL::CombineRect(Rect* a_rectA,
     newRect.m_max[1] = rtree_max(a_rectA->m_max[1], a_rectB->m_max[1]);
     return newRect;
 }
-
-
-#endif
-
-/****************************************************************************/
-

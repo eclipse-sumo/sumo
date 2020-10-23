@@ -1,2 +1,2 @@
 Warning: The traffic light 'complicated' has a high cycle time of 136.00.
-Warning: Intersecting left turns at junction 'complicated' from lane 'gneE8_0' and lane 'gneE6_0'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction 'complicated' from lane 'gneE8_0' and lane 'gneE6_0' (increase junction radius to avoid this).

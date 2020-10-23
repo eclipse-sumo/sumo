@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RONetHandler.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The handler that parses a SUMO-network for its usage in a router
 /****************************************************************************/
-#ifndef RONetHandler_h
-#define RONetHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -63,6 +60,10 @@ public:
     /// @brief Destructor
     virtual ~RONetHandler();
 
+    /// @brief retrieve mapping of edges to bidi edges (must be resolved after loading network)
+    const std::map<ROEdge*, std::string>& getBidiMap() const {
+        return myBidiEdges;
+    }
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -89,6 +90,9 @@ protected:
 protected:
     /// @name called from myStartElement
     //@{
+
+    /// @brief assign arbitrary vehicle parameters
+    void addParam(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses and builds an edge
      *
@@ -175,10 +179,15 @@ protected:
 
     //@}
 
+    /// Parses network location description
+    void setLocation(const SUMOSAXAttributes& attrs);
 
 protected:
     /// @brief The net to store the information into
     RONet& myNet;
+
+    /// @brief the loaded network version
+    double myNetworkVersion;
 
     /// @brief The object used to build of edges of the desired type
     ROAbstractEdgeBuilder& myEdgeBuilder;
@@ -204,6 +213,9 @@ protected:
     /// @brief time penalty for passing a minor link
     const double myMinorPenalty;
 
+    /// @brief temporary storage for bidi attributes (to be resolved after loading all edges)
+    std::map<ROEdge*, std::string> myBidiEdges;
+
 private:
     /// @brief Invalidated copy constructor
     RONetHandler(const RONetHandler& src);
@@ -212,9 +224,3 @@ private:
     RONetHandler& operator=(const RONetHandler& src);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

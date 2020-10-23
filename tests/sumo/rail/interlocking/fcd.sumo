@@ -1,0 +1,2471 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Mar 11 22:23:45 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <time>
+        <begin value="16000"/>
+        <end value="16678"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<fcd-export xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/fcd_file.xsd">
+    <timestep time="16000.00">
+        <vehicle id="RB1" x="-2330.27" y="24.13" angle="93.06" type="RB628" speed="0.00" pos="46.10" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16001.00">
+        <vehicle id="RB1" x="-2329.48" y="24.09" angle="93.06" type="RB628" speed="0.78" pos="46.88" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16002.00">
+        <vehicle id="RB1" x="-2327.95" y="24.01" angle="93.06" type="RB628" speed="1.54" pos="48.42" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16003.00">
+        <vehicle id="RB1" x="-2325.68" y="23.89" angle="93.06" type="RB628" speed="2.27" pos="50.70" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16004.00">
+        <vehicle id="RB1" x="-2322.69" y="23.73" angle="93.06" type="RB628" speed="2.99" pos="53.68" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16005.00">
+        <vehicle id="RB1" x="-2319.02" y="23.53" angle="93.06" type="RB628" speed="3.68" pos="57.36" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16006.00">
+        <vehicle id="RB1" x="-2314.68" y="23.30" angle="93.06" type="RB628" speed="4.35" pos="61.71" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16007.00">
+        <vehicle id="RB1" x="-2309.69" y="23.03" angle="93.06" type="RB628" speed="5.00" pos="66.70" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16008.00">
+        <vehicle id="RB1" x="-2304.08" y="22.73" angle="93.06" type="RB628" speed="5.62" pos="72.33" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16009.00">
+        <vehicle id="RB1" x="-2297.85" y="22.40" angle="93.06" type="RB628" speed="6.23" pos="78.56" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16010.00">
+        <vehicle id="RB1" x="-2291.06" y="22.04" angle="93.06" type="RB628" speed="6.81" pos="85.36" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16011.00">
+        <vehicle id="RB1" x="-2283.72" y="21.65" angle="93.06" type="RB628" speed="7.35" pos="92.71" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16012.00">
+        <vehicle id="RB1" x="-2275.86" y="21.23" angle="93.06" type="RB628" speed="7.87" pos="100.58" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16013.00">
+        <vehicle id="RB1" x="-2267.52" y="20.78" angle="93.06" type="RB628" speed="8.35" pos="108.94" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16014.00">
+        <vehicle id="RB1" x="-2258.71" y="20.31" angle="93.06" type="RB628" speed="8.82" pos="117.75" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16015.00">
+        <vehicle id="RB1" x="-2249.47" y="19.82" angle="93.06" type="RB628" speed="9.26" pos="127.01" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16016.00">
+        <vehicle id="RB1" x="-2239.79" y="19.30" angle="93.06" type="RB628" speed="9.69" pos="136.70" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16017.00">
+        <vehicle id="RB1" x="-2229.71" y="18.76" angle="93.06" type="RB628" speed="10.09" pos="146.79" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16018.00">
+        <vehicle id="RB1" x="-2219.24" y="18.21" angle="93.06" type="RB628" speed="10.49" pos="157.28" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16019.00">
+        <vehicle id="RB1" x="-2208.40" y="17.63" angle="93.06" type="RB628" speed="10.86" pos="168.14" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16020.00">
+        <vehicle id="RB1" x="-2197.20" y="17.03" angle="93.06" type="RB628" speed="11.22" pos="179.36" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16021.00">
+        <vehicle id="RB1" x="-2185.65" y="16.41" angle="93.06" type="RB628" speed="11.56" pos="190.92" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16022.00">
+        <vehicle id="RB1" x="-2173.77" y="15.78" angle="93.06" type="RB628" speed="11.90" pos="202.82" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16023.00">
+        <vehicle id="RB1" x="-2161.56" y="15.13" angle="93.06" type="RB628" speed="12.23" pos="215.05" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16024.00">
+        <vehicle id="RB1" x="-2149.03" y="14.46" angle="93.06" type="RB628" speed="12.55" pos="227.60" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16025.00">
+        <vehicle id="RB1" x="-2136.19" y="13.77" angle="93.06" type="RB628" speed="12.85" pos="240.45" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16026.00">
+        <vehicle id="RB1" x="-2123.05" y="13.07" angle="93.06" type="RB628" speed="13.16" pos="253.61" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16027.00">
+        <vehicle id="RB1" x="-2109.63" y="12.35" angle="93.06" type="RB628" speed="13.45" pos="267.05" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16028.00">
+        <vehicle id="RB1" x="-2095.91" y="11.62" angle="93.06" type="RB628" speed="13.73" pos="280.79" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16029.00">
+        <vehicle id="RB1" x="-2081.92" y="10.87" angle="93.06" type="RB628" speed="14.01" pos="294.80" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16030.00">
+        <vehicle id="RB1" x="-2067.66" y="10.11" angle="93.06" type="RB628" speed="14.28" pos="309.08" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16031.00">
+        <vehicle id="RB1" x="-2053.14" y="9.34" angle="93.06" type="RB628" speed="14.54" pos="323.62" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16032.00">
+        <vehicle id="RB1" x="-2038.36" y="8.55" angle="93.06" type="RB628" speed="14.80" pos="338.42" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16033.00">
+        <vehicle id="RB1" x="-2023.32" y="7.75" angle="93.06" type="RB628" speed="15.06" pos="353.48" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16034.00">
+        <vehicle id="RB1" x="-2008.04" y="6.93" angle="93.06" type="RB628" speed="15.31" pos="368.79" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16035.00">
+        <vehicle id="RB1" x="-1992.51" y="6.10" angle="93.06" type="RB628" speed="15.55" pos="384.34" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16036.00">
+        <vehicle id="RB1" x="-1976.74" y="5.26" angle="93.06" type="RB628" speed="15.79" pos="400.13" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16037.00">
+        <vehicle id="RB1" x="-1960.74" y="4.40" angle="93.06" type="RB628" speed="16.03" pos="416.15" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16038.00">
+        <vehicle id="RB1" x="-1944.50" y="3.54" angle="93.06" type="RB628" speed="16.26" pos="432.41" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16039.00">
+        <vehicle id="RB1" x="-1928.05" y="2.66" angle="93.06" type="RB628" speed="16.48" pos="448.89" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16040.00">
+        <vehicle id="RB1" x="-1911.37" y="1.77" angle="93.06" type="RB628" speed="16.70" pos="465.60" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16041.00">
+        <vehicle id="RB1" x="-1894.47" y="0.87" angle="93.06" type="RB628" speed="16.92" pos="482.52" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16042.00">
+        <vehicle id="RB1" x="-1877.36" y="-0.05" angle="93.06" type="RB628" speed="17.13" pos="499.65" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16043.00">
+        <vehicle id="RB1" x="-1860.04" y="-0.97" angle="93.06" type="RB628" speed="17.34" pos="516.99" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16044.00">
+        <vehicle id="RB1" x="-1842.52" y="-1.91" angle="93.06" type="RB628" speed="17.55" pos="534.54" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16045.00">
+        <vehicle id="RB1" x="-1824.79" y="-2.85" angle="93.06" type="RB628" speed="17.76" pos="552.30" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16046.00">
+        <vehicle id="RB1" x="-1806.85" y="-3.81" angle="93.06" type="RB628" speed="17.96" pos="570.26" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16047.00">
+        <vehicle id="RB1" x="-1788.73" y="-4.78" angle="93.06" type="RB628" speed="18.15" pos="588.41" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16048.00">
+        <vehicle id="RB1" x="-1770.40" y="-5.76" angle="93.06" type="RB628" speed="18.35" pos="606.76" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16049.00">
+        <vehicle id="RB1" x="-1751.89" y="-6.74" angle="93.06" type="RB628" speed="18.54" pos="625.30" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16050.00">
+        <vehicle id="RB1" x="-1733.19" y="-7.74" angle="93.06" type="RB628" speed="18.73" pos="644.03" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16051.00">
+        <vehicle id="RB1" x="-1714.30" y="-8.75" angle="93.06" type="RB628" speed="18.92" pos="662.95" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16052.00">
+        <vehicle id="RB1" x="-1695.23" y="-9.77" angle="93.06" type="RB628" speed="19.10" pos="682.04" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16053.00">
+        <vehicle id="RB1" x="-1675.97" y="-10.80" angle="93.06" type="RB628" speed="19.28" pos="701.32" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16054.00">
+        <vehicle id="RB1" x="-1656.55" y="-11.83" angle="93.06" type="RB628" speed="19.46" pos="720.78" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16055.00">
+        <vehicle id="RB1" x="-1636.94" y="-12.88" angle="93.06" type="RB628" speed="19.63" pos="740.41" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16056.00">
+        <vehicle id="RB1" x="-1617.17" y="-13.94" angle="93.06" type="RB628" speed="19.80" pos="760.21" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16057.00">
+        <vehicle id="RB1" x="-1597.22" y="-15.00" angle="93.06" type="RB628" speed="19.97" pos="780.19" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16058.00">
+        <vehicle id="RB1" x="-1577.11" y="-16.08" angle="93.06" type="RB628" speed="20.14" pos="800.33" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16059.00">
+        <vehicle id="RB1" x="-1556.83" y="-17.16" angle="93.06" type="RB628" speed="20.30" pos="820.63" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16060.00">
+        <vehicle id="RB1" x="-1536.40" y="-18.25" angle="93.06" type="RB628" speed="20.47" pos="841.10" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16061.00">
+        <vehicle id="RB1" x="-1515.80" y="-19.35" angle="93.06" type="RB628" speed="20.63" pos="861.73" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16062.00">
+        <vehicle id="RB1" x="-1495.04" y="-20.46" angle="93.06" type="RB628" speed="20.78" pos="882.51" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16063.00">
+        <vehicle id="RB1" x="-1474.13" y="-21.57" angle="93.06" type="RB628" speed="20.94" pos="903.45" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16064.00">
+        <vehicle id="RB1" x="-1453.07" y="-22.70" angle="93.06" type="RB628" speed="21.09" pos="924.54" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16065.00">
+        <vehicle id="RB1" x="-1431.86" y="-23.83" angle="93.06" type="RB628" speed="21.24" pos="945.79" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16066.00">
+        <vehicle id="RB1" x="-1410.50" y="-24.97" angle="93.06" type="RB628" speed="21.39" pos="967.18" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16067.00">
+        <vehicle id="RB1" x="-1388.99" y="-26.12" angle="93.06" type="RB628" speed="21.54" pos="988.71" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16068.00">
+        <vehicle id="RB1" x="-1367.34" y="-27.27" angle="93.06" type="RB628" speed="21.68" pos="1010.39" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16069.00">
+        <vehicle id="RB1" x="-1345.55" y="-28.44" angle="93.06" type="RB628" speed="21.82" pos="1032.22" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16070.00">
+        <vehicle id="RB1" x="-1323.62" y="-29.61" angle="93.06" type="RB628" speed="21.96" pos="1054.18" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16071.00">
+        <vehicle id="RB1" x="-1301.55" y="-30.79" angle="93.06" type="RB628" speed="22.10" pos="1076.28" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16072.00">
+        <vehicle id="RB1" x="-1279.35" y="-31.97" angle="93.06" type="RB628" speed="22.24" pos="1098.52" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16073.00">
+        <vehicle id="RB1" x="-1257.01" y="-33.16" angle="93.06" type="RB628" speed="22.37" pos="1120.88" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16074.00">
+        <vehicle id="RB1" x="-1234.54" y="-34.36" angle="93.06" type="RB628" speed="22.50" pos="1143.39" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16075.00">
+        <vehicle id="RB1" x="-1211.94" y="-35.57" angle="93.06" type="RB628" speed="22.63" pos="1166.02" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16076.00">
+        <vehicle id="RB1" x="-1189.21" y="-36.78" angle="93.06" type="RB628" speed="22.76" pos="1188.78" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16077.00">
+        <vehicle id="RB1" x="-1166.35" y="-38.00" angle="93.06" type="RB628" speed="22.89" pos="1211.67" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16078.00">
+        <vehicle id="RB1" x="-1143.37" y="-39.23" angle="93.06" type="RB628" speed="23.02" pos="1234.69" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16079.00">
+        <vehicle id="RB1" x="-1120.26" y="-40.46" angle="93.06" type="RB628" speed="23.14" pos="1257.83" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16080.00">
+        <vehicle id="RB1" x="-1097.03" y="-41.70" angle="93.06" type="RB628" speed="23.27" pos="1281.09" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16081.00">
+        <vehicle id="RB1" x="-1073.67" y="-42.95" angle="93.06" type="RB628" speed="23.39" pos="1304.48" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16082.00">
+        <vehicle id="RB1" x="-1050.20" y="-44.20" angle="93.06" type="RB628" speed="23.51" pos="1327.99" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16083.00">
+        <vehicle id="RB1" x="-1026.60" y="-45.46" angle="93.06" type="RB628" speed="23.63" pos="1351.62" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16084.00">
+        <vehicle id="RB1" x="-1002.88" y="-46.73" angle="93.06" type="RB628" speed="23.75" pos="1375.37" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16085.00">
+        <vehicle id="RB1" x="-979.05" y="-48.00" angle="93.06" type="RB628" speed="23.87" pos="1399.24" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16086.00">
+        <vehicle id="RB1" x="-955.10" y="-49.28" angle="93.06" type="RB628" speed="23.98" pos="1423.22" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16087.00">
+        <vehicle id="RB1" x="-931.03" y="-50.57" angle="93.06" type="RB628" speed="24.10" pos="1447.32" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16088.00">
+        <vehicle id="RB1" x="-906.86" y="-51.86" angle="93.06" type="RB628" speed="24.21" pos="1471.54" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16089.00">
+        <vehicle id="RB1" x="-882.56" y="-53.15" angle="93.06" type="RB628" speed="24.33" pos="1495.86" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16090.00">
+        <vehicle id="RB1" x="-858.16" y="-54.46" angle="93.06" type="RB628" speed="24.44" pos="1520.30" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16091.00">
+        <vehicle id="RB1" x="-833.65" y="-55.77" angle="93.06" type="RB628" speed="24.55" pos="1544.85" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16092.00">
+        <vehicle id="RB1" x="-809.02" y="-57.08" angle="93.06" type="RB628" speed="24.66" pos="1569.51" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16093.00">
+        <vehicle id="RB1" x="-784.29" y="-58.40" angle="93.06" type="RB628" speed="24.77" pos="1594.28" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16094.00">
+        <vehicle id="RB1" x="-759.45" y="-59.73" angle="93.06" type="RB628" speed="24.87" pos="1619.15" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16095.00">
+        <vehicle id="RB1" x="-734.51" y="-61.06" angle="93.06" type="RB628" speed="24.98" pos="1644.13" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16096.00">
+        <vehicle id="RB1" x="-709.46" y="-62.40" angle="93.06" type="RB628" speed="25.09" pos="1669.22" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16097.00">
+        <vehicle id="RB1" x="-684.30" y="-63.74" angle="93.06" type="RB628" speed="25.19" pos="1694.41" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16098.00">
+        <vehicle id="RB1" x="-659.05" y="-65.09" angle="93.06" type="RB628" speed="25.29" pos="1719.70" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16099.00">
+        <vehicle id="RB1" x="-633.69" y="-66.44" angle="93.06" type="RB628" speed="25.39" pos="1745.09" lane="gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16100.00">
+        <vehicle id="RB1" x="-608.21" y="-67.66" angle="92.88" type="RB628" speed="25.50" pos="12.46" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16101.00">
+        <vehicle id="RB1" x="-582.64" y="-68.72" angle="92.50" type="RB628" speed="25.59" pos="38.05" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16102.00">
+        <vehicle id="RB1" x="-556.97" y="-69.78" angle="92.38" type="RB628" speed="25.69" pos="63.75" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16103.00">
+        <vehicle id="RB1" x="-531.20" y="-70.85" angle="92.38" type="RB628" speed="25.79" pos="89.54" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16104.00">
+        <vehicle id="RB1" x="-505.33" y="-71.93" angle="92.38" type="RB628" speed="25.89" pos="115.43" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16105.00">
+        <vehicle id="RB1" x="-479.37" y="-73.01" angle="92.38" type="RB628" speed="25.98" pos="141.41" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16106.00">
+        <vehicle id="RB1" x="-453.31" y="-74.09" angle="92.38" type="RB628" speed="26.08" pos="167.49" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16107.00">
+        <vehicle id="RB1" x="-427.16" y="-75.17" angle="92.38" type="RB628" speed="26.17" pos="193.67" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16108.00">
+        <vehicle id="RB1" x="-400.92" y="-76.26" angle="92.38" type="RB628" speed="26.27" pos="219.93" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16109.00">
+        <vehicle id="RB1" x="-374.58" y="-77.36" angle="92.38" type="RB628" speed="26.36" pos="246.29" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16110.00">
+        <vehicle id="RB1" x="-348.15" y="-78.45" angle="92.38" type="RB628" speed="26.45" pos="272.74" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16111.00">
+        <vehicle id="RB1" x="-321.64" y="-79.55" angle="92.38" type="RB628" speed="26.54" pos="299.28" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16112.00">
+        <vehicle id="RB1" x="-295.03" y="-80.66" angle="92.38" type="RB628" speed="26.63" pos="325.91" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16113.00">
+        <vehicle id="RB1" x="-268.33" y="-81.77" angle="92.38" type="RB628" speed="26.72" pos="352.63" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16114.00">
+        <vehicle id="RB1" x="-241.55" y="-82.88" angle="92.38" type="RB628" speed="26.81" pos="379.44" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16115.00">
+        <vehicle id="RB1" x="-214.68" y="-83.99" angle="92.38" type="RB628" speed="26.89" pos="406.33" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16116.00">
+        <vehicle id="RB1" x="-187.72" y="-85.11" angle="92.38" type="RB628" speed="26.98" pos="433.31" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16117.00">
+        <vehicle id="RB1" x="-160.68" y="-86.23" angle="92.38" type="RB628" speed="27.06" pos="460.38" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16118.00">
+        <vehicle id="RB1" x="-133.55" y="-87.36" angle="92.38" type="RB628" speed="27.15" pos="487.53" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16119.00">
+        <vehicle id="RB1" x="-106.35" y="-88.49" angle="92.38" type="RB628" speed="27.23" pos="514.76" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16120.00">
+        <vehicle id="RB1" x="-79.05" y="-89.62" angle="92.38" type="RB628" speed="27.32" pos="542.08" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16121.00">
+        <vehicle id="RB1" x="-51.90" y="-90.75" angle="92.38" type="RB628" speed="27.18" pos="569.25" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16122.00">
+        <vehicle id="RB1" x="-25.25" y="-91.86" angle="92.38" type="RB628" speed="26.68" pos="595.93" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16123.00">
+        <vehicle id="RB1" x="0.91" y="-92.94" angle="92.38" type="RB628" speed="26.18" pos="622.11" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16124.00">
+        <vehicle id="RB1" x="26.56" y="-94.01" angle="92.38" type="RB628" speed="25.68" pos="647.79" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16125.00">
+        <vehicle id="RB1" x="51.72" y="-95.05" angle="92.38" type="RB628" speed="25.18" pos="672.96" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16126.00">
+        <vehicle id="RB1" x="76.37" y="-96.08" angle="92.38" type="RB628" speed="24.68" pos="697.64" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16127.00">
+        <vehicle id="RB1" x="100.53" y="-97.08" angle="92.38" type="RB628" speed="24.18" pos="721.82" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16128.00">
+        <vehicle id="RB1" x="124.19" y="-98.06" angle="92.38" type="RB628" speed="23.68" pos="745.49" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16129.00">
+        <vehicle id="RB1" x="147.34" y="-99.02" angle="92.38" type="RB628" speed="23.18" pos="768.67" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16130.00">
+        <vehicle id="RB1" x="170.00" y="-99.96" angle="92.38" type="RB628" speed="22.68" pos="791.35" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16131.00">
+        <vehicle id="RB1" x="192.16" y="-100.88" angle="92.38" type="RB628" speed="22.18" pos="813.53" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16132.00">
+        <vehicle id="RB1" x="213.82" y="-101.78" angle="92.38" type="RB628" speed="21.68" pos="835.20" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16133.00">
+        <vehicle id="RB1" x="234.98" y="-102.66" angle="92.38" type="RB628" speed="21.18" pos="856.38" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16134.00">
+        <vehicle id="RB1" x="255.64" y="-103.52" angle="92.38" type="RB628" speed="20.68" pos="877.06" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16135.00">
+        <vehicle id="RB1" x="275.80" y="-104.35" angle="92.38" type="RB628" speed="20.18" pos="897.23" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16136.00">
+        <vehicle id="RB1" x="295.46" y="-105.17" angle="92.38" type="RB628" speed="19.68" pos="916.91" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16137.00">
+        <vehicle id="RB1" x="314.62" y="-105.97" angle="92.38" type="RB628" speed="19.18" pos="936.09" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16138.00">
+        <vehicle id="RB1" x="333.28" y="-106.74" angle="92.38" type="RB628" speed="18.68" pos="954.77" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16139.00">
+        <vehicle id="RB1" x="351.44" y="-107.49" angle="92.38" type="RB628" speed="18.18" pos="972.94" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16140.00">
+        <vehicle id="RB1" x="369.10" y="-108.23" angle="92.38" type="RB628" speed="17.68" pos="990.62" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16141.00">
+        <vehicle id="RB1" x="386.26" y="-108.94" angle="92.38" type="RB628" speed="17.18" pos="1007.80" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16142.00">
+        <vehicle id="RB1" x="402.93" y="-109.63" angle="92.38" type="RB628" speed="16.68" pos="1024.47" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16143.00">
+        <vehicle id="RB1" x="419.09" y="-110.30" angle="92.38" type="RB628" speed="16.18" pos="1040.65" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16144.00">
+        <vehicle id="RB1" x="434.75" y="-110.95" angle="92.38" type="RB628" speed="15.68" pos="1056.33" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16145.00">
+        <vehicle id="RB1" x="449.92" y="-111.58" angle="92.38" type="RB628" speed="15.18" pos="1071.51" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16146.00">
+        <vehicle id="RB1" x="464.58" y="-112.19" angle="92.38" type="RB628" speed="14.68" pos="1086.18" lane="gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16147.00">
+        <vehicle id="RB1" x="478.41" y="-114.26" angle="94.25" type="RB628" speed="14.18" pos="5.04" lane=":gneJ1_1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16148.00">
+        <vehicle id="RB1" x="491.40" y="-119.18" angle="99.80" type="RB628" speed="13.89" pos="13.89" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16149.00">
+        <vehicle id="RB1" x="504.39" y="-124.09" angle="105.39" type="RB628" speed="13.89" pos="27.78" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16150.00">
+        <vehicle id="RB1" x="517.56" y="-128.28" angle="109.91" type="RB628" speed="13.89" pos="41.67" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16151.00">
+        <vehicle id="RB1" x="531.36" y="-129.83" angle="105.48" type="RB628" speed="13.89" pos="55.56" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16152.00">
+        <vehicle id="RB1" x="545.17" y="-131.38" angle="101.12" type="RB628" speed="13.89" pos="69.45" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16153.00">
+        <vehicle id="RB1" x="558.97" y="-132.92" angle="96.80" type="RB628" speed="13.89" pos="83.34" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16154.00">
+        <vehicle id="RB1" x="572.77" y="-134.47" angle="96.39" type="RB628" speed="13.89" pos="97.23" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16155.00">
+        <vehicle id="RB1" x="586.58" y="-136.01" angle="96.39" type="RB628" speed="13.89" pos="111.12" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16156.00">
+        <vehicle id="RB1" x="600.38" y="-137.56" angle="96.39" type="RB628" speed="13.89" pos="125.01" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16157.00">
+        <vehicle id="RB1" x="614.18" y="-139.10" angle="96.39" type="RB628" speed="13.89" pos="138.90" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16158.00">
+        <vehicle id="RB1" x="627.99" y="-140.65" angle="96.39" type="RB628" speed="13.89" pos="152.79" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16159.00">
+        <vehicle id="RB1" x="641.79" y="-142.20" angle="96.39" type="RB628" speed="13.89" pos="166.68" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16160.00">
+        <vehicle id="RB1" x="655.60" y="-143.74" angle="96.39" type="RB628" speed="13.89" pos="180.57" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16161.00">
+        <vehicle id="RB1" x="669.40" y="-145.29" angle="96.39" type="RB628" speed="13.89" pos="194.46" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16162.00">
+        <vehicle id="RB1" x="683.20" y="-146.83" angle="96.39" type="RB628" speed="13.89" pos="208.35" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16163.00">
+        <vehicle id="RB1" x="697.01" y="-148.38" angle="96.39" type="RB628" speed="13.89" pos="222.24" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16164.00">
+        <vehicle id="RB1" x="710.81" y="-149.93" angle="96.39" type="RB628" speed="13.89" pos="236.13" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16165.00">
+        <vehicle id="RB1" x="724.61" y="-151.47" angle="96.39" type="RB628" speed="13.89" pos="250.02" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16166.00">
+        <vehicle id="RB1" x="738.42" y="-153.02" angle="96.39" type="RB628" speed="13.89" pos="263.91" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16167.00">
+        <vehicle id="RB1" x="752.22" y="-154.56" angle="96.39" type="RB628" speed="13.89" pos="277.80" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16168.00">
+        <vehicle id="RB1" x="766.03" y="-156.11" angle="96.39" type="RB628" speed="13.89" pos="291.69" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16169.00">
+        <vehicle id="RB1" x="779.83" y="-157.66" angle="96.39" type="RB628" speed="13.89" pos="305.58" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16170.00">
+        <vehicle id="RB1" x="793.63" y="-159.20" angle="96.39" type="RB628" speed="13.89" pos="319.47" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16171.00">
+        <vehicle id="RB1" x="807.44" y="-160.75" angle="96.39" type="RB628" speed="13.89" pos="333.36" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16172.00">
+        <vehicle id="RB1" x="821.24" y="-162.29" angle="96.39" type="RB628" speed="13.89" pos="347.25" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16173.00">
+        <vehicle id="RB1" x="835.04" y="-163.84" angle="96.39" type="RB628" speed="13.89" pos="361.14" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16174.00">
+        <vehicle id="RB1" x="848.85" y="-165.38" angle="96.39" type="RB628" speed="13.89" pos="375.03" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16175.00">
+        <vehicle id="RB1" x="862.65" y="-166.93" angle="96.39" type="RB628" speed="13.89" pos="388.92" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16176.00">
+        <vehicle id="RB1" x="876.46" y="-168.48" angle="96.39" type="RB628" speed="13.89" pos="402.81" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16177.00">
+        <vehicle id="RB1" x="890.26" y="-170.02" angle="96.39" type="RB628" speed="13.89" pos="416.70" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16178.00">
+        <vehicle id="RB1" x="904.06" y="-171.57" angle="96.39" type="RB628" speed="13.89" pos="430.59" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16179.00">
+        <vehicle id="RB1" x="917.87" y="-173.11" angle="96.39" type="RB628" speed="13.89" pos="444.48" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16180.00">
+        <vehicle id="RB1" x="931.67" y="-174.66" angle="96.39" type="RB628" speed="13.89" pos="458.37" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16181.00">
+        <vehicle id="RB1" x="945.47" y="-176.21" angle="96.39" type="RB628" speed="13.89" pos="472.26" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16182.00">
+        <vehicle id="RB1" x="959.28" y="-177.75" angle="96.39" type="RB628" speed="13.89" pos="486.15" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16183.00">
+        <vehicle id="RB1" x="973.08" y="-179.30" angle="96.39" type="RB628" speed="13.89" pos="500.04" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16184.00">
+        <vehicle id="RB1" x="986.89" y="-180.84" angle="96.39" type="RB628" speed="13.89" pos="513.93" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16185.00">
+        <vehicle id="RB1" x="1000.69" y="-182.39" angle="96.39" type="RB628" speed="13.89" pos="527.82" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16186.00">
+        <vehicle id="RB1" x="1014.49" y="-183.94" angle="96.39" type="RB628" speed="13.89" pos="541.71" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16187.00">
+        <vehicle id="RB1" x="1027.80" y="-185.43" angle="96.39" type="RB628" speed="13.39" pos="555.10" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16188.00">
+        <vehicle id="RB1" x="1040.61" y="-186.86" angle="96.39" type="RB628" speed="12.89" pos="567.99" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16189.00">
+        <vehicle id="RB1" x="1052.92" y="-188.24" angle="96.39" type="RB628" speed="12.39" pos="580.38" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16190.00">
+        <vehicle id="RB1" x="1064.74" y="-189.56" angle="96.39" type="RB628" speed="11.89" pos="592.27" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16191.00">
+        <vehicle id="RB1" x="1076.05" y="-190.83" angle="96.39" type="RB628" speed="11.39" pos="603.66" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16192.00">
+        <vehicle id="RB1" x="1086.88" y="-192.04" angle="96.39" type="RB628" speed="10.89" pos="614.54" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16193.00">
+        <vehicle id="RB1" x="1097.20" y="-193.20" angle="96.39" type="RB628" speed="10.39" pos="624.93" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16194.00">
+        <vehicle id="RB1" x="1107.03" y="-194.30" angle="96.39" type="RB628" speed="9.89" pos="634.82" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16195.00">
+        <vehicle id="RB1" x="1116.36" y="-195.34" angle="96.39" type="RB628" speed="9.39" pos="644.21" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16196.00">
+        <vehicle id="RB1" x="1125.19" y="-196.33" angle="96.39" type="RB628" speed="8.89" pos="653.10" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16197.00">
+        <vehicle id="RB1" x="1133.53" y="-197.27" angle="96.39" type="RB628" speed="8.39" pos="661.49" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16198.00">
+        <vehicle id="RB1" x="1141.37" y="-198.14" angle="96.39" type="RB628" speed="7.89" pos="669.38" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16199.00">
+        <vehicle id="RB1" x="1148.72" y="-198.97" angle="96.39" type="RB628" speed="7.39" pos="676.77" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16200.00">
+        <vehicle id="RB1" x="1155.56" y="-199.73" angle="96.39" type="RB628" speed="6.89" pos="683.66" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16201.00">
+        <vehicle id="RB1" x="1161.91" y="-200.45" angle="96.39" type="RB628" speed="6.39" pos="690.05" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16202.00">
+        <vehicle id="RB1" x="1167.76" y="-201.10" angle="96.39" type="RB628" speed="5.89" pos="695.94" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16203.00">
+        <vehicle id="RB1" x="1173.12" y="-201.70" angle="96.39" type="RB628" speed="5.39" pos="701.33" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16204.00">
+        <vehicle id="RB1" x="1177.98" y="-202.24" angle="96.39" type="RB628" speed="4.89" pos="706.22" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16205.00">
+        <vehicle id="RB1" x="1182.34" y="-202.73" angle="96.39" type="RB628" speed="4.39" pos="710.61" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16206.00">
+        <vehicle id="RB1" x="1186.21" y="-203.17" angle="96.39" type="RB628" speed="3.89" pos="714.50" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16207.00">
+        <vehicle id="RB1" x="1189.57" y="-203.54" angle="96.39" type="RB628" speed="3.39" pos="717.88" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16208.00">
+        <vehicle id="RB1" x="1192.45" y="-203.86" angle="96.39" type="RB628" speed="2.89" pos="720.77" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16209.00">
+        <vehicle id="RB1" x="1194.82" y="-204.13" angle="96.39" type="RB628" speed="2.39" pos="723.16" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16210.00">
+        <vehicle id="RB1" x="1196.70" y="-204.12" angle="96.12" type="RB628" speed="1.89" pos="725.05" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16211.00">
+        <vehicle id="RB1" x="1198.09" y="-204.02" angle="95.80" type="RB628" speed="1.39" pos="726.44" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16212.00">
+        <vehicle id="RB1" x="1198.97" y="-203.96" angle="95.60" type="RB628" speed="0.89" pos="727.33" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16213.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.39" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16214.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16215.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16216.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16217.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16218.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16219.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16220.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16221.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16222.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16223.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16224.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16225.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16226.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16227.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16228.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16229.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16230.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16231.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16232.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16233.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16234.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16235.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16236.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16237.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16238.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16239.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16240.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16241.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16242.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16243.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16244.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16245.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16246.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16247.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16248.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16249.00">
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16250.00">
+        <vehicle id="ICE0" x="3231.43" y="-240.54" angle="270.16" type="ICE1" speed="0.00" pos="358.10" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1371.77" y="-347.54" angle="90.23" type="RB425" speed="0.00" pos="67.60" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16251.00">
+        <vehicle id="ICE0" x="3231.03" y="-240.54" angle="270.16" type="ICE1" speed="0.40" pos="358.50" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1372.80" y="-347.54" angle="90.23" type="RB425" speed="1.03" pos="68.63" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16252.00">
+        <vehicle id="ICE0" x="3230.22" y="-240.54" angle="270.16" type="ICE1" speed="0.81" pos="359.31" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1374.85" y="-347.55" angle="90.23" type="RB425" speed="2.05" pos="70.68" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16253.00">
+        <vehicle id="ICE0" x="3229.01" y="-240.54" angle="270.16" type="ICE1" speed="1.21" pos="360.52" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1377.93" y="-347.56" angle="90.23" type="RB425" speed="3.08" pos="73.76" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16254.00">
+        <vehicle id="ICE0" x="3227.40" y="-240.53" angle="270.16" type="ICE1" speed="1.61" pos="362.13" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1382.03" y="-347.58" angle="90.23" type="RB425" speed="4.10" pos="77.86" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16255.00">
+        <vehicle id="ICE0" x="3225.40" y="-240.53" angle="270.16" type="ICE1" speed="2.01" pos="364.14" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1387.16" y="-347.60" angle="90.23" type="RB425" speed="5.13" pos="82.99" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16256.00">
+        <vehicle id="ICE0" x="3222.99" y="-240.52" angle="270.16" type="ICE1" speed="2.41" pos="366.54" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1393.31" y="-347.62" angle="90.23" type="RB425" speed="6.15" pos="89.14" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16257.00">
+        <vehicle id="ICE0" x="3220.19" y="-240.51" angle="270.16" type="ICE1" speed="2.80" pos="369.35" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1400.48" y="-347.65" angle="90.23" type="RB425" speed="7.17" pos="96.31" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16258.00">
+        <vehicle id="ICE0" x="3216.99" y="-240.50" angle="270.16" type="ICE1" speed="3.20" pos="372.55" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1408.67" y="-347.68" angle="90.23" type="RB425" speed="8.19" pos="104.50" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16259.00">
+        <vehicle id="ICE0" x="3213.39" y="-240.49" angle="270.16" type="ICE1" speed="3.59" pos="376.14" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1417.88" y="-347.72" angle="90.23" type="RB425" speed="9.21" pos="113.71" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16260.00">
+        <vehicle id="ICE0" x="3209.40" y="-240.48" angle="270.16" type="ICE1" speed="3.99" pos="380.13" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1428.11" y="-347.76" angle="90.23" type="RB425" speed="10.23" pos="123.94" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16261.00">
+        <vehicle id="ICE0" x="3205.02" y="-240.47" angle="270.16" type="ICE1" speed="4.38" pos="384.51" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1439.36" y="-347.80" angle="90.23" type="RB425" speed="11.25" pos="135.19" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16262.00">
+        <vehicle id="ICE0" x="3200.25" y="-240.45" angle="270.16" type="ICE1" speed="4.77" pos="389.29" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1451.62" y="-347.85" angle="90.23" type="RB425" speed="12.26" pos="147.45" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16263.00">
+        <vehicle id="ICE0" x="3195.08" y="-240.44" angle="270.16" type="ICE1" speed="5.16" pos="394.45" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1464.89" y="-347.90" angle="90.23" type="RB425" speed="13.27" pos="160.72" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16264.00">
+        <vehicle id="ICE0" x="3189.53" y="-240.42" angle="270.16" type="ICE1" speed="5.55" pos="400.00" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1478.78" y="-347.96" angle="90.23" type="RB425" speed="13.89" pos="174.61" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16265.00">
+        <vehicle id="ICE0" x="3183.59" y="-240.41" angle="270.16" type="ICE1" speed="5.94" pos="405.94" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1492.67" y="-348.01" angle="90.23" type="RB425" speed="13.89" pos="188.50" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16266.00">
+        <vehicle id="ICE0" x="3177.27" y="-240.39" angle="270.16" type="ICE1" speed="6.33" pos="412.27" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1506.56" y="-348.07" angle="90.23" type="RB425" speed="13.89" pos="202.39" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16267.00">
+        <vehicle id="ICE0" x="3170.55" y="-240.37" angle="270.16" type="ICE1" speed="6.71" pos="418.98" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1520.45" y="-348.12" angle="90.23" type="RB425" speed="13.89" pos="216.28" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16268.00">
+        <vehicle id="ICE0" x="3163.46" y="-240.35" angle="270.16" type="ICE1" speed="7.10" pos="426.08" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1534.34" y="-348.18" angle="90.23" type="RB425" speed="13.89" pos="230.17" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16269.00">
+        <vehicle id="ICE0" x="3155.98" y="-240.33" angle="270.16" type="ICE1" speed="7.48" pos="433.56" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1548.23" y="-348.23" angle="90.23" type="RB425" speed="13.89" pos="244.06" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16270.00">
+        <vehicle id="ICE0" x="3148.12" y="-240.31" angle="270.16" type="ICE1" speed="7.86" pos="441.42" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1562.12" y="-348.29" angle="90.23" type="RB425" speed="13.89" pos="257.95" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16271.00">
+        <vehicle id="ICE0" x="3139.87" y="-240.28" angle="270.16" type="ICE1" speed="8.24" pos="449.66" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1576.01" y="-348.34" angle="90.23" type="RB425" speed="13.89" pos="271.84" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16272.00">
+        <vehicle id="ICE0" x="3131.25" y="-240.26" angle="270.16" type="ICE1" speed="8.62" pos="458.28" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1589.90" y="-348.40" angle="90.23" type="RB425" speed="13.89" pos="285.73" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16273.00">
+        <vehicle id="ICE0" x="3122.25" y="-240.23" angle="270.16" type="ICE1" speed="9.00" pos="467.28" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1603.79" y="-348.45" angle="90.23" type="RB425" speed="13.89" pos="299.62" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16274.00">
+        <vehicle id="ICE0" x="3112.87" y="-240.21" angle="270.16" type="ICE1" speed="9.38" pos="476.66" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1617.68" y="-348.51" angle="90.23" type="RB425" speed="13.89" pos="313.51" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16275.00">
+        <vehicle id="ICE0" x="3103.12" y="-240.18" angle="270.16" type="ICE1" speed="9.76" pos="486.42" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1631.57" y="-348.56" angle="90.23" type="RB425" speed="13.89" pos="327.40" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16276.00">
+        <vehicle id="ICE0" x="3092.99" y="-240.15" angle="270.16" type="ICE1" speed="10.13" pos="496.55" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1645.46" y="-348.62" angle="90.23" type="RB425" speed="13.89" pos="341.29" lane="-gneE8_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16277.00">
+        <vehicle id="ICE0" x="3082.48" y="-240.12" angle="270.16" type="ICE1" speed="10.51" pos="507.05" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1659.25" y="-346.98" angle="88.79" type="RB425" speed="13.89" pos="12.41" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16278.00">
+        <vehicle id="ICE0" x="3071.60" y="-240.09" angle="270.16" type="ICE1" speed="10.88" pos="517.93" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1673.02" y="-345.16" angle="87.19" type="RB425" speed="13.89" pos="26.30" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16279.00">
+        <vehicle id="ICE0" x="3060.35" y="-240.06" angle="270.16" type="ICE1" speed="11.25" pos="529.18" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1686.79" y="-343.34" angle="85.59" type="RB425" speed="13.89" pos="40.19" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16280.00">
+        <vehicle id="ICE0" x="3048.73" y="-240.03" angle="270.16" type="ICE1" speed="11.62" pos="540.80" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1700.56" y="-341.51" angle="83.99" type="RB425" speed="13.89" pos="54.08" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16281.00">
+        <vehicle id="ICE0" x="3036.74" y="-239.99" angle="270.16" type="ICE1" speed="11.99" pos="552.80" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1714.33" y="-339.69" angle="82.46" type="RB425" speed="13.89" pos="67.97" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16282.00">
+        <vehicle id="ICE0" x="3024.38" y="-239.96" angle="270.16" type="ICE1" speed="12.36" pos="565.16" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1728.10" y="-337.87" angle="82.46" type="RB425" speed="13.89" pos="81.86" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16283.00">
+        <vehicle id="ICE0" x="3011.65" y="-239.92" angle="270.16" type="ICE1" speed="12.73" pos="577.89" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1741.87" y="-336.05" angle="82.46" type="RB425" speed="13.89" pos="95.75" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16284.00">
+        <vehicle id="ICE0" x="2998.55" y="-239.89" angle="270.16" type="ICE1" speed="13.10" pos="590.99" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1755.64" y="-334.22" angle="82.46" type="RB425" speed="13.89" pos="109.64" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16285.00">
+        <vehicle id="ICE0" x="2985.08" y="-239.85" angle="270.16" type="ICE1" speed="13.46" pos="604.45" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1769.40" y="-332.40" angle="82.46" type="RB425" speed="13.89" pos="123.53" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16286.00">
+        <vehicle id="ICE0" x="2971.25" y="-239.81" angle="270.16" type="ICE1" speed="13.83" pos="618.28" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1783.17" y="-330.58" angle="82.46" type="RB425" speed="13.89" pos="137.42" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16287.00">
+        <vehicle id="ICE0" x="2957.06" y="-239.77" angle="270.16" type="ICE1" speed="14.19" pos="632.47" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1796.94" y="-328.76" angle="82.46" type="RB425" speed="13.89" pos="151.31" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16288.00">
+        <vehicle id="ICE0" x="2942.51" y="-239.73" angle="270.16" type="ICE1" speed="14.56" pos="647.03" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1810.71" y="-326.93" angle="82.46" type="RB425" speed="13.89" pos="165.20" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16289.00">
+        <vehicle id="ICE0" x="2927.59" y="-239.69" angle="270.16" type="ICE1" speed="14.92" pos="661.95" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1824.48" y="-325.11" angle="82.46" type="RB425" speed="13.89" pos="179.09" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16290.00">
+        <vehicle id="ICE0" x="2912.31" y="-239.64" angle="270.16" type="ICE1" speed="15.28" pos="677.23" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1838.25" y="-323.29" angle="82.46" type="RB425" speed="13.89" pos="192.98" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16291.00">
+        <vehicle id="ICE0" x="2896.66" y="-239.60" angle="270.16" type="ICE1" speed="15.64" pos="692.87" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1852.02" y="-321.47" angle="82.46" type="RB425" speed="13.89" pos="206.87" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16292.00">
+        <vehicle id="ICE0" x="2880.66" y="-239.55" angle="270.16" type="ICE1" speed="16.00" pos="708.87" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1865.79" y="-319.65" angle="82.46" type="RB425" speed="13.89" pos="220.76" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16293.00">
+        <vehicle id="ICE0" x="2864.30" y="-239.51" angle="270.16" type="ICE1" speed="16.36" pos="725.23" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1879.56" y="-317.82" angle="82.46" type="RB425" speed="13.89" pos="234.65" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16294.00">
+        <vehicle id="ICE0" x="2847.58" y="-239.46" angle="270.16" type="ICE1" speed="16.72" pos="741.95" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1893.33" y="-316.00" angle="82.46" type="RB425" speed="13.89" pos="248.54" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16295.00">
+        <vehicle id="ICE0" x="2830.51" y="-239.41" angle="270.16" type="ICE1" speed="17.08" pos="759.03" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1907.10" y="-314.18" angle="82.46" type="RB425" speed="13.89" pos="262.43" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16296.00">
+        <vehicle id="ICE0" x="2813.07" y="-239.36" angle="270.16" type="ICE1" speed="17.43" pos="776.46" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1920.87" y="-312.36" angle="82.46" type="RB425" speed="13.89" pos="276.32" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16297.00">
+        <vehicle id="ICE0" x="2795.28" y="-239.31" angle="270.16" type="ICE1" speed="17.79" pos="794.25" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1934.64" y="-310.53" angle="82.46" type="RB425" speed="13.89" pos="290.21" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16298.00">
+        <vehicle id="ICE0" x="2777.14" y="-239.26" angle="270.16" type="ICE1" speed="18.15" pos="812.40" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1948.41" y="-308.71" angle="82.46" type="RB425" speed="13.89" pos="304.10" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16299.00">
+        <vehicle id="ICE0" x="2758.64" y="-239.21" angle="270.16" type="ICE1" speed="18.50" pos="830.90" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1962.18" y="-306.89" angle="82.46" type="RB425" speed="13.89" pos="317.99" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16300.00">
+        <vehicle id="ICE0" x="2739.78" y="-239.16" angle="270.16" type="ICE1" speed="18.85" pos="849.75" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1975.95" y="-305.07" angle="82.46" type="RB425" speed="13.89" pos="331.88" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16301.00">
+        <vehicle id="ICE0" x="2720.58" y="-239.10" angle="270.16" type="ICE1" speed="19.21" pos="868.96" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="1989.72" y="-303.24" angle="82.46" type="RB425" speed="13.89" pos="345.77" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16302.00">
+        <vehicle id="ICE0" x="2701.02" y="-239.05" angle="270.16" type="ICE1" speed="19.56" pos="888.52" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2003.49" y="-301.42" angle="82.46" type="RB425" speed="13.89" pos="359.66" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16303.00">
+        <vehicle id="ICE0" x="2681.11" y="-238.99" angle="270.16" type="ICE1" speed="19.91" pos="908.43" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2017.26" y="-299.60" angle="82.46" type="RB425" speed="13.89" pos="373.55" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16304.00">
+        <vehicle id="ICE0" x="2660.85" y="-238.94" angle="270.16" type="ICE1" speed="20.26" pos="928.69" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2031.03" y="-297.78" angle="82.46" type="RB425" speed="13.89" pos="387.44" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16305.00">
+        <vehicle id="ICE0" x="2640.24" y="-238.88" angle="270.16" type="ICE1" speed="20.61" pos="949.30" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2044.80" y="-295.95" angle="82.46" type="RB425" speed="13.89" pos="401.33" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16306.00">
+        <vehicle id="ICE0" x="2619.28" y="-238.82" angle="270.16" type="ICE1" speed="20.96" pos="970.26" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2058.57" y="-294.13" angle="82.46" type="RB425" speed="13.89" pos="415.22" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16307.00">
+        <vehicle id="ICE0" x="2597.98" y="-238.76" angle="270.16" type="ICE1" speed="21.31" pos="991.56" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2072.34" y="-292.31" angle="82.46" type="RB425" speed="13.89" pos="429.11" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16308.00">
+        <vehicle id="ICE0" x="2576.32" y="-238.70" angle="270.16" type="ICE1" speed="21.65" pos="1013.21" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2086.11" y="-290.49" angle="82.46" type="RB425" speed="13.89" pos="443.00" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16309.00">
+        <vehicle id="ICE0" x="2554.32" y="-238.64" angle="270.16" type="ICE1" speed="22.00" pos="1035.21" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2099.88" y="-288.66" angle="82.46" type="RB425" speed="13.89" pos="456.89" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16310.00">
+        <vehicle id="ICE0" x="2531.98" y="-238.57" angle="270.16" type="ICE1" speed="22.35" pos="1057.56" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2113.65" y="-286.84" angle="82.46" type="RB425" speed="13.89" pos="470.78" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16311.00">
+        <vehicle id="ICE0" x="2509.29" y="-238.51" angle="270.16" type="ICE1" speed="22.69" pos="1080.25" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2127.42" y="-285.02" angle="82.46" type="RB425" speed="13.89" pos="484.67" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16312.00">
+        <vehicle id="ICE0" x="2486.26" y="-238.44" angle="270.16" type="ICE1" speed="23.03" pos="1103.28" lane="-gneE4_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2141.19" y="-283.20" angle="82.46" type="RB425" speed="13.89" pos="498.56" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16313.00">
+        <vehicle id="ICE0" x="2462.88" y="-237.92" angle="270.23" type="ICE1" speed="23.38" pos="18.15" lane=":gneJ3_0_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2154.96" y="-281.37" angle="82.46" type="RB425" speed="13.89" pos="512.45" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16314.00">
+        <vehicle id="ICE0" x="2439.17" y="-237.22" angle="270.34" type="ICE1" speed="23.72" pos="19.02" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2168.73" y="-279.55" angle="82.46" type="RB425" speed="13.89" pos="526.34" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16315.00">
+        <vehicle id="ICE0" x="2415.12" y="-236.49" angle="270.44" type="ICE1" speed="24.06" pos="43.08" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2182.50" y="-277.73" angle="82.46" type="RB425" speed="13.89" pos="540.23" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16316.00">
+        <vehicle id="ICE0" x="2390.73" y="-235.76" angle="270.55" type="ICE1" speed="24.40" pos="67.48" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2196.27" y="-275.91" angle="82.46" type="RB425" speed="13.89" pos="554.12" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16317.00">
+        <vehicle id="ICE0" x="2365.99" y="-235.01" angle="270.66" type="ICE1" speed="24.74" pos="92.23" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2210.04" y="-274.08" angle="82.46" type="RB425" speed="13.89" pos="568.01" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16318.00">
+        <vehicle id="ICE0" x="2340.92" y="-234.26" angle="270.77" type="ICE1" speed="25.08" pos="117.31" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2223.81" y="-272.26" angle="82.46" type="RB425" speed="13.89" pos="581.90" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16319.00">
+        <vehicle id="ICE0" x="2315.51" y="-233.49" angle="270.88" type="ICE1" speed="25.42" pos="142.73" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2237.58" y="-270.44" angle="82.46" type="RB425" speed="13.89" pos="595.79" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16320.00">
+        <vehicle id="ICE0" x="2289.77" y="-232.72" angle="270.99" type="ICE1" speed="25.76" pos="168.49" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2251.35" y="-268.62" angle="82.46" type="RB425" speed="13.89" pos="609.68" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16321.00">
+        <vehicle id="ICE0" x="2263.68" y="-231.93" angle="271.10" type="ICE1" speed="26.09" pos="194.58" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2265.12" y="-266.80" angle="82.46" type="RB425" speed="13.89" pos="623.57" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16322.00">
+        <vehicle id="ICE0" x="2237.27" y="-231.13" angle="271.22" type="ICE1" speed="26.43" pos="221.01" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2278.89" y="-264.97" angle="82.46" type="RB425" speed="13.89" pos="637.46" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16323.00">
+        <vehicle id="ICE0" x="2210.53" y="-230.33" angle="271.34" type="ICE1" speed="26.76" pos="247.77" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2292.66" y="-263.15" angle="82.46" type="RB425" speed="13.89" pos="651.35" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16324.00">
+        <vehicle id="ICE0" x="2183.45" y="-229.51" angle="271.45" type="ICE1" speed="27.09" pos="274.85" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2306.43" y="-261.33" angle="82.46" type="RB425" speed="13.89" pos="665.24" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16325.00">
+        <vehicle id="ICE0" x="2156.05" y="-228.69" angle="271.57" type="ICE1" speed="27.41" pos="302.26" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2320.20" y="-259.51" angle="82.46" type="RB425" speed="13.89" pos="679.13" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16326.00">
+        <vehicle id="ICE0" x="2128.33" y="-227.85" angle="271.70" type="ICE1" speed="27.74" pos="330.00" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2333.97" y="-257.68" angle="82.46" type="RB425" speed="13.89" pos="693.02" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16327.00">
+        <vehicle id="ICE0" x="2100.28" y="-227.01" angle="271.73" type="ICE1" speed="28.06" pos="358.06" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2347.74" y="-255.86" angle="82.46" type="RB425" speed="13.89" pos="706.91" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16328.00">
+        <vehicle id="ICE0" x="2071.91" y="-226.15" angle="271.73" type="ICE1" speed="28.38" pos="386.44" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2361.51" y="-254.04" angle="82.46" type="RB425" speed="13.89" pos="720.80" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16329.00">
+        <vehicle id="ICE0" x="2043.23" y="-225.29" angle="271.73" type="ICE1" speed="28.69" pos="415.14" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2375.28" y="-252.22" angle="82.46" type="RB425" speed="13.89" pos="734.69" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16330.00">
+        <vehicle id="ICE0" x="2014.24" y="-224.41" angle="271.73" type="ICE1" speed="29.01" pos="444.14" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2389.05" y="-250.39" angle="82.46" type="RB425" speed="13.89" pos="748.58" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16331.00">
+        <vehicle id="ICE0" x="1984.94" y="-223.53" angle="271.73" type="ICE1" speed="29.31" pos="473.45" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2402.82" y="-248.57" angle="82.46" type="RB425" speed="13.89" pos="762.47" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16332.00">
+        <vehicle id="ICE0" x="1955.34" y="-222.64" angle="271.73" type="ICE1" speed="29.61" pos="503.07" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2416.59" y="-246.75" angle="82.46" type="RB425" speed="13.89" pos="776.36" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16333.00">
+        <vehicle id="ICE0" x="1925.44" y="-221.74" angle="271.73" type="ICE1" speed="29.91" pos="532.98" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1199.36" y="-203.93" angle="95.51" type="RB628" speed="0.00" pos="727.72" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2430.36" y="-244.93" angle="82.46" type="RB425" speed="13.89" pos="790.25" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16334.00">
+        <vehicle id="ICE0" x="1895.76" y="-220.84" angle="271.73" type="ICE1" speed="29.70" pos="562.68" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1200.14" y="-203.87" angle="95.33" type="RB628" speed="0.78" pos="728.50" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2444.13" y="-243.10" angle="82.46" type="RB425" speed="13.89" pos="804.14" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16335.00">
+        <vehicle id="ICE0" x="1866.57" y="-219.96" angle="271.73" type="ICE1" speed="29.20" pos="591.88" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1201.68" y="-203.76" angle="94.98" type="RB628" speed="1.54" pos="730.04" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2457.90" y="-241.28" angle="82.46" type="RB425" speed="13.89" pos="818.03" lane="-gneE7_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16336.00">
+        <vehicle id="ICE0" x="1837.89" y="-219.10" angle="271.73" type="ICE1" speed="28.70" pos="620.58" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1203.95" y="-203.60" angle="94.46" type="RB628" speed="2.27" pos="732.32" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2471.65" y="-239.32" angle="82.34" type="RB425" speed="13.89" pos="13.42" lane=":gneJ3_2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16337.00">
+        <vehicle id="ICE0" x="1809.70" y="-218.25" angle="271.73" type="ICE1" speed="28.20" pos="648.78" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1206.93" y="-203.38" angle="93.78" type="RB628" speed="2.99" pos="735.30" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2485.49" y="-238.44" angle="83.15" type="RB425" speed="13.89" pos="4.46" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16338.00">
+        <vehicle id="ICE0" x="1782.01" y="-217.41" angle="271.73" type="ICE1" speed="27.70" pos="676.48" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1210.58" y="-203.12" angle="92.94" type="RB628" speed="3.66" pos="738.97" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2499.38" y="-238.48" angle="84.73" type="RB425" speed="13.89" pos="18.35" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16339.00">
+        <vehicle id="ICE0" x="1754.83" y="-216.60" angle="271.73" type="ICE1" speed="27.20" pos="703.67" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1213.74" y="-202.89" angle="92.21" type="RB628" speed="3.16" pos="742.13" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2513.27" y="-238.52" angle="86.32" type="RB425" speed="13.89" pos="32.24" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16340.00">
+        <vehicle id="ICE0" x="1728.14" y="-215.79" angle="271.73" type="ICE1" speed="26.70" pos="730.37" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1216.39" y="-202.69" angle="91.60" type="RB628" speed="2.66" pos="744.80" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2527.16" y="-238.56" angle="87.92" type="RB425" speed="13.89" pos="46.13" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16341.00">
+        <vehicle id="ICE0" x="1701.95" y="-215.00" angle="271.73" type="ICE1" speed="26.20" pos="756.57" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1218.55" y="-202.54" angle="91.10" type="RB628" speed="2.16" pos="746.96" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2542.06" y="-238.60" angle="89.70" type="RB425" speed="14.90" pos="61.03" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16342.00">
+        <vehicle id="ICE0" x="1676.26" y="-214.23" angle="271.73" type="ICE1" speed="25.70" pos="782.27" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1220.21" y="-202.42" angle="90.72" type="RB628" speed="1.66" pos="748.63" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2557.95" y="-238.65" angle="90.16" type="RB425" speed="15.88" pos="76.92" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16343.00">
+        <vehicle id="ICE0" x="1651.08" y="-213.47" angle="271.73" type="ICE1" speed="25.20" pos="807.47" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1221.37" y="-202.33" angle="90.45" type="RB628" speed="1.16" pos="749.79" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2574.79" y="-238.69" angle="90.16" type="RB425" speed="16.84" pos="93.76" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16344.00">
+        <vehicle id="ICE0" x="1626.39" y="-212.73" angle="271.73" type="ICE1" speed="24.70" pos="832.17" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.04" y="-202.28" angle="90.30" type="RB628" speed="0.66" pos="750.45" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2592.56" y="-238.74" angle="90.16" type="RB425" speed="17.77" pos="111.53" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16345.00">
+        <vehicle id="ICE0" x="1602.20" y="-212.00" angle="271.73" type="ICE1" speed="24.20" pos="856.37" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.16" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2611.20" y="-238.80" angle="90.16" type="RB425" speed="18.65" pos="130.17" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16346.00">
+        <vehicle id="ICE0" x="1578.51" y="-211.28" angle="271.73" type="ICE1" speed="23.70" pos="880.07" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2630.68" y="-238.85" angle="90.16" type="RB425" speed="19.48" pos="149.65" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16347.00">
+        <vehicle id="ICE0" x="1555.32" y="-210.58" angle="271.73" type="ICE1" speed="23.20" pos="903.27" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2650.95" y="-238.91" angle="90.16" type="RB425" speed="20.27" pos="169.92" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16348.00">
+        <vehicle id="ICE0" x="1532.64" y="-209.90" angle="271.73" type="ICE1" speed="22.70" pos="925.97" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2671.97" y="-238.97" angle="90.16" type="RB425" speed="21.02" pos="190.94" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16349.00">
+        <vehicle id="ICE0" x="1510.45" y="-209.23" angle="271.73" type="ICE1" speed="22.20" pos="948.16" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2693.72" y="-239.03" angle="90.16" type="RB425" speed="21.75" pos="212.70" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16350.00">
+        <vehicle id="ICE0" x="1488.76" y="-208.58" angle="271.73" type="ICE1" speed="21.70" pos="969.86" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2716.17" y="-239.09" angle="90.16" type="RB425" speed="22.45" pos="235.14" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16351.00">
+        <vehicle id="ICE0" x="1467.57" y="-207.94" angle="271.73" type="ICE1" speed="21.20" pos="991.06" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2739.29" y="-239.16" angle="90.16" type="RB425" speed="23.12" pos="258.27" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16352.00">
+        <vehicle id="ICE0" x="1446.88" y="-207.32" angle="271.73" type="ICE1" speed="20.70" pos="1011.76" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2763.06" y="-239.22" angle="90.16" type="RB425" speed="23.77" pos="282.04" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16353.00">
+        <vehicle id="ICE0" x="1426.69" y="-206.71" angle="271.73" type="ICE1" speed="20.20" pos="1031.96" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2787.46" y="-239.29" angle="90.16" type="RB425" speed="24.40" pos="306.44" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16354.00">
+        <vehicle id="ICE0" x="1407.00" y="-206.11" angle="271.73" type="ICE1" speed="19.70" pos="1051.66" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2812.47" y="-239.36" angle="90.16" type="RB425" speed="25.01" pos="331.44" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16355.00">
+        <vehicle id="ICE0" x="1387.81" y="-205.54" angle="271.73" type="ICE1" speed="19.20" pos="1070.86" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2838.07" y="-239.43" angle="90.16" type="RB425" speed="25.60" pos="357.04" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16356.00">
+        <vehicle id="ICE0" x="1369.12" y="-204.97" angle="271.73" type="ICE1" speed="18.70" pos="1089.56" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2864.23" y="-239.51" angle="90.16" type="RB425" speed="26.17" pos="383.21" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16357.00">
+        <vehicle id="ICE0" x="1350.93" y="-204.42" angle="271.73" type="ICE1" speed="18.20" pos="1107.76" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2890.96" y="-239.58" angle="90.16" type="RB425" speed="26.73" pos="409.93" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16358.00">
+        <vehicle id="ICE0" x="1333.24" y="-203.89" angle="271.73" type="ICE1" speed="17.70" pos="1125.46" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2918.23" y="-239.66" angle="90.16" type="RB425" speed="27.27" pos="437.21" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16359.00">
+        <vehicle id="ICE0" x="1316.04" y="-203.37" angle="271.73" type="ICE1" speed="17.20" pos="1142.66" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2946.03" y="-239.74" angle="90.16" type="RB425" speed="27.80" pos="465.01" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16360.00">
+        <vehicle id="ICE0" x="1299.35" y="-202.87" angle="271.73" type="ICE1" speed="16.70" pos="1159.35" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="2974.35" y="-239.82" angle="90.16" type="RB425" speed="28.32" pos="493.33" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16361.00">
+        <vehicle id="ICE0" x="1283.16" y="-202.38" angle="271.73" type="ICE1" speed="16.20" pos="1175.55" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3003.17" y="-239.90" angle="90.16" type="RB425" speed="28.82" pos="522.15" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16362.00">
+        <vehicle id="ICE0" x="1267.47" y="-201.91" angle="271.73" type="ICE1" speed="15.70" pos="1191.25" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3032.49" y="-239.98" angle="90.16" type="RB425" speed="29.31" pos="551.46" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16363.00">
+        <vehicle id="ICE0" x="1252.28" y="-201.45" angle="271.73" type="ICE1" speed="15.20" pos="1206.45" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3062.28" y="-240.07" angle="90.16" type="RB425" speed="29.79" pos="581.25" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16364.00">
+        <vehicle id="ICE0" x="1237.58" y="-201.01" angle="271.73" type="ICE1" speed="14.70" pos="1221.15" lane="-gneE3_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3092.53" y="-240.15" angle="90.16" type="RB425" speed="30.26" pos="611.51" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16365.00">
+        <vehicle id="ICE0" x="1223.77" y="-199.16" angle="271.96" type="ICE1" speed="14.20" pos="0.00" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3123.24" y="-240.24" angle="90.16" type="RB425" speed="30.71" pos="642.22" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16366.00">
+        <vehicle id="ICE0" x="1211.24" y="-193.17" angle="272.86" type="ICE1" speed="13.89" pos="13.89" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3154.40" y="-240.33" angle="90.16" type="RB425" speed="31.15" pos="673.37" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16367.00">
+        <vehicle id="ICE0" x="1198.71" y="-187.17" angle="273.77" type="ICE1" speed="13.89" pos="27.78" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3185.99" y="-240.41" angle="90.16" type="RB425" speed="31.59" pos="704.96" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16368.00">
+        <vehicle id="ICE0" x="1185.23" y="-184.49" angle="274.14" type="ICE1" speed="13.89" pos="41.67" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3218.01" y="-240.50" angle="90.16" type="RB425" speed="32.02" pos="736.98" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16369.00">
+        <vehicle id="ICE0" x="1171.43" y="-182.91" angle="274.32" type="ICE1" speed="13.89" pos="55.56" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3250.45" y="-240.60" angle="90.16" type="RB425" speed="32.44" pos="769.43" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16370.00">
+        <vehicle id="ICE0" x="1157.63" y="-181.32" angle="274.51" type="ICE1" speed="13.89" pos="69.45" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3283.31" y="-240.69" angle="90.16" type="RB425" speed="32.86" pos="802.29" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16371.00">
+        <vehicle id="ICE0" x="1143.83" y="-179.74" angle="274.70" type="ICE1" speed="13.89" pos="83.34" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3316.58" y="-240.78" angle="90.16" type="RB425" speed="33.27" pos="835.55" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16372.00">
+        <vehicle id="ICE0" x="1130.03" y="-178.15" angle="274.89" type="ICE1" speed="13.89" pos="97.23" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3350.25" y="-240.88" angle="90.16" type="RB425" speed="33.67" pos="869.23" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16373.00">
+        <vehicle id="ICE0" x="1116.23" y="-176.57" angle="275.08" type="ICE1" speed="13.89" pos="111.12" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3384.31" y="-240.97" angle="90.16" type="RB425" speed="34.06" pos="903.29" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16374.00">
+        <vehicle id="ICE0" x="1102.43" y="-174.98" angle="275.27" type="ICE1" speed="13.89" pos="125.01" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3418.74" y="-241.07" angle="90.16" type="RB425" speed="34.43" pos="937.72" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16375.00">
+        <vehicle id="ICE0" x="1088.63" y="-173.40" angle="275.45" type="ICE1" speed="13.89" pos="138.90" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3453.54" y="-241.17" angle="90.16" type="RB425" speed="34.79" pos="972.51" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16376.00">
+        <vehicle id="ICE0" x="1074.83" y="-171.82" angle="275.64" type="ICE1" speed="13.89" pos="152.79" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3488.67" y="-241.27" angle="90.16" type="RB425" speed="35.14" pos="1007.65" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16377.00">
+        <vehicle id="ICE0" x="1061.03" y="-170.23" angle="275.83" type="ICE1" speed="13.89" pos="166.68" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3524.14" y="-241.37" angle="90.16" type="RB425" speed="35.47" pos="1043.12" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16378.00">
+        <vehicle id="ICE0" x="1047.23" y="-168.65" angle="276.02" type="ICE1" speed="13.89" pos="180.57" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+        <vehicle id="RB2" x="3559.93" y="-241.47" angle="90.16" type="RB425" speed="35.79" pos="1078.91" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16379.00">
+        <vehicle id="ICE0" x="1033.43" y="-167.06" angle="276.21" type="ICE1" speed="13.89" pos="194.46" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16380.00">
+        <vehicle id="ICE0" x="1019.64" y="-165.48" angle="276.40" type="ICE1" speed="13.89" pos="208.35" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16381.00">
+        <vehicle id="ICE0" x="1005.84" y="-163.89" angle="276.58" type="ICE1" speed="13.89" pos="222.24" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16382.00">
+        <vehicle id="ICE0" x="992.04" y="-162.31" angle="276.77" type="ICE1" speed="13.89" pos="236.13" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16383.00">
+        <vehicle id="ICE0" x="978.24" y="-160.72" angle="276.96" type="ICE1" speed="13.89" pos="250.02" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16384.00">
+        <vehicle id="ICE0" x="964.44" y="-159.14" angle="277.15" type="ICE1" speed="13.89" pos="263.91" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16385.00">
+        <vehicle id="ICE0" x="950.64" y="-157.56" angle="277.34" type="ICE1" speed="13.89" pos="277.80" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16386.00">
+        <vehicle id="ICE0" x="936.84" y="-155.97" angle="277.53" type="ICE1" speed="13.89" pos="291.69" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16387.00">
+        <vehicle id="ICE0" x="923.04" y="-154.39" angle="277.71" type="ICE1" speed="13.89" pos="305.58" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16388.00">
+        <vehicle id="ICE0" x="909.24" y="-152.80" angle="277.90" type="ICE1" speed="13.89" pos="319.47" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16389.00">
+        <vehicle id="ICE0" x="895.44" y="-151.22" angle="278.09" type="ICE1" speed="13.89" pos="333.36" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16390.00">
+        <vehicle id="ICE0" x="881.64" y="-149.63" angle="278.28" type="ICE1" speed="13.89" pos="347.25" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16391.00">
+        <vehicle id="ICE0" x="867.84" y="-148.05" angle="278.02" type="ICE1" speed="13.89" pos="361.14" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.20" y="-202.27" angle="90.26" type="RB628" speed="0.00" pos="750.62" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16392.00">
+        <vehicle id="ICE0" x="854.04" y="-146.46" angle="277.29" type="ICE1" speed="13.89" pos="375.03" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1222.98" y="-202.22" angle="90.08" type="RB628" speed="0.78" pos="751.40" lane="gneE1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16393.00">
+        <vehicle id="ICE0" x="840.25" y="-144.88" angle="276.57" type="ICE1" speed="13.89" pos="388.92" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1224.48" y="-201.87" angle="89.43" type="RB628" speed="1.54" pos="1.32" lane=":gneJ2_1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16394.00">
+        <vehicle id="ICE0" x="826.45" y="-143.30" angle="276.55" type="ICE1" speed="13.89" pos="402.81" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1226.47" y="-200.83" angle="87.80" type="RB628" speed="2.27" pos="3.60" lane=":gneJ2_1_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16395.00">
+        <vehicle id="ICE0" x="812.65" y="-141.71" angle="276.55" type="ICE1" speed="13.89" pos="416.70" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1229.44" y="-200.76" angle="87.30" type="RB628" speed="2.99" pos="2.13" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16396.00">
+        <vehicle id="ICE0" x="798.85" y="-140.13" angle="276.55" type="ICE1" speed="13.89" pos="430.59" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1233.12" y="-200.88" angle="86.93" type="RB628" speed="3.68" pos="5.81" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16397.00">
+        <vehicle id="ICE0" x="785.05" y="-138.54" angle="276.55" type="ICE1" speed="13.89" pos="444.48" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1237.46" y="-201.01" angle="86.49" type="RB628" speed="4.35" pos="10.16" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16398.00">
+        <vehicle id="ICE0" x="771.25" y="-136.96" angle="276.55" type="ICE1" speed="13.89" pos="458.37" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1242.46" y="-201.16" angle="86.29" type="RB628" speed="5.00" pos="15.15" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16399.00">
+        <vehicle id="ICE0" x="757.45" y="-135.37" angle="276.55" type="ICE1" speed="13.89" pos="472.26" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1248.08" y="-201.33" angle="87.01" type="RB628" speed="5.62" pos="20.78" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16400.00">
+        <vehicle id="ICE0" x="743.65" y="-133.79" angle="276.55" type="ICE1" speed="13.89" pos="486.15" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1254.30" y="-201.51" angle="87.81" type="RB628" speed="6.23" pos="27.01" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16401.00">
+        <vehicle id="ICE0" x="729.85" y="-132.21" angle="276.55" type="ICE1" speed="13.89" pos="500.04" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1261.11" y="-201.72" angle="88.69" type="RB628" speed="6.81" pos="33.81" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16402.00">
+        <vehicle id="ICE0" x="716.05" y="-130.62" angle="276.55" type="ICE1" speed="13.89" pos="513.93" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1268.45" y="-201.94" angle="89.64" type="RB628" speed="7.35" pos="41.16" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16403.00">
+        <vehicle id="ICE0" x="702.36" y="-129.05" angle="276.55" type="ICE1" speed="13.78" pos="527.71" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1276.32" y="-202.18" angle="91.73" type="RB628" speed="7.87" pos="49.03" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16404.00">
+        <vehicle id="ICE0" x="689.16" y="-127.53" angle="276.55" type="ICE1" speed="13.28" pos="541.00" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1284.67" y="-202.43" angle="91.73" type="RB628" speed="8.35" pos="57.38" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16405.00">
+        <vehicle id="ICE0" x="676.46" y="-126.08" angle="276.55" type="ICE1" speed="12.78" pos="553.78" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1293.48" y="-202.69" angle="91.73" type="RB628" speed="8.82" pos="66.20" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16406.00">
+        <vehicle id="ICE0" x="664.26" y="-124.67" angle="276.55" type="ICE1" speed="12.28" pos="566.07" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1302.74" y="-202.97" angle="91.73" type="RB628" speed="9.26" pos="75.46" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16407.00">
+        <vehicle id="ICE0" x="652.55" y="-123.33" angle="276.55" type="ICE1" speed="11.78" pos="577.85" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1312.42" y="-203.26" angle="91.73" type="RB628" speed="9.69" pos="85.15" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16408.00">
+        <vehicle id="ICE0" x="641.34" y="-122.04" angle="276.55" type="ICE1" speed="11.28" pos="589.13" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1322.51" y="-203.57" angle="91.73" type="RB628" speed="10.09" pos="95.24" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16409.00">
+        <vehicle id="ICE0" x="630.63" y="-120.81" angle="276.55" type="ICE1" speed="10.78" pos="599.92" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1332.99" y="-203.88" angle="91.73" type="RB628" speed="10.49" pos="105.73" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16410.00">
+        <vehicle id="ICE0" x="620.41" y="-119.64" angle="276.55" type="ICE1" speed="10.28" pos="610.20" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1343.85" y="-204.21" angle="91.73" type="RB628" speed="10.86" pos="116.59" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16411.00">
+        <vehicle id="ICE0" x="610.69" y="-118.52" angle="276.55" type="ICE1" speed="9.78" pos="619.99" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1355.06" y="-204.55" angle="91.73" type="RB628" speed="11.22" pos="127.81" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16412.00">
+        <vehicle id="ICE0" x="601.47" y="-117.46" angle="276.55" type="ICE1" speed="9.28" pos="629.27" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1366.62" y="-204.90" angle="91.73" type="RB628" speed="11.56" pos="139.37" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16413.00">
+        <vehicle id="ICE0" x="592.74" y="-116.46" angle="276.55" type="ICE1" speed="8.78" pos="638.05" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1378.51" y="-205.26" angle="91.73" type="RB628" speed="11.90" pos="151.27" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16414.00">
+        <vehicle id="ICE0" x="584.51" y="-115.52" angle="276.55" type="ICE1" speed="8.28" pos="646.34" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1390.74" y="-205.62" angle="91.73" type="RB628" speed="12.23" pos="163.50" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16415.00">
+        <vehicle id="ICE0" x="576.78" y="-114.63" angle="276.55" type="ICE1" speed="7.78" pos="654.12" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1403.28" y="-206.00" angle="91.73" type="RB628" speed="12.55" pos="176.05" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16416.00">
+        <vehicle id="ICE0" x="569.54" y="-113.80" angle="276.55" type="ICE1" speed="7.28" pos="661.40" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1416.12" y="-206.39" angle="91.73" type="RB628" speed="12.85" pos="188.90" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16417.00">
+        <vehicle id="ICE0" x="562.80" y="-113.03" angle="276.55" type="ICE1" speed="6.78" pos="668.19" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1429.27" y="-206.79" angle="91.73" type="RB628" speed="13.16" pos="202.06" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16418.00">
+        <vehicle id="ICE0" x="556.56" y="-112.31" angle="276.55" type="ICE1" speed="6.28" pos="674.47" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1442.72" y="-207.19" angle="91.73" type="RB628" speed="13.45" pos="215.50" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16419.00">
+        <vehicle id="ICE0" x="550.81" y="-111.65" angle="276.55" type="ICE1" speed="5.78" pos="680.26" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1456.44" y="-207.60" angle="91.73" type="RB628" speed="13.73" pos="229.24" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16420.00">
+        <vehicle id="ICE0" x="545.56" y="-111.05" angle="276.55" type="ICE1" speed="5.28" pos="685.54" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1470.44" y="-208.03" angle="91.73" type="RB628" speed="14.01" pos="243.25" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16421.00">
+        <vehicle id="ICE0" x="540.81" y="-110.50" angle="276.55" type="ICE1" speed="4.78" pos="690.32" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1484.72" y="-208.46" angle="91.73" type="RB628" speed="14.28" pos="257.52" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16422.00">
+        <vehicle id="ICE0" x="536.55" y="-110.01" angle="276.55" type="ICE1" speed="4.28" pos="694.61" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1499.25" y="-208.89" angle="91.73" type="RB628" speed="14.54" pos="272.07" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16423.00">
+        <vehicle id="ICE0" x="532.79" y="-109.58" angle="276.55" type="ICE1" speed="3.78" pos="698.39" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1514.05" y="-209.34" angle="91.73" type="RB628" speed="14.80" pos="286.87" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16424.00">
+        <vehicle id="ICE0" x="529.53" y="-109.21" angle="276.55" type="ICE1" speed="3.28" pos="701.68" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1529.10" y="-209.79" angle="91.73" type="RB628" speed="15.06" pos="301.93" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16425.00">
+        <vehicle id="ICE0" x="526.77" y="-108.89" angle="276.55" type="ICE1" speed="2.78" pos="704.46" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1544.40" y="-210.25" angle="91.73" type="RB628" speed="15.31" pos="317.24" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16426.00">
+        <vehicle id="ICE0" x="524.50" y="-108.63" angle="276.55" type="ICE1" speed="2.28" pos="706.74" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1559.95" y="-210.72" angle="91.73" type="RB628" speed="15.55" pos="332.79" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16427.00">
+        <vehicle id="ICE0" x="522.73" y="-108.42" angle="276.55" type="ICE1" speed="1.78" pos="708.53" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1575.73" y="-211.20" angle="91.73" type="RB628" speed="15.79" pos="348.58" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16428.00">
+        <vehicle id="ICE0" x="521.44" y="-108.50" angle="276.51" type="ICE1" speed="1.28" pos="709.81" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1591.75" y="-211.68" angle="91.73" type="RB628" speed="16.03" pos="364.60" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16429.00">
+        <vehicle id="ICE0" x="520.66" y="-108.55" angle="276.49" type="ICE1" speed="0.78" pos="710.60" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1608.00" y="-212.17" angle="91.73" type="RB628" speed="16.26" pos="380.86" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16430.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.28" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1624.47" y="-212.67" angle="91.73" type="RB628" speed="16.48" pos="397.34" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16431.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1641.17" y="-213.17" angle="91.73" type="RB628" speed="16.70" pos="414.04" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16432.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1658.08" y="-213.68" angle="91.73" type="RB628" speed="16.92" pos="430.96" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16433.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1675.20" y="-214.20" angle="91.73" type="RB628" speed="17.13" pos="448.10" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16434.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1692.54" y="-214.72" angle="91.73" type="RB628" speed="17.34" pos="465.44" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16435.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1710.08" y="-215.25" angle="91.73" type="RB628" speed="17.55" pos="482.99" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16436.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1727.83" y="-215.78" angle="91.73" type="RB628" speed="17.76" pos="500.75" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16437.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1745.78" y="-216.32" angle="91.73" type="RB628" speed="17.96" pos="518.71" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16438.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1763.93" y="-216.87" angle="91.73" type="RB628" speed="18.15" pos="536.86" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16439.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1782.27" y="-217.42" angle="91.73" type="RB628" speed="18.35" pos="555.21" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16440.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1800.80" y="-217.98" angle="91.73" type="RB628" speed="18.54" pos="573.75" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16441.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1819.52" y="-218.55" angle="91.73" type="RB628" speed="18.73" pos="592.48" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16442.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1838.43" y="-219.11" angle="91.73" type="RB628" speed="18.92" pos="611.39" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16443.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1857.52" y="-219.69" angle="91.73" type="RB628" speed="19.10" pos="630.49" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16444.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1876.79" y="-220.27" angle="91.73" type="RB628" speed="19.28" pos="649.77" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16445.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1896.23" y="-220.86" angle="91.73" type="RB628" speed="19.46" pos="669.23" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16446.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1915.86" y="-221.45" angle="91.73" type="RB628" speed="19.63" pos="688.86" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16447.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1935.65" y="-222.04" angle="91.73" type="RB628" speed="19.80" pos="708.66" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16448.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1955.61" y="-222.65" angle="91.73" type="RB628" speed="19.97" pos="728.64" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16449.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1975.75" y="-223.25" angle="91.73" type="RB628" speed="20.14" pos="748.78" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16450.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="1996.04" y="-223.86" angle="91.73" type="RB628" speed="20.30" pos="769.08" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16451.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2016.50" y="-224.48" angle="91.73" type="RB628" speed="20.47" pos="789.55" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16452.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2037.12" y="-225.10" angle="91.73" type="RB628" speed="20.63" pos="810.18" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16453.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2057.89" y="-225.73" angle="91.73" type="RB628" speed="20.78" pos="830.96" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16454.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2078.82" y="-226.36" angle="91.73" type="RB628" speed="20.94" pos="851.90" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16455.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2099.90" y="-226.99" angle="91.73" type="RB628" speed="21.09" pos="872.99" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16456.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2121.14" y="-227.63" angle="91.73" type="RB628" speed="21.24" pos="894.23" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16457.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2142.52" y="-228.28" angle="91.73" type="RB628" speed="21.39" pos="915.63" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16458.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2164.05" y="-228.93" angle="91.73" type="RB628" speed="21.54" pos="937.16" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16459.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2185.72" y="-229.58" angle="91.73" type="RB628" speed="21.68" pos="958.84" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16460.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2207.53" y="-230.24" angle="91.73" type="RB628" speed="21.82" pos="980.67" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16461.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2229.48" y="-230.90" angle="91.73" type="RB628" speed="21.96" pos="1002.63" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16462.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2251.57" y="-231.56" angle="91.73" type="RB628" speed="22.10" pos="1024.73" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16463.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2273.80" y="-232.23" angle="91.73" type="RB628" speed="22.24" pos="1046.96" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16464.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2296.16" y="-232.91" angle="91.73" type="RB628" speed="22.37" pos="1069.33" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16465.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2318.65" y="-233.59" angle="91.73" type="RB628" speed="22.50" pos="1091.83" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16466.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2341.27" y="-234.27" angle="91.73" type="RB628" speed="22.63" pos="1114.47" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16467.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2364.02" y="-234.95" angle="91.73" type="RB628" speed="22.76" pos="1137.23" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16468.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2386.90" y="-235.64" angle="91.73" type="RB628" speed="22.89" pos="1160.12" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16469.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2409.91" y="-236.34" angle="91.73" type="RB628" speed="23.02" pos="1183.13" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16470.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2433.04" y="-237.03" angle="91.73" type="RB628" speed="23.14" pos="1206.28" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16471.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2456.29" y="-237.73" angle="91.73" type="RB628" speed="23.27" pos="1229.54" lane="gneE3_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16472.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2479.68" y="-238.39" angle="91.67" type="RB628" speed="23.39" pos="21.50" lane=":gneJ3_5_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16473.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2503.19" y="-238.49" angle="90.91" type="RB628" speed="23.51" pos="22.16" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16474.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2526.82" y="-238.56" angle="90.17" type="RB628" speed="23.63" pos="45.79" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16475.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2550.57" y="-238.63" angle="90.16" type="RB628" speed="23.75" pos="69.54" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16476.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2574.44" y="-238.69" angle="90.16" type="RB628" speed="23.87" pos="93.41" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16477.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2598.42" y="-238.76" angle="90.16" type="RB628" speed="23.98" pos="117.39" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16478.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2622.52" y="-238.83" angle="90.16" type="RB628" speed="24.10" pos="141.49" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16479.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2646.73" y="-238.90" angle="90.16" type="RB628" speed="24.21" pos="165.71" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16480.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2671.06" y="-238.96" angle="90.16" type="RB628" speed="24.33" pos="190.03" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16481.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2695.50" y="-239.03" angle="90.16" type="RB628" speed="24.44" pos="214.47" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16482.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2720.05" y="-239.10" angle="90.16" type="RB628" speed="24.55" pos="239.02" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16483.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2744.71" y="-239.17" angle="90.16" type="RB628" speed="24.66" pos="263.68" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16484.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2769.47" y="-239.24" angle="90.16" type="RB628" speed="24.77" pos="288.45" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16485.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2794.35" y="-239.31" angle="90.16" type="RB628" speed="24.87" pos="313.32" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16486.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2819.33" y="-239.38" angle="90.16" type="RB628" speed="24.98" pos="338.30" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16487.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2844.41" y="-239.45" angle="90.16" type="RB628" speed="25.09" pos="363.39" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16488.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2869.60" y="-239.52" angle="90.16" type="RB628" speed="25.19" pos="388.58" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16489.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2894.89" y="-239.59" angle="90.16" type="RB628" speed="25.29" pos="413.87" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16490.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2920.29" y="-239.67" angle="90.16" type="RB628" speed="25.39" pos="439.26" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16491.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2945.78" y="-239.74" angle="90.16" type="RB628" speed="25.50" pos="464.76" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16492.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2971.38" y="-239.81" angle="90.16" type="RB628" speed="25.59" pos="490.35" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16493.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="2997.07" y="-239.88" angle="90.16" type="RB628" speed="25.69" pos="516.05" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16494.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3022.86" y="-239.96" angle="90.16" type="RB628" speed="25.79" pos="541.84" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16495.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3048.75" y="-240.03" angle="90.16" type="RB628" speed="25.89" pos="567.73" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16496.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3074.74" y="-240.10" angle="90.16" type="RB628" speed="25.98" pos="593.71" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16497.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3100.82" y="-240.17" angle="90.16" type="RB628" speed="26.08" pos="619.79" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16498.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3126.99" y="-240.25" angle="90.16" type="RB628" speed="26.17" pos="645.97" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16499.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3153.26" y="-240.32" angle="90.16" type="RB628" speed="26.27" pos="672.23" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16500.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3179.62" y="-240.40" angle="90.16" type="RB628" speed="26.36" pos="698.59" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16501.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3206.07" y="-240.47" angle="90.16" type="RB628" speed="26.45" pos="725.04" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16502.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3232.61" y="-240.55" angle="90.16" type="RB628" speed="26.54" pos="751.58" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16503.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3259.24" y="-240.62" angle="90.16" type="RB628" speed="26.63" pos="778.21" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16504.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3285.96" y="-240.70" angle="90.16" type="RB628" speed="26.72" pos="804.93" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16505.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3312.76" y="-240.77" angle="90.16" type="RB628" speed="26.81" pos="831.74" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16506.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3339.66" y="-240.85" angle="90.16" type="RB628" speed="26.89" pos="858.63" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16507.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3366.64" y="-240.92" angle="90.16" type="RB628" speed="26.98" pos="885.61" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16508.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3393.70" y="-241.00" angle="90.16" type="RB628" speed="27.06" pos="912.68" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16509.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3420.85" y="-241.08" angle="90.16" type="RB628" speed="27.15" pos="939.83" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16510.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3448.08" y="-241.15" angle="90.16" type="RB628" speed="27.23" pos="967.06" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16511.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3475.40" y="-241.23" angle="90.16" type="RB628" speed="27.32" pos="994.38" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16512.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3502.79" y="-241.31" angle="90.16" type="RB628" speed="27.40" pos="1021.77" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16513.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3530.27" y="-241.38" angle="90.16" type="RB628" speed="27.48" pos="1049.25" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16514.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3557.83" y="-241.46" angle="90.16" type="RB628" speed="27.56" pos="1076.81" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16515.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+        <vehicle id="RB1" x="3585.47" y="-241.54" angle="90.16" type="RB628" speed="27.64" pos="1104.45" lane="gneE4_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16516.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16517.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16518.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16519.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16520.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16521.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16522.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16523.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16524.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16525.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16526.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16527.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16528.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16529.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16530.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16531.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16532.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16533.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16534.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16535.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16536.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16537.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16538.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16539.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16540.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16541.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16542.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16543.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16544.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16545.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16546.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16547.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16548.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16549.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16550.00">
+        <vehicle id="ICE0" x="520.38" y="-108.57" angle="276.48" type="ICE1" speed="0.00" pos="710.88" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16551.00">
+        <vehicle id="ICE0" x="519.97" y="-108.59" angle="276.47" type="ICE1" speed="0.40" pos="711.28" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16552.00">
+        <vehicle id="ICE0" x="519.17" y="-108.64" angle="276.45" type="ICE1" speed="0.81" pos="712.09" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16553.00">
+        <vehicle id="ICE0" x="517.96" y="-108.72" angle="276.42" type="ICE1" speed="1.21" pos="713.30" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16554.00">
+        <vehicle id="ICE0" x="516.36" y="-108.82" angle="276.37" type="ICE1" speed="1.61" pos="714.91" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16555.00">
+        <vehicle id="ICE0" x="514.35" y="-108.94" angle="276.31" type="ICE1" speed="2.01" pos="716.92" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16556.00">
+        <vehicle id="ICE0" x="511.95" y="-109.09" angle="276.25" type="ICE1" speed="2.41" pos="719.32" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16557.00">
+        <vehicle id="ICE0" x="509.15" y="-109.27" angle="276.17" type="ICE1" speed="2.80" pos="722.13" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16558.00">
+        <vehicle id="ICE0" x="505.96" y="-109.47" angle="276.08" type="ICE1" speed="3.20" pos="725.33" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16559.00">
+        <vehicle id="ICE0" x="502.37" y="-109.70" angle="275.98" type="ICE1" speed="3.59" pos="728.92" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16560.00">
+        <vehicle id="ICE0" x="498.39" y="-109.95" angle="275.86" type="ICE1" speed="3.99" pos="732.91" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16561.00">
+        <vehicle id="ICE0" x="494.02" y="-110.22" angle="275.74" type="ICE1" speed="4.38" pos="737.29" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16562.00">
+        <vehicle id="ICE0" x="489.25" y="-110.52" angle="275.60" type="ICE1" speed="4.77" pos="742.07" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16563.00">
+        <vehicle id="ICE0" x="484.10" y="-110.84" angle="275.46" type="ICE1" speed="5.16" pos="747.23" lane="gneE2_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16564.00">
+        <vehicle id="ICE0" x="478.56" y="-111.23" angle="275.30" type="ICE1" speed="5.55" pos="0.32" lane=":gneJ1_0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16565.00">
+        <vehicle id="ICE0" x="472.86" y="-112.53" angle="274.98" type="ICE1" speed="5.94" pos="0.85" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16566.00">
+        <vehicle id="ICE0" x="466.54" y="-112.27" angle="274.91" type="ICE1" speed="6.33" pos="7.18" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16567.00">
+        <vehicle id="ICE0" x="459.83" y="-111.99" angle="274.83" type="ICE1" speed="6.71" pos="13.89" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16568.00">
+        <vehicle id="ICE0" x="452.74" y="-111.70" angle="274.75" type="ICE1" speed="7.10" pos="20.99" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16569.00">
+        <vehicle id="ICE0" x="445.27" y="-111.39" angle="274.66" type="ICE1" speed="7.48" pos="28.47" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16570.00">
+        <vehicle id="ICE0" x="437.41" y="-111.06" angle="274.57" type="ICE1" speed="7.86" pos="36.33" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16571.00">
+        <vehicle id="ICE0" x="429.18" y="-110.72" angle="274.47" type="ICE1" speed="8.24" pos="44.57" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16572.00">
+        <vehicle id="ICE0" x="420.56" y="-110.36" angle="274.37" type="ICE1" speed="8.62" pos="53.19" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16573.00">
+        <vehicle id="ICE0" x="411.57" y="-109.99" angle="274.26" type="ICE1" speed="9.00" pos="62.19" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16574.00">
+        <vehicle id="ICE0" x="402.20" y="-109.60" angle="274.15" type="ICE1" speed="9.38" pos="71.57" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16575.00">
+        <vehicle id="ICE0" x="392.45" y="-109.20" angle="274.04" type="ICE1" speed="9.76" pos="81.33" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16576.00">
+        <vehicle id="ICE0" x="382.33" y="-108.78" angle="273.92" type="ICE1" speed="10.13" pos="91.46" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16577.00">
+        <vehicle id="ICE0" x="371.84" y="-108.34" angle="273.80" type="ICE1" speed="10.51" pos="101.96" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16578.00">
+        <vehicle id="ICE0" x="360.97" y="-107.89" angle="273.67" type="ICE1" speed="10.88" pos="112.84" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16579.00">
+        <vehicle id="ICE0" x="349.73" y="-107.42" angle="273.54" type="ICE1" speed="11.25" pos="124.09" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16580.00">
+        <vehicle id="ICE0" x="338.11" y="-106.94" angle="273.41" type="ICE1" speed="11.62" pos="135.71" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16581.00">
+        <vehicle id="ICE0" x="326.13" y="-106.44" angle="273.27" type="ICE1" speed="11.99" pos="147.71" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16582.00">
+        <vehicle id="ICE0" x="313.78" y="-105.93" angle="273.12" type="ICE1" speed="12.36" pos="160.07" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16583.00">
+        <vehicle id="ICE0" x="301.06" y="-105.40" angle="272.97" type="ICE1" speed="12.73" pos="172.80" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16584.00">
+        <vehicle id="ICE0" x="287.97" y="-104.86" angle="272.82" type="ICE1" speed="13.10" pos="185.90" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16585.00">
+        <vehicle id="ICE0" x="274.52" y="-104.30" angle="272.66" type="ICE1" speed="13.46" pos="199.36" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16586.00">
+        <vehicle id="ICE0" x="260.70" y="-103.73" angle="272.50" type="ICE1" speed="13.83" pos="213.19" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16587.00">
+        <vehicle id="ICE0" x="246.83" y="-103.15" angle="272.34" type="ICE1" speed="13.89" pos="227.08" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16588.00">
+        <vehicle id="ICE0" x="232.95" y="-102.58" angle="272.18" type="ICE1" speed="13.89" pos="240.97" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16589.00">
+        <vehicle id="ICE0" x="219.07" y="-102.00" angle="272.01" type="ICE1" speed="13.89" pos="254.86" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16590.00">
+        <vehicle id="ICE0" x="205.19" y="-101.42" angle="271.85" type="ICE1" speed="13.89" pos="268.75" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16591.00">
+        <vehicle id="ICE0" x="191.31" y="-100.85" angle="271.69" type="ICE1" speed="13.89" pos="282.64" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16592.00">
+        <vehicle id="ICE0" x="177.44" y="-100.27" angle="271.53" type="ICE1" speed="13.89" pos="296.53" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16593.00">
+        <vehicle id="ICE0" x="163.56" y="-99.69" angle="271.42" type="ICE1" speed="13.89" pos="310.42" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16594.00">
+        <vehicle id="ICE0" x="149.68" y="-99.12" angle="271.65" type="ICE1" speed="13.89" pos="324.31" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16595.00">
+        <vehicle id="ICE0" x="135.80" y="-98.54" angle="271.88" type="ICE1" speed="13.89" pos="338.20" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16596.00">
+        <vehicle id="ICE0" x="121.92" y="-97.97" angle="272.11" type="ICE1" speed="13.89" pos="352.09" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16597.00">
+        <vehicle id="ICE0" x="108.05" y="-97.39" angle="272.38" type="ICE1" speed="13.89" pos="365.98" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16598.00">
+        <vehicle id="ICE0" x="93.80" y="-96.80" angle="272.38" type="ICE1" speed="14.25" pos="380.23" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16599.00">
+        <vehicle id="ICE0" x="79.20" y="-96.19" angle="272.38" type="ICE1" speed="14.62" pos="394.85" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16600.00">
+        <vehicle id="ICE0" x="64.23" y="-95.57" angle="272.38" type="ICE1" speed="14.98" pos="409.83" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16601.00">
+        <vehicle id="ICE0" x="48.91" y="-94.94" angle="272.38" type="ICE1" speed="15.34" pos="425.17" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16602.00">
+        <vehicle id="ICE0" x="33.22" y="-94.28" angle="272.38" type="ICE1" speed="15.70" pos="440.87" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16603.00">
+        <vehicle id="ICE0" x="17.17" y="-93.62" angle="272.38" type="ICE1" speed="16.06" pos="456.94" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16604.00">
+        <vehicle id="ICE0" x="0.76" y="-92.94" angle="272.38" type="ICE1" speed="16.42" pos="473.36" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16605.00">
+        <vehicle id="ICE0" x="-16.00" y="-92.24" angle="272.38" type="ICE1" speed="16.78" pos="490.14" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16606.00">
+        <vehicle id="ICE0" x="-33.12" y="-91.53" angle="272.38" type="ICE1" speed="17.14" pos="507.27" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16607.00">
+        <vehicle id="ICE0" x="-50.60" y="-90.80" angle="272.38" type="ICE1" speed="17.49" pos="524.77" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16608.00">
+        <vehicle id="ICE0" x="-68.43" y="-90.06" angle="272.38" type="ICE1" speed="17.85" pos="542.62" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16609.00">
+        <vehicle id="ICE0" x="-86.62" y="-89.31" angle="272.38" type="ICE1" speed="18.20" pos="560.82" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16610.00">
+        <vehicle id="ICE0" x="-105.17" y="-88.54" angle="272.38" type="ICE1" speed="18.56" pos="579.38" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16611.00">
+        <vehicle id="ICE0" x="-124.06" y="-87.75" angle="272.38" type="ICE1" speed="18.91" pos="598.29" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16612.00">
+        <vehicle id="ICE0" x="-143.31" y="-86.96" angle="272.38" type="ICE1" speed="19.27" pos="617.56" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16613.00">
+        <vehicle id="ICE0" x="-162.91" y="-86.14" angle="272.38" type="ICE1" speed="19.62" pos="637.17" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16614.00">
+        <vehicle id="ICE0" x="-182.86" y="-85.31" angle="272.38" type="ICE1" speed="19.97" pos="657.14" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16615.00">
+        <vehicle id="ICE0" x="-203.16" y="-84.47" angle="272.38" type="ICE1" speed="20.32" pos="677.46" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16616.00">
+        <vehicle id="ICE0" x="-223.81" y="-83.61" angle="272.38" type="ICE1" speed="20.67" pos="698.13" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16617.00">
+        <vehicle id="ICE0" x="-244.81" y="-82.74" angle="272.38" type="ICE1" speed="21.02" pos="719.14" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16618.00">
+        <vehicle id="ICE0" x="-266.16" y="-81.86" angle="272.38" type="ICE1" speed="21.36" pos="740.51" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16619.00">
+        <vehicle id="ICE0" x="-287.85" y="-80.96" angle="272.38" type="ICE1" speed="21.71" pos="762.22" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16620.00">
+        <vehicle id="ICE0" x="-309.89" y="-80.04" angle="272.38" type="ICE1" speed="22.06" pos="784.28" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16621.00">
+        <vehicle id="ICE0" x="-332.27" y="-79.11" angle="272.38" type="ICE1" speed="22.40" pos="806.68" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16622.00">
+        <vehicle id="ICE0" x="-355.00" y="-78.17" angle="272.38" type="ICE1" speed="22.75" pos="829.43" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16623.00">
+        <vehicle id="ICE0" x="-378.07" y="-77.21" angle="272.38" type="ICE1" speed="23.09" pos="852.52" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16624.00">
+        <vehicle id="ICE0" x="-401.48" y="-76.24" angle="272.38" type="ICE1" speed="23.43" pos="875.95" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16625.00">
+        <vehicle id="ICE0" x="-425.24" y="-75.25" angle="272.38" type="ICE1" speed="23.78" pos="899.73" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16626.00">
+        <vehicle id="ICE0" x="-449.34" y="-74.25" angle="272.38" type="ICE1" speed="24.12" pos="923.85" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16627.00">
+        <vehicle id="ICE0" x="-473.78" y="-73.24" angle="272.38" type="ICE1" speed="24.46" pos="948.31" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16628.00">
+        <vehicle id="ICE0" x="-498.55" y="-72.21" angle="272.38" type="ICE1" speed="24.80" pos="973.11" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16629.00">
+        <vehicle id="ICE0" x="-523.67" y="-71.17" angle="272.38" type="ICE1" speed="25.14" pos="998.25" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16630.00">
+        <vehicle id="ICE0" x="-549.13" y="-70.11" angle="272.38" type="ICE1" speed="25.48" pos="1023.73" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16631.00">
+        <vehicle id="ICE0" x="-574.92" y="-69.04" angle="272.38" type="ICE1" speed="25.81" pos="1049.54" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16632.00">
+        <vehicle id="ICE0" x="-601.05" y="-67.95" angle="272.38" type="ICE1" speed="26.15" pos="1075.69" lane="-gneE0_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16633.00">
+        <vehicle id="ICE0" x="-627.51" y="-66.77" angle="272.39" type="ICE1" speed="26.48" pos="6.56" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16634.00">
+        <vehicle id="ICE0" x="-654.28" y="-65.34" angle="272.44" type="ICE1" speed="26.81" pos="33.37" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16635.00">
+        <vehicle id="ICE0" x="-681.39" y="-63.89" angle="272.49" type="ICE1" speed="27.14" pos="60.51" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16636.00">
+        <vehicle id="ICE0" x="-708.81" y="-62.43" angle="272.55" type="ICE1" speed="27.47" pos="87.98" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16637.00">
+        <vehicle id="ICE0" x="-736.57" y="-60.95" angle="272.60" type="ICE1" speed="27.79" pos="115.77" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16638.00">
+        <vehicle id="ICE0" x="-764.64" y="-59.45" angle="272.65" type="ICE1" speed="28.11" pos="143.89" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16639.00">
+        <vehicle id="ICE0" x="-793.03" y="-57.93" angle="272.71" type="ICE1" speed="28.43" pos="172.32" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16640.00">
+        <vehicle id="ICE0" x="-821.74" y="-56.40" angle="272.76" type="ICE1" speed="28.75" pos="201.07" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16641.00">
+        <vehicle id="ICE0" x="-850.75" y="-54.85" angle="272.81" type="ICE1" speed="29.06" pos="230.12" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16642.00">
+        <vehicle id="ICE0" x="-880.08" y="-53.29" angle="272.87" type="ICE1" speed="29.36" pos="259.48" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16643.00">
+        <vehicle id="ICE0" x="-909.70" y="-51.71" angle="272.93" type="ICE1" speed="29.66" pos="289.15" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16644.00">
+        <vehicle id="ICE0" x="-939.62" y="-50.11" angle="272.98" type="ICE1" speed="29.96" pos="319.11" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16645.00">
+        <vehicle id="ICE0" x="-969.83" y="-48.50" angle="273.04" type="ICE1" speed="30.25" pos="349.36" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16646.00">
+        <vehicle id="ICE0" x="-1000.33" y="-46.87" angle="273.06" type="ICE1" speed="30.54" pos="379.91" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16647.00">
+        <vehicle id="ICE0" x="-1031.11" y="-45.22" angle="273.06" type="ICE1" speed="30.83" pos="410.74" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16648.00">
+        <vehicle id="ICE0" x="-1062.18" y="-43.57" angle="273.06" type="ICE1" speed="31.11" pos="441.85" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16649.00">
+        <vehicle id="ICE0" x="-1093.53" y="-41.89" angle="273.06" type="ICE1" speed="31.39" pos="473.24" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16650.00">
+        <vehicle id="ICE0" x="-1125.15" y="-40.20" angle="273.06" type="ICE1" speed="31.67" pos="504.91" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16651.00">
+        <vehicle id="ICE0" x="-1157.04" y="-38.50" angle="273.06" type="ICE1" speed="31.94" pos="536.85" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16652.00">
+        <vehicle id="ICE0" x="-1189.21" y="-36.78" angle="273.06" type="ICE1" speed="32.21" pos="569.06" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16653.00">
+        <vehicle id="ICE0" x="-1221.64" y="-35.05" angle="273.06" type="ICE1" speed="32.47" pos="601.53" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16654.00">
+        <vehicle id="ICE0" x="-1254.33" y="-33.31" angle="273.06" type="ICE1" speed="32.74" pos="634.27" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16655.00">
+        <vehicle id="ICE0" x="-1287.28" y="-31.55" angle="273.06" type="ICE1" speed="33.00" pos="667.27" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16656.00">
+        <vehicle id="ICE0" x="-1320.49" y="-29.78" angle="273.06" type="ICE1" speed="33.25" pos="700.52" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16657.00">
+        <vehicle id="ICE0" x="-1353.95" y="-27.99" angle="273.06" type="ICE1" speed="33.51" pos="734.03" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16658.00">
+        <vehicle id="ICE0" x="-1387.66" y="-26.19" angle="273.06" type="ICE1" speed="33.76" pos="767.79" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16659.00">
+        <vehicle id="ICE0" x="-1421.62" y="-24.38" angle="273.06" type="ICE1" speed="34.01" pos="801.80" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16660.00">
+        <vehicle id="ICE0" x="-1455.83" y="-22.55" angle="273.06" type="ICE1" speed="34.26" pos="836.06" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16661.00">
+        <vehicle id="ICE0" x="-1490.28" y="-20.71" angle="273.06" type="ICE1" speed="34.50" pos="870.55" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16662.00">
+        <vehicle id="ICE0" x="-1524.97" y="-18.86" angle="273.06" type="ICE1" speed="34.74" pos="905.30" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16663.00">
+        <vehicle id="ICE0" x="-1559.90" y="-16.99" angle="273.06" type="ICE1" speed="34.98" pos="940.28" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16664.00">
+        <vehicle id="ICE0" x="-1595.06" y="-15.12" angle="273.06" type="ICE1" speed="35.22" pos="975.49" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16665.00">
+        <vehicle id="ICE0" x="-1630.46" y="-13.23" angle="273.06" type="ICE1" speed="35.45" pos="1010.94" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16666.00">
+        <vehicle id="ICE0" x="-1666.10" y="-11.32" angle="273.06" type="ICE1" speed="35.68" pos="1046.63" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16667.00">
+        <vehicle id="ICE0" x="-1701.96" y="-9.41" angle="273.06" type="ICE1" speed="35.91" pos="1082.54" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16668.00">
+        <vehicle id="ICE0" x="-1738.05" y="-7.48" angle="273.06" type="ICE1" speed="36.14" pos="1118.68" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16669.00">
+        <vehicle id="ICE0" x="-1774.36" y="-5.54" angle="273.06" type="ICE1" speed="36.37" pos="1155.05" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16670.00">
+        <vehicle id="ICE0" x="-1810.90" y="-3.59" angle="273.06" type="ICE1" speed="36.59" pos="1191.63" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16671.00">
+        <vehicle id="ICE0" x="-1847.66" y="-1.63" angle="273.06" type="ICE1" speed="36.81" pos="1228.44" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16672.00">
+        <vehicle id="ICE0" x="-1884.64" y="0.34" angle="273.06" type="ICE1" speed="37.03" pos="1265.47" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16673.00">
+        <vehicle id="ICE0" x="-1921.83" y="2.33" angle="273.06" type="ICE1" speed="37.25" pos="1302.72" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16674.00">
+        <vehicle id="ICE0" x="-1959.24" y="4.32" angle="273.06" type="ICE1" speed="37.46" pos="1340.19" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16675.00">
+        <vehicle id="ICE0" x="-1996.86" y="6.33" angle="273.06" type="ICE1" speed="37.68" pos="1377.86" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16676.00">
+        <vehicle id="ICE0" x="-2034.70" y="8.35" angle="273.06" type="ICE1" speed="37.89" pos="1415.75" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+    <timestep time="16677.00">
+        <vehicle id="ICE0" x="-2072.74" y="10.38" angle="273.06" type="ICE1" speed="38.10" pos="1453.85" lane="-gneE6_0" slope="0.00"/>
+    </timestep>
+</fcd-export>

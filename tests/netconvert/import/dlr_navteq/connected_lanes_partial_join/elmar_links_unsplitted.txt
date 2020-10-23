@@ -1,0 +1,57 @@
+# Format matches Extraction version: V6.5 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <!-- generated on Mon Apr  1 21:54:33 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+# -->
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# 
+#     <input>
+#         <sumo-net-file value="net.net.xml"/>
+#     </input>
+# 
+#     <output>
+#         <dlr-navteq-output value="debug"/>
+#         <output.street-names value="true"/>
+#     </output>
+# 
+#     <processing>
+#         <numerical-ids value="true"/>
+#         <geometry.max-grade.fix value="false"/>
+#         <offset.disable-normalization value="true"/>
+#         <lefthand value="false"/>
+#     </processing>
+# 
+#     <junctions>
+#         <no-turnarounds value="true"/>
+#         <junctions.corner-detail value="5"/>
+#         <junctions.limit-turn-speed value="5.5"/>
+#         <rectangular-lane-cut value="false"/>
+#     </junctions>
+# 
+#     <pedestrian>
+#         <walkingareas value="false"/>
+#     </pedestrian>
+# 
+#     <formats>
+#         <osm.all-attributes value="true"/>
+#     </formats>
+# 
+# </configuration>
+# 
+#
+# LINK_ID	NODE_ID_FROM	NODE_ID_TO	BETWEEN_NODE_ID	LENGTH	VEHICLE_TYPE	FORM_OF_WAY	BRUNNEL_TYPE	FUNCTIONAL_ROAD_CLASS	SPEED_CATEGORY	NUMBER_OF_LANES	SPEED_LIMIT	SPEED_RESTRICTION	NAME_ID1_REGIONAL	NAME_ID2_LOCAL	HOUSENUMBERS_RIGHT	HOUSENUMBERS_LEFT	ZIP_CODE	AREA_ID	SUBAREA_ID	THROUGH_TRAFFIC	SPECIAL_RESTRICTIONS	EXTENDED_NUMBER_OF_LANES	ISRAMP	CONNECTION
+-10	29	20	-1	70.97	011111111111	3	-1	3	6	32	50	50	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+-11	24	29	-11	58.71	011111111111	3	-1	3	6	32	50	50	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+-12	22	26	-12	169.73	011111111111	3	-1	3	6	32	50	50	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+-13	23	24	-13	75.91	100000000000	3	-1	3	6	22	50	50	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+-14	28	27	-14	68.58	100000000000	3	-1	3	6	22	50	50	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+10	20	29	-1	70.97	011111111111	3	-1	3	6	32	50	50	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+11	29	25	11	61.94	011111111111	3	-1	3	6	32	50	50	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+12	27	22	12	167.44	011111111111	3	-1	3	6	32	50	50	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+13	26	23	13	74.96	100000000000	3	-1	3	6	22	50	50	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+14	25	28	14	70.07	100000000000	3	-1	3	6	22	50	50	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+15	25	27	-1	16.93	011111111111	3	-1	3	6	32	50	50	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+16	27	26	-1	12.49	100000000000	3	-1	3	6	22	50	50	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+17	26	24	-1	17.12	011111111111	3	-1	3	6	32	50	50	-1	0	-1	-1	-1	-1	-1	1	-1	-1	-1	0	
+18	24	25	-1	12.43	100000000000	3	-1	3	6	22	50	50	-1	-1	-1	-1	-1	-1	-1	1	-1	-1	-1	0	

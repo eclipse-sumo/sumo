@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 10 Jul 2019 09:37:40 AM CEST by Eclipse SUMO netedit Version v1_2_0+1004-924f2d1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="/scr2/debug/_devices_rerouting_personTrip_ride_from_stop/input_additional.add.xml"/>
+    </netedit>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<net version="1.3" junctionCornerDetail="5" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,0.00" convBoundary="-400.00,-100.00,1300.00,0.00" origBoundary="0.00,0.00,1000.00,500.00" projParameter="!"/>
+
+    <edge id=":gneJ12_0" function="internal">
+        <lane id=":gneJ12_0_0" index="0" allow="rail" speed="13.89" length="0.10" shape="800.34,-101.60 800.34,-101.60"/>
+    </edge>
+
+    <edge id="accessA" from="A0" to="gneJ6" priority="-1" spreadType="center">
+        <lane id="accessA_0" index="0" allow="pedestrian" speed="13.89" length="200.00" shape="0.00,0.00 -200.00,0.00"/>
+    </edge>
+    <edge id="accessC" from="B0" to="gneJ11" priority="-1" spreadType="center">
+        <lane id="accessC_0" index="0" allow="pedestrian" speed="13.89" length="200.00" shape="1100.00,0.00 900.00,0.00"/>
+    </edge>
+    <edge id="railWE" from="gneJ4" to="gneJ12" priority="-1">
+        <lane id="railWE_0" index="0" allow="rail" speed="13.89" length="1200.00" shape="-400.00,-101.60 800.00,-101.60"/>
+    </edge>
+    <edge id="railWE.1200" from="gneJ12" to="gneJ5" priority="-1">
+        <lane id="railWE.1200_0" index="0" allow="rail" speed="13.89" length="500" shape="800.00,-101.60 1300.00,-101.60"/>
+    </edge>
+
+    <junction id="A0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,-1.60 0.00,1.60"/>
+    <junction id="B0" type="dead_end" x="1100.00" y="0.00" incLanes="" intLanes="" shape="1100.00,-1.60 1100.00,1.60"/>
+    <junction id="gneJ11" type="dead_end" x="900.00" y="0.00" incLanes="accessC_0" intLanes="" shape="900.00,1.60 900.00,-1.60"/>
+    <junction id="gneJ12" type="priority" x="800.34" y="-100.00" incLanes="railWE_0" intLanes=":gneJ12_0_0" shape="800.34,-100.00 800.34,-103.20 800.34,-100.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ4" type="dead_end" x="-400.00" y="-100.00" incLanes="" intLanes="" shape="-400.00,-100.00 -400.00,-103.20"/>
+    <junction id="gneJ5" type="dead_end" x="1300.00" y="-100.00" incLanes="railWE.1200_0" intLanes="" shape="1300.00,-103.20 1300.00,-100.00"/>
+    <junction id="gneJ6" type="dead_end" x="-200.00" y="0.00" incLanes="accessA_0" intLanes="" shape="-200.00,1.60 -200.00,-1.60"/>
+
+    <connection from="railWE" to="railWE.1200" fromLane="0" toLane="0" via=":gneJ12_0_0" dir="s" state="M"/>
+
+    <connection from=":gneJ12_0" to="railWE.1200" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

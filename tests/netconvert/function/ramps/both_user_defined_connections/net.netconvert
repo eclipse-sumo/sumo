@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:55 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:03 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,12 +29,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="47.30,4.42" convBoundary="0.00,0.00,276.09,34.95" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -43,9 +44,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="A_1" index="1" speed="30.00" length="77.48" shape="-0.00,33.35 73.44,33.15"/>
     </edge>
     <edge id="B" from="B-AddedOnRampNode" to="gneJ2" priority="1">
-        <lane id="B_0" index="0" speed="30.00" length="69.59" shape="177.40,25.85 238.25,25.31"/>
-        <lane id="B_1" index="1" speed="30.00" length="69.59" shape="177.43,29.05 238.27,28.51"/>
-        <lane id="B_2" index="2" speed="30.00" length="69.59" shape="177.46,32.25 238.30,31.71"/>
+        <lane id="B_0" index="0" speed="30.00" length="52.72" shape="177.40,25.85 225.86,25.42"/>
+        <lane id="B_1" index="1" speed="30.00" length="52.72" shape="177.43,29.05 225.88,28.62"/>
+        <lane id="B_2" index="2" speed="30.00" length="52.72" shape="177.46,32.25 225.91,31.82"/>
     </edge>
     <edge id="B-AddedOnRampEdge" from="gneJ1" to="B-AddedOnRampNode" priority="1">
         <lane id="B-AddedOnRampEdge_0" index="0" speed="30.00" length="100.00" acceleration="1" shape="82.25,26.70 177.40,25.85"/>
@@ -53,11 +54,11 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="B-AddedOnRampEdge_2" index="2" speed="30.00" length="100.00" shape="82.30,33.10 177.46,32.25"/>
     </edge>
     <edge id="C" from="gneJ2" to="gneJ3" priority="1">
-        <lane id="C_0" index="0" speed="30.00" length="37.92" shape="246.38,28.80 276.16,29.21"/>
-        <lane id="C_1" index="1" speed="30.00" length="37.92" shape="246.34,32.00 276.11,32.41"/>
+        <lane id="C_0" index="0" speed="30.00" length="45.90" shape="234.26,28.64 276.16,29.21"/>
+        <lane id="C_1" index="1" speed="30.00" length="45.90" shape="234.21,31.84 276.11,32.41"/>
     </edge>
-    <edge id="off" from="gneJ2" to="gneJ5" priority="1" shape="230.16,30.18 274.20,19.27">
-        <lane id="off_0" index="0" speed="30.00" length="31.78" shape="247.42,24.26 273.82,17.72"/>
+    <edge id="off" from="gneJ2" to="gneJ5" priority="1" shape="230.13,26.98 274.20,19.27">
+        <lane id="off_0" index="0" speed="30.00" length="48.72" shape="234.06,24.67 273.92,17.69"/>
     </edge>
     <edge id="on" from="gneJ4" to="gneJ1" priority="1" shape="25.90,0.00 77.42,28.34">
         <lane id="on_0" index="0" speed="30.00" length="63.70" shape="26.67,-1.40 73.96,24.61"/>
@@ -74,7 +75,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>
     </junction>
-    <junction id="gneJ2" type="priority" x="230.19" y="33.38" incLanes="B_0 B_1 B_2" intLanes="" shape="246.32,33.60 246.40,27.20 247.81,25.81 247.04,22.70 243.83,23.43 242.68,23.59 241.53,23.67 240.12,23.69 238.23,23.71 238.32,33.31">
+    <junction id="gneJ2" type="priority" x="230.19" y="33.38" incLanes="B_0 B_1 B_2" intLanes="" shape="234.19,33.43 234.28,27.04 234.33,26.25 233.78,23.09 230.86,23.58 229.83,23.70 228.80,23.77 227.54,23.80 225.84,23.82 225.93,33.42">
         <request index="0" response="0000" foes="0010"/>
         <request index="1" response="0001" foes="0001"/>
         <request index="2" response="0000" foes="0000"/>
@@ -82,7 +83,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
     <junction id="gneJ3" type="dead_end" x="276.09" y="34.01" incLanes="C_0 C_1" intLanes="" shape="276.18,27.61 276.09,34.01"/>
     <junction id="gneJ4" type="dead_end" x="25.90" y="0.00" incLanes="" intLanes="" shape="25.90,0.00 27.44,-2.80"/>
-    <junction id="gneJ5" type="dead_end" x="274.20" y="19.27" incLanes="off_0" intLanes="" shape="273.43,16.16 274.20,19.27"/>
+    <junction id="gneJ5" type="dead_end" x="274.20" y="19.27" incLanes="off_0" intLanes="" shape="273.65,16.12 274.20,19.27"/>
 
     <connection from="A" to="B-AddedOnRampEdge" fromLane="0" toLane="1" dir="s" state="M"/>
     <connection from="A" to="B-AddedOnRampEdge" fromLane="1" toLane="2" dir="s" state="M"/>

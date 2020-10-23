@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Jan 31 08:49:44 2019 by Eclipse SUMO Version v1_1_0+0435-678c69824b
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<railsignal-block-output>
+    <railSignal id="A">
+        <link linkIndex="0" from="entry_0" to=":A_1_0">
+            <forwardBlock lanes=":A_1_0 beg_0"/>
+            <bidiBlock lanes=":A_0_0 -beg_0 :B_1_0 :B_0_0"/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex="B_1 B_0"/>
+        </link>
+    </railSignal>
+    <railSignal id="B">
+        <link linkIndex="0" from="branch_0" to=":B_0_0">
+            <forwardBlock lanes=":B_0_0 -beg_0 :A_0_0 -entry_0"/>
+            <bidiBlock lanes=":B_2_0 beg_0 :A_1_0 entry_0"/>
+            <backwardBlock lanes=":B_1_0"/>
+            <conflictLinks logicIndex="B_1"/>
+        </link>
+        <link linkIndex="1" from="-end_0" to=":B_1_0">
+            <forwardBlock lanes=":B_1_0 -beg_0 :A_0_0 -entry_0"/>
+            <bidiBlock lanes=":B_2_0 beg_0 :A_1_0 entry_0"/>
+            <backwardBlock lanes=":B_0_0"/>
+            <conflictLinks logicIndex="B_0"/>
+        </link>
+        <link linkIndex="2" from="beg_0" to=":B_2_0">
+            <forwardBlock lanes=":B_2_0 end_0"/>
+            <bidiBlock lanes=":B_1_0 -end_0"/>
+            <backwardBlock lanes=""/>
+            <conflictLinks logicIndex=""/>
+        </link>
+    </railSignal>
+</railsignal-block-output>

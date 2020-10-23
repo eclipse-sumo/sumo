@@ -1,5 +1,6 @@
+netconvert/function/railway/bidi_endOffset_invalid/net.netconvert:56:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'lane': The attribute 'shape' is required but missing.
+netconvert/import/SUMO/stopOffsets/incomplete_specification/input_net.net.xml:169:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'stopOffset': The attribute 'value' is required but missing.
 netconvert/import/SUMO/stopOffsets/warnings/input_net.net.xml:139:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'stopOffset', attribute 'value': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
 netconvert/import/SUMO/stopOffsets/warnings/input_net.net.xml:139:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'stopOffset', attribute 'value': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
 netconvert/import/SUMO/stopOffsets/warnings/input_net.net.xml:154:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'stopOffset', attribute 'value': [facet 'minInclusive'] The value '-1' is less than the minimum value allowed ('0').
 netconvert/import/SUMO/stopOffsets/warnings/input_net.net.xml:154:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'stopOffset', attribute 'value': '-1' is not a valid value of the atomic type 'nonNegativeFloatType'.
-netconvert/import/SUMO/stopOffsets/incomplete_specification/input_net.net.xml:169:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_4: Element 'stopOffset': The attribute 'value' is required but missing.

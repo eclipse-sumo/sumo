@@ -1,0 +1,7 @@
+Error: Invalid Junction-Model Attribute jmSigmaMinor. Cannot be parsed to float
+Error: Invalid Junction Model Parameters
+Error: Invalid Junction-Model Attribute jmSigmaMinor. Only values between [0-1] are allowed
+Error: Invalid Junction Model Parameters
+Error: Invalid Junction-Model Attribute jmSigmaMinor. Only values between [0-1] are allowed
+Error: Invalid Junction Model Parameters
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug163931.7256/netedit.gui/demandElements/vehicletype/load/junctionmodel_params/jm_sigma_minor\input_routes.rou.xml failed.

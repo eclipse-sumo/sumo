@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-09-02 13:25:23.059985 by $Id$
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>min-stops 0 <doubleminus>extend-to-fringe <doubleminus>verbose
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <vType id="tram" vClass="tram"/>
+    <vType id="train" vClass="rail"/>
+    <vType id="subway" vClass="rail_urban"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail"/>
+    <vType id="trolleybus" vClass="bus"/>
+    <vType id="aerialway" vClass="bus"/>
+    <vType id="ferry" vClass="ship"/>
+    <trip id="0_bus_0:0" type="bus" depart="0" departLane="best" from="-391493954#3" to="-110450334#1">
+    </trip>
+    <trip id="1_bus_1:0" type="bus" depart="0" departLane="best" from="-391493954#3" to="-110450334#1">
+        <stop busStop="3959807220" duration="30"/>
+    </trip>
+    <trip id="2_bus_2:0" type="bus" depart="0" departLane="best" from="53356539#0" to="111325187#3">
+        <stop busStop="4032629819" duration="30"/>
+        <stop busStop="2029039199" duration="30"/>
+    </trip>
+    <trip id="3_bus_3:0" type="bus" depart="0" departLane="best" from="53356539#1" to="111325187#1">
+        <stop busStop="4032629819" duration="30"/>
+        <stop busStop="2029039199" duration="30"/>
+    </trip>
+    <trip id="5_bus_5:0" type="bus" depart="0" departLane="best" from="53356539#1" to="111325187#1">
+        <stop busStop="4032629819" duration="30"/>
+        <stop busStop="2029039199" duration="30"/>
+    </trip>
+</routes>

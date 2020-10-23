@@ -4,14 +4,14 @@
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/busstop/delete\input_additionals.add.xml"/>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/busstop/delete\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/containerStop/delete\input_additionals.add.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/containerStop/delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/busstop/delete\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/busstop/delete\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/busstop/delete\net.net.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/containerStop/delete\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/containerStop/delete\shapes.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/containerStop/delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -24,7 +24,7 @@
     </processing>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/busstop/delete\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/containerStop/delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -33,7 +33,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/busstop/delete\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.18Jun141137.3100/netedit.gui/additionalElements/containerStop/delete\log.txt"/>
     </report>
 
 </configuration>

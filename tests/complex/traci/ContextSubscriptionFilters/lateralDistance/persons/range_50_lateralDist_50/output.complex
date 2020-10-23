@@ -1,0 +1,9 @@
+ Retrying in 1 seconds
+Subscribing to context of vehicle 'ego' (range=50.0)
+Adding lateral distance subscription filter ... (lateralDistance=50.0, downstreamDistance=50.0, upstreamDistance=50.0)
+Context results for veh 'ego':
+p10
+p8
+p9
+Ok: Unsubscribe successful
+Print ended at step 3.0

@@ -1,0 +1,21 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+TestFunctions: Clicked over position 504 - 318
+TestFunctions: Clicked over position 504 - 218.0
+TestFunctions: Clicked over position 404.0 - 218.0
+TestFunctions: Clicked over position 404.0 - 318
+TestFunctions: Clicked over position 504 - 318
+TestFunctions: Clicked over position 704 - 318
+TestFunctions: Clicked over position 704 - 218.0
+TestFunctions: Clicked over position 604.0 - 218.0
+TestFunctions: Clicked over position 604.0 - 318
+TestFunctions: Clicked over position 704 - 318
+TestFunctions: Clicked over position 412 - 228
+taz_1
+
+ID with spaces
+newID
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Clicked over position 304 - 168
+TestFunctions: Netedit closed successfully

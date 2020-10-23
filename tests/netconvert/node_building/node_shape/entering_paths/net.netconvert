@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:38 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:45 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,27 +24,28 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-391579.55,-5819895.09" convBoundary="0.00,0.00,130.42,108.82" origBoundary="13.354338,52.488705,13.527397,52.569279" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="1" from="29207821" to="C" priority="9" type="highway.primary" spreadType="center" shape="0.75,29.29 36.47,50.23 38.00,51.09">
         <lane id="1_0" index="0" allow="pedestrian" speed="13.89" length="54.01" width="3.00" shape="3.18,25.15 37.48,45.26"/>
-        <lane id="1_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="54.01" shape="1.61,27.82 35.96,47.96"/>
-        <lane id="1_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="54.01" shape="-0.01,30.58 34.39,50.75"/>
-        <lane id="1_3" index="3" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="54.01" shape="-1.63,33.34 32.82,53.54"/>
+        <lane id="1_1" index="1" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="54.01" shape="1.61,27.82 35.96,47.96"/>
+        <lane id="1_2" index="2" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="54.01" shape="-0.01,30.58 34.39,50.75"/>
+        <lane id="1_3" index="3" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="54.01" shape="-1.63,33.34 32.82,53.54"/>
     </edge>
     <edge id="2" from="C" to="341340986" priority="9" type="highway.primary" spreadType="center" shape="43.97,54.63 68.48,70.11 114.96,107.65">
         <lane id="2_0" index="0" allow="pedestrian" speed="13.89" length="89.73" width="3.00" shape="62.12,60.42 71.28,66.20 117.98,103.92"/>
-        <lane id="2_1" index="1" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="89.73" shape="61.11,63.45 69.47,68.73 116.03,106.33"/>
-        <lane id="2_2" index="2" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="89.73" shape="60.07,66.57 67.61,71.33 114.02,108.82"/>
-        <lane id="2_3" index="3" disallow="rail_urban rail rail_electric pedestrian" speed="13.89" length="89.73" shape="59.02,69.70 65.74,73.94 112.01,111.31"/>
+        <lane id="2_1" index="1" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="89.73" shape="61.11,63.45 69.47,68.73 116.03,106.33"/>
+        <lane id="2_2" index="2" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="89.73" shape="60.07,66.57 67.61,71.33 114.02,108.82"/>
+        <lane id="2_3" index="3" disallow="pedestrian rail_urban rail rail_electric" speed="13.89" length="89.73" shape="59.02,69.70 65.74,73.94 112.01,111.31"/>
     </edge>
     <edge id="3" from="2381159855" to="C" priority="1" type="highway.footway" spreadType="center" shape="130.42,82.28 119.05,77.68 111.13,70.13 89.78,56.89 75.47,48.86 62.64,44.64">
         <lane id="3_0" index="0" allow="pedestrian" speed="8.33" length="93.59" shape="130.42,82.28 119.05,77.68 111.13,70.13 89.78,56.89 75.47,48.86 66.93,46.05"/>
@@ -60,7 +61,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="29207821" type="dead_end" x="0.00" y="30.59" incLanes="" intLanes="" shape="-2.43,34.73 3.95,23.86"/>
     <junction id="341340986" type="dead_end" x="114.01" y="108.82" incLanes="2_0 2_1 2_2 2_3" intLanes="" shape="118.92,102.75 111.00,112.55"/>
     <junction id="702048667" type="dead_end" x="51.82" y="24.77" incLanes="" intLanes="" shape="50.40,24.02 53.24,25.52"/>
-    <junction id="C" type="priority" x="47.69" y="50.98" incLanes="3_0 4_0 5_0 1_0 1_1 1_2 1_3" intLanes="" shape="58.50,71.26 67.43,44.53 66.77,44.17 66.66,43.95 66.69,43.71 66.87,43.44 67.20,43.15 65.24,40.61 60.52,43.66 54.93,46.40 49.42,48.35 44.96,49.06 42.51,48.05 43.04,44.87 40.20,43.38 39.67,44.03 39.36,44.19 39.01,44.22 38.63,44.14 38.21,43.95 32.04,54.93">
+    <junction id="C" type="priority" x="47.69" y="50.98" incLanes="3_0 4_0 5_0 1_0 1_1 1_2 1_3" intLanes="" shape="58.50,71.26 67.43,44.53 66.77,44.17 66.66,43.95 66.69,43.71 66.87,43.44 67.20,43.15 65.24,40.61 59.74,44.36 53.76,47.60 48.21,49.79 43.98,50.41 41.96,48.95 43.04,44.87 40.20,43.38 39.67,44.03 39.36,44.19 39.01,44.22 38.63,44.14 38.21,43.95 32.04,54.93">
         <request index="0" response="000" foes="000"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="000" foes="000"/>

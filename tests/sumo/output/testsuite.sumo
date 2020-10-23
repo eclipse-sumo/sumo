@@ -24,6 +24,7 @@ tls
 
 # Tests for summary-output (earlier: emission-output)
 summary
+personSummary
 
 # Tests for tripinfo-output
 tripinfo
@@ -58,12 +59,6 @@ meannoise_edgebased
 # Tests for lane-based mean noise output (aka "mean harmonoise lane dump")
 meannoise_lanebased
 
-# Tests which serve as examples
-examples
-
-# test the duration log output
-duration_log
-
 # Test for Floating Car Data
 fcd-output
 link-output
@@ -79,3 +74,16 @@ vtk-output
 
 # Tests for the queue-output
 queue-output
+
+# test the duration log output
+duration_log
+
+# --statistic-output
+statistic
+
+# Tests which serve as examples
+examples
+examples_multimodal
+
+# emission outputs impacted by idling
+emission-idling

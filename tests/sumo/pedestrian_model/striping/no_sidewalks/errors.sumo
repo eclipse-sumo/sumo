@@ -1,2 +1,0 @@
-Warning: Person 'forward_turn_left' could not find route across junction 'C' from edge 'SC' to edge 'CW', time=0.00.
-Warning: Person 'forward_change_side' could not find route across junction 'C' from edge 'EC' to edge 'WC', time=0.00.

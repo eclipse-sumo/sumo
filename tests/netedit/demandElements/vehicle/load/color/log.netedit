@@ -1,0 +1,3 @@
+Error: Attribute 'color' in definition of vehicle 'vehicle_0' is empty.
+Error: Attribute 'color' in definition of vehicle 'vehicle_1' is empty.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.01Aug092034.6224/netedit.gui/demandElements/vehicle/load/color\input_routes.rou.xml failed.

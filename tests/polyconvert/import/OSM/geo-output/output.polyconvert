@@ -1,4 +1,4 @@
-Parsing nodes from osm-file 'osm.xml'... done (1ms).
-Parsing relations from osm-file 'osm.xml'... done (0ms).
-Parsing edges from osm-file 'osm.xml'... done (0ms).
+Parsing nodes from osm-file 'osm.xml' ... done (0ms).
+Parsing relations from osm-file 'osm.xml' ... done (1ms).
+Parsing edges from osm-file 'osm.xml' ... done (0ms).
 Success.

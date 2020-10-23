@@ -24,6 +24,8 @@ sumo/extended/stops/simple_stop;../docs/examples/sumo/vehicle_stops
 sumo/extended/busses/three_busses;../docs/examples/sumo/busses
 sumo/extended/rerouter/parking/angled_roadside_parking;../docs/examples/sumo/angled_roadside_parking
 sumo/gui/visualization/parade;../docs/examples/sumo/visualization/parade
+sumo/gui/visualization/paradePersons;../docs/examples/sumo/visualization/paradePersons
+sumo/gui/visualization/paradeContainers;../docs/examples/sumo/visualization/paradeContainers
 sumo/output/examples/cross3ltl_emission;../docs/examples/sumo/output/cross3ltl_emission
 sumo/output/examples/cross3ltl_fcd;../docs/examples/sumo/output/cross3ltl_fcd
 sumo/output/examples/cross3ltl_full;../docs/examples/sumo/output/cross3ltl_full
@@ -46,9 +48,12 @@ sumo/basic/simple_nets/box/box2l;../docs/examples/sumo/simple_nets/box/box2l
 sumo/basic/simple_nets/box/box3l;../docs/examples/sumo/simple_nets/box/box3l
 sumo/basic/simple_nets/box/box4l;../docs/examples/sumo/simple_nets/box/box4l
 sumo/sublane_model/1edge_2lanes_compact_mixed;../docs/examples/sumo/sublane_model;sumo
+sumo/rail/model_railroad;../docs/examples/sumo/model_railroad
 tools/assign/dua-iterate/simple;../docs/examples/tools/dua-iterate
 tools/detector/flowrouter/bell_pfe/plain;../docs/examples/tools/flowrouter
-tools/output/converter/ns2/mobility_only;../docs/examples/tools/traceExporter
+tools/output/traceExporter/ns2/mobility_only;../docs/examples/tools/traceExporter
 complex/tutorial/quickstart;../docs/tutorial/quickstart
 complex/tutorial/hello;../docs/tutorial/hello
 complex/tutorial/traci_tls/plain;../docs/tutorial/traci_tls
+complex/tutorial/manhattan;../docs/tutorial/manhattan
+complex/traas/simple;../docs/examples/traas

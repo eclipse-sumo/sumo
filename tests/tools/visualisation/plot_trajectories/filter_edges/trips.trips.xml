@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-04-28 15:41:03.100171 by randomTrips.py v1_6_0+0008-9167fcd7f7
+  options: -p 10 -e 100 -n /home/kobo/dlr/sumo/tests/sumo/net2.net.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="0" depart="0.00" from="SC" to="CS"/>
+    <trip id="1" depart="10.00" from="NC" to="CN"/>
+    <trip id="2" depart="20.00" from="EC" to="CN"/>
+    <trip id="3" depart="30.00" from="WC" to="CS"/>
+    <trip id="4" depart="40.00" from="EC" to="CE"/>
+    <trip id="5" depart="50.00" from="EC" to="CW"/>
+    <trip id="6" depart="60.00" from="EC" to="CW"/>
+    <trip id="7" depart="70.00" from="NC" to="CS"/>
+    <trip id="8" depart="80.00" from="NC" to="CS"/>
+    <trip id="9" depart="90.00" from="EC" to="CS"/>
+</routes>

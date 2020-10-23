@@ -1,8 +1,22 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    DLRLogger.java
+/// @author  Maximiliano Bottazzi
+/// @date    2016
+///
+//
+/****************************************************************************/
 package de.dlr.ts.commons.logger;
 
 //import static de.dlr.ts.commons.network.tools.DateTools.getDateStringForLogger;
@@ -21,85 +35,80 @@ import java.io.StringWriter;
  *
  * @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class DLRLogger
-{
+public class DLRLogger {
     private static LogLevel currentLevel = LogLevel.INFO;
     private static WriteToDisk wtd = null;
-    
-    
+
+
     /**
-     * Enables or disables writing log messages to disc and 
+     * Enables or disables writing log messages to disc and
      * sets the maximun size of the log directory.
-     * 
+     *
      * @param writeToDisk True to enable, false to disable.
-     * @param logFolderSizeLimitInMB the maximum size of the log folder in megabytes. 
+     * @param logFolderSizeLimitInMB the maximum size of the log folder in megabytes.
      */
     @Deprecated
     public static void setWriteToDisk(boolean writeToDisk, double logFolderSizeLimitInMB) {
-        if(writeToDisk)
-        {
+        if (writeToDisk) {
             wtd = new WriteToDisk(logFolderSizeLimitInMB);
             wtd.start();
         }
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
     public static PrintStream getSeverePrintStream() {
         return new PrintStream(new SevereOutputStream(), true);
     }
-    
+
     /**
-     * 
+     *
      */
-    private static class SevereOutputStream extends OutputStream 
-    {
-        private StringBuilder string = new StringBuilder();        
-        
+    private static class SevereOutputStream extends OutputStream {
+        private StringBuilder string = new StringBuilder();
+
         @Override
-        public void write(int b) throws IOException {            
+        public void write(int b) throws IOException {
             //this.string.append((char) b );
-                        
-            if(b != 13 && b != 10) {                
-                this.string.append((char) b );                                
-            }                
-            
+
+            if (b != 13 && b != 10) {
+                this.string.append((char) b);
+            }
+
             /*
-            else if(b == 10) {                
+            else if(b == 10) {
                 severe(string.toString());
                 string = new StringBuilder();
             } */
-            
-        }    
+
+        }
 
         @Override
         public void flush() throws IOException {
             severe(string.toString());
             //System.out.println(string);
             string = new StringBuilder();
-        }                
+        }
     }
-    
+
     /**
-     * Enables or disables writing log messages to disc and 
+     * Enables or disables writing log messages to disc and
      * sets the maximun size of the log directory.
-     *      
+     *
      * @param logFolderSizeLimitInMB the maximum size of the log folder in megabytes. Unabled if set to zero.
      */
-    public static void setWriteToDisk(int logFolderSizeLimitInMB)
-    {
-        if(logFolderSizeLimitInMB != 0)
-        {
+    public static void setWriteToDisk(int logFolderSizeLimitInMB) {
+        if (logFolderSizeLimitInMB != 0) {
             wtd = new WriteToDisk(logFolderSizeLimitInMB);
             wtd.start();
         }
     }
-    
+
     /**
      * Enables or disables writing log messages to disc.
-     * 
+     *
      * @param writeToDisk True to enable, false to disable.
      */
     @Deprecated
@@ -113,15 +122,16 @@ public class DLRLogger
      * @return
      */
     public static ToString toString(Object object) {
-        if (object instanceof String)
+        if (object instanceof String) {
             return new ToString((String) object);
+        }
 
         return new ToString(object.getClass().getSimpleName());
     }
 
     /**
      *
-     * @return 
+     * @return
      */
     public static LogLevel getCurrentLevel() {
         return currentLevel;
@@ -140,8 +150,9 @@ public class DLRLogger
      * @param level
      */
     public static void setLevel(LogLevel level) {
-        if(level != null)
+        if (level != null) {
             DLRLogger.currentLevel = level;
+        }
     }
 
     /**
@@ -150,8 +161,7 @@ public class DLRLogger
      * @return
      */
     private static ColorString getBarrita(LogLevel level) {
-        switch (level)
-        {
+        switch (level) {
             case FINEST:
                 return new ColorString(" | ", Color.BLUE, Effect.BOLD);
             case FINER:
@@ -178,8 +188,7 @@ public class DLRLogger
      * @param text
      * @return
      */
-    public static String config(String text)
-    {
+    public static String config(String text) {
         return config(null, text);
     }
 
@@ -189,8 +198,7 @@ public class DLRLogger
      * @param text
      * @return
      */
-    public static String config(Object module, String text)
-    {
+    public static String config(Object module, String text) {
         return config(module, Color.NONE, text);
     }
 
@@ -200,15 +208,14 @@ public class DLRLogger
      * @param myString
      * @return
      */
-    public static String config(Object module, MyString myString)
-    {
+    public static String config(Object module, MyString myString) {
         return print(module, myString, LogLevel.CONFIG);
     }
-    
+
     /**
-     * 
+     *
      * @param myString
-     * @return 
+     * @return
      */
     public static String config(MyString myString) {
         return config(null, myString);
@@ -231,8 +238,9 @@ public class DLRLogger
      * @param color
      */
     private static String colorIt(String text, Color color) {
-        if (color != null)        
-            return ColorString.string(text, color, Effect.BOLD);        
+        if (color != null) {
+            return ColorString.string(text, color, Effect.BOLD);
+        }
 
         return text;
     }
@@ -265,11 +273,11 @@ public class DLRLogger
     public static String finer(Object module, MyString myString) {
         return print(module, myString, LogLevel.FINER);
     }
-    
+
     /**
-     * 
+     *
      * @param myString
-     * @return 
+     * @return
      */
     public static String finer(MyString myString) {
         return finer(null, myString);
@@ -325,11 +333,11 @@ public class DLRLogger
     public static String fine(Object module, MyString myString) {
         return print(module, myString, LogLevel.FINE);
     }
-    
+
     /**
-     * 
+     *
      * @param myString
-     * @return 
+     * @return
      */
     public static String fine(MyString myString) {
         return fine(null, myString);
@@ -342,36 +350,36 @@ public class DLRLogger
      * @return
      */
     private static String module(Object module, String text) {
-        if (module != null)
-        {
-            if (module instanceof String)
+        if (module != null) {
+            if (module instanceof String) {
                 text = "[" + ColorString.string((String) module, Color.WHITE, Effect.BOLD) + "] " + text;
-            else
+            } else {
                 text = "[" + ColorString.string(module.getClass().getSimpleName(), Color.WHITE, Effect.BOLD) + "] " + text;
+            }
         }
 
         return text;
     }
 
     /**
-     * 
+     *
      * @param module
      * @param text
-     * @return 
+     * @return
      */
     private static String modulePlain(Object module, String text) {
-        if (module != null)
-        {
-            if (module instanceof String)
+        if (module != null) {
+            if (module instanceof String) {
                 text = "[" + (String) module + "] " + text;
-            else
+            } else {
                 text = "[" + module.getClass().getSimpleName() + "] " + text;
+            }
         }
 
         return text;
     }
-    
-    
+
+
     /**
      *
      * @param text
@@ -411,11 +419,11 @@ public class DLRLogger
     public static String finest(Object module, MyString myString) {
         return print(module, myString, LogLevel.FINEST);
     }
-    
+
     /**
-     * 
+     *
      * @param myString
-     * @return 
+     * @return
      */
     public static String finest(MyString myString) {
         return finest(null, myString);
@@ -462,14 +470,14 @@ public class DLRLogger
     }
 
     /**
-     * 
+     *
      * @param myString
-     * @return 
+     * @return
      */
     public static String warning(MyString myString) {
         return warning(null, myString);
     }
-    
+
     /**
      *
      * @param text
@@ -509,7 +517,7 @@ public class DLRLogger
         StringWriter sw = new StringWriter();
         throwable.printStackTrace(new PrintWriter(sw));
         String exceptionAsString = sw.toString();
-        
+
         return severe(module, Color.NONE, exceptionAsString);
     }
 
@@ -533,11 +541,11 @@ public class DLRLogger
     public static String severe(Object module, MyString myString) {
         return print(module, myString, LogLevel.SEVERE);
     }
-    
+
     /**
-     * 
+     *
      * @param myString
-     * @return 
+     * @return
      */
     public static String severe(MyString myString) {
         return severe(null, myString);
@@ -551,11 +559,11 @@ public class DLRLogger
     public static String info(String text) {
         return info(null, text);
     }
-    
+
     /**
-     * 
+     *
      * @param myString
-     * @return 
+     * @return
      */
     public static String info(MyString myString) {
         return info(null, myString);
@@ -600,16 +608,14 @@ public class DLRLogger
      */
     @Deprecated
     public static String log(LogLevel level, String text) {
-        if (wtd != null && currentLevel.ordinal() >= level.ordinal())
-        {
+        if (wtd != null && currentLevel.ordinal() >= level.ordinal()) {
             wtd.addLogLine(
-                    getDateStringForLogger(System.currentTimeMillis()) + " | "
-                    + StringTools.centerText(level.toString(), 7) + " | "
-                    + text);
+                getDateStringForLogger(System.currentTimeMillis()) + " | "
+                + StringTools.centerText(level.toString(), 7) + " | "
+                + text);
         }
 
-        if (level.ordinal() <= currentLevel.ordinal())
-        {
+        if (level.ordinal() <= currentLevel.ordinal()) {
             ColorString barrita = getBarrita(level);
             String line = getLine(text, barrita.toString());
             System.out.println(line);
@@ -618,8 +624,8 @@ public class DLRLogger
         }
 
         return "";
-    }        
-    
+    }
+
     /**
      *
      * @param module
@@ -627,29 +633,28 @@ public class DLRLogger
      * @param logLevel
      */
     private static String print(Object module, MyString myString, LogLevel logLevel) {
-        if (wtd != null && currentLevel.ordinal() >= logLevel.ordinal())
-        {
+        if (wtd != null && currentLevel.ordinal() >= logLevel.ordinal()) {
             wtd.addLogLine(
                 getDateStringForLogger(System.currentTimeMillis()) + " | "
                 + StringTools.centerText(logLevel.toString(), 7) + " | "
-                + modulePlain(module, myString.getPlainString()));                    
+                + modulePlain(module, myString.getPlainString()));
         }
 
         String text = "";
 
-        if (currentLevel.ordinal() >= logLevel.ordinal())
-        {
+        if (currentLevel.ordinal() >= logLevel.ordinal()) {
             ColorString barrita = getBarrita(logLevel);
             //text = colorIt(text, color);
             text = myString.toString();
             text = module(module, text);
 
             String line = getLine(text, barrita.toString());
-            
-            if(logLevel != LogLevel.SEVERE)
+
+            if (logLevel != LogLevel.SEVERE) {
                 System.out.println(line);
-            else
+            } else {
                 System.err.println(line);
+            }
 
             return line;
         }

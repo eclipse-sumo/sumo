@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NLTriggerBuilder.h
 /// @author  Daniel Krajzewicz
@@ -14,17 +18,10 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Thu, 17 Oct 2002
-/// @version $Id$
 ///
 // Builds trigger objects for microsim
 /****************************************************************************/
-#ifndef NLTriggerBuilder_h
-#define NLTriggerBuilder_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -220,6 +217,40 @@ public:
      */
     void parseAndBuildChargingStation(MSNet& net, const SUMOSAXAttributes& attrs);
 
+    /** @brief Parses its values and builds an overhead wire segment
+    *
+    * @param[in] net The network the overhead wire segment belongs to
+    * @param[in] attrs SAXattributes which define the trigger
+    * @exception InvalidArgument If a parameter (lane/position) is not valid
+    */
+    void parseAndBuildOverheadWireSegment(MSNet& net, const SUMOSAXAttributes& attrs);
+
+    /** @brief Parses its values and builds an overhead wire section
+    *
+    * @param[in] net The network the overhead wire segment belongs to
+    * @param[in] attrs SAXattributes which define the trigger
+    * @exception InvalidArgument If a substationId is not known, a segment is not known or is assigned to another overheadWireSection
+    */
+    void parseAndBuildOverheadWireSection(MSNet& net, const SUMOSAXAttributes& attrs);
+
+    /** @brief Parses its values and builds a traction substation
+    *
+    * @param[in] net The network the overhead wire segment belongs to
+    * @param[in] attrs SAXattributes which define the trigger
+    * @exception InvalidArgument  If the id is not given or is empty...
+    */
+    void parseAndBuildTractionSubstation(MSNet& net, const SUMOSAXAttributes& attrs);
+
+    /** @brief Parses its values and builds an overhead wire clamp
+    *
+    * An overhead wire clamp is a conductive connection of wires in the opposite direction over the road
+    *
+    * @param[in] net The network the overhead wire clamp belongs to
+    * @param[in] attrs SAXattributes which define the trigger
+    * @exception InvalidArgument If the traction substation is not found in the net or if the start or end segment belongs to a different traction substation
+    */
+    void parseAndBuildOverheadWireClamp(MSNet& net, const SUMOSAXAttributes& attrs);
+
     /** @brief Parses his values and builds a mesoscopic or microscopic calibrator
      *
      * @param[in] net The network the calibrator belongs to
@@ -230,6 +261,10 @@ public:
     void parseAndBuildCalibrator(MSNet& net, const SUMOSAXAttributes& attrs,
                                  const std::string& base);
     //@}
+
+
+    MSStoppingPlace* getCurrentStop();
+
 
 protected:
     /// @name building methods
@@ -272,7 +307,8 @@ protected:
      * @exception InvalidArgument If the stop can not be added to the net (is duplicate)
      */
     virtual void buildStoppingPlace(MSNet& net, std::string id, std::vector<std::string> lines, MSLane* lane,
-                                    double frompos, double topos, const SumoXMLTag element, std::string string);
+                                    double frompos, double topos, const SumoXMLTag element, std::string string,
+                                    int personCapacity, double parkingLength);
 
     /** @brief Builds a charging station
      *
@@ -292,6 +328,46 @@ protected:
     virtual void buildChargingStation(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, const std::string& name,
                                       double chargingPower, double efficiency, bool chargeInTransit, double chargeDelay);
 
+    /** @brief Builds an overhead wire segment
+    *
+    * Simply calls the MSOverheadWire constructor and adds the result to the network.
+    *
+    * @param[in] net The net the overhead wire segment belongs to
+    * @param[in] id The id of the overhead wire segment
+    * @param[in] lane The lane the overhead wire segment is placed on
+    * @param[in] frompos Begin position of the overhead wire segment on the lane
+    * @param[in] topos End position of the overhead wire segment  on the lane
+    * @param[in] voltageSource default voltage of overhead wire segment (unused) TODORICE
+    * @exception InvalidArgument If the overhead wire segment can not be added to the net (is duplicate according to the id)
+    */
+    virtual void buildOverheadWireSegment(MSNet& net, const std::string& id, MSLane* lane, double frompos, double topos, bool voltageSource);
+
+    /** @brief Builds an overhead wire inner segments
+    *
+    * Simply calls the buildOverheadWireSegment for inner edges connection, frontConnection and behindConnection if exists.
+    *
+    * @param[in] net The net the overhead wire inner segments belongs to
+    * @param[in] connection The inner lane that connects two regular lanes, or a regular lane with the inner "behindConnection" lane,
+                 or the inner "frontConnection" lane with a regular lane, or the inner "frontConnection" lane with the inner "behindConnection" lane
+    * @param[in] frontConnection The inner lane that connects a regular lane with the inner "connection" lane
+    * @param[in] behindConnection The inner lane that connects the inner "connection" lane with a regular lane
+    * @exception InvalidArgument If the over can not be added to the net (is duplicate according to the id)
+    */
+    void buildInnerOverheadWireSegments(MSNet& net, const MSLane* connection, const MSLane* frontConnection, const MSLane* behindConnection);
+
+    /** @brief Builds a traction substation
+    *
+    * Simply calls the MSTractionSubstaion cosnstructor and adds the substation to the list of substations in the net.
+    *
+    * @param[in] net The net the traction substation belongs to
+    * @param[in] id The id of the traction substation
+    * @param[in] voltage The voltage level of the voltage source representing the traction substation
+    * @exception InvalidArgument If the over can not be added to the net (is duplicate according to the id)
+    */
+    void buildTractionSubstation(MSNet& net, std::string id, double voltage);
+
+    virtual void buildOverheadWireClamp(MSNet& net, const std::string& id, MSLane* lane_start, MSLane* lane_end);
+
     /** @brief builds a microscopic calibrator
      *
      * Simply calls the MSCalibrator constructor.
@@ -306,7 +382,10 @@ protected:
     virtual MSCalibrator* buildCalibrator(MSNet& net,
                                           const std::string& id, MSEdge* edge, MSLane* lane, double pos,
                                           const std::string& file, const std::string& outfile,
-                                          const SUMOTime freq, const MSRouteProbe* probe);
+                                          const SUMOTime freq,
+                                          const MSRouteProbe* probe,
+                                          const double invalidJamThreshold,
+                                          const std::string& vTypes);
 
     /** @brief builds a mesoscopic calibrator
      *
@@ -322,7 +401,10 @@ protected:
     virtual METriggeredCalibrator* buildMECalibrator(MSNet& net,
             const std::string& id, const MSEdge* edge, double pos,
             const std::string& file, const std::string& outfile,
-            const SUMOTime freq, MSRouteProbe* probe);
+            const SUMOTime freq,
+            MSRouteProbe* probe,
+            const double invalidJamThreshold,
+            const std::string& vTypes);
 
 
     /** @brief builds an rerouter
@@ -403,10 +485,6 @@ protected:
     MSParkingArea* myParkingArea;
     /// @brief The currently parsed stop to add access points to
     MSStoppingPlace* myCurrentStop;
+
+    bool myHaveWarnedAboutEigen = false;
 };
-
-
-#endif
-
-/****************************************************************************/
-

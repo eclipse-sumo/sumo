@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun Sep 20 21:22:26 2020 by Eclipse SUMO sumo Version v1_7_0+0148-ff11c74b86
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="stopped" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="120.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalPosLat="0.00" arrivalSpeed="12.75" duration="120.00" routeLength="160.00" waitingTime="0.00" waitingCount="0" stopTime="100.00" timeLoss="7.79" rerouteNo="0" devices="tripinfo_stopped fcd_stopped" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departPosLat="0.00" departSpeed="0.00" departDelay="0.00" arrival="122.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalPosLat="0.00" arrivalSpeed="13.85" duration="122.00" routeLength="200.00" waitingTime="96.00" waitingCount="1" stopTime="0.00" timeLoss="106.92" rerouteNo="0" devices="tripinfo_overtaking fcd_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Dec  8 23:12:00 2018 by Eclipse SUMO Version eeef47f
+<!-- generated on Tue Dec 31 15:56:21 2019 by Eclipse SUMO Version v1_4_0+0285-1267528511
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,16 +30,17 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="eeef47f" time="50.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0285-1267528511" time="50.00">
     <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
     <delay number="2" begin="2" end="0" depart="0.00" time="0.00"/>
     <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
+    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
     <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
-    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" actionStepLength="1.00" hasDriverState="0" accel="0.8" decel="4.5" sigma="0"/>
-    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" speedFactor="1.06" state="0 1 0 0 50000 40000 9223372036854775807">
+    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" actionStepLength="1.00" accel="0.8" decel="4.5" sigma="0"/>
+    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" speedFactor="1.06" state="0 1 0 0 0 50000 40000 9223372036854775807">
         <device id="vehroute_0" state="10.00 0.00 0"/>
     </vehicle>
-    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" speedFactor="1.06" state="5000 1 0 0 55000 45000 9223372036854775807">
+    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="5.00" departPos="100.00" departSpeed="10.00" route="r1" speedFactor="1.06" state="5000 1 0 0 0 55000 45000 9223372036854775807">
         <device id="vehroute_1" state="10.00 0.00 0"/>
     </vehicle>
     <segment>

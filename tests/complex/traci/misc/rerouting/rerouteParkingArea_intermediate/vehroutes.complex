@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Jul  3 08:22:30 2020 by Eclipse SUMO sumo Version v1_6_0+1121-71d7a99dd1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net4.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="49677"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="ego" depart="triggered" arrival="54.00">
+        <route edges="A0A1 A1B1 B1B2 B2A2 A2A3"/>
+        <stop parkingArea="parkB1B2" duration="10.00"/>
+    </vehicle>
+
+    <person id="p0" depart="0.00" arrival="93.00">
+        <ride from="A0A1" to="A2A3" arrivalPos="92.10" lines="ego"/>
+        <walk edges="A2A3 A3B3"/>
+    </person>
+
+</routes>

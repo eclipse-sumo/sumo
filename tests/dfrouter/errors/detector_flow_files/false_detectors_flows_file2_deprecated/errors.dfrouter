@@ -1,4 +1,3 @@
-Warning: Please note that using ';' as list separator is deprecated.
- From 1.0 onwards, only ',' will be accepted.
-Error: The measure-file 'xxx.txt' can not be opened.
+Warning: Please note that using ';' as list separator is deprecated and not accepted anymore.
+Error: The measure-file 'xxx.txt;input_flows.txt' can not be opened.
 Quitting (on error).

@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE population SYSTEM "http://www.matsim.org/files/dtd/population_v6.dtd">
+
+<population>
+
+	<person id="100009">
+		<attributes>
+			<attribute name="age" class="java.lang.Integer" >49</attribute>
+			<attribute name="carAvail" class="java.lang.String" >always</attribute>
+			<attribute name="employed" class="java.lang.Boolean" >true</attribute>
+			<attribute name="hasLicense" class="java.lang.String" >yes</attribute>
+			<attribute name="sex" class="java.lang.String" >m</attribute>
+		</attributes>
+		<plan score="98.30671358262963" selected="yes">
+			<activity type="home" link="13758" x="4522066.758592226" y="5833235.1507656025" start_time="00:01:00" end_time="08:00:00" >
+			</activity>
+			<leg mode="car" dep_time="08:00:00" trav_time="00:04:00">
+				<route type="links" start_link="13758" end_link="14465" trav_time="00:04:00" distance="8019.0">13758 14271 14269 14273 14468 14267 14465</route>
+			</leg>
+			<activity type="work" link="14465" x="4526236.861219339" y="5835127.011073385" start_time="08:00:00" end_time="24:00:00" >
+			</activity>
+			<leg mode="car" dep_time="16:04:00" trav_time="00:04:00">
+				<route type="links" start_link="14465" end_link="13758" trav_time="00:04:00" distance="7647.0">14465 14442 14451 13758</route>
+			</leg>
+			<activity type="home" link="13758" x="4522066.758592226" y="5833235.1507656025" start_time="11:33:00" end_time="24:00:00" >
+			</activity>
+		</plan>
+
+	</person>
+
+	<person id="100011">
+		<attributes>
+			<attribute name="age" class="java.lang.Integer" >65</attribute>
+			<attribute name="carAvail" class="java.lang.String" >always</attribute>
+			<attribute name="employed" class="java.lang.Boolean" >true</attribute>
+			<attribute name="hasLicense" class="java.lang.String" >yes</attribute>
+			<attribute name="sex" class="java.lang.String" >m</attribute>
+		</attributes>
+		<plan score="95.02183319229772" selected="yes">
+			<activity type="home" link="14289" x="4528525.174960087" y="5839317.896265473" start_time="00:00:00" end_time="08:00:00" >
+			</activity>
+			<leg mode="car" dep_time="08:00:00" trav_time="00:09:00">
+				<route type="links" start_link="14289" end_link="14441" trav_time="00:09:00" distance="12516.0">14289 14287 14292 13761 14472 14473 13760 13757 14452 14441</route>
+			</leg>
+			<activity type="work" link="14441" x="4523953.946639814" y="5831520.717142878" start_time="08:00:00" end_time="24:00:00" >
+			</activity>
+			<leg mode="car" dep_time="16:09:00" trav_time="00:14:00">
+				<route type="links" start_link="14441" end_link="14289" trav_time="00:14:00" distance="19252.0">14441 14442 14451 13758 13759 14474 14471 13762 14291 14288 14290 14289</route>
+			</leg>
+			<activity type="home" link="14289" x="4528525.174960087" y="5839317.896265473" start_time="11:33:00" end_time="24:00:00" >
+			</activity>
+		</plan>
+
+	</person>
+
+<!-- ====================================================================== -->
+
+	<person id="100014">
+		<attributes>
+			<attribute name="age" class="java.lang.Integer" >61</attribute>
+			<attribute name="carAvail" class="java.lang.String" >always</attribute>
+			<attribute name="employed" class="java.lang.Boolean" >true</attribute>
+			<attribute name="hasLicense" class="java.lang.String" >yes</attribute>
+			<attribute name="sex" class="java.lang.String" >m</attribute>
+		</attributes>
+		<plan score="90.94113437875073" selected="yes">
+			<activity type="home" link="13902" x="4516037.5304385945" y="5827329.729954197" start_time="00:00:00" end_time="08:00:00" >
+			</activity>
+			<leg mode="car" dep_time="08:00:00" trav_time="00:17:00">
+				<route type="links" start_link="13902" end_link="20427" trav_time="00:17:00" distance="28169.15729286553">13902 13795 13790 13794 13791 14455 13934 13932 13929 13926 13928 14457 14180 13749 13751 14461 20427</route>
+			</leg>
+			<activity type="work" link="20427" x="4528426.090831845" y="5822407.437950259" start_time="08:00:00" end_time="24:00:00" >
+			</activity>
+			<leg mode="car" dep_time="16:17:00" trav_time="00:23:00">
+				<route type="links" start_link="20427" end_link="13902" trav_time="00:23:00" distance="31351.0">20427 20428 14462 13752 13750 14179 14458 13927 13925 13930 13931 13933 14456 13935 14453 13938 13903 13900 13902</route>
+			</leg>
+			<activity type="home" link="13902" x="4516037.5304385945" y="5827329.729954197" start_time="11:33:00" end_time="24:00:00" >
+			</activity>
+		</plan>
+
+	</person>
+
+<!-- ====================================================================== -->
+
+	<person id="100017">
+		<attributes>
+			<attribute name="age" class="java.lang.Integer" >26</attribute>
+			<attribute name="carAvail" class="java.lang.String" >always</attribute>
+			<attribute name="employed" class="java.lang.Boolean" >true</attribute>
+			<attribute name="hasLicense" class="java.lang.String" >yes</attribute>
+			<attribute name="sex" class="java.lang.String" >m</attribute>
+		</attributes>
+		<plan score="97.61827116861457" selected="yes">
+			<activity type="home" link="14021" x="4529699.099293464" y="5829224.41847268" start_time="00:00:00" end_time="08:00:00" >
+			</activity>
+			<leg mode="car" dep_time="08:00:00" trav_time="00:05:00">
+				<route type="links" start_link="14021" end_link="13786" trav_time="00:05:00" distance="14526.0">14021 14023 14027 14026 13783 13785 13786</route>
+			</leg>
+			<activity type="work" link="13786" x="4528330.213869693" y="5833218.934787587" start_time="08:00:00" end_time="24:00:00" >
+			</activity>
+			<leg mode="car" dep_time="16:05:00" trav_time="00:04:00">
+				<route type="links" start_link="13786" end_link="14021" trav_time="00:04:00" distance="9930.0">13786 13784 14025 14028 14024 14022 14021</route>
+			</leg>
+			<activity type="home" link="14021" x="4529699.099293464" y="5829224.41847268" start_time="11:33:00" end_time="24:00:00" >
+			</activity>
+		</plan>
+
+	</person>
+
+<!-- ====================================================================== -->
+
+	<person id="100311">
+		<attributes>
+			<attribute name="age" class="java.lang.Integer" >48</attribute>
+			<attribute name="carAvail" class="java.lang.String" >always</attribute>
+			<attribute name="employed" class="java.lang.Boolean" >true</attribute>
+			<attribute name="hasLicense" class="java.lang.String" >yes</attribute>
+			<attribute name="sex" class="java.lang.String" >m</attribute>
+		</attributes>
+		<plan score="-153.45256898821833" selected="yes">
+			<activity type="home" link="15445" x="4622236.921174117" y="5825054.519518893" start_time="00:00:00" end_time="08:00:00" >
+			</activity>
+			<leg mode="car" dep_time="08:00:00" trav_time="00:42:00">
+				<route type="links" start_link="15445" end_link="800" trav_time="00:42:00" distance="41713.650435095275">15445 15895 16086 16096 16094 16082 16083 14979 14982 15941 14983 9986 6388 6385 6704 6228 6212 6210 6206 1052 1166 1153 6154 5548 5516 5517 5474 5436 5402 5400 5351 5346 5288 5286 28509 5284 4242 4249 4164 28295 4168 4159 28280 28699 28298 521 28701 918 28697 926 28703 3983 28706 28247 3976 4022 3965 3924 28261 3922 7075 3832 3833 28232 3739 3738 3724 3720 3714 3054 3051 3050 3028 3041 3046 3016 28639 3000 3007 2910 2908 2897 2896 2904 6763 6723 7736 8446 8448 8387 8386 7956 8384 7944 7933 7936 6732 875 870 866 796 799 800</route>
+			</leg>
+			<activity type="work" link="800" x="4588384.638931185" y="5814922.065937118" start_time="08:00:00" end_time="24:00:00" >
+			</activity>
+			<leg mode="walk" dep_time="16:42:00" trav_time="11:46:00">
+				<route type="generic" start_link="800" end_link="15445" trav_time="11:46:00" distance="NaN"></route>
+			</leg>
+			<activity type="home" link="15445" x="4622236.921174117" y="5825054.519518893" start_time="11:33:00" end_time="24:00:00" >
+			</activity>
+		</plan>
+
+	</person>
+
+
+</population>

@@ -1,0 +1,15 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="automated" sigma="0." speedFactor="1" color="0,0,255"/>
+    <vType id="manual" sigma="0.5" speedFactor="normc(0.8,0.1,0.5,1.5)" guiShape="passenger/van" />
+    <vehicle id="ToC_veh" type="automated" depart="0" departPos="last">
+        <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1"/>
+        <param key="has.toc.device" value="true"/>
+        <param key="device.toc.manualType" value="manual"/>
+        <param key="device.toc.automatedType" value="automated"/>
+        <param key="device.toc.responseTime" value="23.0"/>
+        <param key="device.toc.recoveryRate" value="0.1"/>
+        <param key="device.toc.initialAwareness" value="0.25"/>
+        <param key="device.toc.mrmDecel" value="1.2"/>
+        <param key="device.toc.file" value="tocs.xml"/>
+    </vehicle>
+</routes>

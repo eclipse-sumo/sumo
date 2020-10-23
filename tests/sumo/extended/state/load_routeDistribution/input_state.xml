@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Sep 15 15:03:57 2020 by Eclipse SUMO sumo Version v1_7_0+0086-88ed919
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <save-state.times value="20"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+0086-88ed919" time="20.00">
+    <route id="dist_anon#0" state="1" edges="beg middle end"/>
+    <route id="dist_anon#1" state="1" edges="beg middle"/>
+    <route id="r0" state="1" edges="beg middle end"/>
+    <route id="r1" state="1" edges="beg middle"/>
+    <routeDistribution id="dist_anon" state="1" routes="dist_anon#0 dist_anon#1" probabilities="1.00 1.00"/>
+    <delay number="1" begin="2" end="1" depart="1.00" time="19.00"/>
+    <vType id="t0" sigma="0"/>
+    <vehicle id="v1" type="t0" depart="3.00" route="r0" speedFactor="1.00" state="1026 4000 1 5.10 0 2.77 19000 0 0" pos="155.11" speed="13.89" posLat="0.00">
+        <device id="tripinfo_v1" state="beg_0 0 0 1.9 0 0 0 0 -1"/>
+    </vehicle>
+    <lane id="middle_0">
+        <vehicles value="v1"/>
+    </lane>
+</snapshot>

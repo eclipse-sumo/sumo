@@ -1,0 +1,9 @@
+TestFunctions: Netedit opened successfully
+Finding reference
+TestFunctions: 'reference.png' found. Position: 304 - 168
+C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_26Sep133227.1576/netedit.gui/basic/open/net_shortcut
+input_net_loadedmanually.net.xml
+TestFunctions: Clicked over position 304 - 168
+C:/Users/alva_pa/.texttest/tmp/netedit.gui.1_from_26Sep133227.1576/netedit.gui/basic/open/net_shortcut
+net.net.xml
+TestFunctions: Netedit closed successfully

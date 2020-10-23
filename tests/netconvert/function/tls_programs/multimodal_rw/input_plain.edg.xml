@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri 15 Feb 2019 11:24:41 AM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="bs_miv_detail.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/scenario/use/BS_OSM/detail/debug/debug_5196_5191.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/tests/scenario/use/BS_OSM/detail/debug/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="23209153#1" from="251050939" to="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" name="Waisenhausdamm" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="5316.27,7955.54 5361.40,7964.51 5366.42,7965.39 5415.34,7973.49 5425.39,7973.17 5430.33,7971.89 5434.48,7969.76 5436.66,7967.89 5439.94,7965.09 5443.63,7959.66" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="25730280#0" from="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" to="196317724" name="Stobenstraße" priority="7" type="highway.secondary" numLanes="2" speed="8.33" shape="5443.63,7959.66 5443.32,7957.22 5443.16,7956.08 5442.76,7949.45 5442.73,7948.86 5442.77,7942.67 5442.90,7930.20 5443.38,7905.54 5443.04,7880.80 5442.69,7856.08" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="26812730#0" from="273459765" to="3142550434" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5423.86,7978.74 5430.78,7979.45 5435.16,7980.01 5436.48,7980.16" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="26812730#2" from="3142550434" to="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5436.48,7980.16 5438.06,7980.41 5441.51,7980.95 5444.54,7981.64 5447.41,7982.63" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="26812730#4" from="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" to="3142550441" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5447.41,7982.63 5450.17,7983.92 5451.36,7984.56 5452.59,7985.31 5454.14,7986.50 5455.97,7988.06 5457.72,7989.87 5459.10,7991.53" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="26812730#5" from="3142550441" to="3142528930" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5459.10,7991.53 5460.65,7993.56 5462.16,7996.06 5463.45,7998.48 5464.17,8000.26 5465.29,8004.00" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308956942" from="3142528930" to="3142528931" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5465.29,8004.00 5473.53,8044.51 5473.83,8046.72" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958252#0" from="3142549218" to="5424571232" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5450.16,7944.92 5449.40,7939.25 5448.99,7930.90 5448.79,7921.92 5448.67,7913.13 5448.63,7900.69 5448.52,7888.04 5448.49,7875.41 5448.39,7862.72 5448.69,7856.89 5448.78,7853.98 5449.11,7851.59 5449.87,7848.56 5450.61,7845.50 5451.58,7842.71 5452.55,7840.30 5455.35,7834.94 5457.13,7832.10 5458.98,7829.59 5462.71,7825.14 5467.98,7819.98 5533.04,7757.73 5541.97,7747.70 5546.38,7742.51 5550.51,7737.03 5555.79,7728.47 5561.09,7719.06 5565.14,7709.98 5567.12,7705.42 5568.67,7700.85 5570.21,7696.48 5571.71,7691.41 5573.60,7683.70 5574.49,7679.62 5575.32,7675.08 5576.33,7667.14 5577.13,7659.68 5578.72,7640.20 5579.07,7636.02" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958253#0" from="3142550435" to="3265483974" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5424.08,7982.92 5405.24,7980.37 5402.02,7979.99 5397.95,7979.28 5387.82,7976.97 5323.47,7962.48 5316.41,7960.96 5306.66,7959.38 5297.68,7958.39 5288.73,7957.34 5265.99,7952.73 5256.68,7950.07" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958254#0" from="3144398514" to="273459765" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5034.97,7764.89 5038.68,7795.42 5041.65,7814.70 5042.80,7818.87 5043.53,7821.64 5044.78,7823.95 5098.89,7911.53 5104.00,7918.10 5107.13,7921.60 5110.61,7924.19 5115.46,7927.42 5118.35,7928.80 5120.47,7929.77 5130.18,7932.35 5140.55,7933.51 5178.03,7934.71 5190.67,7935.16 5218.16,7936.67 5226.32,7937.59 5232.36,7939.15 5248.27,7943.95 5278.97,7952.17 5301.15,7955.15 5309.38,7956.33 5324.07,7958.95 5388.62,7973.65 5391.16,7974.12 5397.42,7975.44 5403.65,7976.49 5423.86,7978.74" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958255#0" from="50917718" to="3142528930" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5453.69,7947.93 5453.97,7949.22 5455.35,7955.66 5455.76,7958.21 5457.70,7967.68 5459.41,7975.62 5460.96,7983.97 5462.83,7992.73 5464.62,8000.15 5465.29,8004.00" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958256#0" from="52768448" to="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5462.74,8006.64 5460.41,8001.17 5457.72,7995.70 5455.51,7992.91 5453.35,7990.59 5450.82,7988.57 5448.27,7987.10" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958256#2" from="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" to="3142550435" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5448.27,7987.10 5446.26,7986.18 5444.10,7985.44 5442.15,7984.78 5440.08,7984.37 5438.57,7984.21 5435.42,7983.89 5430.56,7983.40 5424.08,7982.92" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958257#0" from="52768448" to="3142550441" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5462.74,8006.64 5461.28,8000.96 5459.10,7991.53" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958257#2" from="3142550441" to="3142549222" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5459.10,7991.53 5455.90,7975.21 5454.30,7968.51 5452.82,7961.78" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958257#3" from="3142549222" to="3142549218" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5452.82,7961.78 5452.34,7958.76 5451.78,7955.92 5450.80,7949.27 5450.16,7944.92" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958258#0" from="273459765" to="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5423.86,7978.74 5427.72,7978.35 5430.64,7978.14 5432.59,7977.88 5434.15,7977.38 5434.96,7976.90 5437.44,7975.53 5438.33,7975.10 5440.72,7973.46 5443.09,7971.14 5445.13,7968.98" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958258#3" from="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" to="3142549218" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5445.13,7968.98 5447.13,7965.60 5448.75,7962.31 5449.34,7960.40 5449.71,7958.31 5450.06,7956.25 5450.05,7956.04 5450.08,7949.28 5450.16,7944.92" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958259#0" from="50917718" to="3142549222" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5453.69,7947.93 5453.74,7949.25 5453.96,7955.76 5453.80,7957.00 5453.55,7958.96 5452.82,7961.78" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958259#3" from="3142549222" to="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5452.82,7961.78 5450.51,7967.43 5448.36,7970.84 5445.87,7973.65" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958259#4" from="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" to="3142550434" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5445.87,7973.65 5443.98,7975.47 5441.41,7977.52 5437.91,7979.39 5436.48,7980.16" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="308958259#6" from="3142550434" to="3142550435" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5436.48,7980.16 5435.20,7980.64 5434.37,7981.02 5429.33,7982.34 5424.08,7982.92" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="317682099#0" from="50917756" to="50917718" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5583.71,7615.86 5582.96,7625.46 5582.61,7629.88 5581.47,7647.72 5579.70,7666.26 5578.94,7671.18 5578.37,7676.38 5576.61,7684.93 5574.63,7692.14 5573.11,7696.78 5571.63,7701.02 5563.10,7720.48 5557.91,7730.05 5551.87,7739.25 5547.92,7744.31 5543.99,7749.41 5535.54,7759.48 5513.35,7781.32 5470.58,7822.12 5465.84,7827.04 5462.11,7832.04 5458.72,7836.73 5456.15,7841.93 5455.25,7844.14 5454.23,7846.58 5452.93,7851.76 5452.09,7857.22 5451.75,7862.51 5451.67,7875.34 5451.82,7888.19 5451.86,7900.63 5452.11,7913.07 5452.24,7921.70 5452.50,7930.75 5452.62,7935.06 5452.84,7939.28 5453.69,7947.93" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="319583927#0" from="660683315" to="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" name="Bohlweg" priority="7" type="highway.secondary" numLanes="3" speed="8.33" shape="5463.07,8060.66 5462.42,8057.39 5451.54,8003.32" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="6148678#0" from="50917835" to="52768448" priority="15" type="railway.tram" numLanes="1" speed="13.89" shape="5471.88,8056.06 5471.76,8055.39 5463.60,8011.87 5462.74,8006.64" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="6279146" from="cluster_251050941_280598736_280598739_28902891_3142549227_3142550438" to="5501433500" name="Waisenhausdamm" priority="4" type="highway.residential" numLanes="1" speed="13.89" shape="5451.54,8003.32 5443.54,7997.71 5439.90,7994.76 5436.03,7992.87 5431.37,7990.59 5422.41,7987.55 5382.02,7978.48 5325.10,7965.91 5305.53,7962.42 5300.72,7962.55 5297.17,7964.39 5295.28,7967.24 5295.10,7970.24 5295.04,7971.62" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+
+
+</edges>

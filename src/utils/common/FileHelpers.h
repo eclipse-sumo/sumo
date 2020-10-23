@@ -1,30 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    FileHelpers.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // Functions for an easier usage of files
 /****************************************************************************/
-#ifndef FileHelpers_h
-#define FileHelpers_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
+#pragma once
 #include <cassert>
 #include <fstream>
 #include <string>
@@ -42,7 +37,7 @@
 class FileHelpers {
 public:
     /// @name file access functions
-    //@{
+    /// @{
 
     /** @brief Checks whether the given file is readable
      *
@@ -50,12 +45,17 @@ public:
      * @return Whether the named file is readable
      */
     static bool isReadable(std::string path);
-    //@}
 
-
+    /** @brief Checks whether the given file is a directory
+     *
+     * @param[in] path The path to the file that shall be examined
+     * @return Whether the named file is a directory.
+     */
+    static bool isDirectory(std::string path);
+    /// @}
 
     /// @name file path evaluating functions
-    //@{
+    /// @{
 
     /** @brief Removes the file information from the given path
      *
@@ -64,6 +64,13 @@ public:
      */
     static std::string getFilePath(const std::string& path);
 
+    /** @brief Add an extension to the given file path
+     *
+     * @param[in] path The path to the file
+     * @param[in] extension new extension (with dot, example: '.xml')
+     * @return the new path with extension, the same path if it already has the extension, or a empty string if path is invalid
+     */
+    static std::string addExtension(const std::string& path, const std::string& extension);
 
     /** @brief Returns the second path as a relative path to the first file
      *
@@ -77,9 +84,7 @@ public:
      * @param[in] path The path to the references file (relativ to configuration path)
      * @return The file's position (relative to curent working directory)
      */
-    static std::string getConfigurationRelative(const std::string& configPath,
-            const std::string& path);
-
+    static std::string getConfigurationRelative(const std::string& configPath, const std::string& path);
 
     /** @brief Returns the information whether the given name represents a socket
      *
@@ -90,7 +95,6 @@ public:
      * @return Whether the name names a socket
      */
     static bool isSocket(const std::string& name);
-
 
     /** @brief Returns the information whether the given path is absolute
      *
@@ -104,7 +108,6 @@ public:
      */
     static bool isAbsolute(const std::string& path);
 
-
     /** @brief Returns the path from a configuration so that it is accessable from the current working directory
      *
      * If the path is absolute, it is returned. Otherwise, the file's position
@@ -116,18 +119,15 @@ public:
      * @param[in] basePath The path the configuration file (including the config's file name)
      * @return The file's position
      */
-    static std::string checkForRelativity(const std::string& filename,
-                                          const std::string& basePath);
+    static std::string checkForRelativity(const std::string& filename, const std::string& basePath);
 
     /// @brief prepend the given prefix to the last path component of the given file path
     static std::string prependToLastPathComponent(const std::string& prefix, const std::string& path);
 
-    //@}
-
-
+    /// @}
 
     /// @name binary writing functions
-    //@{
+    /// @{
 
     /** @brief Writes an integer binary
      *
@@ -136,7 +136,6 @@ public:
      * @return Reference to the stream
      */
     static std::ostream& writeInt(std::ostream& strm, int value);
-
 
     /** @brief Writes a float binary
      *
@@ -148,7 +147,6 @@ public:
      */
     static std::ostream& writeFloat(std::ostream& strm, double value);
 
-
     /** @brief Writes a byte binary
      *
      * @param[in, out] strm The stream to write into
@@ -156,7 +154,6 @@ public:
      * @return Reference to the stream
      */
     static std::ostream& writeByte(std::ostream& strm, unsigned char value);
-
 
     /** @brief Writes a string binary
      *
@@ -170,7 +167,6 @@ public:
      */
     static std::ostream& writeString(std::ostream& strm, const std::string& value);
 
-
     /** @brief Writes a time description binary
      *
      * This method behaves differently depending on the definition of SUMOTime at compile time,
@@ -182,7 +178,6 @@ public:
      */
     static std::ostream& writeTime(std::ostream& strm, SUMOTime value);
 
-
     /** @brief Writes an edge vector binary
      *
      * @param[in, out] os The stream to write into
@@ -192,7 +187,6 @@ public:
     template <typename E>
     static std::ostream& writeEdgeVector(std::ostream& os, const std::vector<E>& edges);
 
-
     /** @brief Reads an edge vector binary
      *
      * @param[in] is The stream to read from
@@ -201,9 +195,7 @@ public:
      */
     template <typename E>
     static void readEdgeVector(std::istream& in, std::vector<const E*>& edges, const std::string& rid);
-    //@}
-
-
+    /// @}
 };
 
 
@@ -309,7 +301,3 @@ void FileHelpers::readEdgeVector(std::istream& in, std::vector<const E*>& edges,
         }
     }
 }
-#endif
-
-/****************************************************************************/
-

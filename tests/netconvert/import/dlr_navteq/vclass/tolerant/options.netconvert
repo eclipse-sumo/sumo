@@ -1,0 +1,1 @@
+--no-internal-links --dlr-navteq-prefix=elmar --output=net.net.xml -v --dlr-navteq.tolerant-permissions --default.disallow "rail rail_urban rail_electric rail_fast tram ship"

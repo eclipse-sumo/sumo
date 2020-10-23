@@ -1,36 +1,36 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
-Parsing nodes from osm-file 'osm.xml'... done.
-Parsing edges from osm-file 'osm.xml'... done.
-Removing duplicate edges... done.
+Parsing types from '/home/micha/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ... done.
+Parsing edges from osm-file 'osm.xml' ... done.
+Removing duplicate edges ... done.
 Adding new type 'highway.secondary|highway.secondary|railway.tram' (first occurence for edge '10860201').
-Parsing relations from osm-file 'osm.xml'... done.
+Parsing relations from osm-file 'osm.xml' ... done.
  Import done:
    4 nodes loaded.
-   33 types loaded.
+   34 types loaded.
    4 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done (0ms).
-Removing empty nodes... done (0ms).
+Removing self-loops ... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin... done (0ms).
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (0ms).
-Computing edge shapes... done (0ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Moving network to origin ... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (0ms).
+Computing edge shapes ... done (0ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (0ms).
+Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges... 
+Building inner edges ... 
 done (0ms).
 -----------------------------------------------------
 Summary:
@@ -44,5 +44,5 @@ Summary:
   Applied offset     : -405213.33,-5803545.51
   Converted boundary : 0.00,0.00,14260.81,350.76
 -----------------------------------------------------
-Writing network... done (5ms).
+Writing network ... done (4ms).
 Success.

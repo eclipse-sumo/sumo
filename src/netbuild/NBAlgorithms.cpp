@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBAlgorithms.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    02. March 2012
-/// @version $Id$
 ///
 // Algorithms for network computation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <sstream>
@@ -60,6 +58,7 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
         (*k)->setTurningDestination(nullptr);
     }
     std::vector<Combination> combinations;
+    const bool geometryLike = node->geometryLike();
     for (std::vector<NBEdge*>::const_iterator j = outgoing.begin(); j != outgoing.end(); ++j) {
         NBEdge* outedge = *j;
         for (std::vector<NBEdge*>::const_iterator k = incoming.begin(); k != incoming.end(); ++k) {
@@ -73,7 +72,12 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
             }
             double angle = fabs(signedAngle);
             // std::cout << "incoming=" << e->getID() << " outgoing=" << outedge->getID() << " relAngle=" << NBHelpers::relAngle(e->getAngleAtNode(node), outedge->getAngleAtNode(node)) << "\n";
-            if (e->getFromNode() == outedge->getToNode() && angle > 120) {
+            const bool badPermissions = ((outedge->getPermissions() & e->getPermissions() & ~SVC_PEDESTRIAN) == 0
+                                         && !geometryLike
+                                         && outedge->getPermissions() != e->getPermissions());
+            if (e->getFromNode() == outedge->getToNode()
+                    && (angle > 120 || e->getFromNode()->getPosition() == e->getToNode()->getPosition())
+                    && !badPermissions) {
                 // they connect the same nodes; should be the turnaround direction
                 // we'll assign a maximum number
                 //
@@ -89,6 +93,10 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
             if (angle < 160) {
                 continue;
             }
+            if (badPermissions) {
+                // penalty
+                angle -= 90;
+            }
             Combination c;
             c.from = e;
             c.to = outedge;
@@ -99,11 +107,14 @@ NBTurningDirectionsComputer::computeTurnDirectionsForNode(NBNode* node, bool war
     // sort combinations so that the ones with the highest angle are at the begin
     std::sort(combinations.begin(), combinations.end(), combination_by_angle_sorter());
     std::set<NBEdge*> seen;
+    //std::cout << "check combinations at " << node->getID() << "\n";
     for (std::vector<Combination>::const_iterator j = combinations.begin(); j != combinations.end(); ++j) {
+        //std::cout << " from=" << (*j).from->getID() << " to=" << (*j).to->getID() << " a=" << (*j).angle << "\n";
         if (seen.find((*j).from) != seen.end() || seen.find((*j).to) != seen.end()) {
             // do not regard already set edges
             if ((*j).angle > 360 && warn) {
-                WRITE_WARNING("Ambiguity in turnarounds computation at junction '" + node->getID() + "'.");
+                WRITE_WARNINGF("Ambiguity in turnarounds computation at junction '%'.", node->getID());
+                //std::cout << "  already seen: " << toString(seen) << "\n";
                 warn = false;
             }
             continue;
@@ -152,37 +163,51 @@ NBNodesEdgesSorter::swapWhenReversed(const NBNode* const n,
 void
 NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
     validateRailCrossings(nc, tlc);
+    const OptionsCont& oc = OptionsCont::getOptions();
+    const double rightBeforeLeftSpeed = oc.getFloat("junctions.right-before-left.speed-threshold");
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* n = (*i).second;
+        NBNode* const n = (*i).second;
         // the type may already be set from the data
-        if (n->myType != NODETYPE_UNKNOWN && n->myType != NODETYPE_DEAD_END) {
+        if (n->myType != SumoXMLNodeType::UNKNOWN && n->myType != SumoXMLNodeType::DEAD_END) {
+            n->myTypeWasGuessed = false;
+            continue;
+        }
+        // check whether the node was set to be unregulated by the user
+        if (oc.getBool("keep-nodes-unregulated") || oc.isInStringVector("keep-nodes-unregulated.explicit", n->getID())
+                || (oc.getBool("keep-nodes-unregulated.district-nodes") && (n->isNearDistrict() || n->isDistrict()))) {
+            n->myType = SumoXMLNodeType::NOJUNCTION;
             continue;
         }
         // check whether the node is a waterway node. Set to unregulated by default
         bool waterway = true;
-        for (EdgeVector::const_iterator i = n->getEdges().begin(); i != n->getEdges().end(); ++i) {
-            if (!isWaterway((*i)->getPermissions())) {
+        for (NBEdge* e : n->getEdges()) {
+            if (!isWaterway(e->getPermissions())) {
                 waterway = false;
                 break;
             }
         }
-        if (waterway && (n->myType == NODETYPE_UNKNOWN || n->myType == NODETYPE_DEAD_END)) {
-            n->myType = NODETYPE_NOJUNCTION;
+        if (waterway && (n->myType == SumoXMLNodeType::UNKNOWN || n->myType == SumoXMLNodeType::DEAD_END)) {
+            n->myType = SumoXMLNodeType::NOJUNCTION;
             continue;
         }
 
         // check whether the junction is not a real junction
         if (n->myIncomingEdges.size() == 1) {
-            n->myType = NODETYPE_PRIORITY;
+            n->myType = SumoXMLNodeType::PRIORITY;
             continue;
         }
         // @todo "isSimpleContinuation" should be revalidated
         if (n->isSimpleContinuation()) {
-            n->myType = NODETYPE_PRIORITY;
+            n->myType = SumoXMLNodeType::PRIORITY;
+            continue;
+        }
+        if (isRailwayNode(n)) {
+            // priority instead of unregulated to ensure that collisions can be detected
+            n->myType = SumoXMLNodeType::PRIORITY;
             continue;
         }
         // determine the type
-        SumoXMLNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
+        SumoXMLNodeType type = SumoXMLNodeType::RIGHT_BEFORE_LEFT;
         for (EdgeVector::const_iterator i = n->myIncomingEdges.begin(); i != n->myIncomingEdges.end(); i++) {
             for (EdgeVector::const_iterator j = i + 1; j != n->myIncomingEdges.end(); j++) {
                 // @todo "getOppositeIncoming" should probably be refactored into something the edge knows
@@ -190,19 +215,20 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
                     continue;
                 }
                 // @todo check against a legal document
-                // @todo figure out when NODETYPE_PRIORITY_STOP is appropriate
-                const double s1 = (*i)->getSpeed() * (double) 3.6;
-                const double s2 = (*j)->getSpeed() * (double) 3.6;
+                // @todo figure out when SumoXMLNodeType::PRIORITY_STOP is appropriate
+                const double s1 = (*i)->getSpeed();
+                const double s2 = (*j)->getSpeed();
                 const int p1 = (*i)->getPriority();
                 const int p2 = (*j)->getPriority();
-                if (fabs(s1 - s2) > (double) 9.5 || MAX2(s1, s2) >= (double) 49. || p1 != p2) {
-                    type = NODETYPE_PRIORITY;
+                if (fabs(s1 - s2) > (9.5 / 3.6) || MAX2(s1, s2) >= rightBeforeLeftSpeed || p1 != p2) {
+                    type = SumoXMLNodeType::PRIORITY;
                     break;
                 }
             }
         }
         // save type
         n->myType = type;
+        n->myTypeWasGuessed = true;
     }
 }
 
@@ -211,7 +237,7 @@ void
 NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCont& tlc) {
     for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
         NBNode* n = (*i).second;
-        if (n->myType == NODETYPE_RAIL_CROSSING) {
+        if (n->myType == SumoXMLNodeType::RAIL_CROSSING) {
             // check if it really is a rail crossing
             int numRailway = 0;
             int numNonRailway = 0;
@@ -233,19 +259,19 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCon
             }
             if (numNonRailway == 0 || numRailway == 0) {
                 // not a crossing (maybe unregulated or rail_signal)
-                n->myType = NODETYPE_PRIORITY;
+                n->myType = SumoXMLNodeType::PRIORITY;
             } else if (numNonRailwayNonPed > 2) {
                 // does not look like a rail crossing (roads in conflict). maybe a traffic light?
-                WRITE_WARNING("Converting invalid rail_crossing to traffic_light at junction '" + n->getID() + "'");
+                WRITE_WARNINGF("Converting invalid rail_crossing to traffic_light at junction '%'.", n->getID());
                 TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
                 NBTrafficLightDefinition* tlDef = new NBOwnTLDef(n->getID(), n, 0, type);
-                n->myType = NODETYPE_TRAFFIC_LIGHT;
+                n->myType = SumoXMLNodeType::TRAFFIC_LIGHT;
                 if (!tlc.insert(tlDef)) {
                     // actually, nothing should fail here
                     n->removeTrafficLight(tlDef);
-                    n->myType = NODETYPE_PRIORITY;
+                    n->myType = SumoXMLNodeType::PRIORITY;
                     delete tlDef;
-                    WRITE_WARNING("Could not allocate tls '" + n->getID() + "'.");
+                    WRITE_WARNINGF("Could not allocate tls '%'.", n->getID());
                 }
             }
         }
@@ -255,16 +281,15 @@ NBNodeTypeComputer::validateRailCrossings(NBNodeCont& nc, NBTrafficLightLogicCon
 
 bool
 NBNodeTypeComputer::isRailwayNode(const NBNode* n) {
-    int numRailway = 0;
-    int numNonRailway = 0;
+    bool hasRailway = false;
     for (NBEdge* e : n->getIncomingEdges()) {
         if ((e->getPermissions() & ~SVC_RAIL_CLASSES) != 0) {
-            numNonRailway++;
+            return false;
         } else if ((e->getPermissions() & SVC_RAIL_CLASSES) != 0) {
-            numRailway++;
+            hasRailway = true;
         }
     }
-    return numRailway > 0 && numNonRailway == 0;
+    return hasRailway;
 }
 
 // ---------------------------------------------------------------------------
@@ -275,7 +300,7 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
     for (const auto& node : nc) {
         // preset all junction's edge priorities to zero
         for (NBEdge* const edge : node.second->myAllEdges) {
-            edge->setJunctionPriority(node.second, NBEdge::MINOR_ROAD);
+            edge->setJunctionPriority(node.second, NBEdge::JunctionPriority::MINOR_ROAD);
         }
         node.second->markBentPriority(false);
         // check if the junction is not a real junction
@@ -283,8 +308,8 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
             continue;
         }
         // compute the priorities on junction when needed
-        if (node.second->getType() != NODETYPE_RIGHT_BEFORE_LEFT && node.second->getType() != NODETYPE_ALLWAY_STOP && node.second->getType() != NODETYPE_NOJUNCTION) {
-            if (node.second->getRightOfWay() == RIGHT_OF_WAY_EDGEPRIORITY) {
+        if (node.second->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT && node.second->getType() != SumoXMLNodeType::ALLWAY_STOP && node.second->getType() != SumoXMLNodeType::NOJUNCTION) {
+            if (node.second->getRightOfWay() == RightOfWay::EDGEPRIORITY) {
                 for (NBEdge* e : node.second->getIncomingEdges()) {
                     e->setJunctionPriority(node.second, e->getPriority());
                 }
@@ -372,7 +397,7 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
                 s->setJunctionPriority(&n, 1);
             }
         }
-        n.markBentPriority(n.getDirection(best1, bestOut) != LINKDIR_STRAIGHT);
+        n.markBentPriority(n.getDirection(best1, bestOut) != LinkDirection::STRAIGHT);
         return;
     }
 
@@ -493,4 +518,3 @@ NBNodesEdgesSorter::crossing_by_junction_angle_sorter::crossing_by_junction_angl
 
 
 /****************************************************************************/
-

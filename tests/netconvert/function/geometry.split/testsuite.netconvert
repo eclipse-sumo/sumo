@@ -1,0 +1,5 @@
+# test splitting geometry
+4arms_tls
+
+# test splitting geometry when the geometry points are spaced very closely
+high_resolution

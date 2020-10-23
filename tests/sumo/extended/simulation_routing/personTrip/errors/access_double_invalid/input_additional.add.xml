@@ -1,6 +1,0 @@
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="s1" lane="SC_0" startPos="10" endPos="30">
-        <access lane="WC_0" pos="50"/>
-        <access lane="WC_0" pos="60"/>
-    </busStop>
-</additional>

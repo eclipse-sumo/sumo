@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb  3 11:53:12 2020 by Eclipse SUMO Version v1_4_0+0895-97d758f096
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <netstate-dump value="rawdump.xml"/>
+        <fcd-output value="fcd.xml"/>
+        <fcd-output.signals value="true"/>
+        <fcd-output.acceleration value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+        <lanechange-output.xy value="true"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <lanechange.duration value="3"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.5"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="v0" type="DEFAULT_VEHTYPE" time="5.00" from="1si_0" to="1si_1" dir="1" speed="13.00" pos="40.85" reason="strategic|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" x="290.25" y="490.15"/>
+</lanechanges>

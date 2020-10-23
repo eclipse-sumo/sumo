@@ -3,3 +3,6 @@
 
 # example network from Technische Universität Braunschweig
 4arm_variableWidthInternals
+
+# parallel internal lane sections shifted at the same time
+shifted

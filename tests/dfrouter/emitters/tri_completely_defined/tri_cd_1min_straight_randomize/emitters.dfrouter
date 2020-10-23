@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Jun 15 16:27:19 2017 by SUMO dfrouter Version dev-SVN-r24506
+<!-- generated on Wed Mar 27 10:37:16 2019 by Eclipse SUMO dfrouter Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <routes-output value="routes.rou.xml"/>
         <emitters-output value="emitters.add.xml"/>
     </output>
@@ -47,14 +48,14 @@ SPDX-License-Identifier: EPL-2.0
         <route refId="beg_to_end_1" probability="0.00"/>
         <route refId="beg_to_end_2" probability="0.00"/>
     </routeDistribution>
-    <vehicle id="emitter_MQ_beg_7763" depart="7.76" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_15377" depart="15.38" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_15725" depart="15.72" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_17730" depart="17.73" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_23766" depart="23.77" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_28030" depart="28.03" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_46203" depart="46.20" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_52734" depart="52.73" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_54370" depart="54.37" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
-    <vehicle id="emitter_MQ_beg_58937" depart="58.94" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.0" depart="7.76" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.1" depart="15.38" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.2" depart="15.72" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.3" depart="17.73" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.4" depart="23.77" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.5" depart="28.03" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.6" depart="46.20" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.7" depart="52.73" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.8" depart="54.37" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
+    <vehicle id="MQ_beg.9" depart="58.94" departLane="0" departPos="5.00" departSpeed="27.78" route="beg_to_end"/>
 </additional>

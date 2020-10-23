@@ -1,4 +1,4 @@
-<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd">
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/routes_file.xsd">
     <vTypeDistribution id="vtdist">
         <vType id="trolley" accel="5.0" decel="6.0" length="12.0" maxSpeed="30.0" sigma="0.5" 
             guiShape="bus/trolley" color="1.0,1.0,0.0" probability="0.2"/>

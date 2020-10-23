@@ -31,6 +31,9 @@ speed_basic
 # tests the effect of using speedDev > 0
 speedDev
 
+# override speedDev with individual speedFactor
+speedDev_override_individual
+
 # tests setting speeddev by option
 speedDev_option
 

@@ -1,30 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEChange_Lane.cpp
 /// @author  Jakob Erdmann
 /// @date    April 2011
-/// @version $Id$
 ///
 // A network change in which a single lane is created or deleted
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/frames/GNEInspectorFrame.h>
-#include <netedit/GNEViewParent.h>
 
 #include "GNEChange_Lane.h"
 
@@ -34,30 +29,30 @@
 // ===========================================================================
 FXIMPLEMENT_ABSTRACT(GNEChange_Lane, GNEChange, nullptr, 0)
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 
+GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, const NBEdge::Lane& laneAttrs):
+    GNEChange(true, false),
+    myEdge(edge),
+    myLane(nullptr),
+    myLaneAttrs(laneAttrs),
+    myRecomputeConnections(true) {
+    myEdge->incRef("GNEChange_Lane");
+}
 
-/// @brief constructor for creating an edge
+
 GNEChange_Lane::GNEChange_Lane(GNEEdge* edge, GNELane* lane, const NBEdge::Lane& laneAttrs, bool forward, bool recomputeConnections):
-    GNEChange(edge->getNet(), forward),
+    GNEChange(lane, forward, lane->isAttributeCarrierSelected()),
     myEdge(edge),
     myLane(lane),
     myLaneAttrs(laneAttrs),
     myRecomputeConnections(recomputeConnections) {
-    assert(myNet);
+    // include both references (To edge and lane)
     myEdge->incRef("GNEChange_Lane");
-    if (myLane) {
-        // non-zero pointer is passsed in case of removal or duplication
-        myLane->incRef("GNEChange_Lane");
-        // Save additionals of lane
-        myAdditionalChilds = myLane->getAdditionalChilds();
-        // Save POILanes of lane
-        myShapeChilds = myLane->getShapeChilds();
-    } else {
-        assert(forward);
-    }
+    myLane->incRef("GNEChange_Lane");
 }
 
 
@@ -74,6 +69,7 @@ GNEChange_Lane::~GNEChange_Lane() {
         if (myLane->unreferenced()) {
             // show extra information for tests
             WRITE_DEBUG("Deleting unreferenced " + myLane->getTagStr() + " '" + myLane->getID() + "' in GNEChange_Lane");
+            // delete lane
             delete myLane;
         }
     }
@@ -86,44 +82,35 @@ GNEChange_Lane::undo() {
         // show extra information for tests
         if (myLane != nullptr) {
             WRITE_DEBUG("Removing " + myLane->getTagStr() + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+            // unselect if mySelectedElement is enabled
+            if (mySelectedElement) {
+                myLane->unselectAttributeCarrier();
+            }
+            // restore container
+            restoreHierarchicalContainers();
         } else {
             WRITE_DEBUG("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
         }
-        // remove lane from edge
+        // remove lane from edge (note: myLane can be nullptr)
         myEdge->removeLane(myLane, false);
-        // Remove additionals vinculated with this lane
-        for (auto i : myAdditionalChilds) {
-            myNet->deleteAdditional(i);
-        }
-        // Remove Shapes vinculated with this lane of net
-        for (auto i : myShapeChilds) {
-            myNet->removeShape(i);
-        }
     } else {
         // show extra information for tests
         if (myLane != nullptr) {
             WRITE_DEBUG("Adding " + myLane->getTagStr() + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+            // select if mySelectedElement is enabled
+            if (mySelectedElement) {
+                myLane->selectAttributeCarrier();
+            }
+            // restore container
+            restoreHierarchicalContainers();
         } else {
             WRITE_DEBUG("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
         }
-        // add lane and their attributes to edge
-        // (lane removal is reverted, no need to recompute connections)
+        // add lane and their attributes to edge (lane removal is reverted, no need to recompute connections)
         myEdge->addLane(myLane, myLaneAttrs, false);
-        // add additional sets vinculated with this lane of net
-        for (auto i : myAdditionalChilds) {
-            myNet->insertAdditional(i);
-        }
-        // add Shapes vinculated with this lane in net
-        for (auto i : myShapeChilds) {
-            myNet->removeShape(i);
-        }
     }
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
-    }
-    // enable save netElements
-    myNet->requiereSaveNet(true);
+    // enable save networkElements
+    myEdge->getNet()->requireSaveNet(true);
 }
 
 
@@ -133,43 +120,35 @@ GNEChange_Lane::redo() {
         // show extra information for tests
         if (myLane != nullptr) {
             WRITE_DEBUG("Adding " + myLane->getTagStr() + " '" + myLane->getID() + "' into " + toString(SUMO_TAG_EDGE));
+            // select if mySelectedElement is enabled
+            if (mySelectedElement) {
+                myLane->selectAttributeCarrier();
+            }
+            // add lane into parents and children
+            addElementInParentsAndChildren(myLane);
         } else {
             WRITE_DEBUG("Adding nullptr " + toString(SUMO_TAG_LANE) + " into " + toString(SUMO_TAG_EDGE));
         }
         // add lane and their attributes to edge
         myEdge->addLane(myLane, myLaneAttrs, myRecomputeConnections);
-        // add additional vinculated with this lane of net
-        for (auto i : myAdditionalChilds) {
-            myNet->insertAdditional(i);
-        }
-        // add shapes vinculated with this lane in net
-        for (auto i : myShapeChilds) {
-            myNet->removeShape(i);
-        }
     } else {
         // show extra information for tests
         if (myLane != nullptr) {
             WRITE_DEBUG("Removing " + myLane->getTagStr() + " '" + myLane->getID() + "' from " + toString(SUMO_TAG_EDGE));
+            // unselect if mySelectedElement is enabled
+            if (mySelectedElement) {
+                myLane->unselectAttributeCarrier();
+            }
+            // remove lane from parents and children
+            removeElementFromParentsAndChildren(myLane);
         } else {
             WRITE_DEBUG("Removing nullptr " + toString(SUMO_TAG_LANE) + " from " + toString(SUMO_TAG_EDGE));
         }
         // remove lane from edge
         myEdge->removeLane(myLane, myRecomputeConnections);
-        // Remove additional vinculated with this lane of net
-        for (auto i : myAdditionalChilds) {
-            myNet->deleteAdditional(i);
-        }
-        // Remove shapes vinculated with this lane of net
-        for (auto i : myShapeChilds) {
-            myNet->removeShape(i);
-        }
     }
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
-    }
-    // enable save netElements
-    myNet->requiereSaveNet(true);
+    // enable save networkElements
+    myEdge->getNet()->requireSaveNet(true);
 }
 
 

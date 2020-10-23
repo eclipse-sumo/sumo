@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_Krauss.cpp
 /// @author  Tobias Mayer
@@ -14,15 +18,9 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Mon, 04 Aug 2009
-/// @version $Id$
 ///
 // Krauss car-following model, with acceleration decrease and faster start
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSVehicle.h>
@@ -68,12 +66,7 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, doub
     // NOTE: This allows return of smaller values than minNextSpeed().
     // Only relevant for the ballistic update: We give the argument headway=veh->getActionStepLengthSecs(), to assure that
     // the stopping position is approached with a uniform deceleration also for tau!=veh->getActionStepLengthSecs().
-    if (veh->hasDriverState()) {
-        // @todo: Provide objectID (e.g. pointer address for the relevant object at the given distance(gap))
-        //        This is for item related management of known object and perception updates when the distance
-        //        changes significantly. (Should not be too important for stationary objects though.)
-        applyHeadwayPerceptionError(veh, speed, gap);
-    }
+    applyHeadwayPerceptionError(veh, speed, gap);
     return MIN2(maximumSafeStopSpeed(gap, speed, false, veh->getActionStepLengthSecs()), maxNextSpeed(speed, veh));
 }
 
@@ -81,9 +74,7 @@ MSCFModel_Krauss::stopSpeed(const MSVehicle* const veh, const double speed, doub
 double
 MSCFModel_Krauss::followSpeed(const MSVehicle* const veh, double speed, double gap, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
     //gDebugFlag1 = DEBUG_COND;
-    if (veh->hasDriverState()) {
-        applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
-    }
+    applyHeadwayAndSpeedDifferencePerceptionErrors(veh, speed, gap, predSpeed, predMaxDecel, pred);
     //gDebugFlag1 = DEBUG_COND; // enable for DEBUG_EMERGENCYDECEL
     const double vsafe = maximumSafeFollowSpeed(gap, speed, predSpeed, predMaxDecel);
     //gDebugFlag1 = false;

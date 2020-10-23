@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBTrafficLightLogic.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A SUMO-compliant built logic for a traffic light
 /****************************************************************************/
-#ifndef NBTrafficLightLogic_h
-#define NBTrafficLightLogic_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -65,8 +62,8 @@ public:
         /// @brief The state definition
         std::string state;
 
-        /// @brief next phase index or -1
-        int next;
+        /// @brief next phase indices or empty list
+        std::vector<int> next;
         /// @brief option phase name
         std::string name;
 
@@ -74,7 +71,7 @@ public:
          * @param[in] durationArg The duration of the phase
          * @param[in] stateArg Signals per link
          */
-        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg, int nextArg, const std::string& nameArg) :
+        PhaseDefinition(SUMOTime durationArg, const std::string& stateArg, SUMOTime minDurArg, SUMOTime maxDurArg, const std::vector<int>& nextArg, const std::string& nameArg) :
             duration(durationArg),
             minDur(minDurArg),
             maxDur(maxDurArg),
@@ -110,7 +107,7 @@ public:
      * @param[in] type The algorithm type for the computed traffic light
      */
     NBTrafficLightLogic(const std::string& id, const std::string& subid, int noLinks,
-                        SUMOTime offset = 0, TrafficLightType type = TLTYPE_STATIC);
+                        SUMOTime offset = 0, TrafficLightType type = TrafficLightType::STATIC);
 
 
     /** @brief Copy Constructor
@@ -135,8 +132,10 @@ public:
      * @note: the length of the state has to match the number of links
      *        and the length given in previous calls to addStep (throws ProcessError)
      */
-    void addStep(SUMOTime duration, const std::string& state, int next = -1, const std::string& name = "", int index = -1);
-    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next = -1, const std::string& name = "", int index = -1);
+    void addStep(SUMOTime duration, const std::string& state,
+                 const std::vector<int>& next = std::vector<int>(), const std::string& name = "", int index = -1);
+    void addStep(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur,
+                 const std::vector<int>& next = std::vector<int>(), const std::string& name = "", int index = -1);
 
 
     /** @brief Modifies the state for an existing phase (used by NETEDIT)
@@ -153,7 +152,7 @@ public:
     void setPhaseDuration(int phaseIndex, SUMOTime duration);
     void setPhaseMinDuration(int phaseIndex, SUMOTime duration);
     void setPhaseMaxDuration(int phaseIndex, SUMOTime duration);
-    void setPhaseNext(int phaseIndex, int next);
+    void setPhaseNext(int phaseIndex, const std::vector<int>& next);
     void setPhaseName(int phaseIndex, const std::string& name);
 
     /* @brief deletes the phase at the given index
@@ -165,6 +164,9 @@ public:
      * new states at the end
     */
     void setStateLength(int numLinks, LinkState fill = LINKSTATE_TL_RED);
+
+    /// @brief remove the index from all phase states
+    void deleteStateIndex(int index);
 
     /* @brief deletes all phases and reset the expect number of links
     */
@@ -231,12 +233,19 @@ public:
         myType = type;
     }
 
+    /** @brief Sets the programID
+     * @param[in] programID The new ID of the program (subID)
+     */
+    void setProgramID(const std::string& programID) {
+        mySubID = programID;
+    }
+
 private:
     /// @brief The number of participating links
     int myNumLinks;
 
     /// @brief The tls program's subid
-    const std::string mySubID;
+    std::string mySubID;
 
     /// @brief The tls program's offset
     SUMOTime myOffset;
@@ -252,12 +261,6 @@ private:
 
 private:
     /// @brief Invalidated assignment operator
-    NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s);
+    NBTrafficLightLogic& operator=(const NBTrafficLightLogic& s) = delete;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

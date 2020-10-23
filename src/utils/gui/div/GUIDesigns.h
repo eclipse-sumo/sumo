@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIDesigns.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Oct 2016
-/// @version $Id$
 ///
 // File with the definitions of standard style of FXObjects in SUMO
 /****************************************************************************/
-#ifndef GUIDesigns_h
-#define GUIDesigns_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <fx.h>
@@ -33,14 +31,14 @@
 /// @brief text field extended over Frame with thick frame
 #define GUIDesignTextField                  (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief text field extended over Frame with thick frame and limited to Integers
-#define GUIDesignTextFieldInt               (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 0, 23, 2, 2, 2, 2
+/// @brief text field with thick frame and size of 50x23
+#define GUIDesignTextFielWidth50           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, 23, 2, 2, 2, 2
 
-/// @brief text field extended over Frame with thick frame and limited to Doubles/doubles
-#define GUIDesignTextFieldReal              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, 23, 2, 2, 2, 2
+/// @brief text field with thick frame and size of 50x23 and limited to doubles
+#define GUIDesignTextFielWidth50Real       (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 50, 23, 2, 2, 2, 2
 
-/// @brief text field with thick frame and size of 100x23
-#define GUIDesignTextFielWidth100           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
+/// @brief text field with thick frame, size of 180x23 /doubles (Used in GNEVehicleType)
+#define GUIDesignTextFielWidth180           (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, 23, 2, 2, 2, 2
 
 /// @brief Num of column of text field
 #define GUIDesignTextFieldNCol              1
@@ -67,6 +65,9 @@
 
 /// @brief button rectangular with thick and raise frame with a size of 100x23
 #define GUIDesignButtonRectangular100x23    (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
+
+/// @brief button rectangular with thick and raise frame with a size of 150x23
+#define GUIDesignButtonRectangular150x23    (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 150, 23, 2, 2, 2, 2
 
 /// @}
 
@@ -111,17 +112,15 @@
 
 /// @name FXCheckButtons
 /// @{
-/// @brief CheckButton for Frames without thick extended over the frame
-#define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
-
-/// @brief checkButton without thick extended over the frame used for attributes
-#define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
-
-/// @brief checkButton with thick extended over the frame used for attributes
-#define GUIDesignCheckButtonAttributeLabel  (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
 
 /// @brief checkButton placed in left position
-#define GUIDesignCheckButtonLeft            (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
+#define GUIDesignCheckButton                (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT), 0, 0, 0, 23, 2, 2, 2, 2
+
+/// @brief checkButton without thick extended over the frame used for attributes
+#define GUIDesignCheckButtonAttribute       (CHECKBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
+
+/// @brief CheckButton for Frames without thick extended over the frame
+#define GUIDesignCheckButtonViewSettings    (CHECKBUTTON_NORMAL | LAYOUT_CENTER_Y)
 
 /// @}
 
@@ -142,7 +141,7 @@
 #define GUIDesignRadioButton                (LAYOUT_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT | JUSTIFY_LEFT)
 
 /// @brief design for radio button with fixed height
-#define GUIDesignRadioButtonAttribute       (LAYOUT_LEFT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | JUSTIFY_CENTER_Y | ICON_BEFORE_TEXT), 0, 0, 0, 23, 2, 2, 2, 2
+#define GUIDesignRadioButtonAttribute       (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
 /// @}
 
 
@@ -172,8 +171,14 @@
 /// @brief label extended over the matrix column with thick frame and height of 23
 #define GUIDesignLabelAttribute             (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 100, 23, 2, 2, 2, 2
 
-/// @brief label extended over frame without thick and with text justify to center and without vertical spaces
+/// @brief label extended over the matrix column with thick frame and height of 23
+#define GUIDesignLabelAttribute150          (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | ICON_BEFORE_TEXT), 0, 0, 150, 23, 2, 2, 2, 2
+
+/// @brief label extended over frame without thick and with text justify to left
 #define GUIDesignLabelAboutInfo             (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
+
+/// @brief label extended over frame with thick and with text justify to center
+#define GUIDesignLabelAboutInfoCenter       (FRAME_THICK | JUSTIFY_NORMAL | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 0, 0
 
 /// @brief label ticked filled only with an icon of 32x32
 #define GUIDesignLabelIcon32x32Thicked      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH), 0, 0, 24, 23, 2, 2, 2, 2
@@ -184,11 +189,14 @@
 /// @brief design for label with icon
 #define GUIDesignLabelIcon                  (LAYOUT_CENTER_Y | LAYOUT_CENTER_X ), 0, 0, 0, 0, 2, 2, 0, 0
 
-/// @brief label ticked filled extended over frame used for VClasses. can be used by icons of 64x32 pixels
-#define GUIDesignLabelIconExtendedx46Ticked (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 46, 2, 2, 2, 2
+/// @brief label ticked filled extended over frame used for VClasses/VShapes. (can be used by icons of 64x32 pixels)
+#define GUIDesignLabelTickedIcon180x46      (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | LAYOUT_FIX_WIDTH), 0, 0, 180, 46, 2, 2, 2, 2
 
 /// @brief label extended over frame without thick and with text justify to left, used to show information in frames
 #define GUIDesignLabelFrameInformation      (JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
+
+/// @brief label extended over frame without thick and with text justify to left, used to show information in frames
+#define GUIDesignLabelFrameThicked          (FRAME_THICK | JUSTIFY_LEFT | LAYOUT_FILL_X | ICON_BEFORE_TEXT), 0, 0, 0, 0, 2, 2, 2, 2
 
 /// @brief label with thick, text justify to left and size of 100x23
 #define GUIDesignLabelThick100              (FRAME_THICK | ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23, 2, 2, 2, 2
@@ -201,12 +209,20 @@
 /// @brief Combo box editable extended over the all frame
 #define GUIDesignComboBox                   (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
-/// @brief Combo box static     (not editable)
+/// @brief Combo box static (not editable)
 #define GUIDesignComboBoxStatic             (COMBOBOX_STATIC | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_TOP | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
+
+/// @brief Combo box static (not editable) extended over the all frame
+#define GUIDesignComboBoxStaticExtended     (COMBOBOX_STATIC | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
 /// @brief Combo box static     (cannot be edited) extended over the matrix column
 #define GUIDesignComboBoxAttribute          (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 23, 2, 2, 2, 2
 
+/// @brief comboBox with thick frame, size of 180x23 (Used in GNEVehicleType)
+#define GUIDesignComboBoxWidth180           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 180, 23, 2, 2, 2, 2
+
+/// @brief comboBox with thick frame, size of 120x23
+#define GUIDesignComboBoxWidth120           (COMBOBOX_NORMAL | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 120, 23, 2, 2, 2, 2
 
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
@@ -225,7 +241,7 @@
 #define GUIDesignHorizontalFrameIcons       (LAYOUT_FILL_X | FRAME_THICK), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
 
 /// @brief Horizontal frame used in status bar
-#define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FIX_WIDTH | LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN), 0, 0, 20, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN), 0, 0, 20, 0, 0, 0, 0, 0, 0, 0
 
 /// @brief Matrix design extended over Frame packed by columns
 #define GUIDesignMatrix                     (LAYOUT_FILL_X | LAYOUT_FILL_Y | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
@@ -425,28 +441,22 @@
 /// @name design for dialog boxs
 /// @{
 /// @brief design for standard dialog box with close button (for example, about dialog)
-#define GUIDesignDialogBox                      (DECOR_CLOSE | DECOR_TITLE)
+#define GUIDesignDialogBox                                      (DECOR_CLOSE | DECOR_TITLE)
 
 /// @brief design for standard dialog box that can be stretched (But not shrinked)
-#define GUIDesignDialogBoxStretchable           (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
+#define GUIDesignDialogBoxStretchable                           (DECOR_CLOSE | DECOR_TITLE | DECOR_STRETCHABLE)
 
 /// @brief design for standard dialog box that can be schinked (But not stretched)
-#define GUIDesignDialogBoxShrinkable            (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
+#define GUIDesignDialogBoxShrinkable                            (DECOR_CLOSE | DECOR_TITLE | DECOR_SHRINKABLE)
 
 /// @brief design for standard dialog box (for example, about dialog)
-#define GUIDesignDialogBoxResizable             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
+#define GUIDesignDialogBoxResizable                             (DECOR_CLOSE | DECOR_TITLE | DECOR_RESIZE)
 
 /// @brief design for dialog box with specift width and height     (for example, additional dialogs)
-#define GUIDesignDialogBoxExplicit              (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT)
+#define GUIDesignDialogBoxExplicit(width, height)               (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT), 0, 0, width, height, 4, 4, 4, 4, 4, 4
 
 /// @brief design for dialog box with specift width and height that can be stretched (But not shrinked)
-#define GUIDesignDialogBoxExplicitStretchable   (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE)
-
-/// @brief design for dialog box with specift width and height that can be schinked (But not stretched)
-#define GUIDesignDialogBoxExplicitShrinkable    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_SHRINKABLE)
-
-/// @brief design for dialog box with specift width and height and resizable
-#define GUIDesignDialogBoxExplicitResizable     (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_RESIZE)
+#define GUIDesignDialogBoxExplicitStretchable(width, height)    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE), 0, 0, width, height, 4, 4, 4, 4, 4, 4
 /// @}
 
 
@@ -504,14 +514,11 @@
 /// @}
 
 
-/// @brief Tree list used in frames to represent childs of elements
+/// @brief Tree list used in frames to represent elements children
 #define GUIDesignTreeListFrame                  (TREELIST_SHOWS_LINES | TREELIST_SHOWS_BOXES | TREELIST_SINGLESELECT | FRAME_SUNKEN | FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, 200
 
 /// @brief design for FXLists
 #define GUIDesignList                           (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X)
-
-/// @brief design for FXList sthat only allow a single selected elements selected
-#define GUIDesignListSingleElement              (LIST_SINGLESELECT | FRAME_NORMAL | LAYOUT_FILL_X)
 
 /// @brief design for FXLists with height fixed
 #define GUIDesignListFixedHeight                (LIST_NORMAL | FRAME_NORMAL | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT)
@@ -524,7 +531,3 @@
 
 /// @brief desgin for TabBooks
 #define GUIDesignTabBook                        (TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT)
-
-#endif
-
-/****************************************************************************/

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:04 2018 by Eclipse SUMO netgenerate Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:43 2020 by Eclipse SUMO netgenerate Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,7 +32,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-100.00,-100.00,100.00,100.00" projParameter="!"/>
 
@@ -43,7 +43,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":A1_1_0" index="0" speed="13.89" length="14.40" shape="98.40,107.20 98.40,92.80"/>
     </edge>
     <edge id=":A1_2" function="internal">
-        <lane id=":A1_2_0" index="0" speed="8.00" length="14.19" shape="98.40,107.20 98.95,103.35 100.60,100.60 103.35,98.95 107.20,98.40"/>
+        <lane id=":A1_2_0" index="0" speed="7.80" length="13.44" shape="98.40,107.20 99.19,104.07 101.24,101.24 104.07,99.19 107.20,98.40"/>
     </edge>
     <edge id=":A1_3" function="internal">
         <lane id=":A1_3_0" index="0" speed="3.65" length="4.67" shape="98.40,107.20 99.20,106.00 100.00,105.60 100.80,106.00 101.60,107.20"/>
@@ -55,7 +55,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":A1_5_0" index="0" speed="13.89" length="14.40" shape="107.20,101.60 92.80,101.60"/>
     </edge>
     <edge id=":A1_6" function="internal">
-        <lane id=":A1_6_0" index="0" speed="8.00" length="14.19" shape="107.20,101.60 103.35,101.05 100.60,99.40 98.95,96.65 98.40,92.80"/>
+        <lane id=":A1_6_0" index="0" speed="7.80" length="13.44" shape="107.20,101.60 104.07,100.81 101.24,98.76 99.19,95.93 98.40,92.80"/>
     </edge>
     <edge id=":A1_7" function="internal">
         <lane id=":A1_7_0" index="0" speed="3.65" length="4.67" shape="107.20,101.60 106.00,100.80 105.60,100.00 106.00,99.20 107.20,98.40"/>
@@ -67,7 +67,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":A1_9_0" index="0" speed="13.89" length="14.40" shape="101.60,92.80 101.60,107.20"/>
     </edge>
     <edge id=":A1_10" function="internal">
-        <lane id=":A1_10_0" index="0" speed="8.00" length="14.19" shape="101.60,92.80 101.05,96.65 99.40,99.40 96.65,101.05 92.80,101.60"/>
+        <lane id=":A1_10_0" index="0" speed="7.80" length="13.44" shape="101.60,92.80 100.81,95.93 98.76,98.76 95.93,100.81 92.80,101.60"/>
     </edge>
     <edge id=":A1_11" function="internal">
         <lane id=":A1_11_0" index="0" speed="3.65" length="4.67" shape="101.60,92.80 100.80,94.00 100.00,94.40 99.20,94.00 98.40,92.80"/>
@@ -79,7 +79,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":A1_13_0" index="0" speed="13.89" length="14.40" shape="92.80,98.40 107.20,98.40"/>
     </edge>
     <edge id=":A1_14" function="internal">
-        <lane id=":A1_14_0" index="0" speed="8.00" length="14.19" shape="92.80,98.40 96.65,98.95 99.40,100.60 101.05,103.35 101.60,107.20"/>
+        <lane id=":A1_14_0" index="0" speed="7.80" length="13.44" shape="92.80,98.40 95.93,99.19 98.76,101.24 100.81,104.07 101.60,107.20"/>
     </edge>
     <edge id=":A1_15" function="internal">
         <lane id=":A1_15_0" index="0" speed="3.65" length="4.67" shape="92.80,98.40 94.00,99.20 94.40,100.00 94.00,100.80 92.80,101.60"/>
@@ -229,16 +229,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":B4_6_0" index="0" speed="9.73" length="21.49" shape="90.58,7.16 95.29,3.63 100.00,2.45 104.71,3.63 109.42,7.16"/>
     </edge>
     <edge id=":B4_7" function="internal">
-        <lane id=":B4_7_0" index="0" speed="7.42" length="11.43" shape="90.58,7.16 95.40,3.31 98.84,2.79 99.90,4.22"/>
+        <lane id=":B4_7_0" index="0" speed="7.42" length="19.31" shape="90.58,7.16 95.40,3.31 98.84,2.79 100.91,5.59 101.60,11.73"/>
     </edge>
     <edge id=":B4_8" function="internal">
-        <lane id=":B4_8_0" index="0" speed="3.65" length="2.56" shape="90.58,7.16 91.99,6.88 92.84,7.16 92.91,7.37"/>
+        <lane id=":B4_8_0" index="0" speed="3.65" length="2.52" shape="90.58,7.16 91.99,6.88 92.84,7.16 92.90,7.33"/>
     </edge>
     <edge id=":B4_11" function="internal">
-        <lane id=":B4_11_0" index="0" speed="7.42" length="7.88" shape="99.90,4.22 100.91,5.59 101.60,11.73"/>
-    </edge>
-    <edge id=":B4_12" function="internal">
-        <lane id=":B4_12_0" index="0" speed="3.65" length="2.12" shape="92.91,7.37 93.12,8.01 92.84,9.42"/>
+        <lane id=":B4_11_0" index="0" speed="3.65" length="2.16" shape="92.90,7.33 93.12,8.01 92.84,9.42"/>
     </edge>
 
     <edge id="A1B1" from="A1" to="B1" priority="-1">
@@ -292,34 +289,34 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="B1" type="static" programID="0" offset="0">
         <phase duration="38" state="GggrrrGGg"/>
-        <phase duration="3"  state="yggrrryyg"/>
-        <phase duration="6"  state="rGGrrrrrG"/>
-        <phase duration="3"  state="ryyrrrrry"/>
+        <phase duration="3"  state="yggrrryyy"/>
+        <phase duration="6"  state="GGGrrrrrr"/>
+        <phase duration="3"  state="yyyrrrrrr"/>
         <phase duration="37" state="rrrGGgGrr"/>
         <phase duration="3"  state="rrryyyyrr"/>
     </tlLogic>
     <tlLogic id="B2" type="static" programID="0" offset="0">
         <phase duration="38" state="GggrrrGGg"/>
-        <phase duration="3"  state="yggrrryyg"/>
-        <phase duration="6"  state="rGGrrrrrG"/>
-        <phase duration="3"  state="ryyrrrrry"/>
+        <phase duration="3"  state="yggrrryyy"/>
+        <phase duration="6"  state="GGGrrrrrr"/>
+        <phase duration="3"  state="yyyrrrrrr"/>
         <phase duration="37" state="rrrGGgGrr"/>
         <phase duration="3"  state="rrryyyyrr"/>
     </tlLogic>
     <tlLogic id="B3" type="static" programID="0" offset="0">
         <phase duration="38" state="GggrrrGGg"/>
-        <phase duration="3"  state="yggrrryyg"/>
-        <phase duration="6"  state="rGGrrrrrG"/>
-        <phase duration="3"  state="ryyrrrrry"/>
+        <phase duration="3"  state="yggrrryyy"/>
+        <phase duration="6"  state="GGGrrrrrr"/>
+        <phase duration="3"  state="yyyrrrrrr"/>
         <phase duration="37" state="rrrGGgGrr"/>
         <phase duration="3"  state="rrryyyyrr"/>
     </tlLogic>
     <tlLogic id="B4" type="static" programID="0" offset="0">
-        <phase duration="38" state="rrrGGgGgg"/>
-        <phase duration="3"  state="rrryygygg"/>
-        <phase duration="6"  state="rrrrrGrGG"/>
-        <phase duration="3"  state="rrrrryryy"/>
-        <phase duration="37" state="GGgGrrrrr"/>
+        <phase duration="27" state="GrrrrrGGg"/>
+        <phase duration="3"  state="yrrrrryyy"/>
+        <phase duration="27" state="rrrGGgGrr"/>
+        <phase duration="3"  state="rrryyyyrr"/>
+        <phase duration="27" state="GGgGrrrrr"/>
         <phase duration="3"  state="yyyyrrrrr"/>
     </tlLogic>
 
@@ -357,7 +354,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7" response="000000000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
-    <junction id="B4" type="traffic_light" x="100.00" y="0.00" incLanes="A1B4_0 B1B4_0 B3B4_0" intLanes=":B4_0_0 :B4_1_0 :B4_9_0 :B4_3_0 :B4_4_0 :B4_10_0 :B4_6_0 :B4_11_0 :B4_12_0" shape="96.80,11.73 103.20,11.73 103.51,9.82 103.91,9.43 104.46,9.43 105.16,9.80 106.03,10.55 110.55,6.03 107.04,3.10 103.52,1.34 100.00,0.75 96.48,1.34 92.96,3.10 89.45,6.03 93.97,10.55 95.54,9.43 96.09,9.43 96.49,9.82 96.72,10.58">
+    <junction id="B4" type="traffic_light" x="100.00" y="0.00" incLanes="A1B4_0 B1B4_0 B3B4_0" intLanes=":B4_0_0 :B4_1_0 :B4_9_0 :B4_3_0 :B4_4_0 :B4_10_0 :B4_6_0 :B4_7_0 :B4_11_0" shape="96.80,11.73 103.20,11.73 103.51,9.82 103.91,9.43 104.46,9.43 105.16,9.80 106.03,10.55 110.55,6.03 107.04,3.10 103.52,1.34 100.00,0.75 96.48,1.34 92.96,3.10 89.45,6.03 93.97,10.55 95.54,9.43 96.09,9.43 96.49,9.82 96.72,10.58">
         <request index="0" response="000010000" foes="100010000" cont="0"/>
         <request index="1" response="011010000" foes="011110000" cont="0"/>
         <request index="2" response="010001000" foes="010001000" cont="1"/>
@@ -365,7 +362,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="000000000" foes="110000011" cont="0"/>
         <request index="5" response="001000010" foes="001000010" cont="1"/>
         <request index="6" response="000000000" foes="000100010" cont="0"/>
-        <request index="7" response="000011000" foes="000011110" cont="1"/>
+        <request index="7" response="000011000" foes="000011110" cont="0"/>
         <request index="8" response="000010001" foes="000010001" cont="1"/>
     </junction>
 
@@ -383,8 +380,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":B3_12_0" type="internal" x="7.40" y="92.92" incLanes=":B3_8_0 A1B3_0 B2B3_0" intLanes=":B3_0_0 :B3_4_0"/>
     <junction id=":B4_9_0" type="internal" x="100.16" y="10.21" incLanes=":B4_2_0 B1B4_0 B3B4_0" intLanes=":B4_3_0 :B4_7_0"/>
     <junction id=":B4_10_0" type="internal" x="107.08" y="7.40" incLanes=":B4_5_0 A1B4_0 B3B4_0" intLanes=":B4_1_0 :B4_6_0"/>
-    <junction id=":B4_11_0" type="internal" x="99.90" y="4.22" incLanes=":B4_7_0 B1B4_0" intLanes=":B4_1_0 :B4_2_0 :B4_3_0 :B4_4_0"/>
-    <junction id=":B4_12_0" type="internal" x="92.91" y="7.37" incLanes=":B4_8_0 A1B4_0 B1B4_0" intLanes=":B4_0_0 :B4_4_0"/>
+    <junction id=":B4_11_0" type="internal" x="92.90" y="7.33" incLanes=":B4_8_0 A1B4_0 B1B4_0" intLanes=":B4_0_0 :B4_4_0"/>
 
     <connection from="A1B1" to="B1B4" fromLane="0" toLane="0" via=":B1_3_0" tl="B1" linkIndex="3" dir="r" state="o"/>
     <connection from="A1B1" to="B1B2" fromLane="0" toLane="0" via=":B1_4_0" tl="B1" linkIndex="4" dir="l" state="o"/>
@@ -425,7 +421,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B3B2" to="B2A1" fromLane="0" toLane="0" via=":B2_6_0" tl="B2" linkIndex="6" dir="r" state="O"/>
     <connection from="B3B2" to="B2B1" fromLane="0" toLane="0" via=":B2_7_0" tl="B2" linkIndex="7" dir="R" state="O"/>
     <connection from="B3B2" to="B2B3" fromLane="0" toLane="0" via=":B2_8_0" tl="B2" linkIndex="8" dir="t" state="o"/>
-    <connection from="B3B4" to="B4B1" fromLane="0" toLane="0" via=":B4_6_0" tl="B4" linkIndex="6" dir="L" state="O"/>
+    <connection from="B3B4" to="B4B1" fromLane="0" toLane="0" via=":B4_6_0" tl="B4" linkIndex="6" dir="l" state="O"/>
     <connection from="B3B4" to="B4A1" fromLane="0" toLane="0" via=":B4_7_0" tl="B4" linkIndex="7" dir="l" state="o"/>
     <connection from="B3B4" to="B4B3" fromLane="0" toLane="0" via=":B4_8_0" tl="B4" linkIndex="8" dir="t" state="o"/>
     <connection from="B4A1" to="A1B1" fromLane="0" toLane="0" via=":A1_8_0" dir="r" state="M"/>
@@ -502,10 +498,9 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":B4_4" to="B4B3" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":B4_5" to="B4B1" fromLane="0" toLane="0" via=":B4_10_0" dir="t" state="m"/>
     <connection from=":B4_10" to="B4B1" fromLane="0" toLane="0" dir="t" state="M"/>
-    <connection from=":B4_6" to="B4B1" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from=":B4_7" to="B4A1" fromLane="0" toLane="0" via=":B4_11_0" dir="l" state="m"/>
-    <connection from=":B4_11" to="B4A1" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":B4_8" to="B4B3" fromLane="0" toLane="0" via=":B4_12_0" dir="t" state="m"/>
-    <connection from=":B4_12" to="B4B3" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":B4_6" to="B4B1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":B4_7" to="B4A1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":B4_8" to="B4B3" fromLane="0" toLane="0" via=":B4_11_0" dir="t" state="m"/>
+    <connection from=":B4_11" to="B4B3" fromLane="0" toLane="0" dir="t" state="M"/>
 
 </net>

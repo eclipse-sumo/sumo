@@ -1,0 +1,6 @@
+<routes>
+    <personFlow id="p" begin="10" end="20" probability="0.5">
+        <walk edges="beg middle end" arrivalPos="random"/>
+    </personFlow>
+
+</routes>

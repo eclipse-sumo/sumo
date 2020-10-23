@@ -1,0 +1,4 @@
+<add>
+    <overheadWireSegment id="wire1" lane="WC_0" startPos="25" endPos="-1"/>
+    <overheadWireSegment id="wire2" lane="CE_0" startPos="0" endPos="-10"/>
+</add>

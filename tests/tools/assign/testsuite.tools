@@ -1,8 +1,6 @@
 # DUA iteration tests
 dua-iterate
-
-# test the coupling between Sumo and  Cadyts
-calibration
+duaIterate_analysis
 
 # DUA cost function tests
 costFunctionChecker

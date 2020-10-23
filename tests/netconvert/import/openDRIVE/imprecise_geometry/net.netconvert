@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:51 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:58 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,6 +16,10 @@ SPDX-License-Identifier: EPL-2.0
         <write-license value="true"/>
     </output>
 
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+    </processing>
+
     <tls_building>
         <tls.left-green.time value="0"/>
     </tls_building>
@@ -26,40 +30,41 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" rectangularLaneCut="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-7793.00,-2175.01" convBoundary="0.00,0.00,173.42,55.89" origBoundary="7793.00,2175.01,7966.42,2230.89" projParameter="!"/>
 
-    <type id="bidirectional" priority="1" speed="1.39" disallow="tram rail_urban rail rail_electric pedestrian ship" width="3.65"/>
+    <type id="bidirectional" priority="1" speed="1.39" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
     <type id="border" priority="0" speed="1.39" disallow="all" discard="1" width="0.10"/>
-    <type id="driving" priority="1" speed="13.89" disallow="tram rail_urban rail rail_electric pedestrian ship" width="3.65"/>
-    <type id="entry" priority="1" speed="22.22" disallow="tram rail_urban rail rail_electric pedestrian ship" width="3.65"/>
-    <type id="exit" priority="1" speed="22.22" disallow="tram rail_urban rail rail_electric pedestrian ship" width="3.65"/>
+    <type id="driving" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
+    <type id="entry" priority="1" speed="22.22" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
+    <type id="exit" priority="1" speed="22.22" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
     <type id="median" priority="0" speed="1.39" disallow="all" discard="1" width="0.10"/>
     <type id="mwyEntry" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
     <type id="mwyExit" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
     <type id="none" priority="0" speed="1.39" disallow="all" discard="1" width="1.00"/>
     <type id="offRamp" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
     <type id="onRamp" priority="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" width="3.65"/>
-    <type id="parking" priority="1" speed="1.39" disallow="tram rail_urban rail rail_electric pedestrian ship" width="2.50"/>
-    <type id="rail" priority="3" speed="33.33" allow="rail_urban rail rail_electric" width="3.65"/>
+    <type id="parking" priority="1" speed="1.39" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="2.50"/>
+    <type id="rail" priority="3" speed="33.33" allow="rail_urban rail rail_electric rail_fast" width="3.65"/>
     <type id="restricted" priority="0" speed="13.89" disallow="all" width="3.65"/>
     <type id="roadWorks" priority="0" speed="1.39" allow="authority" width="3.65"/>
     <type id="shoulder" priority="0" speed="1.39" disallow="all" discard="1" width="1.00"/>
     <type id="special1" priority="1" speed="22.22" allow="custom1" discard="1" width="3.65"/>
     <type id="special2" priority="1" speed="22.22" allow="custom2" discard="1" width="3.65"/>
     <type id="special3" priority="1" speed="22.22" allow="custom1 custom2" discard="1" width="3.65"/>
-    <type id="stop" priority="1" speed="13.89" disallow="tram rail_urban rail rail_electric pedestrian ship" width="3.65"/>
+    <type id="stop" priority="1" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" width="3.65"/>
     <type id="tram" priority="2" speed="13.89" allow="tram" width="3.65"/>
 
     <edge id="-190.0.00" from="146" to="268" priority="1" type="driving" shape="173.42,0.00 153.69,4.64 66.30,32.80 0.00,55.89">
-        <lane id="-190.0.00_0" index="0" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.96" width="3.20" shape="174.52,4.67 154.98,9.27 67.82,37.35 1.58,60.42"/>
-        <lane id="-190.0.00_1" index="1" disallow="tram rail_urban rail rail_electric pedestrian ship" speed="22.22" length="181.96" width="3.20" shape="173.79,1.56 154.12,6.18 66.81,34.32 0.53,57.40"/>
+        <lane id="-190.0.00_0" index="0" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="181.96" width="3.20" shape="174.52,4.67 154.98,9.27 67.82,37.35 1.58,60.42" type="driving"/>
+        <lane id="-190.0.00_1" index="1" disallow="pedestrian tram rail_urban rail rail_electric rail_fast ship" speed="22.22" length="181.96" width="3.20" shape="173.79,1.56 154.12,6.18 66.81,34.32 0.53,57.40" type="driving"/>
     </edge>
 
     <junction id="146" type="dead_end" x="173.42" y="0.00" incLanes="" intLanes="" shape="173.42,0.00 174.89,6.23"/>

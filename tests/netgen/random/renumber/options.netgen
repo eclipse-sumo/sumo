@@ -1,0 +1,6 @@
+--rand -o net.net.xml --rand.iterations=20
+--rand.min-distance 100
+--rand.max-distance 400
+--rand.grid
+--numerical-ids.node-start 0
+--numerical-ids.edge-start 0

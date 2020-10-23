@@ -19,5 +19,11 @@ node_id_invalid
 # traffic light with illegal state
 phase_state_invalid
 
+# Tests what happens if a lane with invalid index is read
+lane_index_invalid
+
+# trying to set lane-specific attributes without fromLane, toLane
+connection_attributes_invalid
+
 # Tests for broken edges
 broken_edge

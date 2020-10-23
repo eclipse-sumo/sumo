@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/24/17 14:17:15 by SUMO duarouter Version dev-SVN-r24460
+<!-- generated on Mon Feb 11 08:01:37 2019 by Eclipse SUMO duarouter Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -10,11 +10,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <input>
         <net-file value="input_net.net.xml"/>
-        <flow-files value="input_flows.flows.xml"/>
+        <route-files value="input_flows.flows.xml"/>
     </input>
 
     <output>
+        <write-license value="true"/>
         <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
     </output>
 
     <report>
@@ -70,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0
     <vehicle id="10.0" type="10" depart="33.00" departLane="free">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vType id="11" speedFactor="1.20"/>
+    <vType id="11" speedFactor="normc(1.20,0.00)"/>
     <vehicle id="11.0" type="11" depart="34.00">
         <route edges="beg middle end rend"/>
     </vehicle>
@@ -90,7 +92,7 @@ SPDX-License-Identifier: EPL-2.0
     <vehicle id="15.0" type="15" depart="36.00">
         <route edges="beg middle end rend"/>
     </vehicle>
-    <vType id="16" speedFactor="0.90"/>
+    <vType id="16" speedFactor="normc(0.90,0.00)"/>
     <vehicle id="16.0" type="16" depart="36.00">
         <route edges="beg middle end rend"/>
     </vehicle>

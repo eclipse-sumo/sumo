@@ -1,4 +1,3 @@
-Warning: Ambiguity in turnarounds computation at junction 'C'.
 Warning: Ambiguity in turnarounds computation at junction 'E'.
 Warning: Ambiguity in turnarounds computation at junction 'N'.
 Warning: Ambiguity in turnarounds computation at junction 'S'.
@@ -8,18 +7,10 @@ Warning: Edge 'CEb' is not connected to outgoing edges at junction 'E'.
 Warning: Edge 'CN' is not connected to outgoing edges at junction 'N'.
 Warning: Edge 'CNb' is not connected to outgoing edges at junction 'N'.
 Warning: Edge 'CS' is not connected to outgoing edges at junction 'S'.
-Warning: Edge 'CSb' is not connected to outgoing edges at junction 'S'.
-Warning: Edge 'CW' is not connected to outgoing edges at junction 'W'.
-Warning: Edge 'CWb' is not connected to outgoing edges at junction 'W'.
 Warning: Lane 'EC_1' is not connected from any incoming edge at junction 'E'.
 Warning: Lane 'EC_2' is not connected from any incoming edge at junction 'E'.
 Warning: Lane 'ECb_0' is not connected from any incoming edge at junction 'E'.
 Warning: Lane 'NC_1' is not connected from any incoming edge at junction 'N'.
 Warning: Lane 'NC_2' is not connected from any incoming edge at junction 'N'.
-Warning: Lane 'NCb_0' is not connected from any incoming edge at junction 'N'.
-Warning: Lane 'SC_1' is not connected from any incoming edge at junction 'S'.
-Warning: Lane 'SC_2' is not connected from any incoming edge at junction 'S'.
-Warning: Lane 'SCb_0' is not connected from any incoming edge at junction 'S'.
-Warning: Lane 'WC_1' is not connected from any incoming edge at junction 'W'.
-Warning: Lane 'WC_2' is not connected from any incoming edge at junction 'W'.
-Warning: Lane 'WCb_0' is not connected from any incoming edge at junction 'W'.
+Warning: 8 total messages of type: Edge '%' is not connected to outgoing edges at junction '%'.
+Warning: 12 total messages of type: Lane '%' is not connected from any incoming edge at junction '%'.

@@ -1,0 +1,5 @@
+Error: Invalid vehicle type 'dummy_Type' used in trip 'trip_1'.
+Error: Attribute 'type' in definition of trip 'trip_2' is empty.
+Error: Invalid vehicle type '' used in trip 'trip_2'.
+Error: Invalid vehicle type 'id with invalid characters' used in trip 'trip_3'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug092338.744/netedit.gui/demandElements/trip/load/vType\input_routes.rou.xml failed.

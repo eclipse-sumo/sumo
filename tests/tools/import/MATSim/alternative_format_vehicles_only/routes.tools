@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-02-25 15:28:46.525857 by matsim_importPlans.py v1_5_0+0249-678b429
+  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml <doubleminus>vehicles-only
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <trip id="10040_1_0" depart="02:47:20" from="576273431" to="52799758"/>
+   <trip id="10280_1_0" depart="02:51:20" from="576273431" to="52799758"/>
+   <trip id="10280_2_0" depart="02:51:20" from="576273431" to="52799758"/>
+</routes>

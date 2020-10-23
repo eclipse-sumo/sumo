@@ -1,3 +1,5 @@
 simstep2 4
 getvariable 0xad 0x51 tmp
 simstep2 0
+simstep2 0
+

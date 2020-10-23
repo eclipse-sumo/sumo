@@ -1,0 +1,13 @@
+<routes>
+    <vType id="bus" vClass="bus" />
+    <route id="busRoute" edges="1 2 3">
+        <stop busStop="busStop1" duration="30" />
+        <stop busStop="busStop2" duration="30" />
+        <stop busStop="busStop3" duration="30" />
+    </route>
+    <vehicle type="bus" id="bus" depart="0" route="busRoute" line="line"/>
+    <person id="person" depart="0">
+        <walk from="1" busStop="busStop1" />
+        <ride busStop="busStop3" modes="public" lines="line" />
+    </person>
+</routes>

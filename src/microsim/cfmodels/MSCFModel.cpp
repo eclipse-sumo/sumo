@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel.cpp
 /// @author  Tobias Mayer
@@ -15,15 +19,9 @@
 /// @author  Laura Bieker
 /// @author  Leonhard Lücken
 /// @date    Mon, 27 Jul 2009
-/// @version $Id$
 ///
 // The car-following model abstraction
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -185,12 +183,12 @@ MSCFModel::finalizeSpeed(MSVehicle* const veh, double vPos) const {
 #endif
 
 #ifdef DEBUG_FINALIZE_SPEED
-    if DEBUG_COND {
-    std::cout << "\n" << SIMTIME << " FINALIZE_SPEED\n";
-}
+    if (DEBUG_COND) {
+        std::cout << "\n" << SIMTIME << " FINALIZE_SPEED\n";
+    }
 #endif
 
-vMax = MAX2(vMin, vMax);
+    vMax = MAX2(vMin, vMax);
     // apply further speed adaptations
     double vNext = patchSpeedBeforeLC(veh, vMin, vMax);
 #ifdef DEBUG_FINALIZE_SPEED
@@ -204,8 +202,8 @@ vMax = MAX2(vMin, vMax);
     assert(vNext <= vMax);
 
 #ifdef DEBUG_FINALIZE_SPEED
-    if DEBUG_COND {
-    std::cout << std::setprecision(gPrecision)
+    if (DEBUG_COND) {
+        std::cout << std::setprecision(gPrecision)
                   << "veh '" << veh->getID() << "' oldV=" << oldV
                   << " vPos" << vPos
                   << " vMin=" << vMin
@@ -276,7 +274,7 @@ MSCFModel::freeSpeed(const MSVehicle* const veh, double speed, double seen, doub
 
 
 double
-MSCFModel::insertionFollowSpeed(const MSVehicle* const /* v */, double speed, double gap2pred, double predSpeed, double predMaxDecel) const {
+MSCFModel::insertionFollowSpeed(const MSVehicle* const /* v */, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         return maximumSafeFollowSpeed(gap2pred, speed, predSpeed, predMaxDecel, true);
     } else {
@@ -390,7 +388,7 @@ MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, doubl
     assert(speed >= 0.);
     assert(dist >= 0.);
 
-    if (dist == 0.) {
+    if (dist < NUMERICAL_EPS) {
         return 0.;
     }
 
@@ -399,7 +397,7 @@ MSCFModel::estimateArrivalTime(double dist, double speed, double maxSpeed, doubl
         return INVALID_DOUBLE;
     }
 
-    if (accel == 0.) {
+    if (fabs(accel) < NUMERICAL_EPS) {
         return dist / speed;
     }
 
@@ -446,7 +444,7 @@ MSCFModel::estimateArrivalTime(double dist, double initialSpeed, double arrivalS
     double arrivalTime;
     if (accelDist >= dist * 0.5) {
         // maximal speed will not be attained during maneuver
-        arrivalTime = 4 * sqrt(accelDist) / accel;
+        arrivalTime = 4 * sqrt(dist / accel);
     } else {
         // Calculate time to move with constant, maximal lateral speed
         const double constSpeedTime = (dist - accelDist * 2) / maxSpeed;
@@ -457,10 +455,10 @@ MSCFModel::estimateArrivalTime(double dist, double initialSpeed, double arrivalS
 
 
 double
-MSCFModel::avoidArrivalAccel(double dist, double time, double speed) {
+MSCFModel::avoidArrivalAccel(double dist, double time, double speed, double maxDecel) {
     assert(time > 0 || dist == 0);
     if (dist <= 0) {
-        return -std::numeric_limits<double>::max();
+        return -maxDecel;
     } else if (time * speed > 2 * dist) {
         // stop before dist is necessary. We need
         //            d = v*v/(2*a)
@@ -622,6 +620,9 @@ MSCFModel::passingTime(const double lastPos, const double passedPos, const doubl
 
     if (MSGlobals::gSemiImplicitEulerUpdate) {
         // euler update (constantly moving with currentSpeed during [0,TS])
+        if (currentSpeed == 0) {
+            return TS;
+        }
         const double t = distanceOldToPassed / currentSpeed;
         return MIN2(TS, MAX2(0., t)); //rounding errors could give results out of the admissible result range
 
@@ -699,8 +700,8 @@ MSCFModel::speedAfterTime(const double t, const double v0, const double dist) {
 double
 MSCFModel::estimateSpeedAfterDistance(const double dist, const double v, const double accel) const {
     // dist=v*t + 0.5*accel*t^2, solve for t and use v1 = v + accel*t
-    return MAX2(0., MIN2(myType->getMaxSpeed(),
-                         (double)sqrt(2 * dist * accel + v * v)));
+    return MIN2(myType->getMaxSpeed(),
+                (double)sqrt(MAX2(0., 2 * dist * accel + v * v)));
 }
 
 
@@ -812,14 +813,14 @@ MSCFModel::maximumSafeStopSpeedBallistic(double g /*gap*/, double v /*currentSpe
     // such that starting to break after accelerating with a for the time tau=headway
     // still allows us to stop in time.
 
-    const double tau = headway;
+    const double tau = headway == 0 ? TS : headway;
     const double v0 = MAX2(0., v);
     // We first consider the case that a stop has to take place within time tau
     if (v0 * tau >= 2 * g) {
         if (g == 0.) {
             if (v0 > 0.) {
                 // indicate to brake as hard as possible
-                return -std::numeric_limits<double>::max();
+                return -ACCEL2SPEED(myEmergencyDecel);
             } else {
                 // stay stopped
                 return 0.;
@@ -961,7 +962,7 @@ MSCFModel::calculateEmergencyDeceleration(double gap, double egoSpeed, double pr
     // Case 2) applies
     assert(gap < 0 || predSpeed < egoSpeed);
     if (gap <= 0.) {
-        return - std::numeric_limits<double>::max();
+        return -ACCEL2SPEED(myEmergencyDecel);
     }
     // Required deceleration according to case 2)
     const double b2 = 0.5 * (egoSpeed * egoSpeed - predSpeed * predSpeed) / gap;
@@ -980,15 +981,17 @@ void
 MSCFModel::applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const veh, double speed, double& gap, double& predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
     UNUSED_PARAMETER(speed);
     UNUSED_PARAMETER(predMaxDecel);
-    assert(veh->hasDriverState());
+    if (!veh->hasDriverState()) {
+        return;
+    }
 
     // Obtain perceived gap and headway from the driver state
     const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap, pred);
     const double perceivedSpeedDifference = veh->getDriverState()->getPerceivedSpeedDifference(predSpeed - speed, gap, pred);
 
 #ifdef DEBUG_DRIVER_ERRORS
-    if DEBUG_COND {
-    if (!veh->getDriverState()->debugLocked()) {
+    if (DEBUG_COND) {
+        if (!veh->getDriverState()->debugLocked()) {
             veh->getDriverState()->lockDebug();
             std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_Krauss::applyHeadwayAndSpeedDifferencePerceptionErrors()\n"
                       << "  speed=" << speed << " gap=" << gap << " leaderSpeed=" << predSpeed
@@ -1013,14 +1016,19 @@ MSCFModel::applyHeadwayAndSpeedDifferencePerceptionErrors(const MSVehicle* const
 void
 MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed, double& gap) const {
     UNUSED_PARAMETER(speed);
-    assert(veh->hasDriverState());
+    if (!veh->hasDriverState()) {
+        return;
+    }
+    // @todo: Provide objectID (e.g. pointer address for the relevant object at the given distance(gap))
+    //        This is for item related management of known object and perception updates when the distance
+    //        changes significantly. (Should not be too important for stationary objects though.)
 
     // Obtain perceived gap from driver state
     const double perceivedGap = veh->getDriverState()->getPerceivedHeadway(gap);
 
 #ifdef DEBUG_DRIVER_ERRORS
-    if DEBUG_COND {
-    if (!veh->getDriverState()->debugLocked()) {
+    if (DEBUG_COND) {
+        if (!veh->getDriverState()->debugLocked()) {
             veh->getDriverState()->lockDebug();
             std::cout << SIMTIME << " veh '" << veh->getID() << "' -> MSCFModel_Krauss::applyHeadwayPerceptionError()\n"
                       << "  speed=" << speed << " gap=" << gap << "\n  perceivedGap=" << perceivedGap << std::endl;
@@ -1035,9 +1043,6 @@ MSCFModel::applyHeadwayPerceptionError(const MSVehicle* const veh, double speed,
 
     gap = perceivedGap;
 }
-
-
-
 
 
 /****************************************************************************/

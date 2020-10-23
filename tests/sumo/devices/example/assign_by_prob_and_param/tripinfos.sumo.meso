@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Sep 16 20:48:47 2019 by Eclipse SUMO Version v1_3_1+0347-00cb1f8218
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <example_device>
+        <device.example.probability value="0.5"/>
+    </example_device>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="prob.0" depart="0.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="4.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.0" vType="device_by_prob" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="prob.1" depart="10.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="14.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.1" vType="device_by_prob" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="prob.2" depart="20.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="24.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.2 example_prob.2" vType="device_by_prob" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="prob.3" depart="30.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="34.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.3 example_prob.3" vType="device_by_prob" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="prob.4" depart="40.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="44.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.4" vType="device_by_prob" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="prob.5" depart="50.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="54.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.5 example_prob.5" vType="device_by_prob" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="prob.6" depart="60.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="64.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.6" vType="device_by_prob" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="prob.7" depart="70.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="74.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.7 example_prob.7" vType="device_by_prob" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="prob.8" depart="80.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="84.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.8" vType="device_by_prob" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="prob.9" depart="90.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="94.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_prob.9" vType="device_by_prob" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="always.0" depart="100.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="104.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.0 example_always.0" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="always.1" depart="110.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="114.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.1 example_always.1" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="always.2" depart="120.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="124.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.2 example_always.2" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="always.3" depart="130.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="134.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.3 example_always.3" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="always.4" depart="140.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="144.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.4 example_always.4" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="always.5" depart="150.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="154.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.5 example_always.5" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="always.6" depart="160.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="164.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.6 example_always.6" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="always.7" depart="170.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="174.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.7 example_always.7" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="always.8" depart="180.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="184.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.8 example_always.8" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="always.9" depart="190.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="194.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_always.9 example_always.9" vType="device_always" speedFactor="1.00" vaporized="">
+        <example_device customValue1="0.00" customValue2="-1.00"/>
+    </tripinfo>
+    <tripinfo id="never.0" depart="200.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="204.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.0" vType="device_never" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="never.1" depart="210.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="214.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.1" vType="device_never" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="never.2" depart="220.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="224.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.2" vType="device_never" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="never.3" depart="230.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="234.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.3" vType="device_never" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="never.4" depart="240.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="244.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.4" vType="device_never" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="never.5" depart="250.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="254.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.5" vType="device_never" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="never.6" depart="260.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="264.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.6" vType="device_never" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="never.7" depart="270.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="274.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.7" vType="device_never" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="never.8" depart="280.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="284.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.8" vType="device_never" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="never.9" depart="290.00" departLane="" departPos="0.00" departSpeed="27.80" departDelay="0.00" arrival="294.00" arrivalLane="" arrivalPos="6.00" arrivalSpeed="27.80" duration="4.00" routeLength="6.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_never.9" vType="device_never" speedFactor="1.00" vaporized=""/>
+</tripinfos>

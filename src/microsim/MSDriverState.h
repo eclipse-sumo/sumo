@@ -1,16 +1,19 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDriverState.h
 /// @author  Michael Behrisch
 /// @date    Tue, 21 Apr 2015
-/// @version $Id$
 ///
 // A class representing a vehicle driver's current mental state
 /****************************************************************************/
@@ -19,33 +22,17 @@
 /// @todo: check parameter admissibility in setter methods
 
 
-#ifndef MSDriverState_h
-#define MSDriverState_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <memory>
 #include <utils/common/SUMOTime.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 
-// ===========================================================================
-// class declarations
-// ===========================================================================
-//class MSJunction;
-//class MSLink;
-//class MSVehicle;
-//class MSLane;
-//class MSPerson;
-
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-
-
 /// @class OUProcess
 /// @brief An Ornstein-Uhlenbeck stochastic process
 class OUProcess {
@@ -57,6 +44,8 @@ public:
 
     /// @brief evolve for a time step of length dt.
     void step(double dt);
+    /// @brief static version of the step()
+    static double step(double state, double dt, double timeScale, double noiseIntensity);
 
     /// @brief set the process' timescale to a new value
     void setTimeScale(double timeScale) {
@@ -164,6 +153,18 @@ public:
         return myAwareness;
     }
 
+    inline double getMaximalReactionTime() const {
+        return myMaximalReactionTime;
+    }
+
+    inline double getOriginalReactionTime() const {
+        return myOriginalReactionTime;
+    }
+
+    inline double getActionStepLength() const {
+        return myActionStepLength;
+    }
+
     inline double getErrorState() const {
         return myError.getState();
     };
@@ -202,6 +203,16 @@ public:
 
     inline void setHeadwayChangePerceptionThreshold(const double value)  {
         myHeadwayChangePerceptionThreshold = value;
+    }
+
+    inline void setMaximalReactionTime(const double value)  {
+        myMaximalReactionTime = value;
+        updateReactionTime();
+    }
+
+    inline void setOriginalReactionTime(const double value)  {
+        myOriginalReactionTime = value;
+        updateReactionTime();
     }
 
     void setAwareness(const double value);
@@ -261,19 +272,21 @@ private:
     void updateStepDuration();
     // Update the error process
     void updateError();
+    // Update the reaction time (actionStepLength)
+    void updateReactionTime();
 
 private:
 
     /// @brief Vehicle corresponding to this driver state
     MSVehicle* myVehicle;
 
-    // @brief Driver's 'awareness' \in [0,1]
+    /// @brief Driver's 'awareness' \in [0,1]
     double myAwareness;
-    // @brief Minimal value for 'awareness' \in [0,1]
+    /// @brief Minimal value for 'awareness' \in [0,1]
     double myMinAwareness;
-    // @brief Initial value for 'awareness' \in [0,1]
+    /// @brief Initial value for 'awareness' \in [0,1]
     double myInitialAwareness;
-    // @brief Driver's 'error', @see TCI_Model
+    /// @brief Driver's 'error', @see TCI_Model
     OUProcess myError;
     /// @brief Coefficient controlling the impact of awareness on the time scale of the error process
     double myErrorTimeScaleCoefficient;
@@ -291,9 +304,14 @@ private:
 //    // @brief if a perception threshold is passed for some object, a flag is set to induce a reaction to the object
 //    std::map<void*, bool> myReactionFlag;
 
-    /// @brief action step length induced by awareness level
-    /// @todo make effective
+    /// @brief Action step length (~current maximal reaction time) induced by awareness level
+    /// @note  This interpolates linearly from myOriginalReactionTime for awareness==1
+    ///        to myMaximalReactionTime for awareness==myMinAwareness
     double myActionStepLength;
+    /// @brief Maximal reaction time (value set for the actionStepLength at awareness=1)
+    double myOriginalReactionTime;
+    /// @brief Maximal reaction time (value set for the actionStepLength at awareness=myMinAwareness)
+    double myMaximalReactionTime;
 
     /// @name Variables for tracking update instants
     /// @see updateStepDuration()
@@ -685,10 +703,5 @@ struct DriverStateDefaults {
     static double speedDifferenceChangePerceptionThreshold;
     static double headwayChangePerceptionThreshold;
     static double headwayErrorCoefficient;
+    static double maximalReactionTimeFactor;
 };
-
-
-
-#endif
-
-/****************************************************************************/

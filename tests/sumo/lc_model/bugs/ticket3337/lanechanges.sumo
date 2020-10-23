@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 18 15:19:12 2017 by SUMO Version dev-SVN-r26551
+<!-- generated on Thu Jun 13 08:48:53 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,8 +14,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -26,8 +31,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="R" type="tR" time="13.00" from="beg_1" to="beg_0" dir="-1" speed="27.00" pos="451.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None"/>
-    <change id="L" type="tL" time="35.00" from="beg_2" to="beg_1" dir="-1" speed="33.00" pos="1155.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="30.64" followerSecureGap="10.50" origLeaderGap="None" origLeaderSecureGap="None"/>
-    <change id="ego" type="tEgo" time="40.00" from="beg_1" to="beg_0" dir="-1" speed="30.00" pos="1224.36" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="39.36" followerSecureGap="9.00" origLeaderGap="45.64" origLeaderSecureGap="10.50"/>
-    <change id="L" type="tL" time="58.00" from="beg_1" to="beg_0" dir="-1" speed="33.00" pos="1914.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="99.64" followerSecureGap="10.50" origLeaderGap="None" origLeaderSecureGap="None"/>
+    <change id="R" type="tR" time="13.00" from="beg_1" to="beg_0" dir="-1" speed="27.00" pos="451.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="L" type="tL" time="35.00" from="beg_2" to="beg_1" dir="-1" speed="33.00" pos="1155.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="30.64" followerSecureGap="10.50" followerSpeed="30.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="ego" type="tEgo" time="40.00" from="beg_1" to="beg_0" dir="-1" speed="30.00" pos="1224.36" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="39.36" followerSecureGap="9.00" followerSpeed="27.00" origLeaderGap="45.64" origLeaderSecureGap="10.50" origLeaderSpeed="33.00"/>
+    <change id="L" type="tL" time="58.00" from="beg_1" to="beg_0" dir="-1" speed="33.00" pos="1914.00" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="99.64" followerSecureGap="10.50" followerSpeed="30.00" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>

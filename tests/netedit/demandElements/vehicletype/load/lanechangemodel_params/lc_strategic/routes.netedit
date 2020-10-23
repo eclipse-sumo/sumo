@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 31.07.2019 13:21:55 by Eclipse SUMO netedit Version v1_2_0+1347-d1917ff3c6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_strategic\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_strategic\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_strategic\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_strategic\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_strategic\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_strategic\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_strategic\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="vType0" laneChangeModel="SL2015"/>
+    <vType id="vType1" laneChangeModel="SL2015" lcStrategic="-3"/>
+    <vType id="vType2" laneChangeModel="SL2015" lcStrategic="0"/>
+    <vType id="vType3" laneChangeModel="SL2015" lcStrategic="2"/>
+    <vType id="vType4" laneChangeModel="SL2015" lcStrategic="5.5"/>
+</routes>

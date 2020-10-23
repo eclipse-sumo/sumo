@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Dec  2 20:49:48 2019 by Eclipse SUMO netconvert Version v1_3_1+1233-b90e13e8e3
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <visum-file value="visum.net"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <polygon-output value="additional.xml"/>
+    </output>
+
+    <processing>
+        <geometry.junction-mismatch-threshold value="100"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <taz id="1058279604"/>
+    <taz id="1058279935"/>
+    <taz id="1058279993"/>
+    <taz id="1058280068"/>
+    <taz id="1058286622"/>
+    <taz id="1562612841"/>
+    <taz id="956400334" shape="1129.50,2801.00 1129.50,2801.00"/>
+    <taz id="956400350" shape="2191.00,3163.00 2191.00,3163.00"/>
+    <taz id="956400351" shape="3169.50,2693.50 3169.50,2693.50"/>
+    <taz id="956400352" shape="3159.00,2683.00 3159.00,2683.00"/>
+    <taz id="956400353" shape="2648.50,2003.00 2648.50,2003.00"/>
+    <taz id="956400360" shape="1129.50,2801.00 1129.50,2801.00"/>
+    <taz id="956400361" shape="1576.50,1727.00 1576.50,1727.00"/>
+    <taz id="956400363" shape="1576.50,1727.00 1576.50,1727.00"/>
+    <taz id="956400364" shape="1645.50,1265.00 1645.50,1265.00"/>
+    <taz id="956400366" shape="2096.50,2.50 2096.50,2.50"/>
+    <taz id="956400372" shape="562.00,505.50 562.00,505.50"/>
+    <taz id="956400373" shape="562.00,505.50 562.00,505.50"/>
+    <taz id="956400375" shape="143.50,320.50 143.50,320.50"/>
+    <taz id="956400380" shape="3377.50,289.00 3377.50,289.00"/>
+    <taz id="956400381" shape="3526.00,1148.50 3526.00,1148.50"/>
+    <taz id="956400382" shape="3324.50,1303.50 3324.50,1303.50"/>
+    <taz id="956400960" shape="3686.50,2812.50 3686.50,2812.50"/>
+    <taz id="957613262"/>
+    <taz id="957613268"/>
+    <taz id="957613269"/>
+    <taz id="957613271"/>
+    <taz id="957613355"/>
+    <taz id="957613368"/>
+</additional>

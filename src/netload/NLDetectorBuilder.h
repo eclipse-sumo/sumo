@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NLDetectorBuilder.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Christian Roessel
 /// @author  Michael Behrisch
 /// @date    Mon, 15 Apr 2002
-/// @version $Id$
 ///
 // Builds detectors for microsim
 /****************************************************************************/
-#ifndef NLDetectorBuilder_h
-#define NLDetectorBuilder_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -329,6 +326,7 @@ public:
      * @param[in] withEmpty Information whether empty lanes/edges shall be written
      * @param[in] withInternal Information whether internal lanes/edges shall be written
      * @param[in] trackVehicles Information whether information shall be collected per vehicle
+     * @param[in] detectPersons Whether pedestrians shall be detected instead of vehicles
      * @param[in] maxTravelTime the maximum travel time to output
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
@@ -338,9 +336,10 @@ public:
     void createEdgeLaneMeanData(const std::string& id, SUMOTime frequency,
                                 SUMOTime begin, SUMOTime end, const std::string& type,
                                 const bool useLanes, const bool withEmpty, const bool printDefaults,
-                                const bool withInternal, const bool trackVehicles,
+                                const bool withInternal, const bool trackVehicles, const int detectPersons,
                                 const double maxTravelTime, const double minSamples,
                                 const double haltSpeed, const std::string& vTypes,
+                                const std::string& writeAttributes,
                                 const std::string& device);
     /// @}
 
@@ -490,9 +489,3 @@ private:
     NLDetectorBuilder& operator=(const NLDetectorBuilder&);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

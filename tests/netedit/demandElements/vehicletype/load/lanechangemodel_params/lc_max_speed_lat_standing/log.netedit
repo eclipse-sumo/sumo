@@ -1,0 +1,5 @@
+Error: Invalid Lane-Change-Model Attribute lcMaxSpeedLatStanding. Cannot be parsed to float
+Error: Invalid Lane Change Model Parameters
+Error: Invalid Lane-Change-Model Attribute lcMaxSpeedLatStanding. Must be equal or greater than 0
+Error: Invalid Lane Change Model Parameters
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.01Aug105130.9388/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_standing\input_routes.rou.xml failed.

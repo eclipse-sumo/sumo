@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 23.10.2018 16:18:49 by Eclipse SUMO netedit Version v1_0_1+0296-2f18426848
+<!-- generated on 30.09.2019 11:17:09 by Eclipse SUMO netedit Version v1_3_1+0524-8f85d9a110
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Oct161816.2756/netedit.gui/shapeElements/poly/inspect_selected/inspect_selected_linewidth\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/linewidth\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Oct161816.2756/netedit.gui/shapeElements/poly/inspect_selected/inspect_selected_linewidth\net.net.xml"/>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/linewidth\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Oct161816.2756/netedit.gui/shapeElements/poly/inspect_selected/inspect_selected_linewidth\additionals.xml"/>
-        <sumo-shapes-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Oct161816.2756/netedit.gui/shapeElements/poly/inspect_selected/inspect_selected_linewidth\input_shapes.add.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Oct161816.2756/netedit.gui/shapeElements/poly/inspect_selected/inspect_selected_linewidth\shapes.xml"/>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/linewidth\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/linewidth\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/linewidth\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/linewidth\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Oct161816.2756/netedit.gui/shapeElements/poly/inspect_selected/inspect_selected_linewidth\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/linewidth\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.23Oct161816.2756/netedit.gui/shapeElements/poly/inspect_selected/inspect_selected_linewidth\log.txt"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/linewidth\log.txt"/>
     </report>
 
 </configuration>

@@ -1,11 +1,6 @@
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c1' across '8' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c1' across '8' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across [3] has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across [3] has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c1' across [8] has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across [8] has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across [3] has no target.
+Warning: 8 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.

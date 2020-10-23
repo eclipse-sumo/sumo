@@ -1,85 +1,85 @@
-Loading configuration... done.
+Loading configuration ... done.
 Success.
-Loading configuration... done.
-***Starting server on port 57226 ***
-Loading net-file from 'data/../pedcrossing.net.xml'... done (1ms).
-Loading additional-files from 'data/pedcrossing.tll.xml'... done (3ms).
+Loading configuration ... done.
+***Starting server on port 58624 ***
+Loading net-file from 'data/../pedcrossing.net.xml' ... done (1ms).
+Loading additional-files from 'data/pedcrossing.tll.xml' ... done (3ms).
 Loading done.
-Simulation version v1_0_1+0581-2e2217d started with time: 0.00
+Simulation version v1_4_0+0368-f5bfa39 started with time: 0.00
  Retrying in 1 seconds
-ped0 pushes the button
-ped2 pushes the button
-ped5 pushes the button
-ped7 pushes the button
-ped8 pushes the button
-ped10 pushes the button
-ped10 pushes the button
-ped11 pushes the button
-ped12 pushes the button
-ped12 pushes the button
-ped13 pushes the button
-ped15 pushes the button
-ped16 pushes the button
-ped18 pushes the button
-ped20 pushes the button
-ped22 pushes the button
-ped23 pushes the button
-ped24 pushes the button
-ped25 pushes the button
-ped26 pushes the button
-ped28 pushes the button
-ped29 pushes the button
-ped30 pushes the button
-ped31 pushes the button
-ped31 pushes the button
-ped35 pushes the button
-ped36 pushes the button
-ped38 pushes the button
-ped40 pushes the button
-ped42 pushes the button
-ped42 pushes the button
-ped45 pushes the button
-ped44 pushes the button
-ped48 pushes the button
-ped49 pushes the button
-ped50 pushes the button
-ped52 pushes the button
-ped53 pushes the button
-ped54 pushes the button
-ped55 pushes the button
-ped57 pushes the button
-ped58 pushes the button
-ped60 pushes the button
-ped61 pushes the button
-ped63 pushes the button
-ped64 pushes the button
-ped66 pushes the button
-ped66 pushes the button
-ped68 pushes the button
-ped69 pushes the button
-ped70 pushes the button
-ped71 pushes the button
-ped72 pushes the button
-ped74 pushes the button
-ped75 pushes the button
-ped76 pushes the button
-ped76 pushes the button
-ped78 pushes the button
-ped79 pushes the button
-ped81 pushes the button
-ped82 pushes the button
-ped83 pushes the button
-ped85 pushes the button
-ped87 pushes the button
-ped88 pushes the button
-ped89 pushes the button
-ped91 pushes the button
-Simulation ended at time: 3638.00
+18.0: pedestrian ped0 pushes the button (waiting: 1)
+43.0: pedestrian ped1 pushes the button (waiting: 1)
+84.0: pedestrian ped2 pushes the button (waiting: 1)
+122.0: pedestrian ped4 pushes the button (waiting: 1)
+167.0: pedestrian ped7 pushes the button (waiting: 1)
+277.0: pedestrian ped8 pushes the button (waiting: 1)
+294.0: pedestrian ped9 pushes the button (waiting: 1)
+341.0: pedestrian ped10 pushes the button (waiting: 1)
+446.0: pedestrian ped11 pushes the button (waiting: 1)
+487.0: pedestrian ped12 pushes the button (waiting: 1)
+537.0: pedestrian ped13 pushes the button (waiting: 1)
+613.0: pedestrian ped15 pushes the button (waiting: 1)
+635.0: pedestrian ped16 pushes the button (waiting: 2)
+686.0: pedestrian ped19 pushes the button (waiting: 1)
+732.0: pedestrian ped20 pushes the button (waiting: 2)
+734.0: pedestrian ped21 pushes the button (waiting: 2)
+823.0: pedestrian ped22 pushes the button (waiting: 1)
+857.0: pedestrian ped24 pushes the button (waiting: 1)
+948.0: pedestrian ped25 pushes the button (waiting: 1)
+1018.0: pedestrian ped27 pushes the button (waiting: 1)
+1022.0: pedestrian ped28 pushes the button (waiting: 2)
+1113.0: pedestrian ped30 pushes the button (waiting: 1)
+1213.0: pedestrian ped31 pushes the button (waiting: 1)
+1246.0: pedestrian ped33 pushes the button (waiting: 1)
+1277.0: pedestrian ped34 pushes the button (waiting: 1)
+1342.0: pedestrian ped36 pushes the button (waiting: 1)
+1373.0: pedestrian ped37 pushes the button (waiting: 1)
+1407.0: pedestrian ped39 pushes the button (waiting: 1)
+1451.0: pedestrian ped40 pushes the button (waiting: 1)
+1616.0: pedestrian ped42 pushes the button (waiting: 1)
+1647.0: pedestrian ped43 pushes the button (waiting: 1)
+1751.0: pedestrian ped44 pushes the button (waiting: 1)
+1769.0: pedestrian ped45 pushes the button (waiting: 2)
+1795.0: pedestrian ped47 pushes the button (waiting: 3)
+1902.0: pedestrian ped49 pushes the button (waiting: 1)
+1954.0: pedestrian ped51 pushes the button (waiting: 1)
+1995.0: pedestrian ped52 pushes the button (waiting: 1)
+2030.0: pedestrian ped53 pushes the button (waiting: 1)
+2095.0: pedestrian ped54 pushes the button (waiting: 1)
+2138.0: pedestrian ped55 pushes the button (waiting: 1)
+2181.0: pedestrian ped57 pushes the button (waiting: 1)
+2239.0: pedestrian ped58 pushes the button (waiting: 1)
+2399.0: pedestrian ped60 pushes the button (waiting: 1)
+2556.0: pedestrian ped63 pushes the button (waiting: 1)
+2560.0: pedestrian ped64 pushes the button (waiting: 2)
+2645.0: pedestrian ped66 pushes the button (waiting: 2)
+2646.0: pedestrian ped67 pushes the button (waiting: 2)
+2759.0: pedestrian ped69 pushes the button (waiting: 1)
+2761.0: pedestrian ped69 pushes the button (waiting: 1)
+2870.0: pedestrian ped71 pushes the button (waiting: 1)
+2926.0: pedestrian ped72 pushes the button (waiting: 1)
+2988.0: pedestrian ped73 pushes the button (waiting: 2)
+2991.0: pedestrian ped74 pushes the button (waiting: 2)
+3049.0: pedestrian ped75 pushes the button (waiting: 1)
+3116.0: pedestrian ped76 pushes the button (waiting: 1)
+3118.0: pedestrian ped76 pushes the button (waiting: 2)
+3223.0: pedestrian ped78 pushes the button (waiting: 1)
+3276.0: pedestrian ped80 pushes the button (waiting: 1)
+3332.0: pedestrian ped81 pushes the button (waiting: 1)
+3334.0: pedestrian ped81 pushes the button (waiting: 1)
+3397.0: pedestrian ped84 pushes the button (waiting: 1)
+3467.0: pedestrian ped86 pushes the button (waiting: 1)
+3485.0: pedestrian ped88 pushes the button (waiting: 1)
+3537.0: pedestrian ped91 pushes the button (waiting: 1)
+3549.0: pedestrian ped90 pushes the button (waiting: 3)
+3612.0: pedestrian ped93 pushes the button (waiting: 1)
+Simulation ended at time: 3671.00
 Reason: TraCI requested termination.
 Performance: 
- Duration: 1379ms
- Real time factor: 2638.14
- UPS: 13419.144307
+ Duration: 1025ms
+ Real time factor: 3581.46
+ UPS: 17887.804878
+ UPS-Persons: 5112.195122
 Vehicles: 
  Inserted: 742
  Running: 0
@@ -88,9 +88,9 @@ Persons:
  Inserted: 94
  Running: 0
 
-DijkstraRouter answered 1026 queries and explored 6.63 edges on average.
+DijkstraRouter answered 1006 queries and explored 6.63 edges on average.
 DijkstraRouter spent 1ms answering queries (0.00ms on average).
 DijkstraRouter answered 94 queries and explored 11.00 edges on average.
-DijkstraRouter spent 2ms answering queries (0.02ms on average).
+DijkstraRouter spent 0ms answering queries (0.00ms on average).
 DijkstraRouter answered 742 queries and explored 2.00 edges on average.
-DijkstraRouter spent 1ms answering queries (0.00ms on average).
+DijkstraRouter spent 0ms answering queries (0.00ms on average).

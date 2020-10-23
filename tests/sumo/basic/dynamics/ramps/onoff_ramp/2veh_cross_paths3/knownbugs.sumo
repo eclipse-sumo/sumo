@@ -12,3 +12,9 @@ ignore_other_errors:1
 bug_id:#3699
 full_description:#3699
 brief_description:#3699
+
+[Reported by leo at 03Apr13:59:19]
+search_string:.
+search_file:errors
+full_description:#5079
+brief_description:#5079

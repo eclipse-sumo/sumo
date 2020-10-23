@@ -1,6 +1,7 @@
 import_config_file:../config_all
 binary:$NETGENERATE_BINARY
 copy_test_path:input_net.net.xml
+copy_test_path:input_types.typ.xml
 
 [collate_file]
 net:net.net.xml

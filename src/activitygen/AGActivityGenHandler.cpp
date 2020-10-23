@@ -1,13 +1,17 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
 // activitygen module
 // Copyright 2010 TUM (Technische Universitaet Muenchen, http://www.tum.de/)
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    AGActivityGenHandler.cpp
 /// @author  Piotr Woznica
@@ -16,15 +20,9 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    July 2010
-/// @version $Id$
 ///
 // The handler for parsing the statistics file.
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "AGActivityGenHandler.h"
@@ -372,11 +370,34 @@ AGActivityGenHandler::parsePopulation() {
 void
 AGActivityGenHandler::parseBracket(const SUMOSAXAttributes& attrs) {
     try {
-//TODO beginAge needs to be evaluated
-//        int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE); //included in the bracket
+
+        int beginAge = attrs.getInt(AGEN_ATTR_BEGINAGE); //included in the bracket
         int endAge = attrs.getInt(AGEN_ATTR_ENDAGE); //NOT included in the bracket
-        if (myCurrentObject == "population") {
-            myCity.statData.population[endAge] = attrs.getInt(AGEN_ATTR_PEOPLENBR);
+        bool overlapping = false;
+        // evaluate age 
+        if (beginAge < endAge) {
+            for (auto it= myCity.statData.ageSpan.begin(); it != myCity.statData.ageSpan.end(); ++it) {
+                if (!(beginAge >= it->second || endAge <= it->first)) {
+                    overlapping = true;
+                }
+            }
+            if (!overlapping) {
+                myCity.statData.ageSpan[beginAge] = endAge;
+
+                if (myCurrentObject == "population") {
+                    myCity.statData.population[endAge] = attrs.getInt(AGEN_ATTR_PEOPLENBR);
+                }
+            }
+            else {
+                WRITE_ERROR("Error while parsing the element " +
+                    SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BRACKET) + ": begin and end age of the population is overlapping");
+                throw ProcessError();
+            }
+        }
+        else {
+            WRITE_ERROR("Error while parsing the element " +
+                SUMOXMLDefinitions::Tags.getString(AGEN_TAG_BRACKET) + ": begin and end age of the population are not properly set" );
+            throw ProcessError();
         }
 
     } catch (const std::exception& e) {
@@ -387,5 +408,5 @@ AGActivityGenHandler::parseBracket(const SUMOSAXAttributes& attrs) {
     }
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 08.10.2019 11:21:11 by Eclipse SUMO netedit Version v1_3_1+0566-b0665b524f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Oct112023.9952/netedit.gui/demandElements/routeflow/load/parameters\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Oct112023.9952/netedit.gui/demandElements/routeflow/load/parameters\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Oct112023.9952/netedit.gui/demandElements/routeflow/load/parameters\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Oct112023.9952/netedit.gui/demandElements/routeflow/load/parameters\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Oct112023.9952/netedit.gui/demandElements/routeflow/load/parameters\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Oct112023.9952/netedit.gui/demandElements/routeflow/load/parameters\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Oct112023.9952/netedit.gui/demandElements/routeflow/load/parameters\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.08Oct112023.9952/netedit.gui/demandElements/routeflow/load/parameters\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <route edges="gneE2 gneE4 gneE5" color="yellow" id="route_0"/>
+    <flow id="flow_0" begin="20.00" route="route_0" end="50.00" number="100">
+        <param key="$$key with spaces%%" value="value4"/>
+        <param key="key1" value="value5"/>
+        <param key="key2" value=""/>
+        <param key="key3" value="$$value with spaces%%"/>
+        <param key="keyFinal" value="valueFinal"/>
+    </flow>
+</routes>

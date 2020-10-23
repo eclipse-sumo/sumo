@@ -1,0 +1,8 @@
+Error: Attribute 'personNumber' in definition of vehicle 'vehicle_0' is not of type int.
+Error: personNumber cannot be negative
+Error: Attribute 'personNumber' in definition of vehicle 'vehicle_1' is empty.
+Error: personNumber cannot be negative
+Error: personNumber cannot be negative
+Error: Attribute 'personNumber' in definition of vehicle 'vehicle_4' is not of type int.
+Error: personNumber cannot be negative
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug145110.8336/netedit.gui/demandElements/vehicle/load/personNumber\input_routes.rou.xml failed.

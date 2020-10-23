@@ -1,43 +1,33 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2005-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2005-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RandHelper.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Fri, 29.04.2005
-/// @version $Id$
 ///
 //
 /****************************************************************************/
-#ifndef RandHelper_h
-#define RandHelper_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
+#pragma once
 #include <cassert>
 #include <vector>
+#include <map>
 #include <random>
 #include <sstream>
 #include <iostream>
 
 //#define DEBUG_RANDCALLS
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class OptionsCont;
-
 
 // ===========================================================================
 // class definitions
@@ -52,23 +42,25 @@ public:
     static void insertRandOptions();
 
     /// @brief Initialises the random number generator with hardware randomness or seed
-    static void initRand(std::mt19937* which = 0, const bool random = false, const int seed = 23423);
+    static void initRand(std::mt19937* which = nullptr, const bool random = false, const int seed = 23423);
 
     /// @brief Reads the given random number options and initialises the random number generator in accordance
-    static void initRandGlobal(std::mt19937* which = 0);
+    static void initRandGlobal(std::mt19937* which = nullptr);
 
     /// @brief Returns a random real number in [0, 1)
-    static inline double rand(std::mt19937* rng = 0) {
+    static inline double rand(std::mt19937* rng = nullptr) {
         if (rng == 0) {
             rng = &myRandomNumberGenerator;
         }
         const double res = double((*rng)() / 4294967296.0);
 #ifdef DEBUG_RANDCALLS
-        myCallCount++;
-        if (myCallCount == myDebugIndex) {
+        myCallCount[rng]++;
+        if (myCallCount[rng] == myDebugIndex) {
             std::cout << "DEBUG\n"; // for setting breakpoint
         }
-        std::cout << " rand call=" << myCallCount << " val=" << res << "\n";
+        std::stringstream stream; // to reduce output interleaving from different threads
+        stream << " rng" << myRngId.find(rng)->second << " rand call=" << myCallCount[rng] << " val=" << res << "\n";
+        std::cout << stream.str();
 #endif
         return res;
     }
@@ -181,12 +173,10 @@ protected:
     /// @brief the random number generator to use
     static std::mt19937 myRandomNumberGenerator;
 
-    /// @brief only used for debugging;
-    static int myCallCount;
+#ifdef DEBUG_RANDCALLS
+    static std::map<std::mt19937*, int> myCallCount;
+    static std::map<std::mt19937*, int> myRngId;
     static int myDebugIndex;
-
-};
-
 #endif
 
-/****************************************************************************/
+};

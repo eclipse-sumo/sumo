@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 01 Apr 2019 10:42:54 AM CEST by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/acosta_net/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+        <check-lane-foes.all value="true"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="171" to="161" fromLane="0" toLane="0"/>
+
+    <connection from="18" to="17" fromLane="0" toLane="0"/>
+    <connection from="18" to="17" fromLane="0" toLane="1"/>
+    <connection from="18" to="69" fromLane="1" toLane="1"/>
+
+    <connection from="181" to="18" fromLane="0" toLane="0"/>
+    <connection from="181" to="18" fromLane="1" toLane="1"/>
+
+    <connection from="191" to="69" fromLane="0" toLane="0"/>
+    <connection from="191" to="17" fromLane="0" toLane="1"/>
+
+    <connection from="69" to="161" fromLane="0" toLane="0"/>
+    <connection from="69" to="161" fromLane="1" toLane="1"/>
+    <connection from="69" to="161" fromLane="1" toLane="2"/>
+
+    <connection from="72[0]" to="72[1]" fromLane="1" toLane="0"/>
+    <connection from="72[0]" to="72[1]" fromLane="2" toLane="1"/>
+
+    <connection from="72[1]" to="69" fromLane="0" toLane="0"/>
+    <connection from="72[1]" to="69" fromLane="1" toLane="1"/>
+
+    <connection from="74" to="72[1]" fromLane="0" toLane="0" uncontrolled="1"/>
+
+</connections>

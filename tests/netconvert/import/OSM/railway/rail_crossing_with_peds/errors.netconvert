@@ -1,0 +1,7 @@
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurence for edge '22955557').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.rail|usage.main' (first occurence for edge '441932172').
+Warning: No way found for reference '381308070' in relation '3235687'
+Warning: Ignoring restriction relation '3235687' with unknown to-way.
+Warning: Found angle of 131.59 degrees at edge '441932172#2', segment 7.
+Warning: Found angle of 130.97 degrees at edge '441932172#2', segment 8.
+Warning: The rail crossing 'cluster_2476940049_2476940061_2476940071_2476940083' does not have any roads.

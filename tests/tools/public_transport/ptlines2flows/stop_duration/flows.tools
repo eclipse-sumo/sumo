@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2018-07-31 13:14:40.176145 by $Id$
+<!-- generated on 2020-03-12 11:36:24.468519 by ptlines2flows.py v1_5_0+0673-e4a6910
   options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>stop-duration 60 -v
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
@@ -14,7 +14,7 @@
     <vType id="ferry" vClass="ship"/>
     <route id="bus_104:0" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
         <stop busStop="3959807221" duration="60.00" until="65.0"/> <!-- Kolonnenbrücke -->
-        <stop busStop="3959807200" duration="60.00" until="162.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="3959807200" duration="60.00" until="160.0"/> <!-- Dudenstraße/Katzbachstraße -->
     </route>
     <flow id="bus_104:0" type="bus" route="bus_104:0" begin="0.0" end="3600.0" period="600" line="104:0" >
         <param key="name" value="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße"/>

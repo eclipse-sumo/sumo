@@ -1,0 +1,17 @@
+Loading net-file from 'net2.net.xml' ... done (3ms).
+Loading done.
+Simulation version v1_6_0+0325-4615dae8a5 started with time: 0.00
+Simulation ended at time: 35.00
+Reason: All vehicles have left the simulation.
+Statistics (avg):
+ RouteLength: 0.00
+ Speed: 0.00
+ Duration: 0.00
+ WaitingTime: 0.00
+ TimeLoss: 0.00
+ DepartDelay: 0.00
+Pedestrian Statistics (avg of 6 walks):
+ RouteLength: 137.92
+ Duration: 29.00
+ TimeLoss: 1.42
+

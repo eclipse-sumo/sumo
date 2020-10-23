@@ -91,8 +91,11 @@ public:
 	virtual std::string readString();
 	virtual void writeString(const std::string& s);
 
-	virtual std::vector<std::string> readStringList();
-	virtual void writeStringList(const std::vector<std::string> &s);
+    virtual std::vector<std::string> readStringList();
+    virtual void writeStringList(const std::vector<std::string> &s);
+
+    virtual std::vector<double> readDoubleList();
+    virtual void writeDoubleList(const std::vector<double> &s);
 
 	virtual int readShort();
 	virtual void writeShort(int);

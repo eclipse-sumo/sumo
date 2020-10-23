@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 03.09.2018 09:08:48 by Eclipse SUMO netedit Version d6cfaccbb6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/lane/volatileRecomputing\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/lane/volatileRecomputing\net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <sidewalks.guess value="true"/>
+        <crossings.guess value="true"/>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/lane/volatileRecomputing\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/lane/volatileRecomputing\additionals.xml"/>
+        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/lane/volatileRecomputing\shapes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/lane/volatileRecomputing\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep085138.2804/netedit.gui/additionalElements/lane/volatileRecomputing\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" walkingareas="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":gneJ0_0" function="internal">
+        <lane id=":gneJ0_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="0.00,1.60 -1.20,0.80 -1.60,0.00 -1.20,-0.80 0.00,-1.60"/>
+    </edge>
+    <edge id=":gneJ1_0" function="internal">
+        <lane id=":gneJ1_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="50.00,-1.60 51.20,-0.80 51.60,0.00 51.20,0.80 50.00,1.60"/>
+    </edge>
+    <edge id=":gneJ2_0" function="internal">
+        <lane id=":gneJ2_0_0" index="0" disallow="pedestrian" speed="3.65" length="4.67" shape="50.00,18.40 51.20,19.20 51.60,20.00 51.20,20.80 50.00,21.60"/>
+    </edge>
+    <edge id=":gneJ3_0" function="internal">
+        <lane id=":gneJ3_0_0" index="0" speed="3.65" length="4.67" shape="0.00,21.60 -1.20,20.80 -1.60,20.00 -1.20,19.20 0.00,18.40"/>
+    </edge>
+
+    <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
+        <lane id="gneE0_0" index="0" allow="pedestrian" speed="13.89" length="50.00" width="2.00" shape="0.00,-4.20 50.00,-4.20"/>
+        <lane id="gneE0_1" index="1" disallow="pedestrian" speed="13.89" length="50.00" shape="0.00,-1.60 50.00,-1.60"/>
+    </edge>
+    <edge id="gneE1" from="gneJ1" to="gneJ0" priority="1">
+        <lane id="gneE1_0" index="0" allow="pedestrian" speed="13.89" length="50.00" width="2.00" shape="50.00,4.20 0.00,4.20"/>
+        <lane id="gneE1_1" index="1" disallow="pedestrian" speed="13.89" length="50.00" shape="50.00,1.60 0.00,1.60"/>
+    </edge>
+    <edge id="gneE2" from="gneJ2" to="gneJ3" priority="1">
+        <lane id="gneE2_0" index="0" allow="pedestrian" speed="13.89" length="50.00" width="2.00" shape="50.00,37.00 0.00,37.00"/>
+        <lane id="gneE2_1" index="1" disallow="pedestrian" speed="13.89" length="50.00" shape="50.00,34.40 0.00,34.40"/>
+        <lane id="gneE2_2" index="2" disallow="pedestrian" speed="13.89" length="50.00" shape="50.00,31.20 0.00,31.20"/>
+        <lane id="gneE2_3" index="3" disallow="pedestrian" speed="13.89" length="50.00" shape="50.00,28.00 0.00,28.00"/>
+        <lane id="gneE2_4" index="4" disallow="pedestrian" speed="13.89" length="50.00" shape="50.00,24.80 0.00,24.80"/>
+        <lane id="gneE2_5" index="5" disallow="pedestrian" speed="13.89" length="50.00" shape="50.00,21.60 0.00,21.60"/>
+    </edge>
+    <edge id="gneE4" from="gneJ3" to="gneJ2" priority="1">
+        <lane id="gneE4_0" index="0" speed="60.00" length="50.00" shape="0.00,18.40 50.00,18.40"/>
+    </edge>
+
+    <tlLogic id="gneJ0" type="static" programID="0" offset="0">
+        <phase duration="87" state="G"/>
+        <phase duration="3"  state="y"/>
+    </tlLogic>
+    <tlLogic id="gneJ1" type="static" programID="0" offset="0">
+        <phase duration="87" state="G"/>
+        <phase duration="3"  state="y"/>
+    </tlLogic>
+
+    <junction id="gneJ0" type="traffic_light" x="0.00" y="0.00" incLanes="gneE1_0 gneE1_1" intLanes=":gneJ0_0_0" shape="0.00,0.00 0.00,5.20 0.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ1" type="traffic_light" x="50.00" y="0.00" incLanes="gneE0_0 gneE0_1" intLanes=":gneJ1_0_0" shape="50.00,0.00 50.00,-5.20 50.00,0.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ2" type="priority" x="50.00" y="20.00" incLanes="gneE4_0" intLanes=":gneJ2_0_0" shape="50.00,20.00 50.00,16.80 50.00,20.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="gneJ3" type="priority" x="0.00" y="20.00" incLanes="gneE2_0 gneE2_1 gneE2_2 gneE2_3 gneE2_4 gneE2_5" intLanes=":gneJ3_0_0" shape="0.00,20.00 0.00,38.00 0.00,20.00">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+
+    <connection from="gneE0" to="gneE1" fromLane="1" toLane="1" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="t" state="O"/>
+    <connection from="gneE1" to="gneE0" fromLane="1" toLane="1" via=":gneJ0_0_0" tl="gneJ0" linkIndex="0" dir="t" state="O"/>
+    <connection from="gneE2" to="gneE4" fromLane="5" toLane="0" via=":gneJ3_0_0" dir="t" state="M"/>
+    <connection from="gneE4" to="gneE2" fromLane="0" toLane="5" via=":gneJ2_0_0" dir="t" state="M"/>
+
+    <connection from=":gneJ0_0" to="gneE0" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":gneJ1_0" to="gneE1" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":gneJ2_0" to="gneE2" fromLane="0" toLane="5" dir="t" state="M"/>
+    <connection from=":gneJ3_0" to="gneE4" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

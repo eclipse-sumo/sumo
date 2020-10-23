@@ -3,3 +3,6 @@ cross3l_unconstrained
 
 # test import of geo-referenced network
 geo_from_sumonet
+
+# custom shapes for edges, junctions, connections, crossings and walkingareas
+custom_shapes

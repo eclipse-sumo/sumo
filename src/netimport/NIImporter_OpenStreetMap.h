@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_OpenStreetMap.h
 /// @author  Daniel Krajzewicz
@@ -14,17 +18,10 @@
 /// @author  Walter Bamberger
 /// @author  Gregor Laemmel
 /// @date    Mon, 14.04.2008
-/// @version $Id$
 ///
 // Importer for networks stored in OpenStreetMap format
 /****************************************************************************/
-#ifndef NIImporter_OpenStreetMap_h
-#define NIImporter_OpenStreetMap_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -71,7 +68,6 @@ public:
      */
     static void loadNetwork(const OptionsCont& oc, NBNetBuilder& nb);
 
-
 protected:
     /** @brief An internal representation of an OSM-node
      */
@@ -84,7 +80,8 @@ protected:
             railwaySignal(false),
             railwayBufferStop(false),
             ptStopPosition(false), ptStopLength(0), name(""),
-            permissions(SVC_RAIL | SVC_BUS | SVC_TRAM),
+            permissions(SVC_IGNORING),
+            positionMeters(std::numeric_limits<double>::max()),
             node(0) { }
 
         /// @brief The node's id
@@ -111,6 +108,10 @@ protected:
         std::string name;
         /// @brief type of pt stop
         SVCPermissions permissions;
+        /// @brief kilometrage/mileage
+        std::string position;
+        /// @brief position converted to m (using highest precision available)
+        double positionMeters;
         /// @brief the NBNode that was instantiated
         NBNode* node;
 
@@ -120,6 +121,13 @@ protected:
 
 
     };
+
+public:
+    /// @brief translate osm transport designations into sumo vehicle class
+    static SUMOVehicleClass interpretTransportType(const std::string& type, NIOSMNode* toSet = nullptr);
+
+protected:
+
 
     /** @enum CycleWayType
      * @brief details on the kind of cycleway along this road
@@ -146,30 +154,39 @@ protected:
 
     /** @brief An internal definition of a loaded edge
      */
-    struct Edge : public Parameterised {
-
-        explicit Edge(long long int _id)
-            :
-            id(_id), myNoLanes(-1), myNoLanesForward(0), myMaxSpeed(MAXSPEED_UNGIVEN),
+    class Edge : public Parameterised {
+    public:
+        explicit Edge(long long int _id) :
+            id(_id), myNoLanes(-1), myNoLanesForward(0),
+            myMaxSpeed(MAXSPEED_UNGIVEN),
+            myMaxSpeedBackward(MAXSPEED_UNGIVEN),
             myCyclewayType(WAY_UNKNOWN), // building of extra lane depends on bikelaneWidth of loaded typemap
             myBuswayType(WAY_NONE), // buslanes are always built when declared
             mySidewalkType(WAY_UNKNOWN), // building of extra lanes depends on sidewalkWidth of loaded typemap
+            myRailDirection(WAY_UNKNOWN), // store direction(s) of railway usage
             myParkingType(PARKING_NONE), // parking areas exported optionally
             myLayer(0), // layer is non-zero only in conflict areas
             myCurrentIsRoad(false),
-            myCurrentIsPlatform(false) { }
+            myCurrentIsPlatform(false),
+            myCurrentIsElectrified(false)
+        { }
 
+        virtual ~Edge() {}
 
         /// @brief The edge's id
         const long long int id;
         /// @brief The edge's street name
         std::string streetName;
+        /// @brief The edge's track name
+        std::string ref;
         /// @brief number of lanes, or -1 if unknown
         int myNoLanes;
         /// @brief number of lanes in forward direction or 0 if unknown, negative if backwards lanes are meant
         int myNoLanesForward;
         /// @brief maximum speed in km/h, or MAXSPEED_UNGIVEN
         double myMaxSpeed;
+        /// @brief maximum speed in km/h, or MAXSPEED_UNGIVEN
+        double myMaxSpeedBackward;
         /// @brief The type, stored in "highway" key
         std::string myHighWayType;
         /// @brief Information whether this is an one-way road
@@ -180,6 +197,8 @@ protected:
         WayType myBuswayType;
         /// @brief Information about the kind of sidwalk along this road
         WayType mySidewalkType;
+        /// @brief Information about the direction(s) of railway usage
+        WayType myRailDirection;
         /// @brief Information about road-side parking
         int myParkingType;
         /// @brief Information about the relative z-ordering of ways
@@ -190,12 +209,12 @@ protected:
         bool myCurrentIsRoad;
         /// @brief Information whether this is a pt platform
         bool myCurrentIsPlatform;
+        /// @brief Information whether this is railway is electrified
+        bool myCurrentIsElectrified;
 
     private:
         /// invalidated assignment operator
         Edge& operator=(const Edge& s) = delete;
-
-
     };
 
 
@@ -236,6 +255,9 @@ private:
 
     /** @brief the map from OSM way ids to platform shapes */
     std::map<long long int, Edge*> myPlatformShapes;
+
+    /** @brief the map from stop_area relations to member node */
+    std::map<long long int, std::set<long long int> > myStopAreas;
 
     /// @brief The compounds types that do not contain known types
     std::set<std::string> myUnusableTypes;
@@ -282,6 +304,15 @@ private:
     std::map<NBNode*, std::pair<double, double> >
     getNeighboringNodes(NBNode* node, double maxDist, const std::set<NBNode*>& knownElevation);
 
+    /// @brief check whether the type is known or consists of known type compounds. return empty string otherwise
+    std::string usableType(const std::string& type, const std::string& id, NBTypeCont& tc);
+
+    /// @brief extend kilometrage data for all nodes along railway
+    void extendRailwayDistances(Edge* e, NBTypeCont& tc);
+
+    /// @brief read distance value from node and return value in m
+    static double interpretDistance(NIOSMNode* node);
+
 protected:
     static const double MAXSPEED_UNGIVEN;
     static const long long int INVALID_ID;
@@ -306,6 +337,9 @@ protected:
         /// @brief Destructor
         ~NodesHandler() override;
 
+        int getDuplicateNodes() const {
+            return myDuplicateNodes;
+        }
 
     protected:
         /// @name inherited from GenericSAXHandler
@@ -350,6 +384,9 @@ protected:
 
         /// @brief whether elevation data should be imported
         const bool myImportElevation;
+
+        /// @brief number of diplic
+        int myDuplicateNodes;
 
         /// @brief the options
         const OptionsCont& myOptionsCont;
@@ -407,6 +444,7 @@ protected:
         void myEndElement(int element) override;
         //@}
 
+        double interpretSpeed(const std::string& key, std::string value);
 
     private:
         /// @brief The previously parsed nodes
@@ -459,7 +497,6 @@ protected:
 
         /// @brief Destructor
         ~RelationHandler() override;
-
 
     protected:
         /// @name inherited from GenericSAXHandler
@@ -586,7 +623,7 @@ protected:
         /// @brief ref of the pt line
         std::string myRef;
 
-        /// @brief service interval of the pt line in seconds
+        /// @brief service interval of the pt line in minutes
         int myInterval;
 
         /// @brief night service information of the pt line
@@ -594,9 +631,3 @@ protected:
     };
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

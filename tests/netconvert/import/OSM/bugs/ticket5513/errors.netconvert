@@ -1,0 +1,18 @@
+Warning: Discarding unusable type 'highway.service' (first occurence for edge '19358739').
+Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.secondary' (first occurence for edge '94669148').
+Warning: Discarding unknown compound 'cycleway.shared_lane' in type 'cycleway.shared_lane|highway.tertiary' (first occurence for edge '132174699').
+Warning: Discarding unusable type 'waterway.river' (first occurence for edge '143898136').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '169055291').
+Warning: Discarding unusable type 'waterway.dam' (first occurence for edge '234669146').
+Warning: Discarding unusable type 'highway.footway' (first occurence for edge '615359756').
+Warning: Not joining junctions 201158128,201158137,201158163,5819001494 (not compact (maxEdge=47795936#2 length=8.36)).
+Warning: Not joining junctions 201583479,3649519965 (only 1 exit node).
+Warning: Not joining junctions 201221373,5819001417,5819001427,5819001428,5819001432 (7 incoming edges).
+Warning: Reducing junction cluster 3645200026,5819001456,5819001459 (parallel incoming -615359739#1,94669185#2).
+Warning: Reducing junction cluster 5819001430,5819001435,5819001672 (5 incoming edges).
+Warning: Not joining junctions 5819001391,5819001413,5819001424,5819001425,5819001426,5819001429,5819001431 (9 incoming edges).
+Warning: Not joining junctions 5819001404,5819001407 (6 incoming edges).
+Warning: Ambiguity in turnarounds computation at junction '5819001479'.
+Warning: The traffic light '201221451' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '201221451'
+Warning: 7 total messages of type: Not joining junctions % (%).

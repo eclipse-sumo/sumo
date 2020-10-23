@@ -1,0 +1,28 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <vehicle id="EC" depart="0" departSpeed="max" type="t0">
+        <route edges="EC CW"/>
+    </vehicle>
+    <vehicle id="SC" depart="2" departSpeed="max" type="t0">
+        <route edges="SC CN"/>
+    </vehicle>
+    <vehicle id="NC" depart="4" departSpeed="max" type="t0">
+        <route edges="NC CS"/>
+    </vehicle>
+    <vehicle id="WC" depart="6" departSpeed="max" type="t0">
+        <route edges="WC CE"/>
+    </vehicle>
+
+    <vehicle id="SE" depart="20" departSpeed="max" type="t0">
+        <route edges="SC CE"/>
+    </vehicle>
+    <vehicle id="EN" depart="22" departSpeed="max" type="t0">
+        <route edges="EC CN"/>
+    </vehicle>
+    <vehicle id="NE" depart="24" departSpeed="max" type="t0">
+        <route edges="NC CE"/>
+    </vehicle>
+    <vehicle id="WN" depart="26" departSpeed="max" type="t0">
+        <route edges="WC CN"/>
+    </vehicle>
+</routes>

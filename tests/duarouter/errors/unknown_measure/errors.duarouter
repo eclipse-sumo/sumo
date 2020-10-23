@@ -1,2 +1,1 @@
-Error: Unknown measure (weight attribute 'blub')!
-Quitting (on error).
+Warning: No weight data was loaded for attribute 'blub'.

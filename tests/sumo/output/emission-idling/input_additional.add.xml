@@ -1,0 +1,6 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="pE0" lane="E0_0" startPos="120.00" endPos="130.00" roadsideCapacity="1" name="pE0" length="6"/>
+	<inductionLoop id="ld1" lane="E0_0" pos="140" freq="900" file="detector.xml"/>
+	<edgeData id="ld1" type="emissions"  file="detector2.xml" excludeEmpty="true"/>
+	<laneData id="ld1" type="emissions"  file="detector3.xml" excludeEmpty="true"/>
+</additional>

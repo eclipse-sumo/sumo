@@ -1,5 +1,8 @@
 ticket1006
 
+# test secureap when the follower has higher deceleration capabilities
+ticket1026
+
 # meandata on circular nets
 ticket1032
 
@@ -18,9 +21,6 @@ ticket1096
 ticket1096b
 ticket1096c
 ticket1097
-
-# test secureap when the follower has higher deceleration capabilities
-ticket1026
 
 # at revision 16874 this test showcases ticket #1400 (vehicles intersect physically but no collision warning is issued).
 ticket1107

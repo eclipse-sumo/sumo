@@ -1,0 +1,2 @@
+-n input_taz.taz.xml --amitran input_od.xml -o trips.trips.xml --spread.uniform
+--departpos 10 --arrivalpos 20

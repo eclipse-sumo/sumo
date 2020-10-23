@@ -1,25 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_Example.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    11.06.2013
-/// @version $Id$
 ///
 // A device which stands as an implementation example and which outputs movereminder calls
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
@@ -87,6 +86,10 @@ MSDevice_Example::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevic
     }
 }
 
+void
+MSDevice_Example::cleanup() {
+    // cleaning up global state (if any)
+}
 
 // ---------------------------------------------------------------------------
 // MSDevice_Example-methods
@@ -106,40 +109,42 @@ MSDevice_Example::~MSDevice_Example() {
 
 
 bool
-MSDevice_Example::notifyMove(SUMOVehicle& veh, double /* oldPos */,
+MSDevice_Example::notifyMove(SUMOTrafficObject& tObject, double /* oldPos */,
                              double /* newPos */, double newSpeed) {
     std::cout << "device '" << getID() << "' notifyMove: newSpeed=" << newSpeed << "\n";
-    // check whether another device is present on the vehicle:
-    MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
-    if (otherDevice != nullptr) {
-        std::cout << "  veh '" << veh.getID() << " has device '" << otherDevice->getID() << "'\n";
+    if (tObject.isVehicle()) {
+        SUMOVehicle& veh = static_cast<SUMOVehicle&>(tObject);
+        // check whether another device is present on the vehicle:
+        MSDevice_Tripinfo* otherDevice = static_cast<MSDevice_Tripinfo*>(veh.getDevice(typeid(MSDevice_Tripinfo)));
+        if (otherDevice != nullptr) {
+            std::cout << "  veh '" << veh.getID() << " has device '" << otherDevice->getID() << "'\n";
+        }
     }
     return true; // keep the device
 }
 
 
 bool
-MSDevice_Example::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_Example::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     std::cout << "device '" << getID() << "' notifyEnter: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
     return true; // keep the device
 }
 
 
 bool
-MSDevice_Example::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_Example::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     std::cout << "device '" << getID() << "' notifyLeave: reason=" << reason << " currentEdge=" << veh.getEdge()->getID() << "\n";
     return true; // keep the device
 }
 
 
 void
-MSDevice_Example::generateOutput() const {
-    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
-        OutputDevice& os = OutputDevice::getDeviceByOption("tripinfo-output");
-        os.openTag("example_device");
-        os.writeAttr("customValue1", toString(myCustomValue1));
-        os.writeAttr("customValue2", toString(myCustomValue2));
-        os.closeTag();
+MSDevice_Example::generateOutput(OutputDevice* tripinfoOut) const {
+    if (tripinfoOut != nullptr) {
+        tripinfoOut->openTag("example_device");
+        tripinfoOut->writeAttr("customValue1", toString(myCustomValue1));
+        tripinfoOut->writeAttr("customValue2", toString(myCustomValue2));
+        tripinfoOut->closeTag();
     }
 }
 
@@ -173,4 +178,3 @@ MSDevice_Example::setParameter(const std::string& key, const std::string& value)
 
 
 /****************************************************************************/
-

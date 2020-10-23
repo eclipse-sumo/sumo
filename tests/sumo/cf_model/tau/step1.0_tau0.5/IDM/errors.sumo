@@ -1,5 +1,5 @@
 Warning: Value of tau=0.5 in car following model 'carFollowing-IDM' lower than simulation step size may cause collisions
 Warning: Value of tau=0.5 in car following model 'carFollowing-IDM' lower than simulation step size may cause collisions
 Warning: Vehicle 'follower' performs emergency braking with decel=-9.00 wished=4.50 severity=1.00, time=41.00.
-Warning: Teleporting vehicle 'follower'; collision with vehicle 'leader', lane='middle_0', gap=-0.10, time=46.00 stage=move.
-Warning: Vehicle 'follower' teleports beyond arrival edge 'middle', time 46.00.
+Warning: Teleporting vehicle 'follower'; collision with vehicle 'leader', lane='middle_0', gap=-0.46, time=45.00 stage=move.
+Warning: Vehicle 'follower' teleports beyond arrival edge 'middle', time 45.00.

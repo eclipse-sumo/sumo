@@ -1,51 +1,52 @@
-Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml'... done.
-Parsing nodes from osm-file 'osm.xml'... 
-Found duplicate nodes. Substituting -7 with -4
+Parsing types from '/scr1/sumo/data/typemap/osmNetconvert.typ.xml' ... done.
+Parsing nodes from osm-file 'osm.xml' ... 
+Found and substituted 1 osm nodes.
 done.
-Parsing edges from osm-file 'osm.xml'... done.
-Removing duplicate edges... done.
-Parsing relations from osm-file 'osm.xml'... done.
+Parsing edges from osm-file 'osm.xml' ... done.
+Removing duplicate edges ... done.
+Parsing relations from osm-file 'osm.xml' ... done.
  Import done:
    14 nodes loaded.
-   32 types loaded.
+   33 types loaded.
    26 edges loaded.
 Proj projection parameters used: '+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs'.
-Removing self-loops... done (0ms).
-Finding isolated roads... 
+Removing self-loops ... done (0ms).
+Finding isolated roads ... 
 done (0ms).
-Removing empty nodes and geometry nodes... done (0ms).
+Removing empty nodes and geometry nodes ... done (0ms).
    2 nodes removed.
-Moving network to origin... done (0ms).
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Guessing and setting on-/off-ramps... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (1ms).
-Computing edge shapes... done (0ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Joining traffic light nodes... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
-Computing traffic light logics... done (0ms).
+Moving network to origin ... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Guessing and setting on-/off-ramps ... done (1ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (0ms).
+Computing edge shapes ... done (0ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (1ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Joining traffic light nodes ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (0ms).
+Computing traffic light logics ... done (0ms).
  3 traffic light(s) computed.
-Building inner edges... done (1ms).
+Building inner edges ... done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 8
+  Priority junctions          : 5
   Right-before-left junctions : 1
+  Traffic light junctions      : 3
  Network boundaries:
   Original boundary  : 11.21,48.87,11.23,48.88
   Applied offset     : -662333.88,-5415139.00
   Converted boundary : 0.00,0.00,1048.06,902.40
 -----------------------------------------------------
-Writing network... done (8ms).
+Writing network ... done (11ms).
 Success.

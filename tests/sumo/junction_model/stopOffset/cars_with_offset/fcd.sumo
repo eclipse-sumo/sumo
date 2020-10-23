@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mo 05 Feb 2018 15:50:49 CET by SUMO gui Version v0_32_0+0335-7aa5e31
+<!-- generated on Mon Nov 18 08:46:14 2019 by Eclipse SUMO Version v1_3_1+0929-fc8a46e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,18 +25,16 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <step-method.ballistic value="true"/>
         <lateral-resolution value="0.64"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
         <xml-validation value="never"/>
         <log value="sumo_log.txt"/>
-        <message-log value="stdout"/>
-        <error-log value="stderr"/>
         <no-step-log value="true"/>
     </report>
 
     <gui_only>
-        <quit-on-end value="true"/>
         <tracker-interval value="0.25"/>
     </gui_only>
 
@@ -48,553 +46,557 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="bike0" x="-34.81" y="16.18" angle="67.93" type="bike" speed="0.00" pos="1.70" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="0.25">
-        <vehicle id="bike0" x="-34.78" y="16.19" angle="67.93" type="bike" speed="0.27" pos="1.73" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-34.78" y="16.19" angle="67.93" type="bike" speed="0.30" pos="1.74" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="0.50">
-        <vehicle id="bike0" x="-34.69" y="16.23" angle="67.93" type="bike" speed="0.52" pos="1.83" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-34.68" y="16.24" angle="67.93" type="bike" speed="0.60" pos="1.85" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="0.75">
-        <vehicle id="bike0" x="-34.54" y="16.29" angle="67.93" type="bike" speed="0.81" pos="2.00" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-34.50" y="16.31" angle="67.93" type="bike" speed="0.90" pos="2.04" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="1.00">
-        <vehicle id="bike0" x="-34.32" y="16.38" angle="67.93" type="bike" speed="1.04" pos="2.23" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-34.26" y="16.40" angle="67.93" type="bike" speed="1.20" pos="2.30" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="1.25">
-        <vehicle id="bike0" x="-34.06" y="16.49" angle="67.93" type="bike" speed="1.25" pos="2.52" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-33.95" y="16.53" angle="67.93" type="bike" speed="1.50" pos="2.64" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="1.50">
-        <vehicle id="bike0" x="-33.73" y="16.62" angle="67.93" type="bike" speed="1.55" pos="2.87" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-33.56" y="16.69" angle="67.93" type="bike" speed="1.80" pos="3.05" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="1.75">
-        <vehicle id="bike0" x="-33.35" y="16.77" angle="67.93" type="bike" speed="1.74" pos="3.28" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-33.11" y="16.87" angle="67.93" type="bike" speed="2.10" pos="3.54" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="2.00">
-        <vehicle id="bike0" x="-32.92" y="16.95" angle="67.93" type="bike" speed="2.00" pos="3.74" lane="W_0" slope="0.00"/>
-    </timestep>
-    <timestep time="2.25">
-        <vehicle id="bike0" x="-32.43" y="17.14" angle="67.93" type="bike" speed="2.22" pos="4.27" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-32.59" y="17.08" angle="67.93" type="bike" speed="2.40" pos="4.10" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="-34.81" y="16.18" angle="67.93" type="bike" speed="0.00" pos="1.70" lane="W_0" slope="0.00"/>
     </timestep>
-    <timestep time="2.50">
-        <vehicle id="bike0" x="-31.90" y="17.36" angle="67.93" type="bike" speed="2.41" pos="4.85" lane="W_0" slope="0.00"/>
+    <timestep time="2.25">
+        <vehicle id="bike0" x="-32.00" y="17.32" angle="67.93" type="bike" speed="2.70" pos="4.74" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="-34.78" y="16.19" angle="67.93" type="bike" speed="0.30" pos="1.74" lane="W_0" slope="0.00"/>
     </timestep>
+    <timestep time="2.50">
+        <vehicle id="bike0" x="-31.34" y="17.59" angle="67.93" type="bike" speed="3.00" pos="5.45" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-34.68" y="16.24" angle="67.93" type="bike" speed="0.60" pos="1.85" lane="W_0" slope="0.00"/>
+    </timestep>
     <timestep time="2.75">
-        <vehicle id="bike0" x="-31.32" y="17.60" angle="67.93" type="bike" speed="2.61" pos="5.48" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-34.68" y="16.23" angle="67.93" type="bike" speed="0.56" pos="1.85" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-30.61" y="17.88" angle="67.93" type="bike" speed="3.30" pos="6.24" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-34.50" y="16.31" angle="67.93" type="bike" speed="0.90" pos="2.04" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="3.00">
-        <vehicle id="bike0" x="-30.68" y="17.85" angle="67.93" type="bike" speed="2.84" pos="6.16" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-34.52" y="16.30" angle="67.93" type="bike" speed="0.80" pos="2.02" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-29.81" y="18.21" angle="67.93" type="bike" speed="3.60" pos="7.10" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-34.26" y="16.40" angle="67.93" type="bike" speed="1.20" pos="2.30" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="3.25">
-        <vehicle id="bike0" x="-30.00" y="18.13" angle="67.93" type="bike" speed="3.10" pos="6.90" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-34.30" y="16.39" angle="67.93" type="bike" speed="1.10" pos="2.25" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-28.94" y="18.56" angle="67.93" type="bike" speed="3.90" pos="8.04" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-33.95" y="16.53" angle="67.93" type="bike" speed="1.50" pos="2.64" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="3.50">
-        <vehicle id="bike0" x="-29.26" y="18.43" angle="67.93" type="bike" speed="3.27" pos="7.69" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-34.02" y="16.50" angle="67.93" type="bike" speed="1.35" pos="2.56" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-28.00" y="18.94" angle="67.93" type="bike" speed="4.20" pos="9.05" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-33.56" y="16.69" angle="67.93" type="bike" speed="1.80" pos="3.05" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="3.75">
-        <vehicle id="bike0" x="-28.48" y="18.75" angle="67.93" type="bike" speed="3.46" pos="8.53" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-33.67" y="16.64" angle="67.93" type="bike" speed="1.64" pos="2.93" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-26.99" y="19.35" angle="67.93" type="bike" speed="4.50" pos="10.14" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-33.11" y="16.87" angle="67.93" type="bike" speed="2.10" pos="3.54" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="4.00">
-        <vehicle id="bike0" x="-27.65" y="19.08" angle="67.93" type="bike" speed="3.69" pos="9.43" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-33.26" y="16.81" angle="67.93" type="bike" speed="1.89" pos="3.37" lane="W_0" slope="0.00"/>
-    </timestep>
-    <timestep time="4.25">
-        <vehicle id="bike0" x="-26.77" y="19.44" angle="67.93" type="bike" speed="3.89" pos="10.38" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-32.81" y="16.99" angle="67.93" type="bike" speed="2.05" pos="3.87" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-25.92" y="19.79" angle="67.93" type="bike" speed="4.80" pos="11.30" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-32.59" y="17.08" angle="67.93" type="bike" speed="2.40" pos="4.10" lane="W_0" slope="0.00"/>
         <vehicle id="bike2" x="-34.81" y="16.18" angle="67.93" type="bike" speed="0.00" pos="1.70" lane="W_0" slope="0.00"/>
     </timestep>
+    <timestep time="4.25">
+        <vehicle id="bike0" x="-24.77" y="20.25" angle="67.93" type="bike" speed="5.10" pos="12.54" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-32.00" y="17.32" angle="67.93" type="bike" speed="2.70" pos="4.74" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-34.78" y="16.19" angle="67.93" type="bike" speed="0.30" pos="1.74" lane="W_0" slope="0.00"/>
+    </timestep>
     <timestep time="4.50">
-        <vehicle id="bike0" x="-25.85" y="19.81" angle="67.93" type="bike" speed="4.07" pos="11.37" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-32.31" y="17.19" angle="67.93" type="bike" speed="2.22" pos="4.40" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-34.78" y="16.19" angle="67.93" type="bike" speed="0.27" pos="1.73" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-23.55" y="20.74" angle="67.93" type="bike" speed="5.40" pos="13.85" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-31.34" y="17.59" angle="67.93" type="bike" speed="3.00" pos="5.45" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-34.68" y="16.24" angle="67.93" type="bike" speed="0.60" pos="1.85" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="4.75">
-        <vehicle id="bike0" x="-24.88" y="20.20" angle="67.93" type="bike" speed="4.29" pos="12.41" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-31.77" y="17.41" angle="67.93" type="bike" speed="2.48" pos="4.99" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-34.69" y="16.23" angle="67.93" type="bike" speed="0.56" pos="1.84" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-22.28" y="21.26" angle="67.93" type="bike" speed="5.56" pos="15.22" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-30.61" y="17.88" angle="67.93" type="bike" speed="3.30" pos="6.24" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-34.50" y="16.31" angle="67.93" type="bike" speed="0.90" pos="2.04" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="5.00">
-        <vehicle id="bike0" x="-23.86" y="20.62" angle="67.93" type="bike" speed="4.54" pos="13.52" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-31.17" y="17.66" angle="67.93" type="bike" speed="2.67" pos="5.63" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-34.52" y="16.30" angle="67.93" type="bike" speed="0.85" pos="2.01" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-21.00" y="21.78" angle="67.93" type="bike" speed="5.56" pos="16.61" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-29.81" y="18.21" angle="67.93" type="bike" speed="3.60" pos="7.10" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-34.26" y="16.40" angle="67.93" type="bike" speed="1.20" pos="2.30" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="5.25">
-        <vehicle id="bike0" x="-22.79" y="21.05" angle="67.93" type="bike" speed="4.70" pos="14.67" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-30.52" y="17.92" angle="67.93" type="bike" speed="2.97" pos="6.34" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-34.30" y="16.39" angle="67.93" type="bike" speed="1.05" pos="2.25" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-19.71" y="22.30" angle="67.93" type="bike" speed="5.56" pos="18.00" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-28.94" y="18.56" angle="67.93" type="bike" speed="3.90" pos="8.04" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-33.95" y="16.53" angle="67.93" type="bike" speed="1.50" pos="2.64" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="5.50">
-        <vehicle id="bike0" x="-21.67" y="21.51" angle="67.93" type="bike" speed="4.95" pos="15.88" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-29.80" y="18.21" angle="67.93" type="bike" speed="3.25" pos="7.12" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-34.03" y="16.50" angle="67.93" type="bike" speed="1.33" pos="2.55" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-18.42" y="22.82" angle="67.93" type="bike" speed="5.56" pos="19.39" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-28.00" y="18.94" angle="67.93" type="bike" speed="4.20" pos="9.05" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-33.56" y="16.69" angle="67.93" type="bike" speed="1.80" pos="3.05" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="5.75">
-        <vehicle id="bike0" x="-20.50" y="21.98" angle="67.93" type="bike" speed="5.19" pos="17.15" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-29.03" y="18.53" angle="67.93" type="bike" speed="3.40" pos="7.95" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-33.69" y="16.63" angle="67.93" type="bike" speed="1.59" pos="2.91" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-17.14" y="23.35" angle="67.93" type="bike" speed="5.56" pos="20.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-26.99" y="19.35" angle="67.93" type="bike" speed="4.50" pos="10.14" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-33.11" y="16.87" angle="67.93" type="bike" speed="2.10" pos="3.54" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="6.00">
-        <vehicle id="bike0" x="-19.27" y="22.48" angle="67.93" type="bike" speed="5.45" pos="18.48" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-28.21" y="18.86" angle="67.93" type="bike" speed="3.68" pos="8.83" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-33.30" y="16.79" angle="67.93" type="bike" speed="1.80" pos="3.34" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-15.85" y="23.87" angle="67.93" type="bike" speed="5.56" pos="22.16" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-25.92" y="19.79" angle="67.93" type="bike" speed="4.80" pos="11.30" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-32.59" y="17.08" angle="67.93" type="bike" speed="2.40" pos="4.10" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="6.25">
-        <vehicle id="bike0" x="-18.00" y="23.00" angle="67.93" type="bike" speed="5.52" pos="19.85" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-27.33" y="19.21" angle="67.93" type="bike" speed="3.85" pos="9.77" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-32.85" y="16.98" angle="67.93" type="bike" speed="2.09" pos="3.82" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-14.56" y="24.39" angle="67.93" type="bike" speed="5.56" pos="23.55" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-24.77" y="20.25" angle="67.93" type="bike" speed="5.10" pos="12.54" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-32.00" y="17.32" angle="67.93" type="bike" speed="2.70" pos="4.74" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="6.50">
-        <vehicle id="bike0" x="-16.72" y="23.51" angle="67.93" type="bike" speed="5.46" pos="21.22" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-26.42" y="19.58" angle="67.93" type="bike" speed="4.05" pos="10.76" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-32.34" y="17.18" angle="67.93" type="bike" speed="2.30" pos="4.37" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-13.27" y="24.91" angle="67.93" type="bike" speed="5.56" pos="24.94" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-23.55" y="20.74" angle="67.93" type="bike" speed="5.40" pos="13.85" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-31.34" y="17.59" angle="67.93" type="bike" speed="3.00" pos="5.45" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="6.75">
-        <vehicle id="bike0" x="-15.46" y="24.02" angle="67.93" type="bike" speed="5.45" pos="22.58" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-25.46" y="19.97" angle="67.93" type="bike" speed="4.21" pos="11.79" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-31.79" y="17.41" angle="67.93" type="bike" speed="2.46" pos="4.97" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-11.99" y="25.43" angle="67.93" type="bike" speed="5.56" pos="26.33" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-22.28" y="21.26" angle="67.93" type="bike" speed="5.56" pos="15.22" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-30.61" y="17.88" angle="67.93" type="bike" speed="3.30" pos="6.24" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="7.00">
-        <vehicle id="bike0" x="-14.19" y="24.54" angle="67.93" type="bike" speed="5.51" pos="23.95" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-24.46" y="20.38" angle="67.93" type="bike" speed="4.43" pos="12.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-31.19" y="17.65" angle="67.93" type="bike" speed="2.67" pos="5.61" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-10.70" y="25.95" angle="67.93" type="bike" speed="5.56" pos="27.72" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-21.00" y="21.78" angle="67.93" type="bike" speed="5.56" pos="16.61" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-29.81" y="18.21" angle="67.93" type="bike" speed="3.60" pos="7.10" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="7.25">
-        <vehicle id="bike0" x="-12.91" y="25.06" angle="67.93" type="bike" speed="5.53" pos="25.33" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-23.42" y="20.80" angle="67.93" type="bike" speed="4.59" pos="14.00" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-30.54" y="17.91" angle="67.93" type="bike" speed="2.94" pos="6.31" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-9.41" y="26.48" angle="67.93" type="bike" speed="5.56" pos="29.11" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-19.71" y="22.30" angle="67.93" type="bike" speed="5.56" pos="18.00" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-28.94" y="18.56" angle="67.93" type="bike" speed="3.90" pos="8.04" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="7.50">
-        <vehicle id="bike0" x="-11.64" y="25.57" angle="67.93" type="bike" speed="5.46" pos="26.71" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-22.32" y="21.24" angle="67.93" type="bike" speed="4.87" pos="15.18" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-29.83" y="18.20" angle="67.93" type="bike" speed="3.24" pos="7.08" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-8.13" y="27.00" angle="67.93" type="bike" speed="5.56" pos="30.50" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-18.42" y="22.82" angle="67.93" type="bike" speed="5.56" pos="19.39" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-28.00" y="18.94" angle="67.93" type="bike" speed="4.20" pos="9.05" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="7.75">
-        <vehicle id="bike0" x="-10.37" y="26.09" angle="67.93" type="bike" speed="5.51" pos="28.08" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-21.17" y="21.71" angle="67.93" type="bike" speed="5.08" pos="16.43" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-29.06" y="18.51" angle="67.93" type="bike" speed="3.40" pos="7.91" lane="W_0" slope="0.00"/>
-    </timestep>
-    <timestep time="8.00">
-        <vehicle id="bike0" x="-9.09" y="26.61" angle="67.93" type="bike" speed="5.55" pos="29.46" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-19.96" y="22.20" angle="67.93" type="bike" speed="5.36" pos="17.73" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-28.25" y="18.84" angle="67.93" type="bike" speed="3.55" pos="8.78" lane="W_0" slope="0.00"/>
-    </timestep>
-    <timestep time="8.25">
-        <vehicle id="bike0" x="-7.81" y="27.13" angle="67.93" type="bike" speed="5.51" pos="30.84" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-18.70" y="22.71" angle="67.93" type="bike" speed="5.50" pos="19.09" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-27.40" y="19.19" angle="67.93" type="bike" speed="3.84" pos="9.71" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-6.84" y="27.52" angle="67.93" type="bike" speed="5.56" pos="31.89" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-17.14" y="23.35" angle="67.93" type="bike" speed="5.56" pos="20.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-26.99" y="19.35" angle="67.93" type="bike" speed="4.50" pos="10.14" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="-31.66" y="17.46" angle="67.93" type="car" speed="0.00" pos="5.10" lane="W_0" slope="0.00"/>
     </timestep>
-    <timestep time="8.50">
-        <vehicle id="bike0" x="-6.53" y="27.64" angle="67.93" type="bike" speed="5.47" pos="32.21" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-17.42" y="23.23" angle="67.93" type="bike" speed="5.52" pos="20.47" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-26.47" y="19.56" angle="67.93" type="bike" speed="4.11" pos="10.70" lane="W_0" slope="0.00"/>
+    <timestep time="8.00">
+        <vehicle id="bike0" x="-5.55" y="28.04" angle="67.93" type="bike" speed="5.56" pos="33.27" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-15.85" y="23.87" angle="67.93" type="bike" speed="5.56" pos="22.16" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-25.92" y="19.79" angle="67.93" type="bike" speed="4.80" pos="11.30" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="-31.59" y="17.49" angle="67.93" type="car" speed="0.65" pos="5.18" lane="W_0" slope="0.00"/>
     </timestep>
+    <timestep time="8.25">
+        <vehicle id="bike0" x="-4.26" y="28.56" angle="67.93" type="bike" speed="5.56" pos="34.66" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-14.56" y="24.39" angle="67.93" type="bike" speed="5.56" pos="23.55" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-24.77" y="20.25" angle="67.93" type="bike" speed="5.10" pos="12.54" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-31.36" y="17.58" angle="67.93" type="car" speed="1.30" pos="5.42" lane="W_0" slope="0.00"/>
+    </timestep>
+    <timestep time="8.50">
+        <vehicle id="bike0" x="-2.98" y="29.09" angle="67.93" type="bike" speed="5.56" pos="36.05" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-13.27" y="24.91" angle="67.93" type="bike" speed="5.56" pos="24.94" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-23.55" y="20.74" angle="67.93" type="bike" speed="5.40" pos="13.85" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-30.99" y="17.73" angle="67.93" type="car" speed="1.95" pos="5.83" lane="W_0" slope="0.00"/>
+    </timestep>
     <timestep time="8.75">
-        <vehicle id="bike0" x="-5.26" y="28.16" angle="67.93" type="bike" speed="5.54" pos="33.59" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-16.15" y="23.74" angle="67.93" type="bike" speed="5.45" pos="21.84" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-25.49" y="19.96" angle="67.93" type="bike" speed="4.36" pos="11.76" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-31.37" y="17.58" angle="67.93" type="car" speed="1.25" pos="5.42" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-1.69" y="29.61" angle="67.93" type="bike" speed="5.56" pos="37.44" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-11.99" y="25.43" angle="67.93" type="bike" speed="5.56" pos="26.33" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-22.28" y="21.26" angle="67.93" type="bike" speed="5.56" pos="15.22" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-30.48" y="18.00" angle="67.30" type="car" speed="2.60" pos="6.40" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="9.00">
-        <vehicle id="bike0" x="-3.98" y="28.68" angle="67.93" type="bike" speed="5.52" pos="34.97" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-14.89" y="24.26" angle="67.93" type="bike" speed="5.45" pos="23.20" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-24.46" y="20.38" angle="67.93" type="bike" speed="4.59" pos="12.88" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-31.02" y="17.72" angle="67.93" type="car" speed="1.75" pos="5.79" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="-0.40" y="30.13" angle="67.93" type="bike" speed="5.56" pos="38.83" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-10.70" y="25.95" angle="67.93" type="bike" speed="5.56" pos="27.72" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-21.00" y="21.78" angle="67.93" type="bike" speed="5.56" pos="16.61" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-29.85" y="18.39" angle="66.70" type="car" speed="3.25" pos="7.13" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="9.25">
-        <vehicle id="bike0" x="-2.70" y="29.20" angle="67.93" type="bike" speed="5.50" pos="36.35" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-13.62" y="24.77" angle="67.93" type="bike" speed="5.48" pos="24.57" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-23.37" y="20.82" angle="67.93" type="bike" speed="4.77" pos="14.05" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-30.58" y="17.96" angle="67.29" type="car" speed="2.23" pos="6.29" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="0.89" y="30.65" angle="67.93" type="bike" speed="5.56" pos="40.22" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-9.41" y="26.48" angle="67.93" type="bike" speed="5.56" pos="29.11" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-19.71" y="22.30" angle="67.93" type="bike" speed="5.56" pos="18.00" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-29.09" y="18.90" angle="66.14" type="car" speed="3.90" pos="8.03" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="9.50">
-        <vehicle id="bike0" x="-1.43" y="29.71" angle="67.93" type="bike" speed="5.49" pos="37.73" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-12.35" y="25.29" angle="67.93" type="bike" speed="5.50" pos="25.94" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-22.25" y="21.27" angle="67.93" type="bike" speed="4.92" pos="15.26" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-30.04" y="18.32" angle="66.68" type="car" speed="2.87" pos="6.93" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="2.17" y="31.17" angle="67.93" type="bike" speed="5.56" pos="41.61" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-8.13" y="27.00" angle="67.93" type="bike" speed="5.56" pos="30.50" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-18.42" y="22.82" angle="67.93" type="bike" speed="5.56" pos="19.39" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-28.22" y="19.53" angle="65.59" type="car" speed="4.47" pos="9.07" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="9.75">
-        <vehicle id="bike0" x="-0.15" y="30.23" angle="67.93" type="bike" speed="5.51" pos="39.10" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-11.07" y="25.80" angle="67.93" type="bike" speed="5.54" pos="27.32" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-21.09" y="21.74" angle="67.93" type="bike" speed="5.09" pos="16.51" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-29.40" y="18.78" angle="66.08" type="car" speed="3.23" pos="7.69" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="3.46" y="31.69" angle="67.93" type="bike" speed="5.56" pos="43.00" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-6.84" y="27.52" angle="67.93" type="bike" speed="5.56" pos="31.89" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-17.14" y="23.35" angle="67.93" type="bike" speed="5.56" pos="20.77" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-27.22" y="20.20" angle="65.63" type="car" speed="4.91" pos="10.24" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="10.00">
-        <vehicle id="bike0" x="1.11" y="30.74" angle="67.93" type="bike" speed="5.42" pos="40.47" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-9.79" y="26.32" angle="67.93" type="bike" speed="5.48" pos="28.70" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-19.88" y="22.23" angle="67.93" type="bike" speed="5.33" pos="17.81" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-28.71" y="19.33" angle="65.50" type="car" speed="3.55" pos="8.54" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="4.75" y="32.22" angle="67.93" type="bike" speed="5.56" pos="44.39" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-5.55" y="28.04" angle="67.93" type="bike" speed="5.56" pos="33.27" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-15.85" y="23.87" angle="67.93" type="bike" speed="5.56" pos="22.16" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-26.14" y="20.91" angle="65.66" type="car" speed="5.24" pos="11.51" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="10.25">
-        <vehicle id="bike0" x="2.38" y="31.26" angle="67.93" type="bike" speed="5.49" pos="41.83" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-8.53" y="26.83" angle="67.93" type="bike" speed="5.42" pos="30.06" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-18.63" y="22.74" angle="67.93" type="bike" speed="5.47" pos="19.16" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-27.96" y="19.90" angle="65.53" type="car" speed="3.78" pos="9.45" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="6.03" y="32.74" angle="67.93" type="bike" speed="5.56" pos="45.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-4.26" y="28.56" angle="67.93" type="bike" speed="5.56" pos="34.66" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-14.56" y="24.39" angle="67.93" type="bike" speed="5.56" pos="23.55" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-25.00" y="21.64" angle="65.69" type="car" speed="5.48" pos="12.85" lane="W_0" slope="0.00"/>
     </timestep>
     <timestep time="10.50">
-        <vehicle id="bike0" x="3.65" y="31.77" angle="67.93" type="bike" speed="5.51" pos="43.20" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-7.26" y="27.35" angle="67.93" type="bike" speed="5.49" pos="31.43" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-17.36" y="23.26" angle="67.93" type="bike" speed="5.50" pos="20.54" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-27.13" y="20.51" angle="65.56" type="car" speed="4.12" pos="10.44" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="7.32" y="33.26" angle="67.93" type="bike" speed="5.56" pos="47.16" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-2.98" y="29.09" angle="67.93" type="bike" speed="5.56" pos="36.05" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-13.27" y="24.91" angle="67.93" type="bike" speed="5.56" pos="24.94" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-23.84" y="22.49" angle="65.71" type="car" speed="5.65" pos="14.24" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="10.75">
-        <vehicle id="bike0" x="4.93" y="32.29" angle="67.93" type="bike" speed="5.54" pos="44.59" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-5.99" y="27.86" angle="67.93" type="bike" speed="5.49" pos="32.80" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-16.09" y="23.77" angle="67.93" type="bike" speed="5.46" pos="21.91" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-26.24" y="21.14" angle="65.58" type="car" speed="4.37" pos="11.50" lane="W_0" slope="0.00"/>
+        <vehicle id="bike0" x="8.61" y="33.78" angle="67.93" type="bike" speed="5.56" pos="48.55" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-1.69" y="29.61" angle="67.93" type="bike" speed="5.56" pos="37.44" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-11.99" y="25.43" angle="67.93" type="bike" speed="5.56" pos="26.33" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-22.61" y="23.26" angle="65.72" type="car" speed="5.76" pos="15.67" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="11.00">
-        <vehicle id="bike0" x="6.21" y="32.81" angle="67.93" type="bike" speed="5.51" pos="45.97" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-4.73" y="28.38" angle="67.93" type="bike" speed="5.45" pos="34.17" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-14.81" y="24.29" angle="67.93" type="bike" speed="5.54" pos="23.28" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-25.34" y="21.88" angle="65.61" type="car" speed="4.61" pos="12.63" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="9.90" y="34.30" angle="67.93" type="bike" speed="5.56" pos="49.94" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="-0.40" y="30.13" angle="67.93" type="bike" speed="5.56" pos="38.83" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-10.70" y="25.95" angle="67.93" type="bike" speed="5.56" pos="27.72" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-21.30" y="24.06" angle="65.77" type="car" speed="6.41" pos="17.19" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="11.25">
-        <vehicle id="bike0" x="7.48" y="33.32" angle="67.93" type="bike" speed="5.42" pos="47.34" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-3.46" y="28.89" angle="67.93" type="bike" speed="5.50" pos="35.53" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-13.54" y="24.80" angle="67.93" type="bike" speed="5.48" pos="24.66" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-24.32" y="22.57" angle="65.65" type="car" speed="5.00" pos="13.83" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="11.18" y="34.82" angle="67.93" type="bike" speed="5.56" pos="51.33" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="0.89" y="30.65" angle="67.93" type="bike" speed="5.56" pos="40.22" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-9.41" y="26.48" angle="67.93" type="bike" speed="5.56" pos="29.11" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-19.83" y="24.92" angle="65.82" type="car" speed="7.06" pos="18.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="11.50">
-        <vehicle id="bike0" x="8.74" y="33.84" angle="67.93" type="bike" speed="5.50" pos="48.70" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-2.19" y="29.40" angle="67.93" type="bike" speed="5.45" pos="36.90" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-12.28" y="25.32" angle="67.93" type="bike" speed="5.41" pos="26.02" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-23.18" y="23.30" angle="65.71" type="car" speed="5.63" pos="15.16" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="12.47" y="35.35" angle="67.93" type="bike" speed="5.56" pos="52.72" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="2.17" y="31.17" angle="67.93" type="bike" speed="5.56" pos="41.61" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-8.13" y="27.00" angle="67.93" type="bike" speed="5.56" pos="30.50" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-18.21" y="25.85" angle="65.87" type="car" speed="7.71" pos="20.72" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="11.75">
-        <vehicle id="bike0" x="10.02" y="34.35" angle="67.93" type="bike" speed="5.53" pos="50.08" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="-0.93" y="29.92" angle="67.93" type="bike" speed="5.42" pos="38.26" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-11.01" y="25.83" angle="67.93" type="bike" speed="5.50" pos="27.38" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-21.93" y="24.07" angle="65.74" type="car" speed="6.01" pos="16.61" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="13.76" y="35.87" angle="67.93" type="bike" speed="5.56" pos="54.11" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="3.46" y="31.69" angle="67.93" type="bike" speed="5.56" pos="43.00" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-6.84" y="27.52" angle="67.93" type="bike" speed="5.56" pos="31.89" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-16.42" y="26.78" angle="66.43" type="car" speed="8.36" pos="22.73" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="12.00">
-        <vehicle id="bike0" x="11.30" y="34.87" angle="67.93" type="bike" speed="5.49" pos="51.46" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="0.33" y="30.43" angle="67.93" type="bike" speed="5.47" pos="39.62" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-9.74" y="26.35" angle="67.93" type="bike" speed="5.51" pos="28.76" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-20.58" y="24.89" angle="65.77" type="car" speed="6.44" pos="18.17" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="15.04" y="36.39" angle="67.93" type="bike" speed="5.56" pos="55.50" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="4.75" y="32.22" angle="67.93" type="bike" speed="5.56" pos="44.39" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-5.55" y="28.04" angle="67.93" type="bike" speed="5.56" pos="33.27" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-14.48" y="27.77" angle="66.46" type="car" speed="9.01" pos="24.90" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="12.25">
-        <vehicle id="bike0" x="12.57" y="35.39" angle="67.93" type="bike" speed="5.45" pos="52.82" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="1.60" y="30.94" angle="67.93" type="bike" speed="5.47" pos="40.99" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-8.46" y="26.86" angle="67.93" type="bike" speed="5.47" pos="30.13" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-19.09" y="25.69" angle="66.35" type="car" speed="6.97" pos="19.84" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="16.33" y="36.91" angle="67.93" type="bike" speed="5.56" pos="56.89" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="6.03" y="32.74" angle="67.93" type="bike" speed="5.56" pos="45.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-4.26" y="28.56" angle="67.93" type="bike" speed="5.56" pos="34.66" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-12.36" y="28.76" angle="66.97" type="car" speed="9.66" pos="27.24" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="12.50">
-        <vehicle id="bike0" x="13.83" y="35.90" angle="67.93" type="bike" speed="5.43" pos="54.18" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="2.86" y="31.45" angle="67.93" type="bike" speed="5.46" pos="42.36" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-7.20" y="27.37" angle="67.93" type="bike" speed="5.43" pos="31.50" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-17.48" y="26.55" angle="66.38" type="car" speed="7.58" pos="21.66" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="17.62" y="37.43" angle="67.93" type="bike" speed="5.56" pos="58.27" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="7.32" y="33.26" angle="67.93" type="bike" speed="5.56" pos="47.16" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-2.98" y="29.09" angle="67.93" type="bike" speed="5.56" pos="36.05" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-10.07" y="29.76" angle="67.47" type="car" speed="10.31" pos="29.73" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="12.75">
-        <vehicle id="bike0" x="15.09" y="36.41" angle="67.93" type="bike" speed="5.47" pos="55.55" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="4.14" y="31.97" angle="67.93" type="bike" speed="5.55" pos="43.73" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-5.94" y="27.88" angle="67.93" type="bike" speed="5.41" pos="32.85" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-15.73" y="27.39" angle="66.91" type="car" speed="7.93" pos="23.60" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="18.91" y="37.96" angle="67.93" type="bike" speed="5.56" pos="59.66" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="8.61" y="33.78" angle="67.93" type="bike" speed="5.56" pos="48.55" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-1.69" y="29.61" angle="67.93" type="bike" speed="5.56" pos="37.44" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-7.61" y="30.77" angle="67.85" type="car" speed="10.96" pos="32.39" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="13.00">
-        <vehicle id="bike0" x="16.36" y="36.92" angle="67.93" type="bike" speed="5.48" pos="56.92" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="5.41" y="32.49" angle="67.93" type="bike" speed="5.42" pos="45.10" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-4.68" y="28.40" angle="67.93" type="bike" speed="5.53" pos="34.22" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-13.87" y="28.21" angle="67.43" type="car" speed="8.29" pos="25.63" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="20.19" y="38.48" angle="67.93" type="bike" speed="5.56" pos="61.05" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="9.90" y="34.30" angle="67.93" type="bike" speed="5.56" pos="49.94" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="-0.40" y="30.13" angle="67.93" type="bike" speed="5.56" pos="38.83" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-4.99" y="31.83" angle="67.94" type="car" speed="11.61" pos="35.21" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="13.25">
-        <vehicle id="bike0" x="17.63" y="37.44" angle="67.93" type="bike" speed="5.44" pos="58.28" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="6.68" y="33.00" angle="67.93" type="bike" speed="5.49" pos="46.47" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-3.40" y="28.91" angle="67.93" type="bike" speed="5.50" pos="35.60" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-11.90" y="29.03" angle="67.84" type="car" speed="8.83" pos="27.77" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="21.48" y="39.00" angle="67.93" type="bike" speed="5.56" pos="62.44" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="11.18" y="34.82" angle="67.93" type="bike" speed="5.56" pos="51.33" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="0.89" y="30.65" angle="67.93" type="bike" speed="5.56" pos="40.22" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="-2.23" y="32.95" angle="67.94" type="car" speed="12.26" pos="38.20" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="13.50">
-        <vehicle id="bike0" x="18.89" y="37.95" angle="67.93" type="bike" speed="5.46" pos="59.64" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="7.94" y="33.51" angle="67.93" type="bike" speed="5.42" pos="47.83" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-2.12" y="29.43" angle="67.93" type="bike" speed="5.55" pos="36.98" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-9.77" y="29.89" angle="67.94" type="car" speed="9.48" pos="30.06" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="22.77" y="39.52" angle="67.93" type="bike" speed="5.56" pos="63.83" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="12.47" y="35.35" angle="67.93" type="bike" speed="5.56" pos="52.72" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="2.17" y="31.17" angle="67.93" type="bike" speed="5.56" pos="41.61" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="0.69" y="34.13" angle="67.94" type="car" speed="12.91" pos="41.35" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="13.75">
-        <vehicle id="bike0" x="20.15" y="38.46" angle="67.93" type="bike" speed="5.42" pos="61.00" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="9.20" y="34.02" angle="67.93" type="bike" speed="5.49" pos="49.19" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="-0.83" y="29.95" angle="67.93" type="bike" speed="5.54" pos="38.37" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-7.52" y="30.80" angle="67.94" type="car" speed="9.97" pos="32.49" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="24.05" y="40.04" angle="67.93" type="bike" speed="5.56" pos="65.22" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="13.76" y="35.87" angle="67.93" type="bike" speed="5.56" pos="54.11" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="3.46" y="31.69" angle="67.93" type="bike" speed="5.56" pos="43.00" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="3.76" y="35.37" angle="67.94" type="car" speed="13.56" pos="44.66" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="14.00">
-        <vehicle id="bike0" x="21.40" y="38.97" angle="67.93" type="bike" speed="5.43" pos="62.36" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="10.48" y="34.54" angle="67.93" type="bike" speed="5.50" pos="50.57" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="0.44" y="30.47" angle="67.93" type="bike" speed="5.41" pos="39.73" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-5.17" y="31.75" angle="67.94" type="car" speed="10.34" pos="35.03" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="25.34" y="40.56" angle="67.93" type="bike" speed="5.56" pos="66.61" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="15.04" y="36.39" angle="67.93" type="bike" speed="5.56" pos="55.50" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="4.75" y="32.22" angle="67.93" type="bike" speed="5.56" pos="44.39" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="6.94" y="36.66" angle="67.94" type="car" speed="13.89" pos="48.09" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="14.25">
-        <vehicle id="bike0" x="22.66" y="39.48" angle="67.93" type="bike" speed="5.42" pos="63.72" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="11.74" y="35.05" angle="67.93" type="bike" speed="5.44" pos="51.93" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="1.70" y="30.98" angle="67.93" type="bike" speed="5.49" pos="41.10" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-2.72" y="32.75" angle="67.94" type="car" speed="10.83" pos="37.67" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="26.63" y="41.09" angle="67.93" type="bike" speed="5.56" pos="68.00" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="16.33" y="36.91" angle="67.93" type="bike" speed="5.56" pos="56.89" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="6.03" y="32.74" angle="67.93" type="bike" speed="5.56" pos="45.77" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="10.15" y="37.96" angle="67.94" type="car" speed="13.89" pos="51.56" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="14.50">
-        <vehicle id="bike0" x="23.93" y="39.99" angle="67.93" type="bike" speed="5.51" pos="65.08" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="13.01" y="35.57" angle="67.93" type="bike" speed="5.52" pos="53.30" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="2.97" y="31.50" angle="67.93" type="bike" speed="5.53" pos="42.47" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="-0.16" y="33.78" angle="67.94" type="car" speed="11.21" pos="40.43" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="27.92" y="41.61" angle="67.93" type="bike" speed="5.56" pos="69.39" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="17.62" y="37.43" angle="67.93" type="bike" speed="5.56" pos="58.27" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="7.32" y="33.26" angle="67.93" type="bike" speed="5.56" pos="47.16" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="13.37" y="39.27" angle="67.94" type="car" speed="13.89" pos="55.03" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="14.75">
-        <vehicle id="bike0" x="25.20" y="40.51" angle="67.93" type="bike" speed="5.51" pos="66.46" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="14.28" y="36.08" angle="67.93" type="bike" speed="5.45" pos="54.68" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="4.25" y="32.01" angle="67.93" type="bike" speed="5.49" pos="43.85" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="2.49" y="34.86" angle="67.94" type="car" speed="11.71" pos="43.29" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="29.20" y="42.13" angle="67.93" type="bike" speed="5.56" pos="70.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="18.91" y="37.96" angle="67.93" type="bike" speed="5.56" pos="59.66" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="8.61" y="33.78" angle="67.93" type="bike" speed="5.56" pos="48.55" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="16.51" y="40.54" angle="67.94" type="car" speed="13.23" pos="58.42" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="15.00">
-        <vehicle id="bike0" x="26.47" y="41.02" angle="67.93" type="bike" speed="5.44" pos="67.82" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="15.56" y="36.60" angle="67.93" type="bike" speed="5.53" pos="56.05" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="5.52" y="32.53" angle="67.93" type="bike" speed="5.47" pos="45.22" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="5.27" y="35.98" angle="67.94" type="car" speed="12.25" pos="46.29" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="30.49" y="42.65" angle="67.93" type="bike" speed="5.56" pos="72.16" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="20.19" y="38.48" angle="67.93" type="bike" speed="5.56" pos="61.05" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="9.90" y="34.30" angle="67.93" type="bike" speed="5.56" pos="49.94" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="19.45" y="41.73" angle="67.94" type="car" speed="12.10" pos="61.59" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="15.25">
-        <vehicle id="bike0" x="27.73" y="41.53" angle="67.93" type="bike" speed="5.44" pos="69.18" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="16.84" y="37.12" angle="67.93" type="bike" speed="5.54" pos="57.43" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="6.80" y="33.05" angle="67.93" type="bike" speed="5.54" pos="46.60" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="8.18" y="37.16" angle="67.94" type="car" speed="12.85" pos="49.43" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="31.78" y="43.17" angle="67.93" type="bike" speed="5.56" pos="73.55" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="21.48" y="39.00" angle="67.93" type="bike" speed="5.56" pos="62.44" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="11.18" y="34.82" angle="67.93" type="bike" speed="5.56" pos="51.33" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="22.12" y="42.82" angle="67.94" type="car" speed="10.98" pos="64.47" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="15.50">
-        <vehicle id="bike0" x="29.00" y="42.05" angle="67.93" type="bike" speed="5.52" pos="70.55" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="18.12" y="37.64" angle="67.93" type="bike" speed="5.53" pos="58.82" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="8.07" y="33.56" angle="67.93" type="bike" speed="5.42" pos="47.97" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="11.22" y="38.40" angle="67.94" type="car" speed="13.43" pos="52.71" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="33.07" y="43.70" angle="67.93" type="bike" speed="5.56" pos="74.94" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="22.77" y="39.52" angle="67.93" type="bike" speed="5.56" pos="63.83" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="12.47" y="35.35" angle="67.93" type="bike" speed="5.56" pos="52.72" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="24.54" y="43.79" angle="67.94" type="car" speed="9.85" pos="67.08" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="15.75">
-        <vehicle id="bike0" x="30.28" y="42.57" angle="67.93" type="bike" speed="5.52" pos="71.93" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="19.39" y="38.15" angle="67.93" type="bike" speed="5.43" pos="60.18" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="9.33" y="34.07" angle="67.93" type="bike" speed="5.49" pos="49.33" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="14.37" y="39.67" angle="67.94" type="car" speed="13.79" pos="56.11" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="34.35" y="44.22" angle="67.93" type="bike" speed="5.56" pos="76.33" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="24.05" y="40.04" angle="67.93" type="bike" speed="5.56" pos="65.22" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="13.76" y="35.87" angle="67.93" type="bike" speed="5.56" pos="54.11" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="26.69" y="44.67" angle="67.94" type="car" speed="8.73" pos="69.40" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="16.00">
-        <vehicle id="bike0" x="31.56" y="43.08" angle="67.93" type="bike" speed="5.52" pos="73.31" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="20.64" y="38.66" angle="67.93" type="bike" speed="5.41" pos="61.54" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="10.60" y="34.59" angle="67.93" type="bike" speed="5.52" pos="50.71" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="17.46" y="40.92" angle="67.94" type="car" speed="12.81" pos="59.44" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="35.64" y="44.74" angle="67.93" type="bike" speed="5.56" pos="77.72" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="25.34" y="40.56" angle="67.93" type="bike" speed="5.56" pos="66.61" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="15.04" y="36.39" angle="67.93" type="bike" speed="5.56" pos="55.50" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="28.58" y="45.43" angle="67.94" type="car" speed="7.60" pos="71.44" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="16.25">
-        <vehicle id="bike0" x="32.83" y="43.60" angle="67.93" type="bike" speed="5.47" pos="74.69" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="21.90" y="39.17" angle="67.93" type="bike" speed="5.44" pos="62.90" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="11.88" y="35.11" angle="67.93" type="bike" speed="5.50" pos="52.08" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="20.30" y="42.07" angle="67.94" type="car" speed="11.69" pos="62.50" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="36.84" y="45.23" angle="67.93" type="bike" speed="4.81" pos="79.01" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="26.63" y="41.09" angle="67.93" type="bike" speed="5.56" pos="68.00" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="16.33" y="36.91" angle="67.93" type="bike" speed="5.56" pos="56.89" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="30.21" y="46.09" angle="67.94" type="car" speed="6.48" pos="73.20" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="16.50">
-        <vehicle id="bike0" x="34.10" y="44.11" angle="67.93" type="bike" speed="5.47" pos="76.05" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="23.17" y="39.69" angle="67.93" type="bike" speed="5.55" pos="64.27" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="13.15" y="35.62" angle="67.93" type="bike" speed="5.44" pos="53.45" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="22.88" y="43.12" angle="67.94" type="car" speed="10.61" pos="65.29" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="37.87" y="45.64" angle="67.93" type="bike" speed="4.06" pos="80.12" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="27.92" y="41.61" angle="67.93" type="bike" speed="5.56" pos="69.39" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="17.62" y="37.43" angle="67.93" type="bike" speed="5.56" pos="58.27" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="31.59" y="46.65" angle="67.94" type="car" speed="5.35" pos="74.68" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="16.75">
-        <vehicle id="bike0" x="35.36" y="44.63" angle="67.93" type="bike" speed="5.46" pos="77.42" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="24.46" y="40.21" angle="67.93" type="bike" speed="5.54" pos="65.66" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="14.41" y="36.13" angle="67.93" type="bike" speed="5.49" pos="54.82" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="25.21" y="44.06" angle="67.94" type="car" speed="9.49" pos="67.80" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="38.72" y="45.99" angle="67.93" type="bike" speed="3.31" pos="81.04" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="29.20" y="42.13" angle="67.93" type="bike" speed="5.56" pos="70.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="18.91" y="37.96" angle="67.93" type="bike" speed="5.56" pos="59.66" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="32.70" y="47.10" angle="67.94" type="car" speed="4.23" pos="75.88" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="17.00">
-        <vehicle id="bike0" x="36.56" y="45.11" angle="67.93" type="bike" speed="4.90" pos="78.71" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="25.74" y="40.73" angle="67.93" type="bike" speed="5.54" pos="67.04" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="15.69" y="36.65" angle="67.93" type="bike" speed="5.49" pos="56.19" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="27.28" y="44.90" angle="67.94" type="car" speed="8.39" pos="70.04" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="39.40" y="46.26" angle="67.93" type="bike" speed="2.56" pos="81.78" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="30.48" y="42.65" angle="67.93" type="bike" speed="5.48" pos="72.15" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="20.19" y="38.48" angle="67.93" type="bike" speed="5.56" pos="61.05" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="33.55" y="47.44" angle="67.94" type="car" speed="3.10" pos="76.80" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="17.25">
-        <vehicle id="bike0" x="37.61" y="45.54" angle="67.93" type="bike" speed="4.15" pos="79.85" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="27.02" y="41.24" angle="67.93" type="bike" speed="5.46" pos="68.42" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="16.96" y="37.17" angle="67.93" type="bike" speed="5.53" pos="57.57" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="29.09" y="45.64" angle="67.94" type="car" speed="7.27" pos="71.99" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="39.91" y="46.47" angle="67.93" type="bike" speed="1.81" pos="82.32" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="31.73" y="43.15" angle="67.93" type="bike" speed="5.26" pos="73.50" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="21.48" y="39.00" angle="67.93" type="bike" speed="5.56" pos="62.44" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.13" y="47.68" angle="67.94" type="car" speed="1.98" pos="77.43" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="17.50">
-        <vehicle id="bike0" x="38.49" y="45.90" angle="67.93" type="bike" speed="3.46" pos="80.80" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="28.29" y="41.76" angle="67.93" type="bike" speed="5.54" pos="69.79" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="18.24" y="37.68" angle="67.93" type="bike" speed="5.48" pos="58.94" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="30.65" y="46.27" angle="67.94" type="car" speed="6.14" pos="73.67" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="40.24" y="46.60" angle="67.93" type="bike" speed="1.06" pos="82.68" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="32.91" y="43.63" angle="67.93" type="bike" speed="4.94" pos="74.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="22.77" y="39.52" angle="67.93" type="bike" speed="5.56" pos="63.83" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.46" y="47.82" angle="67.94" type="car" speed="0.85" pos="77.79" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="17.75">
-        <vehicle id="bike0" x="39.21" y="46.19" angle="67.93" type="bike" speed="2.71" pos="81.57" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="29.57" y="42.28" angle="67.93" type="bike" speed="5.52" pos="71.17" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="19.51" y="38.20" angle="67.93" type="bike" speed="5.47" pos="60.31" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="31.94" y="46.79" angle="67.94" type="car" speed="5.02" pos="75.07" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="40.40" y="46.67" angle="67.93" type="bike" speed="0.31" pos="82.85" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="34.01" y="44.08" angle="67.93" type="bike" speed="4.54" pos="75.96" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="24.05" y="40.04" angle="67.93" type="bike" speed="5.56" pos="65.22" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="18.00">
-        <vehicle id="bike0" x="39.75" y="46.40" angle="67.93" type="bike" speed="1.96" pos="82.15" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="30.84" y="42.79" angle="67.93" type="bike" speed="5.37" pos="72.54" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="20.77" y="38.71" angle="67.93" type="bike" speed="5.42" pos="61.67" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="32.97" y="47.21" angle="67.94" type="car" speed="3.89" pos="76.18" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="35.01" y="44.48" angle="67.93" type="bike" speed="4.08" pos="77.04" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="25.34" y="40.56" angle="67.93" type="bike" speed="5.56" pos="66.61" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="18.25">
-        <vehicle id="bike0" x="40.13" y="46.56" angle="67.93" type="bike" speed="1.32" pos="82.56" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="32.05" y="43.28" angle="67.93" type="bike" speed="5.08" pos="73.84" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="22.03" y="39.22" angle="67.93" type="bike" speed="5.52" pos="63.04" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="33.74" y="47.52" angle="67.94" type="car" speed="2.77" pos="77.01" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="35.87" y="44.90" angle="66.50" type="bike" speed="3.56" pos="77.99" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="26.63" y="41.09" angle="67.93" type="bike" speed="5.56" pos="68.00" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="18.50">
-        <vehicle id="bike0" x="40.35" y="46.65" angle="67.93" type="bike" speed="0.60" pos="82.80" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="33.17" y="43.74" angle="67.93" type="bike" speed="4.65" pos="75.06" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="23.30" y="39.74" angle="67.93" type="bike" speed="5.43" pos="64.41" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.26" y="47.73" angle="67.94" type="car" speed="1.64" pos="77.56" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="36.58" y="45.32" angle="64.89" type="bike" speed="3.01" pos="78.81" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="27.91" y="41.60" angle="67.93" type="bike" speed="5.48" pos="69.38" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="18.75">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="34.17" y="44.21" angle="66.58" type="bike" speed="4.16" pos="76.16" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="24.57" y="40.25" angle="67.93" type="bike" speed="5.50" pos="65.77" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.51" y="47.83" angle="67.94" type="car" speed="0.52" pos="77.83" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="37.15" y="45.75" angle="63.08" type="bike" speed="2.44" pos="79.50" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="29.16" y="42.11" angle="67.93" type="bike" speed="5.29" pos="70.72" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="19.00">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="35.04" y="44.70" angle="65.12" type="bike" speed="3.76" pos="77.15" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="25.84" y="40.77" angle="67.93" type="bike" speed="5.47" pos="67.14" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="37.55" y="46.19" angle="61.03" type="bike" speed="1.86" pos="80.03" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="30.33" y="42.65" angle="66.68" type="bike" speed="5.02" pos="72.01" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="19.25">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="35.79" y="45.21" angle="63.53" type="bike" speed="3.33" pos="78.04" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="27.06" y="41.33" angle="66.71" type="bike" speed="5.31" pos="68.49" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="37.82" y="46.57" angle="60.51" type="bike" speed="1.27" pos="80.42" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="31.40" y="43.22" angle="65.35" type="bike" speed="4.67" pos="73.22" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="19.50">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="36.41" y="45.73" angle="61.74" type="bike" speed="2.81" pos="78.80" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="28.24" y="41.94" angle="65.47" type="bike" speed="5.22" pos="69.81" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="37.97" y="46.83" angle="61.89" type="bike" speed="0.68" pos="80.67" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="32.37" y="43.82" angle="63.91" type="bike" speed="4.26" pos="74.34" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="19.75">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="36.90" y="46.19" angle="61.33" type="bike" speed="2.24" pos="79.44" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="29.35" y="42.59" angle="64.16" type="bike" speed="4.96" pos="71.08" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="38.02" y="46.98" angle="63.53" type="bike" speed="0.10" pos="80.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="33.20" y="44.43" angle="62.33" type="bike" speed="3.80" pos="75.35" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="20.00">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="37.28" y="46.55" angle="62.61" type="bike" speed="1.65" pos="79.92" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="30.41" y="43.16" angle="65.34" type="bike" speed="4.64" pos="72.28" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="38.00" y="47.04" angle="65.70" type="bike" speed="0.00" pos="80.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="33.93" y="44.99" angle="62.04" type="bike" speed="3.29" pos="76.23" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="20.25">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="37.56" y="46.80" angle="64.13" type="bike" speed="1.12" pos="80.27" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="31.43" y="43.64" angle="66.59" type="bike" speed="4.29" pos="73.40" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="37.98" y="47.08" angle="66.66" type="bike" speed="0.00" pos="80.77" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="34.63" y="45.28" angle="67.93" type="bike" speed="2.76" pos="76.99" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.51" y="47.90" angle="67.22" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="20.50">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="37.75" y="46.94" angle="65.94" type="bike" speed="0.77" pos="80.50" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="32.34" y="44.10" angle="66.08" type="bike" speed="3.84" pos="74.42" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="37.98" y="47.18" angle="64.59" type="bike" speed="0.30" pos="80.81" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="35.18" y="45.57" angle="66.27" type="bike" speed="2.20" pos="77.61" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.47" y="48.02" angle="66.51" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="20.75">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="37.88" y="47.03" angle="66.74" type="bike" speed="0.43" pos="80.66" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="33.17" y="44.44" angle="67.93" type="bike" speed="3.39" pos="75.32" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.51" y="47.90" angle="67.22" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="38.02" y="47.37" angle="62.69" type="bike" speed="0.60" pos="80.92" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="35.58" y="45.86" angle="64.38" type="bike" speed="1.65" pos="78.09" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.42" y="48.14" angle="66.51" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="21.00">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="37.97" y="47.18" angle="64.76" type="bike" speed="0.67" pos="80.79" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="33.89" y="44.80" angle="66.41" type="bike" speed="3.02" pos="76.12" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.47" y="48.02" angle="66.51" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="38.10" y="47.68" angle="62.91" type="bike" speed="0.90" pos="81.11" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="35.87" y="46.11" angle="64.18" type="bike" speed="1.22" pos="78.45" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.37" y="48.25" angle="66.51" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="21.25">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="38.09" y="47.40" angle="62.89" type="bike" speed="0.87" pos="80.99" lane="W_0" slope="0.00"/>
-        <vehicle id="bike2" x="34.49" y="45.17" angle="64.73" type="bike" speed="2.53" pos="76.81" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.42" y="48.14" angle="66.51" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="38.34" y="47.77" angle="67.94" type="bike" speed="1.20" pos="81.37" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="36.10" y="46.27" angle="65.99" type="bike" speed="0.95" pos="78.72" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.35" y="48.31" angle="67.22" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="21.50">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="38.22" y="47.72" angle="63.04" type="bike" speed="1.09" pos="81.23" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="34.96" y="45.56" angle="62.92" type="bike" speed="2.15" pos="77.40" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.37" y="48.25" angle="66.51" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="38.66" y="47.90" angle="67.94" type="bike" speed="1.50" pos="81.71" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="36.29" y="46.39" angle="66.81" type="bike" speed="0.85" pos="78.94" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.33" y="48.35" angle="67.46" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="21.75">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="38.50" y="47.84" angle="67.94" type="bike" speed="1.33" pos="81.53" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="35.37" y="45.87" angle="64.44" type="bike" speed="1.79" pos="77.89" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.35" y="48.31" angle="67.22" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="39.01" y="48.11" angle="66.19" type="bike" speed="1.80" pos="82.12" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="36.49" y="46.47" angle="67.93" type="bike" speed="0.87" pos="79.16" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.33" y="48.35" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="22.00">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="38.83" y="47.97" angle="67.94" type="bike" speed="1.53" pos="81.89" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="35.73" y="46.08" angle="66.13" type="bike" speed="1.54" pos="78.31" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.33" y="48.35" angle="67.46" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="39.34" y="48.38" angle="64.29" type="bike" speed="1.44" pos="82.52" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="36.71" y="46.56" angle="67.93" type="bike" speed="0.99" pos="79.39" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.33" y="48.35" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="22.25">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.18" y="48.18" angle="66.18" type="bike" speed="1.75" pos="82.30" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="36.04" y="46.29" angle="65.65" type="bike" speed="1.39" pos="78.67" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.52" y="48.66" angle="61.90" type="bike" speed="0.69" pos="82.79" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="36.94" y="46.65" angle="67.93" type="bike" speed="1.05" pos="79.65" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.33" y="48.35" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="22.50">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.46" y="48.43" angle="64.08" type="bike" speed="1.00" pos="82.65" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="36.37" y="46.42" angle="67.93" type="bike" speed="1.42" pos="79.02" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.33" y="48.35" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="39.50" y="48.92" angle="59.06" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="37.18" y="46.75" angle="67.93" type="bike" speed="1.02" pos="79.90" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.32" y="48.38" angle="67.49" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="22.75">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.55" y="48.67" angle="61.66" type="bike" speed="0.42" pos="82.82" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="36.68" y="46.55" angle="67.93" type="bike" speed="1.31" pos="79.37" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.33" y="48.35" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="39.41" y="49.15" angle="59.06" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="37.40" y="46.84" angle="67.93" type="bike" speed="0.91" pos="80.14" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="23.00">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.50" y="48.92" angle="59.06" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="36.96" y="46.66" angle="67.93" type="bike" speed="1.11" pos="79.67" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.32" y="48.38" angle="67.49" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike1" x="39.33" y="49.32" angle="61.26" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="37.65" y="46.94" angle="67.93" type="bike" speed="1.21" pos="80.41" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="23.25">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.41" y="49.15" angle="59.06" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="37.20" y="46.76" angle="67.93" type="bike" speed="0.93" pos="79.92" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.26" y="49.50" angle="61.26" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="37.97" y="47.07" angle="67.93" type="bike" speed="1.51" pos="80.75" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="23.50">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.33" y="49.32" angle="61.26" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="37.44" y="46.85" angle="67.93" type="bike" speed="1.10" pos="80.18" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.22" y="49.61" angle="63.47" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="38.33" y="47.28" angle="66.19" type="bike" speed="1.81" pos="81.17" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="23.75">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.26" y="49.50" angle="61.26" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="37.72" y="46.97" angle="67.93" type="bike" speed="1.37" pos="80.49" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.19" y="49.67" angle="65.70" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="38.73" y="47.58" angle="64.57" type="bike" speed="2.11" pos="81.66" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="24.00">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.22" y="49.61" angle="63.47" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="38.04" y="47.17" angle="66.13" type="bike" speed="1.56" pos="80.85" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.17" y="49.72" angle="65.86" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="39.19" y="47.84" angle="66.24" type="bike" speed="2.04" pos="82.18" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="24.25">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.19" y="49.67" angle="65.70" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="38.37" y="47.44" angle="64.41" type="bike" speed="1.73" pos="81.26" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="39.55" y="48.05" angle="66.01" type="bike" speed="1.29" pos="82.59" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="24.50">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.17" y="49.72" angle="65.86" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="38.78" y="47.67" angle="66.22" type="bike" speed="1.97" pos="81.73" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="39.77" y="48.14" angle="67.93" type="bike" speed="0.54" pos="82.82" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="24.75">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="39.20" y="47.91" angle="66.15" type="bike" speed="1.90" pos="82.21" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="25.00">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="39.56" y="48.06" angle="67.93" type="bike" speed="1.23" pos="82.60" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="25.25">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="39.76" y="48.14" angle="67.93" type="bike" speed="0.48" pos="82.81" lane="W_0" slope="0.00"/>
+        <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="25.50">
@@ -817,49 +819,49 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
         <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="car0" x="34.34" y="48.33" angle="68.66" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="34.75">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
         <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.32" y="48.38" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="car0" x="34.39" y="48.21" angle="69.37" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="35.00">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
         <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.34" y="48.33" angle="68.66" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="car0" x="34.46" y="48.04" angle="70.09" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="35.25">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
         <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.39" y="48.21" angle="69.37" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="car0" x="34.51" y="47.92" angle="69.37" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="35.50">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
         <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.46" y="48.04" angle="70.09" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="car0" x="34.53" y="47.86" angle="68.66" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="35.75">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
         <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.51" y="47.92" angle="69.37" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="car0" x="34.54" y="47.85" angle="68.15" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="36.00">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
         <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.53" y="47.86" angle="68.66" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="36.25">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
         <vehicle id="bike1" x="39.17" y="49.72" angle="67.94" type="bike" speed="0.00" pos="82.87" lane="W_1" slope="0.00"/>
         <vehicle id="bike2" x="39.81" y="48.16" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.54" y="47.85" angle="68.15" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
+        <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="36.50">
         <vehicle id="bike0" x="40.41" y="46.67" angle="67.93" type="bike" speed="0.00" pos="82.87" lane="W_0" slope="0.00"/>
@@ -1306,621 +1308,580 @@ SPDX-License-Identifier: EPL-2.0
         <vehicle id="car0" x="34.54" y="47.85" angle="67.94" type="car" speed="0.00" pos="77.87" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="55.00">
-        <vehicle id="bike0" x="40.44" y="46.69" angle="67.93" type="bike" speed="0.26" pos="82.90" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.20" y="49.74" angle="67.94" type="bike" speed="0.27" pos="82.90" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="40.45" y="46.69" angle="67.93" type="bike" speed="0.30" pos="82.91" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.21" y="49.74" angle="67.94" type="bike" speed="0.30" pos="82.91" lane="W_1" slope="0.00"/>
         <vehicle id="bike2" x="39.85" y="48.17" angle="67.93" type="bike" speed="0.30" pos="82.91" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.58" y="47.86" angle="67.94" type="car" speed="0.33" pos="77.91" lane="W_1" slope="0.00"/>
+        <vehicle id="car0" x="34.58" y="47.86" angle="67.94" type="car" speed="0.34" pos="77.91" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="55.25">
-        <vehicle id="bike0" x="40.54" y="46.73" angle="67.93" type="bike" speed="0.56" pos="83.01" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.30" y="49.77" angle="67.94" type="bike" speed="0.55" pos="83.00" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="39.94" y="48.21" angle="67.93" type="bike" speed="0.54" pos="83.01" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.67" y="47.90" angle="67.94" type="car" speed="0.50" pos="78.02" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="40.55" y="46.73" angle="67.93" type="bike" speed="0.60" pos="83.02" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.31" y="49.78" angle="67.94" type="bike" speed="0.60" pos="83.02" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="39.95" y="48.21" angle="67.93" type="bike" speed="0.60" pos="83.02" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.68" y="47.90" angle="67.94" type="car" speed="0.55" pos="78.02" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="55.50">
-        <vehicle id="bike0" x="40.70" y="46.79" angle="67.93" type="bike" speed="0.79" pos="83.17" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.46" y="49.84" angle="67.94" type="bike" speed="0.83" pos="83.18" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="40.10" y="48.27" angle="67.93" type="bike" speed="0.79" pos="83.18" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.81" y="47.95" angle="67.94" type="car" speed="0.64" pos="78.16" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="40.73" y="46.80" angle="67.93" type="bike" speed="0.90" pos="83.21" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.49" y="49.85" angle="67.94" type="bike" speed="0.90" pos="83.21" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="40.12" y="48.28" angle="67.93" type="bike" speed="0.90" pos="83.21" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.82" y="47.96" angle="67.94" type="car" speed="0.68" pos="78.18" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="55.75">
-        <vehicle id="bike0" x="40.90" y="46.87" angle="67.93" type="bike" speed="0.97" pos="83.40" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.67" y="49.93" angle="67.94" type="bike" speed="1.03" pos="83.41" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="40.31" y="48.36" angle="67.93" type="bike" speed="1.02" pos="83.40" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="34.96" y="48.02" angle="67.94" type="car" speed="0.67" pos="78.32" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="40.97" y="46.90" angle="67.93" type="bike" speed="1.20" pos="83.47" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="39.73" y="49.95" angle="67.94" type="bike" speed="1.20" pos="83.47" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="40.37" y="48.38" angle="67.93" type="bike" speed="1.20" pos="83.47" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="34.99" y="48.03" angle="67.94" type="car" speed="0.78" pos="78.36" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="56.00">
-        <vehicle id="bike0" x="41.15" y="46.97" angle="67.93" type="bike" speed="1.18" pos="83.66" lane="W_0" slope="0.00"/>
-        <vehicle id="bike1" x="39.95" y="50.04" angle="67.94" type="bike" speed="1.33" pos="83.70" lane="W_1" slope="0.00"/>
-        <vehicle id="bike2" x="40.56" y="48.46" angle="67.93" type="bike" speed="1.21" pos="83.68" lane="W_0" slope="0.00"/>
-        <vehicle id="car0" x="35.12" y="48.08" angle="67.94" type="car" speed="0.73" pos="78.50" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="41.28" y="47.03" angle="67.93" type="bike" speed="1.50" pos="83.81" lane="W_0" slope="0.00"/>
+        <vehicle id="bike1" x="40.04" y="50.08" angle="67.94" type="bike" speed="1.50" pos="83.81" lane="W_1" slope="0.00"/>
+        <vehicle id="bike2" x="40.68" y="48.51" angle="67.93" type="bike" speed="1.50" pos="83.81" lane="W_0" slope="0.00"/>
+        <vehicle id="car0" x="35.19" y="48.11" angle="67.94" type="car" speed="0.89" pos="78.57" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="56.25">
-        <vehicle id="bike0" x="41.46" y="47.10" angle="67.91" type="bike" speed="1.48" pos="0.13" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="40.28" y="50.17" angle="67.90" type="bike" speed="1.54" pos="0.19" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="40.86" y="48.58" angle="67.91" type="bike" speed="1.41" pos="0.14" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="35.30" y="48.16" angle="67.94" type="car" speed="0.83" pos="78.69" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="41.66" y="47.18" angle="67.87" type="bike" speed="1.80" pos="0.35" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="bike1" x="40.42" y="50.23" angle="67.87" type="bike" speed="1.80" pos="0.35" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike2" x="41.05" y="48.66" angle="67.87" type="bike" speed="1.80" pos="0.35" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="car0" x="35.41" y="48.20" angle="67.94" type="car" speed="1.03" pos="78.81" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="56.50">
-        <vehicle id="bike0" x="41.82" y="47.25" angle="67.83" type="bike" speed="1.67" pos="0.52" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="40.66" y="50.33" angle="67.82" type="bike" speed="1.75" pos="0.60" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="41.22" y="48.73" angle="67.83" type="bike" speed="1.68" pos="0.52" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="35.51" y="48.24" angle="67.94" type="car" speed="0.98" pos="78.92" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="42.12" y="47.37" angle="67.77" type="bike" speed="2.10" pos="0.84" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="bike1" x="40.87" y="50.42" angle="67.77" type="bike" speed="2.10" pos="0.84" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike2" x="41.51" y="48.85" angle="67.77" type="bike" speed="2.10" pos="0.84" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="car0" x="35.67" y="48.30" angle="67.94" type="car" speed="1.19" pos="79.09" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="56.75">
-        <vehicle id="bike0" x="42.23" y="47.42" angle="67.75" type="bike" speed="1.87" pos="0.96" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="41.09" y="50.51" angle="67.73" type="bike" speed="1.98" pos="1.07" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="41.63" y="48.90" angle="67.75" type="bike" speed="1.86" pos="0.97" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="35.75" y="48.34" angle="67.94" type="car" speed="1.10" pos="79.18" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="42.64" y="47.58" angle="67.66" type="bike" speed="2.40" pos="1.40" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="bike1" x="41.39" y="50.63" angle="67.66" type="bike" speed="2.40" pos="1.40" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike2" x="42.03" y="49.06" angle="67.66" type="bike" speed="2.40" pos="1.40" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="car0" x="35.96" y="48.42" angle="67.94" type="car" speed="1.38" pos="79.41" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="57.00">
-        <vehicle id="bike0" x="42.69" y="47.61" angle="67.65" type="bike" speed="2.06" pos="1.46" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="41.57" y="50.70" angle="67.62" type="bike" speed="2.22" pos="1.59" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="42.08" y="49.09" angle="67.65" type="bike" speed="2.06" pos="1.46" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="36.03" y="48.45" angle="67.94" type="car" speed="1.32" pos="79.48" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="43.23" y="47.83" angle="67.62" type="bike" speed="2.70" pos="2.04" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="bike1" x="41.98" y="50.87" angle="67.62" type="bike" speed="2.70" pos="2.04" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike2" x="42.62" y="49.31" angle="67.62" type="bike" speed="2.70" pos="2.04" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="car0" x="36.31" y="48.56" angle="67.94" type="car" speed="1.61" pos="79.78" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="57.25">
-        <vehicle id="bike0" x="43.20" y="47.82" angle="67.62" type="bike" speed="2.33" pos="2.00" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="42.10" y="50.93" angle="67.62" type="bike" speed="2.43" pos="2.18" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="42.59" y="49.29" angle="67.62" type="bike" speed="2.27" pos="2.00" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="36.36" y="48.58" angle="67.94" type="car" speed="1.51" pos="79.84" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="43.89" y="48.10" angle="67.62" type="bike" speed="3.00" pos="2.75" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="bike1" x="42.63" y="51.14" angle="67.62" type="bike" speed="3.00" pos="2.75" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike2" x="43.28" y="49.58" angle="67.62" type="bike" speed="3.00" pos="2.75" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="car0" x="36.71" y="48.73" angle="67.94" type="car" speed="1.85" pos="80.21" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="57.50">
-        <vehicle id="bike0" x="43.77" y="48.05" angle="67.62" type="bike" speed="2.57" pos="2.62" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="42.69" y="51.17" angle="67.62" type="bike" speed="2.69" pos="2.82" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="43.14" y="49.52" angle="67.62" type="bike" speed="2.51" pos="2.60" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="36.73" y="48.73" angle="67.94" type="car" speed="1.64" pos="80.23" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="44.62" y="48.40" angle="67.62" type="bike" speed="3.30" pos="3.54" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="bike1" x="43.36" y="51.44" angle="67.62" type="bike" speed="3.30" pos="3.54" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike2" x="44.01" y="49.88" angle="67.62" type="bike" speed="3.30" pos="3.54" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="car0" x="37.17" y="48.91" angle="67.94" type="car" speed="2.11" pos="80.71" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="57.75">
-        <vehicle id="bike0" x="44.38" y="48.30" angle="67.62" type="bike" speed="2.72" pos="3.28" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="43.34" y="51.43" angle="67.62" type="bike" speed="2.95" pos="3.52" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="43.75" y="49.77" angle="67.62" type="bike" speed="2.75" pos="3.25" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="37.13" y="48.90" angle="67.94" type="car" speed="1.85" pos="80.67" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="45.42" y="48.73" angle="67.62" type="bike" speed="3.60" pos="4.40" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="bike1" x="44.15" y="51.77" angle="67.62" type="bike" speed="3.60" pos="4.40" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike2" x="44.81" y="50.21" angle="67.62" type="bike" speed="3.60" pos="4.40" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="car0" x="37.69" y="49.12" angle="67.94" type="car" speed="2.39" pos="81.27" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="58.00">
-        <vehicle id="bike0" x="45.03" y="48.57" angle="67.62" type="bike" speed="2.90" pos="3.98" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="44.05" y="51.73" angle="67.62" type="bike" speed="3.24" pos="4.29" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="44.41" y="50.05" angle="67.62" type="bike" speed="2.97" pos="3.97" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="37.59" y="49.08" angle="67.94" type="car" speed="2.10" pos="81.16" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="46.29" y="49.09" angle="67.62" type="bike" speed="3.90" pos="5.34" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="bike1" x="45.01" y="52.12" angle="67.62" type="bike" speed="3.90" pos="5.34" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike2" x="45.68" y="50.57" angle="67.62" type="bike" speed="3.90" pos="5.34" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="car0" x="38.28" y="49.36" angle="67.94" type="car" speed="2.67" pos="81.90" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="58.25">
-        <vehicle id="bike0" x="45.73" y="48.86" angle="67.62" type="bike" speed="3.09" pos="4.73" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="44.83" y="52.05" angle="67.62" type="bike" speed="3.52" pos="5.14" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="45.12" y="50.34" angle="67.62" type="bike" speed="3.12" pos="4.73" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="38.10" y="49.29" angle="67.94" type="car" speed="2.30" pos="81.71" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="47.23" y="49.48" angle="67.62" type="bike" speed="4.20" pos="6.35" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="bike1" x="45.95" y="52.51" angle="67.62" type="bike" speed="4.20" pos="6.35" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike2" x="46.62" y="50.96" angle="67.62" type="bike" speed="4.20" pos="6.35" lane=":gneJ1_1_0" slope="0.00"/>
+        <vehicle id="car0" x="38.93" y="49.63" angle="67.94" type="car" speed="2.96" pos="82.61" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="58.50">
-        <vehicle id="bike0" x="46.47" y="49.16" angle="67.62" type="bike" speed="3.28" pos="5.53" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="45.68" y="52.40" angle="67.62" type="bike" speed="3.80" pos="6.05" lane=":gneJ1_1_1" slope="0.00"/>
-        <vehicle id="bike2" x="45.87" y="50.65" angle="67.62" type="bike" speed="3.34" pos="5.54" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="38.65" y="49.51" angle="67.94" type="car" speed="2.45" pos="82.30" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="48.24" y="49.90" angle="67.36" type="bike" speed="4.50" pos="0.61" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="46.95" y="52.93" angle="67.36" type="bike" speed="4.50" pos="0.61" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="47.61" y="51.37" angle="67.36" type="bike" speed="4.50" pos="0.61" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="39.65" y="49.92" angle="67.94" type="car" speed="3.26" pos="83.39" lane="W_1" slope="0.00"/>
     </timestep>
     <timestep time="58.75">
-        <vehicle id="bike0" x="47.25" y="49.48" angle="67.62" type="bike" speed="3.44" pos="6.37" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="bike1" x="46.58" y="52.77" angle="67.53" type="bike" speed="4.05" pos="0.21" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="46.68" y="50.98" angle="67.62" type="bike" speed="3.63" pos="6.41" lane=":gneJ1_1_0" slope="0.00"/>
-        <vehicle id="car0" x="39.23" y="49.75" angle="67.94" type="car" speed="2.56" pos="82.93" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="49.31" y="50.35" angle="66.92" type="bike" speed="4.80" pos="1.77" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="48.02" y="53.38" angle="66.92" type="bike" speed="4.80" pos="1.77" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="48.68" y="51.83" angle="66.92" type="bike" speed="4.80" pos="1.77" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="40.44" y="50.24" angle="67.92" type="car" speed="3.56" pos="0.37" lane=":gneJ1_1_1" slope="0.00"/>
     </timestep>
     <timestep time="59.00">
-        <vehicle id="bike0" x="48.07" y="49.82" angle="67.44" type="bike" speed="3.63" pos="0.42" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="47.54" y="53.18" angle="67.07" type="bike" speed="4.34" pos="1.26" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="47.53" y="51.33" angle="67.40" type="bike" speed="3.88" pos="0.52" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="39.85" y="50.00" angle="67.94" type="car" speed="2.83" pos="83.60" lane="W_1" slope="0.00"/>
+        <vehicle id="bike0" x="50.45" y="50.84" angle="66.92" type="bike" speed="5.10" pos="3.01" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="49.16" y="53.87" angle="66.92" type="bike" speed="5.10" pos="3.01" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="49.82" y="52.31" angle="66.92" type="bike" speed="5.10" pos="3.01" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="41.29" y="50.59" angle="67.86" type="car" speed="3.86" pos="1.30" lane=":gneJ1_1_1" slope="0.00"/>
     </timestep>
     <timestep time="59.25">
-        <vehicle id="bike0" x="48.93" y="50.19" angle="67.03" type="bike" speed="3.91" pos="1.36" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="48.57" y="53.62" angle="66.92" type="bike" speed="4.57" pos="2.37" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="48.44" y="51.72" angle="66.96" type="bike" speed="4.09" pos="1.51" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="40.54" y="50.28" angle="67.91" type="car" speed="3.08" pos="0.47" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike0" x="51.56" y="51.31" angle="66.92" type="bike" speed="4.61" pos="4.22" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="50.36" y="54.38" angle="66.92" type="bike" speed="5.40" pos="4.32" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="51.03" y="52.82" angle="66.92" type="bike" speed="5.40" pos="4.32" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="42.21" y="50.97" angle="67.79" type="car" speed="4.10" pos="2.29" lane=":gneJ1_1_1" slope="0.00"/>
     </timestep>
     <timestep time="59.50">
-        <vehicle id="bike0" x="49.86" y="50.59" angle="66.92" type="bike" speed="4.19" pos="2.37" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="49.65" y="54.08" angle="66.92" type="bike" speed="4.81" pos="3.54" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="49.41" y="52.14" angle="66.92" type="bike" speed="4.30" pos="2.56" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="41.29" y="50.59" angle="67.86" type="car" speed="3.44" pos="1.29" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike0" x="52.57" y="51.74" angle="66.92" type="bike" speed="4.13" pos="5.31" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="51.62" y="54.92" angle="66.92" type="bike" speed="5.56" pos="5.69" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="52.23" y="53.51" angle="65.73" type="bike" speed="5.56" pos="5.69" lane="E_1" slope="0.00"/>
+        <vehicle id="car0" x="43.16" y="51.36" angle="67.73" type="car" speed="4.19" pos="3.33" lane=":gneJ1_1_1" slope="0.00"/>
     </timestep>
     <timestep time="59.75">
-        <vehicle id="bike0" x="50.85" y="51.01" angle="66.92" type="bike" speed="4.41" pos="3.45" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="50.78" y="54.56" angle="66.92" type="bike" speed="5.01" pos="4.77" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="50.42" y="52.57" angle="66.92" type="bike" speed="4.49" pos="3.66" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="42.10" y="50.93" angle="67.80" type="car" speed="3.65" pos="2.18" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike0" x="53.46" y="52.12" angle="66.92" type="bike" speed="3.64" pos="6.28" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="52.90" y="55.46" angle="66.92" type="bike" speed="5.56" pos="7.08" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="53.50" y="54.05" angle="66.92" type="bike" speed="5.56" pos="7.08" lane="E_1" slope="0.00"/>
+        <vehicle id="car0" x="44.12" y="51.76" angle="67.66" type="car" speed="4.17" pos="4.37" lane=":gneJ1_1_1" slope="0.00"/>
     </timestep>
     <timestep time="60.00">
-        <vehicle id="bike0" x="51.89" y="51.45" angle="66.92" type="bike" speed="4.65" pos="4.58" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="51.95" y="55.06" angle="66.92" type="bike" speed="5.23" pos="6.05" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="51.48" y="53.02" angle="66.92" type="bike" speed="4.73" pos="4.81" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="42.98" y="51.28" angle="67.74" type="car" speed="3.92" pos="3.12" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike0" x="54.24" y="52.46" angle="66.92" type="bike" speed="3.16" pos="7.13" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="54.18" y="56.01" angle="66.92" type="bike" speed="5.56" pos="8.47" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="54.81" y="54.54" angle="68.12" type="bike" speed="5.56" pos="8.47" lane="E_1" slope="0.00"/>
+        <vehicle id="car0" x="45.07" y="52.15" angle="67.62" type="car" speed="4.05" pos="5.40" lane=":gneJ1_1_1" slope="0.00"/>
     </timestep>
     <timestep time="60.25">
-        <vehicle id="bike0" x="53.00" y="51.92" angle="66.92" type="bike" speed="4.93" pos="5.78" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="53.19" y="55.59" angle="66.92" type="bike" speed="5.48" pos="7.39" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="52.59" y="53.49" angle="66.92" type="bike" speed="4.90" pos="6.02" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="43.93" y="51.68" angle="67.67" type="car" speed="4.36" pos="4.16" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike0" x="55.00" y="52.78" angle="66.92" type="bike" speed="3.46" pos="7.96" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="55.46" y="56.55" angle="66.92" type="bike" speed="5.56" pos="9.86" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="56.17" y="54.88" angle="69.32" type="bike" speed="5.56" pos="9.86" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="46.06" y="52.56" angle="67.62" type="car" speed="4.57" pos="6.48" lane=":gneJ1_1_1" slope="0.00"/>
     </timestep>
     <timestep time="60.50">
-        <vehicle id="bike0" x="54.07" y="52.38" angle="66.92" type="bike" speed="4.45" pos="6.95" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="54.45" y="56.13" angle="66.92" type="bike" speed="5.55" pos="8.77" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="53.74" y="53.98" angle="66.92" type="bike" speed="5.17" pos="7.27" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="44.97" y="52.11" angle="67.62" type="car" speed="4.72" pos="5.29" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike0" x="55.83" y="53.13" angle="66.92" type="bike" speed="3.76" pos="8.86" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="56.73" y="57.10" angle="66.92" type="bike" speed="5.56" pos="11.24" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="57.45" y="55.42" angle="66.92" type="bike" speed="5.56" pos="11.24" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="47.16" y="53.02" angle="67.50" type="car" speed="4.96" pos="0.84" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="60.75">
-        <vehicle id="bike0" x="55.04" y="52.80" angle="66.92" type="bike" speed="3.96" pos="8.00" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="55.72" y="56.67" angle="66.92" type="bike" speed="5.48" pos="10.14" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="54.96" y="54.50" angle="66.92" type="bike" speed="5.43" pos="8.60" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="46.04" y="52.54" angle="67.62" type="car" speed="4.50" pos="6.44" lane=":gneJ1_1_1" slope="0.00"/>
+        <vehicle id="bike0" x="56.73" y="53.52" angle="66.92" type="bike" speed="4.06" pos="9.84" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="58.01" y="57.64" angle="66.92" type="bike" speed="5.56" pos="12.63" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="58.72" y="55.97" angle="66.92" type="bike" speed="5.56" pos="12.63" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="48.33" y="53.52" angle="67.33" type="car" speed="5.25" pos="2.11" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="61.00">
-        <vehicle id="bike0" x="55.90" y="53.16" angle="66.92" type="bike" speed="3.47" pos="8.93" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="56.99" y="57.20" angle="66.92" type="bike" speed="5.50" pos="11.52" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="56.25" y="54.98" angle="68.13" type="bike" speed="5.53" pos="9.97" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="47.04" y="52.97" angle="67.52" type="car" speed="4.26" pos="0.71" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="57.70" y="53.93" angle="66.92" type="bike" speed="4.36" pos="10.89" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="59.29" y="58.19" angle="66.92" type="bike" speed="5.56" pos="14.02" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="60.00" y="56.51" angle="66.92" type="bike" speed="5.56" pos="14.02" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="49.57" y="54.04" angle="67.14" type="car" speed="5.47" pos="3.45" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="61.25">
-        <vehicle id="bike0" x="56.72" y="53.51" angle="66.92" type="bike" speed="3.73" pos="9.83" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="58.25" y="57.74" angle="66.92" type="bike" speed="5.51" pos="12.89" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="57.51" y="55.52" angle="66.92" type="bike" speed="5.49" pos="11.35" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="48.06" y="53.40" angle="67.37" type="car" speed="4.60" pos="1.82" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="58.73" y="54.37" angle="66.92" type="bike" speed="4.66" pos="12.02" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="60.57" y="58.73" angle="66.92" type="bike" speed="5.56" pos="15.41" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="61.28" y="57.06" angle="66.92" type="bike" speed="5.56" pos="15.41" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="50.84" y="54.59" angle="66.95" type="car" speed="5.62" pos="4.84" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="61.50">
-        <vehicle id="bike0" x="57.60" y="53.89" angle="66.92" type="bike" speed="3.90" pos="10.78" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="59.51" y="58.28" angle="66.92" type="bike" speed="5.42" pos="14.26" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="58.78" y="56.06" angle="66.92" type="bike" speed="5.55" pos="12.72" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="49.14" y="53.86" angle="67.20" type="car" speed="4.78" pos="2.99" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="59.75" y="54.80" angle="66.92" type="bike" speed="4.17" pos="13.12" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="61.85" y="59.27" angle="66.92" type="bike" speed="5.56" pos="16.80" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="62.56" y="57.60" angle="66.92" type="bike" speed="5.56" pos="16.80" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="52.05" y="55.10" angle="66.92" type="car" speed="4.85" pos="6.15" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="61.75">
-        <vehicle id="bike0" x="58.53" y="54.28" angle="66.92" type="bike" speed="4.16" pos="11.79" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="60.77" y="58.82" angle="66.92" type="bike" speed="5.54" pos="15.63" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="60.06" y="56.61" angle="66.92" type="bike" speed="5.55" pos="14.11" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="50.29" y="54.35" angle="67.03" type="car" speed="5.19" pos="4.23" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="60.65" y="55.19" angle="66.92" type="bike" speed="3.68" pos="14.10" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="63.12" y="59.82" angle="66.92" type="bike" speed="5.56" pos="18.19" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="63.86" y="58.09" angle="68.12" type="bike" speed="5.56" pos="18.19" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="53.09" y="55.54" angle="66.92" type="car" speed="4.21" pos="7.28" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="62.00">
-        <vehicle id="bike0" x="59.52" y="54.70" angle="66.92" type="bike" speed="4.45" pos="12.87" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="62.04" y="59.36" angle="66.92" type="bike" speed="5.53" pos="17.01" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="61.32" y="57.14" angle="66.92" type="bike" speed="5.44" pos="15.49" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="51.51" y="54.87" angle="66.92" type="car" speed="5.44" pos="5.56" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="61.50" y="55.55" angle="66.92" type="bike" speed="3.72" pos="15.03" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="64.40" y="60.36" angle="66.92" type="bike" speed="5.56" pos="19.58" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="65.19" y="58.52" angle="69.32" type="bike" speed="5.56" pos="19.58" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="54.01" y="55.94" angle="66.92" type="car" speed="3.81" pos="8.29" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="62.25">
-        <vehicle id="bike0" x="60.57" y="55.15" angle="66.92" type="bike" speed="4.74" pos="14.02" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="63.31" y="59.90" angle="66.92" type="bike" speed="5.45" pos="18.39" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="62.58" y="57.68" angle="66.92" type="bike" speed="5.47" pos="16.85" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="52.76" y="55.40" angle="66.92" type="car" speed="5.44" pos="6.92" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="62.40" y="55.93" angle="66.92" type="bike" speed="4.02" pos="15.99" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="65.68" y="60.91" angle="66.92" type="bike" speed="5.56" pos="20.97" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="66.54" y="58.89" angle="70.51" type="bike" speed="5.56" pos="20.97" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="54.96" y="56.34" angle="66.92" type="car" speed="4.46" pos="9.32" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="62.50">
-        <vehicle id="bike0" x="61.61" y="55.59" angle="66.92" type="bike" speed="4.26" pos="15.14" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="64.56" y="60.43" angle="66.92" type="bike" speed="5.49" pos="19.75" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="63.84" y="58.22" angle="66.92" type="bike" speed="5.49" pos="18.22" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="53.93" y="55.90" angle="66.92" type="car" speed="4.74" pos="8.20" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="63.34" y="56.33" angle="66.92" type="bike" speed="4.19" pos="17.02" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="66.96" y="61.45" angle="66.92" type="bike" speed="5.56" pos="22.36" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="67.91" y="59.20" angle="71.71" type="bike" speed="5.56" pos="22.36" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="56.06" y="56.81" angle="66.92" type="car" speed="5.07" pos="10.51" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="62.75">
-        <vehicle id="bike0" x="62.53" y="55.99" angle="66.92" type="bike" speed="3.77" pos="16.15" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="65.82" y="60.97" angle="66.92" type="bike" speed="5.42" pos="21.12" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="65.13" y="58.70" angle="68.13" type="bike" speed="5.53" pos="19.60" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="54.95" y="56.34" angle="66.92" type="car" speed="4.17" pos="9.31" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="64.32" y="56.75" angle="66.92" type="bike" speed="4.35" pos="18.09" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="68.23" y="62.00" angle="66.92" type="bike" speed="5.56" pos="23.74" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="69.29" y="59.52" angle="71.71" type="bike" speed="5.56" pos="23.74" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="57.28" y="57.33" angle="66.92" type="car" speed="5.51" pos="11.83" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="63.00">
-        <vehicle id="bike0" x="63.43" y="56.37" angle="66.92" type="bike" speed="4.04" pos="17.12" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="67.07" y="61.50" angle="66.92" type="bike" speed="5.43" pos="22.48" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="66.45" y="59.13" angle="69.32" type="bike" speed="5.53" pos="20.98" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="55.87" y="56.73" angle="66.92" type="car" speed="3.80" pos="10.31" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="65.32" y="57.18" angle="66.92" type="bike" speed="4.36" pos="19.18" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="69.51" y="62.54" angle="66.92" type="bike" speed="5.56" pos="25.13" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="70.64" y="59.89" angle="70.51" type="bike" speed="5.56" pos="25.13" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="58.44" y="57.82" angle="66.92" type="car" speed="4.61" pos="13.10" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="63.25">
-        <vehicle id="bike0" x="64.39" y="56.78" angle="66.92" type="bike" speed="4.28" pos="18.16" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="68.32" y="62.03" angle="66.92" type="bike" speed="5.45" pos="23.84" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="67.71" y="59.66" angle="66.92" type="bike" speed="5.43" pos="22.35" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="56.73" y="57.09" angle="66.92" type="car" speed="3.64" pos="11.24" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="66.33" y="57.61" angle="66.92" type="bike" speed="4.41" pos="20.27" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="70.79" y="63.08" angle="66.92" type="bike" speed="5.56" pos="26.52" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="71.99" y="60.26" angle="70.51" type="bike" speed="5.56" pos="26.52" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="59.44" y="58.25" angle="66.92" type="car" speed="4.05" pos="14.18" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="63.50">
-        <vehicle id="bike0" x="65.32" y="57.17" angle="66.92" type="bike" speed="3.79" pos="19.17" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="69.58" y="62.57" angle="66.92" type="bike" speed="5.55" pos="25.21" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="69.00" y="60.14" angle="68.13" type="bike" speed="5.52" pos="23.72" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="57.55" y="57.44" angle="66.92" type="car" speed="3.51" pos="12.13" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="67.35" y="58.04" angle="66.92" type="bike" speed="4.48" pos="21.38" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="72.07" y="63.63" angle="66.92" type="bike" speed="5.56" pos="27.91" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="73.32" y="60.69" angle="69.32" type="bike" speed="5.56" pos="27.91" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="60.33" y="58.63" angle="66.92" type="car" speed="3.73" pos="15.15" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="63.75">
-        <vehicle id="bike0" x="66.19" y="57.61" angle="65.55" type="bike" speed="4.04" pos="20.15" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="70.85" y="63.11" angle="66.92" type="bike" speed="5.47" pos="26.59" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="70.32" y="60.57" angle="69.32" type="bike" speed="5.54" pos="25.10" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="58.35" y="57.79" angle="66.92" type="car" speed="3.45" pos="13.00" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="68.39" y="58.48" angle="66.92" type="bike" speed="4.56" pos="22.51" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="73.35" y="64.17" angle="66.92" type="bike" speed="5.56" pos="29.30" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="74.62" y="61.18" angle="68.12" type="bike" speed="5.56" pos="29.30" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="61.17" y="58.99" angle="66.92" type="car" speed="3.59" pos="16.07" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="64.00">
-        <vehicle id="bike0" x="67.13" y="58.01" angle="66.92" type="bike" speed="4.12" pos="21.17" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="72.11" y="63.65" angle="66.92" type="bike" speed="5.48" pos="27.96" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="71.66" y="60.94" angle="70.52" type="bike" speed="5.53" pos="26.48" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="59.20" y="58.15" angle="66.92" type="car" speed="3.96" pos="13.93" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="69.43" y="58.99" angle="65.63" type="bike" speed="4.64" pos="23.66" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="74.62" y="64.72" angle="66.92" type="bike" speed="5.56" pos="30.69" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="75.91" y="61.69" angle="67.64" type="bike" speed="5.56" pos="30.69" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="61.99" y="59.34" angle="66.92" type="car" speed="3.56" pos="16.96" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="64.25">
-        <vehicle id="bike0" x="68.09" y="58.42" angle="66.92" type="bike" speed="4.23" pos="22.21" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="73.38" y="64.19" angle="66.92" type="bike" speed="5.55" pos="29.34" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="73.02" y="61.25" angle="71.75" type="bike" speed="5.46" pos="27.86" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="60.10" y="58.53" angle="66.92" type="car" speed="3.84" pos="14.90" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="70.45" y="59.57" angle="64.35" type="bike" speed="4.72" pos="24.83" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="75.90" y="65.26" angle="66.92" type="bike" speed="5.56" pos="32.08" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="77.19" y="62.23" angle="66.92" type="bike" speed="5.56" pos="32.08" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="62.82" y="59.69" angle="66.92" type="car" speed="3.60" pos="17.86" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="64.50">
-        <vehicle id="bike0" x="69.06" y="58.90" angle="65.60" type="bike" speed="4.38" pos="23.29" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="74.66" y="64.73" angle="66.92" type="bike" speed="5.54" pos="30.72" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="74.37" y="61.55" angle="71.76" type="bike" speed="5.42" pos="29.22" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="60.98" y="58.90" angle="66.92" type="car" speed="3.80" pos="15.86" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="71.47" y="60.20" angle="63.09" type="bike" speed="4.80" pos="26.02" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="77.18" y="65.81" angle="66.92" type="bike" speed="5.56" pos="33.47" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="78.47" y="62.78" angle="66.92" type="bike" speed="5.56" pos="33.47" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="63.66" y="60.05" angle="66.92" type="car" speed="3.70" pos="18.77" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="64.75">
-        <vehicle id="bike0" x="70.07" y="59.33" angle="66.92" type="bike" speed="4.42" pos="24.39" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="75.92" y="65.27" angle="66.92" type="bike" speed="5.45" pos="32.10" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="75.71" y="61.91" angle="70.52" type="bike" speed="5.55" pos="30.59" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="61.89" y="59.29" angle="66.92" type="car" speed="4.18" pos="16.85" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="72.49" y="60.91" angle="61.86" type="bike" speed="4.88" pos="27.23" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="78.46" y="66.35" angle="66.92" type="bike" speed="5.56" pos="34.86" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="79.75" y="63.32" angle="66.92" type="bike" speed="5.56" pos="34.86" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="64.52" y="60.41" angle="66.92" type="car" speed="3.83" pos="19.71" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="65.00">
-        <vehicle id="bike0" x="71.11" y="59.78" angle="66.92" type="bike" speed="4.60" pos="25.52" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="77.18" y="65.81" angle="66.92" type="bike" speed="5.54" pos="33.47" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="77.02" y="62.34" angle="69.34" type="bike" speed="5.47" pos="31.97" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="62.84" y="59.70" angle="66.92" type="car" speed="4.09" pos="17.89" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="73.52" y="61.62" angle="61.89" type="bike" speed="4.95" pos="28.46" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="79.73" y="66.90" angle="66.92" type="bike" speed="5.56" pos="36.24" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="81.02" y="63.87" angle="66.92" type="bike" speed="5.56" pos="36.24" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="65.42" y="60.80" angle="66.92" type="car" speed="3.97" pos="20.68" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="65.25">
-        <vehicle id="bike0" x="72.16" y="60.29" angle="65.64" type="bike" speed="4.74" pos="26.68" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="78.45" y="66.35" angle="66.92" type="bike" speed="5.47" pos="34.85" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="78.32" y="62.82" angle="68.12" type="bike" speed="5.55" pos="33.34" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="63.79" y="60.10" angle="66.92" type="car" speed="4.09" pos="18.91" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="74.57" y="62.34" angle="61.92" type="bike" speed="5.01" pos="29.71" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="81.01" y="67.44" angle="66.92" type="bike" speed="5.56" pos="37.63" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="82.30" y="64.41" angle="66.92" type="bike" speed="5.56" pos="37.63" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="66.35" y="61.19" angle="66.92" type="car" speed="4.11" pos="21.69" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="65.50">
-        <vehicle id="bike0" x="73.25" y="60.76" angle="66.92" type="bike" speed="4.77" pos="27.87" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="79.71" y="66.88" angle="66.92" type="bike" speed="5.46" pos="36.21" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="79.63" y="63.27" angle="68.84" type="bike" speed="5.55" pos="34.73" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="64.77" y="60.52" angle="66.92" type="car" speed="4.50" pos="19.98" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="75.63" y="63.06" angle="61.94" type="bike" speed="5.07" pos="30.97" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="82.29" y="67.98" angle="66.92" type="bike" speed="5.56" pos="39.02" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="83.58" y="64.95" angle="66.92" type="bike" speed="5.56" pos="39.02" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="67.31" y="61.60" angle="66.92" type="car" speed="4.26" pos="22.74" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="65.75">
-        <vehicle id="bike0" x="74.36" y="61.23" angle="66.92" type="bike" speed="4.91" pos="29.08" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="80.96" y="67.42" angle="66.92" type="bike" speed="5.41" pos="37.57" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="80.91" y="63.82" angle="66.92" type="bike" speed="5.54" pos="36.12" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="65.80" y="60.96" angle="66.92" type="car" speed="4.43" pos="21.10" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="76.73" y="63.73" angle="63.20" type="bike" speed="5.13" pos="32.24" lane="E_0" slope="0.00"/>
+        <vehicle id="bike1" x="83.57" y="68.53" angle="66.92" type="bike" speed="5.56" pos="40.41" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="84.86" y="65.50" angle="66.92" type="bike" speed="5.56" pos="40.41" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="68.31" y="62.03" angle="66.92" type="car" speed="4.40" pos="23.82" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="66.00">
-        <vehicle id="bike0" x="75.48" y="61.77" angle="65.67" type="bike" speed="5.01" pos="30.32" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="82.21" y="67.95" angle="66.92" type="bike" speed="5.52" pos="38.94" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="82.17" y="64.35" angle="66.92" type="bike" speed="5.46" pos="37.49" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="66.82" y="61.39" angle="66.92" type="car" speed="4.43" pos="22.21" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="77.83" y="64.44" angle="64.45" type="bike" speed="5.17" pos="33.53" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="84.85" y="69.07" angle="66.92" type="bike" speed="5.56" pos="41.80" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="86.14" y="66.04" angle="66.92" type="bike" speed="5.56" pos="41.80" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="69.33" y="62.46" angle="66.92" type="car" speed="4.53" pos="24.94" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="66.25">
-        <vehicle id="bike0" x="76.63" y="62.27" angle="66.92" type="bike" speed="5.04" pos="31.58" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="83.48" y="68.49" angle="66.92" type="bike" speed="5.45" pos="40.31" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="83.44" y="64.89" angle="66.92" type="bike" speed="5.54" pos="38.87" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="67.91" y="61.86" angle="66.92" type="car" speed="5.03" pos="23.39" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="78.95" y="65.12" angle="63.23" type="bike" speed="5.22" pos="34.83" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="86.12" y="69.62" angle="66.92" type="bike" speed="5.56" pos="43.19" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="87.41" y="66.59" angle="66.92" type="bike" speed="5.56" pos="43.19" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="70.39" y="62.91" angle="66.92" type="car" speed="4.65" pos="26.08" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="66.50">
-        <vehicle id="bike0" x="77.81" y="62.77" angle="66.92" type="bike" speed="5.14" pos="32.85" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="84.73" y="69.02" angle="66.92" type="bike" speed="5.41" pos="41.67" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="84.70" y="65.43" angle="66.92" type="bike" speed="5.44" pos="40.24" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="69.05" y="62.34" angle="66.92" type="car" speed="4.88" pos="24.63" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="80.19" y="65.65" angle="66.92" type="bike" speed="5.52" pos="36.17" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="87.40" y="70.16" angle="66.92" type="bike" speed="5.56" pos="44.58" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="88.69" y="67.13" angle="66.92" type="bike" speed="5.56" pos="44.58" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="71.53" y="63.40" angle="66.92" type="car" speed="5.30" pos="27.33" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="66.75">
-        <vehicle id="bike0" x="78.99" y="63.27" angle="66.92" type="bike" speed="5.16" pos="34.14" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="85.98" y="69.56" angle="66.92" type="bike" speed="5.51" pos="43.04" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="85.96" y="65.97" angle="66.92" type="bike" speed="5.49" pos="41.61" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="70.16" y="62.82" angle="66.92" type="car" speed="4.81" pos="25.84" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="81.46" y="66.19" angle="66.92" type="bike" speed="5.56" pos="37.55" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="88.68" y="70.71" angle="66.92" type="bike" speed="5.56" pos="45.97" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="89.97" y="67.68" angle="66.92" type="bike" speed="5.56" pos="45.97" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="72.82" y="63.95" angle="66.92" type="car" speed="5.95" pos="28.73" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="67.00">
-        <vehicle id="bike0" x="80.16" y="63.84" angle="65.69" type="bike" speed="5.23" pos="35.44" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="87.24" y="70.09" angle="66.92" type="bike" speed="5.44" pos="44.40" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="87.22" y="66.50" angle="66.92" type="bike" speed="5.48" pos="42.98" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="71.26" y="63.29" angle="66.92" type="car" speed="4.78" pos="27.04" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="82.74" y="66.73" angle="66.92" type="bike" speed="5.56" pos="38.94" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="89.96" y="71.25" angle="66.92" type="bike" speed="5.56" pos="47.36" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="91.25" y="68.22" angle="66.92" type="bike" speed="5.56" pos="47.36" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="74.27" y="64.57" angle="66.92" type="car" speed="6.60" pos="30.30" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="67.25">
-        <vehicle id="bike0" x="81.37" y="64.35" angle="66.92" type="bike" speed="5.27" pos="36.75" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="88.50" y="70.63" angle="66.92" type="bike" speed="5.48" pos="45.77" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="88.48" y="67.04" angle="66.92" type="bike" speed="5.48" pos="44.35" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="72.43" y="63.78" angle="66.92" type="car" speed="5.37" pos="28.31" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="84.01" y="67.28" angle="66.92" type="bike" speed="5.56" pos="40.33" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="91.23" y="71.79" angle="66.92" type="bike" speed="5.56" pos="48.74" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="92.52" y="68.76" angle="66.92" type="bike" speed="5.56" pos="48.74" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="75.85" y="65.24" angle="66.92" type="car" speed="7.16" pos="32.02" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="67.50">
-        <vehicle id="bike0" x="82.58" y="64.87" angle="66.92" type="bike" speed="5.31" pos="38.07" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="89.76" y="71.17" angle="66.92" type="bike" speed="5.46" pos="47.14" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="89.75" y="67.58" angle="66.92" type="bike" speed="5.53" pos="45.72" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="73.64" y="64.30" angle="66.92" type="car" speed="5.19" pos="29.63" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="85.29" y="67.82" angle="66.92" type="bike" speed="5.56" pos="41.72" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="92.51" y="72.34" angle="66.92" type="bike" speed="5.56" pos="50.13" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="93.80" y="69.31" angle="66.92" type="bike" speed="5.56" pos="50.13" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="77.54" y="65.96" angle="66.92" type="car" speed="7.51" pos="33.85" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="67.75">
-        <vehicle id="bike0" x="83.81" y="65.39" angle="66.92" type="bike" speed="5.31" pos="39.40" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="91.01" y="71.70" angle="66.92" type="bike" speed="5.41" pos="48.50" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="91.01" y="68.12" angle="66.92" type="bike" speed="5.47" pos="47.10" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="74.83" y="64.80" angle="66.92" type="car" speed="5.08" pos="30.91" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="86.57" y="68.37" angle="66.92" type="bike" speed="5.56" pos="43.11" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="93.79" y="72.88" angle="66.92" type="bike" speed="5.56" pos="51.52" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="95.08" y="69.85" angle="66.92" type="bike" speed="5.56" pos="51.52" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="79.29" y="66.70" angle="66.92" type="car" speed="7.71" pos="35.76" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="68.00">
-        <vehicle id="bike0" x="85.03" y="65.91" angle="66.92" type="bike" speed="5.33" pos="40.73" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="92.26" y="72.23" angle="66.92" type="bike" speed="5.50" pos="49.86" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="92.28" y="68.66" angle="66.92" type="bike" speed="5.54" pos="48.47" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="75.99" y="65.30" angle="66.92" type="car" speed="5.02" pos="32.17" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="87.85" y="68.91" angle="66.92" type="bike" speed="5.56" pos="44.50" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="95.07" y="73.43" angle="66.92" type="bike" speed="5.56" pos="52.91" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="96.36" y="70.40" angle="66.92" type="bike" speed="5.56" pos="52.91" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="81.07" y="67.46" angle="66.92" type="car" speed="7.80" pos="37.70" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="68.25">
-        <vehicle id="bike0" x="86.26" y="66.44" angle="66.92" type="bike" speed="5.37" pos="42.07" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="93.53" y="72.77" angle="66.92" type="bike" speed="5.54" pos="51.24" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="93.55" y="69.20" angle="66.92" type="bike" speed="5.52" pos="49.86" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="77.14" y="65.79" angle="66.92" type="car" speed="4.99" pos="33.42" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="89.13" y="69.46" angle="66.92" type="bike" speed="5.56" pos="45.89" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="96.34" y="73.97" angle="66.92" type="bike" speed="5.56" pos="54.30" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="97.63" y="70.94" angle="66.92" type="bike" speed="5.56" pos="54.30" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="82.86" y="68.23" angle="66.92" type="car" speed="7.80" pos="39.65" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="68.50">
-        <vehicle id="bike0" x="87.47" y="67.02" angle="65.71" type="bike" speed="5.38" pos="43.41" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="94.80" y="73.31" angle="66.92" type="bike" speed="5.48" pos="52.62" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="94.82" y="69.74" angle="66.92" type="bike" speed="5.51" pos="51.24" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="78.29" y="66.28" angle="66.92" type="car" speed="5.00" pos="34.67" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="90.40" y="70.00" angle="66.92" type="bike" speed="5.56" pos="47.28" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="97.62" y="74.52" angle="66.92" type="bike" speed="5.56" pos="55.69" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="98.91" y="71.49" angle="66.92" type="bike" speed="5.56" pos="55.69" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="84.65" y="68.99" angle="66.92" type="car" speed="7.73" pos="41.59" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="68.75">
-        <vehicle id="bike0" x="88.71" y="67.55" angle="66.92" type="bike" speed="5.41" pos="44.76" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="96.06" y="73.85" angle="66.92" type="bike" speed="5.52" pos="53.99" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="96.09" y="70.28" angle="66.92" type="bike" speed="5.55" pos="52.62" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="79.48" y="66.79" angle="66.92" type="car" speed="5.36" pos="35.97" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="91.68" y="70.54" angle="66.92" type="bike" speed="5.56" pos="48.67" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="98.90" y="75.06" angle="66.92" type="bike" speed="5.56" pos="57.08" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="100.19" y="72.03" angle="66.92" type="bike" speed="5.56" pos="57.08" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="86.42" y="69.74" angle="66.92" type="car" speed="7.62" pos="43.51" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="69.00">
-        <vehicle id="bike0" x="89.96" y="68.08" angle="66.92" type="bike" speed="5.42" pos="46.12" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="97.33" y="74.39" angle="66.92" type="bike" speed="5.51" pos="55.37" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="97.35" y="70.82" angle="66.92" type="bike" speed="5.45" pos="53.99" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="80.70" y="67.31" angle="66.92" type="car" speed="5.27" pos="37.29" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="92.96" y="71.09" angle="66.92" type="bike" speed="5.56" pos="50.05" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="100.18" y="75.60" angle="66.92" type="bike" speed="5.56" pos="58.47" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="101.47" y="72.57" angle="66.92" type="bike" speed="5.56" pos="58.47" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="88.15" y="70.48" angle="66.92" type="car" speed="7.49" pos="45.40" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="69.25">
-        <vehicle id="bike0" x="91.20" y="68.61" angle="66.92" type="bike" speed="5.41" pos="47.47" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="98.59" y="74.93" angle="66.92" type="bike" speed="5.46" pos="56.74" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="98.61" y="71.36" angle="66.92" type="bike" speed="5.47" pos="55.36" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="81.90" y="67.82" angle="66.92" type="car" speed="5.21" pos="38.60" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="94.24" y="71.63" angle="66.92" type="bike" speed="5.56" pos="51.44" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="101.46" y="76.15" angle="66.92" type="bike" speed="5.56" pos="59.86" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="102.75" y="73.12" angle="66.92" type="bike" speed="5.56" pos="59.86" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="89.86" y="71.21" angle="66.92" type="car" speed="7.33" pos="47.25" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="69.50">
-        <vehicle id="bike0" x="92.45" y="69.14" angle="66.92" type="bike" speed="5.41" pos="48.82" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="99.85" y="75.46" angle="66.92" type="bike" speed="5.46" pos="58.11" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="99.87" y="71.89" angle="66.92" type="bike" speed="5.48" pos="56.73" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="83.10" y="68.33" angle="66.92" type="car" speed="5.18" pos="39.90" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="95.51" y="72.18" angle="66.92" type="bike" speed="5.56" pos="52.83" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="102.73" y="76.69" angle="66.92" type="bike" speed="5.56" pos="61.24" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="104.02" y="73.66" angle="66.92" type="bike" speed="5.56" pos="61.24" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="91.50" y="71.98" angle="66.40" type="car" speed="7.16" pos="49.06" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="69.75">
-        <vehicle id="bike0" x="93.69" y="69.67" angle="66.92" type="bike" speed="5.41" pos="50.17" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="101.10" y="76.00" angle="66.92" type="bike" speed="5.45" pos="59.47" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="101.13" y="72.43" angle="66.92" type="bike" speed="5.50" pos="58.10" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="84.29" y="68.84" angle="66.92" type="car" speed="5.17" pos="41.20" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="96.79" y="72.72" angle="66.92" type="bike" speed="5.56" pos="54.22" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="104.01" y="77.24" angle="66.92" type="bike" speed="5.56" pos="62.63" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="105.30" y="74.21" angle="66.92" type="bike" speed="5.56" pos="62.63" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="93.08" y="72.78" angle="65.86" type="car" speed="7.00" pos="50.83" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="70.00">
-        <vehicle id="bike0" x="94.92" y="70.26" angle="65.72" type="bike" speed="5.47" pos="51.53" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="102.36" y="76.53" angle="66.92" type="bike" speed="5.43" pos="60.83" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="102.38" y="72.97" angle="66.92" type="bike" speed="5.42" pos="59.46" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="85.48" y="69.34" angle="66.92" type="car" speed="5.17" pos="42.49" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="98.07" y="73.27" angle="66.92" type="bike" speed="5.56" pos="55.61" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="105.29" y="77.78" angle="66.92" type="bike" speed="5.56" pos="64.02" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="106.58" y="74.75" angle="66.92" type="bike" speed="5.56" pos="64.02" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="94.62" y="73.58" angle="65.86" type="car" speed="6.83" pos="52.56" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="70.25">
-        <vehicle id="bike0" x="96.17" y="70.79" angle="66.92" type="bike" speed="5.39" pos="52.89" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="103.62" y="77.07" angle="66.92" type="bike" speed="5.53" pos="62.20" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="103.64" y="73.50" angle="66.92" type="bike" speed="5.48" pos="60.82" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="86.73" y="69.88" angle="66.92" type="car" speed="5.70" pos="43.85" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="99.35" y="73.81" angle="66.92" type="bike" speed="5.56" pos="57.00" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="106.57" y="78.33" angle="66.92" type="bike" speed="5.56" pos="65.41" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="107.86" y="75.30" angle="66.92" type="bike" speed="5.56" pos="65.41" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="96.12" y="74.35" angle="65.85" type="car" speed="6.67" pos="54.25" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="70.50">
-        <vehicle id="bike0" x="97.41" y="71.32" angle="66.92" type="bike" speed="5.41" pos="54.24" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="104.88" y="77.61" angle="66.92" type="bike" speed="5.44" pos="63.57" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="104.89" y="74.03" angle="66.92" type="bike" speed="5.42" pos="62.19" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="88.02" y="70.43" angle="66.92" type="car" speed="5.52" pos="45.25" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="100.63" y="74.36" angle="66.92" type="bike" speed="5.56" pos="58.39" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="107.84" y="78.87" angle="66.92" type="bike" speed="5.56" pos="66.80" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="109.13" y="75.84" angle="66.92" type="bike" speed="5.56" pos="66.80" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="97.62" y="75.06" angle="66.39" type="car" speed="6.53" pos="55.90" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="70.75">
-        <vehicle id="bike0" x="98.65" y="71.85" angle="66.92" type="bike" speed="5.40" pos="55.59" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="106.13" y="78.14" angle="66.92" type="bike" speed="5.45" pos="64.94" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="106.15" y="74.57" angle="66.92" type="bike" speed="5.54" pos="63.56" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="89.28" y="70.96" angle="66.92" type="car" speed="5.40" pos="46.62" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="101.90" y="74.90" angle="66.92" type="bike" speed="5.56" pos="59.78" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="109.12" y="79.42" angle="66.92" type="bike" speed="5.56" pos="68.19" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="110.41" y="76.39" angle="66.92" type="bike" speed="5.56" pos="68.19" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="99.09" y="75.73" angle="66.56" type="car" speed="6.39" pos="57.51" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="71.00">
-        <vehicle id="bike0" x="99.90" y="72.38" angle="66.92" type="bike" speed="5.41" pos="56.94" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="107.39" y="78.68" angle="66.92" type="bike" speed="5.47" pos="66.30" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="107.43" y="75.11" angle="66.92" type="bike" speed="5.56" pos="64.94" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="90.51" y="71.49" angle="66.92" type="car" speed="5.32" pos="47.96" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="103.18" y="75.44" angle="66.92" type="bike" speed="5.56" pos="61.17" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="110.40" y="79.96" angle="66.92" type="bike" speed="5.56" pos="69.58" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="111.69" y="76.93" angle="66.92" type="bike" speed="5.56" pos="69.58" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="100.54" y="76.35" angle="66.92" type="car" speed="6.27" pos="59.09" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="71.25">
-        <vehicle id="bike0" x="101.15" y="72.91" angle="66.92" type="bike" speed="5.49" pos="58.31" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="108.65" y="79.21" angle="66.92" type="bike" speed="5.50" pos="67.67" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="108.70" y="75.65" angle="66.92" type="bike" speed="5.48" pos="66.32" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="91.73" y="72.00" angle="66.92" type="car" speed="5.27" pos="49.28" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="104.46" y="75.99" angle="66.92" type="bike" speed="5.56" pos="62.55" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="111.68" y="80.50" angle="66.92" type="bike" speed="5.56" pos="70.97" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="112.97" y="77.47" angle="66.92" type="bike" speed="5.56" pos="70.97" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="101.97" y="76.96" angle="66.92" type="car" speed="6.16" pos="60.65" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="71.50">
-        <vehicle id="bike0" x="102.39" y="73.51" angle="65.72" type="bike" speed="5.49" pos="59.68" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="109.92" y="79.75" angle="66.92" type="bike" speed="5.55" pos="69.05" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="109.96" y="76.19" angle="66.92" type="bike" speed="5.50" pos="67.70" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="92.94" y="72.52" angle="66.92" type="car" speed="5.26" pos="50.59" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="105.74" y="76.53" angle="66.92" type="bike" speed="5.56" pos="63.94" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="112.96" y="81.05" angle="66.92" type="bike" speed="5.56" pos="72.36" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="114.25" y="78.02" angle="66.92" type="bike" speed="5.56" pos="72.36" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="103.38" y="77.56" angle="66.92" type="car" speed="6.06" pos="62.17" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="71.75">
-        <vehicle id="bike0" x="103.65" y="74.05" angle="66.92" type="bike" speed="5.46" pos="61.05" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="111.18" y="80.29" angle="66.92" type="bike" speed="5.47" pos="70.43" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="111.21" y="76.73" angle="66.92" type="bike" speed="5.41" pos="69.06" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="94.19" y="73.05" angle="66.92" type="car" speed="5.63" pos="51.96" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="107.01" y="77.08" angle="66.92" type="bike" speed="5.56" pos="65.33" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="114.23" y="81.59" angle="66.92" type="bike" speed="5.56" pos="73.74" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="115.52" y="78.56" angle="66.92" type="bike" speed="5.56" pos="73.74" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="104.76" y="78.14" angle="66.92" type="car" speed="5.97" pos="63.68" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="72.00">
-        <vehicle id="bike0" x="104.90" y="74.58" angle="66.92" type="bike" speed="5.47" pos="62.41" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="112.45" y="80.83" angle="66.92" type="bike" speed="5.54" pos="71.80" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="112.46" y="77.26" angle="66.92" type="bike" speed="5.46" pos="70.42" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="95.47" y="73.60" angle="66.92" type="car" speed="5.50" pos="53.35" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="108.29" y="77.62" angle="66.92" type="bike" speed="5.56" pos="66.72" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="115.51" y="82.14" angle="66.92" type="bike" speed="5.56" pos="75.13" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="116.80" y="79.11" angle="66.92" type="bike" speed="5.56" pos="75.13" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="106.12" y="78.73" angle="66.92" type="car" speed="5.90" pos="65.16" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="72.25">
-        <vehicle id="bike0" x="106.16" y="75.12" angle="66.92" type="bike" speed="5.49" pos="63.78" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="113.72" y="81.37" angle="66.92" type="bike" speed="5.48" pos="73.18" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="113.72" y="77.79" angle="66.92" type="bike" speed="5.43" pos="71.78" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="96.72" y="74.13" angle="66.92" type="car" speed="5.41" pos="54.71" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="109.57" y="78.17" angle="66.92" type="bike" speed="5.56" pos="68.11" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="116.79" y="82.68" angle="66.92" type="bike" speed="5.56" pos="76.52" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="118.08" y="79.65" angle="66.92" type="bike" speed="5.56" pos="76.52" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="107.47" y="79.30" angle="66.92" type="car" speed="5.83" pos="66.63" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="72.50">
-        <vehicle id="bike0" x="107.43" y="75.66" angle="66.92" type="bike" speed="5.49" pos="65.16" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="114.97" y="81.91" angle="66.92" type="bike" speed="5.41" pos="74.54" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="114.97" y="78.33" angle="66.92" type="bike" speed="5.44" pos="73.14" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="97.96" y="74.66" angle="66.92" type="car" speed="5.36" pos="56.06" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="110.85" y="78.71" angle="66.92" type="bike" speed="5.56" pos="69.50" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="118.07" y="83.23" angle="66.92" type="bike" speed="5.56" pos="77.91" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="119.36" y="80.20" angle="66.92" type="bike" speed="5.56" pos="77.91" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="108.81" y="79.87" angle="66.92" type="car" speed="5.78" pos="68.08" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="72.75">
-        <vehicle id="bike0" x="108.69" y="76.19" angle="66.92" type="bike" speed="5.45" pos="66.53" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="116.22" y="82.44" angle="66.92" type="bike" speed="5.50" pos="75.91" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="116.22" y="78.86" angle="66.92" type="bike" speed="5.43" pos="74.50" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="99.19" y="75.18" angle="66.92" type="car" speed="5.33" pos="57.39" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="112.13" y="79.25" angle="66.92" type="bike" speed="5.56" pos="70.89" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="119.34" y="83.77" angle="66.92" type="bike" speed="5.56" pos="79.30" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="120.63" y="80.74" angle="66.92" type="bike" speed="5.56" pos="79.30" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="110.13" y="80.43" angle="66.92" type="car" speed="5.73" pos="69.52" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="73.00">
-        <vehicle id="bike0" x="109.94" y="76.73" angle="66.92" type="bike" speed="5.43" pos="67.89" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="117.48" y="82.98" angle="66.92" type="bike" speed="5.43" pos="77.27" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="117.47" y="79.39" angle="66.92" type="bike" speed="5.52" pos="75.86" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="100.41" y="75.70" angle="66.92" type="car" speed="5.30" pos="58.72" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="113.40" y="79.80" angle="66.92" type="bike" speed="5.56" pos="72.28" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="120.62" y="84.31" angle="66.92" type="bike" speed="5.56" pos="80.69" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="121.91" y="81.28" angle="66.92" type="bike" speed="5.56" pos="80.69" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="111.45" y="80.99" angle="66.92" type="car" speed="5.69" pos="70.94" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="73.25">
-        <vehicle id="bike0" x="111.19" y="77.26" angle="66.92" type="bike" speed="5.43" pos="69.24" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="118.73" y="83.51" angle="66.92" type="bike" speed="5.46" pos="78.63" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="118.74" y="79.93" angle="66.92" type="bike" speed="5.46" pos="77.24" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="101.63" y="76.22" angle="66.92" type="car" speed="5.29" pos="60.05" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="114.68" y="80.34" angle="66.92" type="bike" speed="5.56" pos="73.67" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="121.90" y="84.86" angle="66.92" type="bike" speed="5.56" pos="82.08" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="123.19" y="81.83" angle="66.92" type="bike" speed="5.56" pos="82.08" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="112.75" y="81.55" angle="66.92" type="car" speed="5.66" pos="72.36" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="73.50">
-        <vehicle id="bike0" x="112.41" y="77.85" angle="65.71" type="bike" speed="5.42" pos="70.60" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="119.98" y="84.04" angle="66.92" type="bike" speed="5.41" pos="79.99" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="120.00" y="80.47" angle="66.92" type="bike" speed="5.51" pos="78.61" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="102.85" y="76.74" angle="66.92" type="car" speed="5.28" pos="61.37" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="115.96" y="80.89" angle="66.92" type="bike" speed="5.56" pos="75.05" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="123.18" y="85.40" angle="66.92" type="bike" speed="5.56" pos="83.47" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="124.47" y="82.37" angle="66.92" type="bike" speed="5.56" pos="83.47" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="114.05" y="82.10" angle="66.92" type="car" speed="5.64" pos="73.78" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="73.75">
-        <vehicle id="bike0" x="113.66" y="78.38" angle="66.92" type="bike" speed="5.46" pos="71.96" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="121.24" y="84.58" angle="66.92" type="bike" speed="5.52" pos="81.36" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="121.27" y="81.01" angle="66.92" type="bike" speed="5.54" pos="79.99" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="104.11" y="77.28" angle="66.92" type="car" speed="5.74" pos="62.74" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="117.24" y="81.43" angle="66.92" type="bike" speed="5.56" pos="76.44" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="124.46" y="85.95" angle="66.92" type="bike" speed="5.56" pos="84.86" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="125.75" y="82.92" angle="66.92" type="bike" speed="5.56" pos="84.86" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="115.34" y="82.65" angle="66.92" type="car" speed="5.61" pos="75.18" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="74.00">
-        <vehicle id="bike0" x="114.92" y="78.92" angle="66.92" type="bike" speed="5.52" pos="73.33" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="122.50" y="85.11" angle="66.92" type="bike" speed="5.42" pos="82.73" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="122.53" y="81.55" angle="66.92" type="bike" speed="5.44" pos="81.36" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="105.42" y="77.84" angle="66.92" type="car" speed="5.59" pos="64.16" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="118.51" y="81.98" angle="66.92" type="bike" speed="5.56" pos="77.83" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="125.73" y="86.49" angle="66.92" type="bike" speed="5.56" pos="86.24" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="127.02" y="83.46" angle="66.92" type="bike" speed="5.56" pos="86.24" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="116.63" y="83.20" angle="66.92" type="car" speed="5.60" pos="76.58" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="74.25">
-        <vehicle id="bike0" x="116.19" y="79.46" angle="66.92" type="bike" speed="5.51" pos="74.71" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="123.76" y="85.65" angle="66.92" type="bike" speed="5.54" pos="84.10" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="123.79" y="82.09" angle="66.92" type="bike" speed="5.54" pos="82.73" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="106.69" y="78.38" angle="66.92" type="car" speed="5.49" pos="65.54" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="119.79" y="82.52" angle="66.92" type="bike" speed="5.56" pos="79.22" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="127.01" y="87.04" angle="66.92" type="bike" speed="5.56" pos="87.63" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="128.30" y="84.01" angle="66.92" type="bike" speed="5.56" pos="87.63" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="117.92" y="83.75" angle="66.92" type="car" speed="5.59" pos="77.98" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="74.50">
-        <vehicle id="bike0" x="117.46" y="80.00" angle="66.92" type="bike" speed="5.49" pos="76.08" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="125.02" y="86.19" angle="66.92" type="bike" speed="5.43" pos="85.47" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="125.07" y="82.63" angle="66.92" type="bike" speed="5.52" pos="84.12" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="107.95" y="78.91" angle="66.92" type="car" speed="5.43" pos="66.91" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="121.07" y="83.06" angle="66.92" type="bike" speed="5.56" pos="80.61" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="128.29" y="87.58" angle="66.92" type="bike" speed="5.56" pos="89.02" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="129.58" y="84.55" angle="66.92" type="bike" speed="5.56" pos="89.02" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="119.20" y="84.30" angle="66.92" type="car" speed="5.57" pos="79.38" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="74.75">
-        <vehicle id="bike0" x="118.72" y="80.54" angle="66.92" type="bike" speed="5.52" pos="77.46" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="126.27" y="86.72" angle="66.92" type="bike" speed="5.46" pos="86.83" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="126.32" y="83.16" angle="66.92" type="bike" speed="5.42" pos="85.48" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="109.19" y="79.44" angle="66.92" type="car" speed="5.38" pos="68.26" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="122.35" y="83.61" angle="66.92" type="bike" speed="5.56" pos="82.00" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="129.57" y="88.13" angle="66.92" type="bike" speed="5.56" pos="90.41" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="130.86" y="85.10" angle="66.92" type="bike" speed="5.56" pos="90.41" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="120.48" y="84.84" angle="66.92" type="car" speed="5.57" pos="80.77" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="75.00">
-        <vehicle id="bike0" x="119.99" y="81.08" angle="66.92" type="bike" speed="5.53" pos="78.84" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="127.54" y="87.26" angle="66.92" type="bike" speed="5.54" pos="88.20" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="127.57" y="83.70" angle="66.92" type="bike" speed="5.43" pos="86.84" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="110.42" y="79.97" angle="66.92" type="car" speed="5.36" pos="69.60" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="123.63" y="84.15" angle="66.92" type="bike" speed="5.56" pos="83.39" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="130.84" y="88.67" angle="66.92" type="bike" speed="5.56" pos="91.80" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="132.13" y="85.64" angle="66.92" type="bike" speed="5.56" pos="91.80" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="121.76" y="85.39" angle="66.92" type="car" speed="5.56" pos="82.16" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="75.25">
-        <vehicle id="bike0" x="121.24" y="81.68" angle="65.72" type="bike" speed="5.53" pos="80.22" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="128.81" y="87.80" angle="66.92" type="bike" speed="5.54" pos="89.59" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="128.82" y="84.23" angle="66.92" type="bike" speed="5.43" pos="88.20" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="111.66" y="80.50" angle="66.92" type="car" speed="5.36" pos="70.94" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="124.90" y="84.70" angle="66.92" type="bike" speed="5.56" pos="84.78" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="132.12" y="89.21" angle="66.92" type="bike" speed="5.56" pos="93.19" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="133.41" y="86.18" angle="66.92" type="bike" speed="5.56" pos="93.19" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="123.04" y="85.93" angle="66.92" type="car" speed="5.56" pos="83.55" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="75.50">
-        <vehicle id="bike0" x="122.50" y="82.21" angle="66.92" type="bike" speed="5.41" pos="81.59" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="130.09" y="88.35" angle="66.92" type="bike" speed="5.55" pos="90.97" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="130.07" y="84.76" angle="66.92" type="bike" speed="5.42" pos="89.55" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="112.94" y="81.04" angle="66.92" type="car" speed="5.78" pos="72.34" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="126.18" y="85.24" angle="66.92" type="bike" speed="5.56" pos="86.17" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="133.40" y="89.76" angle="66.92" type="bike" speed="5.56" pos="94.58" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="134.69" y="86.73" angle="66.92" type="bike" speed="5.56" pos="94.58" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="124.32" y="86.48" angle="66.92" type="car" speed="5.55" pos="84.94" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="75.75">
-        <vehicle id="bike0" x="123.74" y="82.74" angle="66.92" type="bike" speed="5.39" pos="82.94" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="131.36" y="88.89" angle="66.92" type="bike" speed="5.52" pos="92.36" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="131.32" y="85.29" angle="66.92" type="bike" speed="5.41" pos="90.91" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="114.25" y="81.60" angle="66.92" type="car" speed="5.61" pos="73.76" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="127.46" y="85.79" angle="66.92" type="bike" speed="5.56" pos="87.55" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="134.68" y="90.30" angle="66.92" type="bike" speed="5.56" pos="95.97" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="135.97" y="87.27" angle="66.92" type="bike" speed="5.56" pos="95.97" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="125.60" y="87.02" angle="66.92" type="car" speed="5.55" pos="86.33" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="76.00">
-        <vehicle id="bike0" x="124.98" y="83.27" angle="66.92" type="bike" speed="5.41" pos="84.29" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="132.62" y="89.43" angle="66.92" type="bike" speed="5.48" pos="93.73" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="132.57" y="85.82" angle="66.92" type="bike" speed="5.48" pos="92.27" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="115.52" y="82.14" angle="66.92" type="car" speed="5.48" pos="75.14" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="128.74" y="86.33" angle="66.92" type="bike" speed="5.56" pos="88.94" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="135.96" y="90.85" angle="66.92" type="bike" speed="5.56" pos="97.36" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="137.25" y="87.82" angle="66.92" type="bike" speed="5.56" pos="97.36" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="126.87" y="87.57" angle="66.92" type="car" speed="5.55" pos="87.71" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="76.25">
-        <vehicle id="bike0" x="126.23" y="83.80" angle="66.92" type="bike" speed="5.40" pos="85.64" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="133.89" y="89.96" angle="66.92" type="bike" speed="5.50" pos="95.10" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="133.83" y="86.36" angle="66.92" type="bike" speed="5.49" pos="93.64" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="116.77" y="82.67" angle="66.92" type="car" speed="5.39" pos="76.50" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="130.01" y="86.88" angle="66.92" type="bike" speed="5.56" pos="90.33" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="137.23" y="91.39" angle="66.92" type="bike" speed="5.56" pos="98.74" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="138.52" y="88.36" angle="66.92" type="bike" speed="5.56" pos="98.74" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="128.15" y="88.11" angle="66.92" type="car" speed="5.55" pos="89.10" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="76.50">
-        <vehicle id="bike0" x="127.47" y="84.33" angle="66.92" type="bike" speed="5.44" pos="87.00" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="135.15" y="90.50" angle="66.92" type="bike" speed="5.48" pos="96.48" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="135.10" y="86.90" angle="66.92" type="bike" speed="5.52" pos="95.02" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="118.01" y="83.20" angle="66.92" type="car" speed="5.34" pos="77.84" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="131.29" y="87.42" angle="66.92" type="bike" speed="5.56" pos="91.72" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="138.51" y="91.94" angle="66.92" type="bike" speed="5.56" pos="100.13" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="139.80" y="88.91" angle="66.92" type="bike" speed="5.56" pos="100.13" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="129.43" y="88.65" angle="66.92" type="car" speed="5.55" pos="90.49" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="76.75">
-        <vehicle id="bike0" x="128.71" y="84.93" angle="65.72" type="bike" speed="5.50" pos="88.37" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="136.41" y="91.04" angle="66.92" type="bike" speed="5.48" pos="97.85" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="136.36" y="87.44" angle="66.92" type="bike" speed="5.45" pos="96.39" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="119.23" y="83.72" angle="66.92" type="car" speed="5.31" pos="79.18" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="132.57" y="87.96" angle="66.92" type="bike" speed="5.56" pos="93.11" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="139.79" y="92.48" angle="66.92" type="bike" speed="5.56" pos="101.52" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="141.08" y="89.45" angle="66.92" type="bike" speed="5.56" pos="101.52" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="130.70" y="89.20" angle="66.92" type="car" speed="5.55" pos="91.88" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="77.00">
-        <vehicle id="bike0" x="129.96" y="85.46" angle="66.92" type="bike" speed="5.43" pos="89.73" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="137.67" y="91.58" angle="66.92" type="bike" speed="5.47" pos="99.22" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="137.62" y="87.98" angle="66.92" type="bike" speed="5.52" pos="97.76" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="120.52" y="84.27" angle="66.92" type="car" speed="5.92" pos="80.58" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="133.85" y="88.51" angle="66.92" type="bike" speed="5.56" pos="94.50" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="141.07" y="93.02" angle="66.92" type="bike" speed="5.56" pos="102.91" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="142.36" y="89.99" angle="66.92" type="bike" speed="5.56" pos="102.91" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="131.98" y="89.74" angle="66.92" type="car" speed="5.55" pos="93.26" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="77.25">
-        <vehicle id="bike0" x="131.22" y="86.00" angle="66.92" type="bike" speed="5.48" pos="91.10" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="138.92" y="92.11" angle="66.92" type="bike" speed="5.45" pos="100.58" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="138.89" y="88.52" angle="66.92" type="bike" speed="5.51" pos="99.14" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="121.86" y="84.84" angle="66.92" type="car" speed="5.68" pos="82.03" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="135.13" y="89.05" angle="66.92" type="bike" speed="5.56" pos="95.89" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="142.34" y="93.57" angle="66.92" type="bike" speed="5.56" pos="104.30" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="143.63" y="90.54" angle="66.92" type="bike" speed="5.56" pos="104.30" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="133.26" y="90.29" angle="66.92" type="car" speed="5.55" pos="94.65" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="77.50">
-        <vehicle id="bike0" x="132.48" y="86.53" angle="66.92" type="bike" speed="5.47" pos="92.46" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="140.18" y="92.65" angle="66.92" type="bike" speed="5.49" pos="101.95" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="140.15" y="89.05" angle="66.92" type="bike" speed="5.44" pos="100.51" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="123.15" y="85.39" angle="66.92" type="car" speed="5.53" pos="83.43" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="136.40" y="89.60" angle="66.92" type="bike" speed="5.56" pos="97.28" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="143.62" y="94.11" angle="66.92" type="bike" speed="5.56" pos="105.69" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="144.91" y="91.08" angle="66.92" type="bike" speed="5.56" pos="105.69" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="134.53" y="90.83" angle="66.92" type="car" speed="5.55" pos="96.04" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="77.75">
-        <vehicle id="bike0" x="133.74" y="87.07" angle="66.92" type="bike" speed="5.49" pos="93.83" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="141.44" y="93.18" angle="66.92" type="bike" speed="5.43" pos="103.31" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="141.40" y="89.59" angle="66.92" type="bike" speed="5.48" pos="101.87" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="124.41" y="85.93" angle="66.92" type="car" speed="5.42" pos="84.80" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="137.68" y="90.14" angle="66.92" type="bike" speed="5.56" pos="98.67" lane="E_1" slope="0.00"/>
+        <vehicle id="bike1" x="144.90" y="94.66" angle="66.92" type="bike" speed="5.56" pos="107.08" lane="E_1" slope="0.00"/>
+        <vehicle id="bike2" x="146.19" y="91.63" angle="66.92" type="bike" speed="5.56" pos="107.08" lane="E_0" slope="0.00"/>
+        <vehicle id="car0" x="135.81" y="91.37" angle="66.92" type="car" speed="5.55" pos="97.43" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="78.00">
-        <vehicle id="bike0" x="135.00" y="87.61" angle="66.92" type="bike" speed="5.48" pos="95.20" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="142.68" y="93.71" angle="66.92" type="bike" speed="5.42" pos="104.67" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="142.66" y="90.12" angle="66.92" type="bike" speed="5.43" pos="103.24" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="125.65" y="86.45" angle="66.92" type="car" speed="5.36" pos="86.15" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="138.96" y="90.69" angle="66.92" type="bike" speed="5.56" pos="100.05" lane="E_1" slope="0.00"/>
+        <vehicle id="car0" x="137.09" y="91.92" angle="66.92" type="car" speed="5.55" pos="98.82" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="78.25">
-        <vehicle id="bike0" x="136.25" y="88.14" angle="66.92" type="bike" speed="5.46" pos="96.57" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="143.95" y="94.25" angle="66.92" type="bike" speed="5.55" pos="106.04" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="143.91" y="90.66" angle="66.92" type="bike" speed="5.48" pos="104.60" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="126.87" y="86.98" angle="66.92" type="car" speed="5.32" pos="87.48" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="140.24" y="91.23" angle="66.92" type="bike" speed="5.56" pos="101.44" lane="E_1" slope="0.00"/>
+        <vehicle id="car0" x="138.44" y="92.49" angle="66.92" type="car" speed="6.20" pos="100.28" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="78.50">
-        <vehicle id="bike0" x="137.51" y="88.68" angle="66.92" type="bike" speed="5.45" pos="97.93" lane="E_0" slope="0.00"/>
-        <vehicle id="bike1" x="145.21" y="94.79" angle="66.92" type="bike" speed="5.46" pos="107.42" lane="E_1" slope="0.00"/>
-        <vehicle id="bike2" x="145.17" y="91.19" angle="66.92" type="bike" speed="5.49" pos="105.97" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="128.09" y="87.50" angle="66.92" type="car" speed="5.29" pos="88.81" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="141.51" y="91.77" angle="66.92" type="bike" speed="5.56" pos="102.83" lane="E_1" slope="0.00"/>
+        <vehicle id="car0" x="139.94" y="93.13" angle="66.92" type="car" speed="6.85" pos="101.92" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="78.75">
-        <vehicle id="bike0" x="138.74" y="89.27" angle="65.72" type="bike" speed="5.50" pos="99.30" lane="E_0" slope="0.00"/>
-        <vehicle id="bike2" x="146.43" y="91.73" angle="66.92" type="bike" speed="5.50" pos="107.34" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="129.31" y="88.02" angle="66.92" type="car" speed="5.28" pos="90.13" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="142.79" y="92.32" angle="66.92" type="bike" speed="5.56" pos="104.22" lane="E_1" slope="0.00"/>
+        <vehicle id="car0" x="141.59" y="93.84" angle="66.92" type="car" speed="7.50" pos="103.71" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="79.00">
-        <vehicle id="bike0" x="140.01" y="89.81" angle="66.92" type="bike" speed="5.48" pos="100.68" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="130.57" y="88.55" angle="66.92" type="car" speed="5.66" pos="91.50" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="144.07" y="92.86" angle="66.92" type="bike" speed="5.56" pos="105.61" lane="E_1" slope="0.00"/>
+        <vehicle id="car0" x="143.39" y="94.60" angle="66.92" type="car" speed="8.15" pos="105.67" lane="E_1" slope="0.00"/>
     </timestep>
     <timestep time="79.25">
-        <vehicle id="bike0" x="141.27" y="90.35" angle="66.92" type="bike" speed="5.52" pos="102.05" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="131.86" y="89.10" angle="66.92" type="car" speed="5.53" pos="92.90" lane="E_1" slope="0.00"/>
+        <vehicle id="bike0" x="145.35" y="93.41" angle="66.92" type="bike" speed="5.56" pos="107.00" lane="E_1" slope="0.00"/>
+        <vehicle id="car0" x="145.34" y="95.43" angle="66.92" type="car" speed="8.80" pos="107.79" lane="E_1" slope="0.00"/>
     </timestep>
-    <timestep time="79.50">
-        <vehicle id="bike0" x="142.54" y="90.89" angle="66.92" type="bike" speed="5.54" pos="103.43" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="133.12" y="89.64" angle="66.92" type="car" speed="5.46" pos="94.27" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="79.75">
-        <vehicle id="bike0" x="143.82" y="91.43" angle="66.92" type="bike" speed="5.55" pos="104.82" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="134.37" y="90.17" angle="66.92" type="car" speed="5.41" pos="95.63" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="80.00">
-        <vehicle id="bike0" x="145.10" y="91.98" angle="66.92" type="bike" speed="5.54" pos="106.21" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="135.61" y="90.70" angle="66.92" type="car" speed="5.39" pos="96.98" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="80.25">
-        <vehicle id="bike0" x="146.37" y="92.52" angle="66.92" type="bike" speed="5.53" pos="107.59" lane="E_0" slope="0.00"/>
-        <vehicle id="car0" x="136.85" y="91.23" angle="66.92" type="car" speed="5.37" pos="98.33" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="80.50">
-        <vehicle id="car0" x="138.08" y="91.75" angle="66.92" type="car" speed="5.37" pos="99.67" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="80.75">
-        <vehicle id="car0" x="139.37" y="92.30" angle="66.92" type="car" speed="5.82" pos="101.07" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="81.00">
-        <vehicle id="car0" x="140.77" y="92.90" angle="66.92" type="car" speed="6.36" pos="102.59" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="81.25">
-        <vehicle id="car0" x="142.29" y="93.55" angle="66.92" type="car" speed="6.89" pos="104.25" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="81.50">
-        <vehicle id="car0" x="143.94" y="94.25" angle="66.92" type="car" speed="7.40" pos="106.03" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="81.75">
-        <vehicle id="car0" x="145.70" y="95.00" angle="66.92" type="car" speed="7.93" pos="107.95" lane="E_1" slope="0.00"/>
-    </timestep>
-    <timestep time="82.00"/>
+    <timestep time="79.50"/>
 </fcd-export>

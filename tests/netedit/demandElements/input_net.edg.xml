@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 15.07.2019 14:37:33 by Eclipse SUMO netedit Version v1_2_0+1249-23730de910
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\routes\create\net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\demandElements\routes\create\net.net.xml"/>
+        <plain-output-prefix value="D:\sumo\tests\netedit\demandElements\routes\create\net"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="gneE10" from="gneJ7" to="gneJ8" priority="-1" numLanes="1" speed="13.89" width="2.00" allow="bicycle"/>
+    <edge id="gneE11" from="gneJ8" to="gneJ7" priority="-1" numLanes="1" speed="13.89" width="2.00" allow="bicycle"/>
+    <edge id="gneE2" from="gneJ4" to="gneJ5" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="gneE3" from="gneJ6" to="gneJ5" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="gneE4" from="gneJ5" to="gneJ6" priority="-1" numLanes="2" speed="13.89"/>
+    <edge id="gneE5" from="gneJ6" to="gneJ7" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="gneE6" from="gneJ7" to="gneJ6" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="gneE7" from="gneJ5" to="gneJ4" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="gneE8" from="gneJ8" to="gneJ9" priority="-1" numLanes="1" speed="13.89"/>
+    <edge id="gneE9" from="gneJ9" to="gneJ8" priority="-1" numLanes="1" speed="13.89"/>
+</edges>

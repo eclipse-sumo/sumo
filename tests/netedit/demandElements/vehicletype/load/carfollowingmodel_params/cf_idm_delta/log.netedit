@@ -1,0 +1,3 @@
+Error: Invalid Car-Following-Model Attribute delta. Cannot be parsed to float
+Error: Invalid parsing embedded VType
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_31Jul094457.7560/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_idm_delta\input_routes.rou.xml failed.

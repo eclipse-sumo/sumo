@@ -1,19 +1,22 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2014-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    protobuf2xml.py
 # @author  Michael Behrisch
 # @author  Laura Bieker
 # @author  Jakob Erdmann
 # @date    2014-01-23
-# @version $Id$
 
 
 from __future__ import print_function
@@ -65,7 +68,7 @@ def read_n(inputf, n):
 
 
 def msg2xml(desc, cont, out, depth=1):
-    out.write(">\n%s<%s" % (depth * '    ', desc.name))
+    out.write(u">\n%s<%s" % (depth * '    ', desc.name))
     haveChildren = False
 #    print(depth, cont)
     for attr, value in cont.ListFields():
@@ -79,16 +82,16 @@ def msg2xml(desc, cont, out, depth=1):
                 value = attr.enum_type.values_by_number[value].name
                 if value[0] == "_" and value[1].isdigit():
                     value = value[1:]
-            out.write(' %s="%s"' % (attr.name, value))
+            out.write(u' %s="%s"' % (attr.name, value))
     if haveChildren:
-        out.write(">\n%s</%s" % (depth * '    ', desc.name))
+        out.write(u">\n%s</%s" % (depth * '    ', desc.name))
     else:
-        out.write("/")
+        out.write(u"/")
 
 
 def writeXml(root, module, options):
     with contextlib.closing(xml2csv.getOutStream(options.output)) as outputf:
-        outputf.write('<?xml version="1.0" encoding="UTF-8"?>\n\n<%s' % root)
+        outputf.write(u'<?xml version="1.0" encoding="UTF-8"?>\n\n<%s' % root)
         if options.source.isdigit():
             inp = xml2csv.getSocketStream(int(options.source))
         else:
@@ -107,9 +110,9 @@ def writeXml(root, module, options):
                             for item in value:
                                 msg2xml(attr, item, outputf)
                     elif first:
-                        outputf.write(' %s="%s"' % (attr.name, value))
+                        outputf.write(u' %s="%s"' % (attr.name, value))
                 first = False
-        outputf.write(">\n</%s>\n" % root)
+        outputf.write(u">\n</%s>\n" % root)
 
 
 def main():

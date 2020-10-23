@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:04 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -22,6 +22,7 @@ SPDX-License-Identifier: EPL-2.0
     </projection>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -41,12 +42,16 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
-    <node id="0" x="12.014694" y="48.121459" type="dead_end"/>
+<nodes version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <node id="0" x="12.014696" y="48.121418" type="priority" shape="12.014650,48.121482 12.014736,48.121484 12.014737,48.121609 12.015046,48.121619 12.015065,48.121364 12.014732,48.121356 12.014692,48.121346 12.014601,48.121387 12.014598,48.121444"/>
     <node id="1" x="12.061386" y="48.087529" type="dead_end"/>
+    <node id="gneJ0" x="12.013354" y="48.121383" type="dead_end"/>
+    <node id="gneJ1" x="12.016038" y="48.121453" type="dead_end"/>
+    <node id="gneJ2" x="12.014644" y="48.122316" type="dead_end"/>
 </nodes>

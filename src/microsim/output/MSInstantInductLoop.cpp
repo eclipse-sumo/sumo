@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSInstantInductLoop.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2011-09.08
-/// @version $Id$
 ///
 // An instantaneous induction loop
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "MSInstantInductLoop.h"
@@ -59,7 +57,7 @@ MSInstantInductLoop::~MSInstantInductLoop() {
 
 
 bool
-MSInstantInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
+MSInstantInductLoop::notifyMove(SUMOTrafficObject& veh, double oldPos,
                                 double newPos, double newSpeed) {
     if (!vehicleApplies(veh)) {
         return false;
@@ -68,6 +66,9 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
         // detector not reached yet
         return true;
     }
+#ifdef HAVE_FOX
+    FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
 
     const double oldSpeed = veh.getPreviousSpeed();
     double enterSpeed = MSGlobals::gSemiImplicitEulerUpdate ? newSpeed : oldSpeed; // NOTE: For the euler update, the vehicle is assumed to travel at constant speed for the whole time step
@@ -86,7 +87,7 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
     const double newBackPos = newPos - veh.getVehicleType().getLength();
     const double oldBackPos = oldPos - veh.getVehicleType().getLength();
     if (newBackPos > myPosition) {
-        std::map<SUMOVehicle*, double>::iterator i = myEntryTimes.find(&veh);
+        std::map<SUMOTrafficObject*, double>::iterator i = myEntryTimes.find(&veh);
         if (i != myEntryTimes.end()) {
             // vehicle passed the detector
             const double timeBeforeLeave = MSCFModel::passingTime(oldBackPos, myPosition, newBackPos, oldSpeed, newSpeed);
@@ -104,7 +105,7 @@ MSInstantInductLoop::notifyMove(SUMOVehicle& veh, double oldPos,
 
 
 void
-MSInstantInductLoop::write(const char* state, double t, SUMOVehicle& veh, double speed, const char* add, double addValue) {
+MSInstantInductLoop::write(const char* state, double t, SUMOTrafficObject& veh, double speed, const char* add, double addValue) {
     myOutputDevice.openTag("instantOut").writeAttr(
         "id", getID()).writeAttr("time", toString(t)).writeAttr("state", state).writeAttr(
             "vehID", veh.getID()).writeAttr("speed", toString(speed)).writeAttr(
@@ -118,13 +119,13 @@ MSInstantInductLoop::write(const char* state, double t, SUMOVehicle& veh, double
 
 
 bool
-MSInstantInductLoop::notifyLeave(SUMOVehicle& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSInstantInductLoop::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
         // vehicle might have jumped over detector at the end of the lane. we need
         // one more notifyMove to register it
         return true;
     }
-    std::map<SUMOVehicle*, double>::iterator i = myEntryTimes.find(&veh);
+    std::map<SUMOTrafficObject*, double>::iterator i = myEntryTimes.find(&veh);
     if (i != myEntryTimes.end()) {
         write("leave", SIMTIME, veh, veh.getSpeed());
         myEntryTimes.erase(i);

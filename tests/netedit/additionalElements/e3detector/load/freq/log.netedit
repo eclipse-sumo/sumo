@@ -1,6 +1,6 @@
-Warning: Format of essential positive time attribute 'freq' of e3Detector with ID 'e3Detector_0' is invalid; Cannot be parsed to time; e3Detector cannot be created
+Warning: Format of essential SUMOTime attribute 'freq' of e3Detector with ID 'e3Detector_0' is invalid; Cannot be parsed to SUMOTime; e3Detector cannot be created
 Warning: e3Detector parent of detEntry was not loaded sucesfully.
 Warning: e3Detector parent of detExit was not loaded sucesfully.
-Warning: Format of essential positive time attribute 'freq' of e3Detector with ID 'e3Detector_1' is invalid; Time cannot be negative; e3Detector cannot be created
+Warning: Format of essential SUMOTime attribute 'freq' of e3Detector with ID 'e3Detector_1' is invalid; Cannot be parsed to SUMOTime; e3Detector cannot be created
 Warning: e3Detector parent of detEntry was not loaded sucesfully.
 Warning: e3Detector parent of detExit was not loaded sucesfully.

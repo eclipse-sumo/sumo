@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="wharf5a_ship" name="Anleger 5a Ship" lane="127071510_0" startPos="0.00" endPos="20.00" friendlyPos="true">
+        <access lane="-128042010_0" pos="65.18" length="30.20" friendlyPos="1"/>
+    </busStop>
+    <busStop id="wharf5a_bus" name="Anleger 5a Bus" lane="-128042010_0" startPos="55.00" endPos="75.00" friendlyPos="true"/>
+	<busStop id="busStop_-127071510_0_9" lane="-127071510_0" startPos="70.00" endPos="90.00"/>
+</additional>

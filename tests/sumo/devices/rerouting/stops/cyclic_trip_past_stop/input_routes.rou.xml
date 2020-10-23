@@ -1,0 +1,22 @@
+<routes>
+    <vType id="bus" sigma="0" maxSpeed="3"/>
+    <vehicle id="bus" type="bus" depart="0" departPos="50">
+        <route edges="a b c -c -b -a a b c"/>
+        <stop busStop="busStop_a" duration="10"/>
+        <stop busStop="busStop_c" duration="10"/>
+        <!--
+        <stop busStop="busStop_-c" duration="10"/>
+        <stop busStop="busStop_-a" duration="10"/>
+
+        <stop busStop="busStop_a" duration="10"/>
+        <stop busStop="busStop_c" duration="10"/>
+        <stop busStop="busStop_-c" duration="10"/>
+        <stop busStop="busStop_-a" duration="10"/>
+
+        <stop busStop="busStop_a" duration="10"/>
+        <stop busStop="busStop_c" duration="10"/>
+        <stop busStop="busStop_-c" duration="10"/>
+        <stop busStop="busStop_-a" duration="10"/>
+        -->
+    </vehicle>
+</routes>

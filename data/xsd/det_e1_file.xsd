@@ -19,6 +19,7 @@
       <xsd:attribute name="flow" use="required" type="xsd:decimal"/>
       <xsd:attribute name="occupancy" use="required" type="xsd:decimal"/>
       <xsd:attribute name="speed" use="required" type="xsd:decimal"/>
+      <xsd:attribute name="harmonicMeanSpeed" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="length" use="required" type="xsd:decimal"/>
       <xsd:attribute name="nVehEntered" use="required" type="xsd:integer"/>
     </xsd:complexType>
@@ -33,6 +34,7 @@
       <xsd:attribute name="flow" use="required" type="xsd:decimal"/>
       <xsd:attribute name="occupancy" use="required" type="xsd:decimal"/>
       <xsd:attribute name="speed" use="required" type="xsd:decimal"/>
+      <xsd:attribute name="harmonicMeanSpeed" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="length" use="required" type="xsd:decimal"/>
       <xsd:attribute name="nVehEntered" use="required" type="xsd:integer"/>
     </xsd:complexType>

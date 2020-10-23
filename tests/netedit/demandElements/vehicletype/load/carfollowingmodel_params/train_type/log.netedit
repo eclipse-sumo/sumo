@@ -1,0 +1,6 @@
+Error: Invalid train type 'dummy_trainType' used in Car-Following-Attribute trainType
+Error: Invalid train type '-3' used in Car-Following-Attribute trainType
+Error: Attribute 'trainType' in definition of vType 'vType2' is empty.
+Error: Invalid train type '' used in Car-Following-Attribute trainType
+Error: Invalid parsing embedded VType
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul090142.10132/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/train_type\input_routes.rou.xml failed.

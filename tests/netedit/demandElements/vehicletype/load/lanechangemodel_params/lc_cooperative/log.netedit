@@ -1,0 +1,3 @@
+Error: Invalid Lane-Change-Model Attribute lcCooperative. Cannot be parsed to float
+Error: Invalid Lane Change Model Parameters
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_cooperative\input_routes.rou.xml failed.

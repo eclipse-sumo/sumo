@@ -1,0 +1,11 @@
+Warning: Discarding unknown compound 'cycleway.sidepath' in type 'cycleway.sidepath|highway.cycleway' (first occurence for edge '166054045').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '168898880').
+Warning: No way found for reference '260192889' in relation '533142'
+Warning: Ignoring restriction relation '533142' with unknown to-way.
+Warning: from-edge '166045374' of restriction relation could not be determined
+Warning: Ignoring restriction relation '3314165'.
+Warning: No way found for reference '24565690' in relation '3314167'
+Warning: Ignoring restriction relation '3314167' with unknown from-way.
+Warning: The traffic light '41003136' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '41003136'
+Warning: Speed of straight connection '4218825#0_0->166045378_0' reduced by 5.57 due to turning radius of 28.36 (length=11.02, angle=37.92).

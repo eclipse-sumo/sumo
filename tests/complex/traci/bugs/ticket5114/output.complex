@@ -1,0 +1,9 @@
+ Retrying in 1 seconds
+getDistanceRoad (no connection): -1073741824.0
+getDistanceRoad (normal to normal): 110.66999999999999
+getDistanceRoad (normal to 1st internal): 41.8
+getDistanceRoad (normal to 2nd internal): 49.65
+getDistanceRoad (1st internal to normal): 52.85
+getDistanceRoad (1st internal to 2nd internal): 7.85
+getDistanceRoad (2nd internal to normal): 61.019999999999996
+getDistanceRoad (2nd internal to 1st internal): -1073741824.0

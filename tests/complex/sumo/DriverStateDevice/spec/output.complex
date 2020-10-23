@@ -1,5 +1,5 @@
  Retrying in 1 seconds
-time step 1000
+time 1.0
 Driver state device infos for vehicle 'deviceHolder'
 Static parameters:
   minAwareness = 0.01
@@ -10,11 +10,15 @@ Static parameters:
   headwayErrorCoefficient = 4.44
   speedDifferenceChangePerceptionThreshold = 5.55
   headwayChangePerceptionThreshold = 6.66
+  maximalReactionTime = 7.77
+  originalReactionTime = 1.00
 Dynamic parameters:
   awareness = 0.02
   errorNoiseIntensity = 1.00
   errorTimeScale = 1.00
   errorState = 0.00
+  actionStepLength(dev) = 1.00
+  actionStepLength(veh) = 1.0
 
 Resetting parameters...
 
@@ -30,9 +34,13 @@ new awareness:0.77 (diff=0.0)
 new errorState:0.88 (diff=0.0)
 new errorNoiseIntensity:0.99 (diff=0.0)
 new errorTimeScale:1.11 (diff=0.0)
+new maximalReactionTime:5.55 (diff=0.0)
+new actionStepLength:4.0
+new originalReactionTime:3.0 (diff=0.0)
+new actionStepLength:5.0
 
 
-time step 201000
+time 201.0
 Driver state device infos for vehicle 'deviceHolder'
 Static parameters:
   minAwareness = 0.05
@@ -43,8 +51,12 @@ Static parameters:
   headwayErrorCoefficient = 0.44
   speedDifferenceChangePerceptionThreshold = 0.55
   headwayChangePerceptionThreshold = 0.66
+  maximalReactionTime = 5.55
+  originalReactionTime = 3.00
 Dynamic parameters:
   awareness = 0.77
   errorNoiseIntensity = 0.05
   errorTimeScale = 0.08
-  errorState = -0.05
+  errorState = -0.42
+  actionStepLength(dev) = 5.00
+  actionStepLength(veh) = 5.0

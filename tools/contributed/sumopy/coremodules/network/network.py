@@ -1,17 +1,20 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2017 University of Bologna - DICAM
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    network.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 # size limit at 1280x1280
 # http://maps.googleapis.com/maps/api/staticmap?size=500x500&path=color:0x000000|weight:10|44.35789,11.3093|44.4378,11.3935&format=GIF&maptype=satellite&scale=2
@@ -2889,7 +2892,7 @@ class Network(cm.BaseObjman):
         #xmltag, xmltag_item, attrname_id = self.xmltag
         fd.write('<?xml version="1.0" encoding="%s"?>\n' % encoding)
         indent = 0
-        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.sf.net/xsd/routes_file.xsd"',indent))
+        #fd.write(xm.begin('routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.sf.net/xsd/routes_file.xsd"',indent))
 
         fd.write(xm.begin('additional', indent))
 

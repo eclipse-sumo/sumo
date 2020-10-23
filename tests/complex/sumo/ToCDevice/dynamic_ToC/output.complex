@@ -1,0 +1,587 @@
+ Retrying in 1 seconds
+time 1.0
+ToC device infos for vehicle 'ToC_veh'
+Static parameters:
+  holder = ToC_veh
+  manualType = manual
+  automatedType = automated
+  responseTime = 10.00
+  recoveryRate = 0.10
+  initialAwareness = 0.25
+  mrmDecel = 0.50
+  lcAbstinence = 0.00
+  dynamicToCThreshold = 15.00
+  dynamicMRMProbability = 0.50
+  mrmKeepRight = 0
+  maxPreparationAccel = 0.00
+Dynamic parameters:
+  currentAwareness = 1.00
+  currentSpeed = 0.0
+  state = AUTOMATED
+time 1.0
+ToC device infos for vehicle 'ToC_veh'
+Static parameters:
+  holder = ToC_veh
+  manualType = manual
+  automatedType = automated
+  responseTime = 10.00
+  recoveryRate = 0.10
+  initialAwareness = 0.25
+  mrmDecel = 0.50
+  lcAbstinence = 0.00
+  dynamicToCThreshold = 15.00
+  dynamicMRMProbability = 0.50
+  mrmKeepRight = 0
+  maxPreparationAccel = 0.00
+Dynamic parameters:
+  currentAwareness = 1.00
+  currentSpeed = 0.0
+  state = AUTOMATED
+Time 2.0: Current lane of veh 'ToC_veh': WE_1
+time 2.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 2.6
+  state = AUTOMATED
+Time 3.0: Current lane of veh 'ToC_veh': WE_1
+time 3.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 5.2
+  state = AUTOMATED
+Time 4.0: Current lane of veh 'ToC_veh': WE_1
+time 4.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = AUTOMATED
+Time 5.0: Current lane of veh 'ToC_veh': WE_1
+time 5.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 10.4
+  state = AUTOMATED
+Time 6.0: Current lane of veh 'ToC_veh': WE_1
+time 6.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0
+  state = AUTOMATED
+Time 7.0: Current lane of veh 'ToC_veh': WE_1
+time 7.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 8.0: Current lane of veh 'ToC_veh': WE_1
+time 8.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 9.0: Current lane of veh 'ToC_veh': WE_1
+time 9.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 10.0: Current lane of veh 'ToC_veh': WE_1
+time 10.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 11.0: Current lane of veh 'ToC_veh': WE_1
+time 11.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 12.0: Current lane of veh 'ToC_veh': WE_1
+time 12.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 13.0: Current lane of veh 'ToC_veh': WE_1
+time 13.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 14.0: Current lane of veh 'ToC_veh': WE_1
+time 14.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 15.0: Current lane of veh 'ToC_veh': WE_1
+time 15.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 16.0: Current lane of veh 'ToC_veh': WE_1
+time 16.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 17.0: Current lane of veh 'ToC_veh': WE_1
+time 17.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 18.0: Current lane of veh 'ToC_veh': WE_1
+time 18.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 19.0: Current lane of veh 'ToC_veh': WE_1
+time 19.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 20.0: Current lane of veh 'ToC_veh': WE_1
+time 20.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 21.0: Current lane of veh 'ToC_veh': WE_1
+time 21.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 22.0: Current lane of veh 'ToC_veh': WE_1
+time 22.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 23.0: Current lane of veh 'ToC_veh': WE_1
+time 23.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 24.0: Current lane of veh 'ToC_veh': WE_1
+time 24.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 25.0: Current lane of veh 'ToC_veh': WE_1
+time 25.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 26.0: Current lane of veh 'ToC_veh': WE_1
+time 26.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 27.0: Current lane of veh 'ToC_veh': WE_1
+time 27.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 28.0: Current lane of veh 'ToC_veh': WE_1
+time 28.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 29.0: Current lane of veh 'ToC_veh': WE_1
+time 29.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 30.0: Current lane of veh 'ToC_veh': WE_1
+time 30.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 31.0: Current lane of veh 'ToC_veh': WE_1
+time 31.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 32.0: Current lane of veh 'ToC_veh': WE_1
+time 32.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 33.0: Current lane of veh 'ToC_veh': WE_1
+time 33.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 34.0: Current lane of veh 'ToC_veh': WE_1
+time 34.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 35.0: Current lane of veh 'ToC_veh': WE_1
+time 35.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 36.0: Current lane of veh 'ToC_veh': WE_1
+time 36.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 37.0: Current lane of veh 'ToC_veh': WE_1
+time 37.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 38.0: Current lane of veh 'ToC_veh': WE_1
+time 38.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 39.0: Current lane of veh 'ToC_veh': WE_1
+time 39.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 40.0: Current lane of veh 'ToC_veh': WE_1
+time 40.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 41.0: Current lane of veh 'ToC_veh': WE_1
+time 41.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 42.0: Current lane of veh 'ToC_veh': WE_1
+time 42.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 43.0: Current lane of veh 'ToC_veh': WE_1
+time 43.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 44.0: Current lane of veh 'ToC_veh': WE_1
+time 44.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 45.0: Current lane of veh 'ToC_veh': WE_1
+time 45.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = AUTOMATED
+Time 46.0: Current lane of veh 'ToC_veh': WE_1
+time 46.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = PREPARING_TOC
+Time 47.0: Current lane of veh 'ToC_veh': WE_1
+time 47.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = PREPARING_TOC
+Time 48.0: Current lane of veh 'ToC_veh': WE_1
+time 48.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = PREPARING_TOC
+Time 49.0: Current lane of veh 'ToC_veh': WE_1
+time 49.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = PREPARING_TOC
+Time 50.0: Current lane of veh 'ToC_veh': WE_1
+time 50.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.89
+  state = PREPARING_TOC
+Time 51.0: Current lane of veh 'ToC_veh': WE_1
+time 51.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.25
+  currentSpeed = 12.9180522858
+  state = RECOVERING
+Switched to manual mode: Allowing LCs!
+Time 52.0: Current lane of veh 'ToC_veh': WE_0
+time 52.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.35
+  currentSpeed = 13.574981861
+  state = RECOVERING
+Switched to manual mode: Allowing LCs!
+Time 53.0: Current lane of veh 'ToC_veh': WE_0
+time 53.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.45
+  currentSpeed = 13.3196243835
+  state = RECOVERING
+Switched to manual mode: Allowing LCs!
+Time 54.0: Current lane of veh 'ToC_veh': WE_0
+time 54.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.55
+  currentSpeed = 13.244425754
+  state = RECOVERING
+Switched to manual mode: Allowing LCs!
+Time 55.0: Current lane of veh 'ToC_veh': WE_0
+time 55.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.65
+  currentSpeed = 13.8489023685
+  state = RECOVERING
+Switched to manual mode: Allowing LCs!
+Time 56.0: Current lane of veh 'ToC_veh': WE_0
+time 56.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.75
+  currentSpeed = 13.0172898393
+  state = RECOVERING
+Switched to manual mode: Allowing LCs!
+Time 57.0: Current lane of veh 'ToC_veh': WE_0
+time 57.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.85
+  currentSpeed = 12.7129401128
+  state = RECOVERING
+Switched to manual mode: Allowing LCs!
+Time 58.0: Current lane of veh 'ToC_veh': WE_0
+time 58.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.95
+  currentSpeed = 12.9700697187
+  state = RECOVERING
+Switched to manual mode: Allowing LCs!
+Time 59.0: Current lane of veh 'ToC_veh': WE_0
+time 59.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.950340777
+  state = MANUAL
+Time 60.0: Current lane of veh 'ToC_veh': WE_0
+time 60.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.679179166
+  state = MANUAL
+Time 61.0: Current lane of veh 'ToC_veh': WE_0
+time 61.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0397726355
+  state = MANUAL
+Time 62.0: Current lane of veh 'ToC_veh': WE_0
+time 62.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.4085112963
+  state = MANUAL
+Time 63.0: Current lane of veh 'ToC_veh': WE_0
+time 63.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.6631079085
+  state = MANUAL
+Time 64.0: Current lane of veh 'ToC_veh': WE_0
+time 64.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.3087563579
+  state = MANUAL
+Time 65.0: Current lane of veh 'ToC_veh': WE_0
+time 65.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0444451311
+  state = MANUAL
+Time 66.0: Current lane of veh 'ToC_veh': WE_0
+time 66.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7257170759
+  state = MANUAL
+Time 67.0: Current lane of veh 'ToC_veh': WE_0
+time 67.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.047867664
+  state = MANUAL
+Time 68.0: Current lane of veh 'ToC_veh': WE_0
+time 68.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.8854061972
+  state = MANUAL
+Time 69.0: Current lane of veh 'ToC_veh': WE_0
+time 69.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7109979761
+  state = MANUAL
+Time 70.0: Current lane of veh 'ToC_veh': WE_0
+time 70.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.851048752
+  state = MANUAL
+Time 71.0: Current lane of veh 'ToC_veh': WE_0
+time 71.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.9980458848
+  state = MANUAL
+Time 72.0: Current lane of veh 'ToC_veh': WE_0
+time 72.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.86136613
+  state = MANUAL
+Time 73.0: Current lane of veh 'ToC_veh': WE_0
+time 73.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.411702392
+  state = MANUAL
+Time 74.0: Current lane of veh 'ToC_veh': WE_0
+time 74.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.4070775041
+  state = MANUAL
+Time 75.0: Current lane of veh 'ToC_veh': WE_0
+time 75.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.516600761
+  state = MANUAL
+Time 76.0: Current lane of veh 'ToC_veh': WE_0
+time 76.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.3829107096
+  state = MANUAL
+Time 77.0: Current lane of veh 'ToC_veh': NS_0
+time 77.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.9700958009
+  state = MANUAL
+Time 78.0: Current lane of veh 'ToC_veh': NS_0
+time 78.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0406528309
+  state = MANUAL
+Time 79.0: Current lane of veh 'ToC_veh': NS_0
+time 79.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.1961880165
+  state = MANUAL
+Time 80.0: Current lane of veh 'ToC_veh': NS_0
+time 80.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.3797198827
+  state = MANUAL
+Time 81.0: Current lane of veh 'ToC_veh': NS_0
+time 81.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.8731992311
+  state = MANUAL
+Time 82.0: Current lane of veh 'ToC_veh': NS_0
+time 82.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.8827611456
+  state = MANUAL
+Time 83.0: Current lane of veh 'ToC_veh': NS_0
+time 83.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.3776624331
+  state = MANUAL
+Time 84.0: Current lane of veh 'ToC_veh': NS_0
+time 84.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.030603554
+  state = MANUAL
+Time 85.0: Current lane of veh 'ToC_veh': NS_0
+time 85.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.376184722
+  state = MANUAL
+Time 86.0: Current lane of veh 'ToC_veh': NS_0
+time 86.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.4538270686
+  state = MANUAL
+Time 87.0: Current lane of veh 'ToC_veh': NS_0
+time 87.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.2572022797
+  state = MANUAL
+Time 88.0: Current lane of veh 'ToC_veh': NS_0
+time 88.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.213813084
+  state = MANUAL
+Time 89.0: Current lane of veh 'ToC_veh': NS_0
+time 89.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.2721661489
+  state = MANUAL
+Time 90.0: Current lane of veh 'ToC_veh': NS_0
+time 90.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.6957209738
+  state = MANUAL
+Time 91.0: Current lane of veh 'ToC_veh': NS_0
+time 91.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.6187684935
+  state = MANUAL

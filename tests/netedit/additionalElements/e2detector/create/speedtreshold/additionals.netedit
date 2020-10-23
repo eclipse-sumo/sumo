@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 20.11.2018 13:13:32 by Eclipse SUMO netedit Version v1_0_0+1004-1c7613c4e7
+<!-- generated on 07.08.2019 10:05:04 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov131231.5544/netedit.gui/additionalElements/e2detector/create/speedtreshold\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/create/speedtreshold\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov131231.5544/netedit.gui/additionalElements/e2detector/create/speedtreshold\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/create/speedtreshold\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,12 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov131231.5544/netedit.gui/additionalElements/e2detector/create/speedtreshold\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov131231.5544/netedit.gui/additionalElements/e2detector/create/speedtreshold\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/create/speedtreshold\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/create/speedtreshold\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/create/speedtreshold\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/create/speedtreshold\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov131231.5544/netedit.gui/additionalElements/e2detector/create/speedtreshold\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/create/speedtreshold\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -42,12 +45,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov131231.5544/netedit.gui/additionalElements/e2detector/create/speedtreshold\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/create/speedtreshold\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="e2Detector_gneE1_0_0" length="10.00" lane="gneE1_0" pos="23.00" freq="900.00" file="e2Detector_gneE1_0_0.xml" speedThreshold="2.50"/>
+    <e2Detector id="e2Detector_gneE1_0_0" lane="gneE1_0" pos="22.00" length="10.00" freq="900.00" file="e2Detector_gneE1_0_0.xml" speedThreshold="2.50"/>
 </additional>

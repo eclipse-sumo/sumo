@@ -1,2 +1,2 @@
 Warning: additional calibrator must have either a lane or an edge attribute.
-Warning: The lane 'dummyLane' to use within the laneCalibrator 'calibrator02' is not known.
+Warning: The lane 'dummyLane' to use within the calibrator 'calibrator02' is not known.

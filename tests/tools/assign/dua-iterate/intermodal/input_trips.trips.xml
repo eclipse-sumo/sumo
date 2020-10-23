@@ -1,0 +1,34 @@
+<routes>
+  	<vType accel="3.0" decel="6.0" id="CarA" length="5.0" minGap="2.5" maxSpeed="50.0" sigma="0.5" />
+  	<vType accel="2.0" decel="6.0" id="CarB" length="7.5" minGap="2.5" maxSpeed="50.0" sigma="0.5" />
+  	<vType accel="1.0" decel="5.0" id="CarC" length="5.0" minGap="2.5" maxSpeed="40.0" sigma="0.5" />
+  	<vType accel="1.0" decel="5.0" id="CarD" length="7.5" minGap="2.5" maxSpeed="30.0" sigma="0.5" />
+	
+	<route id="routeCongest0" color="1,0,0" edges="e2"/>
+	
+	<vehicle id="v0" route="routeCongest0" depart="0" departPos="0" arrivalPos="120">
+        <stop lane="e2_3" endPos="70" until="550"/>
+    </vehicle>
+	
+	<vehicle id="v1" route="routeCongest0" depart="0" departPos="0" arrivalPos="120">
+        <stop lane="e2_4" endPos="70" until="550"/>
+    </vehicle>
+	
+	<person id="p0" depart="0">
+      	<personTrip from="begin" to="end" modes="car public" arrivalPos="140"/>
+  	</person>
+	
+	<person id="p1" depart="0">
+      	<personTrip from="begin" to="end" modes="car" arrivalPos="140" />
+  	</person>
+	
+	<person id="p2" depart="0">
+      	<personTrip from="begin" to="end" modes="public" arrivalPos="140"/>
+  	</person>
+	
+	
+	<person id="p3" depart="0">
+      	<personTrip from="begin" to="end" arrivalPos="140"/>
+  	</person>
+
+</routes>

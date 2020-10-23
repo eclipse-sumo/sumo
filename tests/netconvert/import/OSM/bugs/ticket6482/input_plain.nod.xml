@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+
+<!-- Magnitorwall -->
+    <join nodes="3151786679 3151786679" type="priority"/>
+    
+</nodes>

@@ -1,20 +1,46 @@
+# test option --scale
+scale
+
 # person walking between two unconnected edges
 walk_unconnected
 
 # a bus will stop at two busstop that are located at the same edge and a person is waiting at the second bus stop. the person has to enter the bus when the bus stops at the second busstop and not before.
 two_busstops_at_one_edge
 
-# busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
-boarding_duration_extension
+# a bus will stop at two busstop that are located at the same edge and a person is waiting at the second bus stop. the person has to enter the bus when the bus stops at the second busstop and not before.
+# 
+# Stops are defined within a stand-alone route
+two_busstops_at_one_edge2
+
+# check correct arrival when there are multiple stops on the same edge
+three_trainStops_at_one_edge
+
+# a bus will stop two times on the same edge and a person is waiting at the second stop. the person has to enter the bus when the bus stops at the second stop and not before.
+two_stops_at_one_edge
 
 # person with a single ride
 ride
 
+# person with a triggered vehicles ride specified using the exact vehicle id rather than the line attribute
+ride_ignore_line
+
 # person rides and then stops
 ride_and_stop
 
+# person ride triggers a vehicle scaled with 3
+ride_triggered_scale
+
+# busses have a large boarding duration such that the stop duration will be extended by the boarding of the passengers
+boarding_duration_extension
+
 # busses have a small boarding duration such that the stop duration will not be extended by the boarding of the passengers
 boarding_duration_no_extension
+
+# busses have a large boarding duration but the stop duration extension is limited
+boarding_duration_extension_limited
+
+# busses have a large boarding duration but the stop duration extension is limited
+boarding_duration_extension_limited_no_persons
 
 # person with a single walk
 walk
@@ -30,9 +56,13 @@ walk_0
 
 # random depart and arrival positions
 walk_random_pos
+walk_start_crossing
 
 # person with a public transport ride
 public
+
+# person with a public transport ride specified using the exact vehicle id
+public_by_id
 
 # person waiting for a public transport ride
 public_wait
@@ -40,11 +70,20 @@ public_wait
 # bus arrives past it's until time but still picks up person
 public_brief_stop
 
-# person waiting to get a lift
+# vehicle is waiting at stop for a person
 triggered
+
+# vehicle with triggered departure is discarded due to departDelay
+triggered_discard
 
 # car waiting for person
 vehicle_triggered
+
+# person starting in a vehicle
+person_triggered
+
+# 2 person starting in the same vehicle
+persons_triggered
 
 # person stops for a given duration
 stop_duration
@@ -58,6 +97,9 @@ abort_impossible_ride
 # test whether a chain of walks rides and stops works
 trip_chain
 
+# test whether a chain of walks rides and stops works (specify for charging stations, see #5384)
+trip_chain_chargingstations
+
 # tests if a person leaves a vehicle not only if the destination edge is reached but also if the vehicle that is transporting the person reached its current destination stop (plus minos some tolerance)
 leaving_vehicle_at_stop
 
@@ -69,4 +111,13 @@ person_number
 
 # person ride for restricted capacity
 capacity
+
+# person uses lines="ANY", vehicle stops at a lane rather than a busStop
+ride_ANY_stopLane
+
+# successive stops on different edges should raise an error (teleporting instead via #6325)
+stop_teleport_stop
+
+# wait at busStop in a lefthand network
+lefthand_wait
 errors

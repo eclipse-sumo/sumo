@@ -1,17 +1,20 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBPTLineCont.cpp
 /// @author  Gregor Laemmel
 /// @author  Nikita Cherednychek
 /// @date    Tue, 20 Mar 2017
-/// @version $Id$
 ///
 // Container for NBPTLine during netbuild
 /****************************************************************************/
@@ -28,6 +31,9 @@
 #include "NBVehicle.h"
 #include "NBPTStopCont.h"
 
+//#define DEBUG_FIND_WAY
+#define DEBUGSTOPID ""
+
 // ===========================================================================
 // static value definitions
 // ===========================================================================
@@ -37,86 +43,56 @@ const int NBPTLineCont::BWD(-1);
 // method definitions
 // ===========================================================================
 
-NBPTLineCont::NBPTLineCont()
-    :
-    myIdCnt(0) { }
+NBPTLineCont::NBPTLineCont() { }
 
 
 NBPTLineCont::~NBPTLineCont() {
     for (auto& myPTLine : myPTLines) {
-        delete myPTLine;
+        delete myPTLine.second;
     }
     myPTLines.clear();
 }
 
 void
-NBPTLineCont::insert(NBPTLine* pLine) {
-    pLine->setId(myIdCnt++);
-    myPTLines.push_back(pLine);
+NBPTLineCont::insert(NBPTLine* ptLine) {
+    myPTLines[ptLine->getLineID()] = ptLine;
 }
-void NBPTLineCont::process(NBEdgeCont& cont) {
-    for (auto& myPTLine : myPTLines) {
-        reviseStops(myPTLine, cont);
 
-        constructRoute(myPTLine, cont);
-
-
-        //
-
-
-
+void NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc) {
+    for (auto& item : myPTLines) {
+        if (item.second->getMyWays().size() > 0) {
+            // loaded from OSM rather than ptline input. We can use extra
+            // information to reconstruct route and stops
+            constructRoute(item.second, ec);
+            // map stops to ways, using the constructed route for loose stops
+            reviseStops(item.second, ec, sc);
+        }
     }
 }
-void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
-    std::vector<NBPTStop*> stops = myPTLine->getStops();
-    for (auto& stop : stops) {
+
+void NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc) {
+    const std::vector<std::string>& waysIds = line->getMyWays();
+    if (waysIds.size() <= 1) {
+        WRITE_WARNING("Cannot revise pt stop localization for pt line: " + line->getLineID() + ", which consist of one way only. Ignoring!");
+        return;
+    }
+    if (line->getRoute().size() == 0) {
+        WRITE_WARNING("Cannot revise pt stop localization for pt line: " + line->getLineID() + ", which has no route edges. Ignoring!");
+        return;
+    }
+    std::vector<NBPTStop*> stops = line->getStops();
+    for (NBPTStop* stop : stops) {
         //get the corresponding and one of the two adjacent ways
-        std::string origId = stop->getOrigEdgeId();
-
-        std::vector<std::string> waysIds = myPTLine->getMyWays();
-        auto waysIdsIt = waysIds.begin();
-        if (waysIds.size() <= 1) {
-            WRITE_WARNING("Cannot revise pt stop localization for pt line: " + myPTLine->getName()
-                          + ", which consist of one way only. Ignoring!");
+        stop = findWay(line, stop, ec, sc);
+        auto waysIdsIt = std::find(waysIds.begin(), waysIds.end(), stop->getOrigEdgeId());
+        if (waysIdsIt == waysIds.end()) {
+            // warning already given
             continue;
         }
-        for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
-            if ((*waysIdsIt) == origId) {
-                break;
-            }
-        }
-
-        if (waysIdsIt == waysIds.end()) {
-            for (auto& edgeCand : stop->getMyAdditionalEdgeCandidates()) {
-                bool found = false;
-                waysIdsIt =  waysIds.begin();
-                for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
-                    if ((*waysIdsIt) == edgeCand.first) {
-                        if (stop->setEdgeId(edgeCand.second, cont)) {
-                            stop->setMyOrigEdgeId(edgeCand.first);
-                            origId = edgeCand.first;
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-                if (found) {
-                    break;
-                }
-            }
-        }
-
-
-        if (waysIdsIt == waysIds.end()) {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
-                          + ". Ignoring!");
-            continue;
-        }
-
-        std::vector<long long int>* way = myPTLine->getWaysNodes(origId);
+        // find directional edge (OSM ways are bidirectional)
+        std::vector<long long int>* way = line->getWaysNodes(stop->getOrigEdgeId());
         if (way == nullptr) {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
-                          + ". Ignoring!");
+            WRITE_WARNING("Cannot assign stop '" + stop->getID() + "' on edge '" + stop->getOrigEdgeId() + "' to pt line '" + line->getLineID() + "' (wayNodes not found). Ignoring!");
             continue;
         }
 
@@ -130,10 +106,10 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
         if (waysIdsIt != (waysIds.end() - 1)) {
             adjIdNext = *(waysIdsIt + 1);
         }
-        std::vector<long long int>* wayPrev = myPTLine->getWaysNodes(adjIdPrev);
-        std::vector<long long int>* wayNext = myPTLine->getWaysNodes(adjIdNext);
+        std::vector<long long int>* wayPrev = line->getWaysNodes(adjIdPrev);
+        std::vector<long long int>* wayNext = line->getWaysNodes(adjIdNext);
         if (wayPrev == nullptr && wayNext == nullptr) {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
+            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + line->getLineID()
                           + ". Ignoring!");
             continue;
         }
@@ -150,13 +126,13 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
                    || wayBegins == wayNextBegins) {
             dir = BWD;
         } else {
-            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + myPTLine->getName()
+            WRITE_WARNING("Cannot revise pt stop localization for incomplete pt line: " + line->getLineID()
                           + ". Ignoring!");
             continue;
         }
 
         std::string edgeId = stop->getEdgeId();
-        NBEdge* current = cont.getByID(edgeId);
+        NBEdge* current = ec.getByID(edgeId);
         int assignedTo = edgeId.at(0) == '-' ? BWD : FWD;
 
         if (dir != assignedTo) {
@@ -165,12 +141,94 @@ void NBPTLineCont::reviseStops(NBPTLine* myPTLine, NBEdgeCont& cont) {
                 WRITE_WARNING("Could not re-assign PT stop: " + stop->getID() + " probably broken osm file");
                 continue;
             }
-            stop->setEdgeId(reverse->getID(), cont);
+            stop->setEdgeId(reverse->getID(), ec);
             WRITE_WARNING("PT stop: " + stop->getID() + " has been moved to edge: " + reverse->getID());
         }
         myServedPTStops.insert(stop->getID());
-        stop->addLine(myPTLine->getRef());
+        stop->addLine(line->getRef());
     }
+}
+
+NBPTStop*
+NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const {
+    const std::vector<std::string>& waysIds = line->getMyWays();
+#ifdef DEBUG_FIND_WAY
+    if (stop->getID() == DEBUGSTOPID) {
+        std::cout << " stop=" << stop->getID() << " line=" << line->getLineID() << " edgeID=" << stop->getEdgeId() << " origID=" << stop->getOrigEdgeId() << "\n";
+    }
+#endif
+    if (stop->isLoose()) {
+        // find closest edge in route
+        double minDist = std::numeric_limits<double>::max();
+        NBEdge* best = nullptr;
+        for (NBEdge* edge : line->getRoute()) {
+            const double dist = edge->getLaneShape(0).distance2D(stop->getPosition());
+            if (dist < minDist) {
+                best = edge;
+                minDist = dist;
+            }
+        }
+#ifdef DEBUG_FIND_WAY
+        if (stop->getID() == DEBUGSTOPID) {
+            std::cout << "   best=" << Named::getIDSecure(best) << " minDist=" << minDist << " wayID=" << getWayID(best->getID())
+                      << " found=" << (std::find(waysIds.begin(), waysIds.end(), getWayID(best->getID())) != waysIds.end())
+                      << " wayIDs=" << toString(waysIds) << "\n";
+        }
+#endif
+        if (minDist < OptionsCont::getOptions().getFloat("ptline.match-dist")) {
+            const std::string wayID = getWayID(best->getID());
+            if (stop->getEdgeId() == "") {
+                stop->setEdgeId(best->getID(), ec);
+                stop->setMyOrigEdgeId(wayID);
+            } else if (stop->getEdgeId() != best->getID()) {
+                // stop is used by multiple lines and mapped to different edges.
+                // check if an alterantive stop already exists
+                NBPTStop* newStop = sc.findStop(wayID, stop->getPosition());
+                if (newStop == nullptr) {
+                    newStop = new NBPTStop(stop->getID() + "@" + line->getLineID(), stop->getPosition(), best->getID(), wayID, stop->getLength(), stop->getName(), stop->getPermissions());
+                    newStop->setEdgeId(best->getID(), ec);  // trigger lane assignment
+                    sc.insert(newStop);
+                }
+                line->replaceStop(stop, newStop);
+                stop = newStop;
+            }
+        } else {
+            WRITE_WARNING("Could not assign stop '" + stop->getID() + "' to pt line '" + line->getLineID()
+                          + "' (closest edge '" + best->getID() + "', distance " + toString(minDist) + "). Ignoring!");
+        }
+    } else {
+        // if the stop is part of an edge, find that edge among the line edges
+        auto waysIdsIt = waysIds.begin();
+        for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
+            if ((*waysIdsIt) == stop->getOrigEdgeId()) {
+                break;
+            }
+        }
+
+        if (waysIdsIt == waysIds.end()) {
+            // stop edge not found, try additional edges
+            for (auto& edgeCand : stop->getMyAdditionalEdgeCandidates()) {
+                bool found = false;
+                waysIdsIt =  waysIds.begin();
+                for (; waysIdsIt != waysIds.end(); waysIdsIt++) {
+                    if ((*waysIdsIt) == edgeCand.first) {
+                        if (stop->setEdgeId(edgeCand.second, ec)) {
+                            stop->setMyOrigEdgeId(edgeCand.first);
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                if (found) {
+                    break;
+                }
+            }
+            if (waysIdsIt == waysIds.end()) {
+                WRITE_WARNING("Cannot assign stop '" + stop->getID() + "' on edge '" + stop->getOrigEdgeId() + "' to pt line '" + line->getLineID() + "'. Ignoring!");
+            }
+        }
+    }
+    return stop;
 }
 
 
@@ -255,7 +313,8 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
             }
         } else {
             if (it3 != pTLine->getMyWays().begin()) {
-                WRITE_WARNING("Incomplete route for ptline '" + toString(pTLine->getLineID()) + "' (" + pTLine->getName() + ")");
+                WRITE_WARNING("Incomplete route for ptline '" + toString(pTLine->getLineID()) +
+                              (pTLine->getName() != "" ? "' (" + pTLine->getName() + ")" : ""));
             }
             prevWayEdges = currentWayEdges;
             prevWayMinusEdges = currentWayMinusEdges;
@@ -270,35 +329,27 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
         currentWayEdges.clear();
         currentWayMinusEdges.clear();
     }
-
-    auto fr = edges.begin();
-    NBPTStop* frStop = pTLine->getStops()[0];
-    for (; fr != edges.end(); fr++) {
-        if ((*fr)->getID() == frStop->getEdgeId()) {
-            break;
-        }
-    }
-    auto to = fr;
-    NBPTStop* toStop = *(pTLine->getStops().end() - 1);
-    for (; to != edges.end(); to++) {
-        if ((*to)->getID() == toStop->getEdgeId()) {
-            to++;
-            break;
-        }
-    }
-
-    pTLine->addEdgeVector(fr, to);
+    pTLine->setEdges(edges);
 }
 
 
 void
 NBPTLineCont::addEdges2Keep(const OptionsCont& oc, std::set<std::string>& into) {
     if (oc.isSet("ptline-output")) {
-        for (auto line : myPTLines) {
-            for (auto edge : line->getRoute()) {
+        for (auto& item : myPTLines) {
+            for (auto edge : item.second->getRoute()) {
                 into.insert(edge->getID());
             }
         }
+    }
+}
+
+
+void
+NBPTLineCont::replaceEdge(const std::string& edgeID, const EdgeVector& replacement) {
+    //std::cout << " replaceEdge " << edgeID << " replacement=" << toString(replacement) << "\n";
+    for (auto& item : myPTLines) {
+        item.second->replaceEdge(edgeID, replacement);
     }
 }
 
@@ -319,11 +370,11 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
     types["light_rail"] = SVC_RAIL_URBAN;
     types["ferry"] = SVC_SHIP;
 
-    SUMOAbstractRouter<NBEdge, NBVehicle>* router;
-    router = new DijkstraRouter<NBEdge, NBVehicle, SUMOAbstractRouter<NBEdge, NBVehicle> >(
-        ec.getAllEdges(), true, &NBEdge::getTravelTimeStatic, nullptr, true);
+    SUMOAbstractRouter<NBRouterEdge, NBVehicle>* const router = new DijkstraRouter<NBRouterEdge, NBVehicle>(
+        ec.getAllRouterEdges(), true, &NBRouterEdge::getTravelTimeStatic, nullptr, true);
 
-    for (NBPTLine* line : myPTLines) {
+    for (auto& item : myPTLines) {
+        NBPTLine* line = item.second;
         std::vector<NBPTStop*> stops = line->getStops();
         if (stops.size() < 2) {
             continue;
@@ -409,18 +460,32 @@ NBPTLineCont::fixBidiStops(const NBEdgeCont& ec) {
 
 
 double
-NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBEdge, NBVehicle>& router,
+NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBVehicle>& router,
                       const NBPTStop* from, const NBPTStop* to, const NBVehicle* veh) {
     NBEdge* fromEdge = ec.getByID(from->getEdgeId());
     NBEdge* toEdge = ec.getByID(to->getEdgeId());
     if (fromEdge == nullptr || toEdge == nullptr) {
         return std::numeric_limits<double>::max();
     }
-    std::vector<const NBEdge*> route;
+    std::vector<const NBRouterEdge*> route;
     router.compute(fromEdge, toEdge, veh, 0, route);
     if (route.size() == 0) {
         return std::numeric_limits<double>::max();
     } else {
         return router.recomputeCosts(route, veh, 0);
     }
+}
+
+
+std::string
+NBPTLineCont::getWayID(const std::string& edgeID) {
+    std::size_t found = edgeID.rfind("#");
+    std::string result = edgeID;
+    if (found != std::string::npos) {
+        result = edgeID.substr(0, found);
+    }
+    if (result[0] == '-') {
+        result = result.substr(1);
+    }
+    return result;
 }

@@ -1,3 +1,6 @@
+# Define source taz edge only when needed, see #818
+noSourceTaz
+
 # only different source and sink edges
 differSourceSink
 

@@ -1,0 +1,9 @@
+<routes>
+    <vType id="L10" length="10"/>
+    <vType id="L15" length="15"/>
+    <vType id="L110" length="110"/>
+    <flow id="default"        begin="0"     end="1000"  period="2" from="beg" to="end" departSpeed="max"/>
+    <flow id="L10"  type="L10"  begin="10000" end="11000" period="2" from="beg" to="end" departSpeed="max"/>
+    <flow id="L15"  type="L15"  begin="20000" end="21000" period="2" from="beg" to="end" departSpeed="max"/>
+    <flow id="L110" type="L110" begin="30000" end="31000" period="60" from="beg" to="end" departSpeed="max"/>
+</routes>

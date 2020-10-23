@@ -1,0 +1,4 @@
+Warning: Missing yellow phase in tlLogic '0', program 'S1' for tl-index 0 when switching to phase 1
+Warning: Missing yellow phase in tlLogic '0', program 'S1' for tl-index 4 when switching to phase 0
+Warning: Missing yellow phase in tlLogic '0', program 'S2' for tl-index 0 when switching to phase 1
+Warning: Missing yellow phase in tlLogic '0', program 'S2' for tl-index 4 when switching to phase 0

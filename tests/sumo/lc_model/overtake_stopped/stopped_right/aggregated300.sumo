@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 12 14:00:45 2018 by Eclipse SUMO Version v1_0_0+0139-646ed4b
+<!-- generated on Tue Mar 31 09:34:30 2020 by Eclipse SUMO Version v1_5_0+1023-63f9a82342
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,10 +34,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
-    <interval begin="0.00" end="1104.00" id="laneData">
+    <interval begin="0.00" end="1098.00" id="laneData">
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="16554.02" traveltime="102.12" overlapTraveltime="102.26" density="5.00" occupancy="2.50" waitingTime="1335.00" speed="29.36" departed="199" arrived="220" entered="0" left="0" laneChangedFrom="231" laneChangedTo="252"/>
-            <lane id="beg2_1" sampledSeconds="15863.21" traveltime="103.17" overlapTraveltime="103.32" density="4.79" occupancy="2.40" waitingTime="84.00" speed="29.06" departed="117" arrived="96" entered="0" left="0" laneChangedFrom="252" laneChangedTo="231"/>
+            <lane id="beg2_0" sampledSeconds="15841.66" traveltime="99.13" overlapTraveltime="99.27" density="4.82" laneDensity="4.82" occupancy="2.41" waitingTime="1264.00" speed="30.19" departed="199" arrived="213" entered="0" left="0" laneChangedFrom="238" laneChangedTo="252"/>
+            <lane id="beg2_1" sampledSeconds="15193.72" traveltime="97.35" overlapTraveltime="97.49" density="4.62" laneDensity="4.62" occupancy="2.31" waitingTime="30.00" speed="30.74" departed="117" arrived="103" entered="0" left="0" laneChangedFrom="252" laneChangedTo="238"/>
         </edge>
     </interval>
 </meandata>

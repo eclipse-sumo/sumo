@@ -1,3 +1,9 @@
+# Tests for lateral distance filtering
+lateralDistance
+
+# Tests for field of vision (circular sector) filtering
+fieldOfVision
+
 # Tests the traversal of the roadnet for detection of surrounding vehicles if the lanes filter is combined with different values for downstreamDistance and upstreamDistance and no-opposite
 roadnetSearch_noOpposite
 

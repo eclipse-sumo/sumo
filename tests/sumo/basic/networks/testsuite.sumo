@@ -9,8 +9,15 @@ plain_net_internal_sim
 # Network has internal edges, simulation does not want to use them
 internal_net_plain_sim
 
+# Network has internal edges, simulation does not want to use them
+# but all edges have a custom length value
+internal_net_plain_sim_allCustom
+
 # Network has no internal edges, simulation does not want to use them
 plain_net_plain_sim
 
 # test correct object positioning in lefthand network
 lefthand
+
+# parsing a network with taz information
+net_with_taz

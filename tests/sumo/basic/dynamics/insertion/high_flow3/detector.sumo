@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 11 10:41:07 2016 by SUMO Version dev-SVN-r21965
+<!-- generated on Mon Mar 30 15:08:06 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,12 +14,17 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <end value="1800"/>
     </time>
 
     <processing>
         <max-depart-delay value="1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -33,8 +38,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="743" flow="2972.00" occupancy="11.57" speed="35.96" length="5.00" nVehEntered="743"/>
-    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="743" flow="2972.00" occupancy="11.57" speed="35.96" length="5.00" nVehEntered="743"/>
-    <interval begin="900.00" end="1800.00" id="beg2_0" nVehContrib="743" flow="2972.00" occupancy="11.47" speed="36.00" length="5.00" nVehEntered="743"/>
-    <interval begin="900.00" end="1800.00" id="beg2_1" nVehContrib="743" flow="2972.00" occupancy="11.47" speed="36.00" length="5.00" nVehEntered="743"/>
+    <interval begin="0.00" end="900.00" id="beg2_0" nVehContrib="743" flow="2972.00" occupancy="11.57" speed="35.96" harmonicMeanSpeed="35.66" length="5.00" nVehEntered="743"/>
+    <interval begin="0.00" end="900.00" id="beg2_1" nVehContrib="742" flow="2968.00" occupancy="11.56" speed="35.96" harmonicMeanSpeed="35.66" length="5.00" nVehEntered="742"/>
+    <interval begin="900.00" end="1800.00" id="beg2_0" nVehContrib="743" flow="2972.00" occupancy="11.47" speed="36.00" harmonicMeanSpeed="36.00" length="5.00" nVehEntered="743"/>
+    <interval begin="900.00" end="1800.00" id="beg2_1" nVehContrib="743" flow="2972.00" occupancy="11.47" speed="36.00" harmonicMeanSpeed="36.00" length="5.00" nVehEntered="743"/>
 </detector>

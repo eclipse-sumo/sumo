@@ -13,8 +13,8 @@ wauts
 # Tests whether stops work
 stops
 
-# "one shot" in-simulation vehicle routing
-simulation_routing
+# test waypoint definition (stops with speed > 0)
+waypoints
 
 # vehicle removal via vaporizer
 vaporizer
@@ -22,40 +22,24 @@ vaporizer
 # Tests whether calibrators work
 calibrator
 
-# Tests for HBEFA-based per-vehicle emissions
-device_hbefa
-
 # Tests for HBEFA-based emission computation
 hbefa
 
 # Tests for bus stops
 busses
 
+# test with bicycles that do not fit anywhere else
+bikes
+
 # test loading of shapes 
 # (relevant for cmd-line sumo since they can be access via TraCI)
 shapes
 
-# tests functions of the example device
-device_example
-
-# tests functions of the bluelight device
-device_bluelight
-
 # saving and loading simulation state
 state
 
-# tests for bt devices
-device_bt
-
-# tests for battery device and charging station
-electric
-
 # check options for collision handling (emergencyDecel is disabled here to keep the legacy behavior)
 collisions
-rail
-
-# Tests for the Surrogate Safety Measure Device (MSDevice_SSM)
-SSMDevice
 
 # test for using option --max-num-vehicles
 max_num_vehicles

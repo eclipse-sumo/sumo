@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 30.08.2018 09:54:19 by Eclipse SUMO netedit Version b980bbd93f
+<!-- generated on 21.10.2019 15:10:08 by Eclipse SUMO netedit Version v1_3_1+0652-10038a9a96
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug094650.340/netedit.gui/shapeElements/poly/inspect/inspect_geo_shape\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Oct150740.2700\netedit.gui\shapeElements\poly\inspect\geo_shape\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug094650.340/netedit.gui/shapeElements/poly/inspect/inspect_geo_shape\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Oct150740.2700\netedit.gui\shapeElements\poly\inspect\geo_shape\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -19,7 +20,7 @@
     <junctions>
         <no-turnarounds value="true"/>
         <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="-1"/>
+        <junctions.limit-turn-speed value="5.5"/>
         <rectangular-lane-cut value="false"/>
     </junctions>
 
@@ -28,12 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug094650.340/netedit.gui/shapeElements/poly/inspect/inspect_geo_shape\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug094650.340/netedit.gui/shapeElements/poly/inspect/inspect_geo_shape\shapes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Oct150740.2700\netedit.gui\shapeElements\poly\inspect\geo_shape\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Oct150740.2700\netedit.gui\shapeElements\poly\inspect\geo_shape\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Oct150740.2700\netedit.gui\shapeElements\poly\inspect\geo_shape\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Oct150740.2700\netedit.gui\shapeElements\poly\inspect\geo_shape\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug094650.340/netedit.gui/shapeElements/poly/inspect/inspect_geo_shape\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Oct150740.2700\netedit.gui\shapeElements\poly\inspect\geo_shape\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,12 +46,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_30Aug094650.340/netedit.gui/shapeElements/poly/inspect/inspect_geo_shape\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.21Oct150740.2700\netedit.gui\shapeElements\poly\inspect\geo_shape\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="-2711483.050527,1000621.256577 -2056804.299750,1557393.195095 -2563943.955304,2235693.958192 -3016394.601097,2972157.425601 -3780359.216193,2481639.948787 -4609832.099047,1940778.621138 -4018788.615424,1119743.644669 -3388483.893706,395758.010660 -2711483.050527,1000621.256577"/>
+    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="-2711527.094229,1000635.818699 -2056807.940052,1557396.051959 -2563934.151849,2235708.615558 -3016271.140037,2972193.458496 -3780172.620676,2481903.444975 -4610394.876559,1941895.181071 -4019395.755701,1120022.207110 -3388736.072138,395788.626902 -2711527.094229,1000635.818699"/>
 </additional>

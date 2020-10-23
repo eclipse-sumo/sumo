@@ -1,0 +1,35 @@
+<additionals>
+	<poly id="poly_0" color="green" fill="0" layer="0.00" shape="-50.00,40.00 -40.00,40.00 -40.00,30.00 -50.00,30.00 -50.00,40.00">
+	
+    <!-- valid generic parameter (valid) -->
+    <param key="key1" value="value1"/>
+
+    <!-- empty generic parameter (invalid -->
+    <param/>
+    
+    <!-- missin key (invalid) -->
+    <param value="value2"/>
+
+    <!-- empty key (invalid) -->
+    <param key="" value="value3"/>
+
+    <!-- key contains invalid characters (invalid) -->
+    <param key="$$key with spaces%%" value="value4"/>
+
+    <!-- duplicated key (valid, overwrites the first one, show warning) -->
+    <param key="key1" value="value5"/>
+
+    <!-- missing value (invalid, value must exist)-->
+    <param key="key2"/>
+
+    <!-- empty value (valid, value may be empty) -->
+    <param key="key2" value=""/>
+
+    <!-- value contains invalid characters (valid - no restrictions on value) -->
+    <param key="key3" value="$$value with spaces%%"/>
+    
+     <!-- valid generic parameter (valid) -->
+     <param key="keyFinal" value="valueFinal"/>
+		
+	</poly>
+</additionals>

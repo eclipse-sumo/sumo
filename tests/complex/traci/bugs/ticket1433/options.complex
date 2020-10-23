@@ -1,0 +1,1 @@
+sumo tests/complex/traci/bugs/ticket1433/runner.py --nogui

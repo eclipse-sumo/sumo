@@ -1,7 +1,9 @@
 Please feel free to add and / or modify files here but keep in mind that
-EPL requires that "derivative works" be licensed under the terms of the EPL
-whereas "separate modules of software" may be licensed arbitrarily.
-Modifications to the files and directories listed here are considered derivative work:
+EPL requires that "derivative works" be licensed under the terms of the EPL.
+If the extension is a separate module and is not published under the EPL
+it will not be adopted in the SUMO mainline repository.
+
+Modifications to the files and directories listed here are considered _derivative work_:
  
 - assign
 - build
@@ -45,5 +47,5 @@ Modifications to the files and directories listed here are considered derivative
 - tlsCycleAdaptation.py
 - traceExporter.py
 
-If you need a separate license and/or wish to mark your contribution as a separate entity,
+If you wish to mark your contribution as a separate entity,
 please consider adding it to the contributed folder.

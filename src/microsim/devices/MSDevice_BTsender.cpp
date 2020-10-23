@@ -1,24 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_BTsender.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    14.08.2013
-/// @version $Id$
 ///
 // A BT sender
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/common/StringUtils.h>
@@ -82,7 +81,7 @@ MSDevice_BTsender::~MSDevice_BTsender() {
 
 
 bool
-MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_BTsender::notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* /* enteredLane */) {
     if (reason == MSMoveReminder::NOTIFICATION_DEPARTED && sVehicles.find(veh.getID()) == sVehicles.end()) {
         sVehicles[veh.getID()] = new VehicleInformation(veh.getID());
         sVehicles[veh.getID()]->route.push_back(veh.getEdge());
@@ -93,26 +92,28 @@ MSDevice_BTsender::notifyEnter(SUMOVehicle& veh, Notification reason, const MSLa
     if (reason == MSMoveReminder::NOTIFICATION_TELEPORT || reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
         sVehicles[veh.getID()]->route.push_back(veh.getEdge());
     }
-    const MSVehicle& v = static_cast<MSVehicle&>(veh);
-    sVehicles[veh.getID()]->updates.push_back(VehicleState(veh.getSpeed(), veh.getPosition(), v.getLane()->getID(), veh.getPositionOnLane(), v.getRoutePosition()));
+    const std::string location = MSGlobals::gUseMesoSim ? veh.getEdge()->getID() : static_cast<MSVehicle&>(veh).getLane()->getID();
+    const MSBaseVehicle& v = static_cast<MSBaseVehicle&>(veh);
+    sVehicles[veh.getID()]->updates.push_back(VehicleState(veh.getSpeed(), veh.getPosition(), location, veh.getPositionOnLane(), v.getRoutePosition()));
     return true;
 }
 
 
 bool
-MSDevice_BTsender::notifyMove(SUMOVehicle& veh, double /* oldPos */, double newPos, double newSpeed) {
+MSDevice_BTsender::notifyMove(SUMOTrafficObject& veh, double /* oldPos */, double newPos, double newSpeed) {
     if (sVehicles.find(veh.getID()) == sVehicles.end()) {
         WRITE_WARNING("btsender: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
     }
-    const MSVehicle& v = static_cast<MSVehicle&>(veh);
-    sVehicles[veh.getID()]->updates.push_back(VehicleState(newSpeed, veh.getPosition(), v.getLane()->getID(), newPos, v.getRoutePosition()));
+    const std::string location = MSGlobals::gUseMesoSim ? veh.getEdge()->getID() : static_cast<MSVehicle&>(veh).getLane()->getID();
+    const MSBaseVehicle& v = static_cast<MSBaseVehicle&>(veh);
+    sVehicles[veh.getID()]->updates.push_back(VehicleState(newSpeed, veh.getPosition(), location, newPos, v.getRoutePosition()));
     return true;
 }
 
 
 bool
-MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, double /* lastPos */, Notification reason, const MSLane* /* enteredLane */) {
+MSDevice_BTsender::notifyLeave(SUMOTrafficObject& veh, double /* lastPos */, Notification reason, const MSLane* /* enteredLane */) {
     if (reason < MSMoveReminder::NOTIFICATION_TELEPORT) {
         return true;
     }
@@ -120,8 +121,9 @@ MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, double /* lastPos */, Notificat
         WRITE_WARNING("btsender: Can not update position of vehicle '" + veh.getID() + "' which is not on the road.");
         return true;
     }
-    const MSVehicle& v = static_cast<MSVehicle&>(veh);
-    sVehicles[veh.getID()]->updates.push_back(VehicleState(veh.getSpeed(), veh.getPosition(), v.getLane()->getID(), veh.getPositionOnLane(), v.getRoutePosition()));
+    const std::string location = MSGlobals::gUseMesoSim ? veh.getEdge()->getID() : static_cast<MSVehicle&>(veh).getLane()->getID();
+    const MSBaseVehicle& v = static_cast<MSBaseVehicle&>(veh);
+    sVehicles[veh.getID()]->updates.push_back(VehicleState(veh.getSpeed(), veh.getPosition(), location, veh.getPositionOnLane(), v.getRoutePosition()));
     if (reason >= MSMoveReminder::NOTIFICATION_TELEPORT) {
         sVehicles[veh.getID()]->amOnNet = false;
     }
@@ -134,4 +136,3 @@ MSDevice_BTsender::notifyLeave(SUMOVehicle& veh, double /* lastPos */, Notificat
 
 
 /****************************************************************************/
-

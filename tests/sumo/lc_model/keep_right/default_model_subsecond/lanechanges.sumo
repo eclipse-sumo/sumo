@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Oct 18 15:19:11 2017 by SUMO Version dev-SVN-r26551
+<!-- generated on Thu Jun 13 08:48:51 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <precision value="3"/>
         <netstate-dump.precision value="3"/>
         <emission-output.precision value="3"/>
@@ -26,6 +27,10 @@ SPDX-License-Identifier: EPL-2.0
         <end value="20"/>
         <step-length value="0.001"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -41,5 +46,5 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="v0" type="t0" time="7.143" from="beg_1" to="beg_0" dir="-1" speed="13.890" pos="104.316" reason="keepRight" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="None" origLeaderSecureGap="None"/>
+    <change id="v0" type="t0" time="7.143" from="beg_1" to="beg_0" dir="-1" speed="13.890" pos="104.316" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
 </lanechanges>

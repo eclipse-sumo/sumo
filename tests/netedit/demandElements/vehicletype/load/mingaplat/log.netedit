@@ -1,0 +1,3 @@
+Error: Attribute 'minGapLat' in definition of vType 'vType0' is not of type float.
+Error: minGapLat must be equal or greater than 0
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/mingaplat\input_routes.rou.xml failed.

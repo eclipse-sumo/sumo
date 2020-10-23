@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+
+    <trip id="ego" from="beg" to="beg2" depart="0" departPos="-300" departSpeed="max" departLane="2"/>
+
+</routes>

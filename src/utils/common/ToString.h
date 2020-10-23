@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    ToString.h
 /// @author  Christian Roessel
@@ -13,19 +17,10 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 23 Sep 2002
-/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/
-#ifndef ToString_h
-#define ToString_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
+#pragma once
 #include <sstream>
 #include <string>
 #include <iomanip>
@@ -117,6 +112,17 @@ inline std::string toString<RightOfWay>(const RightOfWay& row, std::streamsize a
     return SUMOXMLDefinitions::RightOfWayValues.getString(row);
 }
 
+template <>
+inline std::string toString<FringeType>(const FringeType& fringeType, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::FringeTypeValues.getString(fringeType);
+}
+
+template <>
+inline std::string toString<PersonMode>(const PersonMode& personMode, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::PersonModeValues.getString(personMode);
+}
 
 template <>
 inline std::string toString<LinkState>(const LinkState& linkState, std::streamsize accuracy) {
@@ -136,6 +142,13 @@ template <>
 inline std::string toString<TrafficLightType>(const TrafficLightType& type, std::streamsize accuracy) {
     UNUSED_PARAMETER(accuracy);
     return SUMOXMLDefinitions::TrafficLightTypes.getString(type);
+}
+
+
+template <>
+inline std::string toString<TrafficLightLayout>(const TrafficLightLayout& layout, std::streamsize accuracy) {
+    UNUSED_PARAMETER(accuracy);
+    return SUMOXMLDefinitions::TrafficLightLayouts.getString(layout);
 }
 
 
@@ -354,9 +367,3 @@ template <>
 inline std::string toString(const std::map<std::string, std::string>& v, std::streamsize) {
     return joinToString(v, ", ", ":");
 }
-
-
-#endif
-
-/****************************************************************************/
-

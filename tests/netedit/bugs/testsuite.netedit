@@ -1,3 +1,15 @@
+# Folder with bugs related to additionals
+additionals
+
+# Folder with bugs related to crossings
+crossings
+
+# Folder with bugs related to processing
+grid
+
+# Folder with bugs related to processing
+processing
+
 # In revision [24081] was solved a bug, that provoke a crash 
 # when the position of a node was changed using inspector node,
 # due a call to computeSingleNode(...)
@@ -15,14 +27,11 @@ ticket2948
 # crash on opening lefthand network
 ticket3900
 
-# Folder with bugs related to additionals
-additionals
+# After recomputing Green verge change to bikelanes
+ticket4528
 
-# Folder with bugs related to crossings
-crossings
+# crash when moving edges
+ticket5540
 
-# Folder with bugs related to processing
-grid
-
-# Folder with bugs related to processing
-processing
+# Crash after sequence of Undo-redo, recomputings and Join junctions 
+ticket5552

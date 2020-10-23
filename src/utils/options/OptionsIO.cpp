@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OptionsIO.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // Helper for parsing command line arguments and reading configuration files
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -40,6 +38,11 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
+#ifdef HAVE_ZLIB
+#include <foreign/zstr/zstr.hpp>
+#endif
+#include <utils/xml/IStreamInputSource.h>
+
 
 // ===========================================================================
 // static member definitions
@@ -77,7 +80,9 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     if (myArgC == 2 && myArgV[1][0] != '-') {
         // special case only one parameter, check who can handle it
         if (OptionsCont::getOptions().setByRootElement(getRoot(myArgV[1]), myArgV[1])) {
-            loadConfiguration();
+            if (!commandLineOnly) {
+                loadConfiguration();
+            }
             return;
         }
     }
@@ -86,14 +91,9 @@ OptionsIO::getOptions(const bool commandLineOnly) {
     if (!OptionsParser::parse(myArgC, myArgV)) {
         throw ProcessError("Could not parse commandline options.");
     }
-    if (!commandLineOnly) {
+    if (!commandLineOnly || OptionsCont::getOptions().isSet("save-configuration", false)) {
         // read the configuration when everything's ok
-        OptionsCont::getOptions().resetWritable();
         loadConfiguration();
-        // reparse the options
-        //  (overwrite the settings from the configuration file)
-        OptionsCont::getOptions().resetWritable();
-        OptionsParser::parse(myArgC, myArgV);
     }
 }
 
@@ -104,11 +104,12 @@ OptionsIO::loadConfiguration() {
     if (!oc.exists("configuration-file") || !oc.isSet("configuration-file")) {
         return;
     }
-    std::string path = oc.getString("configuration-file");
+    const std::string path = oc.getString("configuration-file");
     if (!FileHelpers::isReadable(path)) {
         throw ProcessError("Could not access configuration '" + oc.getString("configuration-file") + "'.");
     }
     PROGRESS_BEGIN_MESSAGE("Loading configuration");
+    oc.resetWritable();
     // build parser
     XERCES_CPP_NAMESPACE::SAXParser parser;
     parser.setValidationScheme(XERCES_CPP_NAMESPACE::SAXParser::Val_Auto);
@@ -127,6 +128,11 @@ OptionsIO::loadConfiguration() {
         throw ProcessError("Could not load configuration '" + path + "':\n " + StringUtils::transcode(e.getMessage()));
     }
     oc.relocateFiles(path);
+    if (myArgC > 2) {
+        // reparse the options (overwrite the settings from the configuration file)
+        oc.resetWritable();
+        OptionsParser::parse(myArgC, myArgV);
+    }
     PROGRESS_DONE_MESSAGE();
 }
 
@@ -141,7 +147,17 @@ OptionsIO::getRoot(const std::string& filename) {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);
         XERCES_CPP_NAMESPACE::XMLPScanToken token;
-        if (!parser.parseFirst(filename.c_str(), token)) {
+        if (!FileHelpers::isReadable(filename) || FileHelpers::isDirectory(filename)) {
+            throw ProcessError("Could not open '" + filename + "'.");
+        }
+#ifdef HAVE_ZLIB
+        zstr::ifstream istream(filename.c_str(), std::fstream::in | std::fstream::binary);
+        IStreamInputSource inputStream(istream);
+        const bool result = parser.parseFirst(inputStream, token);
+#else
+        const bool result = parser.parseFirst(filename.c_str(), token);
+#endif
+        if (!result) {
             throw ProcessError("Can not read XML-file '" + filename + "'.");
         }
         while (parser.parseNext(token) && handler.getItem() == "");
@@ -156,4 +172,3 @@ OptionsIO::getRoot(const std::string& filename) {
 
 
 /****************************************************************************/
-

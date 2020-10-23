@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.11.2018 12:10:18 by Eclipse SUMO netedit Version v1_0_0+0979-5758048824
+<!-- generated on 07.08.2019 09:53:59 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov120935.8388/netedit.gui/additionalElements/e1detector/inspect_selection/file\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1detector/inspect_selection/file\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov120935.8388/netedit.gui/additionalElements/e1detector/inspect_selection/file\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1detector/inspect_selection/file\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov120935.8388/netedit.gui/additionalElements/e1detector/inspect_selection/file\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov120935.8388/netedit.gui/additionalElements/e1detector/inspect_selection/file\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov120935.8388/netedit.gui/additionalElements/e1detector/inspect_selection/file\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1detector/inspect_selection/file\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1detector/inspect_selection/file\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1detector/inspect_selection/file\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1detector/inspect_selection/file\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov120935.8388/netedit.gui/additionalElements/e1detector/inspect_selection/file\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1detector/inspect_selection/file\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,19 +45,19 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.19Nov120935.8388/netedit.gui/additionalElements/e1detector/inspect_selection/file\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1detector/inspect_selection/file\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e1Detector id="E1_A" name="DetectorA" vTypes="Type1 Type2 Type3" lane="gneE0_0" pos="6.00" freq="120.00" file="myOwnOutput.txt">
+    <e1Detector id="E1_A" lane="gneE0_0" pos="6.00" freq="120.00" name="DetectorA" file="myOwnOutput.txt" vTypes="Type1 Type2 Type3">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </e1Detector>
-    <e1Detector id="E1_B" name="DetectorB" vTypes="Type4 Type5 Type6" lane="gneE0_0" pos="10.00" freq="90.00" file="myOwnOutput.txt" friendlyPos="1">
+    <e1Detector id="E1_B" lane="gneE0_0" pos="10.00" freq="90.00" name="DetectorB" file="myOwnOutput.txt" vTypes="Type4 Type5 Type6" friendlyPos="1">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

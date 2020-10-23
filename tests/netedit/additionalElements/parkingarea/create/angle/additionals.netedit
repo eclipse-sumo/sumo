@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 10.12.2018 09:08:32 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 26.09.2019 15:45:45 by Eclipse SUMO netedit Version v1_3_1+0461-7a12acbeea
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec090622.7288/netedit.gui/additionalElements/parkingarea/create/angle\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep143833.3020/netedit.gui/additionalElements/parkingarea/create/angle\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec090622.7288/netedit.gui/additionalElements/parkingarea/create/angle\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep143833.3020/netedit.gui/additionalElements/parkingarea/create/angle\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec090622.7288/netedit.gui/additionalElements/parkingarea/create/angle\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec090622.7288/netedit.gui/additionalElements/parkingarea/create/angle\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep143833.3020/netedit.gui/additionalElements/parkingarea/create/angle\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep143833.3020/netedit.gui/additionalElements/parkingarea/create/angle\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep143833.3020/netedit.gui/additionalElements/parkingarea/create/angle\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep143833.3020/netedit.gui/additionalElements/parkingarea/create/angle\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec090622.7288/netedit.gui/additionalElements/parkingarea/create/angle\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep143833.3020/netedit.gui/additionalElements/parkingarea/create/angle\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,14 +45,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.10Dec090622.7288/netedit.gui/additionalElements/parkingarea/create/angle\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep143833.3020/netedit.gui/additionalElements/parkingarea/create/angle\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" angle="-4.00" startPos="14.00" endPos="24.00"/>
-    <parkingArea id="parkingArea_gneE0_0_1" lane="gneE0_0" angle="500.00" startPos="14.00" endPos="24.00"/>
-    <parkingArea id="parkingArea_gneE0_0_2" lane="gneE0_0" angle="120.00" startPos="14.00" endPos="24.00"/>
+    <parkingArea id="parkingArea_gneE0_0_0" lane="gneE0_0" startPos="14.00" endPos="24.00" angle="-4.00"/>
+    <parkingArea id="parkingArea_gneE0_0_1" lane="gneE0_0" startPos="14.00" endPos="24.00" angle="140.00"/>
+    <parkingArea id="parkingArea_gneE0_0_2" lane="gneE0_0" startPos="14.00" endPos="24.00" angle="120.00"/>
 </additional>

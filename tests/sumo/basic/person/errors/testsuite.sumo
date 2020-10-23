@@ -2,3 +2,6 @@
 # 
 invalid_busstop
 duplicate_id
+
+# test riding a car where the from edge has access to the prior destinationStop
+trainStop_car_disconnected

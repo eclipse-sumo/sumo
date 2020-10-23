@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:54 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:02 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,12 +24,13 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-19284.00,-26734.00" convBoundary="0.00,0.00,380.00,153.00" origBoundary="19284.00,26734.00,19664.00,26887.00" projParameter="!"/>
 
@@ -102,9 +103,9 @@ SPDX-License-Identifier: EPL-2.0
 
     <tlLogic id="15031669" type="static" programID="0" offset="0">
         <phase duration="36" state="rrrrGggGGg"/>
-        <phase duration="4"  state="rrrryggyyg"/>
-        <phase duration="6"  state="rrrrrGGrrG"/>
-        <phase duration="4"  state="rrrrryyrry"/>
+        <phase duration="4"  state="rrrryggyyy"/>
+        <phase duration="6"  state="rrrrGGGrrr"/>
+        <phase duration="4"  state="rrrryyyrrr"/>
         <phase duration="36" state="GGGGrrrrrr"/>
         <phase duration="4"  state="yyyyrrrrrr"/>
     </tlLogic>

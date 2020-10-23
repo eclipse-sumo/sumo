@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSMeanData_Net.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Network state mean data collector for edges/lanes
 /****************************************************************************/
-#ifndef MSMeanData_Net_h
-#define MSMeanData_Net_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -97,7 +94,7 @@ public:
          * @see MSMoveReminder
          * @see MSMoveReminder::notifyLeave
          */
-        bool notifyLeave(SUMOVehicle& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        bool notifyLeave(SUMOTrafficObject& veh, double lastPos, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
 
 
         /** @brief Computes current values and adds them to their sums
@@ -113,7 +110,7 @@ public:
          * @see MSMoveReminder::notifyEnter
          * @see MSMoveReminder::Notification
          */
-        bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+        bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
         //@}
 
         bool isEmpty() const;
@@ -125,7 +122,7 @@ public:
          * @param[in] numLanes The total number of lanes for which the data was collected
          * @exception IOError If an error on writing occurs (!!! not yet implemented)
          */
-        void write(OutputDevice& dev, const SUMOTime period,
+        void write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
                    const double numLanes, const double defaultTravelTime,
                    const int numVehicles = -1) const;
 
@@ -133,7 +130,7 @@ public:
         /** @brief Internal notification about the vehicle moves
          *  @see MSMoveReminder::notifyMoveInternal
          */
-        void notifyMoveInternal(const SUMOVehicle& veh,
+        void notifyMoveInternal(const SUMOTrafficObject& veh,
                                 const double frontOnLane, const double timeOnLane, const double,
                                 const double meanSpeedVehicleOnLane,
                                 const double travelledDistanceFrontOnLane,
@@ -208,6 +205,7 @@ public:
      * @param[in] printDefaults Information whether defaults for empty lanes/edges shall be written
      * @param[in] withInternal Information whether internal lanes/edges shall be written
      * @param[in] trackVehicles Information whether vehicles shall be tracked
+     * @param[in] detectPersons Whether pedestrians shall be detected instead of vehicles
      * @param[in] maxTravelTime the maximum travel time to output
      * @param[in] minSamples the minimum number of sample seconds before the values are valid
      * @param[in] haltSpeed the maximum speed to consider a vehicle waiting
@@ -216,9 +214,10 @@ public:
     MSMeanData_Net(const std::string& id,
                    const SUMOTime dumpBegin, const SUMOTime dumpEnd,
                    const bool useLanes, const bool withEmpty, const bool printDefaults,
-                   const bool withInternal, const bool trackVehicles,
+                   const bool withInternal, const bool trackVehicles, const int detectPersons,
                    const double maxTravelTime, const double minSamples,
-                   const double haltSpeed, const std::string& vTypes);
+                   const double haltSpeed, const std::string& vTypes,
+                   const std::string& writeAttributes);
 
 
     /// @brief Destructor
@@ -250,8 +249,3 @@ private:
     MSMeanData_Net& operator=(const MSMeanData_Net&);
 
 };
-
-#endif
-
-/****************************************************************************/
-

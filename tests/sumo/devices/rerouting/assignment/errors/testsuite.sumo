@@ -1,0 +1,13 @@
+# trips as input, districts used, no connection
+trip_with_taz_disconnect
+
+# trips as input, districts used, no connection, ignore route errors
+taz_disconnect_ignore
+
+# trips as input, no connection
+disconnect
+
+# trips as input, no connection, ignore error
+disconnect_ignore
+unknown_taz
+empty_taz

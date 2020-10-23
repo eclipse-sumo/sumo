@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Monday 03 June 2019 02:56:36 PM IST by Eclipse SUMO netedit Version v1_0_1+0656-d8f73e5
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="/home/rony/Documents/2018_ITSPE/SUMOOptim/Turn/Lucknow_SUMO/GRP008/Offline/network3.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/rony/Documents/2018_ITSPE/SUMOOptim/Turn/Lucknow_SUMO/GRP008/Offline/network3.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="true"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<net version="1.0" junctionCornerDetail="5" lefthand="true" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-492736.05,-2967847.29" convBoundary="0.00,0.00,3625.86,3225.22" origBoundary="80.857379,26.831844,80.965569,26.861288" projParameter="+proj=utm +zone=44 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="highway.bridleway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.bus_guideway" priority="1" numLanes="1" speed="27.78" allow="bus" oneway="1"/>
+    <type id="highway.cycleway" priority="1" numLanes="1" speed="8.33" allow="bicycle" oneway="0" width="1.00"/>
+    <type id="highway.footway" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
+    <type id="highway.living_street" priority="3" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.motorway" priority="13" numLanes="2" speed="44.44" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.motorway_link" priority="12" numLanes="1" speed="22.22" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="bicycle pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.pedestrian" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.primary" priority="9" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.primary_link" priority="8" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.raceway" priority="14" numLanes="2" speed="83.33" allow="vip" oneway="0"/>
+    <type id="highway.residential" priority="4" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.secondary" priority="7" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="delivery bicycle pedestrian" oneway="0"/>
+    <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.steps" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
+    <type id="highway.tertiary" priority="6" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
+    <type id="highway.unclassified" priority="5" numLanes="1" speed="13.89" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.preserved" priority="15" numLanes="1" speed="27.78" allow="rail" oneway="1"/>
+    <type id="railway.rail" priority="15" numLanes="1" speed="83.33" allow="rail rail_electric" oneway="1"/>
+    <type id="railway.subway" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>
+    <type id="railway.tram" priority="15" numLanes="1" speed="13.89" allow="tram" oneway="1"/>
+
+    <edge id="-J018_L01" from="J018" to="gneJ17" name="charbagh-road" priority="-1" shape="1920.36,1607.36 1880.63,1555.43 1845.53,1519.27 1785.53,1458.82 1648.36,1329.03 1507.26,1193.04">
+        <lane id="-J018_L01_0" index="0" speed="13.89" length="585.76" shape="1907.66,1577.60 1886.70,1550.20 1851.24,1513.67 1791.12,1453.10 1653.89,1323.24 1512.81,1187.28"/>
+        <lane id="-J018_L01_1" index="1" speed="13.89" length="585.76" shape="1905.12,1579.54 1884.27,1552.29 1848.96,1515.91 1788.88,1455.39 1651.68,1325.56 1510.59,1189.58"/>
+        <lane id="-J018_L01_2" index="2" speed="13.89" length="585.76" shape="1902.58,1581.49 1881.84,1554.38 1846.67,1518.15 1786.65,1457.68 1649.47,1327.87 1508.37,1191.89"/>
+    </edge>
+    <edge id="-J018_L02" from="J018" to="gneJ7" name="parivartan-road" priority="-1" shape="1909.44,1626.77 1763.02,1740.21 1713.15,1776.74 1564.79,1893.13">
+        <lane id="-J018_L02_0" index="0" speed="13.89" length="457.88" shape="1904.54,1620.45 1758.21,1733.82 1708.32,1770.36 1559.85,1886.84"/>
+        <lane id="-J018_L02_1" index="1" speed="13.89" length="457.88" shape="1906.50,1622.98 1760.13,1736.38 1710.25,1772.91 1561.83,1889.35"/>
+        <lane id="-J018_L02_2" index="2" speed="13.89" length="457.88" shape="1908.46,1625.51 1762.06,1738.93 1712.18,1775.46 1563.80,1891.87"/>
+    </edge>
+    <edge id="-J018_L03" from="J018" to="gneJ10" name="sikandar-bagh-road" priority="-1" shape="1929.85,1630.32 1942.28,1650.58 1970.83,1691.44 1991.04,1720.55 2151.64,2138.68">
+        <lane id="-J018_L03_0" index="0" speed="13.89" length="581.81" shape="1923.03,1634.50 1935.59,1654.97 1964.27,1696.01 1983.92,1724.32 2144.17,2141.55"/>
+        <lane id="-J018_L03_1" index="1" speed="13.89" length="581.81" shape="1925.76,1632.83 1938.26,1653.21 1966.89,1694.18 1986.77,1722.81 2147.16,2140.40"/>
+        <lane id="-J018_L03_2" index="2" speed="13.89" length="581.81" shape="1928.49,1631.16 1940.94,1651.46 1969.52,1692.35 1989.62,1721.30 2150.15,2139.25"/>
+    </edge>
+    <edge id="-J018_L04" from="J018" to="gneJ4" name="CANT-road" priority="-1" shape="1919.61,1589.09 1922.36,1571.76 1928.15,1541.30 1974.96,1310.83">
+        <lane id="-J018_L04_0" index="0" speed="13.89" length="302.01" shape="1929.37,1578.61 1930.24,1573.13 1936.00,1542.84 1982.80,1312.42"/>
+        <lane id="-J018_L04_1" index="1" speed="13.89" length="302.01" shape="1926.21,1578.11 1927.09,1572.58 1932.86,1542.23 1979.66,1311.79"/>
+        <lane id="-J018_L04_2" index="2" speed="13.89" length="302.01" shape="1923.05,1577.61 1923.94,1572.03 1929.72,1541.61 1976.53,1311.15"/>
+    </edge>
+    <edge id="-J018_L05" from="J018" to="gneJ6" name="zoo-road" priority="-1" spreadType="center" shape="1933.37,1596.60 1948.09,1572.28 2022.03,1508.28 2059.18,1477.83 2094.25,1437.77 2139.16,1391.17">
+        <lane id="-J018_L05_0" index="0" speed="13.89" length="309.10" shape="1940.59,1593.94 1951.80,1575.41 2025.12,1511.95 2062.53,1481.29 2097.79,1441.02 2142.62,1394.50"/>
+        <lane id="-J018_L05_1" index="1" speed="13.89" length="309.10" shape="1937.85,1592.28 1949.33,1573.32 2023.06,1509.50 2060.30,1478.98 2095.43,1438.85 2140.31,1392.28"/>
+        <lane id="-J018_L05_2" index="2" speed="13.89" length="309.10" shape="1935.12,1590.63 1946.85,1571.24 2021.00,1507.06 2058.06,1476.68 2093.07,1436.69 2138.01,1390.06"/>
+        <lane id="-J018_L05_3" index="3" speed="13.89" length="309.10" shape="1932.38,1588.97 1944.38,1569.15 2018.94,1504.61 2055.83,1474.37 2090.71,1434.52 2135.70,1387.84"/>
+    </edge>
+    <edge id="J018_L01" from="gneJ17" to="J018" name="charbagh-road" priority="-1" shape="1507.26,1193.04 1648.36,1329.03 1785.53,1458.82 1845.53,1519.27 1880.63,1555.43 1920.36,1607.36">
+        <lane id="J018_L01_0" index="0" speed="13.89" length="585.76" shape="1501.71,1198.80 1642.83,1334.82 1779.94,1464.54 1839.82,1524.87 1874.56,1560.66 1894.95,1587.32"/>
+        <lane id="J018_L01_1" index="1" speed="13.89" length="585.76" shape="1503.93,1196.50 1645.04,1332.50 1782.18,1462.25 1842.10,1522.63 1876.99,1558.57 1897.50,1585.38"/>
+        <lane id="J018_L01_2" index="2" speed="13.89" length="585.76" shape="1506.15,1194.19 1647.25,1330.19 1784.41,1459.96 1844.39,1520.39 1879.42,1556.48 1900.04,1583.43"/>
+    </edge>
+    <edge id="J018_L02" from="gneJ7" to="J018" name="parivartan-road" priority="-1" shape="1564.79,1893.13 1713.15,1776.74 1763.02,1740.21 1909.44,1626.77">
+        <lane id="J018_L02_0" index="0" speed="13.89" length="457.88" shape="1569.73,1899.42 1717.98,1783.12 1767.83,1746.60 1914.34,1633.09"/>
+        <lane id="J018_L02_1" index="1" speed="13.89" length="457.88" shape="1567.75,1896.91 1716.05,1780.57 1765.91,1744.04 1912.38,1630.56"/>
+        <lane id="J018_L02_2" index="2" speed="13.89" length="457.88" shape="1565.78,1894.39 1714.12,1778.02 1763.98,1741.49 1910.42,1628.03"/>
+    </edge>
+    <edge id="J018_L03" from="gneJ10" to="J018" name="sikandar-bagh-road" priority="-1" shape="2151.64,2138.68 1991.04,1720.55 1970.83,1691.44 1942.28,1650.58 1929.85,1630.32">
+        <lane id="J018_L03_0" index="0" speed="13.89" length="581.81" shape="2159.11,2135.81 1998.16,1716.78 1977.39,1686.87 1948.97,1646.19 1936.67,1626.14"/>
+        <lane id="J018_L03_1" index="1" speed="13.89" length="581.81" shape="2156.12,2136.96 1995.31,1718.29 1974.77,1688.70 1946.30,1647.95 1933.94,1627.81"/>
+        <lane id="J018_L03_2" index="2" speed="13.89" length="581.81" shape="2153.13,2138.11 1992.46,1719.80 1972.14,1690.53 1943.62,1649.70 1931.21,1629.48"/>
+    </edge>
+    <edge id="J018_L04" from="gneJ4" to="J018" name="CANT-road" priority="-1" shape="1974.96,1310.83 1928.15,1541.30 1922.36,1571.76 1919.61,1589.09">
+        <lane id="J018_L04_0" index="0" speed="13.89" length="302.01" shape="1967.12,1309.24 1920.30,1539.76 1914.48,1570.39 1913.57,1576.10"/>
+        <lane id="J018_L04_1" index="1" speed="13.89" length="302.01" shape="1970.26,1309.87 1923.44,1540.37 1917.63,1570.94 1916.73,1576.60"/>
+        <lane id="J018_L04_2" index="2" speed="13.89" length="302.01" shape="1973.39,1310.51 1926.58,1540.99 1920.78,1571.49 1919.89,1577.11"/>
+    </edge>
+
+    <tlLogic id="J018" type="static" programID="0" offset="89">
+        <phase duration="30" state="rrrrrrrrrrrrrrrrrrGGGGGG"/>
+        <phase duration="5"  state="rrrrrrrrrrrrrrrrrryyyyyy"/>
+        <phase duration="30" state="rrrrrrGGGGGGrrrrrrrrrrrr"/>
+        <phase duration="5"  state="rrrrrryyyyyyrrrrrrrrrrrr"/>
+        <phase duration="30" state="GGGGGGrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="5"  state="yyyyyyrrrrrrrrrrrrrrrrrr"/>
+        <phase duration="30" state="rrrrrrrrrrrrGGGGGGrrrrrr"/>
+        <phase duration="5"  state="rrrrrrrrrrrryyyyyyrrrrrr"/>
+    </tlLogic>
+
+    <junction id="2198096513" type="dead_end" x="3283.17" y="0.00" incLanes="" intLanes="" shape="3283.17,0.00"/>
+    <junction id="2198300129" type="dead_end" x="2869.89" y="3225.02" incLanes="" intLanes="" shape="2869.89,3225.02"/>
+    <junction id="2198300130" type="dead_end" x="2847.49" y="3225.22" incLanes="" intLanes="" shape="2847.49,3225.22"/>
+    <junction id="2207519578" type="dead_end" x="1893.32" y="2729.93" incLanes="" intLanes="" shape="1893.32,2729.93"/>
+    <junction id="2229732860" type="dead_end" x="3625.86" y="135.84" incLanes="" intLanes="" shape="3625.86,135.84"/>
+    <junction id="4244207721" type="dead_end" x="0.25" y="47.85" incLanes="" intLanes="" shape="0.25,47.85"/>
+    <junction id="5777576801" type="dead_end" x="0.00" y="52.15" incLanes="" intLanes="" shape="0.00,52.15"/>
+    <junction id="J018" type="traffic_light" x="1920.36" y="1607.36" incLanes="J018_L04_0 J018_L04_1 J018_L04_2 J018_L03_0 J018_L03_1 J018_L03_2 J018_L02_0 J018_L02_1 J018_L02_2 J018_L01_0 J018_L01_1 J018_L01_2" intLanes="" shape="1911.99,1575.85 1930.95,1578.86 1930.39,1582.65 1930.06,1585.54 1929.96,1587.53 1930.08,1588.63 1930.43,1588.83 1931.01,1588.14 1941.96,1594.77 1938.72,1600.78 1936.52,1606.42 1935.35,1611.70 1935.21,1616.60 1936.11,1621.13 1938.03,1625.30 1921.67,1635.34 1919.87,1633.45 1918.85,1633.10 1917.76,1633.13 1916.58,1633.55 1915.32,1634.36 1903.56,1619.18 1906.00,1615.32 1905.86,1610.22 1903.87,1604.42 1900.70,1598.47 1897.07,1592.91 1893.68,1588.29 1908.93,1576.63 1910.35,1577.95 1910.91,1578.02 1911.37,1577.69 1911.73,1576.97">
+        <request index="0"  response="000000000000011000000000" foes="000000100000011000000000"/>
+        <request index="1"  response="000000000000011000000000" foes="000000100000011000000000"/>
+        <request index="2"  response="111111000000111000000000" foes="111111100000111000000000"/>
+        <request index="3"  response="111100000100111000000000" foes="111100011111111000000000"/>
+        <request index="4"  response="111100000100111000000000" foes="111100011111111000000000"/>
+        <request index="5"  response="111000011100000111000000" foes="111000011100000111000000"/>
+        <request index="6"  response="000000000000000000000000" foes="011000000100000000100000"/>
+        <request index="7"  response="000000000000000000000000" foes="011000000100000000100000"/>
+        <request index="8"  response="000000000000000000000000" foes="111000011100000000100000"/>
+        <request index="9"  response="000000000000000000000000" foes="111000111100000000011111"/>
+        <request index="10" response="000000000000000000000000" foes="111000111100000000011111"/>
+        <request index="11" response="000111000000000000000000" foes="000111111100000000011100"/>
+        <request index="12" response="000100000000000000011000" foes="000100000000000000011000"/>
+        <request index="13" response="000100000000000000011000" foes="000100000000000000011000"/>
+        <request index="14" response="011100000000111111000000" foes="011100000000111111111000"/>
+        <request index="15" response="111100000000111100011000" foes="111100000000111100111000"/>
+        <request index="16" response="111100000000111100011000" foes="111100000000111100111000"/>
+        <request index="17" response="111100000000111000000111" foes="111100000000111000000111"/>
+        <request index="18" response="000000000000000000000000" foes="000000000000100000000100"/>
+        <request index="19" response="000000000000000000000000" foes="000000000000100000000100"/>
+        <request index="20" response="000000000000000000000000" foes="000000111111100000011100"/>
+        <request index="21" response="000000000000011111000000" foes="000000111100011111111100"/>
+        <request index="22" response="000000000000011111000000" foes="000000111100011111111100"/>
+        <request index="23" response="000000000000011100000000" foes="000000111000011100111100"/>
+    </junction>
+    <junction id="cluster_2207518979_2207518984" type="dead_end" x="1563.35" y="1893.64" incLanes="" intLanes="" shape="1563.35,1893.64"/>
+    <junction id="gneJ10" type="dead_end" x="2151.64" y="2138.68" incLanes="-J018_L03_0 -J018_L03_1 -J018_L03_2" intLanes="" shape="2151.64,2138.68 2142.68,2142.12 2151.64,2138.68"/>
+    <junction id="gneJ17" type="dead_end" x="1507.26" y="1193.04" incLanes="-J018_L01_0 -J018_L01_1 -J018_L01_2" intLanes="" shape="1507.26,1193.04 1513.92,1186.13 1507.26,1193.04"/>
+    <junction id="gneJ3" type="dead_end" x="1503.07" y="1189.59" incLanes="" intLanes="" shape="1503.07,1189.59"/>
+    <junction id="gneJ4" type="dead_end" x="1974.96" y="1310.83" incLanes="-J018_L04_0 -J018_L04_1 -J018_L04_2" intLanes="" shape="1974.96,1310.83 1984.37,1312.74 1974.96,1310.83"/>
+    <junction id="gneJ6" type="dead_end" x="2139.16" y="1391.17" incLanes="-J018_L05_0 -J018_L05_1 -J018_L05_2 -J018_L05_3" intLanes="" shape="2143.77,1395.61 2134.55,1386.73"/>
+    <junction id="gneJ7" type="dead_end" x="1564.79" y="1893.13" incLanes="-J018_L02_0 -J018_L02_1 -J018_L02_2" intLanes="" shape="1564.79,1893.13 1558.86,1885.58 1564.79,1893.13"/>
+
+    <connection from="J018_L01" to="-J018_L02" fromLane="0" toLane="0" tl="J018" linkIndex="18" dir="l" state="O"/>
+    <connection from="J018_L01" to="-J018_L02" fromLane="1" toLane="1" tl="J018" linkIndex="19" dir="l" state="O"/>
+    <connection from="J018_L01" to="-J018_L03" fromLane="1" toLane="1" tl="J018" linkIndex="20" dir="s" state="O"/>
+    <connection from="J018_L01" to="-J018_L05" fromLane="1" toLane="1" tl="J018" linkIndex="21" dir="R" state="o"/>
+    <connection from="J018_L01" to="-J018_L05" fromLane="2" toLane="2" tl="J018" linkIndex="22" dir="R" state="o"/>
+    <connection from="J018_L01" to="-J018_L04" fromLane="2" toLane="2" tl="J018" linkIndex="23" dir="r" state="o"/>
+    <connection from="J018_L02" to="-J018_L03" fromLane="0" toLane="0" tl="J018" linkIndex="12" dir="l" state="o"/>
+    <connection from="J018_L02" to="-J018_L03" fromLane="1" toLane="1" tl="J018" linkIndex="13" dir="l" state="o"/>
+    <connection from="J018_L02" to="-J018_L05" fromLane="1" toLane="1" tl="J018" linkIndex="14" dir="s" state="o"/>
+    <connection from="J018_L02" to="-J018_L04" fromLane="1" toLane="0" tl="J018" linkIndex="15" dir="s" state="o"/>
+    <connection from="J018_L02" to="-J018_L04" fromLane="2" toLane="1" tl="J018" linkIndex="16" dir="s" state="o"/>
+    <connection from="J018_L02" to="-J018_L01" fromLane="2" toLane="1" tl="J018" linkIndex="17" dir="r" state="o"/>
+    <connection from="J018_L03" to="-J018_L05" fromLane="0" toLane="0" tl="J018" linkIndex="6" dir="l" state="O"/>
+    <connection from="J018_L03" to="-J018_L05" fromLane="1" toLane="1" tl="J018" linkIndex="7" dir="l" state="O"/>
+    <connection from="J018_L03" to="-J018_L04" fromLane="1" toLane="1" tl="J018" linkIndex="8" dir="L" state="O"/>
+    <connection from="J018_L03" to="-J018_L01" fromLane="1" toLane="1" tl="J018" linkIndex="9" dir="s" state="O"/>
+    <connection from="J018_L03" to="-J018_L01" fromLane="2" toLane="2" tl="J018" linkIndex="10" dir="s" state="O"/>
+    <connection from="J018_L03" to="-J018_L02" fromLane="2" toLane="2" tl="J018" linkIndex="11" dir="r" state="o"/>
+    <connection from="J018_L04" to="-J018_L01" fromLane="0" toLane="0" tl="J018" linkIndex="0" dir="l" state="o"/>
+    <connection from="J018_L04" to="-J018_L01" fromLane="1" toLane="1" tl="J018" linkIndex="1" dir="l" state="o"/>
+    <connection from="J018_L04" to="-J018_L02" fromLane="1" toLane="1" tl="J018" linkIndex="2" dir="L" state="o"/>
+    <connection from="J018_L04" to="-J018_L03" fromLane="1" toLane="1" tl="J018" linkIndex="3" dir="s" state="o"/>
+    <connection from="J018_L04" to="-J018_L03" fromLane="2" toLane="2" tl="J018" linkIndex="4" dir="s" state="o"/>
+    <connection from="J018_L04" to="-J018_L05" fromLane="2" toLane="3" tl="J018" linkIndex="5" dir="r" state="o"/>
+
+</net>

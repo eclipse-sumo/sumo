@@ -2,39 +2,40 @@
    40 nodes loaded.
    71 edges loaded.
 The split of edges was performed 2 times.
-Removing self-loops... done (0ms).
-Removing empty nodes... done (0ms).
+Removing self-loops ... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin... done (1ms).
-Joining similar edges... done (0ms).
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (2ms).
-Computing edge shapes... done (1ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... 
+Moving network to origin ... done (0ms).
+Joining similar edges ... done (0ms).
+Computing turning directions ... done (1ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (2ms).
+Computing edge shapes ... done (1ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (1ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... 
 done (0ms).
-Computing traffic light control information... done (1ms).
-Computing node logics... done (0ms).
-Computing traffic light logics... done (3ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (1ms).
+Computing traffic light logics ... done (4ms).
  1 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 40
+  Priority junctions          : 39
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 4437087.79,5472770.75,4440376.83,5476917.69
   Applied offset     : -4437088.42,-5472770.75
   Converted boundary : 0.00,0.00,3287.61,4145.70
 -----------------------------------------------------
-Writing network... done (11ms).
+Writing network ... done (9ms).
 Success.

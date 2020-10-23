@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIOSGBuilder.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    19.01.2012
-/// @version $Id$
 ///
 // Builds OSG nodes from microsim objects
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_OSG
@@ -27,6 +25,7 @@
 #ifdef _MSC_VER
 #pragma warning(push)
 #pragma warning(disable: 4127) // do not warn about constant conditional expression
+#pragma warning(disable: 4275) // do not warn about the DLL interface for OSG
 #endif
 #include <osg/Version>
 #include <osgViewer/ViewerEventHandlers>
@@ -46,6 +45,7 @@
 #include <osg/ShadeModel>
 #include <osg/Light>
 #include <osg/LightSource>
+#include <osg/ComputeBoundsVisitor>
 #ifdef _MSC_VER
 #pragma warning(pop)
 #endif
@@ -65,7 +65,6 @@
 #include <guisim/GUILane.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include "GUIOSGBoundingBoxCalculator.h"
 #include "GUIOSGView.h"
 #include "GUIOSGBuilder.h"
 
@@ -275,7 +274,7 @@ GUIOSGBuilder::buildOSGJunctionGeometry(GUIJunctionWrapper& junction,
 void
 GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo) {
     osg::Node* pLoadedModel = osgDB::readNodeFile(d.filename);
-    if (pLoadedModel == 0) {
+    if (pLoadedModel == nullptr) {
         WRITE_ERROR("Could not load '" + d.filename + "'.");
         return;
     }
@@ -284,7 +283,7 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
     pLoadedModel->getOrCreateStateSet()->setAttribute(sm);
     osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
     base->addChild(pLoadedModel);
-    GUIOSGBoundingBoxCalculator bboxCalc;
+    osg::ComputeBoundsVisitor bboxCalc;
     pLoadedModel->accept(bboxCalc);
     const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
     WRITE_MESSAGE("Loaded decal '" + d.filename + "' with bounding box " + toString(Position(bbox.xMin(), bbox.yMin(), bbox.zMin())) + " " + toString(Position(bbox.xMax(), bbox.yMax(), bbox.zMax())) + ".");
@@ -306,10 +305,10 @@ GUIOSGBuilder::buildDecal(const GUISUMOAbstractView::Decal& d, osg::Group& addTo
 osg::PositionAttitudeTransform*
 GUIOSGBuilder::getTrafficLight(const GUISUMOAbstractView::Decal& d, osg::Node* tl, const osg::Vec4& color, const double size) {
     osg::PositionAttitudeTransform* ret = new osg::PositionAttitudeTransform();
-    if (tl != 0) {
+    if (tl != nullptr) {
         osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
         base->addChild(tl);
-        GUIOSGBoundingBoxCalculator bboxCalc;
+        osg::ComputeBoundsVisitor bboxCalc;
         tl->accept(bboxCalc);
         const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
         double xScale = d.width > 0 ? d.width / (bbox.xMax() - bbox.xMin()) : 1.;
@@ -364,8 +363,8 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
         }
     }
     osg::Node* carNode = myCars[osgFile];
-    if (carNode != 0) {
-        GUIOSGBoundingBoxCalculator bboxCalc;
+    if (carNode != nullptr) {
+        osg::ComputeBoundsVisitor bboxCalc;
         carNode->accept(bboxCalc);
         const osg::BoundingBox& bbox = bboxCalc.getBoundingBox();
         osg::PositionAttitudeTransform* base = new osg::PositionAttitudeTransform();
@@ -427,4 +426,3 @@ GUIOSGBuilder::buildMovable(const MSVehicleType& type) {
 
 
 /****************************************************************************/
-

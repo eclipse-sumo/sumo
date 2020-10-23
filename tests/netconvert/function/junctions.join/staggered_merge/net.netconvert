@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jan  2 13:06:52 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:05 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -17,6 +17,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -37,12 +38,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-395408.93,-5809112.45" convBoundary="4376.22,115.19,4482.45,167.06" origBoundary="13.453860,52.423029,13.575739,52.459735" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -52,8 +54,8 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.footway" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.ford" priority="1" numLanes="1" speed="2.78" allow="army" oneway="0"/>
     <type id="highway.living_street" priority="3" numLanes="1" speed="2.78" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.motorway" priority="13" numLanes="3" speed="44.44" disallow="bicycle pedestrian" oneway="1"/>
-    <type id="highway.motorway_link" priority="12" numLanes="1" speed="22.22" disallow="bicycle pedestrian" oneway="1"/>
+    <type id="highway.motorway" priority="13" numLanes="3" speed="44.44" disallow="pedestrian bicycle" oneway="1"/>
+    <type id="highway.motorway_link" priority="12" numLanes="1" speed="22.22" disallow="pedestrian bicycle" oneway="1"/>
     <type id="highway.path" priority="1" numLanes="1" speed="2.78" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.pedestrian" priority="1" numLanes="1" speed="8.33" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.primary" priority="9" numLanes="2" speed="27.78" disallow="pedestrian" oneway="0" sidewalkWidth="3.00"/>
@@ -62,7 +64,7 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.residential" priority="4" numLanes="1" speed="13.89" disallow="pedestrian" oneway="0" sidewalkWidth="2.00"/>
     <type id="highway.secondary" priority="7" numLanes="2" speed="27.78" disallow="pedestrian" oneway="0" sidewalkWidth="3.00"/>
     <type id="highway.secondary_link" priority="6" numLanes="1" speed="22.22" disallow="pedestrian" oneway="0" sidewalkWidth="3.00"/>
-    <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="delivery pedestrian" oneway="0"/>
+    <type id="highway.service" priority="2" numLanes="1" speed="5.56" allow="pedestrian delivery" oneway="0"/>
     <type id="highway.services" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="highway.stairs" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
     <type id="highway.step" priority="1" numLanes="1" speed="1.39" allow="pedestrian" oneway="1" width="2.00"/>
@@ -70,8 +72,8 @@ SPDX-License-Identifier: EPL-2.0
     <type id="highway.tertiary" priority="6" numLanes="1" speed="22.22" disallow="pedestrian" oneway="0" sidewalkWidth="3.00"/>
     <type id="highway.tertiary_link" priority="5" numLanes="1" speed="22.22" disallow="pedestrian" oneway="0" sidewalkWidth="2.00"/>
     <type id="highway.track" priority="1" numLanes="1" speed="5.56" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
-    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" disallow="bicycle pedestrian" oneway="0"/>
-    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="bicycle pedestrian" oneway="0"/>
+    <type id="highway.trunk" priority="11" numLanes="2" speed="27.78" disallow="pedestrian bicycle" oneway="0"/>
+    <type id="highway.trunk_link" priority="10" numLanes="1" speed="22.22" disallow="pedestrian bicycle" oneway="0"/>
     <type id="highway.unclassified" priority="5" numLanes="1" speed="22.22" disallow="pedestrian" oneway="0" sidewalkWidth="2.00"/>
     <type id="highway.unsurfaced" priority="1" numLanes="1" speed="8.33" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
     <type id="railway.light_rail" priority="15" numLanes="1" speed="27.78" allow="rail_urban" oneway="1"/>

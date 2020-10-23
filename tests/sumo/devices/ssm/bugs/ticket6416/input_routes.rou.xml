@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun 15 Dec 2019 09:39:41 PM CET by Eclipse SUMO netedit Version v1_4_0+0110-a1d2a9f710
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="DCC.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/lara_ssm_crash/scenario_jakob/net2.part.net.xml"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="/home/kobo/dlr/debug/lara_ssm_crash/scenario_jakob/input_routes.rou.xml"/>
+    </netedit>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_VEHTYPE" speedDev="0.1"/>
+    <trip id="trip_0" depart="0.00" from="317183891#3" to="4395830"/>
+    <trip id="trip_1" depart="0.00" departPos="-60.00" departSpeed="max" from="-384401184#4" to="-317183891#3">
+        <stop lane="-317183891#3_0" duration="10"/>
+    </trip>
+    <trip id="trip_2" depart="0.00" departPos="-80.00" departSpeed="max" from="-384401184#4" to="-317183891#3"/>
+    <trip id="trip_3" depart="0.00" departPos="-100.00" departSpeed="max" from="-384401184#4" to="-317183891#3"/>
+</routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 08/30/18 14:42:36 by Eclipse SUMO netconvert Version UNKNOWN
+<!-- generated on Tue Sep  3 13:37:57 2019 by Eclipse SUMO netconvert Version v1_3_1+0122-12c4159
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -35,6 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <railway>
         <railway.topology.repair value="true"/>
+        <railway.topology.repair.connect-straight value="true"/>
     </railway>
 
     <report>
@@ -46,10 +48,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <railwayTopology>
+    <legend>
+        <error id="a" meaning="edge pair angle supports driving but both are outgoing"/>
+        <error id="b" meaning="edge pair angle supports driving but both are incoming"/>
+        <error id="c" meaning="an incoming edge has a sharp angle to all outgoing edges"/>
+        <error id="d" meaning="an outgoing edge has a sharp angle from all incoming edges"/>
+    </legend>
     <railNodeType in="0" out="1">
-        <node id="gneJ0"/>
         <node id="gneJ18"/>
-        <node id="gneJ28"/>
         <node id="gneJ29"/>
         <node id="gneJ30"/>
         <node id="gneJ7"/>
@@ -60,7 +66,7 @@ SPDX-License-Identifier: EPL-2.0
         <node id="gneJ37"/>
     </railNodeType>
     <railNodeType in="1" out="1">
-        <node id="gneJ1"/>
+        <node id="gneJ0"/>
         <node id="gneJ12"/>
         <node id="gneJ14"/>
         <node id="gneJ19"/>
@@ -68,41 +74,45 @@ SPDX-License-Identifier: EPL-2.0
         <node id="gneJ24"/>
         <node id="gneJ25"/>
         <node id="gneJ26"/>
+        <node id="gneJ28"/>
         <node id="gneJ31"/>
         <node id="gneJ32"/>
         <node id="gneJ33"/>
         <node id="gneJ34"/>
         <node id="gneJ35"/>
         <node id="gneJ36"/>
-        <node id="gneJ4"/>
-    </railNodeType>
-    <railNodeType in="2" out="1">
-        <node id="gneJ2" broken="bc"/>
     </railNodeType>
     <railNodeType in="2" out="2">
+        <node id="gneJ1"/>
         <node id="gneJ10"/>
         <node id="gneJ11"/>
         <node id="gneJ22"/>
         <node id="gneJ23"/>
-        <node id="gneJ3"/>
+        <node id="gneJ4"/>
         <node id="gneJ9"/>
-    </railNodeType>
-    <railNodeType in="3" out="0">
-        <node id="gneJ5" broken="b"/>
     </railNodeType>
     <railNodeType in="3" out="2">
         <node id="gneJ20"/>
+        <node id="gneJ3"/>
+        <node id="gneJ5"/>
     </railNodeType>
     <railNodeType in="3" out="3">
+        <node id="gneJ2"/>
         <node id="gneJ6"/>
     </railNodeType>
+    <bidiEdge id="buffer1" bidi="-buffer1"/>
     <bidiEdge id="buffer3" bidi="-buffer3"/>
+    <bidiEdge id="gneE1" bidi="-gneE1"/>
     <bidiEdge id="gneE10" bidi="-gneE10"/>
     <bidiEdge id="gneE15" bidi="-gneE15"/>
     <bidiEdge id="gneE16" bidi="-gneE16"/>
     <bidiEdge id="gneE17" bidi="gneE19"/>
+    <bidiEdge id="gneE2" bidi="-gneE2"/>
     <bidiEdge id="gneE20" bidi="-gneE20"/>
     <bidiEdge id="gneE21" bidi="-gneE21"/>
+    <bidiEdge id="gneE22" bidi="-gneE22"/>
+    <bidiEdge id="gneE3" bidi="-gneE3"/>
+    <bidiEdge id="gneE4" bidi="-gneE4"/>
     <bidiEdge id="gneE5" bidi="-gneE5"/>
     <bidiEdge id="gneE8" bidi="-gneE8"/>
     <bidiEdge id="gneE9" bidi="-gneE9"/>

@@ -1,0 +1,9 @@
+Error: At least one of 'period', 'vehsPerHour', 'probability', and 'number' is needed in flow 'flow_0'.
+Error: Attribute 'number' in definition of flow 'flow_1' is not of type int.
+Error: Flow cannot be created
+Error: Attribute 'number' in definition of flow 'flow_2' is empty.
+Error: Flow cannot be created
+Error: Negative repetition number in the definition of flow 'flow_3'.
+Error: Attribute 'number' in definition of flow 'flow_4' is not of type int.
+Error: Flow cannot be created
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug134741.10088/netedit.gui/demandElements/flow/load/number\input_routes.rou.xml failed.

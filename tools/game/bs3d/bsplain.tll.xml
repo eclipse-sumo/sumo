@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/tllogic_file.xsd">
+<tlLogics version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/tllogic_file.xsd">
     <tlLogic id="cluster_104171179_28142770_28298581_28298587" type="static" programID="0" offset="0">
         <phase duration="4"    state="rrryyuuuuurrryyuuuuu"/>
         <phase duration="2"    state="rrrrruuuuurrrrruuuuu"/>

@@ -1,0 +1,9 @@
+Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Attribute 'containerTriggered' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Attribute 'containerTriggered' in definition of a stop is not of type bool.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152035.12320/netedit.gui/demandElements/stop/stopBusStop/load/containerTrigger\input_routes.rou.xml failed.

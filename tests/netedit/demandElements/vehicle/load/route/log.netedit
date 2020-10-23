@@ -1,0 +1,5 @@
+Error: Invalid route '' used in vehicle 'vehicle_0'.
+Error: Attribute 'route' in definition of vehicle 'vehicle_1' is empty.
+Error: Invalid route '' used in vehicle 'vehicle_1'.
+Error: Invalid route 'route with invalid characters' used in vehicle 'vehicle_2'.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Mar085257.660\netedit.gui\demandElements\vehicle\load\route\input_routes.rou.xml failed.

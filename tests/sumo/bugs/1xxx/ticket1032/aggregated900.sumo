@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jul  5 10:33:12 2017 by SUMO Version dev-SVN-r23112
+<!-- generated on Tue Mar 31 09:35:17 2020 by Eclipse SUMO Version v1_5_0+1023-63f9a82342
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,14 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <no-step-log value="true"/>
@@ -25,10 +33,10 @@ SPDX-License-Identifier: EPL-2.0
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="859.00" id="dump">
         <edge id="a">
-            <lane id="a_0" sampledSeconds="857.84" traveltime="214.32" overlapTraveltime="214.46" density="0.13" occupancy="0.07" waitingTime="0.00" speed="34.99" departed="1" arrived="1" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="a_0" sampledSeconds="858.12" traveltime="214.39" overlapTraveltime="214.53" density="0.13" laneDensity="0.13" occupancy="0.07" waitingTime="0.00" speed="34.98" departed="1" arrived="1" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
         <edge id="b">
-            <lane id="b_0" sampledSeconds="0.43" traveltime="0.00" overlapTraveltime="0.14" density="5.02" occupancy="0.05" waitingTime="0.00" speed="35.51" departed="0" arrived="0" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
+            <lane id="b_0" sampledSeconds="0.43" traveltime="0.00" overlapTraveltime="0.14" density="5.00" laneDensity="5.00" occupancy="0.05" waitingTime="0.00" speed="35.64" departed="0" arrived="0" entered="3" left="3" laneChangedFrom="0" laneChangedTo="0"/>
         </edge>
     </interval>
 </meandata>

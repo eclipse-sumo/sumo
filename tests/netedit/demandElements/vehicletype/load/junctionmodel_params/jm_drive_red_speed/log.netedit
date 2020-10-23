@@ -1,0 +1,5 @@
+Error: Invalid Junction-Model Attribute jmDriveRedSpeed. Cannot be parsed to float
+Error: Invalid Junction Model Parameters
+Error: Invalid Junction-Model Attribute jmDriveRedSpeed. Must be equal or greater than 0
+Error: Invalid Junction Model Parameters
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul132146.5996/netedit.gui/demandElements/vehicletype/load/junctionmodel_params/jm_drive_red_speed\input_routes.rou.xml failed.

@@ -1,0 +1,8 @@
+Error: At least one of 'period', 'vehsPerHour', 'probability', and 'number' is needed in flow 'flow_0'.
+Error: Attribute 'begin' in definition of flow 'flow_1' is empty.
+Error: Flow cannot be created
+Error: Attribute 'begin' in definition of flow 'flow_2' is not a time value.
+Error: Flow cannot be created
+Error: Negative begin time in the definition of flow 'flow_3'.
+Error: Flow 'flow_4' ends before its begin time.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug134741.10088/netedit.gui/demandElements/flow/load/begin\input_routes.rou.xml failed.

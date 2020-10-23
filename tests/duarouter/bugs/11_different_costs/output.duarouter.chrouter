@@ -1,8 +1,8 @@
-Loading net... done.
-Loading precomputed net weights from 'input_weights.dump.xml'... done.
+Loading net ... done.
+Loading precomputed net weights from 'input_weights.dump.xml' ... done.
 Skipped until: 0.00
 Building Contraction Hierarchy for all vehicle classes and time=0.00 (8 edges)
-... 
+ ... 
 Created 2 shortcuts.
 Recomputed priority 12 times.
 done (0ms).

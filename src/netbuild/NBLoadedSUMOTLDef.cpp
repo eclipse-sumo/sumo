@@ -1,26 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBLoadedSUMOTLDef.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
-/// @version $Id$
 ///
 // A complete traffic light logic loaded from a sumo-net. (opted to reimplement
 // since NBLoadedTLDef is quite vissim specific)
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -55,20 +54,18 @@ NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const std::string& id, const std::string& p
 }
 
 
-NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(NBTrafficLightDefinition* def, NBTrafficLightLogic* logic) :
-    // allow for adding a new program for the same def: take the programID from the new logic
-    NBTrafficLightDefinition(def->getID(), logic->getProgramID(), def->getOffset(), def->getType()),
+NBLoadedSUMOTLDef::NBLoadedSUMOTLDef(const NBTrafficLightDefinition& def, const NBTrafficLightLogic& logic) :
+    // allow for adding a new program for the same def: take the offset and programID from the new logic
+    NBTrafficLightDefinition(def.getID(), logic.getProgramID(), logic.getOffset(), def.getType()),
     myTLLogic(new NBTrafficLightLogic(logic)),
-    myOriginalNodes(def->getNodes().begin(), def->getNodes().end()),
     myReconstructAddedConnections(false),
     myReconstructRemovedConnections(false),
     myPhasesLoaded(false) {
-    assert(def->getOffset() == logic->getOffset());
-    assert(def->getType() == logic->getType());
-    myControlledLinks = def->getControlledLinks();
-    myControlledNodes = def->getNodes();
-    NBLoadedSUMOTLDef* sumoDef = dynamic_cast<NBLoadedSUMOTLDef*>(def);
-    updateParameter(def->getParametersMap());
+    assert(def.getType() == logic.getType());
+    myControlledLinks = def.getControlledLinks();
+    myControlledNodes = def.getNodes();
+    const NBLoadedSUMOTLDef* sumoDef = dynamic_cast<const NBLoadedSUMOTLDef*>(&def);
+    updateParameters(def.getParametersMap());
     if (sumoDef != nullptr) {
         myReconstructAddedConnections = sumoDef->myReconstructAddedConnections;
         myReconstructRemovedConnections = sumoDef->myReconstructRemovedConnections;
@@ -94,13 +91,17 @@ NBLoadedSUMOTLDef::myCompute(int brakingTimeSeconds) {
 
 
 void
-NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, bool reconstruct) {
+NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toLane, int linkIndex, int linkIndex2, bool reconstruct) {
     assert(myTLLogic->getNumLinks() > 0); // logic should be loaded by now
     if (linkIndex >= (int)myTLLogic->getNumLinks()) {
         throw ProcessError("Invalid linkIndex " + toString(linkIndex) + " for traffic light '" + getID() +
                            "' with " + toString(myTLLogic->getNumLinks()) + " links.");
     }
-    NBConnection conn(from, fromLane, to, toLane, linkIndex);
+    if (linkIndex2 >= (int)myTLLogic->getNumLinks()) {
+        throw ProcessError("Invalid linkIndex2 " + toString(linkIndex2) + " for traffic light '" + getID() +
+                           "' with " + toString(myTLLogic->getNumLinks()) + " links.");
+    }
+    NBConnection conn(from, fromLane, to, toLane, linkIndex, linkIndex2);
     // avoid duplicates
     auto newEnd = remove_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(conn));
     // remove_if does not remove, only re-order
@@ -108,8 +109,6 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     myControlledLinks.push_back(conn);
     addNode(from->getToNode());
     addNode(to->getFromNode());
-    myOriginalNodes.insert(from->getToNode());
-    myOriginalNodes.insert(to->getFromNode());
     // added connections are definitely controlled. make sure none are removed because they lie within the tl
     // myControlledInnerEdges.insert(from->getID()); // @todo recheck: this appears to be obsolete
     // set this information now so that it can be used while loading diffs
@@ -117,11 +116,16 @@ NBLoadedSUMOTLDef::addConnection(NBEdge* from, NBEdge* to, int fromLane, int toL
     myReconstructAddedConnections |= reconstruct;
 }
 
+void
+NBLoadedSUMOTLDef::setProgramID(const std::string& programID) {
+    NBTrafficLightDefinition::setProgramID(programID);
+    myTLLogic->setProgramID(programID);
+}
 
 void
 NBLoadedSUMOTLDef::setTLControllingInformation() const {
     if (myReconstructAddedConnections) {
-        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+        NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
         dummy.setParticipantsInformation();
         dummy.setTLControllingInformation();
         for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
@@ -158,16 +162,19 @@ NBLoadedSUMOTLDef::remapRemoved(NBEdge*, const EdgeVector&, const EdgeVector&) {
 
 
 void
-NBLoadedSUMOTLDef::replaceRemoved(NBEdge* removed, int removedLane, NBEdge* by, int byLane) {
+NBLoadedSUMOTLDef::replaceRemoved(NBEdge* removed, int removedLane, NBEdge* by, int byLane, bool incoming) {
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
-        (*it).replaceFrom(removed, removedLane, by, byLane);
-        (*it).replaceTo(removed, removedLane, by, byLane);
+        if (incoming) {
+            (*it).replaceFrom(removed, removedLane, by, byLane);
+        } else {
+            (*it).replaceTo(removed, removedLane, by, byLane);
+        }
     }
 }
 
 
 void
-NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, int next, const std::string& name) {
+NBLoadedSUMOTLDef::addPhase(SUMOTime duration, const std::string& state, SUMOTime minDur, SUMOTime maxDur, const std::vector<int>& next, const std::string& name) {
     myTLLogic->addStep(duration, state, minDur, maxDur, next, name);
 }
 
@@ -177,19 +184,8 @@ NBLoadedSUMOTLDef::amInvalid() const {
     if (myControlledLinks.size() == 0) {
         return true;
     }
-    // make sure that myControlledNodes are the original nodes
-    if (myControlledNodes.size() != myOriginalNodes.size()) {
-        //std::cout << " myControlledNodes=" << myControlledNodes.size() << " myOriginalNodes=" << myOriginalNodes.size() << "\n";
-        return true;
-    }
     if (myIncomingEdges.size() == 0) {
         return true;
-    }
-    for (std::vector<NBNode*>::const_iterator i = myControlledNodes.begin(); i != myControlledNodes.end(); i++) {
-        if (myOriginalNodes.count(*i) != 1) {
-            //std::cout << " node " << (*i)->getID() << " missing from myOriginalNodes\n";
-            return true;
-        }
     }
     return false;
 }
@@ -197,23 +193,24 @@ NBLoadedSUMOTLDef::amInvalid() const {
 
 void
 NBLoadedSUMOTLDef::removeConnection(const NBConnection& conn, bool reconstruct) {
-    NBConnectionVector::iterator it = myControlledLinks.begin();
-    // find the connection but ignore its TLIndex since it might have been
-    // invalidated by an earlier removal
-    for (; it != myControlledLinks.end(); ++it) {
-        if (it->getFrom() == conn.getFrom() &&
+    for (auto it = myControlledLinks.begin(); it != myControlledLinks.end();) {
+        if ((it->getFrom() == conn.getFrom() &&
                 it->getTo() == conn.getTo() &&
                 it->getFromLane() == conn.getFromLane() &&
-                it->getToLane() == conn.getToLane()) {
-            break;
+                it->getToLane() == conn.getToLane())
+                || (it->getTLIndex() == conn.getTLIndex() &&
+                    conn.getTLIndex() != conn.InvalidTlIndex &&
+                    (it->getFrom() == nullptr || it->getTo() == nullptr))) {
+            if (reconstruct) {
+                myReconstructRemovedConnections = true;
+                it++;
+            } else {
+                it = myControlledLinks.erase(it);
+            }
+        } else {
+            it++;
         }
     }
-    if (it == myControlledLinks.end()) {
-        // a traffic light doesn't always controll all connections at a junction
-        // especially when using the option --tls.join
-        return;
-    }
-    myReconstructRemovedConnections |= reconstruct;
 }
 
 
@@ -249,6 +246,7 @@ NBLoadedSUMOTLDef::collectEdges() {
     // and which are uncontrolled as well (we already know myControlledLinks)
     for (EdgeVector::iterator j = myIncomingEdges.begin(); j != myIncomingEdges.end();) {
         NBEdge* edge = *j;
+        edge->setInsideTLS(false); // reset
         // an edge lies within the logic if it is outgoing as well as incoming
         EdgeVector::iterator k = std::find(myOutgoing.begin(), myOutgoing.end(), edge);
         if (k != myOutgoing.end()) {
@@ -264,7 +262,7 @@ NBLoadedSUMOTLDef::collectEdges() {
                     myControlledInnerEdges.insert(edge->getID());
                 } else {
                     myEdgesWithin.push_back(edge);
-                    (*j)->setInternal();
+                    edge->setInsideTLS(true);
                     ++j; //j = myIncomingEdges.erase(j);
                     continue;
                 }
@@ -280,8 +278,7 @@ NBLoadedSUMOTLDef::collectLinks() {
     if (myControlledLinks.size() == 0) {
         // maybe we only loaded a different program for a default traffic light.
         // Try to build links now.
-        myOriginalNodes.insert(myControlledNodes.begin(), myControlledNodes.end());
-        collectAllLinks();
+        collectAllLinks(myControlledLinks);
     }
 }
 
@@ -404,8 +401,9 @@ NBLoadedSUMOTLDef::initNeedsContRelation() const {
                         if (forbidden || rightTurnConflict) {
                             myNeedsContRelation.insert(StreamPair(c1.getFrom(), c1.getTo(), c2.getFrom(), c2.getTo()));
                         }
-                        if (isFoes) {
+                        if (isFoes && state[i1] == 's') {
                             myRightOnRedConflicts.insert(std::make_pair(i1, i2));
+                            //std::cout << getID() << " prog=" << getProgramID() << " phase=" << (it - phases.begin()) << " rightOnRedConflict i1=" << i1 << " i2=" << i2 << "\n";
                         }
                         //std::cout << getID() << " i1=" << i1 << " i2=" << i2 << " rightTurnConflict=" << rightTurnConflict << " forbidden=" << forbidden << " isFoes=" << isFoes << "\n";
                     }
@@ -442,7 +440,11 @@ NBLoadedSUMOTLDef::reconstructLogic() {
     const bool netedit = NBNetBuilder::runningNetedit();
 #ifdef DEBUG_RECONSTRUCTION
     bool debugPrintModified = myReconstructAddedConnections || myReconstructRemovedConnections;
-    std::cout << " reconstructLogic added=" << myReconstructAddedConnections << " removed=" << myReconstructRemovedConnections << " valid=" << hasValidIndices() << " oldLinks:\n";
+    std::cout << getID() << " reconstructLogic added=" << myReconstructAddedConnections
+              << " removed=" << myReconstructRemovedConnections
+              << " valid=" << hasValidIndices()
+              << " phasesLoaded=" << myPhasesLoaded
+              << " oldLinks:\n";
     for (NBConnectionVector::iterator it = myControlledLinks.begin(); it != myControlledLinks.end(); ++it) {
         std::cout << "    " << *it << "\n";
     }
@@ -453,7 +455,7 @@ NBLoadedSUMOTLDef::reconstructLogic() {
         if (!myPhasesLoaded && !(netedit && hasValidIndices())) {
             // rebuild the logic from scratch
             // XXX if a connection with the same from- and to-edge already exisits, its states could be copied instead
-            NBOwnTLDef dummy(DummyID, myControlledNodes, 0, TLTYPE_STATIC);
+            NBOwnTLDef dummy(DummyID, myControlledNodes, 0, getType());
             dummy.setParticipantsInformation();
             dummy.setProgramID(getProgramID());
             dummy.setTLControllingInformation();
@@ -524,12 +526,11 @@ NBLoadedSUMOTLDef::reconstructLogic() {
                             }
                         }
                         // rebuild the logic
-                        const std::vector<NBTrafficLightLogic::PhaseDefinition> phases = myTLLogic->getPhases();
                         NBTrafficLightLogic* newLogic = new NBTrafficLightLogic(getID(), getProgramID(), 0, myOffset, myType);
-                        for (std::vector<NBTrafficLightLogic::PhaseDefinition>::const_iterator it = phases.begin(); it != phases.end(); it++) {
-                            std::string newState = it->state;
+                        for (const NBTrafficLightLogic::PhaseDefinition& phase : myTLLogic->getPhases()) {
+                            std::string newState = phase.state;
                             newState.erase(newState.begin() + removed);
-                            newLogic->addStep(it->duration, newState);
+                            newLogic->addStep(phase.duration, newState);
                         }
                         delete myTLLogic;
                         myTLLogic = newLogic;
@@ -555,6 +556,7 @@ NBLoadedSUMOTLDef::getMaxIndex() {
     int maxIndex = -1;
     for (const NBConnection& c : myControlledLinks) {
         maxIndex = MAX2(maxIndex, c.getTLIndex());
+        maxIndex = MAX2(maxIndex, c.getTLIndex2());
     }
     for (NBNode* n : myControlledNodes) {
         for (NBNode::Crossing* c : n->getCrossings()) {
@@ -591,15 +593,189 @@ NBLoadedSUMOTLDef::hasValidIndices() const {
 }
 
 
+std::string
+NBLoadedSUMOTLDef::getStates(int index) {
+    assert(index >= 0);
+    assert(index <= getMaxIndex());
+    std::string result;
+    for (auto& pd : myTLLogic->getPhases()) {
+        result += pd.state[index];
+    }
+    return result;
+}
+
 bool
-NBLoadedSUMOTLDef::cleanupStates() {
-    const int maxIndex = getMaxIndex();
-    if (maxIndex >= 0 && maxIndex + 1 < myTLLogic->getNumLinks()) {
-        myTLLogic->setStateLength(maxIndex + 1);
-        return true;
+NBLoadedSUMOTLDef::isUsed(int index) {
+    for (const NBConnection& c : myControlledLinks) {
+        if (c.getTLIndex() == index || c.getTLIndex2() == index) {
+            return true;
+        }
+    }
+    for (NBNode* n : myControlledNodes) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            if (c->tlLinkIndex == index || c->tlLinkIndex2 == index) {
+                return true;
+            }
+        }
     }
     return false;
 }
+
+std::set<const NBEdge*>
+NBLoadedSUMOTLDef::getEdgesUsingIndex(int index) const {
+    std::set<const NBEdge*> result;
+    for (const NBConnection& c : myControlledLinks) {
+        if (c.getTLIndex() == index || c.getTLIndex2() == index) {
+            result.insert(c.getFrom());
+        }
+    }
+    return result;
+}
+
+
+void
+NBLoadedSUMOTLDef::replaceIndex(int oldIndex, int newIndex) {
+    if (oldIndex == newIndex) {
+        return;
+    }
+    for (NBConnection& c : myControlledLinks) {
+        if (c.getTLIndex() == oldIndex) {
+            c.setTLIndex(newIndex);
+        }
+        if (c.getTLIndex2() == oldIndex) {
+            c.setTLIndex2(newIndex);
+        }
+    }
+    for (NBNode* n : myControlledNodes) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            if (c->tlLinkIndex == oldIndex) {
+                c->tlLinkIndex = newIndex;
+            }
+            if (c->tlLinkIndex2 == oldIndex) {
+                c->tlLinkIndex2 = newIndex;
+            }
+        }
+    }
+}
+
+void
+NBLoadedSUMOTLDef::groupSignals() {
+    const int maxIndex = getMaxIndex();
+    std::vector<int> unusedIndices;
+    for (int i = 0; i <= maxIndex; i++) {
+        if (isUsed(i)) {
+            std::set<const NBEdge*> edges = getEdgesUsingIndex(i);
+            // compactify
+            replaceIndex(i, i - (int)unusedIndices.size());
+            if (edges.size() == 0) {
+                // do not group pedestrian crossing signals
+                continue;
+            }
+            std::string states = getStates(i);
+            for (int j = i + 1; j <= maxIndex; j++) {
+                // only group signals from the same edges as is commonly done by
+                // traffic engineers
+                if (states == getStates(j) && edges == getEdgesUsingIndex(j)) {
+                    replaceIndex(j, i - (int)unusedIndices.size());
+                }
+            }
+        } else {
+            unusedIndices.push_back(i);
+        }
+    }
+    for (int i = (int)unusedIndices.size() - 1; i >= 0; i--) {
+        myTLLogic->deleteStateIndex(unusedIndices[i]);
+    }
+    cleanupStates();
+    //std::cout << "oldMaxIndex=" << maxIndex << " newMaxIndex=" << getMaxIndex() << " unused=" << toString(unusedIndices) << "\n";
+    setTLControllingInformation();
+}
+
+void
+NBLoadedSUMOTLDef::ungroupSignals() {
+    NBConnectionVector defaultOrdering;
+    collectAllLinks(defaultOrdering);
+    myTLLogic->setStateLength((int)myControlledLinks.size());
+    std::vector<std::string> states; // organized per link rather than phase
+    int index = 0;
+    for (NBConnection& c : defaultOrdering) {
+        NBConnection& c2 = *find_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(c));
+        states.push_back(getStates(c2.getTLIndex()));
+        c2.setTLIndex(index++);
+    }
+    for (NBNode* n : myControlledNodes) {
+        for (NBNode::Crossing* c : n->getCrossings()) {
+            states.push_back(getStates(c->tlLinkIndex));
+            c->tlLinkIndex = index++;
+            if (c->tlLinkIndex2 != NBConnection::InvalidTlIndex) {
+                states.push_back(getStates(c->tlLinkIndex2));
+                c->tlLinkIndex2 = index++;
+            }
+        }
+    }
+    for (int i = 0; i < (int)states.size(); i++) {
+        for (int p = 0; p < (int)states[i].size(); p++) {
+            myTLLogic->setPhaseState(p, i, (LinkState)states[i][p]);
+        }
+    }
+    setTLControllingInformation();
+}
+
+
+void
+NBLoadedSUMOTLDef::copyIndices(NBTrafficLightDefinition* def) {
+    std::map<int, std::string> oldStates; // organized per link index rather than phase
+    std::map<int, std::string> newStates; // organized per link index rather than phase
+    for (NBConnection& c : def->getControlledLinks()) {
+        NBConnection& c2 = *find_if(myControlledLinks.begin(), myControlledLinks.end(), connection_equal(c));
+        const int oldIndex = c2.getTLIndex();
+        const int newIndex = c.getTLIndex();
+        std::string states = getStates(oldIndex);
+        oldStates[oldIndex] = states;
+        if (newStates.count(newIndex) != 0 && newStates[newIndex] != states) {
+            WRITE_WARNING("Signal groups from program '" + def->getProgramID() + "' are incompatible with the states of program '" + getProgramID() + "' at tlLogic '" + getID()
+                          + "'. Possibly unsafe program.");
+        } else {
+            newStates[newIndex] = states;
+        }
+        c2.setTLIndex(newIndex);
+    }
+    const int maxIndex = getMaxIndex();
+    myTLLogic->setStateLength(maxIndex + 1);
+    for (int i = 0; i < (int)newStates.size(); i++) {
+        for (int p = 0; p < (int)newStates[i].size(); p++) {
+            myTLLogic->setPhaseState(p, i, (LinkState)newStates[i][p]);
+        }
+    }
+    setTLControllingInformation();
+}
+
+
+bool
+NBLoadedSUMOTLDef::cleanupStates() {
+    const int maxIndex = getMaxIndex();
+    std::vector<int> unusedIndices;
+    for (int i = 0; i <= maxIndex; i++) {
+        if (isUsed(i)) {
+            if (unusedIndices.size() > 0) {
+                replaceIndex(i, i - (int)unusedIndices.size());
+            }
+        } else {
+            unusedIndices.push_back(i);
+        }
+    }
+    for (int i = (int)unusedIndices.size() - 1; i >= 0; i--) {
+        myTLLogic->deleteStateIndex(unusedIndices[i]);
+    }
+    if (unusedIndices.size() > 0) {
+        myTLLogic->setStateLength(maxIndex + 1 - (int)unusedIndices.size());
+        setTLControllingInformation();
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 void
 NBLoadedSUMOTLDef::joinLogic(NBTrafficLightDefinition* def) {
@@ -608,7 +784,6 @@ NBLoadedSUMOTLDef::joinLogic(NBTrafficLightDefinition* def) {
     const int maxIndex = MAX2(getMaxIndex(), def->getMaxIndex());
     myTLLogic->setStateLength(maxIndex + 1);
     myControlledLinks.insert(myControlledLinks.end(), def->getControlledLinks().begin(), def->getControlledLinks().end());
-    myOriginalNodes.insert(def->getNodes().begin(), def->getNodes().end());
 }
 
 bool
@@ -632,5 +807,55 @@ NBLoadedSUMOTLDef::usingSignalGroups() const {
     return false;
 }
 
-/****************************************************************************/
+void
+NBLoadedSUMOTLDef::guessMinMaxDuration() {
+    bool hasMinMaxDur = false;
+    for (auto phase : myTLLogic->getPhases()) {
+        if (phase.maxDur != UNSPECIFIED_DURATION) {
+            //std::cout << " phase=" << phase.state << " maxDur=" << phase.maxDur << "\n";
+            hasMinMaxDur = true;
+        }
+    }
+    if (!hasMinMaxDur) {
+        const SUMOTime minMinDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.min-dur"));
+        const SUMOTime maxDur = TIME2STEPS(OptionsCont::getOptions().getInt("tls.max-dur"));
+        std::set<int> yellowIndices;
+        for (auto phase : myTLLogic->getPhases()) {
+            for (int i = 0; i < (int)phase.state.size(); i++) {
+                if (phase.state[i] == 'y' || phase.state[i] == 'Y') {
+                    yellowIndices.insert(i);
+                }
+            }
+        }
+        for (int ip = 0; ip < (int)myTLLogic->getPhases().size(); ip++) {
+            bool needMinMaxDur = false;
+            auto phase = myTLLogic->getPhases()[ip];
+            std::set<int> greenIndices;
+            if (phase.state.find_first_of("yY") != std::string::npos) {
+                continue;
+            }
+            for (int i = 0; i < (int)phase.state.size(); i++) {
+                if (yellowIndices.count(i) != 0 && phase.state[i] == 'G') {
+                    needMinMaxDur = true;
+                    greenIndices.insert(i);
+                }
+            }
+            if (needMinMaxDur) {
+                double maxSpeed = 0;
+                for (NBConnection& c : myControlledLinks) {
+                    if (greenIndices.count(c.getTLIndex()) != 0) {
+                        maxSpeed = MAX2(maxSpeed, c.getFrom()->getLaneSpeed(c.getFromLane()));
+                    }
+                }
+                // 5s at 50km/h, 10s at 80km/h, rounded to full seconds
+                const double minDurBySpeed = maxSpeed * 3.6 / 6 - 3.3;
+                SUMOTime minDur = MAX2(minMinDur, TIME2STEPS(floor(minDurBySpeed + 0.5)));
+                myTLLogic->setPhaseMinDuration(ip, minDur);
+                myTLLogic->setPhaseMaxDuration(ip, maxDur);
+            }
+        }
+    }
+}
 
+
+/****************************************************************************/

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-03-26 20:22:14.052072 by $Id$
+  options: -n net3.net.xml -e 300 <doubleminus>pedestrians -p 10 -o input_routes2.rou.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0.00">
+        <walk from="CS" to="CW"/>
+    </person>
+    <person id="1" depart="10.00">
+        <walk from="CN" to="CN"/>
+    </person>
+    <person id="2" depart="20.00">
+        <walk from="CN" to="CN"/>
+    </person>
+    <person id="3" depart="30.00">
+        <walk from="CS" to="EC"/>
+    </person>
+    <person id="4" depart="40.00">
+        <walk from="EC" to="CE"/>
+    </person>
+    <person id="5" depart="50.00">
+        <walk from="CW" to="CS"/>
+    </person>
+    <person id="6" depart="60.00">
+        <walk from="CN" to="CN"/>
+    </person>
+    <person id="7" depart="70.00">
+        <walk from="NC" to="WC"/>
+    </person>
+    <person id="8" depart="80.00">
+        <walk from="CE" to="CN"/>
+    </person>
+    <person id="9" depart="90.00">
+        <walk from="NC" to="CE"/>
+    </person>
+    <person id="10" depart="100.00">
+        <walk from="EC" to="CE"/>
+    </person>
+    <person id="11" depart="110.00">
+        <walk from="EC" to="SC"/>
+    </person>
+    <person id="12" depart="120.00">
+        <walk from="CE" to="CE"/>
+    </person>
+    <person id="13" depart="130.00">
+        <walk from="SC" to="NC"/>
+    </person>
+    <person id="14" depart="140.00">
+        <walk from="WC" to="CS"/>
+    </person>
+    <person id="15" depart="150.00">
+        <walk from="WC" to="CN"/>
+    </person>
+    <person id="16" depart="160.00">
+        <walk from="EC" to="CE"/>
+    </person>
+    <person id="17" depart="170.00">
+        <walk from="WC" to="CW"/>
+    </person>
+    <person id="18" depart="180.00">
+        <walk from="CW" to="WC"/>
+    </person>
+    <person id="19" depart="190.00">
+        <walk from="CE" to="CE"/>
+    </person>
+    <person id="20" depart="200.00">
+        <walk from="SC" to="CE"/>
+    </person>
+    <person id="21" depart="210.00">
+        <walk from="EC" to="CW"/>
+    </person>
+    <person id="22" depart="220.00">
+        <walk from="WC" to="NC"/>
+    </person>
+    <person id="23" depart="230.00">
+        <walk from="CW" to="SC"/>
+    </person>
+    <person id="24" depart="240.00">
+        <walk from="SC" to="CW"/>
+    </person>
+    <person id="25" depart="250.00">
+        <walk from="WC" to="SC"/>
+    </person>
+    <person id="26" depart="260.00">
+        <walk from="CE" to="EC"/>
+    </person>
+    <person id="27" depart="270.00">
+        <walk from="CE" to="SC"/>
+    </person>
+    <person id="28" depart="280.00">
+        <walk from="CS" to="CW"/>
+    </person>
+    <person id="29" depart="290.00">
+        <walk from="NC" to="CE"/>
+    </person>
+</routes>

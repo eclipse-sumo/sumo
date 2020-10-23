@@ -1,0 +1,5 @@
+Warning: Unused states in tlLogic 'K048', program '0' in phase 0 after tl-index 11
+Warning: Missing green phase in tlLogic 'K048', program '0' for tl-index 5
+Warning: Unused states in tlLogic 'K048', program 'VA' in phase 0 after tl-index 11
+Warning: SSM Device for vehicle 'Pkw1.1' will not be built. (SSMs not supported in MESO)
+Warning: SSM Device for vehicle 'Pkw2.0' will not be built. (SSMs not supported in MESO)

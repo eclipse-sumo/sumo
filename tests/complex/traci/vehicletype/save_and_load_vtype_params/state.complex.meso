@@ -1,0 +1,594 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Feb 21 09:58:01 2020 by Eclipse SUMO Version v1_5_0+0190-6f34f42
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="50"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <default.action-step-length value="0.5"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="34881"/>
+    </traci_server>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+    <gui_only>
+        <tracker-interval value="0.5"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_5_0+0190-6f34f42" time="50.00">
+    <route id="r1" state="1" edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    <delay number="3" begin="3" end="0" depart="0.00" time="0.00"/>
+    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
+    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE" length="3.00" minGap="2.00" maxSpeed="10.00" accel="0.8" decel="4.5" sigma="0"/>
+    <vType id="t1" length="4.00" minGap="0.80" maxSpeed="99.90" speedFactor="normc(0.90,0.10,0.20,2.00)" actionStepLength="1.50" width="3.30" accel="2.5" decel="3.5" tau="1.5"/>
+    <vType id="t2" length="5.00" minGap="1.50" maxSpeed="20.00" actionStepLength="2.00" color="yellow" accel="2.5" decel="4.5" sigma="0.5" tau="2.0"/>
+    <vType id="t2@veh2" length="4.00" minGap="0.80" maxSpeed="99.90" actionStepLength="2.00" width="3.30" color="yellow" accel="2.5" decel="4.5" sigma="0.5" tau="2.0"/>
+    <vehicle id="veh0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="100.00" departSpeed="10.00" route="r1" speedFactor="1.06" state="0 1 0 0 0 53000 43000 9223372036854775807">
+        <device id="vehroute_veh0" state="10.00 0.00 0"/>
+    </vehicle>
+    <vehicle id="veh1" type="t1" depart="10.00" departPos="100.00" departSpeed="10.00" route="r1" speedFactor="1.00" state="10000 0 0 3 0 50000 40000 9223372036854775807">
+        <device id="vehroute_veh1" state="10.00 0.00 0"/>
+    </vehicle>
+    <vehicle id="veh2" type="t2@veh2" depart="20.00" departPos="100.00" departSpeed="10.00" route="r1" speedFactor="0.90" state="20000 0 0 2 0 49691 39794 9223372036854775807">
+        <device id="vehroute_veh2" state="10.10 0.00 0"/>
+    </vehicle>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value="veh0"/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="31677" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="41574" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="41610" value="veh2"/>
+    </segment>
+    <segment>
+        <vehicles time="44630" value="veh1"/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+</snapshot>

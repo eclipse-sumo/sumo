@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Thu Mar 26 14:16:46 2020 by Eclipse SUMO netconvert Version v1_5_0+0956-19fffc391b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,12 +29,13 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,0.00" convBoundary="0.00,0.00,1800.00,0.00" origBoundary="-500.00,0.00,1300.00,0.00" projParameter="!"/>
 
@@ -71,7 +72,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="1to21" to="out" fromLane="0" toLane="0" tl="2" linkIndex="0" dir="s" state="O"/>
     <connection from="1to22" to="out" fromLane="0" toLane="0" tl="2" linkIndex="1" dir="s" state="o"/>
-    <connection from="91to1" to="1to21" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="91to1" to="1to22" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="91to1" to="1to21" fromLane="0" toLane="0" dir="s" state="M"/>
 
 </net>

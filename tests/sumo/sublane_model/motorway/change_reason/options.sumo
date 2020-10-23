@@ -1,0 +1,6 @@
+--no-step-log --net-file=net.net.xml --routes=input_routes.rou.xml
+--lanechange-output lanechanges.xml
+--lanechange-output.started
+--lanechange-output.ended
+--lateral-resolution 3.5 
+--step-length 0.5

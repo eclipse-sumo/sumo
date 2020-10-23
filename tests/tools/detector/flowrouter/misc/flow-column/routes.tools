@@ -1,0 +1,4 @@
+<routes>
+    <route id="-2_-1.foobar" edges="-2 -1"/>
+    <route id="1_2.foobar" edges="1 2"/>
+</routes>

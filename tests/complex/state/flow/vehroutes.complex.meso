@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 27 09:36:51 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <load-state value="state.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0.0" type="DEFAULT_VEHTYPE" depart="0.00" speedFactor="1.06" arrival="151.00">
+        <routeDistribution>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="0.00" probability="0" edges="0/1to1/1 3/1to4/1"/>
+            <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="0.1" type="DEFAULT_VEHTYPE" depart="10.00" speedFactor="0.94" arrival="181.00">
+        <routeDistribution>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="10.00" probability="0" edges="0/1to1/1 3/1to4/1"/>
+            <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="20.00" speedFactor="1.01" arrival="183.00">
+        <routeDistribution>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="20.00" probability="0" edges="0/1to1/1 3/1to4/1"/>
+            <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="0.3" type="DEFAULT_VEHTYPE" depart="30.00" speedFactor="1.08" arrival="185.00">
+        <routeDistribution>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="30.00" probability="0" edges="0/1to1/1 3/1to4/1"/>
+            <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="0.4" type="DEFAULT_VEHTYPE" depart="40.00" speedFactor="1.03" arrival="196.00">
+        <routeDistribution>
+            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="40.00" probability="0" edges="0/1to1/1 3/1to4/1"/>
+            <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="0.5" depart="50.00" arrival="243.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+    </vehicle>
+
+    <vehicle id="0.6" depart="60.00" arrival="245.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+    </vehicle>
+
+    <vehicle id="0.7" depart="70.00" arrival="251.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+    </vehicle>
+
+    <vehicle id="0.8" depart="80.00" arrival="253.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+    </vehicle>
+
+    <vehicle id="0.9" depart="90.00" arrival="277.00">
+        <route edges="0/1to1/1 1/1to2/1 2/1to3/1 3/1to4/1"/>
+    </vehicle>
+
+</routes>

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04.10.2019 10:35:35 by Eclipse SUMO netedit Version v1_3_1+0555-c0a1b3e52e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_04Oct092610.1652/netedit.gui/additionalElements/busstop/fix/fix_positions\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_04Oct092610.1652/netedit.gui/additionalElements/busstop/fix/fix_positions\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_04Oct092610.1652/netedit.gui/additionalElements/busstop/fix/fix_positions\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_04Oct092610.1652/netedit.gui/additionalElements/busstop/fix/fix_positions\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_04Oct092610.1652/netedit.gui/additionalElements/busstop/fix/fix_positions\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_04Oct092610.1652/netedit.gui/additionalElements/busstop/fix/fix_positions\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_04Oct092610.1652/netedit.gui/additionalElements/busstop/fix/fix_positions\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.7_from_04Oct092610.1652/netedit.gui/additionalElements/busstop/fix/fix_positions\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStopA" lane="gneE0_0" startPos="11.90" endPos="12.00"/>
+    <busStop id="busStopB" lane="gneE0_0" startPos="38.00" endPos="50.00"/>
+    <busStop id="busStopC" lane="gneE1_0" startPos="12.00" endPos="48.00"/>
+    <busStop id="busStopD" lane="gneE1_0" startPos="37.90" endPos="38.00"/>
+</additional>

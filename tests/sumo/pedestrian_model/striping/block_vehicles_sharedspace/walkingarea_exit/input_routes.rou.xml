@@ -1,0 +1,10 @@
+<routes>
+    <flow id="NE" from="NC" to="CE" begin="0" end="100" period="10"/>
+    <flow id="WE" from="WC" to="CE" begin="0" end="100" period="10"/>
+    <personFlow id="pedSN" begin="0" end="200" period="12" departPos="-20">
+        <walk from="SC" to="CN" arrivalPos="20"/>
+    </personFlow>
+    <personFlow id="pedNS" begin="0" end="200" period="12" departPos="-20">
+        <walk from="NC" to="CS" arrivalPos="20"/>
+    </personFlow>
+</routes>

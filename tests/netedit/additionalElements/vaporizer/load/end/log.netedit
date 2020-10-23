@@ -1,0 +1,5 @@
+Warning: Essential SUMOTime attribute 'end' of vaporizer is missing; vaporizer cannot be created
+Warning: Essential SUMOTime attribute 'end' of vaporizer is missing; vaporizer cannot be created
+Warning: Format of essential SUMOTime attribute 'end' of vaporizer is invalid; Cannot be parsed to SUMOTime; vaporizer cannot be created
+Warning: Format of essential SUMOTime attribute 'end' of vaporizer is invalid; Cannot be parsed to SUMOTime; vaporizer cannot be created
+Warning: Time interval of vaporizer isn't valid. Attribute 'begin' is greater than attribute 'end'.

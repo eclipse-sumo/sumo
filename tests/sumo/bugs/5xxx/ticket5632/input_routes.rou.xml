@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="t" speedDev="0.1"/>
+    <route id="route_1" edges="gneE0 gneE1 gneE3" color="blue"/>
+    <flow id="flow_1" type="t" begin="0.00" route="route_1" end="500.00" number="300" departLane="free" departSpeed="max"/>
+</routes>

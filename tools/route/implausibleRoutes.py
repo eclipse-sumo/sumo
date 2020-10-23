@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2014-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2014-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    implausibleRoutes.py
 # @author  Jakob Erdmann
 # @date    2017-03-28
-# @version $Id$
 
 """
 Find routes that are implausible due to:
@@ -31,7 +34,7 @@ import subprocess
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
     import sumolib  # noqa
-    from sumolib.output import parse  # noqa
+    from sumolib.xml import parse, parse_fast_nested  # noqa
     from sumolib.net import readNet  # noqa
     from sumolib.miscutils import Statistics, euclidean, Colorgen  # noqa
     from route2poly import generate_poly  # noqa
@@ -40,7 +43,7 @@ else:
 
 
 def get_options():
-    USAGE = """Usage %prog [options] <net.xml> <rou.xml>"""
+    USAGE = "Usage %prog [options] <net.xml> <rou.xml>"
     optParser = OptionParser(usage=USAGE)
     optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="Give more output")
@@ -70,12 +73,24 @@ def get_options():
     optParser.add_option("--od-restrictions", action="store_true", dest="odrestrictions",
                          default=False, help="Write restrictions for origin-destination relations rather than " +
                                              "whole routes")
+    optParser.add_option("--edge-loops", action="store_true",
+                         default=False, help="report routes which use edges twice")
+    optParser.add_option("--node-loops", action="store_true",
+                         default=False, help="report routes which use junctions twice")
+    optParser.add_option("--threads", default=1, type=int,
+                         help="number of threads to use for duarouter")
+    optParser.add_option("--min-edges", default=2, type=int,
+                         help="number of edges a route needs to have to be analyzed")
+    optParser.add_option("--heterogeneous", action="store_true",
+                         default=False, help="Use slow parsing for route files with different formats in one file")
+    optParser.add_option("--reuse-routing", action="store_true",
+                         default=False, help="do not run duarouter again if output file exists")
     options, args = optParser.parse_args()
 
-    if len(args) != 2:
+    if len(args) < 2:
         sys.exit(USAGE)
     options.network = args[0]
-    options.routeFile = args[1]
+    options.routeFiles = args[1:]
     # options for generate_poly
     options.layer = 100
     options.geo = False
@@ -85,60 +100,130 @@ def get_options():
     return options
 
 
-def getRouteLength(net, edges):
-    return sum([net.getEdge(e).getLength() for e in edges])
-
-
 class RouteInfo:
-    pass
+    def __init__(self, route):
+        self.edges = route.edges.split()
 
 
-def main():
-    DUAROUTER = sumolib.checkBinary('duarouter')
-    options = get_options()
-    net = readNet(options.network)
-
-    routeInfos = {}  # id-> RouteInfo
-    if options.standalone:
-        for route in parse(options.routeFile, 'route'):
-            ri = RouteInfo()
-            ri.edges = route.edges.split()
-            routeInfos[route.id] = ri
-    else:
-        for vehicle in parse(options.routeFile, 'vehicle'):
-            ri = RouteInfo()
-            ri.edges = vehicle.route[0].edges.split()
-            routeInfos[vehicle.id] = ri
-
-    for rInfo in routeInfos.values():
+def calcDistAndLoops(rInfo, net, options):
+    if net.hasInternal:
         rInfo.airDist = euclidean(
             net.getEdge(rInfo.edges[0]).getShape()[0],
             net.getEdge(rInfo.edges[-1]).getShape()[-1])
-        rInfo.length = getRouteLength(net, rInfo.edges)
-        rInfo.airDistRatio = rInfo.length / rInfo.airDist
+    else:
+        rInfo.airDist = euclidean(
+            net.getEdge(rInfo.edges[0]).getFromNode().getCoord(),
+            net.getEdge(rInfo.edges[-1]).getToNode().getCoord())
+    rInfo.length = sumolib.route.getLength(net, rInfo.edges)
+    rInfo.airDistRatio = rInfo.length / rInfo.airDist
+    rInfo.edgeLoop = False
+    rInfo.nodeLoop = False
+    if options.edge_loops:
+        seen = set()
+        for e in rInfo.edges:
+            if e in seen:
+                rInfo.edgeLoop = True
+                rInfo.nodeLoop = True
+                break
+            seen.add(e)
+    if options.node_loops and not rInfo.nodeLoop:
+        seen = set()
+        for e in rInfo.edges:
+            t = net.getEdge(e).getToNode()
+            if t in seen:
+                rInfo.nodeLoop = True
+                break
+            seen.add(t)
 
-    duarouterInput = options.routeFile
-    if options.standalone:
-        # generate suitable input file for duarouter
-        duarouterInput += ".vehRoutes.xml"
-        with open(duarouterInput, 'w') as outf:
-            outf.write('<routes>\n')
-            for rID, rInfo in routeInfos.items():
-                outf.write('    <vehicle id="%s" depart="0">\n' % rID)
-                outf.write('        <route edges="%s"/>\n' % ' '.join(rInfo.edges))
-                outf.write('    </vehicle>\n')
-            outf.write('</routes>\n')
 
-    duarouterOutput = options.routeFile + '.rerouted.rou.xml'
-    duarouterAltOutput = options.routeFile + '.rerouted.rou.alt.xml'
+def addOrSkip(routeInfos, skipped, rid, route, min_edges):
+    ri = RouteInfo(route)
+    if len(ri.edges) >= min_edges:
+        routeInfos[rid] = ri
+    else:
+        skipped.add(rid)
 
-    subprocess.call([DUAROUTER,
-                     '-n', options.network,
-                     '-r', duarouterInput,
-                     '-o', duarouterOutput,
-                     '--no-step-log'])
+
+def main():
+    options = get_options()
+    if options.verbose:
+        print("parsing network from", options.network)
+    net = readNet(options.network, withInternal=True)
+    read = 0
+    routeInfos = {}  # id-> RouteInfo
+    skipped = set()
+    for routeFile in options.routeFiles:
+        if options.verbose:
+            print("parsing routes from", routeFile)
+        idx = 0
+        if options.standalone:
+            for idx, route in enumerate(parse(routeFile, 'route')):
+                if options.verbose and idx > 0 and idx % 100000 == 0:
+                    print(idx, "routes read")
+                addOrSkip(routeInfos, skipped, route.id, route, options.min_edges)
+        else:
+            if options.heterogeneous:
+                for idx, vehicle in enumerate(parse(routeFile, 'vehicle')):
+                    if options.verbose and idx > 0 and idx % 100000 == 0:
+                        print(idx, "vehicles read")
+                    addOrSkip(routeInfos, skipped, vehicle.id, vehicle.route[0], options.min_edges)
+            else:
+                prev = (None, None)
+                for vehicle, route in parse_fast_nested(routeFile, 'vehicle', 'id', 'route', 'edges'):
+                    if prev[0] != vehicle.id:
+                        if options.verbose and idx > 0 and idx % 500000 == 0:
+                            print(idx, "vehicles read")
+                        if prev[0] is not None:
+                            addOrSkip(routeInfos, skipped, prev[0], prev[1], options.min_edges)
+                        prev = (vehicle.id, route)
+                        idx += 1
+                if prev[0] is not None:
+                    addOrSkip(routeInfos, skipped, prev[0], prev[1], options.min_edges)
+        read += idx
+    if options.verbose:
+        print(read, "routes read", len(skipped), "short routes skipped")
+
+    if options.verbose:
+        print("calculating air distance and checking loops")
+    for idx, ri in enumerate(routeInfos.values()):
+        if options.verbose and idx > 0 and idx % 100000 == 0:
+            print(idx, "routes checked")
+        calcDistAndLoops(ri, net, options)
+
+    prefix = os.path.commonprefix(options.routeFiles)
+    duarouterOutput = prefix + '.rerouted.rou.xml'
+    duarouterAltOutput = prefix + '.rerouted.rou.alt.xml'
+    if os.path.exists(duarouterAltOutput) and options.reuse_routing:
+        if options.verbose:
+            print("reusing old duarouter file", duarouterAltOutput)
+    else:
+        if options.standalone:
+            duarouterInput = prefix
+            # generate suitable input file for duarouter
+            duarouterInput += ".vehRoutes.xml"
+            with open(duarouterInput, 'w') as outf:
+                outf.write('<routes>\n')
+                for rID, rInfo in routeInfos.items():
+                    outf.write('    <vehicle id="%s" depart="0">\n' % rID)
+                    outf.write('        <route edges="%s"/>\n' % ' '.join(rInfo.edges))
+                    outf.write('    </vehicle>\n')
+                outf.write('</routes>\n')
+        else:
+            duarouterInput = ",".join(options.routeFiles)
+
+        command = [sumolib.checkBinary('duarouter'), '-n', options.network,
+                   '-r', duarouterInput, '-o', duarouterOutput,
+                   '--no-step-log', '--routing-threads', str(options.threads),
+                   '--routing-algorithm', 'astar', '--aggregate-warnings',  '1']
+        if options.verbose:
+            command += ["-v"]
+        if options.verbose:
+            print("calling duarouter:", " ".join(command))
+        subprocess.call(command)
 
     for vehicle in parse(duarouterAltOutput, 'vehicle'):
+        if vehicle.id in skipped:
+            continue
         routeAlts = vehicle.routeDistribution[0].route
         if len(routeAlts) == 1:
             routeInfos[vehicle.id].detour = 0
@@ -148,7 +233,7 @@ def main():
             oldCosts = float(routeAlts[0].cost)
             newCosts = float(routeAlts[1].cost)
             assert(routeAlts[0].edges.split() == routeInfos[vehicle.id].edges)
-            routeInfos[vehicle.id].shortest_path_distance = getRouteLength(net, routeAlts[1].edges.split())
+            routeInfos[vehicle.id].shortest_path_distance = sumolib.route.getLength(net, routeAlts[1].edges.split())
             if oldCosts <= newCosts:
                 routeInfos[vehicle.id].detour = 0
                 routeInfos[vehicle.id].detourRatio = 1
@@ -161,7 +246,7 @@ def main():
                 routeInfos[vehicle.id].detourRatio = oldCosts / newCosts
 
     implausible = []
-    allRoutesStats = Statistics("overal implausiblity")
+    allRoutesStats = Statistics("overall implausiblity")
     implausibleRoutesStats = Statistics("implausiblity above threshold")
     for rID in sorted(routeInfos.keys()):
         ri = routeInfos[rID]
@@ -171,7 +256,7 @@ def main():
                              max(0, options.min_dist / ri.shortest_path_distance - 1) +
                              max(0, options.min_air_dist / ri.airDist - 1))
         allRoutesStats.add(ri.implausibility, rID)
-        if ri.implausibility > options.threshold:
+        if ri.implausibility > options.threshold or ri.edgeLoop or ri.nodeLoop:
             implausible.append((ri.implausibility, rID, ri))
             implausibleRoutesStats.add(ri.implausibility, rID)
 
@@ -192,7 +277,7 @@ def main():
             len(ignored), numImplausible, len(implausible)))
 
     # generate polygons
-    polyOutput = options.routeFile + '.implausible.add.xml'
+    polyOutput = prefix + '.implausible.add.xml'
     colorgen = Colorgen(("random", 1, 1))
     with open(polyOutput, 'w') as outf:
         outf.write('<additional>\n')
@@ -200,11 +285,12 @@ def main():
             generate_poly(options, net, rID, colorgen(), ri.edges, outf, score)
         outf.write('</additional>\n')
 
-    sys.stdout.write('score\troute\t(airDistRatio, detourRatio, detour, shortestDist, airDist)\n')
+    sys.stdout.write('score\troute\t(airDistRatio, detourRatio, detour, shortestDist, airDist, edgeLoop, nodeLoop)\n')
     for score, rID, ri in sorted(implausible):
         # , ' '.join(ri.edges)))
         sys.stdout.write('%.7f\t%s\t%s\n' % (score, rID, (ri.airDistRatio, ri.detourRatio,
-                                                          ri.detour, ri.shortest_path_distance, ri.airDist)))
+                                                          ri.detour, ri.shortest_path_distance,
+                                                          ri.airDist, ri.edgeLoop, ri.nodeLoop)))
 
     print(allRoutesStats)
     print(implausibleRoutesStats)

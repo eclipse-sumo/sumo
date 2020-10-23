@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 31 Oct 2019 10:52:20 AM CET by Eclipse SUMO GUI Version v1_3_1+0734-f41db6c
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <ssm_device>
+        <device.ssm.probability value="1"/>
+        <device.ssm.measures value="TTC DRAC PET BR SGAP TGAP"/>
+        <device.ssm.thresholds value="5 5 3 0 1 1"/>
+        <device.ssm.file value="ssm.xml"/>
+    </ssm_device>
+
+    <traci_server>
+        <remote-port value="36177"/>
+    </traci_server>
+
+    <gui_only>
+        <window-size value="500,500"/>
+        <window-pos value="50,50"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<SSMLog>
+    <conflict begin="2.00" end="14.00" ego="ego" foe="leader">
+        <minTTC time="7.00" position="85.08,98.40" type="2" value="2.03"/>
+        <maxDRAC time="7.00" position="85.08,98.40" type="2" value="1.12"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <globalMeasures ego="ego">
+        <timeSpan values="2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00"/>
+        <BRSpan values="0.00 0.40 1.44 0.00 0.00 3.21 4.46 0.00 3.50 0.00 0.00 0.00 0.00"/>
+        <maxBR time="8.00" position="80.85,98.40" value="4.46"/>
+        <SGAPSpan values="11.10 11.95 15.16 17.10 13.80 9.24 NA 11.88 18.79 26.46 33.56 38.27 40.60"/>
+        <minSGAP time="7.00" position="75.83,98.40" value="9.24" leader="leader"/>
+        <TGAPSpan values="0.85 0.95 1.35 1.43 1.09 0.98 NA 1.64 5.02 5.10 4.45 3.92 3.36"/>
+        <minTGAP time="2.00" position="17.91,98.40" value="0.85" leader="leader"/>
+    </globalMeasures>
+    <conflict begin="2.00" end="14.00" ego="leader" foe="ego">
+        <minTTC time="7.00" position="85.08,98.40" type="3" value="2.03"/>
+        <maxDRAC time="7.00" position="85.08,98.40" type="3" value="1.12"/>
+        <PET time="NA" position="NA" type="NA" value="NA"/>
+    </conflict>
+    <globalMeasures ego="leader">
+        <timeSpan values="0.00 1.00 2.00 3.00 4.00 5.00 6.00 7.00 8.00 9.00 10.00 11.00 12.00 13.00 14.00"/>
+        <BRSpan values="0.00 0.52 0.00 1.22 0.00 0.50 4.50 4.47 0.00 0.00 0.00 0.00 0.00 0.17 0.05"/>
+        <maxBR time="6.00" position="85.16,98.40" value="4.50"/>
+        <SGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
+        <TGAPSpan values="NA NA NA NA NA NA NA NA NA NA NA NA NA NA NA"/>
+    </globalMeasures>
+</SSMLog>

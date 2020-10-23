@@ -70,6 +70,8 @@
 
 # Originally from VTK project
 
+# note: _FFMPEG_z_LIBRARY_ was disabled because is already included in SUMO
+
 
 find_path(FFMPEG_INCLUDE_DIR1 libavformat/avformat.h
   $ENV{FFMPEG_DIR}
@@ -203,42 +205,54 @@ find_library(FFMPEG_avdevice_LIBRARY avdevice
   /usr/lib
 )
 
-find_library(_FFMPEG_z_LIBRARY_ z
-  $ENV{FFMPEG_DIR}
-  $ENV{FFMPEG_DIR}/lib
-  /usr/local/lib
-  /usr/lib
-)
+
+#find_library(_FFMPEG_z_LIBRARY_ z
+#  $ENV{FFMPEG_DIR}
+#  $ENV{FFMPEG_DIR}/lib
+#  /usr/local/lib
+#  /usr/lib
+#)
 
 
 
-if(FFMPEG_INCLUDE_DIR)
+if(FFMPEG_INCLUDE_DIR AND EXISTS ${FFMPEG_INCLUDE_DIR2}/libavutil/ffversion.h)
   if(FFMPEG_avformat_LIBRARY)
     if(FFMPEG_avcodec_LIBRARY)
       if(FFMPEG_avutil_LIBRARY)
-        set(FFMPEG_FOUND "YES")
-        set(FFMPEG_LIBRARIES ${FFMPEG_avformat_LIBRARY}
-                             ${FFMPEG_avcodec_LIBRARY}
-                             ${FFMPEG_avutil_LIBRARY}
-          )
-        if(FFMPEG_swscale_LIBRARY)
-          set(FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
-                               ${FFMPEG_swscale_LIBRARY}
-          )
-        endif()
-        if(FFMPEG_avdevice_LIBRARY)
-          set(FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
-                               ${FFMPEG_avdevice_LIBRARY}
-          )
-        endif()
-        if(_FFMPEG_z_LIBRARY_)
-          set( FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
-                                ${_FFMPEG_z_LIBRARY_}
-          )
+        file(STRINGS ${FFMPEG_INCLUDE_DIR2}/libavutil/ffversion.h _version_line REGEX "^[ \t]*#define FFMPEG_VERSION.*")
+        if(_version_line)
+          string(REGEX REPLACE ".*#define FFMPEG_VERSION[ \t]+\"n?([0-9\.]+).*" "\\1" FFMPEG_VERSION "${_version_line}")
+          if("${FFMPEG_VERSION}" VERSION_LESS "3.4")
+            message(STATUS "Unsuitable FFmpeg version found ${FFMPEG_VERSION}")
+          else()
+            set(FFMPEG_FOUND "YES")
+            set(FFMPEG_LIBRARIES ${FFMPEG_avformat_LIBRARY}
+                                 ${FFMPEG_avcodec_LIBRARY}
+                                 ${FFMPEG_avutil_LIBRARY}
+              )
+            if(FFMPEG_swscale_LIBRARY)
+              set(FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
+                                   ${FFMPEG_swscale_LIBRARY}
+              )
+            endif()
+            if(FFMPEG_avdevice_LIBRARY)
+              set(FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
+                                   ${FFMPEG_avdevice_LIBRARY}
+              )
+            endif()
+            #if(_FFMPEG_z_LIBRARY_)
+            #  set( FFMPEG_LIBRARIES ${FFMPEG_LIBRARIES}
+            #                        ${_FFMPEG_z_LIBRARY_}
+            #  )
+            #endif()
+          endif()
         endif()
       endif()
     endif()
   endif()
+endif()
+if (NOT FFMPEG_FOUND)
+  message(STATUS "Could NOT find suitable FFmpeg.")
 endif()
 
 mark_as_advanced(
@@ -253,7 +267,7 @@ mark_as_advanced(
   FFMPEG_avutil_LIBRARY
   FFMPEG_swscale_LIBRARY
   FFMPEG_avdevice_LIBRARY
-  _FFMPEG_z_LIBRARY_
+  #_FFMPEG_z_LIBRARY_
   )
 
 # Set package properties if FeatureSummary was included

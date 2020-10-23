@@ -1,0 +1,3 @@
+((<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>), 188.23)
+((<edge id="SC" from="S" to="C"/>, <edge id="CW" from="C" to="W"/>, <edge id="WC" from="W" to="C"/>, <edge id="CE" from="C" to="E"/>), 390.83)
+((<edge id="SC" from="S" to="C"/>, <edge id="CE" from="C" to="E"/>), 188.23)

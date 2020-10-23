@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:02 2018 by Eclipse SUMO netgenerate Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:41 2020 by Eclipse SUMO netgenerate Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="1000.00,951.06" convBoundary="0.00,0.00,2000.00,1902.11" origBoundary="-1000.00,-951.06,1000.00,951.06" projParameter="!"/>
 
@@ -3009,13 +3009,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="A1B9" to="B9B10" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="A1B9" to="B9A1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B10A1" to="A1B1" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B10A1" to="A1B2" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B10A1" to="A1B2" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B10A1" to="A1B3" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B10A1" to="A1B4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B10A1" to="A1B4" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B10A1" to="A1B5" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B10A1" to="A1B6" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B10A1" to="A1B7" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B10A1" to="A1B8" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B10A1" to="A1B8" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B10A1" to="A1B9" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B10A1" to="A1B10" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B10B1" to="B1C1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -3031,13 +3031,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B10C10" to="C10C1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B10C10" to="C10B10" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B1A1" to="A1B2" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B1A1" to="A1B3" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B1A1" to="A1B3" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B1A1" to="A1B4" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B1A1" to="A1B5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B1A1" to="A1B5" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B1A1" to="A1B6" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B1A1" to="A1B7" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B1A1" to="A1B8" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B1A1" to="A1B9" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B1A1" to="A1B9" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B1A1" to="A1B10" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B1A1" to="A1B1" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B1B10" to="B10A1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -3053,13 +3053,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B1C1" to="C1C2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B1C1" to="C1B1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B2A1" to="A1B3" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B2A1" to="A1B4" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B2A1" to="A1B4" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B2A1" to="A1B5" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B2A1" to="A1B6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B2A1" to="A1B6" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B2A1" to="A1B7" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B2A1" to="A1B8" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B2A1" to="A1B9" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B2A1" to="A1B10" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B2A1" to="A1B10" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B2A1" to="A1B1" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B2A1" to="A1B2" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B2B1" to="B1A1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -3075,13 +3075,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B2C2" to="C2C3" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B2C2" to="C2B2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B3A1" to="A1B4" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B3A1" to="A1B5" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B3A1" to="A1B5" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B3A1" to="A1B6" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B3A1" to="A1B7" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B3A1" to="A1B7" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B3A1" to="A1B8" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B3A1" to="A1B9" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B3A1" to="A1B10" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B3A1" to="A1B1" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B3A1" to="A1B1" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B3A1" to="A1B2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B3A1" to="A1B3" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B3B2" to="B2A1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -3097,13 +3097,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B3C3" to="C3C4" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B3C3" to="C3B3" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B4A1" to="A1B5" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B4A1" to="A1B6" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B4A1" to="A1B6" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B4A1" to="A1B7" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B4A1" to="A1B8" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B4A1" to="A1B8" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B4A1" to="A1B9" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B4A1" to="A1B10" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B4A1" to="A1B1" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B4A1" to="A1B2" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B4A1" to="A1B2" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B4A1" to="A1B3" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B4A1" to="A1B4" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B4B3" to="B3A1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -3119,13 +3119,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B4C4" to="C4C5" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B4C4" to="C4B4" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B5A1" to="A1B6" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B5A1" to="A1B7" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B5A1" to="A1B7" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B5A1" to="A1B8" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B5A1" to="A1B9" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B5A1" to="A1B9" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B5A1" to="A1B10" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B5A1" to="A1B1" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B5A1" to="A1B2" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B5A1" to="A1B3" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B5A1" to="A1B3" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B5A1" to="A1B4" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B5A1" to="A1B5" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B5B4" to="B4A1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -3141,13 +3141,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B5C5" to="C5C6" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B5C5" to="C5B5" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B6A1" to="A1B7" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B6A1" to="A1B8" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B6A1" to="A1B8" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B6A1" to="A1B9" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B6A1" to="A1B10" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B6A1" to="A1B10" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B6A1" to="A1B1" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B6A1" to="A1B2" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B6A1" to="A1B3" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B6A1" to="A1B4" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B6A1" to="A1B4" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B6A1" to="A1B5" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B6A1" to="A1B6" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B6B5" to="B5A1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -3163,13 +3163,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B6C6" to="C6C7" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B6C6" to="C6B6" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B7A1" to="A1B8" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B7A1" to="A1B9" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B7A1" to="A1B9" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B7A1" to="A1B10" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B7A1" to="A1B1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B7A1" to="A1B1" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B7A1" to="A1B2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B7A1" to="A1B3" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B7A1" to="A1B4" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B7A1" to="A1B5" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B7A1" to="A1B5" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B7A1" to="A1B6" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B7A1" to="A1B7" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B7B6" to="B6A1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -3185,13 +3185,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B7C7" to="C7C8" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B7C7" to="C7B7" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B8A1" to="A1B9" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B8A1" to="A1B10" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B8A1" to="A1B10" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B8A1" to="A1B1" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B8A1" to="A1B2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B8A1" to="A1B2" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B8A1" to="A1B3" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B8A1" to="A1B4" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B8A1" to="A1B5" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B8A1" to="A1B6" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B8A1" to="A1B6" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B8A1" to="A1B7" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B8A1" to="A1B8" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B8B7" to="B7A1" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -3207,13 +3207,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="B8C8" to="C8C9" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="B8C8" to="C8B8" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="B9A1" to="A1B10" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="B9A1" to="A1B1" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="B9A1" to="A1B1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="B9A1" to="A1B2" fromLane="0" toLane="0" dir="R" state="M"/>
-    <connection from="B9A1" to="A1B3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="B9A1" to="A1B3" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="B9A1" to="A1B4" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="B9A1" to="A1B5" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="B9A1" to="A1B6" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from="B9A1" to="A1B7" fromLane="0" toLane="0" dir="L" state="M"/>
+    <connection from="B9A1" to="A1B7" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B9A1" to="A1B8" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from="B9A1" to="A1B9" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from="B9B10" to="B10C10" fromLane="0" toLane="0" dir="r" state="m"/>

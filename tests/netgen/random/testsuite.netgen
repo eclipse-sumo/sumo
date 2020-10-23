@@ -33,8 +33,17 @@ random_priority
 random_grid
 
 # different min-distance and max-distance
+# 
 random_grid2
+
+# different min-distance and max-distance
+# test minimum turning angle
+min-angle
 prefix
+
+# use consecutive numerical ids
+# 
+renumber
 
 # add turning lanes
 turnlanes

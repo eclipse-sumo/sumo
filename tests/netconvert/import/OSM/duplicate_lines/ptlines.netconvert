@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Mar  2 22:42:02 2020 by Eclipse SUMO netconvert Version v1_5_0+0332-f6eec0d7a2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml,osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <formats>
+        <osm.stop-output.length value="200"/>
+    </formats>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<ptLines xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/ptlines_file.xsd">
+    <ptLine id="1901599" name="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße" line="104" type="bus" vClass="bus" completeness="1.00">
+        <route edges="338412128 7742634 338412126 4619354 245193868 110450334#0 110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3 456455657#0 456455657#1 391493953#0 391493953#1 391493946 391493948 456455656 391493951 456455655"/>
+        <busStop id="3959807221" name="Kolonnenbrücke"/>
+        <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>
+    </ptLine>
+    <ptLine id="1901600" name="Buslinie 104: Stralau, Tunnelstraße =&gt; Neu-Westend, Brixplatz" line="104" type="bus" vClass="bus" completeness="1.00">
+        <route edges="-456455655 -391493951 -456455656 -391493948 -391493946 -391493953#1 -391493953#0 -456455657#1 -456455657#0 -391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1 -110450334#0 -245193868 -4619354 -338412126 -7742634 -338412128"/>
+        <busStop id="-3959807201" name="Dudenstraße/Katzbachstraße"/>
+        <busStop id="-3959807220" name="Kolonnenbrücke"/>
+    </ptLine>
+    <ptLine id="2000799" name="Buslinie 140: S+U Tempelhof =&gt; S Ostbahnhof" line="140" type="bus" vClass="bus" completeness="0.06">
+        <route edges="111325188#0 111325188#1 111325188#2 391493945#0 391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0"/>
+        <busStop id="2029039195" name="Dudenstraße/Katzbachstraße"/>
+        <busStop id="-4032629820" name="Monumentenstraße"/>
+    </ptLine>
+    <ptLine id="2000803" name="Buslinie 140: S Ostbahnhof =&gt; S + U Tempelhof" line="140" type="bus" vClass="bus" completeness="0.13">
+        <route edges="53356539#0 53356539#1 4710636#0 4710636#1 4710636#2 111325187#0 111325187#1 111325187#2 111325187#3"/>
+        <busStop id="4032629811" name="Katzbachstraße/Kreuzbergstraße"/>
+        <busStop id="4032629819" name="Monumentenstraße"/>
+        <busStop id="2029039199" name="Dudenstraße/Katzbachstraße"/>
+        <busStop id="2029039146" name="Badener Ring"/>
+    </ptLine>
+    <ptLine id="6187328" name="Buslinie N42: S+U Alexanderplatz =&gt; U Theodor-Heuss-Platz" line="N42" type="bus" vClass="bus" completeness="0.12">
+        <route edges="-456455655 -391493951 -456455656 -391493948 -391493946 -391493953#1 -391493953#0 -456455657#1 -456455657#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1 -110450334#0 -245193868 -4619354 -338412126 -7742634 -338412128"/>
+        <busStop id="-3959807201" name="Dudenstraße/Katzbachstraße"/>
+        <busStop id="-3959807220" name="Kolonnenbrücke"/>
+    </ptLine>
+    <ptLine id="6187329" name="Buslinie N42: U Theodor-Heuss-Platz =&gt; S+U Alexanderplatz" line="N42" type="bus" vClass="bus" completeness="0.11">
+        <route edges="338412128 7742634 338412126 4619354 245193868 110450334#0 110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 456455657#0 456455657#1 391493953#0 391493953#1 391493946 391493948 456455656 391493951 456455655"/>
+        <busStop id="3959807221" name="Kolonnenbrücke"/>
+        <busStop id="3959807200" name="Dudenstraße/Katzbachstraße"/>
+    </ptLine>
+</ptLines>

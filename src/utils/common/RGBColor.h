@@ -1,30 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RGBColor.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A RGB-color definition
 /****************************************************************************/
-#ifndef RGBColor_h
-#define RGBColor_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
+#pragma once
 #include <iostream>
 #include <random>
 #include <utils/common/UtilExceptions.h>
@@ -50,12 +45,6 @@ public:
      * @param[in] blue The blue component's value
      */
     RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha = 255);
-
-    /// @brief Copy constructor
-    RGBColor(const RGBColor& col);
-
-    /// @brief Destructor
-    ~RGBColor();
 
     /** @brief Returns the red-amount of the color
      * @return The red component's value
@@ -92,6 +81,14 @@ public:
      * @param[in] a The alpha component's value
      */
     void set(unsigned char r, unsigned char g, unsigned char b, unsigned char a);
+
+    /** @brief Sets a new alpha value
+     * @param[in] alpha The new value to use
+     */
+    inline void setAlpha(unsigned char alpha) {
+        myAlpha = alpha;
+    }
+
 
     /** @brief Returns a new color with altered brightness
      * @param[in] change The absolute change applied to all channels (within bounds)
@@ -150,12 +147,11 @@ public:
      */
     static RGBColor interpolate(const RGBColor& minColor, const RGBColor& maxColor, double weight);
 
-    /** @brief Converts the given hsv-triplet to rgb
+    /** @brief Converts the given hsv-triplet to rgb, inspired by http://alvyray.com/Papers/CG/hsv2rgb.htm
      * @param[in] h Hue (0-360)
      * @param[in] s Saturation (0-1)
      * @param[in] v Value (0-1)
      * @return The color as RGB
-     * @author Alvy Ray Smith (http://www.alvyray.com/default.htm)
      */
     static RGBColor fromHSV(double h, double s, double v);
 
@@ -207,9 +203,3 @@ private:
     /// @brief A random number generator to generate random colors independent of other randomness
     static std::mt19937 myRNG;
 };
-
-
-#endif
-
-/****************************************************************************/
-

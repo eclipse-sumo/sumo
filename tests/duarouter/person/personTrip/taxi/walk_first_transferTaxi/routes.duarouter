@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Jan 10 10:15:18 2020 by Eclipse SUMO duarouter Version v1_4_0+0427-e973ab2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="routes.rou.xml"/>
+        <alternatives-output value="routes.rou.alt.xml"/>
+    </output>
+
+    <processing>
+        <persontrip.transfer.car-walk value="taxi"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p0" depart="0.00">
+        <walk edges="accessA A1A0"/>
+        <ride from="A1A0" to="A0B0" lines="taxi"/>
+        <walk edges="B0B1"/>
+    </person>
+    <person id="p_mustwalk" depart="10.00">
+        <walk edges="accessA A0B0 B0B1"/>
+    </person>
+</routes>

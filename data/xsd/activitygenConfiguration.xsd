@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  3 18:20:14 2018 by Eclipse SUMO activitygen Version 854346cdd7
+<!-- generated on Tue Sep  8 13:06:12 2020 by Eclipse SUMO activitygen Version v1_6_0+2018-124343ba59
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -59,6 +59,7 @@
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>

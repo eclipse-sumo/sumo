@@ -10,9 +10,12 @@
     <containerStop id="containerStop_03" lane="gneE0_0" startPos="35" endPos="40000" lines="line1 line2" name="containerStop" friendlyPos="false"/>
     
     <!-- non valid end position (<startPos) -->
-    <containerStop id="containerStop_4" lane="gneE0_0" startPos="35" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+    <containerStop id="containerStop_04" lane="gneE0_0" startPos="35" endPos="25" lines="line1 line2" name="containerStop" friendlyPos="false"/>
 	
 	<!-- valid end position -->
     <containerStop id="containerStop_05" lane="gneE0_0" startPos="35" endPos="55" lines="line1 line2" name="containerStop" friendlyPos="false"/>
+	
+	<!-- valid end position (Negative)-->
+    <containerStop id="containerStop_06" lane="gneE0_0" startPos="35" endPos="-5" lines="line1 line2" name="containerStop" friendlyPos="false"/>
     
 </additional>

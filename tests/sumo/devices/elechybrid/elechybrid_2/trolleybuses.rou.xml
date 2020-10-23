@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 16.11.2017 13:57:20 by SUMO gui Version 0.31.0
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="osm.net.xml"/>
+        <route-files value="trolley.test.trip.xml"/>
+        <additional-files value="osm_stops.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="trolley.routes.out.xml"/>
+        <stop-output value="trolley.stops.out.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="trolleybus" accel="0.8" decel="1.0" length="12" maxSpeed="18.0" sigma="0.0" minGap="2.5" color="0,1,0" emissionClass="Energy/unknown"  vClass="bus" guiShape="bus/trolley">
+      <param key="maximumBatteryCapacity" value="46000"/>
+      <param key="overheadWireChargingPower" value="40000"/>
+      <param key="maximumPower" value="160000"/>
+      <param key="vehicleMass" value="13000"/>
+      <param key="frontSurfaceArea" value="7.5"/>
+      <param key="airDragCoefficient" value="0.59"/>
+      <param key="internalMomentOfInertia" value="0.01"/>
+      <param key="radialDragCoefficient" value="0.5"/>
+      <param key="rollDragCoefficient" value="0.061"/>
+      <param key="constantPowerIntake" value="6000"/>
+      <param key="propulsionEfficiency" value="0.9"/>
+      <param key="recuperationEfficiency" value="0.9"/>
+      <param key="stoppingTreshold" value="0.1"/>
+    </vType>
+
+  <route id="trolleybus1_full" color="1,0,0" edges="       gneE0 gneE1 gneE2              "/>
+  <route id="trolleybus2_full" color="1,0,0" edges="       -gneE10 -gneE8 gneE6              "/>
+<!--
+  <route id="trolleybus13_2full" color="1,0,0" edges="       gneE3 gneE4             "/> 
+  
+  <route id="trolleybus13_3full" color="1,0,0" edges="       -gneE6 -gneE7         "/> -->
+  
+<!--     <vehicle id="test1" type="trolleybus" depart="0.00" departLane="0" departPos="70" arrival="316.00" route="trolleybus13_full">
+        <param key="actualBatteryCapacity" value="23000"/>
+        <stop busStop="busstop_1" duration="15.00"/>
+        
+    </vehicle>-->
+
+        <vehicle id="test1" type="trolleybus" depart="0.00" departLane="0" arrivalLane="1" departPos="0" arrival="150.00" route="trolleybus1_full">
+        <param key="actualBatteryCapacity" value="23000"/>
+        <!--    <stop busStop="busstop_2" duration="15.00"/>  -->
+        </vehicle>    
+        
+        <vehicle id="test2" type="trolleybus" depart="0.00" departLane="0" arrivalLane="0" departPos="0" arrival="100.00" route="trolleybus2_full">
+        <param key="actualBatteryCapacity" value="23000"/>
+        <!--    <stop busStop="busstop_2" duration="15.00"/>  -->
+        </vehicle>
+
+</routes>

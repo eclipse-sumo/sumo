@@ -1,24 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUILaneSpeedTrigger.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 26.04.2004
-/// @version $Id$
 ///
 // Changes the speed allowed on a set of lanes (gui version)
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -302,8 +302,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow& app,
 GUIParameterTableWindow*
 GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow& app,
                                         GUISUMOAbstractView&) {
-    GUIParameterTableWindow* ret =
-        new GUIParameterTableWindow(app, *this, 1);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("speed [m/s]", true,
                 new FunctionBinding<GUILaneSpeedTrigger, double>(this, &GUILaneSpeedTrigger::getCurrentSpeed));
@@ -323,11 +322,10 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
         const Position& pos = myFGPositions[i];
         double rot = myFGRotations[i];
         glPushMatrix();
-        glScaled(exaggeration, exaggeration, 1);
         glTranslated(pos.x(), pos.y(), 0);
         glRotated(rot, 0, 0, 1);
         glTranslated(0, -1.5, 0);
-
+        glScaled(exaggeration, exaggeration, 1);
         int noPoints = 9;
         if (s.scale > 25) {
             noPoints = (int)(9.0 + s.scale / 10.0);
@@ -366,7 +364,6 @@ GUILaneSpeedTrigger::drawGL(const GUIVisualizationSettings& s) const {
             glColor3d(1, 1, 0);
             glTranslated(0, 0, .1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
             // draw last value string
             GLHelper::drawText(myLastValueString.c_str(), Position(0, 0), .1, 1.2, RGBColor(255, 255, 0), 180);
         }
@@ -397,6 +394,4 @@ GUILaneSpeedTrigger::openManipulator(GUIMainWindow& app,
 }
 
 
-
 /****************************************************************************/
-

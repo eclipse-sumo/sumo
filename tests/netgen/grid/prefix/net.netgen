@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:02 2018 by Eclipse SUMO netgenerate Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:40 2020 by Eclipse SUMO netgenerate Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="0.00,0.00,200.00,200.00" projParameter="!"/>
 
@@ -109,10 +109,8 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="foo_A0" type="priority" x="0.00" y="0.00" incLanes="foo_A1A0_0 foo_B0A0_0" intLanes="" shape="-3.20,3.20 3.20,3.20 3.20,-3.20 -0.36,-2.49 -1.60,-1.60 -2.49,-0.36 -3.02,1.24">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="foo_A1" type="priority" x="0.00" y="100.00" incLanes="foo_A2A1_0 foo_B1A1_0 foo_A0A1_0" intLanes="" shape="-3.20,107.20 3.20,107.20 3.64,104.98 4.20,104.20 4.98,103.64 5.98,103.31 7.20,103.20 7.20,96.80 4.98,96.36 4.20,95.80 3.64,95.02 3.31,94.02 3.20,92.80 -3.20,92.80">
         <request index="0" response="000000000" foes="100010000"/>
@@ -126,10 +124,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
     <junction id="foo_A2" type="priority" x="0.00" y="200.00" incLanes="foo_B2A2_0 foo_A1A2_0" intLanes="" shape="3.20,203.20 3.20,196.80 -3.20,196.80 -2.49,200.36 -1.60,201.60 -0.36,202.49 1.24,203.02">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="foo_B0" type="priority" x="100.00" y="0.00" incLanes="foo_B1B0_0 foo_C0B0_0 foo_A0B0_0" intLanes="" shape="96.80,7.20 103.20,7.20 103.64,4.98 104.20,4.20 104.98,3.64 105.98,3.31 107.20,3.20 107.20,-3.20 92.80,-3.20 92.80,3.20 95.02,3.64 95.80,4.20 96.36,4.98 96.69,5.98">
         <request index="0" response="000010000" foes="100010000"/>
@@ -172,10 +168,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
     <junction id="foo_C0" type="priority" x="200.00" y="0.00" incLanes="foo_C1C0_0 foo_B0C0_0" intLanes="" shape="196.80,3.20 203.20,3.20 202.49,-0.36 201.60,-1.60 200.36,-2.49 198.76,-3.02 196.80,-3.20">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
     <junction id="foo_C1" type="priority" x="200.00" y="100.00" incLanes="foo_C2C1_0 foo_C0C1_0 foo_B1C1_0" intLanes="" shape="196.80,107.20 203.20,107.20 203.20,92.80 196.80,92.80 196.36,95.02 195.80,95.80 195.02,96.36 194.02,96.69 192.80,96.80 192.80,103.20 195.02,103.64 195.80,104.20 196.36,104.98 196.69,105.98">
         <request index="0" response="000000000" foes="100010000"/>
@@ -189,10 +183,8 @@ SPDX-License-Identifier: EPL-2.0
         <request index="8" response="000010001" foes="000010001"/>
     </junction>
     <junction id="foo_C2" type="priority" x="200.00" y="200.00" incLanes="foo_C1C2_0 foo_B2C2_0" intLanes="" shape="203.20,196.80 196.80,196.80 196.80,203.20 200.36,202.49 201.60,201.60 202.49,200.36 203.02,198.76">
-        <request index="0" response="0000" foes="1000"/>
-        <request index="1" response="0100" foes="0100"/>
-        <request index="2" response="0000" foes="0010"/>
-        <request index="3" response="0001" foes="0001"/>
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
     </junction>
 
     <connection from="foo_A0A1" to="foo_A1B1" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -202,9 +194,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_A0B0" to="foo_B0B1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_A0B0" to="foo_B0A0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_A1A0" to="foo_A0B0" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="foo_A1A0" to="foo_A0A1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_A1A2" to="foo_A2B2" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_A1A2" to="foo_A2A1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_A1B1" to="foo_B1B0" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="foo_A1B1" to="foo_B1C1" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="foo_A1B1" to="foo_B1B2" fromLane="0" toLane="0" dir="l" state="m"/>
@@ -216,13 +206,11 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_A2B2" to="foo_B2C2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_A2B2" to="foo_B2A2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B0A0" to="foo_A0A1" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_B0A0" to="foo_A0B0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B0B1" to="foo_B1C1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="foo_B0B1" to="foo_B1B2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_B0B1" to="foo_B1A1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B0B1" to="foo_B1B0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B0C0" to="foo_C0C1" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="foo_B0C0" to="foo_C0B0" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B1A1" to="foo_A1A2" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="foo_B1A1" to="foo_A1A0" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B1A1" to="foo_A1B1" fromLane="0" toLane="0" dir="t" state="m"/>
@@ -236,13 +224,11 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_B1C1" to="foo_C1C2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B1C1" to="foo_C1B1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B2A2" to="foo_A2A1" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="foo_B2A2" to="foo_A2B2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B2B1" to="foo_B1A1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="foo_B2B1" to="foo_B1B0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_B2B1" to="foo_B1C1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_B2B1" to="foo_B1B2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_B2C2" to="foo_C2C1" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_B2C2" to="foo_C2B2" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_C0B0" to="foo_B0B1" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="foo_C0B0" to="foo_B0A0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_C0B0" to="foo_B0C0" fromLane="0" toLane="0" dir="t" state="m"/>
@@ -254,9 +240,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="foo_C1B1" to="foo_B1B0" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_C1B1" to="foo_B1C1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_C1C0" to="foo_C0B0" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from="foo_C1C0" to="foo_C0C1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_C1C2" to="foo_C2B2" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from="foo_C1C2" to="foo_C2C1" fromLane="0" toLane="0" dir="t" state="m"/>
     <connection from="foo_C2B2" to="foo_B2A2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="foo_C2B2" to="foo_B2B1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="foo_C2B2" to="foo_B2C2" fromLane="0" toLane="0" dir="t" state="m"/>

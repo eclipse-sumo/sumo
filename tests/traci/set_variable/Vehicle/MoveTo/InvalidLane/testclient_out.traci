@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:28:22 2013
+TraCITestClient output file. Date: Sun Aug 11 18:28:46 2019
 
 
 -> Command sent: <SimulationStep>:
@@ -19,6 +19,9 @@ TraCITestClient output file. Date: Mon Jul 01 13:28:22 2013
 -> Command sent: <SetValue>:
   domID=196 varID=92 objID=veh0
 .. Answered with error to command (196), [description: Unknown lane 'xxx'.]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

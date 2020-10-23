@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun Mar 29 22:58:30 2020 by Eclipse SUMO netconvert Version v1_5_0+1000-2d1ca62e45
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="500.00,500.00" convBoundary="0.00,500.00,500.00,500.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
+
+    <edge id="1fi" from="1" to="0" priority="-1" type="b">
+        <lane id="1fi_0" index="0" speed="11.11" length="500.00" shape="0.00,495.20 500.00,495.20"/>
+        <lane id="1fi_1" index="1" speed="11.11" length="500.00" shape="0.00,498.40 500.00,498.40"/>
+    </edge>
+
+    <junction id="0" type="dead_end" x="500.00" y="500.00" incLanes="1fi_0 1fi_1" intLanes="" shape="500.00,493.60 500.00,500.00" name="my fancy junction name"/>
+    <junction id="1" type="dead_end" x="0.00" y="500.00" incLanes="" intLanes="" shape="0.00,500.00 0.00,493.60" name="42"/>
+
+</net>

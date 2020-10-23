@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec 13 09:54:07 2018 by Eclipse SUMO Version v1_0_0+1354-a5b8c6b0c6
+<!-- generated on Wed Mar 25 11:39:50 2020 by Eclipse SUMO Version v1_5_0+0930-5d762a0a3b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,33 +43,21 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vehicle id="L2/1" type="SBahn" depart="50.00" arrival="112.00">
-        <routeDistribution>
-            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="50.00" probability="0" edges="gneE0 gneE8"/>
-            <route edges="gneE0 gneE3 gneE4 gneE5 gneE6 gneE7 gneE8"/>
-        </routeDistribution>
+        <route edges="gneE0 gneE3 gneE4 gneE5 gneE6 gneE7 gneE8"/>
     </vehicle>
 
-    <vehicle id="L1/1" type="SBahn" depart="0.00" arrival="208.40">
-        <routeDistribution>
-            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="0.00" probability="0" edges="gneE1 gneE1 gneE7 gneE12"/>
-            <route edges="gneE1 gneE2 gneE3 gneE4 gneE5 gneE6 gneE7 gneE9 gneE10 gneE11 gneE12"/>
-        </routeDistribution>
-        <stop busStop="busStop_gneE1_0_1" duration="30.00"/>
+    <vehicle id="L2/2" type="SBahn" depart="90.00" arrival="205.50">
+        <route edges="gneE0 gneE3 gneE4 gneE5 gneE6 gneE7 gneE8"/>
+    </vehicle>
+
+    <vehicle id="L1/1" type="SBahn" depart="0.00" arrival="205.90">
+        <route edges="gneE1 gneE2 gneE3 gneE4 gneE5 gneE6 gneE7 gneE9 gneE10 gneE11 gneE12"/>
+        <stop busStop="busStop_gneE1_0_1" duration="35.00"/>
         <stop busStop="busStop_gneE7_0_0" duration="45.00"/>
     </vehicle>
 
-    <vehicle id="L2/2" type="SBahn" depart="90.00" arrival="208.50">
-        <routeDistribution>
-            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="90.00" probability="0" edges="gneE0 gneE8"/>
-            <route edges="gneE0 gneE3 gneE4 gneE5 gneE6 gneE7 gneE8"/>
-        </routeDistribution>
-    </vehicle>
-
-    <vehicle id="L2/3" type="SBahn" depart="120.00" arrival="221.10">
-        <routeDistribution>
-            <route replacedOnEdge="" reason="device.rerouting" replacedAtTime="120.00" probability="0" edges="gneE0 gneE8"/>
-            <route edges="gneE0 gneE3 gneE4 gneE5 gneE6 gneE7 gneE8"/>
-        </routeDistribution>
+    <vehicle id="L2/3" type="SBahn" depart="120.00" arrival="216.90">
+        <route edges="gneE0 gneE3 gneE4 gneE5 gneE6 gneE7 gneE8"/>
     </vehicle>
 
 </routes>

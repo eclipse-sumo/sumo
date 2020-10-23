@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NLHandler.cpp
 /// @author  Daniel Krajzewicz
@@ -15,13 +19,9 @@
 /// @author  Michael Behrisch
 /// @author  Felix Brack
 /// @date    Mon, 9 Jul 2001
-/// @version $Id$
 ///
 // The XML-Handler for network loading
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -42,7 +42,10 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSJunctionLogic.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/traffic_lights/MSRailSignal.h>
+#include <microsim/traffic_lights/MSRailSignalConstraint.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
@@ -65,17 +68,18 @@ NLHandler::NLHandler(const std::string& file, MSNet& net,
     myDetectorBuilder(detBuilder), myTriggerBuilder(triggerBuilder),
     myEdgeControlBuilder(edgeBuilder), myJunctionControlBuilder(junctionBuilder),
     myAmParsingTLLogicOrJunction(false), myCurrentIsBroken(false),
-    myHaveWarnedAboutDeprecatedLanes(false),
+    myHaveWarnedAboutInvalidTLType(false),
     myHaveSeenInternalEdge(false),
+    myHaveSeenDefaultLength(false),
     myHaveSeenNeighs(false),
     myHaveSeenAdditionalSpeedRestrictions(false),
-    myLefthand(false),
     myNetworkVersion(0),
     myNetIsLoaded(false) {
 }
 
 
 NLHandler::~NLHandler() {}
+
 
 void
 NLHandler::myStartElement(int element,
@@ -84,7 +88,7 @@ NLHandler::myStartElement(int element,
         switch (element) {
             case SUMO_TAG_NET: {
                 bool ok;
-                myLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
+                MSGlobals::gLefthand = attrs.getOpt<bool>(SUMO_ATTR_LEFTHAND, nullptr, ok, false);
                 myNetworkVersion = attrs.get<double>(SUMO_ATTR_VERSION, nullptr, ok, false);
                 break;
             }
@@ -95,7 +99,9 @@ NLHandler::myStartElement(int element,
                 addLane(attrs);
                 break;
             case SUMO_TAG_NEIGH:
-                myEdgeControlBuilder.addNeigh(attrs.getString(SUMO_ATTR_LANE));
+                if (!myCurrentIsInternalToSkip) {
+                    myEdgeControlBuilder.addNeigh(attrs.getString(SUMO_ATTR_LANE));
+                }
                 myHaveSeenNeighs = true;
                 break;
             case SUMO_TAG_JUNCTION:
@@ -157,18 +163,33 @@ NLHandler::myStartElement(int element,
             case SUMO_TAG_TRAIN_STOP:
             case SUMO_TAG_CONTAINER_STOP:
                 myTriggerBuilder.parseAndBuildStoppingPlace(myNet, attrs, (SumoXMLTag)element);
+                myLastParameterised.push_back(myTriggerBuilder.getCurrentStop());
                 break;
             case SUMO_TAG_PARKING_SPACE:
                 myTriggerBuilder.parseAndAddLotEntry(attrs);
                 break;
             case SUMO_TAG_PARKING_AREA:
                 myTriggerBuilder.parseAndBeginParkingArea(myNet, attrs);
+                myLastParameterised.push_back(myTriggerBuilder.getCurrentStop());
                 break;
             case SUMO_TAG_ACCESS:
                 myTriggerBuilder.addAccess(myNet, attrs);
                 break;
             case SUMO_TAG_CHARGING_STATION:
                 myTriggerBuilder.parseAndBuildChargingStation(myNet, attrs);
+                myLastParameterised.push_back(myTriggerBuilder.getCurrentStop());
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SEGMENT:
+                myTriggerBuilder.parseAndBuildOverheadWireSegment(myNet, attrs);
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_SECTION:
+                myTriggerBuilder.parseAndBuildOverheadWireSection(myNet, attrs);
+                break;
+            case SUMO_TAG_TRACTION_SUBSTATION:
+                myTriggerBuilder.parseAndBuildTractionSubstation(myNet, attrs);
+                break;
+            case SUMO_TAG_OVERHEAD_WIRE_CLAMP:
+                myTriggerBuilder.parseAndBuildOverheadWireClamp(myNet, attrs);
                 break;
             case SUMO_TAG_VTYPEPROBE:
                 addVTypeProbeDetector(attrs);
@@ -230,6 +251,24 @@ NLHandler::myStartElement(int element,
                 }
                 break;
             }
+            case SUMO_TAG_RAILSIGNAL_CONSTRAINTS: {
+                bool ok = true;
+                const std::string signalID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
+                if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
+                    throw InvalidArgument("Rail signal '" + signalID + "' in railSignalConstraints is not known");
+                }
+                myConstrainedSignal = dynamic_cast<MSRailSignal*>(MSNet::getInstance()->getTLSControl().get(signalID).getDefault());
+                if (myConstrainedSignal == nullptr) {
+                    throw InvalidArgument("Traffic light '" + signalID + "' is not a rail signal");
+                }
+                break;
+            }
+            case SUMO_TAG_PREDECESSOR:
+                addPredecessorConstraint(attrs);
+                break;
+            case SUMO_TAG_INSERTION_PREDECESSOR:
+                addInsertionPredecessorConstraint(attrs);
+                break;
             default:
                 break;
         }
@@ -279,17 +318,23 @@ NLHandler::myEndElement(int element) {
         case SUMO_TAG_WAUT:
             closeWAUT();
             break;
+        case SUMO_TAG_RAILSIGNAL_CONSTRAINTS:
+            myConstrainedSignal = nullptr;
+            break;
         case SUMO_TAG_E3DETECTOR:
         case SUMO_TAG_ENTRY_EXIT_DETECTOR:
             endE3Detector();
             break;
         case SUMO_TAG_PARKING_AREA:
             myTriggerBuilder.endParkingArea();
+            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_BUS_STOP:
         case SUMO_TAG_TRAIN_STOP:
         case SUMO_TAG_CONTAINER_STOP:
+        case SUMO_TAG_CHARGING_STATION:
             myTriggerBuilder.endStoppingPlace();
+            myLastParameterised.pop_back();
             break;
         case SUMO_TAG_NET:
             // build junction graph
@@ -332,32 +377,32 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
+    // parse the function
+    const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
+    if (!ok) {
+        WRITE_ERROR("Edge '" + id + "' has an invalid type.");
+        myCurrentIsBroken = true;
+    }
     // omit internal edges if not wished
     if (id[0] == ':') {
         myHaveSeenInternalEdge = true;
-        if (!MSGlobals::gUsingInternalLanes) {
+        if (!MSGlobals::gUsingInternalLanes && (func == SumoXMLEdgeFunc::CROSSING || func == SumoXMLEdgeFunc::WALKINGAREA)) {
             myCurrentIsInternalToSkip = true;
             return;
         }
         std::string junctionID = SUMOXMLDefinitions::getJunctionIDFromInternalEdge(id);
         myJunctionGraph[id] = std::make_pair(junctionID, junctionID);
     } else {
+        myHaveSeenDefaultLength |= !attrs.hasAttribute(SUMO_ATTR_LENGTH);
         myJunctionGraph[id] = std::make_pair(
                                   attrs.get<std::string>(SUMO_ATTR_FROM, id.c_str(), ok),
                                   attrs.get<std::string>(SUMO_ATTR_TO, id.c_str(), ok));
-        if (!ok) {
-            myCurrentIsBroken = true;
-            return;
-        }
     }
-    myCurrentIsInternalToSkip = false;
-    // parse the function
-    const SumoXMLEdgeFunc func = attrs.getEdgeFunc(ok);
     if (!ok) {
-        WRITE_ERROR("Edge '" + id + "' has an invalid type.");
         myCurrentIsBroken = true;
         return;
     }
+    myCurrentIsInternalToSkip = false;
     // get the street name
     const std::string streetName = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     // get the edge type
@@ -366,19 +411,22 @@ NLHandler::beginEdgeParsing(const SUMOSAXAttributes& attrs) {
     const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id.c_str(), ok, -1); // default taken from netbuild/NBFrame option 'default.priority'
     // get the bidi-edge
     const std::string bidi = attrs.getOpt<std::string>(SUMO_ATTR_BIDI, id.c_str(), ok, "");
+    // get the kilometrage/mileage (for visualization and output)
+    const double distance = attrs.getOpt<double>(SUMO_ATTR_DISTANCE, id.c_str(), ok, 0);
+
     if (!ok) {
         myCurrentIsBroken = true;
         return;
     }
     //
     try {
-        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, priority, bidi);
+        myEdgeControlBuilder.beginEdgeParsing(id, func, streetName, edgeType, priority, bidi, distance);
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
         myCurrentIsBroken = true;
     }
 
-    if (func == EDGEFUNC_CROSSING) {
+    if (func == SumoXMLEdgeFunc::CROSSING) {
         //get the crossingEdges attribute (to implement the other side of the road pushbutton)
         const std::string crossingEdges = attrs.getOpt<std::string>(SUMO_ATTR_CROSSING_EDGES, id.c_str(), ok, "");
         if (!crossingEdges.empty()) {
@@ -405,7 +453,7 @@ NLHandler::closeEdge() {
     try {
         MSEdge* e = myEdgeControlBuilder.closeEdge();
         MSEdge::dictionary(e->getID(), e);
-        e->updateParameter(myLastEdgeParameters.getParametersMap());
+        e->updateParameters(myLastEdgeParameters.getParametersMap());
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
     }
@@ -434,19 +482,20 @@ NLHandler::addLane(const SUMOSAXAttributes& attrs) {
     const PositionVector shape = attrs.get<PositionVector>(SUMO_ATTR_SHAPE, id.c_str(), ok);
     const int index = attrs.get<int>(SUMO_ATTR_INDEX, id.c_str(), ok);
     const bool isRampAccel = attrs.getOpt<bool>(SUMO_ATTR_ACCELERATION, id.c_str(), ok, false);
+    const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "");
     if (shape.size() < 2) {
         WRITE_ERROR("Shape of lane '" + id + "' is broken.\n Can not build according edge.");
         myCurrentIsBroken = true;
         return;
     }
-    const SVCPermissions permissions = parseVehicleClasses(allow, disallow);
+    const SVCPermissions permissions = parseVehicleClasses(allow, disallow, myNetworkVersion);
     if (permissions != SVCAll) {
         myNet.setPermissionsFound();
     }
     myCurrentIsBroken |= !ok;
     if (!myCurrentIsBroken) {
         try {
-            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions, index, isRampAccel);
+            MSLane* lane = myEdgeControlBuilder.addLane(id, maxSpeed, length, shape, width, permissions, index, isRampAccel, type);
             // insert the lane into the lane-dictionary, checking
             if (!MSLane::dictionary(id, lane)) {
                 delete lane;
@@ -492,6 +541,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
         ok = false;
     }
     std::string key = attrs.getOpt<std::string>(SUMO_ATTR_KEY, id.c_str(), ok, "");
+    std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, id.c_str(), ok, "");
     // incoming lanes
     std::vector<MSLane*> incomingLanes;
     parseLanes(id, attrs.getStringSecure(SUMO_ATTR_INCLANES, ""), incomingLanes, ok);
@@ -504,7 +554,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
     } else {
         try {
-            myJunctionControlBuilder.openJunction(id, key, type, Position(x, y, z), shape, incomingLanes, internalLanes);
+            myJunctionControlBuilder.openJunction(id, key, type, Position(x, y, z), shape, incomingLanes, internalLanes, name);
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what() + std::string("\n Can not build according junction."));
             myCurrentIsBroken = true;
@@ -516,7 +566,7 @@ NLHandler::openJunction(const SUMOSAXAttributes& attrs) {
 void
 NLHandler::parseLanes(const std::string& junctionID,
                       const std::string& def, std::vector<MSLane*>& into, bool& ok) {
-    StringTokenizer st(def);
+    StringTokenizer st(def, " ");
     while (ok && st.hasNext()) {
         std::string laneID = st.next();
         MSLane* lane = MSLane::dictionary(laneID);
@@ -561,15 +611,16 @@ NLHandler::openWAUT(const SUMOSAXAttributes& attrs) {
         myCurrentIsBroken = true;
         return;
     }
-    SUMOTime t = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, id.c_str(), ok, 0);
-    std::string pro = attrs.get<std::string>(SUMO_ATTR_START_PROG, id.c_str(), ok);
+    SUMOTime refTime = attrs.getOptSUMOTimeReporting(SUMO_ATTR_REF_TIME, id.c_str(), ok, 0);
+    SUMOTime period = attrs.getOptSUMOTimeReporting(SUMO_ATTR_PERIOD, id.c_str(), ok, 0);
+    std::string startProg = attrs.get<std::string>(SUMO_ATTR_START_PROG, id.c_str(), ok);
     if (!ok) {
         myCurrentIsBroken = true;
     }
     if (!myCurrentIsBroken) {
         myCurrentWAUTID = id;
         try {
-            myJunctionControlBuilder.getTLLogicControlToUse().addWAUT(t, id, pro);
+            myJunctionControlBuilder.getTLLogicControlToUse().addWAUT(refTime, id, startProg, period);
         } catch (InvalidArgument& e) {
             WRITE_ERROR(e.what());
             myCurrentIsBroken = true;
@@ -665,7 +716,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
     bool ok = true;
     std::string id = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
     std::string programID = attrs.getOpt<std::string>(SUMO_ATTR_PROGRAMID, id.c_str(), ok, "<unknown>");
-    TrafficLightType type = TLTYPE_STATIC;
+    TrafficLightType type = TrafficLightType::STATIC;
     std::string typeS;
     if (myJunctionControlBuilder.getTLLogicControlToUse().get(id, programID) == nullptr) {
         // SUMO_ATTR_TYPE is not needed when only modifying the offset of an
@@ -679,6 +730,13 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes& attrs) {
             type = SUMOXMLDefinitions::TrafficLightTypes.get(typeS);
         } else {
             WRITE_ERROR("Traffic light '" + id + "' has unknown type '" + typeS + "'.");
+        }
+        if (MSGlobals::gUseMesoSim && type == TrafficLightType::ACTUATED) {
+            if (!myHaveWarnedAboutInvalidTLType) {
+                WRITE_WARNING("Traffic light type '" + toString(type) + "' cannot be used in mesoscopic simulation. Using '" + toString(TrafficLightType::STATIC) + "' as fallback");
+                myHaveWarnedAboutInvalidTLType = true;
+            }
+            type = TrafficLightType::STATIC;
         }
     }
     //
@@ -700,7 +758,7 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
         return;
     }
     // try to get the phase duration
-    SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
+    const SUMOTime duration = attrs.getSUMOTimeReporting(SUMO_ATTR_DURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok);
     if (duration == 0) {
         WRITE_ERROR("Duration of phase " + toString(myJunctionControlBuilder.getNumberOfLoadedPhases())
                     + " for tlLogic '" + myJunctionControlBuilder.getActiveKey()
@@ -709,13 +767,13 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     }
     // if the traffic light is an actuated traffic light, try to get
     //  the minimum and maximum durations
-    SUMOTime minDuration = attrs.getOptSUMOTimeReporting(
-                               SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
-    SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(
-                               SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
+    const SUMOTime minDuration = attrs.getOptSUMOTimeReporting(
+                                     SUMO_ATTR_MINDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
+    const SUMOTime maxDuration = attrs.getOptSUMOTimeReporting(
+                                     SUMO_ATTR_MAXDURATION, myJunctionControlBuilder.getActiveKey().c_str(), ok, duration);
 
 
-    int nextPhase = attrs.getOpt<int>(SUMO_ATTR_NEXT, nullptr, ok, -1);
+    const std::vector<int> nextPhases = attrs.getOptIntVector(SUMO_ATTR_NEXT, nullptr, ok);
     const std::string name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, "");
 
     //SOTL attributes
@@ -723,7 +781,6 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
     //in this way SOTL traffic light logic can recognize the phase as unsuitable or decides other
     //behaviors. See SOTL traffic light logic implementations.
     if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
-        bool ok = true;
         std::string phaseTypeString;
         bool transient_notdecisional_bit;
         bool commit_bit;
@@ -768,19 +825,18 @@ NLHandler::addPhase(const SUMOSAXAttributes& attrs) {
                     pos = targetLanesString.find_first_of(delimiter, firstPos);
                 }
                 //Adding the SOTL parsed phase to have a new MSPhaseDefinition that is SOTL compliant for target phases
-                myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, name, transient_notdecisional_bit, commit_bit, &targetLanesVector);
+                myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name, transient_notdecisional_bit, commit_bit, &targetLanesVector);
             } catch (EmptyData&) {
                 MsgHandler::getErrorInstance()->inform("Missing targetLane definition for the target phase.");
                 return;
             }
         } else {
             //Adding the SOTL parsed phase to have a new MSPhaseDefinition that is SOTL compliant for non target phases
-            myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, name, transient_notdecisional_bit, commit_bit);
+            myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name, transient_notdecisional_bit, commit_bit);
         }
     } else {
         //Adding the standard parsed phase to have a new MSPhaseDefinition
-
-        myJunctionControlBuilder.addPhase(duration, state, nextPhase, minDuration, maxDuration, name);
+        myJunctionControlBuilder.addPhase(duration, state, nextPhases, minDuration, maxDuration, name);
     }
 }
 
@@ -1129,22 +1185,33 @@ NLHandler::addEdgeLaneMeanData(const SUMOSAXAttributes& attrs, int objecttype) {
     const std::string excludeEmpty = attrs.getOpt<std::string>(SUMO_ATTR_EXCLUDE_EMPTY, id.c_str(), ok, "false");
     const bool withInternal = attrs.getOpt<bool>(SUMO_ATTR_WITH_INTERNAL, id.c_str(), ok, false);
     const bool trackVehicles = attrs.getOpt<bool>(SUMO_ATTR_TRACK_VEHICLES, id.c_str(), ok, false);
+    const std::string detectPersonsString = attrs.getOpt<std::string>(SUMO_ATTR_DETECT_PERSONS, id.c_str(), ok, "");
     const std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, id.c_str(), ok);
     const std::string type = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, id.c_str(), ok, "performance");
     std::string vtypes = attrs.getOpt<std::string>(SUMO_ATTR_VTYPES, id.c_str(), ok, "");
+    const std::string writeAttributes = attrs.getOpt<std::string>(SUMO_ATTR_WRITE_ATTRIBUTES, id.c_str(), ok, "");
     const SUMOTime frequency = attrs.getOptSUMOTimeReporting(SUMO_ATTR_FREQUENCY, id.c_str(), ok, -1);
     const SUMOTime begin = attrs.getOptSUMOTimeReporting(SUMO_ATTR_BEGIN, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("begin")));
     const SUMOTime end = attrs.getOptSUMOTimeReporting(SUMO_ATTR_END, id.c_str(), ok, string2time(OptionsCont::getOptions().getString("end")));
     if (!ok) {
         return;
     }
+    int detectPersons = 0;
+    for (std::string mode : StringTokenizer(detectPersonsString).getVector()) {
+        if (SUMOXMLDefinitions::PersonModeValues.hasString(mode)) {
+            detectPersons |= (int)SUMOXMLDefinitions::PersonModeValues.get(mode);
+        } else {
+            WRITE_ERROR("Invalid person mode '" + mode + "' in edgeData definition '" + id + "'");
+            return;
+        }
+    }
     try {
         myDetectorBuilder.createEdgeLaneMeanData(id, frequency, begin, end,
                 type, objecttype == SUMO_TAG_MEANDATA_LANE,
                 // equivalent to TplConvert::_2bool used in SUMOSAXAttributes::getBool
                 excludeEmpty[0] != 't' && excludeEmpty[0] != 'T' && excludeEmpty[0] != '1' && excludeEmpty[0] != 'x',
-                excludeEmpty == "defaults", withInternal, trackVehicles,
-                maxTravelTime, minSamples, haltingSpeedThreshold, vtypes,
+                excludeEmpty == "defaults", withInternal, trackVehicles, detectPersons,
+                maxTravelTime, minSamples, haltingSpeedThreshold, vtypes, writeAttributes,
                 FileHelpers::checkForRelativity(file, getFileName()));
     } catch (InvalidArgument& e) {
         WRITE_ERROR(e.what());
@@ -1170,7 +1237,6 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
 
     MSLink* link = nullptr;
     try {
-        bool ok = true;
         const int fromLaneIdx = attrs.get<int>(SUMO_ATTR_FROM_LANE, nullptr, ok);
         const double foeVisibilityDistance = attrs.getOpt<double>(SUMO_ATTR_VISIBILITY_DISTANCE, nullptr, ok, 4.5);
         const int toLaneIdx = attrs.get<int>(SUMO_ATTR_TO_LANE, nullptr, ok);
@@ -1207,8 +1273,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
             // make sure that the index is in range
             logic = myJunctionControlBuilder.getTLLogic(tlID).getActive();
             if ((tlLinkIdx < 0 || tlLinkIdx >= (int)logic->getCurrentPhaseDef().getState().size())
-                    && logic->getLogicType() != TLTYPE_RAIL_SIGNAL
-                    && logic->getLogicType() != TLTYPE_RAIL_CROSSING) {
+                    && logic->getLogicType() != TrafficLightType::RAIL_SIGNAL
+                    && logic->getLogicType() != TrafficLightType::RAIL_CROSSING) {
                 WRITE_ERROR("Invalid " + toString(SUMO_ATTR_TLLINKINDEX) + " '" + toString(tlLinkIdx) +
                             "' in connection controlled by '" + tlID + "'");
                 return;
@@ -1228,6 +1294,8 @@ NLHandler::addConnection(const SUMOSAXAttributes& attrs) {
                 return;
             }
             length = via->getLength();
+        } else if (toLane->getEdge().isCrossing()) {
+            length = toLane->getLength();
         } else {
             length = fromLane->getShape()[-1].distanceTo(toLane->getShape()[0]);
         }
@@ -1312,18 +1380,20 @@ NLHandler::addDistrict(const SUMOSAXAttributes& attrs) {
         return;
     }
     try {
-        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", EDGEFUNC_CONNECTOR, "", "", -1);
+        MSEdge* sink = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-sink", SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-sink", sink)) {
             delete sink;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-sink' exists.");
         }
         sink->initialize(new std::vector<MSLane*>());
-        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", EDGEFUNC_CONNECTOR, "", "", -1);
+        MSEdge* source = myEdgeControlBuilder.buildEdge(myCurrentDistrictID + "-source", SumoXMLEdgeFunc::CONNECTOR, "", "", -1, 0);
         if (!MSEdge::dictionary(myCurrentDistrictID + "-source", source)) {
             delete source;
             throw InvalidArgument("Another edge with the id '" + myCurrentDistrictID + "-source' exists.");
         }
         source->initialize(new std::vector<MSLane*>());
+        sink->setOtherTazConnector(source);
+        source->setOtherTazConnector(sink);
         if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
             std::vector<std::string> desc = attrs.getStringVector(SUMO_ATTR_EDGES);
             for (std::vector<std::string>::const_iterator i = desc.begin(); i != desc.end(); ++i) {
@@ -1435,4 +1505,62 @@ NLShapeHandler::getLanePos(const std::string& poiID, const std::string& laneID, 
     }
     return lane->geometryPositionAtOffset(lanePos, -lanePosLat);
 }
+
+
+void
+NLHandler::addPredecessorConstraint(const SUMOSAXAttributes& attrs) {
+    if (myConstrainedSignal == nullptr) {
+        throw InvalidArgument("Rail signal 'predecessor' constraint must occur within a railSignalConstraints element");
+    }
+    bool ok = true;
+    const std::string tripId = attrs.get<std::string>(SUMO_ATTR_TRIP_ID, nullptr, ok);
+    const std::string signalID = attrs.get<std::string>(SUMO_ATTR_TLID, nullptr, ok);
+    const std::string foesString = attrs.get<std::string>(SUMO_ATTR_FOES, nullptr, ok);
+    const std::vector<std::string> foes = StringTokenizer(foesString).getVector();
+    const int limit = attrs.getOpt<int>(SUMO_ATTR_LIMIT, nullptr, ok, (int)foes.size());
+
+    if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
+        throw InvalidArgument("Rail signal '" + signalID + "' in railSignalConstraints is not known");
+    }
+    MSRailSignal* signal = dynamic_cast<MSRailSignal*>(MSNet::getInstance()->getTLSControl().get(signalID).getDefault());
+    if (signal == nullptr) {
+        throw InvalidArgument("Traffic light '" + signalID + "' is not a rail signal");
+    }
+    if (ok) {
+        for (const std::string& foe : foes) {
+            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit);
+            myConstrainedSignal->addConstraint(tripId, c);
+        }
+    }
+}
+
+
+void
+NLHandler::addInsertionPredecessorConstraint(const SUMOSAXAttributes& attrs) {
+    if (myConstrainedSignal == nullptr) {
+        throw InvalidArgument("Rail signal 'insertionPredecessor' constraint must occur within a railSignalConstraints element");
+    }
+    bool ok = true;
+    const std::string tripId = attrs.get<std::string>(SUMO_ATTR_TRIP_ID, nullptr, ok);
+    const std::string signalID = attrs.get<std::string>(SUMO_ATTR_TLID, nullptr, ok);
+    const std::string foesString = attrs.get<std::string>(SUMO_ATTR_FOES, nullptr, ok);
+    const std::vector<std::string> foes = StringTokenizer(foesString).getVector();
+    const int limit = attrs.getOpt<int>(SUMO_ATTR_LIMIT, nullptr, ok, (int)foes.size());
+
+    if (!MSNet::getInstance()->getTLSControl().knows(signalID)) {
+        throw InvalidArgument("Rail signal '" + signalID + "' in railSignalConstraints is not known");
+    }
+    MSRailSignal* signal = dynamic_cast<MSRailSignal*>(MSNet::getInstance()->getTLSControl().get(signalID).getDefault());
+    if (signal == nullptr) {
+        throw InvalidArgument("Traffic light '" + signalID + "' is not a rail signal");
+    }
+    if (ok) {
+        for (const std::string& foe : foes) {
+            MSRailSignalConstraint* c = new MSRailSignalConstraint_Predecessor(signal, foe, limit);
+            myConstrainedSignal->addInsertionConstraint(tripId, c);
+        }
+    }
+
+}
+
 /****************************************************************************/

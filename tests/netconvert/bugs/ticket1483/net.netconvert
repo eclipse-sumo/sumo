@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jan 28 13:32:20 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:11 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,12 +24,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,3700.00,1000.00" origBoundary="0.00,0.00,3700.00,1000.00" projParameter="!"/>
 
@@ -109,7 +110,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":n_m7_2_0" index="0" speed="8.67" length="16.85" shape="3486.40,495.20 3491.65,494.65 3495.40,493.00 3497.65,490.25 3498.40,486.40"/>
     </edge>
     <edge id=":n_m7_3" function="internal">
-        <lane id=":n_m7_3_0" index="0" speed="10.53" length="25.33" shape="3486.40,498.40 3493.99,497.87 3500.95,497.45 3506.03,498.91 3508.00,504.00"/>
+        <lane id=":n_m7_3_0" index="0" speed="10.16" length="23.50" shape="3486.40,498.40 3495.85,498.75 3502.60,499.80 3506.65,501.55 3508.00,504.00"/>
     </edge>
     <edge id=":n_m7_4" function="internal">
         <lane id=":n_m7_4_0" index="0" speed="9.51" length="20.48" shape="3486.40,498.40 3494.45,498.75 3500.20,499.80 3503.65,501.55 3504.80,504.00"/>

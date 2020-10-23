@@ -1,1 +1,3 @@
--e 1000 --no-step-log --no-duration-log --net-file=net.net.xml -a input_additional.add.xml,input_additional2.add.xml --netstate-dump=rawdump.xml
+-e 1000 --no-step-log --no-duration-log --net-file=net.net.xml -a input_additional.add.xml,input_additional2.add.xml 
+--vehroute-output vehroutes.xml
+--vehroute-output.write-unfinished

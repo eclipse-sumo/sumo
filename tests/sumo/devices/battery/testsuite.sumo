@@ -1,0 +1,30 @@
+# chargingStations located in different places
+braunschweig
+
+# 10 vehicles running along a motorway with 0.5 equipment probability
+half_equipped
+
+# Vehicle taking different chargingStations and busstops, every with a different configuration 
+chargingStations
+
+# leave the road while charging
+chargingStations_parked
+
+# usually loaded from vehicle parameter,
+# default taken from vType parameter
+actualBatteryCapacity
+
+# Vehicle taking different chargingStations and busstops, every with a different configuration with charging station output
+chargingStations_output
+
+# as above but with step length 0.2
+chargingStations_output_subseconds
+
+# Vehicle with a different stoppingTreshold taking different chargingStations, every with a different configuration 
+stoppingTreshold
+
+# test parameter for influencing recuperation by deceleration level
+recuperateByDecel
+
+# compare battery output with aggregated consumption
+tripinfo_emission

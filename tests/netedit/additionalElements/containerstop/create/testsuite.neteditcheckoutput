@@ -1,17 +1,15 @@
 default
 
+id
+
 name
 
-lines
-
 friendlypos
+
+lines
 
 blockmovement
 
 references
 
 references_lenght
-
-fix_positions
-
-fix_friendlypos

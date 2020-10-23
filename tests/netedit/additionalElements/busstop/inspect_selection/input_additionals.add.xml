@@ -1,13 +1,13 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- Bus A -->
-    <busStop id="busStopA" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="busStop" friendlyPos="true">
+    <busStop id="busStopA" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="busStop" personCapacity="10" friendlyPos="true">
 		<param key="KeyA1" value="valueA1"/>
 		<param key="KeyA3" value="valueA2"/>
 		<param key="KeyA2" value="valueA3"/>
 	</busStop>
 
 	<!-- Bus B -->
-    <busStop id="busStopB" lane="gneE0_0" startPos="15" endPos="20" lines="line3 line4" name="busStop" friendlyPos="false">
+    <busStop id="busStopB" lane="gneE0_0" startPos="15" endPos="20" lines="line3 line4" name="busStop" personCapacity="20" friendlyPos="false">
 		<param key="KeyB1" value="valueB1"/>
 		<param key="KeyB3" value="valueB2"/>
 		<param key="KeyB2" value="valueB3"/>

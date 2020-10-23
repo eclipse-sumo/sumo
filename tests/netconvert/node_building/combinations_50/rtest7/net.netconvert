@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:37 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:44 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,12 +20,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-392053.71,-5819631.19" convBoundary="0.00,0.00,93.25,96.64" origBoundary="1275890.000000,5218519.000000,1383308.000000,5282609.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -44,7 +45,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":61052071_4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="26.88" shape="49.63,12.34 54.32,11.09 60.46,8.54 67.39,5.33 74.44,2.11"/>
     </edge>
     <edge id=":61052071_5" function="internal">
-        <lane id=":61052071_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.37" length="23.73" shape="49.63,12.34 57.20,12.02 63.72,12.92 67.35,15.57 66.24,20.52"/>
+        <lane id=":61052071_5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="8.41" length="23.96" shape="49.63,12.34 57.34,11.97 63.89,12.82 67.46,15.47 66.24,20.52"/>
     </edge>
     <edge id=":61052071_6" function="internal">
         <lane id=":61052071_6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="7.73" length="19.99" shape="49.63,12.34 57.78,12.01 62.82,12.97 64.75,15.22 63.56,18.77"/>

@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 06Mar15:12:59]
+search_string:emergency braking
+search_file:errors
+full_description:invalid right of way after stopping on junction
+brief_description:#5263

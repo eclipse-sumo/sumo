@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NWFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
 ///
 // Sets and checks options for netwrite
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -42,8 +40,6 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-const std::string NWFrame::MAJOR_VERSION = "1.1";
-
 
 // ===========================================================================
 // method definitions
@@ -69,12 +65,12 @@ NWFrame::fillOptions(bool forNetgen) {
     oc.doRegister("prefix", new Option_String(""));
     oc.addDescription("prefix", "Output", "Defines a prefix for edge and junction names");
 
-#ifdef HAVE_PROJ
+#ifdef PROJ_API_FILE
     if (!forNetgen) {
         oc.doRegister("proj.plain-geo", new Option_Bool(false));
         oc.addDescription("proj.plain-geo", "Projection", "Write geo coordinates in plain-xml");
     }
-#endif // HAVE_PROJ
+#endif // PROJ_API_FILE
 
     oc.doRegister("amitran-output", new Option_FileName());
     oc.addDescription("amitran-output", "Output", "The generated net will be written to FILE using Amitran format");
@@ -112,9 +108,10 @@ NWFrame::fillOptions(bool forNetgen) {
         oc.addDescription("parking-output", "Output", "Writes parking areas to FILE");
 
         oc.doRegister("railway.topology.output", new Option_FileName());
-        oc.addDescription("railway.topology.output", "Output", "Analyse topology of the railway network");
+        oc.addDescription("railway.topology.output", "Output", "Analyze topology of the railway network");
 
         oc.doRegister("polygon-output", new Option_FileName());
+        oc.addSynonyme("polygon-output", "taz-output");
         oc.addDescription("polygon-output", "Output", "Write shapes that are embedded in the network input and that are not supported by polyconvert (OpenDRIVE)");
     }
 
@@ -175,8 +172,7 @@ NWFrame::checkOptions() {
 
 void
 NWFrame::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
-    long before = SysUtils::getCurrentMillis();
-    PROGRESS_BEGIN_MESSAGE("Writing network");
+    const long before = PROGRESS_BEGIN_TIME_MESSAGE("Writing network");
     NWWriter_SUMO::writeNetwork(oc, nb);
     NWWriter_Amitran::writeNetwork(oc, nb);
     NWWriter_MATSim::writeNetwork(oc, nb);
@@ -196,5 +192,5 @@ NWFrame::writePositionLong(const Position& pos, OutputDevice& dev) {
     }
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

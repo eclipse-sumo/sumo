@@ -1,6 +1,6 @@
 <?xml version="1.0" ?>
 <add>
-    <tlLogic id="1" offset="0" programID="SZP_Prio" type="static">
+    <tlLogic id="1" offset="5" programID="SZP_Prio" type="static">
         <!-- Order of signal groups:
 0 FZ11
 1 FZ11

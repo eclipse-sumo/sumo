@@ -1,31 +1,30 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    StringTokenizer.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    ?
-/// @version $Id$
 ///
 // A java-style StringTokenizer for c++ (stl)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
 #include <vector>
 #include <iostream> // !!! debug only
+
 #include "UtilExceptions.h"
 #include "StringTokenizer.h"
 
@@ -42,20 +41,26 @@ const int StringTokenizer::TAB = 9;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-StringTokenizer::StringTokenizer(std::string tosplit)
-    : myTosplit(tosplit), myPos(0) {
+
+StringTokenizer::StringTokenizer() :
+    myPos(0) {
+}
+
+
+StringTokenizer::StringTokenizer(std::string tosplit) :
+    myTosplit(tosplit), myPos(0) {
     prepareWhitechar(tosplit);
 }
 
 
-StringTokenizer::StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars)
-    : myTosplit(tosplit), myPos(0) {
+StringTokenizer::StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars) :
+    myTosplit(tosplit), myPos(0) {
     prepare(tosplit, token, splitAtAllChars);
 }
 
 
-StringTokenizer::StringTokenizer(std::string tosplit, int special)
-    : myTosplit(tosplit), myPos(0) {
+StringTokenizer::StringTokenizer(std::string tosplit, int special) :
+    myTosplit(tosplit), myPos(0) {
     switch (special) {
         case NEWLINE:
             prepare(tosplit, "\r\n", true);
@@ -79,13 +84,16 @@ StringTokenizer::StringTokenizer(std::string tosplit, int special)
 
 StringTokenizer::~StringTokenizer() {}
 
+
 void StringTokenizer::reinit() {
     myPos = 0;
 }
 
+
 bool StringTokenizer::hasNext() {
     return myPos != (int)myStarts.size();
 }
+
 
 std::string StringTokenizer::next() {
     if (myPos >= (int)myStarts.size()) {
@@ -100,6 +108,7 @@ std::string StringTokenizer::next() {
     return myTosplit.substr(start, length);
 }
 
+
 std::string StringTokenizer::front() {
     if (myStarts.size() == 0) {
         throw OutOfBoundsException();
@@ -109,6 +118,7 @@ std::string StringTokenizer::front() {
     }
     return myTosplit.substr(myStarts[0], myLengths[0]);
 }
+
 
 std::string StringTokenizer::get(int pos) const {
     if (pos >= (int)myStarts.size()) {
@@ -126,6 +136,7 @@ std::string StringTokenizer::get(int pos) const {
 int StringTokenizer::size() const {
     return (int)myStarts.size();
 }
+
 
 void StringTokenizer::prepare(const std::string& tosplit, const std::string& token, bool splitAtAllChars) {
     int beg = 0;
@@ -152,6 +163,7 @@ void StringTokenizer::prepare(const std::string& tosplit, const std::string& tok
         }
     }
 }
+
 
 void StringTokenizer::prepareWhitechar(const std::string& tosplit) {
     std::string::size_type len = tosplit.length();

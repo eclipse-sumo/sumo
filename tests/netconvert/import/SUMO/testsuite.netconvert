@@ -51,6 +51,9 @@ roundabout_modify
 # test discarding traffic lights for geometry-like junctions
 tls.discard-simple
 
+# test discarding traffic lights for geometry-like junctions, protect joined tls
+tls.discard-simple_joined
+
 # see ticket917
 infer_option_street_names
 add_split
@@ -79,6 +82,9 @@ remove_lane
 # load a network with edge types and write it to plain-xml and .net.xml
 edge_types
 params
+
+# discarding params
+discard_params
 short_edge
 
 # merge 2 networks without geo-referencing that are shifted appropriately
@@ -98,3 +104,6 @@ checkLaneFoes
 
 # test computation of lane shapes from edge shapes with elevation
 elevation
+
+# load a network with junction names and write it to plain-xml and .net.xml
+junction_name

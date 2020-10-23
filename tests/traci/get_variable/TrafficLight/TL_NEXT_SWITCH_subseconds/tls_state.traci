@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03/22/17 15:55:28 by SUMO Version dev-SVN-r23592
+<!-- generated on Sun Aug 11 18:16:06 2019 by Eclipse SUMO Version v1_2_0+1522-fd29d6db72
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,6 +13,10 @@ SPDX-License-Identifier: EPL-2.0
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
 
     <time>
         <begin value="0"/>
@@ -27,8 +31,12 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="51846"/>
+        <remote-port value="55173"/>
     </traci_server>
+
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
 
 </configuration>
 -->
@@ -435,4 +443,13 @@ SPDX-License-Identifier: EPL-2.0
     <tlsState time="39.80" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
     <tlsState time="39.90" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
     <tlsState time="40.00" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsState time="40.10" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsState time="40.20" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsState time="40.30" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsState time="40.40" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsState time="40.50" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsState time="40.60" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsState time="40.70" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsState time="40.80" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
+    <tlsState time="40.90" id="0" programID="0" phase="2" state="rrGGrrrrrrGGrrrr"/>
 </tlsStates>

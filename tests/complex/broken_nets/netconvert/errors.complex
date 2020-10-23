@@ -1,0 +1,823 @@
+------------------ net/edge[0]@from:
+Error: Attribute 'from' in definition of edge '1' is empty.
+Error: Edge's '1' from-node '' is not known.
+Quitting (on error).
+------------------ net/edge[1]@from:
+Error: Attribute 'from' in definition of edge '2' is empty.
+Error: Edge's '2' from-node '' is not known.
+Quitting (on error).
+------------------ net/edge[0]@from:a
+Error: Edge's '1' from-node 'a' is not known.
+Quitting (on error).
+------------------ net/edge[1]@from:a
+Error: Edge's '2' from-node 'a' is not known.
+Quitting (on error).
+------------------ net/edge[0]@from:<remove>
+Error: Edge's '1' from-node '' is not known.
+Quitting (on error).
+------------------ net/edge[1]@from:<remove>
+Error: Edge's '2' from-node '' is not known.
+Quitting (on error).
+------------------ net/edge[0]@function:a
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 28/60.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]@function:a
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 32/60.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]@id:
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 28/46.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]@id:
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 32/46.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]@id:a
+Warning: Renaming lane '1_0' to 'a_0'.
+Warning: Renaming lane '1_1' to 'a_1'.
+Error: Unknown edge '1' given in connection.
+Error: Unknown edge '1' given in connection.
+Quitting (on error).
+------------------ net/edge[1]@id:a
+Warning: Renaming lane '2_0' to 'a_0'.
+Warning: Renaming lane '2_1' to 'a_1'.
+Error: Unknown edge '2' given in connection.
+Error: Unknown edge '2' given in connection.
+Quitting (on error).
+------------------ net/edge[0]@id:<remove>
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 28/40.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]@id:<remove>
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 32/40.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]@to:
+Error: Attribute 'to' in definition of edge '1' is empty.
+Error: Edge's '1' to-node '' is not known.
+Quitting (on error).
+------------------ net/edge[1]@to:
+Error: Attribute 'to' in definition of edge '2' is empty.
+Error: Edge's '2' to-node '' is not known.
+Quitting (on error).
+------------------ net/edge[0]@to:a
+Error: Edge's '1' to-node 'a' is not known.
+Quitting (on error).
+------------------ net/edge[1]@to:a
+Error: Edge's '2' to-node 'a' is not known.
+Quitting (on error).
+------------------ net/edge[0]@to:<remove>
+Error: Edge's '1' to-node '' is not known.
+Quitting (on error).
+------------------ net/edge[1]@to:<remove>
+Error: Edge's '2' to-node '' is not known.
+Quitting (on error).
+------------------ net/edge[0]:<remove>
+Error: Unknown edge '1' given in connection.
+Error: Unknown edge '1' given in connection.
+Quitting (on error).
+------------------ net/edge[1]:<remove>
+Error: Unknown edge '2' given in connection.
+Error: Unknown edge '2' given in connection.
+Quitting (on error).
+------------------ net/edge[0]:<duplicate>
+Error: Edge '1' occurred at least twice in the input.
+Quitting (on error).
+------------------ net/edge[1]:<duplicate>
+Error: Edge '2' occurred at least twice in the input.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@index:
+Error: value '' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 29/96.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@index:
+Error: value '' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 30/96.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@index:
+Error: value '' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 33/98.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@index:
+Error: value '' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 34/98.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@index:a
+Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 29/97.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@index:a
+Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 30/97.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@index:a
+Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 33/99.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@index:a
+Error: value 'a' does not match regular expression facet '[+\-]?[0-9]+'
+ In file 'mod.net.xml'
+ At line/column 34/99.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@id:
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 29/94.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@id:
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 30/94.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@id:
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 33/96.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@id:
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 34/96.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@id:a_0
+Warning: Renaming lane 'a_0' to '1_0'.
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]@id:a_1
+Warning: Renaming lane 'a_1' to '1_1'.
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]@id:a_0
+Warning: Renaming lane 'a_0' to '2_0'.
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]@id:a_1
+Warning: Renaming lane 'a_1' to '2_1'.
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]@id:<remove>
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 29/88.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@id:<remove>
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 30/88.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@id:<remove>
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 33/90.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@id:<remove>
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 34/90.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@length:
+Error: empty string encountered
+ In file 'mod.net.xml'
+ At line/column 29/91.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@length:
+Error: empty string encountered
+ In file 'mod.net.xml'
+ At line/column 30/91.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@length:
+Error: empty string encountered
+ In file 'mod.net.xml'
+ At line/column 33/93.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@length:
+Error: empty string encountered
+ In file 'mod.net.xml'
+ At line/column 34/93.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@length:a
+Error: invalid character encountered
+ In file 'mod.net.xml'
+ At line/column 29/92.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@length:a
+Error: invalid character encountered
+ In file 'mod.net.xml'
+ At line/column 30/92.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@length:a
+Error: invalid character encountered
+ In file 'mod.net.xml'
+ At line/column 33/94.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@length:a
+Error: invalid character encountered
+ In file 'mod.net.xml'
+ At line/column 34/94.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@length:<remove>
+Error: missing required attribute 'length'
+ In file 'mod.net.xml'
+ At line/column 29/81.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@length:<remove>
+Error: missing required attribute 'length'
+ In file 'mod.net.xml'
+ At line/column 30/81.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@length:<remove>
+Error: missing required attribute 'length'
+ In file 'mod.net.xml'
+ At line/column 33/83.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@length:<remove>
+Error: missing required attribute 'length'
+ In file 'mod.net.xml'
+ At line/column 34/83.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:
+Error: value '' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 29/74.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:
+Error: value '' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 30/74.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:
+Error: value '' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 33/74.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:
+Error: value '' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 34/74.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:a
+Error: value 'a' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 29/75.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:a
+Error: value 'a' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 30/75.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:a
+Error: value 'a' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 33/75.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:a
+Error: value 'a' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 34/75.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:<remove>
+Error: missing required attribute 'shape'
+ In file 'mod.net.xml'
+ At line/column 29/65.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:<remove>
+Error: missing required attribute 'shape'
+ In file 'mod.net.xml'
+ At line/column 30/65.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:<remove>
+Error: missing required attribute 'shape'
+ In file 'mod.net.xml'
+ At line/column 33/65.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:<remove>
+Error: missing required attribute 'shape'
+ In file 'mod.net.xml'
+ At line/column 34/65.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:a,-4.95 100.00,-4.95
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 29/94.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:a,-4.95 100.00,-4.95
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 30/94.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:a,-4.95 100.00,-4.95
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 33/94.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:a,-4.95 100.00,-4.95
+Error: value 'a,-4.95 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 34/94.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:0.00,a 100.00,-4.95
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 29/93.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:0.00,a 100.00,-4.95
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 30/93.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:0.00,a 100.00,-4.95
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 33/93.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:0.00,a 100.00,-4.95
+Error: value '0.00,a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 34/93.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a,-4.95
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 29/92.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a,-4.95
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 30/92.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a,-4.95
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 33/92.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a,-4.95
+Error: value '0.00,-4.95 a,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 34/92.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 29/99.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 30/99.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:0.00,-4.95 a 100.00,-4.95
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 33/99.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:0.00,-4.95 a 100.00,-4.95
+Error: value '0.00,-4.95 a 100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 34/99.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]@shape:100.00,-4.95
+Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 29/86.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]@shape:0100.00,-4.95
+Error: value '0100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 30/87.
+
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]@shape:100.00,-4.95
+Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 33/86.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[1]/lane[1]@shape:100.00,-4.95
+Error: value '100.00,-4.95' does not match regular expression facet '(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?(\s(\-)?(\d+.?|(\d*.\d+)),(\-)?(\d+.?|(\d*.\d+))(,(\-)?(\d+.?|(\d*.\d+)))?)*'
+ In file 'mod.net.xml'
+ At line/column 34/86.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/edge[0]/lane[0]:<remove>
+Warning: Renaming lane '1_1' to '1_0'.
+Error: Invalid lane index '1' for connection from '1'.
+Quitting (on error).
+------------------ net/edge[0]/lane[1]:<remove>
+Error: Invalid lane index '1' for connection from '1'.
+Quitting (on error).
+------------------ net/edge[1]/lane[0]:<remove>
+Warning: Renaming lane '2_1' to '2_0'.
+Warning: Could not set connection from '1_1' to '2_1'.
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]:<remove>
+Warning: Could not set connection from '1_1' to '2_1'.
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[0]:<duplicate>
+Warning: Renaming lane '1_0' to '1_1'.
+Warning: Renaming lane '1_1' to '1_2'.
+ Wrong error code returned (0)!
+------------------ net/edge[0]/lane[1]:<duplicate>
+Warning: Renaming lane '1_1' to '1_2'.
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[0]:<duplicate>
+Warning: Renaming lane '2_0' to '2_1'.
+Warning: Renaming lane '2_1' to '2_2'.
+ Wrong error code returned (0)!
+------------------ net/edge[1]/lane[1]:<duplicate>
+Warning: Renaming lane '2_1' to '2_2'.
+ Wrong error code returned (0)!
+------------------ net/junction[0]@id:
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 37/109.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/junction[1]@id:
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 38/133.
+
+Error: Edge's '1' to-node '2' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No edges loaded.
+Quitting (on error).
+------------------ net/junction[2]@id:
+Error: value '' does not match regular expression facet '[^ \t\n\r|\\;,']+'
+ In file 'mod.net.xml'
+ At line/column 42/122.
+
+Error: Edge's '2' to-node '3' is not known.
+Quitting (on error).
+------------------ net/junction[0]@id:a
+Error: Edge's '1' from-node '1' is not known.
+Quitting (on error).
+------------------ net/junction[1]@id:a
+Error: Edge's '1' to-node '2' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No edges loaded.
+Quitting (on error).
+------------------ net/junction[2]@id:a
+Error: Edge's '2' to-node '3' is not known.
+Quitting (on error).
+------------------ net/junction[0]@id:<remove>
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 37/103.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/junction[1]@id:<remove>
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 38/127.
+
+Error: Edge's '1' to-node '2' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No edges loaded.
+Quitting (on error).
+------------------ net/junction[2]@id:<remove>
+Error: missing required attribute 'id'
+ In file 'mod.net.xml'
+ At line/column 42/116.
+
+Error: Edge's '2' to-node '3' is not known.
+Quitting (on error).
+------------------ net/junction[0]@type:
+Error: value '' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 37/102.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/junction[1]@type:
+Error: value '' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 38/126.
+
+Error: Edge's '1' to-node '2' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No edges loaded.
+Quitting (on error).
+------------------ net/junction[2]@type:
+Error: value '' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 42/115.
+
+Error: Edge's '2' to-node '3' is not known.
+Quitting (on error).
+------------------ net/junction[0]@type:a
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 37/103.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/junction[1]@type:a
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 38/127.
+
+Error: Edge's '1' to-node '2' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No edges loaded.
+Quitting (on error).
+------------------ net/junction[2]@type:a
+Error: value 'a' not in enumeration
+ In file 'mod.net.xml'
+ At line/column 42/116.
+
+Error: Edge's '2' to-node '3' is not known.
+Quitting (on error).
+------------------ net/junction[0]@type:<remove>
+Error: missing required attribute 'type'
+ In file 'mod.net.xml'
+ At line/column 37/94.
+
+Error: Edge's '1' from-node '1' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No nodes loaded.
+Quitting (on error).
+------------------ net/junction[1]@type:<remove>
+Error: missing required attribute 'type'
+ In file 'mod.net.xml'
+ At line/column 38/118.
+
+Error: Edge's '1' to-node '2' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No edges loaded.
+Quitting (on error).
+------------------ net/junction[2]@type:<remove>
+Error: missing required attribute 'type'
+ In file 'mod.net.xml'
+ At line/column 42/107.
+
+Error: Edge's '2' to-node '3' is not known.
+Quitting (on error).
+------------------ net/junction[1]@incLanes:a_0 1_1
+ Wrong error code returned (0)!
+------------------ net/junction[1]@incLanes:1_0 a_1
+ Wrong error code returned (0)!
+------------------ net/junction[2]@incLanes:a_0 2_1
+ Wrong error code returned (0)!
+------------------ net/junction[2]@incLanes:2_0 a_1
+ Wrong error code returned (0)!
+------------------ net/junction[0]:<remove>
+Error: Edge's '1' from-node '1' is not known.
+Quitting (on error).
+------------------ net/junction[1]:<remove>
+Error: Edge's '1' to-node '2' is not known.
+Error: Edge's '2' from-node '2' is not known.
+Error: No edges loaded.
+Quitting (on error).
+------------------ net/junction[2]:<remove>
+Error: Edge's '2' to-node '3' is not known.
+Quitting (on error).
+------------------ net/junction[0]:<duplicate>
+Error: Problems on adding junction '1'.
+Quitting (on error).
+------------------ net/junction[1]:<duplicate>
+Error: Problems on adding junction '2'.
+Quitting (on error).
+------------------ net/junction[2]:<duplicate>
+Error: Problems on adding junction '3'.
+Quitting (on error).
+------------------ net/connection[0]@from:
+Error: Attribute 'from' in definition of a connection is empty.
+Error: Unknown edge '' given in connection.
+Quitting (on error).
+------------------ net/connection[1]@from:
+Error: Attribute 'from' in definition of a connection is empty.
+Error: Unknown edge '' given in connection.
+Quitting (on error).
+------------------ net/connection[0]@from:a
+Error: Unknown edge 'a' given in connection.
+Quitting (on error).
+------------------ net/connection[1]@from:a
+Error: Unknown edge 'a' given in connection.
+Quitting (on error).
+------------------ net/connection[0]@from:<remove>
+Error: missing required attribute 'from'
+ In file 'mod.net.xml'
+ At line/column 44/67.
+
+Quitting (on error).
+------------------ net/connection[1]@from:<remove>
+Error: missing required attribute 'from'
+ In file 'mod.net.xml'
+ At line/column 45/67.
+
+Quitting (on error).
+------------------ net/connection[0]@to:
+Error: Attribute 'to' in definition of a connection is empty.
+Error: Unknown edge '' given in connection.
+Quitting (on error).
+------------------ net/connection[1]@to:
+Error: Attribute 'to' in definition of a connection is empty.
+Error: Unknown edge '' given in connection.
+Quitting (on error).
+------------------ net/connection[0]@to:a
+Error: Unknown edge 'a' given in connection.
+Quitting (on error).
+------------------ net/connection[1]@to:a
+Error: Unknown edge 'a' given in connection.
+Quitting (on error).
+------------------ net/connection[0]@to:<remove>
+Error: missing required attribute 'to'
+ In file 'mod.net.xml'
+ At line/column 44/69.
+
+Quitting (on error).
+------------------ net/connection[1]@to:<remove>
+Error: missing required attribute 'to'
+ In file 'mod.net.xml'
+ At line/column 45/69.
+
+Quitting (on error).
+------------------ net/connection[0]:<duplicate>
+Warning: Target lane '2_0' has multiple connections from '1'.
+ Wrong error code returned (0)!
+------------------ net/connection[1]:<duplicate>
+Warning: Target lane '2_1' has multiple connections from '1'.
+ Wrong error code returned (0)!

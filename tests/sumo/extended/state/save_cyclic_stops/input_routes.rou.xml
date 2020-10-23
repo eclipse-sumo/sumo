@@ -1,0 +1,15 @@
+<routes>
+    <trip id="v0" depart="0">
+        <stop lane="SC_0" until="0:1:0"/>
+        <stop lane="CN_0" until="0:2:0"/>
+
+        <stop lane="SC_0" until="0:4:0"/>
+        <stop lane="CN_0" until="0:5:0"/>
+
+        <stop lane="SC_0" until="0:6:0"/>
+        <stop lane="CN_0" until="0:7:0"/>
+
+        <stop lane="SC_0" until="0:8:0"/>
+        <stop lane="CN_0" until="0:9:0"/>
+    </trip>
+</routes>

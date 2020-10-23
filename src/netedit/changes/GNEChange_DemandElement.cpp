@@ -1,31 +1,28 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEChange_DemandElement.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
-/// @version $Id$
 ///
 // A network change in which a busStop is created or deleted
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <netedit/GNENet.h>
-#include <netedit/netelements/GNELane.h>
-#include <netedit/netelements/GNEEdge.h>
-#include <netedit/demandelements/GNEDemandElement.h>
-#include <netedit/frames/GNEInspectorFrame.h>
+#include <netedit/frames/demand/GNEVehicleTypeFrame.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/GNEViewNet.h>
 
 #include "GNEChange_DemandElement.h"
 
@@ -39,39 +36,29 @@ FXIMPLEMENT_ABSTRACT(GNEChange_DemandElement, GNEChange, nullptr, 0)
 // ===========================================================================
 
 GNEChange_DemandElement::GNEChange_DemandElement(GNEDemandElement* demandElement, bool forward) :
-    GNEChange(demandElement->getViewNet()->getNet(), forward),
+    GNEChange(demandElement, forward, demandElement->isAttributeCarrierSelected()),
     myDemandElement(demandElement),
-    myFirstDemandElementParent(myDemandElement->getFirstDemandElementParent()),
-    mySecondDemandElementParent(myDemandElement->getSecondDemandElementParent()),
-    myEdgeChilds(myDemandElement->getEdgeChilds()),
-    myLaneChilds(myDemandElement->getLaneChilds()) {
+    myPath(demandElement->getPath()) {
     myDemandElement->incRef("GNEChange_DemandElement");
-    // handle demandElements with lane parent
-    if (demandElement->getTagProperty().canBePlacedOverLane()) {
-        myLaneParents.push_back(myNet->retrieveLane(myDemandElement->getAttribute(SUMO_ATTR_LANE)));
-    }
-    if (demandElement->getTagProperty().canBePlacedOverLanes()) {
-        myLaneParents = GNEAttributeCarrier::parse<std::vector<GNELane*> >(demandElement->getViewNet()->getNet(), myDemandElement->getAttribute(SUMO_ATTR_LANES));
-    }
-    // handle demandElements with edge parent
-    if (demandElement->getTagProperty().canBePlacedOverEdge()) {
-        myEdgeParents.push_back(myNet->retrieveEdge(myDemandElement->getAttribute(SUMO_ATTR_EDGE)));
-    }
-    if (demandElement->getTagProperty().canBePlacedOverEdges()) {
-        myEdgeParents = GNEAttributeCarrier::parse<std::vector<GNEEdge*> >(demandElement->getViewNet()->getNet(), myDemandElement->getAttribute(SUMO_ATTR_EDGES));
-    }
 }
 
 
 GNEChange_DemandElement::~GNEChange_DemandElement() {
-    assert(myDemandElement);
     myDemandElement->decRef("GNEChange_DemandElement");
     if (myDemandElement->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "'");
-        // make sure that demand element isn't in net before removing
-        if (myNet->demandElementExist(myDemandElement)) {
-            myNet->deleteDemandElement(myDemandElement);
+        // make sure that element isn't in net before removing
+        if (myDemandElement->getNet()->getAttributeCarriers()->demandElementExist(myDemandElement)) {
+            // remove demand element of network
+            myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
+            // remove element from path
+            for (const auto& pathElement : myPath) {
+                pathElement.getLane()->removePathDemandElement(myDemandElement);
+                if (pathElement.getJunction()) {
+                    pathElement.getJunction()->removePathDemandElement(myDemandElement);
+                }
+            }
         }
         delete myDemandElement;
     }
@@ -83,68 +70,45 @@ GNEChange_DemandElement::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
-        // 1 - If demand element own a lane parent, remove it from lane
-        for (auto i : myLaneParents) {
-            i->removeDemandElementChild(myDemandElement);
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myDemandElement->unselectAttributeCarrier();
         }
-        // 2 - If demand element own a edge parent, remove it from edge
-        for (auto i : myEdgeParents) {
-            i->removeDemandElementChild(myDemandElement);
+        // delete demand element from net
+        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
+        // remove element from path
+        for (const auto& pathElement : myPath) {
+            pathElement.getLane()->removePathDemandElement(myDemandElement);
+            if (pathElement.getJunction()) {
+                pathElement.getJunction()->removePathDemandElement(myDemandElement);
+            }
         }
-        // 3 - If demand element has a first parent, remove it from their demand element childs
-        if (myFirstDemandElementParent) {
-            myFirstDemandElementParent->removeDemandElementChild(myDemandElement);
-        }
-        // 4 - If additiona has a second parent, remove it from their demand element childs
-        if (mySecondDemandElementParent) {
-            mySecondDemandElementParent->removeDemandElementChild(myDemandElement);
-        }
-        // 5 - if DemandElement has edge childs, remove it of their demand element parents
-        for (auto i : myEdgeChilds) {
-            i->removeDemandElementParent(myDemandElement);
-        }
-        // 6 - if DemandElement has lane childs, remove it of their demand element parents
-        for (auto i : myLaneChilds) {
-            i->removeDemandElementParent(myDemandElement);
-        }
-        // delete demand element of net
-        myNet->deleteDemandElement(myDemandElement);
+        // restore container
+        restoreHierarchicalContainers();
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
-        // insert demand element of test
-        myNet->insertDemandElement(myDemandElement);
-        // 1 - If demand element own a Lane parent, add it to lane
-        for (auto i : myLaneParents) {
-            i->addDemandElementChild(myDemandElement);
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myDemandElement->selectAttributeCarrier();
         }
-        // 2 - If demand element own a edge parent, add it to edge
-        for (auto i : myEdgeParents) {
-            i->addDemandElementChild(myDemandElement);
-        }
-        // 3 - If demand element has a parent, add it into demand element parent
-        if (myFirstDemandElementParent) {
-            myFirstDemandElementParent->addDemandElementChild(myDemandElement);
-        }
-        // 4 - If demand element has a parent, add it into demand element parent
-        if (mySecondDemandElementParent) {
-            mySecondDemandElementParent->addDemandElementChild(myDemandElement);
-        }
-        // 5 - if DemandElement has edge childs, add id into demand element parents
-        for (auto i : myEdgeChilds) {
-            i->addDemandElementParent(myDemandElement);
-        }
-        // 6 - if DemandElement has lane childs, add id into demand element parents
-        for (auto i : myLaneChilds) {
-            i->addDemandElementParent(myDemandElement);
-        }
+        // insert demand element into net
+        myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
+        // compute demand element path
+        myDemandElement->computePath();
+        // restore container
+        restoreHierarchicalContainers();
     }
-    // Requiere always save demandElements
-    myNet->requiereSaveDemandElements(true);
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
+    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
+    // update stack labels
+    if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {
+        myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().front()->updateVehicleStackLabels();
+    }
+    // Requiere always save elements
+    myDemandElement->getNet()->requireSaveDemandElements(true);
 }
 
 
@@ -153,68 +117,45 @@ GNEChange_DemandElement::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
+        // select if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myDemandElement->selectAttributeCarrier();
+        }
         // insert demand element into net
-        myNet->insertDemandElement(myDemandElement);
-        // 1 - If demand element own a Lane parent, add it to lane
-        for (auto i : myLaneParents) {
-            i->addDemandElementChild(myDemandElement);
-        }
-        // 2 - If demand element own a edge parent, add it to edge
-        for (auto i : myEdgeParents) {
-            i->addDemandElementChild(myDemandElement);
-        }
-        // 3 - If demand element has a parent, add it into demand element parent
-        if (myFirstDemandElementParent) {
-            myFirstDemandElementParent->addDemandElementChild(myDemandElement);
-        }
-        // 4 - If demand element has a parent, add it into demand element parent
-        if (mySecondDemandElementParent) {
-            mySecondDemandElementParent->addDemandElementChild(myDemandElement);
-        }
-        // 5 - if DemandElement has edge childs, add id into demand element parents
-        for (auto i : myEdgeChilds) {
-            i->addDemandElementParent(myDemandElement);
-        }
-        // 6 - if DemandElement has lane childs, add id into demand element parents
-        for (auto i : myLaneChilds) {
-            i->addDemandElementParent(myDemandElement);
-        }
+        myDemandElement->getNet()->getAttributeCarriers()->insertDemandElement(myDemandElement);
+        // compute demand element path
+        myDemandElement->computePath();
+        // add demand element in parents and children
+        addElementInParentsAndChildren(myDemandElement);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myDemandElement->getTagStr() + " '" + myDemandElement->getID() + "' in GNEChange_DemandElement");
-        // 1 - If demand element own a lane parent, remove it from lane
-        for (auto i : myLaneParents) {
-            i->removeDemandElementChild(myDemandElement);
+        // unselect if mySelectedElement is enabled
+        if (mySelectedElement) {
+            myDemandElement->unselectAttributeCarrier();
         }
-        // 2 - If demand element own a edge parent, remove it from edge
-        for (auto i : myEdgeParents) {
-            i->removeDemandElementChild(myDemandElement);
+        // delete demand element from net
+        myDemandElement->getNet()->getAttributeCarriers()->deleteDemandElement(myDemandElement);
+        // remove element from path
+        for (const auto& pathElement : myPath) {
+            pathElement.getLane()->removePathDemandElement(myDemandElement);
+            if (pathElement.getJunction()) {
+                pathElement.getJunction()->removePathDemandElement(myDemandElement);
+            }
         }
-        // 3 - If additiona has a first parent, remove it from their demand element childs
-        if (myFirstDemandElementParent) {
-            myFirstDemandElementParent->removeDemandElementChild(myDemandElement);
-        }
-        // 4 - If additiona has a second parent, remove it from their demand element childs
-        if (mySecondDemandElementParent) {
-            mySecondDemandElementParent->removeDemandElementChild(myDemandElement);
-        }
-        // 5 - if DemandElement has edge childs, remove it of their demand element parents
-        for (auto i : myEdgeChilds) {
-            i->removeDemandElementParent(myDemandElement);
-        }
-        // 6 - if DemandElement has lane childs, remove it of their demand element parents
-        for (auto i : myLaneChilds) {
-            i->removeDemandElementParent(myDemandElement);
-        }
-        // delete demand element of net
-        myNet->deleteDemandElement(myDemandElement);
+        // remove demand element from parents and children
+        removeElementFromParentsAndChildren(myDemandElement);
     }
-    // Requiere always save demandElements
-    myNet->requiereSaveDemandElements(true);
-    // check if inspector frame has to be updated
-    if (myNet->getViewNet()->getViewParent()->getInspectorFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getInspectorFrame()->getACHierarchy()->refreshACHierarchy();
+    // update vehicle type selector if demand element is a VType and vehicle type Frame is shown
+    if ((myDemandElement->getTagProperty().getTag() == SUMO_TAG_VTYPE) && myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->shown()) {
+        myDemandElement->getNet()->getViewNet()->getViewParent()->getVehicleTypeFrame()->getVehicleTypeSelector()->refreshVehicleTypeSelector();
     }
+    // update stack labels
+    if (myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().size() > 0) {
+        myOriginalHierarchicalContainer.getParents<std::vector<GNEEdge*> >().front()->updateVehicleStackLabels();
+    }
+    // Requiere always save elements
+    myDemandElement->getNet()->requireSaveDemandElements(true);
 }
 
 

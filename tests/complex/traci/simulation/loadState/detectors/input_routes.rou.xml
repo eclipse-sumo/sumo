@@ -1,0 +1,4 @@
+<routes>
+    <trip id="0" from="WC" to="CE" depart="0" departLane="0"/>
+    <trip id="1" from="WC" to="CE" depart="0" departLane="1"/>
+</routes>

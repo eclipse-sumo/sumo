@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    timing.py
 # @author  Michael Behrisch
 # @date    2018-11-30
-# @version $Id$
 
 """
 This script uses either a directory with historic sumo versions
@@ -38,20 +41,23 @@ def build():
         return "sumo"
     return ""
 
+
 def runHistory(args, versions, extraInfo=""):
     results = collections.defaultdict(list)
     for d in versions:
+        command = ['/usr/bin/time', '-v', os.path.join(d, 'bin', 'sumo'), "-v", "-c", args.cfg]
         try:
-            for _ in xrange(args.runs):
-                for l in subprocess.check_output(['/usr/bin/time', '-v', os.path.join(d, 'bin', 'sumo'), "-v", "-c", args.cfg], stderr=subprocess.STDOUT).splitlines():
+            for _ in range(args.runs):
+                for l in subprocess.check_output(command, stderr=subprocess.STDOUT).splitlines():
                     if "User time" in l:
-                        t = float(l.split(": ")[-1])
+                        t = float(l.split(": ")[-1])  # noqa
                     elif "wall clock" in l:
-                        w = float(l.split(":")[-1])
+                        w = float(l.split(":")[-1])  # noqa
                     elif "UPS: " in l:
-                        u = 1e6 / max(1., float(l.split(": ")[-1]))
+                        u = 1e6 / max(1., float(l.split(": ")[-1]))  # noqa
                     elif "Maximum resident" in l:
-                        m = float(l.split(": ")[-1])
+                        m = float(l.split(": ")[-1])  # noqa
+                # adapt the return values as needed below
                 results[d].append((u, t))
         except subprocess.CalledProcessError as e:
             if len(versions) == 1:

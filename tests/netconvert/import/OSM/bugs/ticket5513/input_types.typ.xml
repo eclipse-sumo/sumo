@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<types version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
+    <type id="highway.motorway" priority="14" numLanes="3" speed="33.3" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.motorway_link" priority="9" numLanes="3" speed="13.75" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" oneway="1"/>
+    <type id="highway.primary" priority="12" numLanes="2" speed="10" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.primary_link" priority="7" numLanes="2" speed="10" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.residential" priority="3" numLanes="1" speed="5.55" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.secondary" priority="11" numLanes="2" speed="8.88" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.secondary_link" priority="6" numLanes="2" speed="8.88" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.tertiary" priority="10" numLanes="1" speed="7.77" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.tertiary_link" priority="5" numLanes="1" speed="7.77" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+    <type id="highway.trunk" priority="13" numLanes="2" speed="16.66" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
+    <type id="highway.trunk_link" priority="8" numLanes="2" speed="16.66" disallow="tram rail_urban rail rail_electric bicycle pedestrian ship" oneway="0"/>
+    <type id="highway.unclassified" priority="4" numLanes="1" speed="5.55" disallow="tram rail_urban rail rail_electric ship" oneway="0"/>
+</types>

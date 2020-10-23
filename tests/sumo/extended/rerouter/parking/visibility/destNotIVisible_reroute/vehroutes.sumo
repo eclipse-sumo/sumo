@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Oct  7 01:20:52 2018 by Eclipse SUMO Version v1_0_1+0199-c0e6401
+<!-- generated on Mon Mar 30 15:08:46 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -34,19 +34,19 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vehicle id="occupy_parkD0D1.0" depart="0.00" arrival="215.00">
+    <vehicle id="occupy_parkD0D1.0" depart="0.00" arrival="213.00">
         <route cost="-1.00" savings="0.00" edges="D0D1"/>
         <stop parkingArea="parkD0D1" duration="200.00"/>
     </vehicle>
 
-    <vehicle id="occupy_parkD0D1.1" depart="2.00" arrival="218.00">
+    <vehicle id="occupy_parkD0D1.1" depart="3.00" arrival="216.00">
         <route cost="-1.00" savings="0.00" edges="D0D1"/>
         <stop parkingArea="parkD0D1" duration="200.00"/>
     </vehicle>
 
-    <vehicle id="ego" depart="0.00" arrivalPos="55.00" arrival="248.00">
+    <vehicle id="ego" depart="0.00" arrivalPos="55.00" arrival="246.00">
         <routeDistribution>
-            <route cost="-1.00" savings="0.00" replacedOnEdge="D0D1" reason="parkD" replacedAtTime="31.00" probability="0" edges="A1A0 A0B0 B0C0 C0D0 D0D1"/>
+            <route cost="-1.00" savings="0.00" replacedOnEdge="D0D1" reason="parkD:parkingAreaReroute" replacedAtTime="31.00" probability="0" edges="A1A0 A0B0 B0C0 C0D0 D0D1"/>
             <route cost="13.83" savings="-7.20" edges="A1A0 A0B0 B0C0 C0D0 D0D1 D1D2"/>
         </routeDistribution>
         <stop parkingArea="parkD1D2" duration="200.00"/>

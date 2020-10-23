@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIDialog_ViewSettings.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Wed, 21. Dec 2005
-/// @version $Id$
 ///
 // The dialog to change the view (gui) settings.
 /****************************************************************************/
-#ifndef GUIDialog_ViewSettings_h
-#define GUIDialog_ViewSettings_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <fx.h>
@@ -64,6 +61,7 @@ public:
         FXColorWell* myColorWell;
         FXColorWell* myBGColorWell;
         FXCheckButton* myConstSizeCheck;
+        FXMatrix* myMatrix0;
     };
 
     class SizePanel {
@@ -232,6 +230,12 @@ private:
     /// @brief load window position and size from the registry
     void loadWindowSize();
 
+    /// @brief reload known vehicle parameters
+    void updateVehicleParams();
+
+    /// @brief reload known POI parameters
+    void updatePOIParams();
+
 private:
     /// @brief The parent view (which settings are changed)
     GUISUMOAbstractView* myParent;
@@ -258,12 +262,19 @@ private:
     FXVerticalFrame* myDecalsFrame;
     MFXAddEditTypedTable* myDecalsTable;
 
-    /// selection colors
+    /// @brief selection colors
     FXColorWell* mySelectionColor;
     FXColorWell* mySelectedEdgeColor;
     FXColorWell* mySelectedLaneColor;
     FXColorWell* mySelectedConnectionColor;
+    FXColorWell* mySelectedProhibitionColor;
+    FXColorWell* mySelectedCrossingColor;
     FXColorWell* mySelectedAdditionalColor;
+    FXColorWell* mySelectedRouteColor;
+    FXColorWell* mySelectedVehicleColor;
+    FXColorWell* mySelectedPersonColor;
+    FXColorWell* mySelectedPersonPlanColor;
+    FXColorWell* mySelectedEdgeDataColor;
 
     /// ... lane colorer
     MFXIconComboBox* myLaneEdgeColorMode;
@@ -273,6 +284,8 @@ private:
     std::vector<FXButton*> myLaneButtons;
     FXCheckButton* myLaneColorInterpolation;
     FXButton* myLaneColorRainbow;
+    FXCheckButton* myLaneColorRainbowCheck;
+    FXRealSpinner* myLaneColorRainbowThreshold;
     FXButton* myJunctionColorRainbow;
     FXComboBox* myParamKey;
 
@@ -289,14 +302,18 @@ private:
     FXRealSpinner* myLaneWidthUpscaleDialer;
     FXRealSpinner* myLaneMinWidthDialer;
 
+    // Vehicles
     MFXIconComboBox* myVehicleColorMode, *myVehicleShapeDetail;
     FXVerticalFrame* myVehicleColorSettingFrame;
     std::vector<FXColorWell*> myVehicleColors;
     std::vector<FXRealSpinner*> myVehicleThresholds;
     std::vector<FXButton*> myVehicleButtons;
     FXCheckButton* myVehicleColorInterpolation;
-    FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBTRange; /* *myShowLaneChangePreference,*/
+    FXCheckButton* myShowBlinker, *myShowMinGap, *myShowBrakeGap, *myShowBTRange, *myShowRouteIndex; /* *myShowLaneChangePreference,*/
+    FXComboBox* myVehicleParamKey;
+    FXComboBox* myVehicleTextParamKey;
 
+    // Persons
     MFXIconComboBox* myPersonColorMode, *myPersonShapeDetail;
     FXVerticalFrame* myPersonColorSettingFrame;
     std::vector<FXColorWell*> myPersonColors;
@@ -304,6 +321,7 @@ private:
     std::vector<FXButton*> myPersonButtons;
     FXCheckButton* myPersonColorInterpolation;
 
+    // Containers
     MFXIconComboBox* myContainerColorMode, *myContainerShapeDetail;
     FXVerticalFrame* myContainerColorSettingFrame;
     std::vector<FXColorWell*> myContainerColors;
@@ -312,6 +330,7 @@ private:
     FXCheckButton* myContainerColorInterpolation;
     FXRealSpinner* myContainerMinSizeDialer, *myContainerUpscaleDialer;
 
+    // junctions
     MFXIconComboBox* myJunctionColorMode;
     FXVerticalFrame* myJunctionColorSettingFrame;
     std::vector<FXColorWell*> myJunctionColors;
@@ -319,13 +338,16 @@ private:
     std::vector<FXButton*> myJunctionButtons;
     FXCheckButton* myJunctionColorInterpolation;
 
+    // POIs
     MFXIconComboBox* myPOIColorMode, *myPOIShapeDetail;
     FXVerticalFrame* myPOIColorSettingFrame;
     std::vector<FXColorWell*> myPOIColors;
     std::vector<FXRealSpinner*> myPOIThresholds;
     std::vector<FXButton*> myPOIButtons;
     FXCheckButton* myPOIColorInterpolation;
+    FXComboBox* myPOITextParamKey;
 
+    // Polygons
     MFXIconComboBox* myPolyColorMode, *myPolyShapeDetail;
     FXVerticalFrame* myPolyColorSettingFrame;
     std::vector<FXColorWell*> myPolyColors;
@@ -337,16 +359,24 @@ private:
     FXCheckButton* myDrawJunctionShape;
     FXCheckButton* myDrawCrossingsAndWalkingAreas;
     FXCheckButton* myDither;
+    FXCheckButton* myFPS;
+    FXCheckButton* myDrawBoundaries;
+    FXCheckButton* myForceDrawForPositionSelection;
+    FXCheckButton* myForceDrawForRectangleSelection;
     FXCheckButton* myShowSizeLegend;
+    FXCheckButton* myShowColorLegend;
+    FXCheckButton* myShowVehicleColorLegend;
 
     NamePanel* myEdgeNamePanel, *myInternalEdgeNamePanel, *myCwaEdgeNamePanel, *myStreetNamePanel, *myEdgeValuePanel,
                *myJunctionIndexPanel, *myTLIndexPanel,
-               *myJunctionNamePanel, *myInternalJunctionNamePanel,
-               *myTLSPhaseIndexPanel,
-               *myVehicleNamePanel, *myVehicleValuePanel,
+               *myJunctionIDPanel, *myJunctionNamePanel, *myInternalJunctionNamePanel,
+               *myTLSPhaseIndexPanel, *myTLSPhaseNamePanel,
+               *myVehicleNamePanel, *myVehicleValuePanel, *myVehicleTextPanel,
                *myPersonNamePanel, *myPersonValuePanel,
                *myContainerNamePanel,
-               *myAddNamePanel, *myAddFullNamePanel, *myPOINamePanel, *myPolyNamePanel, *myPOITypePanel, *myPolyTypePanel;
+               *myAddNamePanel, *myAddFullNamePanel,
+               *myPOINamePanel, *myPOITypePanel, *myPOITextPanel,
+               *myPolyNamePanel, *myPolyTypePanel;
 
     SizePanel* myVehicleSizePanel, *myPersonSizePanel, *myContainerSizePanel, *myPOISizePanel, *myPolySizePanel, *myAddSizePanel, *myJunctionSizePanel;
 
@@ -357,8 +387,7 @@ private:
 
 
 protected:
-    /// @brief Default constructor (needed by FOX)
-    GUIDialog_ViewSettings() { }
+    FOX_CONSTRUCTOR(GUIDialog_ViewSettings)
 
 
 private:
@@ -370,9 +399,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

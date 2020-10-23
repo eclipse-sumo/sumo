@@ -1,10 +1,14 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    lane.py
 # @author  Daniel Krajzewicz
@@ -13,7 +17,6 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2011-11-28
-# @version $Id$
 
 
 import sumolib.geomhelper
@@ -204,17 +207,28 @@ class Lane:
     def getOutgoing(self):
         return self._outgoing
 
-    def getIncoming(self):
+    def getIncoming(self, onlyDirect=False):
         """
         Returns all incoming lanes for this lane, i.e. lanes, which have a connection to this lane.
+        If onlyDirect is True, then only incoming internal lanes are returned for a normal lane if they exist
         """
         candidates = reduce(lambda x, y: x + y, [cons for e, cons in self._edge.getIncoming().items()], [])
-        return [c.getFromLane() for c in candidates if self == c.getToLane()]
+        lanes = [c.getFromLane() for c in candidates if self == c.getToLane()]
+        if onlyDirect:
+            hasInternal = False
+            for l in lanes:
+                if l.getID()[0] == ":":
+                    hasInternal = True
+                    break
+            if hasInternal:
+                return [l for l in lanes if l.getID()[0] == ":" and
+                        l.getOutgoing()[0].getViaLaneID() == ""]
+        return lanes
 
     def getConnection(self, toLane):
         """Returns the connection to the given target lane or None"""
         for conn in self._outgoing:
-            if conn.getToLane() == toLane:
+            if conn.getToLane() == toLane or conn.getViaLaneID() == toLane.getID():
                 return conn
         return None
 

@@ -1,5 +1,7 @@
-Loading net-file from 'net.net.xml'... done (1ms).
+Loading net-file from 'net.net.xml' ... done (1ms).
 Loading done.
-Simulation started with time: 0.00
-Simulation ended at time: 136.00
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation ended at time: 143.00
 Reason: All vehicles have left the simulation.
+DijkstraRouter answered 2 queries and explored 3.00 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).

@@ -1,15 +1,18 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2017-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2017-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    _pvehicle.py
 # @author Leonhard Luecken
 # @date   2017-04-09
-# @version $Id$
 
 import os
 import sys
@@ -119,7 +122,7 @@ class PVehicle(object):
         origVType = self._vTypes[PlatoonMode.NONE]
         if origVType not in cfg.PLATOON_VTYPES \
                 or mode not in cfg.PLATOON_VTYPES[origVType] \
-                or cfg.PLATOON_VTYPES[origVType][mode] is "":
+                or cfg.PLATOON_VTYPES[origVType][mode] == "":
             if "default" in cfg.PLATOON_VTYPES and mode in cfg.PLATOON_VTYPES["default"]:
                 if rp.VERBOSITY >= 1 and not WARNED_DEFAULT[mode]:
                     warn(("Using default vType '%s' for vehicle '%s' (PlatoonMode: '%s'). " +
@@ -304,7 +307,7 @@ class PVehicle(object):
         '''isSwitchSafe(PlatoonMode, double) -> bool
 
         Checks whether it is safe for this vehicle to continue in the target mode.
-        The parameter switchImpatience \in [0,1] indicates the emergency of the switch
+        The parameter switchImpatience in [0,1] indicates the emergency of the switch
         and controls to which degree the vehicle is disposed to break harder than
         its preferred decel.
         '''

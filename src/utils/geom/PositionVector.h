@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    PositionVector.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A list of positions
 /****************************************************************************/
-#ifndef PositionVector_h
-#define PositionVector_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -223,8 +220,17 @@ public:
     //// @brief add a position
     void add(double xoff, double yoff, double zoff);
 
-    //// @brief add a position
+    //// @brief substract a position
     void add(const Position& offset);
+
+    //// @brief add a position
+    void sub(double xoff, double yoff, double zoff);
+
+    //// @brief substract a position
+    void sub(const Position& offset);
+
+    //// @brief adds a position without modifying the vector itself but returning the result
+    PositionVector added(const Position& offset) const;
 
     //// @brief mirror coordinates along the x-axis
     void mirrorX();
@@ -244,10 +250,10 @@ public:
     /// @brief get subpart of a position vector using index and a cout
     PositionVector getSubpartByIndex(int beginIndex, int count) const;
 
-    /// @brief short as polygon CV by angle
+    /// @brief sort as polygon CW by angle
     void sortAsPolyCWByAngle();
 
-    /// @brief shory by increasing X-Y Psitions
+    /// @brief sort by increasing X-Y Positions
     void sortByIncreasingXY();
 
     /// @brief extrapolate position vector
@@ -263,16 +269,20 @@ public:
     static Position sideOffset(const Position& beg, const Position& end, const double amount);
 
     /// @brief move position vector to side using certain ammount
-    void move2side(double amount);
+    void move2side(double amount, double maxExtension = 100);
 
     /// @brief move position vector to side using a custom offset for each geometry point
-    void move2side(std::vector<double> amount);
+    void move2side(std::vector<double> amount, double maxExtension = 100);
 
-    /// @brief get angle  in certain position of position vector
+    /// @brief get angle in certain position of position vector
     double angleAt2D(int pos) const;
 
-    /// @brief inserts p between the two closest positions and returns the insertion index
-    int insertAtClosest(const Position& p);
+    /**@brief inserts p between the two closest positions
+     * @param p position to be inserted
+     * @param interpolateZ flag to enable/disable interpolation of Z Value between the two closest positions
+     * @return the insertion index
+     */
+    int insertAtClosest(const Position& p, bool interpolateZ);
 
     /// @brief removes the point closest to p and return the removal index
     int removeClosest(const Position& p);
@@ -319,6 +329,9 @@ public:
     /// @brief return the nearest offest to point 2D
     double nearest_offset_to_point2D(const Position& p, bool perpendicular = true) const;
 
+    /// @brief return the nearest offest to point 2D projected onto the 3D geometry
+    double nearest_offset_to_point25D(const Position& p, bool perpendicular = true) const;
+
     /** @brief return position p within the length-wise coordinate system
      * defined by this position vector. The x value is the same as that returned
      * by nearest_offset_to_point2D(p) and the y value is the perpendicular distance to this
@@ -338,6 +351,12 @@ public:
 
     /// @brief closest 2D-distance to point p (or -1 if perpendicular is true and the point is beyond this vector)
     double distance2D(const Position& p, bool perpendicular = false) const;
+
+    /// @brief insert in front a Position
+    void push_front(const Position& p);
+
+    /// @brief pop first Position
+    void pop_front();
 
     /// @brief insert in back a non double position
     void push_back_noDoublePos(const Position& p);
@@ -371,8 +390,9 @@ public:
      * @param[in] extend how long to extend this vector for finding an orthogonal
      * @param[in] front Whether to take the segment before or after the base point in case of ambiguity
      * @param[in] length the length of the orthogonal
+     * @param[in] deg the rotation angle relative to the shape direction
      */
-    PositionVector getOrthogonal(const Position& p, double extend, bool before, double length = 1.0) const;
+    PositionVector getOrthogonal(const Position& p, double extend, bool before, double length = 1.0, double deg = 90) const;
 
     /// @brief returned vector that is smoothed at the front (within dist)
     PositionVector smoothedZFront(double dist = std::numeric_limits<double>::max()) const;
@@ -380,8 +400,11 @@ public:
     /// @brief returned vector that varies z smoothly over its length
     PositionVector interpolateZ(double zStart, double zEnd) const;
 
-    /// @brief resample shape with the given number of points (equal spacing)
-    PositionVector resample(double maxLength) const;
+    /**@brief resample shape (i.e. transform to segments, equal spacing)
+     * @param[in] maxLength lenght of every segment
+     * @param[in] adjustEnd enable or disable adjust end (i.e. result has the same original lenght, last segment could be short)
+     */
+    PositionVector resample(double maxLength, const bool adjustEnd) const;
 
     /// @brief return the offset at the given index
     double offsetAtIndex2D(int index) const;
@@ -391,13 +414,10 @@ public:
      */
     double getMaxGrade(double& maxJump) const;
 
+    /// @brief return a bezier interpolation
+    PositionVector bezier(int numPoints);
+
 private:
     /// @brief return whether the line segments defined by Line p11,p12 and Line p21,p22 intersect
     static bool intersects(const Position& p11, const Position& p12, const Position& p21, const Position& p22, const double withinDist = 0., double* x = 0, double* y = 0, double* mu = 0);
 };
-
-
-#endif
-
-/****************************************************************************/
-

@@ -1,0 +1,8 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+    <tlLogic id="center" type="static" programID="1" offset="0">
+        <phase duration="20" state="r"/>
+    </tlLogic>
+
+
+</additional>

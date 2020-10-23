@@ -1,0 +1,732 @@
+time 1.0
+ToC device infos for vehicle 'ToC_veh'
+Static parameters:
+  holder = ToC_veh
+  manualType = manual
+  automatedType = automated
+  responseTime = 25.00
+  recoveryRate = 0.10
+  initialAwareness = 0.25
+  mrmDecel = 0.50
+Dynamic parameters:
+  currentAwareness = 1.00
+  currentSpeed = 0.0
+  state = AUTOMATED
+Time 1.0: Current lane of veh 'ToC_veh': 0
+Acceleration = 2.6
+Accel = 2.6
+time 2.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 2.6
+  state = AUTOMATED
+Acceleration = 2.6
+Accel = 2.6
+time 3.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 5.2
+  state = AUTOMATED
+Requested ToC of veh0 at t=4.0 (until t=34.0)
+Acceleration = 2.6
+Accel = 0.0
+time 4.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 5.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 6.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 7.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 8.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 9.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 10.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 11.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 12.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 13.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 14.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 15.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 16.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 17.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 18.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 19.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 20.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 21.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 22.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 23.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 24.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 25.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 26.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 27.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 28.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 0.0
+Accel = 0.0
+time 29.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 7.8
+  state = PREPARING_TOC
+Acceleration = 1.602146642
+Accel = 2.6
+time 30.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.25
+  currentSpeed = 9.402146642
+  state = RECOVERING
+Acceleration = 2.08090038304
+Accel = 2.6
+time 31.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.35
+  currentSpeed = 11.483047025
+  state = RECOVERING
+Acceleration = 2.18135578985
+Accel = 2.6
+time 32.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.45
+  currentSpeed = 13.6644028149
+  state = RECOVERING
+Acceleration = -0.909658593731
+Accel = 2.6
+time 33.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.55
+  currentSpeed = 12.7547442212
+  state = RECOVERING
+Acceleration = 0.0125859252177
+Accel = 2.6
+time 34.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.65
+  currentSpeed = 12.7673301464
+  state = RECOVERING
+Acceleration = 0.0810287455795
+Accel = 2.6
+time 35.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.75
+  currentSpeed = 12.848358892
+  state = RECOVERING
+Acceleration = 0.627861689823
+Accel = 2.6
+time 36.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.85
+  currentSpeed = 13.4762205818
+  state = RECOVERING
+Acceleration = 0.171022538911
+Accel = 2.6
+time 37.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 0.95
+  currentSpeed = 13.6472431207
+  state = RECOVERING
+Time 38.0: veh 'ToC_veh' changed lanes. Current: 1
+Acceleration = -0.107409861893
+Accel = 2.6
+time 38.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.5398332588
+  state = MANUAL
+Acceleration = -0.815983479889
+Accel = 2.6
+time 39.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7238497789
+  state = MANUAL
+Acceleration = 1.16564416613
+Accel = 2.6
+time 40.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.889493945
+  state = MANUAL
+Acceleration = -0.426459800126
+Accel = 2.6
+time 41.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.4630341449
+  state = MANUAL
+Acceleration = 0.253076857002
+Accel = 2.6
+time 42.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.7161110019
+  state = MANUAL
+Acceleration = -0.390252983803
+Accel = 2.6
+time 43.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.3258580181
+  state = MANUAL
+Acceleration = 0.384924794105
+Accel = 2.6
+time 44.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.7107828122
+  state = MANUAL
+Acceleration = -0.946355028893
+Accel = 2.6
+time 45.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7644277833
+  state = MANUAL
+Acceleration = -0.118611767213
+Accel = 2.6
+time 46.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.6458160161
+  state = MANUAL
+Acceleration = 0.623681098316
+Accel = 2.6
+time 47.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.2694971144
+  state = MANUAL
+Acceleration = -0.629411842511
+Accel = 2.6
+time 48.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.6400852719
+  state = MANUAL
+Acceleration = 1.07900675863
+Accel = 2.6
+time 49.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.7190920306
+  state = MANUAL
+Acceleration = -0.467294073268
+Accel = 2.6
+time 50.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.2517979573
+  state = MANUAL
+Acceleration = -0.012335853558
+Accel = 2.6
+time 51.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.2394621037
+  state = MANUAL
+Acceleration = -0.183426539926
+Accel = 2.6
+time 52.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0560355638
+  state = MANUAL
+Acceleration = -0.0878195853438
+Accel = 2.6
+time 53.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.9682159785
+  state = MANUAL
+Acceleration = 0.884052295727
+Accel = 2.6
+time 54.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.8522682742
+  state = MANUAL
+Acceleration = -0.286667076661
+Accel = 2.6
+time 55.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.5656011975
+  state = MANUAL
+Acceleration = -0.526669783145
+Accel = 2.6
+time 56.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0389314144
+  state = MANUAL
+Acceleration = 0.0448765986832
+Accel = 2.6
+time 57.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0838080131
+  state = MANUAL
+Acceleration = 0.458224618528
+Accel = 2.6
+time 58.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.5420326316
+  state = MANUAL
+Acceleration = 0.0533830940491
+Accel = 2.6
+time 59.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.5954157256
+  state = MANUAL
+Acceleration = -0.718049606564
+Accel = 2.6
+time 60.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.8773661191
+  state = MANUAL
+Acceleration = 0.633937600721
+Accel = 2.6
+time 61.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.5113037198
+  state = MANUAL
+Acceleration = 0.0989468703978
+Accel = 2.6
+time 62.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.6102505902
+  state = MANUAL
+Acceleration = -0.726679502078
+Accel = 2.6
+time 63.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.8835710881
+  state = MANUAL
+Acceleration = 0.979684347007
+Accel = 2.6
+time 64.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.8632554351
+  state = MANUAL
+Acceleration = -0.487292333785
+Accel = 2.6
+time 65.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.3759631013
+  state = MANUAL
+Acceleration = -0.00691570730414
+Accel = 2.6
+time 66.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.369047394
+  state = MANUAL
+Acceleration = -0.162752283341
+Accel = 2.6
+time 67.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.2062951107
+  state = MANUAL
+Acceleration = 0.0671101373853
+Accel = 2.6
+time 68.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.2734052481
+  state = MANUAL
+Acceleration = 0.613935147785
+Accel = 2.6
+time 69.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.8873403959
+  state = MANUAL
+Acceleration = -0.837190877041
+Accel = 2.6
+time 70.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0501495188
+  state = MANUAL
+Acceleration = 0.622070134827
+Accel = 2.6
+time 71.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.6722196536
+  state = MANUAL
+Acceleration = -0.763877195632
+Accel = 2.6
+time 72.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.908342458
+  state = MANUAL
+Acceleration = 0.66396959431
+Accel = 2.6
+time 73.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.5723120523
+  state = MANUAL
+Acceleration = -0.241909302515
+Accel = 2.6
+time 74.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.3304027498
+  state = MANUAL
+Acceleration = -0.433493501414
+Accel = 2.6
+time 75.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.8969092484
+  state = MANUAL
+Acceleration = -0.13224062575
+Accel = 2.6
+time 76.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7646686226
+  state = MANUAL
+Acceleration = 0.869107627706
+Accel = 2.6
+time 77.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.6337762504
+  state = MANUAL
+Acceleration = -0.546499290876
+Accel = 2.6
+time 78.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0872769595
+  state = MANUAL
+Acceleration = 0.674351560534
+Accel = 2.6
+time 79.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.76162852
+  state = MANUAL
+Acceleration = -0.0807017908199
+Accel = 2.6
+time 80.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.6809267292
+  state = MANUAL
+Acceleration = 0.201330622216
+Accel = 2.6
+time 81.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.8822573514
+  state = MANUAL
+Acceleration = -1.16103227159
+Accel = 2.6
+time 82.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7212250798
+  state = MANUAL
+Acceleration = 0.535929253325
+Accel = 2.6
+time 83.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.2571543331
+  state = MANUAL
+Acceleration = 0.491723148595
+Accel = 2.6
+time 84.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.7488774817
+  state = MANUAL
+Acceleration = -0.140985487541
+Accel = 2.6
+time 85.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.6078919942
+  state = MANUAL
+Acceleration = -0.245326689235
+Accel = 2.6
+time 86.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.362565305
+  state = MANUAL
+Acceleration = -0.270836431766
+Accel = 2.6
+time 87.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.0917288732
+  state = MANUAL
+Acceleration = -0.173676587362
+Accel = 2.6
+time 88.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.9180522858
+  state = MANUAL
+Time 89.0: veh 'ToC_veh' changed lanes. Current: 0
+Acceleration = 0.656929575186
+Accel = 2.6
+time 89.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.574981861
+  state = MANUAL
+Acceleration = 0.311374319601
+Accel = 2.6
+time 90.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.8863561806
+  state = MANUAL
+Acceleration = -0.256320947106
+Accel = 2.6
+time 91.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.6300352335
+  state = MANUAL
+Acceleration = -0.898547120974
+Accel = 2.6
+time 92.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7314881125
+  state = MANUAL
+Acceleration = 1.01011590916
+Accel = 2.6
+time 93.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.7416040217
+  state = MANUAL
+Acceleration = -0.590732998494
+Accel = 2.6
+time 94.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.1508710232
+  state = MANUAL
+Acceleration = 0.44115728254
+Accel = 2.6
+time 95.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.5920283057
+  state = MANUAL
+Acceleration = -0.203649577755
+Accel = 2.6
+time 96.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.388378728
+  state = MANUAL
+Acceleration = -0.662041575206
+Accel = 2.6
+time 97.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7263371528
+  state = MANUAL
+Acceleration = 0.328014806192
+Accel = 2.6
+time 98.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.054351959
+  state = MANUAL
+Acceleration = -0.289302525739
+Accel = 2.6
+time 99.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7650494332
+  state = MANUAL
+Acceleration = 0.0107845040737
+Accel = 2.6
+time 100.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.7758339373
+  state = MANUAL
+Acceleration = 0.0689467081334
+Accel = 2.6
+time 101.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 12.8447806454
+  state = MANUAL
+Acceleration = 0.849505746411
+Accel = 2.6
+time 102.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.6942863918
+  state = MANUAL
+Acceleration = -0.249113370781
+Accel = 2.6
+time 103.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 13.4451730211
+  state = MANUAL

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 14 Mar 2019 07:27:28 AM CET by Eclipse SUMO netedit Version v1_1_0+0435-678c69824b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/home/kobo/dlr/debug/4378/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="0.00,40.00" convBoundary="0.00,0.00,200.00,90.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <node id="C1" x="100.00" y="50.00" type="priority"/>
+    <node id="C2" x="100.00" y="40.00" type="priority"/>
+    <node id="E1" x="200.00" y="50.00" type="dead_end"/>
+    <node id="E2" x="200.00" y="40.00" type="dead_end"/>
+    <node id="N" x="100.00" y="90.00" type="priority"/>
+    <node id="S" x="100.00" y="0.00" type="priority"/>
+    <node id="W1" x="0.00" y="50.00" type="dead_end"/>
+    <node id="W2" x="0.00" y="40.00" type="dead_end"/>
+</nodes>

@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    emissionsMap_main.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Wed, 21.08.2013
-/// @version $Id$
 ///
 // Main for an emissions map writer
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #ifdef HAVE_VERSION_H
@@ -60,6 +58,9 @@ void single(const std::string& of, const std::string& className, SUMOEmissionCla
         WRITE_MESSAGE("Writing map of '" + className + "' into '" + of + "'.");
     }
     std::ofstream o(of.c_str());
+    if (!o.good()) {
+        throw ProcessError("Could not open file '" + of + "' for writing.");
+    }
     for (double v = vMin; v <= vMax; v += vStep) {
         for (double a = aMin; a <= aMax; a += aStep) {
             for (double s = sMin; s <= sMax; s += sStep) {
@@ -120,7 +121,7 @@ main(int argc, char** argv) {
     oc.addDescription("output", "Output", "Defines the file (or the path if --iterate was set) to write the map(s) into.");
 
     oc.addOptionSubTopic("Emissions");
-    oc.doRegister("phemlight-path", new Option_FileName("./PHEMlight/"));
+    oc.doRegister("phemlight-path", new Option_FileName(StringVector({ "./PHEMlight/" })));
     oc.addDescription("phemlight-path", "Emissions", "Determines where to load PHEMlight definitions from.");
 
     SystemFrame::addReportOptions(oc);
@@ -132,7 +133,6 @@ main(int argc, char** argv) {
         XMLSubSys::init();
         OptionsIO::setArgs(argc, argv);
         OptionsIO::getOptions();
-        OptionsCont& oc = OptionsCont::getOptions();
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
@@ -192,6 +192,4 @@ main(int argc, char** argv) {
 }
 
 
-
 /****************************************************************************/
-

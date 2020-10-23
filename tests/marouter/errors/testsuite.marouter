@@ -9,4 +9,7 @@ incomplete_districts
 
 # Incomplete (unknown) district connections
 incomplete_connections
+disconnected_ignore
 
+# creating output in non existing directory
+no_output_dir

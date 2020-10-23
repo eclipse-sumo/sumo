@@ -9,3 +9,6 @@ ticket3288
 
 # Recomputing a Net without crossing disable all new created crossings 
 ticket3292
+
+# controlled pedestrian rail crossings are lost when loading/saving with netedit
+ticket5559

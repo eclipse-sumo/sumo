@@ -1,0 +1,11 @@
+<routes>
+    <vType accel="2.6" decel="4.5" id="PKW" length="4.5" maxSpeed="41.667" minGap="2.5" sigma="0.5" speedDev="0.2" emissionClass="Energy/unknown">
+        <param key="recuperationEfficiency" value="1.0"/>
+        <param key="recuperationEfficiencyByDecel" value="0.0411"/>
+   </vType>
+
+
+	<flow id="flow" bgin="0" end="10" number="10" type="PKW" departLane="free" departPos="0.00" departSpeed="max" arrivalPos="1000">
+		<route edges="beg"/>
+	</flow>
+</routes>

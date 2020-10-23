@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on ven. 12 avril 2019 13:36:21 CEST by Eclipse SUMO netedit Version 1.1.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStop1" name="begin" lane="1_1" lines="line" startPos="12.01" endPos="22.01"/>
+    <busStop id="busStop2" name="end" lane="2_1" lines="line" startPos="10.48" endPos="20.48"/>
+    <busStop id="busStop3" name="end" lane="3_1" lines="line" startPos="30.48" endPos="40.48"/>
+</additional>

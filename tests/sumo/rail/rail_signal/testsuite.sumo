@@ -1,0 +1,97 @@
+# tests which train gets to drive in case of a link conflict: two trains want to enter a section but only one of them can do so at the same time
+priority
+
+# test railSignalConstraints
+constraints
+insertionConstraints
+
+# switch from block signaling to moving block
+end_block_mode
+
+# a forking rail line without a signal at the fork. a warning should appear
+fork_without_signal
+
+# a simulation with a step size of 0.3 seconds  involving rail signals
+small_step_size
+
+# a simulation with a step size of 3 seconds  involving rail signals
+large_step_size
+
+# a train is following another one through several blocks
+two_following_trains
+
+# two rail signals with the same programID
+two_signals_with_same_program
+
+# several blocks in a chain
+several_blocks
+
+# a rail signal with three incoming lanes, each with a train at the beginning of the simulation, and one outgoing lane.
+several_incoming_trains
+
+# a rail signal with three incoming, one outgoing lane, one train. 
+# with internal lanes
+several_incoming_lanes_2
+
+# a rail signal with three incoming, one outgoing lane, one train. 
+# no internal lanes
+several_incoming_lanes
+
+# a rail signal with one incoming and three outgoing lanes
+several_outgoing_lanes
+
+# a train gets inserted behind a rail signal
+inserted_behind_signal
+
+# a rail signal with one incoming lange
+single_incoming_lane
+
+# Two trains approaching conflicting block simultaneously causing a head-on conflict
+halting_conflict
+
+# switches for a bidirectional section guarded by extra rail signal nodes
+indirect_guard
+
+# switches for a bidirectional section guarded by extra rail signal nodes,
+# traffic light state must take the route of the approaching vehicle into account.
+# The blocked vehicle has a fixed route
+indirect_guard_route_conflict
+
+# switches for a bidirectional section guarded by extra rail signal nodes,
+# traffic light state must take the route of the approaching vehicle into account.
+# The blocked vehicle cannot reroute due to a scheduled stop
+indirect_guard_route_conflict2
+
+# switches for a bidirectional section guarded by extra rail signal nodes,
+# traffic light state must take the route of the approaching vehicle into account.
+# The blocked vehicle cannot reroute (no alternative)
+indirect_guard_route_conflict3
+
+# switches for a bidirectional section guarded by extra rail signal nodes,
+# traffic light state must take the route of the approaching vehicle into account.
+# The blocked vehicle may reroute
+indirect_guard_route_conflict_reroute
+
+# track layout with a circle in it
+circle
+
+# track layout with a circle in it
+circle_bidi
+
+# track layout with a circle in the incoming block
+circle_backward
+
+# track layout with a circle and a single railSignal
+circle_1signal
+
+# upstream signal that guards switch must take route of approaching trains into account for deciding signal state
+indirect_guard_check_route
+
+# driveway computation should end when hitting a buffer stop
+siding_deadend
+
+# two stopped trains on parallel tracks must enter the same section
+stopped_link_conflict
+
+# a stopped train on parallel track should not block a train without stop from entering the subsequent section
+stopped_link_conflict2

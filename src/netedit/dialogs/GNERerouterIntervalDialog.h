@@ -1,35 +1,30 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNERerouterIntervalDialog.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Feb 2017
-/// @version $Id$
 ///
 // Dialog for edit rerouter intervals
 /****************************************************************************/
-#ifndef GNERerouterIntervalDialog_h
-#define GNERerouterIntervalDialog_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-
+#pragma once
 #include <config.h>
-
-
-#include <netedit/additionals/GNERerouterInterval.h>
-#include <netedit/additionals/GNEClosingLaneReroute.h>
-#include <netedit/additionals/GNEParkingAreaReroute.h>
-#include <netedit/additionals/GNEClosingReroute.h>
-#include <netedit/additionals/GNEDestProbReroute.h>
-#include <netedit/additionals/GNERouteProbReroute.h>
+#include <netedit/elements/additional/GNERerouterInterval.h>
+#include <netedit/elements/additional/GNEClosingLaneReroute.h>
+#include <netedit/elements/additional/GNEParkingAreaReroute.h>
+#include <netedit/elements/additional/GNEClosingReroute.h>
+#include <netedit/elements/additional/GNEDestProbReroute.h>
+#include <netedit/elements/additional/GNERouteProbReroute.h>
 
 #include "GNEAdditionalDialog.h"
 
@@ -123,8 +118,7 @@ public:
     /// @}
 
 protected:
-    /// @brief FOX needs this
-    GNERerouterIntervalDialog() {}
+    FOX_CONSTRUCTOR(GNERerouterIntervalDialog)
 
     /// @brief begin time text field
     FXTextField* myBeginTextField;
@@ -221,4 +215,3 @@ private:
     GNERerouterIntervalDialog& operator=(const GNERerouterIntervalDialog&) = delete;
 };
 
-#endif

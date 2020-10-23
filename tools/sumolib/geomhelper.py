@@ -1,22 +1,32 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2013-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    geomhelper.py
 # @author  Daniel Krajzewicz
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2013-02-25
-# @version $Id$
 
 from __future__ import absolute_import
 import math
 
 INVALID_DISTANCE = -1
+
+# back-ported from python 3 for backward compatibility
+# https://www.python.org/dev/peps/pep-0485/#proposed-implementation
+
+
+def isclose(a, b, rel_tol=1e-09, abs_tol=0.0):
+    return abs(a-b) <= max(rel_tol * max(abs(a), abs(b)), abs_tol)
 
 
 def distance(p1, p2):
@@ -27,6 +37,22 @@ def distance(p1, p2):
 
 def polyLength(polygon):
     return sum([distance(a, b) for a, b in zip(polygon[:-1], polygon[1:])])
+
+
+def addToBoundingBox(coordList, bbox=None):
+    if bbox is None:
+        minX = 1e400
+        minY = 1e400
+        maxX = -1e400
+        maxY = -1e400
+    else:
+        minX, minY, maxX, maxY = bbox
+    for x, y in coordList:
+        minX = min(x, minX)
+        minY = min(y, minY)
+        maxX = max(x, maxX)
+        maxY = max(y, maxY)
+    return minX, minY, maxX, maxY
 
 
 def lineOffsetWithMinimumDistanceToPoint(point, line_start, line_end, perpendicular=False):
@@ -117,11 +143,17 @@ def distancePointToPolygon(point, polygon, perpendicular=False):
 
 
 def positionAtOffset(p1, p2, offset):
-    if offset == 0.:  # for pathological cases with dist == 0 and offset == 0
+    if isclose(offset, 0.):  # for pathological cases with dist == 0 and offset == 0
         return p1
+
     dist = distance(p1, p2)
-    if dist < offset:
+
+    if isclose(dist, offset):
+        return p2
+
+    if offset > dist:
         return None
+
     return (p1[0] + (p2[0] - p1[0]) * (offset / dist), p1[1] + (p2[1] - p1[1]) * (offset / dist))
 
 
@@ -146,6 +178,27 @@ def angle2D(p1, p2):
     while dtheta < -math.pi:
         dtheta += 2.0 * math.pi
     return dtheta
+
+
+def naviDegree(rad):
+    return normalizeAngle(math.degrees(math.pi / 2. - rad), 0, 360, 360)
+
+
+def fromNaviDegree(degrees):
+    return math.pi / 2. - math.radians(degrees)
+
+
+def normalizeAngle(a, lower, upper, circle):
+    while a < lower:
+        a = a + circle
+    while a > upper:
+        a = a - circle
+    return a
+
+
+def minAngleDegreeDiff(d1, d2):
+    return min(normalizeAngle(d1 - d2, 0, 360, 360),
+               normalizeAngle(d2 - d1, 0, 360, 360))
 
 
 def isWithin(pos, shape):
@@ -205,7 +258,10 @@ def narrow(fromPos, pos, toPos, amount):
     a = sub(toPos, pos)
     b = sub(pos, fromPos)
     c = add(a, b)
-    x = dotProduct(a, a) * length(c) / dotProduct(a, c)
+    dPac = dotProduct(a, c)
+    if dPac == 0:
+        return True
+    x = dotProduct(a, a) * length(c) / dPac
     return x < amount
 
 

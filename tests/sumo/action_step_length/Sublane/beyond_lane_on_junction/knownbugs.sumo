@@ -5,3 +5,9 @@ search_file:tripinfos
 bug_id:#3696
 full_description:#3696
 brief_description:#3696
+
+[Reported by leo at 03Apr14:04:10]
+search_string:.
+search_file:errors
+full_description:#5079
+brief_description:#5079

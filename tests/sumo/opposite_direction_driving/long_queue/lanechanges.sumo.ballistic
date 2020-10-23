@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Oct 20 19:05:40 2017 by SUMO Version svn
+<!-- generated on Fri Apr 17 08:19:46 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,11 +14,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <lanechange-output value="lanechanges.xml"/>
     </output>
 
     <processing>
         <step-method.ballistic value="true"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -30,6 +32,4 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <lanechanges>
-    <change id="overtaking" type="DEFAULT_VEHTYPE" time="136.00" from="VODUGES_beg_0" to="-VODUGES_beg_0" dir="1" speed="1.63" pos="853.41" reason="" leaderGap="None" leaderSecureGap="None" followerGap="None" followerSecureGap="None" origLeaderGap="4.57" origLeaderSecureGap="1.84"/>
-    <change id="overtaking" type="DEFAULT_VEHTYPE" time="214.00" from="-VODUGES_beg_0" to="VODUGES_beg_0" dir="-1" speed="13.28" pos="145.38" reason="" leaderGap="17.55" leaderSecureGap="11.46" followerGap="65.74" followerSecureGap="11.75" origLeaderGap="None" origLeaderSecureGap="None"/>
 </lanechanges>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GeomHelper.cpp
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,9 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Some static methods performing geometrical operations
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -30,6 +28,7 @@
 #include <iostream>
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
+#include <utils/common/MsgHandler.h>
 #include "Boundary.h"
 #include "GeomHelper.h"
 
@@ -111,6 +110,19 @@ GeomHelper::nearest_offset_on_line_to_point2D(const Position& lineStart,
     }
 }
 
+
+double
+GeomHelper::nearest_offset_on_line_to_point25D(const Position& lineStart,
+        const Position& lineEnd,
+        const Position& p, bool perpendicular) {
+    double result = nearest_offset_on_line_to_point2D(lineStart, lineEnd, p, perpendicular);
+    if (result != INVALID_OFFSET) {
+        const double lineLength2D = lineStart.distanceTo2D(lineEnd);
+        const double lineLength = lineStart.distanceTo(lineEnd);
+        result *= (lineLength / lineLength2D);
+    }
+    return result;
+}
 
 Position
 GeomHelper::crossPoint(const Boundary& b, const PositionVector& v) {
@@ -220,6 +232,48 @@ GeomHelper::legacyDegree(const double angle, const bool positive) {
     return degree;
 }
 
+PositionVector
+GeomHelper::makeCircle(const double radius, const Position& center, unsigned int nPoints) {
+    if (nPoints < 3) {
+        WRITE_ERROR("GeomHelper::makeCircle() requires nPoints>=3");
+    }
+    PositionVector circle;
+    circle.push_back({radius, 0});
+    for (unsigned int i = 1; i < nPoints; ++i) {
+        const double a = 2.0 * M_PI * (double)i / (double) nPoints;
+        circle.push_back({radius * cos(a), radius * sin(a)});
+    }
+    circle.push_back({radius, 0});
+    circle.add(center);
+    return circle;
+}
+
+
+PositionVector
+GeomHelper::makeRing(const double radius1, const double radius2, const Position& center, unsigned int nPoints) {
+    if (nPoints < 3) {
+        WRITE_ERROR("GeomHelper::makeRing() requires nPoints>=3");
+    }
+    if (radius1 >= radius2) {
+        WRITE_ERROR("GeomHelper::makeRing() requires radius2>radius1");
+    }
+    PositionVector ring;
+    ring.push_back({radius1, 0});
+    ring.push_back({radius2, 0});
+    for (unsigned int i = 1; i < nPoints; ++i) {
+        const double a = 2.0 * M_PI * (double)i / (double) nPoints;
+        ring.push_back({radius2 * cos(a), radius2 * sin(a)});
+    }
+    ring.push_back({radius2, 0});
+    ring.push_back({radius1, 0});
+    for (unsigned int i = 1; i < nPoints; ++i) {
+        const double a = -2.0 * M_PI * (double)i / (double) nPoints;
+        ring.push_back({radius1 * cos(a), radius1 * sin(a)});
+    }
+    ring.push_back({radius1, 0});
+    ring.add(center);
+    return ring;
+}
+
 
 /****************************************************************************/
-

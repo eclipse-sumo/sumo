@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    history.py
 # @author  Michael Behrisch
 # @date    2014-06-21
-# @version $Id$
 
 """
 This script builds all sumo versions in a certain revision range
@@ -25,11 +28,12 @@ import os
 import sys
 import traceback
 
-import version
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+import sumolib  # noqa
 
 
 optParser = optparse.OptionParser()
-optParser.add_option("-b", "--begin", default="1e86430b48", help="first revision to build")
+optParser.add_option("-b", "--begin", default="v1_3_0", help="first revision to build")
 optParser.add_option("-e", "--end", default="HEAD", help="last revision to build")
 options, args = optParser.parse_args()
 
@@ -44,14 +48,16 @@ try:
     for line in subprocess.check_output(["git", "log", "%s..%s" % (options.begin, options.end)]).splitlines():
         if line.startswith("commit "):
             h = line.split()[1]
-            commits[h] = version.gitDescribe(h)
+            commits[h] = sumolib.version.gitDescribe(h)
     haveBuild = False
     for h, desc in sorted(commits.items(), key=lambda x: x[1]):
         if not os.path.exists('../bin%s' % desc):
             ret = subprocess.call(["git", "checkout", "-q", h])
             if ret != 0:
                 continue
-            subprocess.call('make clean; make -j', shell=True)
+            os.chdir("build/cmake-build")
+            subprocess.call('make clean; make -j32', shell=True)
+            os.chdir("../..")
             haveBuild = True
             shutil.copytree('bin', '../bin%s' % desc,
                             ignore=shutil.ignore_patterns('Makefile*', '*.bat', '*.jar'))

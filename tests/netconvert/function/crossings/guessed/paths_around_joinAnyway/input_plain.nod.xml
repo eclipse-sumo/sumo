@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Jun 12 13:51:49 2020 by Eclipse SUMO netconvert Version v1_6_0+0706-f1f29cc5b6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <plain-output-prefix value="joined/input_plain"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.join value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+        <ignore-errors.edge-type value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<nodes version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-610905.63,-5038878.59" convBoundary="0.00,0.00,210.34,188.75" origBoundary="-73.586865,45.490127,-73.573156,45.498966" projParameter="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="237615647" x="55.21" y="63.47" type="dead_end"/>
+    <node id="2439184769" x="87.92" y="114.87" type="dead_end"/>
+    <node id="4012955042" x="166.92" y="69.15" type="dead_end"/>
+    <node id="4014460835" x="71.63" y="74.03" type="dead_end"/>
+    <node id="4024279260" x="22.10" y="154.24" type="dead_end"/>
+    <node id="4024888872" x="88.63" y="137.69" type="dead_end"/>
+    <node id="4024888887" x="71.24" y="93.90" type="dead_end"/>
+    <node id="4024888888" x="67.40" y="97.11" type="dead_end"/>
+    <node id="4024905289" x="76.94" y="101.07" type="dead_end"/>
+    <node id="4024905290" x="73.17" y="104.19" type="dead_end"/>
+    <node id="4033428445" x="101.84" y="109.05" type="dead_end"/>
+    <node id="4035267717" x="210.34" y="64.23" type="dead_end"/>
+    <node id="4035267718" x="107.23" y="128.15" type="dead_end"/>
+    <node id="4048509292" x="91.75" y="174.32" type="dead_end"/>
+    <node id="4048509297" x="69.75" y="147.08" type="dead_end"/>
+    <node id="4062494300" x="113.31" y="188.75" type="dead_end"/>
+    <node id="4062495269" x="126.94" y="180.27" type="dead_end"/>
+    <node id="4170243617" x="102.76" y="130.27" type="dead_end"/>
+    <node id="618066350" x="20.23" y="164.06" type="dead_end"/>
+    <node id="6439139642" x="93.74" y="118.39" type="dead_end"/>
+    <node id="6439139643" x="0.00" y="0.00" type="dead_end"/>
+    <node id="998748063" x="131.42" y="177.49" type="dead_end"/>
+    <node id="998748069" x="172.41" y="75.92" type="dead_end"/>
+    <node id="cluster_32124393_4012961890_4013037941_4024319740_4035381381" x="96.40" y="122.04" type="traffic_light" tl="cluster_32124393_4012961890_4013037941_4024319740_4035381381"/>
+</nodes>

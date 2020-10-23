@@ -2,11 +2,9 @@
 #Bash script for the test run.
 #sets environment variables respecting SUMO_BINDIR and starts texttest
 
-
-
 if test `uname` = "Darwin"; then #macOS specific exports
-	export LC_ALL=C
-	export LANG=C
+  export LC_ALL=C
+  export LANG=C
 fi
 
 OLDDIR=$PWD
@@ -33,7 +31,6 @@ export SUMO_BINARY="$SUMO_BINDIR/sumo"
 export GUISIM_BINARY="$SUMO_BINDIR/sumo-gui"
 export MAROUTER_BINARY="$SUMO_BINDIR/marouter"
 export PYTHON="python"
-export SIKULIX="runsikulix"
 
 if which texttest &> /dev/null; then
   texttest "$@"

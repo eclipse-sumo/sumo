@@ -3,6 +3,10 @@
         <detEntry lane="E3E2_0" pos="0.10"/>
         <detEntry lane="E3E2_1" pos="0.10"/>
         <detEntry lane="E3E2_2" pos="0.10"/>
+        <detExit lane="CE_0" pos="0"/>
+        <detExit lane="CN_0" pos="0"/>
+        <detExit lane="CS_0" pos="0"/>
+        <detExit lane="CW_0" pos="0"/>
         <detEntry lane="N3bN2b_0" pos="240.31"/>
         <detEntry lane="N3cN2b_0" pos="0.10"/>
         <detEntry lane="NN3_0" pos="232.16"/>
@@ -10,10 +14,6 @@
         <detEntry lane="W3W2_0" pos="0.10"/>
         <detEntry lane="W3W2_1" pos="0.10"/>
         <detEntry lane="W3W2_2" pos="0.10"/>
-        <detExit lane="CE_0" pos="0"/>
-        <detExit lane="CN_0" pos="0"/>
-        <detExit lane="CS_0" pos="0"/>
-        <detExit lane="CW_0" pos="0"/>
     </e3Detector>
     <e3Detector id="e3_E3" freq="60" file="e3output.xml">
         <detEntry lane="EE3_0" pos="0.10"/>

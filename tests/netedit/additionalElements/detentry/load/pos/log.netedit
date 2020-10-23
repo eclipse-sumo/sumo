@@ -2,4 +2,3 @@ Warning: Essential unique float attribute 'pos' of detEntry is missing; detEntry
 Warning: Format of essential unique float attribute 'pos' of detEntry is invalid; Cannot be parsed to float; detEntry cannot be created
 Warning: Format of essential unique float attribute 'pos' of detEntry is invalid; Cannot be parsed to float; detEntry cannot be created
 Warning: Invalid position for detEntry.
-Warning: Invalid position for detEntry.

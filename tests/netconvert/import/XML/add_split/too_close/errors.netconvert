@@ -1,0 +1,3 @@
+Error: Could not insert edge '1.50' after split of edge '1.50'
+Warning: Could not set connection from '1.50_2' to '1.50_3'.
+Quitting (on error).

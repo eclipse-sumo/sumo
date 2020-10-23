@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12/11/18 14:43:24 by Eclipse SUMO duarouter Version v1_0_1+0617-70ae16b5ddd
+<!-- generated on Wed Dec 11 23:04:44 2019 by Eclipse SUMO duarouter Version v1_4_0+0051-3f8840f55f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,9 +29,9 @@ SPDX-License-Identifier: EPL-2.0
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <person id="p0" depart="0.00">
-        <walk cost="96.00" edges="a -a"/>
+        <personTrip from="a" to="-a" modes="public" walkFactor="0.75" costs="96.00"/>
     </person>
     <person id="p1" depart="0.00">
-        <walk cost="96.00" edges="-a a"/>
+        <personTrip from="-a" to="a" modes="public" walkFactor="0.75" costs="96.00"/>
     </person>
 </routes>

@@ -1,2 +1,0 @@
-/home/micha/sumo/tests/../tests/complex/traci/pythonApi/trafficlight/../../../../../tools/traci/domain.py:117: UserWarning: The domain trafficlights is deprecated, use trafficlight instead.
-  self._name, self._deprecatedFor))  # , DeprecationWarning)

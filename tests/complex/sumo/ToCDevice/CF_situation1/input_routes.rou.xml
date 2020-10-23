@@ -13,6 +13,7 @@
         <param key="device.toc.recoveryRate" value="0.1"/>
         <param key="device.toc.initialAwareness" value="0.25"/>
         <param key="device.toc.mrmDecel" value="1.2"/>
+        <param key="device.toc.file" value="tocs.xml"/>
     </vehicle>
     <vehicle id="follower" type="automated" depart="0" departPos="last" departLane="0">
         <route edges="1/1to2/1 2/1to3/1 3/1to4/1 4/1to5/1 5/1to6/1"/>

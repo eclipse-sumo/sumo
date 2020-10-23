@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
-# @version $Id$
 
 # import common functions for netedit tests
 import os
@@ -29,41 +32,41 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.additionalMode()
 
 # select containerStop
-netedit.changeAdditional("containerStop")
+netedit.changeElement("containerStop")
 
 # change reference to center
-netedit.modifyAdditionalDefaultValue(6, "reference center")
+netedit.changeDefaultValue(7, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 150)
+netedit.leftClick(referencePosition, 250, 170)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first containerStop
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 190)
 
 # Change parameter endpos with a valid value (empty)
-netedit.modifyAttribute(2, "", True)
+netedit.modifyAttribute(3, "", True)
 
 # Change parameter endpos with a valid value (> lanelenght)
-netedit.modifyAttribute(2, "5000", True)
+netedit.modifyAttribute(3, "5000", True)
 
 # Change parameter endpos with a non valid value (< startPos)
-netedit.modifyAttribute(2, "2", True)
+netedit.modifyAttribute(3, "2", True)
 
 # Change parameter endpos with a valid value
-netedit.modifyAttribute(2, "30", True)
+netedit.modifyAttribute(3, "30", True)
 
 # Check undos and redos
 netedit.undo(referencePosition, 4)
 netedit.redo(referencePosition, 4)
 
 # save additionals
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

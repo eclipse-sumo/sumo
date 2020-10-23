@@ -1,0 +1,22 @@
+# one train passes the stop and the other train is inserted there
+basic
+
+# one train passes the stop (but stops twice) and the other train is inserted there
+prev_double_stop
+
+# passing train tripId changes at stop
+changeTripId
+
+# signal is not at the end of the insertion stop edge
+signal_on_next_edge
+
+# foe does not move past the signal, hence no constraint
+arrival_at_stop
+
+# direct predecessor does not move past the signal, so we need to use the predecessor of the predecessor as constraint
+arrival_at_stop_usePrev
+
+# one train passes the stop and the other train is inserted there
+# 
+# use arrival+duration insteald of until for insertion constraints
+until_from_duration

@@ -1,5 +1,0 @@
-# move person within the current route
-within_route
-
-# move person within the current route but on the road (off the sidewalk)
-within_route_onRoad

@@ -1,5 +1,4 @@
- Retrying in 1 seconds
-time step 1000
+time 1.0
 Driver state device infos for vehicle 'deviceHolder'
 Static parameters:
   minAwareness = 0.01
@@ -15,7 +14,7 @@ Dynamic parameters:
   errorNoiseIntensity = 1.00
   errorTimeScale = 1.00
   errorState = 0.00
-time step 1000
+time 1.0
 ToC device infos for vehicle 'deviceHolder'
 Static parameters:
   holder = deviceHolder

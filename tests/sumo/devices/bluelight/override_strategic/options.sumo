@@ -1,0 +1,3 @@
+--no-step-log --no-duration-log --net-file=net2.net.xml -r input_routes.rou.xml --device.bluelight.explicit rescue --tripinfo-output tripinfos.xml --lateral-resolution 0.64
+--device.bluelight.reactiondist 50
+-b 35

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu 09 Aug 2018 01:43:05 PM CEST by Eclipse SUMO netedit Version 4a44066
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <no-turnarounds value="true"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+        <walkingareas value="true"/>
+    </processing>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="busStopA" name="A" lane="A1A0_1" startPos="444.80" endPos="474.80"/>
+    <busStop id="busStopB" name="B" lane="B1A1_1" startPos="884.80" endPos="904.80"/>
+    <busStop id="busStopC" name="C" lane="A0B0_1" startPos="884.80" endPos="904.80"/>
+    <busStop id="busStopD" name="D" lane="B0B1_1" startPos="470.00" endPos="480.00"/>
+    <busStop id="stopA_E" name="A" lane="railWE_0" startPos="250.00" endPos="350.00">
+        <access lane="accessA_0" pos="81.39"/>
+    </busStop>
+    <busStop id="stopA_N" name="A" lane="railSN_0" startPos="350.00" endPos="450.00">
+        <access lane="accessA_0" pos="90.19"/>
+    </busStop>
+    <busStop id="stopA_S" name="A" lane="railNS_0" startPos="750.00" endPos="850.00">
+        <access lane="accessA_0" pos="111.92"/>
+    </busStop>
+    <busStop id="stopA_W" name="A" lane="railEW_0" startPos="1350.00" endPos="1450.00">
+        <access lane="accessA_0" pos="86.23"/>
+    </busStop>
+    <busStop id="stopB_N" name="B" lane="railSN_0" startPos="850.00" endPos="950.00">
+        <access lane="accessB_0" pos="91.16"/>
+    </busStop>
+    <busStop id="stopB_S" name="B" lane="railNS_0" startPos="250.00" endPos="350.00">
+        <access lane="accessB_0" pos="110.40"/>
+    </busStop>
+    <busStop id="stopC_E" name="C" lane="railWE_0" startPos="1350.00" endPos="1450.00">
+        <access lane="accessC_0" pos="109.86"/>
+    </busStop>
+    <busStop id="stopC_W" name="C" lane="railEW_0" startPos="250.00" endPos="350.00">
+        <access lane="accessC_0" pos="91.90"/>
+    </busStop>
+</additional>

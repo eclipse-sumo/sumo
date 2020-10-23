@@ -1,0 +1,6 @@
+<routes>
+    <personFlow id="ped" begin="0" end="20" period="1">
+        <walk from="A0B0" to="E5F5"/>
+    </personFlow>
+    <flow id="cars" begin="30" end="50" period="1" from="A5B5" to="E0F0"/>
+</routes>

@@ -1,5 +1,5 @@
  Retrying in 1 seconds
-time step 1000
+time 1.0
 ToC device infos for vehicle 'ToC_veh'
 Static parameters:
   holder = ToC_veh
@@ -13,61 +13,61 @@ Dynamic parameters:
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = AUTOMATED
-time step 2000
+time 2.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 2.6
+  currentSpeed = 0.0
   state = PREPARING_TOC
-Current type: automatedDistributionWithToCDevice89
-time step 22000
+Current type: automatedDistributionWithToCDevice89@ToC_veh
+time 22.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5517145299
+  currentSpeed = 19.2265179235
   state = MANUAL
 Current type: manualDistribution71
-time step 42000
+time 42.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.1700620404
+  currentSpeed = 19.5540311913
   state = MANUAL
 Current type: manualDistribution71
-time step 62000
+time 62.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.4083548006
+  currentSpeed = 19.2686492707
   state = MANUAL
 Current type: manualDistribution71
-time step 82000
+time 82.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.2968529223
+  currentSpeed = 19.1064847909
   state = MANUAL
 Current type: manualDistribution71
-time step 102000
+time 102.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 19.6
   state = AUTOMATED
 Current type: automatedDistributionWithToCDevice89
-time step 122000
+time 122.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 19.6
   state = AUTOMATED
 Current type: automatedDistributionWithToCDevice89
-time step 142000
+time 142.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 19.6
   state = AUTOMATED
 Current type: automatedDistributionWithToCDevice89
-time step 162000
+time 162.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 19.6
   state = AUTOMATED
 Current type: automatedDistributionWithToCDevice89
-time step 182000
+time 182.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 19.6

@@ -2,7 +2,7 @@
 cycle time;60;;;;;
 key;1;;;;;
 subkey;SZP_Prio;;;;;
-offset;0;;;;;
+offset;5;;;;;
 [links];;;;;;
 FZ11;-474_0;;;;;
 FZ11;-474_1;;;;;

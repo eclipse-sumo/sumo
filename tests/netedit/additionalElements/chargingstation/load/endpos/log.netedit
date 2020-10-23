@@ -1,2 +1,1 @@
-Warning: Invalid position for chargingStation with ID = 'chargingStation_9'.
-Warning: Invalid position for chargingStation with ID = 'chargingStation_10'.
+Warning: There is another chargingStation with the same ID='chargingStation_10'.

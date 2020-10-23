@@ -1,0 +1,4 @@
+Warning: No connection between edge 'left' and edge 'middle' found.
+Warning: No route for vehicle '0' found.
+Warning: Teleporting vehicle '0'; waited too long (wrong lane), lane='left_0', time=345.00.
+Warning: Vehicle '0' ends teleporting on edge 'middle', time 345.00.

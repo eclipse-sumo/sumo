@@ -34,3 +34,6 @@ via-detectors
 
 # only flow on the main motorway
 debug
+
+# test handling of lane-based flows
+lane_based

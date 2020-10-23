@@ -1,8 +1,0 @@
-TestFunctions: Netedit opened successfully
-Finding reference
-TestFunctions: 'reference.png' found. Position: 304 - 140
-C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_17Sep083718.3704/netedit.gui/basic/open_net_shortcut
-input_net_loadedmanually.net.xml
-C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.5_from_17Sep083718.3704/netedit.gui/basic/open_net_shortcut
-net.net.xml
-TestFunctions: Netedit closed successfully

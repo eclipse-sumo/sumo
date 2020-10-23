@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Oct 24 22:12:59 2016 by SUMO Version dev-SVN-r21767
+<!-- generated on Tue Mar 31 12:21:32 2020 by Eclipse SUMO Version v1_5_0+1025-83bc0d0af0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,10 +13,19 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -33,15 +42,15 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="3/1to2/1" sampledSeconds="33.00" traveltime="40.00" overlapTraveltime="40.72" density="1.38" occupancy="1.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="4/1to3/1" sampledSeconds="80.00" traveltime="40.00" overlapTraveltime="40.80" density="3.33" occupancy="2.67" waitingTime="0.00" speed="10.00" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="33.00" traveltime="40.00" overlapTraveltime="40.72" density="1.38" laneDensity="1.38" occupancy="1.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4/1to3/1" sampledSeconds="80.00" traveltime="40.00" overlapTraveltime="40.80" density="3.33" laneDensity="3.33" occupancy="2.67" waitingTime="0.00" speed="10.00" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="2/1to1/1" sampledSeconds="73.00" traveltime="40.00" overlapTraveltime="40.77" density="3.04" occupancy="2.33" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="3/1to2/1" sampledSeconds="47.00" traveltime="40.00" overlapTraveltime="40.85" density="1.96" occupancy="1.67" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="73.00" traveltime="40.00" overlapTraveltime="40.77" density="3.04" laneDensity="3.04" occupancy="2.33" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="3/1to2/1" sampledSeconds="47.00" traveltime="40.00" overlapTraveltime="40.85" density="1.96" laneDensity="1.96" occupancy="1.67" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
-        <edge id="1/1to0/1" sampledSeconds="55.00" traveltime="40.00" overlapTraveltime="40.75" density="4.58" occupancy="3.46" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="2/1to1/1" sampledSeconds="7.00" traveltime="40.00" overlapTraveltime="41.16" density="0.58" occupancy="0.68" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1/1to0/1" sampledSeconds="55.00" traveltime="40.00" overlapTraveltime="40.75" density="4.58" laneDensity="4.58" occupancy="3.46" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="2/1to1/1" sampledSeconds="7.00" traveltime="40.00" overlapTraveltime="41.16" density="0.58" laneDensity="0.58" occupancy="0.68" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>

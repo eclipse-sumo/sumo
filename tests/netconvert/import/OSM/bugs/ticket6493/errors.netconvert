@@ -1,0 +1,17 @@
+Warning: Discarding unknown compound 'cycleway.opposite' in type 'cycleway.opposite|highway.residential' (first occurence for edge '8142293').
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '119432576').
+Warning: No way found for reference '1670309356' in relation '4443863'
+Warning: Reducing junction cluster 1093872774,245901919,245904890,7022705834 (parallel incoming -22873499#0,150039007#0).
+Warning: Reducing junction cluster 313566,368880,84510146 (5 incoming edges).
+Warning: Not joining junctions 245904901,248150932 (parallel outgoing 27115018#0,329890957).
+Warning: Not joining junctions 368879,659614608 (only 1 edge within and no cross-traffic).
+Warning: Not joining junctions 4333150952,443847,660638854 (not compact (maxEdge=4534554#2 length=6.97)).
+Warning: Ambiguity in turnarounds computation at junction '7022635681'.
+Warning: Found sharp turn with radius 5.51 at the start of edge '-8225153#1'.
+Warning: Found sharp turn with radius 8.58 at the end of edge '-8225153#2'.
+Warning: Found angle of 101.17 degrees at edge '23686956#2', segment 0.
+Warning: Found sharp turn with radius 5.51 at the end of edge '8225153#1'.
+Warning: Found sharp turn with radius 8.58 at the start of edge '8225153#2'.
+Warning: The traffic light '1496363648' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '1496363648'
+Warning: Speed of straight connection '145345139#0_0->169453889_0' reduced by 8.91 due to turning radius of 15.22 (length=9.03, angle=50.88).

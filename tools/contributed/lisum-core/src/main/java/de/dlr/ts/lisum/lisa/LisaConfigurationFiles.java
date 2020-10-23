@@ -1,16 +1,19 @@
 /** ************************************************************************* */
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /** ************************************************************************* */
-/// @file    Constants.java
+/// @file    LisaConfigurationFiles.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
 /** ************************************************************************* */
@@ -37,9 +40,9 @@ import org.xml.sax.SAXException;
  * Bottazzi</a>
  */
 class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlUnit> {
-
     public List<ControlUnit> controlUnits = new ArrayList<>();
     public File lisaFolder;
+
 
     @Override
     public Iterator<LisaConfigurationFiles.ControlUnit> iterator() {
@@ -47,9 +50,9 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
     }
 
     /**
-     * Looks for xml files in the Lisa directory. Each of those files represent
-     * Control units and contain information related to them. This method loads
-     * this information and communicates the Lisa server the data directory.
+     * Looks for xml files in the Lisa directory.
+     * Each of those files represent Control units and contain information related to them.
+     * This method loads this information and communicates the Lisa server the data directory.
      *
      * @param lisaFolder
      */
@@ -58,8 +61,8 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
 
         String fullpath = lisaFolder.getAbsolutePath() + File.separator;
 
-        for (String fileName : lisaFolder.list()) {
-            if (fileName.endsWith(".xml")) {
+        for (String name : lisaFolder.list()) {
+            if (name.endsWith(".xml")) {
                 try {
                     File controlUnitConfigFile = new File(fullpath + fileName);
                     XMLAdmin2 x = new XMLAdmin2().load(controlUnitConfigFile);
@@ -94,7 +97,7 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
                 
                 try {
                     List<String> lines = FileTools.readSmallTextFile(fullpath + fileName);
-                    
+
                     for (String line : lines) {
                         final String[] s = line.split("\\s+");
                         
@@ -105,9 +108,12 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
                             DLRLogger.config(this, "Adding APWert name: " + apname);
                         }                            
                     }
-                    
-                } catch (IOException ex) {
-                    Logger.getLogger(LisaConfigurationFiles.class.getName()).log(Level.SEVERE, null, ex);
+
+                    extractSignalGroups(x, controlUnit);
+                    extractDetectors(x, controlUnit);
+                    extractSignalPrograms(x, controlUnit);
+                } catch (SAXException | IOException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
+                    ex.printStackTrace(System.out);
                 }
             }
         }
@@ -115,32 +121,7 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
         DLRLogger.config(this, "Lisa Configuration files read successfully");
         DLRLogger.config(this, "ControlUnits count: " + controlUnits.size());
     }
-    
-    public static void main(String[] args) {
-        String gg = "dasda      dasdasdas \"dasdasda\"";
-        
-        String[] s = gg.split("\\s+");
-        
-        for (String string : s) {
-            System.out.println(string.replace("\"", ""));
-        }
-    }
-    
-    private ControlUnit findControlUnit(int zNr, int fNr) {
-        for (ControlUnit cu : this)
-            if(cu.zNr == zNr && cu.fNr == fNr)
-                return cu;                
-                       
-        ControlUnit cu = new ControlUnit();
-        controlUnits.add(cu);
-        cu.zNr = zNr;
-        cu.fNr = fNr;
-        cu.fullName = "z" + zNr + "_fg" + fNr;                
-        DLRLogger.config(this, "Creating Control Unit " + cu.fullName);
-        
-        return cu;
-    }
-    
+
     public File getLisaDirectory() {
         return lisaFolder;
     }
@@ -179,7 +160,7 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
      * @throws IOException
      */
     void extractDetectors(XMLAdmin2 x, ControlUnit controlUnit)
-            throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
+    throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
         if (!x.hasNode("DigEingangListe")) {
             return;
         }
@@ -203,7 +184,7 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
     }
 
     void extractSignalPrograms(XMLAdmin2 x, ControlUnit controlUnit)
-            throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
+    throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
         if (!x.hasNode("SignalprogrammListe")) {
             return;
         }
@@ -228,7 +209,6 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
      *
      */
     public static class ControlUnit {
-
         int zNr;
         int fNr;
         String fullName;
@@ -238,21 +218,19 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
         public List<SignalProgram> signalPrograms = new ArrayList<>();
         public List<String> apWerteNames = new ArrayList<>();
 
-        public static class SignalGroup {
 
+        public static class SignalGroup {
             String bezeichnung;
             int index;
         }
 
         public static class Detector {
-
             String bezeichnung;
             int objNr;
             String fullName;
         }
 
         public static class SignalProgram {
-
             String bezeichnung;
             int objNr;
         }

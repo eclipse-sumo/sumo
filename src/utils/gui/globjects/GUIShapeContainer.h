@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2009-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIShapeContainer.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    08.10.2009
-/// @version $Id$
 ///
 // Storage for geometrical objects extended by mutexes
 /****************************************************************************/
-#ifndef GUIShapeContainer_h
-#define GUIShapeContainer_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <fx.h>
@@ -69,8 +66,21 @@ public:
      */
     virtual bool addPolygon(const std::string& id, const std::string& type, const RGBColor& color, double layer,
                             double angle, const std::string& imgFile, bool relativePath, const PositionVector& shape, bool geo,
-                            bool fill, double lineWidth, bool ignorePruning = false);
+                            bool fill, double lineWidth, bool ignorePruning = false) override;
 
+    /// @brief Adds dynamics to the given Polygon, @see ShapeContainer addPolygonDynamics
+    /// @note  Supplies the visualisation RTree to the dynamics for updating the object when moving
+    PolygonDynamics* addPolygonDynamics(double simtime,
+                                        std::string polyID,
+                                        SUMOTrafficObject* trackedObject,
+                                        const std::vector<double>& timeSpan,
+                                        const std::vector<double>& alphaSpan,
+                                        bool looped,
+                                        bool rotate) override;
+
+    /// @brief Update PolygonDynamics, @see ShapeContainer
+    /// @note  Locks the visualisation RTree
+    SUMOTime polygonDynamicsUpdate(SUMOTime t, PolygonDynamics* pd) override;
 
     /** @brief Builds a POI using the given values and adds it to the container
      * @param[in] id The name of the POI
@@ -91,7 +101,7 @@ public:
      */
     virtual bool addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
                         const std::string& lane, double posOverLane, double posLat, double layer, double angle,
-                        const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false);
+                        const std::string& imgFile, bool relativePath, double width, double height, bool ignorePruning = false) override;
 
 
 
@@ -99,14 +109,14 @@ public:
      * @param[in] id The id of the polygon
      * @return Whether the polygon could be removed
      */
-    virtual bool removePolygon(const std::string& id);
+    virtual bool removePolygon(const std::string& id, bool useLock = true) override;
 
 
     /** @brief Removes a PoI from the container
      * @param[in] id The id of the PoI
      * @return Whether the poi could be removed
      */
-    virtual bool removePOI(const std::string& id);
+    virtual bool removePOI(const std::string& id) override;
 
 
 
@@ -114,14 +124,14 @@ public:
      * @param[in] id The id of the PoI to move
      * @param[in] pos The PoI's new position
      */
-    virtual void movePOI(const std::string& id, const Position& pos);
+    virtual void movePOI(const std::string& id, const Position& pos) override;
 
 
     /** @brief Assigns a shape to the named polygon
      * @param[in] id The id of the polygon to reshape
      * @param[in] shape The polygon's new shape
      */
-    virtual void reshapePolygon(const std::string& id, const PositionVector& shape);
+    virtual void reshapePolygon(const std::string& id, const PositionVector& shape) override;
 
 
 
@@ -146,8 +156,3 @@ private:
     /// @brief whether existing ids shall be replaced
     bool myAllowReplacement;
 };
-
-
-#endif
-
-/****************************************************************************/

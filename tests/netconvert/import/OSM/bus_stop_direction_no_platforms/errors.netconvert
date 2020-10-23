@@ -2,4 +2,3 @@ Warning: No way found for reference '29267666' in relation '1663189'
 Warning: No way found for reference '158849904' in relation '1663189'
 Warning: Ignoring restriction relation '1663189' with unknown from-way.
 Warning: Ignoring restriction relation '1663189' with unknown to-way.
-Warning: Intersecting left turns at junction '18916104' from lane '412820207_1' and lane '-412820208#0_0'. (increase junction radius to avoid this)

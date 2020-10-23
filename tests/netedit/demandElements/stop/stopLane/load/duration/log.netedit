@@ -1,0 +1,6 @@
+Error: Attribute 'duration' in definition of a stop is not a real number.
+Error: Invalid duration or end time is given for a stop on lane '' in person 'person_0'.
+Error: Attribute 'duration' in definition of a stop is empty.
+Error: Invalid duration or end time is given for a stop on lane '' in person 'person_0'.
+Error: Invalid duration or end time is given for a stop on lane '' in person 'person_0'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.29Aug124439.4540/netedit.gui/demandElements/stop/stopLane/load/duration\input_routes.rou.xml failed.

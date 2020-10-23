@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:38 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:44 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -24,23 +24,24 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-448561.15,-4349146.25" convBoundary="0.00,0.00,199.66,154.01" origBoundary="-75.760074,38.829851,-75.138461,39.387555" projParameter="+proj=utm +zone=18 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="1" from="100793948" to="C" priority="0" spreadType="center" shape="199.66,154.01 188.53,153.53 162.82,151.81 137.28,150.20 107.33,146.40 71.95,142.64 52.35,139.66 43.11,138.28 15.37,134.98">
-        <lane id="1_0" index="0" speed="13.90" length="185.32" shape="199.66,154.01 188.53,153.53 162.82,151.81 137.28,150.20 107.33,146.40 71.95,142.64 71.00,142.49"/>
+        <lane id="1_0" index="0" speed="13.90" length="185.46" shape="199.66,154.01 188.53,153.53 162.82,151.81 137.28,150.20 107.33,146.40 71.95,142.64 52.35,139.66 43.11,138.28 22.57,135.84"/>
     </edge>
     <edge id="2" from="C" to="100789693" priority="0" spreadType="center" shape="15.53,131.72 55.57,130.21 79.45,129.27 87.12,129.44">
-        <lane id="2_0" index="0" speed="13.90" length="71.60" shape="71.17,129.60 79.45,129.27 87.12,129.44"/>
+        <lane id="2_0" index="0" speed="13.90" length="71.76" shape="22.46,131.46 55.57,130.21 79.45,129.27 87.12,129.44"/>
     </edge>
     <edge id="3" from="S" to="C" priority="0" spreadType="center">
-        <lane id="3_0" index="0" speed="13.90" length="3.86" shape="16.30,131.38 16.23,131.57"/>
+        <lane id="3_0" index="0" speed="13.90" length="3.86" shape="16.60,130.44 16.54,130.63"/>
     </edge>
     <edge id="4" from="409851820" to="S" priority="0" spreadType="center" shape="0.39,127.81 16.84,129.69">
         <lane id="4_0" index="0" speed="13.90" length="18.21" shape="0.39,127.81 10.93,129.01"/>
@@ -58,12 +59,12 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="409851820" type="priority" x="0.37" y="129.46" incLanes="5_0" intLanes="" shape="0.21,129.40 0.57,126.22 0.95,132.36 -0.95,129.78 -1.00,129.83 -0.78,129.70 -0.47,129.55 -0.12,129.43">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="C" type="priority" x="15.66" y="133.36" incLanes="1_0 3_0" intLanes="" shape="70.97,144.11 71.20,127.99 18.36,130.18 15.32,129.20 10.70,130.54 10.17,133.71 21.34,136.48 31.17,138.47 40.36,139.94 49.59,141.19 59.56,142.49">
+    <junction id="C" type="priority" x="15.66" y="133.36" incLanes="1_0 3_0" intLanes="" shape="22.62,137.45 22.41,129.86 19.64,126.20 16.60,125.22 10.70,130.54 10.17,133.71 12.83,134.52 14.75,135.26 16.33,135.93 17.92,136.52 19.89,137.03">
         <request index="0" response="000" foes="100"/>
         <request index="1" response="000" foes="000"/>
         <request index="2" response="001" foes="001"/>
     </junction>
-    <junction id="S" type="priority" x="16.84" y="129.69" incLanes="6_0 4_0" intLanes="" shape="20.01,125.14 16.97,124.15 15.76,126.20 14.88,126.87 13.81,127.30 12.55,127.48 11.11,127.42 10.75,130.60 14.14,132.87 17.18,133.85">
+    <junction id="S" type="priority" x="16.84" y="129.69" incLanes="6_0 4_0" intLanes="" shape="20.01,125.14 16.97,124.15 15.76,126.20 14.88,126.87 13.81,127.30 12.55,127.48 11.11,127.42 10.75,130.60 13.50,134.87 16.54,135.85">
         <request index="0" response="00" foes="10"/>
         <request index="1" response="01" foes="01"/>
     </junction>

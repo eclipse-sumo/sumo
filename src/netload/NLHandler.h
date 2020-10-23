@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NLHandler.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Clemens Honomichl
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The XML-Handler for network loading
 /****************************************************************************/
-#ifndef NLHandler_h
-#define NLHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/geom/Boundary.h>
@@ -41,6 +38,7 @@ class NLEdgeControlBuilder;
 class NLJunctionControlBuilder;
 class NLTriggerBuilder;
 class MSTrafficLightLogic;
+class MSRailSignal;
 
 
 // ===========================================================================
@@ -106,16 +104,16 @@ public:
         return myHaveSeenInternalEdge;
     }
 
+    bool haveSeenDefaultLength() const {
+        return myHaveSeenDefaultLength;
+    }
+
     bool haveSeenNeighs() const {
         return myHaveSeenNeighs;
     }
 
     bool haveSeenAdditionalSpeedRestrictions() const {
         return myHaveSeenAdditionalSpeedRestrictions;
-    }
-
-    bool lefthand() const {
-        return myLefthand;
     }
 
     double networkVersion() const {
@@ -217,12 +215,6 @@ private:
     /// adds a lane to the previously opened edge
     void addLane(const SUMOSAXAttributes& attrs);
 
-    /// adds a polygon
-    void addPOI(const SUMOSAXAttributes& attrs);
-
-    /// adds a polygon
-    void addPoly(const SUMOSAXAttributes& attrs);
-
     ///  adds a request item to the current junction logic
     void addRequest(const SUMOSAXAttributes& attrs);
 
@@ -247,6 +239,8 @@ private:
     virtual void openWAUT(const SUMOSAXAttributes& attrs);
     void addWAUTSwitch(const SUMOSAXAttributes& attrs);
     void addWAUTJunction(const SUMOSAXAttributes& attrs);
+    void addPredecessorConstraint(const SUMOSAXAttributes& attrs);
+    void addInsertionPredecessorConstraint(const SUMOSAXAttributes& attrs);
 
     /// Parses network location description
     void setLocation(const SUMOSAXAttributes& attrs);
@@ -329,7 +323,7 @@ protected:
 
     bool myCurrentIsBroken;
 
-    bool myHaveWarnedAboutDeprecatedLanes;
+    bool myHaveWarnedAboutInvalidTLType;
 
     Parameterised myLastEdgeParameters;
     std::vector<Parameterised*> myLastParameterised;
@@ -337,20 +331,23 @@ protected:
     /// @brief whether the loaded network contains internal lanes
     bool myHaveSeenInternalEdge;
 
+    /// @brief whether the loaded network contains edges with default lengths
+    bool myHaveSeenDefaultLength;
+
     /// @brief whether the loaded network contains explicit neighbor lanes
     bool myHaveSeenNeighs;
 
     /// @brief whether additional files contained type-specific speed limits
     bool myHaveSeenAdditionalSpeedRestrictions;
 
-    /// @brief whether the loaded network was built for left hand traffic
-    bool myLefthand;
-
     /// @brief the loaded network version
     double myNetworkVersion;
 
     /// @brief whether the location element was already loadee
     bool myNetIsLoaded;
+
+    /// @brief rail signal for which constraints are being loaded
+    MSRailSignal* myConstrainedSignal;
 
     /// @brief temporary data for building the junction graph after network parsing is finished
     typedef std::map<std::string, std::pair<std::string, std::string> > JunctionGraph;
@@ -364,11 +361,3 @@ private:
     NLHandler& operator=(const NLHandler& s);
 
 };
-
-
-
-
-#endif
-
-/****************************************************************************/
-

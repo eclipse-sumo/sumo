@@ -1,0 +1,98 @@
+vehicle 'prob.2' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'prob.2' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_prob.2' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_prob.2' notifyEnter: reason=0 currentEdge=beg
+device 'example_prob.2' notifyLeave: reason=2 currentEdge=beg
+device 'example_prob.2' notifyEnter: reason=1 currentEdge=beg
+device 'example_prob.2' notifyLeave: reason=7 currentEdge=beg
+vehicle 'prob.3' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'prob.3' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_prob.3' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_prob.3' notifyEnter: reason=0 currentEdge=beg
+device 'example_prob.3' notifyLeave: reason=2 currentEdge=beg
+device 'example_prob.3' notifyEnter: reason=1 currentEdge=beg
+device 'example_prob.3' notifyLeave: reason=7 currentEdge=beg
+vehicle 'prob.5' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'prob.5' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_prob.5' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_prob.5' notifyEnter: reason=0 currentEdge=beg
+device 'example_prob.5' notifyLeave: reason=2 currentEdge=beg
+device 'example_prob.5' notifyEnter: reason=1 currentEdge=beg
+device 'example_prob.5' notifyLeave: reason=7 currentEdge=beg
+vehicle 'prob.7' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'prob.7' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_prob.7' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_prob.7' notifyEnter: reason=0 currentEdge=beg
+device 'example_prob.7' notifyLeave: reason=2 currentEdge=beg
+device 'example_prob.7' notifyEnter: reason=1 currentEdge=beg
+device 'example_prob.7' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.0' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.0' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.0' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.0' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.0' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.0' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.0' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.1' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.1' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.1' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.1' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.1' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.1' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.1' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.2' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.2' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.2' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.2' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.2' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.2' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.2' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.3' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.3' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.3' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.3' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.3' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.3' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.3' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.4' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.4' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.4' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.4' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.4' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.4' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.4' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.5' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.5' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.5' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.5' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.5' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.5' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.5' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.6' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.6' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.6' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.6' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.6' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.6' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.6' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.7' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.7' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.7' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.7' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.7' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.7' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.7' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.8' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.8' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.8' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.8' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.8' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.8' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.8' notifyLeave: reason=7 currentEdge=beg
+vehicle 'always.9' does not supply vehicle parameter 'example'. Using default of -1.00
+vehicle 'always.9' does not supply vType parameter 'example'. Using default of -1.00
+initialized device 'example_always.9' with myCustomValue1=0.00, myCustomValue2=-1.00, myCustomValue3=-1.00
+device 'example_always.9' notifyEnter: reason=0 currentEdge=beg
+device 'example_always.9' notifyLeave: reason=2 currentEdge=beg
+device 'example_always.9' notifyEnter: reason=1 currentEdge=beg
+device 'example_always.9' notifyLeave: reason=7 currentEdge=beg

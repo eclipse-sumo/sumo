@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 24 15:29:48 2020 by Eclipse SUMO Version v1_5_0+0233-a859802e1f
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <fcd-output value="fcd.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="60925"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<ToCDeviceLog>
+    <TOR id="ToC_veh" t="52.00" lane="WE_1" lanePos="677.94" x="1177.94" y="-1.60"/>
+    <MRM id="ToC_veh" t="57.00" lane="WE_1" lanePos="747.39" x="1247.39" y="-1.60"/>
+    <ToCdown id="ToC_veh" t="92.00" lane="WE_1" lanePos="947.31" x="1447.31" y="-1.60"/>
+</ToCDeviceLog>

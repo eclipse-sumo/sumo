@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Apr 26 23:30:11 2019 by Eclipse SUMO netconvert Version v1_2_0+0022-5179cc2293
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <type-files value="input_types.typ.xml"/>
+        <osm-files value="osm.xml,osm.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <ptstop-output value="additional.xml"/>
+        <ptline-output value="ptlines.xml"/>
+    </output>
+
+    <projection>
+        <proj.utm value="true"/>
+    </projection>
+
+    <formats>
+        <osm.stop-output.length value="200"/>
+    </formats>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <busStop id="-3959807201" name="Dudenstraße/Katzbachstraße" lane="-391493954#3_2" startPos="16.22" endPos="31.22" friendlyPos="true" lines="104"/>
+    <busStop id="-3959807220" name="Kolonnenbrücke" lane="-110450334#1_2" startPos="7.08" endPos="22.08" friendlyPos="true" lines="104 N42"/>
+    <busStop id="-4032629820" name="Monumentenstraße" lane="-53356539#0_2" startPos="32.27" endPos="47.27" friendlyPos="true" lines="140"/>
+    <busStop id="2029039146" name="Badener Ring" lane="111325187#3_0" startPos="119.03" endPos="134.03" friendlyPos="true" lines="140"/>
+    <busStop id="2029039195" name="Dudenstraße/Katzbachstraße" lane="391493945#1_0" startPos="9.37" endPos="24.37" friendlyPos="true" lines="140"/>
+    <busStop id="2029039199" name="Dudenstraße/Katzbachstraße" lane="111325187#1_0" startPos="10.46" endPos="25.46" friendlyPos="true" lines="140"/>
+    <busStop id="3959807200" name="Dudenstraße/Katzbachstraße" lane="391493954#3_2" startPos="33.23" endPos="48.23" friendlyPos="true" lines="104"/>
+    <busStop id="3959807221" name="Kolonnenbrücke" lane="110450334#1_2" startPos="9.51" endPos="24.51" friendlyPos="true" lines="104 N42"/>
+    <busStop id="4032629811" name="Katzbachstraße/Kreuzbergstraße" lane="53356539#0_2" startPos="0.00" endPos="8.59" friendlyPos="true" lines="140"/>
+    <busStop id="4032629819" name="Monumentenstraße" lane="53356539#1_2" startPos="32.38" endPos="47.38" friendlyPos="true" lines="140"/>
+</additional>

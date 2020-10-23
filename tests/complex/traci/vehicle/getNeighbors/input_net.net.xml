@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Di 12 Feb 2019 12:32:02 CET by Eclipse SUMO netedit Version v1_1_0+0417-c407ef5
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="vehicle/input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="vehicle/input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="500.00,500.00" convBoundary="0.00,0.00,600.00,0.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
+
+    <edge id="entry" from="gneJ2" to="gneJ3" priority="-1">
+        <lane id="entry_0" index="0" speed="13.89" length="50.00" shape="0.00,-8.00 50.00,-8.00"/>
+        <lane id="entry_1" index="1" speed="13.89" length="50.00" shape="0.00,-4.80 50.00,-4.80"/>
+        <lane id="entry_2" index="2" speed="13.89" length="50.00" shape="0.00,-1.60 50.00,-1.60"/>
+    </edge>
+    <edge id="exit" from="gneJ4" to="gneJ5" priority="-1">
+        <lane id="exit_0" index="0" speed="13.89" length="50.00" shape="550.00,-8.00 600.00,-8.00"/>
+        <lane id="exit_1" index="1" speed="13.89" length="50.00" shape="550.00,-4.80 600.00,-4.80"/>
+        <lane id="exit_2" index="2" speed="13.89" length="50.00" shape="550.00,-1.60 600.00,-1.60"/>
+    </edge>
+    <edge id="mid" from="gneJ3" to="gneJ4" priority="-1">
+        <lane id="mid_0" index="0" speed="13.89" length="500.00" shape="50.00,-8.00 550.00,-8.00"/>
+        <lane id="mid_1" index="1" speed="13.89" length="500.00" shape="50.00,-4.80 550.00,-4.80"/>
+        <lane id="mid_2" index="2" speed="13.89" length="500.00" shape="50.00,-1.60 550.00,-1.60"/>
+    </edge>
+
+    <junction id="gneJ2" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-9.60"/>
+    <junction id="gneJ3" type="priority" x="50.00" y="0.00" incLanes="entry_0 entry_1 entry_2" intLanes="" shape="50.00,0.00 50.00,-9.60 50.00,0.00">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
+    </junction>
+    <junction id="gneJ4" type="priority" x="550.00" y="0.00" incLanes="mid_0 mid_1 mid_2" intLanes="" shape="550.00,0.00 550.00,-9.60 550.00,0.00">
+        <request index="0" response="000" foes="000"/>
+        <request index="1" response="000" foes="000"/>
+        <request index="2" response="000" foes="000"/>
+    </junction>
+    <junction id="gneJ5" type="dead_end" x="600.00" y="0.00" incLanes="exit_0 exit_1 exit_2" intLanes="" shape="600.00,-9.60 600.00,0.00"/>
+
+    <connection from="entry" to="mid" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="entry" to="mid" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="entry" to="mid" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="mid" to="exit" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="mid" to="exit" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="mid" to="exit" fromLane="2" toLane="2" dir="s" state="M"/>
+
+</net>

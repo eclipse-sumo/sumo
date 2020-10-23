@@ -1,0 +1,98 @@
+Loading net-file from 'input_net.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_6_0+0818-f79cae493d started with time: 0.00
+Simulation ended at time: 5561.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 1916ms
+ Real time factor: 2902.4
+ UPS: 68930.062630
+Vehicles: 
+ Inserted: 4000
+ Running: 0
+ Waiting: 0
+Teleports: 3 (Yield: 3)
+Statistics (avg):
+ RouteLength: 497.67
+ Speed: 20.05
+ Duration: 33.02
+ WaitingTime: 7.59
+ TimeLoss: 12.33
+ DepartDelay: 526.76
+
+DijkstraRouter answered 4790 queries and explored 2.33 edges on average.
+DijkstraRouter spent 2ms answering queries (0.00ms on average).
+Loading net-file from 'input_net.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_6_0+0818-f79cae493d started with time: 0.00
+Simulation ended at time: 3622.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 333ms
+ Real time factor: 10876.9
+ UPS: 268651.651652
+Vehicles: 
+ Inserted: 4000
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 492.50
+ Speed: 22.09
+ Duration: 22.37
+ WaitingTime: 0.05
+ TimeLoss: 1.85
+ DepartDelay: 0.40
+
+DijkstraRouter answered 4000 queries and explored 2.20 edges on average.
+DijkstraRouter spent 7ms answering queries (0.00ms on average).
+Loading net-file from 'input_net2.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_6_0+0818-f79cae493d started with time: 0.00
+Simulation ended at time: 5546.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 1762ms
+ Real time factor: 3147.56
+ UPS: 74902.951192
+Vehicles: 
+ Inserted: 4000
+ Running: 0
+ Waiting: 0
+Teleports: 2 (Yield: 2)
+Statistics (avg):
+ RouteLength: 497.67
+ Speed: 20.04
+ Duration: 32.99
+ WaitingTime: 7.51
+ TimeLoss: 12.30
+ DepartDelay: 523.95
+
+DijkstraRouter answered 4790 queries and explored 2.00 edges on average.
+DijkstraRouter spent 2ms answering queries (0.00ms on average).
+Loading net-file from 'input_net2.net.xml' ... done (1ms).
+Loading done.
+Simulation version v1_6_0+0818-f79cae493d started with time: 0.00
+Simulation ended at time: 3622.00
+Reason: All vehicles have left the simulation.
+Performance: 
+ Duration: 281ms
+ Real time factor: 12889.7
+ UPS: 318832.740214
+Vehicles: 
+ Inserted: 4000
+ Running: 0
+ Waiting: 0
+Statistics (avg):
+ RouteLength: 493.17
+ Speed: 22.09
+ Duration: 22.40
+ WaitingTime: 0.05
+ TimeLoss: 1.86
+ DepartDelay: 0.40
+
+DijkstraRouter answered 4000 queries and explored 2.00 edges on average.
+DijkstraRouter spent 2ms answering queries (0.00ms on average).
+Deviation split vs. joined (meso): -0.00133928571429
+Deviation split vs. joined (micro): 0.000909366474689
+Deviation meso vs. micro (split): 0.32253179891
+Deviation meso vs. micro (joined): 0.321006365565

@@ -1,29 +1,11 @@
-# open about dialog
-about-dialog
+open
 
-# load and save a basic net
-load_and_save
+save
 
-# open net using shortcut
-open_net_shortcut
+reload
 
-# load configuration using shortcut
-open_configuration_shortcut
+quit
 
-# save XML configuration
-save_configuration
-
-# create net with two nodes and an edge
-new_net_1edge
-
-# Open Netedit
-open_netedit
-
-# Check that all save dialogs of Netedit works saving none elements
-quit_noSave
-
-# Check that all save dialogs of Netedit works saving all elements
-quit_saveAll
-
-# provoke an error with pyautogui
 pyautogui_error
+
+about_dialog

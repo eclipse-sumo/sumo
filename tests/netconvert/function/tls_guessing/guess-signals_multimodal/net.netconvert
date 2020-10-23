@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:05 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <tls_building>
+        <tls.guess-signals value="true"/>
+    </tls_building>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+        <ignore-errors.edge-type value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-357107.78,-5646271.09" convBoundary="0.00,0.00,255.77,292.12" origBoundary="6.762104,50.772113,7.222668,51.127542" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id=":2292787678_0" function="internal">
+        <lane id=":2292787678_0_0" index="0" speed="8.33" length="0.27" shape="147.60,174.53 147.38,174.69"/>
+    </edge>
+    <edge id=":2292787678_1" function="internal">
+        <lane id=":2292787678_1_0" index="0" speed="8.33" length="0.31" shape="145.37,172.21 145.61,172.01"/>
+    </edge>
+    <edge id=":2292787679_0" function="internal">
+        <lane id=":2292787679_0_0" index="0" allow="tram" speed="13.89" length="0.10" shape="170.40,173.15 170.40,173.15"/>
+    </edge>
+    <edge id=":310541110_0" function="internal">
+        <lane id=":310541110_0_0" index="0" speed="3.65" length="4.67" shape="1.01,293.36 -0.43,293.50 -1.24,293.13 -1.44,292.25 -1.01,290.88"/>
+    </edge>
+    <edge id=":313575_0" function="internal">
+        <lane id=":313575_0_0" index="0" speed="13.89" length="0.28" shape="161.60,141.60 161.74,141.80"/>
+        <lane id=":313575_0_1" index="1" speed="13.89" length="0.28" shape="158.95,143.39 159.12,143.65"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_0" function="internal">
+        <lane id=":cluster_2292787672_259083790_0_0" index="0" allow="tram" speed="5.70" length="5.05" shape="164.49,165.21 163.51,164.22 162.45,163.80 161.33,163.93 160.13,164.63"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_1" function="internal">
+        <lane id=":cluster_2292787672_259083790_1_0" index="0" allow="tram" speed="13.89" length="9.35" shape="164.49,165.21 159.07,157.59"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_2" function="internal">
+        <lane id=":cluster_2292787672_259083790_2_0" index="0" allow="tram" speed="5.56" length="12.12" shape="164.49,165.21 164.33,161.47 165.40,159.41 167.69,159.03 171.20,160.32"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_3" function="internal">
+        <lane id=":cluster_2292787672_259083790_3_0" index="0" speed="13.89" length="9.02" shape="168.51,151.20 173.78,158.44"/>
+        <lane id=":cluster_2292787672_259083790_3_1" index="1" speed="13.89" length="9.02" shape="165.85,152.99 171.20,160.32"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_5" function="internal">
+        <lane id=":cluster_2292787672_259083790_5_0" index="0" speed="8.13" length="9.38" shape="165.85,152.99 166.73,155.41 166.07,158.15 163.87,161.23 163.71,161.36"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_6" function="internal">
+        <lane id=":cluster_2292787672_259083790_6_0" index="0" allow="tram" speed="5.25" length="11.98" shape="165.85,152.99 165.88,156.69 164.76,158.69 162.49,158.99 159.07,157.59"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_10" function="internal">
+        <lane id=":cluster_2292787672_259083790_10_0" index="0" speed="8.13" length="4.85" shape="163.71,161.36 160.13,164.63"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_7" function="internal">
+        <lane id=":cluster_2292787672_259083790_7_0" index="0" allow="tram" speed="5.24" length="5.18" shape="158.14,162.12 159.17,161.06 159.67,159.96 159.64,158.80 159.07,157.59"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_8" function="internal">
+        <lane id=":cluster_2292787672_259083790_8_0" index="0" speed="8.05" length="14.83" shape="158.14,162.12 162.38,159.30 165.96,158.07 168.90,158.41 171.20,160.32"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_9" function="internal">
+        <lane id=":cluster_2292787672_259083790_9_0" index="0" speed="3.65" length="2.56" shape="158.14,162.12 159.58,162.00 160.39,162.38 160.44,162.60"/>
+    </edge>
+    <edge id=":cluster_2292787672_259083790_11" function="internal">
+        <lane id=":cluster_2292787672_259083790_11_0" index="0" speed="3.65" length="2.11" shape="160.44,162.60 160.57,163.25 160.13,164.63"/>
+    </edge>
+    <edge id=":gneJ0_0" function="internal">
+        <lane id=":gneJ0_0_0" index="0" speed="8.33" length="0.30" shape="155.06,168.63 154.82,168.82"/>
+    </edge>
+    <edge id=":gneJ0_1" function="internal">
+        <lane id=":gneJ0_1_0" index="0" speed="8.33" length="0.30" shape="152.84,166.31 153.08,166.12"/>
+    </edge>
+
+    <edge id="-27488602#1" from="2292787678" to="gneJ0" priority="4" type="highway.residential">
+        <lane id="-27488602#1_0" index="0" speed="8.33" length="9.21" shape="145.61,172.01 152.84,166.31"/>
+    </edge>
+    <edge id="-27488602#1.9" from="gneJ0" to="cluster_2292787672_259083790" priority="4" type="highway.residential" shape="153.95,167.47 161.64,161.39">
+        <lane id="-27488602#1.9_0" index="0" speed="8.33" length="6.46" shape="153.08,166.12 158.14,162.12"/>
+    </edge>
+    <edge id="-27488602#2" from="310541110" to="2292787678" priority="4" type="highway.residential">
+        <lane id="-27488602#2_0" index="0" speed="8.33" length="188.44" shape="-1.01,290.88 145.37,172.21"/>
+    </edge>
+    <edge id="171952942#3" from="449235" to="313575" priority="9" type="highway.primary" spreadType="center" shape="66.78,0.00 68.80,3.31 85.10,29.75 111.07,69.92 160.35,142.61">
+        <lane id="171952942#3_0" index="0" speed="13.89" length="170.45" shape="68.15,-0.83 70.16,2.47 86.45,28.90 112.40,69.04 161.60,141.60"/>
+        <lane id="171952942#3_1" index="1" speed="13.89" length="170.45" shape="65.41,0.83 67.44,4.15 83.75,30.60 109.74,70.80 158.95,143.39"/>
+    </edge>
+    <edge id="220153137#0" from="310458128" to="2292787679" priority="9" type="highway.primary" spreadType="center">
+        <lane id="220153137#0_0" index="0" allow="tram" speed="13.89" length="64.89" shape="209.18,225.18 170.40,173.15"/>
+    </edge>
+    <edge id="220153137#1" from="2292787679" to="cluster_2292787672_259083790" priority="9" type="highway.primary" spreadType="center" shape="170.40,173.15 161.64,161.39">
+        <lane id="220153137#1_0" index="0" allow="tram" speed="13.89" length="9.90" shape="170.40,173.15 164.49,165.21"/>
+    </edge>
+    <edge id="220153138#0" from="cluster_2292787672_259083790" to="313574" priority="9" type="highway.primary" spreadType="center" shape="169.67,155.51 216.97,220.44 255.77,268.94">
+        <lane id="220153138#0_0" index="0" speed="13.89" length="137.65" shape="173.78,158.44 218.24,219.47 257.02,267.94"/>
+        <lane id="220153138#0_1" index="1" speed="13.89" length="137.65" shape="171.20,160.32 215.70,221.41 254.52,269.94"/>
+    </edge>
+    <edge id="220153139#0" from="cluster_2292787672_259083790" to="cluster_1679641274_1679797916_2292326589_311578845_449234" priority="9" type="highway.primary" spreadType="center" shape="161.64,161.39 154.98,151.56 139.67,128.23 125.71,106.91 110.97,85.68 102.41,73.34 96.47,64.79 69.04,23.39">
+        <lane id="220153139#0_0" index="0" allow="tram" speed="13.89" length="177.01" shape="159.07,157.59 154.98,151.56 139.67,128.23 125.71,106.91 110.97,85.68 102.41,73.34 96.47,64.79 60.54,10.55"/>
+    </edge>
+    <edge id="220153140#1" from="313575" to="cluster_2292787672_259083790" priority="9" type="highway.primary" spreadType="center" shape="160.35,142.61 163.09,146.48 169.67,155.51">
+        <lane id="220153140#1_0" index="0" speed="13.89" length="11.55" shape="161.74,141.80 164.39,145.55 168.51,151.20"/>
+        <lane id="220153140#1_1" index="1" speed="13.89" length="11.55" shape="159.12,143.65 161.79,147.41 165.85,152.99"/>
+    </edge>
+    <edge id="27488602#1" from="cluster_2292787672_259083790" to="gneJ0" priority="4" type="highway.residential" shape="161.64,161.39 153.95,167.47">
+        <lane id="27488602#1_0" index="0" speed="8.33" length="6.46" shape="160.13,164.63 155.06,168.63"/>
+    </edge>
+    <edge id="27488602#1.9" from="gneJ0" to="2292787678" priority="4" type="highway.residential">
+        <lane id="27488602#1.9_0" index="0" speed="8.33" length="9.21" shape="154.82,168.82 147.60,174.53"/>
+    </edge>
+    <edge id="27488602#2" from="2292787678" to="310541110" priority="4" type="highway.residential">
+        <lane id="27488602#2_0" index="0" speed="8.33" length="188.44" shape="147.38,174.69 1.01,293.36"/>
+    </edge>
+
+    <tlLogic id="GS_cluster_2292787672_259083790" type="static" programID="0" offset="0">
+        <phase duration="42" state="GGgGGggrrr"/>
+        <phase duration="3"  state="yyyyyyyrrr"/>
+        <phase duration="42" state="GrrrrrrGGg"/>
+        <phase duration="3"  state="yrrrrrryyy"/>
+    </tlLogic>
+
+    <junction id="2292787678" type="priority" x="146.49" y="173.36" incLanes="27488602#1.9_0 -27488602#2_0" intLanes=":2292787678_0_0 :2292787678_1_0" shape="148.59,175.78 144.62,170.76 144.36,170.97 148.39,175.94">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="2292787679" type="priority" x="170.40" y="173.15" incLanes="220153137#0_0" intLanes=":2292787679_0_0" shape="169.12,174.11 171.68,172.19 169.12,174.11">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="310458128" type="dead_end" x="209.18" y="225.18" incLanes="" intLanes="" shape="210.46,224.22 207.90,226.14"/>
+    <junction id="310541110" type="right_before_left" x="0.00" y="292.12" incLanes="27488602#2_0" intLanes=":310541110_0_0" shape="0.00,292.12 2.02,294.61 0.00,292.12">
+        <request index="0" response="0" foes="0" cont="0"/>
+    </junction>
+    <junction id="313574" type="dead_end" x="255.77" y="268.94" incLanes="220153138#0_0 220153138#0_1" intLanes="" shape="258.27,266.94 253.27,270.94"/>
+    <junction id="313575" type="priority" x="160.35" y="142.61" incLanes="171952942#3_0 171952942#3_1" intLanes=":313575_0_0 :313575_0_1" shape="157.82,144.57 163.04,140.87 162.92,140.70 157.62,144.29">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="449235" type="dead_end" x="66.78" y="0.00" incLanes="" intLanes="" shape="64.05,1.67 69.51,-1.67"/>
+    <junction id="cluster_1679641274_1679797916_2292326589_311578845_449234" type="dead_end" x="60.21" y="10.77" incLanes="220153139#0_0" intLanes="" shape="59.20,11.44 61.87,9.67"/>
+    <junction id="cluster_2292787672_259083790" type="traffic_light" x="165.66" y="158.45" incLanes="220153137#1_0 220153140#1_0 220153140#1_1 -27488602#1.9_0" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_1_0 :cluster_2292787672_259083790_2_0 :cluster_2292787672_259083790_3_0 :cluster_2292787672_259083790_3_1 :cluster_2292787672_259083790_10_0 :cluster_2292787672_259083790_6_0 :cluster_2292787672_259083790_7_0 :cluster_2292787672_259083790_8_0 :cluster_2292787672_259083790_11_0" shape="163.19,166.15 175.08,157.50 169.83,150.30 157.74,158.49 158.05,159.30 158.01,159.70 157.85,160.09 157.56,160.48 157.15,160.86 161.12,165.88 161.87,165.50 162.23,165.48 162.56,165.59 162.89,165.81">
+        <request index="0" response="0000000000" foes="1000100000" cont="0"/>
+        <request index="1" response="0000000000" foes="0111100000" cont="0"/>
+        <request index="2" response="0100011000" foes="0100011000" cont="0"/>
+        <request index="3" response="0000000000" foes="0100000100" cont="0"/>
+        <request index="4" response="0000000000" foes="0100000100" cont="0"/>
+        <request index="5" response="0000000011" foes="1100000011" cont="1"/>
+        <request index="6" response="0010000010" foes="0010000010" cont="0"/>
+        <request index="7" response="0000000010" foes="0001000010" cont="0"/>
+        <request index="8" response="0000111010" foes="0000111110" cont="0"/>
+        <request index="9" response="0000100001" foes="0000100001" cont="1"/>
+    </junction>
+    <junction id="gneJ0" type="priority" x="153.95" y="167.47" incLanes="27488602#1_0 -27488602#1_0" intLanes=":gneJ0_0_0 :gneJ0_1_0" shape="156.05,169.89 152.08,164.87 151.85,165.05 155.82,170.07">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+
+    <junction id=":cluster_2292787672_259083790_10_0" type="internal" x="163.71" y="161.36" incLanes=":cluster_2292787672_259083790_5_0 220153137#1_0" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_1_0 :cluster_2292787672_259083790_8_0 :cluster_2292787672_259083790_9_0"/>
+    <junction id=":cluster_2292787672_259083790_11_0" type="internal" x="160.44" y="162.60" incLanes=":cluster_2292787672_259083790_9_0 220153137#1_0 220153140#1_1" intLanes=":cluster_2292787672_259083790_0_0 :cluster_2292787672_259083790_5_0"/>
+
+    <connection from="-27488602#1" to="-27488602#1.9" fromLane="0" toLane="0" via=":gneJ0_1_0" dir="s" state="M"/>
+    <connection from="-27488602#1.9" to="220153139#0" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_7_0" tl="GS_cluster_2292787672_259083790" linkIndex="7" dir="r" state="o"/>
+    <connection from="-27488602#1.9" to="220153138#0" fromLane="0" toLane="1" via=":cluster_2292787672_259083790_8_0" tl="GS_cluster_2292787672_259083790" linkIndex="8" dir="l" state="o"/>
+    <connection from="-27488602#1.9" to="27488602#1" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_9_0" tl="GS_cluster_2292787672_259083790" linkIndex="9" dir="t" state="o"/>
+    <connection from="-27488602#2" to="-27488602#1" fromLane="0" toLane="0" via=":2292787678_1_0" dir="s" state="M"/>
+    <connection from="171952942#3" to="220153140#1" fromLane="0" toLane="0" via=":313575_0_0" dir="s" state="M"/>
+    <connection from="171952942#3" to="220153140#1" fromLane="1" toLane="1" via=":313575_0_1" dir="s" state="M"/>
+    <connection from="220153137#0" to="220153137#1" fromLane="0" toLane="0" via=":2292787679_0_0" dir="s" state="M"/>
+    <connection from="220153137#1" to="27488602#1" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_0_0" tl="GS_cluster_2292787672_259083790" linkIndex="0" dir="r" state="O"/>
+    <connection from="220153137#1" to="220153139#0" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_1_0" tl="GS_cluster_2292787672_259083790" linkIndex="1" dir="s" state="O"/>
+    <connection from="220153137#1" to="220153138#0" fromLane="0" toLane="1" via=":cluster_2292787672_259083790_2_0" tl="GS_cluster_2292787672_259083790" linkIndex="2" dir="t" state="o"/>
+    <connection from="220153140#1" to="220153138#0" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_3_0" tl="GS_cluster_2292787672_259083790" linkIndex="3" dir="s" state="O"/>
+    <connection from="220153140#1" to="220153138#0" fromLane="1" toLane="1" via=":cluster_2292787672_259083790_3_1" tl="GS_cluster_2292787672_259083790" linkIndex="4" dir="s" state="O"/>
+    <connection from="220153140#1" to="27488602#1" fromLane="1" toLane="0" via=":cluster_2292787672_259083790_5_0" tl="GS_cluster_2292787672_259083790" linkIndex="5" dir="l" state="o"/>
+    <connection from="220153140#1" to="220153139#0" fromLane="1" toLane="0" via=":cluster_2292787672_259083790_6_0" tl="GS_cluster_2292787672_259083790" linkIndex="6" dir="t" state="o"/>
+    <connection from="27488602#1" to="27488602#1.9" fromLane="0" toLane="0" via=":gneJ0_0_0" dir="s" state="M"/>
+    <connection from="27488602#1.9" to="27488602#2" fromLane="0" toLane="0" via=":2292787678_0_0" dir="s" state="M"/>
+    <connection from="27488602#2" to="-27488602#2" fromLane="0" toLane="0" via=":310541110_0_0" dir="t" state="="/>
+
+    <connection from=":2292787678_0" to="27488602#2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2292787678_1" to="-27488602#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":2292787679_0" to="220153137#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":310541110_0" to="-27488602#2" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":313575_0" to="220153140#1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":313575_0" to="220153140#1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":cluster_2292787672_259083790_0" to="27488602#1" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":cluster_2292787672_259083790_1" to="220153139#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_2292787672_259083790_2" to="220153138#0" fromLane="0" toLane="1" dir="t" state="M"/>
+    <connection from=":cluster_2292787672_259083790_3" to="220153138#0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_2292787672_259083790_3" to="220153138#0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from=":cluster_2292787672_259083790_5" to="27488602#1" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_10_0" dir="l" state="m"/>
+    <connection from=":cluster_2292787672_259083790_10" to="27488602#1" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":cluster_2292787672_259083790_6" to="220153139#0" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":cluster_2292787672_259083790_7" to="220153139#0" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":cluster_2292787672_259083790_8" to="220153138#0" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":cluster_2292787672_259083790_9" to="27488602#1" fromLane="0" toLane="0" via=":cluster_2292787672_259083790_11_0" dir="t" state="m"/>
+    <connection from=":cluster_2292787672_259083790_11" to="27488602#1" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":gneJ0_0" to="27488602#1.9" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":gneJ0_1" to="-27488602#1.9" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

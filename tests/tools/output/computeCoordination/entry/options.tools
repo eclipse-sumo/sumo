@@ -1,0 +1,4 @@
+--fcd-file fcd.xml
+--filter-route left0A0,C0right0
+--full-output fullstats.dat
+--entry A0B0

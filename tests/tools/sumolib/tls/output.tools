@@ -7,5 +7,6 @@
     <phase duration="4" state="rrrrryyggrrrrryygg"/>
     <phase duration="6" state="rrrrrrrGGrrrrrrrGG" name="leftTurnPhase4"/>
     <phase duration="4" state="rrrrrrryyrrrrrrryy" next="0"/>
+    <param key="show-detectors" value="true"/>
   </tlLogic>
 

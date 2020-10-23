@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MsgHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Tue, 17 Jun 2003
-/// @version $Id$
 ///
 // Retrieves messages about the process and gives them further to output
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -27,9 +25,6 @@
 #include <vector>
 #include <algorithm>
 #include <iostream>
-#ifdef HAVE_FOX
-#include <fx.h>
-#endif
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
@@ -71,7 +66,11 @@ MsgHandler::getMessageInstance() {
 MsgHandler*
 MsgHandler::getWarningInstance() {
     if (myWarningInstance == nullptr) {
-        myWarningInstance = new MsgHandler(MT_WARNING);
+        if (myFactory == nullptr) {
+            myWarningInstance = new MsgHandler(MT_WARNING);
+        } else {
+            myWarningInstance = myFactory(MT_WARNING);
+        }
     }
     return myWarningInstance;
 }
@@ -157,8 +156,18 @@ MsgHandler::endProcessMsg(std::string msg) {
 
 
 void
-MsgHandler::clear() {
-    myWasInformed = false;
+MsgHandler::clear(bool resetInformed) {
+    if (resetInformed) {
+        myWasInformed = false;
+    }
+    if (myAggregationThreshold >= 0) {
+        for (const auto& i : myAggregationCount) {
+            if (i.second > myAggregationThreshold) {
+                inform(toString(i.second) + " total messages of type: " + i.first);
+            }
+        }
+    }
+    myAggregationCount.clear();
 }
 
 
@@ -210,6 +219,8 @@ MsgHandler::initOutputOptions() {
     OutputDevice::getDevice("stdout");
     OutputDevice::getDevice("stderr");
     OptionsCont& oc = OptionsCont::getOptions();
+    getWarningInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
+    getErrorInstance()->setAggregationThreshold(oc.getInt("aggregate-warnings"));
     if (oc.getBool("no-warnings")) {
         getWarningInstance()->removeRetriever(&OutputDevice::getDevice("stderr"));
     }
@@ -253,7 +264,7 @@ MsgHandler::cleanupOnEnd() {
 
 
 MsgHandler::MsgHandler(MsgType type) :
-    myType(type), myWasInformed(false) {
+    myType(type), myWasInformed(false), myAggregationThreshold(-1) {
     if (type == MT_MESSAGE) {
         addRetriever(&OutputDevice::getDevice("stdout"));
     } else {

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="truck" vClass="truck"/>
+    <flow id="flow_0" begin="0.00" end="200.00" period="2" departSpeed="max">
+        <route edges="NC gneE3 gneE4 CS.25" color="cyan"/>
+    </flow>
+    <flow id="flow_1" type="truck" begin="5.00" end="200.00" period="2" departSpeed="max">
+        <route edges="SC SC.201 gneE1 gneE0 CN.25" color="cyan"/>
+    </flow>
+    <flow id="flow_2" begin="5.00" end="100.00" period="5">
+        <route edges="WC gneE2 gneE1 CE.25" color="cyan"/>
+    </flow>
+</routes>

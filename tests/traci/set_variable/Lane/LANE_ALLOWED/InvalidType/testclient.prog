@@ -3,3 +3,5 @@ getvariable 0xa3 0x34 2/1to2/0_0
 setvalue 0xc3 0x34 2/1to2/0_0 <double> 1
 getvariable 0xa3 0x34 2/1to2/0_0
 simstep2 0
+simstep2 0
+

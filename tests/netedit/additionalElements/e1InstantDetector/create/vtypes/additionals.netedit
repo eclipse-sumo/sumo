@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11.12.2018 10:55:36 by Eclipse SUMO netedit Version v1_0_1+1004-6f7c431813
+<!-- generated on 07.08.2019 11:55:32 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Dec094428.2544/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Dec094428.2544/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,12 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Dec094428.2544/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Dec094428.2544/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Dec094428.2544/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,12 +45,12 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.1_from_11Dec094428.2544/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e1InstantDetector/create/vtypes\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <instantInductionLoop id="instantInductionLoop_gneE0_0_0" vTypes="type1 type2 type3" lane="gneE0_0" pos="32.00" file="instantInductionLoop_gneE0_0_0.xml"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_0" lane="gneE0_0" pos="33.00" file="instantInductionLoop_gneE0_0_0.xml" vTypes="type1 type2 type3"/>
 </additional>

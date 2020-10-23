@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 04.10.2018 08:07:19 by Eclipse SUMO netedit Version v1_0_0+0003-85a2829977
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\additionalElements\e2MultiLaneDetector\load\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\additionalElements\e2MultiLaneDetector\load\input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+	<!-- E2 parent -->
+    <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE3_0" pos="15" freq="900.00" file="e2MultilaneDetector_0.xml" endPos="15">
+
+ <!-- valid generic parameter (valid) -->
+ <param key="key1" value="value1"/>
+
+<!-- missin key (invalid) -->
+<param value="value2"/>
+
+<!-- empty key (invalid) -->
+<param key="" value="value3"/>
+
+<!-- key contains invalid characters (invalid) -->
+<param key="$$key with spaces%%" value="value4"/>
+
+<!-- duplicated key (valid, overwrites the first one, show warning) -->
+<param key="key1" value="value5"/>
+
+<!-- missing value (invalid, value must exist)-->
+<param key="key2"/>
+
+<!-- empty value (valid, value may be empty) -->
+<param key="key2" value=""/>
+
+<!-- value contains invalid characters (valid - no restrictions on value) -->
+<param key="key3" value="$$value with spaces%%"/>
+		
+	</e2Detector>
+	
+	<!-- out of class -->
+	<param key="keyOut" value="valueOut"/>
+</additional>

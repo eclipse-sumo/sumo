@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Apr 20 12:52:19 2018 by Eclipse SUMO dfrouter Version 27b98ce
+<!-- generated on Mon Sep  7 13:04:06 2020 by Eclipse SUMO dfrouter Version v1_6_0+2013-2419297574
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/dfrouterConfiguration.xsd">
@@ -48,13 +48,13 @@
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
 
-        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- Saves computed routes to FILE -->
         <routes-output value="" synonymes="o" type="FILE"/>
 
-        <!-- Forces DFROUTER to compute routes for in-between detectors -->
+        <!-- Forces dfrouter to compute routes for in-between detectors -->
         <routes-for-all value="false" type="BOOL"/>
 
         <!-- Saves typed detectors to FILE -->
@@ -118,7 +118,7 @@
         <emissions-only value="false" type="BOOL"/>
 
         <!-- Do not route on these edges -->
-        <disallowed-edges value="" type="STR"/>
+        <disallowed-edges value="" type="STR[]"/>
 
         <!-- Allow turnarounds as route continuations -->
         <keep-turnarounds value="false" type="BOOL"/>
@@ -201,7 +201,7 @@
         <!-- Prints option values before processing -->
         <print-options value="false" type="BOOL"/>
 
-        <!-- Prints this screen -->
+        <!-- Prints this screen or selected topics -->
         <help value="false" synonymes="?" type="BOOL"/>
 
         <!-- Prints the current version -->
@@ -215,6 +215,9 @@
 
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+
+        <!-- Aggregate warnings of the same type whenever more than INT occur -->
+        <aggregate-warnings value="-1" type="INT"/>
 
         <!-- Writes all messages to FILE (implies verbose) -->
         <log value="" synonymes="l log-file" type="FILE"/>

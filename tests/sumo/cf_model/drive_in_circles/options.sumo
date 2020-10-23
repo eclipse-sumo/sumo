@@ -2,3 +2,4 @@
 --routes=input_routes.rou.xml 
 -a input_additional.add.xml,input_additional2.add.xml
 --duration-log.statistics
+--tripinfo-output.write-unfinished

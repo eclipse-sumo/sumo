@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 19 Nov 2019 09:53:41 PM CET by Eclipse SUMO netedit Version v1_3_1+0961-6994639b97
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <new value="true"/>
+    </input>
+
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
+    <netedit>
+        <additional-files value="/home/kobo/dlr/debug/parkingRerouteCrash/add.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="p1" lane="gneE0_0" startPos="8.46" endPos="18.46" roadsideCapacity="1"/>
+    <parkingArea id="p2" lane="gneE0_0" startPos="70.56" endPos="80.56" roadsideCapacity="1"/>
+    <parkingArea id="p3" lane="gneE1_0" startPos="12.89" endPos="22.89" roadsideCapacity="1"/>
+    <rerouter id="rerouter_0" edges="gneE0" pos="84.33,-15.42" timeThreshold="-0.00">
+        <interval begin="0.00" end="3600.00">
+            <parkingAreaReroute id="p2"/>
+            <parkingAreaReroute id="p1"/>
+        </interval>
+    </rerouter>
+</additional>

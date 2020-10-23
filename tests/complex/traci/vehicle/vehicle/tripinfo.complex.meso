@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar  3 08:49:15 2020 by Eclipse SUMO Version v1_5_0+0337-8d59749
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="34001"/>
+    </traci_server>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+    <gui_only>
+        <window-size value="500,500"/>
+        <window-pos value="50,50"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="1" depart="6.00" departLane="" departPos="0.00" departSpeed="11.11" departDelay="0.00" arrival="19.00" arrivalLane="" arrivalPos="83.33" arrivalSpeed="11.11" duration="13.00" routeLength="83.33" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="vehroute_1 tripinfo_1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized="traci"/>
+    <tripinfo id="failVeh" depart="128.00" departLane="" departPos="0.00" departSpeed="11.11" departDelay="0.00" arrival="161.00" arrivalLane="" arrivalPos="134.00" arrivalSpeed="13.89" duration="33.00" routeLength="384.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="vehroute_failVeh tripinfo_failVeh routing_failVeh" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

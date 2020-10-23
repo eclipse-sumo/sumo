@@ -4,3 +4,10 @@ search_string:emergency braking
 search_file:errors
 full_description:emergency braking due to unsafe sublane change
 brief_description:see #4890
+
+[Reported by kobo at 10Mar23:49:07]
+search_string:collision
+search_file:errors
+ignore_other_errors:1
+full_description:collision on insertion
+brief_description:see #5276

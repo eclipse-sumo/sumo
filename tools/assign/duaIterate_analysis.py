@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    duaIterate_analysis.py
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2012-09-06
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -55,10 +58,10 @@ def parse_dualog(dualog, limit):
     header = ['#Inserted', 'Running', 'Waiting', 'Teleports', 'Loaded']
     step_values = []  # list of lists
     step_counts = []  # list of edge teleport counters
-    reInserted = re.compile("Inserted: (\d*)")
-    reLoaded = re.compile("Loaded: (\d*)")
-    reRunning = re.compile("Running: (\d*)")
-    reWaiting = re.compile("Waiting: (\d*)")
+    reInserted = re.compile(r"Inserted: (\d*)")
+    reLoaded = re.compile(r"Loaded: (\d*)")
+    reRunning = re.compile(r"Running: (\d*)")
+    reWaiting = re.compile(r"Waiting: (\d*)")
     reFrom = re.compile("from '([^']*)'")  # mesosim
     teleports = 0
     inserted = None
@@ -112,7 +115,7 @@ def parse_stdout(step_values, stdout):
     print("Parsing %s" % stdout)
     step_values[0] += ['routingMinutes', 'simMinutes', 'absAvgError']
     reDuration = re.compile("Duration: (.*)$")
-    reError = re.compile("Absolute Error avg:(\d*)")
+    reError = re.compile(r"Absolute Error avg:(\d*)")
 
     def get_minutes(line):
         hours, minutes, seconds = reDuration.search(line).group(1).split(':')
@@ -142,12 +145,12 @@ def gnuplot_teleport_edges(plotfile, step_counts, xlabel):
     # an edge is interesting if a large proportion of teleports happen on it
     interestingness = defaultdict(lambda: 0)
     for counts in step_counts:
-        teleports = float(sum(counts.itervalues()))
+        teleports = float(sum(counts.values()))
         if teleports == 0:
             continue
-        for edge, count in counts.iteritems():
+        for edge, count in counts.items():
             interestingness[edge] += count / teleports
-    interesting = sorted([(c, e) for e, c in interestingness.iteritems()])[-7:]
+    interesting = sorted([(c, e) for e, c in interestingness.items()])[-7:]
     print("most interesting edges:", interesting)
     if len(interesting) > 0:
         interesting = [e for c, e in interesting]

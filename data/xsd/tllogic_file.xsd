@@ -26,7 +26,8 @@
         <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="toLane" type="xsd:nonNegativeInteger" use="required"/>
         <xsd:attribute name="tl" type="xsd:string" use="optional"/>
-        <xsd:attribute name="linkIndex" type="xsd:integer" use="required"/>
+        <xsd:attribute name="linkIndex" type="xsd:integer" use="optional"/>
+        <xsd:attribute name="linkIndex2" type="xsd:integer" use="optional"/>
     </xsd:complexType>
 
 </xsd:schema>

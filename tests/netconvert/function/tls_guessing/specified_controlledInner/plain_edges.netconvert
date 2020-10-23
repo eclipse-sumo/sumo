@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:05 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml,input_nodes2.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="plain"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="27437972" from="38918157" to="301292612" priority="7" numLanes="2" speed="13.89" spreadType="center"/>
+    <edge id="27441168" from="59993001" to="56231397" priority="6" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="27441189" from="301292612" to="38919945" priority="6" numLanes="4" speed="13.89" spreadType="center"/>
+    <edge id="27441289.0" from="59993001" to="gneJ0" priority="7" numLanes="2" speed="13.89"/>
+    <edge id="27441289.95" from="gneJ1" to="56231397" priority="7" numLanes="2" speed="13.89"/>
+    <edge id="27445000#0" from="38919945" to="945141569" priority="6" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="27445003" from="56231397" to="301292612" priority="7" numLanes="2" speed="13.89" spreadType="center"/>
+    <edge id="27445015#0" from="56231397" to="567607201" priority="7" numLanes="2" speed="13.89" spreadType="center"/>
+    <edge id="46039050" from="492462300" to="59993001" priority="6" numLanes="1" speed="13.89" spreadType="center"/>
+    <edge id="6137245" from="38919945" to="59993001" priority="5" numLanes="2" speed="13.89" spreadType="center"/>
+</edges>

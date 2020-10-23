@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUISettingsHandler.cpp
 /// @author  Michael Behrisch
@@ -13,15 +17,9 @@
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
 /// @date    Fri, 24. Apr 2009
-/// @version $Id$
 ///
 // The dialog to change the view (gui) settings.
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <vector>
@@ -66,17 +64,16 @@ GUISettingsHandler::~GUISettingsHandler() {
 
 
 void
-GUISettingsHandler::myStartElement(int element,
-                                   const SUMOSAXAttributes& attrs) {
+GUISettingsHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     bool ok = true;
     switch (element) {
-        case SUMO_TAG_BREAKPOINTS_FILE: {
-            std::string file = attrs.get<std::string>(SUMO_ATTR_VALUE, nullptr, ok);
-            myBreakpoints = loadBreakpoints(file);
-        }
-        break;
         case SUMO_TAG_BREAKPOINT:
-            myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_VALUE, nullptr, ok));
+            if (attrs.hasAttribute(SUMO_ATTR_TIME)) {
+                myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_TIME, nullptr, ok));
+            } else {
+                myBreakpoints.push_back(attrs.getSUMOTimeReporting(SUMO_ATTR_VALUE, nullptr, ok));
+                WRITE_WARNING("The 'value' attribute is deprecated for breakpoints. Please use 'time'.");
+            }
             break;
         case SUMO_TAG_VIEWSETTINGS:
             myViewType = attrs.getOpt<std::string>(SUMO_ATTR_TYPE, nullptr, ok, "default");
@@ -98,7 +95,6 @@ GUISettingsHandler::myStartElement(int element,
             break;
         }
         case SUMO_TAG_SNAPSHOT: {
-            bool ok = true;
             std::string file = attrs.get<std::string>(SUMO_ATTR_FILE, nullptr, ok);
             if (file != "" && !FileHelpers::isAbsolute(file)) {
                 file = FileHelpers::getConfigurationRelative(getFileName(), file);
@@ -107,7 +103,6 @@ GUISettingsHandler::myStartElement(int element,
         }
         break;
         case SUMO_TAG_VIEWSETTINGS_SCHEME: {
-            bool ok = true;
             mySettings.name = attrs.getOpt<std::string>(SUMO_ATTR_NAME, nullptr, ok, mySettings.name);
             if (gSchemeStorage.contains(mySettings.name)) {
                 mySettings = gSchemeStorage.get(mySettings.name);
@@ -116,15 +111,17 @@ GUISettingsHandler::myStartElement(int element,
         break;
         case SUMO_TAG_VIEWSETTINGS_OPENGL:
             mySettings.dither = StringUtils::toBool(attrs.getStringSecure("dither", toString(mySettings.dither)));
+            mySettings.fps = StringUtils::toBool(attrs.getStringSecure("fps", toString(mySettings.fps)));
+            mySettings.drawBoundaries = StringUtils::toBool(attrs.getStringSecure("drawBoundaries", toString(mySettings.drawBoundaries)));
+            mySettings.forceDrawForRectangleSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawRectangleSelection", toString(mySettings.forceDrawForRectangleSelection)));
+            mySettings.forceDrawForPositionSelection = StringUtils::toBool(attrs.getStringSecure("forceDrawPositionSelection", toString(mySettings.forceDrawForPositionSelection)));
             break;
-        case SUMO_TAG_VIEWSETTINGS_BACKGROUND: {
-            bool ok = true;
+        case SUMO_TAG_VIEWSETTINGS_BACKGROUND:
             mySettings.backgroundColor = RGBColor::parseColorReporting(attrs.getStringSecure("backgroundColor", toString(mySettings.backgroundColor)), "background", nullptr, true, ok);
             mySettings.showGrid = StringUtils::toBool(attrs.getStringSecure("showGrid", toString(mySettings.showGrid)));
             mySettings.gridXSize = StringUtils::toDouble(attrs.getStringSecure("gridXSize", toString(mySettings.gridXSize)));
             mySettings.gridYSize = StringUtils::toDouble(attrs.getStringSecure("gridYSize", toString(mySettings.gridYSize)));
-        }
-        break;
+            break;
         case SUMO_TAG_VIEWSETTINGS_EDGES: {
             int laneEdgeMode = StringUtils::toInt(attrs.getStringSecure("laneEdgeMode", "0"));
             int laneEdgeScaleMode = StringUtils::toInt(attrs.getStringSecure("scaleMode", "0"));
@@ -146,7 +143,11 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.spreadSuperposed = StringUtils::toBool(attrs.getStringSecure("spreadSuperposed", toString(mySettings.spreadSuperposed)));
             mySettings.edgeParam = attrs.getStringSecure("edgeParam", mySettings.edgeParam);
             mySettings.laneParam = attrs.getStringSecure("laneParam", mySettings.laneParam);
+            mySettings.vehicleParam = attrs.getStringSecure("vehicleParam", mySettings.vehicleParam);
+            mySettings.vehicleTextParam = attrs.getStringSecure("vehicleTextParam", mySettings.vehicleTextParam);
             mySettings.edgeData = attrs.getStringSecure("edgeData", mySettings.edgeData);
+            mySettings.edgeValueHideCheck = StringUtils::toBool(attrs.getStringSecure("edgeValueHideCheck", toString(mySettings.edgeValueHideCheck)));
+            mySettings.edgeValueHideThreshold = StringUtils::toDouble(attrs.getStringSecure("edgeValueHideThreshold", toString(mySettings.edgeValueHideThreshold)));
             myCurrentColorer = element;
             mySettings.edgeColorer.setActive(laneEdgeMode);
             mySettings.edgeScaler.setActive(laneEdgeScaleMode);
@@ -179,7 +180,6 @@ GUISettingsHandler::myStartElement(int element,
                 myCurrentScheme = mySettings.polyColorer.getSchemeByName(attrs.getStringSecure(SUMO_ATTR_NAME, ""));
             }
             if (myCurrentScheme && !myCurrentScheme->isFixed()) {
-                bool ok = true;
                 myCurrentScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScheme->clear();
             }
@@ -194,28 +194,24 @@ GUISettingsHandler::myStartElement(int element,
                 }
             }
             if (myCurrentScaleScheme && !myCurrentScaleScheme->isFixed()) {
-                bool ok = true;
                 myCurrentScaleScheme->setInterpolated(attrs.getOpt<bool>(SUMO_ATTR_INTERPOLATED, nullptr, ok, false));
                 myCurrentScaleScheme->clear();
             }
             break;
-
         case SUMO_TAG_ENTRY:
             if (myCurrentScheme != nullptr) {
-                bool ok = true;
                 RGBColor color = attrs.get<RGBColor>(SUMO_ATTR_COLOR, nullptr, ok);
                 if (myCurrentScheme->isFixed()) {
                     myCurrentScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), color);
                 } else {
-                    myCurrentScheme->addColor(color, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, 0));
+                    myCurrentScheme->addColor(color, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()));
                 }
             } else if (myCurrentScaleScheme != nullptr) {
-                bool ok = true;
                 double scale = attrs.get<double>(SUMO_ATTR_COLOR, nullptr, ok);
                 if (myCurrentScaleScheme->isFixed()) {
                     myCurrentScaleScheme->setColor(attrs.getStringSecure(SUMO_ATTR_NAME, ""), scale);
                 } else {
-                    myCurrentScaleScheme->addColor(scale, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, 0));
+                    myCurrentScaleScheme->addColor(scale, attrs.getOpt<double>(SUMO_ATTR_THRESHOLD, nullptr, ok, std::numeric_limits<double>::max()));
                 }
             }
             break;
@@ -224,9 +220,13 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.vehicleQuality = StringUtils::toInt(attrs.getStringSecure("vehicleQuality", toString(mySettings.vehicleQuality)));
             mySettings.showBlinker = StringUtils::toBool(attrs.getStringSecure("showBlinker", toString(mySettings.showBlinker)));
             mySettings.drawMinGap = StringUtils::toBool(attrs.getStringSecure("drawMinGap", toString(mySettings.drawMinGap)));
+            mySettings.drawBrakeGap = StringUtils::toBool(attrs.getStringSecure("drawBrakeGap", toString(mySettings.drawBrakeGap)));
+            mySettings.showBTRange = StringUtils::toBool(attrs.getStringSecure("showBTRange", toString(mySettings.showBTRange)));
+            mySettings.showRouteIndex = StringUtils::toBool(attrs.getStringSecure("showRouteIndex", toString(mySettings.showRouteIndex)));
             mySettings.vehicleSize = parseSizeSettings("vehicle", attrs, mySettings.vehicleSize);
             mySettings.vehicleName = parseTextSettings("vehicleName", attrs, mySettings.vehicleName);
             mySettings.vehicleValue = parseTextSettings("vehicleValue", attrs, mySettings.vehicleValue);
+            mySettings.vehicleText = parseTextSettings("vehicleText", attrs, mySettings.vehicleText);
             myCurrentColorer = element;
             break;
         case SUMO_TAG_VIEWSETTINGS_PERSONS:
@@ -248,9 +248,11 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.junctionColorer.setActive(StringUtils::toInt(attrs.getStringSecure("junctionMode", "0")));
             mySettings.drawLinkTLIndex = parseTextSettings("drawLinkTLIndex", attrs, mySettings.drawLinkTLIndex);
             mySettings.drawLinkJunctionIndex = parseTextSettings("drawLinkJunctionIndex", attrs, mySettings.drawLinkJunctionIndex);
+            mySettings.junctionID = parseTextSettings("junctionID", attrs, mySettings.junctionID);
             mySettings.junctionName = parseTextSettings("junctionName", attrs, mySettings.junctionName);
             mySettings.internalJunctionName = parseTextSettings("internalJunctionName", attrs, mySettings.internalJunctionName);
             mySettings.tlsPhaseIndex = parseTextSettings("tlsPhaseIndex", attrs, mySettings.tlsPhaseIndex);
+            mySettings.tlsPhaseName = parseTextSettings("tlsPhaseName", attrs, mySettings.tlsPhaseName);
             mySettings.showLane2Lane = StringUtils::toBool(attrs.getStringSecure("showLane2Lane", toString(mySettings.showLane2Lane)));
             mySettings.drawJunctionShape = StringUtils::toBool(attrs.getStringSecure("drawShape", toString(mySettings.drawJunctionShape)));
             mySettings.drawCrossingsAndWalkingareas = StringUtils::toBool(attrs.getStringSecure(
@@ -265,9 +267,11 @@ GUISettingsHandler::myStartElement(int element,
             mySettings.addFullName = parseTextSettings("addFullName", attrs, mySettings.addFullName);
             break;
         case SUMO_TAG_VIEWSETTINGS_POIS:
+            mySettings.poiTextParam = attrs.getStringSecure("poiTextParam", mySettings.poiTextParam);
             mySettings.poiSize = parseSizeSettings("poi", attrs, mySettings.poiSize);
             mySettings.poiName = parseTextSettings("poiName", attrs, mySettings.poiName);
             mySettings.poiType = parseTextSettings("poiType", attrs, mySettings.poiType);
+            mySettings.poiText = parseTextSettings("poiText", attrs, mySettings.poiText);
             mySettings.poiColorer.setActive(StringUtils::toInt(attrs.getStringSecure("personMode", "0")));
             myCurrentColorer = element;
             break;
@@ -280,10 +284,17 @@ GUISettingsHandler::myStartElement(int element,
             break;
         case SUMO_TAG_VIEWSETTINGS_LEGEND:
             mySettings.showSizeLegend = StringUtils::toBool(attrs.getStringSecure("showSizeLegend", toString(mySettings.showSizeLegend)));
+            mySettings.showColorLegend = StringUtils::toBool(attrs.getStringSecure("showColorLegend", toString(mySettings.showColorLegend)));
+            mySettings.showVehicleColorLegend = StringUtils::toBool(attrs.getStringSecure("showVehicleColorLegend", toString(mySettings.showVehicleColorLegend)));
             break;
         case SUMO_TAG_VIEWSETTINGS_DECAL: {
             GUISUMOAbstractView::Decal d;
-            d.filename = attrs.getStringSecure("filename", d.filename);
+            if (attrs.hasAttribute(SUMO_ATTR_FILE)) {
+                d.filename = attrs.get<std::string>(SUMO_ATTR_FILE, nullptr, ok);
+            } else {
+                d.filename = attrs.getStringSecure("filename", d.filename);
+                WRITE_WARNING("The 'filename' attribute is deprecated for decals. Please use 'file'.");
+            }
             if (d.filename != "" && !FileHelpers::isAbsolute(d.filename)) {
                 d.filename = FileHelpers::getConfigurationRelative(getFileName(), d.filename);
             }
@@ -451,4 +462,3 @@ GUISettingsHandler::getEventDistribution(const std::string& id) {
 
 
 /****************************************************************************/
-

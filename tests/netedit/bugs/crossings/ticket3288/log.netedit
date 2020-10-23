@@ -1,35 +1,12 @@
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c2' across '8' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c3' across '4' has no target.
-Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges '8' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
-Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
-Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Center_c5' across '2' has no target.
-Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Discarding invalid crossing ':Center_c3' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Discarding invalid crossing ':Center_c3' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Center_c6' across '1' has no target.
-Warning: Discarding invalid crossing ':Center_c3' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Center_c7' across '5' has no target.
-Warning: Discarding invalid crossing ':Center_c3' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
-Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '8' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Discarding invalid crossing ':Center_c3' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Discarding invalid crossing ':Center_c3' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Center_c0' across '3' has no target.
-Warning: Discarding invalid crossing ':Center_c3' at junction 'Center' with edges '4' (no walkingarea found).
-Warning: Invalid pedestrian topology: crossing ':Center_c7' across '5' has no target.
-Warning: Discarding invalid crossing ':Center_c3' at junction 'Center' with edges '4' (no walkingarea found).
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across [3] has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across [3] has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c2' across [8] has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c0' across [8] has no target.
+Warning: Invalid pedestrian topology: crossing ':Center_c3' across [4] has no target.
+Warning: Discarding invalid crossing ':Center_c0' at junction 'Center' with edges [8] (no walkingarea found).
+Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges [4] (no walkingarea found).
+Warning: Discarding invalid crossing ':Center_c1' at junction 'Center' with edges [4] (no walkingarea found).
+Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges [4] (no walkingarea found).
+Warning: Discarding invalid crossing ':Center_c2' at junction 'Center' with edges [4] (no walkingarea found).
+Warning: 14 total messages of type: Discarding invalid crossing '%' at junction '%' with edges [%] (no walkingarea found).
+Warning: 15 total messages of type: Invalid pedestrian topology: crossing '%' across [%] has no target.

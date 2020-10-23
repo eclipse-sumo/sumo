@@ -4,7 +4,14 @@
     <route id="r1" edges="e_m3 e_m4"/>
     <vehicle id="0" depart="0" departSpeed="10" departPos="100" route="r1" type="t1"/>
 
+    <person id="pWaiting" depart="0">
+        <stop busStop="bs1" duration="0.1"/>
+        <ride to="e_m5" lines="dummy"/>
+    </person>
     <person id="p0" depart="8">
         <walk edges="e_m3 e_m4" speed="2"/>
     </person>
+
+    <vehicle id="3" depart="10" departSpeed="10" departPos="100" route="r1" type="t1"/>
+    <vehicle id="4" depart="15" departSpeed="10" departPos="100" route="r1" type="t1"/>
 </routes>

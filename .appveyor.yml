@@ -1,34 +1,55 @@
 version: git.{build}
 
+skip_commits:
+    files:
+        - docs/**/*
+
 environment:
     matrix:
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2013
           ver: 2013
-          generator: "Visual Studio 12 2013 Win64"
+          generator: "Visual Studio 12 2013"
           configuration: Release
+          PYTHON: C:\Python37-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2015
           ver: 2015
-          generator: "Visual Studio 14 2015 Win64"
+          generator: "Visual Studio 14 2015"
           configuration: Release
+          PYTHON: C:\Python37-x64
         - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2017
           ver: 2017
-          generator: "Visual Studio 15 2017 Win64"
+          generator: "Visual Studio 15 2017"
           configuration: Release
+          PYTHON: C:\Python37-x64
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+          ver: 2019
+          generator: "Visual Studio 16 2019"
+          configuration: Release
+          PYTHON: C:\Python37-x64
+        - APPVEYOR_BUILD_WORKER_IMAGE: Visual Studio 2019
+          ver: 2019
+          generator: "Visual Studio 16 2019"
+          configuration: Release
+          PYTHON: C:\Python27-x64
 
 install:
-    - git clone https://github.com/DLR-TS/SUMOLibraries
+    - git clone --recurse-submodules https://github.com/DLR-TS/SUMOLibraries
     - set SUMO_LIBRARIES=%CD%\SUMOLibraries
+    - "%PYTHON%\\python.exe -m pip install wheel"
 
 build_script:
     - cd %APPVEYOR_BUILD_FOLDER%
     - mkdir build_msvc%ver% &&
       cd build_msvc%ver% &&
-      cmake .. -G"%generator%" -DPYTHON_EXECUTABLE=C:\Python27-x64\python.exe &&
-      cmake --build . --config %configuration%
+      cmake .. -G"%generator%" -A x64 -DPYTHON_EXECUTABLE=%PYTHON%\python.exe &&
+      cmake --build . --config %configuration% && cd .. &&
+      %PYTHON%\python.exe tools\build\setup-libsumo.py bdist_wheel
 
-# maybe enable later but for now it probably exceeds the cache limit of 1GB
-#cache:
-#    - SUMOLibraries
 
 matrix:
     fast_finish: true
+
+artifacts:
+    - path: bin
+      type: zip
+    - path: dist\*

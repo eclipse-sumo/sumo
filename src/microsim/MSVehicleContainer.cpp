@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSVehicleContainer.cpp
 /// @author  Christian Roessel
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 12 Mar 2001
-/// @version $Id$
 ///
 // vehicles sorted by their departures
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <algorithm>
@@ -79,7 +77,9 @@ MSVehicleContainer::add(SUMOVehicle* veh) {
         find_if(array.begin() + 1, array.begin() + currentSize + 1, DepartFinder(veh->getParameter().depart));
     if (currentSize == 0 || i == array.begin() + currentSize + 1) {
         // a new heap-item is necessary
-        VehicleDepartureVector newElem(veh->getParameter().depart, VehicleVector());
+        const SUMOTime delay = veh->getParameter().depart % DELTA_T;
+        const SUMOTime depart = veh->getParameter().depart + (delay == 0 ? 0 : DELTA_T - delay);
+        VehicleDepartureVector newElem(depart, VehicleVector());
         newElem.second.push_back(veh);
         addReplacing(newElem);
     } else {
@@ -144,7 +144,7 @@ MSVehicleContainer::addReplacing(const VehicleDepartureVector& x) {
 
 bool
 MSVehicleContainer::anyWaitingBefore(SUMOTime time) const {
-    return !isEmpty() && topTime() < time;
+    return !isEmpty() && topTime() <= time;
 }
 
 
@@ -247,7 +247,13 @@ std::ostream& operator << (std::ostream& strm, MSVehicleContainer& cont) {
     return strm;
 }
 
-
+void
+MSVehicleContainer::clearState() {
+    for (VehicleDepartureVector& vdv : array) {
+        vdv.first = 0;
+        vdv.second.clear();
+    }
+    currentSize = 0;
+}
 
 /****************************************************************************/
-

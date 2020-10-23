@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <personFlow id="a" begin="0.00" end="300" probability="0.35" color="green" departPos="30">
+        <walk edges="CN NC"/>
+    </personFlow>
+    <personFlow id="b" begin="0.00" end="300" probability="0.45" color="yellow" departPos="-30">
+        <walk edges="NC CS"/>
+    </personFlow>
+</routes>

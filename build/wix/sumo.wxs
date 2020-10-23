@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Name='SUMO' Id='A63B306E-2B15-11E1-88C8-028037EC0200' UpgradeCode='A764BC4F-2B15-11E1-9E7E-028037EC0200'
-    Language='1033' Codepage='1252' Version='1.1.0' Manufacturer='Eclipse'>
+    Language='1033' Codepage='1252' Version='1.7.0' Manufacturer='Eclipse'>
 
-    <Package Id='*' Description="SUMO 1.1.0 Installer"
+    <Package Id='*' Description="SUMO 1.7.0 Installer"
       Comments='Simulation of Urban Mobility' Manufacturer='[Manufacturer]'
       InstallerVersion='300' Compressed='yes' />
 
@@ -14,9 +14,9 @@
         <Directory Id='Eclipse' Name='Eclipse'>
           <Directory Id='INSTALLDIR' Name='Sumo'>
             <Component Id='SumoHome' Guid='67D3110C-F900-461F-B836-177A7AE88BB9'>
-    		  <Condition>MODIFYENV</Condition>
+              <Condition>MODIFYENV</Condition>
               <CreateFolder/>
-              <Environment Id="SUMO_HOME" Name="SUMO_HOME" Value="[INSTALLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+              <Environment Id="SUMO_HOME" Name="SUMO_HOME" Value="[INSTALLDIR]" Permanent="no" Part="all" Action="set" System="yes" />
             </Component>
             <Directory Id='BINDIR' Name='bin'>
               <Component Id='MainExecutables' Guid='BD1FC8EE-2B15-11E1-BA48-028037EC0200'>
@@ -73,17 +73,17 @@
                 </File>
               </Component>
             </Directory>
-			
-  	        <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
-    		  <Condition>MODIFYENV</Condition>
+
+            <Component Id='Path' Guid='17359CBF-8C61-4C3D-B5A7-4407AFF096AA'>
+              <Condition>MODIFYENV</Condition>
               <CreateFolder/>
-			  <Environment Id="PATH" Name="PATH" Value="[BINDIR];[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
-		    </Component>
-  	        <Component Id='PythonPath' Guid='3C6E4C8E-C4D3-483D-93C0-546A04D360F0'>
-    		  <Condition>MODIFYENV</Condition>
+              <Environment Id="PATH" Name="PATH" Value="[BINDIR];[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
+            <Component Id='PythonPath' Guid='3C6E4C8E-C4D3-483D-93C0-546A04D360F0'>
+              <Condition>MODIFYENV</Condition>
               <CreateFolder/>
-			  <Environment Id="PYTHONPATH" Name="PYTHONPATH" Value="[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
-		    </Component>
+              <Environment Id="PYTHONPATH" Name="PYTHONPATH" Value="[TOOLDIR]" Permanent="no" Part="last" Action="set" System="yes" />
+            </Component>
           </Directory>
         </Directory>
       </Directory>
@@ -125,6 +125,10 @@
 
       <Feature Id='Data' Title='Data' Description='Additional data like XML schemata and edge type maps.' Level='1'>
         <ComponentGroupRef Id='data' />
+      </Feature>
+
+      <Feature Id='Includes' Title='Includes' Description='Include files for libsumo.' Level='1'>
+        <ComponentGroupRef Id='include' />
       </Feature>
     </Feature>
 

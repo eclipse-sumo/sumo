@@ -1,0 +1,45 @@
+# do not crash when the only signalized connection from one lane  is a turn-around
+signalized_turn
+
+# stopping two times at the same stop should not cause reversal
+double_stop
+
+# should not crash
+unregulated_junction
+
+# should not crash
+delayed_insertion_parallel_routing
+
+# vehicles that are stopped at a signal should be considered approaching depending on their stop duration (when stopped at the current signal)
+# 
+# 
+stopped_at_signal
+
+# vehicles that are stopped at a signal should be considered approaching depending on their stop duration (when stopped at the current signal)
+# 
+# Here,  'train' has to wait because it must drive across a track occupied by 'train2' in reverse diretion.
+# 
+# 
+stopped_at_signal2
+
+# vehicle train1 enters the branch and can only leave it by turning around. Rail signal guarding the branch should not let train2 enter to avoid deadlock
+deadlock_bidi_reversal
+
+# vehicle train1 enters the branch and can only leave it by turning around. Rail signal guarding the branch should not let train2 enter to avoid deadlock
+# 
+# (as above but with a longer branch that exceeds the approach-information range)
+deadlock_bidi_reversal2
+
+# stopped vehicles should not block insertion if they are approaching a foe signal
+# 
+insertion_at_signal
+
+# foe vehicles must be correctly identified beyond switches that could give protection
+merge_check_flank_switch
+
+# foe vehicles must be correctly identified beyond switches that could give protection (trains driving in opposite directions)
+merge_check_flank_switch2
+
+# deadlock due to insufficient flank check for bidi flank
+# 
+ticket7563

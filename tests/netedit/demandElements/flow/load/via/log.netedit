@@ -1,0 +1,11 @@
+Warning: Essential unique string attribute 'to' of trip with ID 'flow_0' is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip with ID 'flow_0' is missing; trip cannot be created
+Error: Invalid route '' used in flow 'flow_0'.
+Error: Attribute 'route' in definition of flow 'flow_1' is empty.
+Warning: Essential unique string attribute 'to' of trip with ID 'flow_1' is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip with ID 'flow_1' is missing; trip cannot be created
+Error: Invalid route '' used in flow 'flow_1'.
+Warning: Essential unique string attribute 'to' of trip with ID 'flow_2' is missing; trip cannot be created
+Warning: Essential unique string attribute 'from' of trip with ID 'flow_2' is missing; trip cannot be created
+Error: Invalid route 'route with invalid characters' used in routeFlow 'flow_2'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug134741.10088/netedit.gui/demandElements/flow/load/via\input_routes.rou.xml failed.

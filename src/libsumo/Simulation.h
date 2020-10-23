@@ -1,62 +1,81 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    Simulation.h
 /// @author  Robert Hilbrich
 /// @date    15.09.2017
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#ifndef Simulation_h
-#define Simulation_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
 #include <libsumo/TraCIDefs.h>
-#include <traci-server/TraCIConstants.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 namespace libsumo {
 class VariableWrapper;
 }
+#endif
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+namespace LIBSUMO_NAMESPACE {
 /**
  * @class Simulation
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
 class Simulation {
 public:
+#ifdef LIBTRACI
+    static std::pair<int, std::string> init(int port=8813, int numRetries=10, const std::string& host="localhost", const std::string& label="default");
+
+    static std::pair<int, std::string> start(const std::vector<std::string>& cmd, int port=-1, int numRetries=10, const std::string& label="default", const bool verbose=false);
+
+    static bool isLibsumo();
+
+    static bool hasGUI();
+
+    // we cannot call this switch because it is a reserved word in C++
+    static void switchConnection(const std::string& label);
+
+    static const std::string& getLabel();
+
+    static void setOrder(int order);
+
+#endif
+
     /// @brief load a simulation with the given arguments
     static void load(const std::vector<std::string>& args);
 
     /// @brief return whether a simulation (network) is present
     static bool isLoaded();
 
-    /// @brief close simulation
-    static void close();
-
     /// @brief Advances by one step (or up to the given time)
     static void step(const double time = 0.);
+
+    /// @brief close simulation
+    static void close(const std::string& reason = "Libsumo requested termination.");
+
+    /// @brief return TraCI API and SUMO version
+    static std::pair<int, std::string> getVersion();
 
     static int getCurrentTime();
     static double getTime();
@@ -84,51 +103,68 @@ public:
     static int getEndingTeleportNumber();
     static std::vector<std::string> getEndingTeleportIDList();
 
-    static int getBusStopWaiting(const std::string& id);
+    static std::vector<std::string> getBusStopIDList();
+    static int getBusStopWaiting(const std::string& stopID);
+
+    /** @brief Returns the IDs of the transportables on a given bus stop.
+     */
+    static std::vector<std::string> getBusStopWaitingIDList(const std::string& stopID);
+
 
     static double getDeltaT();
 
-    static TraCIPositionVector getNetBoundary();
+    static libsumo::TraCIPositionVector getNetBoundary();
 
-    static TraCIPosition convert2D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
+    static int getMinExpectedNumber();
 
-    static TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
+#ifndef LIBTRACI
+// the following functions are not implemented in libtraci, yet
 
-    static TraCIRoadPosition convertRoad(double x, double y, bool isGeo = false);
+    static libsumo::TraCIPosition convert2D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
 
-    static TraCIPosition convertGeo(double x, double y, bool fromGeo = false);
+    static libsumo::TraCIPosition convert3D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
+
+    static libsumo::TraCIRoadPosition convertRoad(double x, double y, bool isGeo = false, const std::string& vClass = "ignoring");
+
+    static libsumo::TraCIPosition convertGeo(double x, double y, bool fromGeo = false);
 
     static double getDistance2D(double x1, double y1, double x2, double y2, bool isGeo = false, bool isDriving = false);
     static double getDistanceRoad(const std::string& edgeID1, double pos1, const std::string& edgeID2, double pos2, bool isDriving = false);
 
-    static int getMinExpectedNumber();
-
-    static TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "", const double depart = -1., const int routingMode = 0);
+    static libsumo::TraCIStage findRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& vType = "", const double depart = -1., const int routingMode = 0);
 
     /* @note: default arrivalPos is not -1 because this would lead to very short walks when moving against the edge direction,
      * instead the middle of the edge is used. DepartPos is treated differently so that 1-edge walks do not have length 0.
      */
-    static std::vector<TraCIStage> findIntermodalRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& modes = "",
+    static std::vector<libsumo::TraCIStage> findIntermodalRoute(const std::string& fromEdge, const std::string& toEdge, const std::string& modes = "",
             double depart = -1., const int routingMode = 0, double speed = -1., double walkFactor = -1.,
-            double departPos = 0, double arrivalPos = INVALID_DOUBLE_VALUE, const double departPosLat = 0,
+            double departPos = 0, double arrivalPos = libsumo::INVALID_DOUBLE_VALUE, const double departPosLat = 0,
             const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
+    LIBSUMO_GET_PARAMETER_WITH_KEY_API
+#endif
 
     static void clearPending(const std::string& routeID = "");
     static void saveState(const std::string& fileName);
+    /// @brief quick-load simulation state from file and return the state time
+    static double loadState(const std::string& fileName);
+    static void writeMessage(const std::string& msg);
 
-    LIBSUMO_SUBSCRIPTION_API
-    static void subscribe(const std::vector<int>& vars = std::vector<int>(), double beginTime = INVALID_DOUBLE_VALUE, double endTime = INVALID_DOUBLE_VALUE);
-    static const TraCIResults getSubscriptionResults();
+#ifndef LIBTRACI
+    static void subscribe(const std::vector<int>& varIDs = std::vector<int>(), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE);
+    static const libsumo::TraCIResults getSubscriptionResults();
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
+#endif
 
 private:
+#ifndef LIBTRACI
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 
     /// @brief invalidated standard constructor
     Simulation() = delete;
@@ -136,8 +172,3 @@ private:
 
 
 }
-
-
-#endif
-
-/****************************************************************************/

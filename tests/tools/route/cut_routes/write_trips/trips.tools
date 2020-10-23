@@ -1,4 +1,9 @@
-<!-- generated with cutRoutes.py for input_net.net.xml from ['input_routes.rou.xml'] -->
-<trips xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-09-27 14:51:33.055000 by cutRoutes.py
+  options: input_net.net.xml input_routes.rou.xml <doubleminus>trips-output trips.trips.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="fast" maxSpeed="50"/>
+    <vType id="slow" maxSpeed="5"/>
     <trip depart="0.00" id="straight" from="middle" to="end" type="slow"/>
-</trips>
+</routes>

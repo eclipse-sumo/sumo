@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<tazs>
+    <taz id="1" edges="middle beg"/>
+    <taz id="2" edges="end"/>
+    <taz id="3" edges="beg"/>
+</tazs>
+

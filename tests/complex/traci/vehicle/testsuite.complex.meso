@@ -1,0 +1,15 @@
+# Tests the vehicle API
+vehicle
+
+# simple context subscription test (less generic than then the contextSubscriptions suite)
+vehicle_context
+
+# Tests the stop resume
+resume
+
+# Tests the distance retrieval after rerouting
+distance_after_reroute
+
+# test retrieval of upcoming traffic lights
+nextTLS
+

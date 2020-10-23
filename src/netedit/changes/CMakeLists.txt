@@ -13,14 +13,26 @@ set(netedit_changes_SRCS
    GNEChange_Connection.cpp
    GNEChange_Attribute.h
    GNEChange_Attribute.cpp
+   GNEChange_EnableAttribute.h
+   GNEChange_EnableAttribute.cpp
    GNEChange_TLS.h
    GNEChange_TLS.cpp
    GNEChange_Additional.h
    GNEChange_Additional.cpp
    GNEChange_DemandElement.h
    GNEChange_DemandElement.cpp
+   GNEChange_DataSet.h
+   GNEChange_DataSet.cpp
+   GNEChange_DataInterval.h
+   GNEChange_DataInterval.cpp
+   GNEChange_GenericData.h
+   GNEChange_GenericData.cpp
    GNEChange_Shape.h
    GNEChange_Shape.cpp
+   GNEChange_TAZElement.h
+   GNEChange_TAZElement.cpp
+   GNEChange_Children.h
+   GNEChange_Children.cpp
    )
 
 add_library(netedit_changes STATIC ${netedit_changes_SRCS})

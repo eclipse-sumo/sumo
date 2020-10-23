@@ -1,10 +1,14 @@
-overtake_stopped_on_the_left
-
-# Copy of overtake_stopped_on_the_left
-overtake_stopped_on_the_left_low_space
-
 # overtaking on the right forbidden on german motorways (unless congested)
 overtaking_right_forbidden
+
+# overtaking on the right forbidden on german motorways (unless congested)
+overtaking_right_congested
+
+# overtaking on the right allowed at low road speed (regardless of speed factor)
+overtaking_right_road_speed
+
+# overtaking on the right forbidden on german motorways (unless congested) but the driver is configured to ignore it
+overtaking_right_forbidden_violate
 
 # overtaking on the right forbidden on german motorways (unless congested).
 # The ego vehicle is approaching very fast and cannot avoid overtaking but should at least slow down

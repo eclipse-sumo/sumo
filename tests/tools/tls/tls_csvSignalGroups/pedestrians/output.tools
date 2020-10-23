@@ -1,0 +1,33 @@
+Valid description from NC_1 to CW_1 (SG FZ11, tlIndex 0)
+Valid description from NC_1 to CS_1 (SG FZ11, tlIndex 1)
+Valid description from NC_2 to CE_1 (SG FZ11, tlIndex 2)
+Valid description from EC_1 to CN_1 (SG FZ21, tlIndex 3)
+Valid description from EC_1 to CW_1 (SG FZ21, tlIndex 4)
+Valid description from EC_1 to CS_1 (SG FZ21, tlIndex 5)
+Valid description from SC_1 to CE_1 (SG FZ31, tlIndex 6)
+Valid description from SC_1 to CN_1 (SG FZ31, tlIndex 7)
+Valid description from SC_2 to CW_1 (SG FZ31, tlIndex 8)
+Valid description from WC_1 to CS_1 (SG FZ41, tlIndex 9)
+Valid description from WC_1 to CE_1 (SG FZ41, tlIndex 10)
+Valid description from WC_1 to CN_1 (SG FZ41, tlIndex 11)
+Valid description from :C_w0_0 to :C_c3_0 (SG PED1, tlIndex 15)
+Valid description from :C_w1_0 to :C_c0_0 (SG PED2, tlIndex 12)
+Valid description from :C_w2_0 to :C_c1_0 (SG PED3, tlIndex 13)
+Valid description from :C_w3_0 to :C_c2_0 (SG PED4, tlIndex 14)
+All switch times: [0, 10, 13, 14, 15, 25, 28, 29, 30, 40, 43, 44, 45, 55, 58, 60, 65, 70, 75, 80, 84]
+SG FZ11: tlIndex 0: yield tlIndices [8]
+SG FZ11: tlIndex 1: yield tlIndices [5, 8, 9, 11]
+SG FZ11: tlIndex 2: yield tlIndices [5, 6, 7, 11]
+SG FZ21: tlIndex 3: yield tlIndices [7]
+SG FZ21: tlIndex 4: yield tlIndices [0, 1, 2, 7, 8]
+SG FZ21: tlIndex 5: yield tlIndices [1, 2, 7, 8, 9, 10]
+SG FZ31: tlIndex 6: yield tlIndices [2]
+SG FZ31: tlIndex 7: yield tlIndices [3, 5, 2, 11]
+SG FZ31: tlIndex 8: yield tlIndices [5, 0, 1, 11]
+SG FZ41: tlIndex 9: yield tlIndices [1]
+SG FZ41: tlIndex 10: yield tlIndices [1, 2, 6, 7, 8]
+SG FZ41: tlIndex 11: yield tlIndices [3, 4, 1, 2, 7, 8]
+SG PED1: tlIndex 15: yield tlIndices []
+SG PED2: tlIndex 12: yield tlIndices []
+SG PED3: tlIndex 13: yield tlIndices []
+SG PED4: tlIndex 14: yield tlIndices []

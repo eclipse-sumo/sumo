@@ -1,0 +1,3 @@
+-n input_net.net.xml -r input_trips.trips.xml -l 5
+--additional input_additional.add.xml
+--measure-vtypes DEFAULT_VEHTYPE duarouter--additional-files input_additional.add.xml

@@ -19,14 +19,20 @@ APIs to remotely control and influence the simulation.
 Information regarding source code management, builds, coding standards, and
 more.
 
-* http://sumo.dlr.de/wiki/Developer/Main
+* https://sumo.dlr.de/docs/Developer/Main.html
 
 The project maintains the following source code repositories
 
 * https://github.com/eclipse/sumo
 
 We are happily reviewing pull requests against the master of this repository.
-For details see below and http://sumo.dlr.de/wiki/FAQ#How_do_code_contributions_work.3F.
+For details see below and https://sumo.dlr.de/docs/FAQ.html#how_do_code_contributions_work.
+
+In order to allow the development of separate external modules for SUMO (which are not
+part of the mainline repository) every source code directory lists the files and 
+subdirectories where modfications need to be made available under the EPL and in a 
+separate list which files / directories are considered interfaces to external modules,
+as an entry point see the [contribution README in the src dir](src/README_Contributing.md).
 
 ## Eclipse Contributor Agreement
 

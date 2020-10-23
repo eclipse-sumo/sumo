@@ -1,0 +1,3 @@
+vehicle 'stopping' does not supply vehicle parameter 'device.ssm.trajectories'. Using default of '0'
+vehicle 'stopping' does not supply vehicle parameter 'device.ssm.extratime'. Using default of '5.00'
+vehicle 'stopping' does not supply vehicle parameter 'device.ssm.geo'. Using default of '0'

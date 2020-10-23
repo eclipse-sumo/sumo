@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIEdge.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A road/street connecting two junctions (gui-version)
 /****************************************************************************/
-#ifndef GUIEdge_h
-#define GUIEdge_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -59,12 +56,15 @@ public:
      */
     GUIEdge(const std::string& id, int numericalID,
             const SumoXMLEdgeFunc function,
-            const std::string& streetName, const std::string& edgeType, int priority);
+            const std::string& streetName, const std::string& edgeType, int priority,
+            double distance);
 
 
     /// @brief Destructor.
     ~GUIEdge();
 
+    /// Has to be called after all edges were built and all connections were set
+    virtual void closeBuilding();
 
     /* @brief Returns the gl-ids of all known edges
      * @param[in] includeInternal Whether to include ids of internal edges
@@ -124,6 +124,8 @@ public:
      */
     Boundary getCenteringBoundary() const;
 
+    /// @brief Returns the street name
+    const std::string getOptionalName() const;
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
@@ -154,12 +156,7 @@ public:
         MSEdge::removeContainer(c);
     }
 
-    int getVehicleNo() const;
-    std::string getVehicleIDs() const;
-    double getBruttoOccupancy() const;
     double getAllowedSpeed() const;
-    /// @brief return flow based on meanSpead @note: may produced incorrect results when jammed
-    double getFlow() const;
     /// @brief return meanSpead divided by allowedSpeed
     double getRelativeSpeed() const;
 
@@ -208,12 +205,18 @@ public:
         return myMesoColor;
     }
 
+    bool showDeadEnd() const {
+        return myShowDeadEnd;
+    }
+
     /// @brief whether this lane is selected in the GUI
     bool isSelected() const;
 
     /// The color of the segments (cached)
     mutable std::vector<RGBColor> mySegmentColors;
 
+    /// @brief whether to highlight this edge as a dead-end edge
+    bool myShowDeadEnd;
 
 
 private:
@@ -231,9 +234,3 @@ private:
     mutable RGBColor myMesoColor;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

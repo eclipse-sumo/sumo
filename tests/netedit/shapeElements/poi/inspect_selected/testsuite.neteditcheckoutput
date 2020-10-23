@@ -26,8 +26,8 @@ angle
 # edit use geo
 geo_use
 
-# edit POI generic parameters
-genericparameters
+# edit POI parameters
+parameters
 
 # edit POI block move
 blockmove

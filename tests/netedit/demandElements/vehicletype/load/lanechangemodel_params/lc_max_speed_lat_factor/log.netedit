@@ -1,0 +1,7 @@
+Error: Invalid Lane-Change-Model Attribute lcMaxSpeedLatFactor. Cannot be parsed to float
+Error: Invalid Lane Change Model Parameters
+Error: Invalid Lane-Change-Model Attribute lcMaxSpeedLatFactor. Must be greater than 0
+Error: Invalid Lane Change Model Parameters
+Error: Invalid Lane-Change-Model Attribute lcMaxSpeedLatFactor. Must be greater than 0
+Error: Invalid Lane Change Model Parameters
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.01Oct143859.10812/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_max_speed_lat_factor\input_routes.rou.xml failed.

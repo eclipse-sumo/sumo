@@ -1,8 +1,8 @@
-Warning: Intersecting left turns at junction 'B1' from lane 'B2B1_0' and lane 'B0B1_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'B1' from lane 'C1B1_0' and lane 'A1B1_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'B2' from lane 'B3B2_0' and lane 'B1B2_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'B2' from lane 'C2B2_0' and lane 'A2B2_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'C1' from lane 'C2C1_0' and lane 'C0C1_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'C1' from lane 'D1C1_0' and lane 'B1C1_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'C2' from lane 'C3C2_0' and lane 'C1C2_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction 'C2' from lane 'D2C2_0' and lane 'B2C2_0'. (increase junction radius to avoid this)
+Warning: Intersecting left turns at junction 'B1' from lane 'B2B1_0' and lane 'B0B1_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'B1' from lane 'C1B1_0' and lane 'A1B1_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'B2' from lane 'B3B2_0' and lane 'B1B2_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'B2' from lane 'C2B2_0' and lane 'A2B2_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'C1' from lane 'C2C1_0' and lane 'C0C1_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'C1' from lane 'D1C1_0' and lane 'B1C1_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'C2' from lane 'C3C2_0' and lane 'C1C2_0' (increase junction radius to avoid this).
+Warning: Intersecting left turns at junction 'C2' from lane 'D2C2_0' and lane 'B2C2_0' (increase junction radius to avoid this).

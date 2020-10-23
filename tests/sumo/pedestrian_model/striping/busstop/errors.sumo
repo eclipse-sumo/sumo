@@ -1,2 +1,1 @@
 Warning: Ignoring arrivalPos for person 'visitor4' walking from SC because it is outside the given stop 'busStop'.
-Warning: Person 'visitor1' could not find route across junction 'N' from edge 'NC' to edge 'CN', time=0.00.

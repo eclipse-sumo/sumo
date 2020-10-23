@@ -1,0 +1,10 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <containerStop id="containerStopA" lane="gneE0_0" startPos="19.75" endPos="29.75" friendlyPos="0"/>
+    <containerStop id="containerStopB" lane="gneE1_0" startPos="28.41" endPos="38.41" friendlyPos="0"/>
+    <containerStop id="containerStopC" lane="gneE2_0" startPos="16.48" endPos="26.48" friendlyPos="0"/>
+    <containerStop id="containerStopD" lane="gneE2_1" startPos="21.73" endPos="31.73" friendlyPos="0"/>
+    <containerStop id="containerStopE" lane="gneE2_2" startPos="23.79" endPos="33.79" friendlyPos="0"/>
+    <containerStop id="containerStopF" lane="gneE2_3" startPos="27.13" endPos="37.13" friendlyPos="0"/>
+    <containerStop id="containerStopG" lane="gneE2_4" startPos="31.03" endPos="41.03" friendlyPos="0"/>
+    <containerStop id="containerStopH" lane="gneE4_0" startPos="17.90" endPos="27.90" friendlyPos="0"/>
+</additional>

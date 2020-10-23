@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 14 Apr 2020 03:24:17 PM CEST by Eclipse SUMO netedit Version v1_5_0+1143-9947d43023
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/home/kobo/dlr/debug/vivre/tracks/input_plain.net.xml"/>
+        <plain-output-prefix value="/home/kobo/dlr/debug/vivre/tracks/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="4136" from="3768" to="3769" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.94" shape="741.68,610.15 741.87,610.22"/>
+        <lane index="1" width="3.00" shape="740.74,612.96 740.93,613.02"/>
+    </edge>
+    <edge id="4137" from="3769" to="3770" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.93" shape="741.33,610.03 741.52,610.10"/>
+        <lane index="1" width="3.01" shape="740.38,612.84 740.57,612.90"/>
+    </edge>
+    <edge id="4138" from="3770" to="3771" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.92" shape="743.55,610.76 743.74,610.82"/>
+        <lane index="1" width="3.01" shape="742.62,613.58 742.81,613.64"/>
+    </edge>
+    <edge id="4139" from="3771" to="3772" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.91" shape="743.21,610.65 743.40,610.72"/>
+        <lane index="1" width="3.02" shape="742.29,613.48 742.48,613.54"/>
+    </edge>
+    <edge id="4140" from="3772" to="3773" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.91" shape="744.80,611.16 744.99,611.22"/>
+        <lane index="1" width="3.03" shape="743.89,613.98 744.08,614.04"/>
+    </edge>
+    <edge id="4141" from="3773" to="3774" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.90" shape="746.39,611.66 746.58,611.72"/>
+        <lane index="1" width="3.03" shape="745.47,614.48 745.67,614.54"/>
+    </edge>
+    <edge id="4142" from="3774" to="3775" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.89" shape="746.02,611.55 746.21,611.61"/>
+        <lane index="1" width="3.04" shape="745.13,614.37 745.32,614.43"/>
+    </edge>
+    <edge id="4143" from="3775" to="3776" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.89" shape="748.28,612.22 748.47,612.27"/>
+        <lane index="1" width="3.05" shape="747.40,615.05 747.59,615.11"/>
+    </edge>
+    <edge id="4144" from="3776" to="3778" priority="-1" numLanes="2" speed="13.89" shape="748.55,610.80 749.49,611.08 750.43,611.36">
+        <lane index="0" width="2.88" shape="748.19,612.19 748.38,612.25"/>
+        <lane index="1" width="3.06" shape="747.29,615.02 747.48,615.08"/>
+    </edge>
+    <edge id="4146" from="3778" to="3779" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.88" shape="750.13,612.77 750.32,612.82"/>
+        <lane index="1" width="3.07" shape="749.25,615.61 749.44,615.66"/>
+    </edge>
+    <edge id="4147" from="3779" to="3780" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.87" shape="751.44,613.14 751.63,613.19"/>
+        <lane index="1" width="3.08" shape="750.58,615.99 750.77,616.04"/>
+    </edge>
+    <edge id="4148" from="3780" to="3781" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.86" shape="752.39,613.41 752.58,613.46"/>
+        <lane index="1" width="3.09" shape="751.52,616.26 751.72,616.31"/>
+    </edge>
+    <edge id="4149" from="3781" to="3782" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.86" shape="753.35,613.68 753.54,613.74"/>
+        <lane index="1" width="3.10" shape="752.50,616.53 752.69,616.59"/>
+    </edge>
+    <edge id="4150" from="3782" to="3783" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.85" shape="754.30,613.95 754.50,614.00"/>
+        <lane index="1" width="3.10" shape="753.46,616.80 753.66,616.85"/>
+    </edge>
+    <edge id="4151" from="3783" to="3784" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.84" shape="755.25,614.20 755.44,614.25"/>
+        <lane index="1" width="3.11" shape="754.42,617.06 754.61,617.11"/>
+    </edge>
+    <edge id="4152" from="3784" to="3785" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.83" shape="756.23,614.46 756.42,614.51"/>
+        <lane index="1" width="3.12" shape="755.40,617.32 755.59,617.38"/>
+    </edge>
+    <edge id="4153" from="3785" to="3786" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.83" shape="757.85,614.90 758.04,614.95"/>
+        <lane index="1" width="3.13" shape="757.03,617.75 757.22,617.80"/>
+    </edge>
+    <edge id="4154" from="3786" to="3787" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.82" shape="757.49,614.80 757.68,614.85"/>
+        <lane index="1" width="3.14" shape="756.68,617.66 756.87,617.71"/>
+    </edge>
+    <edge id="4155" from="3787" to="3788" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.80" shape="759.10,615.22 759.29,615.27"/>
+        <lane index="1" width="3.14" shape="758.29,618.08 758.48,618.13"/>
+    </edge>
+    <edge id="4156" from="3788" to="3789" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.79" shape="760.71,615.63 760.90,615.68"/>
+        <lane index="1" width="3.14" shape="759.91,618.49 760.11,618.54"/>
+    </edge>
+    <edge id="4157" from="3789" to="3790" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.78" shape="760.38,615.55 760.58,615.60"/>
+        <lane index="1" width="3.15" shape="759.58,618.40 759.77,618.45"/>
+    </edge>
+    <edge id="4158" from="3790" to="3791" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.77" shape="762.00,615.96 762.19,616.01"/>
+        <lane index="1" width="3.15" shape="761.22,618.82 761.41,618.86"/>
+    </edge>
+    <edge id="4159" from="3791" to="3792" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.76" shape="762.95,616.20 763.14,616.25"/>
+        <lane index="1" width="3.15" shape="762.17,619.05 762.37,619.09"/>
+    </edge>
+    <edge id="4160" from="3792" to="3793" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.75" shape="763.91,616.44 764.11,616.49"/>
+        <lane index="1" width="3.14" shape="763.14,619.29 763.33,619.33"/>
+    </edge>
+    <edge id="4161" from="3793" to="3794" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.74" shape="764.91,616.69 765.11,616.74"/>
+        <lane index="1" width="3.14" shape="764.14,619.53 764.33,619.58"/>
+    </edge>
+    <edge id="4162" from="3794" to="3795" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.74" shape="765.84,616.93 766.03,616.97"/>
+        <lane index="1" width="3.13" shape="765.08,619.75 765.27,619.80"/>
+    </edge>
+    <edge id="4163" from="3795" to="3796" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.73" shape="766.82,617.16 767.02,617.21"/>
+        <lane index="1" width="3.12" shape="766.07,619.99 766.26,620.03"/>
+    </edge>
+    <edge id="4164" from="3796" to="3797" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.72" shape="767.79,617.41 767.99,617.45"/>
+        <lane index="1" width="3.11" shape="767.04,620.22 767.23,620.26"/>
+    </edge>
+    <edge id="4165" from="3797" to="3798" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.72" shape="768.75,617.64 768.94,617.69"/>
+        <lane index="1" width="3.10" shape="768.00,620.45 768.20,620.49"/>
+    </edge>
+    <edge id="4166" from="3798" to="3799" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.71" shape="769.70,617.88 769.89,617.93"/>
+        <lane index="1" width="3.08" shape="768.95,620.67 769.14,620.72"/>
+    </edge>
+    <edge id="4167" from="3799" to="3800" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" width="2.71" shape="770.68,618.13 770.88,618.17"/>
+        <lane index="1" width="3.07" shape="769.94,620.92 770.14,620.96"/>
+    </edge>
+</edges>

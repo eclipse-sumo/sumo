@@ -3,7 +3,7 @@
 <!-- generated on 05/06/14 11:07:23 by SUMO netconvert Version dev-SVN-r16258
 <?xml version="1.0" encoding="UTF-8"?>
 
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/netconvertConfiguration.xsd">
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/netconvertConfiguration.xsd">
 
     <input>
         <sumo-net-file value="bs.net.xml"/>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo-sim.org/xsd/nodes_file.xsd">
+<nodes version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo-sim.org/xsd/nodes_file.xsd">
     <location netOffset="-604099.60,-5792153.74" convBoundary="0.00,0.00,1593.78,2141.25" origBoundary="10.525796,52.269679,10.549189,52.288860" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <node id="1192507866" x="524.78" y="788.12" type="priority"/>

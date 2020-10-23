@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:12 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <building_defaults>
+        <default.junctions.radius value="0"/>
+    </building_defaults>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <junctions.scurve-stretch value="1"/>
+        <junctions.small-radius value="0"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="140.00,100.00" convBoundary="0.00,0.00,80.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":C_0" function="internal">
+        <lane id=":C_0_0" index="0" speed="13.89" length="5.62" width="2.00" shape="37.49,-6.00 39.10,-5.53 40.00,-4.50 40.90,-3.47 42.51,-3.00"/>
+        <lane id=":C_0_1" index="1" speed="13.89" length="5.62" width="2.00" shape="37.49,-2.00 38.99,-1.84 40.00,-1.50 41.01,-1.16 42.51,-1.00"/>
+    </edge>
+
+    <edge id="CE" from="C" to="E" priority="2" shape="42.51,0.00 80.00,0.00">
+        <lane id="CE_0" index="0" speed="13.89" length="37.49" width="2.00" shape="42.51,-3.00 80.00,-3.00"/>
+        <lane id="CE_1" index="1" speed="13.89" length="37.49" width="2.00" shape="42.51,-1.00 80.00,-1.00"/>
+    </edge>
+    <edge id="WC" from="W" to="C" priority="2" shape="0.00,0.00 37.49,0.00">
+        <lane id="WC_0" index="0" speed="13.89" length="37.49" width="4.00" shape="-0.00,-6.00 37.49,-6.00"/>
+        <lane id="WC_1" index="1" speed="13.89" length="37.49" width="4.00" shape="-0.00,-2.00 37.49,-2.00"/>
+    </edge>
+
+    <junction id="C" type="priority" x="40.00" y="0.00" incLanes="WC_0 WC_1" intLanes=":C_0_0 :C_0_1" shape="42.51,0.00 42.51,-4.00 40.50,-5.04 39.50,-6.96 38.75,-7.70 37.49,-8.00 37.49,0.00" radius="0.00">
+        <request index="0" response="00" foes="00" cont="0"/>
+        <request index="1" response="00" foes="00" cont="0"/>
+    </junction>
+    <junction id="E" type="dead_end" x="80.00" y="0.00" incLanes="CE_0 CE_1" intLanes="" shape="80.00,-4.00 80.00,0.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-0.00,0.00 -0.00,-8.00"/>
+
+    <connection from="WC" to="CE" fromLane="0" toLane="0" via=":C_0_0" dir="s" state="M"/>
+    <connection from="WC" to="CE" fromLane="1" toLane="1" via=":C_0_1" dir="s" state="M"/>
+
+    <connection from=":C_0" to="CE" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":C_0" to="CE" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

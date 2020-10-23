@@ -1,2 +1,1 @@
-Warning: Please note that using ';' as list separator is deprecated.
- From 1.0 onwards, only ',' will be accepted.
+Warning: Please note that using ';' as list separator is deprecated and not accepted anymore.

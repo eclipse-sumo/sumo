@@ -1,0 +1,9 @@
+Error: Attribute 'id' is missing in definition of vehicle
+Error: vehicle cannot be created
+Error: Attribute 'id' in definition of a vehicle is empty.
+Error: Invalid vehicle id ''.
+Error: vehicle cannot be created
+Error: Invalid vehicle id 'id with spaces'. Contains invalid characters.
+Error: vehicle cannot be created
+Error: There is another vehicle with the same ID='vehicle_valid'.
+Error: Loading of C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.09Mar085257.660\netedit.gui\demandElements\vehicle\load\id\input_routes.rou.xml failed.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  5 07:24:48 2017 by SUMO Version v0_31_0+1448-250e844
+<!-- generated on Wed Mar 11 22:22:09 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,11 +15,13 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <tripinfo-output value="tripinfos.xml"/>
         <stop-output value="stopinfos.xml"/>
     </output>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
 
@@ -33,6 +35,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="train0" type="DEFAULT_VEHTYPE" lane="1/3to0/3_0" pos="60.00" parking="0" started="66.00" ended="121.00" delay="1.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop0"/>
-    <stopinfo id="train0" type="DEFAULT_VEHTYPE" lane="0/4to1/4_0" pos="60.00" parking="0" started="140.00" ended="181.00" delay="1.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop1"/>
+    <stopinfo id="train0" type="DEFAULT_VEHTYPE" lane="1/3to0/3_0" pos="60.00" parking="0" started="66.00" ended="120.00" delay="0.00" initialPersons="0" loadedPersons="1" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop0"/>
+    <stopinfo id="train0" type="DEFAULT_VEHTYPE" lane="0/4to1/4_0" pos="60.00" parking="0" started="139.00" ended="180.00" delay="0.00" initialPersons="1" loadedPersons="0" unloadedPersons="1" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop1"/>
 </stops>

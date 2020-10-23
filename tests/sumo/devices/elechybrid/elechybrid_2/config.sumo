@@ -1,0 +1,25 @@
+copy_test_path:{CLEAR LIST}
+copy_test_path:elechybrid_2.sumocfg
+copy_test_path:elechybrid_2.net.xml
+copy_test_path:overheadwires.add.xml
+copy_test_path:trolleybuses.rou.xml
+
+[collate_file]
+elechybrid_out_test1:elechybrid_out_test1.xml
+elechybrid_out_test2:elechybrid_out_test2.xml
+overheadwires_out:overheadwires_out.xml
+stopinfo_out:stopinfo_out.xml
+substation_out:substation_out.xml
+
+[run_dependent_text]
+elechybrid_out_test1:<!--{[->]}-->
+elechybrid_out_test1:-nan(ind){REPLACE nan}
+elechybrid_out_test2:<!--{[->]}-->
+elechybrid_out_test2:-nan(ind){REPLACE nan}
+overheadwires_out:<!--{[->]}-->
+overheadwires_out:-nan(ind){REPLACE nan}
+stopinfo_out:<!--{[->]}-->
+stopinfo_out:-nan(ind){REPLACE nan}
+substation_out:<!--{[->]}-->
+substation_out:-nan(ind){REPLACE nan}
+

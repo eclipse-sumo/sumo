@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 08.08.2019 08:43:27 by Eclipse SUMO netedit Version v1_2_0+1475-19ad2e6581
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug083908.7448/netedit.gui/additionalElements/e3detector/inspect_selection/genericparameters\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug083908.7448/netedit.gui/additionalElements/e3detector/inspect_selection/genericparameters\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug083908.7448/netedit.gui/additionalElements/e3detector/inspect_selection/genericparameters\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug083908.7448/netedit.gui/additionalElements/e3detector/inspect_selection/genericparameters\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug083908.7448/netedit.gui/additionalElements/e3detector/inspect_selection/genericparameters\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug083908.7448/netedit.gui/additionalElements/e3detector/inspect_selection/genericparameters\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug083908.7448/netedit.gui/additionalElements/e3detector/inspect_selection/genericparameters\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Aug083908.7448/netedit.gui/additionalElements/e3detector/inspect_selection/genericparameters\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <e3Detector id="e3Detector_A" pos="7.50,-2.00" freq="100.00" name="A" file="e3Detector_00.txt">
+        <detEntry lane="gneE1_0" pos="5.00"/>
+        <detExit lane="gneE1_0" pos="25.00"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </e3Detector>
+    <e3Detector id="e3Detector_B" pos="17.50,-2.00" freq="120.00" name="B" file="e3Detector_00.txt" timeThreshold="2.00" speedThreshold="3.39">
+        <detEntry lane="gneE1_0" pos="10.00"/>
+        <detExit lane="gneE1_0" pos="30.00"/>
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </e3Detector>
+</additional>

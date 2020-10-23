@@ -1,0 +1,26 @@
+# tests functions of the example device
+example
+
+# tests for battery device and charging station
+battery
+
+# Tests for per-vehicle emissions tracking
+emissions
+
+# tests functions of the bluelight device
+bluelight
+
+# tests for wireless (blue-tooth) devices
+bt
+
+# Tests for the Surrogate Safety Measure Device (MSDevice_SSM)
+ssm
+
+# test device for "one shot" in-simulation vehicle routing and periodic rerouting
+rerouting
+
+# tests for the driverstate device
+driverstate
+
+# tests for the taxi device
+taxi

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2018-08-03 15:04:49.309153 by $Id$
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>verbose
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="train" vClass="rail_urban"/>
+    <trip id="blocker" type="train" depart="0" departPos="stop">
+        <stop busStop="stopBeg" until="80" duration="10"/>
+        <stop busStop="stopEnd" until="100" duration="10"/>
+    </trip>
+    <trip id="train" type="train" depart="10" departPos="stop">
+        <stop busStop="stopBeg" until="20" duration="10"/>
+        <stop busStop="stopBeg" until="40" duration="10"/>
+        <stop busStop="stopEnd" until="60" duration="10"/>
+    </trip>
+</routes>

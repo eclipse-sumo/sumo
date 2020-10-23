@@ -1,0 +1,4 @@
+Error: Attribute 'personCapacity' in definition of vType 'vType0' is not of type int.
+Error: personCapacity must be equal or greater than 0
+Error: Attribute 'personCapacity' in definition of vType 'vType2' is not of type int.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Jul141622.10940/netedit.gui/demandElements/vehicletype/load/personcapacity\input_routes.rou.xml failed.

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional>
+    <ptLine id="1" name="Testline1" line="S42" type="light_rail" completeness="0.2">
+        <route edges="a b c"/>
+        <busStop id="B"/>
+    </ptLine>
+</additional>

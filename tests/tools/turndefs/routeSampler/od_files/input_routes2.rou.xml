@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Apr 14 11:03:41 2020 by Eclipse SUMO duarouter Version v1_5_0+1128-62027a14e2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="../../net.net.xml"/>
+        <route-files value="input_routes2.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="input_routes.rou.xml"/>
+        <alternatives-output value="input_routes.rou.alt.xml"/>
+    </output>
+
+    <processing>
+        <weights.random-factor value="20"/>
+    </processing>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="flow_0.0" depart="0.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.1" depart="180.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.2" depart="360.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.3" depart="540.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.4" depart="720.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.5" depart="900.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.6" depart="1080.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.7" depart="1260.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 131 131.180.00 148"/>
+    </vehicle>
+    <vehicle id="flow_0.8" depart="1440.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 131 131.180.00 148"/>
+    </vehicle>
+    <vehicle id="flow_0.9" depart="1620.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.10" depart="1800.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.11" depart="1980.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.12" depart="2160.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.13" depart="2340.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.14" depart="2520.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 131 131.180.00 148"/>
+    </vehicle>
+    <vehicle id="flow_0.15" depart="2700.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.16" depart="2880.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 11 11.80.00 109 109.80.00 123 123.121.42 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.17" depart="3060.00">
+        <route edges="-43 -43.80.00 55 71 71.121.42 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.18" depart="3240.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+    <vehicle id="flow_0.19" depart="3420.00">
+        <route edges="-43 -43.80.00 -27 -27.80.00 -3 -3.180.00 15 15.180.00 -144 -144.121.42 148"/>
+    </vehicle>
+</routes>

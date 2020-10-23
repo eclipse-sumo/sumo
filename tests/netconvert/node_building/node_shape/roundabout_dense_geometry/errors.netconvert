@@ -1,5 +1,6 @@
+Warning: Connection 'a_0->-60036_0' has a grade of 40.94%.
 Warning: Edge 'b' has a grade of 114.25%.
-Warning: Connection 'd_0->a_0' has a grade of 47.34%.
+Warning: Connection 'd_0->a_0' has a grade of 23.62%.
 Warning: Edge 'inA' has a grade of 26.90%.
-Warning: Connection 'inA_0->a_0' has a grade of 86.12%.
+Warning: Connection 'inA_0->a_0' has a grade of 42.91%.
 Warning: Edge 'outA' has a grade of 30.10%.

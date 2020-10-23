@@ -1,0 +1,6 @@
+Error: Invalid departSpeed definition for flow 'flow_0';
+ must be one of ("random", "max", or a float>=0)
+Error: Invalid departSpeed definition for flow 'flow_1';
+ must be one of ("random", "max", or a float>=0)
+Error: Invalid departSpeed used in flow 'flow_3'. 500.00 is greater than vTypemaxSpeed
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.06Aug125600.6944/netedit.gui/demandElements/flow/load/departSpeed\input_routes.rou.xml failed.

@@ -1,18 +1,21 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2017 University of Bologna - DICAM
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    sumopy_gui.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 """SUMOPy is intended to expand the user-base of the traffic micro-simulator SUMO (Simulation of Urban MObility) by providing a user-friendly, yet flexible simulation suite.
 
@@ -123,7 +126,7 @@ class MyApp(wx.App):
         info.SetVersion(__version__)
         info.SetDescription(__doc__)
         info.SetCopyright(__copyright__)
-        info.SetWebSite('http://sumo-sim.org/')
+        info.SetWebSite('https://sumo-sim.org/')
         # info.SetWebSite('http://distart041.ing.unibo.it/~mait/projects/sim/users_guide/users_guide.html')
         info.SetLicence(__licence__)
         info.AddDeveloper(__author__)

@@ -1,0 +1,6 @@
+
+[Reported by erdm_ja at 12Feb11:36:50]
+search_string:connection from="202157002#3" to="-534588621#1" fromLane="2" toLane="1"
+search_file:net
+full_description:bad connection guessing
+brief_description:see #5158

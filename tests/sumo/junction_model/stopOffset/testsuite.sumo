@@ -1,2 +1,8 @@
 # Passenger cars have to wait 10m to the lane end, while bicycles may proceed until the end.
 cars_with_offset
+
+# Passenger cars have a stopOffset 10m to the lane end and should continue at red, if they are beyond their stop position.
+cars_with_offset_flow_out_at_red
+
+# Passenger cars have to wait 10m to the lane end
+cars_with_offset_departSpeed_max

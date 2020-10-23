@@ -1,16 +1,19 @@
 /** ************************************************************************* */
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /** ************************************************************************* */
-/// @file    Constants.java
+/// @file    LisaControlUnit.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
 /** ************************************************************************* */
@@ -32,7 +35,6 @@ import java.util.List;
  * Bottazzi</a>
  */
 final class LisaControlUnit implements ControlUnitInterface {
-
     private int zNr;
     private int fNr;
     private String fullName;
@@ -50,10 +52,7 @@ final class LisaControlUnit implements ControlUnitInterface {
     private Persistence persistence;
     private boolean enabled = false;
 
-    private final List<String> apWerteNames = new ArrayList<>();
-    private List<String> apWerteValuesToSumo = new ArrayList<>();    
-    private List<String> apWerteValuesFromSumo = new ArrayList<>();
-    
+
     /**
      *
      */
@@ -166,6 +165,7 @@ final class LisaControlUnit implements ControlUnitInterface {
         commands.putMessage(command);
     }
 
+
     /**
      *
      */
@@ -190,13 +190,7 @@ final class LisaControlUnit implements ControlUnitInterface {
             //Sending message to Lisa and receiving a response
             PutMessageResponse messageResponseFromLisa = commands.putMessage(commandToLisa);
 
-            try {
-                lisaSignalGroups.parseStates(messageResponseFromLisa.getSignalsStateVector()); //Catch NULL value
-            } catch (NullPointerException e) {
-            }
-
-            String apWerte = messageResponseFromLisa.getApWertZustType();                        
-            apWerteValuesToSumo = APWertZustType.parse(apWerte);            
+            lisaSignalGroups.parseStates(messageResponseFromLisa.getSignalsStateVector()); //Catch NULL value
         }
     }
 
@@ -214,7 +208,7 @@ final class LisaControlUnit implements ControlUnitInterface {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Control Unit: ZNr ").append(zNr)
-                .append(" FNr ").append(fNr).append(" ");
+        .append(" FNr ").append(fNr).append(" ");
 
         sb.append(lisaSignalGroups.toString());
 
@@ -289,6 +283,7 @@ final class LisaControlUnit implements ControlUnitInterface {
     public SignalProgramInterface getCurrentSignalProgram() {
         return this.signalPrograms.getCurrentSignalProgram();
     }
+
 
     @Override
     public int getEbene() {

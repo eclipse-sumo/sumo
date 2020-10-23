@@ -68,3 +68,12 @@ on_overlapping
 # two overlapping off-ramps
 off_overlapping
 no_ramps_for_tls
+
+# see #5503
+no_off_ramp_doubleEdge
+
+# two offramps within a short distance of each other
+subsequent_offramps
+
+# two onramps within a short distance of each other
+subsequent_onramps

@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    HelpersHBEFA3.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Helper methods for HBEFA3-based emission computation
 /****************************************************************************/
-#ifndef HelpersHBEFA3_h
-#define HelpersHBEFA3_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -45,16 +42,13 @@
  *  (c0, cav1, cav2, c1, c2, c3).
  */
 class HelpersHBEFA3 : public PollutantsInterface::Helper {
+private:
+    static const int HBEFA3_BASE = 2 << 16;
+
 public:
-
-
-    static const int HBEFA3_BASE = 1 << 16;
-
-
     /** @brief Constructor (initializes myEmissionClassStrings)
      */
     HelpersHBEFA3();
-
 
     /** @brief Returns the emission class described by the given parameters.
      * @param[in] base the base class giving the default
@@ -101,10 +95,10 @@ public:
     inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const {
         UNUSED_PARAMETER(slope);
         UNUSED_PARAMETER(param);
-        if (c == HBEFA3_BASE || a < 0. || e == PollutantsInterface::ELEC) {
+        if (a < 0. || e == PollutantsInterface::ELEC) {
             return 0.;
         }
-        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE - 1;
+        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA3_BASE;
         double scale = 3.6;
         if (e == PollutantsInterface::FUEL) {
             if (getFuel(c) == "Diesel") {
@@ -123,9 +117,3 @@ private:
     static double myFunctionParameter[45][6][6];
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

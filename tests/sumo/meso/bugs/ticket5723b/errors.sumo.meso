@@ -1,0 +1,90 @@
+Warning: Teleporting vehicle '3'; waited too long, from edge 'WC':0, time 184.45.
+Warning: Vehicle '3' teleports beyond arrival edge 'gneE0', time 185.31.
+Warning: Teleporting vehicle '10'; waited too long, from edge 'CS':0, time 186.29.
+Warning: Vehicle '10' teleports beyond arrival edge 'WC', time 187.30.
+Warning: Teleporting vehicle '8'; waited too long, from edge '-gneE0':0, time 188.02.
+Warning: Teleporting vehicle '16'; waited too long, from edge 'EC':0, time 188.95.
+Warning: Vehicle '16' teleports beyond arrival edge '-gneE5', time 189.39.
+Warning: Vehicle '8' teleports beyond arrival edge 'EC', time 190.39.
+Warning: Teleporting vehicle '36'; waited too long, from edge 'CW':0, time 198.43.
+Warning: Vehicle '36' ends teleporting on edge 'gneE2':0, time 199.30.
+Warning: Teleporting vehicle '26'; waited too long, from edge '-gneE6':0, time 201.20.
+Warning: Teleporting vehicle '31'; waited too long, from edge 'gneE3':0, time 205.00.
+Warning: Vehicle '31' ends teleporting on edge '-gneE7':0, time 206.94.
+Warning: Vehicle '26' ends teleporting on edge 'gneE4':0, time 208.69.
+Warning: Teleporting vehicle '80'; waited too long, from edge 'CE':0, time 220.15.
+Warning: Vehicle '80' teleports beyond arrival edge 'WC', time 220.87.
+Warning: Teleporting vehicle '152'; waited too long, from edge 'gneE6':0, time 366.03.
+Warning: Teleporting vehicle '66'; waited too long, from edge 'gneE7':0, time 366.13.
+Warning: Vehicle '66' ends teleporting on edge 'CS':0, time 367.93.
+Warning: Teleporting vehicle '7'; waited too long, from edge 'SC':0, time 368.12.
+Warning: Vehicle '7' teleports beyond arrival edge 'CW', time 368.41.
+Warning: Teleporting vehicle '1'; waited too long, from edge 'EC':0, time 369.14.
+Warning: Vehicle '1' ends teleporting on edge 'gneE0':0, time 369.29.
+Warning: Vehicle '152' ends teleporting on edge 'CN':0, time 375.03.
+Warning: Teleporting vehicle '33'; waited too long, from edge 'WC':0, time 404.45.
+Warning: Vehicle '33' teleports beyond arrival edge 'CW', time 404.88.
+Warning: Teleporting vehicle '79'; waited too long, from edge 'gneE7':0, time 546.14.
+Warning: Vehicle '79' ends teleporting on edge '-gneE7':0, time 548.37.
+Warning: Teleporting vehicle '43'; waited too long, from edge 'NC':0, time 560.60.
+Warning: Vehicle '43' ends teleporting on edge '-gneE7':0, time 560.82.
+Warning: Teleporting vehicle '25'; waited too long, from edge 'CE':0, time 561.15.
+Warning: Vehicle '25' teleports beyond arrival edge '-gneE3', time 561.30.
+Warning: Teleporting vehicle '48'; waited too long, from edge 'gneE1':0, time 562.29.
+Warning: Vehicle '48' ends teleporting on edge 'CE':0, time 562.50.
+Warning: Teleporting vehicle '50'; waited too long, from edge 'WC':0, time 586.30.
+Warning: Teleporting vehicle '44'; waited too long, from edge 'CW':0, time 586.65.
+Warning: Vehicle '44' teleports beyond arrival edge '-gneE7', time 587.08.
+Warning: Vehicle '50' ends teleporting on edge 'gneE4':0, time 586.73.
+Warning: Teleporting vehicle '218'; waited too long, from edge 'gneE2':0, time 587.70.
+Warning: Vehicle '218' teleports beyond arrival edge 'gneE3', time 594.90.
+Warning: Teleporting vehicle '77'; waited too long, from edge 'gneE3':0, time 587.80.
+Warning: Vehicle '77' teleports beyond arrival edge 'CE', time 589.75.
+Warning: Teleporting vehicle '92'; waited too long, from edge 'gneE7':0, time 726.14.
+Warning: Vehicle '92' ends teleporting on edge '-gneE3':0, time 728.37.
+Warning: Teleporting vehicle '91'; waited too long, from edge 'NC':0, time 740.90.
+Warning: Vehicle '91' ends teleporting on edge 'gneE4':0, time 741.12.
+Warning: Teleporting vehicle '99'; waited too long, from edge '-gneE2':0, time 742.25.
+Warning: Teleporting vehicle '48'; waited too long, from edge 'CE':0, time 743.20.
+Warning: Vehicle '48' ends teleporting on edge '-gneE2':0, time 743.35.
+Warning: Vehicle '99' ends teleporting on edge '-gneE3':0, time 749.67.
+Warning: Teleporting vehicle '30'; waited too long, from edge 'EC':0, time 767.11.
+Warning: Vehicle '30' teleports beyond arrival edge 'CE', time 767.26.
+Warning: Teleporting vehicle '59'; waited too long, from edge 'CW':0, time 767.24.
+Warning: Vehicle '59' teleports beyond arrival edge 'WC', time 767.68.
+Warning: Teleporting vehicle '60'; waited too long, from edge 'WC':0, time 767.43.
+Warning: Vehicle '60' ends teleporting on edge '-gneE3':0, time 767.86.
+Warning: Teleporting vehicle '109'; waited too long, from edge 'gneE5':0, time 845.44.
+Warning: Teleporting vehicle '105'; waited too long, from edge 'SC':0, time 845.96.
+Warning: Vehicle '105' teleports beyond arrival edge 'WC', time 846.68.
+Warning: Vehicle '109' ends teleporting on edge 'CN':0, time 852.64.
+Warning: Teleporting vehicle '110'; waited too long, from edge 'gneE7':0, time 906.14.
+Warning: Vehicle '110' ends teleporting on edge '-gneE7':0, time 908.37.
+Warning: Teleporting vehicle '67'; waited too long, from edge 'gneE1':0, time 922.55.
+Warning: Vehicle '67' teleports beyond arrival edge 'NC', time 922.77.
+Warning: Teleporting vehicle '49'; waited too long, from edge 'CE':0, time 923.81.
+Warning: Vehicle '49' ends teleporting on edge '-gneE2':0, time 923.95.
+Warning: Teleporting vehicle '176'; waited too long, from edge 'gneE3':0, time 952.90.
+Warning: Teleporting vehicle '78'; waited too long, from edge 'EC':0, time 953.05.
+Warning: Vehicle '78' ends teleporting on edge 'gneE0':0, time 953.19.
+Warning: Teleporting vehicle '124'; waited too long, from edge 'CW':0, time 953.20.
+Warning: Vehicle '124' ends teleporting on edge '-gneE6':0, time 953.63.
+Warning: Vehicle '176' ends teleporting on edge 'CE':0, time 954.70.
+Warning: Teleporting vehicle '111'; waited too long, from edge 'CS':0, time 1029.81.
+Warning: Vehicle '111' ends teleporting on edge '-gneE4':0, time 1030.10.
+Warning: Teleporting vehicle '100'; waited too long, from edge 'gneE1':0, time 1103.39.
+Warning: Vehicle '100' ends teleporting on edge '-gneE5':0, time 1103.82.
+Warning: Teleporting vehicle '151'; waited too long, from edge 'NC':0, time 1105.60.
+Warning: Vehicle '151' ends teleporting on edge '-gneE5':0, time 1105.82.
+Warning: Teleporting vehicle '286'; waited too long, from edge 'gneE3':0, time 1135.74.
+Warning: Vehicle '286' teleports beyond arrival edge 'SC', time 1137.97.
+Warning: Teleporting vehicle '114'; waited too long, from edge 'CE':0, time 1170.80.
+Warning: Vehicle '114' ends teleporting on edge '-gneE2':0, time 1170.95.
+Warning: Teleporting vehicle '226'; waited too long, from edge 'CS':0, time 1214.65.
+Warning: Vehicle '226' ends teleporting on edge '-gneE4':0, time 1214.94.
+Warning: Teleporting vehicle '174'; waited too long, from edge 'gneE5':0, time 1441.44.
+Warning: Teleporting vehicle '225'; waited too long, from edge 'CN':0, time 1441.51.
+Warning: Vehicle '225' ends teleporting on edge '-gneE0':0, time 1441.72.
+Warning: Teleporting vehicle '208'; waited too long, from edge 'CS':0, time 1442.79.
+Warning: Vehicle '208' ends teleporting on edge '-gneE4':0, time 1443.08.
+Warning: Vehicle '174' teleports beyond arrival edge 'CS', time 1448.92.

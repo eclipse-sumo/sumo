@@ -1,15 +1,15 @@
 <types xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/types_file.xsd">
-    <type id="driving"       priority="1"  speed="13.89" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="stop"          priority="1"  speed="13.89" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="restricted"    priority="0"  speed="13.89" width="3.65" disallow="all"/> <!-- ambiguous semantics. Could mean bus-lane as well as fully-area restricted (but surfaced) lane area (examples from http://www.opendrive.org -->
-    <type id="parking"       priority="1"  speed="1.39"  width="2.50" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="entry"         priority="1"  speed="22.22" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="exit"          priority="1"  speed="22.22" width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/>
-    <type id="offRamp"       priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
-    <type id="onRamp"        priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
+    <type id="driving"       priority="1"  speed="13.89" width="3.65" disallow="pedestrian rail rail_urban rail_electric rail_fast tram ship"/>
+    <type id="stop"          priority="1"  speed="13.89" width="3.65" disallow="pedestrian rail rail_urban rail_electric rail_fast tram ship"/>
+    <type id="restricted"    priority="0"  speed="13.89" width="3.65" disallow="all"/> <!-- ambiguous semantics. Could mean bus-lane as well as fully-area restricted (but surfaced) lane area (as seen in official examples) -->
+    <type id="parking"       priority="1"  speed="1.39"  width="2.50" disallow="pedestrian rail rail_urban rail_electric rail_fast tram ship"/>
+    <type id="entry"         priority="1"  speed="22.22" width="3.65" disallow="pedestrian rail rail_urban rail_electric rail_fast tram ship"/>
+    <type id="exit"          priority="1"  speed="22.22" width="3.65" disallow="pedestrian rail rail_urban rail_electric rail_fast tram ship"/>
+    <type id="offRamp"       priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric rail_fast tram ship"/>
+    <type id="onRamp"        priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric rail_fast tram ship"/>
     <type id="roadWorks"     priority="0"  speed="1.39"  width="3.65" allow="authority"/>
     <type id="tram"          priority="2"  speed="13.89" width="3.65" allow="tram"/>
-    <type id="rail"          priority="3"  speed="33.33" width="3.65" allow="rail rail_urban rail_electric"/>
+    <type id="rail"          priority="3"  speed="33.33" width="3.65" allow="rail rail_urban rail_electric rail_fast"/>
 
     <!-- should be enabled via additional typemaps -->
     <!--
@@ -18,7 +18,7 @@
     -->
 
     <!-- discarded -->
-    <type id="none"          priority="0"  speed="1.39" width="1.0"   disallow="all"          discard="true"/> <!-- non-lane spacing. gives ugly junction shapes when present on the outside of edges (as seen in official examples) -->
+    <type id="none"          priority="0"  speed="1.39" width="1.0"   disallow="all"          discard="true"/>
     <type id="shoulder"      priority="0"  speed="1.39" width="1.0"   disallow="all"          discard="true"/>
     <type id="border"        priority="0"  speed="1.39" width="0.1"   disallow="all"          discard="true"/>
     <type id="median"        priority="0"  speed="1.39" width="0.1"   disallow="all"          discard="true"/>
@@ -27,9 +27,9 @@
     <type id="special3"      priority="1"  speed="22.22" width="3.65" allow="custom1 custom2" discard="true"/>
 
     <!-- deprecated -->
-    <type id="mwyEntry"      priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
-    <type id="mwyExit"       priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric tram ship"/>
+    <type id="mwyEntry"      priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric rail_fast tram ship"/>
+    <type id="mwyExit"       priority="1"  speed="22.22" width="3.65" disallow="pedestrian bicycle moped rail rail_urban rail_electric rail_fast tram ship"/>
 
     <!-- not fully implemented -->
-    <type id="bidirectional" priority="1"  speed="1.39"  width="3.65" disallow="pedestrian rail rail_urban rail_electric tram ship"/> 
+    <type id="bidirectional" priority="1"  speed="1.39"  width="3.65" disallow="pedestrian rail rail_urban rail_electric rail_fast tram ship"/> 
 </types>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sun Mar  8 22:11:11 2020 by Eclipse SUMO Version v1_5_0+0563-8ef6fee005
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net3.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="dummy.xml"/>
+        <statistic-output value="statistic.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<statistics xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/statistic_file.xsd">
+    <vehicles loaded="0" inserted="0" running="0" waiting="0"/>
+    <teleports total="0" jam="0" yield="0" wrongLane="0"/>
+    <safety collisions="0" emergencyStops="0"/>
+    <persons loaded="30" running="0" jammed="0"/>
+    <vehicleTripStatistics routeLength="0.00" speed="0.00" duration="0.00" waitingTime="0.00" timeLoss="0.00" departDelay="0.00" departDelayWaiting="-1"/>
+    <pedestrianStatistics number="30" routeLength="97.95" duration="98.23" timeLoss="27.71"/>
+    <rideStatistics number="0"/>
+    <transportStatistics number="0"/>
+</statistics>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 27 09:36:50 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <load-state value="state.gz"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" type="DEFAULT_VEHTYPE" depart="0.00" departPos="0.00" departSpeed="10.00" speedFactor="1.06" arrival="160.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    </vehicle>
+
+    <vehicle id="1" type="DEFAULT_VEHTYPE" depart="5.00" departPos="0.00" departSpeed="10.00" speedFactor="1.06" arrival="165.00">
+        <route edges="4/1to3/1 3/1to2/1 2/1to1/1 1/1to0/1"/>
+    </vehicle>
+
+</routes>

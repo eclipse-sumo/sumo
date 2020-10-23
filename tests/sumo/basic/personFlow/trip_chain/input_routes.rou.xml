@@ -1,0 +1,22 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vType id="DEFAULT_PEDTYPE" speedDev="0"/>
+    <personFlow id="person" begin="0" end="1" number="4" departPos="80">
+        <walk from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
+        <ride from="1/3to0/3" to="0/4to1/4" lines="train0"/>
+        <walk from="0/4to1/4" to="1/4to2/4" arrivalPos="45"/>
+        <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="singing"/>
+        <ride from="1/4to2/4" to="3/4to4/4" lines="car0"/>
+    </personFlow>
+
+    <vehicle id="train0" depart="50">
+        <route edges="1/4to1/3 1/3to0/3 0/3to0/4 0/4to1/4 1/4to1/3"/>
+        <stop busStop="busStop0" until="120" duration="10"/>
+        <stop busStop="busStop1" until="180" duration="10"/>
+    </vehicle>
+
+    <vehicle id="car0" depart="triggered" departPos="50">
+        <route edges="1/4to2/4 2/4to3/4 3/4to4/4"/>
+    </vehicle>
+
+</routes>

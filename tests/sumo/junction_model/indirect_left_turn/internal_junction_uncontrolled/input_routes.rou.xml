@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 02 Dec 2019 03:19:18 PM CET by Eclipse SUMO netedit Version v1_3_1+1224-00d3f7e
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="c2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="c2.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="/scr2/debug/indirectBikeTurn/input_routes.rou.xml"/>
+    </netedit>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <!--
+    <flow id="flow_0" begin="0.00" from="SC" to="CN" end="200" period="4"/>
+    <flow id="flow_1" begin="0.00" from="NC" to="CS" end="200" period="4"/>
+    -->
+    <flow id="flow_2" type="DEFAULT_BIKETYPE" begin="0.00" from="SC" to="CW" end="200" period="8"/>
+</routes>

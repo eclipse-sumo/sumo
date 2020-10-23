@@ -1,2 +1,1 @@
-Warning: Discarding unusable type 'railway.platform' (first occurence for edge '48120356#0').
-Warning: Not joining junctions 201673130,370118526,392086464,436241843,436241848,449770,449778,449797,449798,456826693,456826694,613378773 (6 incoming edges)
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '48120356').

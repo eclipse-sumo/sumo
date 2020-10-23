@@ -1,0 +1,7 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <route id="r1" edges="onRamp merge end"/>
+    <calibrator id="c1" edge="merge" pos="20" output="detector.xml">
+        <flow begin="0"    end="36" route="r1" speed="10.0" vehsPerHour="900" departLane="2"/>
+    </calibrator>
+
+</additional>

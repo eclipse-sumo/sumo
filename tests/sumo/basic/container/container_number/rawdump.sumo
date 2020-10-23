@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 05/20/16 14:19:58 by SUMO Version dev-SVN-r20765
+<!-- generated on Thu Mar 12 09:42:26 2020 by Eclipse SUMO Version v1_5_0+0671-ab1576c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -15,6 +15,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="rawdump.xml"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
@@ -22,6 +23,10 @@ SPDX-License-Identifier: EPL-2.0
     <time>
         <end value="240"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <verbose value="true"/>
@@ -184,9 +189,10 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="16.00">
         <edge id="1/3to0/3">
             <lane id="1/3to0/3_0">
-                <vehicle id="vehicle1" pos="60.00" speed="0.00"/>
+                <vehicle id="vehicle1" pos="60.00" speed="0.00" containerNumber="1">
+                    <container id="container0" pos="60.00" angle="270.00" stage="transport"/>
+                </vehicle>
             </lane>
-            <container id="container0" pos="50.00" angle="180.00" stage="waiting for vehicle1"/>
         </edge>
     </timestep>
     <timestep time="17.00">
@@ -993,22 +999,13 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="106.00">
         <edge id="1/3to0/3">
             <lane id="1/3to0/3_0">
-                <vehicle id="vehicle1" pos="60.00" speed="0.00" containerNumber="1">
-                    <container id="container0" pos="60.00" angle="270.00" stage="transport"/>
-                </vehicle>
-            </lane>
-        </edge>
-    </timestep>
-    <timestep time="107.00">
-        <edge id="1/3to0/3">
-            <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="62.60" speed="2.60" containerNumber="1">
                     <container id="container0" pos="62.60" angle="270.00" stage="transport"/>
                 </vehicle>
             </lane>
         </edge>
     </timestep>
-    <timestep time="108.00">
+    <timestep time="107.00">
         <edge id="1/3to0/3">
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="67.80" speed="5.20" containerNumber="1">
@@ -1017,7 +1014,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="109.00">
+    <timestep time="108.00">
         <edge id="1/3to0/3">
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="75.60" speed="7.80" containerNumber="1">
@@ -1026,7 +1023,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="110.00">
+    <timestep time="109.00">
         <edge id="1/3to0/3">
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="85.03" speed="9.43" containerNumber="1">
@@ -1035,7 +1032,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="111.00">
+    <timestep time="110.00">
         <edge id="1/3to0/3">
             <lane id="1/3to0/3_0">
                 <vehicle id="vehicle1" pos="89.97" speed="4.93" containerNumber="1">
@@ -1044,7 +1041,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="112.00">
+    <timestep time="111.00">
         <edge id="0/3to0/4">
             <lane id="0/3to0/4_0">
                 <vehicle id="vehicle1" pos="2.00" speed="7.53" containerNumber="1">
@@ -1053,7 +1050,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="113.00">
+    <timestep time="112.00">
         <edge id="0/3to0/4">
             <lane id="0/3to0/4_0">
                 <vehicle id="vehicle1" pos="12.13" speed="10.13" containerNumber="1">
@@ -1062,7 +1059,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="114.00">
+    <timestep time="113.00">
         <edge id="0/3to0/4">
             <lane id="0/3to0/4_0">
                 <vehicle id="vehicle1" pos="24.87" speed="12.73" containerNumber="1">
@@ -1071,7 +1068,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="115.00">
+    <timestep time="114.00">
         <edge id="0/3to0/4">
             <lane id="0/3to0/4_0">
                 <vehicle id="vehicle1" pos="38.77" speed="13.90" containerNumber="1">
@@ -1080,7 +1077,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="116.00">
+    <timestep time="115.00">
         <edge id="0/3to0/4">
             <lane id="0/3to0/4_0">
                 <vehicle id="vehicle1" pos="52.67" speed="13.90" containerNumber="1">
@@ -1089,7 +1086,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="117.00">
+    <timestep time="116.00">
         <edge id="0/3to0/4">
             <lane id="0/3to0/4_0">
                 <vehicle id="vehicle1" pos="66.57" speed="13.90" containerNumber="1">
@@ -1098,7 +1095,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="118.00">
+    <timestep time="117.00">
         <edge id="0/3to0/4">
             <lane id="0/3to0/4_0">
                 <vehicle id="vehicle1" pos="80.47" speed="13.90" containerNumber="1">
@@ -1107,7 +1104,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="119.00">
+    <timestep time="118.00">
         <edge id=":0/4_2">
             <lane id=":0/4_2_0">
                 <vehicle id="vehicle1" pos="2.37" speed="13.90" containerNumber="1">
@@ -1116,7 +1113,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="120.00">
+    <timestep time="119.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
                 <vehicle id="vehicle1" pos="13.69" speed="13.90" containerNumber="1">
@@ -1125,7 +1122,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="121.00">
+    <timestep time="120.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
                 <vehicle id="vehicle1" pos="27.59" speed="13.90" containerNumber="1">
@@ -1134,7 +1131,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="122.00">
+    <timestep time="121.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
                 <vehicle id="vehicle1" pos="41.49" speed="13.90" containerNumber="1">
@@ -1143,7 +1140,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="123.00">
+    <timestep time="122.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
                 <vehicle id="vehicle1" pos="52.16" speed="10.67" containerNumber="1">
@@ -1152,7 +1149,7 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="124.00">
+    <timestep time="123.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
                 <vehicle id="vehicle1" pos="58.33" speed="6.17" containerNumber="1">
@@ -1161,12 +1158,19 @@ SPDX-License-Identifier: EPL-2.0
             </lane>
         </edge>
     </timestep>
-    <timestep time="125.00">
+    <timestep time="124.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
                 <vehicle id="vehicle1" pos="60.00" speed="1.67" containerNumber="1">
                     <container id="container0" pos="60.00" angle="90.00" stage="transport"/>
                 </vehicle>
+            </lane>
+        </edge>
+    </timestep>
+    <timestep time="125.00">
+        <edge id="0/4to1/4">
+            <lane id="0/4to1/4_0">
+                <vehicle id="vehicle1" pos="60.00" speed="0.00"/>
             </lane>
         </edge>
     </timestep>
@@ -1306,94 +1310,82 @@ SPDX-License-Identifier: EPL-2.0
     <timestep time="145.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
-                <vehicle id="vehicle1" pos="60.00" speed="0.00"/>
+                <vehicle id="vehicle1" pos="62.60" speed="2.60"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="146.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
-                <vehicle id="vehicle1" pos="60.00" speed="0.00"/>
+                <vehicle id="vehicle1" pos="67.80" speed="5.20"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="147.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
-                <vehicle id="vehicle1" pos="62.60" speed="2.60"/>
+                <vehicle id="vehicle1" pos="75.60" speed="7.80"/>
             </lane>
         </edge>
     </timestep>
     <timestep time="148.00">
         <edge id="0/4to1/4">
             <lane id="0/4to1/4_0">
-                <vehicle id="vehicle1" pos="67.80" speed="5.20"/>
-            </lane>
-        </edge>
-    </timestep>
-    <timestep time="149.00">
-        <edge id="0/4to1/4">
-            <lane id="0/4to1/4_0">
-                <vehicle id="vehicle1" pos="75.60" speed="7.80"/>
-            </lane>
-        </edge>
-    </timestep>
-    <timestep time="150.00">
-        <edge id="0/4to1/4">
-            <lane id="0/4to1/4_0">
                 <vehicle id="vehicle1" pos="86.00" speed="10.40"/>
             </lane>
         </edge>
     </timestep>
-    <timestep time="151.00">
+    <timestep time="149.00">
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
                 <vehicle id="vehicle1" pos="2.00" speed="13.00"/>
             </lane>
         </edge>
     </timestep>
-    <timestep time="152.00">
+    <timestep time="150.00">
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
                 <vehicle id="vehicle1" pos="15.90" speed="13.90"/>
             </lane>
         </edge>
     </timestep>
-    <timestep time="153.00">
+    <timestep time="151.00">
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
                 <vehicle id="vehicle1" pos="29.80" speed="13.90"/>
             </lane>
         </edge>
     </timestep>
-    <timestep time="154.00">
+    <timestep time="152.00">
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
                 <vehicle id="vehicle1" pos="43.70" speed="13.90"/>
             </lane>
         </edge>
     </timestep>
-    <timestep time="155.00">
+    <timestep time="153.00">
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
                 <vehicle id="vehicle1" pos="57.60" speed="13.90"/>
             </lane>
         </edge>
     </timestep>
-    <timestep time="156.00">
+    <timestep time="154.00">
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
                 <vehicle id="vehicle1" pos="71.50" speed="13.90"/>
             </lane>
         </edge>
     </timestep>
-    <timestep time="157.00">
+    <timestep time="155.00">
         <edge id="1/4to1/3">
             <lane id="1/4to1/3_0">
                 <vehicle id="vehicle1" pos="85.40" speed="13.90"/>
             </lane>
         </edge>
     </timestep>
+    <timestep time="156.00"/>
+    <timestep time="157.00"/>
     <timestep time="158.00"/>
     <timestep time="159.00"/>
     <timestep time="160.00"/>

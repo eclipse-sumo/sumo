@@ -34,3 +34,8 @@ implausibleRoutes
 
 # test generating polygons from route input
 route2poly
+analyzePersonPlans
+addStops2Routes
+
+# add delay to stops (increase duration)
+addStopDelay

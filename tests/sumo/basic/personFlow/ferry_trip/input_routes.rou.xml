@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 26 May 2020 11:40:26 AM CEST by Eclipse SUMO netedit Version v1_6_0+0374-18f3eb07c8
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net2.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net2.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="/home/kobo/dlr/debug/ferry/input_routes.rou.xml"/>
+    </netedit>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="ferry" vClass="ship" personCapacity="50"/>
+    <route edges="gneE0 gneE1 gneE2 gneE3 gneE4 gneE5" color="yellow" id="r0" repeat="3" cycleTime="300">
+        <stop busStop="busStop_gneE0_1_1" duration="60.00" until="100"/>
+        <stop busStop="busStop_gneE3_0_0" duration="60.00" until="250"/>
+    </route>
+    <vehicle id="ferry" type="ferry" depart="0.00" route="r0" line="F0"/>
+
+    <personFlow id="EW" begin="0" end="80" period="1">
+        <personTrip from="gneE0" to="gneE6" modes="public"/>
+    </personFlow>
+    <personFlow id="WE" begin="0" end="80" period="1">
+        <personTrip from="gneE6" to="gneE0" modes="public"/>
+    </personFlow>
+</routes>

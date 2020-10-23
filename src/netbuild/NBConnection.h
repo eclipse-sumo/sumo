@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBConnection.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Sascha Krieg
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The class holds a description of a connection between two edges
 /****************************************************************************/
-#ifndef NBConnection_h
-#define NBConnection_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -47,7 +44,7 @@ public:
     NBConnection(NBEdge* from, NBEdge* to);
 
     /// @brief Constructor
-    NBConnection(NBEdge* from, int fromLane, NBEdge* to, int toLane, int tlIndex = InvalidTlIndex);
+    NBConnection(NBEdge* from, int fromLane, NBEdge* to, int toLane, int tlIndex = InvalidTlIndex, int tlIndex2 = InvalidTlIndex);
 
     /// @brief Constructor
     NBConnection(const std::string& fromID, NBEdge* from,
@@ -94,10 +91,16 @@ public:
     int getTLIndex() const {
         return myTlIndex;
     }
+    int getTLIndex2() const {
+        return myTlIndex2;
+    }
 
     // @brief reset the tlIndex
     void setTLIndex(int tlIndex) {
         myTlIndex = tlIndex;
+    }
+    void setTLIndex2(int tlIndex) {
+        myTlIndex2 = tlIndex;
     }
 
     /// @brief returns the id of the connection (!!! not really pretty)
@@ -139,10 +142,6 @@ private:
 
     // @brief the index within the controlling tls if this connection is tls-controlled
     int myTlIndex;
+    /// @brief The index of the internal junction within the controlling traffic light (optional)
+    int myTlIndex2;
 };
-
-
-#endif
-
-/****************************************************************************/
-

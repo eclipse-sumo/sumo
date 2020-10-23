@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tlLogics version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="WC" fromLane="0" to="CE" toLane="0" linkIndex="3" tl="C"/>
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <tlLogic id="C" programID="0" >
+        <phase duration="42" state="GrG"/>
+        <phase duration="3" state="yry"/>
+        <phase duration="42" state="rGr"/>
+        <phase duration="3" state="ryr"/>
+    </tlLogic>
+</tlLogics>

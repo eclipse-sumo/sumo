@@ -1,24 +1,22 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBPTStop.cpp
 /// @author  Gregor Laemmel
 /// @date    Tue, 20 Mar 2017
-/// @version $Id$
 ///
 // The representation of a single pt stop
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/iodevices/OutputDevice.h>
@@ -32,15 +30,17 @@
 // method definitions
 // ===========================================================================
 NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, std::string origEdgeId, double length,
-                   std::string name, SVCPermissions svcPermissions) :
+                   std::string name, SVCPermissions svcPermissions, double parkingLength) :
     myPTStopId(ptStopId),
     myPosition(position),
     myEdgeId(edgeId),
     myOrigEdgeId(origEdgeId),
     myPTStopLength(length),
     myName(name),
+    myParkingLength(parkingLength),
     myPermissions(svcPermissions),
     myBidiStop(nullptr),
+    myIsLoose(origEdgeId == ""),
     myIsMultipleStopPositions(false) {
 }
 
@@ -72,9 +72,13 @@ NBPTStop::getPosition() const {
     return myPosition;
 }
 
+void
+NBPTStop::mirrorX() {
+    myPosition.mul(1, -1);
+}
 
 void
-NBPTStop::computExtent(double center, double edgeLength) {
+NBPTStop::computeExtent(double center, double edgeLength) {
     myStartPos = MAX2(0.0, center - myPTStopLength / 2.);
     myEndPos = MIN2(center + myPTStopLength / 2., edgeLength);
 }
@@ -102,6 +106,9 @@ NBPTStop::write(OutputDevice& device) {
     device.writeAttr(SUMO_ATTR_FRIENDLY_POS, "true");
     if (myLines.size() > 0) {
         device.writeAttr(SUMO_ATTR_LINES, toString(myLines));
+    }
+    if (myParkingLength > 0) {
+        device.writeAttr(SUMO_ATTR_PARKING_LENGTH, myParkingLength);
     }
     if (!myAccesses.empty()) {
         std::sort(myAccesses.begin(), myAccesses.end());
@@ -164,9 +171,9 @@ NBPTStop::getLength() const {
 
 
 bool
-NBPTStop::setEdgeId(std::string edgeId, NBEdgeCont& ec) {
+NBPTStop::setEdgeId(std::string edgeId, const NBEdgeCont& ec) {
     myEdgeId = edgeId;
-    return findLaneAndComputeBusStopExtend(ec);
+    return findLaneAndComputeBusStopExtent(ec);
 }
 
 
@@ -193,14 +200,19 @@ NBPTStop::setMyPTStopLength(double myPTStopLength) {
     NBPTStop::myPTStopLength = myPTStopLength;
 }
 
+bool
+NBPTStop::findLaneAndComputeBusStopExtent(const NBEdgeCont& ec) {
+    NBEdge* edge = ec.getByID(myEdgeId);
+    return findLaneAndComputeBusStopExtent(edge);
+}
 
 bool
-NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
-    NBEdge* edge = ec.getByID(myEdgeId);
+NBPTStop::findLaneAndComputeBusStopExtent(const NBEdge* edge) {
     if (edge != nullptr) {
+        myEdgeId = edge->getID();
         int laneNr = -1;
         for (const auto& it : edge->getLanes()) {
-            if ((it.permissions & getPermissions()) > 0) {
+            if ((it.permissions & getPermissions()) == getPermissions()) {
                 ++laneNr;
                 break;
             }
@@ -209,12 +221,13 @@ NBPTStop::findLaneAndComputeBusStopExtend(NBEdgeCont& ec) {
         if (laneNr != -1) {
             myLaneId = edge->getLaneID(laneNr);
             const PositionVector& shape = edge->getLaneShape(laneNr);
-            double offset = shape.nearest_offset_to_point2D(getPosition(), true);
-            computExtent(offset, shape.length());
+            double offset = shape.nearest_offset_to_point2D(getPosition(), false);
+            offset = offset * edge->getLoadedLength() / edge->getLength();
+            computeExtent(offset, edge->getLoadedLength());
             return true;
         }
     }
-    return false;
+    return myEdgeId == ""; // loose stop. Try later when processing lines
 }
 
 

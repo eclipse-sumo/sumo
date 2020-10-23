@@ -1,0 +1,7 @@
+
+[Reported by micha at 09Jun18:15:02]
+search_string:UnicodeEncodeError
+search_file:errors
+ignore_other_errors:1
+brief_description:see #5588
+full_description:python2 csv reader cannot handle utf8

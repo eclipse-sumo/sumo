@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUICompleteSchemeStorage.cpp
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,9 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    2006-01-09
-/// @version $Id$
 ///
 // Storage for available visualization settings
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include "GUICompleteSchemeStorage.h"
@@ -122,6 +120,8 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         vs.laneShowBorders = false;
         vs.showLinkDecals = false;
         vs.showRails = false;
+        vs.showRails = false;
+        vs.showSublanes = false;
         gSchemeStorage.add(vs);
     }
     {
@@ -134,6 +134,31 @@ GUICompleteSchemeStorage::init(FXApp* app, bool netedit) {
         vs.vehicleSize.minSize = 0;
         vs.personQuality = 2;
         vs.containerQuality = 2;
+        vs.showSublanes = false;
+        gSchemeStorage.add(vs);
+    }
+    {
+        GUIVisualizationSettings vs(netedit);
+        vs.name = "rail";
+        vs.vehicleQuality = 2;
+        vs.showLaneDirection = true;
+        vs.spreadSuperposed = true;
+        vs.junctionSize.constantSize = true;
+        vs.junctionColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_TYPE);
+        gSchemeStorage.add(vs);
+    }
+
+    if (!netedit) {
+        GUIVisualizationSettings vs(netedit);
+        vs.name = "selection";
+        vs.vehicleColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.edgeColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.laneColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.junctionColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.personColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.containerColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.poiColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
+        vs.polyColorer.setSchemeByName(GUIVisualizationSettings::SCHEME_NAME_SELECTION);
         gSchemeStorage.add(vs);
     }
     myNumInitialSettings = (int) mySortedSchemeNames.size();
@@ -198,8 +223,9 @@ GUICompleteSchemeStorage::writeSettings(FXApp* app) {
 
 
 void
-GUICompleteSchemeStorage::saveViewport(const double x, const double y, const double z) {
+GUICompleteSchemeStorage::saveViewport(const double x, const double y, const double z, const double rot) {
     myLookFrom.set(x, y, z);
+    myRotation = rot;
 }
 
 
@@ -207,7 +233,7 @@ void
 GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {
     if (myLookFrom.z() > 0) {
         // look straight down
-        view->setViewportFromToRot(myLookFrom, Position(myLookFrom.x(), myLookFrom.y(), 0), 0);
+        view->setViewportFromToRot(myLookFrom, Position(myLookFrom.x(), myLookFrom.y(), 0), myRotation);
     } else {
         view->recenterView();
     }
@@ -215,4 +241,3 @@ GUICompleteSchemeStorage::setViewport(GUISUMOAbstractView* view) {
 
 
 /****************************************************************************/
-

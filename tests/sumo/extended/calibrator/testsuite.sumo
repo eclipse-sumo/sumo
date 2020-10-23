@@ -32,11 +32,23 @@ high_flow
 # Calibrators should prevent invalid downstream jams from affecting upstream edges
 swallow_downstream_jam
 
+# disable detection and compensation of unexpected downstream jamming
+swallow_downstream_jam_disabled
+
 # test calibrator without flow value (speed has to be given)
 speed_only
 
 # check that speed-only calibrators also swallow invalid downstream jams
 speed_only_swallow_downstream_jam
+
+# test calibrator flow with only a type value given
+calibrate_type
+
+# map from one type distribution to another.
+calibrate_type_distribution
+
+# calibrate type and speed at the same time
+type_and_speed
 
 # tests whether calibration works correctly if there are non-consecutive calibration intervals
 inactive_in_between
@@ -56,4 +68,10 @@ remove_from_all_queues
 
 # calibrate 2 lanes of an edge with 2 separate calibrators
 2lanes_calibrate2
+
+# only calibrate a specific vehicle type
+vTypes
+
+# test insertion on a particular lane (see #5794)
+departLane_given
 errors

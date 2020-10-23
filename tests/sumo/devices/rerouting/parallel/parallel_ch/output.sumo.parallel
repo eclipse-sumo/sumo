@@ -1,0 +1,37 @@
+Loading net-file from 'three_split.net.xml' ... done (2ms).
+Loading additional-files from 'input_trips.trips.xml' ... done (1ms).
+Loading done.
+Simulation version v1_3_1+0982-e3d6475613 started with time: 0.00
+Building Contraction Hierarchy for vClass='passenger' and time=0.00 (10 edges)
+ ... Building Contraction Hierarchy for vClass='passenger' and time=0.00 (10 edges)
+ ... 
+Created 4 shortcuts.
+Building Contraction Hierarchy for vClass='passenger' and time=0.00 (10 edges)
+ ... 
+Created 4 shortcuts.
+Recomputed priority 16 times.
+Recomputed priority 16 times.
+done (0ms).
+done.
+done (0ms).
+done.
+Created 4 shortcuts.
+Recomputed priority 16 times.
+done (0ms).
+done.
+Building Contraction Hierarchy for vClass='passenger' and time=0.00 (10 edges)
+ ... 
+Created 4 shortcuts.
+Recomputed priority 16 times.
+done (0ms).
+done.
+Simulation ended at time: 119.00
+Reason: All vehicles have left the simulation.
+CHRouter answered 4 queries and explored 7.00 edges on average.
+CHRouter spent 0ms answering queries (0.00ms on average).
+CHRouter answered 2 queries and explored 7.00 edges on average.
+CHRouter spent 0ms answering queries (0.00ms on average).
+CHRouter answered 2 queries and explored 7.00 edges on average.
+CHRouter spent 0ms answering queries (0.00ms on average).
+CHRouter answered 2 queries and explored 7.00 edges on average.
+CHRouter spent 0ms answering queries (0.00ms on average).

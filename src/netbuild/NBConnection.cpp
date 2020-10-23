@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBConnection.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The class holds a description of a connection between two edges
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <sstream>
@@ -44,7 +42,8 @@ NBConnection::NBConnection(NBEdge* from, NBEdge* to) :
     myFrom(from), myTo(to),
     myFromID(from->getID()), myToID(to->getID()),
     myFromLane(-1), myToLane(-1),
-    myTlIndex(InvalidTlIndex) {
+    myTlIndex(InvalidTlIndex),
+    myTlIndex2(InvalidTlIndex) {
 }
 
 
@@ -53,20 +52,22 @@ NBConnection::NBConnection(const std::string& fromID, NBEdge* from,
     myFrom(from), myTo(to),
     myFromID(fromID), myToID(toID),
     myFromLane(-1), myToLane(-1),
-    myTlIndex(InvalidTlIndex) {
+    myTlIndex(InvalidTlIndex),
+    myTlIndex2(InvalidTlIndex) {
 }
 
 
 NBConnection::NBConnection(NBEdge* from, int fromLane,
-                           NBEdge* to, int toLane, int tlIndex) :
+                           NBEdge* to, int toLane, int tlIndex, int tlIndex2) :
     myFrom(from), myTo(to),
     myFromLane(fromLane), myToLane(toLane),
-    myTlIndex(tlIndex) {
+    myTlIndex(tlIndex),
+    myTlIndex2(tlIndex2) {
     /* @todo what should we assert here?
     assert(myFromLane<0||from->getNumLanes()>(int) myFromLane);
     assert(myToLane<0||to->getNumLanes()>(int) myToLane);
     */
-    myFromID = from->getID();
+    myFromID = from != nullptr ? from->getID() : "";
     myToID = to != nullptr ? to->getID() : "";
 }
 
@@ -78,7 +79,8 @@ NBConnection::NBConnection(const NBConnection& c) :
     myFrom(c.myFrom), myTo(c.myTo),
     myFromID(c.myFromID), myToID(c.myToID),
     myFromLane(c.myFromLane), myToLane(c.myToLane),
-    myTlIndex(c.myTlIndex) {
+    myTlIndex(c.myTlIndex),
+    myTlIndex2(c.myTlIndex2) {
 }
 
 
@@ -182,7 +184,8 @@ NBConnection::operator==(const NBConnection& c) const {
     return (myFrom    == c.myFrom     && myTo    == c.myTo &&
             myFromID  == c.myFromID   && myToID  == c.myToID &&
             myFromLane == c.myFromLane && myToLane == c.myToLane &&
-            myTlIndex == c.myTlIndex);
+            myTlIndex == c.myTlIndex &&
+            myTlIndex2 == c.myTlIndex2);
 }
 
 
@@ -261,6 +264,4 @@ operator<<(std::ostream& os, const NBConnection& c) {
 }
 
 
-
 /****************************************************************************/
-

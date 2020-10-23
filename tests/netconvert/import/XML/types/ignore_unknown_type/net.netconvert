@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:39 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:46 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,13 +30,14 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -89,14 +90,14 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="0" type="static" programID="0" offset="0">
-        <phase duration="33" state="GGgrrrGggrrr"/>
-        <phase duration="3"  state="yygrrryggrrr"/>
-        <phase duration="6"  state="rrGrrrrGGrrr"/>
-        <phase duration="3"  state="rryrrrryyrrr"/>
-        <phase duration="33" state="rrrGggrrrGGg"/>
-        <phase duration="3"  state="rrryggrrryyg"/>
-        <phase duration="6"  state="rrrrGGrrrrrG"/>
-        <phase duration="3"  state="rrrryyrrrrry"/>
+        <phase duration="24" state="GGGrrrrrrrrr"/>
+        <phase duration="3"  state="yyyrrrrrrrrr"/>
+        <phase duration="24" state="rrrGggrrrGGg"/>
+        <phase duration="3"  state="rrryggrrryyy"/>
+        <phase duration="6"  state="rrrGGGrrrrrr"/>
+        <phase duration="3"  state="rrryyyrrrrrr"/>
+        <phase duration="24" state="rrrrrrGGgGrr"/>
+        <phase duration="3"  state="rrrrrryyyyrr"/>
     </tlLogic>
 
     <junction id="0" type="traffic_light" x="500.00" y="500.00" incLanes="4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0" intLanes="" shape="490.40,513.60 500.00,513.60 501.51,511.38 503.40,510.60 506.04,510.04 509.44,509.71 513.60,509.60 513.60,496.80 511.38,496.36 510.60,495.80 510.04,495.02 509.71,494.02 509.60,492.80 496.80,492.80 495.64,495.02 494.20,495.80 492.18,496.36 489.58,496.69 486.40,496.80 486.40,503.20 488.62,504.36 489.40,505.80 489.96,507.82 490.29,510.42">
@@ -148,21 +149,21 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1si" to="2o" fromLane="0" toLane="0" tl="0" linkIndex="10" dir="s" state="o"/>
     <connection from="1si" to="1o" fromLane="0" toLane="0" tl="0" linkIndex="11" dir="t" state="o"/>
     <connection from="2fi" to="2si" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="2fi" to="2si" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="2fi" to="2si" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="2fi" to="2si" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from="2si" to="1o" fromLane="0" toLane="0" tl="0" linkIndex="3" dir="s" state="o"/>
     <connection from="2si" to="3o" fromLane="1" toLane="0" tl="0" linkIndex="4" dir="l" state="o"/>
     <connection from="2si" to="2o" fromLane="2" toLane="0" tl="0" linkIndex="5" dir="t" state="o"/>
     <connection from="3fi" to="3si" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="3fi" to="3si" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="3fi" to="3si" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="3fi" to="3si" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="3o" to="3fi" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from="3si" to="2o" fromLane="0" toLane="0" tl="0" linkIndex="6" dir="r" state="O"/>
     <connection from="3si" to="1o" fromLane="1" toLane="0" tl="0" linkIndex="7" dir="l" state="o"/>
     <connection from="3si" to="3o" fromLane="2" toLane="0" tl="0" linkIndex="8" dir="t" state="o"/>
     <connection from="4fi" to="4si" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="4fi" to="4si" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="4fi" to="4si" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="4fi" to="4si" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="4si" to="1o" fromLane="0" toLane="0" tl="0" linkIndex="0" dir="r" state="O"/>
     <connection from="4si" to="3o" fromLane="1" toLane="0" tl="0" linkIndex="1" dir="s" state="O"/>

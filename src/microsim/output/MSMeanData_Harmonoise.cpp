@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSMeanData_Harmonoise.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Redirector for mean data output (net->edgecontrol)
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSLane.h>
@@ -75,7 +73,7 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::update() {
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */) {
+MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTrafficObject& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double meanSpeedVehicleOnLane, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */) {
     const double sn = HelpersHarmonoise::computeNoise(veh.getVehicleType().getEmissionClass(),
                       // XXX: recheck, which value to use here for the speed. (Leo) Refs. #2579
                       (double) meanSpeedVehicleOnLane, veh.getAcceleration());
@@ -86,18 +84,19 @@ MSMeanData_Harmonoise::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicl
 
 
 void
-MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
+MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
         const double /*numLanes*/, const double defaultTravelTime, const int /*numVehicles*/) const {
-    dev.writeAttr("noise", (meanNTemp != 0 ? (double)(10. * log10(meanNTemp * TS / STEPS2TIME(period))) : (double) 0.));
+    const double noise = meanNTemp != 0 ? (double)(10. * log10(meanNTemp * TS / STEPS2TIME(period))) : (double) 0.;
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_NOISE, noise);
     if (sampleSeconds > myParent->myMinSamples) {
         double traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
-        dev.writeAttr("traveltime", traveltime);
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, traveltime);
     } else if (defaultTravelTime >= 0.) {
         // @todo default value for noise
-        dev.writeAttr("traveltime", defaultTravelTime);
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, defaultTravelTime);
     }
     dev.closeTag();
 }
@@ -113,9 +112,10 @@ MSMeanData_Harmonoise::MSMeanData_Harmonoise(const std::string& id,
         const bool printDefaults, const bool withInternal,
         const bool trackVehicles,
         const double maxTravelTime, const double minSamples,
-        const std::string& vTypes)
-    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-                 withInternal, trackVehicles, maxTravelTime, minSamples, vTypes) {
+        const std::string& vTypes,
+        const std::string& writeAttributes) :
+    MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
+               withInternal, trackVehicles, 0, maxTravelTime, minSamples, vTypes, writeAttributes) {
 }
 
 
@@ -141,4 +141,3 @@ MSMeanData_Harmonoise::detectorUpdate(const SUMOTime step) {
 
 
 /****************************************************************************/
-

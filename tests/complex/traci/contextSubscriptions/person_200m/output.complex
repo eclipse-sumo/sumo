@@ -1,7 +1,7 @@
-Loading configuration... done.
-Could not connect to TraCI server at localhost:54224 [Errno 111] Connection refused
+Loading configuration ... done.
  Retrying in 1 seconds
+['p0']
 Ok: Unsubscribe successful
-Print ended at step 1002
-uncheck: seen 4232 vehicles via subscription, 4232 in surrounding
+Print ended at step 1003.0
+uncheck: seen 9022 vehicles via subscription, 9022 in surrounding
 Ok: Subscription and computed are same

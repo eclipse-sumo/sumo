@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="driveInArea" name="drive-in" length="6" lane="gneE9_0" startPos="29.59" endPos="39.59">
+        <space width="2.00" length="6.00" x="48.52" y="68.71" angle="140.00"/>
+        <space width="2.00" length="6.00" x="45.58" y="69.31" angle="140.00"/>
+        <space width="2.00" length="6.00" x="52.00" y="68.39" angle="-220.00"/>
+    </parkingArea>
+    <parkingArea id="reverseInArea" name="reverse-in" length="6" lane="gneE4_0" startPos="8.17" endPos="18.17">
+        <space width="2.00" length="6.00" x="73.62" y="75.00" angle="300.00"/>
+        <space width="2.00" length="6.00" x="73.48" y="71.61" angle="300.00"/>
+        <space width="2.00" length="6.00" x="74.41" y="78.88" angle="-60.00"/>
+    </parkingArea>
+    <rerouter id="centreRerouter" edges="gneE6 gneE0 gneE3 gneE1 gneE4 gneE9" pos="0.00,0.00">
+        <interval begin="0.00" end="10000.00">
+            <parkingAreaReroute id="reverseInArea"/>
+            <parkingAreaReroute id="driveInArea"/>
+        </interval>
+    </rerouter>
+</additional>

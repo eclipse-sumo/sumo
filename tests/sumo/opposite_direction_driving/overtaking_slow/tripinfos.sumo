@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 12 15:40:10 2018 by Eclipse SUMO Version v1_0_0+0147-4055339
+<!-- generated on Wed Jan 30 09:44:28 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,8 +32,8 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="oncoming1" depart="0.00" departLane="-VODUGES_beg_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="11.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.55" duration="11.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.90" rerouteNo="0" devices="tripinfo_oncoming1 fcd_oncoming1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="oncoming2" depart="0.00" departLane="-VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="18.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.85" duration="18.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.29" rerouteNo="0" devices="tripinfo_oncoming2 fcd_oncoming2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="31.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.35" duration="31.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="15.97" rerouteNo="0" devices="tripinfo_overtaking fcd_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="slow" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="213.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="0.54" duration="213.00" routeLength="160.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="53.02" rerouteNo="0" devices="tripinfo_slow fcd_slow" vType="slow" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="oncoming1" depart="0.00" departLane="-VODUGES_beg_0" departPos="100.00" departSpeed="0.00" departDelay="0.00" arrival="10.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="10.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_oncoming1 fcd_oncoming1" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="oncoming2" depart="0.00" departLane="-VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="17.00" arrivalLane="-VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="17.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_oncoming2 fcd_oncoming2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="0.00" departLane="VODUGES_beg_0" departPos="0.00" departSpeed="0.00" departDelay="0.00" arrival="28.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="13.89" duration="28.00" routeLength="200.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="13.49" rerouteNo="0" devices="tripinfo_overtaking fcd_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="slow" depart="0.00" departLane="VODUGES_beg_0" departPos="40.00" departSpeed="0.00" departDelay="0.00" arrival="160.00" arrivalLane="VODUGES_beg_0" arrivalPos="200.00" arrivalSpeed="1.00" duration="160.00" routeLength="160.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_slow fcd_slow" vType="slow" speedFactor="1.00" vaporized=""/>
 </tripinfos>

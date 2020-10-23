@@ -1,4 +1,3 @@
 Warning: Format of essential unique float attribute 'pos' of instantInductionLoop with ID 'E1_02' is invalid; Cannot be parsed to float; instantInductionLoop cannot be created
 Warning: Essential unique float attribute 'pos' of instantInductionLoop with ID 'E1_01' is missing; instantInductionLoop cannot be created
-Warning: Invalid position for instantInductionLoop with ID = 'E1_03'.
 Warning: Invalid position for instantInductionLoop with ID = 'E1_04'.

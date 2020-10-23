@@ -1,3 +1,5 @@
 simstep2 0
 setvalue 0xc8 0x4e xxx <shape> 3 10 11 12 13 14 15
 simstep2 0
+simstep2 0
+

@@ -21,3 +21,6 @@ astar_landmark_save_parallel
 
 # landmark routing with taz
 astar_landmark_taz
+
+# testing lane weight files
+lane_weight_files

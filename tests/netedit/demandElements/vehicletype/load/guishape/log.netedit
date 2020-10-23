@@ -1,0 +1,4 @@
+Error: The shape 'dummyGuiShape' for vType 'vType0' is not known.
+Error: Attribute 'guiShape' in definition of vType 'vType1' is empty.
+Error: The shape 'unknown' for vType 'vType2' is not known.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jul164157.4672/netedit.gui/demandElements/vehicletype/load/guishape\input_routes.rou.xml failed.

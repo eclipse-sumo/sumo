@@ -1,0 +1,4 @@
+Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value (2.6 s.) to the adjusted value 2.5 s.
+Warning: Given action step length 2.5 for vehicle type 't1' is larger than its parameter tau (=1.5)! This may lead to collisions. (This warning is only issued once per vehicle type).
+Warning: setActionStepLength not applicable for meso
+Warning: setActionStepLength not applicable for meso

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Jun 17 08:28:40 2019 by Eclipse SUMO Version v1_2_0+0252-83989c2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <lanechange-output value="lanechanges.xml"/>
+    </output>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="47075"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<lanechanges>
+    <change id="1" type="DEFAULT_VEHTYPE" time="30.00" from="2_0" to="2_1" dir="1" speed="14.33" pos="166.08" reason="traci|urgent" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+    <change id="1" type="DEFAULT_VEHTYPE" time="47.00" from="3_2" to="3_1" dir="-1" speed="14.59" pos="203.74" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None"/>
+</lanechanges>

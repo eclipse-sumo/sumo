@@ -31,5 +31,8 @@ errors
 # routing of pedestrians
 person
 
+# routing of pedestrians
+personFlow
+
 # Testing previously buggy behaviour
 bugs

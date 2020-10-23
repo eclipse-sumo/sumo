@@ -1,3 +1,4 @@
---no-step-log -b 0 -e 0 --no-duration-log --net-file=net.net.xml -a=input_routes.rou.xml,input_additional.add.xml
+--no-step-log -b 0 -e 5 --no-duration-log --net-file=net.net.xml -a=input_routes.rou.xml,input_additional.add.xml
 --tripinfo-output tripinfos.xml
+--tripinfo-output.write-unfinished
 --ignore-route-errors

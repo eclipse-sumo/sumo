@@ -1,0 +1,5 @@
+<routes>
+    <flow id="0" begin="0" end="180" number="50" from="a" to="f" sigma="0">
+        <stop parkingArea="parking_b" duration="200"/>
+    </flow>
+</routes>

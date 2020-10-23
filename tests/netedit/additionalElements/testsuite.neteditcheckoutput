@@ -46,14 +46,14 @@ parkingarea
 # parking space
 parkingspace
 
-# rerouter
-#rerouter
-
 # routeprobe
-#routeprobe
+routeprobe
 
 # vaporizer
-#vaporizer
+vaporizer
+
+# rerouter
+#rerouter
 
 # variable speed sign
 #variablespeedsign

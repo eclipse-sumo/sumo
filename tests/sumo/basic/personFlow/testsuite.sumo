@@ -1,0 +1,11 @@
+# person with a single ride
+ride
+walk_personsPerHour
+walk_probability
+walk_departPos_random
+
+# test whether a chain of walks rides and stops works
+trip_chain
+
+# persons riding the ferry
+ferry_trip

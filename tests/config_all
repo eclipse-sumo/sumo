@@ -8,10 +8,15 @@ historical_report_location:$SUMO_REPORT
 [run_dependent_text]
 output:\r{REPLACE \n}
 output:[0-9\.]+ms{REPLACE (TIME)}
+output:spent [0-9\.]+s{REPLACE spent (TIME)}
+output:Duration [0-9\.]+s{REPLACE Duration (TIME)}
 output:Version
 output:Build features
 log:[0-9\.]+ms{REPLACE (TIME)}
+log:spent [0-9\.]+s{REPLACE spent (TIME)}
+log:Duration [0-9\.]+s{REPLACE Duration (TIME)}
 logPrefixed:[0-9\.]+ms{REPLACE (TIME)}
+logPrefixed:[0-9\.]+s{REPLACE (TIME)}
 errors:UTFDataFormatException
 errors:exceeded byte limit
 errors:invalid multi-byte sequence
@@ -19,12 +24,11 @@ errors:expected end of tag{REPLACE Expected end of tag}
 errors:comment or processing instruction expected{REPLACE Expected comment or processing instruction}
 errors:input ended before all started tags were ended; last tag started is{REPLACE The input ended before all started tags were ended. Last tag started was}
 errors:attribute '(.*)' is already specified for element '(.*)'{REPLACE The attribute '\1' is already used in element '\2'}
-log:[0-9\.]+ms{REPLACE (TIME)}
 errors:std::_Ios_Fmtflags
 shapes:imgFile=\"(.*?)berlin_icon.ico\"{REPLACE imgFile="berlin_icon.ico"}
 shapes:imgFile=\"(.*?)paris.ico\"{REPLACE imgFile="paris.ico"}
 cfg:<!-- generated on{[->]}-->
 
 [bug_system_location]
-trac:http://sumo.dlr.de/trac.wsgi/
-
+trac:https://sumo.dlr.de/trac.wsgi/
+github:https://api.github.com/repos/eclipse/sumo/

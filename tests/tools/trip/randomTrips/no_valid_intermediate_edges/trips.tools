@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- generated on 2017-10-18 14:07:17.336000 by $Id: randomTrips.py 26301 2017-10-02 20:48:38Z behrisch $
+<!-- generated on 2019-03-21 09:58:41.099603 by $Id: randomTrips.py v1_0_1+0098-8affe8886f jakob.erdmann@dlr.de 2018-08-29 20:55:11 +0200 $
   options: -n net2.net.xml -s 42 -e 10 <doubleminus>vclass bus
 -->
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">

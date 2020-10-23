@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon May 20 19:28:27 2019 by Eclipse SUMO Version v1_2_0+0112-7d384bbd43
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <railsignal-block-output value="railsignal_blocks.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="rail3" depart="0.00" departLane="T5_0_0" departPos="700.00" departSpeed="0.00" departDelay="0.00" arrival="28.00" arrivalLane="T5_0_0" arrivalPos="800.00" arrivalSpeed="7.00" duration="28.00" routeLength="100.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="25.39" rerouteNo="1" devices="tripinfo_rail3 routing_rail3" vType="rail_rail" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="rail2" depart="0.00" departLane="T12_0_0" departPos="900.00" departSpeed="0.00" departDelay="0.00" arrival="108.00" arrivalLane="T5_0_0" arrivalPos="800.00" arrivalSpeed="23.55" duration="108.00" routeLength="1166.68" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="70.92" rerouteNo="1" devices="tripinfo_rail2 routing_rail2" vType="rail_rail" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="rail1" depart="0.00" departLane="T15_1_0" departPos="700.00" departSpeed="0.00" departDelay="0.00" arrival="258.00" arrivalLane="T7_1_0" arrivalPos="400.00" arrivalSpeed="21.42" duration="258.00" routeLength="3170.65" waitingTime="30.00" waitingCount="1" stopTime="0.00" timeLoss="152.31" rerouteNo="1" devices="tripinfo_rail1 routing_rail1" vType="rail_rail" speedFactor="1.00" vaporized=""/>
+</tripinfos>

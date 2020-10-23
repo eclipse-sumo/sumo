@@ -1,1 +1,7 @@
 example
+
+# use boundary shape
+shape
+
+# use boundary shape copied from a shape attribute
+shapeSpaces

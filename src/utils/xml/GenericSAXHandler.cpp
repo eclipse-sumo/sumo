@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GenericSAXHandler.cpp
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,9 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A handler which converts occuring elements and attributes into enums
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -42,7 +40,7 @@ GenericSAXHandler::GenericSAXHandler(
     StringBijection<int>::Entry* tags, int terminatorTag,
     StringBijection<int>::Entry* attrs, int terminatorAttr,
     const std::string& file, const std::string& expectedRoot)
-    : myParentHandler(nullptr), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file), myExpectedRoot(expectedRoot), mySchemaSeen(false) {
+    : myParentHandler(nullptr), myParentIndicator(SUMO_TAG_NOTHING), myFileName(file), myExpectedRoot(expectedRoot), myRootSeen(false) {
     int i = 0;
     while (tags[i].key != terminatorTag) {
         myTagMap.insert(TagMap::value_type(tags[i].str, tags[i].key));
@@ -50,9 +48,14 @@ GenericSAXHandler::GenericSAXHandler(
     }
     i = 0;
     while (attrs[i].key != terminatorAttr) {
-        assert(myPredefinedTags.find(attrs[i].key) == myPredefinedTags.end());
-        myPredefinedTags[attrs[i].key] = convert(attrs[i].str);
-        myPredefinedTagsMML[attrs[i].key] = attrs[i].str;
+        int key = attrs[i].key;
+        assert(key >= 0);
+        while (key >= (int)myPredefinedTags.size()) {
+            myPredefinedTags.push_back(nullptr);
+            myPredefinedTagsMML.push_back("");
+        }
+        myPredefinedTags[key] = convert(attrs[i].str);
+        myPredefinedTagsMML[key] = attrs[i].str;
         i++;
     }
 }
@@ -60,7 +63,7 @@ GenericSAXHandler::GenericSAXHandler(
 
 GenericSAXHandler::~GenericSAXHandler() {
     for (AttrMap::iterator i1 = myPredefinedTags.begin(); i1 != myPredefinedTags.end(); i1++) {
-        delete[](*i1).second;
+        delete[](*i1);
     }
 }
 
@@ -96,12 +99,10 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const qname,
                                 const XERCES_CPP_NAMESPACE::Attributes& attrs) {
     std::string name = StringUtils::transcode(qname);
-    if (mySchemaSeen && myExpectedRoot != "") {
-        if (name != myExpectedRoot) {
-            throw ProcessError("Found root element '" + name + "' in file '" + getFileName() + "' (expected '" + myExpectedRoot + "').");
-        }
-        mySchemaSeen = false;
+    if (!myRootSeen && myExpectedRoot != "" && name != myExpectedRoot) {
+        WRITE_WARNING("Found root element '" + name + "' in file '" + getFileName() + "' (expected '" + myExpectedRoot + "').");
     }
+    myRootSeen = true;
     int element = convertTag(name);
     myCharactersVector.clear();
     SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML, name);
@@ -227,4 +228,3 @@ GenericSAXHandler::myEndElement(int) {}
 
 
 /****************************************************************************/
-

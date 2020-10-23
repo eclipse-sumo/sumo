@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:56 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:04 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -29,12 +29,13 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,0.00" convBoundary="-400.00,-500.00,600.00,500.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -139,7 +140,7 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
 
     <connection from="1fi" to="1si" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1fi" to="1si" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="1fi" to="1si" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="1fi" to="1si" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="1o" to="1fi" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from="1si" to="3o" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -147,7 +148,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1si" to="4o" fromLane="2" toLane="0" dir="l" state="m"/>
     <connection from="1si" to="1o" fromLane="2" toLane="0" dir="t" state="m"/>
     <connection from="2fi" to="2si" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="2fi" to="2si" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="2fi" to="2si" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="2fi" to="2si" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from="2si" to="4o" fromLane="0" toLane="0" dir="r" state="m"/>
@@ -155,7 +156,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="2si" to="3o" fromLane="2" toLane="0" dir="l" state="m"/>
     <connection from="2si" to="2o" fromLane="2" toLane="0" dir="t" state="m"/>
     <connection from="3fi" to="3si" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="3fi" to="3si" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="3fi" to="3si" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="3fi" to="3si" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="3o" to="3fi" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from="3si" to="2o" fromLane="0" toLane="0" dir="r" state="M"/>
@@ -163,7 +164,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="3si" to="1o" fromLane="2" toLane="0" dir="l" state="m"/>
     <connection from="3si" to="3o" fromLane="2" toLane="0" dir="t" state="m"/>
     <connection from="4fi" to="4si" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="4fi" to="4si" fromLane="0" toLane="1" dir="s" state="M"/>
+    <connection from="4fi" to="4si" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="4fi" to="4si" fromLane="1" toLane="2" dir="s" state="M"/>
     <connection from="4o" to="4fi" fromLane="0" toLane="1" dir="t" state="M"/>
     <connection from="4si" to="1o" fromLane="0" toLane="0" dir="r" state="M"/>

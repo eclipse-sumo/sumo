@@ -1,0 +1,3 @@
+Error: Invalid Car-Following-Model Attribute gapControlGainSpeed. Cannot be parsed to float
+Error: Invalid parsing embedded VType
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_31Jul094457.7560/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/gc_gain_speed\input_routes.rou.xml failed.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 14:26:50 2018 by Eclipse SUMO marouter Version 7cc56db
+<!-- generated on Mon Sep  7 13:28:02 2020 by Eclipse SUMO marouter Version v1_6_0+2015-336b3d6f93
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
@@ -23,20 +23,21 @@
         <lane-weight-files value="" type="FILE" help="Read lane-based network weights from FILE(s)"/>
         <weight-attribute value="traveltime" synonymes="measure x" type="STR" help="Name of the xml attribute which gives the edge weight"/>
         <weight-adaption value="0" type="FLOAT" help="The travel time influence of prior intervals"/>
-        <taz-param value="" type="STR" help="Parameter key(s) defining source (and sink) taz"/>
+        <taz-param value="" type="STR[]" help="Parameter key(s) defining source (and sink) taz"/>
+        <junction-taz value="false" type="BOOL" help="Initialize a TAZ for every junction to use attributes toJunction and fromJunction"/>
     </input>
 
     <output>
-        <write-license value="false" type="BOOL" help="Include license info into every output file"/>
-        <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
-        <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
-        <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
-        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rathern than seconds"/>
         <output-file value="" synonymes="o output" type="FILE" help="Write flow definitions with route distributions to FILE"/>
         <vtype-output value="" type="FILE" help="Write used vehicle types into separate FILE"/>
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL" help="Does not save vtype information"/>
         <netload-output value="" type="FILE" help="Writes edge loads and final costs into FILE"/>
         <all-pairs-output value="" type="FILE" help="Writes complete distance matrix into FILE"/>
+        <write-license value="false" type="BOOL" help="Include license info into every output file"/>
+        <output-prefix value="" type="STR" help="Prefix which is applied to all output files. The special string &apos;TIME&apos; is replaced by the current time."/>
+        <precision value="2" type="INT" help="Defines the number of digits after the comma for floating point output"/>
+        <precision.geo value="6" type="INT" help="Defines the number of digits after the comma for lon,lat output"/>
+        <human-readable-time value="false" synonymes="H" type="BOOL" help="Write time values as hour:minute:second or day:hour:minute:second rather than seconds"/>
         <exit-times value="false" type="BOOL" help="Write exit times (weights) for each edge"/>
     </output>
 
@@ -45,6 +46,7 @@
         <max-alternatives value="5" type="INT" help="Prune the number of alternatives to INT"/>
         <weights.interpolate value="false" synonymes="interpolate" type="BOOL" help="Interpolate edge weights at interval boundaries"/>
         <weights.expand value="false" synonymes="expand-weights" type="BOOL" help="Expand weights behind the simulation&apos;s end"/>
+        <weights.priority-factor value="0" type="FLOAT" help="Consider edge priorities in addition to travel times, weighted by factor"/>
         <routing-algorithm value="dijkstra" type="STR" help="Select among routing algorithms [&apos;dijkstra&apos;, &apos;astar&apos;, &apos;CH&apos;, &apos;CHWrapper&apos;]"/>
         <bulk-routing.vtypes value="false" type="BOOL" help="Aggregate routing queries with the same origin for different vehicle types"/>
         <routing-threads value="0" type="INT" help="The number of parallel execution threads used for routing"/>
@@ -52,7 +54,7 @@
         <scale value="1" synonymes="s" type="FLOAT" help="Scales the loaded flows by FLOAT"/>
         <vtype value="" type="STR" help="Defines the name of the vehicle type to use"/>
         <prefix value="" type="STR" help="Defines the prefix for vehicle flow names"/>
-        <timeline value="" type="STR" help="Uses STR as a timeline definition"/>
+        <timeline value="" type="STR[]" help="Uses STR[] as a timeline definition"/>
         <timeline.day-in-hours value="false" type="BOOL" help="Uses STR as a 24h-timeline definition"/>
         <additive-traffic value="false" type="BOOL" help="Keep traffic flows of all time slots in the net"/>
         <assignment-method value="incremental" type="STR" help="Choose a assignment method: incremental, UE or SUE"/>
@@ -63,7 +65,7 @@
         <upperbound value="0.5" synonymes="upper" type="FLOAT" help="Use FLOAT as the upper bound to determine auxiliary link cost"/>
         <lowerbound value="0.15" synonymes="lower" type="FLOAT" help="Use FLOAT as the lower bound to determine auxiliary link cost"/>
         <max-iterations value="20" synonymes="i" type="INT" help="maximal number of iterations for new route searching in incremental and stochastic user assignment"/>
-        <max-inner-iterations value="1000" type="INT" help="maximal number of inner iterations for user equilibrium calcuation in the stochastic user assignment"/>
+        <max-inner-iterations value="1000" type="INT" help="maximal number of inner iterations for user equilibrium calculation in the stochastic user assignment"/>
         <route-choice-method value="logit" type="STR" help="Choose a route choice method: gawron, logit, or lohse"/>
         <gawron.beta value="0.3" synonymes="gBeta" type="FLOAT" help="Use FLOAT as Gawron&apos;s beta"/>
         <gawron.a value="0.05" synonymes="gA" type="FLOAT" help="Use FLOAT as Gawron&apos;s a"/>
@@ -91,11 +93,13 @@
     <report>
         <verbose value="false" synonymes="v" type="BOOL" help="Switches to verbose output"/>
         <print-options value="false" type="BOOL" help="Prints option values before processing"/>
-        <help value="false" synonymes="?" type="BOOL" help="Prints this screen"/>
+        <help value="false" synonymes="?" type="BOOL" help="Prints this screen or selected topics"/>
         <version value="false" synonymes="V" type="BOOL" help="Prints the current version"/>
         <xml-validation value="auto" synonymes="X" type="STR" help="Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <xml-validation.net value="never" type="STR" help="Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
+        <xml-validation.routes value="auto" type="STR" help="Set schema validation scheme of SUMO route inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;)"/>
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL" help="Disables output of warnings"/>
+        <aggregate-warnings value="-1" type="INT" help="Aggregate warnings of the same type whenever more than INT occur"/>
         <log value="" synonymes="l log-file" type="FILE" help="Writes all messages to FILE (implies verbose)"/>
         <message-log value="" type="FILE" help="Writes all non-error messages to FILE (implies verbose)"/>
         <error-log value="" type="FILE" help="Writes all warnings and errors to FILE"/>

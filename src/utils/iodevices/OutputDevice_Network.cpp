@@ -1,18 +1,21 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2006-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OutputDevice_Network.cpp
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Felix Brack
 /// @date    2006
-/// @version $Id$
 ///
 // An output device for TCP/IP Network connections
 /****************************************************************************/
@@ -21,15 +24,10 @@
 // ==========================================================================
 // included modules
 // ==========================================================================
-#include <config.h> // #ifdef _MSC_VER
+#include <config.h>
 
-#ifdef WIN32
-#define NOMINMAX
-#include <windows.h>
-#undef NOMINMAX
-#else
-#include <unistd.h>
-#endif
+#include <thread>
+#include <chrono>
 #include <vector>
 #include "OutputDevice_Network.h"
 #include "foreign/tcpip/socket.h"
@@ -57,11 +55,7 @@ OutputDevice_Network::OutputDevice_Network(const std::string& host,
             if (wait == 9000) {
                 throw IOError(toString(e.what()) + " (host: " + host + ", port: " + toString(port) + ")");
             }
-#ifdef WIN32
-            Sleep(wait);
-#else
-            usleep(wait * 1000);
-#endif
+            std::this_thread::sleep_for(std::chrono::milliseconds(wait));
         }
     }
     myFilename = host + ":" + toString(port);

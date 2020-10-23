@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec  4 16:33:01 2018 by Eclipse SUMO netconvert Version v1_0_1+0692-c9085b9bf1
+<!-- generated on Tue Feb 19 09:11:19 2019 by Eclipse SUMO netconvert Version v1_1_0+0919-80296dbfce
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -20,7 +20,7 @@
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,-30.00" convBoundary="0.00,0.00,80.00,40.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -111,35 +111,35 @@
     </edge>
 
     <junction id="gneJ10" type="dead_end" x="50.00" y="40.00" incLanes="gneE18_0" intLanes="" shape="50.00,40.00 50.00,36.80 50.00,40.00"/>
-    <junction id="gneJ11" type="dead_end" x="60.00" y="40.00" incLanes="-gneE19_0" intLanes="" shape="60.00,40.00 60.00,43.20 60.00,40.00"/>
+    <junction id="gneJ11" type="dead_end" x="60.00" y="40.00" incLanes="-gneE19_0" intLanes="" shape="60.00,43.20 60.00,40.00 60.00,36.80"/>
     <junction id="gneJ12" type="dead_end" x="80.00" y="40.00" incLanes="gneE19_0" intLanes="" shape="80.00,40.00 80.00,36.80 80.00,40.00"/>
     <junction id="gneJ13" type="dead_end" x="60.00" y="30.00" incLanes="gneE20_0" intLanes="" shape="60.00,30.00 60.00,33.20 60.00,30.00"/>
-    <junction id="gneJ14" type="dead_end" x="80.00" y="30.00" incLanes="-gneE20_0" intLanes="" shape="80.00,30.00 80.00,26.80 80.00,30.00"/>
-    <junction id="gneJ15" type="dead_end" x="60.00" y="20.00" incLanes="-gneE21_0" intLanes="" shape="60.00,20.00 60.00,23.20 60.00,20.00"/>
+    <junction id="gneJ14" type="dead_end" x="80.00" y="30.00" incLanes="-gneE20_0" intLanes="" shape="80.00,26.80 80.00,30.00 80.00,33.20"/>
+    <junction id="gneJ15" type="dead_end" x="60.00" y="20.00" incLanes="-gneE21_0" intLanes="" shape="60.00,23.20 60.00,20.00 60.00,16.80"/>
     <junction id="gneJ16" type="dead_end" x="80.00" y="20.00" incLanes="gneE21_0" intLanes="" shape="80.00,20.00 80.00,16.80 80.00,20.00"/>
     <junction id="gneJ17" type="dead_end" x="30.00" y="30.00" incLanes="gneE17_0" intLanes="" shape="30.00,30.00 30.00,33.20 30.00,30.00"/>
-    <junction id="gneJ18" type="dead_end" x="50.00" y="30.00" incLanes="-gneE17_0" intLanes="" shape="50.00,30.00 50.00,26.80 50.00,30.00"/>
+    <junction id="gneJ18" type="dead_end" x="50.00" y="30.00" incLanes="-gneE17_0" intLanes="" shape="50.00,26.80 50.00,30.00 50.00,33.20"/>
     <junction id="gneJ19" type="dead_end" x="30.00" y="20.00" incLanes="-gneE16_0" intLanes="" shape="30.00,20.00 30.00,23.20 30.00,20.00"/>
     <junction id="gneJ2" type="priority" x="0.00" y="40.00" incLanes="gneE12_0" intLanes=":gneJ2_0_0" shape="0.00,40.00 0.00,43.20 0.00,40.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="gneJ20" type="dead_end" x="50.00" y="20.00" incLanes="gneE16_0" intLanes="" shape="50.00,20.00 50.00,16.80 50.00,20.00"/>
-    <junction id="gneJ21" type="dead_end" x="0.00" y="10.00" incLanes="-gneE22_0" intLanes="" shape="0.00,10.00 0.00,13.20 0.00,10.00"/>
+    <junction id="gneJ21" type="dead_end" x="0.00" y="10.00" incLanes="-gneE22_0" intLanes="" shape="0.00,13.20 0.00,10.00 0.00,6.80"/>
     <junction id="gneJ22" type="dead_end" x="20.00" y="10.00" incLanes="gneE22_0" intLanes="" shape="20.00,10.00 20.00,6.80 20.00,10.00"/>
-    <junction id="gneJ23" type="dead_end" x="30.00" y="10.00" incLanes="-gneE23_0" intLanes="" shape="30.00,10.00 30.00,13.20 30.00,10.00"/>
+    <junction id="gneJ23" type="dead_end" x="30.00" y="10.00" incLanes="-gneE23_0" intLanes="" shape="30.00,13.20 30.00,10.00 30.00,6.80"/>
     <junction id="gneJ24" type="dead_end" x="50.00" y="10.00" incLanes="gneE23_0" intLanes="" shape="50.00,10.00 50.00,6.80 50.00,10.00"/>
-    <junction id="gneJ25" type="dead_end" x="60.00" y="10.00" incLanes="-gneE24_0" intLanes="" shape="60.00,10.00 60.00,13.20 60.00,10.00"/>
+    <junction id="gneJ25" type="dead_end" x="60.00" y="10.00" incLanes="-gneE24_0" intLanes="" shape="60.00,13.20 60.00,10.00 60.00,6.80"/>
     <junction id="gneJ26" type="dead_end" x="80.00" y="10.00" incLanes="gneE24_0" intLanes="" shape="80.00,10.00 80.00,6.80 80.00,10.00"/>
-    <junction id="gneJ27" type="dead_end" x="30.00" y="0.00" incLanes="-gneE25_0" intLanes="" shape="30.00,0.00 30.00,3.20 30.00,0.00"/>
+    <junction id="gneJ27" type="dead_end" x="30.00" y="0.00" incLanes="-gneE25_0" intLanes="" shape="30.00,3.20 30.00,0.00 30.00,-3.20"/>
     <junction id="gneJ28" type="dead_end" x="50.00" y="0.00" incLanes="gneE25_0" intLanes="" shape="50.00,0.00 50.00,-3.20 50.00,0.00"/>
     <junction id="gneJ3" type="priority" x="20.00" y="40.00" incLanes="gneE13_0" intLanes=":gneJ3_0_0" shape="20.00,40.00 20.00,36.80 20.00,40.00">
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
     <junction id="gneJ4" type="dead_end" x="0.00" y="30.00" incLanes="gneE14_0" intLanes="" shape="0.00,30.00 0.00,33.20 0.00,30.00"/>
-    <junction id="gneJ5" type="dead_end" x="20.00" y="30.00" incLanes="-gneE14_0" intLanes="" shape="20.00,30.00 20.00,26.80 20.00,30.00"/>
-    <junction id="gneJ7" type="dead_end" x="0.00" y="20.00" incLanes="-gneE15_0" intLanes="" shape="0.00,20.00 0.00,23.20 0.00,20.00"/>
+    <junction id="gneJ5" type="dead_end" x="20.00" y="30.00" incLanes="-gneE14_0" intLanes="" shape="20.00,26.80 20.00,30.00 20.00,33.20"/>
+    <junction id="gneJ7" type="dead_end" x="0.00" y="20.00" incLanes="-gneE15_0" intLanes="" shape="0.00,23.20 0.00,20.00 0.00,16.80"/>
     <junction id="gneJ8" type="dead_end" x="20.00" y="20.00" incLanes="gneE15_0" intLanes="" shape="20.00,20.00 20.00,16.80 20.00,20.00"/>
-    <junction id="gneJ9" type="dead_end" x="30.00" y="40.00" incLanes="-gneE18_0" intLanes="" shape="30.00,40.00 30.00,43.20 30.00,40.00"/>
+    <junction id="gneJ9" type="dead_end" x="30.00" y="40.00" incLanes="-gneE18_0" intLanes="" shape="30.00,43.20 30.00,40.00 30.00,36.80"/>
 
     <connection from="gneE12" to="gneE13" fromLane="0" toLane="0" via=":gneJ2_0_0" dir="t" state="M"/>
     <connection from="gneE13" to="gneE12" fromLane="0" toLane="0" via=":gneJ3_0_0" dir="t" state="M"/>

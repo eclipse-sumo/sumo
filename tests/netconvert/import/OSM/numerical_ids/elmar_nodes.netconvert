@@ -1,7 +1,7 @@
 # Format matches Extraction version: V6.5 
 # <?xml version="1.0" encoding="UTF-8"?>
 # 
-# <!-- generated on Wed Aug 15 14:52:45 2018 by Eclipse SUMO netconvert Version feccab3
+# <!-- generated on Mon Dec  2 14:09:07 2019 by Eclipse SUMO netconvert Version v1_3_1+1219-1be072e
 # This data file and the accompanying materials
 # are made available under the terms of the Eclipse Public License v2.0
 # which accompanies this distribution, and is available at
@@ -46,6 +46,7 @@
 #     <report>
 #         <verbose value="true"/>
 #         <xml-validation value="never"/>
+#         <aggregate-warnings value="5"/>
 #     </report>
 # 
 # </configuration>
@@ -103,7 +104,7 @@
 294831567	0	1	1352682.84	5242883.04
 294831568	0	1	1353272.68	5243077.85
 294831569	0	1	1352851.43	5243039.58
-294831570	0	1	1352862.60	5242914.04
+294831570	0	1	1352862.60	5242914.05
 32266935	0	1	1352671.27	5242640.38
 32266936	0	1	1352664.29	5242575.54
 32266938	0	1	1352669.93	5242627.94

@@ -1,17 +1,20 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2016-2019 German Aerospace Center (DLR) and others.
+# Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
 # SUMOPy module
 # Copyright (C) 2012-2017 University of Bologna - DICAM
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    geometry.py
 # @author  Joerg Schweizer
 # @date
-# @version $Id$
 
 import numpy as np
 
@@ -259,8 +262,8 @@ def get_dist_point_to_segs(p, y1, x1, y2, x2, is_ending=True,
 
     If is_return_pos then the position on the section is returned.
 
-    Written by Paul Bourke,    October 1988
-    http://astronomy.swin.edu.au/~pbourke/geometry/pointline/
+    Inspired by the description by Paul Bourke,    October 1988
+    http://paulbourke.net/geometry/pointlineplane/
 
     Rewritten in vectorial form by Joerg Schweizer
     """

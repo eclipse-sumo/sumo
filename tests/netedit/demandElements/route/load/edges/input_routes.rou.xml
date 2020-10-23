@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 17.07.2019 12:52:39 by Eclipse SUMO netedit Version v1_2_0+1261-4ef77299f0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\demandElements\route\load\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\demandElements\route\load\input_net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <route-files value="D:\sumo\tests\netedit\demandElements\route\load\color\input_routes.rou.xml"/>
+    </netedit>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+
+	<!-- non valid edges (missing)-->
+    <route color="yellow" id="route_0"/>
+	
+	<!-- non valid edges (empty)-->
+    <route edges="" color="yellow" id="route_1"/>
+	
+	<!-- non valid edges (invalid)-->
+    <route edges="dummy1 dummy2 dummy3" color="yellow" id="route_2"/>
+	
+	<!-- non valid edges (non consecutive)-->
+    <route edges="gneE2 gneE5" color="yellow" id="route_3"/>
+	
+	<!-- valid edges (check vClass) -->
+    <route edges="gneE2 gneE4 gneE5 gneE10 gneE8" color="yellow" id="route_4"/>
+	
+	<!-- valid edges (consecutive) -->
+    <route edges="gneE2 gneE4" color="yellow" id="route_5"/>
+	
+	<!-- valid edges (single) -->
+    <route edges="gneE2" color="yellow" id="route_6"/>
+	
+</routes>

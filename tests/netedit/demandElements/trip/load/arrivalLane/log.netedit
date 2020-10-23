@@ -1,0 +1,5 @@
+Error: Invalid arrivalLane definition for vehicle 'trip_0';
+ must be one of ("current", or an int>=0)
+Error: Invalid arrivalLane definition for vehicle 'trip_1';
+ must be one of ("current", or an int>=0)
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug092338.744/netedit.gui/demandElements/trip/load/arrivalLane\input_routes.rou.xml failed.

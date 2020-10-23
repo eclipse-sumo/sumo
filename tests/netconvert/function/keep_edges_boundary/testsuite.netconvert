@@ -30,3 +30,6 @@ geo_boundary2
 
 # keep edges in a triangular boundary
 polygon
+
+# keep edges in a triangular boundary, specifed like a shape attribute
+polygon_style2

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:12 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+        <type-files value="input_plain.typ.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-391771.24,-5819981.06" convBoundary="0.00,0.00,74.68,92.43" origBoundary="13.372213,52.501727,13.527402,52.569285" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <type id="foo" priority="7" numLanes="2" speed="13.89" disallow="pedestrian tram rail_urban rail rail_electric ship" oneway="0" sidewalkWidth="3.00" bikeLaneWidth="1.00"/>
+
+    <edge id="-534588621#1" from="A" to="B" name="Spandauer Straße" priority="7" type="foo" shape="25.31,58.38 74.68,0.00">
+        <lane id="-534588621#1_0" index="0" allow="pedestrian" speed="13.89" length="118.80" width="3.00" shape="-6.38,87.03 70.33,-3.68">
+            <param key="origId" value="534588621"/>
+        </lane>
+        <lane id="-534588621#1_1" index="1" allow="bicycle" speed="13.89" length="118.80" width="1.00" shape="-4.86,88.32 71.85,-2.39">
+            <param key="origId" value="534588621"/>
+        </lane>
+        <lane id="-534588621#1_2" index="2" disallow="pedestrian bicycle tram rail_urban rail rail_electric ship" speed="13.89" length="118.80" shape="-3.25,89.68 73.46,-1.03">
+            <param key="origId" value="534588621"/>
+        </lane>
+        <param key="origFrom" value="2121324874"/>
+    </edge>
+
+    <junction id="A" type="dead_end" x="0.00" y="92.43" incLanes="" intLanes="" shape="-2.03,90.71 -7.53,86.06"/>
+    <junction id="B" type="dead_end" x="74.68" y="0.00" incLanes="-534588621#1_0 -534588621#1_1 -534588621#1_2" intLanes="" shape="69.18,-4.65 74.68,0.00"/>
+
+</net>

@@ -1,0 +1,9 @@
+<routes>
+    <vType id="car" vClass="passenger" speedDev="0.0" latAlignment="center" lcLaneDiscipline="1"/>
+    <vType id="moped" vClass="moped" speedDev="0.0" latAlignment="center" maxSpeed="5" width="0.4" lcKeepRight="0" sigma="0"/>
+
+    <route id="r0" edges="beg end"/>
+    <vehicle id="m0" type="moped" route="r0" depart="0" departLane="0" departSpeed="max"/>
+    <vehicle id="m1" type="moped" route="r0" depart="0" departLane="1" departSpeed="max"/>
+    <flow id="cars" begin="1" end="20" number="5" route="r0" type="car" departLane="random"/>
+</routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov  2 15:37:59 2017 by SUMO Version v0_31_0-870-g7affc8e
+<!-- generated on Tue Mar 31 12:21:23 2020 by Eclipse SUMO Version v1_5_0+1025-83bc0d0af0
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,8 +14,14 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <processing>
         <max-depart-delay value="1"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
@@ -35,7 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1822.99" density="20.94" occupancy="10.47" waitingTime="0.00" speed="27.73" departed="0" arrived="521" entered="524" left="0"/>
-    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="2158.65" density="24.80" occupancy="12.40" waitingTime="0.00" speed="26.91" departed="0" arrived="601" entered="601" left="0"/>
-    <interval begin="1800.00" end="1904.00" id="end2_0" sampledSeconds="303.97" density="30.22" occupancy="15.11" waitingTime="0.00" speed="24.42" departed="0" arrived="78" entered="75" left="0"/>
+    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1818.79" density="20.91" laneDensity="20.91" occupancy="10.46" waitingTime="0.00" speed="27.74" departed="0" arrived="521" entered="523" left="0"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="2159.81" density="24.83" laneDensity="24.83" occupancy="12.42" waitingTime="0.00" speed="26.91" departed="0" arrived="601" entered="602" left="0"/>
+    <interval begin="1800.00" end="1904.00" id="end2_0" sampledSeconds="303.46" density="30.19" laneDensity="30.19" occupancy="15.10" waitingTime="0.00" speed="24.42" departed="0" arrived="78" entered="75" left="0"/>
 </detector>

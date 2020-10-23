@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 03.12.2018 12:42:14 by Eclipse SUMO netedit Version v1_0_0+1208-d42a3cd999
+<!-- generated on 08.05.2019 11:23:16 by Eclipse SUMO netedit Version v1_2_0+0242-00a18e6a42
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.5_from_03Dec120149.6792/netedit.gui/selection/select_undo_redo\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/selection/basic/undo_redo\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.5_from_03Dec120149.6792/netedit.gui/selection/select_undo_redo\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/selection/basic/undo_redo\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -29,14 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.5_from_03Dec120149.6792/netedit.gui/selection/select_undo_redo\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.5_from_03Dec120149.6792/netedit.gui/selection/select_undo_redo\additionals.xml"/>
-        <sumo-shapes-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.5_from_03Dec120149.6792/netedit.gui/selection/select_undo_redo\input_shapes.add.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.5_from_03Dec120149.6792/netedit.gui/selection/select_undo_redo\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/selection/basic/undo_redo\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/selection/basic/undo_redo\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/selection/basic/undo_redo\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/selection/basic/undo_redo\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.5_from_03Dec120149.6792/netedit.gui/selection/select_undo_redo\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/selection/basic/undo_redo\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -45,55 +46,55 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.5_from_03Dec120149.6792/netedit.gui/selection/select_undo_redo\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08May082111.2956/netedit.gui/selection/basic/undo_redo\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
     <edge id="1" from="Center" to="A" priority="-1">
         <lane id="1_0" index="0" allow="pedestrian" speed="13.90" length="50.00" shape="42.00,38.90 42.00,0.00"/>
-        <lane id="1_1" index="1" disallow="pedestrian" speed="13.90" length="50.00" shape="45.20,38.90 45.20,0.00"/>
-        <lane id="1_2" index="2" disallow="pedestrian" speed="13.90" length="50.00" shape="48.40,38.90 48.40,0.00"/>
+        <lane id="1_1" index="1" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="45.20,38.90 45.20,0.00"/>
+        <lane id="1_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="48.40,38.90 48.40,0.00"/>
     </edge>
     <edge id="2" from="Center" to="B" priority="-1">
         <lane id="2_0" index="0" allow="pedestrian" speed="13.90" length="50.00" shape="58.00,61.10 58.00,100.00"/>
-        <lane id="2_1" index="1" disallow="pedestrian" speed="13.90" length="50.00" shape="54.80,61.10 54.80,100.00"/>
-        <lane id="2_2" index="2" disallow="pedestrian" speed="13.90" length="50.00" shape="51.60,61.10 51.60,100.00"/>
+        <lane id="2_1" index="1" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="54.80,61.10 54.80,100.00"/>
+        <lane id="2_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="51.60,61.10 51.60,100.00"/>
     </edge>
     <edge id="3" from="Center" to="C" priority="-1">
         <lane id="3_0" index="0" allow="pedestrian" speed="13.90" length="50.00" shape="38.90,58.00 0.00,58.00"/>
-        <lane id="3_1" index="1" disallow="pedestrian" speed="13.90" length="50.00" shape="38.90,54.80 0.00,54.80"/>
-        <lane id="3_2" index="2" disallow="pedestrian" speed="13.90" length="50.00" shape="38.90,51.60 0.00,51.60"/>
+        <lane id="3_1" index="1" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="38.90,54.80 0.00,54.80"/>
+        <lane id="3_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="38.90,51.60 0.00,51.60"/>
     </edge>
     <edge id="4" from="Center" to="D" priority="-1">
         <lane id="4_0" index="0" allow="pedestrian" speed="13.90" length="50.00" shape="61.10,42.00 100.00,42.00"/>
-        <lane id="4_1" index="1" disallow="pedestrian" speed="13.90" length="50.00" shape="61.10,45.20 100.00,45.20"/>
-        <lane id="4_2" index="2" disallow="pedestrian" speed="13.90" length="50.00" shape="61.10,48.40 100.00,48.40"/>
+        <lane id="4_1" index="1" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="61.10,45.20 100.00,45.20"/>
+        <lane id="4_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="61.10,48.40 100.00,48.40"/>
     </edge>
     <edge id="5" from="A" to="Center" priority="-1">
         <lane id="5_0" index="0" allow="pedestrian" speed="13.90" length="50.00" shape="58.00,0.00 58.00,38.90"/>
-        <lane id="5_1" index="1" disallow="pedestrian" speed="13.90" length="50.00" shape="54.80,0.00 54.80,38.90"/>
-        <lane id="5_2" index="2" disallow="pedestrian" speed="13.90" length="50.00" shape="51.60,0.00 51.60,38.90"/>
+        <lane id="5_1" index="1" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="54.80,0.00 54.80,38.90"/>
+        <lane id="5_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="51.60,0.00 51.60,38.90"/>
     </edge>
     <edge id="6" from="B" to="Center" priority="-1">
         <lane id="6_0" index="0" allow="pedestrian" speed="13.90" length="50.00" shape="42.00,100.00 42.00,61.10"/>
-        <lane id="6_1" index="1" disallow="pedestrian" speed="13.90" length="50.00" shape="45.20,100.00 45.20,61.10"/>
-        <lane id="6_2" index="2" disallow="pedestrian" speed="13.90" length="50.00" shape="48.40,100.00 48.40,61.10"/>
+        <lane id="6_1" index="1" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="45.20,100.00 45.20,61.10"/>
+        <lane id="6_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="48.40,100.00 48.40,61.10"/>
     </edge>
     <edge id="7" from="C" to="Center" priority="-1">
         <lane id="7_0" index="0" allow="pedestrian" speed="13.90" length="50.00" shape="0.00,42.00 38.90,42.00"/>
-        <lane id="7_1" index="1" disallow="pedestrian" speed="13.90" length="50.00" shape="0.00,45.20 38.90,45.20"/>
-        <lane id="7_2" index="2" disallow="pedestrian" speed="13.90" length="50.00" shape="0.00,48.40 38.90,48.40"/>
+        <lane id="7_1" index="1" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="0.00,45.20 38.90,45.20"/>
+        <lane id="7_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="0.00,48.40 38.90,48.40"/>
     </edge>
     <edge id="8" from="D" to="Center" priority="-1">
         <lane id="8_0" index="0" allow="pedestrian" speed="13.90" length="50.00" shape="100.00,58.00 61.10,58.00"/>
-        <lane id="8_1" index="1" disallow="pedestrian" speed="13.90" length="50.00" shape="100.00,54.80 61.10,54.80"/>
-        <lane id="8_2" index="2" disallow="pedestrian" speed="13.90" length="50.00" shape="100.00,51.60 61.10,51.60"/>
+        <lane id="8_1" index="1" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="100.00,54.80 61.10,54.80"/>
+        <lane id="8_2" index="2" disallow="pedestrian rail_fast" speed="13.90" length="50.00" shape="100.00,51.60 61.10,51.60"/>
     </edge>
 
     <junction id="A" type="dead_end" x="50.00" y="0.00" incLanes="1_0 1_1 1_2" intLanes="" shape="50.00,0.00 40.40,0.00 50.00,0.00"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:50 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:57 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -23,12 +23,13 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="20000.00,10000.00" convBoundary="0.00,0.00,25000.00,15925.00" origBoundary="-20000.00,-10000.00,5000.00,5925.00" projParameter="!"/>
 
@@ -154,7 +155,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="15" type="priority" x="0.00" y="0.00" incLanes="22_0" intLanes="" shape="0.00,3.20 3.20,3.20 3.20,0.00 1.42,0.36 0.80,0.80 0.36,1.42 0.09,2.22">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="2" type="priority" x="5000.00" y="10000.00" incLanes="1_0" intLanes="" shape="5047.84,10020.05 5049.08,10017.10 5049.47,10017.18 5050.65,10017.57 5052.49,10018.19 5054.98,10019.05 5058.14,10020.14 5059.18,10017.12 5060.09,10013.96 5053.76,10012.21 5045.53,10009.99 5037.16,10007.73 5030.42,10005.83 5027.06,10004.71 5028.84,10004.79 5029.36,10001.63 5026.40,10001.13 5024.07,10000.73 5022.36,10000.41 5021.29,10000.18 5020.85,10000.05 5021.03,10000.00 5021.03,9996.80 5021.09,9996.63 5022.06,9996.41 5023.64,9996.11 5025.84,9995.72 5028.66,9995.24 5028.13,9992.08 5029.65,9991.07 5036.33,9989.19 5044.63,9986.94 5052.81,9984.73 5059.13,9982.98 5058.24,9979.91 5057.17,9976.81 5053.96,9977.92 5051.42,9978.79 5049.55,9979.42 5048.35,9979.82 5047.81,9979.98 5047.94,9979.91 5046.70,9976.96 5036.86,9981.78 5029.51,9986.40 5023.33,9990.50 5016.98,9993.80 5009.15,9996.00 4998.50,9996.80 4998.50,10000.00 5009.23,10000.81 5017.28,10003.05 5023.90,10006.40 5030.36,10010.56 5037.92,10015.21">
+    <junction id="2" type="priority" x="5000.00" y="10000.00" incLanes="1_0" intLanes="" shape="5047.84,10020.05 5049.08,10017.10 5049.47,10017.18 5050.65,10017.57 5052.49,10018.19 5054.98,10019.05 5058.14,10020.14 5059.18,10017.12 5060.09,10013.96 5051.65,10011.53 5043.99,10009.32 5037.48,10007.42 5032.53,10005.97 5029.52,10005.05 5028.84,10004.79 5029.36,10001.63 5026.40,10001.13 5024.07,10000.73 5022.36,10000.41 5021.29,10000.18 5020.85,10000.05 5021.03,10000.00 5021.03,9996.80 5021.09,9996.63 5022.06,9996.41 5023.64,9996.11 5025.84,9995.72 5028.66,9995.24 5028.13,9992.08 5031.79,9990.92 5036.70,9989.47 5043.15,9987.59 5050.76,9985.40 5059.13,9982.98 5058.24,9979.91 5057.17,9976.81 5053.96,9977.92 5051.42,9978.79 5049.55,9979.42 5048.35,9979.82 5047.81,9979.98 5047.94,9979.91 5046.70,9976.96 5036.86,9981.78 5029.51,9986.40 5023.33,9990.50 5016.98,9993.80 5009.15,9996.00 4998.50,9996.80 4998.50,10000.00 5009.23,10000.81 5017.28,10003.05 5023.90,10006.40 5030.36,10010.56 5037.92,10015.21">
         <request index="0" response="000000000" foes="000000000"/>
         <request index="1" response="000000000" foes="000000000"/>
         <request index="2" response="000000000" foes="000000000"/>
@@ -187,10 +188,10 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0"/>
     </junction>
 
-    <connection from="1" to="10" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="1" to="10" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1" to="9" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1" to="8" fromLane="0" toLane="0" dir="s" state="M"/>
-    <connection from="1" to="7" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="8" fromLane="0" toLane="0" dir="R" state="M"/>
+    <connection from="1" to="7" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from="1" to="6" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from="1" to="5" fromLane="0" toLane="0" dir="L" state="M"/>
     <connection from="1" to="4" fromLane="0" toLane="0" dir="L" state="M"/>

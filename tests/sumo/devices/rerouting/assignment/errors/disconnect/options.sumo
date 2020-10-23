@@ -1,0 +1,4 @@
+--no-step-log --no-duration-log 
+--net-file=net.net.xml
+--r input_trips.trips.xml
+--vehroute-output=vehroutes.xml 

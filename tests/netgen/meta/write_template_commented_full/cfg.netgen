@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Dec  6 21:23:22 2018 by Eclipse SUMO netgenerate Version eeef47f
+<!-- generated on Mon Sep  7 13:28:03 2020 by Eclipse SUMO netgenerate Version v1_6_0+2015-336b3d6f93
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -84,8 +84,8 @@
         <!-- The minimum distance for each edge -->
         <rand.min-distance value="100" synonymes="min-dist rand-min-distance" type="FLOAT"/>
 
-        <!-- The minimum angle for each pair of (bidirectional) roads -->
-        <rand.min-angle value="0.785398" synonymes="min-angle rand-min-anglee" type="FLOAT"/>
+        <!-- The minimum angle for each pair of (bidirectional) roads in DEGREES -->
+        <rand.min-angle value="45" synonymes="min-angle rand-min-anglee" type="FLOAT"/>
 
         <!-- The number of tries for creating each node -->
         <rand.num-tries value="50" synonymes="num-tries rand-num-tries" type="INT"/>
@@ -122,6 +122,12 @@
 
     </random_network>
 
+    <input>
+        <!-- Read edge-type defs from FILE -->
+        <type-files value="" synonymes="t" type="FILE"/>
+
+    </input>
+
     <output>
         <!-- Include license info into every output file -->
         <write-license value="false" type="BOOL"/>
@@ -135,7 +141,7 @@
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
 
-        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- The Ids of generated nodes use an alphanumerical code for easier readability when possible -->
@@ -189,19 +195,25 @@
         <!-- Set the length of generated turning lanes to FLOAT -->
         <turn-lanes.length value="20" type="FLOAT"/>
 
-        <!-- Apply random spatial pertubation in x direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in x direction according the the given distribution -->
         <perturb-x value="0" type="STR"/>
 
-        <!-- Apply random spatial pertubation in y direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in y direction according the the given distribution -->
         <perturb-y value="0" type="STR"/>
 
-        <!-- Apply random spatial pertubation in z direction according the the given distribution -->
+        <!-- Apply random spatial perturbation in z direction according the the given distribution -->
         <perturb-z value="0" type="STR"/>
 
         <!-- Remaps alphanumerical IDs of nodes and edges to ensure that all IDs are integers -->
         <numerical-ids value="false" type="BOOL"/>
 
-        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (SUMO-GUI selection file format) -->
+        <!-- Remaps IDs of nodes to integers starting at INT -->
+        <numerical-ids.node-start value="2147483647" type="INT"/>
+
+        <!-- Remaps IDs of edges to integers starting at INT -->
+        <numerical-ids.edge-start value="2147483647" type="INT"/>
+
+        <!-- Ensures that generated ids do not included any of the typed IDs from FILE (sumo-gui selection file format) -->
         <reserved-ids value="" type="FILE"/>
 
         <!-- Warn about edge geometries with a grade in % above FLOAT. -->
@@ -219,17 +231,26 @@
         <!-- Adds FLOAT to net y-positions -->
         <offset.y value="0" synonymes="y-offset-to-apply" type="FLOAT"/>
 
+        <!-- Adds FLOAT to net z-positions -->
+        <offset.z value="0" type="FLOAT"/>
+
         <!-- Flips the y-coordinate along zero -->
         <flip-y-axis value="false" synonymes="flip-y" type="BOOL"/>
 
         <!-- Enable roundabout-guessing -->
         <roundabouts.guess value="true" synonymes="guess-roundabouts" type="BOOL"/>
 
+        <!-- Default visibility when approaching a roundabout -->
+        <roundabouts.visibility-distance value="9" type="FLOAT"/>
+
         <!-- Enable guessing of opposite direction lanes usable for overtaking -->
         <opposites.guess value="false" type="BOOL"/>
 
         <!-- Ensure that opposite edges have the same length -->
         <opposites.guess.fix-lengths value="false" type="BOOL"/>
+
+        <!-- Enable guessing of network fringe nodes -->
+        <fringe.guess value="false" type="BOOL"/>
 
         <!-- Assumes left-hand traffic on the network -->
         <lefthand value="false" type="BOOL"/>
@@ -246,14 +267,23 @@
         <!-- The default width of lanes -->
         <default.lanewidth value="-1" synonymes="lanewidth" type="FLOAT"/>
 
+        <!-- The default method for computing lane shapes from edge shapes -->
+        <default.spreadtype value="right" type="STR"/>
+
         <!-- The default speed on an edge (in m/s) -->
         <default.speed value="13.89" synonymes="S speed" type="FLOAT"/>
 
         <!-- The default priority of an edge -->
         <default.priority value="-1" synonymes="P priority" type="INT"/>
 
+        <!-- The default edge type -->
+        <default.type value="" type="STR"/>
+
         <!-- The default width of added sidewalks -->
         <default.sidewalk-width value="2" type="FLOAT"/>
+
+        <!-- The default width of added bike lanes -->
+        <default.bikelane-width value="1" type="FLOAT"/>
 
         <!-- The default width of a pedestrian crossing -->
         <default.crossing-width value="4" type="FLOAT"/>
@@ -267,6 +297,9 @@
         <!-- The default turning radius of intersections -->
         <default.junctions.radius value="4" type="FLOAT"/>
 
+        <!-- The default length when overriding connection lengths -->
+        <default.connection-length value="-1" type="FLOAT"/>
+
         <!-- The default algorithm for computing right of way rules (&apos;default&apos;, &apos;edgePriority&apos;) -->
         <default.right-of-way value="default" type="STR"/>
 
@@ -276,11 +309,11 @@
     </building_defaults>
 
     <tls_building>
-        <!-- Interprets STR as list of junctions to be controlled by TLS -->
-        <tls.set value="" synonymes="explicite-tls" type="STR"/>
+        <!-- Interprets STR[] as list of junctions to be controlled by TLS -->
+        <tls.set value="" synonymes="explicite-tls" type="STR[]"/>
 
-        <!-- Interprets STR as list of junctions to be not controlled by TLS -->
-        <tls.unset value="" synonymes="explicite-no-tls" type="STR"/>
+        <!-- Interprets STR[] as list of junctions to be not controlled by TLS -->
+        <tls.unset value="" synonymes="explicite-no-tls" type="STR[]"/>
 
         <!-- Turns on TLS guessing -->
         <tls.guess value="false" synonymes="guess-tls" type="BOOL"/>
@@ -289,7 +322,7 @@
         <tls.guess.threshold value="69.4444" type="FLOAT"/>
 
         <!-- Includes node clusters into guess -->
-        <tls-guess.joining value="false" type="BOOL"/>
+        <tls.guess.joining value="false" synonymes="tls-guess.joining" type="BOOL"/>
 
         <!-- Tries to cluster tls-controlled nodes -->
         <tls.join value="false" synonymes="try-join-tls" type="BOOL"/>
@@ -299,6 +332,9 @@
 
         <!-- Do not control edges that lie fully within a joined traffic light. This may cause collisions but allows old traffic light plans to be used -->
         <tls.uncontrolled-within value="false" type="BOOL"/>
+
+        <!-- Do not build mutually conflicting response matrix, potentially ignoring vehicles that are stuck at an internal junction when their phase has ended -->
+        <tls.ignore-internal-junction-jam value="false" type="BOOL"/>
 
         <!-- Use INT as cycle duration -->
         <tls.cycle.time value="90" type="INT"/>
@@ -336,11 +372,11 @@
         <!-- Use INT as green phase duration for pedestrian scramble phase (s). -->
         <tls.scramble.time value="5" type="INT"/>
 
-        <!-- TLSs in STR will be shifted by half-phase -->
-        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR"/>
+        <!-- TLSs in STR[] will be shifted by half-phase -->
+        <tls.half-offset value="" synonymes="tl-logics.half-offset" type="STR[]"/>
 
-        <!-- TLSs in STR will be shifted by quarter-phase -->
-        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR"/>
+        <!-- TLSs in STR[] will be shifted by quarter-phase -->
+        <tls.quarter-offset value="" synonymes="tl-logics.quarter-offset" type="STR[]"/>
 
         <!-- TLSs with unspecified type will use STR as their algorithm -->
         <tls.default-type value="static" type="STR"/>
@@ -354,29 +390,35 @@
         <!-- Default maximum phase duration for traffic lights with variable phase length -->
         <tls.max-dur value="50" type="INT"/>
 
+        <!-- Assign the same tls link index to connections that share the same states -->
+        <tls.group-signals value="false" type="BOOL"/>
+
+        <!-- Assign a distinct tls link index to every connection -->
+        <tls.ungroup-signals value="false" type="BOOL"/>
+
     </tls_building>
 
     <edge_removal>
         <!-- Only keep edges with speed in meters/second &gt; FLOAT -->
         <keep-edges.min-speed value="-1" synonymes="edges-min-speed" type="FLOAT"/>
 
-        <!-- Remove edges in STR -->
-        <remove-edges.explicit value="" synonymes="remove-edges" type="STR"/>
+        <!-- Remove edges in STR[] -->
+        <remove-edges.explicit value="" synonymes="remove-edges" type="STR[]"/>
 
-        <!-- Only keep edges in STR or those which are kept due to other keep-edges or remove-edges options -->
-        <keep-edges.explicit value="" synonymes="keep-edges" type="STR"/>
+        <!-- Only keep edges in STR[] or those which are kept due to other keep-edges or remove-edges options -->
+        <keep-edges.explicit value="" synonymes="keep-edges" type="STR[]"/>
 
-        <!-- Only keep edges in FILE (Each id on a single line. Selection files from SUMO-GUI are also supported) or those which are kept due to other keep-edges or remove-edges options -->
+        <!-- Only keep edges in FILE (Each id on a single line. Selection files from sumo-gui are also supported) or those which are kept due to other keep-edges or remove-edges options -->
         <keep-edges.input-file value="" type="FILE"/>
 
-        <!-- Remove edges in FILE. (Each id on a single line. Selection files from SUMO-GUI are also supported) -->
+        <!-- Remove edges in FILE. (Each id on a single line. Selection files from sumo-gui are also supported) -->
         <remove-edges.input-file value="" type="FILE"/>
 
         <!-- Only keep edges which are located within the given boundary (given either as CARTESIAN corner coordinates &lt;xmin,ymin,xmax,ymax&gt; or as polygon &lt;x0,y0,x1,y1,...&gt;) -->
-        <keep-edges.in-boundary value="" type="STR"/>
+        <keep-edges.in-boundary value="" type="STR[]"/>
 
         <!-- Only keep edges which are located within the given boundary (given either as GEODETIC corner coordinates &lt;lon-min,lat-min,lon-max,lat-max&gt; or as polygon &lt;lon0,lat0,lon1,lat1,...&gt;) -->
-        <keep-edges.in-geo-boundary value="" type="STR"/>
+        <keep-edges.in-geo-boundary value="" type="STR[]"/>
 
     </edge_removal>
 
@@ -384,8 +426,8 @@
         <!-- All nodes will be unregulated -->
         <keep-nodes-unregulated value="false" synonymes="keep-unregulated" type="BOOL"/>
 
-        <!-- Do not regulate nodes in STR -->
-        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR"/>
+        <!-- Do not regulate nodes in STR[] -->
+        <keep-nodes-unregulated.explicit value="" synonymes="keep-unregulated.explicit keep-unregulated.nodes" type="STR[]"/>
 
         <!-- Do not regulate district nodes -->
         <keep-nodes-unregulated.district-nodes value="false" synonymes="keep-unregulated.district-nodes" type="BOOL"/>
@@ -393,6 +435,9 @@
     </unregulated_nodes>
 
     <junctions>
+        <!-- Allow building right-before-left junctions when the incoming edge speeds are below FLOAT (m/s) -->
+        <junctions.right-before-left.speed-threshold value="13.6111" type="FLOAT"/>
+
         <!-- Omits internal links -->
         <no-internal-links value="false" type="BOOL"/>
 
@@ -402,8 +447,17 @@
         <!-- Disables building turnarounds at tls-controlled junctions -->
         <no-turnarounds.tls value="false" synonymes="no-tls-turnarounds" type="BOOL"/>
 
+        <!-- Disables building turnarounds at geometry-like junctions -->
+        <no-turnarounds.geometry value="true" type="BOOL"/>
+
         <!-- Disables building turnarounds except at dead end junctions -->
         <no-turnarounds.except-deadend value="false" type="BOOL"/>
+
+        <!-- Disables building turnarounds except at at junctions with a dedicated turning lane -->
+        <no-turnarounds.except-turnlane value="false" type="BOOL"/>
+
+        <!-- Disables building turnarounds at fringe junctions -->
+        <no-turnarounds.fringe value="false" type="BOOL"/>
 
         <!-- Disables building connections to left -->
         <no-left-connections value="false" type="BOOL"/>
@@ -469,7 +523,7 @@
         <sidewalks.guess.from-permissions value="false" type="BOOL"/>
 
         <!-- Do not guess sidewalks for the given list of edges -->
-        <sidewalks.guess.exclude value="" type="STR"/>
+        <sidewalks.guess.exclude value="" type="STR[]"/>
 
         <!-- Guess pedestrian crossings based on the presence of sidewalks -->
         <crossings.guess value="false" type="BOOL"/>
@@ -480,7 +534,28 @@
         <!-- Always build walking areas even if there are no crossings -->
         <walkingareas value="false" type="BOOL"/>
 
+        <!-- Do not create a walkingarea between sidewalks that are connected by a pedestrian junction within FLOAT -->
+        <walkingareas.join-dist value="15" type="FLOAT"/>
+
     </pedestrian>
+
+    <bicycle>
+        <!-- Guess bike lanes based on edge speed -->
+        <bikelanes.guess value="false" type="BOOL"/>
+
+        <!-- Add bike lanes for edges with a speed equal or below the given limit -->
+        <bikelanes.guess.max-speed value="22.22" type="FLOAT"/>
+
+        <!-- Add bike lanes for edges with a speed above the given limit -->
+        <bikelanes.guess.min-speed value="5.8" type="FLOAT"/>
+
+        <!-- Add bike lanes for edges that allow bicycles on any of their lanes regardless of speed -->
+        <bikelanes.guess.from-permissions value="false" type="BOOL"/>
+
+        <!-- Do not guess bikelanes for the given list of edges -->
+        <bikelanes.guess.exclude value="" type="STR[]"/>
+
+    </bicycle>
 
     <report>
         <!-- Switches to verbose output -->
@@ -489,7 +564,7 @@
         <!-- Prints option values before processing -->
         <print-options value="false" type="BOOL"/>
 
-        <!-- Prints this screen -->
+        <!-- Prints this screen or selected topics -->
         <help value="false" synonymes="?" type="BOOL"/>
 
         <!-- Prints the current version -->
@@ -498,11 +573,11 @@
         <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation value="auto" synonymes="X" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.net value="never" type="STR"/>
-
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+
+        <!-- Aggregate warnings of the same type whenever more than INT occur -->
+        <aggregate-warnings value="-1" type="INT"/>
 
         <!-- Writes all messages to FILE (implies verbose) -->
         <log value="" synonymes="l log-file" type="FILE"/>

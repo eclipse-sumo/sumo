@@ -9,6 +9,9 @@ uniform_speed
 # gamma mingap distribution
 gamma_mingap
 
+# lognormal mingap distribution
+lognormal_mingap
+
 # tests that values out of limits are resampled instead of cut down
 resampling_ticket4193
 
@@ -17,3 +20,6 @@ resampling_ticket4193_lowResampling
 
 # assign a negative constant value
 negative_constant
+
+# capped normal speed distribution
+cappedNormal_speed

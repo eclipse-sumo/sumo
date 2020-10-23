@@ -1,0 +1,4 @@
+--net-file=net2.net.xml 
+--additional input_additional.add.xml,input_additional2.add.xml
+--route-files=input_routes.rou.xml 
+--tripinfo-output tripinfos.xml

@@ -1,0 +1,10 @@
+Loading net-file from 'three_split.net.xml' ... done (3ms).
+Loading additional-files from 'input_trips.trips.xml' ... done (0ms).
+Loading done.
+Simulation version v1_3_1+0814-be0565a24f started with time: 0.00
+Simulation ended at time: 119.00
+Reason: All vehicles have left the simulation.
+AStarRouter answered 6 queries and explored 6.00 edges on average.
+AStarRouter spent 0ms answering queries (0.00ms on average).
+AStarRouter answered 4 queries and explored 6.00 edges on average.
+AStarRouter spent 0ms answering queries (0.00ms on average).

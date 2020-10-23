@@ -1,0 +1,26 @@
+# create crossing in an intersection with four arms
+create
+
+# create crossing in a junction with four arms and sidewalks 
+create_sidewalks
+
+# delete crossing
+delete
+
+# delete crossing with sidewalks
+delete_sidewalks
+
+# inspect crossing
+inspect
+
+# inspect crossing with sidewalks
+inspect_sidewalks
+
+# inspect selected crossing
+inspect_selected
+
+# inspect selected crossing with sidewalks
+inspect_selected_sidewalks
+
+# load nets with crossings
+load

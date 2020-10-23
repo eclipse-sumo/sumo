@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat May 25 08:38:53 2019 by Eclipse SUMO Version v1_2_0+0149-6b40db9d1b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <time-to-teleport value="-1"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.with-taz value="true"/>
+    </routing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="33089"/>
+    </traci_server>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="toTAZ" depart="1.00" arrival="26.00">
+        <route edges="A3B3 B3C3 C3D3"/>
+    </vehicle>
+
+    <vehicle id="fromTAZ" depart="1.00" arrival="34.00">
+        <route edges="D3C3 C3B3 B3A3 A3B3"/>
+    </vehicle>
+
+    <vehicle id="betweenTAZ" depart="1.00" arrival="49.00">
+        <route edges="D3D2 D2D1 D1D0 D0C0 C0B0 B0A0"/>
+    </vehicle>
+
+</routes>

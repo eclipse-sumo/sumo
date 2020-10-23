@@ -1,32 +1,28 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNERerouterDialog.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    April 2016
-/// @version $Id$
 ///
 // Dialog for edit rerouters
 /****************************************************************************/
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
-#include <iostream>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <netedit/changes/GNEChange_Additional.h>
-#include <netedit/additionals/GNERerouter.h>
-#include <netedit/additionals/GNERerouterInterval.h>
+#include <netedit/elements/additional/GNERerouter.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEUndoList.h>
@@ -41,8 +37,6 @@
 
 FXDEFMAP(GNERerouterDialog) GNERerouterDialogMap[] = {
     FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_ADD_INTERVAL,     GNERerouterDialog::onCmdAddInterval),
-    FXMAPFUNC(SEL_COMMAND,          MID_GNE_REROUTEDIALOG_SORT_INTERVAL,    GNERerouterDialog::onCmdSortIntervals),
-    FXMAPFUNC(SEL_CLICKED,          MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
     FXMAPFUNC(SEL_DOUBLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
     FXMAPFUNC(SEL_TRIPLECLICKED,    MID_GNE_REROUTEDIALOG_TABLE_INTERVAL,   GNERerouterDialog::onCmdClickedInterval),
 };
@@ -60,10 +54,10 @@ GNERerouterDialog::GNERerouterDialog(GNERerouter* rerouterParent) :
     // create Horizontal frame for row elements
     FXHorizontalFrame* myAddIntervalFrame = new FXHorizontalFrame(myContentFrame, GUIDesignAuxiliarHorizontalFrame);
     // create Button and Label for adding new Wors
-    myAddInterval = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(ICON_ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
+    myAddInterval = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_REROUTEDIALOG_ADD_INTERVAL, GUIDesignButtonIcon);
     new FXLabel(myAddIntervalFrame, ("Add new " + toString(SUMO_TAG_INTERVAL)).c_str(), nullptr, GUIDesignLabelThick);
     // create Button and Label for sort intervals
-    mySortIntervals = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
+    mySortIntervals = new FXButton(myAddIntervalFrame, "", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_REROUTEDIALOG_SORT_INTERVAL, GUIDesignButtonIcon);
     new FXLabel(myAddIntervalFrame, ("Sort " + toString(SUMO_TAG_INTERVAL) + "s").c_str(), nullptr, GUIDesignLabelThick);
 
     // Create table
@@ -89,7 +83,7 @@ GNERerouterDialog::~GNERerouterDialog() {}
 long
 GNERerouterDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // Check if there is overlapping between Intervals
-    if (!myEditedAdditional->checkAdditionalChildsOverlapping()) {
+    if (!myEditedAdditional->checkChildAdditionalsOverlapping()) {
         // write warning if netedit is running in testing mode
         WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
         // open warning Box
@@ -138,32 +132,29 @@ GNERerouterDialog::onCmdAddInterval(FXObject*, FXSelector, void*) {
 
 
 long
-GNERerouterDialog::onCmdSortIntervals(FXObject*, FXSelector, void*) {
-    // Sort variable speed sign steps
-    myEditedAdditional->sortAdditionalChilds();
-    // update table
-    updateIntervalTable();
-    return 1;
-}
-
-
-long
 GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
+    // get rerouter children
+    std::vector<GNEAdditional*> rerouterChildren;
+    for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
+        if (!rerouterChild->getTagProperty().isSymbol()) {
+            rerouterChildren.push_back(rerouterChild);
+        }
+    }
     // check if some delete button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
+    for (int i = 0; i < (int)rerouterChildren.size(); i++) {
         if (myIntervalTable->getItem(i, 2)->hasFocus()) {
             // remove interval
-            myEditedAdditional->getViewNet()->getUndoList()->add(new GNEChange_Additional(myEditedAdditional->getAdditionalChilds().at(i), false), true);
+            myEditedAdditional->getNet()->getViewNet()->getUndoList()->add(new GNEChange_Additional(rerouterChildren.at(i), false), true);
             // update interval table after removing
             updateIntervalTable();
             return 1;
         }
     }
     // check if some begin or o end  button was pressed
-    for (int i = 0; i < (int)myEditedAdditional->getAdditionalChilds().size(); i++) {
+    for (int i = 0; i < (int)rerouterChildren.size(); i++) {
         if (myIntervalTable->getItem(i, 0)->hasFocus() || myIntervalTable->getItem(i, 1)->hasFocus()) {
             // edit interval
-            GNERerouterIntervalDialog(myEditedAdditional->getAdditionalChilds().at(i), true);
+            GNERerouterIntervalDialog(rerouterChildren.at(i), true);
             // update interval table after editing
             updateIntervalTable();
             return 1;
@@ -176,10 +167,17 @@ GNERerouterDialog::onCmdClickedInterval(FXObject*, FXSelector, void*) {
 
 void
 GNERerouterDialog::updateIntervalTable() {
+    // get rerouter children
+    std::vector<GNEAdditional*> rerouterChildren;
+    for (const auto& rerouterChild : myEditedAdditional->getChildAdditionals()) {
+        if (!rerouterChild->getTagProperty().isSymbol()) {
+            rerouterChildren.push_back(rerouterChild);
+        }
+    }
     // clear table
     myIntervalTable->clearItems();
     // set number of rows
-    myIntervalTable->setTableSize(int(myEditedAdditional->getAdditionalChilds().size()), 3);
+    myIntervalTable->setTableSize(int(rerouterChildren.size()), 3);
     // Configure list
     myIntervalTable->setVisibleColumns(4);
     myIntervalTable->setColumnWidth(0, 137);
@@ -193,15 +191,15 @@ GNERerouterDialog::updateIntervalTable() {
     int indexRow = 0;
     FXTableItem* item = nullptr;
     // iterate over values
-    for (auto i : myEditedAdditional->getAdditionalChilds()) {
+    for (const auto& rerouterChild : rerouterChildren) {
         // Set time
-        item = new FXTableItem(i->getAttribute(SUMO_ATTR_BEGIN).c_str());
+        item = new FXTableItem(rerouterChild->getAttribute(SUMO_ATTR_BEGIN).c_str());
         myIntervalTable->setItem(indexRow, 0, item);
         // Set speed
-        item = new FXTableItem(i->getAttribute(SUMO_ATTR_END).c_str());
+        item = new FXTableItem(rerouterChild->getAttribute(SUMO_ATTR_END).c_str());
         myIntervalTable->setItem(indexRow, 1, item);
         // set remove
-        item = new FXTableItem("", GUIIconSubSys::getIcon(ICON_REMOVE));
+        item = new FXTableItem("", GUIIconSubSys::getIcon(GUIIcon::REMOVE));
         item->setJustify(FXTableItem::CENTER_X | FXTableItem::CENTER_Y);
         item->setEnabled(false);
         myIntervalTable->setItem(indexRow, 2, item);
@@ -209,5 +207,6 @@ GNERerouterDialog::updateIntervalTable() {
         indexRow++;
     }
 }
+
 
 /****************************************************************************/

@@ -1,0 +1,7 @@
+Error: Invalid Car-Following-Model Attribute emergencyDecel. Cannot be parsed to float
+Error: Invalid parsing embedded VType
+Error: Invalid Car-Following-Model Attribute emergencyDecel. Must be greater than 0
+Error: Invalid parsing embedded VType
+Error: Invalid Car-Following-Model Attribute emergencyDecel. Must be greater than 0
+Error: Invalid parsing embedded VType
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.04Oct092610.960/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/emergencydecel\input_routes.rou.xml failed.

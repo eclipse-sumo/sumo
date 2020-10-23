@@ -1,0 +1,5 @@
+<routes>
+    <vType id="bus" vClass="bus"/>
+    <trip id="v" depart="0" from="1" to="2"/>
+    <trip id="b" depart="0" from="1" to="2" type="bus"/>
+</routes>

@@ -1,7 +1,8 @@
 simstep2 10
 % programID type index phaseno duration state minDur maxDur next duration state minDur maxDur next subparams %
-setvalue 0xc2 0x2c 1/1 <compound> 5 <string> t1 <int> 0 <int> 0 <compound> 2 <compound> 5 <double> 10 <string> rrrrrrrrrrrrrrrr <double> 0 <double> 0 <int> -1 <compound> 5 <double> 10 <string> yyyyyyyyyyyyyyyy <double> 0 <double> 0 <int> -1 <compound> 0
+setvalue 0xc2 0x2c 1/1 <compound> 5 <string> t1 <int> 0 <int> 0 <compound> 2 <compound> 5 <double> 10 <string> rrrrrrrrrrrrrrrr <double> 0 <double> 0 <compound> 0 <compound> 5 <double> 10 <string> yyyyyyyyyyyyyyyy <double> 0 <double> 0 <compound> 0 <compound> 0
 simstep2 31
 % programID type index phaseno duration state minDur maxDur next duration state minDur maxDur next subparams %
-setvalue 0xc2 0x2c 1/1 <compound> 5 <string> t1 <int> 0 <int> 1 <compound> 2 <compound> 5 <double> 5 <string> rrrrrrrrrrrrrrrr <double> 0 <double> 0 <int> -1 <compound> 5 <double> 5 <string> yyyyyyyyyyyyyyyy <double> 0 <double> 0 <int> -1 <compound> 0
-simstep2 51
+setvalue 0xc2 0x2c 1/1 <compound> 5 <string> t1 <int> 0 <int> 1 <compound> 2 <compound> 5 <double> 5 <string> rrrrrrrrrrrrrrrr <double> 0 <double> 0 <compound> 0 <compound> 5 <double> 5 <string> yyyyyyyyyyyyyyyy <double> 0 <double> 0 <compound> 0 <compound> 0
+simstep2 52
+

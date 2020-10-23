@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUILane.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // Representation of a lane in the micro simulation (gui-version)
 /****************************************************************************/
-#ifndef GUILane_h
-#define GUILane_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <fx.h>
@@ -77,7 +74,8 @@ public:
     GUILane(const std::string& id, double maxSpeed,
             double length, MSEdge* const edge, int numericalID,
             const PositionVector& shape, double width,
-            SVCPermissions permissions, int index, bool isRampAccel);
+            SVCPermissions permissions, int index, bool isRampAccel,
+            const std::string& type);
 
 
     /// @brief Destructor
@@ -126,7 +124,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void setJunctionApproaches(const SUMOTime t);
+    void setJunctionApproaches(const SUMOTime t) const;
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -235,6 +233,14 @@ public:
      */
     double getLoadedEdgeWeight() const;
 
+    void setReachability(double value) {
+        myReachability = value;
+    }
+
+    double getReachability() const {
+        return myReachability;
+    }
+
 #ifdef HAVE_OSG
     void setGeometry(osg::Geometry* geom) {
         myGeom = geom;
@@ -291,7 +297,7 @@ private:
     void drawLinkNo(const GUIVisualizationSettings& s) const;
     void drawTLSLinkNo(const GUIVisualizationSettings& s, const GUINet& net) const;
     void drawLinkRules(const GUIVisualizationSettings& s, const GUINet& net) const;
-    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, MSLink* link, const PositionVector& shape, double x1, double x2) const;
+    void drawLinkRule(const GUIVisualizationSettings& s, const GUINet& net, const MSLink* link, const PositionVector& shape, double x1, double x2) const;
     void drawArrows() const;
     void drawLane2LaneConnections(double exaggeration) const;
 
@@ -337,6 +343,9 @@ private:
     /// @brief Quarter of lane width, for speed-up
     double myQuarterLaneWidth;
 
+    /// @brief the time distance from a particular edge
+    double myReachability;
+
 #ifdef HAVE_OSG
     osg::Geometry* myGeom;
 #endif
@@ -353,9 +362,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

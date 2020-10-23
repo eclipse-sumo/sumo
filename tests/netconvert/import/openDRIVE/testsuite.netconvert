@@ -1,29 +1,3 @@
-# example networks from VIRES; many thanks to Marius Dupuis for supplying them
-Crossing8Course
-
-# example networks from VIRES; many thanks to Marius Dupuis for supplying them
-Crossing8Course_leftgreen
-CrossingComplex8Course
-Roundabout8Course
-
-# import internal lane shapes
-Roundabout8Course_internalShapes
-
-# test whether loading further edge types works
-C8C_add_sidewalk
-
-# a round-trip test
-C8C_roundtrip
-
-# a round-trip test with no internal lanes (error)
-C8C_roundtrip_nointernal
-
-# a round-trip test with no widths import
-Crossing8Course_no_widths
-
-# example networks from VIRES;
-CulDeSac
-
 # own examples (roundtrip)
 simple1
 simple1_remove
@@ -36,9 +10,6 @@ simple2_right_nt
 
 # a larger test
 adlershof_dlr
-
-# test with min-distance
-Crossing8Course_minDist50
 error_simple1_nolanes
 
 # convert osm to openDrive
@@ -73,6 +44,9 @@ roadMark
 
 # import paramPoly3 with specified pRange attribute
 pRange
+
+# resample line geometry for smooth z-data
+ticket5314
 
 # tests for importin connectivity
 connections

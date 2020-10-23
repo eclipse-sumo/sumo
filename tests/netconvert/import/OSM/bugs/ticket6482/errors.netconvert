@@ -1,0 +1,11 @@
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '39271721').
+Warning: No way found for reference '625352732' in relation '8691796'
+Warning: Ignoring restriction relation '8691796' with unknown to-way.
+Warning: Found sharp turn with radius 5.62 at the start of edge '20832138'.
+Warning: Found angle of 149.14 degrees at edge '39257069#2', segment 3.
+Warning: Speed of straight connection '411043475#0_0->132406503_0' reduced by 9.83 due to turning radius of 41.82 (length=20.56, angle=43.72).
+Warning: Speed of straight connection '132406502#0_2->132406502#2_2' reduced by 5.54 due to turning radius of 89.89 (length=18.00, angle=26.57).
+Warning: Speed of straight connection '132406507#0_0->132406507#1_0' reduced by 7.14 due to turning radius of 77.45 (length=2.35, angle=16.75).
+Warning: Speed of straight connection '132406507#0_1->132406507#1_1' reduced by 11.74 due to turning radius of 46.79 (length=1.41, angle=16.75).
+Warning: Speed of straight connection '132406504#1_1->132406495#0_0' reduced by 9.59 due to turning radius of 60.17 (length=4.85, angle=19.68).
+Warning: 9 total messages of type: Speed of % connection '%' reduced by % due to turning radius of % (length=%, angle=%).

@@ -1,6 +1,4 @@
 Warning: Found sharp turn with radius 8.56 at the end of edge '-526422275'.
-Warning: Found sharp turn with radius 2.27 at the end of edge '294126391'.
-Warning: Found sharp turn with radius 5.46 at the end of edge '490323255'.
 Warning: Found sharp turn with radius 8.56 at the start of edge '526422275'.
 Warning: Edge '394077080' is not connected to outgoing edges at junction '3815833412'.
 Warning: The traffic light '3815833412' does not control any links; it will not be build.

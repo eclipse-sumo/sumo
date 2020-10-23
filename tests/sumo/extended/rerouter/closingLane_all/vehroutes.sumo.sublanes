@@ -1,0 +1,681 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed May 30 09:50:07 2018 by Eclipse SUMO Version b2daee9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <lateral-resolution value="0.8"/>
+    </processing>
+
+    <routing>
+        <device.rerouting.probability value="0.3"/>
+        <device.rerouting.pre-period value="0"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <duration-log.statistics value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <random_number>
+        <seed value="42"/>
+    </random_number>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="flow.2" depart="1.00" departLane="2" departSpeed="27.80" arrival="30.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.5" depart="3.00" departLane="2" departSpeed="27.80" arrival="32.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.8" depart="5.00" departLane="2" departSpeed="27.80" arrival="34.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.11" depart="7.00" departLane="2" departSpeed="27.80" arrival="36.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.0" depart="0.00" departLane="0" departSpeed="27.80" arrival="38.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.1" depart="0.00" departLane="1" departSpeed="27.80" arrival="38.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.14" depart="9.00" departLane="2" departSpeed="27.80" arrival="38.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.17" depart="11.00" departLane="2" departSpeed="27.80" arrival="40.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.19" depart="13.00" departLane="1" departSpeed="27.80" arrival="43.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.21" depart="14.00" departLane="2" departSpeed="27.80" arrival="44.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.24" depart="16.00" departLane="2" departSpeed="27.80" arrival="46.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.7" depart="4.00" departLane="1" departSpeed="27.80" arrival="53.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.10" depart="7.00" departLane="1" departSpeed="27.80" arrival="54.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.13" depart="9.00" departLane="1" departSpeed="27.80" arrival="56.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.16" depart="11.00" departLane="1" departSpeed="27.80" arrival="57.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.18" depart="12.00" departLane="0" departSpeed="27.80" arrival="58.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.20" depart="14.00" departLane="0" departSpeed="27.80" arrival="60.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.23" depart="16.00" departLane="0" departSpeed="27.80" arrival="63.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.22" depart="15.00" departLane="1" departSpeed="27.80" arrival="64.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.25" depart="17.00" departLane="1" departSpeed="27.80" arrival="65.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.27" depart="18.00" departLane="2" departSpeed="27.80" arrival="67.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.28" depart="19.00" departLane="1" departSpeed="27.80" arrival="68.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.29" depart="20.00" departLane="0" departSpeed="27.80" arrival="70.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.26" depart="18.00" departLane="0" departSpeed="27.80" arrival="73.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.31" depart="21.00" departLane="2" departSpeed="27.80" arrival="74.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.33" depart="23.00" departLane="1" departSpeed="27.45" arrival="76.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.30" depart="21.00" departLane="1" departSpeed="27.80" arrival="77.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.38" depart="26.00" departLane="0" departSpeed="27.80" arrival="79.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.32" depart="22.00" departLane="0" departSpeed="27.80" arrival="81.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.39" depart="27.00" departLane="0" departSpeed="26.68" arrival="82.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.43" depart="30.00" departLane="1" departSpeed="26.14" arrival="83.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.46" depart="33.00" departLane="1" departSpeed="27.80" arrival="85.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.47" depart="34.00" departLane="1" departSpeed="26.68" arrival="88.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.34" depart="23.00" departLane="2" departSpeed="27.80" arrival="90.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.55" depart="40.00" departLane="0" departSpeed="25.14" arrival="95.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.35" depart="24.00" departLane="0" departSpeed="27.80" arrival="96.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.56" depart="41.00" departLane="0" departSpeed="23.89" arrival="98.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.36" depart="25.00" departLane="2" departSpeed="27.31" arrival="99.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.41" depart="28.00" departLane="0" departSpeed="25.43" arrival="101.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.49" depart="35.00" departLane="0" departSpeed="27.80" arrival="102.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="45.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.61" depart="44.00" departLane="0" departSpeed="23.02" arrival="102.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.52" depart="38.00" departLane="0" departSpeed="24.18" arrival="103.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="38.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.63" depart="46.00" departLane="1" departSpeed="27.09" arrival="103.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.66" depart="49.00" departLane="0" departSpeed="25.43" arrival="105.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.67" depart="50.00" departLane="0" departSpeed="24.18" arrival="106.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.58" depart="42.00" departLane="0" departSpeed="22.64" arrival="107.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="42.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.64" depart="47.00" departLane="0" departSpeed="27.80" arrival="109.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="47.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.68" depart="51.00" departLane="0" departSpeed="22.93" arrival="109.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.65" depart="48.00" departLane="0" departSpeed="26.68" arrival="111.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="48.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.72" depart="54.00" departLane="0" departSpeed="25.69" arrival="113.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.37" depart="25.00" departLane="1" departSpeed="26.27" arrival="114.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.75" depart="55.00" departLane="0" departSpeed="24.44" arrival="119.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="55.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.79" depart="58.00" departLane="0" departSpeed="23.19" arrival="119.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.62" depart="45.00" departLane="2" departSpeed="26.02" arrival="121.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="45.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.40" depart="28.00" departLane="2" departSpeed="27.80" arrival="121.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.42" depart="29.00" departLane="2" departSpeed="26.68" arrival="122.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.44" depart="31.00" departLane="2" departSpeed="25.43" arrival="123.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.45" depart="32.00" departLane="2" departSpeed="24.18" arrival="125.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.48" depart="34.00" departLane="2" departSpeed="22.93" arrival="126.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.50" depart="36.00" departLane="0" departSpeed="26.68" arrival="127.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.74" depart="54.00" departLane="2" departSpeed="26.67" arrival="128.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="54.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.51" depart="37.00" departLane="0" departSpeed="25.43" arrival="128.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.77" depart="56.00" departLane="2" departSpeed="24.17" arrival="130.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="56.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.97" depart="76.00" departLane="0" departSpeed="12.47" arrival="130.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.53" depart="39.00" departLane="1" departSpeed="26.39" arrival="132.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.93" depart="72.00" departLane="1" departSpeed="16.44" arrival="134.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.54" depart="39.00" departLane="2" departSpeed="27.80" arrival="136.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.80" depart="59.00" departLane="2" departSpeed="22.92" arrival="137.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="59.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.3" depart="2.00" departLane="0" departSpeed="27.80" arrival="139.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.4" depart="2.00" departLane="1" departSpeed="27.80" arrival="139.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.84" depart="62.00" departLane="0" departSpeed="20.18" arrival="139.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="62.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.96" depart="75.00" departLane="0" departSpeed="14.60" arrival="139.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.6" depart="4.00" departLane="0" departSpeed="27.80" arrival="140.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.102" depart="83.00" departLane="0" departSpeed="12.72" arrival="140.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.9" depart="6.00" departLane="0" departSpeed="27.80" arrival="141.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.73" depart="54.00" departLane="1" departSpeed="23.92" arrival="142.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="54.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.103" depart="84.00" departLane="0" departSpeed="10.22" arrival="142.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.12" depart="8.00" departLane="0" departSpeed="27.80" arrival="143.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.108" depart="90.00" departLane="0" departSpeed="13.29" arrival="143.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.15" depart="10.00" departLane="0" departSpeed="27.80" arrival="144.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.89" depart="67.00" departLane="2" departSpeed="19.71" arrival="144.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="67.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.113" depart="97.00" departLane="0" departSpeed="13.15" arrival="145.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.85" depart="63.00" departLane="0" departSpeed="18.68" arrival="146.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="63.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.88" depart="66.00" departLane="0" departSpeed="13.14" arrival="147.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="66.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.57" depart="41.00" departLane="2" departSpeed="27.80" arrival="148.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.59" depart="42.00" departLane="2" departSpeed="26.68" arrival="149.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.60" depart="43.00" departLane="2" departSpeed="25.43" arrival="151.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.118" depart="106.00" departLane="0" departSpeed="2.03" arrival="152.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.69" depart="51.00" departLane="1" departSpeed="27.58" arrival="152.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.123" depart="114.00" departLane="0" departSpeed="16.00" arrival="153.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.109" depart="91.00" departLane="0" departSpeed="10.79" arrival="153.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.110" depart="92.00" departLane="0" departSpeed="7.93" arrival="154.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.131" depart="123.00" departLane="0" departSpeed="27.80" arrival="155.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.95" depart="74.00" departLane="1" departSpeed="14.77" arrival="155.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="74.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.98" depart="77.00" departLane="1" departSpeed="14.73" arrival="156.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="77.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.111" depart="93.00" departLane="0" departSpeed="3.87" arrival="156.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.132" depart="124.00" departLane="0" departSpeed="26.68" arrival="157.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.117" depart="104.00" departLane="0" departSpeed="4.10" arrival="157.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.124" depart="115.00" departLane="0" departSpeed="14.12" arrival="158.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.133" depart="125.00" departLane="0" departSpeed="25.43" arrival="158.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.99" depart="78.00" departLane="1" departSpeed="12.63" arrival="158.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="78.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.70" depart="52.00" departLane="1" departSpeed="26.42" arrival="159.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.126" depart="117.00" departLane="0" departSpeed="14.40" arrival="160.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.134" depart="126.00" departLane="0" departSpeed="24.18" arrival="160.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.82" depart="60.00" departLane="0" departSpeed="23.07" arrival="160.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.128" depart="119.00" departLane="0" departSpeed="16.42" arrival="161.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.135" depart="127.00" departLane="0" departSpeed="22.93" arrival="161.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.76" depart="55.00" departLane="2" departSpeed="25.42" arrival="161.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.137" depart="128.00" departLane="0" departSpeed="21.52" arrival="162.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.129" depart="121.00" departLane="1" departSpeed="18.83" arrival="163.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.71" depart="53.00" departLane="1" departSpeed="25.17" arrival="163.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.130" depart="122.00" departLane="1" departSpeed="17.16" arrival="164.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.140" depart="130.00" departLane="0" departSpeed="22.22" arrival="164.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.83" depart="61.00" departLane="0" departSpeed="21.68" arrival="164.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.136" depart="128.00" departLane="1" departSpeed="27.80" arrival="165.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.142" depart="131.00" departLane="0" departSpeed="20.72" arrival="165.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.114" depart="98.00" departLane="0" departSpeed="10.65" arrival="165.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="98.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.81" depart="59.00" departLane="1" departSpeed="21.21" arrival="165.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.138" depart="129.00" departLane="1" departSpeed="26.68" arrival="166.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.90" depart="68.00" departLane="1" departSpeed="13.14" arrival="166.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.116" depart="101.00" departLane="0" departSpeed="3.10" arrival="167.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="101.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.139" depart="130.00" departLane="1" departSpeed="25.43" arrival="168.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.78" depart="57.00" departLane="1" departSpeed="22.67" arrival="168.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.141" depart="131.00" departLane="1" departSpeed="24.18" arrival="169.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.91" depart="69.00" departLane="1" departSpeed="10.64" arrival="169.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.86" depart="64.00" departLane="0" departSpeed="16.98" arrival="170.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.94" depart="73.00" departLane="0" departSpeed="14.56" arrival="171.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.87" depart="65.00" departLane="0" departSpeed="15.10" arrival="173.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.101" depart="80.00" departLane="1" departSpeed="6.95" arrival="173.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.92" depart="71.00" departLane="2" departSpeed="9.37" arrival="174.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.104" depart="86.00" departLane="2" departSpeed="15.01" arrival="174.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.100" depart="79.00" departLane="1" departSpeed="10.13" arrival="175.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.112" depart="94.00" departLane="2" departSpeed="6.89" arrival="175.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg" replacedAtTime="94.00" probability="0" edges="beg beg2 middle end"/>
+            <route edges="beg detour end"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="flow.105" depart="87.00" departLane="2" departSpeed="13.02" arrival="175.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.106" depart="88.00" departLane="2" departSpeed="10.51" arrival="176.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.107" depart="89.00" departLane="2" departSpeed="7.52" arrival="178.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.115" depart="99.00" departLane="1" departSpeed="1.96" arrival="179.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.119" depart="108.00" departLane="1" departSpeed="7.60" arrival="180.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.121" depart="110.00" departLane="2" departSpeed="3.36" arrival="182.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.120" depart="109.00" departLane="1" departSpeed="3.20" arrival="183.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.122" depart="113.00" departLane="1" departSpeed="4.66" arrival="184.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.125" depart="116.00" departLane="1" departSpeed="4.33" arrival="185.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+    <vehicle id="flow.127" depart="118.00" departLane="2" departSpeed="0.06" arrival="187.00">
+        <route edges="beg beg2 middle end"/>
+    </vehicle>
+
+</routes>

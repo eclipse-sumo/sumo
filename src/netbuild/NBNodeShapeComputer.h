@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBNodeShapeComputer.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    2004-01-12
-/// @version $Id$
 ///
 // This class computes shapes of junctions
 /****************************************************************************/
-#ifndef NBNodeShapeComputer_h
-#define NBNodeShapeComputer_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/geom/PositionVector.h>
@@ -81,6 +78,10 @@ private:
      */
     PositionVector computeNodeShapeSmall();
 
+    /// @brief compute clockwise/counter-clockwise edge boundaries
+    void computeEdgeBoundaries(const EdgeVector& edges,
+                               GeomsMap& geomsCCW,
+                               GeomsMap& geomsCW);
 
     /** @brief Joins edges and computes ccw/cw boundaries
      *
@@ -91,18 +92,16 @@ private:
      *  all edges within the value-vector which direction at the node differs
      *  less than 1 from the key-edge's direction.
      */
-    void joinSameDirectionEdges(std::map<NBEdge*, std::set<NBEdge*> >& same,
-                                GeomsMap& geomsCCW,
-                                GeomsMap& geomsCW);
+    void joinSameDirectionEdges(const EdgeVector& edges, std::map<NBEdge*, std::set<NBEdge*> >& same);
 
-    /** @brief Joins edges and computes ccw/cw boundaries
+    /** @brief Joins edges
      *
      * This methods joins edges which are in marked as being "same" in the means
      *  as given by joinSameDirectionEdges. The result (list of so-to-say "directions"
-     *  is returned; additionally, the boundaries of these directions are stored in
-     *  ccwBoundary/cwBoundary.
+     *  is returned;
      */
     EdgeVector computeUniqueDirectionList(
+        const EdgeVector& all,
         std::map<NBEdge*, std::set<NBEdge*> >& same,
         GeomsMap& geomsCCW,
         GeomsMap& geomsCW);
@@ -142,6 +141,10 @@ private:
     /// @brief return the intersection point closest to the given offset
     double closestIntersection(const PositionVector& geom1, const PositionVector& geom2, double offset);
 
+    /// @brief whether the given edges (along with those in the same direction) requires a large turning radius
+    bool needsLargeTurn(NBEdge* e1, NBEdge* e2,
+                        std::map<NBEdge*, std::set<NBEdge*> >& same) const;
+
     /// @brief determine the default radius appropriate for the current junction
     double getDefaultRadius(const OptionsCont& oc);
 
@@ -155,13 +158,10 @@ private:
     /// @brief the computed node radius
     double myRadius;
 
+    static const SVCPermissions SVC_LARGE_TURN;
+
 private:
     /// @brief Invalidated assignment operator
     NBNodeShapeComputer& operator=(const NBNodeShapeComputer& s);
 
 };
-
-#endif
-
-/****************************************************************************/
-

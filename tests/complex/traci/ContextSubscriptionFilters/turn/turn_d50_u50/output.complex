@@ -1,3 +1,4 @@
+ Retrying in 1 seconds
 Subscribing to context of vehicle 'ego'
 Adding turn filter ... 
 (downstreamDist=50.0, upstreamDist=50.0)
@@ -49,18 +50,16 @@ v5.2
 v6
 Step 16:
 Context results for veh 'ego':
-v5.2
-v6
 Step 17:
 Context results for veh 'ego':
-v5.2
-v6
 Step 18:
 Context results for veh 'ego':
 Step 19:
 Context results for veh 'ego':
+v7
 Step 20:
 Context results for veh 'ego':
+v7
 Step 21:
 Context results for veh 'ego':
 Step 22:
@@ -73,52 +72,10 @@ Context results for veh 'ego':
 v1
 Step 25:
 Context results for veh 'ego':
-v1
 Step 26:
 Context results for veh 'ego':
-v1
 Step 27:
 Context results for veh 'ego':
-v1
 Step 28:
 Context results for veh 'ego':
-v1
-Step 29:
-Context results for veh 'ego':
-v1
-Step 30:
-Context results for veh 'ego':
-v1
-Step 31:
-Context results for veh 'ego':
-v1
-Step 32:
-Context results for veh 'ego':
-v1
-Step 33:
-Context results for veh 'ego':
-v1
-Step 34:
-Context results for veh 'ego':
-v1
-Step 35:
-Context results for veh 'ego':
-Step 36:
-Context results for veh 'ego':
-Step 37:
-Context results for veh 'ego':
-Step 38:
-Context results for veh 'ego':
-Step 39:
-Context results for veh 'ego':
-Step 40:
-Context results for veh 'ego':
-Step 41:
-Context results for veh 'ego':
-Step 42:
-Context results for veh 'ego':
-Step 43:
-Context results for veh 'ego':
-Step 44:
-Context results for veh 'ego':
-Print ended at step 45.0
+Print ended at step 29.0

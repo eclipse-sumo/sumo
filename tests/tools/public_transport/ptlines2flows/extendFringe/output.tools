@@ -1,0 +1,12 @@
+generating trips...
+Cannot extend route to fringe for line '3' (not enough edges given)
+Cannot extend route to fringe for line '4' (not enough edges given)
+Cannot extend route before first stop for line '5' (stop edge 53356539#1 not in route)
+Cannot extend route after last stop for line '5' (stop edge 111325187#1 not in route)
+Imported 5 lines with 7 stops and skipped 1 lines
+   bus: 5
+done.
+running SUMO to determine actual departure times...
+done.
+creating routes...
+done.

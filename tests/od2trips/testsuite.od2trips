@@ -10,8 +10,14 @@ flow_output
 # test exporting pedestrians
 pedestrians
 
+# test exporting pedestrians flows
+pedestrians_flow
+
 # test exporting persontrips
 persontrips
+
+# test exporting persontrips flows
+persontrips_flow
 
 # tests for what happens if an error occures
 errors

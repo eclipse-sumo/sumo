@@ -1,0 +1,5 @@
+Error: Attribute 'actionStepLength' in definition of vType 'vType0' is not of type float.
+Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Ignoring given value (=-1 s.)
+Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Ignoring given value (=-3 s.)
+Warning: The parameter action-step-length must be a non-negative multiple of the simulation step-length. Parsing given value (4.5 s.) to the adjusted value 4 s.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Jul143940.7744/netedit.gui/demandElements/vehicletype/load/actionStepLength\input_routes.rou.xml failed.

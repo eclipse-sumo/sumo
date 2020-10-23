@@ -1,0 +1,11 @@
+<routes>    
+    <vType id="careful" vClass="pedestrian" width="0.70" length="3.00" minGap="1" guiShape="pedestrian" color="0,255,0"/>
+    <vType id="jaywalk" vClass="pedestrian" width="0.70" length="3.00" minGap="1" guiShape="pedestrian" color="255,0,0" jmIgnoreFoeSpeed="20" jmIgnoreFoeProb="1"/>
+
+    <person id="careful" type="careful" depart="0" departPos="-1.5">
+        <walk edges="SC CN"/>
+    </person>
+    <person id="jaywalk" type="jaywalk" depart="0" departPos="-1.5">
+        <walk edges="SC CN" departPosLat="2"/>
+    </person>
+</routes>

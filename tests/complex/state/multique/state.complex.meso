@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Dec 31 15:56:21 2019 by Eclipse SUMO Version v1_4_0+0285-1267528511
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <human-readable-time value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <save-state.times value="25"/>
+        <save-state.files value="state.xml"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0285-1267528511" time="00:00:25">
+    <route id="!0" state="1" edges="SC CW"/>
+    <flowState id="0" index="3" reroute="1"/>
+    <delay number="1" begin="3" end="2" depart="0.00" time="27.00"/>
+    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
+    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
+    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
+    <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+    <vehicle id="0.2" type="DEFAULT_VEHTYPE" depart="00:00:20" route="!0" speedFactor="1.01" state="20000 0 0 0 1 26384 20000 9223372036854775807">
+        <device id="vehroute_0.2" state="14.04 0.00 0"/>
+        <device id="routing_0.2" state="0"/>
+    </vehicle>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="23750" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+        <vehicles time="-1" value=""/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+        <vehicles time="17709" value="0.2"/>
+    </segment>
+    <segment>
+        <vehicles time="-1" value=""/>
+        <vehicles time="-1" value=""/>
+    </segment>
+</snapshot>

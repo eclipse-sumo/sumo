@@ -1,0 +1,4 @@
+-s input_net.net.xml --railway.topology.output topology.xml -v
+--railway.topology.all-bidi.input-file edge_ids.txt
+
+

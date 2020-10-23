@@ -1,0 +1,11 @@
+<configuration>
+	<input>
+		<net-file value="net.net.xml"/>
+		<additional-files value="input_additional.add.xml"/>
+		<route-files value="input_routes.rou.xml"/>
+	</input>
+	<output>
+		<no-step-log value="true"/>
+	</output>
+		
+</configuration>

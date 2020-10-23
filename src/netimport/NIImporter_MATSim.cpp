@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_MATSim.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Tue, 26.04.2011
-/// @version $Id$
 ///
 // Importer for networks stored in MATSim format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <set>
 #include <functional>
@@ -179,9 +177,9 @@ NIImporter_MATSim::EdgesHandler::~EdgesHandler() {
 void
 NIImporter_MATSim::EdgesHandler::myStartElement(int element,
         const SUMOSAXAttributes& attrs) {
-    bool ok = true;
     if (element == MATSIM_TAG_NETWORK) {
         if (attrs.hasAttribute(MATSIM_ATTR_CAPDIVIDER)) {
+            bool ok = true;
             int capDivider = attrs.get<int>(MATSIM_ATTR_CAPDIVIDER, "network", ok);
             if (ok) {
                 myCapacityNorm = (double)(capDivider * 3600);
@@ -211,6 +209,7 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
     if (element != MATSIM_TAG_LINK) {
         return;
     }
+    bool ok = true;
     std::string id = attrs.get<std::string>(MATSIM_ATTR_ID, nullptr, ok);
     std::string fromNodeID = attrs.get<std::string>(MATSIM_ATTR_FROM, id.c_str(), ok);
     std::string toNodeID = attrs.get<std::string>(MATSIM_ATTR_TO, id.c_str(), ok);
@@ -248,4 +247,3 @@ NIImporter_MATSim::EdgesHandler::myStartElement(int element,
 
 
 /****************************************************************************/
-

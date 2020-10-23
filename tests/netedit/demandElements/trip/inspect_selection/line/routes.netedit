@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 07.10.2019 16:48:15 by Eclipse SUMO netedit Version v1_3_1+0562-aa3c9680cc
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct162733.10504/netedit.gui/demandElements/trip/inspect_selection/line\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct162733.10504/netedit.gui/demandElements/trip/inspect_selection/line\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct162733.10504/netedit.gui/demandElements/trip/inspect_selection/line\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct162733.10504/netedit.gui/demandElements/trip/inspect_selection/line\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct162733.10504/netedit.gui/demandElements/trip/inspect_selection/line\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct162733.10504/netedit.gui/demandElements/trip/inspect_selection/line\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct162733.10504/netedit.gui/demandElements/trip/inspect_selection/line\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct162733.10504/netedit.gui/demandElements/trip/inspect_selection/line\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="tripA" depart="0.00" departLane="0" departPos="2.00" departPosLat="2.00" departSpeed="12.00" arrivalLane="0" arrivalPos="3.00" arrivalPosLat="3.00" arrivalSpeed="12.00" color="red" line="custom Line" personNumber="1" containerNumber="5" from="gneE2" to="gneE5">
+        <param key="KeyA1" value="valueA1"/>
+        <param key="KeyA2" value="valueA3"/>
+        <param key="KeyA3" value="valueA2"/>
+    </trip>
+    <trip id="tripB" depart="0.00" departLane="free" departPos="random" departPosLat="random_free" departSpeed="speedLimit" arrivalLane="current" arrivalPos="random" arrivalPosLat="right" arrivalSpeed="current" color="blue" line="custom Line" personNumber="2" containerNumber="10" from="gneE4" to="gneE5">
+        <param key="KeyB1" value="valueB1"/>
+        <param key="KeyB2" value="valueB3"/>
+        <param key="KeyB3" value="valueB2"/>
+    </trip>
+</routes>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:00 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:11 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -30,12 +30,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
@@ -90,19 +91,19 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":m1_0_2" index="2" speed="12.50" length="8.27" shape="246.00,498.40 254.00,498.40"/>
     </edge>
     <edge id=":m2_0" function="internal">
-        <lane id=":m2_0_0" index="0" speed="12.50" length="8.27" shape="754.00,504.80 751.54,505.30 750.00,506.40 748.46,507.50 746.00,508.00"/>
-        <lane id=":m2_0_1" index="1" speed="12.50" length="8.27" shape="754.00,504.80 746.00,504.80"/>
-        <lane id=":m2_0_2" index="2" speed="12.50" length="8.27" shape="754.00,501.60 746.00,501.60"/>
+        <lane id=":m2_0_0" index="0" speed="12.50" length="8.54" shape="754.00,504.80 751.54,505.30 750.00,506.40 748.46,507.50 746.00,508.00"/>
+        <lane id=":m2_0_1" index="1" speed="12.50" length="8.54" shape="754.00,501.60 751.54,502.10 750.00,503.20 748.46,504.30 746.00,504.80"/>
+        <lane id=":m2_0_2" index="2" speed="12.50" length="8.54" shape="754.00,501.60 746.00,501.60"/>
     </edge>
     <edge id=":m3_0" function="internal">
-        <lane id=":m3_0_0" index="0" speed="12.50" length="8.27" shape="504.80,246.00 505.30,248.46 506.40,250.00 507.50,251.54 508.00,254.00"/>
-        <lane id=":m3_0_1" index="1" speed="12.50" length="8.27" shape="504.80,246.00 504.80,254.00"/>
-        <lane id=":m3_0_2" index="2" speed="12.50" length="8.27" shape="501.60,246.00 501.60,254.00"/>
+        <lane id=":m3_0_0" index="0" speed="12.50" length="8.54" shape="504.80,246.00 505.30,248.46 506.40,250.00 507.50,251.54 508.00,254.00"/>
+        <lane id=":m3_0_1" index="1" speed="12.50" length="8.54" shape="501.60,246.00 502.10,248.46 503.20,250.00 504.30,251.54 504.80,254.00"/>
+        <lane id=":m3_0_2" index="2" speed="12.50" length="8.54" shape="501.60,246.00 501.60,254.00"/>
     </edge>
     <edge id=":m4_0" function="internal">
-        <lane id=":m4_0_0" index="0" speed="12.50" length="8.27" shape="495.20,754.00 494.70,751.54 493.60,750.00 492.50,748.46 492.00,746.00"/>
-        <lane id=":m4_0_1" index="1" speed="12.50" length="8.27" shape="495.20,754.00 495.20,746.00"/>
-        <lane id=":m4_0_2" index="2" speed="12.50" length="8.27" shape="498.40,754.00 498.40,746.00"/>
+        <lane id=":m4_0_0" index="0" speed="12.50" length="8.54" shape="495.20,754.00 494.70,751.54 493.60,750.00 492.50,748.46 492.00,746.00"/>
+        <lane id=":m4_0_1" index="1" speed="12.50" length="8.54" shape="498.40,754.00 497.90,751.54 496.80,750.00 495.70,748.46 495.20,746.00"/>
+        <lane id=":m4_0_2" index="2" speed="12.50" length="8.54" shape="498.40,754.00 498.40,746.00"/>
     </edge>
 
     <edge id="1fi" from="1" to="m1" priority="2">
@@ -204,19 +205,19 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1si" to="3o" fromLane="0" toLane="0" via=":0_7_0" dir="r" state="m"/>
     <connection from="1si" to="2o" fromLane="2" toLane="0" via=":0_8_0" dir="s" state="m"/>
     <connection from="2fi" to="2si" fromLane="0" toLane="0" via=":m2_0_0" dir="s" state="M"/>
-    <connection from="2fi" to="2si" fromLane="0" toLane="1" via=":m2_0_1" dir="s" state="M"/>
+    <connection from="2fi" to="2si" fromLane="1" toLane="1" via=":m2_0_1" dir="s" state="M"/>
     <connection from="2fi" to="2si" fromLane="1" toLane="2" via=":m2_0_2" dir="s" state="M"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_0_0" dir="t" state="M"/>
     <connection from="2si" to="1o" fromLane="2" toLane="0" via=":0_3_0" dir="s" state="m"/>
     <connection from="3fi" to="3si" fromLane="0" toLane="0" via=":m3_0_0" dir="s" state="M"/>
-    <connection from="3fi" to="3si" fromLane="0" toLane="1" via=":m3_0_1" dir="s" state="M"/>
+    <connection from="3fi" to="3si" fromLane="1" toLane="1" via=":m3_0_1" dir="s" state="M"/>
     <connection from="3fi" to="3si" fromLane="1" toLane="2" via=":m3_0_2" dir="s" state="M"/>
     <connection from="3o" to="3fi" fromLane="0" toLane="1" via=":3_0_0" dir="t" state="M"/>
     <connection from="3si" to="2o" fromLane="0" toLane="0" via=":0_4_0" dir="r" state="M"/>
     <connection from="3si" to="1o" fromLane="1" toLane="0" via=":0_5_0" dir="l" state="m"/>
     <connection from="3si" to="3o" fromLane="2" toLane="0" via=":0_6_0" dir="t" state="m"/>
     <connection from="4fi" to="4si" fromLane="0" toLane="0" via=":m4_0_0" dir="s" state="M"/>
-    <connection from="4fi" to="4si" fromLane="0" toLane="1" via=":m4_0_1" dir="s" state="M"/>
+    <connection from="4fi" to="4si" fromLane="1" toLane="1" via=":m4_0_1" dir="s" state="M"/>
     <connection from="4fi" to="4si" fromLane="1" toLane="2" via=":m4_0_2" dir="s" state="M"/>
     <connection from="4si" to="1o" fromLane="0" toLane="0" via=":0_0_0" dir="r" state="M"/>
     <connection from="4si" to="3o" fromLane="1" toLane="0" via=":0_1_0" dir="s" state="M"/>

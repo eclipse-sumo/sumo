@@ -1,16 +1,19 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    SystemPreferencesWindow.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -51,19 +54,17 @@ import javafx.stage.StageStyle;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class SystemPreferencesWindow
-{
+public class SystemPreferencesWindow {
     private final AnchorPane root = new AnchorPane();
     private final OkCancelButtonsPanel okCancelButtons = new OkCancelButtonsPanel();
     private final Button okButton = okCancelButtons.getOkButton();
-    private final ChangeListener<String> activateOkButton = (ObservableValue<? extends String> observable, String oldValue, String newValue) ->
-    {
+    private final ChangeListener<String> activateOkButton = (ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
         okButton.setDisable(false);
     };
-    
+
     private final Scene scene;
     private Stage stage;
-    
+
     private final TabPane mainTabPane = new TabPane();
     private FileChooserCombo sumoExecFileChooser;
     private FileChooserCombo lisaServerFileChooser;
@@ -75,21 +76,20 @@ public class SystemPreferencesWindow
     private final Tab lisaTab = new Tab("Lisa+");
     private final Tab generalTab = new Tab("General");
     //private FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Exe files (*.exe)", "*.exe");
-    
-    
+
+
     /**
-     * 
+     *
      */
-    public SystemPreferencesWindow()
-    {
+    public SystemPreferencesWindow() {
         okCancelButtons.getOkButton().setOnAction((ActionEvent event) -> saveAndClose());
         okCancelButtons.getCancelButton().setOnAction((ActionEvent event) -> stage.close());
         okButton.setDisable(true);
 
         scene = new Scene(root, 600, 450);
-        
+
         /**
-         * 
+         *
          */
         stage = new Stage();
         stage.initStyle(StageStyle.UTILITY);
@@ -99,31 +99,29 @@ public class SystemPreferencesWindow
         stage.initOwner(MainProgram.getInstance().getScene().getWindow());
         stage.getIcons().add(SystemProperties.getInstance().getMainIcon());
         stage.setResizable(false);
-        
-        stage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) ->
-        {
-            if(event.getCode() == KeyCode.ESCAPE)
+
+        stage.addEventHandler(KeyEvent.KEY_PRESSED, (KeyEvent event) -> {
+            if (event.getCode() == KeyCode.ESCAPE)
                 stage.close();
         });
-        
+
         /**
-         * 
+         *
          */
         AnchorPane.setTopAnchor(mainTabPane, 5.);
         AnchorPane.setLeftAnchor(mainTabPane, 5.);
         AnchorPane.setRightAnchor(mainTabPane, 5.);
         AnchorPane.setBottomAnchor(mainTabPane, okCancelButtons.getHeight() + 10.);
-        
+
         generalTab();
         sumoTab();
         lisaTab();
     }
-    
+
     /**
-     * 
+     *
      */
-    private void save()
-    {
+    private void save() {
         GlobalConfig.getInstance().setTextEditor(textEditorFileChooserCombo.getTextField().getText());
         GlobalConfig.getInstance().setSumoExec(sumoExecFileChooser.getTextField().getText());
         GlobalConfig.getInstance().setLoggingLevel(logLevelComboBox.getValue());
@@ -131,44 +129,41 @@ public class SystemPreferencesWindow
         GlobalConfig.getInstance().setWorkspace(workspaceFileChooserCombo.getTextField().getText());
         GlobalConfig.getInstance().setFilesExplorer(filesExplorerFileChooserCombo.getTextField().getText());
         GlobalConfig.getInstance().saveProps();
-        
+
         okButton.setDisable(true);
     }
-    
+
     /**
-     * 
+     *
      */
-    private void saveAndClose()
-    {
-        save();        
+    private void saveAndClose() {
+        save();
         stage.close();
     }
-    
+
     /**
-     * 
+     *
      */
-    private void generalTab()
-    {
+    private void generalTab() {
         AnchorPane generalAnchorPane = new AnchorPane();
         generalTab.setContent(generalAnchorPane);
         generalTab.setClosable(false);
-        
-        
+
+
         Label logLevelLabel = new Label("Default log level:");
         AnchorPane.setTopAnchor(logLevelLabel, 24.);
         AnchorPane.setLeftAnchor(logLevelLabel, 5.);
         logLevelLabel.setFont(Font.font(10));
-        
+
         AnchorPane.setTopAnchor(logLevelComboBox, 20.);
         AnchorPane.setLeftAnchor(logLevelComboBox, 105.);
         logLevelComboBox.setValue(GlobalConfig.getInstance().getLoggingLevel());
-        logLevelComboBox.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) ->
-        {
+        logLevelComboBox.valueProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             okButton.setDisable(false);
         });
-        
+
         /**
-         * 
+         *
          */
         textEditorFileChooserCombo = new FileChooserCombo("Text Editor:", new File("."), stage.getOwner());
         Node textEditorNode = textEditorFileChooserCombo.getNode();
@@ -181,9 +176,9 @@ public class SystemPreferencesWindow
         textEditorFileChooserCombo.setTextFieldWidth(330.);
         textEditorFileChooserCombo.setFontSize(10);
 
-        
+
         /**
-         * 
+         *
          */
         filesExplorerFileChooserCombo = new FileChooserCombo("Files explorer: ", new File("."), stage.getOwner());
         Node filesExplorerNode = filesExplorerFileChooserCombo.getNode();
@@ -197,13 +192,13 @@ public class SystemPreferencesWindow
 
 
         /**
-         * 
+         *
          */
-        workspaceFileChooserCombo = new FileChooserCombo("Workspace:", 
+        workspaceFileChooserCombo = new FileChooserCombo("Workspace:",
                 new File(GlobalConfig.getInstance().getWorkspace()), stage.getOwner());
         Node simuNode = workspaceFileChooserCombo.getNode();
         AnchorPane.setTopAnchor(simuNode, 121.);
-        AnchorPane.setLeftAnchor(simuNode, 5.);        
+        AnchorPane.setLeftAnchor(simuNode, 5.);
         workspaceFileChooserCombo.getTextField().setText(WorkspaceWindow.getWorkspace().getAbsolutePath());
         workspaceFileChooserCombo.getTextField().setDisable(true);
         workspaceFileChooserCombo.getTextField().setStyle("-fx-opacity: 0.8;");
@@ -211,61 +206,58 @@ public class SystemPreferencesWindow
         workspaceFileChooserCombo.enableDefaultButton(false);
         workspaceFileChooserCombo.getBrowseButton().setText("Switch");
         workspaceFileChooserCombo.setFontSize(10);
-        workspaceFileChooserCombo.getBrowseButton().setOnAction((ActionEvent event) ->
-        {
-            if(!okButton.isDisabled())
-            {
+        workspaceFileChooserCombo.getBrowseButton().setOnAction((ActionEvent event) -> {
+            if (!okButton.isDisabled()) {
                 ConfirmationMessage cm = new ConfirmationMessage("");
-                cm.setHeader("Save changes before proceeding?");                
-                if(cm.showAndWait().get() == ButtonType.OK)
+                cm.setHeader("Save changes before proceeding?");
+                if (cm.showAndWait().get() == ButtonType.OK) {
                     save();
+                }
             }
-            
+
             boolean switchWorkspace = Actions.getInstance().switchWorkspace();
-            
-            if(switchWorkspace)
+
+            if (switchWorkspace)
                 stage.close();
         });
-        
-        
+
+
         /**
-         * 
+         *
          */
         Button switchWorkspaceButton = new Button("Switch workspace");
         AnchorPane.setBottomAnchor(switchWorkspaceButton, 5.);
         AnchorPane.setRightAnchor(switchWorkspaceButton, 5.);
-        
-        switchWorkspaceButton.setOnAction((ActionEvent event) ->
-        {
+
+        switchWorkspaceButton.setOnAction((ActionEvent event) -> {
             boolean switchWorkspace = Actions.getInstance().switchWorkspace();
-            
-            if(switchWorkspace)
+
+            if (switchWorkspace)
                 stage.close();
         });
-        
-        generalAnchorPane.getChildren().addAll(/*logLevelLabel, logLevelComboBox,*/ textEditorNode, 
+
+        generalAnchorPane.getChildren().addAll(/*logLevelLabel, logLevelComboBox,*/ textEditorNode,
                 filesExplorerNode, simuNode);
         mainTabPane.getTabs().addAll(generalTab);
     }
-    
+
     /**
-     * 
+     *
      */
-    private void sumoTab()
-    {
+    private void sumoTab() {
         AnchorPane sumoAnchorPane = new AnchorPane();
         sumoTab.setContent(sumoAnchorPane);
         sumoTab.setClosable(false);
 
         /**
-         * 
+         *
          */
         sumoExecFileChooser = new FileChooserCombo("SumoGUI exec:", new File("."), stage.getOwner());
         Node sumoExecNode = sumoExecFileChooser.getNode();
         AnchorPane.setTopAnchor(sumoExecNode, 20.);
         AnchorPane.setLeftAnchor(sumoExecNode, 5.);
         sumoExecFileChooser.setFontSize(10);
-        
+
         sumoAnchorPane.getChildren().add(sumoExecNode);
         sumoExecFileChooser.setDefaultValue("");
         sumoExecFileChooser.getTextField().setText(GlobalConfig.getInstance().getSumoExec());
@@ -275,17 +267,16 @@ public class SystemPreferencesWindow
         sumoExecFileChooser.setTextFieldWidth(330.);
 
         mainTabPane.getTabs().addAll(sumoTab);
-    }    
+    }
 
-/**
-     * 
-     */
-    private void lisaTab()
-    {
+    /**
+         *
+         */
+    private void lisaTab() {
         AnchorPane lisaAnchorPane = new AnchorPane();
         lisaTab.setContent(lisaAnchorPane);
         lisaTab.setClosable(false);
-        
+
         lisaServerFileChooser = new FileChooserCombo("LISA+ RestFUL Server folder:", new File("."), stage.getOwner());
         Node node = lisaServerFileChooser.getNode();
         AnchorPane.setTopAnchor(node, 20.);
@@ -296,56 +287,56 @@ public class SystemPreferencesWindow
         lisaServerFileChooser.setLabelWidth(165);
         lisaServerFileChooser.setDirectoryChooser(true);
         lisaServerFileChooser.setFontSize(10);
-        
+
         Label warningLabel = new Label("System restart required!");
         warningLabel.setTextFill(Color.RED);
         AnchorPane.setTopAnchor(warningLabel, 50.);
         AnchorPane.setLeftAnchor(warningLabel, 180.);
         warningLabel.setVisible(false);
-        
-        lisaServerFileChooser.getTextField().textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) ->
-        {
+
+        lisaServerFileChooser.getTextField().textProperty().addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             String lisaRestFulServerDir = GlobalConfig.getInstance().getLisaRESTfulServerPath();
-            if(!lisaServerFileChooser.getTextField().getText().equals(lisaRestFulServerDir))
+            if (!lisaServerFileChooser.getTextField().getText().equals(lisaRestFulServerDir))
                 warningLabel.setVisible(true);
-            else
+            else {
                 warningLabel.setVisible(false);
+            }
         });
-        
+
         lisaAnchorPane.getChildren().addAll(node, warningLabel);
-        
+
         mainTabPane.getTabs().addAll(lisaTab);
     }
-    
+
     /**
-     * 
+     *
      * @param tabIndex
      */
-    public void show(int tabIndex)
-    {
+    public void show(int tabIndex) {
         Node okCancelNode = okCancelButtons.getNode();
         AnchorPane.setBottomAnchor(okCancelNode, 0.);
         AnchorPane.setLeftAnchor(okCancelNode, 0.);
         AnchorPane.setRightAnchor(okCancelNode, 0.);
-        
+
         root.getChildren().addAll(okCancelNode, mainTabPane);
-        
+
         mainTabPane.getSelectionModel().select(tabIndex);
-        
+
         stage.show();
     }
-    
+
     /**
-     * 
+     *
      */
     private final ComboBox<String> logLevelComboBox = new ComboBox<>();
     {
-        for (LogLevel value : LogLevel.values())
+        for (LogLevel value : LogLevel.values()) {
             logLevelComboBox.getItems().add(value.name());
-        
+        }
+
         logLevelComboBox.setEditable(false);
         logLevelComboBox.setValue(Constants.DEFAULT_LOG_LEVEL);
-        
+
         logLevelComboBox.setTooltip(new Tooltip("Log level"));
     }
 }

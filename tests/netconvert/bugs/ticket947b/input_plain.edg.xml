@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 15 Jan 2020 12:55:02 PM CET by Eclipse SUMO netedit Version v1_4_0+0524-2e60ce1
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="net.net.xml"/>
+        <plain-output-prefix value="/scr2/debug/947/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="E15460004710To" from="N15460004708" to="N15460004709" priority="10" numLanes="3" speed="33.33" shape="110.12,254.27 26.44,371.31" length="152.63">
+        <lane index="0" acceleration="1"/>
+        <lane index="1"/>
+        <lane index="2"/>
+    </edge>
+    <edge id="E15460004715To" from="N15460004714" to="N15460004708" priority="10" numLanes="2" speed="33.33" shape="421.87,0.00 110.12,254.27" length="404.00"/>
+    <edge id="E15460008489From" from="N15460008488" to="N15460004708" priority="8" numLanes="1" speed="16.67" shape="398.33,181.18 396.29,182.14 387.96,184.48 383.22,185.62 377.56,186.55 372.73,186.98 367.90,187.22 362.89,187.14 357.05,186.80 349.21,186.12 341.76,185.32 332.45,184.26 326.05,183.63 319.49,183.13 314.08,182.77 306.39,182.61 300.50,182.58 292.71,182.73 287.19,183.03 279.72,183.72 274.02,184.33 267.21,185.36 261.76,186.22 256.18,187.36 250.67,188.64 243.11,190.52 237.57,192.08 234.35,193.10 232.29,193.76 227.63,195.39 220.88,197.91 214.92,200.27 213.05,201.10 190.35,212.10 184.42,215.60 181.60,217.48 177.28,220.35 168.62,226.41 155.04,235.92 154.08,236.73 138.62,249.89 120.27,269.11" length="304.79"/>
+</edges>

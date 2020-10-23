@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Dec 11 13:03:26 2019 by Eclipse SUMO netconvert Version v1_4_0+0035-a7b6fee
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <railway.topology.output value="topology.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <railway>
+        <railway.topology.all-bidi value="true"/>
+        <railway.topology.all-bidi.input-file value="edge_ids.txt"/>
+    </railway>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<railwayTopology>
+    <legend>
+        <error id="a" meaning="edge pair angle supports driving but both are outgoing"/>
+        <error id="b" meaning="edge pair angle supports driving but both are incoming"/>
+        <error id="c" meaning="an incoming edge has a sharp angle to all outgoing edges"/>
+        <error id="d" meaning="an outgoing edge has a sharp angle from all incoming edges"/>
+    </legend>
+    <railNodeType in="0" out="1">
+        <node id="gneJ0"/>
+        <node id="gneJ28"/>
+        <node id="gneJ29"/>
+        <node id="gneJ30"/>
+        <node id="gneJ7"/>
+    </railNodeType>
+    <railNodeType in="0" out="2">
+        <node id="gneJ34" broken="a"/>
+    </railNodeType>
+    <railNodeType in="0" out="3">
+        <node id="gneJ6" broken="a"/>
+    </railNodeType>
+    <railNodeType in="1" out="0">
+        <node id="gneJ15"/>
+        <node id="gneJ25"/>
+        <node id="gneJ26"/>
+        <node id="gneJ37"/>
+    </railNodeType>
+    <railNodeType in="1" out="1">
+        <node id="gneJ1"/>
+        <node id="gneJ12"/>
+        <node id="gneJ14"/>
+        <node id="gneJ18"/>
+        <node id="gneJ21"/>
+        <node id="gneJ24"/>
+        <node id="gneJ31"/>
+        <node id="gneJ33"/>
+        <node id="gneJ35"/>
+        <node id="gneJ36"/>
+        <node id="gneJ4"/>
+        <node id="gneJ8"/>
+    </railNodeType>
+    <railNodeType in="2" out="0">
+        <node id="gneJ32" broken="b"/>
+    </railNodeType>
+    <railNodeType in="2" out="1">
+        <node id="gneJ2" broken="bc"/>
+        <node id="gneJ3" broken="bc"/>
+    </railNodeType>
+    <railNodeType in="2" out="2">
+        <node id="gneJ10"/>
+        <node id="gneJ11"/>
+        <node id="gneJ19"/>
+        <node id="gneJ22"/>
+        <node id="gneJ23"/>
+    </railNodeType>
+    <railNodeType in="2" out="3">
+        <node id="gneJ9"/>
+    </railNodeType>
+    <railNodeType in="3" out="0">
+        <node id="gneJ5" broken="b"/>
+    </railNodeType>
+    <railNodeType in="3" out="3">
+        <node id="gneJ20"/>
+    </railNodeType>
+    <bidiEdge id="buffer3" bidi="-buffer3"/>
+    <bidiEdge id="gneE10" bidi="-gneE10"/>
+    <bidiEdge id="gneE13" bidi="-gneE13"/>
+    <bidiEdge id="gneE14" bidi="-gneE14"/>
+    <bidiEdge id="gneE15" bidi="-gneE15"/>
+    <bidiEdge id="gneE16" bidi="-gneE16"/>
+    <bidiEdge id="gneE17" bidi="gneE19"/>
+    <bidiEdge id="gneE7" bidi="-gneE7"/>
+    <bidiEdge id="gneE8" bidi="-gneE8"/>
+    <bidiEdge id="gneE9" bidi="-gneE9"/>
+</railwayTopology>

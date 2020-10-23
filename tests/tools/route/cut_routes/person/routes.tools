@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-10-01 11:21:42.922000 by cutRoutes.py
+  options: input_net.net.xml input_routes.rou.xml <doubleminus>routes-output out.rou.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person depart="0.00" id="left_stop">
+        <stop duration="100" lane="left2end_0"/>
+        <walk edges="left2end end"/>
+    </person>
+</routes>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RGBColor.cpp
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,9 @@
 /// @author  Michael Behrisch
 /// @author  Laura Bieker
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A RGB-color definition
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cmath>
@@ -67,13 +65,6 @@ RGBColor::RGBColor()
 
 RGBColor::RGBColor(unsigned char red, unsigned char green, unsigned char blue, unsigned char alpha)
     : myRed(red), myGreen(green), myBlue(blue), myAlpha(alpha) {}
-
-
-RGBColor::RGBColor(const RGBColor& col)
-    : myRed(col.myRed), myGreen(col.myGreen), myBlue(col.myBlue), myAlpha(col.myAlpha) {}
-
-
-RGBColor::~RGBColor() {}
 
 
 void
@@ -206,6 +197,16 @@ RGBColor::parseColor(std::string coldef) {
     if (coldef == "grey" || coldef == "gray") {
         return GREY;
     }
+    if (coldef == "invisible") {
+        return INVISIBLE;
+    }
+    if (coldef == "random") {
+        return fromHSV(RandHelper::rand(360, &myRNG),
+                       // prefer more saturated colors
+                       pow(RandHelper::rand(&myRNG), 0.3),
+                       // prefer brighter colors
+                       pow(RandHelper::rand(&myRNG), 0.3));
+    }
     unsigned char r = 0;
     unsigned char g = 0;
     unsigned char b = 0;
@@ -297,17 +298,11 @@ RGBColor::interpolate(const RGBColor& minColor, const RGBColor& maxColor, double
 
 RGBColor
 RGBColor::fromHSV(double h, double s, double v) {
-    // H is given on [0, 6] or UNDEFINED. S and V are given on [0, 1].
-    // RGB are each returned on [0, 255].
-    //float h = HSV.H, s = HSV.S, v = HSV.V,
-    double f;
     h /= 60.;
-    int i;
-    //if (h == UNDEFINED) RETURN_RGB(v, v, v);
-    i = int(floor(h));
-    f = float(h - i);
-    if (!(i & 1)) {
-        f = 1 - f;    // if i is even
+    const int i = int(floor(h));
+    double f = h - i;
+    if (i % 2 == 0) {
+        f = 1. - f;
     }
     const unsigned char m = static_cast<unsigned char>(v * (1 - s) * 255. + 0.5);
     const unsigned char n = static_cast<unsigned char>(v * (1 - s * f) * 255. + 0.5);
@@ -335,5 +330,5 @@ RGBColor::randomHue(double s, double v) {
     return fromHSV(RandHelper::rand(360, &myRNG), s, v);
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

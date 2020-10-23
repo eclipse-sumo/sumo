@@ -51,5 +51,5 @@
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <poly id="poly_0" color="red" fill="0" layer="128.00" shape="12.000000,8.000000 12.000000,18.000000 2.000000,18.000000 2.000000,8.000000 12.000000,8.000000"/>
-    <poly id="poly_1" color="red" fill="0" imgfile="berlin_icon.ico" layer="128.00" shape="32.000000,8.000000 32.000000,18.000000 22.000000,18.000000 22.000000,8.000000 32.000000,8.000000"/>
+    <poly id="poly_1" color="red" fill="0" imgFile="berlin_icon.ico" layer="128.00" shape="32.000000,8.000000 32.000000,18.000000 22.000000,18.000000 22.000000,8.000000 32.000000,8.000000"/>
 </additional>

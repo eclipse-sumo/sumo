@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.12.2018 13:56:36 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
+<!-- generated on 26.04.2019 15:43:25 by Eclipse SUMO netedit Version v1_2_0+0025-6204dba46c
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec135518.6012/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec135518.6012/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,13 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec135518.6012/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec135518.6012/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec135518.6012/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec135518.6012/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,13 +47,13 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec135518.6012/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.6_from_26Apr121940.3568/netedit.gui/netElements/lanes/contextual_menu/transform_restricted_lane/greenverge\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,20.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 

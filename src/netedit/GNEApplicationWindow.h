@@ -1,46 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEApplicationWindow.h
 /// @author  Jakob Erdmann
 /// @date    Feb 2011
-/// @version $Id$
 ///
 // The main window of Netedit (adapted from GUIApplicationWindow)
 /****************************************************************************/
-#ifndef GNEApplicationWindow_h
-#define GNEApplicationWindow_h
+#pragma once
 
-
-// ===========================================================================
-// included modules
-// ===========================================================================
-#include <config.h>
-
-#include <utils/common/SUMOTime.h>
-#include <utils/foxtools/FXSynchQue.h>
-#include <utils/foxtools/FXThreadEvent.h>
-#include <utils/foxtools/MFXInterThreadEventClient.h>
-#include <utils/geom/Position.h>
-#include <utils/gui/div/GUIMessageWindow.h>
-#include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/shapes/ShapeHandler.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNELoadThread;
-class GNEUndoList;
-class GNENet;
-class GNEViewNet;
-class GUIEvent;
+#include "GNEApplicationWindowHelper.h"
 
 
 // ===========================================================================
@@ -61,55 +40,6 @@ class GNEApplicationWindow : public GUIMainWindow, public MFXInterThreadEventCli
     FXDECLARE(GNEApplicationWindow)
 
 public:
-    /// @brief struct for griped toolbars
-    struct ToolbarsGrip {
-
-        /// @brief constructor
-        ToolbarsGrip(GNEApplicationWindow* GNEApp);
-
-        /// @brief build menu toolbar grips
-        void buildMenuToolbarsGrip();
-
-        /// @brief build toolbars grips
-        void buildViewParentToolbarsGrips();
-
-        /// @brief build toolbars grips
-        void destroyParentToolbarsGrips();
-
-        /// @brief The application menu bar (for file, edit, processing...)
-        FXMenuBar* menu;
-
-        /// @brief The application menu bar for supermodes (network and demand)
-        FXMenuBar* superModes;
-
-        /// @brief The application menu bar for navigation (zoom, coloring...)
-        FXMenuBar* navigation;
-
-        /// @brief The application menu bar (for select, inspect...)
-        FXMenuBar* modes;
-
-        /// @brief The application menu bar for mode options (show connections, select edges...)
-        FXMenuBar* modeOptions;
-
-    private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-
-        /// @brief menu bar drag (for file, edit, processing...)
-        FXToolBarShell* myToolBarShellMenu;
-
-        /// @brief menu bar drag for modes (network and demand)
-        FXToolBarShell* myToolBarShellSuperModes;
-
-        /// @brief menu bar drag for navigation (Zoom, coloring...)
-        FXToolBarShell* myToolBarShellNavigation;
-
-        /// @brief menu bar drag for modes (select, inspect, delete...)
-        FXToolBarShell* myToolBarShellModes;
-
-        /// @brief menu bar drag for mode options(show connections, select edges...)
-        FXToolBarShell* myToolBarShellModeOptions;
-    };
 
     /**@brief Constructor
      * @param[in] a The FOX application
@@ -132,20 +62,29 @@ public:
     /// @brief set text of the statusBar
     void setStatusBarText(const std::string& statusBarText);
 
+    /// @brief called if the user selects Processing->compute junctions with volatile options
+    long computeJunctionWithVolatileOptions();
+
+    /// @brief enable save TLS Programs
+    void enableSaveTLSProgramsMenu();
+
     /// @brief enable save additionals
     void enableSaveAdditionalsMenu();
 
     /// @brief disable save additionals
     void disableSaveAdditionalsMenu();
 
-    /// @brief enable save TLS Programs
-    void enableSaveTLSProgramsMenu();
-
     /// @brief enable save demand elements
     void enableSaveDemandElementsMenu();
 
     /// @brief disable save demand elements
     void disableSaveDemandElementsMenu();
+
+    /// @brief enable save data elements
+    void enableSaveDataElementsMenu();
+
+    /// @brief disable save data elements
+    void disableSaveDataElementsMenu();
 
     /// @name Inter-thread event handling
     /// @{
@@ -182,6 +121,9 @@ public:
     /// @brief called when the command/FXCall open demand is executed
     long onCmdOpenDemandElements(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall open data is executed
+    long onCmdOpenDataElements(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall reload is executed
     long onCmdReload(FXObject*, FXSelector, void*);
 
@@ -203,17 +145,17 @@ public:
     /// @brief called when the command/FXCall save network is executed
     long onCmdSaveNetwork(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall save additionals is executed
-    long onCmdSaveAdditionals(FXObject*, FXSelector, void*);
-
-    /// @brief called when the command/FXCall save additionals as is executed
-    long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
-
     /// @brief called when the command/FXCall save TLSPrograms is executed
     long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save TLSPrograms as is executed
     long onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save additionals is executed
+    long onCmdSaveAdditionals(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save additionals as is executed
+    long onCmdSaveAdditionalsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save demand elements is executed
     long onCmdSaveDemandElements(FXObject*, FXSelector, void*);
@@ -221,17 +163,41 @@ public:
     /// @brief called when the command/FXCall save demand elements as is executed
     long onCmdSaveDemandElementsAs(FXObject*, FXSelector, void*);
 
-    /// @brief called when the update/FXCall save network is executed
-    long onUpdSaveNetwork(FXObject*, FXSelector, void*);
+    /// @brief called when the command/FXCall save data elements is executed
+    long onCmdSaveDataElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save data elements as is executed
+    long onCmdSaveDataElementsAs(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save network as is executed
     long onCmdSaveAsNetwork(FXObject*, FXSelector, void*);
 
-    /// @brief called when the upadte/FXCall needs network is executed
+    /// @brief called when the update/FXCall needs network is executed
     long onUpdNeedsNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall needs front element is executed
+    long onUpdNeedsFrontElement(FXObject*, FXSelector, void*);
 
     /// @brief called when the update/FXCall reload is executed
     long onUpdReload(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save network is executed
+    long onUpdSaveNetwork(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save additionals is executed
+    long onUpdSaveAdditionals(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save demand elements is executed
+    long onUpdSaveDemandElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall save data elements is executed
+    long onUpdSaveDataElements(FXObject*, FXSelector, void*);
+
+    /// @brief called when the update/FXCall undo is executed
+    long onUpdUndo(FXObject* obj, FXSelector sel, void* ptr);
+
+    /// @brief called when the update/FXCall redo is executed
+    long onUpdRedo(FXObject* obj, FXSelector sel, void* ptr);
 
     /// @brief called when the command/FXCall save as plain xml is executed
     long onCmdSaveAsPlainXML(FXObject*, FXSelector, void*);
@@ -262,6 +228,12 @@ public:
     /// @brief called when the command/FXCall clear message windows is executed
     long onCmdClearMsgWindow(FXObject*, FXSelector, void*);
 
+    /// @brief called when user toogle windows checkbox "load additionals"
+    long onCmdLoadAdditionalsInSUMOGUI(FXObject*, FXSelector, void*);
+
+    /// @brief called when user toogle windows checkbox "load demand"
+    long onCmdLoadDemandInSUMOGUI(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall load thread is executed
     long onLoadThreadEvent(FXObject*, FXSelector, void*);
 
@@ -273,6 +245,9 @@ public:
 
     /// @brief called if the user hits an edit-mode hotkey
     long onCmdSetMode(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief called when user press a process button (or a shortcut)
+    long onCmdProcessButton(FXObject*, FXSelector sel, void*);
 
     /// @brief called if the user hints ctrl + T
     long onCmdOpenSUMOGUI(FXObject* sender, FXSelector sel, void* ptr);
@@ -286,38 +261,51 @@ public:
     /// @brief called if the user hits enter
     long onCmdEnter(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief called if the user hits backspace
+    long onCmdBackspace(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief called if the user hits f
     long onCmdFocusFrame(FXObject* sender, FXSelector sel, void* ptr);
 
     /// @brief called if the user press key combination Ctrl + G to toogle grid
     long onCmdToogleGrid(FXObject*, FXSelector, void*);
 
-    /// @brief called if the user press key combination Ctrl + Shift + C to toogle show connections
-    long onCmdToogleShowConnections(FXObject*, FXSelector, void*);
+    /// @brief called if the user call set front element
+    long onCmdSetFrontElement(FXObject*, FXSelector, void*);
 
-    /// @brief called if the user press key combination Ctrl + Shift +IG to toogle select edges
-    long onCmdToogleSelectEdges(FXObject*, FXSelector, void*);
+    /// @brief called if the user press key combination Alt + <0-9>
+    long onCmdToogleEditOptions(FXObject*, FXSelector, void*);
 
     /// @brief called if the user selects help->Documentation
     long onCmdHelp(FXObject* sender, FXSelector sel, void* ptr);
 
-    /// @brief called if the user selects Processing->compute junctions
-    long onCmdComputeJunctions(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user selects Processing->compute junctions with volatile options
-    long onCmdComputeJunctionsVolatile(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user selects Processing->clean junctions
-    long onCmdCleanJunctions(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user selects Processing->join junctions
-    long onCmdJoinJunctions(FXObject*, FXSelector, void*);
-
-    /// @brief called if the user selects Processing->clear invalid crossings
-    long onCmdCleanInvalidCrossings(FXObject*, FXSelector, void*);
-
     /// @brief called if the user selects Processing->Configure Options
     long onCmdOptions(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press Ctrl+Z
+    long onCmdUndo(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+Y
+    long onCmdRedo(FXObject*, FXSelector, void*);
+
+    /// @brief called when user press Ctrl+Z
+    long onCmdCut(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+Y
+    long onCmdCopy(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+Y
+    long onCmdPaste(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+F1
+    long onCmdSetTemplate(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+F2
+    long onCmdCopyTemplate(FXObject*, FXSelector, void*);
+
+    // @brief called when user press Ctrl+F3
+    long onCmdClearTemplate(FXObject*, FXSelector, void*);
+
     /// @}
 
     /// @name inherited from GUIMainWindow
@@ -338,14 +326,26 @@ public:
     /// @brief get pointer to undoList
     GNEUndoList* getUndoList();
 
+    /// @brief get pointer to viewNet
+    GNEViewNet* getViewNet();
+
     /// @brief get ToolbarsGrip
-    ToolbarsGrip& getToolbarsGrip();
+    GNEApplicationWindowHelper::ToolbarsGrip& getToolbarsGrip();
 
     /// @brief update control contents after undo/redo or recompute
     void updateControls();
 
-    /// @brief update FXMenuCommands
-    void updateSuperModeMenuCommands(int supermode);
+    /// @brief update FXMenuCommands depending of supermode
+    void updateSuperModeMenuCommands(const Supermode supermode);
+
+    /// @brief disable undo-redo giving a string with the reason
+    void disableUndoRedo(const std::string& reason);
+
+    /// @brief disable undo-redo
+    void enableUndoRedo();
+
+    /// @brief check if undo-redo is enabled
+    const std::string& isUndoRedoEnabled() const;
 
 protected:
     /// @brief FOX needs this for static members
@@ -359,9 +359,10 @@ protected:
 
     /// @brief the submenus
     FXMenuPane* myFileMenu,
-                *myFileMenuAdditionals,
                 *myFileMenuTLS,
+                *myFileMenuAdditionals,
                 *myFileMenuDemandElements,
+                *myFileMenuDataElements,
                 *myEditMenu,
                 *myProcessingMenu,
                 *myLocatorMenu,
@@ -392,164 +393,33 @@ protected:
     /// @brief Input file pattern
     std::string myConfigPattern;
 
+    /// @brief string to check if undo/redo list is enabled (a String is used to keep the disabling reason)
+    std::string myUndoRedoListEnabled;
+
 private:
-    /// @brief struct for menu bar file
-    struct MenuBarFile {
-
-        /// @brief constructor
-        MenuBarFile(GNEApplicationWindow* GNEApp);
-
-        /// @brief build recent files
-        void buildRecentFiles(FXMenuPane* fileMenu);
-
-        /// @brief filename for load/save additionals
-        std::string myAdditionalsFile;
-
-        /// @brief filename for load/save TLS Programs
-        std::string myTLSProgramsFile;
-
-        /// @brief filename for load/save demand elemetns
-        std::string myDemandElementsFile;
-
-        /// @brief List of recent config files
-        FXRecentFiles myRecentConfigs;
-
-        /// @brief List of recent nets
-        FXRecentFiles myRecentNets;
-
-    private:
-        /// @brief pointer to current GNEApplicationWindow
-        GNEApplicationWindow* myGNEApp;
-    };
-
-    /// @brief struct for File menu commands
-    struct FileMenuCommands {
-
-        /// @brief constructor
-        FileMenuCommands(GNEApplicationWindow* GNEApp);
-
-        /// @brief build menu commands
-        void buildFileMenuCommands(FXMenuPane* editMenu);
-
-        /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveAdditionals;
-
-        /// @brief FXMenuCommand for enable or disable save additionals As
-        FXMenuCommand* saveAdditionalsAs;
-
-        /// @brief FXMenuCommand for enable or disable save additionals
-        FXMenuCommand* saveTLSPrograms;
-
-        /// @brief FXMenuCommand for enable or disable save demand elements
-        FXMenuCommand* saveDemandElements;
-
-        /// @brief FXMenuCommand for enable or disable save demand elements as
-        FXMenuCommand* saveDemandElementsAs;
-
-    private:
-        /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow* myGNEApp;
-    };
-
-    /// @brief struct for network menu commands
-    struct NetworkMenuCommands {
-
-        /// @brief constructor
-        NetworkMenuCommands(GNEApplicationWindow* GNEApp);
-
-        /// @brief build menu commands
-        void buildNetworkMenuCommands(FXMenuPane* editMenu);
-
-        /// @brief show all menu commands
-        void showNetworkMenuCommands();
-
-        /// @brief hide all menu commands
-        void hideNetworkMenuCommands();
-
-        /// @brief menu command for create edge
-        FXMenuCommand* createEdgeMode;
-
-        /// @brief menu command for move mode
-        FXMenuCommand* moveMode;
-
-        /// @brief menu command for delete mode
-        FXMenuCommand* deleteMode;
-
-        /// @brief menu command for inspect mode
-        FXMenuCommand* inspectMode;
-
-        /// @brief menu command for select mode
-        FXMenuCommand* selectMode;
-
-        /// @brief menu command for connect mode
-        FXMenuCommand* connectMode;
-
-        /// @brief menu command for prohibition mode
-        FXMenuCommand* prohibitionMode;
-
-        /// @brief menu command for TLS Mode
-        FXMenuCommand* TLSMode;
-
-        /// @brief menu command for additional mode
-        FXMenuCommand* additionalMode;
-
-        /// @brief menu command for crossing mode
-        FXMenuCommand* crossingMode;
-
-        /// @brief menu command for TAZ mode
-        FXMenuCommand* TAZMode;
-
-        /// @brief menu command for shape mode
-        FXMenuCommand* shapeMode;
-
-    private:
-        /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow* myGNEApp;
-
-        /// @brief separator between sets of FXMenuCommand
-        FXMenuSeparator* myHorizontalSeparator;
-    };
-
-    /// @brief struct for Demand menu commands
-    struct DemandMenuCommands {
-
-        /// @brief constructor
-        DemandMenuCommands(GNEApplicationWindow* GNEApp);
-
-        /// @brief build menu commands
-        void buildDemandMenuCommands(FXMenuPane* editMenu);
-
-        /// @brief show all menu commands
-        void showDemandMenuCommands();
-
-        /// @brief hide all menu commands
-        void hideDemandMenuCommands();
-
-        /// @brief menu command for route mode
-        FXMenuCommand* routeMode;
-
-    private:
-        /// @brief pointer to current GNEApplicationWindows
-        GNEApplicationWindow* myGNEApp;
-
-        /// @brief separator between sets of FXMenuCommand
-        FXMenuSeparator* myHorizontalSeparator;
-    };
-
     /// @brief Toolbars Grip
-    ToolbarsGrip myToolbarsGrip;
+    GNEApplicationWindowHelper::ToolbarsGrip myToolbarsGrip;
 
     /// @brief MenuBarFile
-    MenuBarFile myMenuBarFile;
+    GNEApplicationWindowHelper::MenuBarFile myMenuBarFile;
 
     /// @brief File Menu Commands
-    FileMenuCommands myFileMenuCommands;
+    GNEApplicationWindowHelper::FileMenuCommands myFileMenuCommands;
 
-    /// @brief Network Menu Commands
-    NetworkMenuCommands myNetworkMenuCommands;
+    /// @brief Edit Menu Commands
+    GNEApplicationWindowHelper::EditMenuCommands myEditMenuCommands;
 
-    /// @brief Demand Menu Commands
-    DemandMenuCommands myDemandMenuCommands;
+    /// @brief Edit Menu Commands
+    GNEApplicationWindowHelper::ProcessingMenuCommands myProcessingMenuCommands;
+
+    /// @brief Locate Menu Commands
+    GNEApplicationWindowHelper::LocateMenuCommands myLocateMenuCommands;
+
+    /// @brief Windows Menu Commands
+    GNEApplicationWindowHelper::WindowsMenuCommands myWindowsMenuCommands;
+
+    /// @brief Supermode Commands
+    GNEApplicationWindowHelper::SupermodeCommands mySupermodeCommands;
 
     /// @brief pointer to current view net
     GNEViewNet* myViewNet;
@@ -570,14 +440,11 @@ private:
     void closeAllWindows();
 
     /// @brief warns about unsaved changes and gives the user the option to abort
-    bool continueWithUnsavedChanges();
+    bool continueWithUnsavedChanges(const std::string& operation);
 
     /// @brief warns about unsaved changes in additionals and gives the user the option to abort
-    bool continueWithUnsavedAdditionalChanges();
+    bool continueWithUnsavedAdditionalChanges(const std::string& operation);
+
+    /// @brief warns about unsaved changes in demand elements and gives the user the option to abort
+    bool continueWithUnsavedDemandElementChanges(const std::string& operation);
 };
-
-
-#endif
-
-/****************************************************************************/
-

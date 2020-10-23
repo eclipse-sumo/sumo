@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2006-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2006-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    RODFDetector.cpp
 /// @author  Daniel Krajzewicz
@@ -16,15 +20,9 @@
 /// @author  Laura Bieker
 /// @author  Melanie Knocke
 /// @date    Thu, 16.03.2006
-/// @version $Id$
 ///
 // Class representing a detector within the DFROUTER
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -308,6 +306,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
         return false;
     }
     // insertions
+    int vehicleIndex = 0;
     if (insertionsOnly || flows.knows(myID)) {
         // get the flows for this detector
         const std::vector<FlowDef>& mflows = flows.getFlowDefs(myID);
@@ -367,11 +366,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
 
                 // write
                 out.openTag(SUMO_TAG_VEHICLE);
-                if (getType() == SOURCE_DETECTOR) {
-                    out.writeAttr(SUMO_ATTR_ID, "emitter_" + myID + "_" + toString(ctime));
-                } else {
-                    out.writeAttr(SUMO_ATTR_ID, "calibrator_" + myID + "_" + toString(ctime));
-                }
+                out.writeAttr(SUMO_ATTR_ID, myID + "." + toString(vehicleIndex));
                 if (oc.getBool("vtype")) {
                     out.writeAttr(SUMO_ATTR_TYPE, vtype);
                 }
@@ -422,6 +417,7 @@ RODFDetector::writeEmitterDefinition(const std::string& file,
                 }
                 out.closeTag();
                 srcFD.isLKW += srcFD.fLKW;
+                vehicleIndex++;
             }
         }
     }
@@ -720,6 +716,8 @@ RODFDetectorCon::setSpeedFactorAndDev(SUMOVTypeParameter& type, double maxFactor
         // individual speedFactors to match departSpeed (MSEdge::insertVehicle())
         type.speedFactor.getParameter()[1] = dev;
         type.parametersSet |= VTYPEPARS_SPEEDFACTOR_SET;
+    } else {
+        type.speedFactor.getParameter()[1] = -1; // do not write speedDev, only simple speedFactor
     }
 }
 

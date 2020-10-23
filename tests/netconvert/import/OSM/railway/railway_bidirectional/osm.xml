@@ -1,0 +1,285 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<osm version="0.6" generator="Overpass API 0.7.55.7 8b86ff77">
+<note>The data included in this document is from www.openstreetmap.org. The data is made available under ODbL.</note>
+<meta osm_base="2019-05-03T17:30:02Z"/>
+
+  <node id="245981493" lat="43.7215538" lon="7.4016843"/>
+  <node id="245981494" lat="43.7212655" lon="7.4000065"/>
+  <node id="245981495" lat="43.7211053" lon="7.3994795"/>
+  <node id="265820653" lat="43.7204065" lon="7.4036528"/>
+  <node id="265820654" lat="43.7204220" lon="7.4035871"/>
+  <node id="265820655" lat="43.7204392" lon="7.4034866"/>
+  <node id="265820656" lat="43.7204793" lon="7.4033654"/>
+  <node id="265820657" lat="43.7205158" lon="7.4032666"/>
+  <node id="265820658" lat="43.7205579" lon="7.4032213"/>
+  <node id="265820659" lat="43.7206922" lon="7.4031286"/>
+  <node id="265820660" lat="43.7208113" lon="7.4029946"/>
+  <node id="265820661" lat="43.7208429" lon="7.4029336"/>
+  <node id="265820662" lat="43.7210391" lon="7.4029455"/>
+  <node id="265820663" lat="43.7211834" lon="7.4026729"/>
+  <node id="265820664" lat="43.7212436" lon="7.4024993"/>
+  <node id="265820665" lat="43.7212649" lon="7.4023933"/>
+  <node id="265820666" lat="43.7212684" lon="7.4022528"/>
+  <node id="265820667" lat="43.7212738" lon="7.4020625"/>
+  <node id="265820668" lat="43.7212161" lon="7.4019771"/>
+  <node id="265820669" lat="43.7211963" lon="7.4018574"/>
+  <node id="265820670" lat="43.7211882" lon="7.4016681"/>
+  <node id="265820671" lat="43.7212034" lon="7.4014948"/>
+  <node id="265820672" lat="43.7212333" lon="7.4012840"/>
+  <node id="265820673" lat="43.7212673" lon="7.4011019"/>
+  <node id="265820674" lat="43.7212951" lon="7.4009119"/>
+  <node id="265820675" lat="43.7212230" lon="7.4007591"/>
+  <node id="265820676" lat="43.7212243" lon="7.4005976"/>
+  <node id="265820677" lat="43.7211991" lon="7.4004504"/>
+  <node id="265820678" lat="43.7211407" lon="7.4003897"/>
+  <node id="265820679" lat="43.7211334" lon="7.4002574"/>
+  <node id="265820680" lat="43.7210806" lon="7.4001568"/>
+  <node id="265820681" lat="43.7209780" lon="7.3999966"/>
+  <node id="265820682" lat="43.7208362" lon="7.3998007"/>
+  <node id="265820683" lat="43.7207848" lon="7.3997762"/>
+  <node id="265820684" lat="43.7205913" lon="7.3996757"/>
+  <node id="265820685" lat="43.7205265" lon="7.3995823"/>
+  <node id="265820686" lat="43.7203799" lon="7.3994059"/>
+  <node id="265820687" lat="43.7203230" lon="7.3993791"/>
+  <node id="265820688" lat="43.7200730" lon="7.3992841">
+    <tag k="barrier" v="gate"/>
+    <tag k="description" v="Sentier fermé par mauvais temps car dangereux"/>
+    <tag k="description:en" v="Trail closed in case of bad weather because dangerous"/>
+  </node>
+  <node id="265820691" lat="43.7198125" lon="7.3989848"/>
+  <node id="265820694" lat="43.7197644" lon="7.3985448"/>
+  <node id="265820695" lat="43.7197967" lon="7.3984065"/>
+  <node id="265820696" lat="43.7198253" lon="7.3982709"/>
+  <node id="265820697" lat="43.7198530" lon="7.3981090"/>
+  <node id="265820698" lat="43.7198746" lon="7.3979196"/>
+  <node id="265820699" lat="43.7198764" lon="7.3977356"/>
+  <node id="265820700" lat="43.7198563" lon="7.3975251"/>
+  <node id="265820701" lat="43.7197083" lon="7.3972583"/>
+  <node id="265820702" lat="43.7196661" lon="7.3971243"/>
+  <node id="265820703" lat="43.7196095" lon="7.3969870"/>
+  <node id="265820704" lat="43.7196185" lon="7.3969021"/>
+  <node id="265820705" lat="43.7196388" lon="7.3967979"/>
+  <node id="265820706" lat="43.7196599" lon="7.3966601"/>
+  <node id="265820707" lat="43.7196833" lon="7.3964890"/>
+  <node id="265820708" lat="43.7196764" lon="7.3963306"/>
+  <node id="265820710" lat="43.7196782" lon="7.3959857"/>
+  <node id="265820712" lat="43.7196521" lon="7.3957238"/>
+  <node id="265820713" lat="43.7196585" lon="7.3956287"/>
+  <node id="265820714" lat="43.7196527" lon="7.3955404"/>
+  <node id="265820715" lat="43.7196738" lon="7.3955192"/>
+  <node id="265820716" lat="43.7198786" lon="7.3953963"/>
+  <node id="265820717" lat="43.7199244" lon="7.3953448"/>
+  <node id="265820718" lat="43.7199505" lon="7.3951903"/>
+  <node id="265820719" lat="43.7199641" lon="7.3950724"/>
+  <node id="265820720" lat="43.7200215" lon="7.3949765"/>
+  <node id="265820721" lat="43.7200341" lon="7.3948722"/>
+  <node id="265820722" lat="43.7200333" lon="7.3947709"/>
+  <node id="265820723" lat="43.7200263" lon="7.3946585"/>
+  <node id="265820724" lat="43.7200066" lon="7.3945450"/>
+  <node id="265820725" lat="43.7200341" lon="7.3944635"/>
+  <node id="265820726" lat="43.7200713" lon="7.3943566"/>
+  <node id="265820727" lat="43.7201250" lon="7.3942288"/>
+  <node id="265820728" lat="43.7201835" lon="7.3940691"/>
+  <node id="265820729" lat="43.7201771" lon="7.3940409"/>
+  <node id="265820730" lat="43.7203004" lon="7.3939955"/>
+  <node id="265820731" lat="43.7203344" lon="7.3938612"/>
+  <node id="265820732" lat="43.7203707" lon="7.3936226"/>
+  <node id="265820733" lat="43.7204387" lon="7.3935046"/>
+  <node id="265820734" lat="43.7204525" lon="7.3934258"/>
+  <node id="265820735" lat="43.7204327" lon="7.3933031"/>
+  <node id="265820736" lat="43.7204025" lon="7.3931684"/>
+  <node id="265820737" lat="43.7203769" lon="7.3930135"/>
+  <node id="265820740" lat="43.7203098" lon="7.3926682"/>
+  <node id="265820741" lat="43.7202685" lon="7.3925156"/>
+  <node id="265820742" lat="43.7202401" lon="7.3923272"/>
+  <node id="265820743" lat="43.7202142" lon="7.3921755"/>
+  <node id="265820744" lat="43.7202107" lon="7.3920550"/>
+  <node id="265820745" lat="43.7202116" lon="7.3919141"/>
+  <node id="265820746" lat="43.7202077" lon="7.3917484"/>
+  <node id="265820747" lat="43.7201878" lon="7.3915415"/>
+  <node id="265820748" lat="43.7201556" lon="7.3913144"/>
+  <node id="265820749" lat="43.7201320" lon="7.3911034"/>
+  <node id="265820750" lat="43.7201436" lon="7.3910165"/>
+  <node id="265820751" lat="43.7201103" lon="7.3907399"/>
+  <node id="265820752" lat="43.7200619" lon="7.3905734"/>
+  <node id="265820753" lat="43.7200626" lon="7.3904291"/>
+  <node id="265820754" lat="43.7200341" lon="7.3903215"/>
+  <node id="265820755" lat="43.7199703" lon="7.3901680"/>
+  <node id="265820757" lat="43.7198237" lon="7.3898922"/>
+  <node id="265820758" lat="43.7197765" lon="7.3898500"/>
+  <node id="265820759" lat="43.7197214" lon="7.3897340"/>
+  <node id="265820760" lat="43.7196223" lon="7.3895942"/>
+  <node id="265820761" lat="43.7194947" lon="7.3894981"/>
+  <node id="265820762" lat="43.7194612" lon="7.3894619"/>
+  <node id="265820763" lat="43.7194344" lon="7.3894084"/>
+  <node id="265820764" lat="43.7193898" lon="7.3892126"/>
+  <node id="265820765" lat="43.7193606" lon="7.3891070"/>
+  <node id="265820766" lat="43.7193539" lon="7.3890116"/>
+  <node id="265820767" lat="43.7193674" lon="7.3889384"/>
+  <node id="265820773" lat="43.7195956" lon="7.3888267"/>
+  <node id="265820775" lat="43.7197016" lon="7.3888207"/>
+  <node id="265820778" lat="43.7197644" lon="7.3888409"/>
+  <node id="265820780" lat="43.7198972" lon="7.3890110"/>
+  <node id="265820783" lat="43.7200351" lon="7.3891720"/>
+  <node id="265820786" lat="43.7200779" lon="7.3892464"/>
+  <node id="265820792" lat="43.7201679" lon="7.3894033"/>
+  <node id="265820794" lat="43.7201876" lon="7.3895117"/>
+  <node id="265820797" lat="43.7202463" lon="7.3895926"/>
+  <node id="265820800" lat="43.7203299" lon="7.3895919"/>
+  <node id="265820803" lat="43.7204006" lon="7.3896254"/>
+  <node id="265820805" lat="43.7204753" lon="7.3897162"/>
+  <node id="265820808" lat="43.7205383" lon="7.3897570"/>
+  <node id="265820831" lat="43.7211781" lon="7.3903993"/>
+  <node id="265820832" lat="43.7212689" lon="7.3904245"/>
+  <node id="265820834" lat="43.7213543" lon="7.3904438"/>
+  <node id="265820835" lat="43.7214290" lon="7.3904321"/>
+  <node id="265820836" lat="43.7215042" lon="7.3904318"/>
+  <node id="265820837" lat="43.7215358" lon="7.3904587"/>
+  <node id="783380095" lat="43.7212221" lon="7.4004898"/>
+  <node id="783381067" lat="43.7212365" lon="7.4005304"/>
+  <node id="783408142" lat="43.7212472" lon="7.4006028"/>
+  <node id="783409158" lat="43.7212863" lon="7.4005890"/>
+  <node id="783411585" lat="43.7212289" lon="7.4004862"/>
+  <node id="783413540" lat="43.7212724" lon="7.4005181"/>
+  <node id="783419512" lat="43.7212336" lon="7.4005316"/>
+  <node id="783423863" lat="43.7212565" lon="7.4003991"/>
+  <node id="783430031" lat="43.7212086" lon="7.4004151"/>
+  <node id="783431758" lat="43.7212694" lon="7.4004709"/>
+  <node id="783434971" lat="43.7212149" lon="7.4004119"/>
+  <node id="1074584556" lat="43.7198310" lon="7.3954597"/>
+  <node id="1074584598" lat="43.7204326" lon="7.3994610"/>
+  <node id="1074584706" lat="43.7213955" lon="7.4005638"/>
+  <node id="1074584728" lat="43.7197645" lon="7.3973954"/>
+  <node id="1074584814" lat="43.7206285" lon="7.4032062"/>
+  <node id="1074584865" lat="43.7202106" lon="7.3939966"/>
+  <node id="1074584953" lat="43.7207419" lon="7.4030110"/>
+  <node id="1074584970" lat="43.7202634" lon="7.3993614"/>
+  <node id="1074585001" lat="43.7209470" lon="7.4029892"/>
+  <node id="1716024797" lat="43.7193964" lon="7.3888771"/>
+  <node id="1716024800" lat="43.7194340" lon="7.3888569"/>
+  <node id="1716024804" lat="43.7195050" lon="7.3888569"/>
+  <node id="1716024805" lat="43.7196602" lon="7.3958552"/>
+  <node id="1716024807" lat="43.7197548" lon="7.3954941"/>
+  <node id="1716024811" lat="43.7197676" lon="7.3989061"/>
+  <node id="1716024814" lat="43.7197774" lon="7.3987753"/>
+  <node id="1716024816" lat="43.7197774" lon="7.3989524"/>
+  <node id="1716024818" lat="43.7197794" lon="7.3988488"/>
+  <node id="1716024824" lat="43.7198817" lon="7.3899649"/>
+  <node id="1716024833" lat="43.7199186" lon="7.3900671"/>
+  <node id="1716024835" lat="43.7199381" lon="7.3900825"/>
+  <node id="1716024837" lat="43.7199399" lon="7.3992127"/>
+  <node id="1716024841" lat="43.7199751" lon="7.3890438"/>
+  <node id="1716024843" lat="43.7201826" lon="7.3941109"/>
+  <node id="1716024844" lat="43.7201861" lon="7.3940088"/>
+  <node id="1716024856" lat="43.7203171" lon="7.3939775"/>
+  <node id="1716024857" lat="43.7204507" lon="7.3934673"/>
+  <node id="1716024859" lat="43.7206049" lon="7.3897458"/>
+  <node id="1716024860" lat="43.7206654" lon="7.3897458"/>
+  <node id="1716024862" lat="43.7206657" lon="7.3997386"/>
+  <node id="1716024866" lat="43.7208027" lon="7.3898966"/>
+  <node id="1716024868" lat="43.7208733" lon="7.3900055"/>
+  <node id="1716024881" lat="43.7209662" lon="7.3901172"/>
+  <node id="1716024883" lat="43.7209424" lon="7.3999308"/>
+  <node id="1897502857" lat="43.7203995" lon="7.4037113"/>
+  <node id="2440504373" lat="43.7212185" lon="7.4000266"/>
+  <node id="2440504398" lat="43.7210538" lon="7.3994984"/>
+  <node id="2440513243" lat="43.7213504" lon="7.4005847"/>
+  <node id="2440513258" lat="43.7215092" lon="7.4016871"/>
+  <node id="2825675585" lat="43.7209274" lon="7.4052860"/>
+  <node id="2825675586" lat="43.7209466" lon="7.4046431"/>
+  <node id="2825675587" lat="43.7209556" lon="7.4057744"/>
+  <node id="2825675588" lat="43.7210304" lon="7.4063217"/>
+  <node id="2825675589" lat="43.7210326" lon="7.4040659"/>
+  <node id="2825675600" lat="43.7213150" lon="7.4027143"/>
+  <node id="2825675703" lat="43.7214010" lon="7.4022471"/>
+  <node id="2825675704" lat="43.7214267" lon="7.4020127"/>
+  <node id="2825675705" lat="43.7214434" lon="7.4014817"/>
+  <node id="2825675706" lat="43.7214434" lon="7.4017765"/>
+  <node id="2905711214" lat="43.7203778" lon="7.3936103"/>
+  <node id="3046900403" lat="43.7199294" lon="7.3900756"/>
+  <node id="3046900411" lat="43.7207220" lon="7.3897905"/>
+  <node id="3320544879" lat="43.7207575" lon="7.3898372"/>
+  <node id="3627455810" lat="43.7212736" lon="7.4009838">
+    <tag k="amenity" v="shower"/>
+    <tag k="fee" v="no"/>
+    <tag k="hot_water" v="no"/>
+    <tag k="shower" v="outdoor"/>
+  </node>
+  <node id="3627455812" lat="43.7212977" lon="7.4009867">
+    <tag k="amenity" v="bench"/>
+  </node>
+  <node id="3635162063" lat="43.7199132" lon="7.3900522">
+    <tag k="barrier" v="gate"/>
+    <tag k="description" v="Sentier fermé par mauvais temps car dangereux"/>
+    <tag k="description:en" v="Trail closed in case of bad weather because dangerous"/>
+  </node>
+  <node id="3635162066" lat="43.7207436" lon="7.3898189">
+    <tag k="barrier" v="gate"/>
+    <tag k="description" v="Sentier fermé par mauvais temps car dangereux"/>
+    <tag k="description:en" v="Trail closed in case of bad weather because dangerous"/>
+  </node>
+  <node id="4065627199" lat="43.7200075" lon="7.3992490"/>
+  <node id="4249975602" lat="43.7199739" lon="7.3992310">
+    <tag k="barrier" v="gate"/>
+    <tag k="description" v="Sentier fermé par mauvais temps car dangereux"/>
+    <tag k="description:en" v="Trail closed in case of bad weather because dangerous"/>
+  </node>
+  <node id="4249975604" lat="43.7204029" lon="7.4036830">
+    <tag k="barrier" v="gate"/>
+    <tag k="description" v="Sentier fermé par mauvais temps car dangereux"/>
+    <tag k="description:en" v="Trail closed in case of bad weather because dangerous"/>
+  </node>
+  <way id="50495070">
+    <nd ref="245981495"/>
+    <nd ref="245981494"/>
+    <nd ref="1074584706"/>
+    <nd ref="245981493"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="50"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="importance" v="national"/>
+    <tag k="maxspeed" v="90"/>
+    <tag k="name" v="Ligne de Marseille à Vintimille"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="operator" v="SNCF Réseau"/>
+    <tag k="passenger_lines" v="2"/>
+    <tag k="railway" v="rail"/>
+    <tag k="railway:bidirectional" v="regular"/>
+    <tag k="railway:kvb" v="yes"/>
+    <tag k="railway:preferred_direction" v="forward"/>
+    <tag k="railway:radio" v="analogue"/>
+    <tag k="railway:track_ref" v="1"/>
+    <tag k="railway:traffic_mode" v="mixed"/>
+    <tag k="ref" v="930000"/>
+    <tag k="start_date" v="1868"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="25000"/>
+  </way>
+  <way id="235976545">
+    <nd ref="2440513258"/>
+    <nd ref="2440513243"/>
+    <nd ref="2440504373"/>
+    <nd ref="2440504398"/>
+    <tag k="electrified" v="contact_line"/>
+    <tag k="frequency" v="50"/>
+    <tag k="gauge" v="1435"/>
+    <tag k="importance" v="national"/>
+    <tag k="maxspeed" v="90"/>
+    <tag k="name" v="Ligne de Marseille à Vintimille"/>
+    <tag k="oneway" v="yes"/>
+    <tag k="operator" v="SNCF Réseau"/>
+    <tag k="passenger_lines" v="2"/>
+    <tag k="railway" v="rail"/>
+    <tag k="railway:bidirectional" v="regular"/>
+    <tag k="railway:kvb" v="yes"/>
+    <tag k="railway:preferred_direction" v="forward"/>
+    <tag k="railway:radio" v="analogue"/>
+    <tag k="railway:track_ref" v="2"/>
+    <tag k="railway:traffic_mode" v="mixed"/>
+    <tag k="ref" v="930000"/>
+    <tag k="start_date" v="1868"/>
+    <tag k="usage" v="main"/>
+    <tag k="voltage" v="25000"/>
+  </way>
+
+</osm>

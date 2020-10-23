@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-
-
-<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <vaporizer id="1" begin="5.00" end="15.00"/>
-    <vaporizer id="12" begin="5.00" end="20.00"/>
-    <vaporizer id="2" begin="5.00" end="15.00"/>
-    <vaporizer id="7" begin="10.00" end="15.00"/>
-</additional>

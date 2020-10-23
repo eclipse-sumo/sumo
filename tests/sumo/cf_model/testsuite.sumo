@@ -4,8 +4,14 @@ parameters
 # show that each model allows vehicles to follow each other around a circular track
 drive_in_circles
 
+# show that each model allows vehicles to follow each other around a circular track (with lower steplength)
+drive_in_circles_steplength
+
 # show that each model allows vehicles to stop at an exact position
 stop_at_position
+
+# show that each model allows following vehicles to stop behind a stopping vehicle without collision
+stop_at_position_with_follower
 
 # show stopping at a position range
 stop_at_position_slack
@@ -36,4 +42,9 @@ apparentDecel_emergencyDecel
 
 # tests for specific aspects of IDM and IDMM
 IDM
+
+# tests for the Wiedemann model
+Wiedemann
+W99
+KraussPS
 bugs

@@ -16,11 +16,5 @@ hbefa
 # Tests for bus stops
 busses
 
-# tests for bt devices
-device_bt
-
-# tests for battery device and charging station
-electric
-
 # check options for collision handling (emergencyDecel is disabled here to keep the legacy behavior)
 collisions

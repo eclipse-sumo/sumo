@@ -1,0 +1,3 @@
+-d input_additional.add.xml -o out.add.xml --yellow-time 4
+tools/tls_buildTransitions.py
+

@@ -1,5 +1,4 @@
-Loading configuration... done.
- Retrying in 1 seconds
+Loading configuration ... done.
 Subscribing to vehicle context of object 'ego'
 [001] Context results for vehicle 'ego':
 follow_left
@@ -45,6 +44,7 @@ opposite_lead_left
 follow_left
 follow_left2
 opposite_lead_left
+opposite_lead_left2
 [015] Context results for vehicle 'ego':
 follow_left
 follow_left2
@@ -59,12 +59,14 @@ opposite_lead_left2
 [017] Context results for vehicle 'ego':
 follow_left
 follow_left2
+lead_left
 opposite_follow_left2
 opposite_lead_left
 opposite_lead_left2
 [018] Context results for vehicle 'ego':
 follow_left
 follow_left2
+lead_left
 opposite_follow_left
 opposite_follow_left2
 opposite_lead_left
@@ -72,19 +74,20 @@ opposite_lead_left2
 [019] Context results for vehicle 'ego':
 follow_left
 follow_left2
+lead_left
 opposite_follow_left
 opposite_follow_left2
-opposite_lead_left
 opposite_lead_left2
 [020] Context results for vehicle 'ego':
 follow_left
 follow_left2
+lead_left
 opposite_follow_left
 opposite_follow_left2
-opposite_lead_left2
 [021] Context results for vehicle 'ego':
 follow_left
 follow_left2
+lead_left
 opposite_follow_left
 opposite_follow_left2
 [022] Context results for vehicle 'ego':
@@ -127,4 +130,4 @@ follow_left
 follow_left2
 lead_left
 [031] Vehicle 'ego' has arrived at destination
-Print ended at step 32
+Print ended at step 31

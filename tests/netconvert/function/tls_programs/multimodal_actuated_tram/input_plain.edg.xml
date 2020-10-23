@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Apr  3 14:51:16 2019 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="DetectorPosition.net.xml"/>
+    </input>
+
+    <output>
+        <plain-output-prefix value="input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-39140174#4" from="5689801350" to="468444799" name="Neuer Weg" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="4940.29,8793.27 4910.40,8765.33 4877.45,8733.90 4817.77,8677.06 4780.01,8641.88 4771.25,8633.73 4743.77,8607.54" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="138330831#14" from="Gueldenstr" to="3833322970" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="4703.20,8558.92 4711.41,8555.27 4723.80,8547.25 4726.47,8545.59 4734.24,8541.56 4738.58,8539.83 4742.84,8538.13 4751.71,8535.06 4760.76,8532.65 4769.28,8530.16 4779.74,8527.57 4790.36,8525.76 4797.50,8524.94 4811.66,8523.64 4825.77,8522.72 4840.26,8521.83 4904.88,8517.85 4987.53,8514.03 5027.60,8512.41 5043.59,8511.64 5048.07,8511.24 5050.48,8511.03 5062.02,8509.46" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="292614141#12" from="Gueldenstr" to="2961509140" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="4703.96,8572.14 4703.79,8575.50 4703.79,8580.90 4704.49,8583.98 4704.99,8586.14 4706.41,8590.48 4708.41,8594.27 4716.05,8603.52" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="292614141#5" from="380479927" to="Gueldenstr" priority="17" type="railway.tram" numLanes="1" speed="13.89" shape="5066.38,8512.14 5058.47,8513.50 5054.72,8514.11 5050.54,8514.55 5048.28,8514.71 5043.74,8514.86 5027.99,8515.62 4934.29,8520.46 4840.45,8525.33 4797.76,8527.54 4783.97,8529.70 4777.10,8531.05 4770.43,8532.53 4761.73,8534.89 4753.32,8537.58 4744.91,8541.03 4737.11,8544.20 4728.24,8548.69 4725.55,8550.26 4714.63,8558.33 4711.44,8559.36" spreadType="center" allow="tram">
+        <param key="railway:preferred_direction" value="forward"/>
+    </edge>
+    <edge id="30424335#0" from="Gueldenstr" to="3404653526" name="Radeklint" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="4691.96,8577.53 4690.56,8580.25 4688.34,8581.55 4676.64,8589.23 4663.85,8597.77 4632.98,8618.33 4625.10,8623.69 4622.90,8625.39" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="31414016#0" from="Gueldenstr" to="2619649590" name="Lange Straße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="4702.64,8550.71 4720.27,8541.20 4723.01,8539.52 4731.60,8535.09 4745.95,8529.01 4761.32,8523.99 4775.91,8520.57 4785.77,8518.78" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="320399275#0" from="Gueldenstr" to="30229839" name="Güldenstraße" priority="11" type="highway.secondary" numLanes="2" speed="13.89" shape="4691.39,8558.67 4686.02,8551.80 4681.41,8543.77 4680.89,8542.88 4679.28,8539.54 4673.01,8523.98 4670.33,8516.64 4667.78,8509.06 4664.25,8496.75 4662.29,8486.96 4661.54,8480.26" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="320399276" from="26154024" to="Gueldenstr" name="Lange Straße" priority="11" type="highway.secondary" numLanes="4" speed="13.89" shape="4813.90,8536.06 4801.74,8538.36 4789.61,8540.91 4768.12,8546.17 4745.96,8552.62 4733.49,8556.07" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="376743572#0" from="cluster_28201752_3801334753" to="Gueldenstr" name="Güldenstraße" priority="11" type="highway.secondary" numLanes="5" speed="13.89" shape="4670.62,8428.82 4667.12,8449.13 4671.15,8472.33 4674.66,8486.10 4676.76,8493.23 4679.56,8501.09 4685.18,8515.25 4692.17,8530.37 4693.98,8534.59 4699.49,8546.35 4702.64,8550.71" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="39140174#0" from="468444799" to="5689801350" name="Neuer Weg" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="4743.77,8607.54 4771.25,8633.73 4780.01,8641.88 4817.77,8677.06 4877.45,8733.90 4910.40,8765.33 4940.29,8793.27" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="5134789#0" from="468444799" to="Gueldenstr" name="Neuer Weg" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="4742.80,8608.81 4724.51,8592.81 4716.06,8583.42 4714.99,8582.21 4712.96,8579.88 4711.66,8578.49 4709.67,8576.90 4703.96,8572.14" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="515351950#0" from="Gueldenstr" to="468444799" name="Neuer Weg" priority="3" type="highway.residential" numLanes="1" speed="8.33" shape="4733.49,8556.07 4731.15,8559.86 4724.81,8565.40 4722.92,8569.84 4722.97,8573.47 4723.46,8577.22 4725.29,8581.36 4745.08,8606.62" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+    <edge id="60922609#0" from="469443715" to="Gueldenstr" name="Radeklint" priority="11" type="highway.secondary" numLanes="4" speed="13.89" shape="4621.99,8604.73 4677.71,8568.53 4680.57,8567.00 4691.39,8558.67" spreadType="center" disallow="tram rail_urban rail rail_electric ship"/>
+</edges>

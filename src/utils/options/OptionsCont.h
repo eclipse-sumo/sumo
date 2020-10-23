@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OptionsCont.h
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,10 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // A storage for options (typed value containers)
 /****************************************************************************/
-#ifndef OptionsCont_h
-#define OptionsCont_h
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <map>
@@ -86,8 +85,6 @@
  *  subtopic the option belongs to must be given to OptionsCont. This is
  *  done using addDescription(<OPTION_NAME>, <SUBTOPIC>, <DESCRIPTION>).
  * @see addDescription
- *
- * @see http://sumo.dlr.de/wiki/index.php/OptionsSubSystem
  */
 class OptionsCont {
 public:
@@ -166,6 +163,12 @@ public:
      */
     void printHelp(std::ostream& os);
 
+    /** @brief Prints help on the given topic
+     *
+     * @param[in] topic The topic name
+     * @param[in] os The stream to write the help into
+     */
+    void printHelpOnTopic(const std::string& topic, int tooLarge, int maxSize, std::ostream& os);
 
     /** @brief Writes the configuration
      *
@@ -421,6 +424,17 @@ public:
 
     /// @name Methods for retrieving values from options
     /// @{
+    /** @brief Returns the string-value of the named option (all options)
+     *
+     * This method returns the string-value of an existing option.
+     * If the named option does not exist, an
+     *  InvalidArgument is thrown.
+     *
+     * @param[in] name The name of the option to return the string-value of
+     * @return The string-value of the named, existing option
+     * @exception InvalidArgument If the option does not exist
+     */
+    std::string getValueString(const std::string& name) const;
 
     /** @brief Returns the string-value of the named option (only for Option_String)
      *
@@ -486,37 +500,22 @@ public:
      */
     const IntVector& getIntVector(const std::string& name) const;
 
-    /** @brief Returns the list of double-value of the named option (only for Option_FloatVector)
+    /** @brief Returns the list of string-value of the named option (only for Option_StringVector)
      *
-     * This method returns the float-vector-value of an existing float-vector-option.
-     * If the named option does not exist or is not a float-vector-option, an
+     * This method returns the string-vector-value of an existing string-vector-option.
+     * If the named option does not exist or is not a string-vector-option, an
      *  InvalidArgument is thrown.
      *
-     * @param[in] name The name of the option to return the float-vector-value of
-     * @return The float-vector-value of the named, existing float-vector-option
-     * @exception InvalidArgument If the option does not exist or is not a float-vector-option
-     */
-    const FloatVector& getFloatVector(const std::string& name) const;
-
-
-    /** @brief Returns the list of string-vector-value of the named option (only for Option_String)
-     *
-     * This method returns the string-vector-value of an existing string-option.
-     * If the named option does not exist or is not a string-option, an
-     *  InvalidArgument is thrown.
-     *
-     * The string-value is determined, first. If the legacy-divider ';' is found
-     *  within the string, a warning is generated. The retrieved string is splitted
-     *  at ',' and ';'.
+     * If the legacy-divider ';' is found within the string, a warning is generated.
+     * The retrieved string is only splitted at ','.
      *
      * @param[in] name The name of the option to return the string-vector-value of
-     * @return The string-vector-value of the named, existing string-option
-     * @exception InvalidArgument If the option does not exist or is not a string-option
+     * @return The string-vector-value of the named, existing string-vector-option
+     * @exception InvalidArgument If the option does not exist or is not a string-vector-option
      * @todo Is it possible to retrieve a const-reference of the string?
      * @see getString()
      */
-    std::vector<std::string> getStringVector(const std::string& name) const;
-
+    const StringVector& getStringVector(const std::string& name) const;
 
     /** @brief Returns the named option is a list of string values containing the specified item
      *
@@ -536,7 +535,7 @@ public:
      * @todo Try to optimize - at each call, the vector is rebuilt
      */
     bool isInStringVector(const std::string& optionName,
-                          const std::string& itemName);
+                          const std::string& itemName) const;
     /// @}
 
 
@@ -751,9 +750,6 @@ private:
     /// A map from deprecated options to a bool indicating whether we warned about deprecation
     mutable std::map<std::string, bool> myDeprecatedSynonymes;
 
-    /// Information whether a warning a deprecated divider
-    mutable bool myHaveInformedAboutDeprecatedDivider;
-
     /// Information whether we should always include license information in file headers
     bool myWriteLicense;
 
@@ -766,9 +762,3 @@ private:
     OptionsCont& operator=(const OptionsCont& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

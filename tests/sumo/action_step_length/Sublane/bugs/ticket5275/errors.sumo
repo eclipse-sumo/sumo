@@ -1,0 +1,1 @@
+Warning: Action step length '1.00' is used for vehicle type 'DEFAULT_VEHTYPE' but step-method.ballistic was not set. Setting it now to avoid collisions.

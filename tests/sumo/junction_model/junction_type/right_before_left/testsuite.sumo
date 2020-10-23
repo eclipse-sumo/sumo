@@ -1,0 +1,11 @@
+basic
+north_missing
+south_missing
+east_missing
+west_missing
+turn_left_from_north
+turn_left_from_south
+turn_left_from_east
+turn_left_from_west
+turn_left_all
+turn_left_opposite

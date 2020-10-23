@@ -1,0 +1,12 @@
+Loading net ... done.
+Loading additional file 'input_districts.taz.xml'  ... done.
+Skipped until: 0.00
+Building Contraction Hierarchy for vClass='passenger' and time=0.00 (2052 edges)
+ ... 
+Created 4553 shortcuts.
+Recomputed priority 2510 times.
+done (434ms).
+done.
+CHRouter answered 1 queries and explored 72.00 edges on average.
+CHRouter spent 0ms answering queries (0.00ms on average).
+Success.

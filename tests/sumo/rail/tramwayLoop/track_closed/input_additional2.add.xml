@@ -1,0 +1,7 @@
+<add>
+    <rerouter id="close17" edges="T18_1">
+        <interval begin="1" end="86400">
+            <closingReroute id="T17_1" allow="authority"/>
+        </interval>
+    </rerouter>
+</add>

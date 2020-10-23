@@ -1,0 +1,2 @@
+Warning: Given action step length 5 for vehicle type 'automated@deviceHolder' is larger than its parameter tau (=1)! This may lead to collisions. (This warning is only issued once per vehicle type).
+Warning: Action step length '5.00' is used for vehicle type 'automated@deviceHolder' but step-method.ballistic was not set. Setting it now to avoid collisions.

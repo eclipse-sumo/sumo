@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 18.10.2019 09:00:26 by Eclipse SUMO netedit Version v1_3_1+0631-64cd301db4
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\SUMO\tests\netedit\netElements\crossings\with_tls\inspect_selected\width\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\SUMO\tests\netedit\netElements\crossings\with_tls\inspect_selected\width\input_net.net.xml"/>
+        <plain-output-prefix value="D:\SUMO\tests\netedit\netElements\crossings\with_tls\inspect_selected\width\input_net"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<connections version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <connection from="1" to="5" fromLane="1" toLane="1"/>
+
+    <connection from="2" to="6" fromLane="1" toLane="1"/>
+
+    <connection from="3" to="7" fromLane="1" toLane="1"/>
+
+    <connection from="4" to="8" fromLane="1" toLane="1"/>
+
+    <connection from="5" to="4" fromLane="0" toLane="0"/>
+    <connection from="5" to="2" fromLane="0" toLane="0"/>
+    <connection from="5" to="2" fromLane="1" toLane="1"/>
+    <connection from="5" to="3" fromLane="1" toLane="1"/>
+
+    <connection from="6" to="3" fromLane="0" toLane="0"/>
+    <connection from="6" to="1" fromLane="0" toLane="0"/>
+    <connection from="6" to="1" fromLane="1" toLane="1"/>
+    <connection from="6" to="4" fromLane="1" toLane="1"/>
+
+    <connection from="7" to="1" fromLane="0" toLane="0"/>
+    <connection from="7" to="4" fromLane="0" toLane="0"/>
+    <connection from="7" to="4" fromLane="1" toLane="1"/>
+    <connection from="7" to="2" fromLane="1" toLane="1"/>
+
+    <connection from="8" to="2" fromLane="0" toLane="0"/>
+    <connection from="8" to="3" fromLane="0" toLane="0"/>
+    <connection from="8" to="3" fromLane="1" toLane="1"/>
+    <connection from="8" to="1" fromLane="1" toLane="1"/>
+
+    <crossing node="Center" edges="4 8" priority="1" width="3.00"/>
+    <crossing node="Center" edges="3 7" priority="0" width="4.00"/>
+</connections>

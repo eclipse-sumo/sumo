@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    test.py
 # @author  Pablo Alvarez Lopez
 # @date    2016-11-25
-# @version $Id$
 
 # import common functions for netedit tests
 import os
@@ -32,26 +35,26 @@ netedit.setZoom("25", "0", "25")
 netedit.additionalMode()
 
 # select BusStop
-netedit.changeAdditional("busStop")
+netedit.changeElement("busStop")
 
 # create BusStop with default parameters
 netedit.leftClick(referencePosition, 275, 250)
 
 # select Access detector
-netedit.changeAdditional("access")
+netedit.changeElement("access")
 netedit.selectAdditionalChild(7, 0)
 
 # set invalid lenght
-netedit.modifyAdditionalDefaultValue(2, "dummyLenght")
+netedit.changeDefaultValue(2, "dummyLenght")
 
 # set invalid lenght
-netedit.modifyAdditionalDefaultValue(2, "-4")
+netedit.changeDefaultValue(2, "-4")
 
 # Try to create Access
 netedit.leftClick(referencePosition, 50, 200)
 
 # set valid lenght
-netedit.modifyAdditionalDefaultValue(2, "3.5")
+netedit.changeDefaultValue(2, "3.5")
 
 # Create access
 netedit.leftClick(referencePosition, 50, 200)
@@ -61,10 +64,10 @@ netedit.undo(referencePosition, 3)
 netedit.redo(referencePosition, 3)
 
 # save additionals
-netedit.saveAdditionals()
+netedit.saveAdditionals(referencePosition)
 
 # save network
-netedit.saveNetwork()
+netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)

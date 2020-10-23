@@ -4,13 +4,11 @@ missing_output
 # The output can not be build
 false_output
 
-
 # The network file name is not given
 missing_net
 
 # The network can not be found
 false_net
-
 
 # The input file name is not given
 missing_input
@@ -18,4 +16,5 @@ missing_input
 # The inputcan not be found
 false_input
 
-
+# no data loaded for the given weight attribute
+unknown_measure

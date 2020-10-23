@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<tlLogics version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+    <!-- Deleted Elements -->
+    <!-- Created Elements -->
+    <!-- Changed Elements -->
+    <tlLogic id="C" programID="0" >
+        <phase duration="42" state="GGGggrrrrrGGGggrrrrr"/>
+        <phase duration="3" state="yyyyyrrrrryyyyyrrrrr"/>
+        <phase duration="42" state="rrrrrGGGggrrrrrGGGgg"/>
+        <phase duration="3" state="rrrrryyyyyrrrrryyyyy"/>
+    </tlLogic>
+    <!-- Created Elements -->
+    <connection from="SC" fromLane="0" to="CE" toLane="0" linkIndex="10" tl="C"/>
+    <connection from="SC" fromLane="0" to="CN" toLane="0" linkIndex="11" tl="C"/>
+    <connection from="SC" fromLane="1" to="CN" toLane="1" linkIndex="12" tl="C"/>
+    <connection from="SC" fromLane="1" to="CW" toLane="0" linkIndex="13" tl="C"/>
+    <connection from="SC" fromLane="1" to="CS" toLane="1" linkIndex="14" tl="C"/>
+    <!-- Changed Elements -->
+    <connection from="SC" fromLane="1" to="CW" toLane="1" linkIndex="13" tl="C"/>
+</tlLogics>

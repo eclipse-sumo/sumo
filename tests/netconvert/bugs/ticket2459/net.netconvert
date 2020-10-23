@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:28:01 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:12 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -37,12 +38,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,100.00" convBoundary="0.00,0.00,200.00,200.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -87,7 +89,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_9_0" index="0" speed="13.89" length="11.73" shape="101.60,89.60 102.15,92.05 103.80,93.80 106.55,94.85 110.40,95.20"/>
     </edge>
     <edge id=":C_10" function="internal">
-        <lane id=":C_10_0" index="0" speed="13.89" length="21.09" shape="101.60,89.60 102.10,93.55 103.20,98.12 104.30,103.63 104.80,110.40"/>
+        <lane id=":C_10_0" index="0" speed="13.89" length="21.09" shape="101.60,89.60 102.10,93.55 103.20,98.13 104.30,103.63 104.80,110.40"/>
     </edge>
     <edge id=":C_11" function="internal">
         <lane id=":C_11_0" index="0" speed="13.89" length="9.03" shape="89.60,95.20 92.05,94.85 93.80,93.80 94.85,92.05 95.20,89.60"/>

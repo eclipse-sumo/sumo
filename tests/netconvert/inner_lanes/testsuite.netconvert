@@ -29,5 +29,8 @@ changeWidth_split_bikelane
 # Tests if links on internal junctions for indirect left turning bicycles are assigned to the correct traffic light indices
 indirect_left_turns_tl_control
 
+# test avoidance of wide turns at large junctions with sharp edge angles
+large_sharp_angles
+
 # networks that have dedicated bicycle lanes
 bicycle_lanes

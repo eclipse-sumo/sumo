@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSRoute.cpp
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,9 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A vehicle route
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <cassert>
@@ -29,7 +27,6 @@
 #include <limits>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/RGBColor.h>
-#include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "MSEdge.h"
 #include "MSLane.h"
@@ -56,8 +53,10 @@ MSRoute::MSRoute(const std::string& id,
     Named(id), myEdges(edges), myAmPermanent(isPermanent),
     myReferenceCounter(isPermanent ? 1 : 0),
     myColor(c),
+    myPeriod(0),
     myCosts(-1),
     mySavings(0),
+    myReroute(false),
     myStops(stops) {}
 
 
@@ -150,6 +149,15 @@ MSRoute::dictionary(const std::string& id, std::mt19937* rng) {
         return it2->second.first->get(rng);
     }
     return it->second;
+}
+
+
+bool
+MSRoute::hasRoute(const std::string& id) {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
+    return myDict.find(id) != myDict.end();
 }
 
 
@@ -263,24 +271,47 @@ MSRoute::dict_saveState(OutputDevice& out) {
         out.writeAttr(SUMO_ATTR_STATE, (*it).second->myAmPermanent);
         out.writeAttr(SUMO_ATTR_EDGES, (*it).second->myEdges).closeTag();
     }
-    for (RouteDistDict::iterator it = myDistDict.begin(); it != myDistDict.end(); ++it) {
-        out.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, (*it).first);
-        out.writeAttr(SUMO_ATTR_STATE, (*it).second.second);
-        out.writeAttr(SUMO_ATTR_ROUTES, (*it).second.first->getVals());
-        out.writeAttr(SUMO_ATTR_PROBS, (*it).second.first->getProbs());
-        out.closeTag();
+    for (const auto& item : myDistDict) {
+        if (item.second.first->getVals().size() > 0) {
+            out.openTag(SUMO_TAG_ROUTE_DISTRIBUTION).writeAttr(SUMO_ATTR_ID, item.first);
+            out.writeAttr(SUMO_ATTR_STATE, item.second.second);
+            out.writeAttr(SUMO_ATTR_ROUTES, item.second.first->getVals());
+            out.writeAttr(SUMO_ATTR_PROBS, item.second.first->getProbs());
+            out.closeTag();
+        }
     }
+}
+
+void
+MSRoute::dict_clearState() {
+#ifdef HAVE_FOX
+    FXMutexLock f(myDictMutex);
+#endif
+    for (auto item : myDict) {
+        delete item.second;
+    }
+    myDistDict.clear();
+    myDict.clear();
 }
 
 
 double
 MSRoute::getDistanceBetween(double fromPos, double toPos,
                             const MSEdge* fromEdge, const MSEdge* toEdge, bool includeInternal, int routePosition) const {
+    //std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << " includeInternal=" << includeInternal << "\n";
     if (routePosition < 0 || routePosition >= (int)myEdges.size()) {
         throw ProcessError("Invalid routePosition " + toString(routePosition) + " for route with " + toString(myEdges.size()) + " edges");
     }
-    /// XXX routes that start and end within the same intersection are not supported
-    //std::cout << SIMTIME << " getDistanceBetween from=" << fromEdge->getID() << " to=" << toEdge->getID() << " fromPos=" << fromPos << " toPos=" << toPos << " includeInternal=" << includeInternal << "\n";
+    if (fromEdge->isInternal() && toEdge->isInternal() && fromEdge->getToJunction() == toEdge->getToJunction()) {
+        // internal edges within the same junction
+        if (fromEdge == toEdge) {
+            if (fromPos <= toPos) {
+                return toPos - fromPos;
+            }
+        } else if (fromEdge->getSuccessors().front() == toEdge) {
+            return fromEdge->getLength() - fromPos + toPos;
+        }
+    }
     if (fromEdge->isInternal()) {
         if (fromEdge == myEdges.front()) {
             const MSEdge* succ = fromEdge->getSuccessors().front();
@@ -369,4 +400,3 @@ MSRoute::getStops() const {
 
 
 /****************************************************************************/
-

@@ -1,0 +1,6 @@
+--no-step-log --no-duration-log -n net.net.xml
+--route-files=input_routes.rou.xml --additional-files=input_additional.add.xml
+--fcd-output fcd.xml
+--device.fcd.explicit flow3.1
+--time-to-teleport -1
+-e 700

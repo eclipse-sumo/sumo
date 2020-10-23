@@ -1,0 +1,2 @@
+Warning: Unused states in tlLogic '0', program '0' in phase 0 after tl-index 14
+Warning: At actuated tlLogic '0', linkIndex 3 has no controlling detector

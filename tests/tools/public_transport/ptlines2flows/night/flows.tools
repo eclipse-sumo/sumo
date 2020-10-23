@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-13 07:35:12.209205 by ptlines2flows.py v1_5_0+0698-ca40865
+  options: -n net.net.xml -s input_additional.add.xml -l ptlines.xml -o out.flows.xml -p 600 <doubleminus>verbose <doubleminus>night
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="bus" vClass="bus"/>
+    <vType id="tram" vClass="tram"/>
+    <vType id="train" vClass="rail"/>
+    <vType id="subway" vClass="rail_urban"/>
+    <vType id="light_rail" vClass="rail_urban"/>
+    <vType id="monorail" vClass="rail"/>
+    <vType id="trolleybus" vClass="bus"/>
+    <vType id="aerialway" vClass="bus"/>
+    <vType id="ferry" vClass="ship"/>
+    <route id="bus_104:0" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
+        <stop busStop="3959807221" duration="30.00" until="35.0"/> <!-- Kolonnenbrücke -->
+        <stop busStop="3959807200" duration="30.00" until="101.0"/> <!-- Dudenstraße/Katzbachstraße -->
+    </route>
+    <route id="bus_104:1" edges="-391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1" >
+        <stop busStop="3959807201" duration="30.00" until="39.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="3959807220" duration="30.00" until="103.0"/> <!-- Kolonnenbrücke -->
+    </route>
+    <route id="bus_140:0" edges="391493945#1 391493945#2 391493945#3 161159325#0 161159325#1 -53356539#1 -53356539#0" >
+        <stop busStop="2029039195" duration="30.00" until="34.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="4032629820" duration="30.00" until="108.0"/> <!-- Monumentenstraße -->
+    </route>
+    <route id="bus_N42:0" edges="-391493954#3 -391493954#2 -391493954#1 -391493954#0 -391493952#2 -391493952#1 -391493952#0 -391493950#1 -391493950#0 -391493947 -391493949 -338412122 -110450334#2 -110450334#1" >
+        <stop busStop="3959807201" duration="30.00" until="70.0"/> <!-- Dudenstraße/Katzbachstraße -->
+        <stop busStop="3959807220" duration="30.00" until="134.0"/> <!-- Kolonnenbrücke -->
+    </route>
+    <route id="bus_N42:1" edges="110450334#1 110450334#2 338412122 391493949 391493947 391493950#0 391493950#1 391493952#0 391493952#1 391493952#2 391493954#0 391493954#1 391493954#2 391493954#3" >
+        <stop busStop="3959807221" duration="30.00" until="35.0"/> <!-- Kolonnenbrücke -->
+        <stop busStop="3959807200" duration="30.00" until="104.0"/> <!-- Dudenstraße/Katzbachstraße -->
+    </route>
+    <flow id="bus_104:0" type="bus" route="bus_104:0" begin="0.0" end="3600.0" period="600" line="104:0" >
+        <param key="name" value="Buslinie 104: Neu-Westend, Brixplatz =&gt; Stralau, Tunnelstraße &quot;(test some quotes&quot;"/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+    <flow id="bus_104:1" type="bus" route="bus_104:1" begin="0.0" end="3600.0" period="480" line="104:1" >
+        <param key="name" value="Buslinie 104: Stralau, Tunnelstraße =&gt; Neu-Westend, Brixplatz 'test other quotes' "/>
+        <param key="completeness" value="1.00"/>
+    </flow>
+    <flow id="bus_140:0" type="bus" route="bus_140:0" begin="0.0" end="3600.0" period="600" line="140:0" >
+        <param key="name" value="Buslinie 140: S+U Tempelhof =&gt; S Ostbahnhof &quot;test mixed quotes'"/>
+        <param key="completeness" value="0.06"/>
+    </flow>
+    <flow id="bus_N42:0" type="bus" route="bus_N42:0" begin="6.0" end="3606.0" period="600" line="N42:0" >
+        <param key="name" value="Buslinie N42: S+U Alexanderplatz =&gt; U Theodor-Heuss-Platz"/>
+        <param key="completeness" value="0.12"/>
+    </flow>
+    <flow id="bus_N42:1" type="bus" route="bus_N42:1" begin="35.0" end="3635.0" period="600" line="N42:1" >
+        <param key="name" value="Buslinie N42: U Theodor-Heuss-Platz =&gt; S+U Alexanderplatz"/>
+        <param key="completeness" value="0.11"/>
+    </flow>
+</routes>

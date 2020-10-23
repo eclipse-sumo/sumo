@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    visum_parseZaehlstelle.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2008-11-30
-# @version $Id$
 
 """
 
@@ -66,10 +69,9 @@ for line in fd:
         if me is None:
             print("Not found " + line)
         else:
-            l = str(me._id) + "_0"
-            p = str(me._length * float(vals[6]))
-            fdo.write('   <poi id="' + id + '" type="' + vals[
-                      7] + '" lane="' + l + '" pos="' + p + '" color="0,1,0" values="' + rest + '" layer="1"/>\n')
+            p = me._length * float(vals[6])
+            fdo.write('    <poi id="%s" type="%s" lane="%s_0" pos="%s" color="0,1,0" values="%s" layer="1"/>\n' %
+                      (id, vals[7], me._id, p, rest))
 
     if line.find("$ZAEHLSTELLE") == 0:
         parsingCounts = True

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIImporter_VISUM.cpp
 /// @author  Daniel Krajzewicz
@@ -13,15 +17,9 @@
 /// @author  Sascha Krieg
 /// @author  Michael Behrisch
 /// @date    Fri, 19 Jul 2002
-/// @version $Id$
 ///
 // A VISUM network importer
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -38,6 +36,51 @@
 #include "NIImporter_VISUM.h"
 
 
+StringBijection<NIImporter_VISUM::VISUM_KEY>::Entry NIImporter_VISUM::KEYS_DE[] = {
+    { "VSYS", VISUM_SYS },
+    { "STRECKENTYP", VISUM_LINKTYPE },
+    { "KNOTEN", VISUM_NODE },
+    { "BEZIRK", VISUM_DISTRICT },
+    { "PUNKT", VISUM_POINT },
+    { "STRECKE", VISUM_LINK },
+    { "V0IV", VISUM_V0 },
+    { "VSYSSET", VISUM_TYPES },
+    { "RANG", VISUM_RANK },
+    { "KAPIV", VISUM_CAPACITY },
+    { "XKOORD", VISUM_XCOORD },
+    { "YKOORD", VISUM_YCOORD },
+    { "ID", VISUM_ID },
+    { "CODE", VISUM_CODE },
+    { "VONKNOTNR", VISUM_FROMNODE },
+    { "NACHKNOTNR", VISUM_TONODE },
+    { "TYPNR", VISUM_TYPE },
+    { "TYP", VISUM_TYP },
+    { "ANBINDUNG", VISUM_DISTRICT_CONNECTION },
+    { "BEZNR", VISUM_SOURCE_DISTRICT },
+    { "KNOTNR",  VISUM_FROMNODENO },
+    { "RICHTUNG",  VISUM_DIRECTION },
+    { "FLAECHEID",  VISUM_SURFACEID },
+    { "TFLAECHEID",  VISUM_FACEID },
+    { "VONPUNKTID",  VISUM_FROMPOINTID },
+    { "NACHPUNKTID",  VISUM_TOPOINTID },
+    { "KANTE",  VISUM_EDGE },
+    { "ABBIEGER",  VISUM_TURN },
+    { "UEBERKNOTNR",  VISUM_VIANODENO },
+    { "ANZFAHRSTREIFEN",  VISUM_NUMLANES },
+    { "INDEX",  VISUM_INDEX },
+    { "STRECKENPOLY",  VISUM_LINKPOLY },
+    { "FLAECHENELEMENT",  VISUM_SURFACEITEM },
+    { "TEILFLAECHENELEMENT",  VISUM_FACEITEM },
+    { "KANTEID",  VISUM_EDGEID },
+    { "Q",  VISUM_ORIGIN },
+    { "Z",  VISUM_DESTINATION },
+    { "NR", VISUM_NO } // must be the last one
+};
+
+
+
+StringBijection<NIImporter_VISUM::VISUM_KEY> NIImporter_VISUM::KEYS(NIImporter_VISUM::KEYS_DE, VISUM_NO);
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -53,7 +96,8 @@ NIImporter_VISUM::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // build the handler
     NIImporter_VISUM loader(nb, oc.getString("visum-file"),
                             NBCapacity2Lanes(oc.getFloat("lanes-from-capacity.norm")),
-                            oc.getBool("visum.use-type-priority"));
+                            oc.getBool("visum.use-type-priority"),
+                            oc.getString("visum.language-file"));
     loader.load();
 }
 
@@ -65,32 +109,41 @@ NIImporter_VISUM::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
 NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
                                    const std::string& file,
                                    NBCapacity2Lanes capacity2Lanes,
-                                   bool useVisumPrio)
-    : myNetBuilder(nb), myFileName(file),
-      myCapacity2Lanes(capacity2Lanes), myUseVisumPrio(useVisumPrio) {
+                                   bool useVisumPrio,
+                                   const std::string& languageFile) :
+    myNetBuilder(nb), myFileName(file),
+    myCapacity2Lanes(capacity2Lanes), myUseVisumPrio(useVisumPrio) {
+    if (languageFile != "") {
+        loadLanguage(languageFile);
+    }
+
     // the order of process is important!
     // set1
-    addParser("VSYS", &NIImporter_VISUM::parse_VSysTypes);
-    addParser("STRECKENTYP", &NIImporter_VISUM::parse_Types);
-    addParser("KNOTEN", &NIImporter_VISUM::parse_Nodes);
-    addParser("BEZIRK", &NIImporter_VISUM::parse_Districts);
-    addParser("PUNKT", &NIImporter_VISUM::parse_Point);
+    addParser(KEYS.getString(VISUM_SYS), &NIImporter_VISUM::parse_VSysTypes);
+    addParser(KEYS.getString(VISUM_LINKTYPE), &NIImporter_VISUM::parse_Types);
+    addParser(KEYS.getString(VISUM_NODE), &NIImporter_VISUM::parse_Nodes);
+    addParser(KEYS.getString(VISUM_DISTRICT), &NIImporter_VISUM::parse_Districts);
+    addParser(KEYS.getString(VISUM_POINT), &NIImporter_VISUM::parse_Point);
 
     // set2
     // two types of "strecke"
-    addParser("STRECKE", &NIImporter_VISUM::parse_Edges);
-    addParser("STRECKEN", &NIImporter_VISUM::parse_Edges);
-    addParser("KANTE", &NIImporter_VISUM::parse_Kante);
+    addParser(KEYS.getString(VISUM_LINK), &NIImporter_VISUM::parse_Edges);
+    addParser(KEYS.getString(VISUM_EDGE), &NIImporter_VISUM::parse_Kante);
 
     // set3
-    addParser("ANBINDUNG", &NIImporter_VISUM::parse_Connectors);
+    if (OptionsCont::getOptions().getBool("visum.no-connectors")) {
+        addParser(KEYS.getString(VISUM_DISTRICT_CONNECTION), &NIImporter_VISUM::parse_Connectors);
+    } else {
+        addParser(KEYS.getString(VISUM_DISTRICT_CONNECTION), &NIImporter_VISUM::parse_Connectors_legacy);
+    }
     // two types of "abbieger"
     addParser("ABBIEGEBEZIEHUNG", &NIImporter_VISUM::parse_Turns);
-    addParser("ABBIEGER", &NIImporter_VISUM::parse_Turns);
+    addParser(KEYS.getString(VISUM_TURN), &NIImporter_VISUM::parse_Turns);
 
-    addParser("STRECKENPOLY", &NIImporter_VISUM::parse_EdgePolys);
+    addParser(KEYS.getString(VISUM_LINKPOLY), &NIImporter_VISUM::parse_EdgePolys);
     addParser("FAHRSTREIFEN", &NIImporter_VISUM::parse_Lanes);
-    addParser("FLAECHENELEMENT", &NIImporter_VISUM::parse_PartOfArea);
+    addParser(KEYS.getString(VISUM_SURFACEITEM), &NIImporter_VISUM::parse_PartOfArea);
+
 
     // set4
     // two types of lsa
@@ -108,7 +161,7 @@ NIImporter_VISUM::NIImporter_VISUM(NBNetBuilder& nb,
     addParser("SIGNALGRUPPEZUABBIEGER", &NIImporter_VISUM::parse_TurnsToSignalGroups);
     addParser("SIGNALGRUPPEZUFSABBIEGER", &NIImporter_VISUM::parse_TurnsToSignalGroups);
 
-    addParser("TEILFLAECHENELEMENT", &NIImporter_VISUM::parse_AreaSubPartElement);
+    addParser(KEYS.getString(VISUM_FACEITEM), &NIImporter_VISUM::parse_AreaSubPartElement);
 
     // two types of LSAPHASE
     addParser("LSAPHASE", &NIImporter_VISUM::parse_Phases);
@@ -152,7 +205,7 @@ NIImporter_VISUM::load() {
                 if (line.substr(0, dataName.length()) == dataName) {
                     (*i).position = myLineReader.getPosition();
                     (*i).pattern = line.substr(dataName.length());
-                    WRITE_MESSAGE("Found: " + dataName + " at " + toString<int>(myLineReader.getPosition()));
+                    WRITE_MESSAGE("Found: " + dataName + " at line " + toString<int>(myLineReader.getLineNumber()));
                 }
             }
         }
@@ -193,6 +246,8 @@ NIImporter_VISUM::load() {
         // close single reader processing
         PROGRESS_DONE_MESSAGE();
     }
+    myNetBuilder.getEdgeCont().reduceGeometries(POSITION_EPS);
+
     // build traffic lights
     for (NIVisumTL_Map::iterator j = myTLS.begin(); j != myTLS.end(); j++) {
         j->second->build(myNetBuilder.getEdgeCont(), myNetBuilder.getTLLogicCont());
@@ -209,8 +264,8 @@ NIImporter_VISUM::load() {
 
 void
 NIImporter_VISUM::parse_VSysTypes() {
-    std::string name = myLineParser.know("VSysCode") ? myLineParser.get("VSysCode").c_str() : myLineParser.get("CODE").c_str();
-    std::string type = myLineParser.know("VSysMode") ? myLineParser.get("VSysMode").c_str() : myLineParser.get("Typ").c_str();
+    std::string name = myLineParser.know("VSysCode") ? myLineParser.get("VSysCode").c_str() : myLineParser.get(KEYS.getString(VISUM_CODE)).c_str();
+    std::string type = myLineParser.know("VSysMode") ? myLineParser.get("VSysMode").c_str() : myLineParser.get(KEYS.getString(VISUM_TYP)).c_str();
     myVSysTypes[name] = type;
 }
 
@@ -218,9 +273,9 @@ NIImporter_VISUM::parse_VSysTypes() {
 void
 NIImporter_VISUM::parse_Types() {
     // get the id
-    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
+    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_NO)));
     // get the maximum speed
-    double speed = getWeightedFloat2("v0-IV", "V0IV", "km/h");
+    double speed = getWeightedFloat2("v0-IV", KEYS.getString(VISUM_V0), "km/h");
     if (speed == 0) {
         // unlimited speed
         speed = 3600;
@@ -228,13 +283,13 @@ NIImporter_VISUM::parse_Types() {
         WRITE_ERROR("Type '" + myCurrentID + "' has speed " + toString(speed));
     }
     // get the permissions
-    SVCPermissions permissions = getPermissions("VSYSSET", true);
+    SVCPermissions permissions = getPermissions(KEYS.getString(VISUM_TYPES), true);
     // get the priority
-    const int priority = 1000 - StringUtils::toInt(myLineParser.get("Rang"));
+    const int priority = 1000 - StringUtils::toInt(myLineParser.get(KEYS.getString(VISUM_RANK)));
     // try to retrieve the number of lanes
-    const int numLanes = myCapacity2Lanes.get(getNamedFloat("Kap-IV", "KAPIV"));
+    const int numLanes = myCapacity2Lanes.get(getNamedFloat("Kap-IV", KEYS.getString(VISUM_CAPACITY)));
     // insert the type
-    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (double) 3.6, priority, permissions, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH);
+    myNetBuilder.getTypeCont().insert(myCurrentID, numLanes, speed / (double) 3.6, priority, permissions, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH, 0, 0, 0);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_NUMLANES);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_SPEED);
     myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_PRIORITY);
@@ -246,10 +301,10 @@ NIImporter_VISUM::parse_Types() {
 void
 NIImporter_VISUM::parse_Nodes() {
     // get the id
-    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
+    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_NO)));
     // get the position
-    double x = getNamedFloat("XKoord");
-    double y = getNamedFloat("YKoord");
+    double x = getNamedFloat(KEYS.getString(VISUM_XCOORD));
+    double y = getNamedFloat(KEYS.getString(VISUM_YCOORD));
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos)) {
         WRITE_ERROR("Unable to project coordinates for node " + myCurrentID + ".");
@@ -265,14 +320,14 @@ NIImporter_VISUM::parse_Nodes() {
 void
 NIImporter_VISUM::parse_Districts() {
     // get the id
-    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
+    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_NO)));
     // get the information whether the source and the destination
     //  connections are weighted
     //bool sourcesWeighted = getWeightedBool("Proz_Q");
     //bool destWeighted = getWeightedBool("Proz_Z");
     // get the node information
-    double x = getNamedFloat("XKoord");
-    double y = getNamedFloat("YKoord");
+    double x = getNamedFloat(KEYS.getString(VISUM_XCOORD));
+    double y = getNamedFloat(KEYS.getString(VISUM_YCOORD));
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos, false)) {
         WRITE_ERROR("Unable to project coordinates for district " + myCurrentID + ".");
@@ -285,8 +340,8 @@ NIImporter_VISUM::parse_Districts() {
         delete district;
         return;
     }
-    if (myLineParser.know("FLAECHEID")) {
-        long long int flaecheID = StringUtils::toLong(myLineParser.get("FLAECHEID"));
+    if (myLineParser.know(KEYS.getString(VISUM_SURFACEID))) {
+        long long int flaecheID = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_SURFACEID)));
         myShapeDistrictMap[flaecheID] = district;
     }
 }
@@ -294,9 +349,9 @@ NIImporter_VISUM::parse_Districts() {
 
 void
 NIImporter_VISUM::parse_Point() {
-    long long int id = StringUtils::toLong(myLineParser.get("ID"));
-    double x = StringUtils::toDouble(myLineParser.get("XKOORD"));
-    double y = StringUtils::toDouble(myLineParser.get("YKOORD"));
+    long long int id = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_ID)));
+    double x = StringUtils::toDouble(myLineParser.get(KEYS.getString(VISUM_XCOORD)));
+    double y = StringUtils::toDouble(myLineParser.get(KEYS.getString(VISUM_YCOORD)));
     Position pos(x, y);
     if (!NBNetBuilder::transformCoordinate(pos, false)) {
         WRITE_ERROR("Unable to project coordinates for point " + toString(id) + ".");
@@ -308,25 +363,25 @@ NIImporter_VISUM::parse_Point() {
 
 void
 NIImporter_VISUM::parse_Edges() {
-    if (myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET") == "") {
+    if (myLineParser.know(KEYS.getString(VISUM_TYPES)) && myLineParser.get(KEYS.getString(VISUM_TYPES)) == "") {
         // no vehicle allowed; don't add
         return;
     }
     // get the id
-    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
+    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_NO)));
     // get the from- & to-node and validate them
-    NBNode* from = getNamedNode("VonKnot", "VonKnotNr");
-    NBNode* to = getNamedNode("NachKnot", "NachKnotNr");
+    NBNode* from = getNamedNode("VonKnot", KEYS.getString(VISUM_FROMNODE));
+    NBNode* to = getNamedNode("NachKnot", KEYS.getString(VISUM_TONODE));
     if (!checkNodes(from, to)) {
         return;
     }
     // get the type
-    std::string type = myLineParser.know("Typ") ? myLineParser.get("Typ") : myLineParser.get("TypNr");
+    std::string type = myLineParser.know(KEYS.getString(VISUM_TYP)) ? myLineParser.get(KEYS.getString(VISUM_TYP)) : myLineParser.get(KEYS.getString(VISUM_TYPE));
     // get the speed
     double speed = myNetBuilder.getTypeCont().getSpeed(type);
     if (!OptionsCont::getOptions().getBool("visum.use-type-speed")) {
         try {
-            std::string speedS = myLineParser.know("v0-IV") ? myLineParser.get("v0-IV") : myLineParser.get("V0IV");
+            std::string speedS = myLineParser.know("v0-IV") ? myLineParser.get("v0-IV") : myLineParser.get(KEYS.getString(VISUM_V0));
             if (speedS.find("km/h") != std::string::npos) {
                 speedS = speedS.substr(0, speedS.find("km/h"));
             }
@@ -347,13 +402,13 @@ NIImporter_VISUM::parse_Edges() {
         if (!OptionsCont::getOptions().getBool("visum.use-type-laneno")) {
             if (myLineParser.know("Fahrstreifen")) {
                 nolanes = StringUtils::toInt(myLineParser.get("Fahrstreifen"));
-            } else if (myLineParser.know("ANZFAHRSTREIFEN")) {
-                nolanes = StringUtils::toInt(myLineParser.get("ANZFAHRSTREIFEN"));
+            } else if (myLineParser.know(KEYS.getString(VISUM_NUMLANES))) {
+                nolanes = StringUtils::toInt(myLineParser.get(KEYS.getString(VISUM_NUMLANES)));
             }
         }
     } else {
-        if (myLineParser.know("KAPIV")) {
-            nolanes = myCapacity2Lanes.get(StringUtils::toDouble(myLineParser.get("KAPIV")));
+        if (myLineParser.know(KEYS.getString(VISUM_CAPACITY))) {
+            nolanes = myCapacity2Lanes.get(StringUtils::toDouble(myLineParser.get(KEYS.getString(VISUM_CAPACITY))));
         } else if (myLineParser.know("KAP-IV")) {
             nolanes = myCapacity2Lanes.get(StringUtils::toDouble(myLineParser.get("KAP-IV")));
         }
@@ -364,7 +419,7 @@ NIImporter_VISUM::parse_Edges() {
     NBEdge* previous = myNetBuilder.getEdgeCont().retrieve(myCurrentID);
     if (previous != nullptr) {
         myCurrentID = '-' + myCurrentID;
-        previous->setLaneSpreadFunction(LANESPREAD_RIGHT);
+        previous->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
         oneway_checked = false;
     }
     if (find(myTouchedEdges.begin(), myTouchedEdges.end(), myCurrentID) != myTouchedEdges.end()) {
@@ -374,15 +429,15 @@ NIImporter_VISUM::parse_Edges() {
     if (find(myTouchedEdges.begin(), myTouchedEdges.end(), tmpid) != myTouchedEdges.end()) {
         previous = myNetBuilder.getEdgeCont().retrieve(tmpid);
         if (previous != nullptr) {
-            previous->setLaneSpreadFunction(LANESPREAD_RIGHT);
+            previous->setLaneSpreadFunction(LaneSpreadFunction::RIGHT);
         }
         oneway_checked = false;
     }
     // add the edge
-    const SVCPermissions permissions = getPermissions("VSYSSET", false, myNetBuilder.getTypeCont().getPermissions(type));
+    const SVCPermissions permissions = getPermissions(KEYS.getString(VISUM_TYPES), false, myNetBuilder.getTypeCont().getPermissions(type));
     int prio = myUseVisumPrio ? myNetBuilder.getTypeCont().getPriority(type) : -1;
     if (nolanes != 0 && speed != 0) {
-        LaneSpreadFunction lsf = oneway_checked ? LANESPREAD_CENTER : LANESPREAD_RIGHT;
+        LaneSpreadFunction lsf = oneway_checked ? LaneSpreadFunction::CENTER : LaneSpreadFunction::RIGHT;
         // @todo parse name from visum files
         NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
                                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", lsf);
@@ -400,7 +455,7 @@ NIImporter_VISUM::parse_Edges() {
     // add the opposite edge
     myCurrentID = '-' + myCurrentID;
     if (nolanes != 0 && speed != 0) {
-        LaneSpreadFunction lsf = oneway_checked ? LANESPREAD_CENTER : LANESPREAD_RIGHT;
+        LaneSpreadFunction lsf = oneway_checked ? LaneSpreadFunction::CENTER : LaneSpreadFunction::RIGHT;
         // @todo parse name from visum files
         NBEdge* e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio,
                                NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET, "", lsf);
@@ -416,17 +471,17 @@ NIImporter_VISUM::parse_Edges() {
 
 void
 NIImporter_VISUM::parse_Kante() {
-    long long int id = StringUtils::toLong(myLineParser.get("ID"));
-    long long int from = StringUtils::toLong(myLineParser.get("VONPUNKTID"));
-    long long int to = StringUtils::toLong(myLineParser.get("NACHPUNKTID"));
+    long long int id = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_ID)));
+    long long int from = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_FROMPOINTID)));
+    long long int to = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_TOPOINTID)));
     myEdges[id] = std::make_pair(from, to);
 }
 
 
 void
 NIImporter_VISUM::parse_PartOfArea() {
-    long long int flaecheID = StringUtils::toLong(myLineParser.get("FLAECHEID"));
-    long long int flaechePartID = StringUtils::toLong(myLineParser.get("TFLAECHEID"));
+    long long int flaecheID = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_SURFACEID)));
+    long long int flaechePartID = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_FACEID)));
     if (mySubPartsAreas.find(flaechePartID) == mySubPartsAreas.end()) {
         mySubPartsAreas[flaechePartID] = std::vector<long long int>();
     }
@@ -436,14 +491,45 @@ NIImporter_VISUM::parse_PartOfArea() {
 
 void
 NIImporter_VISUM::parse_Connectors() {
-    if (OptionsCont::getOptions().getBool("visum.no-connectors")) {
-        // do nothing, if connectors shall not be imported
+    // get the source district
+    std::string bez = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_SOURCE_DISTRICT)));
+    // get the destination node
+    NBNode* dest = getNamedNode(KEYS.getString(VISUM_FROMNODENO));
+    if (dest == nullptr) {
         return;
     }
+    // get the weight of the connection
+    double proz = 1;
+    if (myLineParser.know("Proz") || myLineParser.know("Proz(IV)")) {
+        proz = getNamedFloat("Proz", "Proz(IV)") / 100;
+    }
+    // get the information whether this is a sink or a source
+    std::string dir = myLineParser.get(KEYS.getString(VISUM_DIRECTION));
+    if (dir.length() == 0) {
+        dir = KEYS.getString(VISUM_ORIGIN) + KEYS.getString(VISUM_DESTINATION);
+    }
+    // build the source when needed
+    if (dir.find(KEYS.getString(VISUM_ORIGIN)) != std::string::npos) {
+        for (NBEdge* edge : dest->getOutgoingEdges()) {
+            myNetBuilder.getDistrictCont().addSource(bez, edge, proz);
+        }
+    }
+    // build the sink when needed
+    if (dir.find(KEYS.getString(VISUM_DESTINATION)) != std::string::npos) {
+        for (NBEdge* edge : dest->getIncomingEdges()) {
+            myNetBuilder.getDistrictCont().addSink(bez, edge, proz);
+        }
+    }
+}
+
+
+
+void
+NIImporter_VISUM::parse_Connectors_legacy() {
     // get the source district
-    std::string bez = NBHelpers::normalIDRepresentation(myLineParser.get("BezNr"));
+    std::string bez = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_SOURCE_DISTRICT)));
     // get the destination node
-    NBNode* dest = getNamedNode("KnotNr");
+    NBNode* dest = getNamedNode(KEYS.getString(VISUM_FROMNODENO));
     if (dest == nullptr) {
         return;
     }
@@ -459,18 +545,19 @@ NIImporter_VISUM::parse_Connectors() {
 //     }
     // get the type;
     //  use a standard type with a large speed when a type is not given
-    std::string type = myLineParser.know("Typ")
-                       ? NBHelpers::normalIDRepresentation(myLineParser.get("Typ"))
+
+    std::string type = myLineParser.know(KEYS.getString(VISUM_TYP))
+                       ? NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_TYP)))
                        : "";
     // add the connectors as an edge
     std::string id = bez + "-" + dest->getID();
     // get the information whether this is a sink or a source
-    std::string dir = myLineParser.get("Richtung");
+    std::string dir = myLineParser.get(KEYS.getString(VISUM_DIRECTION));
     if (dir.length() == 0) {
-        dir = "QZ";
+        dir = KEYS.getString(VISUM_ORIGIN) + KEYS.getString(VISUM_DESTINATION);
     }
     // build the source when needed
-    if (dir.find('Q') != std::string::npos) {
+    if (dir.find(KEYS.getString(VISUM_ORIGIN)) != std::string::npos) {
         const EdgeVector& edges = dest->getOutgoingEdges();
         bool hasContinuation = false;
         for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -491,7 +578,7 @@ NIImporter_VISUM::parse_Connectors() {
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
                                       OptionsCont::getOptions().getInt("visum.connectors-lane-number"),
                                       -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
-                                      "", LANESPREAD_RIGHT);
+                                      "", LaneSpreadFunction::RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
                 WRITE_ERROR("A duplicate edge id occurred (ID='" + id + "').");
@@ -504,7 +591,7 @@ NIImporter_VISUM::parse_Connectors() {
         }
     }
     // build the sink when needed
-    if (dir.find('Z') != std::string::npos) {
+    if (dir.find(KEYS.getString(VISUM_DESTINATION)) != std::string::npos) {
         const EdgeVector& edges = dest->getIncomingEdges();
         bool hasPredeccessor = false;
         for (EdgeVector::const_iterator i = edges.begin(); i != edges.end(); ++i) {
@@ -526,7 +613,7 @@ NIImporter_VISUM::parse_Connectors() {
                                       OptionsCont::getOptions().getFloat("visum.connector-speeds"),
                                       OptionsCont::getOptions().getInt("visum.connectors-lane-number"),
                                       -1, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
-                                      "", LANESPREAD_RIGHT);
+                                      "", LaneSpreadFunction::RIGHT);
             edge->setAsMacroscopicConnector();
             if (!myNetBuilder.getEdgeCont().insert(edge)) {
                 WRITE_ERROR("A duplicate edge id occurred (ID='" + id + "').");
@@ -543,21 +630,21 @@ NIImporter_VISUM::parse_Connectors() {
 
 void
 NIImporter_VISUM::parse_Turns() {
-    if (myLineParser.know("VSYSSET") && myLineParser.get("VSYSSET") == "") {
+    if (myLineParser.know(KEYS.getString(VISUM_TYPES)) && myLineParser.get(KEYS.getString(VISUM_TYPES)) == "") {
         // no vehicle allowed; don't add
         return;
     }
     // retrieve the nodes
-    NBNode* from = getNamedNode("VonKnot", "VonKnotNr");
-    NBNode* via = getNamedNode("UeberKnot", "UeberKnotNr");
-    NBNode* to = getNamedNode("NachKnot", "NachKnotNr");
+    NBNode* from = getNamedNode("VonKnot", KEYS.getString(VISUM_FROMNODE));
+    NBNode* via = getNamedNode("UeberKnot", KEYS.getString(VISUM_VIANODENO));
+    NBNode* to = getNamedNode("NachKnot", KEYS.getString(VISUM_TONODE));
     if (from == nullptr || via == nullptr || to == nullptr) {
         return;
     }
     // all nodes are known
     std::string type = myLineParser.know("VSysCode")
                        ? myLineParser.get("VSysCode")
-                       : myLineParser.get("VSYSSET");
+                       : myLineParser.get(KEYS.getString(VISUM_TYPES));
     if (myVSysTypes.find(type) != myVSysTypes.end() && myVSysTypes.find(type)->second == "IV") {
         // try to set the turning definition
         NBEdge* src = from->getConnectionTo(via);
@@ -585,8 +672,8 @@ NIImporter_VISUM::parse_Turns() {
 void
 NIImporter_VISUM::parse_EdgePolys() {
     // get the from- & to-node and validate them
-    NBNode* from = getNamedNode("VonKnot", "VonKnotNr");
-    NBNode* to = getNamedNode("NachKnot", "NachKnotNr");
+    NBNode* from = getNamedNode("VonKnot", KEYS.getString(VISUM_FROMNODE));
+    NBNode* to = getNamedNode("NachKnot", KEYS.getString(VISUM_TONODE));
     if (!checkNodes(from, to)) {
         return;
     }
@@ -594,9 +681,9 @@ NIImporter_VISUM::parse_EdgePolys() {
     int index;
     double x, y;
     try {
-        index = StringUtils::toInt(myLineParser.get("INDEX"));
-        x = getNamedFloat("XKoord");
-        y = getNamedFloat("YKoord");
+        index = StringUtils::toInt(myLineParser.get(KEYS.getString(VISUM_INDEX)));
+        x = getNamedFloat(KEYS.getString(VISUM_XCOORD));
+        y = getNamedFloat(KEYS.getString(VISUM_YCOORD));
     } catch (NumberFormatException&) {
         WRITE_ERROR("Error in geometry description from node '" + from->getID() + "' to node '" + to->getID() + "'.");
         return;
@@ -761,6 +848,8 @@ NIImporter_VISUM::parse_Lanes() {
         std::string nid = edgeID + "_" +  toString((int) length) + "_" + node->getID();
         myNetBuilder.getEdgeCont().splitAt(myNetBuilder.getDistrictCont(), edge, useLength, rn,
                                            edge->getID(), nid, edge->getNumLanes() + 0, edge->getNumLanes() + 1);
+        // old edge is deleted and a new edge with the same name created
+        edge = myNetBuilder.getEdgeCont().retrieve(edgeID);
         NBEdge* nedge = myNetBuilder.getEdgeCont().retrieve(nid);
         nedge = nedge->getToNode()->getOutgoingEdges()[0];
         while (isSplitEdge(edge, node)) {
@@ -774,7 +863,7 @@ NIImporter_VISUM::parse_Lanes() {
 
 void
 NIImporter_VISUM::parse_TrafficLights() {
-    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
+    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_NO)));
     SUMOTime cycleTime = (SUMOTime) getWeightedFloat2("Umlaufzeit", "UMLZEIT", "s");
     SUMOTime intermediateTime = (SUMOTime) getWeightedFloat2("StdZwischenzeit", "STDZWZEIT", "s");
     bool phaseBased = myLineParser.know("PhasenBasiert")
@@ -808,7 +897,7 @@ NIImporter_VISUM::parse_NodesToTrafficLights() {
 
 void
 NIImporter_VISUM::parse_SignalGroups() {
-    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
+    myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_NO)));
     std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
     double startTime = getNamedFloat("GzStart", "GRUENANF");
     double endTime = getNamedFloat("GzEnd", "GRUENENDE");
@@ -882,13 +971,13 @@ NIImporter_VISUM::parse_TurnsToSignalGroups() {
 
 void
 NIImporter_VISUM::parse_AreaSubPartElement() {
-    long long int id = StringUtils::toLong(myLineParser.get("TFLAECHEID"));
-    long long int edgeid = StringUtils::toLong(myLineParser.get("KANTEID"));
+    long long int id = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_FACEID)));
+    long long int edgeid = StringUtils::toLong(myLineParser.get(KEYS.getString(VISUM_EDGEID)));
     if (myEdges.find(edgeid) == myEdges.end()) {
         WRITE_ERROR("Unknown edge in TEILFLAECHENELEMENT");
         return;
     }
-    std::string dir = myLineParser.get("RICHTUNG");
+    std::string dir = myLineParser.get(KEYS.getString(VISUM_DIRECTION));
 // get index (unused)
 //     std::string indexS = NBHelpers::normalIDRepresentation(myLineParser.get("INDEX"));
 //     int index = -1;
@@ -932,7 +1021,7 @@ NIImporter_VISUM::parse_AreaSubPartElement() {
 void
 NIImporter_VISUM::parse_Phases() {
     // get the id
-    std::string phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
+    std::string phaseid = NBHelpers::normalIDRepresentation(myLineParser.get(KEYS.getString(VISUM_NO)));
     std::string LSAid = NBHelpers::normalIDRepresentation(myLineParser.get("LsaNr"));
     double startTime = getNamedFloat("GzStart", "GRUENANF");
     double endTime = getNamedFloat("GzEnd", "GRUENENDE");
@@ -1048,7 +1137,7 @@ void NIImporter_VISUM::parse_LanesConnections() {
         return;
     }
     //
-    fromEdge->addLane2LaneConnection(fromLane, toEdge, toLane, NBEdge::L2L_VALIDATED);
+    fromEdge->addLane2LaneConnection(fromLane, toEdge, toLane, NBEdge::Lane2LaneInfoType::VALIDATED);
 }
 
 
@@ -1102,24 +1191,25 @@ NIImporter_VISUM::getPermissions(const std::string& name, bool warn, SVCPermissi
     SVCPermissions result = 0;
     for (std::string v : StringTokenizer(myLineParser.get(name), ",").getVector()) {
         // common values in english and german
+        // || v == "funiculaire-telecabine" ---> no matching
         std::transform(v.begin(), v.end(), v.begin(), tolower);
-        if (v == "bus") {
+        if (v == "bus" || v == "tcsp" || v == "acces tc" || v == "Accès tc" || v == "accès tc") {
             result |= SVC_BUS;
-        } else if (v == "walk" || v == "w" || v == "f") {
+        } else if (v == "walk" || v == "w" || v == "f" || v == "ped" || v == "map") {
             result |= SVC_PEDESTRIAN;
-        } else if (v == "l" || v == "lkw" || v == "h" || v == "hgv" || v == "lw" || v == "truck" || v == "tru") {
+        } else if (v == "l" || v == "lkw" || v == "h" || v == "hgv" || v == "lw" || v == "truck" || v == "tru" || v == "pl") {
             result |= SVC_TRUCK;
-        } else if (v == "b" || v == "bike") {
+        } else if (v == "b" || v == "bike" || v == "velo") {
             result |= SVC_BICYCLE;
-        } else if (v == "train") {
+        } else if (v == "train" || v == "rail") {
             result |= SVC_RAIL;
         } else if (v == "tram") {
             result |= SVC_TRAM;
-        } else if (v == "p" || v == "pkw" || v == "car" || v == "c") {
+        } else if (v == "p" || v == "pkw" || v == "car" || v == "c" || v == "vp" || v == "2rm") {
             result |= SVC_PASSENGER;
         } else {
             if (warn) {
-                WRITE_WARNING("Encountered unknown vehicle category '" + v + "' in type '" + myLineParser.get("Nr") + "'");
+                WRITE_WARNING("Encountered unknown vehicle category '" + v + "' in type '" + myLineParser.get(KEYS.getString(VISUM_NO)) + "'");
             }
             result |= unknown;
         }
@@ -1396,5 +1486,27 @@ NIImporter_VISUM::isSplitEdge(NBEdge* edge, NBNode* node) {
             && (edge->getID().substr(edge->getID().length() - node->getID().length() - 1) == "_" + node->getID()));
 }
 
-/****************************************************************************/
+void
+NIImporter_VISUM::loadLanguage(const std::string& file) {
+    std::ifstream strm(file.c_str());
+    if (!strm.good()) {
+        throw ProcessError("Could not load VISUM language map from '" + file + "'.");
+    }
+    while (strm.good()) {
+        std::string keyDE;
+        std::string keyNew;
+        strm >> keyDE;
+        strm >> keyNew;
+        if (KEYS.hasString(keyDE)) {
+            VISUM_KEY key = KEYS.get(keyDE);
+            KEYS.remove(keyDE, key);
+            KEYS.insert(keyNew, key);
+        } else if (keyDE != "") {
+            WRITE_WARNING("Unknown entry '" + keyDE + "' in VISUM language map");
+        }
+    }
 
+}
+
+
+/****************************************************************************/

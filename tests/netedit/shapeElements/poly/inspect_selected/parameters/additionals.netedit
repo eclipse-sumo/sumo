@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 30.09.2019 11:21:42 by Eclipse SUMO netedit Version v1_3_1+0524-8f85d9a110
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\additionals.xml"/>
+        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\additionals.xml"/>
+        <route-files value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\routes.xml"/>
+        <demandelements-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.30Sep111559.7556/netedit.gui/shapeElements/poly/inspect_selected/parameters\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <poly id="poly_0" color="red" fill="0" layer="128.00" shape="12.000000,8.000000 12.000000,18.000000 2.000000,18.000000 2.000000,8.000000 12.000000,8.000000">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </poly>
+    <poly id="poly_1" color="red" fill="0" layer="128.00" shape="32.000000,8.000000 32.000000,18.000000 22.000000,18.000000 22.000000,8.000000 32.000000,8.000000">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </poly>
+</additional>

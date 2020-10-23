@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.12.2018 13:16:33 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
+<!-- generated on 07.08.2019 09:59:39 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\net.net.xml"/>
     </output>
 
     <processing>
@@ -30,13 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,14 +47,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec131314.6680/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081749.192/netedit.gui/netElements/edges/contextual_menu/smooth_elevation_edge\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <busStop id="busStop1" lane="gneE0_0" friendlyPos="1" startPos="37.00" endPos="43.60"/>
-    <busStop id="busStop2" lane="gneE1_0" friendlyPos="1" startPos="3.00" endPos="13.00"/>
-    <busStop id="busStop3" lane="gneE2_0" friendlyPos="1" startPos="35.32" endPos="35.42"/>
+    <busStop id="busStop1" lane="gneE0_0" startPos="37.00" endPos="43.60" friendlyPos="1"/>
+    <busStop id="busStop2" lane="gneE1_0" startPos="3.00" endPos="13.00" friendlyPos="1"/>
+    <busStop id="busStop3" lane="gneE2_0" startPos="35.32" endPos="35.42" friendlyPos="1"/>
 </additional>

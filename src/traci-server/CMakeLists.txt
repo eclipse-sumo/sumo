@@ -1,5 +1,4 @@
 SET(traciserver_STAT_SRCS
-   TraCIConstants.h
    TraCIServer.h
    TraCIServer.cpp
    TraCIServerAPI_Edge.h
@@ -22,6 +21,24 @@ SET(traciserver_STAT_SRCS
    TraCIServerAPI_Polygon.cpp
    TraCIServerAPI_Route.h
    TraCIServerAPI_Route.cpp
+   TraCIServerAPI_Calibrator.h
+   TraCIServerAPI_Calibrator.cpp
+   TraCIServerAPI_BusStop.h
+   TraCIServerAPI_BusStop.cpp
+   TraCIServerAPI_ParkingArea.h
+   TraCIServerAPI_ParkingArea.cpp
+   TraCIServerAPI_ChargingStation.h
+   TraCIServerAPI_ChargingStation.cpp
+   TraCIServerAPI_RouteProbe.h
+   TraCIServerAPI_RouteProbe.cpp
+   TraCIServerAPI_Rerouter.h
+   TraCIServerAPI_Rerouter.cpp
+   TraCIServerAPI_VariableSpeedSign.h
+   TraCIServerAPI_VariableSpeedSign.cpp
+   TraCIServerAPI_MeanData.h
+   TraCIServerAPI_MeanData.cpp
+   TraCIServerAPI_OverheadWire.h
+   TraCIServerAPI_OverheadWire.cpp
    TraCIServerAPI_Simulation.h
    TraCIServerAPI_Simulation.cpp
    TraCIServerAPI_TrafficLight.h

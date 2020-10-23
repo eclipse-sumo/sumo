@@ -9,3 +9,6 @@ o
 
 # Tests for importing OM(R)-format
 om
+
+# Tests for importing O(R)-format without trip output
+o_without_tripoutput

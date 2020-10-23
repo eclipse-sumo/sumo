@@ -1,0 +1,4 @@
+--no-step-log --no-duration-log --net-file=motorway.net.xml -r
+input_routes.rou.xml --tripinfo-output tripinfos.xml --device.battery.probability 1.0
+--device.emissions.probability 1.0
+--battery-output battery.xml

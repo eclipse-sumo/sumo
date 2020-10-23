@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 31.07.2019 08:52:09 by Eclipse SUMO netedit Version v1_2_0+1335-a8f5940889
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_ccdecel\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_ccdecel\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_ccdecel\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_ccdecel\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_ccdecel\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_ccdecel\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.31Jul083932.8372/netedit.gui/demandElements/vehicletype/load/carfollowingmodel_params/cf_cc_ccdecel\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="vType0" carFollowModel="CC"/>
+    <vType id="vType1" carFollowModel="CC" ccDecel="-3"/>
+    <vType id="vType2" carFollowModel="CC" ccDecel="0"/>
+    <vType id="vType3" carFollowModel="CC" ccDecel="12"/>
+    <vType id="vType4" carFollowModel="CC" ccDecel="4.5"/>
+</routes>

@@ -1,0 +1,6 @@
+Warning: Teleporting vehicle 'ego'; waited too long (wrong lane), lane='SC_0', time=314.00.
+Warning: Vehicle 'ego' ends teleporting on edge 'r0', time 314.00.
+Warning: Teleporting vehicle 'ego'; waited too long (wrong lane), lane='r0_0', time=623.00.
+Warning: Vehicle 'ego' ends teleporting on edge 'r2', time 623.00.
+Warning: Teleporting vehicle 'ego'; waited too long (wrong lane), lane='r2_0', time=933.00.
+Warning: Vehicle 'ego' ends teleporting on edge 'CN', time 933.00.

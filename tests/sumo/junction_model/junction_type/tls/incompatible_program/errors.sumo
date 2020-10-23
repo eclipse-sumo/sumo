@@ -1,0 +1,4 @@
+Warning: Missing yellow phase in tlLogic 'C', program 'bad' for tl-index 8 when switching to phase 1
+Error: Program 'bad' at tlLogic 'C' is incompatible with logic at junction 'C' (mututal conflict between link indices 3,8 tl indices 3,8 phase 0).
+       Rebuild the network with option '--tls.ignore-internal-junction-jam or include the program when building.
+Quitting (on error).

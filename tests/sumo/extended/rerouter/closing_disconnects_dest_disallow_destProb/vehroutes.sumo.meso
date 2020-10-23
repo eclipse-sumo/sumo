@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 27 09:35:14 2019 by Eclipse SUMO Version v1_3_1+1129-34e3c4d
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="three_split.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+        <additional-files value="input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+    </time>
+
+    <processing>
+        <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="beforeRerouterEdgeAtClose" depart="40.00" arrival="66.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg2left" reason="rerouter" replacedAtTime="58.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.1" depart="62.00" arrival="88.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg2left" reason="rerouter" replacedAtTime="80.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.2" depart="64.00" arrival="90.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg2left" reason="rerouter" replacedAtTime="82.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.5" depart="70.00" arrival="96.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg2left" reason="rerouter" replacedAtTime="88.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.8" depart="76.00" arrival="102.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg2left" reason="rerouter" replacedAtTime="94.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.9" depart="78.00" arrival="104.00">
+        <routeDistribution>
+            <route replacedOnEdge="beg2left" reason="rerouter" replacedAtTime="96.00" probability="0" edges="beg beg2left left left2end end rend"/>
+            <route edges="beg beg2left"/>
+        </routeDistribution>
+    </vehicle>
+
+    <vehicle id="onRerouterEdgeAtClose" depart="0.00" arrival="199.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.0" depart="60.00" arrival="259.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.3" depart="66.00" arrival="265.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.4" depart="68.00" arrival="267.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.6" depart="72.00" arrival="271.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="insertedWhileClosed.7" depart="74.00" arrival="273.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+</routes>

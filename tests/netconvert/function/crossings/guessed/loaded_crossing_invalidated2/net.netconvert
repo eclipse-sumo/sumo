@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:59 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:09 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -38,12 +39,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" walkingareas="true" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="100.00,0.00" convBoundary="0.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -54,20 +56,20 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":C_1_0" index="0" allow="passenger" speed="13.89" length="0.49" shape="98.40,1.50 98.67,1.09"/>
     </edge>
     <edge id=":C_6" function="internal">
-        <lane id=":C_6_0" index="0" allow="passenger" speed="13.89" length="18.66" shape="95.61,0.46 96.28,-1.26 99.50,-3.23 104.88,-4.41 112.40,-4.80"/>
+        <lane id=":C_6_0" index="0" allow="passenger" speed="13.89" length="18.66" shape="95.61,0.46 96.28,-1.26 99.50,-3.22 104.88,-4.41 112.40,-4.80"/>
     </edge>
     <edge id=":C_7" function="internal">
-        <lane id=":C_7_0" index="0" allow="passenger" speed="13.89" length="14.46" shape="98.67,1.09 99.28,0.14 101.90,-0.83 106.28,-1.41 112.40,-1.60"/>
+        <lane id=":C_7_0" index="0" allow="passenger" speed="13.89" length="14.46" shape="98.67,1.09 99.28,0.14 101.90,-0.82 106.28,-1.41 112.40,-1.60"/>
     </edge>
     <edge id=":C_2" function="internal">
         <lane id=":C_2_0" index="0" allow="passenger" speed="13.89" length="24.80" shape="87.60,-4.80 112.40,-4.80"/>
         <lane id=":C_2_1" index="1" allow="passenger" speed="13.89" length="24.80" shape="87.60,-1.60 112.40,-1.60"/>
     </edge>
     <edge id=":C_4" function="internal">
-        <lane id=":C_4_0" index="0" speed="13.89" length="18.03" shape="87.60,-1.60 95.12,-1.41 100.50,-0.83 103.72,0.14 104.80,1.50"/>
+        <lane id=":C_4_0" index="0" allow="passenger" speed="13.89" length="18.03" shape="87.60,-1.60 95.12,-1.41 100.50,-0.83 103.72,0.14 104.80,1.50"/>
     </edge>
     <edge id=":C_5" function="internal">
-        <lane id=":C_5_0" index="0" speed="13.89" length="14.95" shape="87.60,-1.60 93.72,-1.41 98.10,-0.83 100.72,0.14 101.60,1.50"/>
+        <lane id=":C_5_0" index="0" allow="passenger" speed="13.89" length="14.95" shape="87.60,-1.60 93.72,-1.41 98.10,-0.83 100.72,0.14 101.60,1.50"/>
     </edge>
     <edge id=":C_w0" function="walkingarea">
         <lane id=":C_w0_0" index="0" allow="pedestrian" speed="1.00" length="3.75" width="4.50" shape="89.10,1.50 92.10,1.50 93.60,1.50 93.60,-3.00"/>

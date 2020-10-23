@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:04 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_nodes.nod.xml"/>
+        <edge-files value="input_edges.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <junctions>
+        <junctions.join value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="18.91,-4.39" convBoundary="0.00,0.00,119.19,101.64" origBoundary="-18.91,4.39,100.28,106.03" projParameter="!"/>
+
+    <edge id=":joinedNode_0" function="internal">
+        <lane id=":joinedNode_0_0" index="0" speed="6.82" length="9.08" shape="64.77,54.31 62.33,54.70 60.52,55.75 59.32,57.46 58.75,59.83"/>
+    </edge>
+    <edge id=":joinedNode_1" function="internal">
+        <lane id=":joinedNode_1_0" index="0" speed="13.89" length="28.99" shape="64.77,54.31 58.85,54.04 50.32,53.27 41.81,52.35 35.91,51.60"/>
+    </edge>
+    <edge id=":joinedNode_2" function="internal">
+        <lane id=":joinedNode_2_0" index="0" speed="11.64" length="27.82" shape="64.77,54.31 58.93,51.59 53.50,44.77 49.54,36.25 48.96,33.03"/>
+    </edge>
+    <edge id=":joinedNode_3" function="internal">
+        <lane id=":joinedNode_3_0" index="0" speed="7.62" length="24.95" shape="64.77,54.31 57.79,49.42 55.54,44.63 58.01,39.96 62.97,36.83"/>
+    </edge>
+    <edge id=":joinedNode_16" function="internal">
+        <lane id=":joinedNode_16_0" index="0" speed="11.64" length="4.68" shape="48.96,33.03 48.12,28.43"/>
+    </edge>
+    <edge id=":joinedNode_17" function="internal">
+        <lane id=":joinedNode_17_0" index="0" speed="7.62" length="2.66" shape="62.97,36.83 65.22,35.41"/>
+    </edge>
+    <edge id=":joinedNode_4" function="internal">
+        <lane id=":joinedNode_4_0" index="0" speed="6.87" length="11.26" shape="58.28,28.79 58.32,31.62 59.49,33.66 61.79,34.92 65.22,35.41"/>
+    </edge>
+    <edge id=":joinedNode_5" function="internal">
+        <lane id=":joinedNode_5_0" index="0" speed="13.89" length="31.05" shape="58.28,28.79 58.08,35.03 58.40,44.30 58.77,53.57 58.75,59.83"/>
+    </edge>
+    <edge id=":joinedNode_6" function="internal">
+        <lane id=":joinedNode_6_0" index="0" speed="12.12" length="11.57" shape="58.28,28.79 55.25,36.22 53.10,39.04"/>
+    </edge>
+    <edge id=":joinedNode_7" function="internal">
+        <lane id=":joinedNode_7_0" index="0" speed="5.84" length="12.47" shape="58.28,28.79 55.61,32.51 53.02,33.69 50.53,32.33 49.37,30.45"/>
+    </edge>
+    <edge id=":joinedNode_18" function="internal">
+        <lane id=":joinedNode_18_0" index="0" speed="12.12" length="21.98" shape="53.10,39.04 49.41,43.91 42.41,49.74 35.91,51.60"/>
+    </edge>
+    <edge id=":joinedNode_19" function="internal">
+        <lane id=":joinedNode_19_0" index="0" speed="5.84" length="2.38" shape="49.37,30.45 48.12,28.43"/>
+    </edge>
+    <edge id=":joinedNode_8" function="internal">
+        <lane id=":joinedNode_8_0" index="0" speed="7.27" length="12.07" shape="38.64,33.26 42.72,33.28 45.66,32.48 47.46,30.87 48.12,28.43"/>
+    </edge>
+    <edge id=":joinedNode_9" function="internal">
+        <lane id=":joinedNode_9_0" index="0" speed="13.89" length="26.66" shape="38.64,33.26 65.22,35.41"/>
+    </edge>
+    <edge id=":joinedNode_10" function="internal">
+        <lane id=":joinedNode_10_0" index="0" speed="12.30" length="30.60" shape="38.64,33.26 45.64,36.51 52.34,43.53 57.22,52.06 57.87,55.35"/>
+    </edge>
+    <edge id=":joinedNode_11" function="internal">
+        <lane id=":joinedNode_11_0" index="0" speed="7.56" length="24.09" shape="38.64,33.26 44.84,38.87 46.45,43.79 43.47,48.04 38.61,50.33"/>
+    </edge>
+    <edge id=":joinedNode_20" function="internal">
+        <lane id=":joinedNode_20_0" index="0" speed="12.30" length="4.56" shape="57.87,55.35 58.75,59.83"/>
+    </edge>
+    <edge id=":joinedNode_21" function="internal">
+        <lane id=":joinedNode_21_0" index="0" speed="7.56" length="2.98" shape="38.61,50.33 35.91,51.60"/>
+    </edge>
+    <edge id=":joinedNode_12" function="internal">
+        <lane id=":joinedNode_12_0" index="0" speed="6.77" length="9.20" shape="40.98,58.07 40.79,55.54 39.88,53.62 38.26,52.30 35.91,51.60"/>
+    </edge>
+    <edge id=":joinedNode_13" function="internal">
+        <lane id=":joinedNode_13_0" index="0" speed="13.89" length="30.51" shape="40.98,58.07 42.20,52.03 44.60,43.25 46.98,34.47 48.12,28.43"/>
+    </edge>
+    <edge id=":joinedNode_14" function="internal">
+        <lane id=":joinedNode_14_0" index="0" speed="12.47" length="7.98" shape="40.98,58.07 43.74,50.75 43.85,50.63"/>
+    </edge>
+    <edge id=":joinedNode_15" function="internal">
+        <lane id=":joinedNode_15_0" index="0" speed="7.41" length="22.69" shape="40.98,58.07 46.08,51.85 50.75,50.07 54.97,52.73 57.16,56.84"/>
+    </edge>
+    <edge id=":joinedNode_22" function="internal">
+        <lane id=":joinedNode_22_0" index="0" speed="12.47" length="26.96" shape="43.85,50.63 49.96,43.33 57.75,37.61 65.22,35.41"/>
+    </edge>
+    <edge id=":joinedNode_23" function="internal">
+        <lane id=":joinedNode_23_0" index="0" speed="7.41" length="3.38" shape="57.16,56.84 58.75,59.83"/>
+    </edge>
+
+    <edge id="gneE0" from="gneJ2" to="joinedNode" priority="1" spreadType="center" shape="62.89,0.71 57.23,35.22">
+        <lane id="gneE0_0" index="0" speed="13.89" length="28.46" shape="62.89,0.71 58.28,28.79"/>
+    </edge>
+    <edge id="gneE2" from="joinedNode" to="gneJ6" priority="1" spreadType="center" shape="57.23,35.22 110.29,36.45">
+        <lane id="gneE2_0" index="0" speed="13.89" length="45.09" shape="65.22,35.41 110.29,36.45"/>
+    </edge>
+    <edge id="gneE3" from="gneJ7" to="joinedNode" priority="1" spreadType="center" shape="1.68,29.85 47.94,34.12">
+        <lane id="gneE3_0" index="0" speed="13.89" length="37.12" shape="1.68,29.85 38.64,33.26"/>
+    </edge>
+    <edge id="gneE4" from="joinedNode" to="gneJ8" priority="1" spreadType="center" shape="47.94,34.12 49.04,0.00">
+        <lane id="gneE4_0" index="0" speed="13.89" length="28.44" shape="48.12,28.43 49.04,0.00"/>
+    </edge>
+    <edge id="gneE5" from="gneJ10" to="joinedNode" priority="1" spreadType="center" shape="119.19,53.02 59.28,54.44">
+        <lane id="gneE5_0" index="0" speed="13.89" length="54.44" shape="119.19,53.02 64.77,54.31"/>
+    </edge>
+    <edge id="gneE6" from="joinedNode" to="gneJ12" priority="1" spreadType="center" shape="59.28,54.44 54.61,101.64">
+        <lane id="gneE6_0" index="0" speed="13.89" length="42.02" shape="58.75,59.83 54.61,101.64"/>
+    </edge>
+    <edge id="gneE7" from="gneJ13" to="joinedNode" priority="1" spreadType="center" shape="38.48,100.14 41.32,52.40">
+        <lane id="gneE7_0" index="0" speed="13.89" length="42.15" shape="38.48,100.14 40.98,58.07"/>
+    </edge>
+    <edge id="gneE8" from="joinedNode" to="gneJ15" priority="1" spreadType="center" shape="41.32,52.40 0.00,46.27">
+        <lane id="gneE8_0" index="0" speed="13.89" length="36.31" shape="35.91,51.60 -0.00,46.27"/>
+    </edge>
+
+    <tlLogic id="foobar" type="static" programID="0" offset="0">
+        <phase duration="42" state="rrrrGGggrrrrGGgg"/>
+        <phase duration="3"  state="rrrryyyyrrrryyyy"/>
+        <phase duration="42" state="GGggrrrrGGggrrrr"/>
+        <phase duration="3"  state="yyyyrrrryyyyrrrr"/>
+    </tlLogic>
+
+    <junction id="gneJ10" type="dead_end" x="119.19" y="53.02" incLanes="" intLanes="" shape="119.15,51.42 119.23,54.62"/>
+    <junction id="gneJ12" type="dead_end" x="54.61" y="101.64" incLanes="gneE6_0" intLanes="" shape="56.20,101.80 53.02,101.48"/>
+    <junction id="gneJ13" type="dead_end" x="38.48" y="100.14" incLanes="" intLanes="" shape="40.08,100.24 36.88,100.04"/>
+    <junction id="gneJ15" type="dead_end" x="0.00" y="46.27" incLanes="gneE8_0" intLanes="" shape="-0.23,47.85 0.23,44.69"/>
+    <junction id="gneJ2" type="dead_end" x="62.89" y="0.71" incLanes="" intLanes="" shape="61.31,0.45 64.47,0.97"/>
+    <junction id="gneJ6" type="dead_end" x="110.29" y="36.45" incLanes="gneE2_0" intLanes="" shape="110.33,34.85 110.25,38.05"/>
+    <junction id="gneJ7" type="dead_end" x="1.68" y="29.85" incLanes="" intLanes="" shape="1.53,31.44 1.83,28.26"/>
+    <junction id="gneJ8" type="dead_end" x="49.04" y="0.00" incLanes="gneE4_0" intLanes="" shape="47.44,-0.05 50.64,0.05"/>
+    <junction id="joinedNode" type="traffic_light" x="50.91" y="43.61" z="2.00" incLanes="gneE5_0 gneE0_0 gneE3_0 gneE7_0" intLanes=":joinedNode_0_0 :joinedNode_1_0 :joinedNode_16_0 :joinedNode_17_0 :joinedNode_4_0 :joinedNode_5_0 :joinedNode_18_0 :joinedNode_19_0 :joinedNode_8_0 :joinedNode_9_0 :joinedNode_20_0 :joinedNode_21_0 :joinedNode_12_0 :joinedNode_13_0 :joinedNode_22_0 :joinedNode_23_0" shape="64.73,55.91,2.00 65.25,33.81,2.00 61.93,33.19,2.00 60.84,32.50,2.00 60.14,31.54,2.00 59.83,30.33,2.00 59.90,28.85,2.00 46.52,28.37,2.00 45.62,30.52,2.00 44.55,31.20,2.00 43.07,31.62,2.00 41.18,31.78,2.00 38.88,31.68,2.00 35.68,53.18,2.00 37.85,53.97,2.00 38.59,54.66,2.00 39.09,55.54,2.00 39.35,56.63,2.00 39.39,57.91,2.00 60.34,59.99,2.00 61.00,57.76,2.00 61.63,56.98,2.00 62.47,56.41,2.00 63.50,56.05,2.00">
+        <request index="0"  response="0000000000100000" foes="1000010000100000" cont="0"/>
+        <request index="1"  response="0111000001100000" foes="0111110001100000" cont="0"/>
+        <request index="2"  response="0110001101100000" foes="0110011111100000" cont="1"/>
+        <request index="3"  response="0100001000010000" foes="0100001000010000" cont="1"/>
+        <request index="4"  response="0000000000000000" foes="0100001000001000" cont="0"/>
+        <request index="5"  response="0000010000000100" foes="1100011000000111" cont="0"/>
+        <request index="6"  response="0111010000000100" foes="0111111000000110" cont="1"/>
+        <request index="7"  response="0010000100000100" foes="0010000100000100" cont="1"/>
+        <request index="8"  response="0010000000000000" foes="0010000010000100" cont="0"/>
+        <request index="9"  response="0110000001110000" foes="0110000001111100" cont="0"/>
+        <request index="10" response="0110000001100111" foes="1110000001100111" cont="1"/>
+        <request index="11" response="0001000001000010" foes="0001000001000010" cont="1"/>
+        <request index="12" response="0000000000000000" foes="0000100001000010" cont="0"/>
+        <request index="13" response="0000010000000100" foes="0000011111000110" cont="0"/>
+        <request index="14" response="0000010000110100" foes="0000011001111110" cont="1"/>
+        <request index="15" response="0000010000100001" foes="0000010000100001" cont="1"/>
+    </junction>
+
+    <junction id=":joinedNode_16_0" type="internal" x="48.96" y="33.03" incLanes=":joinedNode_2_0 gneE3_0" intLanes=":joinedNode_5_0 :joinedNode_6_0 :joinedNode_7_0 :joinedNode_8_0 :joinedNode_9_0 :joinedNode_10_0 :joinedNode_13_0 :joinedNode_14_0"/>
+    <junction id=":joinedNode_17_0" type="internal" x="62.97" y="36.83" incLanes=":joinedNode_3_0 gneE0_0 gneE3_0 gneE7_0" intLanes=":joinedNode_4_0 :joinedNode_9_0 :joinedNode_14_0"/>
+    <junction id=":joinedNode_18_0" type="internal" x="53.10" y="39.04" incLanes=":joinedNode_6_0 :joinedNode_14_0 gneE7_0" intLanes=":joinedNode_22_0 :joinedNode_1_0 :joinedNode_2_0 :joinedNode_9_0 :joinedNode_10_0 :joinedNode_11_0 :joinedNode_12_0 :joinedNode_13_0 :joinedNode_14_0"/>
+    <junction id=":joinedNode_19_0" type="internal" x="49.37" y="30.45" incLanes=":joinedNode_7_0 gneE3_0 gneE5_0 gneE7_0" intLanes=":joinedNode_2_0 :joinedNode_8_0 :joinedNode_13_0"/>
+    <junction id=":joinedNode_20_0" type="internal" x="57.87" y="55.35" incLanes=":joinedNode_10_0 gneE5_0" intLanes=":joinedNode_0_0 :joinedNode_1_0 :joinedNode_2_0 :joinedNode_5_0 :joinedNode_6_0 :joinedNode_13_0 :joinedNode_14_0 :joinedNode_15_0"/>
+    <junction id=":joinedNode_21_0" type="internal" x="38.61" y="50.33" incLanes=":joinedNode_11_0 gneE0_0 gneE5_0 gneE7_0" intLanes=":joinedNode_1_0 :joinedNode_6_0 :joinedNode_12_0"/>
+    <junction id=":joinedNode_22_0" type="internal" x="43.85" y="50.63" incLanes=":joinedNode_14_0 gneE0_0" intLanes=":joinedNode_1_0 :joinedNode_2_0 :joinedNode_3_0 :joinedNode_4_0 :joinedNode_5_0 :joinedNode_6_0 :joinedNode_9_0 :joinedNode_10_0"/>
+    <junction id=":joinedNode_23_0" type="internal" x="57.16" y="56.84" incLanes=":joinedNode_15_0 gneE0_0 gneE3_0 gneE5_0" intLanes=":joinedNode_0_0 :joinedNode_5_0 :joinedNode_10_0"/>
+
+    <connection from="gneE0" to="gneE2" fromLane="0" toLane="0" via=":joinedNode_4_0" tl="foobar" linkIndex="4" dir="r" state="O"/>
+    <connection from="gneE0" to="gneE6" fromLane="0" toLane="0" via=":joinedNode_5_0" tl="foobar" linkIndex="5" dir="s" state="O"/>
+    <connection from="gneE0" to="gneE8" fromLane="0" toLane="0" via=":joinedNode_6_0" tl="foobar" linkIndex="6" dir="l" state="o"/>
+    <connection from="gneE0" to="gneE4" fromLane="0" toLane="0" via=":joinedNode_7_0" tl="foobar" linkIndex="7" dir="t" state="o"/>
+    <connection from="gneE3" to="gneE4" fromLane="0" toLane="0" via=":joinedNode_8_0" tl="foobar" linkIndex="8" dir="r" state="o"/>
+    <connection from="gneE3" to="gneE2" fromLane="0" toLane="0" via=":joinedNode_9_0" tl="foobar" linkIndex="9" dir="s" state="o"/>
+    <connection from="gneE3" to="gneE6" fromLane="0" toLane="0" via=":joinedNode_10_0" tl="foobar" linkIndex="10" dir="l" state="o"/>
+    <connection from="gneE3" to="gneE8" fromLane="0" toLane="0" via=":joinedNode_11_0" tl="foobar" linkIndex="11" dir="t" state="o"/>
+    <connection from="gneE5" to="gneE6" fromLane="0" toLane="0" via=":joinedNode_0_0" tl="foobar" linkIndex="0" dir="r" state="o"/>
+    <connection from="gneE5" to="gneE8" fromLane="0" toLane="0" via=":joinedNode_1_0" tl="foobar" linkIndex="1" dir="s" state="o"/>
+    <connection from="gneE5" to="gneE4" fromLane="0" toLane="0" via=":joinedNode_2_0" tl="foobar" linkIndex="2" dir="l" state="o"/>
+    <connection from="gneE5" to="gneE2" fromLane="0" toLane="0" via=":joinedNode_3_0" tl="foobar" linkIndex="3" dir="t" state="o"/>
+    <connection from="gneE7" to="gneE8" fromLane="0" toLane="0" via=":joinedNode_12_0" tl="foobar" linkIndex="12" dir="r" state="O"/>
+    <connection from="gneE7" to="gneE4" fromLane="0" toLane="0" via=":joinedNode_13_0" tl="foobar" linkIndex="13" dir="s" state="O"/>
+    <connection from="gneE7" to="gneE2" fromLane="0" toLane="0" via=":joinedNode_14_0" tl="foobar" linkIndex="14" dir="l" state="o"/>
+    <connection from="gneE7" to="gneE6" fromLane="0" toLane="0" via=":joinedNode_15_0" tl="foobar" linkIndex="15" dir="t" state="o"/>
+
+    <connection from=":joinedNode_0" to="gneE6" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":joinedNode_1" to="gneE8" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":joinedNode_2" to="gneE4" fromLane="0" toLane="0" via=":joinedNode_16_0" dir="l" state="m"/>
+    <connection from=":joinedNode_16" to="gneE4" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":joinedNode_3" to="gneE2" fromLane="0" toLane="0" via=":joinedNode_17_0" dir="t" state="m"/>
+    <connection from=":joinedNode_17" to="gneE2" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":joinedNode_4" to="gneE2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":joinedNode_5" to="gneE6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":joinedNode_6" to="gneE8" fromLane="0" toLane="0" via=":joinedNode_18_0" dir="l" state="m"/>
+    <connection from=":joinedNode_18" to="gneE8" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":joinedNode_7" to="gneE4" fromLane="0" toLane="0" via=":joinedNode_19_0" dir="t" state="m"/>
+    <connection from=":joinedNode_19" to="gneE4" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":joinedNode_8" to="gneE4" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":joinedNode_9" to="gneE2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":joinedNode_10" to="gneE6" fromLane="0" toLane="0" via=":joinedNode_20_0" dir="l" state="m"/>
+    <connection from=":joinedNode_20" to="gneE6" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":joinedNode_11" to="gneE8" fromLane="0" toLane="0" via=":joinedNode_21_0" dir="t" state="m"/>
+    <connection from=":joinedNode_21" to="gneE8" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":joinedNode_12" to="gneE8" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from=":joinedNode_13" to="gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":joinedNode_14" to="gneE2" fromLane="0" toLane="0" via=":joinedNode_22_0" dir="l" state="m"/>
+    <connection from=":joinedNode_22" to="gneE2" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":joinedNode_15" to="gneE6" fromLane="0" toLane="0" via=":joinedNode_23_0" dir="t" state="m"/>
+    <connection from=":joinedNode_23" to="gneE6" fromLane="0" toLane="0" dir="t" state="M"/>
+
+</net>

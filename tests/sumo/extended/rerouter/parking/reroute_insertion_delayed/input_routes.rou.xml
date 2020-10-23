@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="car" sigma="0"/>
+
+    <flow id="flow" type="car" from="SC" to="CN" begin="0" end="360" period="5">
+        <stop parkingArea="A" duration="200.00"/>
+    </flow>
+    <trip id="blocker" type="car" depart="100" from="SC" to="CN">
+        <stop lane="SC_0" endPos="10" duration="100"/>
+    </trip>
+</routes>

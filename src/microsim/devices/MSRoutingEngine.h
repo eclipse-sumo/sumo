@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2007-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSRoutingEngine.h
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 04 Dec 2007
-/// @version $Id$
 ///
 // A device that performs vehicle rerouting based on current edge speeds
 /****************************************************************************/
-#ifndef MSRoutingEngine_h
-#define MSRoutingEngine_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <set>
@@ -32,6 +29,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/router/AStarRouter.h>
+#include <utils/router/RouterProvider.h>
 #include <microsim/MSVehicle.h>
 #include "MSDevice.h"
 
@@ -63,11 +61,13 @@
  */
 class MSRoutingEngine {
 public:
+    typedef RouterProvider<MSEdge, MSLane, MSJunction, SUMOVehicle> MSRouterProvider;
+
     /// @brief intialize period edge weight update
     static void initWeightUpdate();
 
     /// @brief initialize the edge weights if not done before
-    static void initEdgeWeights();
+    static void initEdgeWeights(SUMOVehicleClass svc);
 
     /// @brief returns whether any routing actions take place
     static bool hasEdgeUpdates() {
@@ -82,8 +82,11 @@ public:
     /// @brief return the cached route or nullptr on miss
     static const MSRoute* getCachedRoute(const std::pair<const MSEdge*, const MSEdge*>& key);
 
+    static void initRouter(SUMOVehicle* vehicle = nullptr);
+
     /// @brief initiate the rerouting, create router / thread pool on first use
-    static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const bool onInit);
+    static void reroute(SUMOVehicle& vehicle, const SUMOTime currentTime, const std::string& info,
+                        const bool onInit = false, const bool silent = false, const MSEdgeVector& prohibited = MSEdgeVector());
 
     /// @brief adapt the known travel time for an edge
     static void setEdgeTravelTime(const MSEdge* const edge, const double travelTime);
@@ -97,8 +100,9 @@ public:
     }
 
     /// @brief return the router instance
-    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(
-        const MSEdgeVector& prohibited = MSEdgeVector());
+    static SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouterTT(const int rngIndex,
+            SUMOVehicleClass svc,
+            const MSEdgeVector& prohibited = MSEdgeVector());
 
     /** @brief Returns the effort to pass an edge
     *
@@ -115,62 +119,45 @@ public:
     * @see DijkstraRouter_ByProxi
     */
     static double getEffort(const MSEdge* const e, const SUMOVehicle* const v, double t);
+    static double getEffortBike(const MSEdge* const e, const SUMOVehicle* const v, double t);
+    static double getEffortExtra(const MSEdge* const e, const SUMOVehicle* const v, double t);
+    static SUMOAbstractRouter<MSEdge, SUMOVehicle>::Operation myEffortFunc;
 
     /// @brief return current travel speed assumption
-    static double getAssumedSpeed(const MSEdge* edge);
+    static double getAssumedSpeed(const MSEdge* edge, const SUMOVehicle* veh);
+
+    /// @brief whether taz-routing is enabled
+    static bool withTaz() {
+        return myWithTaz;
+    }
 
 #ifdef HAVE_FOX
     static void waitForAll();
-    static void lock() {
-        myThreadPool.lock();
-    }
-    static void unlock() {
-        myThreadPool.unlock();
-    }
-    static bool isParallel() {
-        return myThreadPool.size() > 0;
-    }
 #endif
 
 
 private:
 #ifdef HAVE_FOX
     /**
-     * @class WorkerThread
-     * @brief the thread which provides the router instance as context
-     */
-    class WorkerThread : public FXWorkerThread {
-    public:
-        WorkerThread(FXWorkerThread::Pool& pool,
-                     SUMOAbstractRouter<MSEdge, SUMOVehicle>* router)
-            : FXWorkerThread(pool), myRouter(router) {}
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>& getRouter() const {
-            return *myRouter;
-        }
-        virtual ~WorkerThread() {
-            stop();
-            delete myRouter;
-        }
-    private:
-        SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
-    };
-
-    /**
      * @class RoutingTask
      * @brief the routing task which mainly calls reroute of the vehicle
      */
     class RoutingTask : public FXWorkerThread::Task {
     public:
-        RoutingTask(SUMOVehicle& v, const SUMOTime time, const bool onInit)
-            : myVehicle(v), myTime(time), myOnInit(onInit) {}
+        RoutingTask(SUMOVehicle& v, const SUMOTime time, const std::string& info,
+                    const bool onInit, const bool silent, const MSEdgeVector& prohibited)
+            : myVehicle(v), myTime(time), myInfo(info), myOnInit(onInit), mySilent(silent), myProhibited(prohibited) {}
         void run(FXWorkerThread* context);
     private:
         SUMOVehicle& myVehicle;
         const SUMOTime myTime;
+        const std::string myInfo;
         const bool myOnInit;
+        const bool mySilent;
+        const MSEdgeVector myProhibited;
     private:
         /// @brief Invalidated assignment operator.
-        RoutingTask& operator=(const RoutingTask&);
+        RoutingTask& operator=(const RoutingTask&) = delete;
     };
 #endif
 
@@ -191,13 +178,12 @@ private:
     static SUMOTime adaptEdgeEfforts(SUMOTime currentTime);
     /// @}
 
+    /// @brief initialized edge speed storage into the given containers
+    static void _initEdgeWeights(std::vector<double>& edgeSpeeds, std::vector<std::vector<double> >& pastEdgeSpeeds);
 
 private:
     /// @brief The weights adaptation/overwriting command
     static Command* myEdgeWeightSettingCommand;
-
-    /// @brief The container of edge speeds
-    static std::vector<double> myEdgeSpeeds;
 
     /// @brief Information which weight prior edge efforts have
     static double myAdaptationWeight;
@@ -215,25 +201,36 @@ private:
     static int myAdaptationStepsIndex;
 
     /// @brief The container of edge speeds
+    static std::vector<double> myEdgeSpeeds;
+    static std::vector<double> myEdgeBikeSpeeds;
+
+    /// @brief The container of past edge speeds (when using a simple moving average)
     static std::vector<std::vector<double> > myPastEdgeSpeeds;
+    static std::vector<std::vector<double> > myPastEdgeBikeSpeeds;
 
     /// @brief whether taz shall be used at initial rerouting
     static bool myWithTaz;
 
+    /// @brief whether separate speeds for bicycles shall be tracked
+    static bool myBikeSpeeds;
+
     /// @brief The router to use
-    static SUMOAbstractRouter<MSEdge, SUMOVehicle>* myRouter;
-
-    /// @brief The router to use by rerouter elements
-    static AStarRouter<MSEdge, SUMOVehicle, SUMOAbstractRouterPermissions<MSEdge, SUMOVehicle> >* myRouterWithProhibited;
-
-    /// @brief Whether to disturb edge weights dynamically
-    static double myRandomizeWeightsFactor;
+    static MSRouterProvider* myRouterProvider;
 
     /// @brief The container of pre-calculated routes
     static std::map<std::pair<const MSEdge*, const MSEdge*>, const MSRoute*> myCachedRoutes;
 
+    /// @brief Coefficient for factoring edge priority into routing weight
+    static double myPriorityFactor;
+
+    /// @brief Minimum priority for all edges
+    static double myMinEdgePriority;
+    /// @brief the difference between maximum and minimum priority for all edges
+    static double myEdgePriorityRange;
+
 #ifdef HAVE_FOX
-    static FXWorkerThread::Pool myThreadPool;
+    /// @brief Mutex for accessing the route cache
+    static FXMutex myRouteCacheMutex;
 #endif
 
 private:
@@ -245,9 +242,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

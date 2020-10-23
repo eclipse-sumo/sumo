@@ -1,16 +1,19 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    FXWorkerThread.h
 /// @author  Michael Behrisch
 /// @date    2014-07-13
-/// @version $Id$
 ///
 // A thread class together with a pool and a task for parallelized computation
 /****************************************************************************/
@@ -22,10 +25,6 @@
 // at which interval report maximum workload of the threads, needs WORKLOAD_PROFILING
 // undefine to use summary report only
 #define WORKLOAD_INTERVAL 100
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <list>
@@ -36,6 +35,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #endif
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -93,7 +93,7 @@ public:
          *
          * @param[in] numThreads the number of threads to create
          */
-        Pool(int numThreads = 0) : myPoolMutex(true), myRunningIndex(0)
+        Pool(int numThreads = 0) : myPoolMutex(true), myRunningIndex(0), myException(nullptr)
 #ifdef WORKLOAD_PROFILING
             , myNumBatches(0), myTotalMaxLoad(0.), myTotalSpread(0.)
 #endif
@@ -173,6 +173,14 @@ public:
             myMutex.unlock();
         }
 
+        void setException(ProcessError& e) {
+            myMutex.lock();
+            if (myException == nullptr) {
+                myException = new ProcessError(e);
+            }
+            myMutex.unlock();
+        }
+
         /// @brief waits for all tasks to be finished
         void waitAll(const bool deleteFinished = true) {
             myMutex.lock();
@@ -207,9 +215,14 @@ public:
                     delete task;
                 }
             }
+            ProcessError* toRaise = myException;
+            myException = nullptr;
             myFinishedTasks.clear();
             myRunningIndex = 0;
             myMutex.unlock();
+            if (toRaise != nullptr) {
+                throw* toRaise;
+            }
         }
 
         /** @brief Checks whether there are currently more pending tasks than threads.
@@ -241,6 +254,9 @@ public:
             myPoolMutex.unlock();
         }
 
+        const std::vector<FXWorkerThread*>& getWorkers() {
+            return myWorkers;
+        }
     private:
         /// @brief the current worker threads
         std::vector<FXWorkerThread*> myWorkers;
@@ -254,6 +270,8 @@ public:
         std::list<Task*> myFinishedTasks;
         /// @brief the running index for the next task
         int myRunningIndex;
+        /// @brief the exception from a child thread
+        ProcessError* myException;
 #ifdef WORKLOAD_PROFILING
         /// @brief the number of finished batch runs
         int myNumBatches;
@@ -325,16 +343,20 @@ public:
             }
             myCurrentTasks.splice(myCurrentTasks.end(), myTasks);
             myMutex.unlock();
-            for (Task* const t : myCurrentTasks) {
+            try {
+                for (Task* const t : myCurrentTasks) {
 #ifdef WORKLOAD_PROFILING
-                const auto before = std::chrono::high_resolution_clock::now();
+                    const auto before = std::chrono::high_resolution_clock::now();
 #endif
-                t->run(this);
+                    t->run(this);
 #ifdef WORKLOAD_PROFILING
-                const auto after = std::chrono::high_resolution_clock::now();
-                myBusyTime += std::chrono::duration_cast<std::chrono::microseconds>(after - before).count();
-                myCounter++;
+                    const auto after = std::chrono::high_resolution_clock::now();
+                    myBusyTime += std::chrono::duration_cast<std::chrono::microseconds>(after - before).count();
+                    myCounter++;
 #endif
+                }
+            } catch (ProcessError& e) {
+                myPool.setException(e);
             }
             myPool.addFinished(myCurrentTasks);
         }

@@ -6,7 +6,7 @@
     <xsd:element name="meandata">
         <xsd:complexType>
             <xsd:sequence>
-                <xsd:element name="interval" maxOccurs="unbounded" type="intervalType"/>
+                <xsd:element name="interval" minOccurs="0" maxOccurs="unbounded" type="intervalType"/>
             </xsd:sequence>
         </xsd:complexType>
     </xsd:element>

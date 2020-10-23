@@ -1,36 +1,25 @@
-# all test check also the undo-redo of modifications and save the poly into a file
-# create default
 default
 
-# create color
+id
+
 color
 
-# create fill
 fill
 
-# create lineWidth
 linewidth
 
-# create layer
 layer
 
-# create type
 type
 
-# create imgfile
 imgfile
 
-# create relativepath
 relativepath
 
-# create with different angle
 angle
 
-# create with different block move
 block_move
 
-# create with different block shape
 block_shape
 
-# create with different close shape
 close_shape

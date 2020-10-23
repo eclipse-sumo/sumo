@@ -23,6 +23,9 @@
     </xsd:complexType>
 
     <xsd:complexType name="connectionType">
+        <xsd:sequence>
+            <xsd:element name="param" type="paramType" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
         <xsd:attribute name="from" type="xsd:string" use="required"/>
         <xsd:attribute name="to" type="xsd:string" use="optional"/>
         <xsd:attribute name="fromLane" type="xsd:nonNegativeInteger" use="optional"/>
@@ -32,7 +35,10 @@
         <xsd:attribute name="keepClear" type="boolType" use="optional"/>
         <xsd:attribute name="contPos" type="xsd:float" use="optional"/>
         <xsd:attribute name="visibility" type="xsd:float" use="optional"/>
+        <xsd:attribute name="allow" type="xsd:string" use="optional"/>
+        <xsd:attribute name="disallow" type="xsd:string" use="optional"/>
         <xsd:attribute name="speed" type="xsd:float" use="optional"/>
+        <xsd:attribute name="length" type="xsd:float" use="optional"/>
         <xsd:attribute name="shape" type="shapeType" use="optional"/>
     </xsd:complexType>
 

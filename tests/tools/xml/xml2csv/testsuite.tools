@@ -1,7 +1,13 @@
 cross3ltl_summary
 cross3ltl_fcd
+
+# cross3ltl_fcd gzipped
+cross3ltl_fcd_gz
 cross3ltl_inductloops
 cross3ltl_meandata_edges
+
+# meandata_edges with strange characters
+meandata_edges_utf8
 cross3ltl_meandata_lanes
 cross3ltl_rawdump
 cross3ltl_tripinfo
@@ -14,6 +20,9 @@ cross3ltl_summary_schema
 cross3ltl_fcd_schema
 cross3ltl_inductloops_schema
 cross3ltl_meandata_edges_schema
+
+# meandata_edges with strange characters
+meandata_edges_utf8_schema
 cross3ltl_meandata_lanes_schema
 cross3ltl_rawdump_schema
 cross3ltl_tripinfo_schema

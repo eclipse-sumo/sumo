@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue 14 Apr 2020 03:33:55 PM CEST by Eclipse SUMO netedit Version v1_5_0+1143-9947d43023
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="net.netconvert"/>
+    </input>
+
+    <output>
+        <output-file value="net.netconvert"/>
+        <plain-output-prefix value="/home/kobo/dlr/sumo/tests/netconvert/import/XML/shapes/set_lane_shape_minDist/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="4136" from="3768" to="3800" priority="-1" numLanes="2" speed="13.89" shape="0.00,0.00 0.92,0.32 1.85,0.64 2.78,0.94 3.71,1.24 4.65,1.54 5.58,1.84 6.52,2.12 7.45,2.40 8.39,2.68 9.33,2.96 10.27,3.23 11.21,3.50 12.15,3.77 13.09,4.04 14.03,4.29 14.98,4.55 15.92,4.81 16.86,5.07 17.81,5.32 18.75,5.57 19.70,5.82 20.64,6.07 21.59,6.31 22.54,6.55 23.48,6.80 24.43,7.04 25.40,7.28 26.37,7.52 27.33,7.77 28.30,8.01 29.27,8.25 30.24,8.50">
+        <lane index="0" width="2.93" shape="-1.92,0.83 0.77,1.82 0.42,1.70 2.45,2.36 2.64,2.42 2.30,2.32 3.89,2.82 5.48,3.32 5.11,3.21 7.18,3.82 7.37,3.87 7.28,3.85 9.22,4.42 10.53,4.79 11.48,5.06 12.44,5.34 13.40,5.60 14.34,5.85 15.32,6.11 16.94,6.55 16.58,6.45 18.19,6.87 19.80,7.28 19.48,7.20 21.09,7.61 22.04,7.85 23.01,8.09 24.01,8.34 24.93,8.57 25.92,8.81 26.89,9.05 27.84,9.29 28.79,9.53 29.92,9.80"/>
+        <lane index="1" width="3.01" shape="-0.36,4.56 -0.17,4.62 -0.53,4.50 1.52,5.18 1.71,5.24 1.38,5.14 2.98,5.64 4.57,6.14 4.22,6.03 6.30,6.65 6.49,6.71 6.38,6.68 8.34,7.26 9.67,7.64 10.62,7.91 11.59,8.19 12.56,8.45 13.51,8.71 14.49,8.98 16.12,9.40 15.77,9.31 17.38,9.73 19.01,10.14 18.67,10.05 20.31,10.46 21.27,10.69 22.23,10.93 23.23,11.18 24.17,11.40 25.16,11.63 26.13,11.86 27.10,12.09 28.04,12.32 29.24,12.61"/>
+    </edge>
+</edges>

@@ -3,3 +3,5 @@ getvariable_plus 0xa4 0x59 0 <compound> 2 <double> 0 <string> 1/1to0/1
 setvalue 0xc4 0x59 xxx <compound> 4 <double> 0 <double> 10 <string> 1/1to0/1 <double> 10
 getvariable_plus 0xa4 0x59 0 <compound> 2 <double> 0 <string> 1/1to0/1
 simstep2 0
+simstep2 0
+

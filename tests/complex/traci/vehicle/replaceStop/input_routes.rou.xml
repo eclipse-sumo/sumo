@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <trip id="ego" depart="0.00" from="A0A1" to="D2D3">
+        <stop busStop="busStop_A1B1" duration="60.00"/>
+        <stop busStop="busStop_B1C1" duration="60.00"/>
+        <stop busStop="busStop_C1D1" duration="60.00"/>
+    </trip>
+</routes>

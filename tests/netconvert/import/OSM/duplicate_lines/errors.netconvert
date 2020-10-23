@@ -1,0 +1,41 @@
+Warning: Discarding unknown compound 'cycleway.share_busway' in type 'cycleway.share_busway|highway.secondary' (first occurence for edge '338412128').
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2000799 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2000803 are ignored
+Warning: No way found for reference '475519856' in relation '2008468'
+Warning: Ignoring restriction relation '2008468' with unknown to-way.
+Warning: No way found for reference '13863062' in relation '2873596'
+Warning: No way found for reference '475519856' in relation '2873596'
+Warning: Ignoring restriction relation '2873596' with unknown from-way.
+Warning: Ignoring restriction relation '2873596' with unknown to-way.
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 6187329 are ignored
+Warning: Ignoring duplicate PT line '1901599'.
+Warning: Ignoring duplicate PT line '1901600'.
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2000799 are ignored
+Warning: Ignoring duplicate PT line '2000799'.
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2000803 are ignored
+Warning: Ignoring duplicate PT line '2000803'.
+Warning: No way found for reference '475519856' in relation '2008468'
+Warning: Ignoring restriction relation '2008468' with unknown to-way.
+Warning: No way found for reference '13863062' in relation '2873596'
+Warning: Ignoring restriction relation '2873596' with unknown from-way.
+Warning: Ignoring restriction relation '2873596' with unknown to-way.
+Warning: Ignoring duplicate PT line '6187328'.
+Warning: PT stop: 3959807201 has been moved to edge: -391493954#3
+Warning: PT stop: 3959807220 has been moved to edge: -110450334#1
+Warning: PT stop: 4032629820 has been moved to edge: -53356539#0
+Warning: Incomplete route for ptline '6187328' (Buslinie N42: S+U Alexanderplatz => U Theodor-Heuss-Platz)
+Warning: Cannot assign stop '3959807201' on edge '391493954' to pt line '6187328'. Ignoring!
+Warning: Incomplete route for ptline '6187329' (Buslinie N42: U Theodor-Heuss-Platz => S+U Alexanderplatz)
+Warning: Cannot assign stop '3959807200' on edge '391493954' to pt line '6187329'. Ignoring!
+Warning: Found sharp turn with radius 3.48 at the start of edge '-338392750'.
+Warning: Found sharp turn with radius 6.74 at the start of edge '-41292662#2'.
+Warning: Found sharp turn with radius 4.75 at the start of edge '187160639'.
+Warning: Found sharp turn with radius 6.45 at the start of edge '338392750'.
+Warning: The traffic light '29325954' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '29325954'
+Warning: The traffic light '29325955' does not control any links; it will not be build.
+Warning: Could not build program '0' for traffic light '29325955'
+Warning: Speed of straight connection '-28362838#0_0->28362836#0_1' reduced by 5.12 due to turning radius of 13.97 (length=4.22, angle=33.35).
+Warning: 6 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored
+Warning: 6 total messages of type: Ignoring duplicate PT line '%'.
+Warning: 6 total messages of type: No way found for reference '%' in relation '%'

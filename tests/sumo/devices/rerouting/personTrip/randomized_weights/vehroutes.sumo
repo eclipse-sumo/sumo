@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Apr  3 12:56:03 2019 by Eclipse SUMO Version v1_0_1+0645-93703db
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <vehroute-output.skip-ptlines value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <weights.random-factor value="2"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="ped.0" depart="0.00" arrival="761.00">
+        <walk edges="A0B0 B0A0 B0C0 C1C0 C1D1 D1D2 D3D2 E3D3 E4E3 E5E4 E5F5"/>
+    </person>
+
+    <person id="ped.1" depart="1.00" arrival="762.00">
+        <walk edges="A0B0 A0A1 B1A1 B2B1 B3B2 C3B3 C4C3 C4D4 D4E4 E5E4 E5F5"/>
+    </person>
+
+    <person id="ped.4" depart="4.00" arrival="763.00">
+        <walk edges="A0B0 B0A0 B1B0 B1B2 B3B2 B3C3 D3C3 D4D3 D4E4 E5E4 E5F5"/>
+    </person>
+
+    <person id="ped.3" depart="3.00" arrival="764.00">
+        <walk edges="A0B0 B1B0 C1B1 C2C1 C3C2 D3C3 D3D4 D5D4 E5D5 E5F5"/>
+    </person>
+
+    <person id="ped.2" depart="2.00" arrival="765.00">
+        <walk edges="A0B0 A1A0 A1B1 B1B2 B3B2 C3B3 C3D3 D3E3 E3E4 E5E4 E5F5"/>
+    </person>
+
+    <person id="ped.5" depart="5.00" arrival="767.00">
+        <walk edges="A0B0 A0A1 B1A1 B1C1 D1C1 E1D1 E1E2 E2E3 E4E3 E5E4 E5F5"/>
+    </person>
+
+    <person id="ped.6" depart="6.00" arrival="768.00">
+        <walk edges="A0B0 B0A0 B1B0 B1B2 B3B2 B3C3 C3D3 E3D3 E4E3 E4E5 E5F5"/>
+    </person>
+
+    <person id="ped.8" depart="8.00" arrival="768.00">
+        <walk edges="A0B0 A1A0 B1A1 B1C1 C2C1 C3C2 D3C3 D3E3 E3E4 E4E5 E5F5"/>
+    </person>
+
+    <person id="ped.7" depart="7.00" arrival="769.00">
+        <walk edges="A0B0 B0A0 C0B0 C0C1 C2C1 C3C2 D3C3 D4D3 D4D5 E5D5 E5F5"/>
+    </person>
+
+    <person id="ped.11" depart="11.00" arrival="770.00">
+        <walk edges="A0B0 A0A1 A1B1 B1B2 C2B2 C2D2 D2D3 D3E3 E3E4 E5E4 E5F5"/>
+    </person>
+
+    <person id="ped.10" depart="10.00" arrival="772.00">
+        <walk edges="A0B0 A1A0 A1B1 C1B1 C1D1 E1D1 E1E2 E2E3 E4E3 E4E5 E5F5"/>
+    </person>
+
+    <person id="ped.12" depart="12.00" arrival="773.00">
+        <walk edges="A0B0 A0A1 A2A1 B2A2 C2B2 C2D2 D3D2 E3D3 E4E3 E4E5 E5F5"/>
+    </person>
+
+    <person id="ped.9" depart="9.00" arrival="774.00">
+        <walk edges="A0B0 B0A0 C0B0 C1C0 C2C1 C3C2 C3D3 E3D3 E3E4 E5E4 E5F5"/>
+    </person>
+
+    <person id="ped.16" depart="16.00" arrival="777.00">
+        <walk edges="A0B0 A1A0 B1A1 C1B1 D1C1 D2D1 D3D2 E3D3 E3E4 E4E5 E5F5"/>
+    </person>
+
+    <person id="ped.15" depart="15.00" arrival="777.00">
+        <walk edges="A0B0 A0A1 A1A2 A2A3 A3A4 A5A4 B5A5 C5B5 C5D5 D5E5 E5F5"/>
+    </person>
+
+    <person id="ped.18" depart="18.00" arrival="778.00">
+        <walk edges="A0B0 B1B0 B1C1 C1D1 D2D1 D2E2 E2E3 E3E4 E5E4 E5F5"/>
+    </person>
+
+    <person id="ped.17" depart="17.00" arrival="778.00">
+        <walk edges="A0B0 B0A0 B0C0 C1C0 C1D1 D1D2 D3D2 D4D3 D4D5 E5D5 E5F5"/>
+    </person>
+
+    <person id="ped.14" depart="14.00" arrival="779.00">
+        <walk edges="A0B0 A0A1 A2A1 B2A2 B3B2 B3C3 C3D3 D3D4 D4E4 E4E5 E5F5"/>
+    </person>
+
+    <person id="ped.13" depart="13.00" arrival="779.00">
+        <walk edges="A0B0 B0A0 B1B0 B1C1 D1C1 D1D2 E2D2 E3E2 E4E3 E5E4 E5F5"/>
+    </person>
+
+    <person id="ped.19" depart="19.00" arrival="780.00">
+        <walk edges="A0B0 A1A0 B1A1 B1C1 C1C2 C2C3 C3D3 D3D4 D4D5 E5D5 E5F5"/>
+    </person>
+
+</routes>

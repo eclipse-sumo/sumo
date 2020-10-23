@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUITriggeredRerouter.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 25.07.2005
-/// @version $Id$
 ///
 // Reroutes vehicles passing an edge (gui-version)
 /****************************************************************************/
-#ifndef GUITriggeredRerouter_h
-#define GUITriggeredRerouter_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -124,11 +121,21 @@ public:
     GUIManipulator* openManipulator(GUIMainWindow& app,
                                     GUISUMOAbstractView& parent);
 
+    /// @brief shit route probabilities
+    void shiftProbs();
+
 public:
+
+    enum RerouterEdgeType {
+        REROUTER_TRIGGER_EDGE,
+        REROUTER_CLOSED_EDGE,
+        REROUTER_SWITCH_EDGE
+    };
+
     class GUITriggeredRerouterEdge : public GUIGlObject {
 
     public:
-        GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, bool closed);
+        GUITriggeredRerouterEdge(GUIEdge* edge, GUITriggeredRerouter* parent, RerouterEdgeType edgeType, int distIndex = -1);
 
         virtual ~GUITriggeredRerouterEdge();
 
@@ -170,6 +177,16 @@ public:
          * @see GUIGlObject::drawGL
          */
         void drawGL(const GUIVisualizationSettings& s) const;
+
+        void onLeftBtnPress(void* data);
+
+        RerouterEdgeType getRerouterEdgeType() const {
+            return myEdgeType;
+        }
+
+        const MSEdge* getEdge() const {
+            return myEdge;
+        }
         //@}
 
     private:
@@ -187,7 +204,7 @@ public:
         MSEdge* myEdge;
 
         /// whether this edge instance visualizes a closed edge
-        const bool myAmClosedEdge;
+        const RerouterEdgeType myEdgeType;
 
         /// The positions in full-geometry mode
         PosCont myFGPositions;
@@ -197,6 +214,9 @@ public:
 
         /// The boundary of this rerouter
         Boundary myBoundary;
+
+        /// @brief the index for this in edge in routeProbs
+        int myDistIndex;
     };
 
 public:
@@ -226,6 +246,7 @@ public:
             MID_PRE_DEF,
             MID_OPTION,
             MID_CLOSE,
+            MID_SHIFT_PROBS,
             ID_LAST
         };
         /// Constructor
@@ -241,6 +262,7 @@ public:
         long onCmdUserDef(FXObject*, FXSelector, void*);
         long onUpdUserDef(FXObject*, FXSelector, void*);
         long onCmdChangeOption(FXObject*, FXSelector, void*);
+        long onCmdShiftProbs(FXObject*, FXSelector, void*);
 
     private:
         GUIMainWindow* myParent;
@@ -269,10 +291,5 @@ private:
 
     std::vector<GUITriggeredRerouterEdge*> myEdgeVisualizations;
 
+    int myShiftProbDistIndex;
 };
-
-
-#endif
-
-/****************************************************************************/
-

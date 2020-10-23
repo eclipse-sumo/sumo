@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:04 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <opposites.guess value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="100.00,0.00,200.00,100.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="EC" from="E" to="S" priority="2" shape="200.00,100.00 100.00,100.00 100.00,0.00">
+        <lane id="EC_0" index="0" speed="13.89" length="200.00" shape="200.00,104.80 95.20,104.80 95.20,0.00"/>
+        <lane id="EC_1" index="1" speed="13.89" length="200.00" shape="200.00,101.60 98.40,101.60 98.40,0.00">
+            <neigh lane="SC_1"/>
+        </lane>
+    </edge>
+    <edge id="SC" from="S" to="E" priority="2" shape="100.00,0.00 100.00,100.00 200.00,100.00">
+        <lane id="SC_0" index="0" speed="13.89" length="200.00" shape="104.80,-0.00 104.80,95.20 200.00,95.20"/>
+        <lane id="SC_1" index="1" speed="13.89" length="200.00" shape="101.60,-0.00 101.60,98.40 200.00,98.40">
+            <neigh lane="EC_1"/>
+        </lane>
+    </edge>
+
+    <junction id="E" type="dead_end" x="200.00" y="100.00" incLanes="SC_0 SC_1" intLanes="" shape="200.00,100.00 200.00,93.60 200.00,100.00"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="EC_0 EC_1" intLanes="" shape="100.00,0.00 93.60,0.00 100.00,0.00"/>
+
+</net>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-02-27 10:20:20.211527 by matsim_importPlans.py v1_5_0+0263-ee2296b
+  options: <doubleminus>plan-file matsim_plans.xml -o out.rou.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vehicle id="100009_0" depart="triggered" >
+        <route edges="13758 14271 14269 14273 14468 14267 14465"/>
+   </vehicle>
+   <vehicle id="100009_1" depart="triggered" >
+        <route edges="14465 14442 14451 13758"/>
+   </vehicle>
+   <person id="100009" depart="00:01:00">
+       <param key="age" value="49"/>
+       <param key="carAvail" value="always"/>
+       <param key="employed" value="true"/>
+       <param key="hasLicense" value="yes"/>
+       <param key="sex" value="m"/>
+       <stop lane="13758_0" until="08:00:00" actType="home" />
+       <ride lines="100009_0" to="14465"  />
+       <stop lane="14465_0" until="16:04:00" actType="work" />
+       <ride lines="100009_1" to="13758"  />
+       <stop lane="13758_0" until="24:00:00" actType="home" />
+   </person>
+   <vehicle id="100011_0" depart="triggered" >
+        <route edges="14289 14287 14292 13761 14472 14473 13760 13757 14452 14441"/>
+   </vehicle>
+   <vehicle id="100011_1" depart="triggered" >
+        <route edges="14441 14442 14451 13758 13759 14474 14471 13762 14291 14288 14290 14289"/>
+   </vehicle>
+   <person id="100011" depart="00:00:00">
+       <param key="age" value="65"/>
+       <param key="carAvail" value="always"/>
+       <param key="employed" value="true"/>
+       <param key="hasLicense" value="yes"/>
+       <param key="sex" value="m"/>
+       <stop lane="14289_0" until="08:00:00" actType="home" />
+       <ride lines="100011_0" to="14441"  />
+       <stop lane="14441_0" until="16:09:00" actType="work" />
+       <ride lines="100011_1" to="14289"  />
+       <stop lane="14289_0" until="24:00:00" actType="home" />
+   </person>
+   <vehicle id="100014_0" depart="triggered" >
+        <route edges="13902 13795 13790 13794 13791 14455 13934 13932 13929 13926 13928 14457 14180 13749 13751 14461 20427"/>
+   </vehicle>
+   <vehicle id="100014_1" depart="triggered" >
+        <route edges="20427 20428 14462 13752 13750 14179 14458 13927 13925 13930 13931 13933 14456 13935 14453 13938 13903 13900 13902"/>
+   </vehicle>
+   <person id="100014" depart="00:00:00">
+       <param key="age" value="61"/>
+       <param key="carAvail" value="always"/>
+       <param key="employed" value="true"/>
+       <param key="hasLicense" value="yes"/>
+       <param key="sex" value="m"/>
+       <stop lane="13902_0" until="08:00:00" actType="home" />
+       <ride lines="100014_0" to="20427"  />
+       <stop lane="20427_0" until="16:17:00" actType="work" />
+       <ride lines="100014_1" to="13902"  />
+       <stop lane="13902_0" until="24:00:00" actType="home" />
+   </person>
+   <vehicle id="100017_0" depart="triggered" >
+        <route edges="14021 14023 14027 14026 13783 13785 13786"/>
+   </vehicle>
+   <vehicle id="100017_1" depart="triggered" >
+        <route edges="13786 13784 14025 14028 14024 14022 14021"/>
+   </vehicle>
+   <person id="100017" depart="00:00:00">
+       <param key="age" value="26"/>
+       <param key="carAvail" value="always"/>
+       <param key="employed" value="true"/>
+       <param key="hasLicense" value="yes"/>
+       <param key="sex" value="m"/>
+       <stop lane="14021_0" until="08:00:00" actType="home" />
+       <ride lines="100017_0" to="13786"  />
+       <stop lane="13786_0" until="16:05:00" actType="work" />
+       <ride lines="100017_1" to="14021"  />
+       <stop lane="14021_0" until="24:00:00" actType="home" />
+   </person>
+   <vehicle id="100311_0" depart="triggered" >
+        <route edges="15445 15895 16086 16096 16094 16082 16083 14979 14982 15941 14983 9986 6388 6385 6704 6228 6212 6210 6206 1052 1166 1153 6154 5548 5516 5517 5474 5436 5402 5400 5351 5346 5288 5286 28509 5284 4242 4249 4164 28295 4168 4159 28280 28699 28298 521 28701 918 28697 926 28703 3983 28706 28247 3976 4022 3965 3924 28261 3922 7075 3832 3833 28232 3739 3738 3724 3720 3714 3054 3051 3050 3028 3041 3046 3016 28639 3000 3007 2910 2908 2897 2896 2904 6763 6723 7736 8446 8448 8387 8386 7956 8384 7944 7933 7936 6732 875 870 866 796 799 800"/>
+   </vehicle>
+   <trip id="100311_1" depart="triggered" from="800" to="15445"/>
+   <person id="100311" depart="00:00:00">
+       <param key="age" value="48"/>
+       <param key="carAvail" value="always"/>
+       <param key="employed" value="true"/>
+       <param key="hasLicense" value="yes"/>
+       <param key="sex" value="m"/>
+       <stop lane="15445_0" until="08:00:00" actType="home" />
+       <ride lines="100311_0" to="800"  />
+       <stop lane="800_0" until="16:42:00" actType="work" />
+       <ride lines="100311_1" to="15445"  />
+       <stop lane="15445_0" until="24:00:00" actType="home" />
+   </person>
+</routes>

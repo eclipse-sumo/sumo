@@ -1,3 +1,9 @@
+# avoid spill back of jams onto a junction (checkRewindLinkLanes)
+avoid_spill_back
+
+# tests for driver impatience
+impatience
+
 # test behavior at different types of junction
 junction_type
 
@@ -29,3 +35,4 @@ indirect_left_turn
 # vehicles turning left from opposite directions at the same time
 opposite_left_turn
 jmSigmaMinor
+roundabout

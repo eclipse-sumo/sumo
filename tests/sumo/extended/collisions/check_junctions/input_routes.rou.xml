@@ -1,5 +1,5 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="SUMO_DEFAULT_TYPE" sigma="0" length="10"/>
+    <vType id="SUMO_DEFAULT_TYPE" sigma="0" length="10" decel="2"/>
     <route id="vertical" edges="3si 4o"/>
     <flow id="vertical" type="SUMO_DEFAULT_TYPE" route="vertical" begin="0" end="10000" period="4" departPos="-10" departLane="best" departSpeed="10"/>
     <route id="horizontal" edges="1si 2o"/>

@@ -5,5 +5,4 @@ use_regexp:0
 search_file:errors
 ignore_other_errors:1
 trigger_on_success:1
-bug_system:trac
-bug_id:2574
+brief_description:#2574

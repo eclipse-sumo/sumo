@@ -2,14 +2,9 @@
 	path = tools/contributed/traci4matlab
 	url = https://github.com/pipeacosta/traci4matlab
 	ignore = untracked
-[submodule "tools/contributed/sumolib4matlab"]
-	path = tools/contributed/sumolib4matlab
-	url = https://github.com/pipeacosta/sumolib4matlab
-	ignore = untracked
-[submodule "tools/contributed/calibration"]
-	path = tools/contributed/calibration
-	url = https://github.com/gunnarfloetteroed/java
-	ignore = untracked
 [submodule "build/brew"]
 	path = build/brew
 	url = https://github.com/DLR-TS/homebrew-sumo
+[submodule "tools/contributed/saga"]
+	path = tools/contributed/saga
+	url = https://github.com/lcodeca/SUMOActivityGen

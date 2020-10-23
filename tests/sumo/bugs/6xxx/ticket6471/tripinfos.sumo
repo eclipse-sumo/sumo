@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Mar 30 15:10:26 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="8337" depart="1.00" departLane="-35586885#1_0" departPos="5.10" departSpeed="0.00" departDelay="0.67" arrival="111.00" arrivalLane="-35586894#1_0" arrivalPos="149.30" arrivalSpeed="1.48" duration="110.00" routeLength="234.24" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="25.45" rerouteNo="0" devices="tripinfo_8337" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="17373" depart="1.00" departLane="-35586887_0" departPos="5.10" departSpeed="0.00" departDelay="0.31" arrival="131.00" arrivalLane="-35586894#1_0" arrivalPos="149.30" arrivalSpeed="1.87" duration="130.00" routeLength="202.67" waitingTime="30.00" waitingCount="1" stopTime="0.00" timeLoss="57.06" rerouteNo="0" devices="tripinfo_17373" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="639" depart="1.00" departLane="-35586894#4_0" departPos="5.10" departSpeed="0.00" departDelay="0.97" arrival="135.00" arrivalLane="35586885#1_0" arrivalPos="62.33" arrivalSpeed="2.20" duration="134.00" routeLength="281.32" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="32.09" rerouteNo="0" devices="tripinfo_639" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="746" depart="1.00" departLane="35586894#0_0" departPos="5.10" departSpeed="0.00" departDelay="0.97" arrival="161.00" arrivalLane="35586894#2_0" arrivalPos="193.02" arrivalSpeed="2.31" duration="160.00" routeLength="344.05" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="35.71" rerouteNo="0" devices="tripinfo_746" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+</tripinfos>

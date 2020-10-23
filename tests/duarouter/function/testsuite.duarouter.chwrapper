@@ -1,0 +1,14 @@
+# no calculation of new routes
+skip_new_routes
+
+# Testing loop removal
+remove_loops
+
+# Testing setting depart/arrival defaults
+defaults
+
+# Tests whether the end-option is used properly
+endstep
+
+# shortest path finding related tests
+routing

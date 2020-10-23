@@ -1,0 +1,5 @@
+Error: Attribute 'extension' in definition of a stop is not a real number.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane '' in person 'person_0'.
+Error: Attribute 'extension' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop on lane '' in person 'person_0'.
+Error: Loading of C:/Users/alva_pa/.texttest/tmp/netedit.gui.07Oct110322.10440/netedit.gui/demandElements/stop/stopLane/load/extension\input_routes.rou.xml failed.

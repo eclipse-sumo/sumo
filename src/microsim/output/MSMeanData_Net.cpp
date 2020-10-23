@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2004-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2004-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSMeanData_Net.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Network state mean data collector for edges/lanes
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSEdgeControl.h>
@@ -117,16 +115,16 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
 
 void
 MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
-    const SUMOVehicle& veh, const double frontOnLane,
+    const SUMOTrafficObject& veh, const double frontOnLane,
     const double timeOnLane, const double /* meanSpeedFrontOnLane */,
     const double meanSpeedVehicleOnLane,
     const double travelledDistanceFrontOnLane,
     const double travelledDistanceVehicleOnLane,
     const double meanLengthOnLane) {
 #ifdef DEBUG_OCCUPANCY
-    if DEBUG_COND {
-    std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
-              << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << "\n  MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal()\n"
+                  << "  veh '" << veh.getID() << "' on lane '" << veh.getLane()->getID() << "'"
                   << ", timeOnLane=" << timeOnLane
                   << ", meanSpeedVehicleOnLane=" << meanSpeedVehicleOnLane
                   << ",\ntravelledDistanceFrontOnLane=" << travelledDistanceFrontOnLane
@@ -135,6 +133,9 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
                   << std::endl;
     }
 #endif
+    if (myParent != nullptr && !myParent->vehicleApplies(veh)) {
+        return;
+    }
     sampleSeconds += timeOnLane;
     travelledDistance += travelledDistanceVehicleOnLane;
     vehLengthSum += veh.getVehicleType().getLength() * timeOnLane;
@@ -154,9 +155,9 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
     frontSampleSeconds += frontOnLane;
     frontTravelledDistance += travelledDistanceFrontOnLane;
     if (minimalVehicleLength == INVALID_DOUBLE) {
-        minimalVehicleLength = veh.getVehicleType().getLength();
+        minimalVehicleLength = veh.getVehicleType().getLengthWithGap();
     } else {
-        minimalVehicleLength = MIN2(minimalVehicleLength, veh.getVehicleType().getLength());
+        minimalVehicleLength = MIN2(minimalVehicleLength, veh.getVehicleType().getLengthWithGap());
     }
 #ifdef DEBUG_OCCUPANCY2
     // refs #3265
@@ -166,8 +167,12 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
-    if ((myParent == nullptr || myParent->vehicleApplies(veh)) && (getLane() == nullptr || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOTrafficObject& veh, double /*lastPos*/, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+    if ((myParent == nullptr || myParent->vehicleApplies(veh)) && (
+                getLane() == nullptr || !veh.isVehicle() || getLane() == static_cast<MSVehicle&>(veh).getLane())) {
+#ifdef HAVE_FOX
+        FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
         if (MSGlobals::gUseMesoSim) {
             removeFromVehicleUpdateValues(veh);
         }
@@ -177,7 +182,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, double /*las
             ++nVehLaneChangeFrom;
         } else if (myParent == nullptr || reason != MSMoveReminder::NOTIFICATION_SEGMENT) {
             ++nVehLeft;
-            if (reason == MSMoveReminder::NOTIFICATION_VAPORIZED) {
+            if (reason > MSMoveReminder::NOTIFICATION_ARRIVED) {
                 ++nVehVaporized;
             }
         }
@@ -190,14 +195,17 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyLeave(SUMOVehicle& veh, double /*las
 
 
 bool
-MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
+MSMeanData_Net::MSLaneMeanDataValues::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane) {
 #ifdef DEBUG_NOTIFY_ENTER
     std::cout << "\n" << SIMTIME << " MSMeanData_Net::MSLaneMeanDataValues: veh '" << veh.getID() << "' enters lane '" << enteredLane->getID() << "'" << std::endl;
 #else
     UNUSED_PARAMETER(enteredLane);
 #endif
     if (myParent == nullptr || myParent->vehicleApplies(veh)) {
-        if (getLane() == nullptr || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
+        if (getLane() == nullptr || !veh.isVehicle() || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
+#ifdef HAVE_FOX
+            FXConditionalLock lock(myNotificationMutex, MSGlobals::gNumSimThreads > 1);
+#endif
             if (reason == MSMoveReminder::NOTIFICATION_DEPARTED) {
                 ++nVehDeparted;
             } else if (reason == MSMoveReminder::NOTIFICATION_LANE_CHANGE) {
@@ -220,9 +228,12 @@ MSMeanData_Net::MSLaneMeanDataValues::isEmpty() const {
 
 
 void
-MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime period,
+MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
         const double numLanes, const double defaultTravelTime, const int numVehicles) const {
 
+    const double density = MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength,
+                                1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS));
+    const double laneDensity = density / numLanes;
 #ifdef DEBUG_OCCUPANCY2
     // tests #3264
     double occupancy = occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100;
@@ -233,18 +244,23 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
     }
     // refs #3265
     std::cout << SIMTIME << "ID: " << getDescription() << " minVehicleLength=" << minimalVehicleLength
-              << "\ndensity=" << MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1. / MAX2(minimalVehicleLength, NUMERICAL_EPS)) << std::endl;
+              << "\ndensity=" << density << "\n";
 #endif
 
     if (myParent == nullptr) {
         if (sampleSeconds > 0) {
-            dev.writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
-            .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
-            .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_DENSITY, density);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANEDENSITY, laneDensity);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_WAITINGTIME, waitSeconds);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, travelledDistance / sampleSeconds);
         }
-        dev.writeAttr("departed", nVehDeparted).writeAttr("arrived", nVehArrived).writeAttr("entered", nVehEntered).writeAttr("left", nVehLeft);
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_DEPARTED, nVehDeparted);
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ARRIVED, nVehArrived);
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ENTERED, nVehEntered);
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LEFT, nVehLeft);
         if (nVehVaporized > 0) {
-            dev.writeAttr("vaporized", nVehVaporized);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_VAPORIZED, nVehVaporized);
         }
         dev.closeTag();
         return;
@@ -257,27 +273,36 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime pe
             overlapTraveltime = MIN2(overlapTraveltime, (myLaneLength + vehLengthSum / sampleSeconds) * sampleSeconds / travelledDistance);
         }
         if (numVehicles > 0) {
-            dev.writeAttr("traveltime", sampleSeconds / numVehicles).writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, sampleSeconds / numVehicles);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_WAITINGTIME, waitSeconds);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, travelledDistance / sampleSeconds);
         } else {
             double traveltime = myParent->myMaxTravelTime;
             if (frontTravelledDistance > NUMERICAL_EPS) {
                 traveltime = MIN2(traveltime, myLaneLength * frontSampleSeconds / frontTravelledDistance);
-                dev.writeAttr("traveltime", traveltime);
+                checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, traveltime);
             } else if (defaultTravelTime >= 0.) {
-                dev.writeAttr("traveltime", defaultTravelTime);
+                checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, defaultTravelTime);
             }
-            dev.writeAttr("overlapTraveltime", overlapTraveltime)
-            .writeAttr("density", MIN2(sampleSeconds / STEPS2TIME(period) * (double) 1000 / myLaneLength, 1000. * numLanes / MAX2(minimalVehicleLength, NUMERICAL_EPS)))
-            .writeAttr("occupancy", occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100)
-            .writeAttr("waitingTime", waitSeconds).writeAttr("speed", travelledDistance / sampleSeconds);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_OVERLAPTRAVELTIME, overlapTraveltime);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_DENSITY, density);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANEDENSITY, laneDensity);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_WAITINGTIME, waitSeconds);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, travelledDistance / sampleSeconds);
         }
     } else if (defaultTravelTime >= 0.) {
-        dev.writeAttr("traveltime", defaultTravelTime).writeAttr("speed", myLaneLength / defaultTravelTime);
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, defaultTravelTime);
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, myLaneLength / defaultTravelTime);
     }
-    dev.writeAttr("departed", nVehDeparted).writeAttr("arrived", nVehArrived).writeAttr("entered", nVehEntered).writeAttr("left", nVehLeft)
-    .writeAttr("laneChangedFrom", nVehLaneChangeFrom).writeAttr("laneChangedTo", nVehLaneChangeTo);
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_DEPARTED, nVehDeparted);
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ARRIVED, nVehArrived);
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ENTERED, nVehEntered);
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LEFT, nVehLeft);
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANECHANGEDFROM, nVehLaneChangeFrom);
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANECHANGEDTO, nVehLaneChangeTo);
     if (nVehVaporized > 0) {
-        dev.writeAttr("vaporized", nVehVaporized);
+        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_VAPORIZED, nVehVaporized);
     }
     dev.closeTag();
 }
@@ -291,14 +316,16 @@ MSMeanData_Net::MSMeanData_Net(const std::string& id,
                                const bool withEmpty, const bool printDefaults,
                                const bool withInternal,
                                const bool trackVehicles,
+                               const int detectPersons,
                                const double maxTravelTime,
                                const double minSamples,
                                const double haltSpeed,
-                               const std::string& vTypes)
-    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-                 withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
-      myHaltSpeed(haltSpeed) {
-}
+                               const std::string& vTypes,
+                               const std::string& writeAttributes) :
+    MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
+               withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, vTypes, writeAttributes),
+    myHaltSpeed(haltSpeed)
+{ }
 
 
 MSMeanData_Net::~MSMeanData_Net() {}
@@ -311,4 +338,3 @@ MSMeanData_Net::createValues(MSLane* const lane, const double length, const bool
 
 
 /****************************************************************************/
-

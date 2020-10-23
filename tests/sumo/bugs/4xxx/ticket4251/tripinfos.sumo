@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Jun 30 00:11:43 2018 by Eclipse SUMO Version 4bc4520
+<!-- generated on Wed Mar 11 22:24:18 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -18,6 +18,10 @@ SPDX-License-Identifier: EPL-2.0
         <tripinfo-output value="tripinfos.xml"/>
     </output>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <no-step-log value="true"/>
@@ -27,7 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="WN_passenger" depart="70.00" departLane="WE1_2" departPos="169.53" departSpeed="0.00" departDelay="0.00" arrival="113.00" arrivalLane="SN2_1" arrivalPos="104.75" arrivalSpeed="13.56" duration="43.00" routeLength="156.16" waitingTime="19.00" waitingCount="2" stopTime="0.00" timeLoss="32.62" rerouteNo="0" devices="tripinfo_WN_passenger" vType="passenger" speedFactor="0.99" vaporized=""/>
-    <tripinfo id="SN_bike" depart="0.00" departLane="SN1_0" departPos="84.61" departSpeed="0.00" departDelay="0.00" arrival="385.00" arrivalLane="SN2_0" arrivalPos="104.75" arrivalSpeed="6.00" duration="385.00" routeLength="135.78" waitingTime="45.00" waitingCount="1" stopTime="301.00" timeLoss="60.83" rerouteNo="0" devices="tripinfo_SN_bike" vType="bicycle" speedFactor="1.44" vaporized=""/>
-    <tripinfo id="EW_bike" depart="70.00" departLane="EW1_0" departPos="192.71" departSpeed="0.00" departDelay="0.00" arrival="401.00" arrivalLane="EW2_0" arrivalPos="161.29" arrivalSpeed="6.00" duration="331.00" routeLength="203.36" waitingTime="282.00" waitingCount="2" stopTime="0.00" timeLoss="296.67" rerouteNo="0" devices="tripinfo_EW_bike" vType="bicycle" speedFactor="1.24" vaporized=""/>
+    <tripinfo id="WN_passenger" depart="70.00" departLane="WE1_2" departPos="169.53" departSpeed="0.00" departDelay="0.00" arrival="113.00" arrivalLane="SN2_1" arrivalPos="104.75" arrivalSpeed="13.22" duration="43.00" routeLength="137.55" waitingTime="21.00" waitingCount="2" stopTime="0.00" timeLoss="32.40" rerouteNo="0" devices="tripinfo_WN_passenger" vType="passenger" speedFactor="0.99" vaporized=""/>
+    <tripinfo id="SN_bike" depart="0.00" departLane="SN1_0" departPos="84.61" departSpeed="0.00" departDelay="0.00" arrival="384.00" arrivalLane="SN2_0" arrivalPos="104.75" arrivalSpeed="6.00" duration="384.00" routeLength="135.78" waitingTime="45.00" waitingCount="1" stopTime="300.00" timeLoss="60.83" rerouteNo="0" devices="tripinfo_SN_bike" vType="bicycle" speedFactor="1.44" vaporized=""/>
+    <tripinfo id="EW_bike" depart="70.00" departLane="EW1_0" departPos="192.71" departSpeed="0.00" departDelay="0.00" arrival="400.00" arrivalLane="EW2_0" arrivalPos="161.29" arrivalSpeed="6.00" duration="330.00" routeLength="203.36" waitingTime="281.00" waitingCount="2" stopTime="0.00" timeLoss="295.67" rerouteNo="0" devices="tripinfo_EW_bike" vType="bicycle" speedFactor="1.24" vaporized=""/>
 </tripinfos>

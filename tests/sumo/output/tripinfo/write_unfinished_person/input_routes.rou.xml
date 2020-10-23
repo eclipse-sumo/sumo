@@ -1,0 +1,17 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="walk_not_finshed" depart="0">
+        <walk from="4/1to3/1" to="1/1to0/1"/>
+    </person>
+    <person id="ride_not_started" depart="0">
+        <stop lane="4/1to3/1_0" duration="3"/>
+        <ride to="1/1to0/1" lines="ANY"/>
+    </person>
+    <person id="ride_not_finished" depart="0" departPos="3">
+        <stop lane="4/1to3/1_0" duration="3"/>
+        <ride to="3/1to3/2" lines="car"/>
+    </person>
+    <trip id="car" from="4/1to3/1" to="3/1to3/2" depart="120">
+        <stop lane="4/1to3/1_0" duration="3" startPos="0" endPos="5"/>
+        <stop lane="3/1to3/2_0" duration="3" startPos="0" endPos="5"/>
+    </trip>
+</routes>

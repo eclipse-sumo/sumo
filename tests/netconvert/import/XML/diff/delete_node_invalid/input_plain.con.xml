@@ -1,0 +1,14 @@
+<connections version="0.13" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/connections_file.xsd">
+    <!-- Deleted Elements -->
+    <delete from="edge_C2U" to="edge_U2C" fromLane="0" toLane="0"/>
+    <delete from="edge_D2C" to="edge_C2U" fromLane="0" toLane="0"/>
+    <delete from="edge_R2C" to="edge_C2U" fromLane="0" toLane="0"/>
+    <delete from="edge_R2C" to="edge_C2L" fromLane="0" toLane="1"/>
+    <delete from="edge_U2C" to="edge_C2L" fromLane="0" toLane="0"/>
+    <delete from="edge_U2C" to="edge_C2D" fromLane="0" toLane="0"/>
+    <delete from="edge_U2C" to="edge_C2R" fromLane="0" toLane="0"/>
+    <delete from="edge_U2C" to="edge_C2U" fromLane="0" toLane="0"/>
+    <!-- Created Elements -->
+    <connection from="edge_R2C" to="edge_C2L" fromLane="0" toLane="0" />
+    <!-- Changed Elements -->
+</connections>

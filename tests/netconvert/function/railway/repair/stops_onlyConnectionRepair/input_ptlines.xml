@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional>
+    <ptLine id="0" name="Testline" line="S46" type="light_rail" completeness="0.5">
+        <busStop id="stopC" name="Kolonnenbrücke"/>
+        <busStop id="stopA" name="Dudenstraße"/>
+    </ptLine>
+</additional>

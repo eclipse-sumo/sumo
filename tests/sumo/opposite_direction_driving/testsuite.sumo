@@ -72,5 +72,11 @@ long_queue_emergency
 # emergency vehicle may overtake queue before red light
 emergency_redlight
 
+# emergency vehicle may overtake even when there is an overtaking lane
+2lanes_emergency
+
+# test usage of SL2015
+SL2015
+
 # bugs specific to opposite-direction driving
 bugs

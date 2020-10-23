@@ -16,6 +16,9 @@ two_vehicles_diff_speed
 # two vehicles are moving; the first is 5m long, the second 15m
 two_vehicles_diff_length
 
+# only write output fora subset of vehicles
+disable_some
+
 # one vehicle is moving with exit times
 exit_times
 
@@ -43,6 +46,9 @@ sorted
 # output with route length
 route_length
 
+# record generic vehicle parameters
+params
+
 # write vehroutes for vehicles which have not arrived at simulation end
 write_unfinished
 
@@ -52,8 +58,14 @@ write_unfinished_exit_times
 # output of person route
 with_person
 
+# output of person route
+write_unfinished_person
+
 # output of stops
 with_stops
+
+# output of stops
+with_stops_priorEdges
 
 # one vehicle with route distribution in input
 route_dist
@@ -66,6 +78,15 @@ dua_trip
 
 # public transport and walk possible
 person_route_length
+
+# sorting without public transport
+no_pt_lines_sorted
+
+# trips as input, districts used
+trip_with_taz
+
+# all vehicles have the device due to trip def
+auto_trip
 
 # Testing error cases
 errors

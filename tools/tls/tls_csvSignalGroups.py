@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2009-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2009-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    tls_csvSignalGroups.py
 # @author  Mirko Barthauer (Technische Universitaet Braunschweig)
 # @date    2017-10-17
-# @version $Id$
 
 """
 This script helps with converting a CSV input file with green times per signal group into the SUMO format.
@@ -67,6 +70,18 @@ else:
     sys.exit("please declare environment variable 'SUMO_HOME'")
 
 import sumolib.net  # noqa
+
+
+def getEdgeID(laneOrEdgeID):
+    sep = laneOrEdgeID.rfind('_')
+    if sep > 0 and laneOrEdgeID[sep + 1:].isdigit():
+        return laneOrEdgeID[:sep]
+    else:
+        return laneOrEdgeID
+
+
+def isLaneID(laneOrEdgeID):
+    return laneOrEdgeID != getEdgeID(laneOrEdgeID)
 
 
 class TlLogic(sumolib.net.TLSProgram):
@@ -131,14 +146,12 @@ class TlLogic(sumolib.net.TLSProgram):
                 for fromLink, toLink in sgToLinks[sgID]:
                     # check link validity (lane exists?)
                     for connIn, connOut, tlIndex in connections:
-                        fromLaneSep = fromLink.find('_')
-                        if fromLaneSep > 0 and fromLink[fromLaneSep + 1:].isdigit():
+                        if isLaneID(fromLink):
                             valid = fromLink == connIn.getID()
                         else:
                             valid = fromLink == connIn.getEdge().getID()
                         if toLink != '' and valid:
-                            toLaneSep = toLink.find('_')
-                            if toLaneSep > 0 and toLink[toLaneSep + 1:].isdigit():
+                            if isLaneID(toLink):
                                 valid = toLink == connOut.getID()
                             else:
                                 valid = toLink == connOut.getEdge().getID()
@@ -388,7 +401,9 @@ if __name__ == "__main__":
     # read SUMO network
     net = None
     if(len(options.net) > 0):
-        net = sumolib.net.readNet(options.net, withInternal=True)
+        net = sumolib.net.readNet(options.net,
+                                  withInternal=True,
+                                  withPedestrianConnections=True)
 
         if(len(options.make_input_dir) > 0):  # check input template directory
             if(os.path.isdir(options.make_input_dir)):
@@ -459,23 +474,27 @@ if __name__ == "__main__":
                                     colIndices[line[colIndex].strip()] = colIndex
                             secondFreeTime = "on2" in colIndices.keys() and "off2" in colIndices.keys()
                         else:
-                            sg = SignalGroup(
-                                line[colIndices["id"]],
-                                transTimeOn=int(line[colIndices["transOn"]]),
-                                transTimeOff=int(line[colIndices["transOff"]]),
-                                debug=options.debug)
+                            sgID = line[colIndices["id"]]
+                            sg = SignalGroup(sgID,
+                                             transTimeOn=int(line[colIndices["transOn"]]),
+                                             transTimeOff=int(line[colIndices["transOff"]]),
+                                             debug=options.debug)
                             sg.addFreeTime(int(line[colIndices["on1"]]), int(line[colIndices["off1"]]))
                             if(secondFreeTime):
                                 if(line[colIndices["on2"]] != "" and line[colIndices["off2"]] != ""):
                                     sg.addFreeTime(int(line[colIndices["on2"]]), int(line[colIndices["off2"]]))
-                            signalGroups[sg._id] = sg
-                            signalGroupOrder.append(sg._id)
+                            signalGroups[sgID] = sg
+                            signalGroupOrder.append(sgID)
+                            sgFromLinkEdge = getEdgeID(sgToLinks[sgID][0][0])
+                            if net.getEdge(sgFromLinkEdge).getFunction() == "walkingarea":
+                                sg._stop = 'r'
+
                 except Exception:
                     print("In file %s, line %s" % (inputFileName, i + 1), file=sys.stderr)
                     raise
 
         # build everything together
-        tlLogic = TlLogic(key, subkey, cycleTime, parameters=parameters, net=net, debug=options.debug)
+        tlLogic = TlLogic(key, subkey, cycleTime, offset, parameters=parameters, net=net, debug=options.debug)
         tlLogic.addSignalGroups(signalGroups, signalGroupOrder)
         tlLogic.setSignalGroupRelations(sgToLinks)
         tlLogic.setFreeTime()

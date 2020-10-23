@@ -6,4 +6,5 @@ setvalue 0xc4 0x49 0 <string> taxi
 getvariable 0xa4 0x4a 0
 getvariable 0xa4 0x49 0
 simstep2 6
-simstep2 100
+simstep2 101
+

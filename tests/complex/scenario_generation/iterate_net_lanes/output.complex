@@ -1,164 +1,168 @@
-Parsing nodes from '/tmp/tmpt8pVJ1'... done.
-Parsing edges from '/tmp/tmpFFi0Lc'... done.
-Parsing connections from '/tmp/tmpLor5bZ'... done.
+Parsing nodes from '/tmp/tmpYEG071' ... done.
+Parsing edges from '/tmp/tmpBa4vrH' ... done.
+Parsing connections from '/tmp/tmpJ8KpSh' ... done.
  Import done:
    5 nodes loaded.
    8 edges loaded.
-Removing self-loops... done (0ms).
-Removing empty nodes... done (0ms).
+Removing self-loops ... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin... done (0ms).
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (0ms).
-Computing edge shapes... done (0ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
-Computing traffic light logics... done (1ms).
+Moving network to origin ... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (1ms).
+Computing edge shapes ... done (0ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (1ms).
+Computing traffic light logics ... done (0ms).
  1 traffic light(s) computed.
-Building inner edges... done (0ms).
+Building inner edges ... done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 5
+  Priority junctions          : 4
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 0.00,0.00,1000.00,1000.00
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
-Writing network... done (3ms).
+Writing network ... done (4ms).
 Success.
-Parsing nodes from '/tmp/tmpXqkLi3'... done.
-Parsing edges from '/tmp/tmpx58Wqk'... done.
-Parsing connections from '/tmp/tmpkC9woj'... done.
+Parsing nodes from '/tmp/tmp9am_uK' ... done.
+Parsing edges from '/tmp/tmpCitacJ' ... done.
+Parsing connections from '/tmp/tmpq1LWR9' ... done.
  Import done:
    5 nodes loaded.
    8 edges loaded.
-Removing self-loops... done (0ms).
-Removing empty nodes... done (0ms).
+Removing self-loops ... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin... done (0ms).
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (0ms).
-Computing edge shapes... done (1ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Moving network to origin ... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (0ms).
+Computing edge shapes ... done (1ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (1ms).
+Computing traffic light logics ... done (0ms).
  1 traffic light(s) computed.
-Building inner edges... done (1ms).
+Building inner edges ... done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 5
+  Priority junctions          : 4
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 0.00,0.00,1000.00,1000.00
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
-Writing network... done (3ms).
+Writing network ... done (5ms).
 Success.
-Parsing nodes from '/tmp/tmpGdE1u4'... done.
-Parsing edges from '/tmp/tmpqmEkmg'... done.
-Parsing connections from '/tmp/tmp7_ukJL'... done.
+Parsing nodes from '/tmp/tmpzLWHJG' ... done.
+Parsing edges from '/tmp/tmpuW52nd' ... done.
+Parsing connections from '/tmp/tmpaI5WDV' ... done.
  Import done:
    5 nodes loaded.
    8 edges loaded.
-Removing self-loops... done (0ms).
-Removing empty nodes... done (0ms).
+Removing self-loops ... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin... done (0ms).
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (0ms).
-Computing edge shapes... done (1ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Moving network to origin ... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (1ms).
+Computing edge shapes ... done (0ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (1ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (0ms).
+Computing traffic light logics ... done (1ms).
  1 traffic light(s) computed.
-Building inner edges... done (1ms).
+Building inner edges ... done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 5
+  Priority junctions          : 4
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 0.00,0.00,1000.00,1000.00
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
-Writing network... done (4ms).
+Writing network ... done (6ms).
 Success.
-Parsing nodes from '/tmp/tmpZnnphm'... done.
-Parsing edges from '/tmp/tmp0QoDoW'... done.
-Parsing connections from '/tmp/tmpyAjcUV'... done.
+Parsing nodes from '/tmp/tmp48GZOS' ... done.
+Parsing edges from '/tmp/tmpOlXlZK' ... done.
+Parsing connections from '/tmp/tmpwHn7hL' ... done.
  Import done:
    5 nodes loaded.
    8 edges loaded.
-Removing self-loops... done (0ms).
-Removing empty nodes... done (0ms).
+Removing self-loops ... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Moving network to origin... done (0ms).
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (0ms).
-Computing edge shapes... done (0ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (1ms).
-Computing traffic light logics... done (0ms).
+Moving network to origin ... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (1ms).
+Computing node shapes ... done (0ms).
+Computing edge shapes ... done (0ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (1ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (1ms).
+Computing traffic light logics ... done (0ms).
  1 traffic light(s) computed.
-Building inner edges... done (1ms).
+Building inner edges ... done (2ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Priority junctions          : 5
+  Priority junctions          : 4
   Right-before-left junctions : 0
+  Traffic light junctions      : 1
  Network boundaries:
   Original boundary  : 0.00,0.00,1000.00,1000.00
   Applied offset     : 0.00,0.00
   Converted boundary : 0.00,0.00,1000.00,1000.00
 -----------------------------------------------------
-Writing network... done (4ms).
+Writing network ... done (6ms).
 Success.

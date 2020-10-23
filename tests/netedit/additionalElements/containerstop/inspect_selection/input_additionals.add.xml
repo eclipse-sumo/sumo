@@ -1,13 +1,13 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <!-- Container Stop A -->
-    <containerStop id="containerStopA" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" friendlyPos="true">
+    <!-- Bus A -->
+    <containerStop id="containerStopA" lane="gneE0_0" startPos="5" endPos="10" lines="line1 line2" name="containerStop" personCapacity="10" friendlyPos="true">
 		<param key="KeyA1" value="valueA1"/>
 		<param key="KeyA3" value="valueA2"/>
 		<param key="KeyA2" value="valueA3"/>
 	</containerStop>
 
-	<!-- Container Stop B -->
-    <containerStop id="containerStopB" lane="gneE0_0" startPos="15" endPos="20" lines="line3 line4" name="containerStop" friendlyPos="false">
+	<!-- Bus B -->
+    <containerStop id="containerStopB" lane="gneE0_0" startPos="15" endPos="20" lines="line3 line4" name="containerStop" personCapacity="20" friendlyPos="false">
 		<param key="KeyB1" value="valueB1"/>
 		<param key="KeyB3" value="valueB2"/>
 		<param key="KeyB2" value="valueB3"/>

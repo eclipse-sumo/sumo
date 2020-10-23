@@ -1,0 +1,15 @@
+--osm-files osm.xml
+-t input_types.typ.xml
+--tls.join
+--tls.guess
+--tls.guess.threshold 30
+--tls.uncontrolled-within
+--no-internal-links
+--tls.discard-simple 
+--tls.guess-signals
+--tls.guess-signals.dist 15
+--keep-edges.by-type highway.trunk,highway.trunk_link,highway.primary,highway.primary_link,highway.secondary,highway.secondary_link,highway.tertiary,highway.tertiary_link,highway.unclassified,highway.residential
+--remove-edges.isolated 
+--no-turnarounds.tls 
+--junctions.join 
+--junctions.join-dist 10

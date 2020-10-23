@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <parkingArea id="parkingArea_driveIn" name="driveInParking" length="6" lane="gneE1_0" startPos="102.49" endPos="127.49">
+        <space width="2.00" length="6.00" x="108.82" y="40.56" angle="-45.00"/>
+        <space width="2.00" length="6.00" x="103.35" y="40.80" angle="-45.00"/>
+        <space width="2.00" length="6.00" x="98.35" y="40.79" angle="-45.00"/>
+        <space width="2.00" length="6.00" x="93.59" y="40.79" angle="-45.00"/>
+    </parkingArea>
+</additional>

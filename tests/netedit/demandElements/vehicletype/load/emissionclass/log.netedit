@@ -1,0 +1,4 @@
+Error: emissionClass with name 'dummyEmissionClass' doesn't exist.
+Error: Attribute 'emissionClass' in definition of vType 'vType1' is empty.
+Error: emissionClass with name '' doesn't exist.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.30Jul111148.11464/netedit.gui/demandElements/vehicletype/load/emissionclass\input_routes.rou.xml failed.

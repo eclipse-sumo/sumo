@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Mar 31 13:50:50 2020 by Eclipse SUMO Version v1_5_0+1028-b310b5206c
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="150"/>
+    </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
+    <interval begin="0.00" end="60.00" id="dump_60">
+        <edge id="3/1to2/1" CO2_abs="59142.222222" NOx_normed="2.920167" fuel_perVeh="36.319257"/>
+        <edge id="4/1to3/1" CO2_abs="64000.333333" NOx_normed="3.160038" fuel_perVeh="36.319257"/>
+    </interval>
+    <interval begin="60.00" end="120.00" id="dump_60">
+        <edge id="1/1to0/1" CO2_abs="16897.777778" NOx_normed="0.834333" fuel_perVeh="36.319257"/>
+        <edge id="2/1to1/1" CO2_abs="85122.555556" NOx_normed="4.202954" fuel_perVeh="36.319257"/>
+        <edge id="3/1to2/1" CO2_abs="25980.333333" NOx_normed="1.282788" fuel_perVeh="36.319257"/>
+    </interval>
+    <interval begin="120.00" end="150.00" id="dump_60">
+        <edge id="1/1to0/1" CO2_abs="63366.666667" NOx_normed="6.257500" fuel_perVeh="36.319257"/>
+    </interval>
+</meandata>

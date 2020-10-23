@@ -1,26 +1,29 @@
-/*
- * Copyright 2018 bott_ma.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2018-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    NiceTimeTool.java
+/// @author  Maximiliano Bottazzi
+/// @date    2018
+///
+//
+/****************************************************************************/
 package de.dlr.ts.commons.tools;
 
 /**
  *
  * @author Praktikant-Q2-2015
  */
-public class NiceTimeTool
-{
+public class NiceTimeTool {
     private final long secondsInMilli = 1000;
     private final long minutesInMilli = secondsInMilli * 60;
     private final long hoursInMilli = minutesInMilli * 60;
@@ -28,7 +31,7 @@ public class NiceTimeTool
     private final long weeksInMilli = daysInMilli * 7;
     private final long monthsInMilli = weeksInMilli * 4;
     private final long yearsInMilli = monthsInMilli * 12;
-    
+
     private String year = "y";
     private String month = "M";
     private String week = "w";
@@ -36,18 +39,17 @@ public class NiceTimeTool
     private String hour = "h";
     private String minute = "m";
     private String second = "s";
-    
-    
+
+
 
     /**
-     * 
+     *
      * @param time
-     * @return 
+     * @return
      */
-    public String getTime(long time)
-    {
-        StringBuilder sb = new StringBuilder();        
-        
+    public String getTime(long time) {
+        StringBuilder sb = new StringBuilder();
+
         long tmp = time;
 
         if (time >= yearsInMilli) {
@@ -83,10 +85,11 @@ public class NiceTimeTool
         if (time >= minutesInMilli && time > 2 * minutesInMilli
                 && time < 60 * minutesInMilli && tmp < daysInMilli) {
             long minutesAgo = time / minutesInMilli;
-            
-            if (time > 10 * minutesInMilli)
+
+            if (time > 10 * minutesInMilli) {
                 minutesAgo = Math.round((minutesAgo / 5)) * 5;
-            
+            }
+
             sb.append(minutesAgo).append(" ").append(minute).append(" ");
         }
 
@@ -94,7 +97,7 @@ public class NiceTimeTool
             long secondsAgo = time / secondsInMilli;
             sb.append(secondsAgo).append(" ").append(second);
         }
-        
+
         return sb.toString().trim();
     }
 
@@ -124,5 +127,5 @@ public class NiceTimeTool
 
     public void setYear(String year) {
         this.year = year;
-    }        
+    }
 }

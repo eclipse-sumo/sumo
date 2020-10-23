@@ -1,7 +1,5 @@
-<flowdefs>
-
-	<interval begin="0" end="100">
-		<flow id="0" from="beg" to="rend" number="10"/>
-	</interval>
-
-</flowdefs>
+<routes>
+    <interval begin="0" end="100">
+        <flow id="0" from="beg" to="rend" number="10"/>
+    </interval>
+</routes>

@@ -1,22 +1,38 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    polygon.py
 # @author  Daniel Krajzewicz
 # @author  Melanie Knocke
 # @author  Michael Behrisch
 # @date    2012-12-04
-# @version $Id$
 
 from __future__ import absolute_import
 
 from xml.sax import handler, parse
 from .. import color
+
+
+def getBoundingBox(shape):
+    xmin = shape[0][0]
+    xmax = shape[0][0]
+    ymin = shape[0][1]
+    ymax = shape[0][1]
+    for p in shape[1:]:
+        xmin = min(xmin, p[0])
+        xmax = max(xmax, p[0])
+        ymin = min(ymin, p[1])
+        ymax = max(ymax, p[1])
+    return xmin, ymin, xmax, ymax
 
 
 class Polygon:
@@ -31,17 +47,7 @@ class Polygon:
         self.attributes = {}
 
     def getBoundingBox(self):
-        xmin = self.shape[0][0]
-        xmax = self.shape[0][0]
-        ymin = self.shape[0][1]
-        ymax = self.shape[0][1]
-        for p in self.shape[1:]:
-            xmin = min(xmin, p[0])
-            xmax = max(xmax, p[0])
-            ymin = min(ymin, p[1])
-            ymax = max(ymax, p[1])
-        assert(xmin != xmax or ymin != ymax)
-        return xmin, ymin, xmax, ymax
+        return getBoundingBox(self.shape)
 
     def getShapeString(self):
         return " ".join([",".join(map(str, e)) for e in self.shape])

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:38 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:44 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -28,13 +28,14 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
         <ignore-errors.edge-type value="true"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-684148.78,-5706279.49" convBoundary="0.00,0.00,205.87,92.40" origBoundary="5.538970,51.449400,5.678834,51.487414" projParameter="+proj=utm +zone=31 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -76,12 +77,14 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="joinedS_4" type="static" programID="0" offset="0">
-        <phase duration="38" state="GgrrGGrrGGGg"/>
-        <phase duration="3"  state="yyrryyrryyyy"/>
-        <phase duration="37" state="GGGgrrGgrrGG"/>
-        <phase duration="3"  state="yyygrrygrryy"/>
-        <phase duration="6"  state="rrrGrrrGrrrr"/>
-        <phase duration="3"  state="rrryrrryrrrr"/>
+        <phase duration="18" state="GrrrGGGrrrGG"/>
+        <phase duration="3"  state="yrrryyyrrryy"/>
+        <phase duration="20" state="rrGGGrrrrrGG"/>
+        <phase duration="3"  state="rryyyrrrrryy"/>
+        <phase duration="20" state="GGrrrrrrGGGr"/>
+        <phase duration="3"  state="yyrrrrrryyyr"/>
+        <phase duration="20" state="GGrrrrGGGrrr"/>
+        <phase duration="3"  state="yyrrrryyyrrr"/>
     </tlLogic>
 
     <junction id="287360464" type="dead_end" x="0.00" y="90.97" incLanes="6_0" intLanes="" shape="0.00,90.97 0.11,94.17 0.00,90.97"/>

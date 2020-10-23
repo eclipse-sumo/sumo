@@ -1,0 +1,6 @@
+Warning: Discarding unknown compound 'railway.construction' in type 'railway.construction|usage.main' (first occurence for edge '22917273').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.construction|usage.main' (first occurence for edge '22917273').
+Warning: Discarding unusable type 'railway.construction|usage.main' (first occurence for edge '22917273').
+Warning: Discarding unknown compound 'usage.main' in type 'railway.light_rail|usage.main' (first occurence for edge '24165419').
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '40162650').
+Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '276204062').

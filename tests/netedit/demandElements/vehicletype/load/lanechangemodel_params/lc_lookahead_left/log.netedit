@@ -1,0 +1,5 @@
+Error: Invalid Lane-Change-Model Attribute lcLookaheadLeft. Cannot be parsed to float
+Error: Invalid Lane Change Model Parameters
+Error: Invalid Lane-Change-Model Attribute lcLookaheadLeft. Must be equal or greater than 0
+Error: Invalid Lane Change Model Parameters
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.03Sep083941.1072/netedit.gui/demandElements/vehicletype/load/lanechangemodel_params/lc_lookahead_left\input_routes.rou.xml failed.

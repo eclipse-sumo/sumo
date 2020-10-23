@@ -1,0 +1,2 @@
+--no-step-log --duration-log.statistics --net-file=net.net.xml --routes=input_routes.rou.xml
+-a input_additional.add.xml

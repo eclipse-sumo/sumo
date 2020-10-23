@@ -1,0 +1,7 @@
+--no-step-log --verbose --net-file=net.net.xml
+-r input_routes.rou.xml 
+-a input_additional.add.xml
+--meso-junction-control
+--time-to-teleport -1
+--max-depart-delay 1
+-e 5400

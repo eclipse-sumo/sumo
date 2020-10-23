@@ -1,8 +1,0 @@
- Retrying in 1 seconds
-2.0  lane=SC_0  right=[], []  left=[], []
-3.0  lane=SC_0  right=[], []  left=['stay', 'strategic'], ['stay', 'strategic']
-4.0  lane=SC_0  right=[], []  left=['stay', 'strategic'], ['stay', 'strategic']
-5.0  lane=SC_1  right=[], []  left=['stay', 'strategic'], ['stay', 'strategic']
-6.0  lane=SC_1  right=[], []  left=[], []
-7.0  lane=SC_1  right=[], []  left=[], []
-8.0  lane=SC_1  right=['right', 'strategic', 'urgent'], ['right', 'strategic', 'urgent']  left=[], []

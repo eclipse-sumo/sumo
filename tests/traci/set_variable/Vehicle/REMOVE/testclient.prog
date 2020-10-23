@@ -10,5 +10,4 @@ repeat 1 simstep2 0
 setvalue 0xc4 0x81 veh3 <byte> 3
 repeat 1 simstep2 0
 setvalue 0xc4 0x81 veh4 <byte> 4
-repeat 5 simstep2 0
-
+repeat 6 simstep2 0

@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'tripCloseEnroute'; waited too long (wrong lane), lane='middle_0', time=345.00.
+Warning: Vehicle 'tripCloseEnroute' is not allowed on source edge 'middle2'.
+Warning: No route for vehicle 'tripCloseEnroute' found.
+Warning: Vehicle 'tripCloseEnroute' ends teleporting on edge 'end', time 364.00.

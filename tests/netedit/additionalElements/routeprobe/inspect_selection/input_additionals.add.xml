@@ -1,7 +1,15 @@
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <!-- routeProbe A -->
-    <routeProbe id="routeProbe_01" edge="gneE1" freq="100.00" file="routeProbe_01.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_01" edge="gneE1" freq="100.00" file="fileA.txt" begin="0.00">
+		<param key="KeyA1" value="valueA1"/>
+		<param key="KeyA3" value="valueA2"/>
+		<param key="KeyA2" value="valueA3"/>
+	</routeProbe>
 	
 	<!-- routeProbe B -->
-	<routeProbe id="routeProbe_02" edge="gneE1" freq="120.00" file="routeProbe_01.txt" begin="3.00"/>	
+	<routeProbe id="routeProbe_02" edge="gneE1" freq="120.00" file="fileB.txt" begin="3.00">	
+		<param key="KeyB1" value="valueB1"/>
+		<param key="KeyB3" value="valueB2"/>
+		<param key="KeyB2" value="valueB3"/>
+	</routeProbe>
 </additional>

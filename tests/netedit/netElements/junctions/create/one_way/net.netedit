@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25.01.2019 12:16:07 by Eclipse SUMO netedit Version v1_1_0+0076-a16c2aae75
+<!-- generated on 25.08.2020 11:16:07 by Eclipse SUMO netedit Version v1_6_0+1752-8f7fae36af
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
@@ -8,40 +8,50 @@
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/create/one_way\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\net.net.xml"/>
     </output>
 
+    <processing>
+        <offset.disable-normalization value="true"/>
+    </processing>
+
     <netedit>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/create/one_way\additionals.xml"/>
-        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/create/one_way\routes.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/create/one_way\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
         <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Jan121551.1872/netedit.gui/netElements/junctions/create/one_way\log.txt"/>
+        <aggregate-warnings value="5"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.25Aug111537.15228\netedit.gui\netElements\junctions\create\one_way\log.txt"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,-86.00" convBoundary="0.00,0.00,19.00,0.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="0.00,90.00,20.00,90.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="-1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="19.00" shape="0.00,-1.60 19.00,-1.60"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="20.00" shape="0.00,88.40 20.00,88.40"/>
     </edge>
 
-    <junction id="gneJ0" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="0.00,0.00 0.00,-3.20"/>
-    <junction id="gneJ1" type="dead_end" x="19.00" y="0.00" incLanes="gneE0_0" intLanes="" shape="19.00,-3.20 19.00,0.00"/>
+    <junction id="gneJ0" type="dead_end" x="0.00" y="90.00" incLanes="" intLanes="" shape="0.00,90.00 0.00,86.80"/>
+    <junction id="gneJ1" type="dead_end" x="20.00" y="90.00" incLanes="gneE0_0" intLanes="" shape="20.00,86.80 20.00,90.00"/>
 
 </net>

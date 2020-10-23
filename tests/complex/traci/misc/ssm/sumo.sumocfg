@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov  6 14:30:38 2019 by Eclipse SUMO Version v1_3_1+0768-b8581b909d
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <report>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <ssm_device>
+        <device.ssm.measures value="TTC DRAC PET BR SGAP TGAP"/>
+        <device.ssm.thresholds value="5 5 3 0 1 1"/>
+        <device.ssm.file value="ssm.xml"/>
+    </ssm_device>
+
+</configuration>

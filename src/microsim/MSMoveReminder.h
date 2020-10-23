@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2003-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2003-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSMoveReminder.h
 /// @author  Christian Roessel
@@ -14,29 +18,25 @@
 /// @author  Michael Behrisch
 /// @author  Jakob Erdmann
 /// @date    2003-05-21
-/// @version $Id$
 ///
 // Something on a lane to be noticed about vehicle movement
 /****************************************************************************/
-#ifndef MSMoveReminder_h
-#define MSMoveReminder_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <iostream>
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StdDefs.h>
+#ifdef HAVE_FOX
+#include <fx.h>
+#endif
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class SUMOVehicle;
+class SUMOTrafficObject;
 class MSLane;
 
 
@@ -101,14 +101,22 @@ public:
         NOTIFICATION_TELEPORT,
         /// @brief The vehicle starts or ends parking
         NOTIFICATION_PARKING,
+        /// @brief The vehicle needs another parking area
+        NOTIFICATION_PARKING_REROUTE,
         /// @brief The vehicle arrived at its destination (is deleted)
         NOTIFICATION_ARRIVED, // arrived and everything after is treated as permanent deletion from the net
-        /// @brief The vehicle got vaporized
-        NOTIFICATION_VAPORIZED,
         /// @brief The vehicle was teleported out of the net
         NOTIFICATION_TELEPORT_ARRIVED,
-        /// @brief The vehicle needs another parking area
-        NOTIFICATION_PARKING_REROUTE
+        /// @brief The vehicle got removed by a calibrator
+        NOTIFICATION_VAPORIZED_CALIBRATOR,
+        /// @brief The vehicle got removed by a collision
+        NOTIFICATION_VAPORIZED_COLLISION,
+        /// @brief The vehicle got removed via TraCI
+        NOTIFICATION_VAPORIZED_TRACI,
+        /// @brief The vehicle got removed via the GUI
+        NOTIFICATION_VAPORIZED_GUI,
+        /// @brief The vehicle got vaporized with a vaporizer
+        NOTIFICATION_VAPORIZED_VAPORIZER
     };
 
 
@@ -125,7 +133,7 @@ public:
      * @return True if vehicle enters the reminder.
      * @see Notification
      */
-    virtual bool notifyEnter(SUMOVehicle& veh, Notification reason, const MSLane* enteredLane) {
+    virtual bool notifyEnter(SUMOTrafficObject& veh, Notification reason, const MSLane* enteredLane) {
         UNUSED_PARAMETER(reason);
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(&enteredLane);
@@ -146,7 +154,7 @@ public:
      *
      * @return True if vehicle hasn't passed the reminder completely.
      */
-    virtual bool notifyMove(SUMOVehicle& veh,
+    virtual bool notifyMove(SUMOTrafficObject& veh,
                             double oldPos,
                             double newPos,
                             double newSpeed) {
@@ -157,6 +165,19 @@ public:
         return true;
     }
 
+    /** @brief Computes idling emission values and adds them to the emission sums
+    *
+    * Idling implied by zero velocity, acceleration and slope
+    *
+    * @param[in] veh The vehicle
+    *
+    * @see MSMoveReminder::notifyMove
+    * @see PollutantsInterface
+    */
+    virtual bool notifyIdle(SUMOTrafficObject& veh) {
+        UNUSED_PARAMETER(&veh);
+        return true;
+    }
 
     /** @brief Called if the vehicle leaves the reminder's lane
      *
@@ -171,7 +192,7 @@ public:
      *
      * @return True if the reminder wants to receive further info.
      */
-    virtual bool notifyLeave(SUMOVehicle& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
+    virtual bool notifyLeave(SUMOTrafficObject& veh, double lastPos, Notification reason, const MSLane* enteredLane = 0) {
         UNUSED_PARAMETER(&veh);
         UNUSED_PARAMETER(lastPos);
         UNUSED_PARAMETER(reason);
@@ -181,7 +202,7 @@ public:
 
 
     // TODO: Documentation
-    void updateDetector(SUMOVehicle& veh, double entryPos, double leavePos,
+    void updateDetector(SUMOTrafficObject& veh, double entryPos, double leavePos,
                         SUMOTime entryTime, SUMOTime currentTime, SUMOTime leaveTime,
                         bool cleanUp);
 
@@ -203,7 +224,7 @@ public:
      * @param[in] travelledDistanceVehicleOnLane distance travelled while front was on the lane.
      * @param[in] meanLengthOnLane the average length of the vehicle's part on the lane during the last step (==complete length in meso case)
      */
-    virtual void notifyMoveInternal(const SUMOVehicle& veh,
+    virtual void notifyMoveInternal(const SUMOTrafficObject& veh,
                                     const double frontOnLane,
                                     const double timeOnLane,
                                     const double meanSpeedFrontOnLane,
@@ -230,7 +251,7 @@ public:
     }
 
 protected:
-    void removeFromVehicleUpdateValues(SUMOVehicle& veh);
+    void removeFromVehicleUpdateValues(SUMOTrafficObject& veh);
 
 protected:
 
@@ -239,17 +260,16 @@ protected:
     /// @brief a description of this moveReminder
     std::string myDescription;
 
+#ifdef HAVE_FOX
+    /// @brief the mutex for notifications
+    mutable FXMutex myNotificationMutex;
+#endif
+
 private:
-    std::map<SUMOVehicle*, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
+    std::map<SUMOTrafficObject*, std::pair<SUMOTime, double> > myLastVehicleUpdateValues;
 
 
 private:
     MSMoveReminder& operator=(const MSMoveReminder&); // just to avoid a compiler warning
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

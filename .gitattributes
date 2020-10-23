@@ -41,6 +41,7 @@
 *.sumocfg     text eol=lf
 *.netccfg     text eol=lf
 *.netgcfg     text eol=lf
+*.big         text eol=lf
 visum.net     text eol=lf
 # .scenario .tapasVEU only used in internal repo
 
@@ -60,6 +61,7 @@ png2.sumo binary
 /.appveyor.yml export-ignore
 /.gitattributes export-ignore
 /.git_filters export-ignore
+/.github export-ignore
 /.gitignore export-ignore
 /.gitmodules export-ignore
 /.travis.yml export-ignore

@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBOwnTLDef.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Sascha Krieg
 /// @date    Tue, 29.05.2005
-/// @version $Id$
 ///
 // A traffic light logics which must be computed (only nodes/edges are given)
 /****************************************************************************/
-#ifndef NBOwnTLDef_h
-#define NBOwnTLDef_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -136,6 +133,11 @@ public:
     ///@brief Returns the maximum index controlled by this traffic light
     int getMaxIndex();
 
+    /// @brief sets the layout for the generated signal plan
+    void setLayout(TrafficLightLayout layout) {
+        myLayout = layout;
+    }
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{
@@ -163,11 +165,15 @@ protected:
      * @see NBTrafficLightDefinition::replaceRemoved
      */
     void replaceRemoved(NBEdge* removed, int removedLane,
-                        NBEdge* by, int byLane);
+                        NBEdge* by, int byLane, bool incoming);
     /// @}
 
 
 protected:
+
+    /// @brief test whether a joined tls with layout 'opposites' would be built without dedicated left-turn phase
+    bool corridorLike() const;
+
     /** @brief Returns the weight of a stream given its direction
      * @param[in] dir The direction of the stream
      * @return This stream's weight
@@ -215,8 +221,25 @@ protected:
     static EdgeVector getConnectedOuterEdges(const EdgeVector& incoming);
 
 
-    /// @brief allow connections that follow on of the chosen edges
-    std::string allowFollowersOfChosen(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+    /// @brief allow connections that are compatible with the chosen edges
+    std::string allowCompatible(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
+                                const std::vector<int>& fromLanes, const std::vector<int>& toLanes);
+
+    std::string allowSingleEdge(std::string state, const EdgeVector& fromEdges);
+
+    std::string allowFollowers(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges);
+
+    std::string allowPredecessors(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
+                                  const std::vector<int>& fromLanes, const std::vector<int>& toLanes);
+
+    std::string allowUnrelated(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
+                               const std::vector<bool>& isTurnaround,
+                               const std::vector<NBNode::Crossing*>& crossings);
+
+    std::string allowByVClass(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges, SVCPermissions perm);
+
+    /// @brief whether the given index is forbidden by a green link in the current state
+    bool forbidden(const std::string& state, int index, const EdgeVector& fromEdges, const EdgeVector& toEdges);
 
     /** @brief change 'G' to 'g' for conflicting connections
      * @param[in] state
@@ -227,16 +250,32 @@ protected:
      * @param[in] hadGreenMajor
      * @param[out] haveForbiddenLeftMover
      * @param[out] rightTurnConflicts
+     * @param[out] mergeConflicts
      * @return The corrected state
      */
     std::string correctConflicting(std::string state, const EdgeVector& fromEdges, const EdgeVector& toEdges,
                                    const std::vector<bool>& isTurnaround,
                                    const std::vector<int>& fromLanes,
+                                   const std::vector<int>& toLanes,
                                    const std::vector<bool>& hadGreenMajor,
-                                   bool& haveForbiddenLeftMover, std::vector<bool>& rightTurnConflicts);
+                                   bool& haveForbiddenLeftMover,
+                                   std::vector<bool>& rightTurnConflicts,
+                                   std::vector<bool>& mergeConflicts);
 
     /// @brief fix states in regard to custom crossing indices
     void checkCustomCrossingIndices(NBTrafficLightLogic* logic) const;
+
+    /// @brief avoid yellow signal between successive green (major) phases
+    void fixSuperfluousYellow(NBTrafficLightLogic* logic) const;
+
+    /// @brief switch of signal for links that are always green
+    void deactivateAlwaysGreen(NBTrafficLightLogic* logic) const;
+
+    /// @brief switch of signal for links that are inside a joined tls
+    void deactivateInsideEdges(NBTrafficLightLogic* logic, const EdgeVector& fromEdges) const;
+
+    /// @brief compute time to clear all vehicles from within an alternateOneWay layout
+    SUMOTime computeEscapeTime(const std::string& state, const EdgeVector& fromEdges, const EdgeVector& toEdges) const;
 
     /** @class edge_by_incoming_priority_sorter
      * @brief Sorts edges by their priority within the node they end at
@@ -260,10 +299,7 @@ private:
     /// @brief Whether left-mover should not have an additional phase
     bool myHaveSinglePhase;
 
+    /// @brief the layout for generated signal plans
+    TrafficLightLayout myLayout;
+
 };
-
-
-#endif
-
-/****************************************************************************/
-

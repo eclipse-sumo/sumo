@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 24.10.2018 15:48:10 by Eclipse SUMO netedit Version v1_0_1+0296-2f18426848
+<!-- generated on 07.08.2019 13:52:45 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingspace/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingspace/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -30,13 +31,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingspace/volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingspace/volatileRecomputing\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingspace/volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingspace/volatileRecomputing\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingspace/volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -46,36 +48,36 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.24Oct154238.128/netedit.gui/additionalElements/parkingspace/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/parkingspace/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <parkingArea id="parkingArea_gneE0_0_7" length="5.00" lane="gneE0_1" startPos="22.00" endPos="32.00">
+    <parkingArea id="parkingArea_gneE0_0_7" lane="gneE0_1" startPos="22.00" endPos="32.00" length="5.00">
         <space x="-10.00" y="39.00" z="1.00"/>
     </parkingArea>
-    <parkingArea id="parkingArea_gneE1_0_6" length="5.00" lane="gneE1_1" startPos="19.00" endPos="29.00">
-        <space width="5.00" x="-10.00" y="33.00" z="2.00"/>
+    <parkingArea id="parkingArea_gneE1_0_6" lane="gneE1_1" startPos="19.00" endPos="29.00" length="5.00">
+        <space x="-10.00" y="33.00" z="2.00" width="5.00"/>
     </parkingArea>
-    <parkingArea id="parkingArea_gneE2_0_5" length="5.00" lane="gneE2_1" startPos="8.00" endPos="18.00">
-        <space length="6.00" x="-10.00" y="27.00" z="3.00"/>
+    <parkingArea id="parkingArea_gneE2_0_5" lane="gneE2_1" startPos="8.00" endPos="18.00" length="5.00">
+        <space x="-10.00" y="27.00" z="3.00" length="6.00"/>
     </parkingArea>
-    <parkingArea id="parkingArea_gneE2_1_4" length="5.00" lane="gneE2_2" startPos="16.00" endPos="26.00">
+    <parkingArea id="parkingArea_gneE2_1_4" lane="gneE2_2" startPos="16.00" endPos="26.00" length="5.00">
         <space x="-10.00" y="21.00" z="4.00" angle="45.00"/>
     </parkingArea>
-    <parkingArea id="parkingArea_gneE2_2_3" length="5.00" lane="gneE2_3" startPos="23.00" endPos="33.00">
-        <space width="1.00" length="1.00" x="-10.00" y="15.00" z="5.00"/>
+    <parkingArea id="parkingArea_gneE2_2_3" lane="gneE2_3" startPos="23.00" endPos="33.00" length="5.00">
+        <space x="-10.00" y="15.00" z="5.00" width="1.00" length="1.00"/>
     </parkingArea>
-    <parkingArea id="parkingArea_gneE2_3_2" length="5.00" lane="gneE2_4" startPos="31.00" endPos="41.00">
-        <space width="2.00" length="3.00" x="-10.00" y="9.00" z="6.00" angle="60.00"/>
+    <parkingArea id="parkingArea_gneE2_3_2" lane="gneE2_4" startPos="31.00" endPos="41.00" length="5.00">
+        <space x="-10.00" y="9.00" z="6.00" width="2.00" length="3.00" angle="60.00"/>
     </parkingArea>
-    <parkingArea id="parkingArea_gneE2_4_1" length="5.00" lane="gneE2_5" startPos="38.00" endPos="48.00">
+    <parkingArea id="parkingArea_gneE2_4_1" lane="gneE2_5" startPos="38.00" endPos="48.00" length="5.00">
         <space x="-10.00" y="3.00"/>
     </parkingArea>
-    <parkingArea id="parkingArea_gneE4_0_0" length="5.00" lane="gneE4_0" startPos="11.55" endPos="21.55">
+    <parkingArea id="parkingArea_gneE4_0_0" lane="gneE4_0" startPos="11.55" endPos="21.55" length="5.00">
         <space x="-10.00" y="-3.00"/>
     </parkingArea>
-    <parkingArea id="parkingArea_gneE4_0_8" length="5.00" lane="gneE4_0" startPos="30.00" endPos="40.00"/>
+    <parkingArea id="parkingArea_gneE4_0_8" lane="gneE4_0" startPos="30.00" endPos="40.00" length="5.00"/>
 </additional>

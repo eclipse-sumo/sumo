@@ -1,0 +1,5 @@
+Error: Invalid vehicle type 'dummy_Type' used in vehicle 'vehicle_1'.
+Error: Attribute 'type' in definition of vehicle 'vehicle_2' is empty.
+Error: Invalid vehicle type '' used in vehicle 'vehicle_2'.
+Error: Invalid vehicle type 'id with invalid characters' used in vehicle 'vehicle_3'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.01Aug090909.1396/netedit.gui/demandElements/vehicle/load/vType\input_routes.rou.xml failed.

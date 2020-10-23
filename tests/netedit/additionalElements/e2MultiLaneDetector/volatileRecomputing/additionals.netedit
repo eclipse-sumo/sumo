@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 04.10.2018 14:46:46 by Eclipse SUMO netedit Version v1_0_0+0003-85a2829977
+<!-- generated on 07.08.2019 10:58:20 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Oct144633.7260/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Oct144633.7260/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -31,13 +32,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Oct144633.7260/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Oct144633.7260/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Oct144633.7260/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Oct144633.7260/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -47,16 +49,16 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.04Oct144633.7260/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2MultiLaneDetector/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE14_0 gneE8_0 gneE0_0 gneE10_0 gneE11_0" pos="22.80" freq="900.00" file="e2MultilaneDetector_0.xml" endPos="2.80"/>
-    <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_4 gneE4_0 gneE12_0 gneE7_0 gneE13_0" pos="32.80" freq="900.00" file="e2MultilaneDetector_1.xml" endPos="2.80"/>
-    <e2Detector id="e2MultilaneDetector_2" lanes="gneE13_0 gneE4_0 gneE2_4" pos="2.80" freq="900.00" file="e2MultilaneDetector_2.xml" endPos="2.80"/>
-    <e2Detector id="e2MultilaneDetector_3" lanes="gneE5_0 gneE6_0 gneE9_0 gneE1_0" pos="6.80" freq="900.00" file="e2MultilaneDetector_3.xml" endPos="16.80"/>
-    <e2Detector id="e2MultilaneDetector_4" lanes="gneE1_0 gneE5_0 gneE13_0 gneE4_0 gneE2_4" pos="36.80" freq="900.00" file="e2MultilaneDetector_4.xml" endPos="22.80"/>
+    <e2Detector id="e2MultilaneDetector_0" lanes="gneE2_0 gneE14_0 gneE8_0 gneE0_0 gneE10_0 gneE11_0" pos="22.80" endPos="2.80" freq="900.00" file="e2MultilaneDetector_0.xml"/>
+    <e2Detector id="e2MultilaneDetector_1" lanes="gneE2_4 gneE4_0 gneE12_0 gneE7_0 gneE13_0" pos="32.80" endPos="2.80" freq="900.00" file="e2MultilaneDetector_1.xml"/>
+    <e2Detector id="e2MultilaneDetector_2" lanes="gneE13_0 gneE4_0 gneE2_4" pos="2.80" endPos="2.80" freq="900.00" file="e2MultilaneDetector_2.xml"/>
+    <e2Detector id="e2MultilaneDetector_3" lanes="gneE5_0 gneE6_0 gneE9_0 gneE1_0" pos="6.80" endPos="16.80" freq="900.00" file="e2MultilaneDetector_3.xml"/>
+    <e2Detector id="e2MultilaneDetector_4" lanes="gneE1_0 gneE5_0 gneE13_0 gneE4_0 gneE2_4" pos="36.80" endPos="22.80" freq="900.00" file="e2MultilaneDetector_4.xml"/>
 </additional>

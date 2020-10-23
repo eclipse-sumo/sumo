@@ -1,0 +1,17 @@
+Loading net-file from 'net.net.xml' ... done (4ms).
+Loading additional-files from 'input_additional.add.xml' ... done (2ms).
+Loading done.
+Simulation version v1_3_1+1083-5d228cb4f4 started with time: 0.00
+Simulation ended at time: 5400.00
+Reason: The final simulation step has been reached.
+Performance: 
+ Duration: 1846ms
+ Real time factor: 2925.24
+ UPS: 133439.869989
+Vehicles: 
+ Inserted: 46 (Loaded: 1800)
+ Running: 46
+ Waiting: 1754
+
+DijkstraRouter answered 46 queries and explored 6.00 edges on average.
+DijkstraRouter spent 0ms answering queries (0.00ms on average).

@@ -1,16 +1,19 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    LisaControlUnitPreferencesBody.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -37,28 +40,26 @@ import javafx.scene.layout.VBox;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class LisaControlUnitPreferencesBody
-{
+public class LisaControlUnitPreferencesBody {
     private final ComboBox<String> signalProgramsComboBox = new ComboBox<>();
     private final ComboBox<String> koordiniertComboBox = new ComboBox<>();
     private final ComboBox<String> ebeneComboBox = new ComboBox<>();
     private final CheckBox vaCheckbox = new CheckBox("VA");
     private final CheckBox ivCheckbox = new CheckBox("IV");
     private final CheckBox ovCheckbox = new CheckBox("ÖV");
-    
+
     private final ObservableList<String> signalPrograms = FXCollections.observableArrayList();
     private final ObservableList<String> ebeneList = FXCollections.observableArrayList();
 
     private ControlUnitInterface currentControlUnit;
     private Button applyButton;
-    
-    
+
+
     /**
-     * 
-     * @param enabled 
+     *
+     * @param enabled
      */
-    public void setEnabled(boolean enabled)
-    {
+    public void setEnabled(boolean enabled) {
         signalProgramsComboBox.setDisable(!enabled);
         koordiniertComboBox.setDisable(!enabled);
         ebeneComboBox.setDisable(!enabled);
@@ -66,45 +67,42 @@ public class LisaControlUnitPreferencesBody
         ivCheckbox.setDisable(!enabled);
         ovCheckbox.setDisable(!enabled);
     }
-    
+
     /**
-     * 
+     *
      * @param button
      */
-    public LisaControlUnitPreferencesBody(Button button)
-    {
+    public LisaControlUnitPreferencesBody(Button button) {
         this.applyButton = button;
-        
-        EventHandler ev = (EventHandler) (Event event) -> applyButton.setDisable(false);
-        
+
+        EventHandler ev = (EventHandler)(Event event) -> applyButton.setDisable(false);
+
         vaCheckbox.setOnAction(ev);
         ivCheckbox.setOnAction(ev);
         ovCheckbox.setOnAction(ev);
-        
-        koordiniertComboBox.setOnAction((ActionEvent event) ->
-        {
+
+        koordiniertComboBox.setOnAction((ActionEvent event) -> {
             applyButton.setDisable(false);
         });
-        
-        ebeneComboBox.setOnAction((ActionEvent event) ->
-        {
+
+        ebeneComboBox.setOnAction((ActionEvent event) -> {
             applyButton.setDisable(false);
         });
-        
+
         signalProgramsComboBox.getSelectionModel().selectedItemProperty()
-                .addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) ->
-        {
+        .addListener((ObservableValue<? extends String> observable, String oldValue, String newValue) -> {
             updateCheckBoxesValues();
-            enableDisableCheckBoxes();            
+            enableDisableCheckBoxes();
             applyButton.setDisable(false);
         });
-        
+
         /**
-         * 
+         *
          */
-        for (String ebeneItem : Constants.ebeneItems)
-            ebeneList.add(ebeneItem);        
-        
+        for (String ebeneItem : Constants.ebeneItems) {
+            ebeneList.add(ebeneItem);
+        }
+
         /*
         ebeneList.add("Serviceeingriff");
         ebeneList.add("Bediener, lokal");
@@ -123,34 +121,32 @@ public class LisaControlUnitPreferencesBody
     }
 
     /**
-     * 
-     * @param controlunit 
+     *
+     * @param controlunit
      */
-    public void update(ControlUnitInterface controlunit)
-    {
+    public void update(ControlUnitInterface controlunit) {
         this.currentControlUnit = controlunit;
-        
+
         updateComboBoxsValues();
         updateCheckBoxesValues();
         enableDisableCheckBoxes();
     }
-    
+
     /**
-     * 
+     *
      */
-    public void save()
-    {
+    public void save() {
         int __selectedIndex = signalProgramsComboBox.getSelectionModel().getSelectedIndex();
         currentControlUnit.setCurrentSignalProgram(__selectedIndex);
 
         currentControlUnit.setVA(vaCheckbox.isSelected());
         currentControlUnit.setIV(ivCheckbox.isSelected());
         currentControlUnit.setOV(ovCheckbox.isSelected());
-        
+
         currentControlUnit.setEbene(ebeneComboBox.getSelectionModel().selectedIndexProperty().get());
         currentControlUnit.storePersistent();
-        
-        
+
+
         StringBuilder sb = new StringBuilder();
         int selectedIndex = signalProgramsComboBox.getSelectionModel().getSelectedIndex();
         sb.append("Signal program=").append(signalProgramsComboBox.getValue()).append(" (").append(selectedIndex).append("), ");
@@ -161,67 +157,63 @@ public class LisaControlUnitPreferencesBody
         sb.append("OV=").append(ovCheckbox.isSelected());
         DLRLogger.fine(this, sb.toString());
     }
-    
+
     /**
-     * 
+     *
      */
-    private void updateComboBoxsValues()
-    {
+    private void updateComboBoxsValues() {
         /**
          * Signal programs
          */
         signalPrograms.clear();
-        
+
         //signalPrograms.add("Off");
-        for (SignalProgramInterface signalProgram : currentControlUnit.getSignalPrograms())
+        for (SignalProgramInterface signalProgram : currentControlUnit.getSignalPrograms()) {
             signalPrograms.add(signalProgram.getName());
-        
-        if(currentControlUnit.getCurrentSignalProgram() == null)
+        }
+
+        if (currentControlUnit.getCurrentSignalProgram() == null) {
             signalProgramsComboBox.setValue("Off");
-        else
+        } else {
             signalProgramsComboBox.setValue(currentControlUnit.getCurrentSignalProgram().getName());
-        
+        }
+
         /**
-         * 
+         *
          */
         ebeneComboBox.getSelectionModel().select(currentControlUnit.getEbene());
     }
 
     /**
-     * 
+     *
      */
-    private void enableDisableCheckBoxes()
-    {
-        
-        if(signalProgramsComboBox.getValue() != null && 
-                signalProgramsComboBox.getValue().equalsIgnoreCase("Off"))
-        {
+    private void enableDisableCheckBoxes() {
+
+        if (signalProgramsComboBox.getValue() != null &&
+                signalProgramsComboBox.getValue().equalsIgnoreCase("Off")) {
             this.koordiniertComboBox.setDisable(true);
             this.ebeneComboBox.setDisable(true);
             this.vaCheckbox.setDisable(true);
             this.ivCheckbox.setDisable(true);
             this.ovCheckbox.setDisable(true);
-        }
-        else
-        {
+        } else {
             this.koordiniertComboBox.setDisable(true);
             this.ebeneComboBox.setDisable(false);
-            
+
             this.vaCheckbox.setDisable(false);
             this.ivCheckbox.setDisable(false);
             this.ovCheckbox.setDisable(false);
         }
     }
-    
+
     /**
-     * 
+     *
      */
-    private void updateCheckBoxesValues()
-    {
-        
-        if(signalProgramsComboBox.getValue() != null ) 
+    private void updateCheckBoxesValues() {
+
+        if (signalProgramsComboBox.getValue() != null)
             //&& signalProgramsComboBox.getValue().equalsIgnoreCase("Off"))
-        {            
+        {
             boolean va = currentControlUnit.isVA();
             this.vaCheckbox.setSelected(va);
 
@@ -234,20 +226,19 @@ public class LisaControlUnitPreferencesBody
     }
 
     /**
-     * 
-     * @return 
+     *
+     * @return
      */
-    public Node getNode()
-    {
+    public Node getNode() {
         AnchorPane bodyAnchorPane = new AnchorPane();
         bodyAnchorPane.setStyle("-fx-background-color:white; -fx-border-color: DimGrey; -fx-border-radius: 2;");
-        
+
         signalProgramsComboBox.setItems(signalPrograms);
         AnchorPane.setTopAnchor(signalProgramsComboBox, 10.);
         AnchorPane.setLeftAnchor(signalProgramsComboBox, 5.);
         AnchorPane.setRightAnchor(signalProgramsComboBox, 5.);
-        bodyAnchorPane.getChildren().add(signalProgramsComboBox);        
-        
+        bodyAnchorPane.getChildren().add(signalProgramsComboBox);
+
         ObservableList<String> koordiniertList = FXCollections.observableArrayList("Coordinated", "Uncoordinated");
         koordiniertComboBox.setItems(koordiniertList);
         koordiniertComboBox.setPrefWidth(150.);
@@ -257,7 +248,7 @@ public class LisaControlUnitPreferencesBody
         //AnchorPane.setRightAnchor(koordiniertComboBox, 50.);
         bodyAnchorPane.getChildren().add(koordiniertComboBox);
         koordiniertComboBox.getSelectionModel().select(0);
-        
+
         ebeneComboBox.setItems(ebeneList);
         ebeneComboBox.setPrefWidth(150.);
         AnchorPane.setTopAnchor(ebeneComboBox, 43.);
@@ -265,14 +256,14 @@ public class LisaControlUnitPreferencesBody
         AnchorPane.setRightAnchor(ebeneComboBox, 5.);
         bodyAnchorPane.getChildren().add(ebeneComboBox);
         ebeneComboBox.getSelectionModel().select(0);
-        
+
         VBox vbox = new VBox(vaCheckbox, ivCheckbox, ovCheckbox);
         vbox.setSpacing(10.);
         AnchorPane.setTopAnchor(vbox, 115.);
         AnchorPane.setLeftAnchor(vbox, 20.);
         AnchorPane.setRightAnchor(vbox, 0.);
         bodyAnchorPane.getChildren().add(vbox);
-        
+
         return bodyAnchorPane;
     }
 }

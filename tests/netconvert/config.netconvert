@@ -25,6 +25,7 @@ copy_test_path:input_plain.nod.xml
 copy_test_path:input_plain.edg.xml
 copy_test_path:input_plain.con.xml
 copy_test_path:input_plain.tll.xml
+copy_test_path:input_plain.typ.xml
 copy_test_path:heightmap.tif
 copy_test_path:edge_ids.txt
 copy_test_path:data
@@ -96,3 +97,4 @@ ptlines:0.0101
 cfg:0.000000001
 plain_nodes:0.00000101
 plain_edges:0.00000101
+elmar_nodes:0.0101

@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 16.11.2018 16:23:23 by Eclipse SUMO netedit Version v1_0_0+0907-4934d005c3
+<!-- generated on 07.08.2019 09:14:32 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov162314.7248/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov162314.7248/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov162314.7248/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov162314.7248/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov162314.7248/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov162314.7248/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -43,19 +45,19 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Nov162314.7248/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/chargingstation/inspect_selection/friendlypos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <chargingStation id="chargingStationA" name="chargingStation" lane="gneE0_0" friendlyPos="1" startPos="5.00" endPos="10.00">
+    <chargingStation id="chargingStationA" lane="gneE0_0" startPos="5" endPos="10" name="chargingStation" friendlyPos="1">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </chargingStation>
-    <chargingStation id="chargingStationB" name="chargingStation" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00" lane="gneE0_0" friendlyPos="1" startPos="15.00" endPos="20.00">
+    <chargingStation id="chargingStationB" lane="gneE0_0" startPos="15" endPos="20" name="chargingStation" friendlyPos="1" power="13000.00" efficiency="0.85" chargeInTransit="1" chargeDelay="2.00">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

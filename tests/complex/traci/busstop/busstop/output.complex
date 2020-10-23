@@ -1,0 +1,36 @@
+ Retrying in 1 seconds
+busstops ('stop1', 'stop2')
+busstop count 2
+stop attributes:
+  stop=stop1 lane=WC_0 startPos=25.0 endPos=45.0 name=Paris
+  stop=stop2 lane=CE_0 startPos=35.0 endPos=65.0 name=Berlin
+time: 0.0
+  stop=stop1 vC=0 vIDs=() pC=0 pIDs=()
+  stop=stop2 vC=0 vIDs=() pC=0 pIDs=()
+time: 5.0
+  stop=stop1 vC=0 vIDs=() pC=1 pIDs=('PB.0',)
+  stop=stop2 vC=0 vIDs=() pC=1 pIDs=('BP.0',)
+time: 10.0
+  stop=stop1 vC=1 vIDs=('PBP.0',) pC=0 pIDs=()
+  stop=stop2 vC=0 vIDs=() pC=1 pIDs=('BP.0',)
+time: 15.0
+  stop=stop1 vC=1 vIDs=('PBP.0',) pC=0 pIDs=()
+  stop=stop2 vC=0 vIDs=() pC=1 pIDs=('BP.0',)
+time: 20.0
+  stop=stop1 vC=0 vIDs=() pC=0 pIDs=()
+  stop=stop2 vC=0 vIDs=() pC=2 pIDs=('BP.0', 'BP.1')
+time: 25.0
+  stop=stop1 vC=0 vIDs=() pC=1 pIDs=('PB.2',)
+  stop=stop2 vC=0 vIDs=() pC=2 pIDs=('BP.0', 'BP.1')
+time: 30.0
+  stop=stop1 vC=1 vIDs=('PBP.1',) pC=0 pIDs=()
+  stop=stop2 vC=0 vIDs=() pC=2 pIDs=('BP.0', 'BP.1')
+time: 35.0
+  stop=stop1 vC=1 vIDs=('PBP.1',) pC=0 pIDs=()
+  stop=stop2 vC=0 vIDs=() pC=3 pIDs=('BP.0', 'BP.1', 'BP.2')
+time: 40.0
+  stop=stop1 vC=0 vIDs=() pC=0 pIDs=()
+  stop=stop2 vC=0 vIDs=() pC=3 pIDs=('BP.0', 'BP.1', 'BP.2')
+time: 45.0
+  stop=stop1 vC=1 vIDs=('PBP.2',) pC=0 pIDs=()
+  stop=stop2 vC=0 vIDs=() pC=3 pIDs=('BP.0', 'BP.1', 'BP.2')

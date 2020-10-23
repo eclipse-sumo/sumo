@@ -1,0 +1,10 @@
+Reading net
+24 edges read
+Reading detectors
+Loaded 4 sources and 4 sinks from detector file. Added 0 sources and 0 sinks from the network
+Reading flows
+Calculating routes
+4 sources, 3 unlimited
+4 sinks, 3 unlimited
+Writing 900 vehicles from 2 sources between time 0 and 60 (minutes)
+  unused sources: 1_1 on7_0

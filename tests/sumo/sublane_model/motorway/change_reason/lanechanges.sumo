@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Mar 30 15:09:53 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <lanechange-output value="lanechanges.xml"/>
+        <lanechange-output.started value="true"/>
+        <lanechange-output.ended value="true"/>
+    </output>
+
+    <time>
+        <step-length value="0.5"/>
+    </time>
+
+    <processing>
+        <lateral-resolution value="3.5"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <gui_only>
+        <tracker-interval value="0.5"/>
+    </gui_only>
+
+</configuration>
+-->
+
+<lanechanges>
+    <changeStarted id="car_overtake" type="truck_overtake" time="23.00" from="gneE3_1" to="gneE3_1" dir="0" speed="16.38" pos="37.31" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None" maneuverDistance="-3.00"/>
+    <change id="car_overtake" type="truck_overtake" time="25.00" from="gneE4_1" to="gneE4_0" dir="-1" speed="16.43" pos="20.19" reason="keepRight" leaderGap="53.06" leaderSecureGap="33.99" leaderSpeed="10.87" followerGap="23.83" followerSecureGap="9.49" followerSpeed="11.11" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <changeEnded id="car_overtake" type="truck_overtake" time="26.50" from="gneE4_0" to="gneE4_0" dir="0" speed="16.63" pos="45.08" reason="keepRight|sublane" leaderGap="44.50" leaderSecureGap="35.01" leaderSpeed="10.85" followerGap="32.06" followerSecureGap="9.43" followerSpeed="11.11" origLeaderGap="44.50" origLeaderSecureGap="35.01" origLeaderSpeed="10.85" latGap="None"/>
+    <changeStarted id="car_overtake" type="truck_overtake" time="30.50" from="gneE6_0" to="gneE6_0" dir="0" speed="14.38" pos="7.59" reason="speedGain" leaderGap="25.45" leaderSecureGap="24.13" leaderSpeed="11.02" followerGap="50.32" followerSecureGap="10.12" followerSpeed="11.11" origLeaderGap="25.45" origLeaderSecureGap="24.13" origLeaderSpeed="11.02" latGap="None" maneuverDistance="3.00"/>
+    <change id="car_overtake" type="truck_overtake" time="32.50" from="gneE6_0" to="gneE6_1" dir="1" speed="12.88" pos="34.51" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="20.41" origLeaderSecureGap="17.76" origLeaderSpeed="11.11" latGap="None"/>
+    <changeEnded id="car_overtake" type="truck_overtake" time="33.50" from="gneE6_1" to="gneE6_1" dir="0" speed="12.48" pos="47.17" reason="speedGain" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <changeStarted id="car_overtake" type="truck_overtake" time="44.00" from="gneE9.34_1" to="gneE9.34_1" dir="0" speed="16.37" pos="12.69" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="None" followerSecureGap="None" followerSpeed="None" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None" maneuverDistance="-3.00"/>
+    <change id="car_overtake" type="truck_overtake" time="46.00" from="gneE9.34_1" to="gneE9.34_0" dir="-1" speed="16.38" pos="45.57" reason="keepRight" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="14.48" followerSecureGap="0.00" followerSpeed="10.97" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+    <changeEnded id="car_overtake" type="truck_overtake" time="47.50" from="gneE10_0" to="gneE10_0" dir="0" speed="16.50" pos="20.15" reason="keepRight|sublane" leaderGap="None" leaderSecureGap="None" leaderSpeed="None" followerGap="22.90" followerSecureGap="0.00" followerSpeed="10.86" origLeaderGap="None" origLeaderSecureGap="None" origLeaderSpeed="None" latGap="None"/>
+</lanechanges>

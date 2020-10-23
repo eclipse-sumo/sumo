@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NGNode.h
 /// @author  Markus Hartinger
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mar, 2003
-/// @version $Id$
 ///
 // A netgen-representation of a node
 /****************************************************************************/
-#ifndef NGNode_h
-#define NGNode_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <list>
@@ -124,12 +121,16 @@ public:
         myPosition.set(myPosition.x(), y);
     }
 
+    /// @brief mark node as fringe
+    void setFringe() {
+        myAmFringe = true;
+    }
 
     /** @brief Builds and returns this node's netbuild-representation
      *
      * The position of the node is transformed to cartesian using GeoConvHelper::x2cartesian,
      *  first. If this node is the center node of a spider net, a node of the type
-     *  NBNode::NODETYPE_NOJUNCTION is returned.
+     *  NBNode::SumoXMLNodeType::NOJUNCTION is returned.
      * Otherwise, a plain node is built and it is checked whether the options
      *  indicate building one of the tls node-types. In this case, a logic is built and
      *  stored. A ProcessError is thrown if this fails (should never happen, in fact).
@@ -199,6 +200,9 @@ private:
     /// @brief Information whether this is the center of a cpider-net
     bool myAmCenter;
 
+    /// @brief Information whether this is the center of a cpider-net
+    bool myAmFringe;
+
 };
 
 /**
@@ -206,10 +210,3 @@ private:
  * @brief A list of nodes (node pointers)
  */
 typedef std::list<NGNode*> NGNodeList;
-
-
-
-#endif
-
-/****************************************************************************/
-

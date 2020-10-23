@@ -29,6 +29,7 @@
         </xsd:sequence>
         <xsd:attribute name="begin" type="nonNegativeFloatType" use="required"/>
         <xsd:attribute name="end" type="positiveFloatType" use="required"/>
+        <xsd:attribute name="id" type="xsd:string" use="optional" />
     </xsd:complexType>
 
     <xsd:complexType name="fromEdgeType">

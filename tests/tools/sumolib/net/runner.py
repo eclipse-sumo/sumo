@@ -1,16 +1,19 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Jakob Erdmann
 # @date
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -61,3 +64,12 @@ print("laneParams",     printSorted(net.getLane("CE_0").getParams()))
 print("laneParams",     printSorted(net.getLane("CE_1").getParams()))
 print("junctionParams", printSorted(net.getNode("C").getParams()))
 print("tlsParams",      printSorted(net.getTLS("C").getPrograms()["0"].getParams()))
+
+# functions
+print("getNeighboringEdges", ' '.join(sorted([e.getID() for e, d in net.getNeighboringEdges(100, 0, 10)])))
+print("getNeighboringLanes", ' '.join(sorted([l.getID() for l, d in net.getNeighboringLanes(100, 0, 10)])))
+print("getNeighboringNodes only for incoming edges",
+      ' '.join(sorted([n.getID() for n in net.getNode("N").getNeighboringNodes(False, True)])))
+print("getNeighboringNodes only for outgoing edges",
+      ' '.join(sorted([n.getID() for n in net.getNode("S").getNeighboringNodes(True, False)])))
+print("getNeighboringNodes", ' '.join(sorted([n.getID() for n in net.getNode("C").getNeighboringNodes()])))

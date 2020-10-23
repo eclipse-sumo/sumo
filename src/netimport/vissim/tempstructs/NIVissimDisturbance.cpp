@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIVissimDisturbance.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 
@@ -148,9 +146,9 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         std::string id2 = toString<int>(e2->getID()) + "x" + toString<int>(e1->getID());
         NBNode* node1 = nc.retrieve(id1);
         NBNode* node2 = nc.retrieve(id2);
-        NBNode* node = nullptr;
-        assert(node1 == 0 || node2 == 0);
-        if (node1 == nullptr && node2 == nullptr) {
+        NBNode* splitNode = node1 == nullptr ? node2 : node1;
+        assert(node1 == nullptr || node2 == nullptr);
+        if (splitNode == nullptr) {
             refusedProhibits++;
             return false;
             /*            node = new NBNode(id1, pos.x(), pos.y(), "priority");
@@ -158,11 +156,9 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
                              "nope, NIVissimDisturbance" << endl;
                             throw 1;
                         }*/
-        } else {
-            node = node1 == nullptr ? node2 : node1;
         }
-        ec.splitAt(dc, ec.retrievePossiblySplit(toString<int>(e1->getID()), myEdge.getPosition()), node);
-        ec.splitAt(dc, ec.retrievePossiblySplit(toString<int>(e2->getID()), myDisturbance.getPosition()), node);
+        ec.splitAt(dc, ec.retrievePossiblySplit(toString<int>(e1->getID()), myEdge.getPosition()), splitNode);
+        ec.splitAt(dc, ec.retrievePossiblySplit(toString<int>(e2->getID()), myDisturbance.getPosition()), splitNode);
         // !!! in some cases, one of the edges is not being build because it's too short
         // !!! what to do in these cases?
         NBEdge* mayDriveFrom = ec.retrieve(toString<int>(e1->getID()) + "[0]");
@@ -200,18 +196,15 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         // get the begin of the prohibited connection
         std::string id_pcoe = toString<int>(pc->getFromEdgeID());
         std::string id_pcie = toString<int>(pc->getToEdgeID());
-        NBEdge* pcoe = ec.retrievePossiblySplit(id_pcoe, id_pcie, true);
-        NBEdge* pcie = ec.retrievePossiblySplit(id_pcie, id_pcoe, false);
+        NBEdge* const pcoe = ec.retrievePossiblySplit(id_pcoe, id_pcie, true);
+        NBEdge* const pcie = ec.retrievePossiblySplit(id_pcie, id_pcoe, false);
         // check whether it's ending node is the node the prohibited
         //  edge end at
         if (pcoe != nullptr && pcie != nullptr && pcoe->getToNode() == e->getToNode()) {
             // if so, simply prohibit the connections
-            NBNode* node = e->getToNode();
-            const EdgeVector& connected = e->getConnectedEdges();
-            for (EdgeVector::const_iterator i = connected.begin(); i != connected.end(); i++) {
-                node->addSortedLinkFoes(
-                    NBConnection(e, *i),
-                    NBConnection(pcoe, pcie));
+            NBNode* const toNode = e->getToNode();
+            for (NBEdge* const edge : e->getConnectedEdges()) {
+                toNode->addSortedLinkFoes(NBConnection(e, edge), NBConnection(pcoe, pcie));
             }
         } else {
             WRITE_WARNING("Would have to split edge '" + e->getID() + "' to build a prohibition");
@@ -255,18 +248,15 @@ NIVissimDisturbance::addToNode(NBNode* node, NBDistrictCont& dc,
         // get the begin of the prohibiting connection
         std::string id_bcoe = toString<int>(bc->getFromEdgeID());
         std::string id_bcie = toString<int>(bc->getToEdgeID());
-        NBEdge* bcoe = ec.retrievePossiblySplit(id_bcoe, id_bcie, true);
-        NBEdge* bcie = ec.retrievePossiblySplit(id_bcie, id_bcoe, false);
+        NBEdge* const bcoe = ec.retrievePossiblySplit(id_bcoe, id_bcie, true);
+        NBEdge* const bcie = ec.retrievePossiblySplit(id_bcie, id_bcoe, false);
         // check whether it's ending node is the node the prohibited
         //  edge end at
         if (bcoe != nullptr && bcie != nullptr && bcoe->getToNode() == e->getToNode()) {
             // if so, simply prohibit the connections
-            NBNode* node = e->getToNode();
-            const EdgeVector& connected = e->getConnectedEdges();
-            for (EdgeVector::const_iterator i = connected.begin(); i != connected.end(); i++) {
-                node->addSortedLinkFoes(
-                    NBConnection(bcoe, bcie),
-                    NBConnection(e, *i));
+            NBNode* const toNode = e->getToNode();
+            for (NBEdge* const edge : e->getConnectedEdges()) {
+                toNode->addSortedLinkFoes(NBConnection(bcoe, bcie), NBConnection(e, edge));
             }
         } else {
             WRITE_WARNING("Would have to split edge '" + e->getID() + "' to build a prohibition");
@@ -352,6 +342,4 @@ NIVissimDisturbance::reportRefused() {
 }
 
 
-
 /****************************************************************************/
-

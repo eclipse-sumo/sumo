@@ -1,29 +1,29 @@
-Parsing sumo-net from 'input_net.net.xml'... done.
+Parsing sumo-net from 'input_net.net.xml' ... done.
  Import done:
    8 nodes loaded.
    33 types loaded.
    14 edges loaded.
-Removing self-loops... done (0ms).
-Joining junction clusters... done (0ms).
+Removing self-loops ... done (0ms).
+Joining junction clusters ... done (0ms).
  Joined 1 junction cluster(s).
-Removing empty nodes... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (0ms).
-Computing edge shapes... done (0ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (1ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (0ms).
+Computing edge shapes ... done (0ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (1ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (0ms).
+Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
 -----------------------------------------------------
 Summary:
@@ -36,5 +36,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : 4379.95,90.90,4488.29,194.06
 -----------------------------------------------------
-Writing network... done (3ms).
+Writing network ... done (3ms).
 Success.

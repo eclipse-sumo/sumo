@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:48 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:55 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,12 +31,13 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
@@ -62,7 +63,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="-4_1" index="1" allow="bicycle" speed="55.56" length="13412.28" shape="17002.20,13394.80 16583.46,0.15"/>
         <lane id="-4_2" index="2" allow="bicycle" speed="55.56" length="13412.28" shape="17005.39,13394.70 16586.65,0.05"/>
     </edge>
-    <edge id="1" from="1" to="0" priority="0">
+    <edge id="1" from="1" to="0" priority="0" type="1000000000_1">
         <lane id="1_0" index="0" allow="pedestrian" speed="55.56" length="22852.39" shape="39850.37,12751.84 17018.69,13413.40"/>
         <lane id="1_1" index="1" allow="pedestrian" speed="55.56" length="22852.39" shape="39850.28,12748.64 17018.60,13410.20"/>
         <lane id="1_2" index="2" allow="pedestrian" speed="55.56" length="22852.39" shape="39850.19,12745.44 17018.50,13407.00"/>
@@ -82,24 +83,28 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 1_0 1_1 1_2 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.29,13417.04 17017.28,13416.54 17017.42,13415.71 17017.62,13415.41 17017.91,13415.19 17018.28,13415.06 17018.74,13415.00 17018.18,13395.81 17015.54,13395.72 17014.61,13395.54 17013.94,13395.27 17013.54,13394.90 17013.39,13394.45 16997.40,13394.95 16997.26,13395.79 16997.06,13396.09 16996.77,13396.30 16996.40,13396.44 16995.95,13396.50 16996.58,13415.69 16999.18,13415.77 17000.09,13415.95 17000.75,13416.22 17001.15,13416.59">
-        <request index="0"  response="000000000000000000" foes="000000000000000000"/>
-        <request index="1"  response="011111000000000000" foes="011111001100000000"/>
-        <request index="2"  response="011111000000000000" foes="011111011100000000"/>
-        <request index="3"  response="011100000011000000" foes="011100000011000000"/>
-        <request index="4"  response="010000000000000000" foes="010000000000000000"/>
-        <request index="5"  response="000001000000000000" foes="000001000000000000"/>
-        <request index="6"  response="000111000000000000" foes="000111000000001000"/>
-        <request index="7"  response="001111000000000000" foes="001111000000001000"/>
-        <request index="8"  response="011111000000000110" foes="011111000000000110"/>
-        <request index="9"  response="011111000000000110" foes="111111000000000110"/>
-        <request index="10" response="000000000000000100" foes="000000000000000100"/>
-        <request index="11" response="000000000000000000" foes="000000000000000000"/>
-        <request index="12" response="000000000000000000" foes="000000001111100110"/>
-        <request index="13" response="000000000000000000" foes="000000001111000110"/>
-        <request index="14" response="000000000000000000" foes="000000001111001110"/>
-        <request index="15" response="000000000000000000" foes="000000001110001110"/>
-        <request index="16" response="000000000000000000" foes="000000001100011110"/>
-        <request index="17" response="000000001000000000" foes="000000001000000000"/>
+        <request index="0"  response="0000000000000000000000" foes="0000000000001000000000"/>
+        <request index="1"  response="0111111100000000000000" foes="0111111101101000000000"/>
+        <request index="2"  response="0111111000000000000000" foes="0111111001101000000000"/>
+        <request index="3"  response="0111111000010110010000" foes="0111111000010110010000"/>
+        <request index="4"  response="0111111000000000000000" foes="0111111011101000001000"/>
+        <request index="5"  response="0111010000010100000000" foes="0111010000010100000000"/>
+        <request index="6"  response="0100000000000000000000" foes="0100000000000000000000"/>
+        <request index="7"  response="0000001000000000000000" foes="0000001000000000001000"/>
+        <request index="8"  response="0001111000000000000000" foes="0001111000000000101000"/>
+        <request index="9"  response="0111111000010000010111" foes="0111111000010000010111"/>
+        <request index="10" response="0011111000000000000000" foes="0011111000001000101000"/>
+        <request index="11" response="0111111000000000010110" foes="0111111000000000010110"/>
+        <request index="12" response="0111111000000000010110" foes="1111111000000000010110"/>
+        <request index="13" response="0000000000000000010000" foes="0000000000000000010000"/>
+        <request index="14" response="0000000000000000000000" foes="0000000000000000000010"/>
+        <request index="15" response="0000000000000000000000" foes="0000000001111110011110"/>
+        <request index="16" response="0001100000000000000000" foes="0001100001111100111110"/>
+        <request index="17" response="0000000000000000000000" foes="0000010001111100011110"/>
+        <request index="18" response="0000000000000000000000" foes="0000010001111100111110"/>
+        <request index="19" response="0000000000000000000000" foes="0000000001111000111110"/>
+        <request index="20" response="0000000000000000000000" foes="0000000001101001111110"/>
+        <request index="21" response="0000000001000000000000" foes="0000000001000000000000"/>
     </junction>
     <junction id="1" type="dead_end" x="39850.14" y="12743.84" incLanes="-1_0 -1_1 -1_2" intLanes="" shape="39850.14,12743.84 39849.86,12734.25 39850.14,12743.84"/>
     <junction id="2" type="priority" x="0.00" y="13967.12" incLanes="-2_0 -2_1 -2_2" intLanes="" shape="-0.00,13967.12 0.32,13976.71 -0.00,13967.12">
@@ -108,7 +113,7 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="3" type="priority" x="17417.81" y="26514.76" incLanes="-3_0 -3_1 -3_2" intLanes="" shape="17417.81,26514.76 17427.41,26514.46 17417.81,26514.76">
         <request index="0" response="0" foes="0"/>
     </junction>
-    <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.25,0.00 16578.66,0.30 16588.25,0.00">
+    <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.25,-0.00 16578.66,0.30 16588.25,-0.00">
         <request index="0" response="0" foes="0"/>
     </junction>
 
@@ -117,18 +122,22 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-4" to="4" fromLane="2" toLane="1" dir="t" state="M"/>
     <connection from="2" to="-4" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from="2" to="-1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2" to="-3" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="2" to="-1" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from="2" to="-1" fromLane="2" toLane="2" dir="s" state="M"/>
     <connection from="2" to="-3" fromLane="2" toLane="1" dir="l" state="M"/>
     <connection from="2" to="-3" fromLane="2" toLane="2" dir="l" state="M"/>
     <connection from="2" to="-2" fromLane="2" toLane="2" dir="t" state="m"/>
     <connection from="3" to="-2" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="3" to="-4" fromLane="0" toLane="0" dir="s" state="m"/>
     <connection from="3" to="-4" fromLane="0" toLane="1" dir="s" state="m"/>
+    <connection from="3" to="-1" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="3" to="-4" fromLane="1" toLane="2" dir="s" state="m"/>
     <connection from="3" to="-1" fromLane="1" toLane="2" dir="l" state="m"/>
     <connection from="3" to="-3" fromLane="1" toLane="2" dir="t" state="m"/>
     <connection from="4" to="-1" fromLane="0" toLane="0" dir="r" state="m"/>
     <connection from="4" to="-3" fromLane="0" toLane="0" dir="s" state="m"/>
+    <connection from="4" to="-2" fromLane="0" toLane="0" dir="l" state="m"/>
     <connection from="4" to="-3" fromLane="1" toLane="1" dir="s" state="m"/>
     <connection from="4" to="-2" fromLane="1" toLane="1" dir="l" state="m"/>
     <connection from="4" to="-2" fromLane="1" toLane="2" dir="l" state="m"/>

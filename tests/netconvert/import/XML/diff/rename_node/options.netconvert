@@ -1,0 +1,4 @@
+--sumo-net-file input_net.net.xml 
+-e input_plain.edg.xml
+-n input_plain.nod.xml
+-o net.net.xml 

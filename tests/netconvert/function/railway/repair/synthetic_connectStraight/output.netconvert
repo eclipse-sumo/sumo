@@ -1,55 +1,55 @@
-Parsing sumo-net from 'input_net.net.xml'... done.
+Parsing sumo-net from 'input_net.net.xml' ... done.
  Import done:
    34 nodes loaded.
    31 edges loaded.
-Removing self-loops... done (0ms).
+Removing self-loops ... done (0ms).
+Added 3 bidi-edges as extension of existing bidi edges.
 Found 1 reversible edge sequences between broken rail nodes
 Reversed 1 sequences (count by length: 2:1)
-Added 6 bidi-edges to ensure connectivity of straight tracks.
-Found 40 railway edges and 34 railway nodes (0 signals).
+Added 3 bidi-edges to ensure connectivity of straight tracks at geometry-like nodes.
+Added 9 bidi-edges to ensure connectivity of straight tracks at switches.
+Found 46 railway edges and 34 railway nodes (0 signals).
 Railway nodes by number of incoming,outgoing edges:
-   0,1 count: 7 broken: 0
+   0,1 count: 5 broken: 0
    1,0 count: 2 broken: 0
    1,1 count: 15 broken: 0
-   2,1 count: 1 broken: 1
-   2,2 count: 6 broken: 0
-   3,0 count: 1 broken: 1
-   3,2 count: 1 broken: 0
-   3,3 count: 1 broken: 0
-Found 2 broken railway nodes (A=0 B=2 C=1 D=0)
+   2,2 count: 7 broken: 0
+   3,2 count: 3 broken: 0
+   3,3 count: 2 broken: 0
+Found 0 broken railway nodes (A=0 B=0 C=0 D=0)
 Found 0 railway nodes marked as buffer_stop
-Found 10 bidirectional rail edges
-Removing empty nodes... done (0ms).
+Found 16 bidirectional rail edges
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (1ms).
-Computing node shapes... done (1ms).
-Computing edge shapes... done (0ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (1ms).
+Computing edge shapes ... done (0ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (0ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (0ms).
+Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges... done (1ms).
+Building inner edges ... done (1ms).
 -----------------------------------------------------
 Summary:
  Node type statistics:
   Unregulated junctions       : 0
-  Dead-end junctions          : 18
-  Priority junctions          : 16
+  Dead-end junctions          : 17
+  Priority junctions          : 17
   Right-before-left junctions : 0
  Network boundaries:
   Original boundary  : -141.99,-267.85,409.02,87.76
   Applied offset     : 0.00,0.00
   Converted boundary : -141.99,-267.85,409.02,87.76
 -----------------------------------------------------
-Writing network... done (16ms).
+Writing network ... done (5ms).
 Success.

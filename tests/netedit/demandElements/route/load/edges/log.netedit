@@ -1,0 +1,7 @@
+Warning: Essential list of unique strings attribute 'edges' of route with ID 'route_0' is missing; route cannot be created
+Error: A route needs at least one edge.
+Warning: Format of essential list of unique strings attribute 'edges' of route with ID 'route_1' is invalid; List of edges cannot be empty; route cannot be created
+Error: A route needs at least one edge.
+Warning: Error parsing parameter edges. edge 'dummy1' doesn't exist
+Error: A route needs at least one edge.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.17Jul132511.10316/netedit.gui/demandElements/route/load/edges\input_routes.rou.xml failed.

@@ -1,0 +1,6 @@
+--net-file=input_net.net.xml --route-files=input_trips.trips.xml
+--additional-files input_additional.add.xml -o routes.rou.xml 
+--write-trips
+--write-trips.junctions
+--mapmatch.junctions
+--junction-taz

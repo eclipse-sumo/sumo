@@ -1,0 +1,15 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+
+	<!-- non valid file (missing) -->
+	<routeProbe id="routeProbe_0" edge="gneE1" freq="100.00" begin="0.00"/>
+	
+	<!-- non valid file (invalid) -->
+	<routeProbe id="routeProbe_1" edge="gneE1" freq="100.00" file="%==%%$$" begin="0.00"/>
+	
+	<!-- valid file (empty) -->
+	<routeProbe id="routeProbe_2" edge="gneE1" freq="100.00" file="" begin="0.00"/>
+	
+	<!-- valid file -->
+	<routeProbe id="routeProbe_3" edge="gneE1" freq="100.00" file="fileA.txt" begin="0.00"/>
+
+</additional>

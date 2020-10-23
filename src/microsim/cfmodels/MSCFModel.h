@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel.h
 /// @author  Tobias Mayer
@@ -13,16 +17,10 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Mon, 27 Jul 2009
-/// @version $Id$
 ///
 // The car-following model abstraction
 /****************************************************************************/
-#ifndef MSCFModel_h
-#define MSCFModel_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <cmath>
@@ -133,7 +131,7 @@ public:
      * @param[in] predSpeed The speed of LEADER
      * @return EGO's safe speed
      */
-    virtual double insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel) const;
+    virtual double insertionFollowSpeed(const MSVehicle* const veh, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
 
 
     /** @brief Computes the vehicle's safe speed for approaching a non-moving obstacle (no dawdling)
@@ -276,7 +274,7 @@ public:
      *  speed may depend on the vehicle's current speed (given).
      *
      * @param[in] speed The vehicle's current speed
-     * @param[in] speed The vehicle itself, for obtaining other values
+     * @param[in] veh The vehicle itself, for obtaining other values
      * @return The maximum possible speed for the next step
      */
     virtual double maxNextSpeed(double speed, const MSVehicle* const veh) const;
@@ -321,11 +319,13 @@ public:
     static double freeSpeed(const double currentSpeed, const double decel, const double dist, const double maxSpeed, const bool onInsertion, const double actionStepLength);
 
     /** @brief Returns the minimum gap to reserve if the leader is braking at maximum (>=0)
-      * @param[in] speed EGO's speed
-      * @param[in] leaderSpeed LEADER's speed
-      * @param[in] leaderMaxDecel LEADER's max. deceleration rate
-      */
-    inline virtual double getSecureGap(const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
+     * @param[in] veh The vehicle itself, for obtaining other values
+     * @param[in] pred The leader vehicle, for obtaining other values
+     * @param[in] speed EGO's speed
+     * @param[in] leaderSpeed LEADER's speed
+     * @param[in] leaderMaxDecel LEADER's max. deceleration rate
+     */
+    inline virtual double getSecureGap(const MSVehicle* const /*veh*/, const MSVehicle* const /*pred*/, const double speed, const double leaderSpeed, const double leaderMaxDecel) const {
         // The solution approach leaderBrakeGap >= followerBrakeGap is not
         // secure when the follower can brake harder than the leader because the paths may still cross.
         // As a workaround we use a value of leaderDecel which errs on the side of caution
@@ -382,7 +382,7 @@ public:
      * @param[in] speed - the current speed
      * @return Returns the acceleration which would ensure an arrival at distance dist earliest for the given time
      */
-    static double avoidArrivalAccel(double dist, double time, double speed);
+    static double avoidArrivalAccel(double dist, double time, double speed, double maxDecel);
 
 
     /** @brief Computes the minimal possible arrival speed after covering a given distance
@@ -562,6 +562,32 @@ public:
      */
     double maximumSafeStopSpeedBallistic(double gap, double currentSpeed, bool onInsertion = false, double headway = -1) const;
 
+    /**
+     * @brief try to get the given parameter for this carFollowingModel
+     *
+     * @param[in] veh the vehicle from which the parameter must be retrieved
+     * @param[in] key the key of the parameter
+     * @return the value of the requested parameter
+     */
+    virtual std::string getParameter(const MSVehicle* veh, const std::string& key) const {
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(key);
+        return "";
+    }
+
+    /**
+     * @brief try to set the given parameter for this carFollowingModel
+     *
+     * @param[in] veh the vehicle for which the parameter must be set
+     * @param[in] key the key of the parameter
+     * @param[in] value the value to be set for the given parameter
+     */
+    virtual void setParameter(MSVehicle* veh, const std::string& key, const std::string& value) const {
+        UNUSED_PARAMETER(veh);
+        UNUSED_PARAMETER(key);
+        UNUSED_PARAMETER(value);
+    }
+
 protected:
 
     /** @brief Overwrites gap2pred and predSpeed by the perceived values obtained from the vehicle's driver state,
@@ -606,5 +632,4 @@ protected:
 };
 
 
-#endif /* MSCFModel_h */
 

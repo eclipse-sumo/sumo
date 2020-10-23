@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2012-10-19
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -24,8 +27,6 @@ SUMO_HOME = os.path.join(os.path.dirname(__file__), "..", "..", "..", "..")
 sys.path.append(os.path.join(os.environ.get("SUMO_HOME", SUMO_HOME), "tools"))
 import sumolib  # noqa
 import traci  # noqa
-
-sumoCall = [sumolib.checkBinary(sys.argv[1]), '-S', '-Q']
 
 
 def dist2(v, w):
@@ -48,18 +49,18 @@ def runSingle(traciEndTime, viewRange, module, objID):
     seen1 = 0
     seen2 = 0
     step = 0
-    traci.start(sumoCall + ["-c", "sumo.sumocfg"])
+    traci.start([sumolib.checkBinary(sys.argv[1]), '-Q', "-c", "sumo.sumocfg"])
     traci.poi.add("poi", 400, 500, (1, 0, 0, 0))
-    traci.polygon.add(
-        "poly", ((400, 400), (450, 400), (450, 400)), (1, 0, 0, 0))
+    traci.polygon.add("poly", ((400, 400), (450, 400), (450, 400)), (1, 0, 0, 0))
     subscribed = False
     while not step > traciEndTime:
+        # print(step)
         responses = traci.simulationStep()
         near1 = set()
         if objID in module.getAllContextSubscriptionResults():
             for v in module.getContextSubscriptionResults(objID):
-                # print(objID, "context:", v)
                 near1.add(v)
+            # print(objID, "context:", sorted(near1))
         vehs = traci.vehicle.getIDList()
         persons = traci.person.getIDList()
         pos = {}
@@ -90,29 +91,29 @@ def runSingle(traciEndTime, viewRange, module, objID):
                     lastP = p
 
         if not subscribed:
-            module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange, [
-                                    traci.constants.VAR_POSITION])
-            module.subscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange, [
-                                    traci.constants.VAR_POSITION])
+            module.subscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange,
+                                    [traci.constants.VAR_POSITION])
+            module.subscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange,
+                                    [traci.constants.VAR_POSITION])
             subscribed = True
         else:
             seen1 += len(near1)
             seen2 += len(near2)
             for v in near1:
                 if v not in near2:
-                    print(
-                        "timestep %s: %s is missing in surrounding objects" % (step, v))
+                    print("timestep %s: %s is missing in surrounding objects" % (step, v))
             for v in near2:
                 if v not in near1:
-                    print(
-                        "timestep %s: %s is missing in subscription results" % (step, v))
+                    print("timestep %s: %s is missing in subscription results" % (step, v))
 
         step += 1
-    module.unsubscribeContext(
-        objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
+    module.unsubscribeContext(objID, traci.constants.CMD_GET_VEHICLE_VARIABLE, viewRange)
+    responses = traci.simulationStep()
+    print([r[0] for r in responses])  # person subscription should still be active
+    module.unsubscribeContext(objID, traci.constants.CMD_GET_PERSON_VARIABLE, viewRange)
     responses = traci.simulationStep()
     if responses:
-        print("Error: Unsubscribe did not work")
+        print("Error: Unsubscribe did not work", responses)
     else:
         print("Ok: Unsubscribe successful")
     print("Print ended at step %s" % traci.simulation.getTime())

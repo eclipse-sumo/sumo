@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:52 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:59 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -26,22 +26,21 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
-    <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="15" type="highway.secondary|railway.tram" numLanes="3" speed="27.78">
+<edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-10860201" from="2" to="1" name="Sterndamm" priority="17" type="highway.secondary|railway.tram" numLanes="2" speed="27.78">
         <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="rail_urban rail rail_electric pedestrian ship"/>
-        <lane index="2" disallow="rail_urban rail rail_electric pedestrian ship"/>
+        <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
     </edge>
-    <edge id="10860201" from="1" to="2" name="Sterndamm" priority="15" type="highway.secondary|railway.tram" numLanes="3" speed="27.78">
+    <edge id="10860201" from="1" to="2" name="Sterndamm" priority="17" type="highway.secondary|railway.tram" numLanes="2" speed="27.78">
         <lane index="0" allow="pedestrian" width="2.00"/>
-        <lane index="1" disallow="rail_urban rail rail_electric pedestrian ship"/>
-        <lane index="2" disallow="rail_urban rail rail_electric pedestrian ship"/>
+        <lane index="1" disallow="pedestrian rail_urban rail rail_electric rail_fast ship"/>
     </edge>
-    <edge id="10860202" from="2" to="3" name="Sterndamm" priority="15" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram"/>
-    <edge id="10860203" from="2" to="4" name="Sterndamm" priority="15" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram"/>
+    <edge id="10860202" from="2" to="3" name="Sterndamm" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram"/>
+    <edge id="10860203" from="2" to="4" name="Sterndamm" priority="17" type="railway.tram" numLanes="1" speed="13.89" spreadType="center" allow="tram"/>
 </edges>

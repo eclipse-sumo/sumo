@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Aug 18 14:57:06 2020 by Eclipse SUMO sumo Version v1_6_0+1635-d2a08049da
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <fcd-output value="fcd.xml"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+        <lanechange-output value="lanechanges.xml"/>
+        <stop-output value="stopinfoss.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="vehicle_0" depart="0.00" departLane="SC_0" departPos="20.10" departSpeed="0.00" departDelay="0.00" arrival="24.00" arrivalLane="CW_1" arrivalPos="91.95" arrivalSpeed="12.70" duration="24.00" routeLength="179.44" waitingTime="1.00" waitingCount="1" stopTime="1.00" timeLoss="9.63" rerouteNo="0" devices="vehroute_vehicle_0 tripinfo_vehicle_0 fcd_vehicle_0" vType="longCar" speedFactor="1.00" vaporized=""/>
+</tripinfos>

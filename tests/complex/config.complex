@@ -11,20 +11,24 @@ copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_net2.net.xml
+copy_test_path:input_net3.net.xml
+copy_test_path:input_net4.net.xml
 copy_test_path:input_additional.add.xml
 copy_test_path:input_additional2.add.xml
+copy_test_path:input_additional4.add.xml
 copy_test_path:input_definitionA.def.xml
 copy_test_path:input_definitionB.def.xml
 copy_test_path:input_flows.flows.xml
 copy_test_path:input_turns.turns.xml
 copy_test_path:input_types.typ.xml
 copy_test_path:input_types2.typ.xml
+copy_test_path:input_state.xml
 copy_test_path:settings.xml
 copy_test_path:sumo.sumocfg
 copy_test_path:sumo_log.sumocfg
 copy_test_path:save_state.sumocfg
 copy_test_path:osm.xml
-copy_test_path:data
+copy_test_path_merge:data
 copy_test_path:classes.txt
 copy_test_path:nefz.csv
 copy_test_path:ARTEMIS_motorway_130_Gear3.csv
@@ -33,6 +37,7 @@ copy_test_path:ARTEMIS_road_Gear3.csv
 copy_test_path:ARTEMIS_urban_Gear3.csv
 copy_test_path:cadc_full.csv
 copy_test_path:runner.py
+copy_test_path:runnerlib.py
 copy_test_path:classes.txt
 copy_test_path:nefz.csv
 copy_test_path:input_additional_template.add.xml
@@ -41,12 +46,14 @@ copy_test_path:simpla.cfg.xml
 copy_test_path:vtype.map
 copy_test_path:vtype2.map
 copy_test_path:vtype3.map
+copy_test_path:img.jpeg
 test_data_ignore:.svn
 
 [collate_file]
 vehroutes:vehroutes.xml
 vehroutes2:vehroutes2.xml
 state:state.xml
+state2:state2.xml
 tripinfo:tripinfo.xml
 net:net.net.xml
 vss:vss.xml
@@ -60,6 +67,9 @@ cadytslog:cadySumo-log.txt
 png:out.png
 png2:out2.png
 detector:detector.xml
+tocs:tocs.xml
+stops:stops.xml
+ssm:ssm.xml
 
 [run_dependent_text]
 output:<!--{[->]}-->
@@ -67,6 +77,7 @@ output:^Performance:{->}^Vehicles:
 output:uncheck:
 output:@@[^@]*@@
 output:data\\{REPLACE data/}
+output:.\\webservice{REPLACE ./webservice}
 output:Could not connect to TraCI server
 output:Retrying in
 output:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
@@ -76,18 +87,30 @@ output:Parsing connections from .*{REPLACE Parsing connections from (FILE)}
 output:Loading vehicle type mappings from file.*{REPLACE Loading vehicle type mappings from file '<vtype.map>'...}
 output:Simulation.*started with{REPLACE Simulation started with}
 output:([0-9]* ms){REPLACE (TIME)}
+output:version .*SUMO .*{REPLACE version SUMO}
+log:Simulation.*started with{REPLACE Simulation started with}
 log:Starting server on port [0-9]*{REPLACE Starting server on port <PORT>}
+log:^Performance:{->}^Vehicles:
+log:traci.start(.*){REPLACE traci.start(ARGS)}
+log:traci.simulation.step(.*){REPLACE traci.simulationStep()}
+log:traci.simulation.getVersion()
+log:traci.close()
 net:<!--{[->]}-->
 vehroutes:<!--{[->]}-->
 vehroutes2:<!--{[->]}-->
 tripinfo:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
+stops:<!--{[->]}-->
+ssm:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
 tls_state:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 detector:<!--{[->]}-->
+toc:<!--{[->]}-->
+toc2:<!--{[->]}-->
+tocs:<!--{[->]}-->
 errors:Die Adresse wird bereits verwendet{REPLACE Address already in use}
 errors:Leaked object at 
 errors:*** 9 leaks found
@@ -99,6 +122,11 @@ errors:Could not find connection between
 errors:.*UserWarning: {REPLACE UserWarning: }
 errors:^Ran ([0-9]+) tests in ([0-9\.]*)s{REPLACE Ran \1 tests in <ELAPSED>s}
 errors:Traceback (most recent call last):{->}FatalTraCIError
+errors:data\\{REPLACE data/}
+errors:javax.xml.soap.FactoryFinder find
+errors:Warning: State was written with sumo version
+errors:Warning: Overhead wire solver (Eigen) not compiled in, expect errors in overhead wire simulation
+errors:Error: Overhead wire solver is on, but the Eigen library has not been compiled in!
 ps:%%CreationDate
 
 [unordered_text]
@@ -107,6 +135,7 @@ output:^Reason: TraCI requested termination.
 output:[0-9] vehicle subscription results:
 output:[0-9] simulation subscription results:
 output:Process [0-9]:
+output:Starting process
 output:[0-9] stepping \(step 
 output:^Starting process [0-9] with steplength
 errors:^This will probably

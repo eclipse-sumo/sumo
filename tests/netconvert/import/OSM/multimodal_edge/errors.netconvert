@@ -2,5 +2,5 @@ Warning: Discarding unknown compound 'railway.platform' in type 'railway.platfor
 Warning: Discarding unknown compound 'railway.abandoned' in type 'railway.abandoned|railway.platform' (first occurence for edge '10860204').
 Warning: Discarding unknown compound 'railway.platform' in type 'railway.abandoned|railway.platform' (first occurence for edge '10860204').
 Warning: Discarding unusable type 'railway.abandoned|railway.platform' (first occurence for edge '10860204').
-Warning: Speed of straight connection '10860201_1->10860202_0' reduced by 10.36 due to turning radius of 19.96 (length=4.85 angle=29.51)
-Warning: Speed of straight connection '10860201_1->10860203_0' reduced by 10.35 due to turning radius of 20.00 (length=4.85 angle=29.47)
+Warning: Speed of straight connection '10860201_1->10860202_0' reduced by 10.36 due to turning radius of 19.96 (length=4.85, angle=29.51).
+Warning: Speed of straight connection '10860201_1->10860203_0' reduced by 10.35 due to turning radius of 20.00 (length=4.85, angle=29.47).

@@ -1,14 +1,18 @@
- Retrying in 1 seconds
-time step 1000
+time 1.0
 ToC device infos for vehicle 'ToC_veh'
 Static parameters:
   holder = ToC_veh
   manualType = manual
   automatedType = automated
-  responseTime = 5.00
+  responseTime = -1.00
   recoveryRate = 0.10
   initialAwareness = 0.50
   mrmDecel = 1.50
+  lcAbstinence = 0.00
+  dynamicToCThreshold = 0.00
+  dynamicMRMProbability = 0.05
+  mrmKeepRight = 0
+  maxPreparationAccel = 0.00
 Dynamic parameters:
   currentAwareness = 1.00
   currentSpeed = 0.0

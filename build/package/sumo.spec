@@ -2,7 +2,7 @@
 # spec file for package sumo
 #
 # Copyright (c) 2018 SUSE LINUX GmbH, Nuernberg, Germany.
-# Copyright (c) 2001-2018 DLR (http://www.dlr.de/) and contributors
+# Copyright (c) 2001-2020 DLR (http://www.dlr.de/) and contributors
 #
 # All modifications and additions to the file contributed by third parties
 # remain the property of their copyright owners, unless otherwise agreed
@@ -20,28 +20,36 @@
 Name:           sumo
 Version:        git
 Release:        0
+# The Epoch line makes sure the nightly build is always considered newer than a release build.
+# It should be removed for release builds.
 Epoch:          2
 Summary:        Eclipse Simulation of Urban Mobility - A Microscopic Traffic Simulation
 License:        EPL-2.0
 Group:          Productivity/Scientific/Other
-URL:            http://sumo.dlr.de/
-Source0:        sumo-src-%{version}.tar.gz
-Source1:        sumo-doc-%{version}.zip
-Source2:        %{name}.xml
+URL:            https://sumo.dlr.de/
+Source0:        https://sumo.dlr.de/daily/sumo-all-%{version}.tar.gz
 BuildRequires:  gcc-c++
+%if 0%{?centos_version}
+BuildRequires:  cmake3
+%else
+BuildRequires:  cmake
+%endif
+BuildRequires:  python3
+BuildRequires:  python3-setuptools
+BuildRequires:  python3-devel
+BuildRequires:  swig
+%if 0%{?suse_version}
+BuildRequires:  python-xml
+%endif
 BuildRequires:  help2man
 BuildRequires:  pkgconfig
 BuildRequires:  unzip
 BuildRequires:  pkgconfig(fox)
 BuildRequires:  pkgconfig(x11)
 BuildRequires:  pkgconfig(xerces-c)
-%if 0%{?fedora_version} || 0%{?suse_version}
 BuildRequires:  fdupes
 BuildRequires:  pkgconfig(gdal)
-%endif
-%if 0%{?fedora_version} || 0%{?centos_version} || 0%{?scientificlinux_version} || 0%{?suse_version}
 BuildRequires:  pkgconfig(proj)
-%endif
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version} || 0%{?scientificlinux_version}
 BuildRequires:  libGLU-devel
 BuildRequires:  libjpeg-devel
@@ -59,28 +67,54 @@ BuildRequires:  pkgconfig(xrandr)
 highly portable, microscopic traffic simulation package
 designed to handle large road networks.
 
+%package -n libsumocpp
+Summary:        Eclipse SUMO - Microscopic Traffic Simulation Library
+Group:          Development/Libraries/C and C++
+
+%description -n libsumocpp
+libsumocpp provides the C++-API for adding traffic simulation
+functionality to your own application.
+
+%package -n python3-libsumo
+Summary:        libsumo Python3 module
+Requires:       %{name} = %{version}-%{release}
+Provides:       python3-%{name} = %{version}
+Obsoletes:      python3-%{name} < %{version}
+
+%description -n python3-libsumo
+The libsumo python module provides support to connect to and remote control a running sumo simulation.
+
+%if 0%{?fedora_version} || 0%{?centos_version}
+%global debug_package %{nil}
+%endif
+
 %prep
 %setup -q
-unzip -o %{SOURCE1} -d ..
-mv docs/tutorial docs/examples
 # Use real shebang
-%if 0%{?fedora_version} > 28
-find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python2,'
+%if 0%{?fedora_version} > 28 || 0%{?centos_version} >= 800
+find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python3,'
 %else
 find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python$,#!%{_bindir}/python,'
 %endif
+find . -name "*.py" -o -name "*.pyw" | xargs sed -i 's,^#!%{_bindir}/env python3$,#!%{_bindir}/python3,'
 
 %build
-%configure
+mkdir cmake-build
+cd cmake-build
+%if 0%{?centos_version}
+cmake3 -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+%else
+cmake -DCMAKE_INSTALL_PREFIX:PATH=/usr -DPYTHON_EXECUTABLE=/usr/bin/python3 ..
+%endif
 make %{?_smp_mflags}
 make %{?_smp_mflags} man
 
+
 %install
+cd cmake-build
 %make_install
-mkdir -p %{buildroot}%{_datadir}/sumo
-cp -a tools data %{buildroot}%{_datadir}/sumo
-mkdir -p %{buildroot}%{_bindir}
-ln -s %{_bindir} %{buildroot}%{_datadir}/sumo/bin
+cd ..
+rm -rf %{buildroot}%{_datadir}/sumo/tools/libsumo 
 ln -s %{_datadir}/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
 ln -s %{_datadir}/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard.py
 ln -s %{_datadir}/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
@@ -94,22 +128,52 @@ install -p -m 644 build/package/%{name}.desktop %{buildroot}%{_datadir}/applicat
 install -d -m 755 %{buildroot}%{_datadir}/pixmaps
 install -p -m 644 build/package/%{name}.png %{buildroot}%{_datadir}/pixmaps
 %if 0%{?suse_version}
-install -Dm644 %{SOURCE2} %{buildroot}%{_datadir}/mime/application/%{name}.xml
-%fdupes -s docs
-%fdupes %{buildroot}
+install -d -m 755 %{buildroot}%{_datadir}/mime/application
+install -p -m 644 build/package/%{name}.xml %{buildroot}%{_datadir}/mime/application/%{name}.xml
 %endif
+%fdupes %{buildroot}%{_datadir}
+
+%check
+cd cmake-build
+#make %{?_smp_mflags} test
+
+%post -n libsumocpp -p /sbin/ldconfig
+%postun -n libsumocpp -p /sbin/ldconfig
 
 %files
 %defattr(-,root,root)
 %{_bindir}/*
 %{_datadir}/sumo
-%doc AUTHORS LICENSE README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples
+%doc AUTHORS README.md ChangeLog CONTRIBUTING.md NOTICE.md docs/pydoc docs/userdoc docs/examples docs/tutorial
+%if 0%{?suse_version} < 1500
+%doc LICENSE
+%else
+%license LICENSE
+%endif
 %{_mandir}/man1/*
-%{_sysconfdir}/profile.d/%{name}.*sh
+%config %{_sysconfdir}/profile.d/%{name}.*sh
 %{_datadir}/applications/%{name}.desktop
 %{_datadir}/pixmaps/%{name}.png
 %if 0%{?suse_version}
 %{_datadir}/mime/application
 %endif
+
+%files -n libsumocpp
+%if 0%{?suse_version} < 1500
+%doc LICENSE
+%else
+%license LICENSE
+%endif
+%{_libdir}/libsumocpp.so
+
+%files -n python3-libsumo
+%if 0%{?suse_version} < 1500
+%doc LICENSE
+%else
+%license LICENSE
+%endif
+%{python3_sitelib}/sumolib*/
+%{python3_sitelib}/traci*/
+%{python3_sitearch}/libsumo*/
 
 %changelog

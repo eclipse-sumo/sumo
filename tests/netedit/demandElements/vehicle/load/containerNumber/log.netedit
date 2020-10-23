@@ -1,0 +1,8 @@
+Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_0' is not of type int.
+Error: containerNumber cannot be negative
+Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_1' is empty.
+Error: containerNumber cannot be negative
+Error: containerNumber cannot be negative
+Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_4' is not of type int.
+Error: containerNumber cannot be negative
+Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.10Dec094007.5676\netedit.gui\demandElements\vehicle\load\containerNumber\input_routes.rou.xml failed.

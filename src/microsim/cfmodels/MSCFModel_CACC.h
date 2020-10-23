@@ -1,16 +1,19 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSCFModel_CACC.h
 /// @author  Kallirroi Porfyri
 /// @date    Nov 2018
-/// @version $Id$
 ///
 // CACC car-following model based on [1], [2].
 // [1] Milanes, V., and S. E. Shladover. Handling Cut-In Vehicles in Strings
@@ -21,12 +24,7 @@
 //     Control Vehicles. Transportation Research Record: Journal of the
 //     Transportation Research Board, No. 2623, 2017. (DOI: 10.3141/2623-01).
 /****************************************************************************/
-#ifndef MSCFModel_CACC_H
-#define MSCFModel_CACC_H
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "MSCFModel.h"
@@ -61,6 +59,22 @@ public:
     /// @name Implementations of the MSCFModel interface
     /// @{
 
+    /** @brief Computes the vehicle's safe speed without a leader
+     *
+     * Returns the velocity of the vehicle in dependence to the length of the free street and the target
+     *  velocity at the end of the free range. If onInsertion is true, the vehicle may still brake
+     *  before the next movement.
+     * XXX: Currently only needed to (re-)set "caccVehicleMode" parameter to default value.
+     *
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] seen The look ahead distance
+     * @param[in] maxSpeed The maximum allowed speed
+     * @param[in] onInsertion whether speed at insertion is asked for
+     * @return EGO's safe speed
+     */
+    double freeSpeed(const MSVehicle* const veh, double speed, double seen, double maxSpeed, const bool onInsertion = false) const;
+
     /** @brief Computes the vehicle's safe speed (no dawdling)
     * @param[in] veh The vehicle (EGO)
     * @param[in] speed The vehicle's speed
@@ -82,6 +96,25 @@ public:
     double stopSpeed(const MSVehicle* const veh, const double speed, double gap2pred) const;
 
 
+    /** @brief Returns the a gap such that the gap mode acceleration of the follower is zero
+     * @param[in] veh The vehicle itself, for obtaining other values
+     * @param[in] pred The leader vehicle, for obtaining other values
+     * @param[in] speed EGO's speed
+     * @param[in] leaderSpeed LEADER's speed
+     * @param[in] leaderMaxDecel LEADER's max. deceleration rate
+     */
+    double getSecureGap(const MSVehicle* const veh, const MSVehicle* const pred, const double speed, const double leaderSpeed, const double leaderMaxDecel) const;
+
+    /** @brief Computes the vehicle's acceptable speed at insertion
+     * @param[in] veh The vehicle (EGO)
+     * @param[in] speed The vehicle's speed
+     * @param[in] gap2pred The (netto) distance to the LEADER
+     * @param[in] predSpeed The speed of LEADER
+     * @return EGO's safe speed
+     */
+    double insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred = 0) const;
+
+
     /** @brief Returns the maximum gap at which an interaction between both vehicles occurs
     *
     * "interaction" means that the LEADER influences EGO's speed.
@@ -92,6 +125,26 @@ public:
     * @see MSCFModel::interactionGap
     */
     double interactionGap(const MSVehicle* const, double vL) const;
+
+
+    /**
+     * @brief try to get the given parameter for this carFollowingModel
+     *
+     * @param[in] veh the vehicle from which the parameter must be retrieved
+     * @param[in] key the key of the parameter
+     * @return the value of the requested parameter
+     */
+    virtual std::string getParameter(const MSVehicle* veh, const std::string& key) const;
+
+
+    /**
+     * @brief try to set the given parameter for this carFollowingModel
+     *
+     * @param[in] veh the vehicle for which the parameter must be set
+     * @param[in] key the key of the parameter
+     * @param[in] value the value to be set for the given parameter
+     */
+    virtual void setParameter(MSVehicle* veh, const std::string& key, const std::string& value) const;
 
 
     /** @brief Returns the model's name
@@ -114,28 +167,52 @@ public:
     virtual MSCFModel::VehicleVariables* createVehicleVariables() const {
         CACCVehicleVariables* ret = new CACCVehicleVariables();
         ret->CACC_ControlMode = 0;
+        ret->CACC_CommunicationsOverrideMode = CACC_NO_OVERRIDE;
         ret->lastUpdateTime = 0;
         return ret;
     }
 
 
 private:
+    enum CommunicationsOverrideMode {
+        CACC_NO_OVERRIDE = 0,
+        CACC_MODE_NO_LEADER = 1,
+        CACC_MODE_LEADER_NO_CAV = 2,
+        CACC_MODE_LEADER_CAV = 3
+    };
+
+    static std::map<std::string, CommunicationsOverrideMode> CommunicationsOverrideModeMap;
+
+    /// @brief Vehicle mode (default is CACC)
+    /// Switch to ACC mode if CACC_ControlMode = 1 (gap control mode) _and_ leader's CFModel != CACC
+    enum VehicleMode {
+        CC_MODE = 0,
+        ACC_MODE,
+        CACC_GAP_MODE,
+        CACC_GAP_CLOSING_MODE,
+        CACC_COLLISION_AVOIDANCE_MODE
+    };
+
+    /// @brief Vehicle mode name map
+    static std::map<VehicleMode, std::string> VehicleModeNames;
+
     class CACCVehicleVariables : public MSCFModel::VehicleVariables {
     public:
-        CACCVehicleVariables() : CACC_ControlMode(0) {}
+        CACCVehicleVariables() : CACC_ControlMode(0), CACC_CommunicationsOverrideMode(CACC_NO_OVERRIDE) {}
         /// @brief The vehicle's CACC  precious time step gap error
         int    CACC_ControlMode;
+        CommunicationsOverrideMode CACC_CommunicationsOverrideMode;
         SUMOTime lastUpdateTime;
     };
 
-
 private:
-    double _v(const MSVehicle* const veh, const double gap2pred, const double mySpeed,
+    double _v(const MSVehicle* const veh, const MSVehicle* const pred, const double gap2pred, const double mySpeed,
               const double predSpeed, const double desSpeed, const bool respectMinGap = true) const;
 
-    double speedSpeedContol(const double speed, double vErr) const;
+    double speedSpeedControl(const double speed, double vErr, VehicleMode& vehMode) const;
     double speedGapControl(const MSVehicle* const veh, const double gap2pred,
-                           const double speed, const double predSpeed, const double desSpeed, double vErr) const;
+                           const double speed, const double predSpeed, const double desSpeed, double vErr,
+                           const MSVehicle* const pred, VehicleMode& vehMode) const;
 
 private:
     MSCFModel_ACC acc_CFM;
@@ -146,10 +223,10 @@ private:
     double myGapControlGainGapDot;
     double myCollisionAvoidanceGainGap;
     double myCollisionAvoidanceGainGapDot;
+    double myHeadwayTimeACC;
 
 private:
     /// @brief Invalidated assignment operator
     MSCFModel_CACC& operator=(const MSCFModel_CACC& s);
 };
 
-#endif /* MSCFModel_CACC_H */

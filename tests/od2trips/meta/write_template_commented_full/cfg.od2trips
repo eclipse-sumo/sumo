@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Aug 15 14:29:15 2018 by Eclipse SUMO od2trips Version 7cc56db
+<!-- generated on Mon Sep  7 12:51:22 2020 by Eclipse SUMO od2trips Version v1_6_0+2011-142405e97b
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/od2tripsConfiguration.xsd">
@@ -48,7 +48,7 @@
         <!-- Defines the number of digits after the comma for lon,lat output -->
         <precision.geo value="6" type="INT"/>
 
-        <!-- Write time values as hour:minute:second or day:hour:minute:second rathern than seconds -->
+        <!-- Write time values as hour:minute:second or day:hour:minute:second rather than seconds -->
         <human-readable-time value="false" synonymes="H" type="BOOL"/>
 
         <!-- Writes trip definitions into FILE -->
@@ -65,6 +65,9 @@
 
         <!-- Writes persontrips instead of vehicles -->
         <persontrips value="false" type="BOOL"/>
+
+        <!-- Add modes attribute to personTrips -->
+        <persontrips.modes value="" type="STR[]"/>
 
         <!-- Does not save vtype information -->
         <ignore-vehicle-type value="false" synonymes="no-vtype" type="BOOL"/>
@@ -96,8 +99,8 @@
         <!-- Defines the prefix for vehicle names -->
         <prefix value="" type="STR"/>
 
-        <!-- Uses STR as a timeline definition -->
-        <timeline value="" type="STR"/>
+        <!-- Uses STR[] as a timeline definition -->
+        <timeline value="" type="STR[]"/>
 
         <!-- Uses STR as a 24h-timeline definition -->
         <timeline.day-in-hours value="false" type="BOOL"/>
@@ -135,7 +138,7 @@
         <!-- Prints option values before processing -->
         <print-options value="false" type="BOOL"/>
 
-        <!-- Prints this screen -->
+        <!-- Prints this screen or selected topics -->
         <help value="false" synonymes="?" type="BOOL"/>
 
         <!-- Prints the current version -->
@@ -144,11 +147,11 @@
         <!-- Set schema validation scheme of XML inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
         <xml-validation value="auto" synonymes="X" type="STR"/>
 
-        <!-- Set schema validation scheme of SUMO network inputs (&quot;never&quot;, &quot;auto&quot; or &quot;always&quot;) -->
-        <xml-validation.net value="never" type="STR"/>
-
         <!-- Disables output of warnings -->
         <no-warnings value="false" synonymes="W suppress-warnings" type="BOOL"/>
+
+        <!-- Aggregate warnings of the same type whenever more than INT occur -->
+        <aggregate-warnings value="-1" type="INT"/>
 
         <!-- Writes all messages to FILE (implies verbose) -->
         <log value="" synonymes="l log-file" type="FILE"/>

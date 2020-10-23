@@ -1,1 +1,3 @@
 --edge-files=input_edges.edg.xml --node-files=input_nodes.nod.xml --plain-output-prefix=plain
+-o net.net.xml
+--geometry.remove

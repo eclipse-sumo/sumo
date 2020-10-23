@@ -1,0 +1,3 @@
+Warning: Error parsing parameter edges. edge 'gneE13' doesn't exist
+Error: A route needs at least one edge.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Aug105936.4600/netedit.gui/demandElements/personFlow/delete\input_routes.rou.xml failed.

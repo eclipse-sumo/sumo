@@ -1,0 +1,1 @@
+--hist-output histogram.dat --binwidth 1 input_data.xml tools/output/attributeStats.py 

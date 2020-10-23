@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Apr 17 08:19:49 2020 by Eclipse SUMO Version v1_5_0+1182-c674b91ce6
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+    </output>
+
+    <time>
+        <begin value="25"/>
+    </time>
+
+    <processing>
+        <step-method.ballistic value="true"/>
+        <lateral-resolution value="0.64"/>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="ego" depart="25.00" departLane="J018_L04_1" departPos="292.01" departPosLat="-0.75" departSpeed="0.00" departDelay="0.00" arrival="62.00" arrivalLane="-J018_L02_0" arrivalPos="457.88" arrivalPosLat="1.45" arrivalSpeed="13.60" duration="37.00" routeLength="467.88" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.53" rerouteNo="0" devices="tripinfo_ego" vType="car" speedFactor="1.06" vaporized=""/>
+    <tripinfo id="foe2" depart="27.00" departLane="J018_L04_1" departPos="242.01" departPosLat="1.27" departSpeed="14.03" departDelay="0.00" arrival="76.00" arrivalLane="-J018_L03_2" arrivalPos="581.81" arrivalPosLat="-0.11" arrivalSpeed="13.04" duration="49.00" routeLength="641.81" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.29" rerouteNo="0" devices="tripinfo_foe2" vType="car" speedFactor="1.01" vaporized=""/>
+    <tripinfo id="foe" depart="25.00" departLane="J018_L04_1" departPos="242.01" departPosLat="1.27" departSpeed="13.03" departDelay="0.00" arrival="78.00" arrivalLane="-J018_L03_0" arrivalPos="581.81" arrivalPosLat="1.47" arrivalSpeed="12.33" duration="53.00" routeLength="641.81" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="3.43" rerouteNo="0" devices="tripinfo_foe" vType="car" speedFactor="0.94" vaporized=""/>
+</tripinfos>

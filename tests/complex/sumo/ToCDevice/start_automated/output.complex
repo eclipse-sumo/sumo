@@ -1,5 +1,5 @@
  Retrying in 1 seconds
-time step 1000
+time 1.0
 ToC device infos for vehicle 'ToC_veh'
 Static parameters:
   holder = ToC_veh
@@ -14,2511 +14,2511 @@ Dynamic parameters:
   currentSpeed = 0.0
   state = AUTOMATED
 Requested ToC of veh0 at t=2.0 (until t=2.0)
-time step 2000
+time 2.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 2.6
   state = PREPARING_TOC
-time step 3000
+time 3.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 5.2
+  currentSpeed = 2.6
   state = MRM
-time step 4000
+time 4.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 4.0
+  currentSpeed = 1.4
   state = MRM
-time step 5000
+time 5.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 2.8
+  currentSpeed = 0.2
   state = MRM
-time step 6000
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 1.6
-  state = MRM
-time step 7000
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 0.4
-  state = MRM
-time step 8000
+time 6.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 9000
+time 7.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 10000
+time 8.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 11000
+time 9.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 12000
+time 10.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 13000
+time 11.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 14000
+time 12.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 15000
+time 13.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 16000
+time 14.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 17000
+time 15.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 18000
+time 16.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 19000
+time 17.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 20000
+time 18.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 21000
+time 19.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 22000
+time 20.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 23000
+time 21.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 24000
+time 22.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 25000
+time 23.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 0.0
   state = MRM
-time step 26000
+time 24.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 0.0
+  state = MRM
+time 25.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 0.0
+  state = MRM
+time 26.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.25
-  currentSpeed = 1.37924915068
+  currentSpeed = 1.32924960223
   state = RECOVERING
-time step 27000
+time 27.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.35
-  currentSpeed = 2.9076491765
+  currentSpeed = 3.36516315846
   state = RECOVERING
-time step 28000
+time 28.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.45
-  currentSpeed = 4.35373649038
+  currentSpeed = 5.01831338999
   state = RECOVERING
-time step 29000
+time 29.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.55
-  currentSpeed = 6.43818527996
+  currentSpeed = 6.46366991883
   state = RECOVERING
-time step 30000
+time 30.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.65
-  currentSpeed = 8.3305779059
+  currentSpeed = 8.56276412655
   state = RECOVERING
-time step 31000
+time 31.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.75
-  currentSpeed = 10.6228451105
+  currentSpeed = 10.2709986978
   state = RECOVERING
-time step 32000
+time 32.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.85
-  currentSpeed = 13.180702419
+  currentSpeed = 12.8138235626
   state = RECOVERING
-time step 33000
+time 33.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.95
-  currentSpeed = 15.388411698
+  currentSpeed = 15.3505000995
   state = RECOVERING
-time step 34000
+time 34.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 16.9945589665
+  currentSpeed = 16.7167513371
   state = MANUAL
-time step 35000
+time 35.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.3877204505
+  currentSpeed = 18.7977020344
   state = MANUAL
-time step 36000
+time 36.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5319910367
+  currentSpeed = 19.5199614125
   state = MANUAL
-time step 37000
+time 37.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.7367886779
+  currentSpeed = 20.6332148467
   state = MANUAL
-time step 38000
+time 38.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8849664116
+  currentSpeed = 20.6290630703
   state = MANUAL
-time step 39000
+time 39.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3448585472
+  currentSpeed = 20.7497905076
   state = MANUAL
-time step 40000
+time 40.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6073701296
+  currentSpeed = 20.7588811375
   state = MANUAL
-time step 41000
+time 41.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6125616309
+  currentSpeed = 20.4573208774
   state = MANUAL
-time step 42000
+time 42.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.240809727
+  currentSpeed = 20.5759576675
   state = MANUAL
-time step 43000
+time 43.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5216528264
+  currentSpeed = 20.0055502935
   state = MANUAL
-time step 44000
+time 44.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4322641543
+  currentSpeed = 20.4744130459
   state = MANUAL
-time step 45000
+time 45.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4854878523
+  currentSpeed = 20.6484863602
   state = MANUAL
-time step 46000
+time 46.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5572209432
+  currentSpeed = 19.564943822
   state = MANUAL
-time step 47000
+time 47.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0324671701
+  currentSpeed = 20.4165248957
   state = MANUAL
-time step 48000
+time 48.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4617528833
+  currentSpeed = 19.5657811131
   state = MANUAL
-time step 49000
+time 49.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.7203481064
+  currentSpeed = 20.592911896
   state = MANUAL
-time step 50000
+time 50.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.659829301
+  currentSpeed = 20.1617597768
   state = MANUAL
-time step 51000
+time 51.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.906994924
+  currentSpeed = 20.0823285291
   state = MANUAL
-time step 52000
+time 52.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8453308532
+  currentSpeed = 20.3634306602
   state = MANUAL
-time step 53000
+time 53.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0004638472
+  currentSpeed = 20.4433884764
   state = MANUAL
-time step 54000
+time 54.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8764670973
+  currentSpeed = 20.7195744613
   state = MANUAL
-time step 55000
+time 55.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5599896952
+  currentSpeed = 19.7955407692
   state = MANUAL
-time step 56000
+time 56.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5276357998
+  currentSpeed = 20.4810321645
   state = MANUAL
-time step 57000
+time 57.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3754366618
+  currentSpeed = 20.3952738022
   state = MANUAL
-time step 58000
+time 58.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.1352150418
+  currentSpeed = 19.7612861179
   state = MANUAL
-time step 59000
+time 59.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0214696596
+  currentSpeed = 20.6764318404
   state = MANUAL
-time step 60000
+time 60.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5566395597
+  currentSpeed = 19.777891191
   state = MANUAL
-time step 61000
+time 61.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5341818303
+  currentSpeed = 19.8428455645
   state = MANUAL
-time step 62000
+time 62.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5371937571
+  currentSpeed = 20.1246948668
   state = MANUAL
-time step 63000
+time 63.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.9414270582
+  currentSpeed = 20.562499195
   state = MANUAL
-time step 64000
+time 64.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5781765277
+  currentSpeed = 19.6969805244
   state = MANUAL
-time step 65000
+time 65.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.7393690235
+  currentSpeed = 20.4091857324
   state = MANUAL
-time step 66000
+time 66.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4130641622
+  currentSpeed = 20.5794066237
   state = MANUAL
-time step 67000
+time 67.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0647585927
+  currentSpeed = 19.7031949504
   state = MANUAL
-time step 68000
+time 68.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5690193887
+  currentSpeed = 20.1798902982
   state = MANUAL
-time step 69000
+time 69.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6884928827
+  currentSpeed = 19.8222987739
   state = MANUAL
-time step 70000
+time 70.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5428871285
+  currentSpeed = 20.2086129496
   state = MANUAL
-time step 71000
+time 71.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.4856080425
+  currentSpeed = 19.7383767944
   state = MANUAL
-time step 72000
+time 72.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3675390502
+  currentSpeed = 20.2670284888
   state = MANUAL
-time step 73000
+time 73.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3348407675
+  currentSpeed = 19.6270578754
   state = MANUAL
-time step 74000
+time 74.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6637350602
+  currentSpeed = 19.8059865527
   state = MANUAL
-time step 75000
+time 75.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0382673042
+  currentSpeed = 20.772426309
   state = MANUAL
-time step 76000
+time 76.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5062371178
+  currentSpeed = 20.3441142432
   state = MANUAL
-time step 77000
+time 77.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5406968328
+  currentSpeed = 20.6427483623
   state = MANUAL
-time step 78000
+time 78.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.7146609466
+  currentSpeed = 20.6304966132
   state = MANUAL
-time step 79000
+time 79.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6715590954
+  currentSpeed = 20.3521482987
   state = MANUAL
-time step 80000
+time 80.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8371198248
+  currentSpeed = 20.5647594134
   state = MANUAL
-time step 81000
+time 81.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.318158716
+  currentSpeed = 19.5167605883
   state = MANUAL
-time step 82000
+time 82.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3985098289
+  currentSpeed = 19.9625899478
   state = MANUAL
-time step 83000
+time 83.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4994818541
+  currentSpeed = 20.2699884519
   state = MANUAL
-time step 84000
+time 84.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8932774741
+  currentSpeed = 19.6891388656
   state = MANUAL
-time step 85000
+time 85.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.2253722069
+  currentSpeed = 20.7309037828
   state = MANUAL
-time step 86000
+time 86.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.9759085665
+  currentSpeed = 19.4840823097
   state = MANUAL
-time step 87000
+time 87.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.2688833644
+  currentSpeed = 20.6362619343
   state = MANUAL
-time step 88000
+time 88.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.1088903831
+  currentSpeed = 20.0663885772
   state = MANUAL
-time step 89000
+time 89.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.7023666849
+  currentSpeed = 19.8946016442
   state = MANUAL
-time step 90000
+time 90.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0150370608
+  currentSpeed = 20.3514955
   state = MANUAL
-time step 91000
+time 91.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.2332309035
+  currentSpeed = 20.1763569439
   state = MANUAL
-time step 92000
+time 92.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3008309107
+  currentSpeed = 19.6131591875
   state = MANUAL
-time step 93000
+time 93.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5056887703
+  currentSpeed = 20.7461780761
   state = MANUAL
-time step 94000
+time 94.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.7445591912
+  currentSpeed = 20.161733546
   state = MANUAL
-time step 95000
+time 95.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3819982591
+  currentSpeed = 20.1384176926
   state = MANUAL
-time step 96000
+time 96.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6394243762
+  currentSpeed = 20.7292872282
   state = MANUAL
-time step 97000
+time 97.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6373582543
+  currentSpeed = 19.6439156937
   state = MANUAL
-time step 98000
+time 98.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.9627604786
+  currentSpeed = 20.6935118565
   state = MANUAL
-time step 99000
+time 99.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5731810158
+  currentSpeed = 20.171550389
   state = MANUAL
-time step 100000
+time 100.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.1350739848
+  currentSpeed = 20.4516076811
   state = MANUAL
-time step 101000
+time 101.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.2229241771
+  currentSpeed = 20.6313452603
   state = MANUAL
-time step 102000
+time 102.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8515856457
+  currentSpeed = 20.5748090456
   state = MANUAL
-time step 103000
+time 103.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.1830484172
+  currentSpeed = 20.2242436581
   state = MANUAL
-time step 104000
+time 104.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6395783216
+  currentSpeed = 19.7290921831
   state = MANUAL
-time step 105000
+time 105.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0298099023
+  currentSpeed = 20.1239082228
   state = MANUAL
-time step 106000
+time 106.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5126263211
+  currentSpeed = 19.5210720538
   state = MANUAL
-time step 107000
+time 107.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3903421258
+  currentSpeed = 19.7614531161
   state = MANUAL
-time step 108000
+time 108.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.2411544306
+  currentSpeed = 19.7486580424
   state = MANUAL
-time step 109000
+time 109.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3298247242
+  currentSpeed = 19.67633323
   state = MANUAL
-time step 110000
+time 110.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8662313708
+  currentSpeed = 20.7663342002
   state = MANUAL
-time step 111000
+time 111.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6435748768
+  currentSpeed = 20.6211451238
   state = MANUAL
-time step 112000
+time 112.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.1693352859
+  currentSpeed = 19.6543703376
   state = MANUAL
-time step 113000
+time 113.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.9151951192
+  currentSpeed = 20.5600526539
   state = MANUAL
-time step 114000
+time 114.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.7602570119
+  currentSpeed = 19.7483411267
   state = MANUAL
-time step 115000
+time 115.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4099898691
+  currentSpeed = 20.4136307801
   state = MANUAL
-time step 116000
+time 116.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.849675999
+  currentSpeed = 19.9803057887
   state = MANUAL
-time step 117000
+time 117.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6139716162
+  currentSpeed = 20.6413497938
   state = MANUAL
-time step 118000
+time 118.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8482998185
+  currentSpeed = 19.848364915
   state = MANUAL
-time step 119000
+time 119.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5920559022
+  currentSpeed = 19.8841564676
   state = MANUAL
-time step 120000
+time 120.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6289610164
+  currentSpeed = 19.5379616389
   state = MANUAL
-time step 121000
+time 121.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.2924638181
+  currentSpeed = 19.6610348119
   state = MANUAL
-time step 122000
+time 122.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.1515294214
+  currentSpeed = 20.482820347
   state = MANUAL
-time step 123000
+time 123.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.7201855547
+  currentSpeed = 20.2749883157
   state = MANUAL
-time step 124000
+time 124.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.2676979013
+  currentSpeed = 20.606993667
   state = MANUAL
-time step 125000
+time 125.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8976269525
+  currentSpeed = 20.2386928384
   state = MANUAL
-time step 126000
+time 126.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5038808818
+  currentSpeed = 20.1069210955
   state = MANUAL
 Requested ToC of veh0 at t=127.0 (until t=139.5)
-time step 127000
+time 127.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6764247812
+  currentSpeed = 20.2155446808
   state = AUTOMATED
-time step 128000
+time 128.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 129000
+time 129.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 130000
+time 130.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 131000
+time 131.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 132000
+time 132.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 133000
+time 133.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 134000
+time 134.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 135000
+time 135.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 136000
+time 136.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 137000
+time 137.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 138000
+time 138.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 139000
+time 139.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 140000
+time 140.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 141000
+time 141.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 142000
+time 142.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 143000
+time 143.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 144000
+time 144.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 145000
+time 145.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 146000
+time 146.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 147000
+time 147.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 148000
+time 148.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 149000
+time 149.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 150000
+time 150.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 151000
+time 151.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 152000
+time 152.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 153000
+time 153.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 154000
+time 154.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 155000
+time 155.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 156000
+time 156.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 157000
+time 157.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 158000
+time 158.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 159000
+time 159.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 160000
+time 160.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 161000
+time 161.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 162000
+time 162.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 163000
+time 163.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 164000
+time 164.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 165000
+time 165.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 166000
+time 166.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 167000
+time 167.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 168000
+time 168.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 169000
+time 169.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 170000
+time 170.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 171000
+time 171.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 172000
+time 172.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 173000
+time 173.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 174000
+time 174.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 175000
+time 175.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 176000
+time 176.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 177000
+time 177.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 178000
+time 178.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 179000
+time 179.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 180000
+time 180.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 181000
+time 181.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 182000
+time 182.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 183000
+time 183.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 184000
+time 184.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 185000
+time 185.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 186000
+time 186.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 187000
+time 187.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 188000
+time 188.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 189000
+time 189.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 190000
+time 190.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 191000
+time 191.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 192000
+time 192.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 193000
+time 193.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 194000
+time 194.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 195000
+time 195.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 196000
+time 196.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 197000
+time 197.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 198000
+time 198.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 199000
+time 199.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 200000
+time 200.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 201000
+time 201.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
 Requested ToC of veh0 at t=202.0 (until t=222.0)
-time step 202000
+time 202.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 203000
+time 203.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 204000
+time 204.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 205000
+time 205.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 206000
+time 206.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 207000
+time 207.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 208000
+time 208.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 209000
+time 209.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 210000
+time 210.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 211000
+time 211.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 212000
+time 212.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 213000
+time 213.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 214000
+time 214.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 215000
+time 215.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 216000
+time 216.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 217000
+time 217.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 218000
+time 218.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 219000
+time 219.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 220000
+time 220.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 221000
+time 221.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 222000
+time 222.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 223000
+time 223.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = MRM
-time step 224000
+time 224.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 19.575558433
   state = MRM
-time step 225000
+time 225.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 18.375558433
   state = MRM
-time step 226000
+time 226.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.25
-  currentSpeed = 19.5992444554
+  currentSpeed = 20.6262800633
   state = RECOVERING
 Requested ToC of veh0 at t=227.0 (until t=249.5)
-time step 227000
+time 227.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4870572857
+  currentSpeed = 20.1458226201
   state = AUTOMATED
-time step 228000
-ToC device infos for vehicle 'ToC_veh'
-  currentAwareness = 1.00
-  currentSpeed = 20.775558433
-  state = AUTOMATED
-time step 229000
+time 228.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 230000
+time 229.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 231000
+time 230.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 232000
+time 231.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 233000
+time 232.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 234000
+time 233.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 235000
+time 234.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 236000
+time 235.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 237000
+time 236.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 238000
+time 237.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 239000
+time 238.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 240000
+time 239.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 241000
+time 240.0
+ToC device infos for vehicle 'ToC_veh'
+  currentAwareness = 1.00
+  currentSpeed = 20.775558433
+  state = AUTOMATED
+time 241.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
 Requested ToC of veh0 at t=242.0 (until t=266.0)
-time step 242000
+time 242.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 243000
+time 243.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 244000
+time 244.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 245000
+time 245.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 246000
+time 246.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 247000
+time 247.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 248000
+time 248.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 249000
+time 249.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 250000
+time 250.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 251000
+time 251.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
 Requested ToC of veh0 at t=252.0 (until t=277.0)
-time step 252000
+time 252.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 253000
+time 253.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 254000
+time 254.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 255000
+time 255.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 256000
+time 256.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 257000
+time 257.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 258000
+time 258.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 259000
+time 259.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 260000
+time 260.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 261000
+time 261.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
 Requested ToC of veh0 at t=262.0 (until t=288.0)
-time step 262000
+time 262.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 263000
+time 263.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 264000
+time 264.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 265000
+time 265.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 266000
+time 266.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 267000
+time 267.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 268000
+time 268.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 269000
+time 269.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 270000
+time 270.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 271000
+time 271.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 272000
+time 272.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 273000
+time 273.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 274000
+time 274.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 275000
+time 275.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 276000
+time 276.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
 Requested ToC of veh0 at t=277.0 (until t=304.5)
-time step 277000
+time 277.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 278000
+time 278.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 279000
+time 279.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 280000
+time 280.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 281000
+time 281.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 282000
+time 282.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 283000
+time 283.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 284000
+time 284.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 285000
+time 285.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 286000
+time 286.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 287000
+time 287.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 288000
+time 288.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 289000
+time 289.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 290000
+time 290.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 291000
+time 291.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 292000
+time 292.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 293000
+time 293.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 294000
+time 294.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 295000
+time 295.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 296000
+time 296.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 297000
+time 297.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 298000
+time 298.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 299000
+time 299.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 300000
+time 300.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 301000
+time 301.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
 Requested ToC of veh0 at t=302.0 (until t=332.0)
-time step 302000
+time 302.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 303000
+time 303.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 304000
+time 304.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 305000
+time 305.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 306000
+time 306.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 307000
+time 307.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 308000
+time 308.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 309000
+time 309.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 310000
+time 310.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 311000
+time 311.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 312000
+time 312.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 313000
+time 313.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 314000
+time 314.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 315000
+time 315.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 316000
+time 316.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 317000
+time 317.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 318000
+time 318.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 319000
+time 319.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 320000
+time 320.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 321000
+time 321.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 322000
+time 322.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 323000
+time 323.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 324000
+time 324.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 325000
+time 325.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = PREPARING_TOC
-time step 326000
+time 326.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.25
-  currentSpeed = 20.0007195769
+  currentSpeed = 19.8848238551
   state = RECOVERING
-time step 327000
+time 327.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.35
-  currentSpeed = 20.4358395562
+  currentSpeed = 19.4995090138
   state = RECOVERING
-time step 328000
+time 328.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.45
-  currentSpeed = 19.8928446217
+  currentSpeed = 20.4334264328
   state = RECOVERING
-time step 329000
+time 329.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.55
-  currentSpeed = 20.2807257482
+  currentSpeed = 19.8846760572
   state = RECOVERING
-time step 330000
+time 330.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.65
-  currentSpeed = 19.715005879
+  currentSpeed = 20.6487535
   state = RECOVERING
-time step 331000
+time 331.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.75
-  currentSpeed = 20.5812607027
+  currentSpeed = 19.5971663244
   state = RECOVERING
-time step 332000
+time 332.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.85
-  currentSpeed = 20.4190099468
+  currentSpeed = 19.5718284002
   state = RECOVERING
-time step 333000
+time 333.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 0.95
-  currentSpeed = 20.1092176433
+  currentSpeed = 20.1432876659
   state = RECOVERING
-time step 334000
+time 334.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6293241069
+  currentSpeed = 20.0484925749
   state = MANUAL
-time step 335000
+time 335.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6666764374
+  currentSpeed = 19.8414459308
   state = MANUAL
-time step 336000
+time 336.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6687278812
+  currentSpeed = 20.60214268
   state = MANUAL
-time step 337000
+time 337.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5120100858
+  currentSpeed = 19.7437787375
   state = MANUAL
-time step 338000
+time 338.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6874009597
+  currentSpeed = 20.5368403164
   state = MANUAL
-time step 339000
+time 339.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.2258571263
+  currentSpeed = 19.6824068278
   state = MANUAL
-time step 340000
+time 340.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6046783442
+  currentSpeed = 19.581997827
   state = MANUAL
-time step 341000
+time 341.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5086008136
+  currentSpeed = 20.0325816197
   state = MANUAL
-time step 342000
+time 342.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6972147917
+  currentSpeed = 20.6347895277
   state = MANUAL
-time step 343000
+time 343.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.629709787
+  currentSpeed = 20.4317369608
   state = MANUAL
-time step 344000
+time 344.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.085850482
+  currentSpeed = 19.6753003786
   state = MANUAL
-time step 345000
+time 345.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6201234943
+  currentSpeed = 20.3455552121
   state = MANUAL
-time step 346000
+time 346.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0988735705
+  currentSpeed = 20.5382130082
   state = MANUAL
-time step 347000
+time 347.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3090074381
+  currentSpeed = 20.3146240499
   state = MANUAL
-time step 348000
+time 348.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6650753128
+  currentSpeed = 19.6279999713
   state = MANUAL
-time step 349000
+time 349.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4267494251
+  currentSpeed = 20.3838556246
   state = MANUAL
-time step 350000
+time 350.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.2168692453
+  currentSpeed = 20.4312142297
   state = MANUAL
-time step 351000
+time 351.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4673317984
+  currentSpeed = 19.9148073881
   state = MANUAL
-time step 352000
+time 352.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.4795126826
+  currentSpeed = 20.4467161948
   state = MANUAL
-time step 353000
+time 353.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5596143235
+  currentSpeed = 19.5694041475
   state = MANUAL
-time step 354000
+time 354.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5134911709
+  currentSpeed = 20.4844204255
   state = MANUAL
-time step 355000
+time 355.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.9911910976
+  currentSpeed = 19.8126122404
   state = MANUAL
-time step 356000
+time 356.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6626215146
+  currentSpeed = 20.5210018351
   state = MANUAL
-time step 357000
+time 357.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.488141516
+  currentSpeed = 19.581907731
   state = MANUAL
-time step 358000
+time 358.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.9494169415
+  currentSpeed = 19.9049553831
   state = MANUAL
-time step 359000
+time 359.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.1030435307
+  currentSpeed = 19.6215675062
   state = MANUAL
-time step 360000
+time 360.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.9747274259
+  currentSpeed = 19.6311133996
   state = MANUAL
-time step 361000
+time 361.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.7688587906
+  currentSpeed = 19.68011026
   state = MANUAL
-time step 362000
+time 362.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0732133249
+  currentSpeed = 19.9341631496
   state = MANUAL
-time step 363000
+time 363.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6429518388
+  currentSpeed = 19.7690978599
   state = MANUAL
-time step 364000
+time 364.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.8231987882
+  currentSpeed = 19.8674138913
   state = MANUAL
-time step 365000
+time 365.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.3477195273
+  currentSpeed = 19.6246750726
   state = MANUAL
-time step 366000
+time 366.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.6768586465
+  currentSpeed = 19.8477943175
   state = MANUAL
-time step 367000
+time 367.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5852368606
+  currentSpeed = 20.0554155777
   state = MANUAL
-time step 368000
+time 368.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.0343129426
+  currentSpeed = 20.116847343
   state = MANUAL
-time step 369000
+time 369.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.7569509246
+  currentSpeed = 20.6028445558
   state = MANUAL
-time step 370000
+time 370.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.6204770153
+  currentSpeed = 19.9629391511
   state = MANUAL
-time step 371000
+time 371.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.7858281712
+  currentSpeed = 19.9882278614
   state = MANUAL
-time step 372000
+time 372.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.7199874637
+  currentSpeed = 20.0718400547
   state = MANUAL
-time step 373000
+time 373.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.7236891561
+  currentSpeed = 20.6753833883
   state = MANUAL
-time step 374000
+time 374.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.5939088555
+  currentSpeed = 19.4909600359
   state = MANUAL
-time step 375000
+time 375.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 20.7073706712
+  currentSpeed = 20.2987648926
   state = MANUAL
-time step 376000
+time 376.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.512967809
+  currentSpeed = 19.971013969
   state = MANUAL
 Requested ToC of veh0 at t=377.0 (until t=414.5)
-time step 377000
+time 377.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
-  currentSpeed = 19.5397442461
+  currentSpeed = 20.3850909421
   state = AUTOMATED
-time step 378000
+time 378.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 379000
+time 379.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 380000
+time 380.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 381000
+time 381.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 382000
+time 382.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 383000
+time 383.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 384000
+time 384.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 385000
+time 385.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 386000
+time 386.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 387000
+time 387.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 388000
+time 388.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 389000
+time 389.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 390000
+time 390.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 391000
+time 391.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 392000
+time 392.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 393000
+time 393.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 394000
+time 394.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 395000
+time 395.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 396000
+time 396.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 397000
+time 397.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 398000
+time 398.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 399000
+time 399.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 400000
+time 400.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 401000
+time 401.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 402000
+time 402.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 403000
+time 403.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 404000
+time 404.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 405000
+time 405.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 406000
+time 406.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 407000
+time 407.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 408000
+time 408.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 409000
+time 409.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 410000
+time 410.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 411000
+time 411.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 412000
+time 412.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 413000
+time 413.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 414000
+time 414.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 415000
+time 415.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 416000
+time 416.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 417000
+time 417.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 418000
+time 418.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 419000
+time 419.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 420000
+time 420.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 421000
+time 421.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 422000
+time 422.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 423000
+time 423.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 424000
+time 424.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 425000
+time 425.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 426000
+time 426.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 427000
+time 427.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 428000
+time 428.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 429000
+time 429.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 430000
+time 430.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 431000
+time 431.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 432000
+time 432.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 433000
+time 433.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 434000
+time 434.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 435000
+time 435.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 436000
+time 436.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 437000
+time 437.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 438000
+time 438.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 439000
+time 439.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 440000
+time 440.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 441000
+time 441.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 442000
+time 442.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 443000
+time 443.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 444000
+time 444.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 445000
+time 445.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 446000
+time 446.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 447000
+time 447.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 448000
+time 448.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 449000
+time 449.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 450000
+time 450.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 451000
+time 451.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 452000
+time 452.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 453000
+time 453.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 454000
+time 454.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 455000
+time 455.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 456000
+time 456.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 457000
+time 457.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 458000
+time 458.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 459000
+time 459.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 460000
+time 460.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 461000
+time 461.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 462000
+time 462.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 463000
+time 463.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 464000
+time 464.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 465000
+time 465.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 466000
+time 466.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 467000
+time 467.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 468000
+time 468.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 469000
+time 469.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 470000
+time 470.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 471000
+time 471.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 472000
+time 472.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 473000
+time 473.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 474000
+time 474.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 475000
+time 475.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 476000
+time 476.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 477000
+time 477.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 478000
+time 478.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 479000
+time 479.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 480000
+time 480.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 481000
+time 481.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 482000
+time 482.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 483000
+time 483.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 484000
+time 484.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 485000
+time 485.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 486000
+time 486.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 487000
+time 487.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 488000
+time 488.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 489000
+time 489.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 490000
+time 490.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 491000
+time 491.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 492000
+time 492.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 493000
+time 493.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 494000
+time 494.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 495000
+time 495.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 496000
+time 496.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 497000
+time 497.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 498000
+time 498.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 499000
+time 499.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 500000
+time 500.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433
   state = AUTOMATED
-time step 501000
+time 501.0
 ToC device infos for vehicle 'ToC_veh'
   currentAwareness = 1.00
   currentSpeed = 20.775558433

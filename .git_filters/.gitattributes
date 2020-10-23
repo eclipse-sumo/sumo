@@ -1,2 +1,0 @@
-# disable filter because script cannot filter itself
-*.py   text eol=lf -filter

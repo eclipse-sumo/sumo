@@ -1,0 +1,5 @@
+<routes>
+    <vType id="DEFAULT_VEHTYPE" latAlignment="compact"/>
+    <flow id="a" begin="0" end="1500" probability="0.4" departLane="random" from="WC" to="CN"/>
+    <flow id="b" begin="0" end="1500" probability="0.3" departLane="random" from="WC" to="CN" arrivalLane="0"/>
+</routes>

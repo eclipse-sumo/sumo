@@ -1,0 +1,53 @@
+# train serving a public transport line must reverse direction at a branch stop
+# Input taken from
+# tests/netconvert/function/railway/repair/stops_reverse_en_route
+# tests/tools/public_transport/ptlines2flows/reverse_at_stop
+# 
+reverse_at_stop
+
+# train serving a public transport line must reverse direction at a branch stop (stop comes after reversal)
+# 
+reverse_before_stop
+
+# train serving a public transport line must reverse direction at a branch stop (stop comes after reversal, train is one 2 lanes during reversal and the back of the train must have passed the stop before reversal)
+# 
+reverse_before_further_stop
+
+# train serving a public transport line must reverse direction at a branch stop (stop comes after reversal). Train is too long so It cannot stop with the train head at the given stop.
+# 
+reverse_before_stop_impossible
+
+# train serving a public transport line must reverse direction at a branch stop (stop comes after reversal, train is one 2 lanes during reversal and the back of the train must have passed the stop before reversal) - train is too long so the stop must be skipped
+# 
+reverse_before_further_stop_tooLong
+
+# train serving a public transport line must reverse direction at a branch track
+# Input taken from
+# tests/netconvert/function/railway/repair/stops_reverse_en_route
+# tests/tools/public_transport/ptlines2flows/reverse_at_stop
+# 
+reverse_no_stop
+
+# train serving a public transport line must reverse direction at a branch stop without having a link
+# Input taken from reverse_at_stop
+reverse_no_link
+
+# train serving a public transport line must reverse direction at a branch stop
+# The network uses internal links but the simulation uses option --no-internal-links
+reverse_no_internal_links
+
+# train serving a public transport line must reverse direction at a branch stop (stop comes after reversal). simultion runs with --no-internal-links
+# 
+# As an added complication, the stop is a bit too short for the train so the train cannot reverse after going past the stop pos but must reverse implicitly due to reaching the turnaround (and there is no slow internal lane to make it slow down)
+# 
+reverse_before_stop_no_internal_links
+
+# 
+# 
+reverse_on_signal
+
+# vehicle needs to slow down even if reversal is still far away
+anticipate_reversal
+
+# unsafe speed when approaching reversal should cause emergency stop instead of collision
+anticipate_reversal_unafe_insertion

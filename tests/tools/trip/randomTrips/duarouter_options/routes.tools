@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri May 10 13:15:33 2019 by Eclipse SUMO duarouter Version v1_2_0+0252-83989c2
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="trips.trips.xml"/>
+    </input>
+
+    <output>
+        <output-file value="out.rou.xml"/>
+        <vtype-output value="out.add.xml"/>
+        <alternatives-output value="out.rou.alt.xml"/>
+    </output>
+
+    <processing>
+        <remove-loops value="true"/>
+    </processing>
+
+    <time>
+        <begin value="0"/>
+        <end value="20.0"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="1" type="passenger" depart="1.00">
+        <route edges="beg2left"/>
+    </vehicle>
+    <vehicle id="5" type="passenger" depart="5.00">
+        <route edges="beg2left left"/>
+    </vehicle>
+    <vehicle id="6" type="passenger" depart="6.00">
+        <route edges="beg beg2left"/>
+    </vehicle>
+    <vehicle id="8" type="passenger" depart="8.00">
+        <route edges="beg2left left left2end"/>
+    </vehicle>
+    <vehicle id="13" type="passenger" depart="13.00">
+        <route edges="beg"/>
+    </vehicle>
+    <vehicle id="15" type="passenger" depart="15.00">
+        <route edges="middle"/>
+    </vehicle>
+    <vehicle id="16" type="passenger" depart="16.00">
+        <route edges="left left2end end rend"/>
+    </vehicle>
+</routes>

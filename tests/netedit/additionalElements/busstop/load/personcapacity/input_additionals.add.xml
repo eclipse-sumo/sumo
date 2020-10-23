@@ -1,0 +1,18 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    
+    <!-- missing personCapacity -->
+    <busStop id="busStop_01" lane="gneE0_0" startPos="25" endPos="30" name="busStop" friendlyPos="false"/>
+    
+    <!-- non valid format personCapacity (dummy) -->
+    <busStop id="busStop_02" lane="gneE0_0" startPos="35" endPos="40" personCapacity="dummyPersonCapacity" name="busStop" friendlyPos="false"/>
+	
+	<!-- non valid format personCapacity (negative) -->
+    <busStop id="busStop_03" lane="gneE0_0" startPos="35" endPos="40" personCapacity="-7" name="busStop" friendlyPos="false"/>
+	
+	<!-- non valid format personCapacity (double) -->
+    <busStop id="busStop_04" lane="gneE0_0" startPos="35" endPos="40" personCapacity="2.5" name="busStop" friendlyPos="false"/>
+	
+	<!-- valid format personCapacity -->
+    <busStop id="busStop_05" lane="gneE0_0" startPos="45" endPos="50" personCapacity="6" name="busStop" friendlyPos="false"/>
+
+</additional>

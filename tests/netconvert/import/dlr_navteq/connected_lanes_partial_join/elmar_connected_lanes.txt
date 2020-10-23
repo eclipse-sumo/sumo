@@ -1,0 +1,79 @@
+# Format matches Extraction version: V6.5 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <!-- generated on Mon Apr  1 21:54:33 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+# -->
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# 
+#     <input>
+#         <sumo-net-file value="net.net.xml"/>
+#     </input>
+# 
+#     <output>
+#         <dlr-navteq-output value="debug"/>
+#         <output.street-names value="true"/>
+#     </output>
+# 
+#     <processing>
+#         <numerical-ids value="true"/>
+#         <geometry.max-grade.fix value="false"/>
+#         <offset.disable-normalization value="true"/>
+#         <lefthand value="false"/>
+#     </processing>
+# 
+#     <junctions>
+#         <no-turnarounds value="true"/>
+#         <junctions.corner-detail value="5"/>
+#         <junctions.limit-turn-speed value="5.5"/>
+#         <rectangular-lane-cut value="false"/>
+#     </junctions>
+# 
+#     <pedestrian>
+#         <walkingareas value="false"/>
+#     </pedestrian>
+# 
+#     <formats>
+#         <osm.all-attributes value="true"/>
+#     </formats>
+# 
+# </configuration>
+# 
+#
+#Lane connections related to LINK-IDs and NODE-ID.
+#column format like pointcollection.
+#NODE-ID	VEHICLE-TYPE	FROM_LANE	TO_LANE	THROUGH_TRAFFIC	LINK_IDs[2..*]
+24	011111111111	1	1	1	17	-11	
+24	011111111111	2	2	1	17	-11	
+24	011111111111	3	3	1	17	-11	
+24	011111111111	3	2	1	17	18	
+24	011111111111	1	1	1	-13	-11	
+24	011111111111	2	2	1	-13	-11	
+24	100000000000	2	1	1	-13	18	
+25	011111111111	1	1	1	11	14	
+25	011111111111	1	2	1	11	14	
+25	100000000000	1	1	1	18	14	
+25	100000000000	2	2	1	18	14	
+25	011111111111	2	2	1	18	15	
+25	011111111111	2	3	1	18	15	
+26	011111111111	1	1	1	-12	13	
+26	011111111111	1	1	1	-12	17	
+26	011111111111	2	2	1	-12	17	
+26	011111111111	3	3	1	-12	17	
+26	100000000000	1	1	1	16	13	
+26	100000000000	2	2	1	16	13	
+26	011111111111	2	2	1	16	17	
+26	011111111111	2	3	1	16	17	
+27	011111111111	1	1	1	-14	12	
+27	011111111111	2	2	1	-14	12	
+27	100000000000	2	1	1	-14	16	
+27	011111111111	1	1	1	15	12	
+27	011111111111	2	2	1	15	12	
+27	011111111111	3	3	1	15	12	
+27	011111111111	3	2	1	15	16	
+29	011111111111	1	1	1	-11	-10	
+29	011111111111	2	2	1	-11	-10	
+29	011111111111	3	3	1	-11	-10	
+29	011111111111	1	1	1	10	11	
+29	011111111111	2	2	1	10	11	
+29	011111111111	3	3	1	10	11	

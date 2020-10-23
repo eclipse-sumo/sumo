@@ -1,0 +1,380 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:06 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="input_net.net.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <geometry.split value="true"/>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="100.00,100.00" convBoundary="0.00,100.00,28.77,106.35" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id="WC" from="W" to="WC.0" priority="2">
+        <lane id="WC_0" index="0" speed="13.89" length="0.52" shape="3.05,96.30 3.36,96.55"/>
+        <lane id="WC_1" index="1" speed="13.89" length="0.52" shape="1.02,98.77 1.32,99.02"/>
+    </edge>
+    <edge id="WC.0" from="WC.0" to="WC.1" priority="2">
+        <lane id="WC.0_0" index="0" speed="13.89" length="0.51" shape="3.60,96.75 3.76,96.88"/>
+        <lane id="WC.0_1" index="1" speed="13.89" length="0.51" shape="1.53,99.19 1.69,99.33"/>
+    </edge>
+    <edge id="WC.1" from="WC.1" to="WC.2" priority="2" shape="0.79,100.66 1.19,100.98 1.58,101.28">
+        <lane id="WC.1_0" index="0" speed="13.89" length="1.00" shape="3.93,97.02 4.15,97.20 4.37,97.37"/>
+        <lane id="WC.1_1" index="1" speed="13.89" length="1.00" shape="1.93,99.52 2.18,99.72 2.42,99.91"/>
+    </edge>
+    <edge id="WC.10" from="WC.10" to="WC.11" priority="2" shape="8.63,105.27 9.02,105.40 9.41,105.53 9.80,105.65">
+        <lane id="WC.10_0" index="0" speed="13.89" length="1.23" shape="10.34,100.78 10.54,100.85 10.88,100.96 11.04,101.01"/>
+        <lane id="WC.10_1" index="1" speed="13.89" length="1.23" shape="9.33,103.82 9.53,103.88 9.90,104.01 10.10,104.07"/>
+    </edge>
+    <edge id="WC.11" from="WC.11" to="WC.12" priority="2" shape="9.80,105.65 10.18,105.76 10.57,105.86">
+        <lane id="WC.11_0" index="0" speed="13.89" length="0.80" shape="11.31,101.09 11.44,101.13 11.58,101.16"/>
+        <lane id="WC.11_1" index="1" speed="13.89" length="0.80" shape="10.42,104.16 10.60,104.22 10.79,104.26"/>
+    </edge>
+    <edge id="WC.12" from="WC.12" to="WC.13" priority="2" shape="10.57,105.86 10.96,105.95 11.34,106.03 11.73,106.10">
+        <lane id="WC.12_0" index="0" speed="13.89" length="1.18" shape="11.82,101.22 11.99,101.26 12.26,101.32 12.40,101.34"/>
+        <lane id="WC.12_1" index="1" speed="13.89" length="1.18" shape="11.10,104.34 11.30,104.39 11.65,104.46 11.83,104.49"/>
+    </edge>
+    <edge id="WC.13" from="WC.13" to="WC.14" priority="2" shape="11.73,106.10 12.12,106.16 12.50,106.22">
+        <lane id="WC.13_0" index="0" speed="13.89" length="0.78" shape="12.63,101.38 12.86,101.42 13.08,101.45"/>
+        <lane id="WC.13_1" index="1" speed="13.89" length="0.78" shape="12.15,104.55 12.37,104.58 12.58,104.61"/>
+    </edge>
+    <edge id="WC.14" from="WC.14" to="WC.15" priority="2" shape="12.50,106.22 12.89,106.26 13.27,106.30 13.66,106.33">
+        <lane id="WC.14_0" index="0" speed="13.89" length="1.17" shape="13.16,101.46 13.39,101.49 13.80,101.53"/>
+        <lane id="WC.14_1" index="1" speed="13.89" length="1.17" shape="12.84,104.65 13.06,104.67 13.41,104.71 13.56,104.72"/>
+    </edge>
+    <edge id="WC.15" from="WC.15" to="WC.16" priority="2" shape="13.66,106.33 14.04,106.34 14.43,106.35">
+        <lane id="WC.15_0" index="0" speed="13.89" length="0.77" shape="14.00,101.54 14.16,101.54 14.38,101.55"/>
+        <lane id="WC.15_1" index="1" speed="13.89" length="0.77" shape="13.92,104.74 14.08,104.74 14.30,104.75"/>
+    </edge>
+    <edge id="WC.16" from="WC.16" to="WC.17" priority="2" shape="14.43,106.35 14.81,106.35 15.19,106.34 15.58,106.33">
+        <lane id="WC.16_0" index="0" speed="13.89" length="1.15" shape="14.61,101.55 14.75,101.55 15.07,101.54 15.29,101.54"/>
+        <lane id="WC.16_1" index="1" speed="13.89" length="1.15" shape="14.61,104.75 14.79,104.75 15.15,104.74 15.37,104.73"/>
+    </edge>
+    <edge id="WC.17" from="WC.17" to="WC.18" priority="2" shape="15.58,106.33 15.96,106.30 16.34,106.26">
+        <lane id="WC.17_0" index="0" speed="13.89" length="0.76" shape="15.38,101.53 15.52,101.52 15.69,101.50"/>
+        <lane id="WC.17_1" index="1" speed="13.89" length="0.76" shape="15.63,104.72 15.81,104.71 16.02,104.68"/>
+    </edge>
+    <edge id="WC.18" from="WC.18" to="WC.19" priority="2" shape="16.34,106.26 16.72,106.22 17.10,106.16 17.49,106.10">
+        <lane id="WC.18_0" index="0" speed="13.89" length="1.16" shape="16.02,101.47 16.36,101.42 16.59,101.38"/>
+        <lane id="WC.18_1" index="1" speed="13.89" length="1.16" shape="16.35,104.65 16.51,104.63 16.85,104.58 17.07,104.55"/>
+    </edge>
+    <edge id="WC.19" from="WC.19" to="WC.20" priority="2" shape="17.49,106.10 17.87,106.03 18.25,105.95 18.63,105.86">
+        <lane id="WC.19_0" index="0" speed="13.89" length="1.17" shape="16.80,101.35 16.94,101.32 17.20,101.27 17.35,101.23"/>
+        <lane id="WC.19_1" index="1" speed="13.89" length="1.17" shape="17.38,104.49 17.56,104.46 17.90,104.39 18.09,104.34"/>
+    </edge>
+    <edge id="WC.2" from="WC.2" to="WC.3" priority="2" shape="1.58,101.28 1.98,101.58 2.37,101.87">
+        <lane id="WC.2_0" index="0" speed="13.89" length="0.99" shape="4.59,97.54 4.85,97.73 5.10,97.92"/>
+        <lane id="WC.2_1" index="1" speed="13.89" length="0.99" shape="2.67,100.10 2.94,100.30 3.19,100.48"/>
+    </edge>
+    <edge id="WC.20" from="WC.20" to="WC.21" priority="2" shape="18.63,105.86 19.01,105.76 19.39,105.65">
+        <lane id="WC.20_0" index="0" speed="13.89" length="0.79" shape="17.58,101.17 17.73,101.13 17.88,101.09"/>
+        <lane id="WC.20_1" index="1" speed="13.89" length="0.79" shape="18.40,104.27 18.58,104.22 18.77,104.16"/>
+    </edge>
+    <edge id="WC.21" from="WC.21" to="WC.22" priority="2" shape="19.39,105.65 19.77,105.53 20.14,105.40 20.52,105.27">
+        <lane id="WC.21_0" index="0" speed="13.89" length="1.19" shape="18.12,101.02 18.25,100.98 18.57,100.86 18.77,100.80"/>
+        <lane id="WC.21_1" index="1" speed="13.89" length="1.19" shape="19.08,104.07 19.26,104.01 19.62,103.89 19.81,103.82"/>
+    </edge>
+    <edge id="WC.22" from="WC.22" to="WC.23" priority="2" shape="20.52,105.27 20.90,105.12 21.28,104.97">
+        <lane id="WC.22_0" index="0" speed="13.89" length="0.82" shape="18.95,100.73 19.14,100.66 19.36,100.57"/>
+        <lane id="WC.22_1" index="1" speed="13.89" length="0.82" shape="20.12,103.71 20.31,103.63 20.53,103.55"/>
+    </edge>
+    <edge id="WC.23" from="WC.23" to="WC.24" priority="2" shape="21.28,104.97 21.66,104.81 22.03,104.64 22.41,104.46">
+        <lane id="WC.23_0" index="0" speed="13.89" length="1.24" shape="19.59,100.48 19.73,100.42 20.00,100.29 20.20,100.20"/>
+        <lane id="WC.23_1" index="1" speed="13.89" length="1.24" shape="20.83,103.42 21.02,103.35 21.35,103.19 21.57,103.09"/>
+    </edge>
+    <edge id="WC.24" from="WC.24" to="WC.25" priority="2" shape="22.41,104.46 22.79,104.27 23.16,104.07">
+        <lane id="WC.24_0" index="0" speed="13.89" length="0.85" shape="20.43,100.09 20.58,100.01 20.73,99.93"/>
+        <lane id="WC.24_1" index="1" speed="13.89" length="0.85" shape="21.86,102.95 22.05,102.85 22.25,102.74"/>
+    </edge>
+    <edge id="WC.25" from="WC.25" to="WC.26" priority="2" shape="23.16,104.07 23.54,103.86 23.92,103.64">
+        <lane id="WC.25_0" index="0" speed="13.89" length="0.87" shape="20.98,99.79 21.18,99.68 21.37,99.57"/>
+        <lane id="WC.25_1" index="1" speed="13.89" length="0.87" shape="22.53,102.59 22.75,102.47 22.97,102.34"/>
+    </edge>
+    <edge id="WC.26" from="WC.26" to="WC.27" priority="2" shape="23.92,103.64 24.29,103.42 24.67,103.18 25.04,102.94">
+        <lane id="WC.26_0" index="0" speed="13.89" length="1.32" shape="21.61,99.43 21.78,99.33 22.08,99.14 22.28,99.01"/>
+        <lane id="WC.26_1" index="1" speed="13.89" length="1.32" shape="23.25,102.18 23.45,102.06 23.81,101.83 24.02,101.69"/>
+    </edge>
+    <edge id="WC.27" from="WC.27" to="WC.28" priority="2" shape="25.04,102.94 25.42,102.68 25.79,102.42">
+        <lane id="WC.27_0" index="0" speed="13.89" length="0.91" shape="22.47,98.88 22.69,98.74 22.89,98.59"/>
+        <lane id="WC.27_1" index="1" speed="13.89" length="0.91" shape="24.28,101.52 24.51,101.37 24.73,101.21"/>
+    </edge>
+    <edge id="WC.28" from="WC.28" to="WC.29" priority="2" shape="25.79,102.42 26.16,102.15 26.54,101.87">
+        <lane id="WC.28_0" index="0" speed="13.89" length="0.93" shape="23.10,98.44 23.32,98.28 23.55,98.11"/>
+        <lane id="WC.28_1" index="1" speed="13.89" length="0.93" shape="24.98,101.03 25.21,100.86 25.45,100.69"/>
+    </edge>
+    <edge id="WC.29" from="WC.29" to="WC.30" priority="2" shape="26.54,101.87 26.91,101.58 27.28,101.28">
+        <lane id="WC.29_0" index="0" speed="13.89" length="0.95" shape="23.72,97.98 23.92,97.83 24.14,97.65"/>
+        <lane id="WC.29_1" index="1" speed="13.89" length="0.95" shape="25.69,100.50 25.91,100.33 26.16,100.13"/>
+    </edge>
+    <edge id="WC.3" from="WC.3" to="WC.4" priority="2" shape="2.37,101.87 2.76,102.15 3.16,102.42 3.55,102.68">
+        <lane id="WC.3_0" index="0" speed="13.89" length="1.43" shape="5.31,98.07 5.50,98.21 5.83,98.43 6.09,98.60"/>
+        <lane id="WC.3_1" index="1" speed="13.89" length="1.43" shape="3.45,100.67 3.67,100.84 4.05,101.09 4.31,101.27"/>
+    </edge>
+    <edge id="WC.30" from="WC.30" to="WC.31" priority="2" shape="27.28,101.28 27.65,100.98 28.03,100.66">
+        <lane id="WC.30_0" index="0" speed="13.89" length="0.97" shape="24.38,97.46 24.59,97.28 24.80,97.10"/>
+        <lane id="WC.30_1" index="1" speed="13.89" length="0.97" shape="26.39,99.94 26.63,99.75 26.86,99.55"/>
+    </edge>
+    <edge id="WC.31" from="WC.31" to="C" priority="2" shape="28.03,100.66 28.40,100.33 28.77,100.00">
+        <lane id="WC.31_0" index="0" speed="13.89" length="0.99" shape="24.97,96.96 25.21,96.75 25.58,96.42"/>
+        <lane id="WC.31_1" index="1" speed="13.89" length="0.99" shape="27.10,99.35 27.34,99.14 27.71,98.81"/>
+    </edge>
+    <edge id="WC.4" from="WC.4" to="WC.5" priority="2" shape="3.55,102.68 3.94,102.94 4.34,103.18">
+        <lane id="WC.4_0" index="0" speed="13.89" length="0.94" shape="6.35,98.78 6.51,98.88 6.69,98.99"/>
+        <lane id="WC.4_1" index="1" speed="13.89" length="0.94" shape="4.57,101.44 4.80,101.59 5.05,101.74"/>
+    </edge>
+    <edge id="WC.5" from="WC.5" to="WC.6" priority="2" shape="4.34,103.18 4.73,103.42 5.12,103.64">
+        <lane id="WC.5_0" index="0" speed="13.89" length="0.91" shape="6.97,99.16 7.17,99.29 7.34,99.38"/>
+        <lane id="WC.5_1" index="1" speed="13.89" length="0.91" shape="5.29,101.89 5.54,102.04 5.77,102.17"/>
+    </edge>
+    <edge id="WC.6" from="WC.6" to="WC.7" priority="2" shape="5.12,103.64 5.51,103.86 5.90,104.07">
+        <lane id="WC.6_0" index="0" speed="13.89" length="0.89" shape="7.61,99.53 7.83,99.66 8.02,99.76"/>
+        <lane id="WC.6_1" index="1" speed="13.89" length="0.89" shape="6.04,102.32 6.28,102.46 6.50,102.58"/>
+    </edge>
+    <edge id="WC.7" from="WC.7" to="WC.8" priority="2" shape="5.90,104.07 6.29,104.27 6.68,104.46">
+        <lane id="WC.7_0" index="0" speed="13.89" length="0.87" shape="8.25,99.88 8.44,99.98 8.62,100.07"/>
+        <lane id="WC.7_1" index="1" speed="13.89" length="0.87" shape="6.79,102.73 7.01,102.84 7.22,102.94"/>
+    </edge>
+    <edge id="WC.8" from="WC.8" to="WC.9" priority="2" shape="6.68,104.46 7.07,104.64 7.46,104.81 7.85,104.97">
+        <lane id="WC.8_0" index="0" speed="13.89" length="1.28" shape="8.85,100.18 9.04,100.26 9.33,100.39 9.51,100.46"/>
+        <lane id="WC.8_1" index="1" speed="13.89" length="1.28" shape="7.51,103.08 7.73,103.18 8.08,103.34 8.29,103.42"/>
+    </edge>
+    <edge id="WC.9" from="WC.9" to="WC.10" priority="2" shape="7.85,104.97 8.24,105.12 8.63,105.27">
+        <lane id="WC.9_0" index="0" speed="13.89" length="0.84" shape="9.74,100.55 9.96,100.64 10.16,100.72"/>
+        <lane id="WC.9_1" index="1" speed="13.89" length="0.84" shape="8.59,103.54 8.81,103.63 9.02,103.70"/>
+    </edge>
+
+    <junction id="C" type="dead_end" x="28.77" y="100.00" incLanes="WC.31_0 WC.31_1" intLanes="" shape="24.51,95.22 28.77,100.00"/>
+    <junction id="W" type="dead_end" x="0.00" y="100.00" incLanes="" intLanes="" shape="0.00,100.00 4.07,95.06"/>
+    <junction id="WC.0" type="priority" x="0.40" y="100.33" incLanes="WC_0 WC_1" intLanes="" shape="0.50,100.41 4.63,95.53 4.38,95.31 0.30,100.25">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.1" type="priority" x="0.79" y="100.66" incLanes="WC.0_0 WC.0_1" intLanes="" shape="0.93,100.77 4.93,95.77 4.79,95.66 0.66,100.55">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.10" type="priority" x="8.63" y="105.27" incLanes="WC.9_0 WC.9_1" intLanes="" shape="8.82,105.33 10.85,99.26 10.74,99.22 8.44,105.20">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.11" type="priority" x="9.80" y="105.65" incLanes="WC.10_0 WC.10_1" intLanes="" shape="9.97,105.70 11.75,99.55 11.51,99.48 9.63,105.60">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.12" type="priority" x="10.57" y="105.86" incLanes="WC.11_0 WC.11_1" intLanes="" shape="10.74,105.90 12.18,99.66 11.98,99.61 10.39,105.81">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.13" type="priority" x="11.73" y="106.10" incLanes="WC.12_0 WC.12_1" intLanes="" shape="11.90,106.13 12.88,99.80 12.68,99.77 11.55,106.07">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.14" type="priority" x="12.50" y="106.22" incLanes="WC.13_0 WC.13_1" intLanes="" shape="12.67,106.24 13.33,99.87 12.33,106.19">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.15" type="priority" x="13.66" y="106.33" incLanes="WC.14_0 WC.14_1" intLanes="" shape="13.88,106.34 14.05,99.94 13.92,99.93 13.44,106.31">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.16" type="priority" x="14.43" y="106.35" incLanes="WC.15_0 WC.15_1" intLanes="" shape="14.61,106.35 14.61,99.95 14.42,99.95 14.25,106.35">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.17" type="priority" x="15.58" y="106.33" incLanes="WC.16_0 WC.16_1" intLanes="" shape="15.75,106.32 15.25,99.94 15.42,106.33">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.18" type="priority" x="16.34" y="106.26" incLanes="WC.17_0 WC.17_1" intLanes="" shape="16.51,106.24 15.85,99.88 15.52,99.91 16.19,106.28">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.19" type="priority" x="17.49" y="106.10" incLanes="WC.18_0 WC.18_1" intLanes="" shape="17.67,106.07 16.51,99.77 16.34,99.80 17.32,106.13">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.2" type="priority" x="1.58" y="101.28" incLanes="WC.1_0 WC.1_1" intLanes="" shape="1.71,101.38 5.55,96.26 5.35,96.10 1.45,101.18">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.20" type="priority" x="18.63" y="105.86" incLanes="WC.19_0 WC.19_1" intLanes="" shape="18.80,105.81 17.18,99.62 16.98,99.67 18.46,105.90">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.21" type="priority" x="19.39" y="105.65" incLanes="WC.20_0 WC.20_1" intLanes="" shape="19.56,105.59 17.64,99.49 17.44,99.55 19.22,105.70">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.22" type="priority" x="20.52" y="105.27" incLanes="WC.21_0 WC.21_1" intLanes="" shape="20.71,105.19 18.36,99.24 18.25,99.28 20.33,105.34">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.23" type="priority" x="21.28" y="104.97" incLanes="WC.22_0 WC.22_1" intLanes="" shape="21.45,104.90 18.97,99.00 18.77,99.08 21.12,105.03">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.24" type="priority" x="22.41" y="104.46" incLanes="WC.23_0 WC.23_1" intLanes="" shape="22.57,104.38 19.71,98.65 19.51,98.75 22.25,104.53">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.25" type="priority" x="23.16" y="104.07" incLanes="WC.24_0 WC.24_1" intLanes="" shape="23.30,103.99 20.21,98.39 19.97,98.52 23.01,104.15">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.26" type="priority" x="23.92" y="103.64" incLanes="WC.25_0 WC.25_1" intLanes="" shape="24.07,103.55 20.80,98.05 20.57,98.19 23.78,103.72">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.27" type="priority" x="25.04" y="102.94" incLanes="WC.26_0 WC.26_1" intLanes="" shape="25.18,102.84 21.57,97.56 21.41,97.67 24.89,103.04">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.28" type="priority" x="25.79" y="102.42" incLanes="WC.27_0 WC.27_1" intLanes="" shape="25.93,102.32 22.16,97.15 21.97,97.28 25.65,102.52">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.29" type="priority" x="26.54" y="101.87" incLanes="WC.28_0 WC.28_1" intLanes="" shape="26.68,101.76 22.73,96.72 22.60,96.82 26.40,101.97">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.3" type="priority" x="2.37" y="101.87" incLanes="WC.2_0 WC.2_1" intLanes="" shape="2.51,101.97 6.25,96.77 6.05,96.63 2.23,101.77">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.30" type="priority" x="27.28" y="101.28" incLanes="WC.29_0 WC.29_1" intLanes="" shape="27.40,101.18 23.37,96.21 23.13,96.40 27.16,101.37">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.31" type="priority" x="28.03" y="100.66" incLanes="WC.30_0 WC.30_1" intLanes="" shape="28.16,100.54 23.90,95.77 23.77,95.88 27.89,100.77">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.4" type="priority" x="3.55" y="102.68" incLanes="WC.3_0 WC.3_1" intLanes="" shape="3.68,102.77 7.24,97.45 6.98,97.27 3.43,102.60">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.5" type="priority" x="4.34" y="103.18" incLanes="WC.4_0 WC.4_1" intLanes="" shape="4.45,103.25 7.81,97.80 7.51,97.62 4.22,103.11">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.6" type="priority" x="5.12" y="103.64" incLanes="WC.5_0 WC.5_1" intLanes="" shape="5.25,103.71 8.40,98.14 8.12,97.99 4.98,103.56">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.7" type="priority" x="5.90" y="104.07" incLanes="WC.6_0 WC.6_1" intLanes="" shape="6.06,104.15 8.98,98.46 8.78,98.35 5.75,103.99">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.8" type="priority" x="6.68" y="104.46" incLanes="WC.7_0 WC.7_1" intLanes="" shape="6.84,104.53 9.52,98.72 9.32,98.63 6.52,104.38">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+    <junction id="WC.9" type="priority" x="7.85" y="104.97" incLanes="WC.8_0 WC.8_1" intLanes="" shape="8.01,105.03 10.31,99.06 10.11,98.98 7.69,104.90">
+        <request index="0" response="00" foes="00"/>
+        <request index="1" response="00" foes="00"/>
+    </junction>
+
+    <connection from="WC" to="WC.0" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC" to="WC.0" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.0" to="WC.1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.0" to="WC.1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.1" to="WC.2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.1" to="WC.2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.10" to="WC.11" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.10" to="WC.11" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.11" to="WC.12" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.11" to="WC.12" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.12" to="WC.13" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.12" to="WC.13" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.13" to="WC.14" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.13" to="WC.14" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.14" to="WC.15" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.14" to="WC.15" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.15" to="WC.16" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.15" to="WC.16" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.16" to="WC.17" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.16" to="WC.17" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.17" to="WC.18" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.17" to="WC.18" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.18" to="WC.19" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.18" to="WC.19" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.19" to="WC.20" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.19" to="WC.20" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.2" to="WC.3" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.2" to="WC.3" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.20" to="WC.21" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.20" to="WC.21" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.21" to="WC.22" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.21" to="WC.22" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.22" to="WC.23" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.22" to="WC.23" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.23" to="WC.24" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.23" to="WC.24" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.24" to="WC.25" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.24" to="WC.25" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.25" to="WC.26" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.25" to="WC.26" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.26" to="WC.27" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.26" to="WC.27" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.27" to="WC.28" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.27" to="WC.28" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.28" to="WC.29" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.28" to="WC.29" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.29" to="WC.30" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.29" to="WC.30" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.3" to="WC.4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.3" to="WC.4" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.30" to="WC.31" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.30" to="WC.31" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.4" to="WC.5" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.4" to="WC.5" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.5" to="WC.6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.5" to="WC.6" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.6" to="WC.7" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.6" to="WC.7" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.7" to="WC.8" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.7" to="WC.8" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.8" to="WC.9" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.8" to="WC.9" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="WC.9" to="WC.10" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="WC.9" to="WC.10" fromLane="1" toLane="1" dir="s" state="M"/>
+
+</net>

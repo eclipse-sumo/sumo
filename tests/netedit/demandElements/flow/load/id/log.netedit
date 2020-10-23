@@ -1,0 +1,6 @@
+Error: Attribute 'id' is missing in definition of flow
+Error: Attribute 'id' in definition of a flow is empty.
+Error: Invalid flow id ''.
+Error: Invalid flow id 'id with spaces'. Contains invalid characters.
+Error: There is another flow with the same ID='flow_valid'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.05Aug134741.10088/netedit.gui/demandElements/flow/load/id\input_routes.rou.xml failed.

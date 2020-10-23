@@ -1,17 +1,20 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2008-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2008-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    runner.py
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2012-10-19
-# @version $Id$
 
 from __future__ import absolute_import
 from __future__ import print_function
@@ -24,7 +27,6 @@ sys.path.append(os.path.join(sumoHome, "tools"))
 import sumolib  # noqa
 import traci  # noqa
 
-DELTA_T = 1000
 
 if sys.argv[1] == "sumo":
     sumoCall = [os.environ.get("SUMO_BINARY", os.path.join(sumoHome, 'bin', 'sumo'))]
@@ -48,10 +50,8 @@ def runSingle(traciEndTime, viewRange, objID):
                 break
 
             print("[%03d] Context results for vehicle '%s':" % (step, objID))
-            results = traci.vehicle.getContextSubscriptionResults(objID)
-            if results is not None:
-                for v in sorted([v for v in results]):
-                    print(v)
+            for v in sorted(traci.vehicle.getContextSubscriptionResults(objID) or []):
+                print(v)
 
         if not subscribed:
             print("Subscribing to vehicle context of object '%s'" % (objID))
@@ -59,7 +59,7 @@ def runSingle(traciEndTime, viewRange, objID):
                                            viewRange, [traci.constants.VAR_POSITION])
             sys.stdout.flush()
 
-            laneList = map(int, sys.argv[3].strip('[]').split(','))
+            laneList = list(map(int, sys.argv[3].strip('[]').split(',')))
 
             traci.vehicle.addSubscriptionFilterLanes(laneList)
             traci.vehicle.addSubscriptionFilterUpstreamDistance(float(sys.argv[4]))
@@ -72,8 +72,7 @@ def runSingle(traciEndTime, viewRange, objID):
             subscribed = True
         step += 1
 
-    print("Print ended at step %s" %
-          (traci.simulation.getCurrentTime() / DELTA_T))
+    print("Print ended at step %s" % step)
     traci.close()
     sys.stdout.flush()
 

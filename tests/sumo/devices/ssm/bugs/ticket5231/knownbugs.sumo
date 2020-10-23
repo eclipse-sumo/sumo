@@ -1,0 +1,15 @@
+
+[Reported by erdm_ja at 23May12:24:23]
+search_string:-
+search_file:exitcode
+ignore_other_errors:1
+full_description:crash during opposite overtaking
+brief_description:see #5231
+
+[Reported by Windows at 22Jun21:41:21]
+search_string:opposite
+use_regexp:0
+search_file:errors
+ignore_other_errors:1
+full_description:SSM device does not work with opposite direction driving
+brief_description:see #5231

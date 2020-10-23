@@ -1,0 +1,5 @@
+Warning: Ambiguity in turnarounds computation at junction '4320038435'.
+Warning: Found angle of 145.25 degrees at edge '19745765', segment 7.
+Warning: Shape for junction '3094970822' has distance 22.49 to its given position.
+Warning: Unreachable edge '309858055' within tlLogic 'joinedG_4'
+Warning: Unreachable edge '309858055' within tlLogic 'joinedG_4'

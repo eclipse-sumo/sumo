@@ -1,0 +1,8 @@
+<configuration>
+    <input>
+        <net-file value="input_net2.net.xml" />
+        <additional-files value="input_routes.rou.xml" />
+        <no-step-log value="true"/>
+    </input>
+    <fcd-output value="fcd.xml"/>
+</configuration>

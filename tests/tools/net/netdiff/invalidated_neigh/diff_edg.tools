@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<edges version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edgediff_file.xsd">
+    <!-- Copied Elements -->
+    <edge id="CN" numLanes="1">
+        <lane index="0" >
+            <neigh lane="NC_1" />
+        </lane>
+    </edge>
+    <edge id="CS" >
+        <lane index="1" >
+            <neigh lane="" />
+        </lane>
+    </edge>
+    <edge id="CW" >
+        <lane index="1" >
+            <neigh lane="" />
+        </lane>
+    </edge>
+    <edge id="NC" >
+        <lane index="1" >
+            <neigh lane="CN_0" />
+        </lane>
+    </edge>
+    <edge id="WC" to="gneJ0">
+        <lane index="1" >
+            <neigh lane="" />
+        </lane>
+    </edge>
+    <!-- Deleted Elements -->
+    <delete id="CE"/>
+    <delete id="EC"/>
+    <delete id="SC"/>
+    <!-- Created Elements -->
+    <edge id="WC.42" from="gneJ0" numLanes="2" priority="2" speed="13.89" to="C"/>
+    <!-- Changed Elements -->
+    <edge id="CN" numLanes="1">
+        <lane index="0" >
+            <neigh lane="NC_1" />
+        </lane>
+    </edge>
+    <edge id="CS" >
+        <lane index="1" >
+            <neigh lane="" />
+        </lane>
+    </edge>
+    <edge id="CW" >
+        <lane index="1" >
+            <neigh lane="" />
+        </lane>
+    </edge>
+    <edge id="NC" >
+        <lane index="1" >
+            <neigh lane="CN_0" />
+        </lane>
+    </edge>
+    <edge id="WC" to="gneJ0">
+        <lane index="1" >
+            <neigh lane="" />
+        </lane>
+    </edge>
+</edges>

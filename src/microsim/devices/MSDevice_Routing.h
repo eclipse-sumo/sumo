@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2007-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_Routing.h
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 04 Dec 2007
-/// @version $Id$
 ///
 // A device that performs vehicle rerouting based on current edge speeds
 /****************************************************************************/
-#ifndef MSDevice_Routing_h
-#define MSDevice_Routing_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <set>
@@ -115,7 +112,7 @@ public:
      * @see MSEventHandler
      * @see WrappingCommand
      */
-    bool notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
+    bool notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* enteredLane = 0);
     /// @}
 
     /// @brief return the name for this type of device
@@ -149,6 +146,15 @@ public:
      */
     void skipRouting(const SUMOTime currentTime) {
         mySkipRouting = currentTime;
+    }
+
+    SUMOTime getPeriod() const {
+        return myPeriod;
+    }
+
+    /// @brief return whether the equipped vehicle may receive dispatch information at a rail signal
+    bool mayRerouteRailSignal() const {
+        return myRerouteRailSignal;
     }
 
     /// @brief try to retrieve the given parameter from this device. Throw exception for unsupported key
@@ -215,6 +221,9 @@ private:
     /// @brief The (optional) command responsible for rerouting
     WrappingCommand< MSDevice_Routing >* myRerouteCommand;
 
+    /// @brief Whether the equipped vehicle may receive dispatch information at a rail signal
+    bool myRerouteRailSignal;
+
 private:
     /// @brief Invalidated copy constructor.
     MSDevice_Routing(const MSDevice_Routing&);
@@ -224,9 +233,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

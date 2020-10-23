@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 25/04/2017 16:36:51 by Netedit Version dev-SVN-r22880
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on 02.10.2019 14:27:43 by Eclipse SUMO netedit Version v1_3_1+0535-f8c85d5067
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\junctions\create\net.netedit"/>
+        <sumo-net-file value="C:\Projects\sumo\tests\netedit\volatileRecomputing\sidewalks.guess\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\junctions\create\net.netedit"/>
-        <plain-output-prefix value="C:\Proyectos\Sumo_Trunk\tests\netedit\netElements\junctions\inspect\input_net"/>
+        <output-file value="C:\Projects\sumo\tests\netedit\volatileRecomputing\sidewalks.guess\input_net.net.xml"/>
+        <plain-output-prefix value="C:\Projects\sumo\tests\netedit\volatileRecomputing\sidewalks.guess\input_net"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="0"/>
-        <rectangular-lane-cut value="false"/>
     </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
 </configuration>
 -->
 
-<edges version="0.27" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+<edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
     <edge id="-gneE10" from="gneJ14" to="gneJ13" priority="1" numLanes="1" speed="13.89"/>
     <edge id="-gneE11" from="gneJ15" to="gneJ14" priority="1" numLanes="1" speed="13.89"/>
     <edge id="-gneE12" from="gneJ16" to="gneJ15" priority="1" numLanes="1" speed="13.89"/>
     <edge id="-gneE13" from="gneJ17" to="gneJ16" priority="1" numLanes="1" speed="13.89"/>
     <edge id="-gneE14" from="gneJ18" to="gneJ17" priority="1" numLanes="1" speed="13.89"/>
     <edge id="-gneE15" from="gneJ11" to="gneJ18" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="-gneE16" from="gneJ11" to="gneJ19" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="-gneE17" from="gneJ13" to="gneJ19" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="-gneE18" from="gneJ15" to="gneJ19" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="-gneE19" from="gneJ17" to="gneJ19" priority="1" numLanes="1" speed="13.89"/>
     <edge id="-gneE3" from="gneJ5" to="gneJ4" priority="1" numLanes="1" speed="13.89"/>
     <edge id="-gneE4" from="gneJ7" to="gneJ6" priority="1" numLanes="1" speed="13.89"/>
     <edge id="-gneE5" from="gneJ8" to="gneJ7" priority="1" numLanes="1" speed="13.89"/>
@@ -54,10 +54,6 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="gneE13" from="gneJ16" to="gneJ17" priority="1" numLanes="1" speed="13.89"/>
     <edge id="gneE14" from="gneJ17" to="gneJ18" priority="1" numLanes="1" speed="13.89"/>
     <edge id="gneE15" from="gneJ18" to="gneJ11" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="gneE16" from="gneJ19" to="gneJ11" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="gneE17" from="gneJ19" to="gneJ13" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="gneE18" from="gneJ19" to="gneJ15" priority="1" numLanes="1" speed="13.89"/>
-    <edge id="gneE19" from="gneJ19" to="gneJ17" priority="1" numLanes="1" speed="13.89"/>
     <edge id="gneE2" from="gneJ3" to="gneJ2" priority="1" numLanes="1" speed="13.89"/>
     <edge id="gneE3" from="gneJ4" to="gneJ5" priority="1" numLanes="1" speed="13.89"/>
     <edge id="gneE4" from="gneJ6" to="gneJ7" priority="1" numLanes="1" speed="13.89"/>

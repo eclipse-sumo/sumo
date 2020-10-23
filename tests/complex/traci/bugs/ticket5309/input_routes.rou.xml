@@ -1,0 +1,6 @@
+<routes>
+    <route id="1" edges="1 2 3 4 5"/>
+
+    <!--<flow id="f" begin="20" end="3600" period="1" departLane="random" departSpeed="max" route="1"/>-->
+    <vehicle id="1" route="1" depart="1"/>
+</routes>

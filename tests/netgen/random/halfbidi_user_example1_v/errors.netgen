@@ -1,8 +1,1 @@
-Warning: Intersecting left turns at junction '1372' from lane '1427_0' and lane '1373_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '1492' from lane '1493_0' and lane '-2447_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '1525' from lane '-1891_0' and lane '-1883_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '1949' from lane '-2194_0' and lane '-2188_0'. (increase junction radius to avoid this)
-Warning: Speed of straight connection '2194_0->-2449_0' reduced by 5.75 due to turning radius of 12.05 (length=2.22 angle=26.31)
-Warning: Intersecting left turns at junction '2452' from lane '2453_0' and lane '-3095_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '578' from lane '579_0' and lane '-618_0'. (increase junction radius to avoid this)
-Warning: Intersecting left turns at junction '8' from lane '9_0' and lane '-19_0'. (increase junction radius to avoid this)
+Warning: Speed of straight connection '2194_0->-2449_0' reduced by 5.75 due to turning radius of 12.05 (length=2.22, angle=26.31).

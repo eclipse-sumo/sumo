@@ -5,6 +5,9 @@ skip_new_routes
 ignore_errors
 ignore_errors_invalid_depart_edge
 
+# randomize edge weights
+random-factor
+
 # Testing loop removal
 remove_loops
 

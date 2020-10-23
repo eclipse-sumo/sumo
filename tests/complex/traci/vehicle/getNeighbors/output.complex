@@ -1,0 +1,706 @@
+Loading configuration ... done.
+step 0.0
+step 1.0
+step 2.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', -5.42072813466657),)
+  rightLeaders:
+  (('r1', 30.436343734408723),)
+  leftFollowers:
+  (('l0', -5.507664906745777),)
+  leftLeaders:
+  (('l1', 30.60311518707313),)
+  rightFollowers (only blocking):
+  (('r0', -5.42072813466657),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l0', -5.507664906745777),)
+  leftLeaders (only blocking):
+  ()
+step 3.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', -4.414532593172044),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l0', -4.115679128072227),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  (('r0', -4.414532593172044),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l0', -4.115679128072227),)
+  leftLeaders (only blocking):
+  ()
+step 4.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', -4.20617537961807),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l0', -3.0658894950291185),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  (('r0', -4.20617537961807),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l0', -3.0658894950291185),)
+  leftLeaders (only blocking):
+  ()
+step 5.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', -3.919132617954169),)
+  rightLeaders:
+  (('r1', 29.824394930014385),)
+  leftFollowers:
+  (('l0', -2.0442524619866234),)
+  leftLeaders:
+  (('l1', 30.547595211816954),)
+  rightFollowers (only blocking):
+  (('r0', -3.919132617954169),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l0', -2.0442524619866234),)
+  leftLeaders (only blocking):
+  ()
+step 6.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', -4.54147989158519),)
+  rightLeaders:
+  (('r1', 31.216770291537976),)
+  leftFollowers:
+  (('l0', -1.7399408546276476),)
+  leftLeaders:
+  (('l1', 31.57498588224408),)
+  rightFollowers (only blocking):
+  (('r0', -4.54147989158519),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l0', -1.7399408546276476),)
+  leftLeaders (only blocking):
+  ()
+step 7.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', -4.2112395102949876),)
+  rightLeaders:
+  (('r1', 30.680679306164386),)
+  leftFollowers:
+  (('l0', -1.3889844423160085),)
+  leftLeaders:
+  (('l1', 31.82466005558149),)
+  rightFollowers (only blocking):
+  (('r0', -4.2112395102949876),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l0', -1.3889844423160085),)
+  leftLeaders (only blocking):
+  ()
+step 8.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', -1.215784302535475),)
+  rightLeaders:
+  (('r1', 28.314376586065634),)
+  leftFollowers:
+  (('l0', 1.5988103383127452),)
+  leftLeaders:
+  (('l1', 29.618162650447346),)
+  rightFollowers (only blocking):
+  (('r0', -1.215784302535475),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l0', 1.5988103383127452),)
+  leftLeaders (only blocking):
+  ()
+step 9.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 0.9524735695235336),)
+  rightLeaders:
+  (('r1', 25.2988834159663),)
+  leftFollowers:
+  (('l0', 4.383946761267243),)
+  leftLeaders:
+  (('l1', 27.447727680111313),)
+  rightFollowers (only blocking):
+  (('r0', 0.9524735695235336),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l0', 4.383946761267243),)
+  leftLeaders (only blocking):
+  ()
+step 10.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 3.7109927117349457),)
+  rightLeaders:
+  (('r1', 21.570802916470925),)
+  leftFollowers:
+  (('l0', 7.505130384428412),)
+  leftLeaders:
+  (('l1', 24.560044417205276),)
+  rightFollowers (only blocking):
+  (('r0', 3.7109927117349457),)
+  rightLeaders (only blocking):
+  (('r1', 21.570802916470925),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', 24.560044417205276),)
+step 11.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 7.343751825388509),)
+  rightLeaders:
+  (('r1', 17.93319495960978),)
+  leftFollowers:
+  (('l0', 10.730000616010265),)
+  leftLeaders:
+  (('l1', 21.90247734815722),)
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  (('r1', 17.93319495960978),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', 21.90247734815722),)
+step 12.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 10.53354454456641),)
+  rightLeaders:
+  (('r1', 14.31807294011304),)
+  leftFollowers:
+  (('l0', 13.875442578855882),)
+  leftLeaders:
+  (('l1', 19.023248159193457),)
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  (('r1', 14.31807294011304),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', 19.023248159193457),)
+step 13.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 13.882470705141301),)
+  rightLeaders:
+  (('r1', 11.22842006092894),)
+  leftFollowers:
+  (('l0', 16.31555247160138),)
+  leftLeaders:
+  (('l1', 15.302669437495084),)
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  (('r1', 11.22842006092894),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', 15.302669437495084),)
+step 14.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 16.436308632592656),)
+  rightLeaders:
+  (('r1', 9.106718158198547),)
+  leftFollowers:
+  (('l0', 19.406499530162634),)
+  leftLeaders:
+  (('l1', 13.350990135118408),)
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  (('r1', 9.106718158198547),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', 13.350990135118408),)
+step 15.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 20.35288569699877),)
+  rightLeaders:
+  (('r1', 5.412801336791404),)
+  leftFollowers:
+  (('l0', 23.05891272769678),)
+  leftLeaders:
+  (('l1', 9.493707317943745),)
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  (('r1', 5.412801336791404),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', 9.493707317943745),)
+step 16.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 23.803484648657914),)
+  rightLeaders:
+  (('r1', 2.8744892335441534),)
+  leftFollowers:
+  (('l0', 25.491818249496575),)
+  leftLeaders:
+  (('l1', 6.962999517721187),)
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  (('r1', 2.8744892335441534),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', 6.962999517721187),)
+step 17.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 27.207884070093684),)
+  rightLeaders:
+  (('r1', -1.090387576565064),)
+  leftFollowers:
+  (('l0', 29.53146755642996),)
+  leftLeaders:
+  (('l1', 3.3337195362635725),)
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  (('r1', -1.090387576565064),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', 3.3337195362635725),)
+step 18.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 29.74322210422247),)
+  rightLeaders:
+  (('r1', -3.2468054224736136),)
+  leftFollowers:
+  (('l0', 31.694617327288654),)
+  leftLeaders:
+  (('l1', 0.9927730447147667),)
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  (('r1', -3.2468054224736136),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', 0.9927730447147667),)
+step 19.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r0', 32.327754032981545),)
+  rightLeaders:
+  (('r1', -5.034108696456002),)
+  leftFollowers:
+  (('l0', 33.78511883202654),)
+  leftLeaders:
+  (('l1', -1.9015744451637886),)
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  (('r1', -5.034108696456002),)
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', -1.9015744451637886),)
+step 20.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', -7.1029518285357085),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l0', 36.856106013505666),)
+  leftLeaders:
+  (('l1', -4.611886129359675),)
+  rightFollowers (only blocking):
+  (('r1', -7.1029518285357085),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', -4.611886129359675),)
+step 21.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', -4.679063984457457),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l0', 39.45000092985663),)
+  leftLeaders:
+  (('l1', -7.351268122173792),)
+  rightFollowers (only blocking):
+  (('r1', -4.679063984457457),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  (('l1', -7.351268122173792),)
+step 22.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', -2.7666092956783643),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', -5.120776017556949),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  (('r1', -2.7666092956783643),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l1', -5.120776017556949),)
+  leftLeaders (only blocking):
+  ()
+step 23.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 0.32618983053600914),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', -2.1349675210798864),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  (('r1', 0.32618983053600914),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l1', -2.1349675210798864),)
+  leftLeaders (only blocking):
+  ()
+step 24.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 3.5511065882462844),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 1.5515761299822088),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  (('r1', 3.5511065882462844),)
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  (('l1', 1.5515761299822088),)
+  leftLeaders (only blocking):
+  ()
+step 25.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 6.376677576549298),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 4.846665729143581),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 26.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 9.671575415018935),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 8.04425376593224),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 27.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 12.879228290075446),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 11.212265354998351),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 28.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 16.0333930508653),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 14.289955179877552),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 29.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 18.884650194101994),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 17.630132485406477),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 30.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 21.393007414475107),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 20.842160969194026),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 31.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 25.24354793809914),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 24.07726048257763),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 32.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 27.871488878464334),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 26.538323281992234),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 33.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 30.706170388804765),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 30.026649036076833),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 34.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 32.97376373978517),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 32.281116596937125),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 35.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 35.763565261730946),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 34.566450656949485),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 36.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 38.87609870044611),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 38.28427426630719),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 37.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 42.15392624029704),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 41.6609104750612),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 38.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 45.91577863182414),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 44.993562877750946),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 39.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 48.398694282548576),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 48.1677346804058),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 40.0
+Neigh infos for ego:
+  rightFollowers:
+  (('r1', 50.91916017740415),)
+  rightLeaders:
+  ()
+  leftFollowers:
+  (('l1', 51.21317585558536),)
+  leftLeaders:
+  ()
+  rightFollowers (only blocking):
+  ()
+  rightLeaders (only blocking):
+  ()
+  leftFollowers (only blocking):
+  ()
+  leftLeaders (only blocking):
+  ()
+step 41.0

@@ -1,0 +1,5 @@
+Warning: Essential unique string attribute 'to' of trip with ID 'trip_0' is missing; trip cannot be created
+Error: Invalid to-edge '' used in trip 'trip_0'.
+Error: Invalid to-edge '' used in trip 'trip_1'.
+Error: Invalid to-edge 'dummyEdge' used in trip 'trip_2'.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/trip/load/to\input_routes.rou.xml failed.

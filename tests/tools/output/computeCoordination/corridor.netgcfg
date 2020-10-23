@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Sat May  9 07:45:51 2020 by Eclipse SUMO netgenerate Version v1_6_0+0163-cab07f6172
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
+
+    <grid_network>
+        <grid value="true"/>
+        <grid.length value="200"/>
+        <grid.x-number value="3"/>
+        <grid.y-number value="1"/>
+        <grid.attach-length value="200"/>
+    </grid_network>
+
+    <processing>
+        <turn-lanes value="1"/>
+        <turn-lanes.length value="80"/>
+        <perturb-x value="30"/>
+    </processing>
+
+    <building_defaults>
+        <default.lanenumber value="1"/>
+        <default-junction-type value="traffic_light"/>
+    </building_defaults>
+
+    <tls_building>
+        <tls.quarter-offset value="C0"/>
+        <tls.default-type value="static"/>
+    </tls_building>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+    </junctions>
+
+</configuration>

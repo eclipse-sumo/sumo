@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 07.08.2019 12:22:32 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/calibrator/inspect_selection/genericparameters\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/calibrator/inspect_selection/genericparameters\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/calibrator/inspect_selection/genericparameters\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/calibrator/inspect_selection/genericparameters\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/calibrator/inspect_selection/genericparameters\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/calibrator/inspect_selection/genericparameters\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/calibrator/inspect_selection/genericparameters\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/calibrator/inspect_selection/genericparameters\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <routeProbe id="RouteProbeA" edge="gneE0" freq="3600" file="RouteProbeA.xml" begin="0.00"/>
+    <routeProbe id="RouteProbeB" edge="gneE0" freq="3600" file="RouteProbeB.xml" begin="0.00"/>
+    <routeProbe id="customRouteProbeName" edge="gneE0" freq="3600" file="RouteProbeB.xml" begin="0.00"/>
+    <calibrator id="calibratorA" edge="gneE2" pos="20.00" freq="30.00" name="NameA" routeProbe="RouteProbeA" output="fileA.txt">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </calibrator>
+    <calibrator id="calibratorB" edge="gneE3" pos="30.00" freq="40.00" name="NameB" routeProbe="RouteProbeB" output="fileB.txt">
+        <param key="keyFinal1" value="value1"/>
+        <param key="keyFinal2" value="value2"/>
+        <param key="keyFinal3" value="value3"/>
+    </calibrator>
+</additional>

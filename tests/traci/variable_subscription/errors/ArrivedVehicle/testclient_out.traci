@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Mon Jul 01 13:27:29 2013
+TraCITestClient output file. Date: Fri Aug 16 10:28:20 2019
 
 
 -> Command sent: <SimulationStep>:
@@ -6,7 +6,7 @@ TraCITestClient output file. Date: Mon Jul 01 13:27:29 2013
 
 -> Command sent: <SubscribeVariable>:
   domID=212 objID=0 with 1 variables
-.. Answered with error to command (212), [description: Could not add subscription (Vehicle '0' is not known).]
+.. Answered with error to command (212), [description: Could not add subscription. Vehicle '0' is not known.]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

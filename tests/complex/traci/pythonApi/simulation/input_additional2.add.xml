@@ -1,8 +1,0 @@
-<add>
-    <chargingStation id="cs1" lane="o_0" pos="10" endPos="20" name="megaCharger"/>
-    <busStop id="bs" lane="o_0" endPos="50" name="Magnusstr."/>
-    <parkingArea id="pa1" lane="2o_0" endPos="50" roadsideCapacity="4" name="DLR">
-        <space x="3380" y="10"/>
-        <space x="3380" y="20"/>
-    </parkingArea>
-</add>

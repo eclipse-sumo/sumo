@@ -1,0 +1,5 @@
+-e input_plain.edg.xml 
+-n input_plain.nod.xml
+--default.junctions.radius 0
+--junctions.small-radius 0
+--junctions.scurve-stretch 1

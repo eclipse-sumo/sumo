@@ -1,0 +1,2 @@
+# <sumo/sumo-gui> <range> <lateralDistance> <downstreamDistance> <upstreamDistance> <testWithIncompatibleFilter (0/1)>
+sumo 50.0 50.0 50.0 50.0 0 tests/complex/traci/ContextSubscriptionFilters/lateralDistance/internal_edges/runner.py

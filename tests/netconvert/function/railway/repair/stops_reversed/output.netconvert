@@ -1,14 +1,13 @@
-Parsing sumo-net from 'input_net.net.xml'... done.
-Parsing public transport stops from 'input_ptstops.xml'... done.
-Parsing public transport lines from 'input_ptlines.xml'... done.
+Parsing sumo-net from 'input_net.net.xml' ... done.
+Parsing public transport stops from 'input_ptstops.xml' ... done.
+Parsing public transport lines from 'input_ptlines.xml' ... done.
  Import done:
    4 nodes loaded.
    3 edges loaded.
-Removing self-loops... done (0ms).
-Processing public transport stops... done (0ms).
-Revising public transport stops based on pt lines... 
-done (0ms).
-Align pt stop id signs with corresponding edge id signs... done (0ms).
+Removing self-loops ... done (0ms).
+Processing public transport stops ... done (0ms).
+Revising public transport stops based on pt lines ... done (0ms).
+Align pt stop id signs with corresponding edge id signs ... done (0ms).
 Added 2 bidi-edges for public transport stops and a total of 3 bidi-edges to ensure connectivity of stops (0 stops remain disconnected)
 DijkstraRouter answered 1 queries and explored 8.00 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
@@ -19,28 +18,28 @@ Railway nodes by number of incoming,outgoing edges:
 Found 0 broken railway nodes (A=0 B=0 C=0 D=0)
 Found 0 railway nodes marked as buffer_stop
 Found 3 bidirectional rail edges
-Removing empty nodes... done (0ms).
+Removing empty nodes ... done (0ms).
    0 nodes removed.
-Computing turning directions... done (0ms).
-Assigning nodes to traffic lights... done (0ms).
-Sorting nodes' edges... done (0ms).
-Computing node shapes... done (0ms).
-Computing edge shapes... done (0ms).
-Computing node types... done (0ms).
-Computing priorities... done (0ms).
-Computing approached edges... done (0ms).
-Guessing and setting roundabouts... done (0ms).
-Computing approaching lanes... done (0ms).
-Dividing of lanes on approached lanes... done (0ms).
-Processing turnarounds... done (0ms).
-Rechecking of lane endings... done (0ms).
-Computing traffic light control information... done (0ms).
-Computing node logics... done (0ms).
-Computing traffic light logics... done (0ms).
+Computing turning directions ... done (0ms).
+Assigning nodes to traffic lights ... done (0ms).
+Sorting nodes' edges ... done (0ms).
+Computing node shapes ... done (0ms).
+Computing edge shapes ... done (0ms).
+Computing node types ... done (0ms).
+Computing priorities ... done (0ms).
+Computing approached edges ... done (0ms).
+Guessing and setting roundabouts ... done (0ms).
+Computing approaching lanes ... done (0ms).
+Dividing of lanes on approached lanes ... done (1ms).
+Processing turnarounds ... done (0ms).
+Rechecking of lane endings ... done (0ms).
+Computing traffic light control information ... done (0ms).
+Computing node logics ... done (0ms).
+Computing traffic light logics ... done (0ms).
  0 traffic light(s) computed.
-Building inner edges... done (0ms).
+Building inner edges ... done (0ms).
 Added 2 stops for superposed rail edges.
-Find accesses for pt rail stops... done (0ms).
+Find accesses for pt rail stops ... done (0ms).
 DijkstraRouter answered 6 queries and explored 3.83 edges on average.
 DijkstraRouter spent 0ms answering queries (0.00ms on average).
 -----------------------------------------------------
@@ -54,5 +53,5 @@ Summary:
   Applied offset     : 0.00,0.00
   Converted boundary : -100.00,-100.00,200.00,-100.00
 -----------------------------------------------------
-Writing network... done (2ms).
+Writing network ... done (2ms).
 Success.

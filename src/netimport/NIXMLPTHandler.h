@@ -1,26 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIXMLPTHandler.h
 /// @author  Jakob Erdmann
 /// @date    Sat, 28 Jul 2018
-/// @version $Id$
 ///
 // Importer for static public transport information
 /****************************************************************************/
-#ifndef NIXMLPTHandler_h
-#define NIXMLPTHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <utils/common/SUMOVehicleClass.h>
@@ -142,11 +139,21 @@ private:
     /// @brief The currently processed line
     NBPTLine* myCurrentLine;
 
+    /// @brief The currently processed stand-alone route
+    std::string myCurrentRouteID;
+
     /// @brief the completion level of the current line
     double myCurrentCompletion;
 
     /// @brief element to receive parameters
     std::vector<Parameterised*> myLastParameterised;
+
+    /// @brief stand-alone route information
+    std::map<std::string, std::vector<NBPTStop*> >  myRouteStops;
+    std::map<std::string, EdgeVector >  myRouteEdges;
+
+    /// @brief whether the current stop should be discarded
+    bool myCurrentStopWasIgnored;
 
 private:
 
@@ -155,10 +162,26 @@ private:
      */
     void addPTStop(const SUMOSAXAttributes& attrs);
 
+    /** @brief Parses a route as port of a public transport line
+     * @param[in] attrs The attributes to get the routes's values from
+     */
+    void addPTLineRoute(const SUMOSAXAttributes& attrs);
+
+    /** @brief Parses a stand-alone route when parsing implicit ptlines from
+     * routes and flows
+     * @param[in] attrs The attributes to get the routes's values from
+     */
+    void addRoute(const SUMOSAXAttributes& attrs);
+
     /** @brief Parses an public transport stop reference within a line element
      * @param[in] attrs The attributes to get the stops's values from
      */
     void addPTLineStop(const SUMOSAXAttributes& attrs);
+
+    /** @brief Parses an public transport stop reference within a route element
+     * @param[in] attrs The attributes to get the stops's values from
+     */
+    void addRouteStop(const SUMOSAXAttributes& attrs);
 
     /** @brief Parses an stop access definition
      * @param[in] attrs The attributes to get the access's values from
@@ -170,6 +193,11 @@ private:
      */
     void addPTLine(const SUMOSAXAttributes& attrs);
 
+    /** @brief Parses a public transport line
+     * @param[in] attrs The attributes to get the lines's values from
+     */
+    void addPTLineFromFlow(const SUMOSAXAttributes& attrs);
+
 
 private:
     /** @brief invalid copy constructor */
@@ -179,9 +207,3 @@ private:
     NIXMLPTHandler& operator=(const NIXMLPTHandler& s);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

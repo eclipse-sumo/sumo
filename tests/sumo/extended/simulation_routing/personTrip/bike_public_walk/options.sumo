@@ -1,3 +1,0 @@
---net-file=net.net.xml --additional input_additional.add.xml --route-files=input_routes.rou.xml --vehroute-output vehroutes.xml
---tripinfo-output tripinfos.xml
---duration-log.statistics

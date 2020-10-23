@@ -1,22 +1,24 @@
 #!/usr/bin/env python
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2010-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    createVehTypeDistribution.py
 # @author  Mirko Barthauer (Technische Universitaet Braunschweig, Institut fuer Verkehr und Stadtbauwesen)
 # @author  Jakob Erdmann
 # @author  Michael Behrisch
 # @date    2016-06-09
-# @version $Id$
 
 """
-
-Creates a vehicle type distribution with a number of representative car-following parameter sets. \
+Creates a vehicle type distribution with a number of representative car-following parameter sets.
 Optional parameters can be viewed by using the --help switch.
 Mandatory input:
 path to config file - defines the car-following model parameter distributions for one single vehicle type distribution
@@ -24,16 +26,17 @@ path to config file - defines the car-following model parameter distributions fo
 In the config file, one line is used per vehicle type attribute. The syntax is:
 nameOfAttribute; valueOfAttribute [; limits]
 
-ValueOfAttribute can be a string, a scalar value or a distribution definition. \
-Available distributions and its syntax are:
-"normal(mu,sd)" with mu and sd being floating numbers: Normal distribution with mean mu and standard deviation sd.
-"uniform(a,b)" with limits a and b being floating numbers: Uniform distribution between a and b.
-"gamma(alpha,beta)" with parameters alpha and beta: Gamma distribution.
+ValueOfAttribute can be a string, a scalar value or a distribution definition.
+All parameters are floating point numbers.
+Available distributions and their syntax are:
+"normal(mu,sd)": Normal distribution with mean mu and standard deviation sd.
+"lognormal(mu,sd)": Log-Normal distribution with mean mu and standard deviation sd.
+"uniform(a,b)": Uniform distribution between a and b.
+"gamma(alpha,beta)": Gamma distribution.
 
-Limits are optional and defined as the allowed interval: e.g. "[0,1]" or "[3.5,5.0]". \
+Limits are optional and defined as the allowed interval: e.g. "[0,1]" or "[3.5,5.0]".
 By default, no negative values are accepted but have to be enabled by
 a negative lower limit.
-
 """
 
 import os
@@ -101,6 +104,31 @@ class NormalDistribution(FixDistribution):
         return random.normalvariate(self._params[0], self._params[1])
 
 
+class LogNormalDistribution(FixDistribution):
+
+    def __init__(self, loc, scale):
+        FixDistribution.__init__(self, (loc, scale))
+
+    def _sampleValue(self):
+        return random.lognormvariate(self._params[0], self._params[1])
+
+
+class NormalCappedDistribution(FixDistribution):
+
+    def __init__(self, loc, scale, cutLow, cutHigh):
+        FixDistribution.__init__(self, (loc, scale, cutLow, cutHigh))
+        if loc < cutLow or loc > cutHigh:
+            sys.stderr.write("mean %s is outside cutoff bounds [%s, %s]" % (
+                loc, cutLow, cutHigh))
+            sys.exit()
+
+    def _sampleValue(self):
+        while True:
+            cand = random.normalvariate(self._params[0], self._params[1])
+            if cand >= self._params[2] and cand <= self._params[3]:
+                return cand
+
+
 class UniformDistribution(FixDistribution):
 
     def __init__(self, lower, upper):
@@ -146,10 +174,12 @@ def get_options(args=None):
 def readConfigFile(options):
     filePath = options.configFile
     result = {}
-
-    distSyntaxes = {'normal': 'normal\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)',
-                    'uniform': 'uniform\(\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\)',
-                    'gamma': 'gamma\(\s*([0-9]+(\.[0-9]+)?)\s*,\s*([0-9]+(\.[0-9]+)?)\s*\)'}
+    floatRegex = [r'\s*(-?[0-9]+(\.[0-9]+)?)\s*']
+    distSyntaxes = {'normal': r'normal\(%s\)' % (",".join(2 * floatRegex)),
+                    'lognormal': r'lognormal\(%s\)' % (",".join(2 * floatRegex)),
+                    'normalCapped': r'normalCapped\(%s\)' % (",".join(4 * floatRegex)),
+                    'uniform': r'uniform\(%s\)' % (",".join(2 * floatRegex)),
+                    'gamma': r'gamma\(%s\)' % (",".join(2 * floatRegex))}
 
     with open(filePath) as f:
         reader = csv.reader(f, delimiter=';')
@@ -185,6 +215,12 @@ def readConfigFile(options):
 
                             if distName == 'normal':
                                 value = NormalDistribution(distPar1, distPar2)
+                            if distName == 'lognormal':
+                                value = LogNormalDistribution(distPar1, distPar2)
+                            elif distName == 'normalCapped':
+                                cutLow = float(items[0][4])
+                                cutHigh = float(items[0][6])
+                                value = NormalCappedDistribution(distPar1, distPar2, cutLow, cutHigh)
                             elif distName == 'uniform':
                                 value = UniformDistribution(distPar1, distPar2)
                             elif distName == 'gamma':
@@ -192,15 +228,16 @@ def readConfigFile(options):
                             break
 
                     if not distFound:
-                        isNumeric = len(re.findall(
-                            '(-?[0-9]+(\.[0-9]+)?)', attValue)) > 0
+                        if attName == "emissionClass":
+                            isNumeric = False
+                        else:
+                            isNumeric = len(re.findall(r'^(-?[0-9]+(\.[0-9]+)?)$', attValue)) > 0
                         value = FixDistribution((attValue,), isNumeric)
 
                     # get optional limits
                     if len(row) == 3:
                         limitValue = row[2].strip()
-                        items = re.findall(
-                            '\[\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\]', limitValue)
+                        items = re.findall(r'\[\s*(-?[0-9]+(\.[0-9]+)?)\s*,\s*(-?[0-9]+(\.[0-9]+)?)\s*\]', limitValue)
                         if len(items) > 0:
                             lowerLimit = float(items[0][0])
                             upperLimit = float(items[0][2])

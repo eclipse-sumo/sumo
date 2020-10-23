@@ -5,10 +5,10 @@ performance_variation_%:30
 performance:output
 
 [performance_logfile_extractor]
-performance: Duration: ([0-9\.]*)ms
+performance: Duration: ([0-9\.]*)s
 
 [performance_unit]
-performance:ms
+performance:s
 
 [performance_test_machine]
 performance:any

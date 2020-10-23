@@ -1,26 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MESegment.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, May 2005
-/// @version $Id$
 ///
 // A single mesoscopic segment (cell)
 /****************************************************************************/
-#ifndef MESegment_h
-#define MESegment_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -34,9 +31,9 @@
 class MSEdge;
 class MSLink;
 class MSMoveReminder;
+class MSDetectorFileOutput;
 class MSVehicleControl;
 class MEVehicle;
-class BinaryInputDevice;
 class OutputDevice;
 
 
@@ -48,6 +45,67 @@ class OutputDevice;
  * @brief A single mesoscopic segment (cell)
  */
 class MESegment : public Named {
+private:
+    class Queue {
+    public:
+        Queue(const SVCPermissions permissions) : myPermissions(permissions) {}
+        inline int size() const {
+            return (int)myVehicles.size();
+        }
+        inline const std::vector<MEVehicle*>& getVehicles() const {
+            return myVehicles;
+        }
+        MEVehicle* remove(MEVehicle* v);
+        inline std::vector<MEVehicle*>& getModifiableVehicles() {
+            return myVehicles;
+        }
+        inline double getOccupancy() const {
+            return myOccupancy;
+        }
+        inline void setOccupancy(const double occ) {
+            myOccupancy = occ;
+        }
+        inline bool allows(SUMOVehicleClass vclass) const {
+            return (myPermissions & vclass) == vclass;
+        }
+
+        /// @brief return the next time at which a vehicle may enter this queue
+        inline SUMOTime getEntryBlockTime() const {
+            return myEntryBlockTime;
+        }
+
+        /// @brief set the next time at which a vehicle may enter this queue
+        inline void setEntryBlockTime(SUMOTime entryBlockTime) {
+            myEntryBlockTime = entryBlockTime;
+        }
+
+        inline SUMOTime getBlockTime() const {
+            return myBlockTime;
+        }
+        inline void setBlockTime(SUMOTime t) {
+            myBlockTime = t;
+        }
+
+    private:
+        /// The vClass permissions for this queue
+        const SVCPermissions myPermissions;
+
+        std::vector<MEVehicle*> myVehicles;
+
+        /// @brief The occupied space (in m) in the queue
+        double myOccupancy = 0.;
+
+        /// @brief The block time for vehicles who wish to enter this queue
+        SUMOTime myEntryBlockTime = SUMOTime_MIN;
+
+        /// @brief The block time
+        SUMOTime myBlockTime = -1;
+
+    private:
+        /// @brief Invalidated assignment operator.
+        Queue& operator=(const Queue&) = delete;
+    };
+
 public:
     /** @brief constructor
      * @param[in] id The id of this segment (currently: "<EDGEID>:<SEGMENTNO>")
@@ -63,21 +121,19 @@ public:
      * @param[in] jamThresh percentage of occupied space before the segment is jammed
      * @param[in] multiQueue whether to install multiple queues on this segment
      * @param[in] junctionControl whether junction control is enabled on this segment
-     * @param[in] the quotient of geometrical length / given length
      * @todo recheck the id; using a ':' as divider is not really nice
      */
     MESegment(const std::string& id,
               const MSEdge& parent, MESegment* next,
-              double length, double speed,
-              int idx,
-              SUMOTime tauff, SUMOTime taufj,
-              SUMOTime taujf, SUMOTime taujj,
-              double jamThresh,
-              bool multiQueue, bool junctionControl);
+              const double length, const double speed,
+              const int idx,
+              const SUMOTime tauff, const SUMOTime taufj,
+              const SUMOTime taujf, const SUMOTime taujj,
+              const double jamThresh,
+              const bool multiQueue,
+              const bool junctionControl);
 
 
-    typedef std::vector<MEVehicle*> Queue;
-    typedef std::vector<Queue> Queues;
     /// @name Measure collection
     /// @{
 
@@ -104,10 +160,11 @@ public:
      *
      * @param[in] veh The vehicle to check space for
      * @param[in] entryTime The time at which the vehicle wants to enter
+     * @param[out] qIdx The index of the queue the vehicle should choose
      * @param[in] init whether the check is done at insertion time
-     * @return true if the vehicle may be added to this segment, false otherwise
+     * @return the earliest time a vehicle may be added to this segment
      */
-    bool hasSpaceFor(const MEVehicle* veh, SUMOTime entryTime, bool init = false) const;
+    SUMOTime hasSpaceFor(const MEVehicle* const veh, const SUMOTime entryTime, int& qIdx, const bool init = false) const;
 
     /** @brief Inserts (emits) vehicle into the segment
      *
@@ -122,19 +179,19 @@ public:
      * @return the total number of cars on the segment
      */
     inline int getCarNumber() const {
-        return myNumCars;
+        return myNumVehicles;
     }
 
     /// @brief return the number of queues
     inline int numQueues() const {
-        return (int)myCarQues.size();
+        return (int)myQueues.size();
     }
     /** @brief Returns the cars in the queue with the given index for visualization
      * @return the Queue (XXX not thread-safe!)
      */
-    inline const Queue& getQueue(int index) const {
-        assert(index < (int)myCarQues.size());
-        return myCarQues[index];
+    inline const std::vector<MEVehicle*>& getQueue(int index) const {
+        assert(index < (int)myQueues.size());
+        return myQueues[index].getVehicles();
     }
 
     /** @brief Returns the running index of the segment in the edge (0 is the most upstream).
@@ -166,15 +223,18 @@ public:
      * @return the occupany of the segment in meters
      */
     inline double getBruttoOccupancy() const {
-        return myOccupancy;
+        double occ = 0.;
+        for (const Queue& q : myQueues) {
+            occ += q.getOccupancy();
+        }
+        return occ;
     }
-
 
     /** @brief Returns the relative occupany of the segment (percentage of road used))
      * @return the occupany of the segment in percent
      */
     inline double getRelativeOccupancy() const {
-        return myOccupancy / myCapacity;
+        return getBruttoOccupancy() / myCapacity;
     }
 
     /** @brief Returns the relative occupany of the segment (percentage of road used))
@@ -241,7 +301,7 @@ public:
      * @param[in] time the leave time
      * @todo Isn't always time == veh->getEventTime?
      */
-    void send(MEVehicle* veh, MESegment* next, SUMOTime time, const MSMoveReminder::Notification reason);
+    void send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOTime time, const MSMoveReminder::Notification reason);
 
     /** @brief Adds the vehicle to the segment, adapting its parameters
      *
@@ -250,7 +310,7 @@ public:
      * @param[in] isDepart whether the vehicle just departed
      * @todo Isn't always time == veh->getEventTime?
      */
-    void receive(MEVehicle* veh, SUMOTime time, bool isDepart = false, bool afterTeleport = false);
+    void receive(MEVehicle* veh, const int qIdx, SUMOTime time, const bool isDepart = false, const bool isTeleport = false, const bool newEdge = false);
 
 
     /** @brief tries to remove any car from this segment
@@ -258,7 +318,7 @@ public:
      * @param[in] currentTime the current time
      * @return Whether vaporization was successful
      * @note: cars removed via this method do NOT count as arrivals */
-    bool vaporizeAnyCar(SUMOTime currentTime);
+    bool vaporizeAnyCar(SUMOTime currentTime, const MSDetectorFileOutput* filter);
 
     /** @brief Returns the edge this segment belongs to
      * @return the edge this segment belongs to
@@ -289,10 +349,17 @@ public:
         return STEPS2TIME(myLastHeadway);
     }
 
-    /// @brief get the last headway time in seconds
+    /// @brief get the earliest entry time in seconds
     inline double getEntryBlockTimeSeconds() const {
-        return STEPS2TIME(myEntryBlockTime);
+        SUMOTime t = SUMOTime_MAX;
+        for (const Queue& q : myQueues) {
+            t = MIN2(t, q.getEntryBlockTime());
+        }
+        return STEPS2TIME(t);
     }
+
+    /// @brief Get the waiting time for vehicles in all queues
+    double getWaitingSeconds() const;
 
     /// @name State saving/loading
     /// @{
@@ -306,7 +373,10 @@ public:
      * @param[in, filled] out The (possibly binary) device to write the state into
      * @todo What about throwing an IOError?
      */
-    void saveState(OutputDevice& out);
+    void saveState(OutputDevice& out) const;
+
+    /** @brief Remove all vehicles before quick-loading state */
+    void clearState();
 
     /** @brief Loads the state of this segment with the given parameters
      *
@@ -331,44 +401,31 @@ public:
      */
     std::vector<const MEVehicle*> getVehicles() const;
 
-
     /** @brief returns flow based on headway
      * @note: returns magic number 10000 when headway cannot be computed
      */
     double getFlow() const;
 
-
     /// @brief whether the given segment is 0 or encodes vaporization
     static inline bool isInvalid(const MESegment* segment) {
-        return segment == 0 || segment == &myVaporizationTarget;
+        return segment == nullptr || segment == &myVaporizationTarget;
     }
 
     /// @brief return a time after earliestEntry at which a vehicle may be inserted at full speed
     SUMOTime getNextInsertionTime(SUMOTime earliestEntry) const;
 
-    /** @brief return whether this segment is considered free as opposed to jammed
-     */
-    inline bool free() const {
-        return myOccupancy <= myJamThreshold;
-    }
-
     /// @brief return the remaining physical space on this segment
     inline int remainingVehicleCapacity(const double vehLength) const {
-        if (myOccupancy == 0. && myCapacity < vehLength) {
-            // even small segments can hold at least one vehicle
-            return 1;
+        int cap = 0;
+        for (const Queue& q : myQueues) {
+            if (q.getOccupancy() == 0. && myQueueCapacity < vehLength) {
+                // even small segments can hold at least one vehicle
+                cap += 1;
+            } else {
+                cap += (int)((myQueueCapacity - q.getOccupancy()) / vehLength);
+            }
         }
-        return (int)((myCapacity - myOccupancy) / vehLength);
-    }
-
-    /// @brief return the next time at which a vehicle my enter this segment
-    inline SUMOTime getEntryBlockTime() const {
-        return myEntryBlockTime;
-    }
-
-    /// @brief set the next time at which a vehicle my enter this segment
-    inline void setEntryBlockTime(SUMOTime entryBlockTime) {
-        myEntryBlockTime = entryBlockTime;
+        return cap;
     }
 
     /// @brief return the minimum headway-time with which vehicles may enter or leave this segment
@@ -387,16 +444,8 @@ public:
      */
     SUMOTime getLinkPenalty(const MEVehicle* veh) const;
 
-    /** @brief Returns the average green time as fraction of cycle time
-     * @param[in] veh The vehicle in question for determining the link
-     * @return The green fraction or 1 if the vehicle does not continue after this edge
-     */
-    double getTLSCapacity(const MEVehicle* veh) const;
-
 private:
     bool overtake();
-
-    SUMOTime getTimeHeadway(const MESegment* pred, const MEVehicle* veh);
 
     void setSpeedForQueue(double newSpeed, SUMOTime currentTime,
                           SUMOTime blockTime, const std::vector<MEVehicle*>& vehs);
@@ -423,12 +472,9 @@ private:
     /// @brief return the maximum tls penalty for all links from this edge
     double getMaxPenaltySeconds() const;
 
-    /// @brief whether the segment requires use of multiple queues
-    static bool useMultiQueue(bool multiQueue, const MSEdge& parent);
-
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
     inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap) const {
-        return tau + (SUMOTime)(lengthWithGap / myTau_length);
+        return tau + (SUMOTime)(lengthWithGap * myTau_length);
     }
 
 private:
@@ -456,11 +502,11 @@ private:
     /// This parameter has only an effect if tau_jf != tau_jj, which is not(!) the case per default
     const double myHeadwayCapacity;
 
-    /// @brief The number of lanes * the length
+    /// @brief The number of lanes represented by the queue * the length of the lane
     const double myCapacity;
 
-    /// @brief The occupied space (in m) on the segment
-    double myOccupancy;
+    /// @brief The number of lanes represented by the queue * the length of the lane
+    const double myQueueCapacity;
 
     /// @brief Whether junction control is enabled
     const bool myJunctionControl;
@@ -478,21 +524,13 @@ private:
     std::vector<MSMoveReminder*> myDetectorData;
 
     /// @brief The car queues. Vehicles are inserted in the front and removed in the back
-    Queues myCarQues;
+    std::vector<Queue> myQueues;
 
-    /// @brief The cached value for the number of cars
-    int myNumCars;
+    /// @brief The cached value for the number of vehicles
+    int myNumVehicles;
 
-    /// @brief The follower edge to que index mapping for multi queue segments
-    std::map<const MSEdge*, std::vector<int> > myFollowerMap;
-
-    /// @brief The block times
-    std::vector<SUMOTime> myBlockTimes;
-
-    /* @brief The block time for vehicles who wish to enter this segment.
-     * @note since we do not know which queue will be used there is only one
-     * value for all queues */
-    SUMOTime myEntryBlockTime;
+    /// @brief The follower edge to allowed que index mapping for multi queue segments
+    std::map<const MSEdge*, int> myFollowerMap;
 
     /// @brief the last headway
     SUMOTime myLastHeadway;
@@ -518,8 +556,3 @@ private:
     /// @brief constructor for dummy segment
     MESegment(const std::string& id);
 };
-
-
-#endif
-
-/****************************************************************************/

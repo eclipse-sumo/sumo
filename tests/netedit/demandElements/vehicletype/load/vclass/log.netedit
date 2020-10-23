@@ -1,0 +1,3 @@
+Error: The vehicle class 'dummyVClass' for vType 'vType0' is not known.
+Error: Attribute 'vClass' in definition of vType 'vType1' is empty.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.25Sep145557.1772/netedit.gui/demandElements/vehicletype/load/vclass\input_routes.rou.xml failed.

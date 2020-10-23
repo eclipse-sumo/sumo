@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Jun  2 16:35:58 2017 by SUMO Version dev-SVN-r23112
+<!-- generated on Tue Mar 31 09:33:29 2020 by Eclipse SUMO Version v1_5_0+1023-63f9a82342
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,10 +13,18 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -29,34 +37,34 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="15.00" id="dump_15">
-        <edge id="1si" sampledSeconds="23.00" traveltime="44.23" overlapTraveltime="44.76" density="6.13" occupancy="0.61" waitingTime="0.00" speed="5.65" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="4" laneChangedTo="4"/>
+        <edge id="1si" sampledSeconds="23.00" traveltime="44.23" overlapTraveltime="44.76" density="6.13" laneDensity="2.04" occupancy="0.61" waitingTime="0.00" speed="5.65" departed="2" arrived="0" entered="0" left="0" laneChangedFrom="4" laneChangedTo="4"/>
     </interval>
     <interval begin="15.00" end="30.00" id="dump_15">
-        <edge id="1si" sampledSeconds="30.00" traveltime="50.00" overlapTraveltime="50.60" density="8.00" occupancy="0.80" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="30.00" traveltime="50.00" overlapTraveltime="50.60" density="8.00" laneDensity="2.67" occupancy="0.80" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="30.00" end="45.00" id="dump_15">
-        <edge id="1si" sampledSeconds="30.00" traveltime="577.01" overlapTraveltime="583.94" density="8.00" occupancy="0.80" waitingTime="27.00" speed="0.43" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="30.00" traveltime="577.01" overlapTraveltime="583.94" density="8.00" laneDensity="2.67" occupancy="0.80" waitingTime="27.00" speed="0.43" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="45.00" end="60.00" id="dump_15">
-        <edge id="1si" sampledSeconds="7.92" traveltime="196.39" overlapTraveltime="154.05" density="2.11" occupancy="0.18" waitingTime="1.00" speed="1.64" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="4o" sampledSeconds="24.50" traveltime="109.76" overlapTraveltime="110.42" density="3.27" occupancy="0.92" waitingTime="0.00" speed="4.56" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="7.92" traveltime="196.39" overlapTraveltime="154.05" density="2.11" laneDensity="0.70" occupancy="0.18" waitingTime="1.00" speed="1.64" departed="0" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="24.50" traveltime="109.76" overlapTraveltime="110.42" density="3.27" laneDensity="3.27" occupancy="0.93" waitingTime="0.00" speed="4.56" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="60.00" end="75.00" id="dump_15">
-        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" laneDensity="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="75.00" end="90.00" id="dump_15">
-        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" laneDensity="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="90.00" end="105.00" id="dump_15">
-        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" laneDensity="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="105.00" end="120.00" id="dump_15">
-        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" laneDensity="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="120.00" end="135.00" id="dump_15">
-        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="30.00" traveltime="100.00" overlapTraveltime="100.60" density="4.00" laneDensity="4.00" occupancy="1.20" waitingTime="0.00" speed="5.00" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="135.00" end="150.00" id="dump_15">
-        <edge id="4o" sampledSeconds="27.97" traveltime="98.83" overlapTraveltime="98.94" density="3.73" occupancy="1.11" waitingTime="0.00" speed="5.08" departed="0" arrived="2" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="27.97" traveltime="98.83" overlapTraveltime="98.94" density="3.73" laneDensity="3.73" occupancy="1.11" waitingTime="0.00" speed="5.08" departed="0" arrived="2" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>

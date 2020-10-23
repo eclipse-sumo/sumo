@@ -1,11 +1,23 @@
+# guess bike lanes using plain xml input
+guess
+
+# guess bike lanes using plain xml input
+guess_width_sidewalks
+
+# guess bike lanes but prevent one edge from receiving a sidewalks 
+guess_disable1
+
 # add bike lane via typemap
 typemap
 
 # add bike lane via plain-xml input
 addFromPlainXML
 
-# test connection building in the presence of bicycle lanes
-connections
+# guess bicycle lanes based on edge permissions
+guess.from-permissions
 
-# same as 'connections' but with different priorities
-connections2
+# test connection building when all lanes are reserved for either bicycle or passenger traffic
+connections_dedicated
+
+# test connection building when there are some roads with dedicated lanes and some roads with mixed traffic
+connections_mixed

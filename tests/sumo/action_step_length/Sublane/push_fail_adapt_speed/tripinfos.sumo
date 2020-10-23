@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Aug 27 12:04:51 2018 by Eclipse SUMO Version 1e23198
+<!-- generated on Mon Nov 18 08:46:43 2019 by Eclipse SUMO Version v1_3_1+0929-fc8a46e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,6 +43,6 @@ SPDX-License-Identifier: EPL-2.0
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
     <tripinfo id="blockL" depart="0.00" departLane="beg_0" departPos="50.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="21.30" arrivalLane="end_0" arrivalPos="136.29" arrivalPosLat="0.00" arrivalSpeed="27.78" duration="21.30" routeLength="591.64" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="0" devices="tripinfo_blockL" vType="blockerType" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="blockF" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="27.80" arrivalLane="end_0" arrivalPos="136.29" arrivalPosLat="0.00" arrivalSpeed="26.63" duration="27.80" routeLength="641.64" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.64" rerouteNo="0" devices="tripinfo_blockF" vType="blockerType" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="ego" depart="0.00" departLane="beg_1" departPos="45.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="33.30" arrivalLane="end_0" arrivalPos="136.29" arrivalPosLat="0.00" arrivalSpeed="26.53" duration="33.30" routeLength="596.64" waitingTime="2.90" waitingCount="1" stopTime="0.00" timeLoss="11.77" rerouteNo="0" devices="tripinfo_ego" vType="egoType" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="ego" depart="0.00" departLane="beg_1" departPos="45.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="23.00" arrivalLane="end_0" arrivalPos="136.29" arrivalPosLat="0.00" arrivalSpeed="27.78" duration="23.00" routeLength="596.64" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.50" rerouteNo="0" devices="tripinfo_ego" vType="egoType" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="blockF" depart="0.00" departLane="beg_0" departPos="0.00" departPosLat="0.00" departSpeed="27.78" departDelay="0.00" arrival="25.10" arrivalLane="end_0" arrivalPos="136.29" arrivalPosLat="0.00" arrivalSpeed="27.78" duration="25.10" routeLength="641.64" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="1.94" rerouteNo="0" devices="tripinfo_blockF" vType="blockerType" speedFactor="1.00" vaporized=""/>
 </tripinfos>

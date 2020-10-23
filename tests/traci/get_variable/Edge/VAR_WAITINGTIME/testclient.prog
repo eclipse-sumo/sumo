@@ -1,3 +1,4 @@
 simstep2 30
 getvariable 0xaa 0x7a 1/1to0/1
-simstep2 30
+simstep2 31
+

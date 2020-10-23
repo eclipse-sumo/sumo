@@ -2,4 +2,13 @@
 basic
 
 # Tests for <SUMO_DIST>/tools/showDepartsAndArrivalsPerEdge.py
+taz
+
+# Tests for <SUMO_DIST>/tools/showDepartsAndArrivalsPerEdge.py
 subpart
+
+# Tests for <SUMO_DIST>/tools/showDepartsAndArrivalsPerEdge.py
+subpart_file
+
+# Tests for <SUMO_DIST>/tools/showDepartsAndArrivalsPerEdge.py
+intermediate

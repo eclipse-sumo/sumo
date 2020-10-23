@@ -7,6 +7,12 @@ yellow_drive
 # vehicle could brake at a yellow light but does not do so
 yellow_brake_ignore
 
+# vehicle would drive at 1s yellow (even though it could brake) but doesn't brake at 2s yellow
+yellow_2s_brake
+
+# vehicle configured to drive afte 2s yellow time
+yellow_2s_drive
+
 # vehicle would prefer to brake at the red light but is too fast
 red_1s_cannot_brake
 

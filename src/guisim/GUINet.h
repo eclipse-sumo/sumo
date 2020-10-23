@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUINet.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A MSNet extended by some values for usage within the gui
 /****************************************************************************/
-#ifndef GUINet_h
-#define GUINet_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -52,6 +49,7 @@ class MSTrafficLightLogic;
 class MSLink;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
+class GUICalibrator;
 class GUITrafficLightLogicWrapper;
 class RGBColor;
 class GUIEdge;
@@ -101,6 +99,13 @@ public:
     ~GUINet();
 
 
+    /**
+     * @brief Returns whether this is a GUI Net
+     */
+    bool isGUINet() const override {
+        return true;
+    }
+
 
     /// @name inherited from GUIGlObject
     //@{
@@ -112,8 +117,7 @@ public:
      * @return The built popup-menu
      * @see GUIGlObject::getPopUpMenu
      */
-    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app,
-                                       GUISUMOAbstractView& parent);
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
 
     /** @brief Returns an own parameter window
@@ -123,8 +127,7 @@ public:
      * @return The built parameter window
      * @see GUIGlObject::getParameterWindow
      */
-    GUIParameterTableWindow* getParameterWindow(
-        GUIMainWindow& app, GUISUMOAbstractView& parent);
+    GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent) override;
 
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
@@ -132,14 +135,14 @@ public:
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
+    Boundary getCenteringBoundary() const override;
 
 
     /** @brief Draws the object
      * @param[in] s The settings for the current view (may influence drawing)
      * @see GUIGlObject::drawGL
      */
-    void drawGL(const GUIVisualizationSettings& s) const;
+    void drawGL(const GUIVisualizationSettings& s) const override;
     //@}
 
 
@@ -238,7 +241,7 @@ public:
      * @see MSPersonControl
      * @see myPersonControl
      */
-    MSTransportableControl& getPersonControl();
+    MSTransportableControl& getPersonControl() override;
 
 
     /** @brief Returns the container control
@@ -249,16 +252,16 @@ public:
      * @see MSContainerControl
      * @see myContainerControl
      */
-    MSTransportableControl& getContainerControl();
+    MSTransportableControl& getContainerControl() override;
 
 
     /** Returns the gl-id of the traffic light that controls the given link
      * valid only if the link is controlled by a tls */
-    int getLinkTLID(MSLink* link) const;
+    int getLinkTLID(const MSLink* const link) const;
 
     /** Returns the index of the link within the junction that controls the given link;
      * Returns -1 if the link is not controlled by a tls */
-    int getLinkTLIndex(MSLink* link) const;
+    int getLinkTLIndex(const MSLink* const link) const;
 
 
     /// @name locator-methods
@@ -334,10 +337,10 @@ public:
     static GUINet* getGUIInstance();
 
     /// @brief creates a wrapper for the given logic
-    void createTLWrapper(MSTrafficLightLogic* tll);
+    void createTLWrapper(MSTrafficLightLogic* tll) override;
 
     /// @brief return wheter the given logic (or rather it's wrapper) is selected in the GUI
-    bool isSelected(const MSTrafficLightLogic* tll) const;
+    bool isSelected(const MSTrafficLightLogic* tll) const override;
 
 private:
     /// @brief Initialises the tl-logic map and wrappers
@@ -361,9 +364,11 @@ protected:
     /// @brief A detector dictionary
     std::vector<GUIDetectorWrapper*> myDetectorWrapper;
 
+    /// @brief A calibrator dictionary
+    std::vector<GUICalibrator*> myCalibratorWrapper;
 
     /// @brief Definition of a link-to-logic-id map
-    typedef std::map<MSLink*, std::string> Links2LogicMap;
+    typedef std::map<const MSLink*, std::string> Links2LogicMap;
     /// @brief The link-to-logic-id map
     Links2LogicMap myLinks2Logic;
 
@@ -413,6 +418,7 @@ protected:
          * @see SAXWeightsHandler::EdgeFloatTimeLineRetriever::addEdgeWeight
          */
         void addEdgeWeight(const std::string& id, double val, double beg, double end) const;
+        void addEdgeRelWeight(const std::string& from, const std::string& to, double val, double beg, double end) const;
 
     private:
         /// @brief The storage that  edges shall be added to
@@ -425,9 +431,3 @@ private:
     mutable FXMutex myLock;
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

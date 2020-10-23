@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.12.2018 15:11:39 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
+<!-- generated on 16.09.2019 09:13:05 by Eclipse SUMO netedit Version v1_3_1+0313-ccb31df3eb
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec151016.8376/netedit.gui/additionalElements/e3detector/inspect_selection/name\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_12Sep092158.2864/netedit.gui/additionalElements/e3detector/inspect_selection/name\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec151016.8376/netedit.gui/additionalElements/e3detector/inspect_selection/name\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_12Sep092158.2864/netedit.gui/additionalElements/e3detector/inspect_selection/name\net.net.xml"/>
     </output>
 
     <processing>
@@ -29,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec151016.8376/netedit.gui/additionalElements/e3detector/inspect_selection/name\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec151016.8376/netedit.gui/additionalElements/e3detector/inspect_selection/name\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec151016.8376/netedit.gui/additionalElements/e3detector/inspect_selection/name\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_12Sep092158.2864/netedit.gui/additionalElements/e3detector/inspect_selection/name\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_12Sep092158.2864/netedit.gui/additionalElements/e3detector/inspect_selection/name\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_12Sep092158.2864/netedit.gui/additionalElements/e3detector/inspect_selection/name\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_12Sep092158.2864/netedit.gui/additionalElements/e3detector/inspect_selection/name\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec151016.8376/netedit.gui/additionalElements/e3detector/inspect_selection/name\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_12Sep092158.2864/netedit.gui/additionalElements/e3detector/inspect_selection/name\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,21 +45,21 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec151016.8376/netedit.gui/additionalElements/e3detector/inspect_selection/name\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.4_from_12Sep092158.2864/netedit.gui/additionalElements/e3detector/inspect_selection/name\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_A" name="A" pos="7.50,-2.00" freq="900.00" file="fileA.txt">
+    <e3Detector id="e3Detector_A" pos="7.50,-2.00" freq="100.00" name="customName" file="fileA.txt">
         <detEntry lane="gneE1_0" pos="5.00"/>
         <detExit lane="gneE1_0" pos="25.00"/>
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </e3Detector>
-    <e3Detector id="e3Detector_B" name="B" pos="17.50,-2.00" freq="900.00" file="fileB.txt" timeThreshold="2.00" speedThreshold="3.39">
+    <e3Detector id="e3Detector_B" pos="17.50,-2.00" freq="120.00" name="customName" file="fileB.txt" timeThreshold="2.00" speedThreshold="3.39">
         <detEntry lane="gneE1_0" pos="10.00"/>
         <detExit lane="gneE1_0" pos="30.00"/>
         <param key="KeyB1" value="valueB1"/>

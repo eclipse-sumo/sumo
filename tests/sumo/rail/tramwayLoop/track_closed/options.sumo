@@ -1,0 +1,11 @@
+--no-step-log 
+--net-file=net.net.xml
+--routes=input_routes.rou.xml
+-a input_additional.add.xml,input_additional2.add.xml
+
+--device.rerouting.railsignal false
+
+--vehroute-output vehroutes.xml
+--tripinfo-output tripinfos.xml
+--stop-output stopinfos.xml
+--duration-log.statistics

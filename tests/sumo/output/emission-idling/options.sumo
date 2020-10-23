@@ -1,0 +1,1 @@
+--no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml -a input_additional.add.xml --tripinfo-output=tripinfos.xml --device.emissions.probability=1.0 --emission-output=rawdump.xml -b 0 -e 150 

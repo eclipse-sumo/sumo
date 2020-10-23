@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 01.10.2019 09:45:13 by Eclipse SUMO netedit Version v1_3_1+0537-bbd1e65fde
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="D:\sumo\tests\netedit\bugs\ticket5552\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="D:\sumo\tests\netedit\bugs\ticket5552\input_net.net.xml"/>
+        <plain-output-prefix value="D:\sumo\tests\netedit\bugs\ticket5552\input_net"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="false"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="0"/>
+        <junctions.limit-turn-speed value="-1"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="true"/>
+    </pedestrian>
+
+</configuration>
+-->
+
+<edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="-gneE10" from="gneJ12" to="gneJ11" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="-gneE11" from="gneJ14" to="gneJ13" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="-gneE8" from="gneJ8" to="gneJ7" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="-gneE9" from="gneJ10" to="gneJ9" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="gneE10" from="gneJ11" to="gneJ12" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="gneE11" from="gneJ13" to="gneJ14" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="gneE12" from="gneJ15" to="gneJ16" priority="-1" numLanes="1" speed="13.89" width="2.00" allow="bicycle"/>
+    <edge id="gneE13" from="gneJ17" to="gneJ18" priority="-1" numLanes="1" speed="13.89" width="2.00" allow="bicycle"/>
+    <edge id="gneE8" from="gneJ7" to="gneJ8" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+    <edge id="gneE9" from="gneJ9" to="gneJ10" priority="-1" numLanes="2" speed="13.89">
+        <lane index="0" allow="pedestrian" width="2.00"/>
+        <lane index="1" disallow="pedestrian"/>
+    </edge>
+</edges>

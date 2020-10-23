@@ -1,0 +1,11 @@
+# simple network with two branches that merge towards a single stop
+one_switch
+
+# switch is being passed by trains (targetting a different stop) in between the two constraint-trains 
+in_between
+
+# train reversal can have the same effect as a switch by merging two train routes from different sources
+reversal
+
+# find insertion conflicts
+insertion

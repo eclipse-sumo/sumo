@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBHeightMapper.cpp
 /// @author  Jakob Erdmann
 /// @author  Laura Bieker
 /// @author  Michael Behrisch
 /// @date    Sept 2011
-/// @version $Id$
 ///
 // Set z-values for all network positions based on data from a height map
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -49,13 +47,12 @@
 // ===========================================================================
 // static members
 // ===========================================================================
-NBHeightMapper NBHeightMapper::Singleton;
+NBHeightMapper NBHeightMapper::myInstance;
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-
-
 NBHeightMapper::NBHeightMapper():
     myRTree(&Triangle::addSelf) {
 }
@@ -68,7 +65,7 @@ NBHeightMapper::~NBHeightMapper() {
 
 const NBHeightMapper&
 NBHeightMapper::get() {
-    return Singleton;
+    return myInstance;
 }
 
 
@@ -152,10 +149,10 @@ NBHeightMapper::loadIfSet(OptionsCont& oc) {
         std::vector<std::string> files = oc.getStringVector("heightmap.geotiff");
         for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
             PROGRESS_BEGIN_MESSAGE("Parsing from GeoTIFF '" + *file + "'");
-            int numFeatures = Singleton.loadTiff(*file);
+            int numFeatures = myInstance.loadTiff(*file);
             MsgHandler::getMessageInstance()->endProcessMsg(
                 " done (parsed " + toString(numFeatures) +
-                " features, Boundary: " + toString(Singleton.getBoundary()) + ").");
+                " features, Boundary: " + toString(myInstance.getBoundary()) + ").");
         }
     }
     if (oc.isSet("heightmap.shapefiles")) {
@@ -163,10 +160,10 @@ NBHeightMapper::loadIfSet(OptionsCont& oc) {
         std::vector<std::string> files = oc.getStringVector("heightmap.shapefiles");
         for (std::vector<std::string>::const_iterator file = files.begin(); file != files.end(); ++file) {
             PROGRESS_BEGIN_MESSAGE("Parsing from shape-file '" + *file + "'");
-            int numFeatures = Singleton.loadShapeFile(*file);
+            int numFeatures = myInstance.loadShapeFile(*file);
             MsgHandler::getMessageInstance()->endProcessMsg(
                 " done (parsed " + toString(numFeatures) +
-                " features, Boundary: " + toString(Singleton.getBoundary()) + ").");
+                " features, Boundary: " + toString(myInstance.getBoundary()) + ").");
         }
     }
 }
@@ -180,9 +177,9 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     OGRDataSource* ds = OGRSFDriverRegistrar::Open(file.c_str(), FALSE);
 #else
     GDALAllRegister();
-    GDALDataset* ds = (GDALDataset*)GDALOpenEx(file.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, NULL, NULL, NULL);
+    GDALDataset* ds = (GDALDataset*)GDALOpenEx(file.c_str(), GDAL_OF_VECTOR | GA_ReadOnly, nullptr, nullptr, nullptr);
 #endif
-    if (ds == NULL) {
+    if (ds == nullptr) {
         throw ProcessError("Could not open shape file '" + file + "'.");
     }
 
@@ -196,14 +193,14 @@ NBHeightMapper::loadShapeFile(const std::string& file) {
     OGRSpatialReference sr_dest;
     sr_dest.SetWellKnownGeogCS("WGS84");
     OGRCoordinateTransformation* toWGS84 = OGRCreateCoordinateTransformation(sr_src, &sr_dest);
-    if (toWGS84 == 0) {
+    if (toWGS84 == nullptr) {
         WRITE_WARNING("Could not create geocoordinates converter; check whether proj.4 is installed.");
     }
 
     int numFeatures = 0;
     OGRFeature* feature;
     layer->ResetReading();
-    while ((feature = layer->GetNextFeature()) != NULL) {
+    while ((feature = layer->GetNextFeature()) != nullptr) {
         OGRGeometry* geom = feature->GetGeometryRef();
         assert(geom != 0);
 
@@ -387,4 +384,3 @@ NBHeightMapper::Triangle::normalVector() const {
 
 
 /****************************************************************************/
-

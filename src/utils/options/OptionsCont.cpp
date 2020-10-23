@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    OptionsCont.cpp
 /// @author  Daniel Krajzewicz
@@ -13,13 +17,9 @@
 /// @author  Michael Behrisch
 /// @author  Walter Bamberger
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // A storage for options (typed value containers)
 /****************************************************************************/
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <map>
@@ -61,8 +61,8 @@ OptionsCont::getOptions() {
 
 
 OptionsCont::OptionsCont()
-    : myAddresses(), myValues(), myDeprecatedSynonymes(), myHaveInformedAboutDeprecatedDivider(false) {
-    myCopyrightNotices.push_back("Copyright (C) 2001-2019 German Aerospace Center (DLR) and others; http://sumo.dlr.de");
+    : myAddresses(), myValues(), myDeprecatedSynonymes() {
+    myCopyrightNotices.push_back("Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de");
 }
 
 
@@ -199,6 +199,13 @@ OptionsCont::getSecure(const std::string& name) const {
 
 
 std::string
+OptionsCont::getValueString(const std::string& name) const {
+    Option* o = getSecure(name);
+    return o->getValueString();
+}
+
+
+std::string
 OptionsCont::getString(const std::string& name) const {
     Option* o = getSecure(name);
     return o->getString();
@@ -232,13 +239,11 @@ OptionsCont::getIntVector(const std::string& name) const {
     return o->getIntVector();
 }
 
-
-const FloatVector&
-OptionsCont::getFloatVector(const std::string& name) const {
+const StringVector&
+OptionsCont::getStringVector(const std::string& name) const {
     Option* o = getSecure(name);
-    return o->getFloatVector();
+    return o->getStringVector();
 }
-
 
 bool
 OptionsCont::set(const std::string& name, const std::string& value) {
@@ -338,13 +343,17 @@ void
 OptionsCont::relocateFiles(const std::string& configuration) const {
     for (Option* const option : myAddresses) {
         if (option->isFileName() && option->isSet()) {
-            std::vector<std::string> fileList = StringTokenizer(option->getString(), ",").getVector();
+            StringVector fileList = StringVector(option->getStringVector());
             for (std::string& f : fileList) {
-                // Pruning is necessary because filenames may be separated by ', ' in the configuration file
-                f = StringUtils::urlDecode(FileHelpers::checkForRelativity(StringUtils::prune(f), configuration));
+                f = FileHelpers::checkForRelativity(f, configuration);
+                try {
+                    f = StringUtils::urlDecode(f);
+                } catch (NumberFormatException& e) {
+                    WRITE_WARNING(toString(e.what()) + " when trying to decode filename '" + f + "'.");
+                }
             }
             const std::string conv = joinToString(fileList, ',');
-            if (conv != option->getString()) {
+            if (conv != joinToString(option->getStringVector(), ',')) {
                 const bool hadDefault = option->isDefault();
                 option->set(conv);
                 if (hadDefault) {
@@ -539,7 +548,7 @@ OptionsCont::splitLines(std::ostream& os, std::string what,
             }
             if (splitPos != std::string::npos) {
                 os << what.substr(0, splitPos) << std::endl;
-                what = what.substr(splitPos);
+                what = what.substr(splitPos + 1);
                 for (int r = 0; r < nextOffset + 1; ++r) {
                     os << ' ';
                 }
@@ -663,14 +672,8 @@ OptionsCont::printHelp(std::ostream& os) {
     // print application description
     splitLines(os, myAppDescription, 0, 0);
     os << std::endl;
-    // print usage BNF
-    os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
-    // print additional text if any
-    if (myAdditionalMessage.length() > 0) {
-        os << myAdditionalMessage << std::endl << ' ' << std::endl;
-    }
-    // print the options
-    // check their sizes first
+
+    // check option sizes first
     //  we want to know how large the largest not-too-large-entry will be
     int tooLarge = 40;
     int maxSize = 0;
@@ -700,43 +703,33 @@ OptionsCont::printHelp(std::ostream& os) {
         }
     }
 
-    for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
-        os << *i << " Options:" << std::endl;
-        const std::vector<std::string>& entries = mySubTopicEntries[*i];
-        for (j = entries.begin(); j != entries.end(); ++j) {
-            // start length computation
-            int csize = (int)j->length() + 2;
-            Option* o = getSecure(*j);
-            os << "  ";
-            // write abbreviation if given
-            std::vector<std::string> synonymes = getSynonymes(*j);
-            for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
-                if (s->length() == 1 && myDeprecatedSynonymes.count(*s) == 0) {
-                    os << '-' << *s << ", ";
-                    csize += 4;
-                    break;
-                }
+    const std::string helpTopic = StringUtils::to_lower_case(getSecure("help")->getValueString());
+    if (helpTopic != "") {
+        bool foundTopic = false;
+        for (const std::string& topic : mySubTopics) {
+            if (StringUtils::to_lower_case(topic).find(helpTopic) != std::string::npos) {
+                foundTopic = true;
+                printHelpOnTopic(topic, tooLarge, maxSize, os);
             }
-            // write leading '-'/"--"
-            os << "--";
-            csize += 2;
-            // write the name
-            os << *j;
-            // write the type if not a bool option
-            if (!o->isBool()) {
-                os << ' ' << o->getTypeName();
-                csize += 1 + (int)o->getTypeName().length();
-            }
-            csize += 2;
-            // write the description formatting it
-            os << "  ";
-            for (int r = maxSize; r > csize; --r) {
-                os << ' ';
-            }
-            int offset = csize > tooLarge ? csize : maxSize;
-            splitLines(os, o->getDescription(), offset, maxSize);
         }
-        os << std::endl;
+        if (!foundTopic) {
+            // print topic list
+            os << "Help Topics:"  << std::endl;
+            for (std::string t : mySubTopics) {
+                os << "    " << t << std::endl;
+            }
+        }
+        return;
+    }
+    // print usage BNF
+    os << "Usage: " << myAppName << " [OPTION]*" << std::endl;
+    // print additional text if any
+    if (myAdditionalMessage.length() > 0) {
+        os << myAdditionalMessage << std::endl << ' ' << std::endl;
+    }
+    // print the options
+    for (i = mySubTopics.begin(); i != mySubTopics.end(); ++i) {
+        printHelpOnTopic(*i, tooLarge, maxSize, os);
     }
     os << std::endl;
     // print usage examples, calc size first
@@ -752,6 +745,44 @@ OptionsCont::printHelp(std::ostream& os) {
     os << "Get in contact via <sumo@dlr.de>." << std::endl;
 }
 
+void
+OptionsCont::printHelpOnTopic(const std::string& topic, int tooLarge, int maxSize, std::ostream& os) {
+    os << topic << " Options:" << std::endl;
+    for (std::string entry : mySubTopicEntries[topic]) {
+        // start length computation
+        int csize = (int)entry.length() + 2;
+        Option* o = getSecure(entry);
+        os << "  ";
+        // write abbreviation if given
+        std::vector<std::string> synonymes = getSynonymes(entry);
+        for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
+            if (s->length() == 1 && myDeprecatedSynonymes.count(*s) == 0) {
+                os << '-' << *s << ", ";
+                csize += 4;
+                break;
+            }
+        }
+        // write leading '-'/"--"
+        os << "--";
+        csize += 2;
+        // write the name
+        os << entry;
+        // write the type if not a bool option
+        if (!o->isBool()) {
+            os << ' ' << o->getTypeName();
+            csize += 1 + (int)o->getTypeName().length();
+        }
+        csize += 2;
+        // write the description formatting it
+        os << "  ";
+        for (int r = maxSize; r > csize; --r) {
+            os << ' ';
+        }
+        int offset = csize > tooLarge ? csize : maxSize;
+        splitLines(os, o->getDescription(), offset, maxSize);
+    }
+    os << std::endl;
+}
 
 void
 OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
@@ -778,10 +809,13 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
         std::transform(subtopic.begin(), subtopic.end(), subtopic.begin(), tolower);
         const std::vector<std::string>& entries = mySubTopicEntries.find(*i)->second;
         bool hadOne = false;
-        for (std::vector<std::string>::const_iterator j = entries.begin(); j != entries.end(); ++j) {
-            Option* o = getSecure(*j);
+        for (const std::string& name : entries) {
+            Option* o = getSecure(name);
             bool write = complete || (filled && !o->isDefault());
             if (!write) {
+                continue;
+            }
+            if (name == "registry-viewport" && !complete) {
                 continue;
             }
             if (!hadOne) {
@@ -792,12 +826,12 @@ OptionsCont::writeConfiguration(std::ostream& os, const bool filled,
                 os << "        <!-- " << StringUtils::escapeXML(o->getDescription(), inComment) << " -->" << std::endl;
             }
             // write the option and the value (if given)
-            os << "        <" << *j << " value=\"";
+            os << "        <" << name << " value=\"";
             if (o->isSet() && (filled || o->isDefault())) {
                 os << StringUtils::escapeXML(o->getValueString(), inComment);
             }
             if (complete) {
-                std::vector<std::string> synonymes = getSynonymes(*j);
+                std::vector<std::string> synonymes = getSynonymes(name);
                 if (!synonymes.empty()) {
                     os << "\" synonymes=\"";
                     for (std::vector<std::string>::const_iterator s = synonymes.begin(); s != synonymes.end(); ++s) {
@@ -863,6 +897,9 @@ OptionsCont::writeSchema(std::ostream& os) {
             if (type == "int[]") {
                 type = "intArray";
             }
+            if (type == "str[]") {
+                type = "strArray";
+            }
             os << "            <xsd:element name=\"" << *j << "\" type=\"" << type << "OptionType\" minOccurs=\"0\"/>\n";
         }
         os << "        </xsd:all>\n";
@@ -895,26 +932,9 @@ OptionsCont::writeXMLHeader(std::ostream& os, const bool includeConfig) const {
 }
 
 
-std::vector<std::string>
-OptionsCont::getStringVector(const std::string& name) const {
-    Option* o = getSecure(name);
-    std::string def = o->getString();
-    if (def.find(';') != std::string::npos && !myHaveInformedAboutDeprecatedDivider) {
-        WRITE_WARNING("Please note that using ';' as list separator is deprecated.\n From 1.0 onwards, only ',' will be accepted.");
-        myHaveInformedAboutDeprecatedDivider = true;
-    }
-    StringTokenizer st(def, ";,", true);
-    std::vector<std::string> ret = st.getVector();
-    for (std::vector<std::string>::iterator i = ret.begin(); i != ret.end(); ++i) {
-        (*i) = StringUtils::prune(*i);
-    }
-    return ret;
-}
-
-
 bool
 OptionsCont::isInStringVector(const std::string& optionName,
-                              const std::string& itemName) {
+                              const std::string& itemName) const {
     if (isSet(optionName)) {
         std::vector<std::string> values = getStringVector(optionName);
         return std::find(values.begin(), values.end(), itemName) != values.end();

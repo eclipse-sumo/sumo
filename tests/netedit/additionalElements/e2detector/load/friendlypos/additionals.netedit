@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 20.11.2018 15:01:52 by Eclipse SUMO netedit Version v1_0_0+1004-1c7613c4e7
+<!-- generated on 07.08.2019 10:26:24 by Eclipse SUMO netedit Version v1_2_0+1449-4e81e5b6f5
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/friendlypos\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/load/friendlypos\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/friendlypos\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/load/friendlypos\net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
     </processing>
@@ -28,13 +29,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/friendlypos\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/friendlypos\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/friendlypos\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/load/friendlypos\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/load/friendlypos\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/load/friendlypos\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/load/friendlypos\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/friendlypos\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/load/friendlypos\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,16 +46,16 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.20Nov150028.1324/netedit.gui/additionalElements/e2detector/load/friendlypos\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.07Aug081821.3780/netedit.gui/additionalElements/e2detector/load/friendlypos\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e2Detector id="E2_01" length="10.00" lane="gneE0_0" pos="35.00" freq="120.00" file="fileA.txt" jamThreshold="12.00"/>
-    <e2Detector id="E2_02" length="10.00" lane="gneE0_0" pos="35.00" freq="120.00" file="fileA.txt" jamThreshold="12.00"/>
-    <e2Detector id="E2_03" length="10.00" lane="gneE0_0" pos="0.00" freq="120.00" file="fileA.txt" jamThreshold="12.00" friendlyPos="1"/>
-    <e2Detector id="E2_04" length="0.00" lane="gneE0_0" pos="49.99" freq="120.00" file="fileA.txt" jamThreshold="12.00" friendlyPos="1"/>
-    <e2Detector id="E2_05" length="13.99" lane="gneE0_0" pos="36.00" freq="120.00" file="fileA.txt" jamThreshold="12.00" friendlyPos="1"/>
+    <e2Detector id="E2_01" lane="gneE0_0" pos="35.00" length="10.00" freq="120.00" file="fileA.txt" jamThreshold="12.00"/>
+    <e2Detector id="E2_02" lane="gneE0_0" pos="35.00" length="10.00" freq="120.00" file="fileA.txt" jamThreshold="12.00"/>
+    <e2Detector id="E2_03" lane="gneE0_0" pos="0.00" length="10.00" freq="120.00" file="fileA.txt" jamThreshold="12.00" friendlyPos="1"/>
+    <e2Detector id="E2_04" lane="gneE0_0" pos="49.99" length="0.00" freq="120.00" file="fileA.txt" jamThreshold="12.00" friendlyPos="1"/>
+    <e2Detector id="E2_05" lane="gneE0_0" pos="36.00" length="13.99" freq="120.00" file="fileA.txt" jamThreshold="12.00" friendlyPos="1"/>
 </additional>

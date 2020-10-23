@@ -1,12 +1,16 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2010-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2010-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    cadytsIterate.py
 # @author  Jakob Erdmann
@@ -14,7 +18,6 @@
 # @author  Daniel Krajzewicz
 # @author  Michael Behrisch
 # @date    2010-09-15
-# @version $Id$
 
 """
 Run cadyts to calibrate the simulation with given routes and traffic measurements.
@@ -29,9 +32,12 @@ from datetime import datetime
 from argparse import ArgumentParser
 from duaIterate import call, writeSUMOConf, addGenericOptions
 
-TOOLS_DIR = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
-sys.path.append(TOOLS_DIR)
-import sumolib  # noqa
+if 'SUMO_HOME' in os.environ:
+    TOOLS_DIR = os.path.join(os.environ['SUMO_HOME'], 'tools')
+    sys.path.append(TOOLS_DIR)
+    import sumolib  # noqa
+else:
+    sys.exit("please declare environment variable 'SUMO_HOME'")
 
 
 def initOptions():
@@ -91,10 +97,7 @@ def main():
         argParser.error(
             "--net-file, --routes and --detector-values have to be given!")
 
-    if options.mesosim:
-        sumoBinary = sumolib.checkBinary("meso", options.path)
-    else:
-        sumoBinary = sumolib.checkBinary("sumo", options.path)
+    sumoBinary = sumolib.checkBinary("sumo", options.path)
     calibrator = ["java", "-cp", options.classpath, "-Xmx1G",
                   "floetteroed.cadyts.interfaces.sumo.SumoController"]
     log = open("cadySumo-log.txt", "w+")
@@ -129,9 +132,9 @@ def main():
         firstRoute = options.routes.split(",")[0]
         routname = os.path.basename(firstRoute)
         if '_' in routname:
-            output = "%s_%03i.cal.xml" % (routname[:routname.rfind('_')], step)
+            output = os.path.join(pyPath,"%s_%03i.cal.xml" % (routname[:routname.rfind('_')], step))
         else:
-            output = "%s_%03i.cal.xml" % (routname[:routname.find('.')], step)
+            output = os.path.join(pyPath,"%s_%03i.cal.xml" % (routname[:routname.find('.')], step))
 
         call(calibrator + ["CHOICE", "-choicesetfile",
                            options.routes, "-choicefile", "%s" % output], log)
@@ -142,7 +145,7 @@ def main():
         btime = datetime.now()
         print(">>> Begin time: %s" % btime)
         writeSUMOConf(sumoBinary, step, options, [], ",".join(files))
-        call([sumoBinary, "-c", "iteration_%03i.sumocfg" % step], log)
+        call([sumoBinary, "-c", "%s/iteration_%03i.sumocfg" % (step, step)], log)
         etime = datetime.now()
         print(">>> End time: %s" % etime)
         print(">>> Duration: %s" % (etime - btime))
@@ -150,11 +153,11 @@ def main():
 
         # calibration update
         if evalprefix:
-            call(calibrator + ["UPDATE", "-netfile", "dump_%03i_%s.xml" % (
-                step, options.aggregation), "-flowfile", "%s_%03i.txt" % (evalprefix, step)], log)
+            call(calibrator + ["UPDATE", "-netfile", "%s/dump_%03i_%s.xml" % (
+                step, step, options.aggregation), "-flowfile", "%s_%03i.txt" % (evalprefix, step)], log)
         else:
             call(calibrator + ["UPDATE", "-netfile",
-                               "dump_%03i_%s.xml" % (step, options.aggregation)], log)
+                               "%s/dump_%03i_%s.xml" % (step, step, options.aggregation)], log)
         print("< Step %s ended (duration: %s)" %
               (step, datetime.now() - btime))
         print("------------------\n")
@@ -163,6 +166,6 @@ def main():
     print("calibration ended (duration: %s)" % (datetime.now() - starttime))
     log.close()
 
-
+pyPath = os.path.abspath(os.path.dirname(sys.argv[0]))
 if __name__ == "__main__":
     main()

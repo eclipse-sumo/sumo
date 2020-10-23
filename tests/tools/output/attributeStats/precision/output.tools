@@ -1,0 +1,2 @@
+tripinfo timeLosss: count 100, min 2.70000 (17), max 53.27000 (22), mean 20.41500 Q1 13.24000, median 18.78000, Q3 26.92000
+ histogram: [(0, 74), (50, 26)]

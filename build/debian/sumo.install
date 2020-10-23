@@ -3,7 +3,6 @@ data/ usr/share/sumo
 build/package/sumo.png usr/share/pixmaps
 build/package/sumo.desktop usr/share/applications
 build/package/sumo.xml usr/share/mime/application
-usr/bin/TraCITestClient
 usr/bin/activitygen
 usr/bin/dfrouter
 usr/bin/duarouter

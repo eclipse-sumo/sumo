@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:45 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:30:52 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -20,12 +20,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="175.50,-42.11" convBoundary="0.00,0.00,393.41,148.74" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
@@ -33,17 +34,17 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":gneJ4_0_0" index="0" speed="4.11" length="4.71" shape="394.51,98.94,80.00 395.48,100.09,80.00 395.62,100.93,80.00 394.96,101.47,80.00 393.47,101.70,80.00"/>
     </edge>
     <edge id=":gneJ5_0" function="internal">
-        <lane id=":gneJ5_0_0" index="0" speed="13.89" length="0.53" shape="296.25,105.54,40.00 296.10,105.55,40.00 295.99,105.56,40.00 295.89,105.59,40.00 295.74,105.64,40.00"/>
+        <lane id=":gneJ5_0_0" index="0" speed="13.89" length="0.55" shape="296.25,105.54,40.00 296.10,105.55,39.95 295.99,105.56,39.91 295.89,105.59,39.88 295.74,105.64,39.83"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="1">
-        <lane id="gneE0_0" index="0" speed="13.89" length="83.92" shape="169.36,-1.60,50.00 253.13,-1.48,45.00"/>
+        <lane id="gneE0_0" index="0" speed="13.89" length="83.91" shape="169.36,-1.60,49.91 253.13,-1.48,45.09"/>
     </edge>
     <edge id="gneE1" from="gneJ2" to="gneJ1" priority="1">
         <lane id="gneE1_0" index="0" speed="13.89" length="64.83" shape="290.44,1.97,100.00 256.11,1.73,45.00"/>
     </edge>
     <edge id="gneE2" from="gneJ0" to="gneJ3" priority="1">
-        <lane id="gneE2_0" index="0" speed="13.89" length="173.74" shape="166.39,1.62,50.00 0.02,3.95"/>
+        <lane id="gneE2_0" index="0" speed="13.89" length="173.74" shape="166.39,1.62,50.00 0.02,3.95,-0.00"/>
     </edge>
     <edge id="gneE3" from="gneJ2" to="gneJ4" priority="1">
         <lane id="gneE3_0" index="0" speed="13.89" length="139.98" shape="294.12,3.46,100.00 394.51,98.94,80.00"/>
@@ -52,7 +53,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="gneE4_0" index="0" speed="13.89" length="105.20" shape="393.47,101.70,80.00 296.25,105.54,40.00"/>
     </edge>
     <edge id="gneE5" from="gneJ5" to="gneJ6" priority="1">
-        <lane id="gneE5_0" index="0" speed="13.89" length="130.16" shape="295.74,105.64,40.00 180.19,150.23"/>
+        <lane id="gneE5_0" index="0" speed="13.89" length="130.11" shape="295.74,105.64,39.83 180.19,150.23"/>
     </edge>
 
     <junction id="gneJ0" type="dead_end" x="167.85" y="0.00" z="50.00" incLanes="" intLanes="" shape="169.36,0.00,50.00 169.36,-3.20,50.00 166.37,0.02,50.00 166.41,3.22,50.00"/>

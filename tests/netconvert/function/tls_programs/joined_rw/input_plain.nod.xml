@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed 13 Feb 2019 03:38:03 PM CET by Eclipse SUMO netedit Version v1_0_1+0645-93703db
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="bs_miv_detail.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="/scr2/sip-svn-trunk/tests/scenario/use/BS_OSM/detail/debug/debug_5177.net.xml"/>
+        <plain-output-prefix value="/scr2/sip-svn-trunk/tests/scenario/use/BS_OSM/detail/debug/input_plain"/>
+        <output.street-names value="true"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<nodes version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/nodes_file.xsd">
+    <location netOffset="-598668.09,-5783261.49" convBoundary="3101.00,6658.26,3843.03,7307.11" origBoundary="10.393336,52.146541,10.787296,52.408126" projParameter="+proj=utm +zone=32 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <node id="1230277350" x="3541.44" y="7132.06" type="dead_end"/>
+    <node id="1360001952" x="3244.15" y="6864.59" type="dead_end"/>
+    <node id="1360995279" x="3148.52" y="6795.53" type="dead_end"/>
+    <node id="1669070252" x="3441.12" y="6943.33" type="dead_end"/>
+    <node id="21586801" x="3190.40" y="7298.33" type="dead_end"/>
+    <node id="21586805" x="3604.03" y="6679.35" type="dead_end"/>
+    <node id="249296949" x="3424.23" y="7040.94" type="priority"/>
+    <node id="262797985" x="3327.02" y="6949.12" type="traffic_light" tl="joinedS_12" controlledInner="325528576 32905536"/>
+    <node id="262797990" x="3277.94" y="7105.49" type="dead_end"/>
+    <node id="262797998" x="3365.60" y="7065.14" type="traffic_light" tl="GS_262797998"/>
+    <node id="262798000" x="3397.72" y="7048.09" type="traffic_light" tl="joinedS_12" controlledInner="325528576 32905536"/>
+    <node id="27978463" x="3327.03" y="6975.33" type="priority"/>
+    <node id="27978467" x="3309.62" y="7029.14" type="priority"/>
+    <node id="27989672" x="3368.98" y="6939.79" type="unregulated"/>
+    <node id="27989673" x="3386.09" y="6912.21" type="dead_end"/>
+    <node id="28089476" x="3410.84" y="7029.86" type="priority"/>
+    <node id="28099239" x="3198.97" y="7304.63" type="dead_end"/>
+    <node id="28449348" x="3649.25" y="6658.26" type="dead_end"/>
+    <node id="28449350" x="3424.60" y="6975.03" type="priority"/>
+    <node id="3144419502" x="3113.50" y="6741.59" type="dead_end"/>
+    <node id="3144419516" x="3472.38" y="7083.83" type="dead_end"/>
+    <node id="3144419517" x="3470.56" y="7086.81" type="dead_end"/>
+    <node id="3882539351" x="3843.03" y="7144.57" type="dead_end"/>
+    <node id="A391_AS_Weststadt" x="3365.74" y="7002.33" type="traffic_light" tl="joinedS_12" controlledInner="325528576 32905536"/>
+    <node id="cluster_255864423_255864438_27978474_27978494_3144419500_3144419501_416838797_59708187" x="3101.00" y="6733.50" type="dead_end"/>
+</nodes>

@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUISUMOViewParent.h
 /// @author  Daniel Krajzewicz
@@ -13,17 +17,10 @@
 /// @author  Michael Behrisch
 /// @author  Andreas Gaubatz
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A single child window which contains a view of the simulation area
 /****************************************************************************/
-#ifndef GUISUMOViewParent_h
-#define GUISUMOViewParent_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -69,7 +66,6 @@ public:
         VIEW_3D_OSG
     };
 
-
     /** @brief Constructor
      * @param[in] p The MDI-pane this window is shown within
      * @param[in] mdimenu The MDI-menu for alignment
@@ -95,10 +91,8 @@ public:
      */
     virtual GUISUMOAbstractView* init(FXGLCanvas* share, GUINet& net, ViewType type);
 
-
     /// @brief Destructor
     ~GUISUMOViewParent();
-
 
     /// @brief Called if the user wants to make a snapshot (screenshot)
     long onCmdMakeSnapshot(FXObject* sender, FXSelector, void*);
@@ -106,8 +100,12 @@ public:
     /// @brief Called on a simulation step
     long onSimStep(FXObject* sender, FXSelector, void*);
 
-    /// @brief  locator-callback
+    /// @brief locator-callback
     long onCmdLocate(FXObject*, FXSelector, void*);
+
+    /// @brief speedFactor-callback
+    long onCmdSpeedFactor(FXObject*, FXSelector, void*);
+    long onUpdSpeedFactor(FXObject*, FXSelector, void*);
 
     /// @brief handle keys
     long onKeyPress(FXObject* o, FXSelector sel, void* data);
@@ -116,17 +114,76 @@ public:
     /// @brief true if the object is selected (may include extra logic besides calling gSelected)
     bool isSelected(GUIGlObject* o) const;
 
-    /// @notify about toggled gaming status
+    /// @brief about toggled gaming status
     void setToolBarVisibility(const bool value);
 
+    /// @brief erase GLObjChooser
+    void eraseGLObjChooser(GUIDialog_GLObjChooser* GLObjChooser);
+
 protected:
-    /// @brief FOX needs this
-    GUISUMOViewParent() { }
+    /// @brief fox need this
+    FOX_CONSTRUCTOR(GUISUMOViewParent)
 
+    /// @brief build speed control toolbar
+    void buildSpeedControlToolbar();
+
+    /// @brief toolbar shell for speed
+    FXToolBarShell* myToolBarDragSpeed = nullptr;
+
+    /// @brief toolbar for speed
+    FXToolBar* myToolBarSpeed = nullptr;
+
+    /// @brief slider for speedfactor
+    FXSlider* mySpeedFactorSlider = nullptr;
+
+private:
+    /// @brief struct for GLObjChooser dialog
+    class GLObjChooser {
+
+    public:
+        /// @brief constructor
+        GLObjChooser();
+
+        /// @brief destructor
+        ~GLObjChooser();
+
+        /// @brief pointer to ACChooser dialog used for locate junctions
+        GUIDialog_GLObjChooser* ACChooserJunction;
+
+        /// @brief pointer to ACChooser dialog used for locate edges
+        GUIDialog_GLObjChooser* ACChooserEdges;
+
+        /// @brief pointer to ACChooser dialog used for locate vehicles
+        GUIDialog_GLObjChooser* ACChooserVehicles;
+
+        /// @brief pointer to ACChooser dialog used for locate persons
+        GUIDialog_GLObjChooser* ACChooserPersons;
+
+        /// @brief pointer to ACChooser dialog used for locate routes
+        GUIDialog_GLObjChooser* ACChooserRoutes;
+
+        /// @brief pointer to ACChooser dialog used for locate stops
+        GUIDialog_GLObjChooser* ACChooserStops;
+
+        /// @brief pointer to ACChooser dialog used for locate Containers
+        GUIDialog_GLObjChooser* ACChooserContainer;
+
+        /// @brief pointer to ACChooser dialog used for locate TLSs
+        GUIDialog_GLObjChooser* ACChooserTLS;
+
+        /// @brief pointer to ACChooser dialog used for locate additional
+        GUIDialog_GLObjChooser* ACChooserAdditional;
+
+        /// @brief pointer to ACChooser dialog used for locate POIs
+        GUIDialog_GLObjChooser* ACChooserPOI;
+
+        /// @brief pointer to ACChooser dialog used for locate Polygons
+        GUIDialog_GLObjChooser* ACChooserPolygon;
+
+        /// @brief pointer to ACChooser dialog used for locate Prohibitions
+        GUIDialog_GLObjChooser* ACChooserProhibition;
+    };
+
+    /// @brief GLObjChooser
+    GLObjChooser myGLObjChooser;
 };
-
-
-#endif
-
-/****************************************************************************/
-

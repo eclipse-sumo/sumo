@@ -4,6 +4,9 @@ plain
 # include route and vtype dists
 dists
 
+# include route and vtype dists
+dists_gz
+
 # two vehicles saved and reloaded with prefix file
 prefix
 
@@ -21,3 +24,9 @@ dists_xml
 
 # lots of vehicles with rerouting, insertion backlog and vehroute output
 rerouting
+
+# flow saved and loaded
+flow
+
+# multique saved and loaded, tests also human readable time
+multique

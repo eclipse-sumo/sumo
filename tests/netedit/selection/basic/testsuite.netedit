@@ -1,6 +1,9 @@
 # default values of selection
 default
 
+# default values of selection (button)
+default_button
+
 # select using click
 click
 
@@ -13,3 +16,4 @@ undo_redo
 # try to select elements with wrong parameters
 wrong_parameters
 
+contextual_menu

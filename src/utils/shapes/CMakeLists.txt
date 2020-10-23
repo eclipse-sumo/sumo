@@ -4,6 +4,8 @@ set(utils_shapes_STAT_SRCS
    Shape.h
    SUMOPolygon.cpp
    SUMOPolygon.h
+   PolygonDynamics.cpp
+   PolygonDynamics.h
    ShapeHandler.cpp
    ShapeHandler.h
    ShapeContainer.cpp

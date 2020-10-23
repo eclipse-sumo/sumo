@@ -54,3 +54,6 @@ space_input
 
 # Tests space in input file paths
 space_input_path
+
+# Tests percent in input file names
+percent

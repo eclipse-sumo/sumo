@@ -1,32 +1,49 @@
-Usage: edgesInDistricts.py [options]
+usage: edgesInDistricts.py [-h] [-c FILE] [-C FILE] [--save-template FILE]
+                           [-v] [--complete] [-n FILE] [-t FILE] [-o FILE]
+                           [-x MAXSPEED] [-m MINSPEED] [-w] [-f] [-i]
+                           [-l VCLASS] [-s]
+                           [--merge-separator MERGE_SEPARATOR]
+                           [--merge-param MERGE_PARAM]
+                           [--min-length MIN_LENGTH]
 
-Options:
+optional arguments:
   -h, --help            show this help message and exit
-  -v, --verbose         tell me what you are doing
-  -c, --complete        assign edges only if they are not in more than one
-                        district
-  -n FILE, --net-file=FILE
-                        read SUMO network from FILE (mandatory)
-  -t FILE, --taz-files=FILE
-                        read districts from FILEs
-  -o FILE, --output=FILE
+  -c FILE, --configuration-file FILE
+                        read configuration from FILE (default: None)
+  -C FILE, --save-configuration FILE
+                        save configuration to FILE and exit (default: None)
+  --save-template FILE  save configuration template to FILE and exit (default:
+                        None)
+  -v, --verbose         tell me what you are doing (default: False)
+  --complete            assign edges only if they are not in more than one
+                        district (default: False)
+  -n FILE, --net-file FILE
+                        read SUMO network from FILE (mandatory) (default:
+                        None)
+  -t FILE, --taz-files FILE
+                        read districts from FILEs (default: None)
+  -o FILE, --output FILE
                         write results to FILE (default: districts.taz.xml)
-  -x MAXSPEED, --max-speed=MAXSPEED
+  -x MAXSPEED, --max-speed MAXSPEED
                         use lanes where speed is not greater than this (m/s)
                         (default: 1000.0)
-  -m MINSPEED, --min-speed=MINSPEED
+  -m MINSPEED, --min-speed MINSPEED
                         use lanes where speed is greater than this (m/s)
                         (default: 0.0)
   -w, --weighted        Weights sources/sinks by lane number and length
+                        (default: False)
   -f, --assign-from     Assign the edge always to the district where the
-                        "from" node is located
-  -i, --internal        Include internal edges in output
-  -l VCLASS, --vclass=VCLASS
-                        Include only edges allowing VCLASS
-  -s, --shapeinfo       write also the shape info in the file
-  --merge-separator=MERGE_SEPARATOR
+                        "from" node is located (default: False)
+  -i, --internal        Include internal edges in output (default: False)
+  -l VCLASS, --vclass VCLASS
+                        Include only edges allowing VCLASS (default: None)
+  -s, --shapeinfo       write also the shape info in the file (default: False)
+  --merge-separator MERGE_SEPARATOR
                         merge edge lists of taz starting with the same string
-                        up to the given separator
-  --merge-param=MERGE_PARAM
+                        up to the given separator (default: None)
+  --merge-param MERGE_PARAM
                         merge edge lists of taz/polygons having the same value
-                        for the given parameter
+                        for the given parameter (default: None)
+  --min-length MIN_LENGTH
+                        use edges where length is greater than this (m)
+                        (default: 0.0)

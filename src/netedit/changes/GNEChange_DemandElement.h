@@ -1,36 +1,26 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GNEChange_DemandElement.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Jan 2019
-/// @version $Id$
 ///
 // A network change in which a demand element element is created or deleted
 /****************************************************************************/
-#ifndef GNEChange_DemandElement_h
-#define GNEChange_DemandElement_h
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "GNEChange.h"
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-class GNEDemandElement;
-class GNEViewNet;
-class GNEEdge;
-class GNELane;
 
 // ===========================================================================
 // class definitions
@@ -73,24 +63,6 @@ private:
      */
     GNEDemandElement* myDemandElement;
 
-    /// @brief pointer to lane parents (used by demandElements with lane parent)
-    std::vector<GNELane*> myLaneParents;
-
-    /// @brief pointer to edge parents (used by demandElements with edge parents)
-    std::vector<GNEEdge*> myEdgeParents;
-
-    /// @brief pointer to first demand element parent (used by demand element with parents, for example Entry/exits)
-    GNEDemandElement* myFirstDemandElementParent;
-
-    /// @brief pointer to second demand element parent (used by demand element with parents, for example Entry/exits)
-    GNEDemandElement* mySecondDemandElementParent;
-
-    /// @brief list of Edge childs (used by Rerouters)
-    std::vector<GNEEdge*> myEdgeChilds;
-
-    /// @brief list of Edge childs (used by VSS)
-    std::vector<GNELane*> myLaneChilds;
+    /// @brief reference to path vector
+    const std::vector<GNEPathElements::PathElement>& myPath;
 };
-
-#endif
-/****************************************************************************/

@@ -1,0 +1,6 @@
+<routes>
+    <flow id="default_ref"        begin="0"     end="1000"  period="2" from="ref" to="ref" departSpeed="max"/>
+    <flow id="L10_ref"  type="L10"  begin="10000" end="11000" period="2" from="ref" to="ref" departSpeed="max"/>
+    <flow id="L15_ref"  type="L15"  begin="20000" end="21000" period="2" from="ref" to="ref" departSpeed="max"/>
+    <flow id="L110_ref" type="L110" begin="30000" end="31000" period="60" from="ref" to="ref" departSpeed="max"/>
+</routes>

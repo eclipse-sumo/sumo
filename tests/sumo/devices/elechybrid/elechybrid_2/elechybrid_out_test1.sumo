@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Dec 19 15:45:49 2019 by Eclipse SUMO Version v1_4_0+0232-5ce74f9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="elechybrid_2.net.xml"/>
+        <route-files value="trolleybuses.rou.xml"/>
+        <additional-files value="overheadwires.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <elechybrid-output value="elechybrid_out"/>
+        <elechybrid-output.precision value="4"/>
+        <elechybrid-output.aggregated value="false"/>
+        <overheadwiresegments-output value="overheadwires_out.xml"/>
+        <substations-output value="substation_out.xml"/>
+        <tripinfo-output.write-unfinished value="true"/>
+        <stop-output value="stopinfo_out.xml"/>
+    </output>
+
+    <time>
+        <end value="50"/>
+    </time>
+
+    <processing>
+        <no-internal-links value="true"/>
+        <ignore-route-errors value="true"/>
+        <default.speeddev value="0"/>
+        <overhead-wire-solver value="true"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <battery>
+        <device.battery.explicit value="test1"/>
+    </battery>
+
+    <elechybrid_device>
+        <device.elechybrid.explicit value="test1,test2"/>
+    </elechybrid_device>
+
+</configuration>
+-->
+
+<elecHybrid-export maximumBatteryCapacity="46000.00" vehicle="test1">
+    <timestep time="0.00" actualBatteryCapacity="23000.0000" energyConsumed="0.0000" energyCharged="0.0000" power="nan" overheadWireId="" tractionSubstationId="" current="nan" circuitVoltage="nan" alphaCircuitSolver="nan" speed="0.0000" acceleration="0.0000" distance="0.0000" x="-1.4500" y="46.3800" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="0.0000"/>
+    <timestep time="1.00" actualBatteryCapacity="23011.1111" energyConsumed="5.0570" energyCharged="11.1111" power="58205.3716" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="83.1523" circuitVoltage="699.9850" alphaCircuitSolver="1.0000" speed="0.8000" acceleration="0.8000" distance="0.8000" x="-0.6502" y="46.3729" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="0.8000"/>
+    <timestep time="2.00" actualBatteryCapacity="23022.2222" energyConsumed="9.5487" energyCharged="11.1111" power="74375.3992" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="106.2593" circuitVoltage="699.9424" alphaCircuitSolver="1.0000" speed="1.6000" acceleration="0.8000" distance="2.4000" x="0.9494" y="46.3586" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="2.4000"/>
+    <timestep time="3.00" actualBatteryCapacity="23033.3333" energyConsumed="14.0454" energyCharged="11.1111" power="90563.6135" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="129.4025" circuitVoltage="699.8596" alphaCircuitSolver="1.0000" speed="2.4000" acceleration="0.8000" distance="4.8000" x="3.3488" y="46.3372" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="4.8000"/>
+    <timestep time="4.00" actualBatteryCapacity="23044.4444" energyConsumed="18.5498" energyCharged="11.1111" power="106779.1079" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="152.6017" circuitVoltage="699.7241" alphaCircuitSolver="1.0000" speed="3.2000" acceleration="0.8000" distance="8.0000" x="6.5480" y="46.3087" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="8.0000"/>
+    <timestep time="5.00" actualBatteryCapacity="23055.5556" energyConsumed="23.0642" energyCharged="11.1111" power="123030.9757" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="175.8784" circuitVoltage="699.5230" alphaCircuitSolver="1.0000" speed="4.0000" acceleration="0.8000" distance="12.0000" x="10.5470" y="46.2731" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="12.0000"/>
+    <timestep time="6.00" actualBatteryCapacity="23066.6667" energyConsumed="27.5912" energyCharged="11.1111" power="139328.3104" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="199.2558" circuitVoltage="699.2435" alphaCircuitSolver="1.0000" speed="4.8000" acceleration="0.8000" distance="16.8000" x="15.3458" y="46.2304" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="16.8000"/>
+    <timestep time="7.00" actualBatteryCapacity="23077.7778" energyConsumed="32.1334" energyCharged="11.1111" power="155680.2053" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="222.7592" circuitVoltage="698.8723" alphaCircuitSolver="1.0000" speed="5.6000" acceleration="0.8000" distance="22.4000" x="20.9445" y="46.1805" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="22.4000"/>
+    <timestep time="8.00" actualBatteryCapacity="23088.8889" energyConsumed="12.6365" energyCharged="11.1111" power="85491.3279" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="122.2651" circuitVoltage="699.2294" alphaCircuitSolver="1.0000" speed="5.4865" acceleration="-0.1135" distance="27.8865" x="26.4296" y="46.1316" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="27.8865"/>
+    <timestep time="9.00" actualBatteryCapacity="23100.0000" energyConsumed="-5.9205" energyCharged="11.1111" power="18686.1545" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="26.7020" circuitVoltage="699.8046" alphaCircuitSolver="1.0000" speed="4.4865" acceleration="-1.0000" distance="32.3730" x="30.9150" y="46.0917" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="32.3730"/>
+    <timestep time="10.00" actualBatteryCapacity="23111.1111" energyConsumed="-4.6473" energyCharged="11.1111" power="23269.8638" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="33.2555" circuitVoltage="699.7305" alphaCircuitSolver="1.0000" speed="3.4865" acceleration="-1.0000" distance="35.8595" x="34.4006" y="46.0606" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="35.8595"/>
+    <timestep time="11.00" actualBatteryCapacity="23122.2222" energyConsumed="-3.3601" energyCharged="11.1111" power="27903.7297" overheadWireId="ovrhdSgmnt_gneE0_0_0" tractionSubstationId="trSubstation1" current="39.8822" circuitVoltage="699.6544" alphaCircuitSolver="1.0000" speed="2.4865" acceleration="-1.0000" distance="38.3460" x="36.8865" y="46.0385" z="0.0000" slope="0.0000" lane="gneE0_0" posOnLane="38.3460"/>
+    <timestep time="12.00" actualBatteryCapacity="23133.3333" energyConsumed="19.0373" energyCharged="11.1111" power="108534.4253" overheadWireId="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" current="155.3737" circuitVoltage="698.5381" alphaCircuitSolver="1.0000" speed="3.2865" acceleration="0.8000" distance="41.6325" x="40.5116" y="49.1808" z="0.0000" slope="0.0000" lane="gneE1_1" posOnLane="1.2125"/>
+    <timestep time="13.00" actualBatteryCapacity="23144.4444" energyConsumed="23.5530" energyCharged="11.1111" power="124790.7708" overheadWireId="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" current="178.7441" circuitVoltage="698.1531" alphaCircuitSolver="1.0000" speed="4.0865" acceleration="0.8000" distance="45.7190" x="44.5952" y="49.0488" z="0.0000" slope="0.0000" lane="gneE1_1" posOnLane="5.2990"/>
+    <timestep time="14.00" actualBatteryCapacity="23155.5556" energyConsumed="28.0815" energyCharged="11.1111" power="141093.5664" overheadWireId="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" current="202.2304" circuitVoltage="697.6871" alphaCircuitSolver="1.0000" speed="4.8865" acceleration="0.8000" distance="50.6055" x="49.4781" y="48.8908" z="0.0000" slope="0.0000" lane="gneE1_1" posOnLane="10.1855"/>
+    <timestep time="15.00" actualBatteryCapacity="23166.6667" energyConsumed="24.9555" energyCharged="11.1111" power="129839.8978" overheadWireId="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" current="186.1116" circuitVoltage="697.6454" alphaCircuitSolver="1.0000" speed="5.3756" acceleration="0.4891" distance="55.9811" x="54.8498" y="48.7171" z="0.0000" slope="0.0000" lane="gneE1_1" posOnLane="15.5611"/>
+    <timestep time="16.00" actualBatteryCapacity="23177.7778" energyConsumed="-5.7801" energyCharged="11.1111" power="19191.6445" overheadWireId="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" current="27.4313" circuitVoltage="699.6258" alphaCircuitSolver="1.0000" speed="4.3756" acceleration="-1.0000" distance="60.3567" x="59.2222" y="48.5757" z="0.0000" slope="0.0000" lane="gneE1_1" posOnLane="19.9367"/>
+    <timestep time="17.00" actualBatteryCapacity="23188.8889" energyConsumed="-4.5051" energyCharged="11.1111" power="23781.6263" overheadWireId="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" current="33.9975" circuitVoltage="699.5103" alphaCircuitSolver="1.0000" speed="3.3756" acceleration="-1.0000" distance="63.7323" x="62.5953" y="48.4666" z="0.0000" slope="0.0000" lane="gneE1_1" posOnLane="23.3122"/>
+    <timestep time="18.00" actualBatteryCapacity="23200.0000" energyConsumed="24.0566" energyCharged="11.1111" power="126603.6901" overheadWireId="ovrhdSgmnt_gneE1_1_1" tractionSubstationId="trSubstation1" current="181.5853" circuitVoltage="697.2132" alphaCircuitSolver="1.0000" speed="4.1756" acceleration="0.8000" distance="67.9078" x="66.7679" y="48.3317" z="0.0000" slope="0.0000" lane="gneE1_1" posOnLane="27.4878"/>
+    <timestep time="19.00" actualBatteryCapacity="23211.1111" energyConsumed="28.5867" energyCharged="11.1111" power="142912.2208" overheadWireId="ovrhdSgmnt_gneE2_1_2" tractionSubstationId="trSubstation1" current="205.1507" circuitVoltage="696.6208" alphaCircuitSolver="1.0000" speed="4.9756" acceleration="0.8000" distance="72.8834" x="78.2233" y="43.7019" z="0.0000" slope="0.0000" lane="gneE2_1" posOnLane="4.9234"/>
+    <timestep time="20.00" actualBatteryCapacity="23222.2222" energyConsumed="33.1326" energyCharged="11.1111" power="159277.3074" overheadWireId="ovrhdSgmnt_gneE2_1_2" tractionSubstationId="trSubstation1" current="228.8693" circuitVoltage="695.9314" alphaCircuitSolver="1.0000" speed="5.7756" acceleration="0.8000" distance="78.6590" x="83.8932" y="42.6131" z="0.0000" slope="0.0000" lane="gneE2_1" posOnLane="10.6990"/>
+    <timestep time="21.00" actualBatteryCapacity="23233.3333" energyConsumed="37.6967" energyCharged="11.1111" power="175708.0433" overheadWireId="ovrhdSgmnt_gneE2_1_2" tractionSubstationId="trSubstation1" current="252.7697" circuitVoltage="695.1309" alphaCircuitSolver="1.0000" speed="6.5756" acceleration="0.8000" distance="85.2346" x="90.3485" y="41.3736" z="0.0000" slope="0.0000" lane="gneE2_1" posOnLane="17.2746"/>
+</elecHybrid-export>

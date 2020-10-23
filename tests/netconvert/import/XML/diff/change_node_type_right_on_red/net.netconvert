@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:44 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Tue Mar 10 20:58:19 2020 by Eclipse SUMO netconvert Version v1_5_0+0624-19070087e2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -19,6 +19,7 @@ SPDX-License-Identifier: EPL-2.0
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
@@ -37,12 +38,13 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<net version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="0.00,0.00" convBoundary="-40.00,-10.00,40.00,40.00" origBoundary="-40.00,-10.00,40.00,40.00" projParameter="!"/>
 
@@ -53,13 +55,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":node_C_1_0" index="0" speed="14.50" length="16.65" shape="-1.60,8.17 -1.60,-8.49"/>
     </edge>
     <edge id=":node_C_2" function="internal">
-        <lane id=":node_C_2_0" index="0" speed="13.50" length="6.57" shape="-1.60,8.17 -0.87,3.27 0.00,1.91"/>
+        <lane id=":node_C_2_0" index="0" speed="13.50" length="6.57" shape="-1.60,8.17 -0.87,3.27 -0.00,1.91"/>
     </edge>
     <edge id=":node_C_3" function="internal">
         <lane id=":node_C_3_0" index="0" speed="14.50" length="2.34" shape="-1.60,8.17 -0.80,6.97 0.00,6.57"/>
     </edge>
     <edge id=":node_C_12" function="internal">
-        <lane id=":node_C_12_0" index="0" speed="13.50" length="11.71" shape="0.00,1.91 1.32,-0.15 4.96,-2.11 10.07,-2.60"/>
+        <lane id=":node_C_12_0" index="0" speed="13.50" length="11.71" shape="-0.00,1.91 1.32,-0.15 4.96,-2.11 10.07,-2.60"/>
     </edge>
     <edge id=":node_C_13" function="internal">
         <lane id=":node_C_13_0" index="0" speed="14.50" length="2.34" shape="0.00,6.57 0.80,6.97 1.60,8.17"/>
@@ -150,7 +152,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="7"  response="000100000100" foes="000100000100" cont="1"/>
         <request index="8"  response="000000000000" foes="000010000100" cont="0"/>
         <request index="9"  response="000000000000" foes="000001111100" cont="0"/>
-        <request index="10" response="000000000011" foes="000001100010" cont="1"/>
+        <request index="10" response="000000000010" foes="000001100010" cont="1"/>
         <request index="11" response="000001000010" foes="000001000010" cont="1"/>
     </junction>
     <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.00,-10.00 -3.20,-10.00 0.00,-10.00">
@@ -164,7 +166,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="0" foes="0" cont="0"/>
     </junction>
 
-    <junction id=":node_C_12_0" type="internal" x="0.00" y="1.91" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_5_0 :node_C_6_0 :node_C_7_0 :node_C_8_0 :node_C_9_0"/>
+    <junction id=":node_C_12_0" type="internal" x="-0.00" y="1.91" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_5_0 :node_C_6_0 :node_C_7_0 :node_C_8_0 :node_C_9_0"/>
     <junction id=":node_C_13_0" type="internal" x="0.00" y="6.57" incLanes=":node_C_3_0 edge_D2C_0 edge_R2C_0" intLanes=":node_C_4_0 :node_C_9_0"/>
     <junction id=":node_C_14_0" type="internal" x="8.19" y="-1.24" incLanes=":node_C_7_0 edge_D2C_0 edge_U2C_0" intLanes=":node_C_2_0 :node_C_8_0"/>
     <junction id=":node_C_15_0" type="internal" x="0.00" y="-4.20" incLanes=":node_C_10_0 edge_U2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_5_0 :node_C_6_0"/>

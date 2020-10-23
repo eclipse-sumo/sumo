@@ -1,0 +1,38 @@
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+	<e3Detector id="e3Detector_00" freq="100.00" file="fileA.txt" timeThreshold="1.00" speedThreshold="1.39" pos="0,10">
+
+    <!-- valid generic parameter (valid) -->
+    <param key="key1" value="value1"/>
+
+    <!-- empty generic parameter (invalid -->
+    <param/>
+    
+    <!-- missin key (invalid) -->
+    <param value="value2"/>
+
+    <!-- empty key (invalid) -->
+    <param key="" value="value3"/>
+
+    <!-- key contains invalid characters (invalid) -->
+    <param key="$$key with spaces%%" value="value4"/>
+
+    <!-- duplicated key (valid, overwrites the first one, show warning) -->
+    <param key="key1" value="value5"/>
+
+    <!-- missing value (invalid, value must exist)-->
+    <param key="key2"/>
+
+    <!-- empty value (valid, value may be empty) -->
+    <param key="key2" value=""/>
+
+    <!-- value contains invalid characters (valid - no restrictions on value) -->
+    <param key="key3" value="$$value with spaces%%"/>
+    
+     <!-- valid generic parameter (valid) -->
+     <param key="keyFinal" value="valueFinal"/>
+		<!-- childs -->
+		<detEntry lane="gneE1_0" pos="2" friendlyPos="0"/>
+		<detExit lane="gneE0_0" pos="2" friendlyPos="0"/>
+		
+	</e3Detector>
+</additional>

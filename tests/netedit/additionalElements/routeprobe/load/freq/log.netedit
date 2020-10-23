@@ -1,0 +1,3 @@
+Warning: Essential SUMOTime attribute 'freq' of routeProbe with ID 'routeProbe_0' is missing; routeProbe cannot be created
+Warning: Format of essential SUMOTime attribute 'freq' of routeProbe with ID 'routeProbe_1' is invalid; Cannot be parsed to SUMOTime; routeProbe cannot be created
+Warning: Format of essential SUMOTime attribute 'freq' of routeProbe with ID 'routeProbe_2' is invalid; Cannot be parsed to SUMOTime; routeProbe cannot be created

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 11/14/16 16:03:02 by SUMO Version dev-SVN-r21978
+<!-- generated on Mon Mar 30 15:08:17 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,11 +13,19 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
         <step-length value="0.1"/>
     </time>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
 
     <report>
         <xml-validation value="never"/>
@@ -25,20 +33,24 @@ SPDX-License-Identifier: EPL-2.0
         <no-step-log value="true"/>
     </report>
 
+    <gui_only>
+        <tracker-interval value="0.1"/>
+    </gui_only>
+
 </configuration>
 -->
 
 <instantE1 xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/instant_e1_file.xsd">
-    <instantOut id="4/1to3/1" time="10.90" state="enter" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
-    <instantOut id="4/1to3/1" time="10.90" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="4/1to3/1" time="11.00" state="enter" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
     <instantOut id="4/1to3/1" time="11.00" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
     <instantOut id="4/1to3/1" time="11.10" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
     <instantOut id="4/1to3/1" time="11.20" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
-    <instantOut id="4/1to3/1" time="11.20" state="leave" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE" occupancy="0.30"/>
-    <instantOut id="3/1to2/1" time="50.90" state="enter" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
-    <instantOut id="3/1to2/1" time="50.90" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="4/1to3/1" time="11.30" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="4/1to3/1" time="11.30" state="leave" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE" occupancy="0.30"/>
+    <instantOut id="3/1to2/1" time="51.00" state="enter" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
     <instantOut id="3/1to2/1" time="51.00" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
     <instantOut id="3/1to2/1" time="51.10" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
     <instantOut id="3/1to2/1" time="51.20" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
-    <instantOut id="3/1to2/1" time="51.20" state="leave" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE" occupancy="0.30"/>
+    <instantOut id="3/1to2/1" time="51.30" state="stay" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE"/>
+    <instantOut id="3/1to2/1" time="51.30" state="leave" vehID="0" speed="10.00" length="3.00" type="DEFAULT_VEHTYPE" occupancy="0.30"/>
 </instantE1>

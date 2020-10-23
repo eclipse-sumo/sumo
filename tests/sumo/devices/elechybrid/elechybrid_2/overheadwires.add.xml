@@ -1,0 +1,27 @@
+<additionals>
+    <overheadWireSegment id="ovrhdSgmnt_-gneE10_0_6" lane="-gneE10_0" />
+    <overheadWireSegment id="ovrhdSgmnt_-gneE8_0_5" lane="-gneE8_0" voltageSource="true" />
+    <overheadWireSegment id="ovrhdSgmnt_-gneE13_0_8" lane="-gneE13_0" />
+    <overheadWireSegment id="ovrhdSgmnt_-gneE7_0_7" lane="-gneE7_0" />
+    <overheadWireSegment id="ovrhdSgmnt_-gneE14_0_9" lane="-gneE14_0" />
+    <overheadWireSegment id="ovrhdSgmnt_gneE6_0_7" lane="gneE6_0" voltageSource="true" />
+    
+    <overheadWireSegment id="ovrhdSgmnt_gneE0_0_0" lane="gneE0_0" voltageSource="true" />
+    <overheadWireSegment id="ovrhdSgmnt_gneE1_1_1" lane="gneE1_1" />
+    <overheadWireSegment id="ovrhdSgmnt_gneE2_0_3" lane="gneE2_0" />
+    <overheadWireSegment id="ovrhdSgmnt_gneE2_1_2" lane="gneE2_1" />
+    
+    
+    <tractionSubstation id="trSubstation1" voltage="700" currentLimit="1600" />
+    <tractionSubstation id="trSubstation2" voltage="600" currentLimit="1600" />
+    
+    <overheadWireClamp id="clamp1" substationId="trSubstation1" idSegmentStartClamp="ovrhdSgmnt_gneE2_0_3" idSegmentEndClamp="ovrhdSgmnt_gneE1_1_1" />>
+    <overheadWire
+        segments="ovrhdSgmnt_gneE0_0_0 ovrhdSgmnt_gneE1_1_1 ovrhdSgmnt_gneE2_0_3 ovrhdSgmnt_gneE2_1_2"
+        substationId="trSubstation1"
+        clamps="clamp1"/>
+    
+     <overheadWire
+        segments="ovrhdSgmnt_-gneE10_0_6 ovrhdSgmnt_-gneE8_0_5 ovrhdSgmnt_-gneE7_0_7 ovrhdSgmnt_gneE6_0_7 "
+        substationId="trSubstation2" />
+</additionals>

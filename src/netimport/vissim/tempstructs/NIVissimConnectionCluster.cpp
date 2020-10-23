@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NIVissimConnectionCluster.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // -------------------
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <algorithm>
@@ -388,13 +386,12 @@ NIVissimConnectionCluster::isWeakDistrictConnRealisation(NIVissimConnectionClust
     // connections must cross
     bool crosses = false;
     for (std::vector<int>::const_iterator j1 = myConnections.begin(); j1 != myConnections.end() && !crosses; j1++) {
-        NIVissimConnection* c1 = NIVissimConnection::dictionary(*j1);
-        const PositionVector& g1 = c1->getGeometry();
-        for (std::vector<int>::const_iterator j2 = c2->myConnections.begin(); j2 != c2->myConnections.end() && !crosses; j2++) {
-            NIVissimConnection* c2 = NIVissimConnection::dictionary(*j2);
-            const PositionVector& g2 = c2->getGeometry();
+        const PositionVector& g1 = NIVissimConnection::dictionary(*j1)->getGeometry();
+        for (const int j2 : c2->myConnections) {
+            const PositionVector& g2 = NIVissimConnection::dictionary(j2)->getGeometry();
             if (g1.intersects(g2)) {
                 crosses = true;
+                break;
             }
         }
     }
@@ -783,6 +780,4 @@ NIVissimConnectionCluster::getOutgoingContinuation(NIVissimEdge* e) const {
 }
 
 
-
 /****************************************************************************/
-

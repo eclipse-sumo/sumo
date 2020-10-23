@@ -37,6 +37,9 @@ maxtraveltime
 # two vehicles with different vtypes sampling at 15s
 vtypes
 
+# two vehicles with different vtypes sampling at 15s
+vtypes_begin_end
+
 # two vehicles sampling at 15s with internal lanes
 internal
 

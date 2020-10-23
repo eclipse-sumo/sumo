@@ -1,0 +1,7 @@
+<routes>
+    <trip id="foe" depart="0" from="EC" to="CS"/>
+    <personFlow id="p" begin="0" end="100" period="1" departPos="-1">
+        <walk from="WC" to="CE" arrivalPos="10"/>
+    </personFlow>
+    <trip id="ego" depart="10" from="WC" to="CE" departLane="4" arrivalLane="4"/>
+</routes>

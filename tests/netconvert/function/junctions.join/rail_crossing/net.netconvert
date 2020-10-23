@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon Feb 17 15:31:05 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <node-files value="input_plain.nod.xml"/>
+        <edge-files value="input_plain.edg.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.join value="true"/>
+    </junctions>
+
+    <report>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="0.00,40.00" convBoundary="0.00,0.00,200.00,90.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
+
+    <edge id=":cluster_C1_C2_0" function="internal">
+        <lane id=":cluster_C1_C2_0_0" index="0" allow="passenger" speed="13.89" length="16.20" shape="98.40,53.10 98.40,36.90"/>
+    </edge>
+    <edge id=":cluster_C1_C2_1" function="internal">
+        <lane id=":cluster_C1_C2_1_0" index="0" allow="passenger" speed="13.89" length="16.20" shape="101.60,36.90 101.60,53.10"/>
+    </edge>
+    <edge id=":cluster_C1_C2_2" function="internal">
+        <lane id=":cluster_C1_C2_2_0" index="0" allow="rail" speed="27.78" length="9.40" shape="95.30,40.00 104.70,40.00"/>
+    </edge>
+    <edge id=":cluster_C1_C2_3" function="internal">
+        <lane id=":cluster_C1_C2_3_0" index="0" allow="rail" speed="27.78" length="9.40" shape="95.30,50.00 104.70,50.00"/>
+    </edge>
+
+    <edge id="-gneE4" from="cluster_C1_C2" to="S" priority="-1" shape="100.00,40.00 100.00,0.00">
+        <lane id="-gneE4_0" index="0" allow="passenger" speed="13.89" length="36.90" shape="98.40,36.90 98.40,0.00"/>
+    </edge>
+    <edge id="-gneE6" from="N" to="cluster_C1_C2" priority="-1" shape="100.00,90.00 100.00,50.00">
+        <lane id="-gneE6_0" index="0" allow="passenger" speed="13.89" length="36.90" shape="98.40,90.00 98.40,53.10"/>
+    </edge>
+    <edge id="gneE0" from="W2" to="cluster_C1_C2" priority="-1" spreadType="center" shape="0.00,40.00 100.00,40.00">
+        <lane id="gneE0_0" index="0" allow="rail" speed="27.78" length="95.30" shape="0.00,40.00 95.30,40.00"/>
+    </edge>
+    <edge id="gneE1" from="cluster_C1_C2" to="E2" priority="-1" spreadType="center" shape="100.00,40.00 200.00,40.00">
+        <lane id="gneE1_0" index="0" allow="rail" speed="27.78" length="95.30" shape="104.70,40.00 200.00,40.00"/>
+    </edge>
+    <edge id="gneE2" from="W1" to="cluster_C1_C2" priority="-1" spreadType="center" shape="0.00,50.00 100.00,50.00">
+        <lane id="gneE2_0" index="0" allow="rail" speed="27.78" length="95.30" shape="0.00,50.00 95.30,50.00"/>
+    </edge>
+    <edge id="gneE3" from="cluster_C1_C2" to="E1" priority="-1" spreadType="center" shape="100.00,50.00 200.00,50.00">
+        <lane id="gneE3_0" index="0" allow="rail" speed="27.78" length="95.30" shape="104.70,50.00 200.00,50.00"/>
+    </edge>
+    <edge id="gneE4" from="S" to="cluster_C1_C2" priority="-1" shape="100.00,0.00 100.00,40.00">
+        <lane id="gneE4_0" index="0" allow="passenger" speed="13.89" length="36.90" shape="101.60,0.00 101.60,36.90"/>
+    </edge>
+    <edge id="gneE6" from="cluster_C1_C2" to="N" priority="-1" shape="100.00,50.00 100.00,90.00">
+        <lane id="gneE6_0" index="0" allow="passenger" speed="13.89" length="36.90" shape="101.60,53.10 101.60,90.00"/>
+    </edge>
+
+    <junction id="E1" type="dead_end" x="200.00" y="50.00" incLanes="gneE3_0" intLanes="" shape="200.00,48.40 200.00,51.60"/>
+    <junction id="E2" type="dead_end" x="200.00" y="40.00" incLanes="gneE1_0" intLanes="" shape="200.00,38.40 200.00,41.60"/>
+    <junction id="N" type="dead_end" x="100.00" y="90.00" incLanes="gneE6_0" intLanes="" shape="100.00,90.00 103.20,90.00 100.00,90.00"/>
+    <junction id="S" type="dead_end" x="100.00" y="0.00" incLanes="-gneE4_0" intLanes="" shape="100.00,0.00 96.80,0.00 100.00,0.00"/>
+    <junction id="W1" type="dead_end" x="0.00" y="50.00" incLanes="" intLanes="" shape="0.00,51.60 0.00,48.40"/>
+    <junction id="W2" type="dead_end" x="0.00" y="40.00" incLanes="" intLanes="" shape="0.00,41.60 0.00,38.40"/>
+    <junction id="cluster_C1_C2" type="priority" x="100.00" y="45.00" incLanes="-gneE6_0 gneE4_0 gneE0_0 gneE2_0" intLanes=":cluster_C1_C2_0_0 :cluster_C1_C2_1_0 :cluster_C1_C2_2_0 :cluster_C1_C2_3_0" shape="96.80,53.10 103.20,53.10 103.37,52.27 103.57,51.97 103.87,51.77 104.24,51.64 104.70,51.60 104.70,38.40 103.87,38.23 103.57,38.03 103.37,37.73 103.24,37.36 103.20,36.90 96.80,36.90 96.63,37.73 96.43,38.03 96.13,38.23 95.76,38.36 95.30,38.40 95.30,51.60 96.13,51.77 96.43,51.97 96.63,52.27 96.76,52.64">
+        <request index="0" response="1100" foes="1100" cont="0"/>
+        <request index="1" response="1100" foes="1100" cont="0"/>
+        <request index="2" response="0000" foes="0011" cont="0"/>
+        <request index="3" response="0000" foes="0011" cont="0"/>
+    </junction>
+
+    <connection from="-gneE6" to="-gneE4" fromLane="0" toLane="0" via=":cluster_C1_C2_0_0" dir="s" state="m"/>
+    <connection from="gneE0" to="gneE1" fromLane="0" toLane="0" via=":cluster_C1_C2_2_0" dir="s" state="M"/>
+    <connection from="gneE2" to="gneE3" fromLane="0" toLane="0" via=":cluster_C1_C2_3_0" dir="s" state="M"/>
+    <connection from="gneE4" to="gneE6" fromLane="0" toLane="0" via=":cluster_C1_C2_1_0" dir="s" state="m"/>
+
+    <connection from=":cluster_C1_C2_0" to="-gneE4" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_C1_C2_1" to="gneE6" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_C1_C2_2" to="gneE1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from=":cluster_C1_C2_3" to="gneE3" fromLane="0" toLane="0" dir="s" state="M"/>
+
+</net>

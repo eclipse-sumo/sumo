@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Nov 12 14:18:11 2019 by Eclipse SUMO duarouter Version v1_3_1+0801-fdab291c73
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/duarouterConfiguration.xsd">
+
+    <input>
+        <net-file value="dualring2.net.xml"/>
+        <route-files value="random.rou.xml"/>
+    </input>
+
+    <output>
+        <output-file value="random.rou.xml.tmp"/>
+        <write-trips value="true"/>
+    </output>
+
+    <time>
+        <begin value="0"/>
+        <end value="3600"/>
+    </time>
+
+    <report>
+        <no-warnings value="true"/>
+        <ignore-errors value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="WN" from="WC" to="CN" begin="0"   number="30" period="2" departSpeed="max" departLane="best"/>
+    <flow id="WE" from="WC" to="CE" begin="20"  number="30" period="2" departSpeed="max" departLane="best"/>
+    <flow id="SW" from="SC" to="CN" begin="40"  number="30" period="2" departSpeed="max" departLane="best"/>
+    <flow id="SN" from="SC" to="CN" begin="60"  number="30" period="2" departSpeed="max" departLane="best"/>
+    <flow id="NE" from="NC" to="CE" begin="80"  number="30" period="2" departSpeed="max" departLane="best"/>
+    <flow id="NS" from="NC" to="CS" begin="100"  number="30" period="2" departSpeed="max" departLane="best"/>
+    <flow id="ES" from="EC" to="CS" begin="120" number="30" period="2" departSpeed="max" departLane="best"/>
+    <flow id="EW" from="EC" to="CW" begin="140" number="30" period="2" departSpeed="max" departLane="best"/>
+</routes>

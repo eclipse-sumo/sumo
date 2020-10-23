@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  3 18:20:14 2018 by Eclipse SUMO polyconvert Version 854346cdd7
+<!-- generated on Tue Sep  8 13:06:13 2020 by Eclipse SUMO polyconvert Version v1_6_0+2018-124343ba59
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -33,7 +33,9 @@
             <xsd:element name="osm.merge-relations" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="shapefile-prefixes" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.guess-projection" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.traditional-axis-mapping" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.id-column" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="shapefile.type-columns" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.use-running-id" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.add-param" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.fill" type="strOptionType" minOccurs="0"/>
@@ -73,7 +75,7 @@
             <xsd:element name="prune.in-net.offsets" type="strOptionType" minOccurs="0"/>
             <xsd:element name="prune.boundary" type="strOptionType" minOccurs="0"/>
             <xsd:element name="prune.keep-list" type="strOptionType" minOccurs="0"/>
-            <xsd:element name="prune.explicit" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="prune.explicit" type="strArrayOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
@@ -81,6 +83,7 @@
         <xsd:all>
             <xsd:element name="offset.x" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="offset.y" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="offset.z" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="all-attributes" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="ignore-errors" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="poi-layer-offset" type="floatOptionType" minOccurs="0"/>
@@ -107,6 +110,7 @@
             <xsd:element name="xml-validation" type="strOptionType" minOccurs="0"/>
             <xsd:element name="xml-validation.net" type="strOptionType" minOccurs="0"/>
             <xsd:element name="no-warnings" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="aggregate-warnings" type="intOptionType" minOccurs="0"/>
             <xsd:element name="log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="message-log" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="error-log" type="fileOptionType" minOccurs="0"/>

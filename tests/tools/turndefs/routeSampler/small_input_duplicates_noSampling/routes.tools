@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-03-10 13:44:46.760668 by routeSampler.py v1_5_0+0599-3f66299
+  options: -r input_routes2.rou.xml -t input_turns.xml -o out.rou.xml <doubleminus>optimize 10 <doubleminus>optimize-input
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+<!-- begin="0.0" end="99.0" -->
+    <vehicle id="0" depart="0.00">
+        <route edges="-37 -37.80.00 31 31.80.00 64 64.80.00 -64"/>
+    </vehicle>
+    <vehicle id="1" depart="24.75">
+        <route edges="58 -37 -37.80.00 -23 -23.80.00 109 109.80.00 123"/>
+    </vehicle>
+    <vehicle id="2" depart="49.50">
+        <route edges="-37 -37.80.00 31 31.80.00 64 64.80.00 -64"/>
+    </vehicle>
+    <vehicle id="3" depart="74.25">
+        <route edges="58 -37 -37.80.00 -23 -23.80.00 109 109.80.00 123"/>
+    </vehicle>
+</routes>

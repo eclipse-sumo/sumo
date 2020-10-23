@@ -1,4 +1,5 @@
 simple
+begin_end_human_readable
 
 # fractional depart times
 fractional
@@ -11,8 +12,14 @@ minimum_distance_exceeded
 # For this test, the turnarounds at the fringe have been removed since the fringe is detected by limited connectivity
 fringe_factor
 
+# test interaction of fringe factor and edge length (fringe should ignore length)
+short_fringe
+
 # detected the fringe despite turnarounds
 fringe_factor_turnarounds
+
+# modify the edge probability based on the edge position relative to the network center to promote a given direction of travel
+angle
 
 # consider vehicle class when picking source- and destination edges if option --vclass is used
 vclass
@@ -50,6 +57,15 @@ pedestrians
 # generate random persontrips
 persontrips
 
+# walks between junctions
+pedestrians_junctionTaz
+
+# generate random persontrips between junctions
+persontrips_junctionTaz
+
+# generate random taxi rides
+taxirides
+
 # use binomially distributed arrivals
 binomial
 
@@ -61,7 +77,23 @@ validate_intermediate
 period_positive
 all_fringe_network
 flows
+
+# create flows for jtrrouter (no to)
+flows_jtrrouter
 flows_binomial
 
 # load the vehicle type to use during routing from an additional file
 vtype_additional_file_validate
+
+# some extra options that are passed  directly to duarouter
+duarouter_options
+
+# use fromJunction and toJunction
+junctionTaz
+
+# use fromJunction and toJunction with flows
+junctionTaz_flow
+junctionTaz_validate
+
+# prevent some edge types from being used as source or destination
+viaEdgeType

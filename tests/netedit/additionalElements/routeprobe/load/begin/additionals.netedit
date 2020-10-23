@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11.03.2019 13:33:36 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/begin\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/begin\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/begin\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/begin\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/begin\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/begin\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.11Mar133250.11216/netedit.gui/additionalElements/routeprobe/load/begin\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <routeProbe id="routeProbe_0" edge="gneE1" freq="100.00" file="myOwnFile.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_1" edge="gneE1" freq="100.00" file="myOwnFile.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_2" edge="gneE1" freq="100.00" file="myOwnFile.txt" begin="0.00"/>
+    <routeProbe id="routeProbe_3" edge="gneE1" freq="100.00" file="myOwnFile.txt" begin="10.30"/>
+</additional>

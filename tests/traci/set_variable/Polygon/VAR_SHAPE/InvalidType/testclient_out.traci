@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Wed Aug 01 14:54:31 2018
+TraCITestClient output file. Date: Sun Aug 11 18:20:59 2019
 
 
 -> Command sent: <SimulationStep>:
@@ -7,6 +7,9 @@ TraCITestClient output file. Date: Wed Aug 01 14:54:31 2018
 -> Command sent: <SetValue>:
   domID=200 varID=78 objID=p1
 .. Answered with error to command (200), [description: The shape must be given using an according type.]
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
 
 -> Command sent: <SimulationStep>:
 .. Command acknowledged (2), [description: ]

@@ -1,0 +1,7 @@
+
+[Reported by erdm_ja at 09Apr15:56:10]
+search_string:collision
+search_file:errors
+ignore_other_errors:1
+full_description:collision when lane width changes
+brief_description:see #3997

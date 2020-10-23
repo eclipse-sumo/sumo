@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Aug 12 22:28:19 2017 by SUMO Version dev-SVN-r24506
+<!-- generated on Thu Mar 12 11:39:20 2020 by Eclipse SUMO Version v1_5_0+0673-e4a6910
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,7 @@ SPDX-License-Identifier: EPL-2.0
     </input>
 
     <output>
+        <write-license value="true"/>
         <netstate-dump value="netstate_dump.xml"/>
         <tripinfo-output value="tripinfos.xml"/>
     </output>
@@ -24,7 +25,7 @@ SPDX-License-Identifier: EPL-2.0
     </report>
 
     <traci_server>
-        <remote-port value="39033"/>
+        <remote-port value="50079"/>
     </traci_server>
 
 </configuration>
@@ -322,6 +323,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="e_m0">
             <lane id="e_m0_0">
                 <vehicle id="veh5" pos="12.00" speed="4.00"/>
+                <vehicle id="veh2" pos="50.00" speed="0.00"/>
                 <vehicle id="veh1" pos="184.80" speed="16.80"/>
             </lane>
             <lane id="e_m0_1">
@@ -334,6 +336,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="e_m0">
             <lane id="e_m0_0">
                 <vehicle id="veh5" pos="16.80" speed="4.80"/>
+                <vehicle id="veh2" pos="50.80" speed="0.80"/>
             </lane>
             <lane id="e_m0_1">
                 <vehicle id="veh4" pos="44.00" speed="8.00"/>
@@ -345,6 +348,7 @@ SPDX-License-Identifier: EPL-2.0
         <edge id="e_m0">
             <lane id="e_m0_0">
                 <vehicle id="veh5" pos="22.40" speed="5.60"/>
+                <vehicle id="veh3" pos="40.00" speed="0.00"/>
             </lane>
             <lane id="e_m0_1">
                 <vehicle id="veh4" pos="52.80" speed="8.80"/>

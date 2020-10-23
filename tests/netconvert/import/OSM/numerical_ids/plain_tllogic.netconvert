@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Dec 14 09:27:52 2018 by Eclipse SUMO netconvert Version v1_0_1+0645-93703db
+<!-- generated on Mon Feb 17 15:31:00 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -43,16 +43,17 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
     </report>
 
 </configuration>
 -->
 
-<tlLogics version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
+<tlLogics version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="261599791" type="static" programID="0" offset="0">
-        <phase duration="79" state="GGgGGg"/>
-        <phase duration="6"  state="yyyyyy"/>
-        <phase duration="5"  state="rrrrrr"/>
+        <phase duration="79" state="GGGG"/>
+        <phase duration="6"  state="yyyy"/>
+        <phase duration="5"  state="rrrr"/>
     </tlLogic>
     <tlLogic id="32266935" type="static" programID="0" offset="0">
         <phase duration="39" state="rrrrGGGggrrrrGGGgg"/>
@@ -75,13 +76,11 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="27445016" to="27445066" fromLane="1" toLane="1" tl="32266935" linkIndex="15"/>
     <connection from="27445016" to="27445070" fromLane="1" toLane="0" tl="32266935" linkIndex="16"/>
     <connection from="27445016" to="27445073" fromLane="1" toLane="1" tl="32266935" linkIndex="17"/>
-    <connection from="27445017" to="27445016" fromLane="0" toLane="0" tl="261599791" linkIndex="3"/>
-    <connection from="27445017" to="27445016" fromLane="1" toLane="1" tl="261599791" linkIndex="4"/>
-    <connection from="27445017" to="27445074" fromLane="1" toLane="1" tl="261599791" linkIndex="5"/>
+    <connection from="27445017" to="27445016" fromLane="0" toLane="0" tl="261599791" linkIndex="2"/>
+    <connection from="27445017" to="27445016" fromLane="1" toLane="1" tl="261599791" linkIndex="3"/>
     <connection from="27445063" to="27445158" fromLane="1" toLane="1" tl="94487954" linkIndex="0"/>
     <connection from="27445073" to="27445074" fromLane="0" toLane="0" tl="261599791" linkIndex="0"/>
     <connection from="27445073" to="27445074" fromLane="1" toLane="1" tl="261599791" linkIndex="1"/>
-    <connection from="27445073" to="27445016" fromLane="1" toLane="1" tl="261599791" linkIndex="2"/>
     <connection from="27445161" to="27445070" fromLane="0" toLane="0" tl="32266935" linkIndex="4"/>
     <connection from="27445161" to="27445073" fromLane="0" toLane="0" tl="32266935" linkIndex="5"/>
     <connection from="27445161" to="27445073" fromLane="1" toLane="1" tl="32266935" linkIndex="6"/>

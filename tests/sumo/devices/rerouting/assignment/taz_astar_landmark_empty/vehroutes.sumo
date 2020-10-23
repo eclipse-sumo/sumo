@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 05/24/19 08:48:09 by Eclipse SUMO Version v1_1_0+1379-f2e706eba2
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_trips.trips.xml"/>
+        <additional-files value="input_districts.taz.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
+    <routing>
+        <routing-algorithm value="astar"/>
+        <astar.landmark-distances value="lookuptable"/>
+    </routing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="0" depart="0.00" fromTaz="1" toTaz="2" arrival="66.00">
+        <route edges="5/5to5/6 5/6to5/7 5/7to5/8 5/8to5/9 5/9to6/9 6/9to7/9 7/9to8/9 8/9to9/9 9/9to9/8"/>
+    </vehicle>
+
+</routes>

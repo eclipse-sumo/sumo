@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NBTrafficLightDefinition.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // The base class for traffic light logic definitions
 /****************************************************************************/
-#ifndef NBTrafficLightDefinition_h
-#define NBTrafficLightDefinition_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -274,9 +271,10 @@ public:
      * @param[in] removedLane The lane of this edge to replace
      * @param[in] by The edge to insert instead
      * @param[in] byLane This edge's lane to insert instead
+     * @param[in] incoming Whether the removed edge is incoming or outgoing
      */
     virtual void replaceRemoved(NBEdge* removed, int removedLane,
-                                NBEdge* by, int byLane) = 0;
+                                NBEdge* by, int byLane, bool incoming) = 0;
 
     /// @brief patches (loaded) signal plans by modifying lane indices
     virtual void shiftTLConnectionLaneIndex(NBEdge* edge, int offset, int threshold = -1) {
@@ -314,7 +312,7 @@ public:
     /** @brief Sets the programID
      * @param[in] programID The new ID of the program (subID)
      */
-    void setProgramID(const std::string& programID) {
+    virtual void setProgramID(const std::string& programID) {
         mySubID = programID;
     }
 
@@ -400,7 +398,7 @@ protected:
     virtual bool amInvalid() const;
 
     /// @brief helper method for use in NBOwnTLDef and NBLoadedSUMOTLDef
-    void collectAllLinks();
+    void collectAllLinks(NBConnectionVector& into);
 
 protected:
     /// @brief The container with participating nodes
@@ -471,9 +469,3 @@ private:
 
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

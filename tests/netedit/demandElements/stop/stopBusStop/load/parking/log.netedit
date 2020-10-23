@@ -1,0 +1,9 @@
+Error: Attribute 'parking' in definition of a stop is not of type bool.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Attribute 'parking' in definition of a stop is empty.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Attribute 'parking' in definition of a stop is not of type bool.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Attribute 'parking' in definition of a stop is not of type bool.
+Error: Invalid bool for 'triggered', 'containerTriggered' or 'parking' for stop at 'busStop' in route ''.
+Error: Loading of C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Aug152405.4520/netedit.gui/demandElements/stop/stopBusStop/load/parking\input_routes.rou.xml failed.

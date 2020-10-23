@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 11/5/2019 10:10:28 AM by Eclipse SUMO netedit Version v1_3_1+0758-a034d387cd
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov103304.3888\netedit.gui\demandElements\flow\inspect\departPosLat\random_free\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov103304.3888\netedit.gui\demandElements\flow\inspect\departPosLat\random_free\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov103304.3888\netedit.gui\demandElements\flow\inspect\departPosLat\random_free\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov103304.3888\netedit.gui\demandElements\flow\inspect\departPosLat\random_free\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov103304.3888\netedit.gui\demandElements\flow\inspect\departPosLat\random_free\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov103304.3888\netedit.gui\demandElements\flow\inspect\departPosLat\random_free\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov103304.3888\netedit.gui\demandElements\flow\inspect\departPosLat\random_free\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov103304.3888\netedit.gui\demandElements\flow\inspect\departPosLat\random_free\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.04Nov103304.3888\netedit.gui\demandElements\flow\inspect\departPosLat\random_free\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <flow id="flow_0" begin="0.00" departPosLat="random_free" from="gneE2" to="gneE5" end="3600.00" number="1800"/>
+</routes>

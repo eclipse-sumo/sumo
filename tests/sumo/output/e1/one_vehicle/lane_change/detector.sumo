@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09/19/16 08:19:50 by SUMO Version dev-SVN-r21491
+<!-- generated on Sun Feb 23 21:06:14 2020 by Eclipse SUMO Version v1_5_0+0216-797ddebe4b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -14,6 +14,14 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_additional.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
         <duration-log.disable value="true"/>
@@ -24,10 +32,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1_file.xsd">
-    <interval begin="0.00" end="39.00" id="instant_beg_0_before" nVehContrib="1" flow="92.31" occupancy="0.92" speed="13.89" length="5.00" nVehEntered="1"/>
-    <interval begin="0.00" end="39.00" id="instant_beg_1_before" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="39.00" id="instant_beg_0_at" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="1"/>
-    <interval begin="0.00" end="39.00" id="instant_beg_1_at" nVehContrib="1" flow="92.31" occupancy="2.97" speed="4.31" length="5.00" nVehEntered="1"/>
-    <interval begin="0.00" end="39.00" id="instant_beg_0_after" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehEntered="0"/>
-    <interval begin="0.00" end="39.00" id="instant_beg_1_after" nVehContrib="1" flow="92.31" occupancy="0.92" speed="13.89" length="5.00" nVehEntered="1"/>
+    <interval begin="0.00" end="39.00" id="instant_beg_0_before" nVehContrib="1" flow="92.31" occupancy="0.92" speed="13.89" harmonicMeanSpeed="13.89" length="5.00" nVehEntered="1"/>
+    <interval begin="0.00" end="39.00" id="instant_beg_1_before" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="39.00" id="instant_beg_0_at" nVehContrib="0" flow="0.00" occupancy="0.51" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="1"/>
+    <interval begin="0.00" end="39.00" id="instant_beg_1_at" nVehContrib="1" flow="92.31" occupancy="2.97" speed="4.31" harmonicMeanSpeed="4.31" length="5.00" nVehEntered="1"/>
+    <interval begin="0.00" end="39.00" id="instant_beg_0_after" nVehContrib="0" flow="0.00" occupancy="0.00" speed="-1.00" harmonicMeanSpeed="-1.00" length="-1.00" nVehEntered="0"/>
+    <interval begin="0.00" end="39.00" id="instant_beg_1_after" nVehContrib="1" flow="92.31" occupancy="0.92" speed="13.89" harmonicMeanSpeed="13.89" length="5.00" nVehEntered="1"/>
 </detector>

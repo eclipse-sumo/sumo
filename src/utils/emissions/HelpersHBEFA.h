@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    HelpersHBEFA.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Helper methods for HBEFA-based emission computation
 /****************************************************************************/
-#ifndef HelpersHBEFA_h
-#define HelpersHBEFA_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -45,6 +42,9 @@
  *  (c0, cav1, cav2, c1, c2, c3).
  */
 class HelpersHBEFA : public PollutantsInterface::Helper {
+private:
+    static const int HBEFA_BASE = 1 << 16;
+
 public:
     /** @brief Constructor (initializes myEmissionClassStrings)
      */
@@ -67,10 +67,10 @@ public:
     inline double compute(const SUMOEmissionClass c, const PollutantsInterface::EmissionType e, const double v, const double a, const double slope, const std::map<int, double>* param) const {
         UNUSED_PARAMETER(slope);
         UNUSED_PARAMETER(param);
-        if (c == PollutantsInterface::ZERO_EMISSIONS || e == PollutantsInterface::ELEC) {
+        if (e == PollutantsInterface::ELEC) {
             return 0.;
         }
-        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - 1;
+        const int index = (c & ~PollutantsInterface::HEAVY_BIT) - HBEFA_BASE;
         const double kmh = v * 3.6;
         const double scale = (e == PollutantsInterface::FUEL) ? 3.6 * 790. : 3.6;
         if (index >= 42) {
@@ -81,7 +81,7 @@ public:
             return 0.;
         }
         const double* f = myFunctionParameter[index] + 6 * e;
-        const double alpha = asin(a / 9.81) * 180. / M_PI;
+        const double alpha = RAD2DEG(asin(a / GRAVITY));
         return (double) MAX2((f[0] + f[1] * alpha * kmh + f[2] * alpha * alpha * kmh + f[3] * kmh + f[4] * kmh * kmh + f[5] * kmh * kmh * kmh) / scale, 0.);
     }
 
@@ -91,9 +91,3 @@ private:
     static double myFunctionParameter[42][36];
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

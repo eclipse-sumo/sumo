@@ -1,16 +1,10 @@
 Warning: Deprecated vehicle class(es) 'cityrail' in input network.
 Warning: Found sharp turn with radius 4.30 at the end of edge '-133858467#1'.
-Warning: Found angle of 178.89 degrees at edge '-70214888#0', segment 0
+Warning: Found angle of 178.89 degrees at edge '-70214888#0', segment 0.
 Warning: Found sharp turn with radius 0.02 at the start of edge '-70214888#0'.
 Warning: Found sharp turn with radius 4.30 at the start of edge '133858467#1'.
-Warning: Found sharp turn with radius 4.98 at the start of edge '143308678'.
 Warning: Found sharp turn with radius 4.73 at the start of edge '143308685#1'.
-Warning: Found sharp turn with radius 5.27 at the start of edge '143308689#1'.
-Warning: Found sharp turn with radius 1.03 at the end of edge '143308689#1'.
-Warning: Found angle of 178.89 degrees at edge '156071615#4', segment 0
+Warning: Found angle of 178.89 degrees at edge '156071615#4', segment 0.
 Warning: Found sharp turn with radius 0.04 at the start of edge '156071615#4'.
-Warning: Found sharp turn with radius 3.51 at the start of edge '213883655'.
-Warning: Found sharp turn with radius 4.20 at the start of edge '245105013'.
 Warning: Found sharp turn with radius 6.42 at the start of edge '47765615#1'.
-Warning: Found sharp turn with radius 2.03 at the start of edge '70214888#3'.
-Warning: Found angle of 138.44 degrees at edge '71960638#0', segment 5
+Warning: 6 total messages of type: Found sharp turn with radius % at the start of edge '%'.

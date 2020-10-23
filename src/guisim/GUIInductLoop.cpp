@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GUIInductLoop.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Aug 2003
-/// @version $Id$
 ///
 // The gui-version of the MSInductLoop, together with the according
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -29,6 +27,7 @@
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <microsim/logging/FuncBinding_IntParam.h>
 #include <microsim/MSLane.h>
 #include <microsim/output/MSInductLoop.h>
 #include "GUIEdge.h"
@@ -42,8 +41,11 @@
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string& id, MSLane* const lane,
-                             double position, const std::string& vTypes)
-    : MSInductLoop(id, lane, position, vTypes) {}
+                             double position, const std::string& vTypes, bool show) :
+    MSInductLoop(id, lane, position, vTypes, true),
+    myWrapper(nullptr),
+    myShow(show)
+{}
 
 
 GUIInductLoop::~GUIInductLoop() {}
@@ -51,41 +53,19 @@ GUIInductLoop::~GUIInductLoop() {}
 
 GUIDetectorWrapper*
 GUIInductLoop::buildDetectorGUIRepresentation() {
-    return new MyWrapper(*this, myPosition);
+    // caller (GUINet) takes responsibility for pointer
+    myWrapper = new MyWrapper(*this, myPosition);
+    return myWrapper;
 }
 
 
 void
-GUIInductLoop::reset() {
-    FXMutexLock locker(myLock);
-    MSInductLoop::reset();
+GUIInductLoop::setSpecialColor(const RGBColor* color) {
+    if (myWrapper != nullptr) {
+        myWrapper->setSpecialColor(color);
+    }
 }
 
-
-void
-GUIInductLoop::enterDetectorByMove(SUMOVehicle& veh, double entryTimestep) {
-    FXMutexLock locker(myLock);
-    MSInductLoop::enterDetectorByMove(veh, entryTimestep);
-}
-
-void
-GUIInductLoop::leaveDetectorByMove(SUMOVehicle& veh, double leaveTimestep) {
-    FXMutexLock locker(myLock);
-    MSInductLoop::leaveDetectorByMove(veh, leaveTimestep);
-}
-
-void
-GUIInductLoop::leaveDetectorByLaneChange(SUMOVehicle& veh, double lastPos) {
-    FXMutexLock locker(myLock);
-    MSInductLoop::leaveDetectorByLaneChange(veh, lastPos);
-}
-
-
-std::vector<MSInductLoop::VehicleData>
-GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
-    FXMutexLock locker(myLock);
-    return MSInductLoop::collectVehiclesOnDet(t, leaveTime);
-}
 
 // -------------------------------------------------------------------------
 // GUIInductLoop::MyWrapper-methods
@@ -93,7 +73,8 @@ GUIInductLoop::collectVehiclesOnDet(SUMOTime t, bool leaveTime) const {
 
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop& detector, double pos) :
     GUIDetectorWrapper(GLO_E1DETECTOR, detector.getID()),
-    myDetector(detector), myPosition(pos) {
+    myDetector(detector), myPosition(pos),
+    mySpecialColor(nullptr) {
     myFGPosition = detector.getLane()->geometryPositionAtOffset(pos);
     myBoundary.add(myFGPosition.x() + (double) 5.5, myFGPosition.y() + (double) 5.5);
     myBoundary.add(myFGPosition.x() - (double) 5.5, myFGPosition.y() - (double) 5.5);
@@ -116,22 +97,22 @@ GUIInductLoop::MyWrapper::getCenteringBoundary() const {
 GUIParameterTableWindow*
 GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
         GUISUMOAbstractView& /*parent !!! recheck this - never needed?*/) {
-    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this, 7);
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     // parameter
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
     // values
-    ret->mkItem("passed vehicles [#]", true,
-                new FunctionBinding<GUIInductLoop, int>(&myDetector, &GUIInductLoop::getCurrentPassedNumber));
+    ret->mkItem("entered vehicles [#]", true,
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getEnteredNumber, 0));
     ret->mkItem("speed [m/s]", true,
-                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentSpeed));
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getSpeed, 0));
     ret->mkItem("occupancy [%]", true,
-                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentOccupancy));
+                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getOccupancy));
     ret->mkItem("vehicle length [m]", true,
-                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getCurrentLength));
+                new FuncBinding_IntParam<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getVehicleLength, 0));
     ret->mkItem("empty time [s]", true,
-                new FunctionBinding<GUIInductLoop, double>(&(getLoop()), &GUIInductLoop::getTimeSinceLastDetection));
+                new FunctionBinding<GUIInductLoop, double>(&myDetector, &GUIInductLoop::getTimeSinceLastDetection));
     // close building
     ret->closeBuilding();
     return ret;
@@ -140,6 +121,9 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow& app,
 
 void
 GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
+    if (!myDetector.isVisible()) {
+        return;
+    }
     glPushName(getGlID());
     double width = (double) 2.0 * s.scale;
     glLineWidth(1.0);
@@ -163,9 +147,14 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     glVertex2d(0, -2 + .1);
     glEnd();
 
+    if (mySpecialColor == nullptr) {
+        glColor3d(1, 1, 1);
+    } else {
+        GLHelper::setColor(*mySpecialColor);
+    }
+
     // outline
     if (width * exaggeration > 1) {
-        glColor3d(1, 1, 1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
         glBegin(GL_QUADS);
         glVertex2f(0 - 1.0, 2);
@@ -179,7 +168,6 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
     // position indicator
     if (width * exaggeration > 1) {
         glRotated(90, 0, 0, -1);
-        glColor3d(1, 1, 1);
         glBegin(GL_LINES);
         glVertex2d(0, 1.7);
         glVertex2d(0, -1.7);
@@ -191,12 +179,4 @@ GUIInductLoop::MyWrapper::drawGL(const GUIVisualizationSettings& s) const {
 }
 
 
-GUIInductLoop&
-GUIInductLoop::MyWrapper::getLoop() {
-    return myDetector;
-}
-
-
-
 /****************************************************************************/
-

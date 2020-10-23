@@ -1,26 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2007-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2007-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOSAXAttributes.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Fri, 30 Mar 2007
-/// @version $Id$
 ///
 // Encapsulated SAX-Attributes
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
@@ -29,6 +27,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/StringUtils.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/PositionVector.h>
 #include "SUMOSAXAttributes.h"
@@ -124,6 +123,24 @@ SUMOSAXAttributes::getOptStringVector(int attr, const char* objectid, bool& ok, 
     return getOpt<std::vector<std::string> >(attr, objectid, ok, std::vector<std::string>(), report);
 }
 
+const std::vector<int>
+SUMOSAXAttributes::getIntVector(int attr) const {
+    const std::vector<std::string>& tmp = StringTokenizer(getString(attr)).getVector();
+    if (tmp.empty()) {
+        throw EmptyData();
+    }
+    std::vector<int> ret;
+    for (const std::string& s : tmp) {
+        ret.push_back(StringUtils::toInt(s));
+    }
+    return ret;
+}
+
+
+const std::vector<int>
+SUMOSAXAttributes::getOptIntVector(int attr, const char* objectid, bool& ok, bool report) const {
+    return getOpt<std::vector<int> >(attr, objectid, ok, std::vector<int>(), report);
+}
 
 void
 SUMOSAXAttributes::emitUngivenError(const std::string& attrname, const char* objectid) const {
@@ -228,6 +245,14 @@ const std::string invalid_return<std::vector<std::string> >::type = "StringVecto
 template<>
 std::vector<std::string> SUMOSAXAttributes::getInternal(const int attr) const {
     return getStringVector(attr);
+}
+
+
+const std::vector<int> invalid_return<std::vector<int> >::value = std::vector<int>();
+const std::string invalid_return<std::vector<int> >::type = "StringVector";
+template<>
+std::vector<int> SUMOSAXAttributes::getInternal(const int attr) const {
+    return getIntVector(attr);
 }
 
 

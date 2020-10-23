@@ -4,5 +4,4 @@ search_string:speed="0.00000000000000000000000000000000"
 trigger_on_absence:1
 search_file:output
 ignore_other_errors:1
-bug_system:trac
-bug_id:3126
+brief_description:#3126

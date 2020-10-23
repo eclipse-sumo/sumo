@@ -1,30 +1,27 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2013-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2013-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDevice_DriverState.h
 /// @author  Leonhard Luecken
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    15.06.2018
-/// @version $Id$
 ///
 /// The Driver State Device mainly provides a configuration and interaction interface for the vehicle's driver state.
 /// @see microsim/MSDriverState.h
 ///
 /****************************************************************************/
-#ifndef MSDevice_DriverState_h
-#define MSDevice_DriverState_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include "MSVehicleDevice.h"
@@ -72,6 +69,14 @@ public:
      */
     static void buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into);
 
+    /// update internal state
+    void update();
+
+    /// return internal state
+    inline std::shared_ptr<MSSimpleDriverState> getDriverState() const {
+        return myDriverState;
+    }
+
 private:
     /// @name Helpers for parameter parsing
     /// @{
@@ -83,6 +88,7 @@ private:
     static double getSpeedDifferenceChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc);
     static double getHeadwayChangePerceptionThreshold(const SUMOVehicle& v, const OptionsCont& oc);
     static double getHeadwayErrorCoefficient(const SUMOVehicle& v, const OptionsCont& oc);
+    static double getMaximalReactionTime(const SUMOVehicle& v, const OptionsCont& oc);
     /// @}
 
 
@@ -116,18 +122,19 @@ private:
                          double speedDifferenceErrorCoefficient,
                          double speedDifferenceChangePerceptionThreshold,
                          double headwayChangePerceptionThreshold,
-                         double headwayErrorCoefficient);
+                         double headwayErrorCoefficient,
+                         double maximalReactionTime);
 
     /// @brief Initializeses the driver state parameters
     void initDriverState();
-
-    /// @brief Creates a DriverState for the equipped vehicle
-    SUMOTime createDriverState(SUMOTime);
 
 private:
     /// @brief The holder vehicle casted to MSVehicle*
     MSVehicle* myHolderMS;
 
+    /// @name Temporary to hold driverstate parameters until initialization.
+    /// @note Invalid after call to initDriverState().
+    /// @{
     double myMinAwareness;
     double myInitialAwareness;
     double myErrorTimeScaleCoefficient;
@@ -136,6 +143,8 @@ private:
     double mySpeedDifferenceChangePerceptionThreshold;
     double myHeadwayChangePerceptionThreshold;
     double myHeadwayErrorCoefficient;
+    double myMaximalReactionTime;
+    /// @}
 
     /// @brief The driver state of the holder.
     std::shared_ptr<MSSimpleDriverState> myDriverState;
@@ -148,9 +157,3 @@ private:
     MSDevice_DriverState& operator=(const MSDevice_DriverState&);
 
 };
-
-
-#endif
-
-/****************************************************************************/
-

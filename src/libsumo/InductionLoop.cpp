@@ -1,11 +1,15 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    InductionLoop.cpp
 /// @author  Daniel Krajzewicz
@@ -13,22 +17,16 @@
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    30.05.2012
-/// @version $Id$
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/MSNet.h>
 #include <libsumo/TraCIDefs.h>
-#include <traci-server/TraCIConstants.h>
+#include <libsumo/TraCIConstants.h>
 #include "InductionLoop.h"
 
 
@@ -38,6 +36,7 @@ namespace libsumo {
 // ===========================================================================
 SubscriptionResults InductionLoop::mySubscriptionResults;
 ContextSubscriptionResults InductionLoop::myContextSubscriptionResults;
+NamedRTree* InductionLoop::myTree(nullptr);
 
 
 // ===========================================================================
@@ -72,31 +71,31 @@ InductionLoop::getLaneID(const std::string& detID) {
 
 int
 InductionLoop::getLastStepVehicleNumber(const std::string& detID) {
-    return getDetector(detID)->getCurrentPassedNumber();
+    return (int)getDetector(detID)->getEnteredNumber((int)DELTA_T);
 }
 
 
 double
 InductionLoop::getLastStepMeanSpeed(const std::string& detID) {
-    return getDetector(detID)->getCurrentSpeed();
+    return getDetector(detID)->getSpeed((int)DELTA_T);
 }
 
 
 std::vector<std::string>
 InductionLoop::getLastStepVehicleIDs(const std::string& detID) {
-    return getDetector(detID)->getCurrentVehicleIDs();
+    return getDetector(detID)->getVehicleIDs((int)DELTA_T);
 }
 
 
 double
 InductionLoop::getLastStepOccupancy(const std::string& detID) {
-    return getDetector(detID)->getCurrentOccupancy();
+    return getDetector(detID)->getOccupancy();
 }
 
 
 double
 InductionLoop::getLastStepMeanLength(const std::string& detID) {
-    return getDetector(detID)->getCurrentLength();
+    return getDetector(detID)->getVehicleLength((int)DELTA_T);
 }
 
 
@@ -108,18 +107,17 @@ InductionLoop::getTimeSinceDetection(const std::string& detID) {
 
 std::vector<libsumo::TraCIVehicleData>
 InductionLoop::getVehicleData(const std::string& detID) {
-    std::vector<MSInductLoop::VehicleData> vd = getDetector(detID)->collectVehiclesOnDet(MSNet::getInstance()->getCurrentTimeStep() - DELTA_T, true);
+    const std::vector<MSInductLoop::VehicleData> vd = getDetector(detID)->collectVehiclesOnDet(SIMSTEP - DELTA_T, true, true);
     std::vector<libsumo::TraCIVehicleData> tvd;
-    for (std::vector<MSInductLoop::VehicleData>::const_iterator vdi = vd.begin(); vdi != vd.end(); ++vdi) {
+    for (const MSInductLoop::VehicleData& vdi : vd) {
         tvd.push_back(libsumo::TraCIVehicleData());
-        tvd.back().id = vdi->idM;
-        tvd.back().length = vdi->lengthM;
-        tvd.back().entryTime = vdi->entryTimeM;
-        tvd.back().leaveTime = vdi->leaveTimeM;
-        tvd.back().typeID = vdi->typeIDM;
+        tvd.back().id = vdi.idM;
+        tvd.back().length = vdi.lengthM;
+        tvd.back().entryTime = vdi.entryTimeM;
+        tvd.back().leaveTime = vdi.leaveTimeM;
+        tvd.back().typeID = vdi.typeIDM;
     }
     return tvd;
-
 }
 
 
@@ -138,17 +136,24 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(InductionLoop, INDUCTIONLOOP)
 
 NamedRTree*
 InductionLoop::getTree() {
-    NamedRTree* t = new NamedRTree();
-    for (const auto& i : MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP)) {
-        MSInductLoop* il = static_cast<MSInductLoop*>(i.second);
-        Position p = il->getLane()->getShape().positionAtOffset(il->getPosition());
-        const float cmin[2] = {(float) p.x(), (float) p.y()};
-        const float cmax[2] = {(float) p.x(), (float) p.y()};
-        t->Insert(cmin, cmax, il);
+    if (myTree == nullptr) {
+        myTree = new NamedRTree();
+        for (const auto& i : MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP)) {
+            MSInductLoop* il = static_cast<MSInductLoop*>(i.second);
+            Position p = il->getLane()->getShape().positionAtOffset(il->getPosition());
+            const float cmin[2] = {(float) p.x(), (float) p.y()};
+            const float cmax[2] = {(float) p.x(), (float) p.y()};
+            myTree->Insert(cmin, cmax, il);
+        }
     }
-    return t;
+    return myTree;
 }
 
+void
+InductionLoop::cleanup() {
+    delete myTree;
+    myTree = nullptr;
+}
 
 void
 InductionLoop::storeShape(const std::string& id, PositionVector& shape) {
@@ -193,5 +198,6 @@ InductionLoop::handleVariable(const std::string& objID, const int variable, Vari
 
 
 }
+
 
 /****************************************************************************/

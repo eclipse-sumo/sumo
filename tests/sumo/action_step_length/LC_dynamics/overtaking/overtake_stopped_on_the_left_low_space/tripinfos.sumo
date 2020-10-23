@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 02/13/18 16:05:14 by SUMO Version v0_32_0+0193-b79a12bb06
+<!-- generated on Wed Mar 11 22:23:53 2020 by Eclipse SUMO Version v1_5_0+0662-a598ecae47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
     <processing>
         <step-method.ballistic value="true"/>
         <default.action-step-length value="1"/>
+        <default.speeddev value="0"/>
     </processing>
 
     <report>
@@ -41,11 +42,11 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="overtaking" depart="0.00" departLane="beg_0" departPos="2968.50" departSpeed="0.00" departDelay="0.00" arrival="5.80" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="15.08" duration="5.80" routeLength="43.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.56" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="overtaking2" depart="10.20" departLane="beg_0" departPos="2848.50" departSpeed="0.00" departDelay="0.00" arrival="21.40" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="29.12" duration="11.20" routeLength="163.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.63" rerouteNo="0" devices="tripinfo_overtaking2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="overtaking3" depart="20.40" departLane="beg_1" departPos="2848.50" departSpeed="0.00" departDelay="0.00" arrival="31.60" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="29.12" duration="11.20" routeLength="163.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.63" rerouteNo="0" devices="tripinfo_overtaking3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="overtaking4" depart="30.50" departLane="beg_0" departPos="2848.50" departSpeed="0.00" departDelay="0.00" arrival="50.60" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="13.26" duration="20.10" routeLength="163.00" waitingTime="0.50" waitingCount="1" stopTime="2.00" timeLoss="13.53" rerouteNo="0" devices="tripinfo_overtaking4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="overtaking5" depart="50.60" departLane="beg_0" departPos="2848.50" departSpeed="0.00" departDelay="0.00" arrival="61.80" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="29.12" duration="11.20" routeLength="163.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.63" rerouteNo="0" devices="tripinfo_overtaking5" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="stopped2" depart="50.30" departLane="beg_0" departPos="2978.50" departSpeed="0.00" departDelay="0.00" arrival="106.40" arrivalLane="beg2_1" arrivalPos="10.00" arrivalSpeed="13.26" duration="56.10" routeLength="33.00" waitingTime="0.00" waitingCount="0" stopTime="51.00" timeLoss="4.14" rerouteNo="0" devices="tripinfo_stopped2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="stopped" depart="0.00" departLane="beg_0" departPos="2988.50" departSpeed="0.00" departDelay="0.00" arrival="505.20" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="10.92" duration="505.20" routeLength="23.00" waitingTime="0.00" waitingCount="0" stopTime="501.00" timeLoss="3.55" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking" depart="0.00" departLane="beg_0" departPos="2966.00" departSpeed="0.00" departDelay="0.00" arrival="6.10" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="15.86" duration="6.10" routeLength="48.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="4.73" rerouteNo="0" devices="tripinfo_overtaking" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking2" depart="10.20" departLane="beg_0" departPos="2846.00" departSpeed="0.00" departDelay="0.00" arrival="21.60" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="29.64" duration="11.40" routeLength="168.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.67" rerouteNo="0" devices="tripinfo_overtaking2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking3" depart="20.40" departLane="beg_1" departPos="2846.00" departSpeed="0.00" departDelay="0.00" arrival="31.80" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="29.64" duration="11.40" routeLength="168.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.67" rerouteNo="0" devices="tripinfo_overtaking3" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking4" depart="30.50" departLane="beg_0" departPos="2846.00" departSpeed="0.00" departDelay="0.00" arrival="49.90" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="14.04" duration="19.40" routeLength="168.00" waitingTime="0.50" waitingCount="1" stopTime="1.00" timeLoss="13.72" rerouteNo="0" devices="tripinfo_overtaking4" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="overtaking5" depart="50.60" departLane="beg_0" departPos="2846.00" departSpeed="0.00" departDelay="0.00" arrival="62.00" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="29.64" duration="11.40" routeLength="168.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="6.67" rerouteNo="0" devices="tripinfo_overtaking5" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="stopped2" depart="50.30" departLane="beg_0" departPos="2976.00" departSpeed="0.00" departDelay="0.00" arrival="105.70" arrivalLane="beg2_1" arrivalPos="10.00" arrivalSpeed="14.04" duration="55.40" routeLength="38.00" waitingTime="0.00" waitingCount="0" stopTime="50.00" timeLoss="4.33" rerouteNo="0" devices="tripinfo_stopped2" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="stopped" depart="0.00" departLane="beg_0" departPos="2986.00" departSpeed="0.00" departDelay="0.00" arrival="504.70" arrivalLane="beg2_0" arrivalPos="10.00" arrivalSpeed="12.22" duration="504.70" routeLength="28.00" waitingTime="0.00" waitingCount="0" stopTime="500.00" timeLoss="3.89" rerouteNo="0" devices="tripinfo_stopped" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

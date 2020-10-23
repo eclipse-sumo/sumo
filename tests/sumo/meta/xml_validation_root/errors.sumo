@@ -1,2 +1,1 @@
-Error: Found root element 'additional' in file 'input_additional.add.xml' (expected 'routes').
-Quitting (on error).
+Warning: Found root element 'additional' in file 'input_additional.add.xml' (expected 'routes').

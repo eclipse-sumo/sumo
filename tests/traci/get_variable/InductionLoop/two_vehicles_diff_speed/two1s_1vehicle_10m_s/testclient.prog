@@ -96,4 +96,5 @@ getvariable 0xa0 0x12 3/1to2/1
 getvariable 0xa0 0x13 3/1to2/1
 getvariable 0xa0 0x15 3/1to2/1
 getvariable 0xa0 0x16 3/1to2/1
-simstep2 63
+simstep2 64
+

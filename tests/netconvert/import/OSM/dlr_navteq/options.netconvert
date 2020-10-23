@@ -5,6 +5,7 @@
 --tls.discard-simple --tls.join
 --reserved-ids edge_ids.txt
 --output.original-names
+--output.street-names
 --dlr-navteq.precision 2
 -o net.net.xml
 -v

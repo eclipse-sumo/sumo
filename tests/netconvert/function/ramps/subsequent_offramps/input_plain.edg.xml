@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Mon 27 May 2019 09:09:24 PM CEST by Eclipse SUMO netedit Version v1_2_0+0149-6b40db9d1b
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="nojoin.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="nojoin.net.xml"/>
+        <plain-output-prefix value="/home/kobo/dlr/debug/002_webWizard/5681b/input_plain"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-internal-links value="true"/>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <visualisation>
+        <registry-viewport value="true"/>
+    </visualisation>
+
+</configuration>
+-->
+
+<edges version="1.3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+    <edge id="13254683" from="2933620868" to="122375446" priority="9" type="highway.motorway_link" numLanes="1" speed="22.22" shape="371.58,1290.97 376.36,1191.63 372.31,1176.79 367.09,1162.21 349.31,1136.79 329.51,1118.37 235.94,1057.89 209.64,1045.47 176.37,1037.36 146.20,1035.13 112.82,1043.10 87.10,1053.05 58.77,1068.88 29.92,1089.42 0.00,1107.56" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="13259376" from="122413289" to="122415008" priority="9" type="highway.motorway_link" numLanes="1" speed="22.22" shape="392.63,1193.15 414.69,1030.68 424.14,949.99 429.12,907.46 429.09,892.28 425.04,879.71 416.66,865.20" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="69902841#1" from="837607525" to="2933620868" priority="14" type="highway.motorway" numLanes="2" speed="39.44" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="69902841#2" from="2933620868" to="122413289" priority="14" type="highway.motorway" numLanes="2" speed="39.44" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+    <edge id="69902841#3" from="122413289" to="122280499" priority="14" type="highway.motorway" numLanes="2" speed="39.44" shape="392.63,1193.15 406.36,1138.06 440.92,971.07" spreadType="center" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2"/>
+</edges>

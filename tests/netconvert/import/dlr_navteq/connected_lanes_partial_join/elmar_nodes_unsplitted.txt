@@ -1,0 +1,70 @@
+# Format matches Extraction version: V6.5 
+# <?xml version="1.0" encoding="UTF-8"?>
+# 
+# <!-- generated on Mon Apr  1 21:54:33 2019 by Eclipse SUMO netconvert Version v1_1_0+0435-678c69824b
+# -->
+# 
+# <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+# 
+#     <input>
+#         <sumo-net-file value="net.net.xml"/>
+#     </input>
+# 
+#     <output>
+#         <dlr-navteq-output value="debug"/>
+#         <output.street-names value="true"/>
+#     </output>
+# 
+#     <processing>
+#         <numerical-ids value="true"/>
+#         <geometry.max-grade.fix value="false"/>
+#         <offset.disable-normalization value="true"/>
+#         <lefthand value="false"/>
+#     </processing>
+# 
+#     <junctions>
+#         <no-turnarounds value="true"/>
+#         <junctions.corner-detail value="5"/>
+#         <junctions.limit-turn-speed value="5.5"/>
+#         <rectangular-lane-cut value="false"/>
+#     </junctions>
+# 
+#     <pedestrian>
+#         <walkingareas value="false"/>
+#     </pedestrian>
+# 
+#     <formats>
+#         <osm.all-attributes value="true"/>
+#     </formats>
+# 
+# </configuration>
+# 
+#
+# NODE_ID	IS_BETWEEN_NODE	amount_of_geocoordinates	x1	y1	[x2 y2  ... xn  yn]
+# [xmin_region] 1362018.10
+# [xmax_region] 1362469.42
+# [ymin_region] 5236692.89
+# [ymax_region] 5236829.05
+# [elements_multinode] 8
+# [elements_normalnode] 9
+# [xmin] 1362018.10
+# [xmax] 1362469.42
+# [ymin] 5236692.89
+# [ymax] 5236829.05
+20	0	1	1362016.87	5236732.39
+22	0	1	1362470.65	5236789.64
+23	0	1	1362177.27	5236825.64
+24	0	1	1362200.88	5236761.23
+25	0	1	1362207.45	5236750.80
+26	0	1	1362225.06	5236765.47
+27	0	1	1362231.38	5236754.93
+28	0	1	1362250.22	5236695.59
+29	0	1	1362118.98	5236745.19
+-11	1	1	1362137.31	5236750.46
+-12	1	1	1362321.56	5236779.87
+-13	1	1	1362170.91	5236809.83
+-14	1	1	1362253.95	5236711.74
+11	1	1	1362151.57	5236741.62
+12	1	1	1362331.84	5236769.27
+13	1	1	1362194.58	5236811.79
+14	1	1	1362228.78	5236707.36

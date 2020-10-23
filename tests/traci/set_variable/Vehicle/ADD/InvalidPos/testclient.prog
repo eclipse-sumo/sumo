@@ -1,7 +1,7 @@
 repeat 5 simstep2 0
 getvariable 0xa4 0x0 xxx
 repeat 5 simstep2 0
-setvalue 0xc4 0x80 veh1 <compound> 6 <string> second <string> second <int> -2 <double> 4000000 <double> 8 <byte> 0
+setvalue 0xc4 0x80 veh1 <compound> 6 <string> second <string> second <int> -3 <double> 4000000 <double> 8 <byte> 0
 simstep2 0
 getvariable 0xa4 0x0 xxx
 getvariable 0xa4 0x40 veh1
@@ -9,4 +9,5 @@ getvariable 0xa4 0x56 veh1
 getvariable 0xa4 0x52 veh1
 getvariable 0xa4 0x4f veh1
 getvariable 0xa4 0x53 veh1
-repeat 5 simstep2 0
+repeat 6 simstep2 0
+

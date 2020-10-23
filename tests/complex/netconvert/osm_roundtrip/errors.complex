@@ -1,58 +1,22 @@
-Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435#0').
+Warning: Discarding unusable type 'waterway.riverbank' (first occurence for edge '4616435').
 Warning: Discarding unusable type 'waterway.canal' (first occurence for edge '5363708').
-Warning: Discarding unknown compound 'cycleway.opposite_track' in type 'cycleway.opposite_track|highway.primary' (first occurence for edge '7216737#0').
-Warning: Discarding unusable type 'railway.construction' (first occurence for edge '11390634#0').
+Warning: Discarding unknown compound 'cycleway.opposite_track' in type 'cycleway.opposite_track|highway.primary' (first occurence for edge '7216737').
+Warning: Discarding unusable type 'railway.construction' (first occurence for edge '11390634').
 Warning: Discarding unusable type 'highway.construction' (first occurence for edge '24154002').
-Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '24214693#0').
-Warning: Reducing junction cluster 283018817,38919652,38919712,38919808 (5 incoming edges)
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.primary' (first occurence for edge '24214693').
+Warning: Reducing junction cluster 283018817,38919652,38919712,38919808 (5 incoming edges).
 Warning: Minor green from edge '7216737#3' to edge '24214694' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214693#0' to edge '-7727483#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '7727483#1' to edge '-7216737#3' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 Warning: Minor green from edge '-24214694' to edge '24214693#0' exceeds 19.44m/s. Maybe a left-turn lane is missing.
 --- 
 +++ 
-@@ -218,7 +218,7 @@
-         <lane id="-7216737#3_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="27.78" length="162.74" shape="486.04,118.77 633.84,105.16"/>
-     </edge>
-     <edge id="-7727483#0" from="294169342" to="38920501" priority="6" type="highway.tertiary">
--        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.46" shape="496.86,309.53 496.88,309.73"/>
-+        <lane id="-7727483#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.46" shape="497.05,311.65 497.06,311.85"/>
-     </edge>
-     <edge id="-7727483#3" from="32266935" to="294169342" priority="6" type="highway.tertiary" shape="478.98,121.02 482.98,167.40 484.69,187.19 488.69,233.50 492.80,281.09 495.08,307.55">
-         <lane id="-7727483#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="187.22" shape="481.48,131.37 484.58,167.26 486.29,187.05 490.29,233.36 494.40,280.95 496.27,302.68"/>
-@@ -982,7 +982,7 @@
+@@ -977,7 +977,7 @@
      <junction id="38919927" type="priority" x="297.39" y="446.01" incLanes="-6137233#0_0" intLanes="" shape="297.39,446.01 296.76,449.15 297.39,446.01">
          <request index="0" response="0" foes="0"/>
      </junction>
 -    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="27441289_0 -7727483#0_0" intLanes="" shape="492.27,312.15 498.66,311.83 498.65,311.60">
 +    <junction id="38920501" type="priority" x="495.47" y="311.99" incLanes="27441289_0 -7727483#0_0" intLanes="" shape="492.27,312.13 498.66,311.82 498.65,311.57">
-         <request index="0" response="0000" foes="1000"/>
-         <request index="1" response="0100" foes="0100"/>
-         <request index="2" response="0000" foes="0010"/>
-@@ -1513,7 +1513,7 @@
-     <node id="261599791" x="33.97" y="176.57" type="traffic_light" tl="261599791"/>
-     <node id="261636677" x="1119.89" y="114.18" type="priority"/>
-     <node id="261636678" x="1115.15" y="53.12" type="priority"/>
--    <node id="283018817" x="613.50" y="547.70" type="traffic_light" tl="joinedS_0"/>
-+    <node id="283018817" x="613.50" y="547.70" type="traffic_light" tl="joinedS_0" controlledInner="5784950#1 5784950#2"/>
-     <node id="283018841" x="520.23" y="532.83" type="dead_end"/>
-     <node id="283018842" x="480.89" y="521.99" type="dead_end"/>
-     <node id="283018844" x="402.53" y="486.32" type="dead_end"/>
-@@ -1563,7 +1563,7 @@
-     <node id="38919605" x="782.81" y="575.88" type="priority"/>
-     <node id="38919668" x="685.82" y="466.03" type="priority"/>
-     <node id="38919703" x="664.49" y="450.74" type="priority"/>
--    <node id="38919712" x="618.29" y="539.59" type="traffic_light" tl="joinedS_0"/>
-+    <node id="38919712" x="618.29" y="539.59" type="traffic_light" tl="joinedS_0" controlledInner="5784950#1 5784950#2"/>
-     <node id="38919797" x="525.69" y="749.30" type="dead_end"/>
-     <node id="38919841" x="502.24" y="560.98" type="priority"/>
-     <node id="38919854" x="387.44" y="504.33" type="priority"/>
-@@ -1582,7 +1582,7 @@
-     <node id="cluster_294168098_294169338" x="562.43" y="315.09" type="right_before_left"/>
-     <node id="cluster_301292612_38919945_56231397_59993001" x="492.35" y="390.75" type="priority"/>
-     <node id="cluster_306982585_36268398_38920778" x="897.77" y="599.27" type="priority"/>
--    <node id="cluster_38919652_38919808" x="610.52" y="562.52" type="traffic_light" tl="joinedS_0"/>
-+    <node id="cluster_38919652_38919808" x="610.52" y="562.52" type="traffic_light" tl="joinedS_0" controlledInner="5784950#1 5784950#2"/>
-     <node id="cluster_56231598_56242441" x="615.26" y="422.75" type="priority"/>
- </nodes>
- <edges version="1.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/edges_file.xsd">
+         <request index="0" response="00" foes="00"/>
+         <request index="1" response="00" foes="00"/>
+     </junction>

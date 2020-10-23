@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Fri Nov 29 08:51:48 2019 by Eclipse SUMO marouter Version v1_3_1+1193-2a53b24
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/marouterConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net.net.xml"/>
+        <additional-files value="input_taz.taz.xml"/>
+        <od-matrix-files value="input_od_v.fma"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="routes.rou.xml"/>
+        <netload-output value="aggregated.xml"/>
+    </output>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+</configuration>
+-->
+
+<meandata>
+    <interval begin="0.00" end="3600.00">
+        <edge id="beg" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+        <edge id="beg2left" traveltime="18.72" speed="26.87" entered="45.00" flowCapacityRatio="2.25"/>
+        <edge id="end" traveltime="18.68" speed="26.77" entered="100.00" flowCapacityRatio="2.50"/>
+        <edge id="left" traveltime="37.45" speed="26.87" entered="45.00" flowCapacityRatio="2.25"/>
+        <edge id="left2end" traveltime="18.72" speed="26.87" entered="45.00" flowCapacityRatio="2.25"/>
+        <edge id="middle" traveltime="74.99" speed="13.34" entered="55.00" flowCapacityRatio="2.75"/>
+        <edge id="rend" traveltime="17.99" speed="27.80" entered="0.00" flowCapacityRatio="0.00"/>
+    </interval>
+</meandata>

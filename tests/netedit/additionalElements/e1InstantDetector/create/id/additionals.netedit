@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 22.10.2019 14:35:15 by Eclipse SUMO netedit Version v1_3_1+0669-095fb0adef
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct143447.9360\netedit.gui\additionalElements\e1InstantDetector\create\id\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct143447.9360\netedit.gui\additionalElements\e1InstantDetector\create\id\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct143447.9360\netedit.gui\additionalElements\e1InstantDetector\create\id\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct143447.9360\netedit.gui\additionalElements\e1InstantDetector\create\id\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct143447.9360\netedit.gui\additionalElements\e1InstantDetector\create\id\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct143447.9360\netedit.gui\additionalElements\e1InstantDetector\create\id\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct143447.9360\netedit.gui\additionalElements\e1InstantDetector\create\id\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.22Oct143447.9360\netedit.gui\additionalElements\e1InstantDetector\create\id\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <instantInductionLoop id="customID" lane="gneE0_0" pos="14.00" file="customID.xml"/>
+    <instantInductionLoop id="instantInductionLoop_0" lane="gneE0_0" pos="7.00" file="instantInductionLoop_0.xml"/>
+    <instantInductionLoop id="instantInductionLoop_gneE0_0_0" lane="gneE0_0" pos="5.00" file="instantInductionLoop_gneE0_0_0.xml"/>
+</additional>

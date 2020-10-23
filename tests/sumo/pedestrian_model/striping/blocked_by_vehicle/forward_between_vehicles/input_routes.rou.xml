@@ -1,0 +1,13 @@
+<routes>    
+    <vType id="bus" vClass="bus" sigma="0" maxSpeed="5"/>
+    <vehicle id="bus" type="bus" depart="0" departPos="60">
+        <route edges="beg"/>
+        <stop lane="beg_0" endPos="60" duration="25"/>
+    </vehicle>
+    <vehicle id="bus2" type="bus" depart="0" departPos="0">
+        <route edges="beg"/>
+    </vehicle>
+    <person id="p0" depart="0" departPos="30.0">
+        <walk edges="beg" arrivalPos="80" departPosLat="1.6"/>
+    </person>
+</routes>

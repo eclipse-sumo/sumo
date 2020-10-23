@@ -4,5 +4,7 @@
       <edge id="c" departed="1" arrived="0" delta="-1"/>
       <edge id="d" departed="0" arrived="1" delta="1"/>
       <edge id="g" departed="0" arrived="1" delta="1"/>
+      <edge id="h" departed="1" arrived="0" delta="-1"/>
+      <edge id="j" departed="0" arrived="1" delta="1"/>
    </interval>
 </edgedata>

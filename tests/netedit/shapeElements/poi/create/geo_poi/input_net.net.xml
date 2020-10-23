@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sun Sep  2 10:34:39 2018 by Eclipse SUMO netconvert Version d6cfaccbb6
+<!-- generated on Tue Feb 19 09:11:37 2019 by Eclipse SUMO netconvert Version v1_1_0+0919-80296dbfce
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <node-files value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.nod.xml"/>
-        <edge-files value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.edg.xml"/>
-        <connection-files value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.con.xml"/>
-        <tllogic-files value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.tll.xml"/>
+        <node-files value=".\netedit\shapeElements\poi\create\geo_poi\input_net.nod.xml"/>
+        <edge-files value=".\netedit\shapeElements\poi\create\geo_poi\input_net.edg.xml"/>
+        <connection-files value=".\netedit\shapeElements\poi\create\geo_poi\input_net.con.xml"/>
+        <tllogic-files value=".\netedit\shapeElements\poi\create\geo_poi\input_net.tll.xml"/>
     </input>
 
     <output>
-        <output-file value=".\netedit\shapeElements\poly\inspect\inspect_geo_shape\input_net.net.xml"/>
+        <output-file value=".\netedit\shapeElements\poi\create\geo_poi\input_net.net.xml"/>
     </output>
 
     <report>
@@ -21,7 +21,7 @@
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="25.00,0.00" convBoundary="0.00,0.00,50.00,0.00" origBoundary="-10000000000.000000,-10000000000.000000,10000000000.000000,10000000000.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 

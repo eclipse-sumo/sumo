@@ -40,3 +40,6 @@ ticket3618
 
 # collision on parallel internal edges
 ticket3619
+
+# collision on parallel internal edges
+ticket5275

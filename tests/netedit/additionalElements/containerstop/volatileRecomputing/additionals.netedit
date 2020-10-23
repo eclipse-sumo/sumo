@@ -1,56 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 26.11.2018 09:25:13 by Eclipse SUMO netedit Version v1_0_1+0692-c9085b9bf1
-<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
-
-    <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\input_net.net.xml"/>
-    </input>
-
-    <output>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\net.net.xml"/>
-    </output>
-
-    <processing>
-        <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
-    </processing>
-
-    <junctions>
-        <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
-    </junctions>
-
-    <pedestrian>
-        <sidewalks.guess value="true"/>
-        <crossings.guess value="true"/>
-        <walkingareas value="false"/>
-    </pedestrian>
-
-    <netedit>
-        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\shapes.xml"/>
-    </netedit>
-
-    <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\gui-settings.xml"/>
-        <window-size value="700,500"/>
-        <window-pos value="50,50"/>
-        <gui-testing value="true"/>
-        <gui-testing-debug value="true"/>
-        <gui-testing-debug-gl value="true"/>
-    </visualisation>
-
-    <report>
-        <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.26Nov083400.2640/netedit.gui/additionalElements/containerstop/volatileRecomputing\log.txt"/>
-    </report>
-
-</configuration>
--->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
     <containerStop id="containerStop_gneE0_0_0" lane="gneE0_1" startPos="19.75" endPos="29.75"/>

@@ -1,10 +1,14 @@
 # Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-# Copyright (C) 2011-2019 German Aerospace Center (DLR) and others.
-# This program and the accompanying materials
-# are made available under the terms of the Eclipse Public License v2.0
-# which accompanies this distribution, and is available at
-# http://www.eclipse.org/legal/epl-v20.html
-# SPDX-License-Identifier: EPL-2.0
+# Copyright (C) 2011-2020 German Aerospace Center (DLR) and others.
+# This program and the accompanying materials are made available under the
+# terms of the Eclipse Public License 2.0 which is available at
+# https://www.eclipse.org/legal/epl-2.0/
+# This Source Code may also be made available under the following Secondary
+# Licenses when the conditions for such availability set forth in the Eclipse
+# Public License 2.0 are satisfied: GNU General Public License, version 2
+# or later which is available at
+# https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+# SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
 # @file    edge.py
 # @author  Daniel Krajzewicz
@@ -13,8 +17,8 @@
 # @author  Michael Behrisch
 # @author  Jakob Erdmann
 # @date    2011-11-28
-# @version $Id$
 
+import sumolib.geomhelper
 from .connection import Connection
 from .lane import addJunctionPos
 
@@ -23,7 +27,7 @@ class Edge:
 
     """ Edges from a sumo network """
 
-    def __init__(self, id, fromN, toN, prio, function, name):
+    def __init__(self, id, fromN, toN, prio, function, name, edgeType=''):
         self._id = id
         self._from = fromN
         self._to = toN
@@ -47,7 +51,9 @@ class Edge:
         self._function = function
         self._tls = None
         self._name = name
+        self._type = edgeType
         self._params = {}
+        self._bidi = None
 
     def getName(self):
         return self._name
@@ -65,6 +71,9 @@ class Edge:
 
     def getPriority(self):
         return self._priority
+
+    def getType(self):
+        return self._type
 
     def getTLS(self):
         return self._tls
@@ -103,6 +112,19 @@ class Edge:
     def getOutgoing(self):
         return self._outgoing
 
+    def getAllowedOutgoing(self, vClass):
+        if vClass is None or vClass == "ignoring":
+            return self._outgoing
+        else:
+            result = {}
+            for e, conns in self._outgoing.items():
+                allowedConns = [c for c in conns if
+                                c.getFromLane().allows(vClass) and
+                                c.getToLane().allows(vClass)]
+                if allowedConns:
+                    result[e] = allowedConns
+            return result
+
     def getConnections(self, toEdge):
         """Returns all connections to the given target edge"""
         return self._outgoing.get(toEdge, [])
@@ -135,16 +157,7 @@ class Edge:
         return self._shape3D
 
     def getBoundingBox(self, includeJunctions=True):
-        s = self.getShape(includeJunctions)
-        xmin = s[0][0]
-        xmax = s[0][0]
-        ymin = s[0][1]
-        ymax = s[0][1]
-        for p in s[1:]:
-            xmin = min(xmin, p[0])
-            xmax = max(xmax, p[0])
-            ymin = min(ymin, p[1])
-            ymax = max(ymax, p[1])
+        xmin, ymin, xmax, ymax = sumolib.geomhelper.addToBoundingBox(self.getShape(includeJunctions))
         assert(xmin != xmax or ymin != ymax or self._function == "internal")
         return (xmin, ymin, xmax, ymax)
 
@@ -219,6 +232,9 @@ class Edge:
 
     def getToNode(self):
         return self._to
+
+    def getBidi(self):
+        return self._bidi
 
     def is_fringe(self, connections=None):
         """true if this edge has no incoming or no outgoing connections (except turnarounds)

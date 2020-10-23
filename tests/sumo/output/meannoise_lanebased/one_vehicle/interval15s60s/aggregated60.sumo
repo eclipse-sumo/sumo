@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Mar  3 10:28:58 2014 by SUMO sumo Version dev-SVN-r15793
+<!-- generated on Mon Mar 30 15:08:39 2020 by Eclipse SUMO Version v1_5_0+1011-3e02c63d25
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -13,14 +13,22 @@ SPDX-License-Identifier: EPL-2.0
         <additional-files value="input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml"/>
     </input>
 
+    <output>
+        <write-license value="true"/>
+    </output>
+
     <time>
         <begin value="0"/>
         <end value="150"/>
     </time>
 
+    <processing>
+        <default.speeddev value="0"/>
+    </processing>
+
     <report>
         <xml-validation value="never"/>
-        <no-duration-log value="true"/>
+        <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
 
@@ -30,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="29.00" noise="58.62" traveltime="40.00"/>
+            <lane id="3/1to2/1_0" sampledSeconds="28.00" noise="58.46" traveltime="40.00"/>
         </edge>
         <edge id="4/1to3/1">
             <lane id="4/1to3/1_0" sampledSeconds="30.30" noise="58.91" traveltime="40.00"/>
@@ -38,13 +46,13 @@ SPDX-License-Identifier: EPL-2.0
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
         <edge id="1/1to0/1">
-            <lane id="1/1to0/1_0" sampledSeconds="9.00" noise="53.54" traveltime="40.00"/>
+            <lane id="1/1to0/1_0" sampledSeconds="8.00" noise="53.02" traveltime="40.00"/>
         </edge>
         <edge id="2/1to1/1">
             <lane id="2/1to1/1_0" sampledSeconds="40.30" noise="60.12" traveltime="40.00"/>
         </edge>
         <edge id="3/1to2/1">
-            <lane id="3/1to2/1_0" sampledSeconds="11.30" noise="54.79" traveltime="40.00"/>
+            <lane id="3/1to2/1_0" sampledSeconds="12.30" noise="55.13" traveltime="40.00"/>
         </edge>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">

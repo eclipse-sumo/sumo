@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    SUMOVehicle.h
 /// @author  Michael Behrisch
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @date    Tue, 17 Feb 2009
-/// @version $Id$
 ///
 // Abstract base class for vehicle representations
 /****************************************************************************/
-#ifndef SUMOVehicle_h
-#define SUMOVehicle_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <vector>
@@ -31,20 +28,21 @@
 #include <utils/common/Named.h>
 #include <utils/router/SUMOAbstractRouter.h>
 #include <utils/vehicle/SUMOVehicleParameter.h>
+#include <utils/vehicle/SUMOTrafficObject.h>
 #include <utils/iodevices/OutputDevice.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSVehicleType;
 class MSRoute;
 class MSEdge;
 class MSLane;
-class MSVehicleDevice;
 class MSPerson;
 class MSTransportable;
 class MSParkingArea;
+class MSStoppingPlace;
+class MSVehicleDevice;
 class SUMOSAXAttributes;
 
 typedef std::vector<const MSEdge*> ConstMSEdgeVector;
@@ -57,36 +55,15 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
  * @class SUMOVehicle
  * @brief Representation of a vehicle
  */
-class SUMOVehicle {
+class SUMOVehicle : public SUMOTrafficObject {
 public:
     typedef long long int NumericalID;
 
-    // XXX: This definition was introduced to make the MSVehicle's previousSpeed
-    //      available in the context of MSMoveReminder::notifyMove(). Another solution
-    //      would be to modify notifyMove()'s interface to work with MSVehicle instead
-    //      of SUMOVehicle (it is only called with MSVehicles!). Refs. #2579
-    /** @brief Returns the vehicle's previous speed
-     * @return The vehicle's speed
-     */
-    virtual double getPreviousSpeed() const = 0;
+    /// @brief Constructor
+    SUMOVehicle(const std::string& id) : SUMOTrafficObject(id) {}
 
     /// @brief Destructor
     virtual ~SUMOVehicle() {}
-
-    /** @brief Get the vehicle's ID
-     * @return The the ID of the vehicle
-     */
-    virtual const std::string& getID() const = 0;
-
-    /** @brief Get the vehicle's position along the lane
-     * @return The position of the vehicle (in m from the lane's begin)
-     */
-    virtual double getPositionOnLane() const = 0;
-
-    /** @brief Get the vehicle's back position along the given lane
-     * @return The position of the vehicle (in m from the given lane's begin)
-     */
-    virtual double getBackPositionOnLane(const MSLane* lane) const = 0;
 
     /** @brief Get the vehicle's lateral position on the lane
      * @return The lateral position of the vehicle (in m relative to the
@@ -99,42 +76,17 @@ public:
      */
     virtual double getAngle() const = 0;
 
-    /** @brief Return current position (x/y, cartesian)
-     *
-     * If the vehicle is not in the net, Position::INVALID.
-     * @param[in] offset optional offset in longitudinal direction
-     * @return The current position (in cartesian coordinates)
-     * @see myLane
-     */
-    virtual Position getPosition(const double offset = 0) const = 0;
-
-    /** @brief Returns the vehicle's maximum speed
-     * @return The vehicle's maximum speed
-     */
-    virtual double getMaxSpeed() const = 0;
-
-    /** @brief Returns the vehicle's current speed
-     * @return The vehicle's speed
-     */
-    virtual double getSpeed() const = 0;
-
     /** @brief Returns the lane the vehicle is on
     * @return The vehicle's current lane
     */
     virtual MSLane* getLane() const = 0;
 
-    /** @brief Returns the vehicle's type
-     * @return The vehicle's type
-     */
-    virtual const MSVehicleType& getVehicleType() const = 0;
-
-    /** @brief Returns the vehicle's access class
-     * @return The vehicle's access class
-     */
-    virtual SUMOVehicleClass getVClass() const = 0;
 
     /// Returns the current route
     virtual const MSRoute& getRoute() const = 0;
+
+    /// @brief return index of edge within route
+    virtual int getRoutePosition() const = 0;
 
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
      *
@@ -171,7 +123,7 @@ public:
      * @param[in] router The router to use
      * @see replaceRoute
      */
-    virtual void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false) = 0;
+    virtual void reroute(SUMOTime t, const std::string& info, SUMOAbstractRouter<MSEdge, SUMOVehicle>& router, const bool onInit = false, const bool withTaz = false, const bool silent = false) = 0;
 
     /** @brief Validates the current or given route
      * @param[out] msg Description why the route is not valid (if it is the case)
@@ -179,34 +131,22 @@ public:
      * @return Whether the vehicle's current route is valid
      */
     virtual bool hasValidRoute(std::string& msg, const MSRoute* route = 0) const = 0;
+    /// @brief checks wether the vehicle can depart on the first edge
+    virtual bool hasValidRouteStart(std::string& msg) = 0;
 
+    /// @brief computes validity attributes for the current route
+    virtual int getRouteValidity(bool update = true, bool silent = false) = 0;
 
     /** @brief Returns an iterator pointing to the current edge in this vehicles route
      * @return The current route pointer
      */
     virtual const ConstMSEdgeVector::const_iterator& getCurrentRouteEdge() const = 0;
 
-    /** @brief Returns the vehicle's acceleration
-     * @return The acceleration
-     */
-    virtual double getAcceleration() const = 0;
-
-    /** @brief Returns the slope of the road at vehicle's position
-     * @return The slope
-     */
-    virtual double getSlope() const = 0;
-
-    /** @brief Returns the edge the vehicle is currently at
+    /** @brief Returns the vehicle's emission model parameter
      *
-     * @return The current edge in the vehicle's route
+     * @return The vehicle's emission parameters
      */
-    virtual const MSEdge* getEdge() const = 0;
-
-    /** @brief Returns the vehicle's parameter (including departure definition)
-     *
-     * @return The vehicle's parameter
-     */
-    virtual const SUMOVehicleParameter& getParameter() const = 0;
+    virtual const std::map<int, double>* getEmissionParameters() const = 0;
 
     /** @brief Replaces the vehicle's parameter
      */
@@ -223,6 +163,11 @@ public:
      * @return Whether the vehicle is simulated
      */
     virtual bool isOnRoad() const = 0;
+
+    /** @brief Returns whether the vehicle is idling (waiting to re-enter the net
+     * @return true if the vehicle is waiting to enter the net (eg after parking)
+    */
+    virtual bool isIdling() const = 0;
 
     /** @brief Returns the information whether the front of the vehhicle is on the given lane
      * @return Whether the vehicle's front is on that lane
@@ -270,35 +215,24 @@ public:
      */
     virtual bool hasDeparted() const = 0;
 
-    /** @brief Returns whether this vehicle has arrived
+    /** @brief Returns the distance that was already driven by this vehicle
+     * @return the distance driven [m]
      */
-    virtual bool hasArrived() const = 0;
+    virtual double getOdometer() const = 0;
 
     /** @brief Returns the number of new routes this vehicle got
      * @return the number of new routes this vehicle got
      */
     virtual int getNumberReroutes() const = 0;
 
-    /** @brief Returns this vehicle's devices
-     * @return This vehicle's devices
-     */
-    virtual const std::vector<MSVehicleDevice*>& getDevices() const = 0;
+    /// @brief whether the given transportable is allowed to board this vehicle
+    virtual bool allowsBoarding(MSTransportable* t) const = 0;
 
-    /** @brief Adds a person to this vehicle
+    /** @brief Adds a person or container to this vehicle
      *
-     * May do nothing since persons are not supported by default
-     *
-     * @param[in] person The person to add
+     * @param[in] transportable The person/container to add
      */
-    virtual void addPerson(MSTransportable* person) = 0;
-
-    /** @brief Adds a container to this vehicle
-     *
-     * May do nothing since containers are not supported by default
-     *
-     * @param[in] container The container to add
-     */
-    virtual void addContainer(MSTransportable* container) = 0;
+    virtual void addTransportable(MSTransportable* transportable) = 0;
 
     /** @brief Returns the number of persons
      * @return The number of passengers on-board
@@ -333,6 +267,15 @@ public:
     virtual bool addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset = 0, bool collision = false,
                          ConstMSEdgeVector::const_iterator* searchStart = 0) = 0;
 
+    /// @brief return list of route indices and stop positions for the remaining stops
+    virtual std::vector<std::pair<int, double> > getStopIndices() const = 0;
+
+    /// @brief returns whether the vehicle serves a public transport line that serves the given stop
+    virtual bool isLineStop(double position) const = 0;
+
+    /// @brief deletes the next stop at the given index if it exists
+    virtual bool abortNextStop(int nextStopIndex = 0) = 0;
+
 
     /**
     * returns the next imminent stop in the stop queue
@@ -348,11 +291,6 @@ public:
       */
     virtual bool replaceParkingArea(MSParkingArea* parkingArea, std::string& errorMsg) = 0;
 
-    /** @brief Returns whether the vehicle is at a stop
-     * @return Whether the has stopped
-     */
-    virtual bool isStopped() const = 0;
-
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     virtual SUMOTime remainingStopDuration() const = 0;
 
@@ -360,22 +298,25 @@ public:
      */
     virtual bool isStoppedTriggered() const = 0;
 
-    /** @brief Returns whether the vehicle is stoped in range of the given position */
-    virtual bool isStoppedInRange(double pos) const = 0;
+    /** @brief Returns whether the vehicle is stopped in the range of the given position */
+    virtual bool isStoppedInRange(const double pos, const double tolerance) const = 0;
 
-    /// @brief Returns a device of the given type if it exists or 0
-    virtual MSVehicleDevice* getDevice(const std::type_info& type) const = 0;
+    /** @brief Returns whether the vehicle stops at the given stopping place */
+    virtual bool stopsAt(MSStoppingPlace* stop) const = 0;
 
+    /** @brief Returns whether the vehicle stops at the given edge */
+    virtual bool stopsAtEdge(const MSEdge* edge) const = 0;
 
-    virtual double getChosenSpeedFactor() const = 0;
+    /** @brief Returns parameters of the next stop or nullptr **/
+    virtual const SUMOVehicleParameter::Stop* getNextStopParameter() const = 0;
 
     virtual void setChosenSpeedFactor(const double factor) = 0;
-
-    virtual SUMOTime getWaitingTime() const = 0;
 
     virtual SUMOTime getAccumulatedWaitingTime() const = 0;
 
     virtual SUMOTime getDepartDelay() const = 0;
+
+    virtual SUMOTime getTimeLoss() const = 0;
 
     /// @brief get distance for coming to a stop (used for rerouting checks)
     virtual double getBrakeGap() const = 0;
@@ -383,17 +324,26 @@ public:
     /// @brief Returns this vehicles impatience
     virtual double getImpatience() const = 0;
 
+    /** @brief Returns this vehicle's devices
+     * @return This vehicle's devices
+     */
+    virtual const std::vector<MSVehicleDevice*>& getDevices() const = 0;
+
+    /// @brief Returns a device of the given type if it exists or 0
+    virtual MSVehicleDevice* getDevice(const std::type_info& type) const = 0;
+
     /// @brief whether this vehicle is selected in the GUI
     virtual bool isSelected() const = 0;
 
-    /** @brief Returns the associated RNG for this vehicle
-    * @return The vehicle's associated RNG
-    */
-    virtual std::mt19937* getRNG() const = 0;
+    /// @brief @return The index of the vehicle's associated RNG
+    virtual int getRNGIndex() const = 0;
 
     /// @brief return the numerical ID which is only for internal usage
     //  (especially fast comparison in maps which need vehicles as keys)
     virtual NumericalID getNumericalID() const = 0;
+
+    /// @brief Returns the vehicles's length
+    virtual double getLength() const = 0;
 
     /// @name state io
     //@{
@@ -406,8 +356,3 @@ public:
     virtual void loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) = 0;
     //@}
 };
-
-
-#endif
-
-/****************************************************************************/

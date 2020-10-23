@@ -1,0 +1,9 @@
+<routes>
+    <route id="r0" edges="1si"/>
+
+    <vType id="leader" sigma="0" decel="0.1" maxSpeed="5"/>
+    <vType id="follower" sigma="0" decel="5" speedFactor="3" maxSpeed="30"/>
+    <vehicle id="leader" route="r0" depart="0" departSpeed="5" departPos="50" arrivalPos="80" departLane="1" arrivalLane="0" type="leader"/>
+    <vehicle id="follower" route="r0" depart="0" departSpeed="30" departPos="10" arrivalPos="150" departLane="0" arrivalLane="0" type="follower"/>
+
+</routes>

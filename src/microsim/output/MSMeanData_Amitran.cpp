@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSMeanData_Amitran.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 10.05.2004
-/// @version $Id$
 ///
 // Network state mean data collector for edges/lanes
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <microsim/MSEdgeControl.h>
@@ -78,7 +76,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val)
 
 
 void
-MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double /*meanSpeedVehicleOnLane*/, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */) {
+MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(const SUMOTrafficObject& veh, const double /* frontOnLane */, const double timeOnLane, const double /*meanSpeedFrontOnLane*/, const double /*meanSpeedVehicleOnLane*/, const double /*travelledDistanceFrontOnLane*/, const double travelledDistanceVehicleOnLane, const double /* meanLengthOnLane */) {
     sampleSeconds += timeOnLane;
     travelledDistance += travelledDistanceVehicleOnLane;
     typedSamples[&veh.getVehicleType()] += timeOnLane;
@@ -87,7 +85,7 @@ MSMeanData_Amitran::MSLaneMeanDataValues::notifyMoveInternal(const SUMOVehicle& 
 
 
 bool
-MSMeanData_Amitran::MSLaneMeanDataValues::notifyEnter(SUMOVehicle& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
+MSMeanData_Amitran::MSLaneMeanDataValues::notifyEnter(SUMOTrafficObject& veh, MSMoveReminder::Notification reason, const MSLane* /* enteredLane */) {
     if (myParent->vehicleApplies(veh)) {
         if (getLane() == nullptr || getLane() == static_cast<MSVehicle&>(veh).getLane()) {
             if (reason == MSMoveReminder::NOTIFICATION_DEPARTED || reason == MSMoveReminder::NOTIFICATION_JUNCTION) {
@@ -108,19 +106,26 @@ MSMeanData_Amitran::MSLaneMeanDataValues::isEmpty() const {
 
 
 void
-MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, const SUMOTime /* period */,
+MSMeanData_Amitran::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime /* period */,
         const double /* numLanes */, const double defaultTravelTime, const int /* numVehicles */) const {
+    int averageSpeed;
     if (sampleSeconds > 0) {
-        dev.writeAttr("amount", amount).writeAttr("averageSpeed", int(100 * travelledDistance / sampleSeconds));
+        averageSpeed = int(100 * travelledDistance / sampleSeconds);
     } else if (defaultTravelTime >= 0.) {
-        dev.writeAttr("amount", amount).writeAttr("averageSpeed", int(100 * myLaneLength / defaultTravelTime));
+        averageSpeed = int(100 * myLaneLength / defaultTravelTime);
     } else {
-        dev.writeAttr("amount", amount).writeAttr("averageSpeed", "-1");
+        averageSpeed = -1;
     }
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_AMOUNT, amount);
+    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_AVERAGESPEED, averageSpeed);
+
     if (myParent->isTyped()) {
         for (std::map<const MSVehicleType*, int>::const_iterator it = typedAmount.begin(); it != typedAmount.end(); ++it) {
-            dev.openTag("actorConfig").writeAttr(SUMO_ATTR_ID, it->first->getNumericalID());
-            dev.writeAttr("amount", it->second).writeAttr("averageSpeed", int(100 * typedTravelDistance.find(it->first)->second / typedSamples.find(it->first)->second));
+            dev.openTag("actorConfig");
+            const int averageSpeed = int(100 * typedTravelDistance.find(it->first)->second / typedSamples.find(it->first)->second);
+            dev.writeAttr(SUMO_ATTR_ID, it->first->getNumericalID());
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_AMOUNT, it->second);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_AVERAGESPEED, averageSpeed);
             dev.closeTag();
         }
     }
@@ -136,13 +141,15 @@ MSMeanData_Amitran::MSMeanData_Amitran(const std::string& id,
                                        const bool withEmpty, const bool printDefaults,
                                        const bool withInternal,
                                        const bool trackVehicles,
+                                       const int detectPersons,
                                        const double maxTravelTime,
                                        const double minSamples,
                                        const double haltSpeed,
-                                       const std::string& vTypes)
-    : MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
-                 withInternal, trackVehicles, maxTravelTime, minSamples, vTypes),
-      myHaltSpeed(haltSpeed) {
+                                       const std::string& vTypes,
+                                       const std::string& writeAttributes) :
+    MSMeanData(id, dumpBegin, dumpEnd, useLanes, withEmpty, printDefaults,
+               withInternal, trackVehicles, detectPersons, maxTravelTime, minSamples, vTypes, writeAttributes),
+    myHaltSpeed(haltSpeed) {
 }
 
 
@@ -185,4 +192,3 @@ MSMeanData_Amitran::createValues(MSLane* const lane, const double length, const 
 
 
 /****************************************************************************/
-

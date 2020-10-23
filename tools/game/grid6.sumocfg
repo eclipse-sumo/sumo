@@ -1,8 +1,12 @@
-<configuration>
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Sep 30 21:10:24 2020 by Eclipse SUMO sumo Version v1_7_0+0372-0e78adb662b
+-->
+
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
         <net-file value="grid6/grid6.net.xml"/>
-        <gui-settings-file value="grid6/settings.xml"/>
         <route-files value="grid6/grid6.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
@@ -12,6 +16,17 @@
         <end value="220"/>
         <step-length value=".1"/>
     </time>
-    <weights.random-factor value="1.2"/>
+
+    <routing>
+        <weights.random-factor value="1.2"/>
+    </routing>
+
+    <report>
+        <xml-validation value="never"/>
+    </report>
+
+    <gui_only>
+        <gui-settings-file value="grid6/settings.xml"/>
+    </gui_only>
 
 </configuration>

@@ -1,0 +1,44 @@
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.secondary' (first occurence for edge '4687133').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.residential' (first occurence for edge '7544445').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.tertiary' (first occurence for edge '24951317').
+Warning: Discarding unknown compound 'cycleway.lane' in type 'cycleway.lane|highway.residential' (first occurence for edge '28162580').
+Warning: Discarding unknown compound 'cycleway.track' in type 'cycleway.track|highway.tertiary' (first occurence for edge '43115510').
+Warning: Discarding unusable type 'railway.platform' (first occurence for edge '171862277').
+Warning: Discarding unusable type 'railway.abandoned|usage.industrial' (first occurence for edge '320969260').
+Warning: Discarding unusable type 'railway.abandoned' (first occurence for edge '326192135').
+Warning: Discarding unusable type 'railway.razed|usage.industrial' (first occurence for edge '326192141').
+Warning: Discarding unusable type 'railway.razed' (first occurence for edge '485690627').
+Warning: Removing pt stop:491471505 on non existing edge: 386836729
+Warning: Removing pt stop:491471506 on non existing edge: 386836732
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1991333 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 1991334 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2015440 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2015441 are ignored
+Warning: Done reading first coherent chunk of pt stops. Further stops in relation 2022132 are ignored
+Warning: direction of restriction relation could not be determined
+Warning: Ignoring restriction relation '5317204'.
+Warning: No way found for reference '4687123' in relation '8665161'
+Warning: No way found for reference '624023269' in relation '8665161'
+Warning: Ignoring restriction relation '8665161' with unknown from-way.
+Warning: Ignoring restriction relation '8665161' with unknown to-way.
+Warning: Incomplete route for ptline '2341762' (Bus N56: U Magdalenenstraße → Wartenberg, Hagenower Ring → U Magdalenenstraße)
+Warning: PT stop: 3901927130 has been moved to edge: -32035133
+Warning: Ambiguity in turnarounds computation at junction '2526575765'.
+Warning: Ambiguity in turnarounds computation at junction '632909234'.
+Warning: Ambiguity in turnarounds computation at junction '768038181'.
+Warning: Found angle of 99.21 degrees at edge '-24685976', segment 0.
+Warning: Found sharp turn with radius 7.06 at the end of edge '-49809488#0'.
+Warning: Found sharp turn with radius 8.19 at the end of edge '-552943165#1'.
+Warning: Found sharp turn with radius 8.23 at the start of edge '-679528241'.
+Warning: Found sharp turn with radius 8.78 at the start of edge '197740390#1'.
+Warning: Found angle of 99.21 degrees at edge '24685976', segment 1.
+Warning: Found sharp turn with radius 7.06 at the start of edge '49809488#0'.
+Warning: Found sharp turn with radius 8.19 at the start of edge '552943165#1'.
+Warning: Found sharp turn with radius 8.23 at the end of edge '679528241'.
+Warning: The rail crossing '1679204728' does not have any roads.
+Warning: The rail crossing '1828307007' does not have any roads.
+Warning: The rail crossing '1828327715' does not have any roads.
+Warning: The rail crossing '1828327717' does not have any roads.
+Warning: The rail crossing '30695381' does not have any roads.
+Warning: 11 total messages of type: Discarding unknown compound '%' in type '%' (first occurence for edge '%').
+Warning: 17 total messages of type: Done reading first coherent chunk of pt stops. Further stops in relation % are ignored

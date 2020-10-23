@@ -1,29 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 09.07.2018 14:32:34 by Eclipse SUMO netedit Version 88bb7b0b92
+<!-- generated on 08.03.2019 12:54:36 by Eclipse SUMO netedit Version v1_1_0+1177-ae4e665b46
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_09Jul142807.2256/netedit.gui/additionalElements/detentry/lock_unlock\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar125133.6492/netedit.gui/additionalElements/detentry/lock_unlock\input_net.net.xml"/>
     </input>
 
     <output>
-        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_09Jul142807.2256/netedit.gui/additionalElements/detentry/lock_unlock\additionals.xml"/>
-        <shapes-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_09Jul142807.2256/netedit.gui/additionalElements/detentry/lock_unlock\shapes.xml"/>
-        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_09Jul142807.2256/netedit.gui/additionalElements/detentry/lock_unlock\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar125133.6492/netedit.gui/additionalElements/detentry/lock_unlock\net.net.xml"/>
     </output>
 
     <processing>
-        <no-turnarounds value="true"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
         <lefthand value="false"/>
-        <junctions.corner-detail value="5"/>
-        <rectangular-lane-cut value="false"/>
-        <walkingareas value="false"/>
     </processing>
 
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar125133.6492/netedit.gui/additionalElements/detentry/lock_unlock\additionals.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar125133.6492/netedit.gui/additionalElements/detentry/lock_unlock\routes.xml"/>
+    </netedit>
+
     <visualisation>
-        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_09Jul142807.2256/netedit.gui/additionalElements/detentry/lock_unlock\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar125133.6492/netedit.gui/additionalElements/detentry/lock_unlock\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -32,14 +43,14 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.2_from_09Jul142807.2256/netedit.gui/additionalElements/detentry/lock_unlock\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.08Mar125133.6492/netedit.gui/additionalElements/detentry/lock_unlock\log.txt"/>
     </report>
 
 </configuration>
 -->
 
 <additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
-    <e3Detector id="e3Detector_0" pos="22.00,6.00" freq="900.00" file="e3Detector_0.xml">
+    <e3Detector id="e3Detector_0" pos="22.00,7.00" freq="900.00" file="e3Detector_0.xml">
         <detEntry lane="gneE1_0" pos="23.00"/>
         <detExit lane="gneE0_0" pos="17.00"/>
     </e3Detector>

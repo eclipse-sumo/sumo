@@ -9,3 +9,6 @@ variations
 # input longer flow to test different configurations
 variations_subsecond
 variations_subsecond_IDM
+
+# two vehicles approach with different action step length offsets
+action_step_offset

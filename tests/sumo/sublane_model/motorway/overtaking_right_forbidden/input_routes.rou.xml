@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<routes>
+
+    <vType id="slow" speedFactor="0.7"/>
+    <trip id="ego" from="beg" to="beg" depart="0" departSpeed="max" departLane="0" arrivalLane="1"/>
+    <trip id="slow" from="beg" to="beg" type="slow" depart="0" departSpeed="max" departLane="1" departPos="200" arrivalLane="1"/>
+
+</routes>

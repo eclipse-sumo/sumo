@@ -9,6 +9,7 @@ node_types
 
 # test loading of different traffic light types
 tl_types
+tl_layouts
 
 # tests for using the speed_in_kmh option
 speed_in_kmh
@@ -57,6 +58,9 @@ lane_based_width
 # declared lane specific speed should appear in net and plain output
 lane_based_speed
 
+# lane type information should appear in xml and net.xml output
+lane_type
+
 # Load a tls.xml along with a sumo net to modify the program. 
 # This also demonstrates how identical phases are joined.
 alter_tls_program
@@ -67,18 +71,21 @@ load_location
 # tests for the generated junction logic
 junctionLogic
 
-# test building static tls programs for different junction types
-tlsPrograms
-
 # tests for roundabouts specified via xml
 roundabout
 
-# set a non-default node-radius
-node_radius
+# import edge distance from plain xml
+distance
 
-# set a non-default node-radius
-node_radius_default
+# import junction name from plain xml
+junction_name
 connection_guessing
+
+# test load public transport related files
+public_transport
 
 # import params from plain xml
 params
+
+# test special characters in edge ids
+special_chars

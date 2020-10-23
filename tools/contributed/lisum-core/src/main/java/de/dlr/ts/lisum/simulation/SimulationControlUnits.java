@@ -1,17 +1,20 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2016-2018 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    Constants.java
+/// @file    SimulationControlUnits.java
 /// @author  Maximiliano Bottazzi
 /// @author  Jakob Erdmann
 /// @date    2016
-/// @version $Id$
 ///
 //
 /****************************************************************************/
@@ -30,46 +33,40 @@ import de.dlr.ts.lisum.interfaces.ControlUnitInterface;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-public class SimulationControlUnits
-{
+public class SimulationControlUnits {
     private final Map<String /*Sumo*/, SimuControlUnit> perSumo = new HashMap<>();
     private final Map<String /*City*/, String /*Sumo*/> perCity = new HashMap<>();
     private final static Map<String /*complexCode*/, LightColor> COMPLEX_CODES = new HashMap<>();
-    
-    
+
+
     /**
-     * 
+     *
      */
-    public SimulationControlUnits()
-    {
+    public SimulationControlUnits() {
     }
-            
+
     /**
-     * 
+     *
      * @param cityName
-     * @return      
+     * @return
      * */
-    public String getSumoName(String cityName)
-    {
+    public String getSumoName(String cityName) {
         return perCity.get(cityName);
     }
-    
+
     /**
-     * 
+     *
      * @param configFile
-     * @param city     
+     * @param city
      */
-    public void load(ConfigurationFile configFile, CityInterface city)
-    {
-        for (ConfigurationFile.CFControlUnit cfcu : configFile)
-        {
+    public void load(ConfigurationFile configFile, CityInterface city) {
+        for (ConfigurationFile.CFControlUnit cfcu : configFile) {
             ControlUnitInterface controlUnitInter = city.getControlUnit(cfcu.lisaName);
-            
-            if(controlUnitInter != null)
-            {
+
+            if (controlUnitInter != null) {
                 SimuControlUnit cuu = new SimuControlUnit(controlUnitInter, cfcu.sumoName);
                 cuu.load(cfcu);
-                
+
                 perSumo.put(cfcu.sumoName, cuu);
                 perCity.put(cfcu.lisaName, cfcu.sumoName);
                 controlUnitInter.setEnabled(true);
@@ -80,7 +77,7 @@ public class SimulationControlUnits
         COMPLEX_CODES.put("OO", LightColor.OFF);
         COMPLEX_CODES.put("OOO", LightColor.OFF);
         COMPLEX_CODES.put("OoO", LightColor.OFF);
-        
+
         COMPLEX_CODES.put("r", LightColor.RED);
         COMPLEX_CODES.put("o", LightColor.YELLOW_BLINKING);
         COMPLEX_CODES.put("y", LightColor.YELLOW);
@@ -107,95 +104,87 @@ public class SimulationControlUnits
         COMPLEX_CODES.put("GO", LightColor.GREEN);
         COMPLEX_CODES.put("Gu", LightColor.GREEN);
 
-        COMPLEX_CODES.put("rro", LightColor.RED);
-        COMPLEX_CODES.put("rrO", LightColor.RED);
-        COMPLEX_CODES.put("rGo", LightColor.RED);
-        COMPLEX_CODES.put("rGO", LightColor.RED);
-        COMPLEX_CODES.put("rOO", LightColor.RED);
-        COMPLEX_CODES.put("roO", LightColor.RED);
-        COMPLEX_CODES.put("yOO", LightColor.YELLOW);
-        COMPLEX_CODES.put("yyo", LightColor.YELLOW);
-        COMPLEX_CODES.put("yyO", LightColor.YELLOW);
-        COMPLEX_CODES.put("yoO", LightColor.OFF);
-        COMPLEX_CODES.put("uOO", LightColor.RED_YELLOW);
-        COMPLEX_CODES.put("uoO", LightColor.RED_YELLOW);
-        COMPLEX_CODES.put("ruO", LightColor.RED_YELLOW);
-        COMPLEX_CODES.put("ruo", LightColor.RED_YELLOW);
-        COMPLEX_CODES.put("OGo", LightColor.DARK_GREEN);
-        COMPLEX_CODES.put("GoO", LightColor.DARK_GREEN);
-        COMPLEX_CODES.put("goO", LightColor.DARK_GREEN);
-        COMPLEX_CODES.put("GoG", LightColor.GREEN);
-        COMPLEX_CODES.put("GOG", LightColor.GREEN);
+        complexCodes.put("rro", LightColor.RED);
+        complexCodes.put("rrO", LightColor.RED);
+        complexCodes.put("rGo", LightColor.RED);
+        complexCodes.put("rGO", LightColor.RED);
+        complexCodes.put("rOO", LightColor.RED);
+        complexCodes.put("roO", LightColor.RED);
+        complexCodes.put("ryo", LightColor.RED);
+        complexCodes.put("ryO", LightColor.RED);
+        complexCodes.put("ruO", LightColor.RED);
+        complexCodes.put("ruo", LightColor.RED);
+        complexCodes.put("yGO", LightColor.YELLOW);
+        complexCodes.put("yOO", LightColor.YELLOW);
+        complexCodes.put("yyo", LightColor.YELLOW);
+        complexCodes.put("yyO", LightColor.YELLOW);
+        complexCodes.put("yoO", LightColor.YELLOW);
+        complexCodes.put("uOO", LightColor.RED_YELLOW);
+        complexCodes.put("uoO", LightColor.RED_YELLOW);
+        complexCodes.put("OGo", LightColor.DARK_GREEN);
+        complexCodes.put("GoO", LightColor.DARK_GREEN);
+        complexCodes.put("goO", LightColor.DARK_GREEN);
+        complexCodes.put("GoG", LightColor.GREEN);
+        complexCodes.put("GOG", LightColor.GREEN);
+        complexCodes.put("OGO", LightColor.GREEN);
+
 
 
         // this is a hack for halle_vital.net intersection A
-        COMPLEX_CODES.put("yG", LightColor.GREEN); 
+        complexCodes.put("yG", LightColor.GREEN);
         //complexCodes.put("GOO", LightColor.DARK_GREEN);
 
-    }    
-    
+    }
+
     /**
-     * 
+     *
      * @param controlUnitSumoName
      * @param signalGroupIndex
-     * @return 
+     * @return
      */
-    public LightColor getLightColor(String controlUnitSumoName, int signalGroupIndex)
-    {
+    public LightColor getLightColor(String controlUnitSumoName, int signalGroupIndex) {
         SimuControlUnit hh = perSumo.get(controlUnitSumoName);
-        
-        if(hh != null)
+
+        if (hh != null) {
             return hh.getColor(signalGroupIndex);
-        else
+        } else {
             return LightColor.OFF;
+        }
     }
-    
+
     /**
-     * 
+     *
      * @param controlUnitSumoName
      * @return 
      */
-    public ControlUnitInterface getControlUnitInterfaceBySumoName(String controlUnitSumoName) 
-    {        
-        if(perSumo.get(controlUnitSumoName) == null)
-            return null;
-        
-        return perSumo.get(controlUnitSumoName).cui;
-    }
-    
-    /**
-     * 
-     */
-    private static class SimuControlUnit
-    {
+    private static class SimuControlUnit {
         private final Map<Integer, ArrayList<SignalGroup>> signalGroups = new HashMap<>();
         private final ControlUnitInterface cui;
         private final String sumoLogicName;
 
-        
+
         /**
-         * 
-         * @param cui 
+         *
+         * @param cui
          */
-        public SimuControlUnit(ControlUnitInterface cui, String sumoLogicName)
-        {
+        public SimuControlUnit(ControlUnitInterface cui, String sumoLogicName) {
             this.cui = cui;
             this.sumoLogicName = sumoLogicName;
         }
 
         /**
-         * 
+         *
          * @param signalGroupIndex
-         * @return 
+         * @return
          */
-        private LightColor getColor(int signalGroupIndex)
-        {
+        LightColor getColor(int signalGroupIndex) {
             int debugIndex = -1;
             ArrayList<SignalGroup> sgs = signalGroups.get(signalGroupIndex);            
 
-            if(sgs == null || sgs.isEmpty())
+            if (sgs == null || sgs.isEmpty()) {
                 return LightColor.OFF;
-            
+            }
+
             //SignalGroup defaultSG = sgs.get(0);
             
             String complexCode = "";
@@ -219,27 +208,20 @@ public class SimulationControlUnits
                 
                 lightColor = LightColor.OFF;
             }
-                        
-            if(lightColor.isOff() && 
-                    sgs.get(0).ifOff != null && 
-                    !sgs.get(0).ifOff.isEmpty())
-                lightColor = cui.getLightColor(sgs.get(0).ifOff);            
-            
+
             return lightColor;
         }
-        
+
         /**
-         * 
-         * @param controlUnit 
+         *
+         * @param controlUnit
          */
-        void load(ConfigurationFile.CFControlUnit controlUnit)
-        {
-            for (int i = 0; i < controlUnit.signalGroups.size(); i++)
-            {
+        void load(ConfigurationFile.CFControlUnit controlUnit) {
+            for (int i = 0; i < controlUnit.signalGroups.size(); i++) {
                 ConfigurationFile.CFControlUnit.SignalGroup sg = controlUnit.signalGroups.get(i);
                 String string = sg.sumo;
                 String[] split = string.split(",");
-                
+
                 for (String s : split) {
                     if(s.trim().isEmpty())
                         continue;
@@ -252,21 +234,19 @@ public class SimulationControlUnits
                 }
             }
         }
-        
+
         /**
-         * 
+         *
          */
-        private class SignalGroup
-        {
+        class SignalGroup {
             String lisa;
             String ifOff;
 
-            public SignalGroup(String lisa, String main)
-            {
+            public SignalGroup(String lisa, String main) {
                 this.lisa = lisa;
                 this.ifOff = main;
             }
-            
+
         }
     }
 }

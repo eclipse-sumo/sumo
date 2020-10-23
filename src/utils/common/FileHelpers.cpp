@@ -1,29 +1,27 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    FileHelpers.cpp
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 17 Dec 2001
-/// @version $Id$
 ///
 // Functions for an easier usage of files
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <string>
-#ifdef _MSC_VER
+#ifdef WIN32
 // this is how fox does it in xincs.h
 #include <io.h>
 #define access _access
@@ -32,6 +30,7 @@
 #include <unistd.h>
 #endif
 #include <fstream>
+#include <sys/stat.h>
 #include "FileHelpers.h"
 #include "StringTokenizer.h"
 #include "MsgHandler.h"
@@ -40,9 +39,11 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
 // ---------------------------------------------------------------------------
 // file access functions
 // ---------------------------------------------------------------------------
+
 bool
 FileHelpers::isReadable(std::string path) {
     if (path.length() == 0) {
@@ -57,10 +58,19 @@ FileHelpers::isReadable(std::string path) {
     return access(path.c_str(), R_OK) == 0;
 }
 
+bool
+FileHelpers::isDirectory(std::string path) {
+    struct stat fileInfo;
+    if (stat(path.c_str(), &fileInfo) != 0) {
+        throw ProcessError("Cannot get file attributes for file '" + path + "'!");
+    }
+    return (fileInfo.st_mode & S_IFMT) == S_IFDIR;
+}
 
 // ---------------------------------------------------------------------------
 // file path evaluating functions
 // ---------------------------------------------------------------------------
+
 std::string
 FileHelpers::getFilePath(const std::string& path) {
     const std::string::size_type beg = path.find_last_of("\\/");
@@ -72,8 +82,36 @@ FileHelpers::getFilePath(const std::string& path) {
 
 
 std::string
-FileHelpers::getConfigurationRelative(const std::string& configPath,
-                                      const std::string& path) {
+FileHelpers::addExtension(const std::string& path, const std::string& extension) {
+    if (path.empty()) {
+        return "";
+    } else if (extension.empty()) {
+        return path;
+    } else if (path == extension) {
+        return "";
+    } else if (path.size() < extension.size()) {
+        return path + extension;
+    } else {
+        // declare two reverse iterator for every string
+        std::string::const_reverse_iterator it_path = path.rbegin();
+        std::string::const_reverse_iterator it_extension = extension.rbegin();
+        // iterate over extension and compare both characters
+        while (it_extension != extension.rend()) {
+            // if both characters are different, then return path + extension
+            if (*it_path != *it_extension) {
+                return path + extension;
+            }
+            it_path++;
+            it_extension++;
+        }
+        // if comparison was successful, then the path has already the extension
+        return path;
+    }
+}
+
+
+std::string
+FileHelpers::getConfigurationRelative(const std::string& configPath, const std::string& path) {
     std::string retPath = getFilePath(configPath);
     return retPath + path;
 }
@@ -110,8 +148,7 @@ FileHelpers::isAbsolute(const std::string& path) {
 
 
 std::string
-FileHelpers::checkForRelativity(const std::string& filename,
-                                const std::string& basePath) {
+FileHelpers::checkForRelativity(const std::string& filename, const std::string& basePath) {
     if (filename == "stdout" || filename == "STDOUT" || filename == "-") {
         return "stdout";
     }
@@ -141,6 +178,7 @@ FileHelpers::prependToLastPathComponent(const std::string& prefix, const std::st
 // ---------------------------------------------------------------------------
 // binary reading/writing functions
 // ---------------------------------------------------------------------------
+
 std::ostream&
 FileHelpers::writeInt(std::ostream& strm, int value) {
     strm.write((char*) &value, sizeof(int));
@@ -180,4 +218,3 @@ FileHelpers::writeTime(std::ostream& strm, SUMOTime value) {
 
 
 /****************************************************************************/
-

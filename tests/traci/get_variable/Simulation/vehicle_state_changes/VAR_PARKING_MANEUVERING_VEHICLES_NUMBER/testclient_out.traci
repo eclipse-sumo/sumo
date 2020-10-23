@@ -1,0 +1,99 @@
+TraCITestClient output file. Date: Thu Mar 12 11:39:09 2020
+
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=58 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=58  ObjectID=0 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 90.00
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=58 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=58  ObjectID=0 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 97.25
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=58 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=58  ObjectID=0 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=58 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=58  ObjectID=0 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: -1073741824.00
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=58 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=58  ObjectID=0 valueDataType=9 Int value: 1
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.00
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=58 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=58  ObjectID=0 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 100.80
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <GetVariable>:
+  domID=171 varID=58 objID=0
+.. Command acknowledged (171), [description: ]
+  CommandID=187  VariableID=58  ObjectID=0 valueDataType=9 Int value: 0
+
+-> Command sent: <GetVariable>:
+  domID=164 varID=86 objID=0
+.. Command acknowledged (164), [description: ]
+  CommandID=180  VariableID=86  ObjectID=0 valueDataType=11 Double value: 102.40
+
+-> Command sent: <SimulationStep>:
+.. Command acknowledged (2), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: ]

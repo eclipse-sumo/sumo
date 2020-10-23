@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 06.12.2018 16:05:42 by Eclipse SUMO netedit Version v1_0_1+0692-c9085b9bf1
+<!-- generated on 11.03.2019 08:38:27 by Eclipse SUMO netedit Version v1_1_0+1184-22a37878bd
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Projects\sumo\tests\netedit\selection\viewoptions\input_net.net.xml"/>
+        <node-files value="C:\Projects\sumo\tests\netedit\selection\viewoptions\input_net.nod.xml"/>
+        <edge-files value="C:\Projects\sumo\tests\netedit\selection\viewoptions\input_net.edg.xml"/>
     </input>
 
     <output>
@@ -13,25 +14,17 @@
 
     <processing>
         <offset.disable-normalization value="true"/>
-        <lefthand value="false"/>
     </processing>
 
     <junctions>
         <no-internal-links value="false"/>
         <no-turnarounds value="true"/>
-        <junctions.corner-detail value="5"/>
-        <junctions.limit-turn-speed value="5.5"/>
-        <rectangular-lane-cut value="false"/>
     </junctions>
-
-    <pedestrian>
-        <walkingareas value="false"/>
-    </pedestrian>
 
 </configuration>
 -->
 
-<net version="1.0" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+<net version="1.1" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
     <location netOffset="50.00,50.00" convBoundary="0.00,0.00,100.00,100.00" origBoundary="-50.00,-50.00,50.00,50.00" projParameter="!"/>
 
@@ -55,10 +48,10 @@
         <lane id=":Center_3_0" index="0" disallow="pedestrian" speed="9.51" length="7.18" shape="48.40,61.10 49.19,55.54 50.00,54.20"/>
     </edge>
     <edge id=":Center_16" function="internal">
-        <lane id=":Center_16_0" index="0" speed="6.86" length="4.23" shape="42.90,55.94 41.66,55.19 38.90,54.80"/>
+        <lane id=":Center_16_0" index="0" disallow="pedestrian" speed="6.86" length="4.23" shape="42.90,55.94 41.66,55.19 38.90,54.80"/>
     </edge>
     <edge id=":Center_17" function="internal">
-        <lane id=":Center_17_0" index="0" speed="9.51" length="13.30" shape="50.00,54.20 51.58,51.57 55.54,49.19 61.10,48.40"/>
+        <lane id=":Center_17_0" index="0" disallow="pedestrian" speed="9.51" length="13.30" shape="50.00,54.20 51.58,51.57 55.54,49.19 61.10,48.40"/>
     </edge>
     <edge id=":Center_4" function="internal">
         <lane id=":Center_4_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="61.10,54.80 58.34,55.19 56.38,56.38 55.19,58.34 54.80,61.10"/>
@@ -81,10 +74,10 @@
         <lane id=":Center_11_0" index="0" disallow="pedestrian" speed="9.51" length="7.18" shape="51.60,38.90 50.81,44.46 50.00,45.80"/>
     </edge>
     <edge id=":Center_18" function="internal">
-        <lane id=":Center_18_0" index="0" speed="6.86" length="4.23" shape="57.10,44.06 58.34,44.81 61.10,45.20"/>
+        <lane id=":Center_18_0" index="0" disallow="pedestrian" speed="6.86" length="4.23" shape="57.10,44.06 58.34,44.81 61.10,45.20"/>
     </edge>
     <edge id=":Center_19" function="internal">
-        <lane id=":Center_19_0" index="0" speed="9.51" length="13.30" shape="50.00,45.80 48.42,48.43 44.46,50.81 38.90,51.60"/>
+        <lane id=":Center_19_0" index="0" disallow="pedestrian" speed="9.51" length="13.30" shape="50.00,45.80 48.42,48.43 44.46,50.81 38.90,51.60"/>
     </edge>
     <edge id=":Center_12" function="internal">
         <lane id=":Center_12_0" index="0" disallow="pedestrian" speed="6.86" length="10.16" shape="38.90,45.20 41.66,44.81 43.63,43.63 44.81,41.66 45.20,38.90"/>

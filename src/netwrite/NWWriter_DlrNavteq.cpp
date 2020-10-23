@@ -1,25 +1,23 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    NWWriter_DlrNavteq.cpp
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    26.10.2012
-/// @version $Id$
 ///
 // Exporter writing networks using DlrNavteq (Elmar) format
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 #include <algorithm>
 #include <ctime>
@@ -131,7 +129,8 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
     std::set<std::string> reservedNodeIDs;
     const bool numericalIDs = oc.getBool("numerical-ids");
     if (oc.isSet("reserved-ids")) {
-        NBHelpers::loadPrefixedIDsFomFile(oc.getString("reserved-ids"), "node:", reservedNodeIDs);
+        NBHelpers::loadPrefixedIDsFomFile(oc.getString("reserved-ids"), "node:", reservedNodeIDs); // backward compatibility
+        NBHelpers::loadPrefixedIDsFomFile(oc.getString("reserved-ids"), "junction:", reservedNodeIDs); // selection format
     }
     if (numericalIDs) {
         avoid = nc.getAllNames();
@@ -148,14 +147,14 @@ NWWriter_DlrNavteq::writeNodesUnsplitted(const OptionsCont& oc, NBNodeCont& nc, 
             // negated edge id to determine spread type. We may need to do some
             // shifting to make this consistent
             const bool hasOppositeID = ec.getOppositeByID(e->getID()) != nullptr;
-            if (e->getLaneSpreadFunction() == LANESPREAD_RIGHT && !hasOppositeID) {
+            if (e->getLaneSpreadFunction() == LaneSpreadFunction::RIGHT && !hasOppositeID) {
                 // need to write center-line geometry instead
                 try {
                     geom.move2side(e->getTotalWidth() / 2);
                 } catch (InvalidArgument& exception) {
                     WRITE_WARNING("Could not reconstruct shape for edge:'" + e->getID() + "' (" + exception.what() + ").");
                 }
-            } else if (e->getLaneSpreadFunction() == LANESPREAD_CENTER && hasOppositeID) {
+            } else if (e->getLaneSpreadFunction() == LaneSpreadFunction::CENTER && hasOppositeID) {
                 // need to write left-border geometry instead
                 try {
                     geom.move2side(-e->getTotalWidth() / 2);
@@ -204,11 +203,21 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
         const int kph = speedInKph(e->getSpeed());
         const std::string& betweenNodeID = (e->getGeometry().size() > 2) ? internalNodes[e] : UNDEFINED;
         std::string nameID = UNDEFINED;
+        std::string nameIDRegional = UNDEFINED;
         if (oc.getBool("output.street-names")) {
-            const std::string& name = i->second->getStreetName();
-            if (name != "" && nameIDs.count(name) == 0) {
-                nameID = toString(nameIDs.size());
-                nameIDs[name] = nameID;
+            const std::string& name = e->getStreetName();
+            if (name != "") {
+                if (nameIDs.count(name) == 0) {
+                    nameIDs[name] = toString(nameIDs.size());
+                }
+                nameID = nameIDs[name];
+            }
+            const std::string& name2 = e->getParameter("ref", "");
+            if (name2 != "") {
+                if (nameIDs.count(name2) == 0) {
+                    nameIDs[name2] = toString(nameIDs.size());
+                }
+                nameIDRegional = nameIDs[name2];
             }
         }
         device << e->getID() << "\t"
@@ -224,8 +233,8 @@ NWWriter_DlrNavteq::writeLinksUnsplitted(const OptionsCont& oc, NBEdgeCont& ec, 
                << getNavteqLaneCode(e->getNumLanes()) << "\t"
                << getSpeedCategoryUpperBound(kph) << "\t"
                << kph << "\t"
-               << nameID << "\t" // NAME_ID1_REGIONAL XXX
-               << UNDEFINED << "\t" // NAME_ID2_LOCAL XXX
+               << nameIDRegional << "\t"
+               << nameID << "\t" // NAME_ID2_LOCAL
                << UNDEFINED << "\t" // housenumbers_right
                << UNDEFINED << "\t" // housenumbers_left
                << getSinglePostalCode(e->getParameter("postal_code", UNDEFINED), e->getID()) << "\t" // ZIP_CODE
@@ -401,7 +410,7 @@ int
 NWWriter_DlrNavteq::getFormOfWay(NBEdge* edge) {
     if (edge->getPermissions() == SVC_PEDESTRIAN) {
         return 15;
-    } else if (edge->getJunctionPriority(edge->getToNode()) == NBEdge::ROUNDABOUT) {
+    } else if (edge->getJunctionPriority(edge->getToNode()) == NBEdge::JunctionPriority::ROUNDABOUT) {
         return 4;
     } else if (edge->getTypeID() == "highway.service") {
         return 14;
@@ -544,5 +553,5 @@ NWWriter_DlrNavteq::writeConnectedLanes(const OptionsCont& oc, NBNodeCont& nc) {
     device.close();
 }
 
-/****************************************************************************/
 
+/****************************************************************************/

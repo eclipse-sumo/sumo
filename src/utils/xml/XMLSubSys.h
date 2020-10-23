@@ -1,27 +1,24 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    XMLSubSys.h
 /// @author  Daniel Krajzewicz
 /// @author  Michael Behrisch
 /// @date    Mon, 1 Jul 2002
-/// @version $Id$
 ///
 // Utility methods for initialising, closing and using the XML-subsystem
 /****************************************************************************/
-#ifndef XMLSubSys_h
-#define XMLSubSys_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -61,8 +58,6 @@ class SUMOSAXReader;
  * In addition to initialisation and shutdown, this module allows to build
  *  SAXReaders and/or running a given handler on a given file without
  *  dealing with the reader at all.
- *
- * @todo make schema checking optional
  */
 class XMLSubSys {
 public:
@@ -85,15 +80,7 @@ public:
     * @param[in] validationScheme Whether validation of XML-documents against schemata shall be enabled
     * @param[in] netValidationScheme Whether validation of SUMO networks against schemata shall be enabled
     */
-    static void setValidation(const std::string& validationScheme, const std::string& netValidationScheme);
-
-
-    /**
-    * @brief Returns whether validation is enabled.
-    *
-    * @param[in] net Whether validation of SUMO networks is reported
-    */
-    static bool isValidating(const bool net = false);
+    static void setValidation(const std::string& validationScheme, const std::string& netValidationScheme, const std::string& routeValidationScheme);
 
 
     /**
@@ -112,10 +99,13 @@ public:
      *  to the reader as the current DefaultHandler and ErrorHandler.
      *
      * @param[in] handler The handler to assign to the built reader
+     * @param[in] isNet   whether a network gets loaded
+     * @param[in] isRoute whether routes get loaded
      * @return The built Xerces-SAX-reader, 0 if something failed
      * @see getSAXReader()
      */
-    static SUMOSAXReader* getSAXReader(SUMOSAXHandler& handler);
+    static SUMOSAXReader* getSAXReader(SUMOSAXHandler& handler,
+                                       const bool isNet = false, const bool isRoute = false);
 
 
     /**
@@ -144,10 +134,11 @@ public:
      * @param[in] handler The handler to assign to the built reader
      * @param[in] file    The file to run the parser at
      * @param[in] isNet   whether a network gets loaded
+     * @param[in] isRoute whether routes get loaded
      * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
-    static bool runParser(GenericSAXHandler& handler,
-                          const std::string& file, const bool isNet = false);
+    static bool runParser(GenericSAXHandler& handler, const std::string& file,
+                          const bool isNet = false, const bool isRoute = false);
 
 
 private:
@@ -163,10 +154,10 @@ private:
     /// @brief Information whether built reader/parser shall validate SUMO networks against schemata
     static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myNetValidationScheme;
 
+    /// @brief Information whether built reader/parser shall validate SUMO routes against schemata
+    static XERCES_CPP_NAMESPACE::SAX2XMLReader::ValSchemes myRouteValidationScheme;
+
+    /// @brief Schema cache to be used for grammars which are not declared
+    static XERCES_CPP_NAMESPACE::XMLGrammarPool* myGrammarPool;
+
 };
-
-
-#endif
-
-/****************************************************************************/
-

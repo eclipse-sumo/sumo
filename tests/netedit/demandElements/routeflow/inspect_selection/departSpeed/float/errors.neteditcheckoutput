@@ -1,0 +1,71 @@
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.0' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.0' to match departure speed.
+Error: Vehicle 'flowB.0' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.1' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.1' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.2' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.2' to match departure speed.
+Error: Vehicle 'flowB.2' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.3' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.3' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.4' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.4' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.5' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.5' to match departure speed.
+Error: Vehicle 'flowB.5' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.6' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.6' to match departure speed.
+Error: Vehicle 'flowB.6' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.7' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.7' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.8' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.8' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.9' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.9' to match departure speed.
+Error: Vehicle 'flowB.8' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.10' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.10' to match departure speed.
+Error: Vehicle 'flowB.9' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.11' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.11' to match departure speed.
+Error: Vehicle 'flowB.10' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Vehicle 'flowA.12' will not be able to arrive with the given speed!
+Error: Vehicle 'flowB.11' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowA.12' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.12' to match departure speed.
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.13' to match departure speed.
+Error: Vehicle 'flowB.13' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.14' to match departure speed.
+Error: Vehicle 'flowB.14' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.15' to match departure speed.
+Error: Vehicle 'flowB.15' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.16' to match departure speed.
+Error: Vehicle 'flowB.16' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Choosing new speed factor 1.44 for vehicle 'flowB.17' to match departure speed.
+Error: Vehicle 'flowB.17' will not be able to depart using the given velocity (slow lane ahead)!
+Warning: Teleporting vehicle 'flowA.0'; waited too long (jam), lane=':gneJ5_2_0', time=309.00.
+Warning: Vehicle 'flowA.0' ends teleporting on edge 'gneE4', time 309.00.
+Warning: Teleporting vehicle 'flowA.1'; waited too long (jam), lane=':gneJ5_2_0', time=614.00.
+Warning: Vehicle 'flowA.1' ends teleporting on edge 'gneE4', time 614.00.
+Warning: Teleporting vehicle 'flowA.2'; waited too long (jam), lane=':gneJ5_2_0', time=919.00.
+Warning: Vehicle 'flowA.2' ends teleporting on edge 'gneE4', time 919.00.
+Warning: Teleporting vehicle 'flowA.3'; waited too long (jam), lane=':gneJ5_2_0', time=1223.00.
+Warning: Vehicle 'flowA.3' ends teleporting on edge 'gneE4', time 1223.00.
+Warning: Teleporting vehicle 'flowA.4'; waited too long (jam), lane=':gneJ5_2_0', time=1528.00.
+Warning: Vehicle 'flowA.4' ends teleporting on edge 'gneE4', time 1528.00.
+Warning: Teleporting vehicle 'flowA.5'; waited too long (jam), lane=':gneJ5_2_0', time=1834.00.
+Warning: Vehicle 'flowA.5' ends teleporting on edge 'gneE4', time 1834.00.
+Warning: Teleporting vehicle 'flowA.6'; waited too long (jam), lane=':gneJ5_2_0', time=2140.00.
+Warning: Vehicle 'flowA.6' ends teleporting on edge 'gneE4', time 2140.00.
+Warning: Teleporting vehicle 'flowA.7'; waited too long (jam), lane=':gneJ5_2_0', time=2445.00.
+Warning: Vehicle 'flowA.7' ends teleporting on edge 'gneE4', time 2445.00.
+Warning: Teleporting vehicle 'flowA.8'; waited too long (jam), lane=':gneJ5_2_0', time=2750.00.
+Warning: Vehicle 'flowA.8' ends teleporting on edge 'gneE4', time 2750.00.
+Warning: Teleporting vehicle 'flowA.9'; waited too long (jam), lane=':gneJ5_2_0', time=3056.00.
+Warning: Vehicle 'flowA.9' ends teleporting on edge 'gneE4', time 3056.00.
+Warning: Teleporting vehicle 'flowA.10'; waited too long (jam), lane=':gneJ5_2_0', time=3361.00.
+Warning: Vehicle 'flowA.10' ends teleporting on edge 'gneE4', time 3361.00.
+Warning: Teleporting vehicle 'flowA.11'; waited too long (jam), lane=':gneJ5_2_0', time=3666.00.
+Warning: Vehicle 'flowA.11' ends teleporting on edge 'gneE4', time 3666.00.
+Warning: Teleporting vehicle 'flowA.12'; waited too long (jam), lane=':gneJ5_2_0', time=3971.00.
+Warning: Vehicle 'flowA.12' ends teleporting on edge 'gneE4', time 3971.00.

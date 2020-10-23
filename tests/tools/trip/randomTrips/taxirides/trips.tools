@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2019-12-17 13:49:37.878596 by randomTrips.py v1_4_0+0146-613ed8e
+  options: -n net.net.xml -s 42 <doubleminus>taxirides -e 100 -p 10 <doubleminus>route-file out.rou.xml
+-->
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="0" depart="0.00">
+        <ride from="NC" to="CS" lines="taxi"/>
+    </person>
+    <person id="1" depart="10.00">
+        <ride from="CS" to="CS" lines="taxi"/>
+    </person>
+    <person id="2" depart="20.00">
+        <ride from="NC" to="NC" lines="taxi"/>
+    </person>
+    <person id="3" depart="30.00">
+        <ride from="NC" to="CS" lines="taxi"/>
+    </person>
+    <person id="4" depart="40.00">
+        <ride from="CS" to="CS" lines="taxi"/>
+    </person>
+    <person id="5" depart="50.00">
+        <ride from="CS" to="NC" lines="taxi"/>
+    </person>
+    <person id="6" depart="60.00">
+        <ride from="CS" to="CS" lines="taxi"/>
+    </person>
+    <person id="7" depart="70.00">
+        <ride from="NC" to="NC" lines="taxi"/>
+    </person>
+    <person id="8" depart="80.00">
+        <ride from="CS" to="NC" lines="taxi"/>
+    </person>
+    <person id="9" depart="90.00">
+        <ride from="NC" to="CS" lines="taxi"/>
+    </person>
+</routes>

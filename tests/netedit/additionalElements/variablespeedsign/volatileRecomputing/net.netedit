@@ -9,13 +9,13 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\additionals.xml"/>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_net.net.xml"/>
+        <sumo-additionals-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_additionals.add.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\additionals.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\net.net.xml"/>
     </output>
 
     <processing>
@@ -37,7 +37,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.16Jun112117.3732/netedit.gui/additionalElements/e3detector/volatileRecomputing\log.txt"/>
     </report>
 
 </configuration>

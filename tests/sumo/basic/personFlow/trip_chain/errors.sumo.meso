@@ -1,0 +1,4 @@
+Warning: Vehicle 'train0' stops on edge '0/4to1/4', time 133.13 without ending the previous stop entered at time -0.00
+Warning: Person 'person.3' aborted waiting for car0 at edge '1/4to2/4'.
+Warning: Person 'person.1' aborted waiting for car0 at edge '1/4to2/4'.
+Warning: Person 'person.2' aborted waiting for car0 at edge '1/4to2/4'.

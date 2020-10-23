@@ -1,0 +1,4 @@
+Warning: Teleporting vehicle 'rail2'; waited too long (yield), lane='T12_0_0', time=331.00.
+Warning: Teleporting vehicle 'rail1'; waited too long (yield), lane='T15_1_0', time=331.00.
+Warning: Vehicle 'rail1' ends teleporting on edge 'T14_1', time 331.00.
+Warning: Vehicle 'rail2' ends teleporting on edge 'T14_0', time 336.00.

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<additional>
+    <tlLogic id="cluster_1037005497_2683362682" type="static" programID="newProg" offset="0">
+        <phase duration="51" state="GGGGGGrrrrrrrrrrrrGGGGGGrrrrrrrrrrrr"/>
+        <phase duration="6" state="yyyyyyrrrrrrrrrrrryyyyyyrrrrrrrrrrrr"/>
+        <phase duration="42" state="rrrrrrGGrrrrrrrrrrrrrrrrGGrrrrrrrrrr"/>
+        <phase duration="6" state="rrrrrryyrrrrrrrrrrrrrrrryyrrrrrrrrrr"/>
+        <phase duration="14" state="rrrrrrrrGGGGGGggggrrrrrrrrGGGGGGgggg"/>
+        <phase duration="6" state="rrrrrrrryyyyyyyyyyrrrrrrrryyyyyyyyyy"/>
+    </tlLogic>
+</additional>

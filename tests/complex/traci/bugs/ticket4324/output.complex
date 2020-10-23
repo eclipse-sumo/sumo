@@ -1,0 +1,123 @@
+ Retrying in 1 seconds
+program Logic(programID='0', type=0, currentPhaseIndex=0, phases=(Phase(duration=33.0, state='GGGggrrrrrGGGggrrrrr', minDur=33.0, maxDur=33.0, next=()), Phase(duration=3.0, state='yyyggrrrrryyyggrrrrr', minDur=3.0, maxDur=3.0, next=()), Phase(duration=6.0, state='rrrGGrrrrrrrrGGrrrrr', minDur=6.0, maxDur=6.0, next=()), Phase(duration=3.0, state='rrryyrrrrrrrryyrrrrr', minDur=3.0, maxDur=3.0, next=()), Phase(duration=33.0, state='rrrrrGGGggrrrrrGGGgg', minDur=33.0, maxDur=33.0, next=()), Phase(duration=3.0, state='rrrrryyyggrrrrryyygg', minDur=3.0, maxDur=3.0, next=()), Phase(duration=6.0, state='rrrrrrrrGGrrrrrrrrGG', minDur=6.0, maxDur=6.0, next=()), Phase(duration=3.0, state='rrrrrrrryyrrrrrrrryy', minDur=3.0, maxDur=3.0, next=())), subParameter={})
+program Logic(programID='custom_actuated', type=3, currentPhaseIndex=0, phases=(Phase(duration=33.0, state='GGGggrrrrrGGGggrrrrr', minDur=5.0, maxDur=35.0, next=(), name='Major 1'), Phase(duration=3.0, state='yyyggrrrrryyyggrrrrr', minDur=3.0, maxDur=3.0, next=(), name='Transition'), Phase(duration=6.0, state='rrrGGrrrrrrrrGGrrrrr', minDur=5.0, maxDur=35.0, next=(), name='Major 2'), Phase(duration=3.0, state='rrryyrrrrrrrryyrrrrr', minDur=3.0, maxDur=3.0, next=(), name='Transition'), Phase(duration=33.0, state='rrrrrGGGggrrrrrGGGgg', minDur=5.0, maxDur=35.0, next=(), name='Major 3'), Phase(duration=3.0, state='rrrrryyyggrrrrryyygg', minDur=3.0, maxDur=3.0, next=(), name='Transition'), Phase(duration=6.0, state='rrrrrrrrGGrrrrrrrrGG', minDur=5.0, maxDur=35.0, next=(), name='Major 4'), Phase(duration=3.0, state='rrrrrrrryyrrrrrrrryy', minDur=3.0, maxDur=3.0, next=(), name='Transition')), subParameter={})
+step=0 phase=0 name=Major 1
+step=1 phase=0 name=Major 1
+step=2 phase=0 name=Major 1
+step=3 phase=0 name=Major 1
+step=4 phase=0 name=Major 1
+step=5 phase=1 name=Transition
+step=6 phase=1 name=Transition
+step=7 phase=1 name=Transition
+step=8 phase=2 name=Major 2
+step=9 phase=2 name=Major 2
+step=10 phase=2 name=Major 2
+step=11 phase=2 name=Major 2
+step=12 phase=2 name=Major 2
+step=13 phase=3 name=Transition
+step=14 phase=3 name=Transition
+step=15 phase=3 name=Transition
+step=16 phase=4 name=Major 3
+step=17 phase=4 name=Major 3
+step=18 phase=4 name=Major 3
+step=19 phase=4 name=Major 3
+step=20 phase=4 name=Major 3
+step=21 phase=5 name=Transition
+step=22 phase=5 name=Transition
+step=23 phase=5 name=Transition
+step=24 phase=6 name=Major 4
+step=25 phase=6 name=Major 4
+step=26 phase=6 name=Major 4
+step=27 phase=6 name=Major 4
+step=28 phase=6 name=Major 4
+step=29 phase=7 name=Transition
+step=30 phase=7 name=Transition
+step=31 phase=7 name=Transition
+step=32 phase=0 name=Major 1
+step=33 phase=0 name=Major 1
+step=34 phase=0 name=Major 1
+step=35 phase=0 name=Major 1
+step=36 phase=0 name=Major 1
+step=37 phase=1 name=Transition
+step=38 phase=1 name=Transition
+step=39 phase=1 name=Transition
+step=40 phase=2 name=Major 2
+step=41 phase=2 name=Major 2
+step=42 phase=2 name=Major 2
+step=43 phase=2 name=Major 2
+step=44 phase=2 name=Major 2
+step=45 phase=3 name=Transition
+step=46 phase=3 name=Transition
+step=47 phase=3 name=Transition
+step=48 phase=4 name=Major 3
+step=49 phase=4 name=Major 3
+step=50 phase=4 name=Major 3
+step=51 phase=4 name=Major 3
+step=52 phase=4 name=Major 3
+step=53 phase=5 name=Transition
+step=54 phase=5 name=Transition
+step=55 phase=5 name=Transition
+step=56 phase=6 name=Major 4
+step=57 phase=6 name=Major 4
+step=58 phase=6 name=Major 4
+step=59 phase=6 name=Major 4
+step=60 phase=6 name=Major 4
+step=61 phase=7 name=Transition
+step=62 phase=7 name=Transition
+step=63 phase=7 name=Transition
+step=64 phase=0 name=Major 1
+step=65 phase=0 name=Major 1
+step=66 phase=0 name=Major 1
+step=67 phase=0 name=Major 1
+step=68 phase=0 name=Major 1
+step=69 phase=1 name=Transition
+step=70 phase=1 name=Transition
+step=71 phase=1 name=Transition
+step=72 phase=2 name=Major 2
+step=73 phase=2 name=Major 2
+step=74 phase=2 name=Major 2
+step=75 phase=2 name=Major 2
+step=76 phase=2 name=Major 2
+step=77 phase=3 name=Transition
+step=78 phase=3 name=Transition
+step=79 phase=3 name=Transition
+step=80 phase=4 name=Major 3
+step=81 phase=4 name=Major 3
+step=82 phase=4 name=Major 3
+step=83 phase=4 name=Major 3
+step=84 phase=4 name=Major 3
+step=85 phase=5 name=Transition
+step=86 phase=5 name=Transition
+step=87 phase=5 name=Transition
+step=88 phase=6 name=Major 4
+step=89 phase=6 name=Major 4
+step=90 phase=6 name=Major 4
+step=91 phase=6 name=Major 4
+step=92 phase=6 name=Major 4
+step=93 phase=7 name=Transition
+step=94 phase=7 name=Transition
+step=95 phase=7 name=Transition
+step=96 phase=0 name=Major 1
+step=97 phase=0 name=Major 1
+step=98 phase=0 name=Major 1
+step=99 phase=0 name=Major 1
+step=100 phase=0 name=Major 1
+step=101 phase=1 name=Transition
+step=102 phase=1 name=Transition
+step=103 phase=1 name=Transition
+step=104 phase=2 name=Major 2
+step=105 phase=2 name=Major 2
+step=106 phase=2 name=Major 2
+step=107 phase=2 name=Major 2
+step=108 phase=2 name=Major 2
+step=109 phase=3 name=Transition
+step=110 phase=3 name=Transition
+step=111 phase=3 name=Transition
+step=112 phase=4 name=Major 3
+step=113 phase=4 name=Major 3
+step=114 phase=4 name=Major 3
+step=115 phase=4 name=Major 3
+step=116 phase=4 name=Major 3
+step=117 phase=5 name=Transition
+step=118 phase=5 name=Transition
+step=119 phase=5 name=Transition

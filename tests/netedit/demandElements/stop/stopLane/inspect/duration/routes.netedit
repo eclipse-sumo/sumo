@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 12/2/2019 9:32:41 AM by Eclipse SUMO netedit Version v1_3_1+1210-09aa4b64c6
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <sumo-net-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_21Nov091329.2268\netedit.gui\demandElements\stop\stopLane\inspect\duration\input_net.net.xml"/>
+    </input>
+
+    <output>
+        <output-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_21Nov091329.2268\netedit.gui\demandElements\stop\stopLane\inspect\duration\net.net.xml"/>
+    </output>
+
+    <processing>
+        <geometry.max-grade.fix value="false"/>
+        <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
+    </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
+
+    <netedit>
+        <additional-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_21Nov091329.2268\netedit.gui\demandElements\stop\stopLane\inspect\duration\additionals.xml"/>
+        <additionals-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_21Nov091329.2268\netedit.gui\demandElements\stop\stopLane\inspect\duration\additionals.xml"/>
+        <route-files value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_21Nov091329.2268\netedit.gui\demandElements\stop\stopLane\inspect\duration\routes.xml"/>
+        <demandelements-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_21Nov091329.2268\netedit.gui\demandElements\stop\stopLane\inspect\duration\routes.xml"/>
+    </netedit>
+
+    <visualisation>
+        <gui-settings-file value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_21Nov091329.2268\netedit.gui\demandElements\stop\stopLane\inspect\duration\gui-settings.xml"/>
+        <window-size value="700,500"/>
+        <window-pos value="50,50"/>
+        <gui-testing value="true"/>
+        <gui-testing-debug value="true"/>
+        <gui-testing-debug-gl value="true"/>
+        <gui-testing.setting-output value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_21Nov091329.2268\netedit.gui\demandElements\stop\stopLane\inspect\duration\guisettingsoutput.xml"/>
+    </visualisation>
+
+    <report>
+        <no-warnings value="true"/>
+        <error-log value="C:\Users\SUMO-Test\.texttest\tmp\netedit.gui.1_from_21Nov091329.2268\netedit.gui\demandElements\stop\stopLane\inspect\duration\log.txt"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="person_0" depart="0.00" color="cyan">
+        <walk edges="gneE0 gneE1"/>
+        <stop lane="gneE1_0" startPos="33.00" endPos="43.00" duration="60.00"/>
+    </person>
+</routes>

@@ -1,0 +1,36 @@
+# checks using the default position (0)
+pos_default
+
+# checks using a free position (1 vehicle)
+pos_free
+
+# checks using a free position (3 vehicles)
+pos_free_3veh
+
+# checks using a free position (3 vehicles, starting with 10m/s)
+pos_free_3veh_10ms
+
+# checks using the given position (0)
+pos_given0
+
+# checks using the given position (10)
+pos_given10
+
+# checks using the given position (-10)
+pos_given-10
+
+# checks using a random position (1 vehicle)
+pos_random
+
+# checks using a random position (3 vehicles)
+pos_random_3veh
+
+# checks using a free position (3 vehicles, vmax)
+pos_free_3veh_vmax
+
+# departPos="last" departSpeed="15"
+pos_last_speed_given
+
+# departPos="last" departSpeed="max" 
+# (should insert with maximum vehicle speed
+pos_last_speed_max

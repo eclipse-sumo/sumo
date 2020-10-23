@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu May 14 10:47:47 2020 by Eclipse SUMO netconvert Version v1_6_0+0236-98705931b9
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
+
+    <input>
+        <dlr-navteq-prefix value="elmar"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <output-file value="net.net.xml"/>
+    </output>
+
+    <projection>
+        <proj.scale value="1e-05"/>
+        <proj.utm value="true"/>
+    </projection>
+
+    <building_defaults>
+        <default.disallow value="rail rail_urban rail_electric rail_fast tram ship"/>
+    </building_defaults>
+
+    <junctions>
+        <no-internal-links value="true"/>
+    </junctions>
+
+    <formats>
+        <dlr-navteq.tolerant-permissions value="true"/>
+    </formats>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <aggregate-warnings value="5"/>
+    </report>
+
+</configuration>
+-->
+
+<net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
+
+    <location netOffset="-328248.16,-5776623.10" convBoundary="0.00,0.00,39850.14,26514.76" origBoundary="1248456.000000,5211834.000000,1306826.000000,5235677.000000" projParameter="+proj=utm +zone=33 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
+
+    <edge id="-1" from="0" to="1" priority="0">
+        <lane id="-1_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="22852.39" shape="17020.72,13397.34 39849.91,12735.85"/>
+        <lane id="-1_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="22852.39" shape="17020.82,13400.53 39850.00,12739.05"/>
+        <lane id="-1_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="22852.39" shape="17020.91,13403.73 39850.09,12742.24"/>
+    </edge>
+    <edge id="-2" from="0" to="2" priority="0">
+        <lane id="-2_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="17016.60" shape="16994.03,13414.17 0.26,13975.11"/>
+        <lane id="-2_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="17016.60" shape="16993.92,13410.97 0.16,13971.92"/>
+        <lane id="-2_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="17016.60" shape="16993.82,13407.77 0.05,13968.72"/>
+    </edge>
+    <edge id="-3" from="0" to="3" priority="0">
+        <lane id="-3_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="13115.46" shape="17015.76,13419.09 17425.81,26514.51"/>
+        <lane id="-3_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="13115.46" shape="17012.56,13419.19 17422.61,26514.61"/>
+        <lane id="-3_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="13115.46" shape="17009.37,13419.29 17419.41,26514.71"/>
+    </edge>
+    <edge id="-4" from="0" to="4" priority="0">
+        <lane id="-4_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="13412.28" shape="16998.92,13392.40 16580.26,0.25"/>
+        <lane id="-4_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="13412.28" shape="17002.12,13392.30 16583.46,0.15"/>
+        <lane id="-4_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="13412.28" shape="17005.32,13392.20 16586.65,0.05"/>
+    </edge>
+    <edge id="1" from="1" to="0" priority="0">
+        <lane id="1_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="22852.39" shape="39850.37,12751.84 17021.19,13413.33"/>
+        <lane id="1_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="22852.39" shape="39850.28,12748.64 17021.10,13410.13"/>
+        <lane id="1_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="22852.39" shape="39850.19,12745.44 17021.00,13406.93"/>
+    </edge>
+    <edge id="2" from="2" to="0" priority="0">
+        <lane id="2_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="17016.60" shape="-0.26,13959.12 16993.50,13398.18"/>
+        <lane id="2_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="17016.60" shape="-0.16,13962.32 16993.61,13401.38"/>
+        <lane id="2_2" index="2" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="55.56" length="17016.60" shape="-0.05,13965.52 16993.71,13404.58"/>
+    </edge>
+    <edge id="3" from="3" to="0" priority="0">
+        <lane id="3_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="33.33" length="13115.46" shape="17413.01,26514.91 17002.97,13419.49"/>
+        <lane id="3_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="33.33" length="13115.46" shape="17416.21,26514.81 17006.17,13419.39"/>
+    </edge>
+    <edge id="4" from="4" to="0" priority="0">
+        <lane id="4_0" index="0" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="33.33" length="13412.28" shape="16593.05,-0.15 17011.71,13392.00"/>
+        <lane id="4_1" index="1" allow="private authority army vip taxi motorcycle moped evehicle custom1 custom2" speed="33.33" length="13412.28" shape="16589.85,-0.05 17008.51,13392.10"/>
+    </edge>
+
+    <junction id="0" type="priority" x="17007.34" y="13405.73" incLanes="3_0 3_1 1_0 1_1 1_2 4_0 4_1 2_0 2_1 2_2" intLanes="" shape="17001.37,13419.54 17017.36,13419.04 17017.74,13416.81 17018.27,13416.02 17019.03,13415.44 17020.02,13415.08 17021.23,13414.93 17020.68,13395.74 17018.46,13395.69 17016.64,13395.41 17015.22,13394.89 17014.19,13394.15 17013.55,13393.16 17013.31,13391.95 16997.32,13392.45 16996.95,13394.69 16996.41,13395.48 16995.65,13396.06 16994.67,13396.43 16993.45,13396.58 16994.08,13415.77 16996.27,13415.81 16998.07,13416.08 16999.48,13416.60 17000.50,13417.34 17001.13,13418.32">
+        <request index="0"  response="0000000000000111000000" foes="0000000000000111000000"/>
+        <request index="1"  response="0111100000001111000000" foes="0111101100001111000000"/>
+        <request index="2"  response="0111100000001111000000" foes="0111101100001111000000"/>
+        <request index="3"  response="0111100011001111000000" foes="0111100011011111000000"/>
+        <request index="4"  response="0100000011000000000000" foes="0100000011000000000000"/>
+        <request index="5"  response="0000000000000000000000" foes="0000000000000000000000"/>
+        <request index="6"  response="0000000000000000000000" foes="1100000111000000001111"/>
+        <request index="7"  response="0000000000000000000000" foes="1100000111000000001111"/>
+        <request index="8"  response="0000000000000000000000" foes="1100000111000000001111"/>
+        <request index="9"  response="0011100000000000000000" foes="0011101111000000001110"/>
+        <request index="10" response="0011100000000000001000" foes="0011100000000000001000"/>
+        <request index="11" response="0011100000000000000000" foes="0011100000000000000000"/>
+        <request index="12" response="0111100000001111000000" foes="0111100000001111011000"/>
+        <request index="13" response="0111100000001111000000" foes="0111100000001111011000"/>
+        <request index="14" response="0111100000001111000110" foes="1111100000001111000110"/>
+        <request index="15" response="0000000000001000000110" foes="0000000000001000000110"/>
+        <request index="16" response="0000000000000000000000" foes="0000000000000000000000"/>
+        <request index="17" response="0000000000000000000000" foes="0000000111111000001110"/>
+        <request index="18" response="0000000000000000000000" foes="0000000111111000001110"/>
+        <request index="19" response="0000000000000000000000" foes="0000000111111000001110"/>
+        <request index="20" response="0000000000000111000000" foes="0000000111000111011110"/>
+        <request index="21" response="0000000100000111000000" foes="0000000100000111000000"/>
+    </junction>
+    <junction id="1" type="priority" x="39850.14" y="12743.84" incLanes="-1_0 -1_1 -1_2" intLanes="" shape="39850.14,12743.84 39849.86,12734.25 39850.14,12743.84">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="2" type="priority" x="0.00" y="13967.12" incLanes="-2_0 -2_1 -2_2" intLanes="" shape="-0.00,13967.12 0.32,13976.71 -0.00,13967.12">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="3" type="priority" x="17417.81" y="26514.76" incLanes="-3_0 -3_1 -3_2" intLanes="" shape="17417.81,26514.76 17427.41,26514.46 17417.81,26514.76">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+    <junction id="4" type="priority" x="16588.25" y="0.00" incLanes="-4_0 -4_1 -4_2" intLanes="" shape="16588.25,-0.00 16578.66,0.30 16588.25,-0.00">
+        <request index="0" response="0" foes="0"/>
+    </junction>
+
+    <connection from="-1" to="1" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="-2" to="2" fromLane="2" toLane="2" dir="t" state="M"/>
+    <connection from="-3" to="3" fromLane="2" toLane="1" dir="t" state="M"/>
+    <connection from="-4" to="4" fromLane="2" toLane="1" dir="t" state="M"/>
+    <connection from="1" to="-3" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="1" to="-2" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="1" to="-2" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="1" to="-2" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="1" to="-4" fromLane="2" toLane="2" dir="l" state="m"/>
+    <connection from="1" to="-1" fromLane="2" toLane="2" dir="t" state="m"/>
+    <connection from="2" to="-4" fromLane="0" toLane="0" dir="r" state="M"/>
+    <connection from="2" to="-1" fromLane="0" toLane="0" dir="s" state="M"/>
+    <connection from="2" to="-1" fromLane="1" toLane="1" dir="s" state="M"/>
+    <connection from="2" to="-1" fromLane="2" toLane="2" dir="s" state="M"/>
+    <connection from="2" to="-3" fromLane="2" toLane="2" dir="l" state="m"/>
+    <connection from="2" to="-2" fromLane="2" toLane="2" dir="t" state="m"/>
+    <connection from="3" to="-2" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="3" to="-4" fromLane="0" toLane="1" dir="s" state="m"/>
+    <connection from="3" to="-4" fromLane="1" toLane="2" dir="s" state="m"/>
+    <connection from="3" to="-1" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="3" to="-3" fromLane="1" toLane="2" dir="t" state="m"/>
+    <connection from="4" to="-1" fromLane="0" toLane="0" dir="r" state="m"/>
+    <connection from="4" to="-3" fromLane="0" toLane="1" dir="s" state="m"/>
+    <connection from="4" to="-3" fromLane="1" toLane="2" dir="s" state="m"/>
+    <connection from="4" to="-2" fromLane="1" toLane="2" dir="l" state="m"/>
+    <connection from="4" to="-4" fromLane="1" toLane="2" dir="t" state="m"/>
+
+</net>

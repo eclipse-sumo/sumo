@@ -1,0 +1,9 @@
+# Vehicle 'v2' should be returned from step 1-12, 'v1' from step 3-8.
+internal_edges
+
+# Vehicles 'v8', 'v9' and 'v10' should be returned.
+range_50_lateralDist_50
+
+# Tries to apply fieldOfVision and lateralDistance filters. Should result in an incompatibility warning.
+incompatible_filter
+persons

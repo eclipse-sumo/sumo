@@ -1,3 +1,2 @@
-Warning: Intersecting left turns at junction '1372' from lane '1427_0' and lane '1373_0'. (increase junction radius to avoid this)
-Warning: Speed of straight connection '2502_0->3137_0' reduced by 5.16 due to turning radius of 13.86 (length=6.56 angle=43.76)
-Warning: Speed of straight connection '2881_0->3740_0' reduced by 6.29 due to turning radius of 10.49 (length=4.03 angle=38.80)
+Warning: Speed of straight connection '2502_0->3137_0' reduced by 5.16 due to turning radius of 13.86 (length=6.56, angle=43.76).
+Warning: Speed of straight connection '2881_0->3740_0' reduced by 6.29 due to turning radius of 10.49 (length=4.03, angle=38.80).

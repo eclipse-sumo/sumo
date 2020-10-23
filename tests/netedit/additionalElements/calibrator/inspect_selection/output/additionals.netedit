@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 12.12.2018 15:58:24 by Eclipse SUMO netedit Version v1_0_0+1333-2fb8438a8e
+<!-- generated on 19.08.2019 14:14:54 by Eclipse SUMO netedit Version v1_2_0+1640-eceac708ee
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec155639.2992/netedit.gui/additionalElements/calibrator/inspect_selection/output\input_net.net.xml"/>
+        <sumo-net-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Aug102436.2096/netedit.gui/additionalElements/calibrator/inspect_selection/output\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec155639.2992/netedit.gui/additionalElements/calibrator/inspect_selection/output\net.net.xml"/>
+        <output-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Aug102436.2096/netedit.gui/additionalElements/calibrator/inspect_selection/output\net.net.xml"/>
     </output>
 
     <processing>
         <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
+        <opposites.guess.fix-lengths value="true"/>
         <lefthand value="false"/>
     </processing>
 
@@ -29,13 +30,14 @@
     </pedestrian>
 
     <netedit>
-        <sumo-additionals-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec155639.2992/netedit.gui/additionalElements/calibrator/inspect_selection/output\input_additionals.add.xml"/>
-        <additionals-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec155639.2992/netedit.gui/additionalElements/calibrator/inspect_selection/output\additionals.xml"/>
-        <shapes-output value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec155639.2992/netedit.gui/additionalElements/calibrator/inspect_selection/output\shapes.xml"/>
+        <additional-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Aug102436.2096/netedit.gui/additionalElements/calibrator/inspect_selection/output\additionals.xml"/>
+        <additionals-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Aug102436.2096/netedit.gui/additionalElements/calibrator/inspect_selection/output\additionals.xml"/>
+        <route-files value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Aug102436.2096/netedit.gui/additionalElements/calibrator/inspect_selection/output\routes.xml"/>
+        <demandelements-output value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Aug102436.2096/netedit.gui/additionalElements/calibrator/inspect_selection/output\routes.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec155639.2992/netedit.gui/additionalElements/calibrator/inspect_selection/output\gui-settings.xml"/>
+        <gui-settings-file value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Aug102436.2096/netedit.gui/additionalElements/calibrator/inspect_selection/output\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
@@ -44,7 +46,7 @@
 
     <report>
         <no-warnings value="true"/>
-        <error-log value="C:/Users/alva_pa/.texttest/tmp/netedit.gui.12Dec155639.2992/netedit.gui/additionalElements/calibrator/inspect_selection/output\log.txt"/>
+        <error-log value="C:/Users/SUMO-Test/.texttest/tmp/netedit.gui.19Aug102436.2096/netedit.gui/additionalElements/calibrator/inspect_selection/output\log.txt"/>
     </report>
 
 </configuration>
@@ -54,12 +56,12 @@
     <routeProbe id="RouteProbeA" edge="gneE0" freq="3600" file="RouteProbeA.xml" begin="0.00"/>
     <routeProbe id="RouteProbeB" edge="gneE0" freq="3600" file="RouteProbeB.xml" begin="0.00"/>
     <routeProbe id="customRouteProbeName" edge="gneE0" freq="3600" file="RouteProbeB.xml" begin="0.00"/>
-    <calibrator id="calibratorA" name="NameA" edge="gneE2" pos="20.00" freq="30.00" routeProbe="RouteProbeA" output="myOwnFilename">
+    <calibrator id="calibratorA" edge="gneE2" pos="20.00" freq="30.00" name="NameA" routeProbe="RouteProbeA" output="myOwnFilename">
         <param key="KeyA1" value="valueA1"/>
         <param key="KeyA2" value="valueA3"/>
         <param key="KeyA3" value="valueA2"/>
     </calibrator>
-    <calibrator id="calibratorB" name="NameB" edge="gneE3" pos="30.00" freq="40.00" routeProbe="RouteProbeB" output="myOwnFilename">
+    <calibrator id="calibratorB" edge="gneE3" pos="30.00" freq="40.00" name="NameB" routeProbe="RouteProbeB" output="myOwnFilename">
         <param key="KeyB1" value="valueB1"/>
         <param key="KeyB2" value="valueB3"/>
         <param key="KeyB3" value="valueB2"/>

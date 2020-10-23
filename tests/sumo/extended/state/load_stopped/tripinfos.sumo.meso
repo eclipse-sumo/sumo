@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Jun  6 08:18:59 2018 by Eclipse SUMO Version b33bf5f
+<!-- generated on Wed Jul 10 08:00:03 2019 by Eclipse SUMO Version v1_2_0+0997-de6cbe2
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -25,6 +25,7 @@ SPDX-License-Identifier: EPL-2.0
     </time>
 
     <processing>
+        <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
 
@@ -43,6 +44,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="v0" depart="0.00" departLane="0.00" departPos="-1.00" departSpeed="-1.00" departDelay="0.00" arrival="91.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.68" duration="91.00" routeLength="308.00" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="62.00" rerouteNo="0" devices="tripinfo_v0 fcd_v0" vType="t0" speedFactor="1.00" vaporized=""/>
-    <tripinfo id="v1" depart="7.00" departLane="0.00" departPos="-1.00" departSpeed="-1.00" departDelay="4.00" arrival="93.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.68" duration="86.00" routeLength="308.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="56.67" rerouteNo="0" devices="tripinfo_v1 fcd_v1" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v0" depart="0.00" departLane="" departPos="0.00" departSpeed="1.00" departDelay="0.00" arrival="91.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.68" duration="91.00" routeLength="307.00" waitingTime="0.00" waitingCount="0" stopTime="62.00" timeLoss="62.00" rerouteNo="0" devices="tripinfo_v0 fcd_v0" vType="t0" speedFactor="1.00" vaporized=""/>
+    <tripinfo id="v1" depart="7.00" departLane="" departPos="0.00" departSpeed="1.00" departDelay="4.00" arrival="93.00" arrivalLane="" arrivalPos="100.00" arrivalSpeed="3.68" duration="86.00" routeLength="307.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="56.67" rerouteNo="0" devices="tripinfo_v1 fcd_v1" vType="t0" speedFactor="1.00" vaporized=""/>
 </tripinfos>

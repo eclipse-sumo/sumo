@@ -1,28 +1,25 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2002-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2002-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    GenericSAXHandler.h
 /// @author  Daniel Krajzewicz
 /// @author  Jakob Erdmann
 /// @author  Michael Behrisch
 /// @date    Sept 2002
-/// @version $Id$
 ///
 // A handler which converts occuring elements and attributes into enums
 /****************************************************************************/
-#ifndef GenericSAXHandler_h
-#define GenericSAXHandler_h
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
+#pragma once
 #include <config.h>
 
 #include <string>
@@ -252,10 +249,6 @@ protected:
     virtual void myEndElement(int element);
 
 
-    void setSchemaSeen(const bool schemaSeen = true) {
-        mySchemaSeen = schemaSeen;
-    }
-
 private:
     /**
      * @brief converts from c++-string into unicode
@@ -283,13 +276,13 @@ private:
     //@{
 
     // the type of the map from ids to their unicode-string representation
-    typedef std::map<int, XMLCh*> AttrMap;
+    typedef std::vector<XMLCh*> AttrMap;
 
     // the map from ids to their unicode-string representation
     AttrMap myPredefinedTags;
 
     /// the map from ids to their string representation
-    std::map<int, std::string> myPredefinedTagsMML;
+    std::vector<std::string> myPredefinedTagsMML;
     //@}
 
 
@@ -318,8 +311,8 @@ private:
     /// @brief The root element to expect, empty string disables the check
     std::string myExpectedRoot;
 
-    /// @brief whether the reader has already seen a schema
-    bool mySchemaSeen;
+    /// @brief whether the reader has already seen the root element
+    bool myRootSeen;
 
 private:
     /// @brief invalidated copy constructor
@@ -329,8 +322,3 @@ private:
     const GenericSAXHandler& operator=(const GenericSAXHandler& s);
 
 };
-
-#endif
-
-/****************************************************************************/
-

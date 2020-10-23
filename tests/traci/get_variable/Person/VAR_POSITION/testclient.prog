@@ -1,3 +1,4 @@
 simstep2 5
 getvariable 0xae 0x42 0
-simstep2 6
+simstep2 7
+

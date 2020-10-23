@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Aug  9 14:40:01 2018 by Eclipse SUMO duarouter Version 4a44066
+<!-- generated on Fri Nov 29 10:23:58 2019 by Eclipse SUMO duarouter Version v1_3_1+1197-f313815
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,10 +31,10 @@ SPDX-License-Identifier: EPL-2.0
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <vType id="avoidWalking" maxSpeed="0.50"/>
     <person id="p0" type="avoidWalking" depart="0.00" departPos="900.00">
-        <walk edges="A0B0 accessC" departPos="900.00" arrivalPos="100.00" busStop="stopC_W"/> <!-- C -->
+        <walk edges="A0B0 accessC" busStop="stopC_W"/> <!-- C -->
         <ride busStop="stopA_W" lines="train2:1" intended="train_train2:1.0" depart="599.00"/> <!-- A -->
-        <walk edges="accessA" departPos="900.00" arrivalPos="100.00" busStop="stopA_N"/> <!-- A -->
+        <walk edges="accessA" busStop="stopA_N"/> <!-- A -->
         <ride busStop="stopB_N" lines="train1:0" intended="train_train1:0.1" depart="1001.00"/> <!-- B -->
-        <walk edges="accessB A1B1" departPos="900.00" arrivalPos="100.00"/>
+        <walk edges="accessB A1B1" arrivalPos="100.00"/>
     </person>
 </routes>

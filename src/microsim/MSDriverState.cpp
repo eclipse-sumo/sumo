@@ -1,33 +1,32 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2001-2019 German Aerospace Center (DLR) and others.
-// This program and the accompanying materials
-// are made available under the terms of the Eclipse Public License v2.0
-// which accompanies this distribution, and is available at
-// http://www.eclipse.org/legal/epl-v20.html
-// SPDX-License-Identifier: EPL-2.0
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
 /// @file    MSDriverState.cpp
 /// @author  Melanie Weber
 /// @author  Andreas Kendziorra
 /// @author  Michael Behrisch
 /// @date    Thu, 12 Jun 2014
-/// @version $Id$
 ///
 // The common superclass for modelling transportable objects like persons and containers
 /****************************************************************************/
-
-
-// ===========================================================================
-// included modules
-// ===========================================================================
 #include <config.h>
 
 #include <math.h>
+#include <cmath>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOTime.h>
 //#include <microsim/MSVehicle.h>
-#include <microsim/pedestrians/MSPerson.h>
+#include <microsim/transportables/MSPerson.h>
 //#include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
 //#include <microsim/MSGlobals.h>
@@ -85,6 +84,7 @@ double DriverStateDefaults::speedDifferenceErrorCoefficient = 0.15;
 double DriverStateDefaults::headwayErrorCoefficient = 0.75;
 double DriverStateDefaults::speedDifferenceChangePerceptionThreshold = 0.1;
 double DriverStateDefaults::headwayChangePerceptionThreshold = 0.1;
+double DriverStateDefaults::maximalReactionTimeFactor = 1.0;
 
 
 // ===========================================================================
@@ -111,6 +111,11 @@ OUProcess::step(double dt) {
 #endif
 }
 
+double
+OUProcess::step(double state, double dt, double timeScale, double noiseIntensity) {
+    /// see above
+    return exp(-dt / timeScale) * state + noiseIntensity * sqrt(2 * dt / timeScale) * RandHelper::randNorm(0, 1, &myRNG);
+}
 
 double
 OUProcess::getState() const {
@@ -129,7 +134,9 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
     myHeadwayErrorCoefficient(DriverStateDefaults::headwayErrorCoefficient),
     myHeadwayChangePerceptionThreshold(DriverStateDefaults::headwayChangePerceptionThreshold),
     mySpeedDifferenceChangePerceptionThreshold(DriverStateDefaults::speedDifferenceChangePerceptionThreshold),
-    myActionStepLength(TS),
+    myOriginalReactionTime(veh->getActionStepLengthSecs()),
+    myMaximalReactionTime(DriverStateDefaults::maximalReactionTimeFactor * myOriginalReactionTime),
+//    myActionStepLength(TS),
     myStepDuration(TS),
     myLastUpdateTime(SIMTIME - TS),
     myDebugLock(false) {
@@ -137,25 +144,28 @@ MSSimpleDriverState::MSSimpleDriverState(MSVehicle* veh) :
     std::cout << "Constructing driver state for veh '" << veh->getID() << "'." << std::endl;
 #endif
     updateError();
+    updateReactionTime();
 }
 
 
 void
 MSSimpleDriverState::update() {
 #ifdef DEBUG_AWARENESS
-    if DEBUG_COND {
-    std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", DriverState::update()" << std::endl;
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", DriverState::update()" << std::endl;
     }
 #endif
     // Adapt step duration
     updateStepDuration();
     // Update error
     updateError();
+    // Update actionStepLength, aka reaction time
+    updateReactionTime();
     // Update assumed gaps
     updateAssumedGaps();
 #ifdef DEBUG_AWARENESS
-    if DEBUG_COND {
-    std::cout << SIMTIME << " stepDuration=" << myStepDuration << ", error=" << myError.getState() << std::endl;
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " stepDuration=" << myStepDuration << ", error=" << myError.getState() << std::endl;
     }
 #endif
 }
@@ -178,26 +188,41 @@ MSSimpleDriverState::updateError() {
 }
 
 void
+MSSimpleDriverState::updateReactionTime() {
+    if (myAwareness == 1.0 || myAwareness == 0.0) {
+        myActionStepLength = myOriginalReactionTime;
+    } else {
+        const double theta = (myAwareness - myMinAwareness) / (1.0 - myMinAwareness);
+        myActionStepLength = myOriginalReactionTime + theta * (myMaximalReactionTime - myOriginalReactionTime);
+        // Round to multiple of simstep length
+        int quotient;
+        remquo(myActionStepLength, TS, &quotient);
+        myActionStepLength = TS * MAX2(quotient, 1);
+    }
+}
+
+void
 MSSimpleDriverState::setAwareness(const double value) {
     assert(value >= 0.);
     assert(value <= 1.);
 #ifdef DEBUG_AWARENESS
-    if DEBUG_COND {
-    std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness(" << MAX2(value, minAwareness) << ")" << std::endl;
+    if (DEBUG_COND) {
+        std::cout << SIMTIME << " veh=" << myVehicle->getID() << ", setAwareness(" << MAX2(value, myMinAwareness) << ")" << std::endl;
     }
 #endif
     myAwareness = MAX2(value, myMinAwareness);
     if (myAwareness == 1.) {
         myError.setState(0.);
     }
+    updateReactionTime();
 }
 
 
 double
 MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID) {
 #ifdef DEBUG_PERCEPTION_ERRORS
-    if DEBUG_COND {
-    if (!debugLocked()) {
+    if (DEBUG_COND) {
+        if (!debugLocked()) {
             std::cout << SIMTIME << " getPerceivedHeadway() for veh '" << myVehicle->getID() << "'\n"
                       << "    trueGap=" << trueGap << " objID=" << objID << std::endl;
         }
@@ -222,8 +247,8 @@ MSSimpleDriverState::getPerceivedHeadway(const double trueGap, const void* objID
     } else {
 
 #ifdef DEBUG_PERCEPTION_ERRORS
-        if DEBUG_COND {
-        if (!debugLocked()) {
+        if (DEBUG_COND) {
+            if (!debugLocked()) {
                 std::cout << "    new perceived gap (=" << perceivedGap << ") does *not* differ significantly from the assumed (="
                           << (assumedGap->second) << ")" << std::endl;
             }
@@ -254,8 +279,8 @@ MSSimpleDriverState::updateAssumedGaps() {
 double
 MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifference, const double trueGap, const void* objID) {
 #ifdef DEBUG_PERCEPTION_ERRORS
-    if DEBUG_COND {
-    if (!debugLocked()) {
+    if (DEBUG_COND) {
+        if (!debugLocked()) {
             std::cout << SIMTIME << " getPerceivedSpeedDifference() for veh '" << myVehicle->getID() << "'\n"
                       << "    trueGap=" << trueGap << " trueSpeedDifference=" << trueSpeedDifference << " objID=" << objID << std::endl;
         }
@@ -267,8 +292,8 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
             || fabs(perceivedSpeedDifference - lastPerceivedSpeedDifference->second) > mySpeedDifferenceChangePerceptionThreshold * trueGap * (1.0 - myAwareness)) {
 
 #ifdef DEBUG_PERCEPTION_ERRORS
-        if DEBUG_COND {
-        if (!debugLocked()) {
+        if (DEBUG_COND) {
+            if (!debugLocked()) {
                 std::cout << "    new perceived speed difference (=" << perceivedSpeedDifference << ") differs significantly from the last perceived (="
                           << (lastPerceivedSpeedDifference == myLastPerceivedSpeedDifference.end() ? "NA" : toString(lastPerceivedSpeedDifference->second)) << ")"
                           << std::endl;
@@ -376,7 +401,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //void
 //MSDriverState::updateAccelerationError() {
 //#ifdef DEBUG_OUPROCESS
-//    if DEBUG_COND {
+//    if (DEBUG_COND) {
 //        std::cout << SIMTIME << " Updating acceleration error (for " << myStepDuration << " s.):\n  "
 //                << myAccelerationError.getState() << " -> ";
 //    }
@@ -385,7 +410,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    updateErrorProcess(myAccelerationError, myAccelerationErrorTimeScaleCoefficient, myAccelerationErrorNoiseIntensityCoefficient);
 //
 //#ifdef DEBUG_OUPROCESS
-//    if DEBUG_COND {
+//    if (DEBUG_COND) {
 //        std::cout << myAccelerationError.getState() << std::endl;
 //    }
 //#endif
@@ -394,7 +419,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //void
 //MSDriverState::updateSpeedPerceptionError() {
 //#ifdef DEBUG_OUPROCESS
-//    if DEBUG_COND {
+//    if (DEBUG_COND) {
 //        std::cout << SIMTIME << " Updating speed perception error (for " << myStepDuration << " s.):\n  "
 //        << mySpeedPerceptionError.getState() << " -> ";
 //    }
@@ -403,7 +428,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    updateErrorProcess(mySpeedPerceptionError, mySpeedPerceptionErrorTimeScaleCoefficient, mySpeedPerceptionErrorNoiseIntensityCoefficient);
 //
 //#ifdef DEBUG_OUPROCESS
-//    if DEBUG_COND {
+//    if (DEBUG_COND) {
 //        std::cout << mySpeedPerceptionError.getState() << std::endl;
 //    }
 //#endif
@@ -412,7 +437,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //void
 //MSDriverState::updateHeadwayPerceptionError() {
 //#ifdef DEBUG_OUPROCESS
-//    if DEBUG_COND {
+//    if (DEBUG_COND) {
 //        std::cout << SIMTIME << " Updating headway perception error (for " << myStepDuration << " s.):\n  "
 //        << myHeadwayPerceptionError.getState() << " -> ";
 //    }
@@ -421,7 +446,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    updateErrorProcess(myHeadwayPerceptionError, myHeadwayPerceptionErrorTimeScaleCoefficient, myHeadwayPerceptionErrorNoiseIntensityCoefficient);
 //
 //#ifdef DEBUG_OUPROCESS
-//    if DEBUG_COND {
+//    if (DEBUG_COND) {
 //        std::cout << myHeadwayPerceptionError.getState() << std::endl;
 //    }
 //#endif
@@ -430,7 +455,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //void
 //MSDriverState::updateActionStepLength() {
 //#ifdef DEBUG_OUPROCESS
-//    if DEBUG_COND {
+//    if (DEBUG_COND) {
 //        std::cout << SIMTIME << " Updating action step length (for " << myStepDuration << " s.): \n" << myActionStepLength;
 //    }
 //#endif
@@ -440,7 +465,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //        myActionStepLength = MIN2(myActionStepLengthCoefficient*myCurrentDrivingDifficulty - myMinActionStepLength, myMaxActionStepLength);
 //    }
 //#ifdef DEBUG_OUPROCESS
-//    if DEBUG_COND {
+//    if (DEBUG_COND) {
 //        std::cout << " -> " << myActionStepLength << std::endl;
 //    }
 //#endif
@@ -657,22 +682,22 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    double result = INTEGRATION_DEMAND_JUNCTION_BASE;
 ////    LinkState linkState = ch->approachingLink->getState();
 //    switch (ch->junction->getType()) {
-//    case NODETYPE_NOJUNCTION:
-//    case NODETYPE_UNKNOWN:
-//    case NODETYPE_DISTRICT:
-//    case NODETYPE_DEAD_END:
-//    case NODETYPE_DEAD_END_DEPRECATED:
-//    case NODETYPE_RAIL_SIGNAL: {
+//    case SumoXMLNodeType::NOJUNCTION:
+//    case SumoXMLNodeType::UNKNOWN:
+//    case SumoXMLNodeType::DISTRICT:
+//    case SumoXMLNodeType::DEAD_END:
+//    case SumoXMLNodeType::DEAD_END_DEPRECATED:
+//    case SumoXMLNodeType::RAIL_SIGNAL: {
 //        result = 0.;
 //    }
 //    break;
-//    case NODETYPE_RAIL_CROSSING: {
+//    case SumoXMLNodeType::RAIL_CROSSING: {
 //        result += INTEGRATION_DEMAND_JUNCTION_RAIL;
 //    }
 //    break;
-//    case NODETYPE_TRAFFIC_LIGHT:
-//    case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
-//    case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED: {
+//    case SumoXMLNodeType::TRAFFIC_LIGHT:
+//    case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
+//    case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED: {
 //        // TODO: Take into account traffic light state?
 ////        switch (linkState) {
 ////        case LINKSTATE_TL_GREEN_MAJOR:
@@ -688,18 +713,18 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //        result += INTEGRATION_DEMAND_JUNCTION_TLS;
 //    }
 //    // no break. TLS has extra integration demand.
-//    case NODETYPE_PRIORITY:
-//    case NODETYPE_PRIORITY_STOP:
-//    case NODETYPE_RIGHT_BEFORE_LEFT:
-//    case NODETYPE_ALLWAY_STOP:
-//    case NODETYPE_INTERNAL: {
+//    case SumoXMLNodeType::PRIORITY:
+//    case SumoXMLNodeType::PRIORITY_STOP:
+//    case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
+//    case SumoXMLNodeType::ALLWAY_STOP:
+//    case SumoXMLNodeType::INTERNAL: {
 //        // TODO: Consider link type (major or minor...)
 //        double junctionComplexity = (INTEGRATION_DEMAND_JUNCTION_LANE*j->getNrOfIncomingLanes()
 //                + INTEGRATION_DEMAND_JUNCTION_FOE_LANE*j->getFoeLinks(ch->approachingLink).size());
 //        result += junctionComplexity;
 //    }
 //    break;
-//    case NODETYPE_ZIPPER: {
+//    case SumoXMLNodeType::ZIPPER: {
 //        result += INTEGRATION_DEMAND_JUNCTION_ZIPPER;
 //    }
 //    break;
@@ -834,22 +859,22 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    double result = 0.;
 //    LinkState linkState = ch->approachingLink->getState();
 //    switch (ch->junction->getType()) {
-//    case NODETYPE_NOJUNCTION:
-//    case NODETYPE_UNKNOWN:
-//    case NODETYPE_DISTRICT:
-//    case NODETYPE_DEAD_END:
-//    case NODETYPE_DEAD_END_DEPRECATED:
-//    case NODETYPE_RAIL_SIGNAL: {
+//    case SumoXMLNodeType::NOJUNCTION:
+//    case SumoXMLNodeType::UNKNOWN:
+//    case SumoXMLNodeType::DISTRICT:
+//    case SumoXMLNodeType::DEAD_END:
+//    case SumoXMLNodeType::DEAD_END_DEPRECATED:
+//    case SumoXMLNodeType::RAIL_SIGNAL: {
 //        result = 0.;
 //    }
 //    break;
-//    case NODETYPE_RAIL_CROSSING: {
+//    case SumoXMLNodeType::RAIL_CROSSING: {
 //        result = 0.5;
 //    }
 //    break;
-//    case NODETYPE_TRAFFIC_LIGHT:
-//    case NODETYPE_TRAFFIC_LIGHT_NOJUNCTION:
-//    case NODETYPE_TRAFFIC_LIGHT_RIGHT_ON_RED: {
+//    case SumoXMLNodeType::TRAFFIC_LIGHT:
+//    case SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION:
+//    case SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED: {
 //        // Take into account traffic light state
 //        switch (linkState) {
 //        case LINKSTATE_TL_GREEN_MAJOR:
@@ -878,11 +903,11 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //        }
 //    }
 //    // no break, TLS is accounted extra
-//    case NODETYPE_PRIORITY:
-//    case NODETYPE_PRIORITY_STOP:
-//    case NODETYPE_RIGHT_BEFORE_LEFT:
-//    case NODETYPE_ALLWAY_STOP:
-//    case NODETYPE_INTERNAL: {
+//    case SumoXMLNodeType::PRIORITY:
+//    case SumoXMLNodeType::PRIORITY_STOP:
+//    case SumoXMLNodeType::RIGHT_BEFORE_LEFT:
+//    case SumoXMLNodeType::ALLWAY_STOP:
+//    case SumoXMLNodeType::INTERNAL: {
 //        // TODO: Consider link type (major or minor...)
 //        double junctionComplexity = (LATENT_DEMAND_COEFF_JUNCTION_INCOMING*j->getNrOfIncomingLanes()
 //                + LATENT_DEMAND_COEFF_JUNCTION_FOES*j->getFoeLinks(ch->approachingLink).size())
@@ -890,7 +915,7 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //        result += junctionComplexity;
 //    }
 //    break;
-//    case NODETYPE_ZIPPER: {
+//    case SumoXMLNodeType::ZIPPER: {
 //        result = 0.5*(1. + 0.1*v);
 //    }
 //    break;
@@ -901,10 +926,6 @@ MSSimpleDriverState::getPerceivedSpeedDifference(const double trueSpeedDifferenc
 //    return result;
 //}
 //
-
-
-
-
 
 
 /****************************************************************************/
