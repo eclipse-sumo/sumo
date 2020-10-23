@@ -1,4 +1,4 @@
-/** ************************************************************************* */
+/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
@@ -10,13 +10,13 @@
 // or later which is available at
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-/** ************************************************************************* */
+/****************************************************************************/
 /// @file    LisaControlUnit.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 ///
 //
-/** ************************************************************************* */
+/****************************************************************************/
 package de.dlr.ts.lisum.lisa;
 
 import de.dlr.ts.commons.logger.DLRLogger;
@@ -26,13 +26,10 @@ import de.dlr.ts.lisum.interfaces.ControlUnitInterface;
 import de.dlr.ts.lisum.interfaces.DetectorInterface;
 import de.dlr.ts.lisum.interfaces.SignalProgramInterface;
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  *
- * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
- * Bottazzi</a>
+ * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
 final class LisaControlUnit implements ControlUnitInterface {
     private int zNr;
@@ -59,33 +56,7 @@ final class LisaControlUnit implements ControlUnitInterface {
     public LisaControlUnit() {
         vector = new WunschVector(signalPrograms);
     }
-    
-    @Override
-    public int apWerteCount() {
-        return apWerteNames.size();
-    }
-    
-    @Override
-    public String getAPWerteName(int index) {
-        if(apWerteNames.isEmpty())
-            return "";
-        
-        return apWerteNames.get(index);
-    }
 
-    @Override
-    public String getAPWerteValue(int index) {
-        if(apWerteValuesToSumo == null || apWerteValuesToSumo.isEmpty())
-            return "";
-        
-        return apWerteValuesToSumo.get(index);
-    }
-    
-    @Override
-    public void setAPWerteValue(int index, String value) {
-        apWerteValuesFromSumo.set(index, value);
-    }
-    
     /**
      *
      * @param commands
@@ -116,12 +87,6 @@ final class LisaControlUnit implements ControlUnitInterface {
         lisaSignalGroups.load(cu);
         lisaDetectors.load(cu);
         signalPrograms.load(cu);
-        
-        for (String na : cu.apWerteNames) {
-            this.apWerteNames.add(na);      
-            
-            this.apWerteValuesFromSumo.add(""); // initializing List
-        }                    
     }
 
     /**
@@ -161,7 +126,7 @@ final class LisaControlUnit implements ControlUnitInterface {
         /**
          *
          */
-        String command = message.getCommand(Message.Type.Init, vector, null, "", 0l);
+        String command = message.getCommand(Message.Type.Init, vector, null, 0l);
         commands.putMessage(command);
     }
 
@@ -174,19 +139,8 @@ final class LisaControlUnit implements ControlUnitInterface {
             String detectorsString = lisaDetectors.getLisaString();
 
             //Preparing message to send
-            String commandToLisa = message.getCommand(Message.Type.Run, 
-                    vector, 
-                    detectorsString, 
-                    APWertZustType.generate(apWerteValuesFromSumo),
-                    simulationTime);
+            String commandToLisa = message.getCommand(Message.Type.Run, vector, detectorsString, simulationTime);
 
-            /**
-             * Cleaning old values
-             */
-            for (int i = 0; i < apWerteValuesFromSumo.size(); i++)
-                apWerteValuesFromSumo.set(i, "");
-            
-            
             //Sending message to Lisa and receiving a response
             PutMessageResponse messageResponseFromLisa = commands.putMessage(commandToLisa);
 
@@ -338,6 +292,6 @@ final class LisaControlUnit implements ControlUnitInterface {
     @Override
     public int getCoordinated() {
         return vector.getCoordinated();
-    }    
+    }
 
 }

@@ -49,7 +49,7 @@ import org.xml.sax.SAXException;
 public class Main {
     private String sumoExec = "sumo";
     private String sumoConfig = null;
-    //private final int sumoPort = 9100;
+    private final int sumoPort = 9100;
     private String lisaRestFulServerDir = "localhost";
     private final int lisaPort = 9091;
     private String lisumFile = "";
@@ -233,9 +233,9 @@ public class Main {
         try {
             XMLAdmin2 x = new XMLAdmin2().load(this.lisumFile);
 
-            ControlUnitInterface controlUnit;
+            ControlUnitInterface controlUnit = null;
             SignalProgramInterface signalProgram = null;
-            boolean coordinated;
+            boolean coordinated = false;
             int ebene = 0;
             boolean va = false;
             boolean iv = false;

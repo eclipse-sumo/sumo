@@ -1,4 +1,4 @@
-/** ************************************************************************* */
+/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
@@ -10,19 +10,18 @@
 // or later which is available at
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-/** ************************************************************************* */
+/****************************************************************************/
 /// @file    LightColor.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 ///
 //
-/** ************************************************************************* */
+/****************************************************************************/
 package de.dlr.ts.lisum.enums;
 
 /**
  *
- * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
- * Bottazzi</a>
+ * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
 public enum LightColor {
     OFF(0, 'O'),
@@ -55,11 +54,6 @@ public enum LightColor {
 
     public boolean isGreen() {
         return ocitCode == 48;
-    }
-
-
-    public boolean isOff() {
-        return ocitCode == 0;
     }
 
     /**

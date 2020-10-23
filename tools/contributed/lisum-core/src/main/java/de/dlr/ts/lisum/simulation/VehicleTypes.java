@@ -19,8 +19,6 @@
 /****************************************************************************/
 package de.dlr.ts.lisum.simulation;
 
-import de.dlr.ts.commons.logger.DLRLogger;
-import de.dlr.ts.utils.xmladmin2.Attributes;
 import de.dlr.ts.utils.xmladmin2.XMLAdmin2;
 import de.dlr.ts.utils.xmladmin2.XMLNode;
 import de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException;
@@ -29,8 +27,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.xml.sax.SAXException;
 
 /**
@@ -62,47 +58,21 @@ public class VehicleTypes {
      * @param configFile
      */
     public void load(File configFile) {
-        try
-        {
-            DLRLogger.config(this, "Loading file " + configFile);
-            
+        try {
             XMLAdmin2 x = new XMLAdmin2().load(configFile);
-            
-            int nodesCount;
-            try {
-                nodesCount = x.getNodesCount("vType");
-            } catch (XMLNodeNotFoundException ex) {
-                DLRLogger.severe(this, "Fatal error: Node <vType> in " + configFile.getName() + " not found.");
-                return;
-            }
-            
-            for (int i = 0; i < nodesCount; i++)
-            {
+
+            int nodesCount = x.getNodesCount("vType");
+
+            for (int i = 0; i < nodesCount; i++) {
                 XMLNode node = x.getNode("vType", i);
-                
-                Attributes att = node.getAttributes();
-                if(att == null) {
-                    DLRLogger.severe(this, "Fatal error: Invalid attributes in node <vType> in " + 
-                            configFile.getName() + " not found, 'id' and 'length' expected.");
-                    return;
-                }
-                
-                String id = att.get("id").getValue();
-                double length = att.get("length").getValue(0d);
-                
+                String id = node.getAttributes().get("id").getValue();
+                double length = node.getAttributes().get("length").getValue(0d);
+
                 types.put(id, new VehicleType(id, length));
             }
-        }
-        catch (SAXException ex)
-        {
+        } catch (SAXException | IOException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
             ex.printStackTrace(System.out);
-        } catch (IOException ex) {
-            DLRLogger.config(this, "Fatal error: File " + configFile.getName() + " not found.");
-        } catch (MalformedKeyOrNameException ex) {
-            Logger.getLogger(VehicleTypes.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (XMLNodeNotFoundException ex) {
-            Logger.getLogger(VehicleTypes.class.getName()).log(Level.SEVERE, null, ex);
-        } 
+        }
     }
 
     /**

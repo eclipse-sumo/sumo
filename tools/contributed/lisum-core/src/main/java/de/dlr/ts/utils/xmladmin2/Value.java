@@ -20,10 +20,10 @@
 package de.dlr.ts.utils.xmladmin2;
 
 //import de.dlr.ts.commons.logger.DLRLogger;
+
 /**
  *
- * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
- * Bottazzi</a>
+ * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
 class Value {
     protected String value = null;
@@ -82,7 +82,7 @@ class Value {
      */
     public double getValue(double defaultValue) {
         if (value == null || value.isEmpty()) {
-            return defaultValue;        
+            return defaultValue;
         }
 
         try {
@@ -102,7 +102,7 @@ class Value {
      */
     public int getValue(int defaultValue) {
         if (value == null || value.isEmpty()) {
-            return defaultValue;        
+            return defaultValue;
         }
 
         try {
@@ -124,13 +124,14 @@ class Value {
      */
     public long getValue(long defaultValue) {
         if (value == null || value.isEmpty()) {
-            return defaultValue;        
+            return defaultValue;
         }
 
         try {
             return Long.valueOf(value);
         } catch (Exception e) {
             XMLAdmin2.printException("Error parsing long value: " + value + ", returning default value: " + defaultValue);
+            //DLRLogger.severe("Error parsing long value: " + value + ", returning default value: " + defaultValue);
             return defaultValue;
         }
     }

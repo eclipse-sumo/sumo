@@ -1,4 +1,4 @@
-/** ************************************************************************* */
+/****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2016-2020 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
@@ -10,17 +10,16 @@
 // or later which is available at
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
-/** ************************************************************************* */
+/****************************************************************************/
 /// @file    LisaConfigurationFiles.java
 /// @author  Maximiliano Bottazzi
 /// @date    2016
 ///
 //
-/** ************************************************************************* */
+/****************************************************************************/
 package de.dlr.ts.lisum.lisa;
 
 import de.dlr.ts.commons.logger.DLRLogger;
-import de.dlr.ts.commons.tools.FileTools;
 import de.dlr.ts.utils.xmladmin2.XMLAdmin2;
 import de.dlr.ts.utils.xmladmin2.XMLNode;
 import de.dlr.ts.utils.xmladmin2.MalformedKeyOrNameException;
@@ -30,14 +29,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import org.xml.sax.SAXException;
 
 /**
  *
- * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
- * Bottazzi</a>
+ * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
 class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlUnit> {
     public List<ControlUnit> controlUnits = new ArrayList<>();
@@ -64,7 +60,7 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
         for (String name : lisaFolder.list()) {
             if (name.endsWith(".xml")) {
                 try {
-                    File controlUnitConfigFile = new File(fullpath + fileName);
+                    File controlUnitConfigFile = new File(fullpath + name);
                     XMLAdmin2 x = new XMLAdmin2().load(controlUnitConfigFile);
 
                     /**
@@ -72,42 +68,15 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
                      */
                     XMLNode ocit = x.getNode("Kopfdaten.Identifikation.OCITKennung");
                     int zNr = ocit.getNode("ZNr").getValue(0);
-                    int fNr = ocit.getNode("FNr").getValue(0);                    
+                    int fNr = ocit.getNode("FNr").getValue(0);
+                    String _name = "z" + zNr + "_fg" + fNr;
+                    DLRLogger.config(this, "Creating Control Unit " + _name);
 
-                    ControlUnit cu = findControlUnit(zNr, fNr);                    
-
-                    extractSignalGroups(x, cu);
-                    extractDetectors(x, cu);
-                    extractSignalPrograms(x, cu);
-                } catch (SAXException | IOException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
-                    ex.printStackTrace(System.out);
-                }
-            }
-
-            if (fileName.endsWith(".kfg")) 
-            {                
-                String restfileName = fileName.replace(".kfg", "");
-                
-                String[] split = restfileName.split("_");
-
-                int zNr = Integer.valueOf(split[0].replace("z", ""));
-                int fNr = Integer.valueOf(split[1].replace("fg", ""));                
-                
-                ControlUnit cu = findControlUnit(zNr, fNr);                
-                
-                try {
-                    List<String> lines = FileTools.readSmallTextFile(fullpath + fileName);
-
-                    for (String line : lines) {
-                        final String[] s = line.split("\\s+");
-                        
-                        if(s[0].equals("VARIABLE")) {
-                            String apname = s[2].replace("\"", "");
-                            cu.apWerteNames.add(apname);
-                            
-                            DLRLogger.config(this, "Adding APWert name: " + apname);
-                        }                            
-                    }
+                    ControlUnit controlUnit = new ControlUnit();
+                    controlUnits.add(controlUnit);
+                    controlUnit.zNr = zNr;
+                    controlUnit.fNr = fNr;
+                    controlUnit.fullName = _name;
 
                     extractSignalGroups(x, controlUnit);
                     extractDetectors(x, controlUnit);
@@ -216,7 +185,6 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
         public List<SignalGroup> signalGroups = new ArrayList<>();
         public List<Detector> detectors = new ArrayList<>();
         public List<SignalProgram> signalPrograms = new ArrayList<>();
-        public List<String> apWerteNames = new ArrayList<>();
 
 
         public static class SignalGroup {

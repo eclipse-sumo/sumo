@@ -19,9 +19,7 @@
 /****************************************************************************/
 package de.dlr.ts.lisum.sumo;
 
-import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.lisum.enums.LightColor;
-import de.dlr.ts.lisum.interfaces.ControlUnitInterface;
 import de.dlr.ts.lisum.simulation.SimulationControlUnits;
 import de.tudresden.sumo.cmd.Trafficlight;
 import it.polito.appeal.traci.SumoTraciConnection;
@@ -35,11 +33,15 @@ import java.util.logging.Logger;
  *
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano Bottazzi</a>
  */
-class SumoControlUnit 
-{
+class SumoControlUnit {
+
     private final List<SignalGroup> signalGroups = new ArrayList<>();
-    private final String name;    
-    private SimulationControlUnits controlUnits;    
+    private final String name;
+    //private TrafficLight trafficLight;
+    //private ControlUnitInterface cityControlUnit;
+    private SimulationControlUnits controlUnits;
+
+    //private String trafficLightId;
     private SumoTraciConnection sumoTraciConnection;
 
     /**
@@ -50,6 +52,18 @@ class SumoControlUnit
         int phasesCount = sumoStrings[0].length();
 
         for (int i = 0; i < phasesCount; i++) {
+            /*
+            String nodeLine = extractStates(i, sumoStrings);
+
+            char greenType = 'G';
+
+            for (int j = 0; j < nodeLine.length(); j++) {
+                if (nodeLine.charAt(j) == 'g') {
+                    greenType = 'g';
+                }
+            }
+            */
+
             SignalGroup sg = new SignalGroup();
             signalGroups.add(sg);
         }
@@ -86,50 +100,12 @@ class SumoControlUnit
     /**
      *
      */
-    public void executeSimulationStep() 
-    {
-        for (int j = 0; j < signalGroups.size(); j++)
-            signalGroups.get(j).setCurrentLightColor(controlUnits.getLightColor(this.name, j));        
-        
+    public void executeSimulationStep() {
+        for (int j = 0; j < signalGroups.size(); j++) {
+            signalGroups.get(j).setCurrentLightColor(controlUnits.getLightColor(this.name, j));
+        }
+
         set();
-        
-        /**
-         * Setting APWerte
-         */
-        
-        //DLRLogger.fine(this, "Getting control unit " + this.name);
-        ControlUnitInterface cu = controlUnits.getControlUnitInterfaceBySumoName(this.name);
-        
-        if(cu == null)
-            return;                       
-        
-        for (int i = 0; i < cu.apWerteCount(); i++) {                                    
-            String apwertName = cu.getAPWerteName(i);            
-            String apwertValue = cu.getAPWerteValue(i);            
-            
-            if(apwertName.isEmpty())
-                continue;
-            
-            DLRLogger.finest("Control unit " + name + ": APwerte: " + apwertName + "  " + apwertValue);
-            try {                        
-                sumoTraciConnection.do_job_set(Trafficlight.setParameter(name, apwertName, apwertValue));
-            } catch (Exception ex) {
-                Logger.getLogger(SumoControlUnit.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            try {
-                String valueFromSumo = (String)sumoTraciConnection.do_job_get(Trafficlight
-                        .getParameter(name, "lisa_" + apwertName));
-                
-                if(valueFromSumo != null)
-                    cu.setAPWerteValue(i, valueFromSumo);
-                else
-                    cu.setAPWerteValue(i, "");
-                
-            } catch (Exception ex) {
-                Logger.getLogger(SumoControlUnit.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }                
     }
 
     /**

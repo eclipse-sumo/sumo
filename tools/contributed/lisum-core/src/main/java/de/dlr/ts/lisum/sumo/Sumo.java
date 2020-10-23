@@ -51,19 +51,20 @@ public class Sumo {
     private long vehiclesCount;
     private long stepsPerSecond = 0L;
     private final String sumoExec;
-    private final String sumoConfig;    
+    private final String sumoConfig;
+    private final int sumoPort;
 
 
     /**
      *
      * @param lisumSimulation
      * @param sumoExec
-     * @param sumoConfig     
      */
-    public Sumo(LisumSimulation lisumSimulation, String sumoExec, String sumoConfig) {
+    public Sumo(LisumSimulation lisumSimulation, String sumoExec, String sumoConfig, int sumoPort) {
         this.lisumSimulation = lisumSimulation;
         this.sumoExec = sumoExec;
-        this.sumoConfig = sumoConfig;        
+        this.sumoConfig = sumoConfig;
+        this.sumoPort = sumoPort;
     }
 
     /**
@@ -97,17 +98,14 @@ public class Sumo {
                 /**
                  *
                  */
-                DLRLogger.info("Sumo", "Starting SumoGUI instance.");
+                DLRLogger.info("Sumo", "Starting SumoGUI instance, port " + sumoPort);
 
                 //startSumoGUI();
 
                 conn = new SumoTraciConnection(sumoExec, sumoConfig);
-                //conn.addOption("num-clients", "2");                
+
                 //Start Traci Server and Sumo
-                int sumoPort = lisumSimulation.getConfigurationFile().getSumoPort();                
-                conn.runServer(sumoPort);
-                
-                conn.setOrder(0);
+                conn.runServer();
 
                 sumoDetectors = new SumoDetectors(conn);
 

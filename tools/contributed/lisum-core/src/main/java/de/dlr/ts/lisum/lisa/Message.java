@@ -66,10 +66,7 @@ class Message {
             sb.append("{}{}");
         } else {
             sb.append("{").append(detectorsString).append("}{}");
-            sb.append("{");
-            sb.append(apWerte);
-            sb.append("}");
-            sb.append("{}");
+            sb.append("{}{}");
         }
 
         return sb.toString();
