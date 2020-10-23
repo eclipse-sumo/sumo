@@ -19,6 +19,7 @@
 /****************************************************************************/
 package de.dlr.ts.lisum.gui;
 
+import de.dlr.ts.commons.logger.DLRLogger;
 import de.dlr.ts.commons.tools.FileTools;
 import de.dlr.ts.lisum.simulation.LisumSimulation;
 import de.dlr.ts.utils.xmladmin2.XMLAdmin2;
@@ -27,8 +28,6 @@ import de.dlr.ts.utils.xmladmin2.XMLNodeNotFoundException;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.scene.image.Image;
@@ -155,7 +154,7 @@ public class SystemProperties {
                 String version = x.getNode("version").getValue();
                 FileTools.writeSmallTextFile("src/main/resources/version/version", version);
             } catch (SAXException | IOException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
-                Logger.getLogger(GlobalConfig.class.getName()).log(Level.SEVERE, null, ex);
+                DLRLogger.severe(this, ex);
             }
         }
 
@@ -167,7 +166,7 @@ public class SystemProperties {
                 byte[] array = IOUtils.toByteArray(res);
                 this.systemVersion = new String(array).trim();
             } catch (IOException ex) {
-                Logger.getLogger(GlobalConfig.class.getName()).log(Level.SEVERE, null, ex);
+                DLRLogger.severe(this, ex);
             }
         }
     }

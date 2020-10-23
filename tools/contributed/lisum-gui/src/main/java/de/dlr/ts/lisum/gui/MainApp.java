@@ -24,7 +24,8 @@ import static javafx.application.Application.launch;
 import javafx.stage.Stage;
 
 /**
- *
+ * Run this programm with {@code mvn clean javafx:run}
+ * 
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
  * Bottazzi</a>
  */
