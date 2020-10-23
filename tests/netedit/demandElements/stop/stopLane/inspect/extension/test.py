@@ -38,37 +38,37 @@ netedit.stopMode()
 netedit.changeStopType("stopLane")
 
 # create stop
-netedit.leftClick(referencePosition, 327, 220)
+netedit.leftClick(referencePosition, 327, 215)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect stop
-netedit.leftClick(referencePosition, 250, 220)
+netedit.leftClick(referencePosition, 186, 215)
 
 # change value
-netedit.modifyBoolAttribute(7, True)
+netedit.modifyBoolAttribute(9, True)
 
 # change value
-netedit.modifyBoolAttribute(7, True)
+netedit.modifyBoolAttribute(9, True)
 
 # change value
-netedit.modifyBoolAttribute(7, True)
+netedit.modifyBoolAttribute(9, True)
 
 # change value
-netedit.modifyAttribute(8, "dummyValue", True)
+netedit.modifyAttribute(10, "dummyValue", True)
 
 # change value
-netedit.modifyAttribute(8, "", True)
+netedit.modifyAttribute(10, "", True)
 
 # change value
-netedit.modifyAttribute(8, "-5", True)
+netedit.modifyAttribute(10, "-5", True)
 
 # change value
-netedit.modifyAttribute(8, "0", True)
+netedit.modifyAttribute(10, "0", True)
 
 # change value
-netedit.modifyAttribute(8, "3.5", True)
+netedit.modifyAttribute(10, "3.5", True)
 
 # Check undo redo
 netedit.undo(referencePosition, 5)
