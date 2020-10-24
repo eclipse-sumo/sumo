@@ -103,7 +103,6 @@ MSStopOut::stopEnded(const SUMOVehicle* veh, const SUMOVehicleParameter::Stop& s
         return;
     }
     const StopInfo& si = myStopped.find(veh)->second;
-    std::cout << "writing stopinfo " << stop.actualArrival << std::endl;
     double delay = -1;
     double arrivalDelay = -1;
     if (stop.until >= 0) {
