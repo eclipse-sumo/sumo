@@ -361,6 +361,11 @@ private:
 
     static Connection* myActive;
     static std::map<const std::string, Connection> myConnections;
+
+private:
+    /// @brief Invalidated assignment operator.
+    Connection& operator=(const Connection&);
+
 };
 
 }
