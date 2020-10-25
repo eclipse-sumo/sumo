@@ -337,6 +337,10 @@ GNEGeometry::DottedGeometry::DottedGeometry() :
 }
 
 
+#if defined(_MSC_VER) && _MSC_VER == 1800
+#pragma warning(push)
+#pragma warning(disable: 4100) // do not warn about "unused" parameters which get optimized away
+#endif
 GNEGeometry::DottedGeometry::DottedGeometry(const GUIVisualizationSettings& s, PositionVector shape, const bool closeShape) :
     myWidth(s.dottedContourSettings.segmentWidth) {
     // check if shape has to be closed
@@ -436,6 +440,9 @@ GNEGeometry::DottedGeometry::updateDottedGeometry(const GUIVisualizationSettings
         calculateShapeRotationsAndLengths();
     }
 }
+#if defined(_MSC_VER) && _MSC_VER == 1800
+#pragma warning(pop)
+#endif
 
 
 void

@@ -1180,7 +1180,7 @@ GNEVehicleTypeDialog::VTypeAtributes::onCmdOpenAttributeDialog(FXObject* obj, FX
 
 
 long
-GNEVehicleTypeDialog::VTypeAtributes::onCmdOpenParametersEditor(FXObject* obj, FXSelector, void*) {
+GNEVehicleTypeDialog::VTypeAtributes::onCmdOpenParametersEditor(FXObject*, FXSelector, void*) {
     // write debug information
     WRITE_DEBUG("Open parameters dialog");
     // edit parameters using dialog

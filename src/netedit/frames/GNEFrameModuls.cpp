@@ -2471,6 +2471,10 @@ GNEFrameModuls::PathCreator::updateEdgeColors() {
 }
 
 
+#if defined(_MSC_VER) && _MSC_VER == 1800
+#pragma warning(push)
+#pragma warning(disable: 4100) // do not warn about "unused" parameters which get optimized away
+#endif
 void
 GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s) const {
     if (myPath.size() > 0) {
@@ -2539,6 +2543,9 @@ GNEFrameModuls::PathCreator::drawTemporalRoute(const GUIVisualizationSettings& s
         glPopMatrix();
     }
 }
+#if defined(_MSC_VER) && _MSC_VER == 1800
+#pragma warning(pop)
+#endif
 
 
 void
