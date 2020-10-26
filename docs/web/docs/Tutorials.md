@@ -39,7 +39,7 @@ These tutorials use the [Python-TraCI Library](TraCI/Interfacing_TraCI_from_Pyth
 * [SUMO 2017](http://sumo.dlr.de/daily/sumo2017_tutorial.zip)
 * [SUMO 2018](http://sumo.dlr.de/daily/sumo2018_tutorial.zip)
 * [SUMO 2019](http://sumo.dlr.de/daily/sumo2019_tutorial.zip)
-* [SUMO 2019](http://sumo.dlr.de/daily/sumo2020_tutorial.zip)
+* [SUMO 2020](http://sumo.dlr.de/daily/sumo2020_tutorial.zip)
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/UeaeCdLt_1o" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
