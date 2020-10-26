@@ -32,9 +32,9 @@
 
 GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, const std::string& title, const std::vector<GNEAttributeCarrier*>& ACs):
     GUIDialog_ChooserAbstract(viewParent, icon, title.c_str(), std::vector<GUIGlID>(), GUIGlObjectStorage::gIDStorage),
+    myViewParent(viewParent),
     myACs(ACs),
     myFilteredACs(ACs),
-    myViewParent(viewParent),
     myLocateTLS(title.find("TLS") != std::string::npos) {
     // @note refresh must be called here because the base class constructor cannot
     // call the virtual function getObjectName
@@ -93,16 +93,16 @@ GNEDialogACChooser::getObjectName(GUIGlObject* o) const {
         }
         // get definitions
         const std::set<NBTrafficLightDefinition*>& defs = junction->getNBNode()->getControllingTLS();
-        // check that junction exist
-        if (defs.size() < 0) {
+        // check that traffic light exists
+        if (defs.empty()) {
             throw ProcessError("Invalid number of TLSs");
         }
         // get TLDefinition
-        NBTrafficLightDefinition* tlDef = *defs.begin();
-        if (tlDef->getID() == o->getMicrosimID()) {
+        const std::string& tlDefID = (*defs.begin())->getID();
+        if (tlDefID == o->getMicrosimID()) {
             return o->getMicrosimID();
         } else {
-            return tlDef->getID() + " (" + o->getMicrosimID() + ")";
+            return tlDefID + " (" + o->getMicrosimID() + ")";
         }
     } else {
         return GUIDialog_ChooserAbstract::getObjectName(o);
