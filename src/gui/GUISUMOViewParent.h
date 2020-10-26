@@ -159,12 +159,6 @@ private:
         /// @brief pointer to ACChooser dialog used for locate persons
         GUIDialog_GLObjChooser* ACChooserPersons;
 
-        /// @brief pointer to ACChooser dialog used for locate routes
-        GUIDialog_GLObjChooser* ACChooserRoutes;
-
-        /// @brief pointer to ACChooser dialog used for locate stops
-        GUIDialog_GLObjChooser* ACChooserStops;
-
         /// @brief pointer to ACChooser dialog used for locate Containers
         GUIDialog_GLObjChooser* ACChooserContainer;
 
@@ -179,6 +173,12 @@ private:
 
         /// @brief pointer to ACChooser dialog used for locate Polygons
         GUIDialog_GLObjChooser* ACChooserPolygon;
+
+        /// @brief pointer to ACChooser dialog used for locate routes
+        GUIDialog_GLObjChooser* ACChooserRoutes;
+
+        /// @brief pointer to ACChooser dialog used for locate stops
+        GUIDialog_GLObjChooser* ACChooserStops;
 
         /// @brief pointer to ACChooser dialog used for locate Prohibitions
         GUIDialog_GLObjChooser* ACChooserProhibition;

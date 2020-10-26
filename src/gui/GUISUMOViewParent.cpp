@@ -491,55 +491,32 @@ GUISUMOViewParent::GLObjChooser::GLObjChooser() :
     ACChooserEdges(nullptr),
     ACChooserVehicles(nullptr),
     ACChooserPersons(nullptr),
-    ACChooserRoutes(nullptr),
-    ACChooserStops(nullptr),
-    ACChooserTLS(nullptr),
     ACChooserContainer(nullptr),
+    ACChooserTLS(nullptr),
     ACChooserAdditional(nullptr),
     ACChooserPOI(nullptr),
     ACChooserPolygon(nullptr),
+    ACChooserRoutes(nullptr),
+    ACChooserStops(nullptr),
     ACChooserProhibition(nullptr) {
 }
 
 
 GUISUMOViewParent::GLObjChooser::~GLObjChooser() {
-    // remove all  dialogs if are active
-    if (ACChooserJunction) {
-        delete ACChooserJunction;
-    }
-    if (ACChooserEdges) {
-        delete ACChooserEdges;
-    }
-    if (ACChooserRoutes) {
-        delete ACChooserRoutes;
-    }
-    if (ACChooserStops) {
-        delete ACChooserStops;
-    }
-    if (ACChooserVehicles) {
-        delete ACChooserVehicles;
-    }
-    if (ACChooserPersons) {
-        delete ACChooserPersons;
-    }
-    if (ACChooserContainer) {
-        delete ACChooserContainer;
-    }
-    if (ACChooserTLS) {
-        delete ACChooserTLS;
-    }
-    if (ACChooserAdditional) {
-        delete ACChooserAdditional;
-    }
-    if (ACChooserPOI) {
-        delete ACChooserPOI;
-    }
-    if (ACChooserPolygon) {
-        delete ACChooserPolygon;
-    }
-    if (ACChooserProhibition) {
-        delete ACChooserProhibition;
-    }
+    // remove all dialogs
+    // delete for a nullptr is valid, so no check needed
+    delete ACChooserJunction;
+    delete ACChooserEdges;
+    delete ACChooserVehicles;
+    delete ACChooserPersons;
+    delete ACChooserContainer;
+    delete ACChooserTLS;
+    delete ACChooserAdditional;
+    delete ACChooserPOI;
+    delete ACChooserPolygon;
+    delete ACChooserRoutes;
+    delete ACChooserStops;
+    delete ACChooserProhibition;
 }
 
 /****************************************************************************/
