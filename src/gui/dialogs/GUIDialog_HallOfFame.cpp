@@ -43,7 +43,7 @@ GUIDialog_HallOfFame::GUIDialog_HallOfFame (FXWindow* parent) :
     myHeadlineFont = new FXFont(getApp(), "Arial", 12, FXFont::Bold);
     (new FXLabel(descriptionFrame, "SUMO User Conference 2020 - Hall of Fame", nullptr, GUIDesignLabelAboutInfo))->setFont(myHeadlineFont);
     new FXLabel(descriptionFrame, "", GUIIconSubSys::getIcon(GUIIcon::HALL_OF_FAME), GUIDesignLabelIcon);
-    new FXLabel(descriptionFrame, "SUMO guru of the year: ", nullptr, GUIDesignLabelAboutInfo);
+    new FXLabel(descriptionFrame, "SUMO guru of the year: m-kro", nullptr, GUIDesignLabelAboutInfo);
     new FXLabel(descriptionFrame, "Voted best presentation: ", nullptr, GUIDesignLabelAboutInfo);
 
     // link to conference website
