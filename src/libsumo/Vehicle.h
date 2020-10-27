@@ -110,6 +110,7 @@ public:
     static double getSecureGap(const std::string& vehicleID, double speed, double leaderSpeed, double leaderMaxDecel, const std::string& leaderID = "");
     static double getStopSpeed(const std::string& vehicleID, double speed, double gap);
     static double getStopDelay(const std::string& vehicleID);
+    static double getStopArrivalDelay(const std::string& vehicleID);
     static std::vector<std::string> getTaxiFleet(int taxiState = 0);
     /// @}
 

@@ -6571,19 +6571,11 @@ MSVehicle::manoeuvreIsComplete() const {
 }
 
 double
-MSVehicle::getStopDelay() const {
-    if (hasStops() && myStops.front().pars.until >= 0) {
+MSVehicle::estimateTimeToNextStop() const {
+    if (hasStops()) {
         const MSStop& stop = myStops.front();
-        SUMOTime estimatedDepart = MSNet::getInstance()->getCurrentTimeStep() - DELTA_T;
-        if (stop.reached) {
-            return STEPS2TIME(estimatedDepart + stop.duration - stop.pars.until);
-        }
-        if (stop.pars.duration > 0) {
-            estimatedDepart += stop.pars.duration;
-        }
         auto it = myCurrEdge + 1;
         // drive to end of current edge
-        //std::cout << SIMTIME << " veh=" << getID() << " ed1=" << time2string(estimatedDepart);
         double dist = (myLane->getLength() - getPositionOnLane());
         double travelTime = myLane->getEdge().getMinimumTravelTime(this) * dist / myLane->getLength();
         // drive until stop edge
@@ -6644,13 +6636,48 @@ MSVehicle::getStopDelay() const {
         // final deceleration to stop
         //std::cout << "    v0=" << v0 << " finalTLD=" << v0 / (2 * b) << "\n";
         timeLossDecel += v0 / (2 * b);
-        estimatedDepart += TIME2STEPS(travelTime + timeLossAccel + timeLossDecel + timeLossLength);
-        const double result = MAX2(0.0, STEPS2TIME(estimatedDepart - stop.pars.until));
+        const double result = travelTime + timeLossAccel + timeLossDecel + timeLossLength;
         //std::cout << SIMTIME << " v=" << c << " a=" << a << " b=" << b << " maxVD=" << maxVD << " tt=" << travelTime
         //    << " ta=" << timeLossAccel << " td=" << timeLossDecel << " tl=" << timeLossLength << " res=" << result << "\n";
+        return MAX2(0.0, result);
+    } else {
+        return INVALID_DOUBLE;
+    }
+}
+
+double
+MSVehicle::getStopDelay() const {
+    if (hasStops() && myStops.front().pars.until >= 0) {
+        const MSStop& stop = myStops.front();
+        SUMOTime estimatedDepart = MSNet::getInstance()->getCurrentTimeStep() - DELTA_T;
+        if (stop.reached) {
+            return STEPS2TIME(estimatedDepart + stop.duration - stop.pars.until);
+        }
+        if (stop.pars.duration > 0) {
+            estimatedDepart += stop.pars.duration;
+        }
+        estimatedDepart += TIME2STEPS(estimateTimeToNextStop());
+        const double result = MAX2(0.0, STEPS2TIME(estimatedDepart - stop.pars.until));
         return result;
     } else {
+        // vehicles cannot drive before 'until' so stop delay can never be
+        // negative and we can use -1 to signal "undefined"
         return -1;
+    }
+}
+
+double
+MSVehicle::getStopArrivalDelay() const {
+    if (hasStops() && myStops.front().pars.arrival >= 0) {
+        const MSStop& stop = myStops.front();
+        if (stop.reached) {
+            return STEPS2TIME(stop.pars.actualArrival - stop.pars.arrival);
+        } else {
+            return STEPS2TIME(MSNet::getInstance()->getCurrentTimeStep()) + estimateTimeToNextStop() - STEPS2TIME(stop.pars.arrival);
+        }
+    } else {
+        // vehicles can arrival earlier than planned so arrival delay can be negative
+        return INVALID_DOUBLE;
     }
 }
 

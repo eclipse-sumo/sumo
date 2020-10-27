@@ -704,6 +704,10 @@ public:
      */
     double getStopDelay() const;
 
+    /** @brief Returns the estimated public transport stop arrival delay in seconds
+     */
+    double getStopArrivalDelay() const;
+
     /** @brief Returns the vehicle's direction in radians
      * @return The vehicle's current angle
      */
@@ -2072,6 +2076,7 @@ protected:
     /// @brief decide whether a red (or yellow light) may be ignore
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 
+    double estimateTimeToNextStop() const;
 
 private:
     /// @brief The per vehicle variables of the car following model
