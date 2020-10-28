@@ -868,7 +868,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     // where to insert the stop
     std::list<MSStop>::iterator iter = myStops.begin();
     if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myStops.size())) {
-        if (myStops.size() > 0) {
+        if (myStops.size() > 0 && myStops.back().edge >= *searchStart) {
             prevStopEdge = myStops.back().edge;
             prevEdge = &myStops.back().lane->getEdge();
             prevStopPos = myStops.back().pars.endPos;
