@@ -35,15 +35,16 @@ that the values of a vehicle *parameter* (given as a `param` child
 element of the `vehicle` element) are to be sampled. Otherwise, values
 of an *attribute* of the `vehicle` element are sampled.
 ValueOrDistribution can be a string, a scalar value or a distribution
-definition. Available distributions and its syntax are: "normal(mu,sd)"
-with mu and sd being floating numbers: Normal distribution with mean mu
-and standard deviation sd. "uniform(a,b)" with limits a and b being
-floating numbers: Uniform distribution between a and b.
-"gamma(alpha,beta)" with parameters alpha and beta: Gamma distribution.
+definition. Available distributions and its syntax are:
 
-Limits are optional and defined as the allowed interval: e.g. "\[0,1\]"
-or "\[3.5,5.0\]". By default, no negative values are accepted but may be
+- "normal(mu,sd)" with mu and sd being floating numbers: Normal distribution with mean mu
+and standard deviation sd.
+- "normalCapped(mu, sd, min, max)" By default, no negative values are accepted but may be
 enabled by setting a negative lower limit.
+- "lognormal(mu,sd)" with mu and sd being floating numbers: Normal distribution with mean mu
+and standard deviation sd.
+- "uniform(a,b)" with limits a and b being floating numbers: Uniform distribution between a and b.
+- "gamma(alpha,beta)" with parameters alpha and beta: Gamma distribution.
 
 Additional options:
 
