@@ -175,5 +175,4 @@ def main(options):
 
 
 if __name__ == "__main__":
-    if not main(get_options()):
-        sys.exit(1)
+    main(get_options())
