@@ -20,6 +20,8 @@
 
 #include "GUIDesigns.h"
 
+#include <utils/gui/images/GUIIconSubSys.h>
+
 // ===========================================================================
 // Definitions
 // ===========================================================================
@@ -47,16 +49,11 @@ GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text
 }
 
 
-FXMenuCheck*
+MFXCheckableButton*
 GUIDesigns::buildFXMenuCheck(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel) {
-    // crate menuCheck
-    FXMenuCheck* menuCheck = new FXMenuCheck(p, text.c_str(), tgt, sel, LAYOUT_FIX_HEIGHT);
-    // set height
-    menuCheck->setHeight(23);
-    // check if icon hast o be set
-    if (icon) {
-        menuCheck->setIcon(icon);
-    }
-    // return menu check
-    return menuCheck;
+    // crate check button
+    MFXCheckableButton* checkButton = new MFXCheckableButton(false, p, text.c_str(),
+        icon, tgt, sel, (BUTTON_NORMAL /*| LAYOUT_FIX_WIDTH*/ | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23);
+    // return check button
+    return checkButton;
 }

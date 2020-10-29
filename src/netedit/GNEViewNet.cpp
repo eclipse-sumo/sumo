@@ -579,7 +579,7 @@ GNEViewNet::setStatusBarText(const std::string& text) {
 
 bool
 GNEViewNet::autoSelectNodes() {
-    return (myNetworkViewOptions.menuCheckExtendSelection->getCheck() != 0);
+    return (myNetworkViewOptions.menuCheckExtendSelection->amChecked() != 0);
 }
 
 
@@ -591,13 +591,13 @@ GNEViewNet::setSelectorFrameScale(double selectionScale) {
 
 bool
 GNEViewNet::changeAllPhases() const {
-    return (myNetworkViewOptions.menuCheckChangeAllPhases->getCheck() != 0);
+    return (myNetworkViewOptions.menuCheckChangeAllPhases->amChecked() != 0);
 }
 
 
 bool
 GNEViewNet::showJunctionAsBubbles() const {
-    return (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myNetworkViewOptions.menuCheckShowJunctionBubble->getCheck());
+    return (myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) && (myNetworkViewOptions.menuCheckShowJunctionBubble->amChecked());
 }
 
 
@@ -605,7 +605,7 @@ bool
 GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJunction) {
     if (movedJunction && targetJunction && (movedJunction != targetJunction)) {
         // optionally ask for confirmation
-        if (myNetworkViewOptions.menuCheckWarnAboutMerge->getCheck()) {
+        if (myNetworkViewOptions.menuCheckWarnAboutMerge->amChecked()) {
             WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
             // open question box
             FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
@@ -746,18 +746,18 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         // depending of the visualizationSettings, enable or disable check box show grid
         if (myVisualizationSettings->showGrid) {
             // change show grid
-            myNetworkViewOptions.menuCheckShowGrid->setCheck(true);
-            myDemandViewOptions.menuCheckShowGrid->setCheck(true);
+            myNetworkViewOptions.menuCheckShowGrid->setChecked(true);
+            myDemandViewOptions.menuCheckShowGrid->setChecked(true);
             // draw grid only in network and demand mode
             if (myEditModes.isCurrentSupermodeNetwork() || myEditModes.isCurrentSupermodeDemand()) {
                 paintGLGrid();
             }
         } else {
             // change show grid
-            myNetworkViewOptions.menuCheckShowGrid->setCheck(false);
-            myDemandViewOptions.menuCheckShowGrid->setCheck(false);
+            myNetworkViewOptions.menuCheckShowGrid->setChecked(false);
+            myDemandViewOptions.menuCheckShowGrid->setChecked(false);
         }
-        myNetworkViewOptions.menuCheckShowConnections->setCheck(myVisualizationSettings->showLane2Lane);
+        myNetworkViewOptions.menuCheckShowConnections->setChecked(myVisualizationSettings->showLane2Lane);
     }
     // draw temporal junction
     drawTemporalJunction();
@@ -788,7 +788,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             myDemandViewOptions.menuCheckShowAllPersonPlans->enable();
         }
         // check if menuCheckLockPerson must be enabled or disabled
-        if (myDemandViewOptions.menuCheckLockPerson->getCheck() == FALSE) {
+        if (myDemandViewOptions.menuCheckLockPerson->amChecked() == FALSE) {
             // check if we're in inspector mode and we're inspecting exactly one element
             if ((myEditModes.demandEditMode == DemandEditMode::DEMAND_INSPECT) && myInspectedAttributeCarriers.size() > 0) {
                 // obtain tag property
@@ -2531,11 +2531,11 @@ GNEViewNet::onCmdToogleSelectEdges(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleShowConnections(FXObject*, FXSelector sel, void*) {
     // if show was enabled, init GNEConnections
-    if (myNetworkViewOptions.menuCheckShowConnections->getCheck() == TRUE) {
+    if (myNetworkViewOptions.menuCheckShowConnections->amChecked() == TRUE) {
         getNet()->initGNEConnections();
     }
     // change flag "showLane2Lane" in myVisualizationSettings
-    myVisualizationSettings->showLane2Lane = (myNetworkViewOptions.menuCheckShowConnections->getCheck() == TRUE);
+    myVisualizationSettings->showLane2Lane = (myNetworkViewOptions.menuCheckShowConnections->amChecked() == TRUE);
     // Hide/show connections require recompute
     getNet()->requireRecompute();
     // Update viewnNet to show/hide conections
@@ -2587,7 +2587,7 @@ GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleShowGridNetwork(FXObject*, FXSelector sel, void*) {
     // show or hidde grid depending of myNetworkViewOptions.menuCheckShowGrid
-    if (myNetworkViewOptions.menuCheckShowGrid->getCheck()) {
+    if (myNetworkViewOptions.menuCheckShowGrid->amChecked()) {
         myVisualizationSettings->showGrid = true;
     } else {
         myVisualizationSettings->showGrid = false;
@@ -2605,7 +2605,7 @@ GNEViewNet::onCmdToogleShowGridNetwork(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleShowGridDemand(FXObject*, FXSelector sel, void*) {
     // show or hidde grid depending of myDemandViewOptions.menuCheckShowGrid
-    if (myDemandViewOptions.menuCheckShowGrid->getCheck()) {
+    if (myDemandViewOptions.menuCheckShowGrid->amChecked()) {
         myVisualizationSettings->showGrid = true;
     } else {
         myVisualizationSettings->showGrid = false;
@@ -2746,7 +2746,7 @@ GNEViewNet::onCmdToogleShowAllPersonPlans(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleLockPerson(FXObject*, FXSelector sel, void*) {
     // lock or unlock current inspected person depending of menuCheckLockPerson value
-    if (myDemandViewOptions.menuCheckLockPerson->getCheck()) {
+    if (myDemandViewOptions.menuCheckLockPerson->amChecked()) {
         // obtan locked person or person plan
         const GNEDemandElement* personOrPersonPlan = dynamic_cast<const GNEDemandElement*>(myInspectedAttributeCarriers.front());
         if (personOrPersonPlan) {
@@ -3738,7 +3738,7 @@ GNEViewNet::drawTemporalJunction() const {
             // draw temporal edge
             GNEGeometry::drawGeometry(this, temporalEdgeGeometery, 0.75);
             // check if we have to draw opposite edge
-            if (myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE) {
+            if (myNetworkViewOptions.menuCheckAutoOppositeEdge->amChecked() == TRUE) {
                 // move temporal edge to opposite edge
                 temporalEdge.move2side(2);
                 // update geometry
@@ -3857,8 +3857,8 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
                 // process left click in create edge frame Frame
                 myViewParent->getCreateEdgeFrame()->processClick(getPositionInformation(),
                         myObjectsUnderCursor,
-                        (myNetworkViewOptions.menuCheckAutoOppositeEdge->getCheck() == TRUE),
-                        (myNetworkViewOptions.menuCheckChainEdges->getCheck() == TRUE));
+                        (myNetworkViewOptions.menuCheckAutoOppositeEdge->amChecked() == TRUE),
+                        (myNetworkViewOptions.menuCheckChainEdges->amChecked() == TRUE));
             }
             // process click
             processClick(eventData);

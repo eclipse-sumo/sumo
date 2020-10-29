@@ -20,8 +20,8 @@
 #pragma once
 #include <config.h>
 
-#include <fx.h>
 #include <string>
+#include <utils/foxtools/MFXCheckableButton.h>
 
 // ===========================================================================
 // Definitions
@@ -547,5 +547,5 @@ public:
     static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, const double width, FXIcon* icon, FXObject* tgt, FXSelector sel);
 
     /// @brief build menu command (for recent files)
-    static FXMenuCheck* buildFXMenuCheck(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
+    static MFXCheckableButton* buildFXMenuCheck(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
 };

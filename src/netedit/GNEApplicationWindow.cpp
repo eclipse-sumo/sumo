@@ -1747,15 +1747,15 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
     // check that view exists
     if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if ((myViewNet->getNetworkViewOptions().menuCheckShowGrid->getCheck() == TRUE) ||
-                (myViewNet->getDemandViewOptions().menuCheckShowGrid->getCheck() == TRUE)) {
-            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setCheck(FALSE);
-            myViewNet->getDemandViewOptions().menuCheckShowGrid->setCheck(FALSE);
+        if ((myViewNet->getNetworkViewOptions().menuCheckShowGrid->amChecked() == TRUE) ||
+                (myViewNet->getDemandViewOptions().menuCheckShowGrid->amChecked() == TRUE)) {
+            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setChecked(FALSE);
+            myViewNet->getDemandViewOptions().menuCheckShowGrid->setChecked(FALSE);
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
-            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setCheck(TRUE);
-            myViewNet->getDemandViewOptions().menuCheckShowGrid->setCheck(TRUE);
+            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setChecked(TRUE);
+            myViewNet->getDemandViewOptions().menuCheckShowGrid->setChecked(TRUE);
             // show extra information for tests
             WRITE_DEBUG("Enabled grid throught Ctrl+g hotkey");
         }
@@ -1799,7 +1799,7 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             return 1;
         }
         // declare a vector in which save visible menu commands
-        std::vector<FXMenuCheck*> visibleMenuCommands;
+        std::vector<MFXCheckableButton*> visibleMenuCommands;
         // get common, network and demand visible menu commands
         myViewNet->getNetworkViewOptions().getVisibleNetworkMenuCommands(visibleMenuCommands);
         myViewNet->getDemandViewOptions().getVisibleDemandMenuCommands(visibleMenuCommands);
