@@ -531,3 +531,14 @@
 
 /// @brief desgin for TabBooks
 #define GUIDesignTabBook                        (TABBOOK_LEFTTABS | PACK_UNIFORM_WIDTH | PACK_UNIFORM_HEIGHT | LAYOUT_FILL_X | LAYOUT_FILL_Y | LAYOUT_RIGHT)
+
+// ===========================================================================
+// Implementation
+// ===========================================================================
+
+class GUIDesigns {
+
+public:
+    // build menu command
+    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const FXString& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
+};

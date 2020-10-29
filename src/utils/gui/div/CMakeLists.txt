@@ -24,6 +24,7 @@ set(utils_gui_div_STAT_SRCS
    GUIBasePersonHelper.cpp
    GUIBasePersonHelper.h
    GUIDesigns.h
+   GUIDesigns.cpp
    GLObjectValuePassConnector.h
 )
 
