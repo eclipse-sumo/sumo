@@ -384,11 +384,11 @@ configuration:
 | **--device.taxi.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'taxi' device; *default:* **-1** |
 | **--device.taxi.explicit** {{DT_STR[]}} | Assign a 'taxi' device to named vehicles |
 | **--device.taxi.deterministic** {{DT_BOOL}} | The 'taxi' devices are set deterministic using a fraction of 1000; *default:* **false** |
-| **--device.taxi.dispatch-algorithm** {{DT_STR}} | The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|traci]; *default:* **greedy** |
+| **--device.taxi.dispatch-algorithm** {{DT_STR}} | The dispatch algorithm ['greedy','greedyClosest','greedyShared','routeExtension','traci']; *default:* **greedy** |
 | **--device.taxi.dispatch-algorithm.output** {{DT_STR}} | Write information from the dispatch algorithm to FILE |
 | **--device.taxi.dispatch-algorithm.params** {{DT_STR}} | Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE] |
 | **--device.taxi.dispatch-period** {{DT_TIME}} | The period between successive calls to the dispatcher; *default:* **60** |
-| **--device.taxi.idle-algorithm** {{DT_STR}} | The behavior of idle taxis [stop|randomCircling]; *default:* **stop** |
+| **--device.taxi.idle-algorithm** {{DT_STR}} | The behavior of idle taxis ['stop','randomCircling']; *default:* **stop** |
 | **--device.taxi.idle-algorithm.output** {{DT_STR}} | Write information from the idling algorithm to FILE |
 
 ### Tripinfo Device
