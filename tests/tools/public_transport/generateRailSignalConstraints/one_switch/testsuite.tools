@@ -24,3 +24,6 @@ repeat
 
 # like 'repeat' but set begin time to ignore some constraints
 begin
+
+# two trains approach the same stop from different tracks, set a fixed limit value for the constraints
+limit
