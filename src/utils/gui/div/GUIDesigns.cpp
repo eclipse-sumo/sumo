@@ -25,12 +25,38 @@
 // ===========================================================================
 
 FXMenuCommand*
-GUIDesigns::buildFXMenuCommand(FXComposite* p, const FXString& text, FXIcon* icon, FXObject* tgt, FXSelector sel) {
+GUIDesigns::buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel) {
     // build rest of menu commands
-    FXMenuCommand* menuCommand = new FXMenuCommand(p, text, icon /*GUIIconSubSys::getIcon(icon)*/, tgt, sel, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT);
+    FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
     // wet width and height (to avoid problems between Windows und Linux
-    menuCommand->setWidth(23);
     menuCommand->setHeight(23);
     // return menuCommand
     return menuCommand;
+}
+
+
+FXMenuCommand*
+GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, const double width, FXIcon* icon, FXObject* tgt, FXSelector sel) {
+    // build rest of menu commands
+    FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), icon, tgt, sel, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT);
+    // wet width and height (to avoid problems between Windows und Linux
+    menuCommand->setWidth(width);
+    menuCommand->setHeight(23);
+    // return menuCommand
+    return menuCommand;
+}
+
+
+FXMenuCheck*
+GUIDesigns::buildFXMenuCheck(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel) {
+    // crate menuCheck
+    FXMenuCheck* menuCheck = new FXMenuCheck(p, text.c_str(), tgt, sel, LAYOUT_FIX_HEIGHT);
+    // set height
+    menuCheck->setHeight(23);
+    // check if icon hast o be set
+    if (icon) {
+        menuCheck->setIcon(icon);
+    }
+    // return menu check
+    return menuCheck;
 }

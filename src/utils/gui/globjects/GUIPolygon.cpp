@@ -113,8 +113,7 @@ GUIPolygon::getPopUpMenu(GUIMainWindow& app,
                          GUISUMOAbstractView& parent) {
     GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app, false);
-    FXString t(getShapeType().c_str());
-    GUIDesigns::buildFXMenuCommand(ret, "(" + t + ")", nullptr, nullptr, 0);
+    GUIDesigns::buildFXMenuCommand(ret, "(" + getShapeType() + ")", nullptr, nullptr, 0);
     new FXMenuSeparator(ret);
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);

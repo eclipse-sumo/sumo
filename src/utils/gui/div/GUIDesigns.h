@@ -21,6 +21,7 @@
 #include <config.h>
 
 #include <fx.h>
+#include <string>
 
 // ===========================================================================
 // Definitions
@@ -539,6 +540,12 @@
 class GUIDesigns {
 
 public:
-    // build menu command
-    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const FXString& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
+    /// @brief build menu command
+    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
+
+    /// @brief build menu command (for recent files)
+    static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, const double width, FXIcon* icon, FXObject* tgt, FXSelector sel);
+
+    /// @brief build menu command (for recent files)
+    static FXMenuCheck* buildFXMenuCheck(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
 };
