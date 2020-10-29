@@ -28,6 +28,7 @@
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEVehicle.h"
 #include "GNERouteHandler.h"
@@ -67,8 +68,8 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
     myVehicle->buildCenterPopupEntry(this);
     myVehicle->buildPositionCopyEntry(this, false);
     // buld menu commands for names
-    new FXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    new FXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
     // build selection and show parameters menu
     myVehicle->getNet()->getViewNet()->buildSelectionACPopupEntry(this, myVehicle);
@@ -85,12 +86,12 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transform
-        myTransformToVehicle = new FXMenuCommand(transformOperation, "Vehicle", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Vehicle (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlow (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToTrip = new FXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToFlow = new FXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicle = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicle", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicleWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicle (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlowWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlow (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToTrip = GUIDesigns::buildFXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         // check what menu command has to be disabled
         if (myVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) {
             myTransformToVehicle->disable();
@@ -156,8 +157,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     vehicle->buildCenterPopupEntry(this);
     vehicle->buildPositionCopyEntry(this, false);
     // buld menu commands for names
-    new FXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    new FXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
     // build selection and show parameters menu
     vehicle->getNet()->getViewNet()->buildSelectionACPopupEntry(this, vehicle);
@@ -174,27 +175,27 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transform
-        myTransformToVehicle = new FXMenuCommand(transformOperation,
+        myTransformToVehicle = GUIDesigns::buildFXMenuCommand(transformOperation,
                 ("Vehicles (Only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation,
+        myTransformToVehicleWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation,
                 ("Vehicles (embedded route, only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlow = new FXMenuCommand(transformOperation,
+        myTransformToRouteFlow = GUIDesigns::buildFXMenuCommand(transformOperation,
                 ("RouteFlows (Only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation,
+        myTransformToRouteFlowWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation,
                 ("RouteFlows (embedded route, only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToTrip = new FXMenuCommand(transformOperation,
+        myTransformToTrip = GUIDesigns::buildFXMenuCommand(transformOperation,
                                               ("Trips (Only " + vehicle->getTagStr() + ")").c_str(), tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToFlow = new FXMenuCommand(transformOperation,
+        myTransformToFlow = GUIDesigns::buildFXMenuCommand(transformOperation,
                                               ("Flows (Only " + vehicle->getTagStr() + ")").c_str(), flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         // create separator
         new FXMenuSeparator(transformOperation);
         // Create menu comands for all transform all vehicles
-        myTransformAllVehiclesToVehicle = new FXMenuCommand(transformOperation, "Vehicles", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Vehicles (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlows", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlows (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToTrip = new FXMenuCommand(transformOperation, "Trips", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToFlow = new FXMenuCommand(transformOperation, "Flows", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToVehicle = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicles", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToVehicleWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicles (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToRouteFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlows", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToRouteFlowWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlows (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToTrip = GUIDesigns::buildFXMenuCommand(transformOperation, "Trips", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "Flows", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
     }
 }
 

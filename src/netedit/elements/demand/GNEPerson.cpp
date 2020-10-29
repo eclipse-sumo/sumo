@@ -28,6 +28,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIBasePersonHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPerson.h"
 #include "GNERouteHandler.h"
@@ -63,8 +64,8 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
     myPerson->buildCenterPopupEntry(this);
     myPerson->buildPositionCopyEntry(this, false);
     // buld menu commands for names
-    new FXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    new FXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myPerson->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
     // build selection and show parameters menu
     myPerson->getNet()->getViewNet()->buildSelectionACPopupEntry(this, myPerson);
@@ -76,8 +77,8 @@ GNEPerson::GNEPersonPopupMenu::GNEPersonPopupMenu(GNEPerson* person, GUIMainWind
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transformations
-        myTransformToPerson = new FXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(GUIIcon::PERSON), this, MID_GNE_PERSON_TRANSFORM);
-        myTransformToPersonFlow = new FXMenuCommand(transformOperation, "Person (embedded route)", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPerson = GUIDesigns::buildFXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(GUIIcon::PERSON), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPersonFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "Person (embedded route)", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
         // check what menu command has to be disabled
         if (myPerson->getTagProperty().getTag() == SUMO_TAG_PERSON) {
             myTransformToPerson->disable();
@@ -118,8 +119,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* p
     person->buildCenterPopupEntry(this);
     person->buildPositionCopyEntry(this, false);
     // buld menu commands for names
-    new FXMenuCommand(this, ("Copy " + person->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    new FXMenuCommand(this, ("Copy " + person->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + person->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + person->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
     // build selection and show parameters menu
     person->getNet()->getViewNet()->buildSelectionACPopupEntry(this, person);
@@ -131,8 +132,8 @@ GNEPerson::GNESelectedPersonsPopupMenu::GNESelectedPersonsPopupMenu(GNEPerson* p
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transformations
-        myTransformToPerson = new FXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(GUIIcon::PERSON), this, MID_GNE_PERSON_TRANSFORM);
-        myTransformToPersonFlow = new FXMenuCommand(transformOperation, "PersonFlow", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPerson = GUIDesigns::buildFXMenuCommand(transformOperation, "Person", GUIIconSubSys::getIcon(GUIIcon::PERSON), this, MID_GNE_PERSON_TRANSFORM);
+        myTransformToPersonFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "PersonFlow", GUIIconSubSys::getIcon(GUIIcon::PERSONFLOW), this, MID_GNE_PERSON_TRANSFORM);
     }
 }
 

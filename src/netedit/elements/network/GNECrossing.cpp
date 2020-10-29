@@ -27,6 +27,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNECrossing.h"
 
@@ -299,7 +300,7 @@ GNECrossing::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // check if we're in supermode network
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         // create menu commands
-        FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
+        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom crossing shape", nullptr, &parent, MID_GNE_CROSSING_EDIT_SHAPE);
         // check if menu commands has to be disabled
         NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
         if ((editMode == NetworkEditMode::NETWORK_CONNECT) || (editMode == NetworkEditMode::NETWORK_TLS) || (editMode == NetworkEditMode::NETWORK_CREATE_EDGE)) {

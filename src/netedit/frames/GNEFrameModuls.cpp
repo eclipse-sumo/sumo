@@ -809,15 +809,15 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
         // insert separator
         new FXMenuSeparator(pane);
         // create center menu command
-        FXMenuCommand* centerMenuCommand = new FXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_GNE_CENTER);
+        FXMenuCommand* centerMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Center", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_GNE_CENTER);
         // disable Centering for Vehicle Types, data sets and data intervals
         if (myClickedAC->getTagProperty().isVehicleType() || (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATASET) ||
                 (myClickedAC->getTagProperty().getTag() == SUMO_TAG_DATAINTERVAL)) {
             centerMenuCommand->disable();
         }
         // create inspect and delete menu commands
-        FXMenuCommand* inspectMenuCommand = new FXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_INSPECT);
-        FXMenuCommand* deleteMenuCommand = new FXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE);
+        FXMenuCommand* inspectMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Inspect", GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), this, MID_GNE_INSPECT);
+        FXMenuCommand* deleteMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Delete", GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), this, MID_GNE_DELETE);
         // check if inspect and delete menu commands has to be disabled
         if (GNEFrameAttributesModuls::isSupermodeValid(myFrameParent->myViewNet, myClickedAC) == false) {
             inspectMenuCommand->disable();
@@ -828,8 +828,8 @@ GNEFrameModuls::HierarchicalElementTree::createPopUpMenu(int X, int Y, GNEAttrib
             // insert separator
             new FXMenuSeparator(pane);
             // create both moving menu commands
-            FXMenuCommand* moveUpMenuCommand = new FXMenuCommand(pane, "Move up", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_GNE_ACHIERARCHY_MOVEUP);
-            FXMenuCommand* moveDownMenuCommand = new FXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
+            FXMenuCommand* moveUpMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Move up", GUIIconSubSys::getIcon(GUIIcon::ARROW_UP), this, MID_GNE_ACHIERARCHY_MOVEUP);
+            FXMenuCommand* moveDownMenuCommand = GUIDesigns::buildFXMenuCommand(pane, "Move down", GUIIconSubSys::getIcon(GUIIcon::ARROW_DOWN), this, MID_GNE_ACHIERARCHY_MOVEDOWN);
             // check if both commands has to be disabled
             if (myClickedDemandElement->getTagProperty().isPersonStop()) {
                 moveUpMenuCommand->setText("Move up (Stops cannot be moved)");

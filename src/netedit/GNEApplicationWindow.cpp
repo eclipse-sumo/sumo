@@ -45,6 +45,7 @@
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
@@ -1046,18 +1047,18 @@ GNEApplicationWindow::fillMenuBar() {
     // build recent files
     myMenuBarFile.buildRecentFiles(myFileMenu);
     new FXMenuSeparator(myFileMenu);
-    new FXMenuCommand(myFileMenu,
+    GUIDesigns::buildFXMenuCommand(myFileMenu,
                       "&Quit\tCtrl+Q\tQuit the Application.",
-                      nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE, 0);
+                      nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
     // build edit menu
     myEditMenu = new FXMenuPane(this);
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
     // build undo/redo command
-    myEditMenuCommands.undoLastChange = new FXMenuCommand(myEditMenu,
+    myEditMenuCommands.undoLastChange = GUIDesigns::buildFXMenuCommand(myEditMenu,
             "&Undo\tCtrl+Z\tUndo the last change.",
             GUIIconSubSys::getIcon(GUIIcon::UNDO), this, MID_HOTKEY_CTRL_Z_UNDO);
-    myEditMenuCommands.redoLastChange = new FXMenuCommand(myEditMenu,
+    myEditMenuCommands.redoLastChange = GUIDesigns::buildFXMenuCommand(myEditMenu,
             "&Redo\tCtrl+Y\tRedo the last change.",
             GUIIconSubSys::getIcon(GUIIcon::REDO), this, MID_HOTKEY_CTRL_Y_REDO);
     // build separator
@@ -1086,10 +1087,10 @@ GNEApplicationWindow::fillMenuBar() {
     menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu, LAYOUT_FIX_HEIGHT);
     menuTitle->setHeight(23);
     // build help menu commands
-    new FXMenuCommand(myHelpMenu,
+    GUIDesigns::buildFXMenuCommand(myHelpMenu,
                       "&Online Documentation\tF1\tOpen Online documentation.",
                       nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    new FXMenuCommand(myHelpMenu,
+    GUIDesigns::buildFXMenuCommand(myHelpMenu,
                       "&About\tF12\tAbout netedit.",
                       GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }

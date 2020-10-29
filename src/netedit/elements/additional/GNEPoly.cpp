@@ -28,6 +28,7 @@
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/gui/globjects/GUIPolygon.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPoly.h"
 
@@ -191,21 +192,21 @@ GNEPoly::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
-    FXMenuCommand* simplifyShape = new FXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", nullptr, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
+    FXMenuCommand* simplifyShape = GUIDesigns::buildFXMenuCommand(ret, "Simplify Shape\t\tReplace current shape with a rectangle", nullptr, &parent, MID_GNE_POLYGON_SIMPLIFY_SHAPE);
     // disable simplify shape if polygon was already simplified
     if (mySimplifiedShape || myShape.size() <= 2) {
         simplifyShape->disable();
     }
     if (myShape.isClosed()) {
-        new FXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", nullptr, &parent, MID_GNE_POLYGON_OPEN);
+        GUIDesigns::buildFXMenuCommand(ret, "Open shape\t\tOpen polygon's shape", nullptr, &parent, MID_GNE_POLYGON_OPEN);
     } else {
-        new FXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
+        GUIDesigns::buildFXMenuCommand(ret, "Close shape\t\tClose polygon's shape", nullptr, &parent, MID_GNE_POLYGON_CLOSE);
     }
     // create a extra FXMenuCommand if mouse is over a vertex
     int index = getVertexIndex(myNet->getViewNet()->getPositionInformation(), false);
     if (index != -1) {
-        FXMenuCommand* removeGeometryPoint = new FXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
-        FXMenuCommand* setFirstPoint = new FXMenuCommand(ret, "Set first geometry point\t\tSet", nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
+        FXMenuCommand* removeGeometryPoint = GUIDesigns::buildFXMenuCommand(ret, "Remove geometry point\t\tRemove geometry point under mouse", nullptr, &parent, MID_GNE_POLYGON_DELETE_GEOMETRY_POINT);
+        FXMenuCommand* setFirstPoint = GUIDesigns::buildFXMenuCommand(ret, "Set first geometry point\t\tSet", nullptr, &parent, MID_GNE_POLYGON_SET_FIRST_POINT);
         // disable setFirstPoint if shape only have three points
         if ((myShape.isClosed() && (myShape.size() <= 4)) || (!myShape.isClosed() && (myShape.size() <= 2))) {
             removeGeometryPoint->disable();

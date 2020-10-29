@@ -23,6 +23,7 @@
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNETAZElement.h"
 
@@ -100,8 +101,8 @@ GNETAZElement::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     // buld menu commands for names
-    new FXMenuCommand(ret, ("Copy " + getTagStr() + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
-    new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, ("Copy " + getTagStr() + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);

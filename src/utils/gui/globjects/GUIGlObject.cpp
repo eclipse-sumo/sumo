@@ -36,6 +36,8 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/gui/div/GLObjectValuePassConnector.h>
+#include <utils/gui/div/GUIDesigns.h>
+
 #include "GUIGlObject.h"
 #include "GUIGlObjectStorage.h"
 
@@ -233,7 +235,7 @@ GUIGlObject::buildPopupHeader(GUIGLObjectPopupMenu* ret, GUIMainWindow& app, boo
 
 void
 GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    new FXMenuCommand(ret, "Center", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), ret, MID_CENTER);
+    GUIDesigns::buildFXMenuCommand(ret, "Center", GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), ret, MID_CENTER);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -242,8 +244,8 @@ GUIGlObject::buildCenterPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator)
 
 void
 GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    new FXMenuCommand(ret, "Copy name to clipboard", nullptr, ret, MID_COPY_NAME);
-    new FXMenuCommand(ret, "Copy typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, "Copy name to clipboard", nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, "Copy typed name to clipboard", nullptr, ret, MID_COPY_TYPED_NAME);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -253,9 +255,9 @@ GUIGlObject::buildNameCopyPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparato
 void
 GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
     if (gSelected.isSelected(getType(), getGlID())) {
-        new FXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
+        GUIDesigns::buildFXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_REMOVESELECT);
     } else {
-        new FXMenuCommand(ret, "Add To Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
+        GUIDesigns::buildFXMenuCommand(ret, "Add To Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), ret, MID_ADDSELECT);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -265,7 +267,7 @@ GUIGlObject::buildSelectionPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparat
 
 void
 GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    new FXMenuCommand(ret, "Show Parameter", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPARS);
+    GUIDesigns::buildFXMenuCommand(ret, "Show Parameter", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPARS);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -274,7 +276,7 @@ GUIGlObject::buildShowParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSepara
 
 void
 GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    new FXMenuCommand(ret, "Show Type Parameter", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWTYPEPARS);
+    GUIDesigns::buildFXMenuCommand(ret, "Show Type Parameter", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWTYPEPARS);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -283,9 +285,9 @@ GUIGlObject::buildShowTypeParamsPopupEntry(GUIGLObjectPopupMenu* ret, bool addSe
 
 void
 GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    new FXMenuCommand(ret, "Copy cursor position to clipboard", nullptr, ret, MID_COPY_CURSOR_POSITION);
+    GUIDesigns::buildFXMenuCommand(ret, "Copy cursor position to clipboard", nullptr, ret, MID_COPY_CURSOR_POSITION);
     if (GeoConvHelper::getFinal().usingGeoProjection()) {
-        new FXMenuCommand(ret, "Copy cursor geo-position to clipboard", nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
+        GUIDesigns::buildFXMenuCommand(ret, "Copy cursor geo-position to clipboard", nullptr, ret, MID_COPY_CURSOR_GEOPOSITION);
     }
     if (addSeparator) {
         new FXMenuSeparator(ret);
@@ -295,7 +297,7 @@ GUIGlObject::buildPositionCopyEntry(GUIGLObjectPopupMenu* ret, bool addSeparator
 
 void
 GUIGlObject::buildShowManipulatorPopupEntry(GUIGLObjectPopupMenu* ret, bool addSeparator) {
-    new FXMenuCommand(ret, "Open Manipulator...", GUIIconSubSys::getIcon(GUIIcon::MANIP), ret, MID_MANIP);
+    GUIDesigns::buildFXMenuCommand(ret, "Open Manipulator...", GUIIconSubSys::getIcon(GUIIcon::MANIP), ret, MID_MANIP);
     if (addSeparator) {
         new FXMenuSeparator(ret);
     }
@@ -334,7 +336,7 @@ GUIGlObject::buildShapePopupOptions(GUIMainWindow& app, GUIGLObjectPopupMenu* re
     buildPositionCopyEntry(ret, false);
     // only show type if isn't empty
     if (type != "") {
-        new FXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
         new FXMenuSeparator(ret);
     }
 }
@@ -357,7 +359,7 @@ GUIGlObject::buildAdditionalsPopupOptions(GUIMainWindow& app, GUIGLObjectPopupMe
     buildPositionCopyEntry(ret, false);
     // only show type if isn't empty
     if (type != "") {
-        new FXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, ("type: " + type + "").c_str(), nullptr, nullptr, 0);
         new FXMenuSeparator(ret);
     }
 }

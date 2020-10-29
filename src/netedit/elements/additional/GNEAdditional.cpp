@@ -26,6 +26,7 @@
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEAdditional.h"
 
@@ -280,15 +281,15 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildCenterPopupEntry(ret);
     buildPositionCopyEntry(ret, false);
     // buld menu commands for names
-    new FXMenuCommand(ret, ("Copy " + getTagStr() + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
-    new FXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, ("Copy " + getTagStr() + " name to clipboard").c_str(), nullptr, ret, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, ("Copy " + getTagStr() + " typed name to clipboard").c_str(), nullptr, ret, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(ret);
     // build selection and show parameters menu
     myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
     buildShowParamsPopupEntry(ret);
     // show option to open additional dialog
     if (myTagProperty.hasDialog()) {
-        new FXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
+        GUIDesigns::buildFXMenuCommand(ret, ("Open " + getTagStr() + " Dialog").c_str(), getIcon(), &parent, MID_OPEN_ADDITIONAL_DIALOG);
         new FXMenuSeparator(ret);
     }
     // Show position parameters
@@ -296,24 +297,24 @@ GNEAdditional::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         const GNELane* lane = myNet->retrieveLane(getAttribute(SUMO_ATTR_LANE));
         // Show menu command inner position
         const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
-        new FXMenuCommand(ret, ("Cursor position over additional shape: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, ("Cursor position over additional shape: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command lane position
         if (myAdditionalGeometry.getShape().size() > 0) {
             const double lanePos = lane->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getShape().front());
-            new FXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), nullptr, nullptr, 0);
+            GUIDesigns::buildFXMenuCommand(ret, ("Cursor position over " + toString(SUMO_TAG_LANE) + ": " + toString(innerPos + lanePos)).c_str(), nullptr, nullptr, 0);
         }
     } else if (myTagProperty.hasAttribute(SUMO_ATTR_EDGE) && (myAdditionalGeometry.getShape().size() > 1)) {
         const GNEEdge* edge = myNet->retrieveEdge(getAttribute(SUMO_ATTR_EDGE));
         // Show menu command inner position
         const double innerPos = myAdditionalGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
-        new FXMenuCommand(ret, ("Cursor position over additional shape: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, ("Cursor position over additional shape: " + toString(innerPos)).c_str(), nullptr, nullptr, 0);
         // If shape isn't empty, show menu command edge position
         if (myAdditionalGeometry.getShape().size() > 0) {
             const double edgePos = edge->getLanes().at(0)->getLaneShape().nearest_offset_to_point2D(myAdditionalGeometry.getShape().front());
-            new FXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), nullptr, nullptr, 0);
+            GUIDesigns::buildFXMenuCommand(ret, ("Mouse position over " + toString(SUMO_TAG_EDGE) + ": " + toString(innerPos + edgePos)).c_str(), nullptr, nullptr, 0);
         }
     } else {
-        new FXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, ("Cursor position in view: " + toString(getPositionInView().x()) + "," + toString(getPositionInView().y())).c_str(), nullptr, nullptr, 0);
     }
     return ret;
 }

@@ -57,6 +57,7 @@
 #include <utils/gui/windows/GUIDanielPerspectiveChanger.h>
 #include <utils/gui/windows/GUIDialog_ViewSettings.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNENet.h"
 #include "GNEUndoList.h"
@@ -366,9 +367,9 @@ GNEViewNet::getObjectsUnderCursor() const {
 void
 GNEViewNet::buildSelectionACPopupEntry(GUIGLObjectPopupMenu* ret, GNEAttributeCarrier* AC) {
     if (AC->isAttributeCarrierSelected()) {
-        new FXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), this, MID_REMOVESELECT);
+        GUIDesigns::buildFXMenuCommand(ret, "Remove From Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), this, MID_REMOVESELECT);
     } else {
-        new FXMenuCommand(ret, "Add To Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), this, MID_ADDSELECT);
+        GUIDesigns::buildFXMenuCommand(ret, "Add To Selected", GUIIconSubSys::getIcon(GUIIcon::FLAG_PLUS), this, MID_ADDSELECT);
     }
     new FXMenuSeparator(ret);
 }

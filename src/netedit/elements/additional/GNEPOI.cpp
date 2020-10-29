@@ -29,6 +29,7 @@
 #include <netedit/GNEViewNet.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEPOI.h"
 
@@ -209,13 +210,13 @@ GNEPOI::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         // build shape header
         buildShapePopupOptions(app, ret, getShapeType());
         // add option for convert to GNEPOI
-        new FXMenuCommand(ret, ("Release from " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
+        GUIDesigns::buildFXMenuCommand(ret, ("Release from " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
         return ret;
     } else {
         // build shape header
         buildShapePopupOptions(app, ret, getShapeType());
         // add option for convert to GNEPOI
-        new FXMenuCommand(ret, ("Attach to nearest " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
+        GUIDesigns::buildFXMenuCommand(ret, ("Attach to nearest " + toString(SUMO_TAG_LANE)).c_str(), GUIIconSubSys::getIcon(GUIIcon::LANE), &parent, MID_GNE_POI_TRANSFORM);
     }
     return ret;
 }

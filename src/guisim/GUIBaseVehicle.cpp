@@ -52,6 +52,7 @@
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GUIBaseVehicle.h"
 #include "GUIPerson.h"
@@ -319,19 +320,19 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
     buildSelectionPopupEntry(ret);
     //
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ROUTE)) {
-        new FXMenuCommand(ret, "Hide Current Route", nullptr, ret, MID_HIDE_CURRENTROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, "Hide Current Route", nullptr, ret, MID_HIDE_CURRENTROUTE);
     } else {
-        new FXMenuCommand(ret, "Show Current Route", nullptr, ret, MID_SHOW_CURRENTROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, "Show Current Route", nullptr, ret, MID_SHOW_CURRENTROUTE);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_FUTURE_ROUTE)) {
-        new FXMenuCommand(ret, "Hide Future Route", nullptr, ret, MID_HIDE_FUTUREROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, "Hide Future Route", nullptr, ret, MID_HIDE_FUTUREROUTE);
     } else {
-        new FXMenuCommand(ret, "Show Future Route", nullptr, ret, MID_SHOW_FUTUREROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, "Show Future Route", nullptr, ret, MID_SHOW_FUTUREROUTE);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ALL_ROUTES)) {
-        new FXMenuCommand(ret, "Hide All Routes", nullptr, ret, MID_HIDE_ALLROUTES);
+        GUIDesigns::buildFXMenuCommand(ret, "Hide All Routes", nullptr, ret, MID_HIDE_ALLROUTES);
     } else {
-        new FXMenuCommand(ret, "Show All Routes", nullptr, ret, MID_SHOW_ALLROUTES);
+        GUIDesigns::buildFXMenuCommand(ret, "Show All Routes", nullptr, ret, MID_SHOW_ALLROUTES);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ROUTE_NOLOOP)) {
         FXMenuCheck* showLoops = new FXMenuCheck(ret, "Draw looped routes", ret, MID_HIDE_ROUTE_NOLOOPS);
@@ -341,25 +342,25 @@ GUIBaseVehicle::getPopUpMenu(GUIMainWindow& app,
         showLoops->setCheck(true);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_BEST_LANES)) {
-        new FXMenuCommand(ret, "Hide Best Lanes", nullptr, ret, MID_HIDE_BEST_LANES);
+        GUIDesigns::buildFXMenuCommand(ret, "Hide Best Lanes", nullptr, ret, MID_HIDE_BEST_LANES);
     } else {
-        new FXMenuCommand(ret, "Show Best Lanes", nullptr, ret, MID_SHOW_BEST_LANES);
+        GUIDesigns::buildFXMenuCommand(ret, "Show Best Lanes", nullptr, ret, MID_SHOW_BEST_LANES);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_LFLINKITEMS)) {
-        new FXMenuCommand(ret, "Hide Link Items", nullptr, ret, MID_HIDE_LFLINKITEMS);
+        GUIDesigns::buildFXMenuCommand(ret, "Hide Link Items", nullptr, ret, MID_HIDE_LFLINKITEMS);
     } else {
-        new FXMenuCommand(ret, "Show Link Items", nullptr, ret, MID_SHOW_LFLINKITEMS);
+        GUIDesigns::buildFXMenuCommand(ret, "Show Link Items", nullptr, ret, MID_SHOW_LFLINKITEMS);
     }
     new FXMenuSeparator(ret);
     if (parent.getTrackedID() != getGlID()) {
-        new FXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
     } else {
-        new FXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
     }
-    new FXMenuCommand(ret, "Select Foes", nullptr, ret, MID_SHOW_FOES);
+    GUIDesigns::buildFXMenuCommand(ret, "Select Foes", nullptr, ret, MID_SHOW_FOES);
 
-    new FXMenuCommand(ret, myVehicle.isStopped() ? "Abort stop" : "Stop", nullptr, ret, MID_TOGGLE_STOP);
-    new FXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
+    GUIDesigns::buildFXMenuCommand(ret, myVehicle.isStopped() ? "Abort stop" : "Stop", nullptr, ret, MID_TOGGLE_STOP);
+    GUIDesigns::buildFXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
 
     new FXMenuSeparator(ret);
     //
