@@ -31,6 +31,7 @@ import de.dlr.ts.lisum.gui.Tools;
 import de.dlr.ts.lisum.gui.misc.LisumAboutWindow;
 import de.dlr.ts.lisum.gui.options.SystemPreferencesWindow;
 import java.awt.Desktop;
+//import java.awt.Desktop;
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
