@@ -1874,11 +1874,7 @@ MSLane::changeLanes(const SUMOTime t) {
 
 const MSEdge*
 MSLane::getNextNormal() const {
-    const MSEdge* e = myEdge;
-    while (e->isInternal()) {
-        e = e->getSuccessors()[0];
-    }
-    return e;
+    return myEdge->getNormalSuccessor();
 }
 
 

@@ -868,11 +868,11 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     // where to insert the stop
     std::list<MSStop>::iterator iter = myStops.begin();
     if (stopPar.index == STOP_INDEX_END || stopPar.index >= static_cast<int>(myStops.size())) {
+        iter = myStops.end();
         if (myStops.size() > 0 && myStops.back().edge >= *searchStart) {
             prevStopEdge = myStops.back().edge;
             prevEdge = &myStops.back().lane->getEdge();
             prevStopPos = myStops.back().pars.endPos;
-            iter = myStops.end();
             stop.edge = std::find(prevStopEdge, myRoute->end(), stopEdge);
             if (prevStopEdge == stop.edge                // laneEdge check is insufficient for looped routes
                 && prevEdge == &stop.lane->getEdge() // route iterator check insufficient for internal lane stops
@@ -880,8 +880,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                 stop.edge = std::find(prevStopEdge + 1, myRoute->end(), stopEdge);
             }
         }
-    }
-    else {
+    } else {
         if (stopPar.index == STOP_INDEX_FIT) {
             while (iter != myStops.end() && (iter->edge < stop.edge ||
                 (iter->pars.endPos < stop.pars.endPos && iter->edge == stop.edge))) {
@@ -952,6 +951,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     myStops.insert(iter, stop);
     //std::cout << " added stop " << errorMsgStart << " totalStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin())
     //    << " routeIndex=" << (stop.edge - myRoute->begin())
+    //    << " stopIndex=" << std::distance(myStops.begin(), iter)
     //    << " route=" << toString(myRoute->getEdges())  << "\n";
     return true;
 }
@@ -996,9 +996,20 @@ MSBaseVehicle::haveValidStopEdges() const {
     }
     for (const MSStop& stop : myStops) {
         const double endPos = stop.getEndPos(*this);
-        const MSEdge* const stopEdge = &stop.lane->getEdge();
-        const MSRouteIterator it = std::find(start, myRoute->end(), stopEdge);
-        const std::string prefix = "Stop " + toString(i) + " on edge '" + stopEdge->getID() + "' ";
+        MSRouteIterator it;
+        const std::string prefix = "Stop " + toString(i) + " on edge '" + stop.lane->getEdge().getID() + "' ";
+        if (stop.lane->isInternal()) {
+            // find the normal predecessor and ensure that the next route edge
+            // matches the successor of the internal edge successor
+            it = std::find(start, myRoute->end(), stop.lane->getEdge().getNormalBefore());
+            if (it != myRoute->end() && (
+                        it + 1 == myRoute->end() || *(it + 1) != stop.lane->getEdge().getNormalSuccessor())) {
+                it = myRoute->end(); // signal failure
+            }
+        } else {
+            const MSEdge* const stopEdge = &stop.lane->getEdge();
+            it = std::find(start, myRoute->end(), stopEdge);
+        }
         if (it == myRoute->end()) {
             WRITE_ERROR(prefix + "is not found after edge '" + (*start)->getID() + "' (" + toString(start - myCurrEdge) + " after current " + err);
             ok = false;
@@ -1038,15 +1049,23 @@ MSBaseVehicle::getStopEdges(double& firstPos, double& lastPos) const {
     assert(haveValidStopEdges());
     ConstMSEdgeVector result;
     const MSStop* prev = nullptr;
+    const MSEdge* internalSuccessor = nullptr;
     for (const MSStop& stop : myStops) {
         if (stop.reached) {
             continue;
         }
         const double stopPos = stop.getEndPos(*this);
-        if (prev == nullptr
+        if ((prev == nullptr
             || prev->edge != stop.edge
-            || prev->getEndPos(*this) > stopPos) {
+            || (prev->lane == stop.lane && prev->getEndPos(*this) > stopPos))
+                && *stop.edge != internalSuccessor) {
             result.push_back(*stop.edge);
+            if (stop.lane->isInternal()) {
+                internalSuccessor = stop.lane->getNextNormal();
+                result.push_back(internalSuccessor);
+            } else {
+                internalSuccessor = nullptr;
+            }
         }
         prev = &stop;
         if (firstPos < 0) {

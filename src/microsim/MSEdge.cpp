@@ -718,6 +718,16 @@ MSEdge::getNormalBefore() const {
     return result;
 }
 
+const MSEdge*
+MSEdge::getNormalSuccessor() const {
+    const MSEdge* result = this;
+    while (result->isInternal()) {
+        assert(result->getSuccessors().size() == 1);
+        result = result->getSuccessors().front();
+    }
+    return result;
+}
+
 double
 MSEdge::getMeanSpeed() const {
     double v = 0;
