@@ -57,8 +57,8 @@ def get_options(args=None):
                         help="Use stop arrival+duration instead of 'until' to compute insertion constraints")
     parser.add_argument("-d", "--delay", default="0",
                         help="Assume given maximum delay when computing the number of intermediate vehicles that pass a given signal (for setting limit)")
-    parser.add_argument("-l", "--limit", type=int,
-                        help="Set a fixed limit value for tracking passed vehicles")
+    parser.add_argument("-l", "--limit", type=int, default=0,
+                        help="Increases the limit value for tracking passed vehicles by the given amount")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -433,8 +433,7 @@ def writeConstraint(options, outf, tag, values):
             comment += "vehID=%s " % vehID
         if otherVehID != otherTripID:
             comment += "foeID=%s " % otherVehID
-    if options.limit is not None:
-        limit = options.limit
+    limit += options.limit
     if comment != "":
         comment = "   <!-- %s -->" % comment
     if limit == 1:
