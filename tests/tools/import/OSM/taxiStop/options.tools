@@ -1,0 +1,1 @@
+-s osm_bbox.osm.xml -o out.add.xml tools/osmTaxiStop.py
