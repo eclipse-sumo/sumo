@@ -57,6 +57,7 @@ MSStageDriving::MSStageDriving(const MSEdge* destination,
     myWaitingSince(-1),
     myWaitingEdge(nullptr),
     myStopWaitPos(Position::INVALID),
+    myOriginStop(nullptr),
     myIntendedVehicleID(intendedVeh),
     myIntendedDepart(intendedDepart) {
 }
@@ -174,7 +175,7 @@ MSStageDriving::getStageSummary(const bool isPerson) const {
 
 void
 MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
-    const MSStoppingPlace* start = (previous->getStageType() == MSStageType::TRIP
+    myOriginStop = (previous->getStageType() == MSStageType::TRIP
                                     ? previous->getOriginStop()
                                     : previous->getDestinationStop());
     myWaitingSince = now;
@@ -189,14 +190,17 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
                                (isPerson ? "person" : "container") + " '" + transportable->getID() + "'.");
         }
         setVehicle(startVeh);
+        if (myOriginStop != nullptr) {
+            myOriginStop->removeTransportable(transportable);
+        }
         myVehicle->addTransportable(transportable);
         return;
     }
-    if (start != nullptr) {
+    if (myOriginStop != nullptr) {
         // the arrival stop may have an access point
-        myWaitingEdge = &start->getLane().getEdge();
-        myStopWaitPos = start->getWaitPosition(transportable);
-        myWaitingPos = start->getWaitingPositionOnLane(transportable);
+        myWaitingEdge = &myOriginStop->getLane().getEdge();
+        myStopWaitPos = myOriginStop->getWaitPosition(transportable);
+        myWaitingPos = myOriginStop->getWaitingPositionOnLane(transportable);
     } else {
         myWaitingEdge = previous->getEdge();
         myStopWaitPos = Position::INVALID;
@@ -208,6 +212,9 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
                             (!isPerson && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED));
     if (triggered && !availableVehicle->hasDeparted()) {
         setVehicle(availableVehicle);
+        if (myOriginStop != nullptr) {
+            myOriginStop->removeTransportable(transportable);
+        }
         myVehicle->addTransportable(transportable);
         net->getInsertionControl().add(myVehicle);
         myWaitingEdge->removeWaiting(myVehicle);

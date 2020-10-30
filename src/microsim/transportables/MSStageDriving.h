@@ -81,6 +81,10 @@ public:
     const MSEdge* getFromEdge() const;
     double getEdgePos(SUMOTime now) const;
 
+    MSStoppingPlace* getOriginStop() const {
+        return myOriginStop;
+    }
+
     ///
     Position getPosition(SUMOTime now) const;
 
@@ -183,6 +187,8 @@ protected:
     SUMOTime myWaitingSince;
     const MSEdge* myWaitingEdge;
     Position myStopWaitPos;
+    /// @brief the stop at which this ride starts (or nullptr)
+    MSStoppingPlace* myOriginStop;
 
     std::string myIntendedVehicleID;
     SUMOTime myIntendedDepart;

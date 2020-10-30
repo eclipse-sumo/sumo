@@ -32,6 +32,7 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPModel_NonInteracting.h>
 #include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -208,6 +209,9 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
                 }
 
                 static_cast<MSStageDriving*>((*i)->getCurrentStage())->setVehicle(vehicle);
+                if ((*i)->getCurrentStage()->getOriginStop() != nullptr) {
+                    (*i)->getCurrentStage()->getOriginStop()->removeTransportable(*i);
+                }
                 i = wait.erase(i);
                 myWaitingForVehicleNumber--;
                 ret = true;
@@ -256,6 +260,9 @@ MSTransportableControl::loadAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const
                 }
 
                 static_cast<MSStageDriving*>((*i)->getCurrentStage())->setVehicle(vehicle);
+                if ((*i)->getCurrentStage()->getOriginStop() != nullptr) {
+                    (*i)->getCurrentStage()->getOriginStop()->removeTransportable(*i);
+                }
                 i = waitContainers.erase(i);
                 myWaitingForVehicleNumber--;
                 ret = true;

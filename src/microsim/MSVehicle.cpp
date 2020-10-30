@@ -1730,12 +1730,6 @@ MSVehicle::boardTransportables(MSStop& stop) {
         stop.containerTriggered = false;
     }
     if (boarded) {
-        if (stop.busstop != nullptr) {
-            const std::vector<MSTransportable*>& persons = myPersonDevice->getTransportables();
-            for (std::vector<MSTransportable*>::const_iterator i = persons.begin(); i != persons.end(); ++i) {
-                stop.busstop->removeTransportable(*i);
-            }
-        }
         // the triggering condition has been fulfilled. Maybe we want to wait a bit longer for additional riders (car pooling)
         stop.triggered = false;
         if (myAmRegisteredAsWaitingForPerson) {
@@ -1749,12 +1743,6 @@ MSVehicle::boardTransportables(MSStop& stop) {
         }
     }
     if (loaded) {
-        if (stop.containerstop != nullptr) {
-            const std::vector<MSTransportable*>& containers = myContainerDevice->getTransportables();
-            for (std::vector<MSTransportable*>::const_iterator i = containers.begin(); i != containers.end(); ++i) {
-                stop.containerstop->removeTransportable(*i);
-            }
-        }
         // the triggering condition has been fulfilled
         stop.containerTriggered = false;
         if (myAmRegisteredAsWaitingForContainer) {
