@@ -56,6 +56,7 @@
 /bin/testlibsumo*
 /bin/testthreadpool*
 /bin/*.dll
+/bin/*.dylib
 /bin/*.so
 /bin/*.pyd
 /bin/osgPlugins*
