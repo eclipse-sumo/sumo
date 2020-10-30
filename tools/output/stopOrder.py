@@ -52,6 +52,7 @@ def get_options(args=None):
 
     return options
 
+
 def main(options):
 
     def formatVehCode(code):
@@ -59,7 +60,6 @@ def main(options):
         if options.hrTime:
             time = humanReadableTime(time)
         return "%s (plan=%s)" % (veh, time)
-
 
     # stop (stoppingPlaceID or (lane, pos)) -> [(depart1, veh1), (depart2, veh2), ...]
     expected_departs = defaultdict(list)

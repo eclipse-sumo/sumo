@@ -18,7 +18,7 @@
 from functools import wraps
 import sys
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation
-from traci.connection import StepListener 
+from traci.connection import StepListener
 from .libsumo import vehicle, simulation
 from .libsumo import *  # noqa
 
@@ -27,10 +27,12 @@ _nextStepListenerID = 0
 
 _traceFile = [None]
 
+
 def wrapAsClassMethod(func, module):
     def wrapper(*args, **kwargs):
         return func(module, *args, **kwargs)
     return wrapper
+
 
 TraCIStage.__attr_repr__ = _simulation.Stage.__attr_repr__
 TraCIStage.__repr__ = _simulation.Stage.__repr__

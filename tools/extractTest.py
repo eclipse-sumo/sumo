@@ -237,24 +237,24 @@ for p in [
                 prefix = os.path.commonprefix((testPath, os.path.abspath(pyBatch.name)))
                 up = os.path.abspath(pyBatch.name)[len(prefix):].count(os.sep) * "../"
                 pyBatch.write('    subprocess.Popen([%s], cwd=join(THIS_DIR, r"%s%s")),\n' %
-                            (', '.join(call), up, testPath[len(prefix):]))
+                              (', '.join(call), up, testPath[len(prefix):]))
             if options.skip_configuration:
                 continue
             oldWorkDir = os.getcwd()
             os.chdir(testPath)
             haveConfig = False
             if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert",
-                    "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
+                       "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
                 if app == "netgen":
                     # binary is now called differently but app still has the old name
                     app = "netgenerate"
                 if options.verbose:
                     print("calling %s for testPath '%s' with options '%s'" %
-                        (checkBinary(app), testPath, " ".join(appOptions)))
+                          (checkBinary(app), testPath, " ".join(appOptions)))
                 try:
                     haveConfig = subprocess.call([checkBinary(app)] + appOptions +
-                                                ['--save-configuration', '%s.%scfg' %
-                                                (nameBase, app[:4])]) == 0
+                                                 ['--save-configuration', '%s.%scfg' %
+                                                  (nameBase, app[:4])]) == 0
                 except OSError:
                     print("Executable %s not found, generating shell scripts instead of config." % app, file=sys.stderr)
                 if not haveConfig:
@@ -280,7 +280,7 @@ for p in [
             if not haveConfig:
                 if options.verbose:
                     print("generating shell scripts for testPath '%s' with call '%s'" %
-                        (testPath, " ".join(appOptions)))
+                          (testPath, " ".join(appOptions)))
                 cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
                 open(nameBase + ".sh", "w").write(" ".join(cmd))
                 cmd = [o.replace("$SUMO_HOME", "%SUMO_HOME%") if " " not in o else '"%s"' % o for o in appOptions]

@@ -22,8 +22,8 @@ import os
 import sys
 import argparse
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-import sumolib
-import osmBuild
+import sumolib  # noqa
+import osmBuild  # noqa
 
 
 def main(options):
@@ -56,11 +56,12 @@ def main(options):
                                 bestLane = lane
                                 break
                 if bestLane:
-                    pos = max(length / 2, sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(point, bestLane.getShape()))
-                    endPos = min(lane.getLength(), pos + length / 2)
+                    pos = sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(point, bestLane.getShape())
+                    endPos = min(lane.getLength(), max(length, pos + length / 2))
                     nameAttr = 'name="%s" ' % name if name else ""
                     print('    <%s id="%s_%s" %slane="%s" startPos="%.2f" endPos="%.2f"/>' %
-                          (options.type, options.type, count, nameAttr, bestLane.getID(), endPos - length, endPos), file=output)
+                          (options.type, options.type, count, nameAttr, bestLane.getID(), endPos - length, endPos),
+                          file=output)
                     count += 1
         print("</additional>", file=output)
 

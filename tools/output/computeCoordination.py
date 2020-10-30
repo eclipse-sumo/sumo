@@ -130,7 +130,6 @@ def main(options):
     else:
         print("n=0")
 
-
     if options.fullOutput:
         with open(options.fullOutput, 'w') as outf:
             outf.write("# entryTime delayTime vehID\n")

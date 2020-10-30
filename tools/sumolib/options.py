@@ -65,8 +65,10 @@ def getOptions():
     # return global option value (after parse_args was called)
     return _OPTIONS[0]
 
+
 def xmlescape(value):
-    return saxutils.escape(str(value), {'"' : '&quot;'})
+    return saxutils.escape(str(value), {'"': '&quot;'})
+
 
 class ArgumentParser(argparse.ArgumentParser):
     """Drop-in replacement for argparse.ArgumentParser that adds support for

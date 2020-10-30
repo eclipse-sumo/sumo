@@ -74,7 +74,8 @@ def main(options):
                     if stop.arrival:
                         until = parseTime(stop.arrival) + parseTime(stop.duration)
                     else:
-                        print("Cannot compute 'until' for Vehicle %s because 'arrival' is not defined" % vehicle.id, file=sys.stderr)
+                        print("Cannot compute 'until' for Vehicle %s because 'arrival' is not defined" %
+                              vehicle.id, file=sys.stderr)
                 else:
                     until = parseTime(stop.until)
                 arrival = parseTime(stop.arrival) if stop.arrival else until - parseTime(stop.duration)
