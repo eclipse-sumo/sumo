@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Sep 11 11:05:27 2020 by Eclipse SUMO netconvert Version v1_7_0+0011-1fd856dfd8
+<!-- generated on Sat Oct 31 00:37:16 2020 by Eclipse SUMO netconvert Version v1_7_0+0725-5b50f56218
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -71,8 +71,8 @@ SPDX-License-Identifier: EPL-2.0
     <edge id="13" from="13-SourceNode" to="13-DestinationNode" priority="-1" type="4" spreadType="center">
         <lane id="13_0" index="0" speed="13.89" length="49.13" shape="1001.16,1425.89 978.53,1469.50"/>
     </edge>
-    <edge id="14" from="14-SourceNode" to="14-DestinationNode" priority="-1" type="5" spreadType="center" shape="1087.01,1462.74 1059.00,1448.93 1053.63,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98">
-        <lane id="14_0" index="0" speed="13.89" length="133.19" shape="1087.01,1462.74 1059.00,1448.93 1053.63,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98"/>
+    <edge id="14" from="14-SourceNode" to="14-DestinationNode" priority="-1" type="5" spreadType="center" shape="1087.01,1462.74 1059.00,1448.93 1053.62,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98">
+        <lane id="14_0" index="0" speed="13.89" length="133.19" shape="1087.01,1462.74 1059.00,1448.93 1053.62,1447.09 1049.93,1446.35 1045.18,1445.99 1041.07,1445.83 1037.41,1445.76 1032.87,1445.39 1029.12,1444.69 1024.85,1443.66 1019.58,1441.79 1003.46,1434.23 964.10,1414.98"/>
     </edge>
     <edge id="15" from="15-SourceNode" to="15-DestinationNode" priority="-1" type="1" spreadType="center">
         <lane id="15_0" index="0" speed="13.89" length="36.84" shape="994.90,1424.74 1028.35,1440.20"/>
@@ -707,6 +707,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="454" type="static" programID="0" offset="0">
+        <phase duration="4"  state="GGGGGGrrrrrrrrrrrrrrrG"/>
         <phase duration="2"  state="GGGGGGrrrrrrrrrrrrrrry"/>
         <phase duration="1"  state="GGGGyyrrrrrrrrrrrrrrry"/>
         <phase duration="1"  state="GGGGyyrrrrrrrrrrrrrrrr"/>
@@ -730,7 +731,6 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="4"  state="rrrGGGrrrrrrrrrrrrrrGG"/>
         <phase duration="2"  state="gggGGGrrrrrrrrrrrrrrGG"/>
         <phase duration="3"  state="GGGGGGrrrrrrrrrrrrrryG"/>
-        <phase duration="4"  state="GGGGGGrrrrrrrrrrrrrrrG"/>
     </tlLogic>
     <tlLogic id="532" type="static" programID="0" offset="0">
         <phase duration="23" state="rrGGGGGGGrrrr"/>
