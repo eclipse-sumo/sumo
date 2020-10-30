@@ -69,8 +69,10 @@ jobs:
         
     - name: Building FMU Compliance Checker
       run: |
-        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
+        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker    
         cd fmuChecker
+        # Check out latest release version of FMU Checker to have a stable build
+        git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
         mkdir build
         cd build
         cmake ../
