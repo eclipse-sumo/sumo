@@ -256,7 +256,7 @@ GNEJunction::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom junction shape", nullptr, &parent, MID_GNE_JUNCTION_EDIT_SHAPE);
         FXMenuCommand* mcResetCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Reset junction shape", nullptr, &parent, MID_GNE_JUNCTION_RESET_SHAPE);
         FXMenuCommand* mcReplace = GUIDesigns::buildFXMenuCommand(ret, "Replace junction by geometry point", nullptr, &parent, MID_GNE_JUNCTION_REPLACE);
-        FXMenuCommand* mcSplit = GUIDesigns::buildFXMenuCommand(ret, ("Split junction (" + toString(numEndpoints) + " end points)").c_str(), nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
+        FXMenuCommand* mcSplit = GUIDesigns::buildFXMenuCommand(ret, "Split junction (" + toString(numEndpoints) + " end points)", nullptr, &parent, MID_GNE_JUNCTION_SPLIT);
         FXMenuCommand* mcSplitReconnect = GUIDesigns::buildFXMenuCommand(ret, "Split junction and reconnect", nullptr, &parent, MID_GNE_JUNCTION_SPLIT_RECONNECT);
         if (myNBNode->isRoundabout()) {
             GUIDesigns::buildFXMenuCommand(ret, "Select roundabout", nullptr, &parent, MID_GNE_JUNCTION_SELECT_ROUNDABOUT);

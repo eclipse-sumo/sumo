@@ -710,9 +710,9 @@ GNELane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
             new FXMenuSeparator(ret);
             const double pos = myLaneGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation());
             const double height = myLaneGeometry.getShape().positionAtOffset2D(myLaneGeometry.getShape().nearest_offset_to_point2D(parent.getPositionInformation())).z();
-            GUIDesigns::buildFXMenuCommand(ret, ("Shape pos: " + toString(pos)).c_str(), nullptr, nullptr, 0);
-            GUIDesigns::buildFXMenuCommand(ret, ("Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength())).c_str(), nullptr, nullptr, 0);
-            GUIDesigns::buildFXMenuCommand(ret, ("Height: " + toString(height)).c_str(), nullptr, nullptr, 0);
+            GUIDesigns::buildFXMenuCommand(ret, "Shape pos: " + toString(pos), nullptr, nullptr, 0);
+            GUIDesigns::buildFXMenuCommand(ret, "Length pos: " + toString(pos * getLaneParametricLength() / getLaneShapeLength()), nullptr, nullptr, 0);
+            GUIDesigns::buildFXMenuCommand(ret, "Height: " + toString(height), nullptr, nullptr, 0);
         }
     }
     return ret;
@@ -1642,14 +1642,13 @@ GNELane::buildEdgeOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMenu* 
     } else {
         GUIDesigns::buildFXMenuCommand(edgeOperations, "Restore geometry endpoint (shift-click)", nullptr, &parent, MID_GNE_EDGE_RESET_ENDPOINT);
     }
-    GUIDesigns::buildFXMenuCommand(edgeOperations, ("Reverse " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_REVERSE);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, ("Add reverse direction for " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, ("Reset lengths for " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_RESET_LENGTH);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, ("Straighten " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, ("Smooth " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_SMOOTH);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, ("Straighten elevation of " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);
-    GUIDesigns::buildFXMenuCommand(edgeOperations, ("Smooth elevation of " + edgeDescPossibleMulti).c_str(), nullptr, &parent, MID_GNE_EDGE_SMOOTH_ELEVATION);
-
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Reverse " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_REVERSE);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Add reverse direction for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_ADD_REVERSE);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Reset lengths for " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_RESET_LENGTH);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Straighten " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Smooth " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_SMOOTH);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Straighten elevation of " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_STRAIGHTEN_ELEVATION);
+    GUIDesigns::buildFXMenuCommand(edgeOperations, "Smooth elevation of " + edgeDescPossibleMulti, nullptr, &parent, MID_GNE_EDGE_SMOOTH_ELEVATION);
 }
 
 

@@ -165,7 +165,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         buildShowParamsPopupEntry(ret);
     }
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
-    GUIDesigns::buildFXMenuCommand(ret, ("segment: " + toString(segment->getIndex())).c_str(), nullptr, nullptr, 0);
+    GUIDesigns::buildFXMenuCommand(ret, "segment: " + toString(segment->getIndex()), nullptr, nullptr, 0);
     buildPositionCopyEntry(ret, false);
     return ret;
 }

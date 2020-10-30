@@ -107,7 +107,6 @@ GUIPolygon::~GUIPolygon() {
 }
 
 
-
 GUIGLObjectPopupMenu*
 GUIPolygon::getPopUpMenu(GUIMainWindow& app,
                          GUISUMOAbstractView& parent) {

@@ -1037,8 +1037,7 @@ GNEApplicationWindow::fillMenuBar() {
     FXMenuTitle* menuTitle;
     // build file menu
     myFileMenu = new FXMenuPane(this, LAYOUT_FIX_HEIGHT);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    menuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu);
     myFileMenuTLS = new FXMenuPane(this);
     myFileMenuAdditionals = new FXMenuPane(this);
     myFileMenuDemandElements = new FXMenuPane(this);
@@ -1047,20 +1046,19 @@ GNEApplicationWindow::fillMenuBar() {
     // build recent files
     myMenuBarFile.buildRecentFiles(myFileMenu);
     new FXMenuSeparator(myFileMenu);
-    GUIDesigns::buildFXMenuCommand(myFileMenu,
-                      "&Quit\tCtrl+Q\tQuit the Application.",
-                      nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+        "&Quit", "Ctrl+Q", "Quit the Application.",
+        nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
     // build edit menu
     myEditMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    menuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu);
     // build undo/redo command
-    myEditMenuCommands.undoLastChange = GUIDesigns::buildFXMenuCommand(myEditMenu,
-            "&Undo\tCtrl+Z\tUndo the last change.",
-            GUIIconSubSys::getIcon(GUIIcon::UNDO), this, MID_HOTKEY_CTRL_Z_UNDO);
-    myEditMenuCommands.redoLastChange = GUIDesigns::buildFXMenuCommand(myEditMenu,
-            "&Redo\tCtrl+Y\tRedo the last change.",
-            GUIIconSubSys::getIcon(GUIIcon::REDO), this, MID_HOTKEY_CTRL_Y_REDO);
+    myEditMenuCommands.undoLastChange = GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+        "&Undo", "Ctrl+Z", "Undo the last change.",
+        GUIIconSubSys::getIcon(GUIIcon::UNDO), this, MID_HOTKEY_CTRL_Z_UNDO);
+    myEditMenuCommands.redoLastChange = GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+        "&Redo", "Ctrl+Y", "Redo the last change.",
+        GUIIconSubSys::getIcon(GUIIcon::REDO), this, MID_HOTKEY_CTRL_Y_REDO);
     // build separator
     new FXMenuSeparator(myEditMenu);
     // build Supermode commands and hide it
@@ -1069,30 +1067,26 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenuCommands.buildEditMenuCommands(myEditMenu);
     // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    menuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu);
     myProcessingMenuCommands.buildProcessingMenuCommands(myProcessingMenu);
     // build locate menu
     myLocatorMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    menuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu);
     myLocateMenuCommands.buildLocateMenuCommands(myLocatorMenu);
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    menuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu);
     myWindowsMenuCommands.buildWindowsMenuCommands(myWindowsMenu, myStatusbar, myMessageWindow);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    menuTitle = GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu);
     // build help menu commands
-    GUIDesigns::buildFXMenuCommand(myHelpMenu,
-                      "&Online Documentation\tF1\tOpen Online documentation.",
-                      nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    GUIDesigns::buildFXMenuCommand(myHelpMenu,
-                      "&About\tF12\tAbout netedit.",
-                      GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
+        "&Online Documentation", "F1", "Open Online documentation.",
+        nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
+        "&About", "F12", "About netedit.",
+        GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }
 
 

@@ -20,17 +20,27 @@
 
 #include "GUIDesigns.h"
 
-#include <utils/gui/images/GUIIconSubSys.h>
 
 // ===========================================================================
 // Definitions
 // ===========================================================================
 
+FXMenuTitle*
+GUIDesigns::buildFXMenuTitle(FXComposite* p, const std::string& text, FXIcon* icon, FXMenuPane* menuPane) {
+    // create menu title
+    FXMenuTitle *menuTitle = new FXMenuTitle(p, text.c_str(), icon, menuPane, LAYOUT_FIX_HEIGHT);
+    // setheight (to avoid problems between Windows und Linux)
+    menuTitle->setHeight(23);
+    // return menuTitle
+    return menuTitle;
+}
+
+
 FXMenuCommand*
 GUIDesigns::buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel) {
-    // build rest of menu commands
+    // build menu command
     FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
-    // wet width and height (to avoid problems between Windows und Linux
+    // set width and height (to avoid problems between Windows und Linux)
     menuCommand->setHeight(23);
     // return menuCommand
     return menuCommand;
@@ -38,22 +48,23 @@ GUIDesigns::buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* 
 
 
 FXMenuCommand*
-GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, const double width, FXIcon* icon, FXObject* tgt, FXSelector sel) {
+GUIDesigns::buildFXMenuCommandShortcut(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel) {
+    // build menu command with shortcut
+    FXMenuCommand* menuCommand = new FXMenuCommand(p, (text + "\t" + shortcut + "\t" + info).c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
+    // set width and height (to avoid problems between Windows und Linux)
+    menuCommand->setHeight(23);
+    // return menuCommand
+    return menuCommand;
+}
+
+
+FXMenuCommand*
+GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, const int width, FXObject* tgt, FXSelector sel) {
     // build rest of menu commands
-    FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), icon, tgt, sel, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT);
-    // wet width and height (to avoid problems between Windows und Linux
+    FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), nullptr, tgt, sel, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT);
+    // set width and height (to avoid problems between Windows und Linux)
     menuCommand->setWidth(width);
     menuCommand->setHeight(23);
     // return menuCommand
     return menuCommand;
-}
-
-
-MFXCheckableButton*
-GUIDesigns::buildFXMenuCheck(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel) {
-    // crate check button
-    MFXCheckableButton* checkButton = new MFXCheckableButton(false, p, text.c_str(),
-        icon, tgt, sel, (BUTTON_NORMAL /*| LAYOUT_FIX_WIDTH*/ | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23);
-    // return check button
-    return checkButton;
 }

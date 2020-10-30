@@ -376,86 +376,86 @@ void
 GUIApplicationWindow::fillMenuBar() {
     // build file menu
     myFileMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&File", nullptr, myFileMenu);
-    GUIDesigns::buildFXMenuCommand(myFileMenu,
-                      "&Open Simulation...\tCtrl+O\tOpen a simulation (Configuration file).",
+    GUIDesigns::buildFXMenuTitle(myMenuBar, "&File", nullptr, myFileMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                      "&Open Simulation...", "Ctrl+O", "Open a simulation (Configuration file).",
                       GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_OPEN_CONFIG);
-    GUIDesigns::buildFXMenuCommand(myFileMenu,
-                      "Open &Network...\tCtrl+N\tOpen a network.",
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                      "Open &Network...", "Ctrl+N", "Open a network.",
                       GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_OPEN_NETWORK);
-    GUIDesigns::buildFXMenuCommand(myFileMenu,
-                      "Open Shapes \tCtrl+P\tLoad POIs and Polygons for visualization.",
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                      "Open Shapes ", "Ctrl+P", "Load POIs and Polygons for visualization.",
                       GUIIconSubSys::getIcon(GUIIcon::OPEN_SHAPES), this, MID_HOTKEY_CTRL_P);
-    GUIDesigns::buildFXMenuCommand(myFileMenu,
-                      "Open EdgeData \tCtrl+U\tLoad edge related data for visualization.",
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                      "Open EdgeData ", "Ctrl+U", "Load edge related data for visualization.",
                       GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), this, MID_OPEN_EDGEDATA);
-    GUIDesigns::buildFXMenuCommand(myFileMenu,
-                      "&Reload\tCtrl+R\tReloads the simulation / the network.",
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                      "&Reload", "Ctrl+R", "Reloads the simulation / the network.",
                       GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_HOTKEY_CTRL_R_RELOAD);
     new FXMenuSeparator(myFileMenu);
-    GUIDesigns::buildFXMenuCommand(myFileMenu,
-                      "Save Configuration\tCtrl+Shift+S\tSave current options as a configuration file.",
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                      "Save Configuration", "Ctrl+Shift+S", "Save current options as a configuration file.",
                       GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS);
-    GUIDesigns::buildFXMenuCommand(myFileMenu,
-                      "Close\tCtrl+W\tClose the simulation.",
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                      "Close", "Ctrl+W", "Close the simulation.",
                       GUIIconSubSys::getIcon(GUIIcon::CLOSE), this, MID_HOTKEY_CTRL_W_CLOSESIMULATION);
     // Recent files
     FXMenuSeparator* sep1 = new FXMenuSeparator(myFileMenu);
     sep1->setTarget(&myRecentFiles);
     sep1->setSelector(FXRecentFiles::ID_ANYFILES);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_1);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_2);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_3);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_4);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_5);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_6);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_7);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_8);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_9);
-    GUIDesigns::buildFXMenuCommand(myFileMenu, "", nullptr, &myRecentFiles, FXRecentFiles::ID_FILE_10);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_1);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_2);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_3);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_4);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_5);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_6);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_7);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_8);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_9);
+    GUIDesigns::buildFXMenuCommandRecentFile(myFileMenu, "", 300, &myRecentFiles, FXRecentFiles::ID_FILE_10);
     GUIDesigns::buildFXMenuCommand(myFileMenu, "C&lear Recent Files", nullptr, &myRecentFiles, FXRecentFiles::ID_CLEAR);
     myRecentFiles.setTarget(this);
     myRecentFiles.setSelector(MID_RECENTFILE);
     new FXMenuSeparator(myFileMenu);
-    GUIDesigns::buildFXMenuCommand(myFileMenu,
-                      "&Quit\tCtrl+Q\tQuit the Application.",
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+                      "&Quit", "Ctrl+Q", "Quit the Application.",
                       nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
 
     // build edit menu
     mySelectByPermissions = new FXMenuPane(this);
     std::vector<std::string> vehicleClasses = SumoVehicleClassStrings.getStrings();
-    for (auto i : vehicleClasses) {
-        GUIDesigns::buildFXMenuCommand(mySelectByPermissions, i.c_str(), nullptr, this, MID_EDITCHOSEN);
+    for (const auto &vehicleClass : vehicleClasses) {
+        GUIDesigns::buildFXMenuCommand(mySelectByPermissions, vehicleClass, nullptr, this, MID_EDITCHOSEN);
     }
 
     myEditMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Edit", nullptr, myEditMenu);
-    GUIDesigns::buildFXMenuCommand(myEditMenu,
-                      "Edit Selected...\tCtrl+E\tOpens a dialog for editing the list of selected items.",
+    GUIDesigns::buildFXMenuTitle(myMenuBar, "&Edit", nullptr, myEditMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+                      "Edit Selected...", "Ctrl+E", "Opens a dialog for editing the list of selected items.",
                       GUIIconSubSys::getIcon(GUIIcon::FLAG), this, MID_EDITCHOSEN);
     mySelectLanesMenuCascade = new FXMenuCascade(myEditMenu,
             "Select lanes which allow...\t\tOpens a menu for selecting a vehicle class by which to selected lanes.",
             GUIIconSubSys::getIcon(GUIIcon::FLAG), mySelectByPermissions);
     new FXMenuSeparator(myEditMenu);
-    GUIDesigns::buildFXMenuCommand(myEditMenu,
-                      "Edit Breakpoints\tCtrl+B\tOpens a dialog for editing breakpoints.",
+    GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+                      "Edit Breakpoints", "Ctrl+B", "Opens a dialog for editing breakpoints.",
                       nullptr, this, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
-    GUIDesigns::buildFXMenuCommand(myEditMenu,
-                      "Edit Visualisation\tF9\tOpens a dialog for editing visualization settings.",
+    GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+                      "Edit Visualisation", "F9", "Opens a dialog for editing visualization settings.",
                       nullptr, this, MID_HOTKEY_F9_EDIT_VIEWSCHEME);
-    GUIDesigns::buildFXMenuCommand(myEditMenu,
-                      "Edit Viewport\tCtrl+I\tOpens a dialog for editing viewing area, zoom and rotation.",
+    GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+                      "Edit Viewport", "Ctrl+I", "Opens a dialog for editing viewing area, zoom and rotation.",
                       nullptr, this, MID_HOTKEY_CTRL_I_EDITVIEWPORT);
     new FXMenuSeparator(myEditMenu);
-    GUIDesigns::buildFXMenuCommand(myEditMenu,
-                      "Open in netedit\tCtrl+T\tOpens the netedit application with the current network.",
+    GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+                      "Open in netedit", "Ctrl+T", "Opens the netedit application with the current network.",
                       GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_NETEDIT);
 
     // build settings menu
     mySettingsMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Settings", nullptr, mySettingsMenu);
-    GUIDesigns::buildFXMenuCommand(mySettingsMenu,
-                      "Application Settings...\t\tOpen a Dialog for Application Settings editing.",
+    GUIDesigns::buildFXMenuTitle(myMenuBar, "&Settings", nullptr, mySettingsMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(mySettingsMenu,
+                      "Application Settings...", "", "Open a Dialog for Application Settings editing.",
                       nullptr, this, MID_APPSETTINGS);
     new FXMenuCheck(mySettingsMenu,
                     "Gaming Mode\tCtrl+G\tToggle gaming mode on/off.",
@@ -465,35 +465,35 @@ GUIApplicationWindow::fillMenuBar() {
                     this, MID_HOTKEY_CTRL_F_FULSCREENMODE);
     // build Locate menu
     myLocatorMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Locate", nullptr, myLocatorMenu);
-    GUIDesigns::buildFXMenuCommand(myLocatorMenu,
-                      "Locate &Junctions\tShift+J\tOpen a Dialog for Locating a Junction.",
+    GUIDesigns::buildFXMenuTitle(myMenuBar, "&Locate", nullptr, myLocatorMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                      "Locate &Junctions", "Shift+J", "Open a Dialog for Locating a Junction.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), this, MID_LOCATEJUNCTION);
-    GUIDesigns::buildFXMenuCommand(myLocatorMenu,
-                      "Locate &Edges\tShift+E\tOpen a Dialog for Locating an Edge.",
+    GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                      "Locate &Edges", "Shift+E", "Open a Dialog for Locating an Edge.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), this, MID_LOCATEEDGE);
     if (!MSGlobals::gUseMesoSim) { // there are no gui-vehicles in mesosim
-        GUIDesigns::buildFXMenuCommand(myLocatorMenu,
-                          "Locate &Vehicles\tShift+V\tOpen a Dialog for Locating a Vehicle.",
+        GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                          "Locate &Vehicles", "Shift+V", "Open a Dialog for Locating a Vehicle.",
                           GUIIconSubSys::getIcon(GUIIcon::LOCATEVEHICLE), this, MID_LOCATEVEHICLE);
     }
-    GUIDesigns::buildFXMenuCommand(myLocatorMenu,
-                      "Locate &Persons\tShift+P\tOpen a Dialog for Locating a Person.",
+    GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                      "Locate &Persons", "Shift+P", "Open a Dialog for Locating a Person.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEPERSON), this, MID_LOCATEPERSON);
-    GUIDesigns::buildFXMenuCommand(myLocatorMenu,
-                      "Locate &Container\tShift+C\tOpen a Dialog for Locating a Container.",
+    GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                      "Locate &Container", "Shift+C", "Open a Dialog for Locating a Container.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATECONTAINER), this, MID_LOCATECONTAINER);
-    GUIDesigns::buildFXMenuCommand(myLocatorMenu,
-                      "Locate &TLS\tShift+T\tOpen a Dialog for Locating a Traffic Light.",
+    GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                      "Locate &TLS", "Shift+T", "Open a Dialog for Locating a Traffic Light.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATETLS), this, MID_LOCATETLS);
-    GUIDesigns::buildFXMenuCommand(myLocatorMenu,
-                      "Locate &Additional\tShift+A\tOpen a Dialog for Locating an Additional Structure.",
+    GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                      "Locate &Additional", "Shift+A", "Open a Dialog for Locating an Additional Structure.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEADD), this, MID_LOCATEADD);
-    GUIDesigns::buildFXMenuCommand(myLocatorMenu,
-                      "Locate P&oI\tShift+O\tOpen a Dialog for Locating a Point of Interest.",
+    GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                      "Locate P&oI", "Shift+O", "Open a Dialog for Locating a Point of Interest.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEPOI), this, MID_LOCATEPOI);
-    GUIDesigns::buildFXMenuCommand(myLocatorMenu,
-                      "Locate Po&lygon\tShift+L\tOpen a Dialog for Locating a Polygon.",
+    GUIDesigns::buildFXMenuCommandShortcut(myLocatorMenu,
+                      "Locate Po&lygon", "Shift+L", "Open a Dialog for Locating a Polygon.",
                       GUIIconSubSys::getIcon(GUIIcon::LOCATEPOLY), this, MID_LOCATEPOLY);
     new FXMenuSeparator(myLocatorMenu);
     new FXMenuCheck(myLocatorMenu,
@@ -508,23 +508,23 @@ GUIApplicationWindow::fillMenuBar() {
                     this, MID_LISTTELEPORTING);
     // build control menu
     myControlMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "Simulation", nullptr, myControlMenu);
-    GUIDesigns::buildFXMenuCommand(myControlMenu,
-                      "Run\tCtrl+A\tStart running the simulation.",
+    GUIDesigns::buildFXMenuTitle(myMenuBar, "Simulation", nullptr, myControlMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
+                      "Run", "Ctrl+A", "Start running the simulation.",
                       GUIIconSubSys::getIcon(GUIIcon::START), this, MID_HOTKEY_CTRL_A_STARTSIMULATION_OPENADDITIONALS);
-    GUIDesigns::buildFXMenuCommand(myControlMenu,
-                      "Stop\tCtrl+S\tStop running the simulation.",
+    GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
+                      "Stop", "Ctrl+S", "Stop running the simulation.",
                       GUIIconSubSys::getIcon(GUIIcon::STOP), this, MID_HOTKEY_CTRL_S_STOPSIMULATION_SAVENETWORK);
-    GUIDesigns::buildFXMenuCommand(myControlMenu,
-                      "Step\tCtrl+D\tPerform one simulation step.",
+    GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
+                      "Step", "Ctrl+D", "Perform one simulation step.",
                       GUIIconSubSys::getIcon(GUIIcon::STEP), this, MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS);
-    GUIDesigns::buildFXMenuCommand(myControlMenu,
-                      "Save\t\tSave the current simulation state to a file.",
+    GUIDesigns::buildFXMenuCommandShortcut(myControlMenu,
+                      "Save", "", "Save the current simulation state to a file.",
                       GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_SIMSAVE);
 
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar, "&Windows", nullptr, myWindowsMenu);
+    GUIDesigns::buildFXMenuTitle(myMenuBar, "&Windows", nullptr, myWindowsMenu);
     new FXMenuCheck(myWindowsMenu,
                     "Show Status Line\t\tToggle the Status Bar on/off.",
                     myStatusbar, FXWindow::ID_TOGGLESHOWN);
@@ -539,18 +539,18 @@ GUIApplicationWindow::fillMenuBar() {
                     myToolBar4, FXWindow::ID_TOGGLESHOWN);
     addToWindowsMenu(myWindowsMenu);
     new FXMenuSeparator(myWindowsMenu);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu,
-                      "Tile &Horizontally",
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+                      "Tile &Horizontally", "", "",
                       GUIIconSubSys::getIcon(GUIIcon::WINDOWS_TILE_HORI), myMDIClient, FXMDIClient::ID_MDI_TILEHORIZONTAL);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu,
-                      "Tile &Vertically",
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+                      "Tile &Vertically", "", "",
                       GUIIconSubSys::getIcon(GUIIcon::WINDOWS_TILE_VERT), myMDIClient, FXMDIClient::ID_MDI_TILEVERTICAL);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu,
-                      "Cascade",
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+                      "Cascade", "", "",
                       GUIIconSubSys::getIcon(GUIIcon::WINDOWS_CASCADE),
                       myMDIClient, FXMDIClient::ID_MDI_CASCADE);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu,
-                      "&Close",
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+                      "&Close", "", "",
                       nullptr, myMDIClient, FXMDIClient::ID_MDI_CLOSE);
     sep1 = new FXMenuSeparator(myWindowsMenu);
     sep1->setTarget(myMDIClient);
@@ -561,24 +561,21 @@ GUIApplicationWindow::fillMenuBar() {
     GUIDesigns::buildFXMenuCommand(myWindowsMenu, "", nullptr, myMDIClient, FXMDIClient::ID_MDI_4);
     GUIDesigns::buildFXMenuCommand(myWindowsMenu, "&Others...", nullptr, myMDIClient, FXMDIClient::ID_MDI_OVER_5);
     new FXMenuSeparator(myWindowsMenu);
-    GUIDesigns::buildFXMenuCommand(myWindowsMenu,
-                      "Clear Message Window\t\tClear the message window.",
+    GUIDesigns::buildFXMenuCommandShortcut(myWindowsMenu,
+                      "Clear Message Window", "", "Clear the message window.",
                       nullptr, this, MID_CLEARMESSAGEWINDOW);
-
     // build help menu
     myHelpMenu = new FXMenuPane(this);
-    new FXMenuTitle(myMenuBar,
-                    "&Help",
-                    nullptr, myHelpMenu);
-    GUIDesigns::buildFXMenuCommand(myHelpMenu,
-                      "&Online Documentation\tF1\tOpen Online documentation.",
-                      nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    GUIDesigns::buildFXMenuCommand(myHelpMenu,
-                      "&About\tF12\tAbout sumo-gui.",
-                      GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
-
+    GUIDesigns::buildFXMenuTitle(myMenuBar,
+        "&Help",
+        nullptr, myHelpMenu);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
+        "&Online Documentation", "F1", "Open Online documentation.",
+        nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
+        "&About", "F12", "About sumo-gui.",
+        GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI), this, MID_HOTKEY_F12_ABOUT);
     //new FXButton(myMenuBar, "\t\tShows TraCI status", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_TRACI_STATUS, 0, 0, 0, 14, 14, 0, 0, 0, 0);
-
     // build SUMO Accelerators (hotkeys)
     GUIShortcutsSubSys::buildSUMOAccelerators(this);
 }

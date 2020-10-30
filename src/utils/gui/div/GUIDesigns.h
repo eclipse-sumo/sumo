@@ -21,7 +21,7 @@
 #include <config.h>
 
 #include <string>
-#include <utils/foxtools/MFXCheckableButton.h>
+#include <fx.h>
 
 // ===========================================================================
 // Definitions
@@ -87,13 +87,16 @@
 /// @brief little checkable button with icon placed in navigation toolbar used specify for Locator
 #define GUIDesignButtonToolbarLocator       (BUTTON_TOOLBAR | MENUBUTTON_RIGHT | LAYOUT_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
 
-/// @brief little checkable button with icon placed in navigation toolbar
-#define GUIDesignButtonToolbarCheckable     (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
-
 /// @brief checkable button with icon placed in navigation toolbar for supermodes
 #define GUIDesignButtonToolbarSupermode     (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23
 /// @}
 
+
+/// @name FXButtons for toolbar
+/// @{
+/// @brief MFX Checkable Button with icon placed in navigation toolbar
+#define GUIDesignMFXCheckableButton         (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+/// @}
 
 /// @name FXButtons for dialogs
 /// @{
@@ -540,12 +543,15 @@
 class GUIDesigns {
 
 public:
+    /// @brief build menu title
+    static FXMenuTitle* buildFXMenuTitle(FXComposite* p, const std::string& text, FXIcon* icon, FXMenuPane* menuPane);
+
     /// @brief build menu command
-    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
-
+    static FXMenuCommand* buildFXMenuCommandShortcut(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel);
+    
+    /// @brief build menu command
+    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text,FXIcon* icon, FXObject* tgt, FXSelector sel);
+    
     /// @brief build menu command (for recent files)
-    static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, const double width, FXIcon* icon, FXObject* tgt, FXSelector sel);
-
-    /// @brief build menu command (for recent files)
-    static MFXCheckableButton* buildFXMenuCheck(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
+    static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, const int width, FXObject* tgt, FXSelector sel);
 };
