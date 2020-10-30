@@ -580,8 +580,10 @@ GUIVehicle::getColorValue(const GUIVisualizationSettings& s, int activeScheme) c
         case 29:
             return getStopDelay();
         case 30:
+            return getStopArrivalDelay();
+        case 31:
             return getLaneChangeModel().getSpeedLat();
-        case 31: // by numerical param value
+        case 32: // by numerical param value
             std::string error;
             std::string val = getPrefixedParameter(s.vehicleParam, error);
             try {

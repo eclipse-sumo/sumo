@@ -740,14 +740,14 @@ GUIBaseVehicle::setFunctionalColor(int activeScheme, const MSBaseVehicle* veh, R
             col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
-        case 32: { // color randomly (by pointer hash)
+        case 33: { // color randomly (by pointer hash)
             std::hash<const MSBaseVehicle*> ptr_hash;
             const double hue = (double)(ptr_hash(veh) % 360); // [0-360]
             const double sat = ((ptr_hash(veh) / 360) % 67) / 100.0 + 0.33; // [0.33-1]
             col = RGBColor::fromHSV(hue, sat, 1.);
             return true;
         }
-        case 33: { // color by angle
+        case 34: { // color by angle
             double hue = GeomHelper::naviDegree(veh->getAngle());
             col = RGBColor::fromHSV(hue, 1., 1.);
             return true;
