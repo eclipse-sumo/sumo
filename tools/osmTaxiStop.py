@@ -51,7 +51,7 @@ def main(options):
                         name = t.v
                     if t.k == "amenity" and t.v == "taxi":
                         point = net.convertLonLat2XY(float(n.lon), float(n.lat))
-                        for lane, _ in sorted(net.getNeighboringLanes(*point, r=options.radius), key=lambda i:i[1]):
+                        for lane, _ in sorted(net.getNeighboringLanes(*point, r=options.radius), key=lambda i: i[1]):
                             if lane.getLength() > options.length and lane.allows(options.vclass):
                                 bestLane = lane
                                 break

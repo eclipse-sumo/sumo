@@ -117,7 +117,8 @@ def procFCDStream(fcdstream, options):
         yield e
     t = lt - pt + lt
     if hasWarning:
-        print("One or more coordinates are negative, some applications might need strictly positive values. To avoid this use option --shift")
+        print("One or more coordinates are negative, some applications might need strictly positive values. " +
+              "To avoid this use the option --shift.")
     yield FCDTimeEntry(t)
 
 

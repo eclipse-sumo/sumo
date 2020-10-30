@@ -198,7 +198,8 @@ class Domain:
         """
         return self._getUniversal(tc.ID_COUNT, "")
 
-    def subscribe(self, objectID, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE, parameters=None):
+    def subscribe(self, objectID, varIDs=None, begin=tc.INVALID_DOUBLE_VALUE, end=tc.INVALID_DOUBLE_VALUE,
+                  parameters=None):
         """subscribe(string, list(integer), double, double, map(string->tuple)) -> None
 
         Subscribe to one or more object values for the given interval.

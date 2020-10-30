@@ -57,7 +57,8 @@ def get_options(args=None):
     parser.add_argument("--until-from-duration", action="store_true", default=False, dest="untilFromDuration",
                         help="Use stop arrival+duration instead of 'until' to compute insertion constraints")
     parser.add_argument("-d", "--delay", default="0",
-                        help="Assume given maximum delay when computing the number of intermediate vehicles that pass a given signal (for setting limit)")
+                        help="Assume given maximum delay when computing the number of intermediate vehicles " +
+                        "that pass a given signal (for setting limit)")
     parser.add_argument("-l", "--limit", type=int, default=0,
                         help="Increases the limit value for tracking passed vehicles by the given amount")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
@@ -206,7 +207,7 @@ def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
                 node = net.getEdge(edge).getFromNode()
                 if node.getType() == "rail_signal":
                     tls = net.getTLS(node.getID())
-                    for inLane, outLane, linkNo in tls.getConnections():
+                    for inLane, outLane, _ in tls.getConnections():
                         if (outLane.getEdge().getID() == edge
                                 and (prevEdge is None or prevEdge == inLane.getEdge().getID())):
                             signal = tls.getID()
@@ -231,7 +232,7 @@ def findStopsAfterMerge(net, stopRoutes, mergeSwitches):
 def computeSignalTimes(options, net, stopRoutes):
     signalTimes = defaultdict(list)  # signal -> [(timeAtSignal, stop), ...]
     debugInfo = []
-    for busStop, stops in stopRoutes.items():
+    for _, stops in stopRoutes.items():
         for edgesBefore, stop in stops:
             if stop.hasAttribute("arrival"):
                 arrival = parseTime(stop.arrival)
@@ -243,7 +244,7 @@ def computeSignalTimes(options, net, stopRoutes):
                 node = net.getEdge(edge).getFromNode()
                 if node.getType() == "rail_signal":
                     tls = net.getTLS(node.getID())
-                    for inLane, outLane, linkNo in tls.getConnections():
+                    for _, outLane, __ in tls.getConnections():
                         if outLane.getEdge().getID() == edge:
                             signal = tls.getID()
                             ttSignalStop = getTravelTime(net, edgesBefore[i:])
@@ -251,7 +252,8 @@ def computeSignalTimes(options, net, stopRoutes):
                             signalTimes[signal].append((timeAtSignal, stop))
                             if signal == options.debugSignal:
                                 debugInfo.append((timeAtSignal,
-                                                  "%s vehID=%s prevTripId=%s passes signal %s to stop %s arrival=%s ttSignalStop=%s edges=%s" % (
+                                                  ("%s vehID=%s prevTripId=%s passes signal %s to stop %s " +
+                                                   "arrival=%s ttSignalStop=%s edges=%s") % (
                                                       humanReadableTime(timeAtSignal),
                                                       stop.vehID, stop.prevTripId,
                                                       signal, stop.busStop,
@@ -262,8 +264,7 @@ def computeSignalTimes(options, net, stopRoutes):
         signalTimes[signal] = sorted(signalTimes[signal])
 
     if options.debugSignal in signalTimes:
-        debugInfo.sort()
-        for t, info in debugInfo:
+        for _, info in sorted(debugInfo):
             print(info)
         busStops = set([s.busStop for a, s in signalTimes[options.debugSignal]])
         arrivals = [a for a, s in signalTimes[options.debugSignal]]
@@ -348,7 +349,7 @@ def findSignal(net, nextEdges):
         node = net.getEdge(edge).getFromNode()
         if node.getType() == "rail_signal":
             tls = net.getTLS(node.getID())
-            for inLane, outLane, linkNo in tls.getConnections():
+            for inLane, outLane, _ in tls.getConnections():
                 if (outLane.getEdge().getID() == edge
                         and (prevEdge is None or prevEdge == inLane.getEdge().getID())):
                     return tls.getID()
@@ -360,8 +361,8 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
     """find routes that start at a stop with a traffic light at end of the edge
     and routes that pass this stop. Ensure
     insertion happens in the correct order"""
-    conflicts = defaultdict(
-        list)  # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
+    # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
+    conflicts = defaultdict(list)
     numConflicts = 0
     for busStop, stops in stopRoutes.items():
         stopEdge = stopEdges[busStop]
@@ -411,8 +412,9 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                             # find signal in nextEdges
                             pSignal = findSignal(net, pNextEdges)
                             nSignal = findSignal(net, nNextEdges)
-                            if pSignal == None or nSignal == None:
-                                print("Ignoring insertion conflict between %s and %s at stop '%s' because no rail signal was found after the stop" % (
+                            if pSignal is None or nSignal is None:
+                                print(("Ignoring insertion conflict between %s and %s at stop '%s' " +
+                                       "because no rail signal was found after the stop") % (
                                     nStop.prevTripId, pStop.prevTripId, busStop), file=sys.stderr)
                                 continue
                         # predecessor tripId after stop is needed

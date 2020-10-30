@@ -14,6 +14,7 @@
 # @author  Michael Behrisch
 # @date    2020-10-08
 
+from .libtraci import simulation
 from .libtraci import *  # noqa
 
 

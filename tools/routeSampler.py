@@ -389,11 +389,11 @@ def optimize(options, countData, routes, usedRoutes, routeUsage):
         for index, count in zip(relevantRoutes, routeCountsR):
             routeCounts[index] = count
 
-        #print("priorRouteCounts", priorRouteCounts)
-        #print("relevantRoutes", relevantRoutes)
-        #print("priorRelevantRouteCounts", priorRelevantRouteCounts)
-        #print("routeCountsR", routeCountsR)
-        #print("routeCounts", routeCounts)
+        # print("priorRouteCounts", priorRouteCounts)
+        # print("relevantRoutes", relevantRoutes)
+        # print("priorRelevantRouteCounts", priorRelevantRouteCounts)
+        # print("routeCountsR", routeCountsR)
+        # print("routeCounts", routeCounts)
         # slack = res.x[k:]
         # print("routeCounts (n=%s, sum=%s, intSum=%s, roundSum=%s) %s" % (
         #    len(routeCounts),
