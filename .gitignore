@@ -61,6 +61,7 @@
 /bin/osgPlugins*
 /bin/libsumoc*
 /bin/liblibsumojni.jnilib
+/bin/liblibtracijni.jnilib
 /bin/libsumofmi2.dylib
 # data dir
 /data/proj
@@ -130,6 +131,7 @@
 /tools/libtraci/libtraci.py
 /tools/libtraci/libtraciPYTHON_wrap.cxx
 /tools/libtraci/libtracicpp.so
+/tools/libtraci/libtracicpp.dylib
 # extracted tests
 /tests/_*
 # netedit test
