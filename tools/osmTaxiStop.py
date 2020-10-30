@@ -23,16 +23,22 @@ import sys
 import argparse
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
+import osmBuild
 
 
 def main(options):
-    net = sumolib.net.readNet(options.net_file)
+    if options.net_file is None:
+        osmBuild.build(["-f", options.osm_file])
+        net = sumolib.net.readNet("osm.net.xml")
+    else:
+        net = sumolib.net.readNet(options.net_file)
     count = 0
     with open(options.output_file, "w") as output:
         sumolib.xml.writeHeader(output, root="additional")
         for n in sumolib.xml.parse(options.osm_file, "node"):
             name = None
-            laneID = None
+            bestLane = None
+            point = None
             length = options.length
             if n.tag:
                 for t in n.tag:
@@ -44,21 +50,24 @@ def main(options):
                     if t.k == "name":
                         name = t.v
                     if t.k == "amenity" and t.v == "taxi":
-                        x, y = net.convertLonLat2XY(float(n.lon), float(n.lat))
-                        for e, _ in sorted(net.getNeighboringEdges(x, y, options.radius), key=lambda i:i[1]):
-                            for lane in e.getLanes():
-                                if lane.getLength() > options.length and lane.allows(options.vclass):
-                                    laneID = lane.getID() 
-                if laneID:
-                    print('    <%s id="%s_%s" name="%s" lane="%s" startPos="0" endPos="%s"/>' %
-                          (options.type, options.type, count, name, laneID, options.length), file=output)
+                        point = net.convertLonLat2XY(float(n.lon), float(n.lat))
+                        for lane, _ in sorted(net.getNeighboringLanes(*point, r=options.radius), key=lambda i:i[1]):
+                            if lane.getLength() > options.length and lane.allows(options.vclass):
+                                bestLane = lane
+                                break
+                if bestLane:
+                    pos = max(length / 2, sumolib.geomhelper.polygonOffsetWithMinimumDistanceToPoint(point, bestLane.getShape()))
+                    endPos = min(lane.getLength(), pos + length / 2)
+                    nameAttr = 'name="%s" ' % name if name else ""
+                    print('    <%s id="%s_%s" %slane="%s" startPos="%.2f" endPos="%.2f"/>' %
+                          (options.type, options.type, count, nameAttr, bestLane.getID(), endPos - length, endPos), file=output)
                     count += 1
         print("</additional>", file=output)
 
 
 argParser = sumolib.options.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)
 argParser.add_argument("-s", "--osm-file", help="read OSM file from FILE (mandatory)", metavar="FILE")
-argParser.add_argument("-n", "--net-file", help="read SUMO net from FILE (mandatory)", metavar="FILE")
+argParser.add_argument("-n", "--net-file", help="read SUMO net from FILE", metavar="FILE")
 argParser.add_argument("-o", "--output-file", help="write stopping places to the output FILE", metavar="FILE",
                        default="stopping_places.add.xml")
 argParser.add_argument("-t", "--type", help="stopping place type", default="chargingStation")
@@ -66,7 +75,7 @@ argParser.add_argument("-r", "--radius", type=float, help="radius for edge findi
 argParser.add_argument("-l", "--length", type=float, help="(minimum) length of the stopping place", default=20.)
 argParser.add_argument("--vclass", help="which vehicle class should be allowed", default="passenger")
 options = argParser.parse_args()
-if not options.osm_file or not options.net_file:
+if not options.osm_file:
     argParser.print_help()
     sys.exit()
 main(options)
