@@ -72,7 +72,7 @@ public:
          * @param[in] cycleDuration The duration of the complete cycle
          * @return The switch times of this signal
          */
-        std::vector<double> getTimes(SUMOTime cycleDuration) const;
+        std::vector<SUMOTime> getTimes(SUMOTime cycleDuration) const;
 
         /** @brief Sorts the phases */
         void sortPhases();
@@ -135,7 +135,7 @@ public:
          * @param[in] tyellow The yellow time to set in seconds
          * @param[in] forced Whether resetting tyellow was forced by the user by setting "tls.yellow.patch-small"
          */
-        void patchTYellow(int tyellow, bool forced);
+        void patchTYellow(SUMOTime tyellow, bool forced);
 
         /** @brief Replaces a removed edge/lane
          * @param[in] removed The edge to replace
@@ -161,23 +161,6 @@ public:
             SUMOTime myTime;
             /// @brief A signal's color from this time
             TLColor myColor;
-        };
-
-        /** @class phase_by_time_sorter
-         * @brief Sorts phases by their begin time
-         */
-        class phase_by_time_sorter {
-        public:
-            /// @brief Constructor
-            explicit phase_by_time_sorter() { }
-
-            /** @brief Sorts phases by their begin time
-             * @param[in] p1 a phase definition
-             * @param[in] p2 a phase definition
-             */
-            int operator()(const PhaseDef& p1, const PhaseDef& p2) {
-                return p1.myTime < p2.myTime;
-            }
         };
 
     private:
@@ -240,7 +223,7 @@ public:
     /** @brief Sets the duration of a cycle
      * @param[in] cycleDur The duration of the cycle
      */
-    void setCycleDuration(int cycleDur);
+    void setCycleDuration(SUMOTime cycleDur);
 
 
     /** @brief Adds a signal group
@@ -369,7 +352,7 @@ private:
      * @param[in] time The time to build the phase for
      * @return The phase of this tls for the given time
      */
-    std::string buildPhaseState(int time) const;
+    std::string buildPhaseState(const SUMOTime time) const;
 
     // pointer to the NBEdgeCont for checking edges
     const NBEdgeCont* myEdgeCont;
@@ -380,7 +363,7 @@ private:
     SignalGroupCont mySignalGroups;
 
     /// @brief The duration of a single cycle
-    int myCycleDuration;
+    SUMOTime myCycleDuration;
 
 
 };

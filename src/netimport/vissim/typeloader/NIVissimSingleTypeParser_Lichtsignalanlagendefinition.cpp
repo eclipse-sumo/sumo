@@ -107,7 +107,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseFixedTime(
             type = "festzeit_fake";
         }
     }
-    return NIVissimTL::dictionary(id, type, name, (SUMOTime) absdur, (SUMOTime) offset);
+    return NIVissimTL::dictionary(id, type, name, TIME2STEPS(absdur), TIME2STEPS(offset));
 }
 
 
@@ -125,7 +125,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseVAS(
     if (tag == "versatz") {
         from >> offset; // type-checking is missing!
     }
-    return NIVissimTL::dictionary(id, "vas", name, (SUMOTime) absdur, (SUMOTime) offset);
+    return NIVissimTL::dictionary(id, "vas", name, TIME2STEPS(absdur), TIME2STEPS(offset));
 }
 
 
@@ -146,7 +146,7 @@ NIVissimSingleTypeParser_Lichtsignalanlagendefinition::parseRestActuated(
     while (tag != "datei") {
         tag = myRead(from);
     }
-    return NIVissimTL::dictionary(id, type, name, (SUMOTime) absdur, (SUMOTime) offset);
+    return NIVissimTL::dictionary(id, type, name, TIME2STEPS(absdur), TIME2STEPS(offset));
 }
 
 

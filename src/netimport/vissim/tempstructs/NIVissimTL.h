@@ -104,7 +104,7 @@ public:
     class NIVissimTLSignalGroup {
     public:
         NIVissimTLSignalGroup(int id, const std::string& name,
-                              bool isGreenBegin, const std::vector<double>& times,
+                              bool isGreenBegin, const std::vector<SUMOTime>& times,
                               SUMOTime tredyellow, SUMOTime tyellow);
         ~NIVissimTLSignalGroup();
         bool addTo(NBLoadedTLDef* node) const;
@@ -117,7 +117,7 @@ public:
     private:
         int myID;
         std::string myName;
-        std::vector<double> myTimes;
+        std::vector<SUMOTime> myTimes;
         bool myFirstIsRed;
         SUMOTime myTRedYellow, myTYellow;
         static GroupDictType myDict;

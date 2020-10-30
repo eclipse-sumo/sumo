@@ -69,11 +69,11 @@ public:
 
     private:
         /// @brief Start time
-        SUMOTime myStartTime;
+        const SUMOTime myStartTime;
         /// @brief End time
-        SUMOTime myEndTime;
+        const SUMOTime myEndTime;
         /// @brief Yellow time
-        SUMOTime myYellowTime;
+        const SUMOTime myYellowTime;
     };
 
 
