@@ -31,9 +31,8 @@ jobs:
 
     - name: Installing Google Test
       run: |
-        git clone https://github.com/google/googletest
+        git clone --depth 1 --branch release-1.10.0 https://github.com/google/googletest
         cd googletest
-        git checkout release-1.10.0
         mkdir build
         cd build
         cmake ..
@@ -69,10 +68,8 @@ jobs:
         
     - name: Building FMU Compliance Checker
       run: |
-        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker    
+        git clone --depth 1 --branch 2.0.4 https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker    
         cd fmuChecker
-        # Check out latest release version of FMU Checker to have a stable build
-        git checkout $(git describe --tags $(git rev-list --tags --max-count=1))
         mkdir build
         cd build
         cmake ../
