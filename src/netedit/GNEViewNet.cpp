@@ -748,8 +748,12 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             // change show grid
             if (!myNetworkViewOptions.menuCheckShowGrid->amChecked() ||
                 !myDemandViewOptions.menuCheckShowGrid->amChecked()) {
+                // change to true
                 myNetworkViewOptions.menuCheckShowGrid->setChecked(true);
                 myDemandViewOptions.menuCheckShowGrid->setChecked(true);
+                // update show grid buttons
+                myNetworkViewOptions.menuCheckShowGrid->update();
+                myNetworkViewOptions.menuCheckShowGrid->update();
             }
             // draw grid only in network and demand mode
             if (myEditModes.isCurrentSupermodeNetwork() || myEditModes.isCurrentSupermodeDemand()) {
@@ -759,13 +763,14 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
             // change show grid
             if (myNetworkViewOptions.menuCheckShowGrid->amChecked() ||
                 myDemandViewOptions.menuCheckShowGrid->amChecked()) {
+                // change to false
                 myNetworkViewOptions.menuCheckShowGrid->setChecked(false);
                 myDemandViewOptions.menuCheckShowGrid->setChecked(false);
+                // update show grid buttons
+                myNetworkViewOptions.menuCheckShowGrid->update();
+                myNetworkViewOptions.menuCheckShowGrid->update();
             }
         }
-        // update show grid buttons
-        myNetworkViewOptions.menuCheckShowGrid->update();
-        myNetworkViewOptions.menuCheckShowGrid->update();
         // update show connections
         myNetworkViewOptions.menuCheckShowConnections->setChecked(myVisualizationSettings->showLane2Lane);
     }

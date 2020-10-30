@@ -59,11 +59,10 @@ GUIDesigns::buildFXMenuCommandShortcut(FXComposite* p, const std::string& text, 
 
 
 FXMenuCommand*
-GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, const int width, FXObject* tgt, FXSelector sel) {
+GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, FXObject* tgt, FXSelector sel) {
     // build rest of menu commands
-    FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), nullptr, tgt, sel, LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT);
+    FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), nullptr, tgt, sel, LAYOUT_FIX_HEIGHT);
     // set width and height (to avoid problems between Windows und Linux)
-    menuCommand->setWidth(width);
     menuCommand->setHeight(23);
     // return menuCommand
     return menuCommand;

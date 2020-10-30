@@ -87,15 +87,16 @@
 /// @brief little checkable button with icon placed in navigation toolbar used specify for Locator
 #define GUIDesignButtonToolbarLocator       (BUTTON_TOOLBAR | MENUBUTTON_RIGHT | LAYOUT_TOP | FRAME_RAISED | FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
 
-/// @brief checkable button with icon placed in navigation toolbar for supermodes
-#define GUIDesignButtonToolbarSupermode     (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23
 /// @}
 
 
 /// @name FXButtons for toolbar
 /// @{
 /// @brief MFX Checkable Button with icon placed in navigation toolbar
-#define GUIDesignMFXCheckableButton         (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+#define GUIDesignMFXCheckableButton             (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 23, 23
+
+/// @brief checkable button with icon placed in navigation toolbar for supermodes
+#define GUIDesignMFXCheckableButtonSupermode    (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23
 /// @}
 
 /// @name FXButtons for dialogs
@@ -111,6 +112,7 @@
 
 /// @brief Reset Button
 #define GUIDesignButtonReset                (ICON_BEFORE_TEXT | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | FRAME_THICK | FRAME_RAISED), 0, 0, 75, 23, 2, 2, 2, 2
+
 /// @}
 
 
@@ -136,6 +138,7 @@
 
 /// @brief MDIButton oriented to right
 #define GUIDesignMDIButtonRight             (FRAME_RAISED | LAYOUT_RIGHT)
+
 /// @}
 
 
@@ -146,6 +149,7 @@
 
 /// @brief design for radio button with fixed height
 #define GUIDesignRadioButtonAttribute       (RADIOBUTTON_NORMAL | JUSTIFY_CENTER_Y |  LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | JUSTIFY_LEFT | ICON_BEFORE_TEXT | FRAME_THICK), 0, 0, 100, 23, 2, 2, 2, 2
+
 /// @}
 
 
@@ -230,6 +234,7 @@
 
 /// @brief number of column of every combo box
 #define GUIDesignComboBoxNCol               1
+
 /// @}
 
 
@@ -245,7 +250,7 @@
 #define GUIDesignHorizontalFrameIcons       (LAYOUT_FILL_X | FRAME_THICK), 0, 0, 0, 0, 0, 0, 0, 0, 2, 2
 
 /// @brief Horizontal frame used in status bar
-#define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN), 0, 0, 20, 0, 0, 0, 0, 0, 0, 0
+#define GUIDesignHorizontalFrameStatusBar   (LAYOUT_FILL_Y | LAYOUT_RIGHT | FRAME_SUNKEN | LAYOUT_FIX_HEIGHT), 0, 0, 20, 23, 0, 0, 0, 0, 0, 0
 
 /// @brief Matrix design extended over Frame packed by columns
 #define GUIDesignMatrix                     (LAYOUT_FILL_X | LAYOUT_FILL_Y | MATRIX_BY_COLUMNS | PACK_UNIFORM_WIDTH)
@@ -267,6 +272,7 @@
 
 /// @brief Matrix for pack GLTypes (used in GNESelectorFrame)
 #define GUIDesignMatrixLockGLTypes          (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
+
 /// @}
 
 
@@ -295,6 +301,7 @@
 
 /// @brief design for the main content frame of every frame/dialog
 #define GUIDesignContentsFrame              (LAYOUT_FILL_X | LAYOUT_FILL_Y)
+
 /// @}
 
 
@@ -337,6 +344,7 @@
 
 /// @brief vertical separator
 #define GUIDesignVerticalSeparator          (SEPARATOR_GROOVE | LAYOUT_FILL_Y)
+
 /// @}
 
 
@@ -347,6 +355,7 @@
 
 /// @brief MDI Splitter
 #define GUIDesignSplitterMDI                (LAYOUT_FILL_X | LAYOUT_FILL_Y | FRAME_SUNKEN | FRAME_THICK)
+
 /// @}
 
 
@@ -354,12 +363,13 @@
 /// @{
 /// @brief desing for standard spin dial
 #define GUIDesignSpinDial                   (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y)
+
 /// @}
 
 
 /// @name design for view settings dialog
 /// @{
-/// @rbrief dialog
+/// @brief dialog
 #define GUIDesignViewSettingsMainDialog         (DECOR_TITLE | DECOR_BORDER | DECOR_RESIZE), 0, 0, 0, 0, 0, 0, 0, 0, 0, 0
 
 #define GUIDesignViewSettingsDialog             (DECOR_TITLE | DECOR_BORDER)
@@ -439,6 +449,7 @@
 #define GUIDesignViewSettingsMFXTable           (LAYOUT_FILL_Y | LAYOUT_FIX_WIDTH) /*|LAYOUT_FIX_HEIGHT*/, 0, 0, 470, 0
 
 #define GUIDesignViewSettingsMFXTableJustify    (JUSTIFY_CENTER_X | JUSTIFY_TOP)
+
 /// @}
 
 
@@ -461,6 +472,7 @@
 
 /// @brief design for dialog box with specift width and height that can be stretched (But not shrinked)
 #define GUIDesignDialogBoxExplicitStretchable(width, height)    (DECOR_CLOSE | DECOR_TITLE | LAYOUT_EXPLICIT | DECOR_STRETCHABLE), 0, 0, width, height, 4, 4, 4, 4, 4, 4
+
 /// @}
 
 
@@ -480,6 +492,7 @@
 
 /// @brief width of cells that only contains an Icon
 #define GUIDesignTableIconCellWidth             23
+
 /// @}
 
 
@@ -553,5 +566,5 @@ public:
     static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text,FXIcon* icon, FXObject* tgt, FXSelector sel);
     
     /// @brief build menu command (for recent files)
-    static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, const int width, FXObject* tgt, FXSelector sel);
+    static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, FXObject* tgt, FXSelector sel);
 };
