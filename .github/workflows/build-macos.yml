@@ -68,12 +68,12 @@ jobs:
         
     - name: Building FMU Compliance Checker
       run: |
-        git clone --depth 1 --branch 2.0.4 https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker    
+        git clone --depth 1 https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker    
         cd fmuChecker
         mkdir build
         cd build
-        cmake ../
-        make install test
+        cmake ../ -Wno-dev
+        cmake --build . --target install -Wno-dev
         
     - name: Checking sumo-fmi2.fmu
       run: |
