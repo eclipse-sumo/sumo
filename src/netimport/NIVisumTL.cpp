@@ -94,7 +94,7 @@ NIVisumTL::build(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
                     def->addSignalGroupPhaseBegin(groupName, PH.getStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
                     def->addSignalGroupPhaseBegin(groupName, PH.getEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
                     yellowTime = MAX2(PH.getYellowTime(), yellowTime);
-                };
+                }
             } else {
                 def->addSignalGroupPhaseBegin(groupName, SG.getStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
                 def->addSignalGroupPhaseBegin(groupName, SG.getEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);

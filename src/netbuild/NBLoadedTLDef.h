@@ -94,13 +94,6 @@ public:
          */
         bool hasYellow(SUMOTime time) const;
 
-        /** @brief Returns whether the given connection is controlled by this signal
-         * @param[in] from The connection's start edge
-         * @param[in] from The connection's end edge
-         * @return Whether the connection is controlled by this signal
-         */
-        bool containsConnection(NBEdge* from, NBEdge* to) const;
-
         /** @brief Returns whether this signal controls the given edge
          * @param[in] from The incoming edge
          * @return Whether this edge is controlled by this signal
@@ -210,14 +203,6 @@ public:
 
     /// @brief Destructor
     ~NBLoadedTLDef();
-
-
-    /** @brief Returns the signal group which is responsible for the given connection
-     * @param[in] from The connection's start edge
-     * @param[in] to The connection's end edge
-     * @return The signal group which controls the given connection
-     */
-    SignalGroup* findGroup(NBEdge* from, NBEdge* to) const;
 
 
     /** @brief Sets the duration of a cycle

@@ -130,18 +130,6 @@ NBLoadedTLDef::SignalGroup::hasYellow(SUMOTime time) const {
 }
 
 
-bool
-NBLoadedTLDef::SignalGroup::containsConnection(NBEdge* from, NBEdge* to) const {
-    for (NBConnectionVector::const_iterator i = myConnections.begin(); i != myConnections.end(); i++) {
-        if ((*i).getFrom() == from && (*i).getTo() == to) {
-            return true;
-        }
-    }
-    return false;
-
-}
-
-
 const NBConnection&
 NBLoadedTLDef::SignalGroup::getConnection(int pos) const {
     assert(pos < (int)myConnections.size());
@@ -526,17 +514,6 @@ NBLoadedTLDef::collectLinks() {
             }
         }
     }
-}
-
-
-NBLoadedTLDef::SignalGroup*
-NBLoadedTLDef::findGroup(NBEdge* from, NBEdge* to) const {
-    for (SignalGroupCont::const_iterator i = mySignalGroups.begin(); i != mySignalGroups.end(); i++) {
-        if ((*i).second->containsConnection(from, to)) {
-            return (*i).second;
-        }
-    }
-    return nullptr;
 }
 
 
