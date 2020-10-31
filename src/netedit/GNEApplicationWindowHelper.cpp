@@ -269,7 +269,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
                       GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), fileMenuDemandElements);
     // create DataElements menu options
     GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
-                      "Load Data Wlements...", "Ctrl+B", "Load data elements.",
+                      "Load Data Elements...", "Ctrl+B", "Load data elements.",
                       GUIIconSubSys::getIcon(GUIIcon::OPEN_ADDITIONALS), myGNEApp, MID_HOTKEY_CTRL_B_EDITBREAKPOINT_OPENDATAELEMENTS);
     saveDataElements = GUIDesigns::buildFXMenuCommandShortcut(fileMenuDataElements,
                                          "Save Data Elements", "Ctrl+Shift+B", "Save data elements.",
