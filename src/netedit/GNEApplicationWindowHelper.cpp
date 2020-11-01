@@ -200,7 +200,7 @@ GNEApplicationWindowHelper::FileMenuCommands::buildFileMenuCommands(FXMenuPane* 
         FXMenuPane* fileMenuDemandElements, FXMenuPane* fileMenuDataElements) {
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                       "&New Network", "Ctrl+N", "Create a new network.",
-                      GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
+                      GUIIconSubSys::getIcon(GUIIcon::NEW_NET), myGNEApp, MID_HOTKEY_CTRL_N_NEWNETWORK);
     GUIDesigns::buildFXMenuCommandShortcut(fileMenu,
                       "&Open Network...", "Ctrl+O", "Open a SUMO network.",
                       GUIIconSubSys::getIcon(GUIIcon::OPEN_NET), myGNEApp, MID_OPEN_NETWORK);

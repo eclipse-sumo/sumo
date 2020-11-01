@@ -34,6 +34,7 @@
 #include "filesave.xpm"
 #include "fileopen.xpm"
 #include "netopen.xpm"
+#include "newnet.xpm"
 #include "shapeopen.xpm"
 #include "play.xpm"
 #include "stop.xpm"
@@ -355,6 +356,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp* a) {
     myIcons[GUIIcon::OPEN_SHAPES] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_ADDITIONALS] = new FXXPMIcon(a, shapeopen_xpm);
     myIcons[GUIIcon::OPEN_TLSPROGRAMS] = new FXXPMIcon(a, shapeopen_xpm);
+    myIcons[GUIIcon::NEW_NET] = new FXXPMIcon(a, newnet_xpm);
     myIcons[GUIIcon::RELOAD] = new FXXPMIcon(a, reload_xpm);
     myIcons[GUIIcon::SAVE] = new FXXPMIcon(a, filesave_xpm);
     myIcons[GUIIcon::CLOSE] = new FXXPMIcon(a, empty_xpm);  /** temporal **/
