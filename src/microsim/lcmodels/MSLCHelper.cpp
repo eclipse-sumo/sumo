@@ -42,7 +42,7 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
     if (veh.getLaneChangeModel().isOpposite()) {
         return 0;
     }
-    const MSVehicle::LaneQ& inner = curr.lane == best.lane ? neigh : curr;
+    const MSVehicle::LaneQ& inner = neigh.lane->getIndex() > curr.lane->getIndex() ? neigh : curr;
 #ifdef DEBUG_WANTS_CHANGE
     const bool debugVehicle = veh.getLaneChangeModel().debugVehicle();
     if (debugVehicle) {
