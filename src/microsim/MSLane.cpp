@@ -261,8 +261,8 @@ MSLane::addNeigh(const std::string& id) {
 void
 MSLane::addMoveReminder(MSMoveReminder* rem) {
     myMoveReminders.push_back(rem);
-    for (VehCont::iterator veh = myVehicles.begin(); veh != myVehicles.end(); ++veh) {
-        (*veh)->addReminder(rem);
+    for (MSVehicle* const veh : myVehicles) {
+        veh->addReminder(rem);
     }
     // XXX: Here, the partial occupators are ignored!? Refs. #3255
 }
