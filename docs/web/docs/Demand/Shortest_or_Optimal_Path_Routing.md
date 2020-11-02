@@ -116,7 +116,7 @@ Let's review flow parameter:
 | end              | int                                                     | The end time for the interval; must be greater than <begin\>; vehicles will be inserted between <begin\> and <end\>-1      |
 | vehsPerHour    | float(\#/h)    | number of vehicles per hour, equally spaced (not together with period or probability)        |
 | period         | float(s)       | insert equally spaced vehicles at that period (not together with vehsPerHour or probability) |
-| probability    | float(\[0,1\]) | probability for emitting a vehicle each second (not together with vehsPerHour or period), see also [Simulation/Randomness](Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
+| probability    | float(\[0,1\]) | probability for emitting a vehicle each second (not together with vehsPerHour or period), see also [Simulation/Randomness](../Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
 | number           | int                                                     | The number of vehicles that shall be inserted during this interval         |
 | color            | color                                                   | Defines the color of the vehicles and their routes                       |
 | departLane       | int/string (≥0,"random","free","departlane")            | The lane on which the vehicle shall be inserted                      |
