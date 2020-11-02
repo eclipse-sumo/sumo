@@ -15,11 +15,19 @@ permalink: /ChangeLog/
   - Fixed failure to create a rescue lane. Issue #7173
   - Fixed crash on parallel intermodal routing. Issue #7627
   - Parallel intermodal routing now respects the option **--routing-algorithm**. Issue #7628
+  - Fixed oscillating lane changes in roundabout with more than 2 lanes. Issue #7738
+  - Fixe crash when defining stops on internal edges. Issue #7690
   - railway fixes
     - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
     - Fixed train collision due to unsafe rail signal state. Issue #7534
     - Fixed unsafe train insertion. Issue #7579
     - Rail signal constraints now work correctly after loading simulation state. Issue #7523
+  - taxi fixes
+    - Fixed bug with non-deterministc behavior and aborted rides if person capacity at a busStop was exceeded. Issue #7674, #7662
+    - Intermodal routing no longer returns plans that frequently alternate between taxi and walking. The assumed time penalty when starting a taxi ride is now set to 300s configurable with option **--persontrip.taxi.waiting-time**. Issue #7651
+    
+- meso
+  - Fixed handling of cyclical stops. Issue #7500
 
 - netconvert
   - Fixed unsafe traffic light signals when two connections from the same edge target the same lane. Issue #7550
@@ -36,12 +44,17 @@ permalink: /ChangeLog/
 - sumo-gui
   - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
   - Fixed invalid simulation end after reloading. Issue #7582
+  - Prevented opening of multiple locator windows for the same object type. Issue #6916
   
 - duarouter
   - Fixed crash on parallel intermodal routing. Issue #7627
   - Parallel intermodal routing now respects the option **--routing-algorithm**. Issue #7628
   - Fixed NaN value int output when using option **--logit**. Issue #7621
   - Fixed invalid intermodal plans where switching between riding and walking happend on intersection. Issue #7652
+  - Fixed invalid intermodal plans when walk ends at trainStation and an access element is required to reach the starting edge of the ride. Issue #7654
+  
+- TraCI
+  - arrivalPos is no longer ignored in *traci.vehicle.add*. Issue #7691
   
 - Tools
   - osmWebWizard search now works for IE users. Issue #6119
@@ -60,13 +73,20 @@ permalink: /ChangeLog/
 - sumo-gui
   - Rail signal now includes internal state (reason for red) in parameter dialog. Issue #7600
   - Added option **--delay** (shortcut **-d**) to set the simulation delay. Issue #6380
+  - Vehicles can now be colored by arrival delay at public transport stops.
   
 - netconvert
   - Added option **--junctions.join-same** which joins junctions with identical coordinates regardless of edge topology. This is useful when merging networks. Issue #7567
   - Added option **--dlr-navteq.keep-length** to make use of explicit edge lengths in the input. Issue #749
   
+- duarouter
+  - Added option **--persontrip.taxi.waiting-time** to model the time penalty invovled when calling a taxi. Issue #7651
+ 
 - od2trips
   - Attributes 'fromTaz' and 'toTaz' are now written for walks and personTrips. Issue #7591
+
+ TraCI
+  - Added new function *vehicle.getStopArrivalDelay* to return the arrivalDelay at a public transport stop that defines the expected 'arrival'. Issue #7629
 
 - Tools
   - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
@@ -74,6 +94,7 @@ permalink: /ChangeLog/
   - Added [traceExporter.py](Tools/TraceExporter.md) option **--shift** which allows shifting output coordinates by a fixed amount (i.e. to avoid negative values).
    Added [traceExporter.py](Tools/TraceExporter.md) now supports option **--ipg-output** for generating car-maker tracefiles. Issue #6190
   - [routeSampler.py](Tools/Turns.md#routesampler.py) now supports option **--minimize-vehicles FLOAT** which allows configuring a preference for fewer generated vehicles (where each vehicle passes multiple counting locations). Issue #7635
+  - Added new tool [osmTaxiStop.py]() to import taxi stands from OSM data. Issue #7729
 
 ### Other
 
