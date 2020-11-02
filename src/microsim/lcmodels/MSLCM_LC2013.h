@@ -165,14 +165,6 @@ protected:
     /// @brief anticipate future follow speed for the given leader
     double anticipateFollowSpeed(const std::pair<MSVehicle*, double>& leaderDist, double dist, double vMax, bool acceleratingLeader);
 
-    /// @brief Computes the artificial bonus distance for roundabout lanes
-    ///        this additional distance reduces the sense of urgency within
-    ///        roundabouts and thereby promotes the use of the inner roundabout
-    ///        lane in multi-lane roundabouts.
-    /// @param[in] curr continuation info along veh's current lane
-    /// @param[in] neigh continuation info along a neighboring lane (in MSLCM_2013::_wantsChange() the considered lane for a lanechange)
-    double getRoundaboutDistBonus(const MSVehicle::LaneQ& curr, const MSVehicle::LaneQ& neigh, const MSVehicle::LaneQ& best);
-
     /// @brief save space for vehicles which need to counter-lane-change
     void saveBlockerLength(MSVehicle* blocker, int lcaCounter);
 
