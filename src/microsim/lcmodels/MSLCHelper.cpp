@@ -42,10 +42,20 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
     if (veh.getLaneChangeModel().isOpposite()) {
         return 0;
     }
+    const MSVehicle::LaneQ& inner = neigh.lane->getIndex() > curr.lane->getIndex() ? neigh : curr;
 #ifdef DEBUG_WANTS_CHANGE
     const bool debugVehicle = veh.getLaneChangeModel().debugVehicle();
+    if (debugVehicle) {
+        std::cout << SIMTIME << " veh=" << veh.getID() << " getRoundaboutDistBonus bonusParam=" << bonusParam
+            << " curr=" << curr.lane->getID()
+            << " neigh=" << neigh.lane->getID()
+            << " inner=" << inner.lane->getID()
+            << " best=" << best.lane->getID()
+            << "\n   innerCont=" << toString(inner.bestContinuations)
+            << "\n   bestCont=" << toString(best.bestContinuations)
+            << "\n";
+    }
 #endif
-    const MSVehicle::LaneQ& inner = curr.lane == best.lane ? neigh : curr;
 
     int roundaboutJunctionsAhead = 0;
     bool enteredRoundabout = false;
