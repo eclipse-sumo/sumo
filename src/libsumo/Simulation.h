@@ -154,6 +154,8 @@ public:
 #ifndef LIBTRACI
     static void subscribe(const std::vector<int>& varIDs = std::vector<int>(), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE);
     static const libsumo::TraCIResults getSubscriptionResults();
+    static const SubscriptionResults getAllSubscriptionResults();
+    static const ContextSubscriptionResults getAllContextSubscriptionResults();
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
