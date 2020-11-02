@@ -1144,7 +1144,6 @@ GNEApplicationWindow::getViewNet() {
 
 GNEApplicationWindowHelper::ToolbarsGrip&
 GNEApplicationWindow::getToolbarsGrip() {
-    myToolbarsGrip.myTopDock = myTopDock;
     return myToolbarsGrip;
 }
 

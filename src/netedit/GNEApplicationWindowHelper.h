@@ -82,9 +82,6 @@ struct GNEApplicationWindowHelper {
         /// @brief The application menu bar for mode options (show connections, select edges...)
         FXMenuBar* intervalBar;
 
-        /// @brief top dock
-        FXDockSite* myTopDock;
-
     private:
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;

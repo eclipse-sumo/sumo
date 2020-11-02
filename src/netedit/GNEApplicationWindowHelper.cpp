@@ -39,7 +39,6 @@ GNEApplicationWindowHelper::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow* GNE
     navigation(nullptr),
     modes(nullptr),
     intervalBar(nullptr),
-    myTopDock(nullptr),
     myGNEApp(GNEApp),
     myToolBarShellMenu(nullptr),
     myToolBarShellSuperModes(nullptr),
@@ -54,7 +53,7 @@ void
 GNEApplicationWindowHelper::ToolbarsGrip::buildMenuToolbarsGrip() {
     // build menu bar (for File, edit, processing...) using specify design
     myToolBarShellMenu = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    menu = new FXMenuBar(myTopDock, myToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
+    menu = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellMenu, GUIDesignToolbarMenuBarNetedit);
     // declare toolbar grip for menu bar
     new FXToolBarGrip(menu, menu, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
 }
@@ -64,27 +63,27 @@ void
 GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     // build menu bar for supermodes (next to menu bar)
     myToolBarShellSuperModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    superModes = new FXMenuBar(myTopDock, myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
+    superModes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSuperModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar superModes
     new FXToolBarGrip(superModes, superModes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for save elements (bot to menu bar)
     myToolBarShellSaveElements = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    saveElements = new FXMenuBar(myTopDock, myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
+    saveElements = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellSaveElements, GUIDesignToolBarRaisedNext);
     // declare toolbar grip for menu bar saveElements
     new FXToolBarGrip(saveElements, saveElements, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for navigation
     myToolBarShellNavigation = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    navigation = new FXMenuBar(myTopDock, myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
+    navigation = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellNavigation, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar navigation
     new FXToolBarGrip(navigation, navigation, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for modes
     myToolBarShellModes = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    modes = new FXMenuBar(myTopDock, myToolBarShellModes, GUIDesignToolBarRaisedSame);
+    modes = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for interal
     myToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    intervalBar = new FXMenuBar(myTopDock, myToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
+    intervalBar = new FXMenuBar(myGNEApp->getTopDock(), myToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(intervalBar, intervalBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
@@ -100,7 +99,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     myToolBarShellModes->create();
     myToolBarShellIntervalBar->create();
     // recalc top dop after creating elements
-    myTopDock->recalc();
+    myGNEApp->getTopDock()->recalc();
 }
 
 
@@ -119,7 +118,7 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     delete myToolBarShellModes;
     delete myToolBarShellIntervalBar;
     // recalc top dop after deleting elements
-    myTopDock->recalc();
+    myGNEApp->getTopDock()->recalc();
 }
 
 // ===========================================================================

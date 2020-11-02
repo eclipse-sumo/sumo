@@ -3053,6 +3053,9 @@ GNEViewNet::buildEditModeControls() {
     // build menu checks of view options Data
     myDataCheckableButtons.buildDataCheckableButtons();
 
+    // Create Vertical separator
+    new FXVerticalSeparator(myViewParent->getGNEAppWindows()->getToolbarsGrip().modes, GUIDesignVerticalSeparator);
+
     // build menu checks of view options Network
     myNetworkViewOptions.buildNetworkViewOptionsMenuChecks();
 
