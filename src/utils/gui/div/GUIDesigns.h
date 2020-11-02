@@ -97,6 +97,7 @@
 
 /// @brief checkable button with icon placed in navigation toolbar for supermodes
 #define GUIDesignMFXCheckableButtonSupermode    (BUTTON_NORMAL | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, 23
+
 /// @}
 
 /// @name FXButtons for dialogs
@@ -404,7 +405,6 @@
 #define GUIDesignViewSettingsMatrix4            (LAYOUT_FILL_X | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 0, 0, 5, 3
 
 #define GUIDesignViewSettingsMatrix5            (LAYOUT_FILL_X | LAYOUT_BOTTOM | LAYOUT_LEFT | MATRIX_BY_COLUMNS), 0, 0, 0, 0, 10, 10, 0, 0, 5, 5
-
 
 /// @brief Combo boxs
 #define GUIDesignViewSettingsComboBox1          (COMBOBOX_INSERT_LAST | FRAME_SUNKEN | LAYOUT_LEFT | LAYOUT_CENTER_Y | COMBOBOX_STATIC)
