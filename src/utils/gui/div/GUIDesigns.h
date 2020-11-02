@@ -363,7 +363,15 @@
 /// @name designs for Spin dials
 /// @{
 /// @brief desing for standard spin dial
-#define GUIDesignSpinDial                   (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y)
+#define GUIDesignSpinDial                   (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 60, 23, 0, 0, 0, 0
+
+/// @}
+
+
+/// @name designs for sliders
+/// @{
+/// @brief desing for standard slider
+#define GUIDesignSlider                     (SLIDER_ARROW_UP | SLIDER_TICKS_TOP | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 300, 23, 0, 0, 0
 
 /// @}
 
