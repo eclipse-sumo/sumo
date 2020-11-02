@@ -58,17 +58,12 @@
 #define HELP_OVERTAKE  (10.0 / 3.6)
 #define MIN_FALLBEHIND  (7.0 / 3.6)
 
-// allow overtaking to the right below this speed difference
-#define OVERTAKE_RIGHT_THRESHOLD (5/3.6)
-
 #define RELGAIN_NORMALIZATION_MIN_SPEED 10.0
 #define URGENCY 2.0
 #define OPPOSITE_URGENCY 5.0
 
 #define KEEP_RIGHT_TIME 5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE 7.0 // calibration factor for determining the desire to keep right
-
-#define ROUNDABOUT_DIST_FACTOR 10.0 // Must be >=1.0, serves an alternative way of decreasing sense lc-urgency by multiplying the distance along the next roundabout
 
 #define KEEP_RIGHT_HEADWAY 2.0
 #define MAX_ONRAMP_LENGTH 200.
