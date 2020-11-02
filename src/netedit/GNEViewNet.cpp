@@ -90,7 +90,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_V_MODES_VEHICLE,                      GNEViewNet::onCmdSetMode),
     FXMAPFUNC(SEL_COMMAND, MID_HOTKEY_W_MODES_PROHIBITION_PERSONTYPE,       GNEViewNet::onCmdSetMode),
     // Network view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,             GNEViewNet::onCmdToogleShowGridNetwork),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID,             GNEViewNet::onCmdToogleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES,   GNEViewNet::onCmdToogleDrawSpreadVehicles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS,   GNEViewNet::onCmdToogleShowDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES,          GNEViewNet::onCmdToogleSelectEdges),
@@ -104,7 +104,7 @@ FXDEFMAP(GNEViewNet) GNEViewNetMap[] = {
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES,           GNEViewNet::onCmdToogleChainEdges),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES,    GNEViewNet::onCmdToogleAutoOppositeEdge),
     // Demand view options
-    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,              GNEViewNet::onCmdToogleShowGridDemand),
+    FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID,              GNEViewNet::onCmdToogleShowGrid),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES,    GNEViewNet::onCmdToogleDrawSpreadVehicles),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED,      GNEViewNet::onCmdToogleHideNonInspecteDemandElements),
     FXMAPFUNC(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES,            GNEViewNet::onCmdToogleHideShapes),
@@ -2635,41 +2635,25 @@ GNEViewNet::onCmdToogleChangeAllPhases(FXObject*, FXSelector sel, void*) {
 
 
 long
-GNEViewNet::onCmdToogleShowGridNetwork(FXObject*, FXSelector sel, void*) {
+GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
     // show or hidde grid depending of myNetworkViewOptions.menuCheckShowGrid
     if (myVisualizationSettings->showGrid) {
         myVisualizationSettings->showGrid = false;
         myNetworkViewOptions.menuCheckShowGrid->setChecked(false);
+        myDemandViewOptions.menuCheckShowGrid->setChecked(false);
     } else {
         myVisualizationSettings->showGrid = true;
         myNetworkViewOptions.menuCheckShowGrid->setChecked(true);
+        myDemandViewOptions.menuCheckShowGrid->setChecked(true);
     }
-    myNetworkViewOptions.menuCheckChangeAllPhases->update();
+    myNetworkViewOptions.menuCheckShowGrid->update();
+    myDemandViewOptions.menuCheckShowGrid->update();
     // update view to show grid
     updateViewNet();
     // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
     if (sel == FXSEL(SEL_COMMAND, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID)) {
         myNetworkViewOptions.menuCheckShowGrid->setFocus();
-    }
-    return 1;
-}
-
-
-long
-GNEViewNet::onCmdToogleShowGridDemand(FXObject*, FXSelector sel, void*) {
-    // show or hidde grid depending of myDemandViewOptions.menuCheckShowGrid
-    if (myVisualizationSettings->showGrid) {
-        myVisualizationSettings->showGrid = false;
-        myDemandViewOptions.menuCheckShowGrid->setChecked(false);
-    } else {
-        myVisualizationSettings->showGrid = true;
-        myDemandViewOptions.menuCheckShowGrid->setChecked(true);
-    }
-    myDemandViewOptions.menuCheckShowGrid->update();
-    // update view to show grid
-    updateViewNet();
-    // set focus in menu check again, if this function was called clicking over menu check instead using alt+<key number>
-    if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID)) {
+    } else if (sel == FXSEL(SEL_COMMAND, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID)) {
         myDemandViewOptions.menuCheckShowGrid->setFocus();
     }
     return 1;

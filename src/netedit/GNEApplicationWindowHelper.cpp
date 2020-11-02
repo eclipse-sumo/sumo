@@ -845,8 +845,8 @@ GNEApplicationWindowHelper::toogleEditOptionsNetwork(GNEViewNet* viewNet, const 
             // show extra information for tests
             WRITE_DEBUG("Enabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowGridNetwork
-        viewNet->onCmdToogleShowGridNetwork(obj, sel, nullptr);
+        // Call manually onCmdToogleShowGrid
+        viewNet->onCmdToogleShowGrid(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles) {
         // Toogle menuCheckDrawSpreadVehicles
         if (viewNet->getNetworkViewOptions().menuCheckDrawSpreadVehicles->amChecked() == TRUE) {
@@ -997,8 +997,8 @@ GNEApplicationWindowHelper::toogleEditOptionsDemand(GNEViewNet* viewNet, const M
             // show extra information for tests
             WRITE_DEBUG("Enabled toogle show grid throught alt + " + toString(numericalKeyPressed + 1));
         }
-        // Call manually onCmdToogleShowGridDemand
-        viewNet->onCmdToogleShowGridDemand(obj, sel, nullptr);
+        // Call manually onCmdToogleShowGrid
+        viewNet->onCmdToogleShowGrid(obj, sel, nullptr);
     } else if (menuCheck == viewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles) {
         // Toogle menuCheckDrawSpreadVehicles
         if (viewNet->getDemandViewOptions().menuCheckDrawSpreadVehicles->amChecked() == TRUE) {

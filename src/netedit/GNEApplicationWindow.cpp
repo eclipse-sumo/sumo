@@ -1739,21 +1739,15 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
     // check that view exists
     if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if ((myViewNet->getNetworkViewOptions().menuCheckShowGrid->amChecked() == TRUE) ||
-                (myViewNet->getDemandViewOptions().menuCheckShowGrid->amChecked() == TRUE)) {
-            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setChecked(FALSE);
-            myViewNet->getDemandViewOptions().menuCheckShowGrid->setChecked(FALSE);
+        if (myViewNet->getVisualisationSettings().showGrid) {
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
-            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setChecked(TRUE);
-            myViewNet->getDemandViewOptions().menuCheckShowGrid->setChecked(TRUE);
             // show extra information for tests
             WRITE_DEBUG("Enabled grid throught Ctrl+g hotkey");
         }
-        // Call manually show grid function
-        myViewNet->onCmdToogleShowGridNetwork(obj, sel, ptr);
-        myViewNet->onCmdToogleShowGridDemand(obj, sel, ptr);
+        // Call manually toogle grid function
+        myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
     }
     return 1;
 }
