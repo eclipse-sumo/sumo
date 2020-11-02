@@ -504,7 +504,7 @@ parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", he
 parser.add_argument("--test-output", default=None, dest="testOutputDir",
                     help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
                     "write output to the given directory.")
-parser.add_argument("-o" "--output", default=None, dest="outputDir",
+parser.add_argument("-o", "--output", default=None, dest="outputDir",
                     help="Write output to the given folder rather than creating a name based on the timestamp")
 parser.add_argument("--address", default="", help="Address for the Websocket.")
 parser.add_argument("--port", type=int, default=8010,
