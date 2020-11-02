@@ -182,7 +182,7 @@ GNERerouterDialog::updateIntervalTable() {
     myIntervalTable->setVisibleColumns(4);
     myIntervalTable->setColumnWidth(0, 137);
     myIntervalTable->setColumnWidth(1, 136);
-    myIntervalTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myIntervalTable->setColumnWidth(2, GUIDesignHeight);
     myIntervalTable->setColumnText(0, toString(SUMO_ATTR_BEGIN).c_str());
     myIntervalTable->setColumnText(1, toString(SUMO_ATTR_END).c_str());
     myIntervalTable->setColumnText(2, "");

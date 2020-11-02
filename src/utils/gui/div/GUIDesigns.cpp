@@ -30,7 +30,7 @@ GUIDesigns::buildFXMenuTitle(FXComposite* p, const std::string& text, FXIcon* ic
     // create menu title
     FXMenuTitle *menuTitle = new FXMenuTitle(p, text.c_str(), icon, menuPane, LAYOUT_FIX_HEIGHT);
     // setheight (to avoid problems between Windows und Linux)
-    menuTitle->setHeight(23);
+    menuTitle->setHeight(GUIDesignHeight);
     // return menuTitle
     return menuTitle;
 }
@@ -41,7 +41,7 @@ GUIDesigns::buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* 
     // build menu command
     FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
     // set width and height (to avoid problems between Windows und Linux)
-    menuCommand->setHeight(23);
+    menuCommand->setHeight(GUIDesignHeight);
     // return menuCommand
     return menuCommand;
 }
@@ -52,7 +52,7 @@ GUIDesigns::buildFXMenuCommandShortcut(FXComposite* p, const std::string& text, 
     // build menu command with shortcut
     FXMenuCommand* menuCommand = new FXMenuCommand(p, (text + "\t" + shortcut + "\t" + info).c_str(), icon, tgt, sel, LAYOUT_FIX_HEIGHT);
     // set width and height (to avoid problems between Windows und Linux)
-    menuCommand->setHeight(23);
+    menuCommand->setHeight(GUIDesignHeight);
     // return menuCommand
     return menuCommand;
 }
@@ -63,7 +63,7 @@ GUIDesigns::buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text
     // build rest of menu commands
     FXMenuCommand* menuCommand = new FXMenuCommand(p, text.c_str(), nullptr, tgt, sel, LAYOUT_FIX_HEIGHT);
     // set width and height (to avoid problems between Windows und Linux)
-    menuCommand->setHeight(23);
+    menuCommand->setHeight(GUIDesignHeight);
     // return menuCommand
     return menuCommand;
 }
