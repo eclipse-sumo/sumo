@@ -38,7 +38,6 @@ GNEApplicationWindowHelper::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow* GNE
     saveElements(nullptr),
     navigation(nullptr),
     modes(nullptr),
-    modeOptions(nullptr),
     intervalBar(nullptr),
     myTopDock(nullptr),
     myGNEApp(GNEApp),
@@ -47,7 +46,6 @@ GNEApplicationWindowHelper::ToolbarsGrip::ToolbarsGrip(GNEApplicationWindow* GNE
     myToolBarShellSaveElements(nullptr),
     myToolBarShellNavigation(nullptr),
     myToolBarShellModes(nullptr),
-    myToolBarShellModeOptions(nullptr),
     myToolBarShellIntervalBar(nullptr) {
 }
 
@@ -84,14 +82,9 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     modes = new FXMenuBar(myTopDock, myToolBarShellModes, GUIDesignToolBarRaisedSame);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(modes, modes, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
-    // build menu bar for mode Options
-    myToolBarShellModeOptions = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    modeOptions = new FXMenuBar(myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedSame);
-    // declare toolbar grip for menu bar modes
-    new FXToolBarGrip(modeOptions, modeOptions, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // build menu bar for interal
     myToolBarShellIntervalBar = new FXToolBarShell(myGNEApp, GUIDesignToolBar);
-    intervalBar = new FXMenuBar(myTopDock, myToolBarShellModeOptions, GUIDesignToolBarRaisedNext);
+    intervalBar = new FXMenuBar(myTopDock, myToolBarShellIntervalBar, GUIDesignToolBarRaisedNext);
     // declare toolbar grip for menu bar modes
     new FXToolBarGrip(intervalBar, intervalBar, FXMenuBar::ID_TOOLBARGRIP, GUIDesignToolBarGrip);
     // create menu bars
@@ -99,14 +92,12 @@ GNEApplicationWindowHelper::ToolbarsGrip::buildViewParentToolbarsGrips() {
     saveElements->create();
     navigation->create();
     modes->create();
-    modeOptions->create();
     intervalBar->create();
     // create toolbar shells
     myToolBarShellSuperModes->create();
     myToolBarShellSaveElements->create();
     myToolBarShellNavigation->create();
     myToolBarShellModes->create();
-    myToolBarShellModeOptions->create();
     myToolBarShellIntervalBar->create();
     // recalc top dop after creating elements
     myTopDock->recalc();
@@ -120,14 +111,12 @@ GNEApplicationWindowHelper::ToolbarsGrip::destroyParentToolbarsGrips() {
     delete saveElements;
     delete navigation;
     delete modes;
-    delete modeOptions;
     delete intervalBar;
     // also delete toolbar shells to avoid floating windows
     delete myToolBarShellSuperModes;
     delete myToolBarShellSaveElements;
     delete myToolBarShellNavigation;
     delete myToolBarShellModes;
-    delete myToolBarShellModeOptions;
     delete myToolBarShellIntervalBar;
     // recalc top dop after deleting elements
     myTopDock->recalc();

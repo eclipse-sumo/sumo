@@ -80,15 +80,15 @@ struct GNEApplicationWindowHelper {
         FXMenuBar* modes;
 
         /// @brief The application menu bar for mode options (show connections, select edges...)
-        FXMenuBar* modeOptions;
-
-        /// @brief The application menu bar for mode options (show connections, select edges...)
         FXMenuBar* intervalBar;
 
+        /// @brief top dock
         FXDockSite* myTopDock;
+
     private:
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
+
         /// @brief menu bar drag (for file, edit, processing...)
         FXToolBarShell* myToolBarShellMenu;
 
@@ -103,9 +103,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief menu bar drag for modes (select, inspect, delete...)
         FXToolBarShell* myToolBarShellModes;
-
-        /// @brief menu bar drag for mode options (show connections, select edges...)
-        FXToolBarShell* myToolBarShellModeOptions;
 
         /// @brief menu bar drag for interval bar
         FXToolBarShell* myToolBarShellIntervalBar;

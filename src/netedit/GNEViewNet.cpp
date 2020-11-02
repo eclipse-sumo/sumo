@@ -3100,8 +3100,6 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -3111,8 +3109,6 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckShowConnections->show();
             // show view options
             myNetworkViewOptions.menuCheckSelectEdges->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -3123,8 +3119,6 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckSelectEdges->show();
             myNetworkViewOptions.menuCheckShowConnections->show();
             myNetworkViewOptions.menuCheckExtendSelection->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         // specific modes
         case NetworkEditMode::NETWORK_CREATE_EDGE:
@@ -3135,8 +3129,6 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             // show view options
             myNetworkViewOptions.menuCheckChainEdges->show();
             myNetworkViewOptions.menuCheckAutoOppositeEdge->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_MOVE:
             myViewParent->getMoveFrame()->show();
@@ -3148,8 +3140,6 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkViewOptions.menuCheckShowJunctionBubble->show();
             myNetworkViewOptions.menuCheckMoveElevation->show();
             myNetworkCheckableButtons.moveNetworkElementsButton->setChecked(true);
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_CONNECT:
             myViewParent->getConnectorFrame()->show();
@@ -3158,8 +3148,6 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.connectionButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckHideConnections->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_TLS:
             myViewParent->getTLSEditorFrame()->show();
@@ -3168,48 +3156,36 @@ GNEViewNet::updateNetworkModeSpecificControls() {
             myNetworkCheckableButtons.trafficLightButton->setChecked(true);
             // show view options
             myNetworkViewOptions.menuCheckChangeAllPhases->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_ADDITIONAL:
             myViewParent->getAdditionalFrame()->show();
             myViewParent->getAdditionalFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getAdditionalFrame();
             myNetworkCheckableButtons.additionalButton->setChecked(true);
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_CROSSING:
             myViewParent->getCrossingFrame()->show();
             myViewParent->getCrossingFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getCrossingFrame();
             myNetworkCheckableButtons.crossingButton->setChecked(true);
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_TAZ:
             myViewParent->getTAZFrame()->show();
             myViewParent->getTAZFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getTAZFrame();
             myNetworkCheckableButtons.TAZButton->setChecked(true);
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_POLYGON:
             myViewParent->getPolygonFrame()->show();
             myViewParent->getPolygonFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getPolygonFrame();
             myNetworkCheckableButtons.shapeButton->setChecked(true);
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case NetworkEditMode::NETWORK_PROHIBITION:
             myViewParent->getProhibitionFrame()->show();
             myViewParent->getProhibitionFrame()->focusUpperElement();
             myCurrentFrame = myViewParent->getProhibitionFrame();
             myNetworkCheckableButtons.prohibitionButton->setChecked(true);
-            // hide toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->hide();
             break;
         default:
             break;
@@ -3220,6 +3196,7 @@ GNEViewNet::updateNetworkModeSpecificControls() {
     myNetworkCheckableButtons.updateNetworkCheckableButtons();
     // recalc toolbar
     myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->repaint();
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
@@ -3262,8 +3239,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             myDemandViewOptions.menuCheckHideNonInspectedDemandElements->show();
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -3274,8 +3249,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -3286,8 +3259,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_MOVE:
             myViewParent->getMoveFrame()->show();
@@ -3298,8 +3269,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         // specific modes
         case DemandEditMode::DEMAND_ROUTE:
@@ -3311,8 +3280,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_VEHICLE:
             myViewParent->getVehicleFrame()->show();
@@ -3323,8 +3290,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_VEHICLETYPES:
             myViewParent->getVehicleTypeFrame()->show();
@@ -3335,8 +3300,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            /// show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_STOP:
             myViewParent->getStopFrame()->show();
@@ -3347,8 +3310,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_PERSONTYPES:
             myViewParent->getPersonTypeFrame()->show();
@@ -3359,8 +3320,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_PERSON:
             myViewParent->getPersonFrame()->show();
@@ -3371,8 +3330,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DemandEditMode::DEMAND_PERSONPLAN:
             myViewParent->getPersonPlanFrame()->show();
@@ -3383,8 +3340,6 @@ GNEViewNet::updateDemandModeSpecificControls() {
             // show view options
             myDemandViewOptions.menuCheckShowAllPersonPlans->show();
             myDemandViewOptions.menuCheckLockPerson->show();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         default:
             break;
@@ -3395,6 +3350,7 @@ GNEViewNet::updateDemandModeSpecificControls() {
     myDemandCheckableButtons.updateDemandCheckableButtons();
     // recalc toolbar
     myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->repaint();
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
@@ -3433,8 +3389,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCommonCheckableButtons.inspectButton->setChecked(true);
             // enable IntervalBar
             myIntervalBar.enableIntervalBar();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DataEditMode::DATA_DELETE:
             myViewParent->getDeleteFrame()->show();
@@ -3444,8 +3398,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCommonCheckableButtons.deleteButton->setChecked(true);
             // enable IntervalBar
             myIntervalBar.enableIntervalBar();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DataEditMode::DATA_SELECT:
             myViewParent->getSelectorFrame()->show();
@@ -3455,8 +3407,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myCommonCheckableButtons.selectButton->setChecked(true);
             // enable IntervalBar
             myIntervalBar.enableIntervalBar();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DataEditMode::DATA_EDGEDATA:
             myViewParent->getEdgeDataFrame()->show();
@@ -3466,8 +3416,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myDataCheckableButtons.edgeDataButton->setChecked(true);
             // disable IntervalBar
             myIntervalBar.disableIntervalBar();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DataEditMode::DATA_EDGERELDATA:
             myViewParent->getEdgeRelDataFrame()->show();
@@ -3477,8 +3425,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myDataCheckableButtons.edgeRelDataButton->setChecked(true);
             // disable IntervalBar
             myIntervalBar.disableIntervalBar();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         case DataEditMode::DATA_TAZRELDATA:
             myViewParent->getTAZRelDataFrame()->show();
@@ -3488,8 +3434,6 @@ GNEViewNet::updateDataModeSpecificControls() {
             myDataCheckableButtons.TAZRelDataButton->setChecked(true);
             // disable IntervalBar
             myIntervalBar.disableIntervalBar();
-            // show toolbar grip of view options
-            myViewParent->getGNEAppWindows()->getToolbarsGrip().modeOptions->show();
             break;
         default:
             break;
@@ -3500,6 +3444,7 @@ GNEViewNet::updateDataModeSpecificControls() {
     myDataCheckableButtons.updateDataCheckableButtons();
     // recalc toolbar
     myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
+    myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->repaint();
     // force repaint because different modes draw different things
     onPaint(nullptr, 0, nullptr);
     // finally update view
