@@ -1046,14 +1046,6 @@ GNENet::checkJunctionPosition(const Position& pos) {
 
 void
 GNENet::requireSaveNet(bool value) {
-    if (myNetSaved == true) {
-        WRITE_DEBUG("net has to be saved");
-        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
-        std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        std::string dataSetsSaved = (myDataElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved +
-                    ", demand elements " + demandElementsSaved + ", data sets " + dataSetsSaved);
-    }
     myNetSaved = !value;
 }
 
