@@ -1512,7 +1512,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
 
     for (std::set<const MSVehicle*, ComparatorNumericalIdLess>::iterator it = toRemove.begin(); it != toRemove.end(); ++it) {
         MSVehicle* veh = const_cast<MSVehicle*>(*it);
-        MSLane* vehLane = veh->getLane();
+        MSLane* vehLane = veh->getMutableLane();
         vehLane->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT, false);
         if (toTeleport.count(veh) > 0) {
             MSVehicleTransfer::getInstance()->add(timestep, veh);
@@ -1759,7 +1759,7 @@ MSLane::executeMovements(const SUMOTime t) {
         const double length = veh->getVehicleType().getLengthWithGap();
         const double nettoLength = veh->getVehicleType().getLength();
         const bool moved = veh->executeMove();
-        MSLane* const target = veh->getLane();
+        MSLane* const target = veh->getMutableLane();
         if (veh->hasArrived()) {
             // vehicle has reached its arrival position
 #ifdef DEBUG_EXEC_MOVE
@@ -1953,7 +1953,7 @@ template void MSLane::fill<LANE_RTREE_QUAL>(LANE_RTREE_QUAL& into);
 
 // ------   ------
 bool
-MSLane::appropriate(const MSVehicle* veh) {
+MSLane::appropriate(const MSVehicle* veh) const {
     if (myEdge->isInternal()) {
         return true;
     }

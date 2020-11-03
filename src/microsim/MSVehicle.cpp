@@ -802,7 +802,7 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     const bool keepLane = v->getLane() == myRemoteLane;
     if (v->isOnRoad() && !keepLane) {
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
-        v->getLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
+        v->getMutableLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
     }
     if (myRemoteRoute.size() != 0) {
         v->replaceRouteEdges(myRemoteRoute, -1, 0, "traci:moveToXY", true);

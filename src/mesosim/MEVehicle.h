@@ -78,7 +78,7 @@ public:
     /** @brief Returns the lane the vehicle is on
     * @return The vehicle's current lane
     */
-    MSLane* getLane() const {
+    const MSLane* getLane() const {
         return nullptr;
     }
 

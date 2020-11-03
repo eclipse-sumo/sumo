@@ -475,7 +475,7 @@ GUIViewTraffic::onGamingClick(Position pos) {
                 GUIGlID id = *sel.begin();
                 GUIVehicle* veh = dynamic_cast<GUIVehicle*>(GUIGlObjectStorage::gIDStorage.getObjectBlocking(id));
                 assert(veh != 0);
-                MSLane* lane = veh->getLane();
+                MSLane* lane = veh->getMutableLane();
                 lane->getVehiclesSecure();
                 veh->rerouteDRTStop(closestStop);
                 GUIGlObjectStorage::gIDStorage.unblockObject(id);

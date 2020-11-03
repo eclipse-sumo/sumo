@@ -569,7 +569,15 @@ public:
     /** @brief Returns the lane the vehicle is on
      * @return The vehicle's current lane
      */
-    MSLane* getLane() const {
+    const MSLane* getLane() const {
+        return myLane;
+    }
+
+    /** @brief Returns the lane the vehicle is on
+     * Non const version indicates that something volatile is going on
+     * @return The vehicle's current lane
+     */
+    MSLane* getMutableLane() const {
         return myLane;
     }
 

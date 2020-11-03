@@ -1081,7 +1081,7 @@ MSLCM_LC2013::_wantsChange(
     double currentDist = 0;
     double neighDist = 0;
     int currIdx = 0;
-    MSLane* prebLane = myVehicle.getLane();
+    const MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();

@@ -94,7 +94,7 @@ MSLCM_DK2008::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager& msgPas
     double neighExtDist = 0;
     double currExtDist = 0;
     int currIdx = 0;
-    MSLane* prebLane = myVehicle.getLane();
+    const MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();
@@ -301,7 +301,7 @@ MSLCM_DK2008::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager& msgPass
     double neighExtDist = 0;
     double currExtDist = 0;
     int currIdx = 0;
-    MSLane* prebLane = myVehicle.getLane();
+    const MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();

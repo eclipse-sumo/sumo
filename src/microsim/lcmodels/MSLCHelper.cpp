@@ -63,7 +63,7 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
 
     // first check using only normal lanes
     for (int i = 0; i < (int)best.bestContinuations.size(); i++) {
-        MSLane* lane = best.bestContinuations[i];
+        const MSLane* lane = best.bestContinuations[i];
         if (lane == nullptr) {
             lane = veh.getLane();
         }

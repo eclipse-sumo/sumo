@@ -91,7 +91,7 @@ MSElecHybridExport::writeAggregated(OutputDevice& of, SUMOTime timestep, int pre
                 of.writeAttr(SUMO_ATTR_ACCELERATION, veh->getAcceleration());
                 // Write Distance
                 double distance = NAN;
-                MSLane* vehicleLane = veh->getLane();
+                const MSLane* vehicleLane = veh->getLane();
                 if (vehicleLane != nullptr) {
                     if (vehicleLane->isInternal()) {
                         // route edge still points to the edge before the intersection

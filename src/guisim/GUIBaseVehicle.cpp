@@ -238,7 +238,8 @@ GUIBaseVehicle::GUIBaseVehiclePopupMenu::onCmdRemoveObject(FXObject*, FXSelector
     if (microVeh != nullptr) {
         microVeh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_VAPORIZED_GUI);
         if (microVeh->getLane() != nullptr) {
-            microVeh->getLane()->removeVehicle(microVeh, MSMoveReminder::NOTIFICATION_VAPORIZED_GUI);
+            MSLane* lane = microVeh->getMutableLane();
+            lane->removeVehicle(microVeh, MSMoveReminder::NOTIFICATION_VAPORIZED_GUI);
         }
     } else {
         MEVehicle* mesoVeh = dynamic_cast<MEVehicle*>(&baseVeh->myVehicle);

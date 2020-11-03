@@ -687,7 +687,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         if (!v->isOnRoad()) {
             return;
         }
-        MSLane* vehLane = v->getLane();
+        const MSLane* vehLane = v->getLane();
         if (vehLane == nullptr) {
             return;
         }
@@ -762,7 +762,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 
             if (s.activeFilters & SUBS_FILTER_TURN) {
                 // Get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
-                MSLane* lane = v->getLane();
+                const MSLane* lane = v->getLane();
                 std::vector<const MSLink*> links = lane->getUpcomingLinks(v->getPositionOnLane(), downstreamDist, v->getBestLanesContinuation());
 #ifdef DEBUG_SURROUNDING
                 std::cout << "Applying turn filter for vehicle '" << v->getID() << "'\n Gathering foes ..." << std::endl;
@@ -1120,7 +1120,7 @@ Helper::postProcessRemoteControl() {
 
 bool
 Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
-                    double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
+                    double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, const MSLane* currentLane, double currentLanePos, bool onRoad,
                     SUMOVehicleClass vClass, bool setLateralPos,
                     double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle/person

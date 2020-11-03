@@ -1591,7 +1591,7 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
     Position oldPos = vehicle->getPosition();
     veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
     if (veh->getLane() != nullptr) {
-        veh->getLane()->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT);
+        veh->getMutableLane()->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT);
     } else {
         veh->setTentativeLaneAndPosition(l, position);
     }
@@ -1675,11 +1675,11 @@ Vehicle::remove(const std::string& vehicleID, char reason) {
     }
     if (veh->hasDeparted()) {
         veh->onRemovalFromNet(n);
-        if (veh->getLane() != nullptr) {
-            veh->getLane()->removeVehicle(dynamic_cast<MSVehicle*>(veh), n);
-        }
         MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
         if (microVeh != nullptr) {
+            if (veh->getLane() != nullptr) {
+                microVeh->getMutableLane()->removeVehicle(dynamic_cast<MSVehicle*>(veh), n);
+            }
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         }
     } else {
