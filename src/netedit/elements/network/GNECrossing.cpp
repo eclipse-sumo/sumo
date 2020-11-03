@@ -443,7 +443,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
             // -1 means that tlLinkIndex2 takes on the same value as tlLinkIndex when setting idnices
             return (isAttributeEnabled(key) &&
                     canParse<int>(value)
-                    && ((parse<double>(value) >= 0) || ((parse<double>(value) == -1) && (key == SUMO_ATTR_TLLINKINDEX2)))
+                    && (parse<double>(value) >= 0 || parse<double>(value) == -1)
                     && myParentJunction->getNBNode()->getControllingTLS().size() > 0
                     && (*myParentJunction->getNBNode()->getControllingTLS().begin())->getMaxValidIndex() >= parse<int>(value));
         case SUMO_ATTR_CUSTOMSHAPE: {
