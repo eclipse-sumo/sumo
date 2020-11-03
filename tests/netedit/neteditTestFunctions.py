@@ -691,6 +691,8 @@ def saveAdditionals(referencePosition, clickOverReference=False):
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
+    # force flag for additional saving using hotkey
+    typeTwoKeysKeys('ctrl', 'F2')
     # save additionals using hotkey
     typeThreeKeys('ctrl', 'shift', 'a')
 
@@ -703,6 +705,8 @@ def saveRoutes(referencePosition, clickOverReference=True):
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
+    # force flag for demand elements saving using hotkey
+    typeTwoKeysKeys('ctrl', 'F3')
     # save routes using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
 
@@ -715,6 +719,8 @@ def saveDatas(referencePosition, clickOverReference=True):
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
+    # force flag for demand elements saving using hotkey
+    typeTwoKeysKeys('ctrl', 'F4')
     # save datas using hotkey
     typeThreeKeys('ctrl', 'shift', 'b')
 
@@ -1702,8 +1708,8 @@ def selectionApply():
     typeSpace()
     # wait for gl debug
     time.sleep(DELAY_SELECT)
-	
-	
+    
+    
 def selectionClear():
     """
     @brief clear selection
