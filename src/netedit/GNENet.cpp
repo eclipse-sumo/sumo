@@ -2330,14 +2330,6 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
 
 void
 GNENet::requireSaveAdditionals(bool value) {
-    if (myAdditionalsSaved) {
-        WRITE_DEBUG("Additionals has to be saved");
-        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        std::string dataSetSaved = (myDataElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, demand elements " +
-                    demandElementsSaved + ", data sets " + dataSetSaved);
-    }
     myAdditionalsSaved = !value;
     if (myViewNet != nullptr) {
         if (myAdditionalsSaved) {
@@ -2451,14 +2443,6 @@ GNENet::getNumberOfDemandElements(SumoXMLTag type) const {
 
 void
 GNENet::requireSaveDemandElements(bool value) {
-    if (myDemandElementsSaved == true) {
-        WRITE_DEBUG("DemandElements has to be saved");
-        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
-        std::string dataSetsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved +
-                    ", demand elements unsaved, data sets " + dataSetsSaved);
-    }
     myDemandElementsSaved = !value;
     if (myViewNet != nullptr) {
         if (myDemandElementsSaved) {
@@ -2630,14 +2614,6 @@ GNENet::getNumberOfDataSets() const {
 
 void
 GNENet::requireSaveDataElements(bool value) {
-    if (myDataElementsSaved == true) {
-        WRITE_DEBUG("DataSets has to be saved");
-        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
-        std::string demandEleementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved +
-                    ", demand elements " + demandEleementsSaved + ", data sets unsaved");
-    }
     myDataElementsSaved = !value;
     if (myViewNet != nullptr) {
         if (myDataElementsSaved) {
