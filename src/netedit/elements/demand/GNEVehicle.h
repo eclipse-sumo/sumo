@@ -336,10 +336,10 @@ private:
     void setEnabledAttribute(const int enabledAttributes);
 
     /// @brief draw stack label
-    void drawStackLabel(const GUIVisualizationSettings& s, const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const;
+    void drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const;
 
     /// @brief draw flow label
-    void drawFlowLabel(const GUIVisualizationSettings& s, const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const;
+    void drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const;
 
     /// @brief Invalidated copy constructor.
     GNEVehicle(const GNEVehicle&) = delete;
