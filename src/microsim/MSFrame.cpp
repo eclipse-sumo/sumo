@@ -416,6 +416,8 @@ MSFrame::fillOptions() {
     oc.addDescription("pedestrian.striping.jamtime", "Processing", "Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing)");
     oc.doRegister("pedestrian.striping.jamtime.crossing", new Option_String("10", "TIME"));
     oc.addDescription("pedestrian.striping.jamtime.crossing", "Processing", "Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing)");
+    oc.doRegister("pedestrian.striping.jamtime.narrow", new Option_String("1", "TIME"));
+    oc.addDescription("pedestrian.striping.jamtime.narrow", "Processing", "Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model 'striping'");
 
     oc.doRegister("pedestrian.striping.reserve-oncoming", new Option_Float(0.0));
     oc.addDescription("pedestrian.striping.reserve-oncoming", "Processing", "Fraction of stripes to reserve for oncoming pedestrians");
