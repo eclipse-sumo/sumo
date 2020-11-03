@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct  8 04:13:33 2020 by Eclipse SUMO sumo Version v1_7_0+0543-38a9bf14c0
+<!-- generated on Tue Nov  3 10:07:45 2020 by Eclipse SUMO sumo Version v1_7_0+0764-5bd512f5cd
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -137,6 +137,7 @@
         <pedestrian.striping.dawdling value="0.2" type="FLOAT" help="Factor for random slow-downs [0,1] for use with model &apos;striping&apos;"/>
         <pedestrian.striping.jamtime value="300" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
         <pedestrian.striping.jamtime.crossing value="10" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model &apos;striping&apos; (non-positive values disable squeezing)"/>
+        <pedestrian.striping.jamtime.narrow value="1" type="TIME" help="Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model &apos;striping&apos;"/>
         <pedestrian.striping.reserve-oncoming value="0" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians"/>
         <pedestrian.striping.reserve-oncoming.junctions value="0.34" type="FLOAT" help="Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas"/>
         <pedestrian.remote.address value="localhost:9000" type="STR" help="The address (host:port) of the external simulation"/>
