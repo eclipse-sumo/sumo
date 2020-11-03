@@ -261,6 +261,10 @@ GNECrossing::drawGL(const GUIVisualizationSettings& s) const {
         if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
             GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::INSPECT, s, myCrossingGeometry.getShape(), halfWidth, selectionScale);
         }
+        // check if dotted contour has to be drawn (not useful at high zoom)
+        if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+            GNEGeometry::drawDottedContourShape(GNEGeometry::DottedContourType::FRONT, s, myCrossingGeometry.getShape(), halfWidth, selectionScale);
+        }
     }
 }
 
