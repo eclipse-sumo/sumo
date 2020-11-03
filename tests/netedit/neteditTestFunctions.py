@@ -692,7 +692,7 @@ def saveAdditionals(referencePosition, clickOverReference=False):
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
     # force flag for additional saving using hotkey
-    typeTwoKeysKeys('ctrl', 'F2')
+    typeTwoKeys('ctrl', 'F2')
     # save additionals using hotkey
     typeThreeKeys('ctrl', 'shift', 'a')
 
@@ -706,7 +706,7 @@ def saveRoutes(referencePosition, clickOverReference=True):
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
     # force flag for demand elements saving using hotkey
-    typeTwoKeysKeys('ctrl', 'F3')
+    typeTwoKeys('ctrl', 'F3')
     # save routes using hotkey
     typeThreeKeys('ctrl', 'shift', 'd')
 
@@ -720,7 +720,7 @@ def saveDatas(referencePosition, clickOverReference=True):
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
     # force flag for demand elements saving using hotkey
-    typeTwoKeysKeys('ctrl', 'F4')
+    typeTwoKeys('ctrl', 'F4')
     # save datas using hotkey
     typeThreeKeys('ctrl', 'shift', 'b')
 
