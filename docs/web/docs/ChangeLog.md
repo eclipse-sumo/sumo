@@ -79,6 +79,7 @@ permalink: /ChangeLog/
   - Added vehicle attribute 'departEdge' which can be used to [insert a vehicle beyond the first edge of its route](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#departedge). Issue #1129
   - Added new input elements that can be loaded to influence rail signal operation by providing constraints on train ordering. Issue #7435
   - Train waiting time is now taken into account when resolving conflicts between otherwise equal trains. Issue #7598  
+  - edgeData output now includes attribute timeLoss. Issue #1396
   
 - netedit
   - Opposite direction lanes can now be edited and selected. Issue #2653
