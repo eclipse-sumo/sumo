@@ -1713,7 +1713,7 @@ GNEApplicationWindow::onCmdBackspace(FXObject*, FXSelector, void*) {
 }
 
 long
-GNEApplicationWindow::onCmdForceSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdForceSaveNetwork(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getNet()->requireSaveNet(true);
@@ -1723,7 +1723,7 @@ GNEApplicationWindow::onCmdForceSaveNetwork(FXObject* sender, FXSelector sel, vo
 
 
 long 
-GNEApplicationWindow::onCmdForceSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdForceSaveAdditionals(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getNet()->requireSaveAdditionals(true);
@@ -1733,7 +1733,7 @@ GNEApplicationWindow::onCmdForceSaveAdditionals(FXObject* sender, FXSelector sel
 
 
 long 
-GNEApplicationWindow::onCmdForceSaveDemandElements(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdForceSaveDemandElements(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getNet()->requireSaveDemandElements(true);
@@ -1743,7 +1743,7 @@ GNEApplicationWindow::onCmdForceSaveDemandElements(FXObject* sender, FXSelector 
 
 
 long 
-GNEApplicationWindow::onCmdForceSaveDataElements(FXObject* sender, FXSelector sel, void* ptr) {
+GNEApplicationWindow::onCmdForceSaveDataElements(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
     // check that view exists
     if (myViewNet) {
         myViewNet->getNet()->requireSaveDataElements(true);
