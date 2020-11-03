@@ -353,9 +353,9 @@ GNECrossing::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_EDGES:
             return toString(crossing->edges);
         case SUMO_ATTR_TLLINKINDEX:
-            return toString(crossing->customTLIndex);
+            return toString(crossing->customTLIndex < 0 ? crossing->tlLinkIndex : crossing->customTLIndex);
         case SUMO_ATTR_TLLINKINDEX2:
-            return toString(crossing->customTLIndex2);
+            return toString(crossing->customTLIndex2 < 0 ? crossing->tlLinkIndex2 : crossing->customTLIndex2);
         case SUMO_ATTR_CUSTOMSHAPE:
             return toString(crossing->customShape);
         case GNE_ATTR_SELECTED:
