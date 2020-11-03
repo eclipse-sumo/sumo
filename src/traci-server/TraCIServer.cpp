@@ -187,7 +187,7 @@ TraCIServer::getWrapperStorage() {
 
 
 TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClients)
-    : myServerSocket(nullptr), myTargetTime(begin), myLastContextSubscription(nullptr) {
+    : myTargetTime(begin), myLastContextSubscription(nullptr) {
 #ifdef DEBUG_MULTI_CLIENTS
     std::cout << "Creating new TraCIServer for " << numClients << " clients on port " << port << "." << std::endl;
 #endif
@@ -262,13 +262,13 @@ TraCIServer::TraCIServer(const SUMOTime begin, const int port, const int numClie
 
     try {
         WRITE_MESSAGE("***Starting server on port " + toString(port) + " ***");
-        myServerSocket = new tcpip::Socket(port);
+        tcpip::Socket serverSocket(port);
         if (numClients > 1) {
             WRITE_MESSAGE("  waiting for " + toString(numClients) + " clients...");
         }
         while ((int)mySockets.size() < numClients) {
             int index = (int)mySockets.size() + libsumo::MAX_ORDER + 1;
-            mySockets[index] = new SocketInfo(myServerSocket->accept(true), begin);
+            mySockets[index] = new SocketInfo(serverSocket.accept(true), begin);
             mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_BUILT] = std::vector<std::string>();
             mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_DEPARTED] = std::vector<std::string>();
             mySockets[index]->vehicleStateChanges[MSNet::VEHICLE_STATE_STARTING_TELEPORT] = std::vector<std::string>();
@@ -302,7 +302,6 @@ TraCIServer::~TraCIServer() {
     for (myCurrentSocket = mySockets.begin(); myCurrentSocket != mySockets.end(); ++myCurrentSocket) {
         delete myCurrentSocket->second;
     }
-    delete myServerSocket;
     cleanup();
 }
 
