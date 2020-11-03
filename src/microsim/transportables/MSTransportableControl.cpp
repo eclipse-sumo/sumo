@@ -392,7 +392,7 @@ MSTransportableControl::saveState(OutputDevice& out) {
     oss << myRunningNumber << " " << myLoadedNumber << " " << myEndedNumber << " " << myWaitingForDepartureNumber << " " << myArrivedNumber << " " << myDiscardedNumber;
     oss << " " << myJammedNumber << " " << myWaitingForVehicleNumber << " " << myWaitingUntilNumber << " " << myHaveNewWaiting;
     out.writeAttr(SUMO_ATTR_STATE, oss.str());
-    for (const auto it : myTransportables) {
+    for (const auto& it : myTransportables) {
         it.second->saveState(out);
     }
 }

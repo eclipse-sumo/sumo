@@ -1119,7 +1119,7 @@ GNEFrameAttributesModuls::AttributesEditorRow::AttributesEditorRow(GNEFrameAttri
                 booleanVector = GNEAttributeCarrier::parse<std::vector<bool> >(value);
             }
             // iterate over pased booleans comparing all element with the first
-            for (const auto& i : booleanVector) {
+            for (const auto i : booleanVector) {
                 if (i != booleanVector.front()) {
                     allBooleanValuesEqual = false;
                 }

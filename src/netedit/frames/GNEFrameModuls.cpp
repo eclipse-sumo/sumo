@@ -1677,7 +1677,7 @@ bool
 GNEFrameModuls::SelectorParent::showSelectorParentModul(SumoXMLTag additionalType) {
     // make sure that we're editing an additional tag
     const auto listOfTags = GNEAttributeCarrier::getAllowedTagsByCategory(GNETagProperties::TagType::ADDITIONALELEMENT, false);
-    for (const auto tag : listOfTags) {
+    for (const auto& tag : listOfTags) {
         if (tag.first == additionalType) {
             myParentTag = additionalType;
             myParentsLabel->setText(("Parent type: " + tag.second).c_str());
