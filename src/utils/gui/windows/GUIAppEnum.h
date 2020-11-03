@@ -111,6 +111,14 @@ enum {
     MID_HOTKEY_CTRL_Y_REDO,
     /// @brief Redo
     MID_HOTKEY_CTRL_Z_UNDO,
+    /// @brief Force save network (flag)
+    MID_HOTKEY_CTRL_F1_FORCESAVENETEWORK,
+    /// @brief Force save additionals (flag)
+    MID_HOTKEY_CTRL_F2_FORCESAVEADDITIONALS,
+    /// @brief Force save demand elements (flag)
+    MID_HOTKEY_CTRL_F3_FORCESAVEDEMANDELEMENTS,
+    /// @brief Force save data elements (flag)
+    MID_HOTKEY_CTRL_F4_FORCESAVEDATAELEMENTS,
 
     /// @}
 
