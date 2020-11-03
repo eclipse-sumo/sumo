@@ -151,10 +151,10 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
         // is taken out in notifyMove(), refs #153
         occupationSum += meanLengthOnLane * TS;
     }
-    if (myParent != nullptr && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
-        waitSeconds += timeOnLane;
-    }
     if (!veh.isStopped()) {
+        if (myParent != nullptr && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
+            waitSeconds += timeOnLane;
+        }
         const double vmax = veh.getLane() == nullptr ? veh.getEdge()->getVehicleMaxSpeed(&veh) : veh.getLane()->getVehicleMaxSpeed(&veh);
         if (vmax > 0) {
             timeLoss += timeOnLane * (vmax - meanSpeedVehicleOnLane) / vmax;
