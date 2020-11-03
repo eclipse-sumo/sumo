@@ -1,2 +1,10 @@
 Error: tcpip::Socket::accept() Unable to create listening socket: Address already in use
 Quitting (on error).
+Traceback (most recent call last):
+  File "/home/micha/programming/sumo/tests/../tests/complex/traci/connection/busySocket/runner.py", line 44, in <module>
+    traci.init(PORT)
+  File "/home/micha/sumo/tools/traci/main.py", line 136, in init
+    _connections[label] = connect(port, numRetries, host, proc)
+  File "/home/micha/sumo/tools/traci/main.py", line 127, in connect
+    raise FatalTraCIError("Could not connect in %s tries" % (numRetries + 1))
+traci.exceptions.FatalTraCIError: Could not connect in 11 tries

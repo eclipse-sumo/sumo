@@ -23,6 +23,7 @@ import os
 import subprocess
 import sys
 import shutil
+import socket
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
@@ -30,17 +31,16 @@ import traci  # noqa
 
 sumoBinary = sumolib.checkBinary(sys.argv[1])
 if sys.argv[1] == "sumo":
-    addOption = []
-    secondConfig = "sumo.sumocfg"
+    addOption = ["-c", "sumo.sumocfg"]
 else:
-    addOption = ["-S", "-Q"]
-    secondConfig = "sumo_log.sumocfg"
+    addOption = ["-S", "-Q", "-c", "sumo_log.sumocfg"]
 PORT = sumolib.miscutils.getFreeSocketPort()
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.bind(('', PORT))
 
-sumoProc = subprocess.Popen([sumoBinary, "-c", "sumo.sumocfg", "--remote-port", str(PORT)] + addOption,
+sumoProc = subprocess.Popen([sumoBinary, "--remote-port", str(PORT)] + addOption,
                             stdout=sys.stdout)
 traci.init(PORT)
-subprocess.call([sumoBinary, "-c", secondConfig, "--remote-port", str(PORT)] + addOption, stdout=sys.stdout)
 step = 0
 while not step > 100:
     traci.simulationStep()
