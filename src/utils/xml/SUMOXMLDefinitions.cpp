@@ -290,6 +290,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "laneDensity",            SUMO_ATTR_LANEDENSITY },
     { "occupancy",              SUMO_ATTR_OCCUPANCY },
     { "waitingTime",            SUMO_ATTR_WAITINGTIME },
+    { "timeLoss",               SUMO_ATTR_TIMELOSS },
     { "speed",                  SUMO_ATTR_SPEED },
     { "departed",               SUMO_ATTR_DEPARTED },
     { "arrived",                SUMO_ATTR_ARRIVED },
