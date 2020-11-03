@@ -164,6 +164,9 @@ public:
         /// @brief The number of vehicle probes with small speed
         double waitSeconds;
 
+        /// @brief The time loss accrued by vehicle probes
+        double timeLoss;
+
     private:
         /// @brief The number of vehicles that changed from this lane
         int nVehLaneChangeFrom;
