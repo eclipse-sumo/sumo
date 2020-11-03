@@ -24,14 +24,10 @@ Error: route needs a valid ID.
 Error: Invalid flow id 'id with spaces'. Contains invalid characters.
 Error: route needs a valid ID.
 Debug: Adding flowWithRoute 'flow_valid' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Adding routeEmbedded 'flow_valid' in GNEChange_DemandElement
 Error: There is another flowWithRoute with the same ID='flow_valid'.
 Error: There is another flowWithRoute with the same ID='flow_valid'.
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\flow_embedded\load\id\input_routes.rou.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'flow_valid' in GNEChange_DemandElement
@@ -90,8 +86,6 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced routeEmbedded 'flow_valid'
 Debug: Deleting unreferenced flowWithRoute 'flow_valid'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced edge 'gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE10_0togneE8_0' in GNEEdge destructor

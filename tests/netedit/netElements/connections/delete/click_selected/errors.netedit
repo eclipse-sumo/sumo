@@ -1,6 +1,4 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from5_0to4_0' in retrieveGNEConnection()
 Debug: Created connection 'from5_0to2_0' in retrieveGNEConnection()
@@ -37,8 +35,6 @@ Debug: Setting new attribute selected 'true' into connection 'from8_1to1_1'
 Debug: Setting new attribute selected 'true' into connection 'from8_1to3_1'
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into edge '2'
 Debug: invalidating (removing) connections of edge '2' due it were guessed
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Setting new attribute modificationStatusNotForPrinting 'guessed' into junction 'B'
 Debug: Removing connection '6_1->4_1' from edge '6'
 Debug: Removing connection '6_1->1_1' from edge '6'

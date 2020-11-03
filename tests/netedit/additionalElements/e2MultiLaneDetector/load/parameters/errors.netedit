@@ -8,8 +8,6 @@ GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Inserting parameter 'key1|value1' into additional e2MultilaneDetector.
 Error: Attribute 'key' in definition of a param is empty.
 Debug: Inserting parameter 'key1|value5' into additional e2MultilaneDetector.
@@ -17,8 +15,6 @@ Debug: Inserting parameter 'key2|' into additional e2MultilaneDetector.
 Debug: Inserting parameter 'key2|' into additional e2MultilaneDetector.
 Debug: Inserting parameter 'key3|$$value with spaces%%' into additional e2MultilaneDetector.
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.31Aug122131.11864\netedit.gui\additionalElements\e2MultiLaneDetector\load\parameters\input_additionals.add.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -67,8 +63,6 @@ GLDebug: 	Inserted edge:gneE3 into SUMORTree with boundary 15.00,-11.60,60.00,10
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary 15.00,-10.00,60.00,11.60
 GLDebug: 	Inserted edge:gneE5 into SUMORTree with boundary -10.00,-10.00,35.00,11.60
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor

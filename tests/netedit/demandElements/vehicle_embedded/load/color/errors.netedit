@@ -18,8 +18,6 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Attribute 'color' in definition of vehicle 'vehicle_0' is empty.
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
 Error: Attribute 'color' in definition of vehicle 'vehicle_1' is empty.
 Debug: Adding vehicleWithRoute 'vehicle_1' in GNEChange_DemandElement
@@ -31,8 +29,6 @@ Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\vehicle_embedded\load\color\input_routes.rou.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'vehicle_4' in GNEChange_DemandElement
@@ -107,8 +103,6 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced routeEmbedded 'vehicle_4'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_4'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced routeEmbedded 'vehicle_3'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_3'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_2'

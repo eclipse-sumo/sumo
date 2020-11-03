@@ -1,7 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingArea_A' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding space 'parkingArea_Aspace0' in GNEChange_Additional
 Debug: Inserting parameter 'KeyA1|valueA1' into additional space.
 Debug: Inserting parameter 'KeyA2|valueA2' into additional space.
@@ -11,8 +9,6 @@ Debug: Adding space 'parkingArea_Bspace0' in GNEChange_Additional
 Debug: Inserting parameter 'KeyB1|valueB1' into additional space.
 Debug: Inserting parameter 'KeyB2|valueB2' into additional space.
 Debug: Inserting parameter 'KeyB3|valueB3' into additional space.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -77,8 +73,6 @@ Debug: Created crossing ':gneJ0_c1' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c0' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ1_c1' in retrieveGNECrossing()
 Debug: Deleting unreferenced space 'parkingArea_Bspace0'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingArea_B'
 Debug: Deleting unreferenced space 'parkingArea_Aspace0'
 Debug: Deleting unreferenced parkingArea 'parkingArea_A'

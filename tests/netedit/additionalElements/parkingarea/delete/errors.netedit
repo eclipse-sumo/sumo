@@ -6,12 +6,8 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 19.40,-16.20,55.40,3.80
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_1 into SUMORTree with boundary 17.00,-3.80,53.00,16.20
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'parkingArea' in TagSelector
 Debug: Format of optional positive optional float attribute 'length' of parkingArea with ID 'parkingArea_gneE0_0_2' is invalid; Cannot be parsed to float; Default value will be used.
@@ -24,8 +20,6 @@ GLDebug: 	Removed object parkingArea:parkingArea_0 from SUMORTree with boundary 
 Debug: Removing parkingArea 'parkingArea_1' in GNEChange_Additional
 GLDebug: 	Removed object parkingArea:parkingArea_1 from SUMORTree with boundary 17.00,-3.80,53.00,16.20
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting TLS from junction 'gneJ1'
 Debug: Adding TLS into junction 'gneJ1'
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'

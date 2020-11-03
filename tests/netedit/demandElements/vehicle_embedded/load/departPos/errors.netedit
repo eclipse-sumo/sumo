@@ -19,8 +19,6 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Invalid departPos definition for vehicle 'vehicle_0';
  must be one of ("random", "random_free", "free", "base", "last" or a float)
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_1' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_1' in GNEChange_DemandElement
@@ -41,8 +39,6 @@ Debug: Adding routeEmbedded 'vehicle_8' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_9' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_9' in GNEChange_DemandElement
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\vehicle_embedded\load\departPos\input_routes.rou.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'vehicle_9' in GNEChange_DemandElement
@@ -137,8 +133,6 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced routeEmbedded 'vehicle_9'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_9'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced routeEmbedded 'vehicle_8'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_8'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_7'

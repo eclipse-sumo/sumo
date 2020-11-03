@@ -1,6 +1,4 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0togneE9_0' in retrieveGNEConnection()
@@ -11,8 +9,6 @@ Debug: Created connection 'fromgneE8_0togneE4_0' in retrieveGNEConnection()
 Debug: Opening FXMessageBox 'merge junctions'
 Debug: Closed FXMessageBox 'merge junctions' with 'ESC'
 Debug: Setting new attribute pos '40.00,50.00' into junction 'gneJ8'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

@@ -6,12 +6,8 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding taz 'TAZ_0' into viewNet
 GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -18.00,-12.00,32.00,38.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding taz 'TAZ_1' into viewNet
 GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary 2.00,-12.00,52.00,38.00
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute blockMovement 'true' into taz 'TAZ_0'
 Debug: Setting new attribute blockMovement 'true' into taz 'TAZ_1'
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -51,8 +47,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing taz 'TAZ_1' from net in ~GNEChange_TAZElement()
 GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary 2.00,-12.00,52.00,38.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete taz 'TAZ_1' in ~GNEChange_TAZElement()
 Debug: Removing taz 'TAZ_0' from net in ~GNEChange_TAZElement()
 GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -18.00,-12.00,32.00,38.00

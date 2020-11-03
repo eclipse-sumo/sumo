@@ -13,8 +13,6 @@ GLDebug: 	Inserted edge:6 into SUMORTree with boundary 32.00,40.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,32.00,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,68.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -68,8 +66,6 @@ Debug: Current Viewport values: 50.00, 50.00, 50.00. Zoom = '248.00'
 Debug: Value 'dummylinkIndex' for attribute linkIndex2 of crossing isn't valid
 Debug: Value '-3' for attribute linkIndex2 of crossing isn't valid
 Debug: Setting new attribute linkIndex2 '6' into crossing ':Center_c1'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Setting new attribute linkIndex2 '1' into crossing ':Center_c1'
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing

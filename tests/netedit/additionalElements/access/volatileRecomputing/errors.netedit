@@ -9,8 +9,6 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_gneE1_0_2' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding access 'busStop_gneE1_0_2' in GNEChange_Additional
 Debug: Adding access 'busStop_gneE1_0_2' in GNEChange_Additional
 Debug: Adding access 'busStop_gneE1_0_2' in GNEChange_Additional
@@ -25,8 +23,6 @@ Debug: Adding access 'busStop_gneE4_0_0' in GNEChange_Additional
 Debug: Adding access 'busStop_gneE4_0_0' in GNEChange_Additional
 Debug: Adding access 'busStop_gneE4_0_0' in GNEChange_Additional
 Debug: Adding access 'busStop_gneE4_0_0' in GNEChange_Additional
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -47,8 +43,6 @@ Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
 Debug: Deleting unreferenced busStop 'busStop_gneE4_0_0'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
@@ -113,8 +107,6 @@ Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
 Debug: Deleting unreferenced access 'busStop_gneE4_0_0'
 Debug: Deleting unreferenced busStop 'busStop_gneE4_0_0'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5'
 Debug: Deleting unreferenced access 'busStop_gneE2_0_5'

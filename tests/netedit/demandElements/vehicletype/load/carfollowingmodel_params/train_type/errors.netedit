@@ -18,8 +18,6 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Invalid train type 'dummy_trainType' used in Car-Following-Attribute trainType
 Debug: Adding vType 'vType0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Error: Invalid train type '-3' used in Car-Following-Attribute trainType
 Debug: Adding vType 'vType1' in GNEChange_DemandElement
 Error: Attribute 'trainType' in definition of vType 'vType2' is empty.
@@ -28,8 +26,6 @@ Error: Invalid parsing embedded VType
 Debug: Adding vType 'vType2' in GNEChange_DemandElement
 Debug: Adding vType 'vType4' in GNEChange_DemandElement
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\vehicletype\load\carfollowingmodel_params\train_type\input_routes.rou.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing vType 'vType4' in GNEChange_DemandElement
@@ -91,8 +87,6 @@ Debug: Created connection 'fromgneE6_0togneE3_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced vType 'vType4'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced vType 'vType2'
 Debug: Deleting unreferenced vType 'vType1'
 Debug: Deleting unreferenced vType 'vType0'

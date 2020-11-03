@@ -1,6 +1,4 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE4_0' in retrieveGNEConnection()
@@ -9,8 +7,6 @@ Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2MultilaneDetector' in TagSelector
 Debug: Key ENTER pressed
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute tl 'dummyFrequency' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Setting new attribute tl '-100' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Setting new attribute tl '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
@@ -28,8 +24,6 @@ Debug: Calling GNEUndoList::redo()
 Debug: Setting new attribute tl '120' into e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE3_0' in GNEEdge destructor

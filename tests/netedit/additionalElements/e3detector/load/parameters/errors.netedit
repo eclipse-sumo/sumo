@@ -13,8 +13,6 @@ Debug: Adding e3Detector 'e3Detector_00' in GNEChange_Additional
 GLDebug: 	Inserted e3Detector:e3Detector_00 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: 	Removed object e3Detector:e3Detector_00 from SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: 	Inserted e3Detector:e3Detector_00 into SUMORTree with boundary -20.00,-10.00,20.00,30.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Adding detEntry 'e3Detector_00detEntry0' in GNEChange_Additional
 GLDebug: 	Inserted entryDetector:e3Detector_00detEntry0 into SUMORTree with boundary -20.00,-10.00,20.00,30.00
 GLDebug: 	Removed object entryDetector:e3Detector_00detEntry0 from SUMORTree with boundary -20.00,-10.00,20.00,30.00
@@ -43,8 +41,6 @@ Debug: Inserting parameter 'key1|value1' into additional detExit.
 Debug: Inserting parameter 'key1|value4' into additional detExit.
 Debug: Inserting parameter 'key2|' into additional detExit.
 Debug: Inserting parameter 'key4|value5' into additional detExit.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -80,8 +76,6 @@ GLDebug: 	Inserted e3Detector:e3Detector_00 into SUMORTree with boundary -20.00,
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Deleting unreferenced detExit 'e3Detector_00detExit0'
 GLDebug: 	Removed object exitDetector:e3Detector_00detExit0 from SUMORTree with boundary -18.00,-21.60,22.00,18.40
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Deleting unreferenced detEntry 'e3Detector_00detEntry0'
 GLDebug: 	Removed object entryDetector:e3Detector_00detEntry0 from SUMORTree with boundary 28.00,-18.40,68.00,21.60
 Debug: Deleting unreferenced e3Detector 'e3Detector_00'
