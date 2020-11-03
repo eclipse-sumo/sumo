@@ -247,8 +247,12 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,     GNEApplicationWindow::onCmdClearTemplate),
 
     // Other
-    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                      GNEApplicationWindow::onClipboardRequest),
-    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, GNEApplicationWindow::onCmdFocusFrame),
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                          GNEApplicationWindow::onClipboardRequest),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_F1_FORCESAVENETEWORK,       GNEApplicationWindow::onCmdForceSaveNetwork),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_F2_FORCESAVEADDITIONALS,    GNEApplicationWindow::onCmdForceSaveAdditionals),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_F3_FORCESAVEDEMANDELEMENTS, GNEApplicationWindow::onCmdForceSaveDemandElements),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_F4_FORCESAVEDATAELEMENTS,   GNEApplicationWindow::onCmdForceSaveDataElements),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,     GNEApplicationWindow::onCmdFocusFrame),
 };
 
 // Object implementation
@@ -1704,6 +1708,45 @@ GNEApplicationWindow::onCmdBackspace(FXObject*, FXSelector, void*) {
         // show extra information for tests
         WRITE_DEBUG("Key BACKSPACE pressed");
         myViewNet->hotkeyBackSpace();
+    }
+    return 1;
+}
+
+long
+GNEApplicationWindow::onCmdForceSaveNetwork(FXObject* sender, FXSelector sel, void* ptr) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getNet()->requireSaveNet(true);
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdForceSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getNet()->requireSaveAdditionals(true);
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdForceSaveDemandElements(FXObject* sender, FXSelector sel, void* ptr) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getNet()->requireSaveDemandElements(true);
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdForceSaveDataElements(FXObject* sender, FXSelector sel, void* ptr) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getNet()->requireSaveDataElements(true);
     }
     return 1;
 }

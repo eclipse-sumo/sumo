@@ -264,6 +264,18 @@ public:
     /// @brief called if the user hits backspace
     long onCmdBackspace(FXObject* sender, FXSelector sel, void* ptr);
 
+    /// @brief force save network (flag)
+    long onCmdForceSaveNetwork(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief force save additionals (flag)
+    long onCmdForceSaveAdditionals(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief force save demand elements (flag)
+    long onCmdForceSaveDemandElements(FXObject* sender, FXSelector sel, void* ptr);
+
+    /// @brief force save data elements (flag)
+    long onCmdForceSaveDataElements(FXObject* sender, FXSelector sel, void* ptr);
+
     /// @brief called if the user hits f
     long onCmdFocusFrame(FXObject* sender, FXSelector sel, void* ptr);
 
