@@ -542,6 +542,13 @@ def reload(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
     """
     # first move cursor out of magenta square
     pyautogui.moveTo(150, 200)
+        # enable flags
+    if openNetNonSavedDialog:
+        typeTwoKeys('ctrl', 'F1')
+    if openAdditionalsNonSavedDialog:
+        typeTwoKeys('ctrl', 'F2')
+    if openDemandNonSavedDialog:
+        typeTwoKeys('ctrl', 'F3')
     # reload using hotkey
     typeTwoKeys('ctrl', 'r')
     # Check if net must be saved
@@ -666,6 +673,8 @@ def saveNetwork(referencePosition, clickOverReference=False):
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
+    # force flag for additional saving using hotkey
+    typeTwoKeys('ctrl', 'F1')
     # save network using hotkey
     typeTwoKeys('ctrl', 's')
     # wait for debug (due recomputing)
