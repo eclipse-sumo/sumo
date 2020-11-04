@@ -35,6 +35,7 @@ DELAY_MOUSE = 0.5
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
 DELAY_REFERENCE = 30
+DELAY_START_NETEDIT = 3
 DELAY_QUIT_NETEDIT = 5
 DELAY_QUIT_SUMOGUI = 3
 DELAY_UNDOREDO = 1
@@ -378,6 +379,15 @@ def getReferenceMatch(neProcess, waitTime):
         if referencePosition != (304, 168):
             print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
                   "is 100% (See #3746)")
+        # wait
+        time.sleep(DELAY_START_NETEDIT)
+        # click over position
+        pyautogui.moveTo(clickedPosition)
+        # wait
+        time.sleep(DELAY_MOVE)
+        # click over position
+        pyautogui.click(button='left')
+        #return reference position
         return referencePosition
     # reference not found, then kill netedit process
     neProcess.kill()
