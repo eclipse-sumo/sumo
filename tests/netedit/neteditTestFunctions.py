@@ -382,7 +382,7 @@ def getReferenceMatch(neProcess, waitTime):
         # wait
         time.sleep(DELAY_START_NETEDIT)
         # click over position
-        pyautogui.moveTo(clickedPosition)
+        pyautogui.moveTo(referencePosition)
         # wait
         time.sleep(DELAY_MOVE)
         # click over position
