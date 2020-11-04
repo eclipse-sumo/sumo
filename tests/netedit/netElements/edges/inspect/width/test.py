@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # recompute
 netedit.rebuildNetwork()
 
+# force save additionals
+netedit.typeTwoKeys('ctrl', 'F2')
+
 # go to inspect mode
 netedit.inspectMode()
 

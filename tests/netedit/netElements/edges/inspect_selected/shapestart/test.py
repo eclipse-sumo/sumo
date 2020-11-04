@@ -43,6 +43,9 @@ netedit.leftClick(referencePosition, 250, 110)
 # go to inspect mode
 netedit.inspectMode()
 
+# force save additionals
+netedit.typeTwoKeys('ctrl', 'F2')
+
 # inspect selected edges
 netedit.leftClick(referencePosition, 250, 180)
 
