@@ -41,6 +41,6 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="100.00" id="3/1to2/1" sampledSeconds="20.00" density="2.00" laneDensity="2.00" occupancy="1.60" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="2"/>
-    <interval begin="0.00" end="100.00" id="4/1to3/1" sampledSeconds="20.00" density="2.00" laneDensity="2.00" occupancy="1.60" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="2"/>
+    <interval begin="0.00" end="100.00" id="3/1to2/1" sampledSeconds="20.00" density="2.00" laneDensity="2.00" occupancy="1.60" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="2"/>
+    <interval begin="0.00" end="100.00" id="4/1to3/1" sampledSeconds="20.00" density="2.00" laneDensity="2.00" occupancy="1.60" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="0" arrived="0" entered="2" left="2"/>
 </detector>

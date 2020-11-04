@@ -45,10 +45,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="36.10" id="instant_beg_0_before" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
-    <interval begin="0.00" end="36.10" id="instant_beg_1_before" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
-    <interval begin="0.00" end="36.10" id="instant_beg_0_at" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
-    <interval begin="0.00" end="36.10" id="instant_beg_1_at" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
-    <interval begin="0.00" end="36.10" id="instant_beg_0_after" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" speed="13.89" departed="0" arrived="1" entered="1" left="0"/>
-    <interval begin="0.00" end="36.10" id="instant_beg_1_after" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" speed="13.89" departed="0" arrived="1" entered="1" left="0"/>
+    <interval begin="0.00" end="36.10" id="instant_beg_0_before" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" timeLoss="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="0.00" end="36.10" id="instant_beg_1_before" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" timeLoss="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="0.00" end="36.10" id="instant_beg_0_at" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" timeLoss="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="0.00" end="36.10" id="instant_beg_1_at" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" timeLoss="0.00" speed="13.89" departed="0" arrived="0" entered="1" left="1"/>
+    <interval begin="0.00" end="36.10" id="instant_beg_0_after" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" timeLoss="0.00" speed="13.89" departed="0" arrived="1" entered="1" left="0"/>
+    <interval begin="0.00" end="36.10" id="instant_beg_1_after" sampledSeconds="7.20" density="1.99" laneDensity="1.00" occupancy="0.50" waitingTime="0.00" timeLoss="0.00" speed="13.89" departed="0" arrived="1" entered="1" left="0"/>
 </detector>

@@ -43,13 +43,13 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="60.00" id="dump_60">
-        <edge id="1si" sampledSeconds="53.83" traveltime="40.37" overlapTraveltime="40.86" density="3.59" laneDensity="1.20" occupancy="0.36" waitingTime="0.00" speed="6.19" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="4o" sampledSeconds="59.17" traveltime="63.85" overlapTraveltime="64.23" density="1.97" laneDensity="1.97" occupancy="0.59" waitingTime="0.00" speed="7.83" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="1si" sampledSeconds="53.83" traveltime="40.37" overlapTraveltime="40.86" density="3.59" laneDensity="1.20" occupancy="0.36" waitingTime="0.00" timeLoss="0.00" speed="6.19" departed="2" arrived="0" entered="0" left="2" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="59.17" traveltime="63.85" overlapTraveltime="64.23" density="1.97" laneDensity="1.97" occupancy="0.59" waitingTime="0.00" timeLoss="0.00" speed="7.83" departed="0" arrived="0" entered="2" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="60.00" end="120.00" id="dump_60">
-        <edge id="4o" sampledSeconds="76.50" traveltime="82.26" overlapTraveltime="82.76" density="2.55" laneDensity="2.55" occupancy="0.76" waitingTime="0.00" speed="6.08" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="76.50" traveltime="82.26" overlapTraveltime="82.76" density="2.55" laneDensity="2.55" occupancy="0.76" waitingTime="0.00" timeLoss="0.00" speed="6.08" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="120.00" end="150.00" id="dump_60">
-        <edge id="4o" sampledSeconds="14.33" traveltime="100.00" overlapTraveltime="100.60" density="0.96" laneDensity="0.96" occupancy="0.29" waitingTime="0.00" speed="5.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="4o" sampledSeconds="14.33" traveltime="100.00" overlapTraveltime="100.60" density="0.96" laneDensity="0.96" occupancy="0.29" waitingTime="0.00" timeLoss="0.00" speed="5.00" departed="0" arrived="1" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
 </meandata>
