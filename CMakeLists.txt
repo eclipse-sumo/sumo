@@ -305,6 +305,8 @@ endif (FOX_FOUND)
 find_package(Freetype)
 if (FREETYPE_FOUND)
     include_directories(SYSTEM ${FREETYPE_INCLUDE_DIRS})
+else (FREETYPE_FOUND)
+    message(WARNING "FreeType cannot be found. If you are using SUMO libraries, update SUMO_LIBRARIES folder with git pull. Otherwise, specify manually FreeType include folder and libs.")
 endif (FREETYPE_FOUND)
 
 find_package(X11)
