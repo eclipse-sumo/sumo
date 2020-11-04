@@ -18,9 +18,30 @@
 """
 Generate railSignalConstrains definitions that enforce a loaded rail schedule
 
-The schedule can either be based on 'arrival' or 'until' time of stops.
-Vehicles that pass the same switch from different branches will be sorted based
-on their arrival at the subsequent stop.
+Two types of constraints are generated:
+1. <predecessor>
+When two vehices stop subsequently at the same busStop (trainStop) and they reach that stop
+via different routes, the switch where both routes merge is identified and a
+constraint is created for the rail signals that guard this merging switch:
+    The vehicle B that arrives at the stop later, must wait (at its signal Y)
+    for the vehicle A that arrives first (to pass it's respective signal X)
+    This uses the 'arrival' attribute of the vehicle stops
+
+A complication arrises if the signal of the first vehicle is passed by other
+trains which are en route to another stop. This makes it necessary to record a
+larger number of passing vehicles within the simulation (controlled by the
+limit attribute). The script attempts to determine the necessary limit value by
+identifying all vehicles that pass the signal X en route to other stops between
+the time A and B reach their respective signals (counting backwards from the
+next stop based on "arrival". To account for delays the
+options --delay and --limit can be used to override the limit values
+
+2. <insertionPredecessor>
+Whenever a vehicle B departs at a stop (assumed to coincide with the "until"
+attribute of it's first stop), the prior train A that leaves this stop is
+identified (also based on "until"). Then a constraint is created that prevents
+insertion of B until train A has passed the next signal that lies beyond the
+stop.
 """
 
 from __future__ import absolute_import
