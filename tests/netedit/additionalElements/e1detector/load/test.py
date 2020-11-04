@@ -28,6 +28,9 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# force save additionals
+typeTwoKeys('ctrl', 'F2')
+
 # save additionals
 netedit.saveAdditionals(referencePosition)
 
