@@ -6583,10 +6583,12 @@ MSVehicle::estimateTimeToNextStop() const {
         const double c = getSpeed();
         const double d = dist;
         const double len = getVehicleType().getLength();
-        // distAccel = (v - v0)^2 / 2a
-        // distDecel = v^2 / 2b
+        const double vs = MIN2(MAX2(stop.pars.speed, 0.0), stop.lane->getVehicleMaxSpeed(this));
+        // distAccel = (v - c)^2 / (2a)
+        // distDecel = (v + vs)*(v - vs) / 2b = (v^2 - vs^2) / (2b)
         // distAccel + distDecel < d
-        const double maxVD = MAX2(c, ((sqrt(MAX2(0.0, pow(2 * c * b, 2) + (4 * b * (2 * d * a - c * c) * (b + a)))) * 0.5) + (c * b)) / (b + a));
+        const double maxVD = MAX2(c, ((sqrt(MAX2(0.0, pow(2 * c * b, 2) + (4 *((b * ((a*(2 *d * (b + a) + (vs * vs) - (c * c))) - (b * (c * c)))) 
+                                        + pow((a * vs), 2))))) * 0.5) + (c*b)) / (b + a));
         it = myCurrEdge;
         double v0 = c;
         bool v0Stable = getAcceleration() == 0 && v0 > 0;
@@ -6621,9 +6623,21 @@ MSVehicle::estimateTimeToNextStop() const {
             }
             it++;
         }
-        // final deceleration to stop
-        //std::cout << "    v0=" << v0 << " finalTLD=" << v0 / (2 * b) << "\n";
-        timeLossDecel += v0 / (2 * b);
+        // final deceleration to stop (may also be acceleration or deceleration to waypoint speed)
+        double v = vs;
+        const double dv = v - v0;
+        if (dv > 0) {
+            // timeLossAccel = timeAccel - timeMaxspeed = dv / a - distAccel / v
+            const double dTA = dv / a - dv * (v + v0) / (2 * a * v);
+            //std::cout << "  final e=" << (*it)->getID() << " v0=" << v0 << " v=" << v << " newTLA=" << dTA << "\n";
+            timeLossAccel += dTA;
+            // time loss from vehicle length
+        } else if (dv < 0) {
+            // timeLossDecel = timeDecel - timeMaxspeed = dv / b - distDecel / v
+            const double dTD = -dv / b + dv * (v + v0) / (2 * b * v0);
+            //std::cout << "  final  e=" << (*it)->getID() << " v0=" << v0 << " v=" << v << " newTLD=" << dTD << "\n";
+            timeLossDecel += dTD;
+        }
         const double result = travelTime + timeLossAccel + timeLossDecel + timeLossLength;
         //std::cout << SIMTIME << " v=" << c << " a=" << a << " b=" << b << " maxVD=" << maxVD << " tt=" << travelTime
         //    << " ta=" << timeLossAccel << " td=" << timeLossDecel << " tl=" << timeLossLength << " res=" << result << "\n";
