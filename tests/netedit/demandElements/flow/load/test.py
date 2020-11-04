@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # force save demand elements
-typeTwoKeys('ctrl', 'F3')
+netedit.typeTwoKeys('ctrl', 'F3')
 
 # Check undo redo
 netedit.undo(referencePosition, 1)

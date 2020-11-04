@@ -29,7 +29,7 @@ import neteditTestFunctions as netedit  # noqa
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
 # force save additionals
-typeTwoKeys('ctrl', 'F2')
+netedit.typeTwoKeys('ctrl', 'F2')
 
 # save shapes
 netedit.saveAdditionals(referencePosition)
