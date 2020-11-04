@@ -6,14 +6,10 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poi 'POI_0' into viewNet
 GLDebug: 	Inserted poi:POI_0 into SUMORTree with boundary -40.00,20.00,-20.00,40.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poi '%%%%%···$' into viewNet
 GLDebug: 	Inserted poi:%%%%%···$ into SUMORTree with boundary 20.00,-10.00,40.00,10.00
 Debug: Adding poi 'POI_1' into viewNet
 GLDebug: 	Inserted poi:POI_1 into SUMORTree with boundary 20.00,-30.00,40.00,-10.00
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -31,8 +27,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poi 'POI_1' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object poi:POI_1 from SUMORTree with boundary 20.00,-30.00,40.00,-10.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'POI_1' in ~GNEChange_Shape()
 Debug: Removing poi '%%%%%···$' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object poi:%%%%%···$ from SUMORTree with boundary 20.00,-10.00,40.00,10.00

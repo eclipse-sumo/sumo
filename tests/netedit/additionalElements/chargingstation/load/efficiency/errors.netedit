@@ -5,8 +5,6 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Format of optional optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_1' is invalid; Cannot be parsed to float; Default value will be used.
 Debug: Adding chargingStation 'chargingStation_1' in GNEChange_Additional
 Debug: Format of optional optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_2' is invalid; Float cannot be smaller than 0.00; Default value will be used.
@@ -14,8 +12,6 @@ Debug: Adding chargingStation 'chargingStation_2' in GNEChange_Additional
 Debug: Format of optional optional float attribute 'efficiency' of chargingStation with ID 'chargingStation_3' is invalid; Float cannot be greather than 1.00; Default value will be used.
 Debug: Adding chargingStation 'chargingStation_3' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_4' in GNEChange_Additional
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -32,8 +28,6 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced chargingStation 'chargingStation_4'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced chargingStation 'chargingStation_3'
 Debug: Deleting unreferenced chargingStation 'chargingStation_2'
 Debug: Deleting unreferenced chargingStation 'chargingStation_1'

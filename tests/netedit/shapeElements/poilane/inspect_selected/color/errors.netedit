@@ -1,10 +1,6 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poiLane 'POI_1' into viewNet
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poiLane 'POI_2' into viewNet
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Value 'dummyColor' for attribute color of poiLane isn't valid
 Debug: Setting new attribute color '255,255,500' into poiLane 'POI_1'
 Debug: Setting new attribute color '255,255,500' into poiLane 'POI_2'
@@ -40,8 +36,6 @@ Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poiLane 'POI_2' from net in ~GNEChange_Shape()
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poiLane 'POI_2' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_1' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_1' in ~GNEChange_Shape()

@@ -6,14 +6,8 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary -8.20,-3.60,28.20,16.40
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 13.00,-12.00,37.00,12.00
@@ -89,12 +83,8 @@ Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
 Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_0'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_0'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingAreaB'
 GLDebug: 	Removed object parkingArea:parkingAreaB from SUMORTree with boundary -8.20,-3.60,28.20,16.40
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

@@ -1,7 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding e1Detector 'detector1' in GNEChange_Additional
 Debug: Adding e1Detector 'detector2' in GNEChange_Additional
 Debug: Adding e1Detector 'detector3' in GNEChange_Additional
@@ -18,8 +16,6 @@ Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding poiLane 'POI_4' into viewNet
 Debug: Adding poiLane 'POI_5' into viewNet
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
@@ -61,8 +57,6 @@ Debug: Removing e1Detector 'detector6' in GNEChange_Additional
 Debug: Removing busStop 'busStop' in GNEChange_Additional
 Debug: Removing connection '6_2->4_2' from edge '6'
 Debug: Deleting unreferenced connection 'from6_2to4_2' in removeConnection()
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Removing connection '6_2->1_2' from edge '6'
 Debug: Deleting unreferenced connection 'from6_2to1_2' in removeConnection()
 Debug: Removing connection '6_1->1_1' from edge '6'
@@ -584,8 +578,6 @@ Debug: Adding e1Detector 'detector4' in GNEChange_Additional
 Debug: Adding e1Detector 'detector3' in GNEChange_Additional
 Debug: Additionals saved
 Debug: Removing poiLane 'POI_5' from net in ~GNEChange_Shape()
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poiLane 'POI_5' in ~GNEChange_Shape()
 Debug: Removing poiLane 'POI_4' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'POI_4' in ~GNEChange_Shape()

@@ -6,12 +6,8 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poi 'POI_1' into viewNet
 GLDebug: 	Inserted poi:POI_1 into SUMORTree with boundary -8.00,3.00,22.00,33.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poi 'POI_2' into viewNet
 GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary -15.00,1.00,19.00,35.00
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Value 'dummyWidth' for attribute width of poi isn't valid
 Debug: Value '-2' for attribute width of poi isn't valid
 Debug: Setting new attribute width '5' into poi 'POI_1'
@@ -65,8 +61,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poi 'POI_2' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object poi:POI_2 from SUMORTree with boundary -13.00,3.00,17.00,33.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'POI_2' in ~GNEChange_Shape()
 Debug: Removing poi 'POI_1' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object poi:POI_1 from SUMORTree with boundary -8.00,3.00,22.00,33.00

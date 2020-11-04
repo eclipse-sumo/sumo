@@ -6,8 +6,6 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding taz 'TAZ_0' into viewNet
 GLDebug: 	Inserted taz:TAZ_0 into SUMORTree with boundary -18.00,-12.00,32.00,38.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Inserting parameter 'keyA1|valueA1' into TAZ taz.
 Debug: Inserting parameter 'keyA2|valueA2' into TAZ taz.
 Debug: Inserting parameter 'keyA3|valueA3' into TAZ taz.
@@ -16,8 +14,6 @@ GLDebug: 	Inserted taz:TAZ_1 into SUMORTree with boundary 2.00,-12.00,52.00,38.0
 Debug: Inserting parameter 'keyB1|valueB1' into TAZ taz.
 Debug: Inserting parameter 'keyB2|valueB2' into TAZ taz.
 Debug: Inserting parameter 'keyB3|valueB3' into TAZ taz.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into taz 'TAZ_0'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into taz 'TAZ_1'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into taz 'TAZ_0'
@@ -117,8 +113,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing taz 'TAZ_1' from net in ~GNEChange_TAZElement()
 GLDebug: 	Removed object taz:TAZ_1 from SUMORTree with boundary 2.00,-12.00,52.00,38.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete taz 'TAZ_1' in ~GNEChange_TAZElement()
 Debug: Removing taz 'TAZ_0' from net in ~GNEChange_TAZElement()
 GLDebug: 	Removed object taz:TAZ_0 from SUMORTree with boundary -18.00,-12.00,32.00,38.00

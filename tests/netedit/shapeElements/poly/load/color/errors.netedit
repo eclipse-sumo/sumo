@@ -6,8 +6,6 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -20.00,20.00,10.00,50.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Format of optional optional color attribute 'color' of poly with ID 'poly_1' is invalid; Invalid RGB format or named color; Default value will be used.
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 0.00,20.00,30.00,50.00
@@ -15,8 +13,6 @@ Debug: Adding poly 'poly_2' into viewNet
 GLDebug: 	Inserted polygon:poly_2 into SUMORTree with boundary 20.00,20.00,50.00,50.00
 Debug: Adding poly 'poly_3' into viewNet
 GLDebug: 	Inserted polygon:poly_3 into SUMORTree with boundary 20.00,20.00,50.00,50.00
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -34,8 +30,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_3' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object polygon:poly_3 from SUMORTree with boundary 20.00,20.00,50.00,50.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poly 'poly_3' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_2' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object polygon:poly_2 from SUMORTree with boundary 20.00,20.00,50.00,50.00

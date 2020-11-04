@@ -32,11 +32,7 @@ GLDebug: 	Inserted edge:gneE13 into SUMORTree with boundary -10.00,-11.13,11.23,
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Format of optional optional string attribute 'name' of vaporizer is invalid; name contains invalid characters; Default value will be used.
 Debug: Adding vaporizer '1' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding vaporizer '2' in GNEChange_Additional
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,18.00,12.00,42.00
@@ -106,8 +102,6 @@ Debug: Created connection 'from7_0to8_0' in retrieveGNEConnection()
 Debug: Created connection 'from8_0to7_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE13_0to14_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced vaporizer '2'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced vaporizer '1'
 Debug: Deleting unreferenced edge '1' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '1_0' in GNEEdge destructor

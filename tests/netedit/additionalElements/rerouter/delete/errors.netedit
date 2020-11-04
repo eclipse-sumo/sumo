@@ -10,8 +10,6 @@ Debug: Adding rerouter 'rerouter_1' in GNEChange_Additional
 GLDebug: 	Inserted rerouter:rerouter_1 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: 	Removed object rerouter:rerouter_1 from SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: 	Inserted rerouter:rerouter_1 into SUMORTree with boundary 4.07,-15.54,44.07,24.46
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: 	Removed object rerouter:rerouter_1 from SUMORTree with boundary 4.07,-15.54,44.07,24.46
 GLDebug: 	Inserted rerouter:rerouter_1 into SUMORTree with boundary 4.07,-15.54,44.07,24.46
@@ -26,8 +24,6 @@ GLDebug: 	Inserted rerouter:rerouter_1 into SUMORTree with boundary 4.07,-15.54,
 GLDebug: 	Removed object rerouter:rerouter_2 from SUMORTree with boundary 7.64,-15.54,47.64,24.46
 GLDebug: 	Inserted rerouter:rerouter_2 into SUMORTree with boundary 7.64,-15.54,47.64,24.46
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '280.00'
 Debug: Selected item 'busStop' in ItemSelector
 Debug: Selected item 'rerouter' in ItemSelector
@@ -43,8 +39,6 @@ GLDebug: 	Removed object rerouter:rerouter_2 from SUMORTree with boundary 7.64,-
 GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -30.00,-30.00,80.00,31.60
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Removing connection 'gneE0_0->gneE1_0' from edge 'gneE0'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Deleting TLS from junction 'gneJ1'
 Debug: Adding TLS into junction 'gneJ1'
 Debug: Removing connection 'gneE1_0->gneE0_0' from edge 'gneE1'

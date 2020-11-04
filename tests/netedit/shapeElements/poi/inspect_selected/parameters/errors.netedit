@@ -6,8 +6,6 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poi 'POI_1' into viewNet
 GLDebug: 	Inserted poi:POI_1 into SUMORTree with boundary -4.00,7.00,18.00,29.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Inserting parameter 'keyA1|valueA1' into shape poi.
 Debug: Inserting parameter 'keyA2|valueA2' into shape poi.
 Debug: Inserting parameter 'keyA3|valueA3' into shape poi.
@@ -16,8 +14,6 @@ GLDebug: 	Inserted poi:POI_2 into SUMORTree with boundary -9.00,7.00,13.00,29.00
 Debug: Inserting parameter 'keyB1|valueB1' into shape poi.
 Debug: Inserting parameter 'keyB2|valueB2' into shape poi.
 Debug: Inserting parameter 'keyB3|valueB3' into shape poi.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poi 'POI_1'
 Debug: Setting new attribute genericParameter 'key1=value1|key2=value2|key3=value3' into poi 'POI_2'
 Debug: Setting new attribute genericParameter 'key1=|key2=|key3=' into poi 'POI_1'
@@ -117,8 +113,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poi 'POI_2' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object poi:POI_2 from SUMORTree with boundary -9.00,7.00,13.00,29.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poi 'POI_2' in ~GNEChange_Shape()
 Debug: Removing poi 'POI_1' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object poi:POI_1 from SUMORTree with boundary -4.00,7.00,18.00,29.00

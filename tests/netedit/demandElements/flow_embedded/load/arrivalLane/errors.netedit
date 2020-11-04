@@ -19,8 +19,6 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Invalid arrivalLane definition for flow 'flow_0';
  must be one of ("current", or an int>=0)
 Debug: Adding flowWithRoute 'flow_0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Adding routeEmbedded 'flow_0' in GNEChange_DemandElement
 Error: Invalid arrivalLane definition for flow 'flow_1';
  must be one of ("current", or an int>=0)
@@ -33,8 +31,6 @@ Debug: Adding routeEmbedded 'flow_3' in GNEChange_DemandElement
 Debug: Adding flowWithRoute 'flow_4' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'flow_4' in GNEChange_DemandElement
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\flow_embedded\load\arrivalLane\input_routes.rou.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'flow_4' in GNEChange_DemandElement
@@ -109,8 +105,6 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced routeEmbedded 'flow_4'
 Debug: Deleting unreferenced flowWithRoute 'flow_4'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced routeEmbedded 'flow_3'
 Debug: Deleting unreferenced flowWithRoute 'flow_3'
 Debug: Deleting unreferenced routeEmbedded 'flow_2'

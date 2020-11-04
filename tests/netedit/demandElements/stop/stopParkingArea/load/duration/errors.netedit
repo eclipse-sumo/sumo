@@ -6,11 +6,7 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,35.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingArea' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea into SUMORTree with boundary -3.20,-16.40,33.20,3.60
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
 Error: Attribute 'duration' in definition of a stop is not a real number.
 Error: Invalid duration or end time is given for a stop at 'parkingArea' in vehicleWithRoute 'vehicle_0'.
@@ -20,8 +16,6 @@ Error: Invalid duration or end time is given for a stop at 'parkingArea' in vehi
 Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Debug: Adding stopParkingArea 'vehicle_0' in GNEChange_DemandElement
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\stop\stopParkingArea\load\duration\input_routes.rou.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Disabled toogle show grid throught alt + 1
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
@@ -56,12 +50,8 @@ Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
 Debug: Deleting unreferenced stopParkingArea 'vehicle_0'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_0'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_0'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingArea'
 GLDebug: 	Removed object parkingArea:parkingArea from SUMORTree with boundary -3.20,-16.40,33.20,3.60
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

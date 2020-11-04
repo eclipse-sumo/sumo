@@ -1,7 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_1_0_7' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding busStop 'busStop_2_0_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_3_0_0' in GNEChange_Additional
 Debug: Adding busStop 'busStop_4_0_5' in GNEChange_Additional
@@ -9,8 +7,6 @@ Debug: Adding busStop 'busStop_5_0_6' in GNEChange_Additional
 Debug: Adding busStop 'busStop_6_1_3' in GNEChange_Additional
 Debug: Adding busStop 'busStop_7_0_1' in GNEChange_Additional
 Debug: Adding busStop 'busStop_8_0_4' in GNEChange_Additional
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from1_1to5_1' in retrieveGNEConnection()
 Debug: Created connection 'from2_1to6_1' in retrieveGNEConnection()
@@ -40,8 +36,6 @@ Debug: Created crossing ':Center_c0' in retrieveGNECrossing()
 Debug: Created crossing ':Center_c1' in retrieveGNECrossing()
 Debug: Value 'dummyType' for attribute type of junction isn't valid
 Debug: Setting new attribute type 'allway_stop' into junction 'C'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting TLS from junction 'Center'
 Debug: Setting new attribute type 'allway_stop' into junction 'Center'
 Debug: Setting new attribute linkIndex '-1' into crossing ':Center_c0'
@@ -70,8 +64,6 @@ Debug: Setting new attribute linkIndex '-1' into crossing ':Center_c1'
 Debug: Setting new attribute linkIndex2 '-1' into crossing ':Center_c1'
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop_8_0_4'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced busStop 'busStop_7_0_1'
 Debug: Deleting unreferenced busStop 'busStop_6_1_3'
 Debug: Deleting unreferenced busStop 'busStop_5_0_6'

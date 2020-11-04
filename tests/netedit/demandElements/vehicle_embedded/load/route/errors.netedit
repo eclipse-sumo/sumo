@@ -20,16 +20,12 @@ Error: Invalid route '' used in vehicle 'vehicle_0'.
 Error: A route needs at least one edge. Vehicle with ID='vehicle_1' cannot be created
 Error: Invalid route '' used in vehicle 'vehicle_1'.
 Debug: Adding vehicleWithRoute 'vehicle_2' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Adding routeEmbedded 'vehicle_2' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_3' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\vehicle_embedded\load\route\input_routes.rou.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'vehicle_4' in GNEChange_DemandElement
@@ -96,8 +92,6 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced routeEmbedded 'vehicle_4'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_4'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced routeEmbedded 'vehicle_3'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_3'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_2'

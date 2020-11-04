@@ -1,14 +1,10 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop1' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding busStop 'busStop2' in GNEChange_Additional
 Debug: Adding busStop 'busStop3' in GNEChange_Additional
 Debug: Adding busStop 'busStop4' in GNEChange_Additional
 Debug: Adding busStop 'busStop5' in GNEChange_Additional
 Debug: Adding busStop 'busStop6' in GNEChange_Additional
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE5_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
@@ -26,8 +22,6 @@ Debug: Created connection 'fromgneE9_0togneE2_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE2_1' in retrieveGNEConnection()
 Debug: Value 'DummyAllowed' for attribute allow of edge isn't valid
 Debug: Setting new attribute allow '' into lane 'gneE2_0'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute allow '' into lane 'gneE2_1'
 Debug: Setting new attribute allow '' into edge 'gneE2'
 Debug: Value 'authority  army, passenger; taxi. tram' for attribute allow of edge isn't valid
@@ -48,8 +42,6 @@ Debug: Setting new attribute allow 'authority army vip passenger hov taxi bus co
 Debug: Setting new attribute allow 'authority army vip passenger hov taxi bus coach tram bicycle' into edge 'gneE2'
 Debug: Additionals saved
 Debug: Deleting unreferenced busStop 'busStop6'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced busStop 'busStop5'
 Debug: Deleting unreferenced busStop 'busStop4'
 Debug: Deleting unreferenced busStop 'busStop3'
