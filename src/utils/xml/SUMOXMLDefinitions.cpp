@@ -906,6 +906,7 @@ StringBijection<PersonMode>::Entry SUMOXMLDefinitions::personModeValuesInitializ
     {"walk",    PersonMode::WALK},
     {"bicycle", PersonMode::BICYCLE },
     {"car",     PersonMode::CAR },
+    {"taxi",    PersonMode::TAXI },
     {"public",  PersonMode::PUBLIC} // (must be the last one)
 };
 

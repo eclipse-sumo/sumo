@@ -523,6 +523,11 @@ Simulation::findIntermodalRoute(const std::string& from, const std::string& to,
             pars.back()->vtypeid = DEFAULT_BIKETYPE_ID;
             pars.back()->id = mode;
             modeSet |= SVC_BICYCLE;
+        } else if (mode == toString(PersonMode::TAXI)) {
+            pars.push_back(new SUMOVehicleParameter());
+            pars.back()->vtypeid = DEFAULT_TAXITYPE_ID;
+            pars.back()->id = mode;
+            modeSet |= SVC_TAXI;
         } else if (mode == toString(PersonMode::PUBLIC)) {
             pars.push_back(nullptr);
             modeSet |= SVC_BUS;
