@@ -590,6 +590,13 @@ def quit(NeteditProcess, openNetNonSavedDialog=False, saveNet=False,
     else:
         # first move cursor out of magenta square
         pyautogui.moveTo(150, 200)
+        # enable flags
+        if openNetNonSavedDialog:
+            typeTwoKeys('ctrl', 'F1')
+        if openAdditionalsNonSavedDialog:
+            typeTwoKeys('ctrl', 'F2')
+        if openDemandNonSavedDialog:
+            typeTwoKeys('ctrl', 'F3')
         # quit using hotkey
         typeTwoKeys('ctrl', 'q')
         # Check if net must be saved
