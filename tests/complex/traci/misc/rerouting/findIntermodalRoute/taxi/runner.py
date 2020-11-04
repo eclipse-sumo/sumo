@@ -38,8 +38,8 @@ cmd = [
     "-n", "input_net.net.xml",
     "-a", "input_additional.add.xml,input_additional2.add.xml",
     "-r", "input_routes.rou.xml",
-    #'--persontrip.transfer.walk-taxi', 'allJunctions',
-    #'--persontrip.transfer.taxi-walk', 'allJunctions',
+    '--persontrip.transfer.walk-taxi', 'ptStops',
+    '--persontrip.transfer.taxi-walk', 'ptStops',
     "--no-step-log"]
 traci.start(cmd)
 
@@ -54,7 +54,7 @@ for modes in [
             ppStages("findIntermodalRoute modes='%s' vType=%s' pType='%s'" %
                      (modes, vType, pType),
                      traci.simulation.findIntermodalRoute("A0B0", "A1B1",
-                                                          departPos=900,
+                                                          departPos=800,
                                                           arrivalPos=100,
                                                           pType=pType,
                                                           vType=vType,
