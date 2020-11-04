@@ -1,0 +1,11 @@
+ Retrying in 1 seconds
+findIntermodalRoute modes='taxi' vType=' pType=''
+  Stage(type=3, vType=DEFAULT_TAXITYPE, line=taxi, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=taxi, depart=1.0, departPos=894.8, arrivalPos=987.6)
+
+
+
+findIntermodalRoute modes='taxi public' vType=' pType=''
+  Stage(type=3, vType=DEFAULT_TAXITYPE, line=taxi, edges=('A0B0', 'B0B1', 'B1A1', 'A1B1'), travelTime=126.216342693, cost=126.216342693, length=3571.04, intended=taxi, depart=1.0, departPos=894.8, arrivalPos=987.6)
+
+
+
