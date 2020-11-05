@@ -1364,7 +1364,7 @@ public:
 
     /// @brief Set Node border
     void setNodeBorder(const NBNode* node, const Position& p, const Position& p2, bool rectangularCut);
-    const PositionVector& getNodeBorder(const NBNode* node);
+    const PositionVector& getNodeBorder(const NBNode* node) const;
     void resetNodeBorder(const NBNode* node);
 
     /// @brief whether this edge is part of a bidirectional railway
@@ -1583,8 +1583,8 @@ private:
     void computeAngle();
 
     /// @brief determine conflict between opposite left turns
-    bool bothLeftTurns(const NBNode& n, LinkDirection dir, NBEdge* otherFrom, const NBEdge::Connection& otherCon) const;
-    bool haveIntersection(const NBNode& n, const PositionVector& shape, NBEdge* otherFrom, const NBEdge::Connection& otherCon,
+    bool bothLeftTurns(const NBNode& n, LinkDirection dir, const NBEdge* otherFrom, const NBEdge::Connection& otherCon) const;
+    bool haveIntersection(const NBNode& n, const PositionVector& shape, const NBEdge* otherFrom, const NBEdge::Connection& otherCon,
                           int numPoints, double width2, int shapeFlag = 0) const;
 
     /// @brief returns whether any lane already allows the given vclass exclusively
