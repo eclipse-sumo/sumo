@@ -28,7 +28,8 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
-# force save demand elementsnetedit.forceSaveDemandElements()
+# force save demand elements
+netedit.forceSaveDemandElements()
 
 # show demand elements in network mode
 netedit.changeEditMode('1')
