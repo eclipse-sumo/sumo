@@ -14,6 +14,7 @@
 # @file    plot_summary.py
 # @author  Daniel Krajzewicz
 # @author  Laura Bieker
+# @author  Michael Behrisch
 # @date    2013-11-11
 
 """
@@ -32,15 +33,6 @@ sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
 import sumolib  # noqa
 from sumolib.visualization import helpers  # noqa
 import matplotlib.pyplot as plt  # noqa
-
-
-def readValues(files, verbose, measure):
-    ret = {}
-    for f in files:
-        if verbose:
-            print("Reading '%s'..." % f)
-        ret[f] = sumolib.output.parse_sax__asList(f, "step", [measure])
-    return ret
 
 
 def main(args=None):
@@ -64,36 +56,18 @@ def main(args=None):
         print("Error: at least one summary file must be given")
         sys.exit(1)
 
-    minV = 0
-    maxV = 0
     files = options.summary.split(",")
-    nums = readValues(files, options.verbose, options.measure)
-    times = readValues(files, options.verbose, "time")
-    for f in files:
-        maxV = max(maxV, len(nums[f]))
-    range(minV, maxV + 1)
-
     fig, ax = helpers.openFigure(options)
     for i, f in enumerate(files):
-        v = sumolib.output.toList(nums[f], options.measure)
-        t = formatTime(sumolib.output.toList(times[f], "time"))
+        t = []
+        v = []
+        for time, val in sumolib.xml.parse_fast(f, "step", ("time", options.measure)):
+            t.append(sumolib.miscutils.parseTime(time))
+            v.append(float(val))
         c = helpers.getColor(options, i, len(files))
         plt.plot(t, v, label=helpers.getLabel(f, i, options), color=c)
     helpers.closeFigure(fig, ax, options)
 
-# Times in the summary may be in seconds or 
-# in the natural format dd:hh:mm:ss (e.g. 00:10:34:56)
-# -> The natural format is converted to simulation seconds here 
-def formatTime(timeValues):
-    if ':' not in str(timeValues[0]):
-        return timeValues
-    else:
-        tmp = []
-        for value in timeValues:
-            v = value.split(':', 3)
-            tmp.append(86400 * int(v[0]) + 3600 * int(v[1]) + 60 * int(v[2]) + int(v[3]))
-        minTmp = min(tmp)
-        return [v - minTmp for v in tmp]
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
