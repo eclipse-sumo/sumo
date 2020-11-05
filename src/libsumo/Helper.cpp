@@ -1148,9 +1148,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             for (int i = routePosition; i < (int)currentRoute.size(); i++) {
                 const MSEdge* cand = currentRoute[i];
                 if (cand->getToJunction() == junction) {
-                    onRoute = true;
                     prevEdge = cand;
                     if (i + 1 < (int)currentRoute.size()) {
+                        onRoute = true;
                         nextEdge = currentRoute[i + 1];
                     }
                     break;
@@ -1170,13 +1170,33 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             }
             if (prevEdge == nullptr) {
                 // use arbitrary predecessor
-                prevEdge = e->getPredecessors().front();
+                if (e->getPredecessors().size() > 0) {
+                    prevEdge = e->getPredecessors().front();
+                } else if (e->getSuccessors().size() > 1) {
+                    for (MSEdge* e2 : e->getSuccessors()) {
+                        if (e2 != nextEdge) {
+                            prevEdge = e2;
+                            break;
+                        }
+                    }
+                }
             }
             if (nextEdge == nullptr) {
-                nextEdge = e->getSuccessors().front();
+                if (e->getSuccessors().size() > 0) {
+                    nextEdge = e->getSuccessors().front();
+                } else if (e->getPredecessors().size() > 1) {
+                    for (MSEdge* e2 : e->getPredecessors()) {
+                        if (e2 != prevEdge) {
+                            nextEdge = e2;
+                            break;
+                        }
+                    }
+                }
             }
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "walkingarea/crossing:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge) << "\n";
+            std::cout << "walkingarea/crossing:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge)
+                << " pred=" << toString(e->getPredecessors()) << " succ=" << toString(e->getSuccessors())
+                << "\n";
 #endif
         } else if (e->isNormal()) {
             // a normal edge
