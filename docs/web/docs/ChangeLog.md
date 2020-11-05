@@ -45,7 +45,6 @@ permalink: /ChangeLog/
   - Visual scaling of selected objects (via selection frame) is now working for junctions (regression in 1.7.0). Issue #7571
   - Crossings no longer disappear when changing lane count of crossed edges. Issue #7626
   - Fixed object centering after filtering by substring in object locator. Issue #6361
-  - Fixed visual scaling of selected junctions. Issue #7571 (regression in 1.7.0)
   - Fixed very slow operation when loading large edgeData sets. Issue #7604
   - Fixed automatic color calibration when coloring edges 'by permission'. Issue #5852
   - Boolean attributes of vehicle stops are now working. Issue #7666
