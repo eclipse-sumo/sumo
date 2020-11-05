@@ -29,5 +29,8 @@ keepRoute2_junction_offroad
 # move person to an edge not on it's route
 leaveRoute
 
+# move person to an edge not on it's route via walkingareas that only have incoming or outgoing edges
+leaveRoute_walkingarea
+
 # move person accross a busy road between junctions
 leaveRoute_jaywalk
