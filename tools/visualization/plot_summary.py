@@ -76,11 +76,24 @@ def main(args=None):
     fig, ax = helpers.openFigure(options)
     for i, f in enumerate(files):
         v = sumolib.output.toList(nums[f], options.measure)
-        t = sumolib.output.toList(times[f], "time")
+        t = formatTime(sumolib.output.toList(times[f], "time"))
         c = helpers.getColor(options, i, len(files))
         plt.plot(t, v, label=helpers.getLabel(f, i, options), color=c)
     helpers.closeFigure(fig, ax, options)
 
+# Times in the summary may be in seconds or 
+# in the natural format dd:hh:mm:ss (e.g. 00:10:34:56)
+# -> The natural format is converted to simulation seconds here 
+def formatTime(timeValues):
+    if ':' not in str(timeValues[0]):
+        return timeValues
+    else:
+        tmp = []
+        for value in timeValues:
+            v = value.split(':', 3)
+            tmp.append(86400 * int(v[0]) + 3600 * int(v[1]) + 60 * int(v[2]) + int(v[3]))
+        minTmp = min(tmp)
+        return [v - minTmp for v in tmp]
 
 if __name__ == "__main__":
     sys.exit(main(sys.argv))
