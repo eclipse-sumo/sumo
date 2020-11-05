@@ -1137,6 +1137,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     // compute utility for all candidate edges
     for (const Named* namedEdge : into) {
         const MSEdge* e = dynamic_cast<const MSEdge*>(namedEdge);
+        if ((e->getPermissions() & vClass) != vClass) {
+            continue;
+        }
         const MSEdge* prevEdge = nullptr;
         const MSEdge* nextEdge = nullptr;
         bool onRoute = false;
