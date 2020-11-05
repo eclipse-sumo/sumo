@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # recompute
 netedit.rebuildNetwork()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # toogle select lanes
 netedit.changeEditMode('4')
 

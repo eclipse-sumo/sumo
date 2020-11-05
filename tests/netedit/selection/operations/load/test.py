@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # go to select mode
 netedit.selectMode()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # save selection
 netedit.loadSelection()
 
