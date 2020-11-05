@@ -119,3 +119,6 @@ ticket6924
 
 # split edge within joined tls
 ticket7016
+
+# wrong internal junction position
+ticket7761
