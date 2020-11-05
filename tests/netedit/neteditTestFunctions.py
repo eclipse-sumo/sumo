@@ -391,13 +391,11 @@ def getReferenceMatch(neProcess, waitTime):
         if referencePosition != (304, 168):
             print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
                   "is 100% (See #3746)")
-        # wait
-        time.sleep(DELAY_START_NETEDIT)
         # click over position
         pyautogui.moveTo(referencePosition)
         # wait
         time.sleep(DELAY_MOVE)
-        # click over position
+        # click over position (used to center view in window)
         pyautogui.click(button='left')
         #return reference position
         return referencePosition
@@ -705,14 +703,38 @@ def saveNetworkAs(waitTime=2):
     time.sleep(DELAY_RECOMPUTE)
 
 
+def forceSaveNetwork():
+    """
+    @brief force save network
+    """
+    # change network save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 't')
+
+
 def forceSaveAdditionals():
     """
     @brief force save additionals
     """
-    # save additionals using hotkey
+    # change additional save flag using hotkey
     typeThreeKeys('ctrl', 'shift', 'u')
 
-    
+
+def forceSaveDemandElements():
+    """
+    @brief force save demand elements
+    """
+    # change demand elements save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 'v')
+
+
+def forceSaveDataElements():
+    """
+    @brief force save data elements
+    """
+    # change data elements save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 'w')
+
+
 def saveAdditionals(referencePosition, clickOverReference=False):
     """
     @brief save additionals
