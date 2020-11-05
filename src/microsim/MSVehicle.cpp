@@ -1146,6 +1146,9 @@ MSVehicle::getPosition(const double offset) const {
 Position
 MSVehicle::getPositionAlongBestLanes(double offset) const {
     assert(MSGlobals::gUsingInternalLanes);
+    if (!isOnRoad()) {
+        return Position::INVALID;
+    }
     const std::vector<MSLane*>& bestLanes = getBestLanesContinuation();
     auto nextBestLane = bestLanes.begin();
     const bool opposite = myLaneChangeModel->isOpposite();
