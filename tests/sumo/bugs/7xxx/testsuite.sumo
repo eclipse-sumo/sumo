@@ -21,3 +21,6 @@ ticket7647
 
 # crash for trip with stop on internal lane
 ticket7690
+
+# emergency braking for left turning vehicle
+ticket7764
