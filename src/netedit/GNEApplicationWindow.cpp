@@ -1728,7 +1728,7 @@ GNEApplicationWindow::onCmdForceSaveAdditionals(FXObject* /*sender*/, FXSelector
     // check that view exists
     if (myViewNet) {
         myViewNet->getNet()->requireSaveAdditionals(true);
-        myViewNet->update();
+        update();
     }
     return 1;
 }
@@ -1739,7 +1739,7 @@ GNEApplicationWindow::onCmdForceSaveDemandElements(FXObject* /*sender*/, FXSelec
     // check that view exists
     if (myViewNet) {
         myViewNet->getNet()->requireSaveDemandElements(true);
-        myViewNet->update();
+        update();
     }
     return 1;
 }
@@ -1750,7 +1750,7 @@ GNEApplicationWindow::onCmdForceSaveDataElements(FXObject* /*sender*/, FXSelecto
     // check that view exists
     if (myViewNet) {
         myViewNet->getNet()->requireSaveDataElements(true);
-        myViewNet->update();
+        update();
     }
     return 1;
 }
