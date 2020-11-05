@@ -313,7 +313,7 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
             PROGRESS_BEGIN_MESSAGE("Guessing and setting on-/off-ramps");
         }
         NBNodesEdgesSorter::sortNodesEdges(myNodeCont);
-        NBRampsComputer::computeRamps(*this, oc);
+        NBRampsComputer::computeRamps(*this, oc, mayAddOrRemove);
         if (modifyRamps) {
             PROGRESS_TIME_MESSAGE(before);
         }

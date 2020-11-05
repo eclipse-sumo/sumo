@@ -49,7 +49,7 @@ public:
      * @param[in, changed] nb The network builder which contains the current network representation
      * @param[in] oc The options container
      */
-    static void computeRamps(NBNetBuilder& nb, OptionsCont& oc);
+    static void computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRemove);
 
     /// @brief suffix for newly generated on-ramp edges
     static const std::string ADDED_ON_RAMP_EDGE;
