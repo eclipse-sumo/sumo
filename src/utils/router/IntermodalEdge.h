@@ -36,12 +36,12 @@
 template<class E, class L, class N, class V>
 class IntermodalEdge : public Named {
 public:
-    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line, const double length = 0.) :
+    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line, const double length = -1) :
         Named(id),
         myNumericalID(numericalID),
         myEdge(edge),
         myLine(line),
-        myLength(edge == nullptr || length > 0. ? length : edge->getLength()),
+        myLength(edge == nullptr || length >= 0. ? MAX2(0.0, length) : edge->getLength()),
         myEfforts(nullptr) { }
 
     virtual ~IntermodalEdge() {}

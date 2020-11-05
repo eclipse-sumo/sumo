@@ -166,7 +166,7 @@ public:
                 const double prevTime = time, prevEffort = effort, prevLength = length;
                 myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort, length);
                 // correct intermodal length:
-                //length += iEdge->getPartialLength(&trip) - iEdge->getLength();
+                length += iEdge->getPartialLength(&trip) - iEdge->getLength();
                 prev = iEdge;
                 if (!into.empty()) {
                     into.back().traveltime += time - prevTime;
@@ -183,7 +183,7 @@ public:
         for (const _IntermodalEdge* iEdge : intoEdges) {
             const double edgeEffort = myInternalRouter->getEffort(iEdge, &trip, time);
             time += edgeEffort;
-            std::cout << iEdge->getID() << "(" << iEdge->getLine() << "): " << edgeEffort << std::endl;
+            std::cout << iEdge->getID() << "(" << iEdge->getLine() << "): " << edgeEffort << " l=" << iEdge->getLength() << " pL=" << iEdge->getPartialLength(&trip) << "\n";
         }
         std::cout << TIME2STEPS(msTime) << " trip from " << from->getID() << " to " << (to != nullptr ? to->getID() : stopID)
                   << " departPos=" << trip.departPos
