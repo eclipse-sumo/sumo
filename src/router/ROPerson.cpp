@@ -334,7 +334,7 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                     trip->addTripItem(new Walk(item.edges, item.cost, depPos, arrPos, item.destStop));
                 }
             } else if (veh != nullptr && item.line == veh->getID()) {
-                trip->addTripItem(new Ride(item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), item.cost, trip->getArrivalPos(), item.destStop));
+                trip->addTripItem(new Ride(item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), item.cost, item.arrivalPos, item.destStop));
                 if (veh->getVClass() != SVC_TAXI) {
                     RORoute* route = new RORoute(veh->getID() + "_RouteDef", item.edges);
                     route->setProbability(1);
@@ -342,7 +342,7 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                     carUsed = true;
                 }
             } else {
-                trip->addTripItem(new Ride(nullptr, nullptr, item.line, trip->getGroup(), item.cost, trip->getArrivalPos(), item.destStop, item.intended, TIME2STEPS(item.depart)));
+                trip->addTripItem(new Ride(nullptr, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.destStop, item.intended, TIME2STEPS(item.depart)));
             }
         }
     }
