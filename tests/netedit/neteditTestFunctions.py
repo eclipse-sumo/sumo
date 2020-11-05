@@ -28,8 +28,8 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.2
-DELAY_KEY_TAB = 0.1
+DELAY_KEY = 0.9 #0.2
+DELAY_KEY_TAB = 0.6 #0.1
 DELAY_MOVE = 0.1
 DELAY_MOUSE = 0.5
 DELAY_QUESTION = 3
@@ -124,8 +124,14 @@ def typeTwoKeys(key1, key2):
     """
     # wait before every operation
     time.sleep(DELAY_KEY)
-    # type two keys at the same time
-    pyautogui.hotkey(key1, key2)
+    # press key 1
+    pyautogui.keyDown(key1)
+    # type key 2
+    typeKey(key2)
+    # wait before every operation
+    time.sleep(DELAY_KEY)
+    # leave key 1
+    pyautogui.keyUp(key1)
 
 
 def typeThreeKeys(key1, key2, key3):
@@ -134,8 +140,14 @@ def typeThreeKeys(key1, key2, key3):
     """
     # wait before every operation
     time.sleep(DELAY_KEY)
-    # type two keys at the same time
-    pyautogui.hotkey(key1, key2, key3)
+    # press key 1
+    pyautogui.keyDown(key1)
+    # type key 2 and 3
+    typeTwoKeys(key2, key3)
+    # wait before every operation
+    time.sleep(DELAY_KEY)
+    # leave key 1
+    pyautogui.keyUp(key1)
 
 
 def translateKeys(value, layout="de"):
@@ -697,10 +709,9 @@ def forceSaveAdditionals():
     """
     @brief force save additionals
     """
-    time.sleep(DELAY_START_NETEDIT)
     # save additionals using hotkey
     typeTwoKeys('ctrl', 'F2')
-    time.sleep(DELAY_START_NETEDIT)
+
     
 def saveAdditionals(referencePosition, clickOverReference=False):
     """
