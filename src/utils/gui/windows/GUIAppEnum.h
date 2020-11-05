@@ -111,14 +111,6 @@ enum {
     MID_HOTKEY_CTRL_Y_REDO,
     /// @brief Redo
     MID_HOTKEY_CTRL_Z_UNDO,
-    /// @brief Force save network (flag)
-    MID_HOTKEY_CTRL_F1_FORCESAVENETEWORK,
-    /// @brief Force save additionals (flag)
-    MID_HOTKEY_CTRL_F2_FORCESAVEADDITIONALS,
-    /// @brief Force save demand elements (flag)
-    MID_HOTKEY_CTRL_F3_FORCESAVEDEMANDELEMENTS,
-    /// @brief Force save data elements (flag)
-    MID_HOTKEY_CTRL_F4_FORCESAVEDATAELEMENTS,
 
     /// @}
 
@@ -163,6 +155,14 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
     /// @brief save network as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,
+    /// @brief Force save network (flag)
+    MID_HOTKEY_CTRL_SHIFT_T_FORCESAVENETEWORK,
+    /// @brief Force save additionals (flag)
+    MID_HOTKEY_CTRL_SHIFT_U_FORCESAVEADDITIONALS,
+    /// @brief Force save demand elements (flag)
+    MID_HOTKEY_CTRL_SHIFT_V_FORCESAVEDEMANDELEMENTS,
+    /// @brief Force save data elements (flag)
+    MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,
 
     /// @}
 
