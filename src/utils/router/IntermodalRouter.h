@@ -178,6 +178,9 @@ public:
                 }
             }
         }
+        if (into.size() > 0) {
+            into.back().arrivalPos = arrivalPos;
+        }
 #ifdef IntermodalRouter_DEBUG_ROUTES
         double time = STEPS2TIME(msTime);
         for (const _IntermodalEdge* iEdge : intoEdges) {
