@@ -165,6 +165,8 @@ public:
                 }
                 const double prevTime = time, prevEffort = effort, prevLength = length;
                 myInternalRouter->updateViaCost(prev, iEdge, &trip, time, effort, length);
+                // correct intermodal length:
+                //length += iEdge->getPartialLength(&trip) - iEdge->getLength();
                 prev = iEdge;
                 if (!into.empty()) {
                     into.back().traveltime += time - prevTime;

@@ -111,16 +111,21 @@ public:
         return false;
     }
 
-    virtual double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
+    virtual inline double getPartialLength(const IntermodalTrip<E, N, V>* const /*trip*/) const {
+        return myLength;
+    }
+
+
+    virtual inline double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
         return 0.;
     }
 
-    virtual double getTravelTimeAggregated(const IntermodalTrip<E, N, V>* const trip, double time) const {
+    virtual inline double getTravelTimeAggregated(const IntermodalTrip<E, N, V>* const trip, double time) const {
         return getTravelTime(trip, time);
     }
 
     /// @brief get intended vehicle id and departure time of next public transport ride
-    virtual double getIntended(const double /* time */, std::string& /* intended */) const {
+    virtual inline double getIntended(const double /* time */, std::string& /* intended */) const {
         return 0.;
     }
 
@@ -145,6 +150,7 @@ public:
         return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
     }
 
+    /// @brief required by DijkstraRouter et al for external effort computation
     inline double getLength() const {
         return myLength;
     }
