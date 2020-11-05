@@ -32,7 +32,7 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 netedit.rebuildNetwork()
 
 # force save additionals
-netedit.typeTwoKeys('ctrl', 'F2')
+netedit.forceSaveAdditionals()
 
 # go to select mode
 netedit.selectMode()

@@ -35,7 +35,7 @@ netedit.rebuildNetwork()
 netedit.inspectMode()
 
 # force save additionals
-netedit.typeTwoKeys('ctrl', 'F2')
+netedit.forceSaveAdditionals()
 
 # inspect edge
 netedit.leftClick(referencePosition, 250, 180)

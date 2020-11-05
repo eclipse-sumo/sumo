@@ -36,7 +36,7 @@ netedit.rebuildNetwork()
 time.sleep(10)
 
 # force save additionals
-netedit.typeTwoKeys('ctrl', 'F2')
+netedit.forceSaveAdditionals()
 
 # inspect central node
 netedit.leftClick(referencePosition, 325, 250)

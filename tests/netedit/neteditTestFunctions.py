@@ -693,6 +693,15 @@ def saveNetworkAs(waitTime=2):
     time.sleep(DELAY_RECOMPUTE)
 
 
+def forceSaveAdditionals():
+    """
+    @brief force save additionals
+    """
+    time.sleep(DELAY_START_NETEDIT)
+    # save additionals using hotkey
+    typeTwoKeys('ctrl', 'F2')
+    time.sleep(DELAY_START_NETEDIT)
+    
 def saveAdditionals(referencePosition, clickOverReference=False):
     """
     @brief save additionals
