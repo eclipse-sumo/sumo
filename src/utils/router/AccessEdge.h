@@ -38,8 +38,7 @@ public:
                SVCPermissions vehicleRestriction = SVC_IGNORING,
                double traveltime = -1) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID() + (modeRestriction == SVC_TAXI ? ":taxi" : ""),
-                numericalID, outEdge->getEdge(), "!access"),
-        myLength(length > 0. ? length : NUMERICAL_EPS),
+                numericalID, outEdge->getEdge(), "!access", length > 0. ? length : NUMERICAL_EPS),
         myTraveltime(traveltime),
         myModeRestrictions(modeRestriction),
         myVehicleRestriction(vehicleRestriction)
@@ -48,15 +47,14 @@ public:
     AccessEdge(int numericalID, const std::string& id, const E* edge, const double length = 0,
                SVCPermissions modeRestriction = SVC_IGNORING,
                SVCPermissions vehicleRestriction = SVC_IGNORING) :
-        _IntermodalEdge(id, numericalID, edge, "!access"),
-        myLength(length > 0. ? length : NUMERICAL_EPS),
+        _IntermodalEdge(id, numericalID, edge, "!access", length > 0. ? length : NUMERICAL_EPS),
         myTraveltime(-1),
         myModeRestrictions(modeRestriction),
         myVehicleRestriction(vehicleRestriction)
     { }
 
     double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double /* time */) const {
-        return myTraveltime > 0 ? myTraveltime : myLength / trip->speed;
+        return myTraveltime > 0 ? myTraveltime : this->getLength() / trip->speed;
     }
 
     bool prohibits(const IntermodalTrip<E, N, V>* const trip) const {
@@ -66,8 +64,6 @@ public:
     }
 
 private:
-    /// @brief length for determining travel time based on person speed
-    const double myLength;
     /// @brief travel time (alternative to length)
     const double myTraveltime;
     /// @brief only allow using this edge if the modeSet matches (i.e. entering a taxi)
