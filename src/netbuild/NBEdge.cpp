@@ -1613,6 +1613,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             case LinkDirection::PARTLEFT:
             case LinkDirection::TURN: {
                 int index = 0;
+                std::vector<PositionVector> otherShapes;
                 for (const NBEdge* i2 : n.getIncomingEdges()) {
                     for (const Connection& k2 : i2->getConnections()) {
                         if (k2.toEdge == nullptr) {
@@ -1646,6 +1647,20 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                                     && (conPermissions & (SVCAll & ~(SVC_BICYCLE | SVC_PEDESTRIAN))) == 0) {
                                 shape = origShape;
                             } else {
+                                // recompute previously computed crossing positions
+                                if (avoidedIntersectingLeftOriginLane == std::numeric_limits<int>::max()
+                                        || avoidedIntersectingLeftOriginLane < con.fromLane) {
+                                    for (const PositionVector& otherShape : otherShapes) {
+                                        const double minDV = firstIntersection(shape, otherShape, width2,
+                                                "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
+                                        if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
+                                            assert(minDV >= 0);
+                                            if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
+                                                crossingPositions.first = minDV;
+                                            }
+                                        }
+                                    }
+                                }
                                 // make sure connections further to the left do not get a wider angle
                                 avoidedIntersectingLeftOriginLane = con.fromLane;
                             }
@@ -1656,6 +1671,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                         if (needsCont || (bothPrio && oppositeLeftIntersect)) {
                             crossingPositions.second.push_back(index);
                             const PositionVector otherShape = n.computeInternalLaneShape(i2, k2, numPoints, 0, shapeFlag);
+                            otherShapes.push_back(otherShape);
                             const double minDV = firstIntersection(shape, otherShape, width2,
                                                                    "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
                             if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
