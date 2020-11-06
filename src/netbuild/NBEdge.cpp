@@ -2888,6 +2888,17 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>
                 std::cout << "   priorities6=" << toString(priorities) << "\n";
             }
 #endif
+        } else if (mainDirections.includes(MainDirections::Direction::RIGHTMOST)
+                && outgoing->size() > 2
+                && availableLanes.size() == 2
+                && (*outgoing)[dist]->getPriority() == (*outgoing)[0]->getPriority()) {
+            priorities[0] /= 4;
+            priorities.back() /= 2;
+#ifdef DEBUG_CONNECTION_GUESSING
+            if (DEBUGCOND) {
+                std::cout << "   priorities7=" << toString(priorities) << "\n";
+            }
+#endif
         }
     }
     if (mainDirections.includes(MainDirections::Direction::FORWARD)) {
