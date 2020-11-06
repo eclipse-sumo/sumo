@@ -224,7 +224,12 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
         // calculate position
         const Position pos = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
         // calculate rotation
-        const double rot = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        double rot = 0;
+        if (myAdditionalGeometry.getShapeRotations().size() > 0) {
+            rot = myAdditionalGeometry.getShapeRotations().front();
+        } else if (myAdditionalGeometry.getShape().size() > 1)  {
+            rot = myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        }
         // Start pushing matrix
         glPushMatrix();
         // Traslate to position
