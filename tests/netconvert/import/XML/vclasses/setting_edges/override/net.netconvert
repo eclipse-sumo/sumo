@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 30 12:45:24 2020 by Eclipse SUMO netconvert Version v1_7_0+0366-764136f684
+<!-- generated on Fri Nov  6 10:26:34 2020 by Eclipse SUMO netconvert Version v1_7_0+0862-f21278904b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -74,7 +74,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_8_0" index="0" disallow="bus" speed="7.02" length="10.69" shape="511.10,508.00 506.94,508.19 503.98,508.77 502.19,509.74 501.60,511.10"/>
     </edge>
     <edge id=":0_9" function="internal">
-        <lane id=":0_9_0" index="0" disallow="bus" speed="12.50" length="22.20" shape="511.10,501.60 488.90,501.60"/>
+        <lane id=":0_9_0" index="0" disallow="bus" speed="12.50" length="23.28" shape="511.10,508.00 503.46,507.00 497.54,504.80 492.85,502.60 488.90,501.60"/>
     </edge>
     <edge id=":0_10" function="internal">
         <lane id=":0_10_0" index="0" disallow="bus" speed="9.51" length="20.48" shape="511.10,501.60 505.54,500.81 501.58,498.43 499.19,494.46 498.40,488.90"/>
@@ -257,7 +257,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="2fi" to="2si" fromLane="1" toLane="2" via=":m2_0_2" dir="s" state="M"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_0_0" dir="t" state="M"/>
     <connection from="2si" to="4o" fromLane="0" toLane="0" via=":0_8_0" dir="r" state="m"/>
-    <connection from="2si" to="1o" fromLane="2" toLane="0" via=":0_9_0" dir="s" state="m"/>
+    <connection from="2si" to="1o" fromLane="0" toLane="0" via=":0_9_0" dir="s" state="m"/>
     <connection from="2si" to="3o" fromLane="2" toLane="0" via=":0_10_0" dir="l" state="m"/>
     <connection from="2si" to="2o" fromLane="2" toLane="0" via=":0_11_0" dir="t" state="m"/>
     <connection from="3fi" to="3si" fromLane="0" toLane="1" via=":m3_0_0" dir="s" state="M"/>
