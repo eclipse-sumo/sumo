@@ -29,25 +29,19 @@ import sys
 import os
 import subprocess
 import difflib
-try:
-    from StringIO import StringIO
-except ImportError:
-    from io import StringIO
 sys.path.append(
     os.path.join(os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools"))
 sys.path.append(os.path.join(
     os.path.dirname(sys.argv[0]), '..', '..', '..', '..', "tools", "import", "osm"))
 if 'SUMO_HOME' in os.environ:
     sys.path.append(os.path.join(os.environ['SUMO_HOME'], 'tools'))
-from sumolib import checkBinary  # noqa
-import texttestlib.default.fpdiff  # noqa
+import sumolib  # noqa
 
 osm_input = 'osm.xml'
 net_output = 'from_osm'
 net_output2 = 'net'
 
-netconvert = checkBinary('netconvert')
-assert(netconvert)
+netconvert = sumolib.checkBinary('netconvert')
 
 # filter header and projection clause
 
@@ -103,8 +97,4 @@ fromlines = get_filtered_lines(net_output)
 tolines = get_filtered_lines(net_output2)
 # with open('fromlines','w') as f: f.write('\n'.join(fromlines))
 # with open('tolines','w') as f: f.write('\n'.join(tolines))
-out = StringIO()
-texttestlib.default.fpdiff.fpfilter(fromlines, tolines, out, 0.0201)
-out.seek(0)
-tolines = out.readlines()
-sys.stderr.writelines(difflib.unified_diff(fromlines, tolines))
+sys.stderr.writelines(difflib.unified_diff(fromlines, sumolib.fpdiff.fpfilter(fromlines, tolines, 0.0201)))
