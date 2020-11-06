@@ -68,7 +68,7 @@ void
 GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
     // remove additional from grid
     if (updateGrid) {
-        myNet->removeGLObjectFromGrid(this);
+        myNet->removeGLObjectFromGrid(getParentAdditionals().front());
     }
     // first reset boundary
     myBoundary.reset();
@@ -82,9 +82,11 @@ GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
     }
     // grow
     myBoundary.grow(10);
+    // update centering boundary of parent
+    getParentAdditionals().front()->updateCenteringBoundary(false);
     // add additional into RTREE again
     if (updateGrid) {
-        myNet->addGLObjectIntoGrid(this);
+        myNet->addGLObjectIntoGrid(getParentAdditionals().front());
     }
 }
 
@@ -110,10 +112,6 @@ GNEParkingSpace::drawGL(const GUIVisualizationSettings& s) const {
     const double lengthExaggeration = myLength * parkingAreaExaggeration;
     // first check if additional has to be drawn
     if (s.drawAdditionals(parkingAreaExaggeration) && myNet->getViewNet()->getDataViewOptions().showAdditionals()) {
-        // check if boundary has to be drawn
-        if (s.drawBoundaries) {
-            GLHelper::drawBoundary(getCenteringBoundary());
-        }
         // push name
         glPushName(getGlID());
         // push later matrix

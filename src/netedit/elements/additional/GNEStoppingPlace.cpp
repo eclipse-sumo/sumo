@@ -171,6 +171,12 @@ GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {
     }
     // grow
     myBoundary.grow(10);
+    // add parking spaces
+    for (const auto &parkingSpace : getChildAdditionals()) {
+        if (parkingSpace->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
+            myBoundary.add(parkingSpace->getCenteringBoundary());
+        }
+    }
     // add additional into RTREE again
     if (updateGrid &&  myTagProperty.isPlacedInRTree()) {
         myNet->addGLObjectIntoGrid(this);
