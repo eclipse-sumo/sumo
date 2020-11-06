@@ -13,6 +13,7 @@
 /****************************************************************************/
 /// @file    MEVehicle.cpp
 /// @author  Daniel Krajzewicz
+/// @author  Michael Behrisch
 /// @date    Tue, May 2005
 ///
 // A vehicle from the mesoscopic point of view
@@ -180,9 +181,9 @@ MEVehicle::isParking() const {
 
 bool
 MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool onInit, int offset, bool addRouteStops, bool removeStops) {
+    MSLink* const oldLink = mySegment != nullptr ? mySegment->getLink(this) : nullptr;
     if (MSBaseVehicle::replaceRoute(newRoute, info, onInit, offset, addRouteStops, removeStops)) {
         if (mySegment != nullptr) {
-            MSLink* const oldLink = mySegment->getLink(this);
             MSLink* const newLink = mySegment->getLink(this);
             // update approaching vehicle information
             if (oldLink != newLink) {
