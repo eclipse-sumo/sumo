@@ -7,7 +7,6 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingArea_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_0 into SUMORTree with boundary 6.80,-3.60,43.20,16.40
 Debug: Adding space 'parkingArea_0' in GNEChange_Additional
-GLDebug: 	Inserted parkingSpace:parkingArea_0 into SUMORTree with boundary -6.00,-1.00,26.00,31.00
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -38,4 +37,4 @@ Debug: Deleting unreferenced vType 'DEFAULT_BIKETYPE' in AttributeCarriers destr
 Debug: Deleting unreferenced vType 'DEFAULT_VEHTYPE' in AttributeCarriers destructor
 Debug: Deleting unreferenced pType 'DEFAULT_PEDTYPE' in AttributeCarriers destructor
 Debug: Deleting net builder in GNENet destructor
-GLDebug: Number of objects in SUMORTree during call of the destructor: 5
+GLDebug: Number of objects in SUMORTree during call of the destructor: 4
