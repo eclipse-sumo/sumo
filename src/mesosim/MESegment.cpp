@@ -494,8 +494,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
         myLastHeadway = tauWithVehLength(tau, veh->getVehicleType().getLengthWithGap());
         if (myTLSPenalty) {
             const MSLink* const tllink = getLink(veh, true);
-            if (tllink != nullptr) {
-                assert(tllink->isTLSControlled());
+            if (tllink != nullptr && tllink->isTLSControlled()) {
                 assert(tllink->getGreenFraction() > 0);
                 myLastHeadway = (SUMOTime)(myLastHeadway / tllink->getGreenFraction());
             }
