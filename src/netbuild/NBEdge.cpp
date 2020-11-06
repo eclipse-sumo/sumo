@@ -226,12 +226,9 @@ NBEdge::MainDirections::MainDirections(const EdgeVector& outgoing, NBEdge* paren
         // ok, the left turn belongs to the higher priorised edges on the junction
         //  let's check, whether it has also a higher priority (lane number/speed)
         //  than the current
-        if (outgoing.back()->getPriority() > straight->getPriority()) {
+        if (outgoing.back()->getPriority() > straight->getPriority() ||
+                outgoing.back()->getNumLanes() > straight->getNumLanes()) {
             myDirs.push_back(MainDirections::Direction::LEFTMOST);
-        } else {
-            if (outgoing.back()->getNumLanes() > straight->getNumLanes()) {
-                myDirs.push_back(MainDirections::Direction::LEFTMOST);
-            }
         }
     }
     // check whether the forward direction has a higher priority
