@@ -27,3 +27,6 @@ begin
 
 # two trains approach the same stop from different tracks, set a fixed limit value for the constraints
 limit
+
+# two trains approach the same stop from different tracks, do not generate constraints involving parking vehicles
+skipParking
