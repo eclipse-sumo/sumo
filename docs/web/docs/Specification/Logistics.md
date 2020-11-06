@@ -17,7 +17,13 @@ stops](../Simulation/Public_Transport.md), container stops are
 loaded onto or unloaded from a vehicle. Vehicles use the same advanced
 approaching behavior at container stops as at bus stops. Definitions of
 container stop locations in SUMO have the following format:
-`<containerStop id="<CONTAINER_STOP_ID>" lane="<LANE_ID>" startPos="<STARTING_POSITION>" endPos="<ENDING_POSITION>" [line="<LINE_ID>[ <LINE_ID>]*"]/>`. That means that a container stop is an area
+```xml
+<additional>
+    <containerStop id="<CONTAINER_STOP_ID>" lane="<LANE_ID>" startPos="<STARTING_POSITION>" endPos="<ENDING_POSITION>" [line="<LINE_ID>[ <LINE_ID>]*"]/>
+    ...
+</additional>
+```
+That means that a container stop is an area
 on a lane. The parameters have the following meanings:
 
 | Attribute Name | Value Type  | Value Range                                         | Default     | Description     |
@@ -36,15 +42,15 @@ on a lane. The parameters have the following meanings:
 Vehicles must be informed that they must stop at a container stop. The
 following example shows how this should be done:
 
-```
+```xml
 <vtype id="truck" accel="2.6" decel="4.5" sigma="0.5" length="15" maxspeed="70" color="1,1,0"/>
-    <vehicle id="0" type="truck" depart="0" color="1,1,0">
-        <route edges="2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1"/>
-        <stop containerStop="containerStop1" duration="20"/>
-        <stop containerStop="containerStop2" duration="20"/>
-        <stop containerStop="containerStop3" duration="20"/>
-        <stop containerStop="containerStop4" duration="20"/>
-    </vehicle>
+<vehicle id="0" type="truck" depart="0" color="1,1,0">
+    <route edges="2/0to2/1 2/1to1/1 1/1to1/2 1/2to0/2 0/2to0/1 0/1to0/0 0/0to1/0 1/0to2/0 2/0to2/1"/>
+    <stop containerStop="containerStop1" duration="20"/>
+    <stop containerStop="containerStop2" duration="20"/>
+    <stop containerStop="containerStop3" duration="20"/>
+    <stop containerStop="containerStop4" duration="20"/>
+</vehicle>
 ```
 
 What is defined here is a vehicle named "0" being a "truck". "truck" is
@@ -58,7 +64,10 @@ the vehicle shall halt at must be correct.
 
 You may also let a vehicle stop at another position than a container
 stop. The short definition of a vehicle's stop is:
-`<stop containerStop="<CONTAINER_STOP_ID>" | ( lane="<LANE_ID>" endPos="<POSITION_AT_LANE>" ) duration="<HALTING_DURATION>"/>`. This means you can either use a
+```xml
+<stop [containerStop="<CONTAINER_STOP_ID>" | ( lane="<LANE_ID>" endPos="<POSITION_AT_LANE>" )] duration="<HALTING_DURATION>"/>
+```
+This means you can either use a
 container stop or a lane position to define where a vehicle has to stop.
 For a complete list of attributes for the "stop"-element of a vehicle
 see [Specification\#Stops](../Specification.md#stops).
