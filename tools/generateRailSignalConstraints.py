@@ -86,6 +86,8 @@ def get_options(args=None):
                         help="Abort generation of constraints for a stop once the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
     parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
                         help="Ignore unordered timing if the vehicle which arrives first is parking")
+    parser.add_argument("-P", "--skip-parking", dest="skipParking", action="store_true", default=False,
+                        help="Do not generate constraints for a vehicle that parks at the next stop")
     parser.add_argument("--comment.line", action="store_true", dest="commentLine", default=False,
                         help="add lines of involved trains in comment")
     parser.add_argument("--comment.id", action="store_true", dest="commentId", default=False,
@@ -367,6 +369,22 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                                         humanReadableTime(parseTime(nStop.until))),
                                     file=sys.stderr)
                         ignore = True
+                        continue
+                    if options.skipParking and parseBool(nStop.getAttributeSecure("parking", "false")):
+                        print("ignoring stop at %s for parking vehicle %s (%s, %s)" % (
+                            busStop, nStop.vehID, humanReadableTime(nArrival), 
+                            (humanReadableTime(parseTime(nStop.until)) if nStop.hasAttribute("until") else "-")))
+                        numIgnoredConflicts += 1
+                        numIgnoredSwitchConflicts += 1
+                        continue
+                    if options.skipParking and parseBool(pStop.getAttributeSecure("parking", "false")):
+                        print("ignoring stop at %s for %s (%s, %s) after parking vehicle %s (%s, %s)" % (
+                            busStop, nStop.vehID, humanReadableTime(nArrival), 
+                            (humanReadableTime(parseTime(nStop.until)) if nStop.hasAttribute("until") else "-"),
+                            pStop.vehID, humanReadableTime(pArrival),
+                            (humanReadableTime(parseTime(pStop.until)) if pStop.hasAttribute("until") else "-")))
+                        numIgnoredConflicts += 1
+                        numIgnoredSwitchConflicts += 1
                         continue
 
                     numConflicts += 1
