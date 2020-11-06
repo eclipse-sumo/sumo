@@ -1475,7 +1475,7 @@ GUIDialog_ViewSettings::rebuildColorMatrix(FXVerticalFrame* frame,
             new FXLabel(m, "");
         } else {
             const int dialerOptions = scheme.allowsNegativeValues() ? SPIN_NOMIN : 0;
-            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX | dialerOptions);
+            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | SPIN_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
             if (*threshIt == GUIVisualizationSettings::MISSING_DATA) {
@@ -1531,7 +1531,7 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
     std::vector<double>::const_iterator threshIt = scheme.getThresholds().begin();
     std::vector<std::string>::const_iterator nameIt = scheme.getNames().begin();
     while (scaleIt != scheme.getColors().end()) {
-        FXRealSpinner* scaleDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX);
+        FXRealSpinner* scaleDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | SPIN_NOMAX);
         scaleDialer->setValue(*scaleIt);
         scales.push_back(scaleDialer);
         if (fixed) {
@@ -1540,7 +1540,7 @@ GUIDialog_ViewSettings::rebuildScaleMatrix(FXVerticalFrame* frame,
             new FXLabel(m, "");
         } else {
             const int dialerOptions = scheme.allowsNegativeValues() ? SPIN_NOMIN : 0;
-            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignSpinDial | SPIN_NOMAX | dialerOptions);
+            FXRealSpinner* threshDialer = new FXRealSpinner(m, 10, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | SPIN_NOMAX | dialerOptions);
             threshDialer->setValue(*threshIt);
             thresholds.push_back(threshDialer);
             buttons.push_back(new FXButton(m, "Add", nullptr, this, MID_SIMPLE_VIEW_COLORCHANGE, GUIDesignViewSettingsButton1));

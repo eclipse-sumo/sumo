@@ -366,7 +366,13 @@
 /// @name designs for Spin dials
 /// @{
 /// @brief desing for standard spin dial
-#define GUIDesignSpinDial   (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 60, GUIDesignHeight, 0, 0, 0, 0
+#define GUIDesignSpinDial               (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 0, 0, 0, 0
+
+/// @brief desing for standard spin dial
+#define GUIDesignSpinDialViewPortZoom   (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 100, GUIDesignHeight, 0, 0, 0, 0
+
+/// @brief desing for standard spin dial
+#define GUIDesignSpinDialViewPort       (FRAME_THICK | FRAME_SUNKEN | LAYOUT_TOP | LAYOUT_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT | SPIN_NOMIN | SPIN_NOMAX), 0, 0, 100, GUIDesignHeight, 0, 0, 0, 0
 
 /// @}
 
