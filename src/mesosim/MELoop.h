@@ -98,13 +98,6 @@ public:
     SUMOTime changeSegment(MEVehicle* veh, SUMOTime leaveTime, MESegment* const toSegment,
                            MSMoveReminder::Notification reason, const bool ignoreLink = false) const;
 
-    /** @brief registers vehicle with the given link
-     *
-     * @param[in] veh the car to register
-     * @param[in] link the link on which the car shall register its approach
-     */
-    static void setApproaching(MEVehicle* veh, MSLink* link);
-
     /** @brief Remove all vehicles before quick-loading state */
     void clearState();
 

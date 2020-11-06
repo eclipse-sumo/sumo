@@ -202,21 +202,9 @@ MELoop::teleportVehicle(MEVehicle* veh, MESegment* const toSegment) {
 void
 MELoop::addLeaderCar(MEVehicle* veh, MSLink* link) {
     myLeaderCars[veh->getEventTime()].push_back(veh);
-    setApproaching(veh, link);
+    veh->setApproaching(link);
 }
 
-
-void
-MELoop::setApproaching(MEVehicle* veh, MSLink* link) {
-    if (link != nullptr) {
-        link->setApproaching(veh, veh->getEventTime() + (link->getState() == LINKSTATE_ALLWAY_STOP ?
-                             (SUMOTime)RandHelper::rand((int)2) : 0), // tie braker
-                             veh->getSpeed(), veh->getSpeed(), true,
-                             veh->getEventTime(), veh->getSpeed(), veh->getWaitingTime(),
-                             // @note: dist is not used by meso (getZipperSpeed is never called)
-                             veh->getSegment()->getLength());
-    }
-}
 
 void
 MELoop::clearState() {
