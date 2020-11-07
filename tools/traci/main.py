@@ -280,7 +280,7 @@ def getLabel():
 
 def getConnection(label="default"):
     if label not in _connections:
-        raise TraCIException("connection with label '%s' is not known")
+        raise TraCIException("Connection '%s' is not known." % label)
     return _connections[label]
 
 
