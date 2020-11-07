@@ -78,10 +78,11 @@ def _fpequal(l1, l2, tolerance, relTolerance):
         return _fpequalAtPos(l1, l2, tolerance, relTolerance, pos)[0]
 
 
-def fpfilter(fromlines, tolines, outlines, tolerance, relTolerance=None):
+def fpfilter(fromlines, tolines, tolerance, relTolerance=None):
+    out = []
     for fromline, toline in zip(fromlines, tolines):
         if fromline == toline or _fpequal(fromline, toline, tolerance, relTolerance):
-            outlines.write(fromline)
+            out.append(fromline)
         else:
-            outlines.write(toline)
-    outlines.writelines(tolines[len(fromlines):])
+            out.append(toline)
+    return out + tolines[len(fromlines):]
