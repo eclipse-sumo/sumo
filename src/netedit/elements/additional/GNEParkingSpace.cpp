@@ -60,16 +60,12 @@ GNEParkingSpace::getMoveOperation(const double /*shapeOffset*/) {
 
 void
 GNEParkingSpace::updateGeometry() {
-    // Nothing to update
+    updateCenteringBoundary(true);
 }
 
 
 void 
 GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
-    // remove additional from grid
-    if (updateGrid) {
-        myNet->removeGLObjectFromGrid(getParentAdditionals().front());
-    }
     // first reset boundary
     myBoundary.reset();
     // add position
@@ -83,11 +79,7 @@ GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
     // grow
     myBoundary.grow(10);
     // update centering boundary of parent
-    getParentAdditionals().front()->updateCenteringBoundary(false);
-    // add additional into RTREE again
-    if (updateGrid) {
-        myNet->addGLObjectIntoGrid(getParentAdditionals().front());
-    }
+    getParentAdditionals().front()->updateCenteringBoundary(true);
 }
 
 

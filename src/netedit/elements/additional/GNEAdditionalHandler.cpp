@@ -364,6 +364,8 @@ GNEAdditionalHandler::buildParkingSpace(GNENet* net, bool allowUndoRedo, GNEAddi
         parkingAreaParent->addChildElement(parkingSpace);
         parkingSpace->incRef("buildParkingSpace");
     }
+    // update geometry (due boundaries)
+    parkingSpace->updateGeometry();
     return parkingSpace;
 }
 
