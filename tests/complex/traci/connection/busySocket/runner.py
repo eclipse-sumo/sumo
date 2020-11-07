@@ -40,15 +40,11 @@ s.bind(('', PORT))
 
 sumoProc = subprocess.Popen([sumoBinary, "--remote-port", str(PORT)] + addOption,
                             stdout=sys.stdout)
-traci.init(PORT)
-step = 0
-while not step > 100:
-    traci.simulationStep()
-    vehs = traci.vehicle.getIDList()
-    if vehs.index("horiz") < 0 or len(vehs) > 1:
-        print("Something is false")
-    step += 1
-traci.close()
+try:
+    traci.init(PORT)
+    traci.close()
+except traci.FatalTraCIError as e:
+    print(e, file=sys.stderr)
 sumoProc.wait()
 sys.stdout.flush()
 if os.path.exists("lastrun.stderr"):
