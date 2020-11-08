@@ -55,7 +55,7 @@ if possible but can still continue their route if that lane is occupied.
 ![Connectivity at on-off-ramp](../images/OnOffRamp.png)
 Connectivity at on-off-ramp
 
-You can can create this kind of connectivity in [../netedit.md#changing_connections](../netedit.md) with Ctrl+Click.
+You can can create this kind of connectivity in [netedit connection mode](../netedit.md#changing_connections]) with Ctrl+Click.
 
 !!! note
     A similar problem can be found in some types of multi-lane roundabouts. The same solution is applicable.
