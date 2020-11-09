@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # force save demand elements
 netedit.forceSaveDemandElements()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # show demand elements in network mode
 netedit.changeEditMode('1')
 
