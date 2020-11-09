@@ -347,8 +347,8 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 }
 
 
-std::string 
-GNEAttributeCarrier::getACParametersStr() const {
+template<> std::string 
+GNEAttributeCarrier::getACParameters() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (const auto& parameter : getACParametersMap()) {
@@ -362,14 +362,48 @@ GNEAttributeCarrier::getACParametersStr() const {
 }
 
 
-std::vector<std::pair<std::string, std::string> > 
-GNEAttributeCarrier::getParametersVectorStr() const {
+template<> std::vector<std::pair<std::string, std::string> > 
+GNEAttributeCarrier::getACParameters() const {
     std::vector<std::pair<std::string, std::string> > result;
     // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
     for (const auto& parameter : getACParametersMap()) {
         result.push_back(std::make_pair(parameter.first, parameter.second));
     }
     return result;
+}
+
+
+void
+GNEAttributeCarrier::setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList) {
+    // declare result string
+    std::string paramsStr;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (const auto& parameter : parameters) {
+        paramsStr += parameter.first + "=" + parameter.second + "|";
+    }
+    // remove the last "|"
+    if (!paramsStr.empty()) {
+        paramsStr.pop_back();
+    }
+    // set parameters
+    setAttribute(GNE_ATTR_PARAMETERS, paramsStr, undoList);
+}
+
+
+void
+GNEAttributeCarrier::setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList) {
+    // declare result string
+    std::string paramsStr;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (const auto& parameter : parameters) {
+        paramsStr += parameter.first + "=" + parameter.second + "|";
+    }
+    // remove the last "|"
+    if (!paramsStr.empty()) {
+        paramsStr.pop_back();
+    }
+    // set parameters
+    setAttribute(GNE_ATTR_PARAMETERS, paramsStr, undoList);
 }
 
 

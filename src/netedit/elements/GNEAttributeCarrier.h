@@ -141,11 +141,15 @@ public:
     /// @brief get parameters map
     virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
 
-    /// @brief get parameters as string
-    std::string getACParametersStr() const;
+    /// @brief get parameters
+    template<typename T>
+    T getACParameters() const;
 
-    /// @brief get parameters as vector of strings
-    std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
+    /// @brief set parameters (string vector)
+    void setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList);
+
+    /// @brief set parameters (map)
+    void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList);
     /// @}
 
     /* @brief method for return an alternative value for disabled attributes. Used only in GNEFrames
