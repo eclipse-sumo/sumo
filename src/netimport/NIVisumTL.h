@@ -74,6 +74,10 @@ public:
         const SUMOTime myEndTime;
         /// @brief Yellow time
         const SUMOTime myYellowTime;
+
+    private:
+        /// @brief Invalidated assignment operator
+        TimePeriod& operator=(const TimePeriod& s) = delete;
     };
 
 
