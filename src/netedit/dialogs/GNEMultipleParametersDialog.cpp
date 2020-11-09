@@ -91,19 +91,19 @@ GNEMultipleParametersDialog::ParametersValues::~ParametersValues() {}
 void
 GNEMultipleParametersDialog::ParametersValues::updateValues() {
     // first show the correct number of rows
-    while ((myParameterDialogParent->myEditedParameters.size() + 1) < myParameterRows.size()) {
-        delete myParameterRows.back();
-        myParameterRows.pop_back();
+    while ((myParameterDialogParent->myEditedParameters.size() + 1) < myMultipleParameterRows.size()) {
+        delete myMultipleParameterRows.back();
+        myMultipleParameterRows.pop_back();
     }
-    while ((myParameterDialogParent->myEditedParameters.size() + 1) > myParameterRows.size()) {
-        myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
+    while ((myParameterDialogParent->myEditedParameters.size() + 1) > myMultipleParameterRows.size()) {
+        myMultipleParameterRows.push_back(new MultipleParameterRow(this, myVerticalFrameRow));
     }
     // fill rows
     for (int i = 0; i < (int)myParameterDialogParent->myEditedParameters.size(); i++) {
-        myParameterRows.at(i)->enableRow(myParameterDialogParent->myEditedParameters.at(i).first, myParameterDialogParent->myEditedParameters.at(i).second);
+        myMultipleParameterRows.at(i)->enableRow(myParameterDialogParent->myEditedParameters.at(i).first, myParameterDialogParent->myEditedParameters.at(i).second);
     }
     // set last myParameterRows with the add button
-    myParameterRows.back()->toogleAddButton();
+    myMultipleParameterRows.back()->toogleAddButton();
 }
 
 
@@ -134,8 +134,8 @@ GNEMultipleParametersDialog::ParametersValues::clearParameters() {
 long
 GNEMultipleParametersDialog::ParametersValues::onPaint(FXObject* o, FXSelector f, void* p) {
     // size of key label has to be updated in every interation
-    if (myParameterRows.size() > 0) {
-        myKeyLabel->setWidth(myParameterRows.front()->keyField->getWidth());
+    if (myMultipleParameterRows.size() > 0) {
+        myKeyLabel->setWidth(myMultipleParameterRows.front()->keyField->getWidth());
     }
     return FXGroupBox::onPaint(o, f, p);
 }
@@ -144,20 +144,22 @@ GNEMultipleParametersDialog::ParametersValues::onPaint(FXObject* o, FXSelector f
 long
 GNEMultipleParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     // find what value was changed
-    for (int i = 0; i < (int)myParameterRows.size(); i++) {
-        if (myParameterRows.at(i)->keyField == obj) {
+    for (int i = 0; i < (int)myMultipleParameterRows.size(); i++) {
+        if (myMultipleParameterRows.at(i)->keyField == obj) {
             // change key of Parameter
-            myParameterDialogParent->myEditedParameters.at(i).first = myParameterRows.at(i)->keyField->getText().text();
+            myParameterDialogParent->myEditedParameters.at(i).first = myMultipleParameterRows.at(i)->keyField->getText().text();
             // change color of text field depending if key is valid or empty
             if (myParameterDialogParent->myEditedParameters.at(i).first.empty() || SUMOXMLDefinitions::isValidParameterKey(myParameterDialogParent->myEditedParameters.at(i).first)) {
-                myParameterRows.at(i)->keyField->setTextColor(FXRGB(0, 0, 0));
+                myMultipleParameterRows.at(i)->keyField->setTextColor(FXRGB(0, 0, 0));
             } else {
-                myParameterRows.at(i)->keyField->setTextColor(FXRGB(255, 0, 0));
-                myParameterRows.at(i)->keyField->killFocus();
+                myMultipleParameterRows.at(i)->keyField->setTextColor(FXRGB(255, 0, 0));
+                myMultipleParameterRows.at(i)->keyField->killFocus();
             }
-        } else if (myParameterRows.at(i)->valueField == obj) {
+/*
+        } else if (myMultipleParameterRows.at(i)->valueField == obj) {
             // change value of Parameter
-            myParameterDialogParent->myEditedParameters.at(i).second = myParameterRows.at(i)->valueField->getText().text();
+            myParameterDialogParent->myEditedParameters.at(i).second = myMultipleParameterRows.at(i)->valueField->getText().text();
+*/
         }
     }
     return 1;
@@ -167,7 +169,7 @@ GNEMultipleParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, 
 long
 GNEMultipleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
     // first check if add button was pressed
-    if (myParameterRows.back()->button == obj) {
+    if (myMultipleParameterRows.back()->button == obj) {
         // create new parameter
         myParameterDialogParent->myEditedParameters.push_back(std::make_pair("", ""));
         // update values and finish
@@ -175,8 +177,8 @@ GNEMultipleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, F
         return 1;
     } else {
         // in other case, button press was a "remove button". Find id and remove the Parameter
-        for (int i = 0;  i < (int)myParameterRows.size(); i++) {
-            if (myParameterRows.at(i)->button == obj && i < (int)myParameterDialogParent->myEditedParameters.size()) {
+        for (int i = 0;  i < (int)myMultipleParameterRows.size(); i++) {
+            if (myMultipleParameterRows.at(i)->button == obj && i < (int)myParameterDialogParent->myEditedParameters.size()) {
                 // remove parameter
                 myParameterDialogParent->myEditedParameters.erase(myParameterDialogParent->myEditedParameters.begin() + i);
                 // update values and finish
@@ -190,10 +192,12 @@ GNEMultipleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, F
 }
 
 
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) {
+GNEMultipleParametersDialog::ParametersValues::MultipleParameterRow::MultipleParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) {
     horizontalFrame = new FXHorizontalFrame(verticalFrameParent, GUIDesignAuxiliarHorizontalFrame);
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    for (int i = 0; i < 10; i++) {
+        valueFields.push_back(new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField));
+    }
     button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), ParametersValues, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
     // only create elements if vertical frame was previously created
     if (verticalFrameParent->id()) {
@@ -204,26 +208,29 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(Parame
 }
 
 
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::~ParameterRow() {
+GNEMultipleParametersDialog::ParametersValues::MultipleParameterRow::~MultipleParameterRow() {
     // simply delete horizontalFrame (rest of elements will be automatic deleted due they are children of horizontal frame)
     delete horizontalFrame;
 }
 
 
 void
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::disableRow() {
+GNEMultipleParametersDialog::ParametersValues::MultipleParameterRow::disableRow() {
     // hide all
     keyField->setText("");
     keyField->disable();
-    valueField->setText("");
-    valueField->disable();
+    for (const auto &valueField : valueFields) {
+        valueField->setText("");
+        valueField->disable();
+    }
+
     button->disable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::REMOVE));
 }
 
 
 void
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::enableRow(const std::string& parameter, const std::string& value) const {
+GNEMultipleParametersDialog::ParametersValues::MultipleParameterRow::enableRow(const std::string& parameter, const std::string& value) const {
     // restore color and enable key field
     keyField->setText(parameter.c_str());
     if (parameter.empty() || SUMOXMLDefinitions::isValidParameterKey(parameter)) {
@@ -233,8 +240,10 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::enableRow(const std
     }
     keyField->enable();
     // restore color and enable value field
-    valueField->setText(value.c_str());
-    valueField->enable();
+    for (const auto &valueField : valueFields) {
+        valueField->setText(value.c_str());
+        valueField->enable();
+    }
     // enable button and set icon remove
     button->enable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::REMOVE));
@@ -242,12 +251,14 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::enableRow(const std
 
 
 void
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
+GNEMultipleParametersDialog::ParametersValues::MultipleParameterRow::toogleAddButton() {
     // clear and disable parameter and value fields
     keyField->setText("");
     keyField->disable();
-    valueField->setText("");
-    valueField->disable();
+    for (const auto &valueField : valueFields) {
+        valueField->setText("");
+        valueField->disable();
+    }
     // enable remove button and set "add" icon and focus
     button->enable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::ADD));
@@ -256,15 +267,17 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
 
 
 bool
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::isButtonInAddMode() const {
+GNEMultipleParametersDialog::ParametersValues::MultipleParameterRow::isButtonInAddMode() const {
     return (button->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ADD));
 }
 
 
 void
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::copyValues(const ParameterRow& other) {
+GNEMultipleParametersDialog::ParametersValues::MultipleParameterRow::copyValues(const MultipleParameterRow& other) {
     keyField->setText(other.keyField->getText());
-    valueField->setText(other.valueField->getText());
+    for (int i = 0; i < (int)valueFields.size(); i++) {
+        valueFields.at(i)->setText(other.valueFields.at(i)->getText());
+    }
 }
 
 // ---------------------------------------------------------------------------

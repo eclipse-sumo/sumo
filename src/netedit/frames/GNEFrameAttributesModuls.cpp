@@ -25,6 +25,7 @@
 #include <netedit/elements/demand/GNERouteHandler.h>
 #include <netedit/dialogs/GNEAllowDisallow.h>
 #include <netedit/dialogs/GNESingleParametersDialog.h>
+#include <netedit/dialogs/GNEMultipleParametersDialog.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/images/GUITexturesHelper.h>
@@ -2285,29 +2286,40 @@ GNEFrameAttributesModuls::ParametersEditor::getAttrType() const {
 
 long
 GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, void*) {
-    // write debug information
-    WRITE_DEBUG("Open parameters dialog");
-    // edit parameters using dialog
-    if (GNESingleParametersDialog(this).execute()) {
+    if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
         // write debug information
-        WRITE_DEBUG("Close parameters dialog");
-        // set values edited in Parameter dialog in Edited AC
-        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
-        } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+        WRITE_DEBUG("Open multiple parameters dialog");
+        // open multiple parameters dialog
+        if (GNEMultipleParametersDialog(this).execute()) {
+            // write debug information
+            WRITE_DEBUG("Close multiple parameters dialog");
             myFrameParent->myViewNet->getUndoList()->p_begin("Change multiple parameters");
-            for (auto i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                i->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
+            for (const auto & AC: myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
+                AC->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
             }
             myFrameParent->myViewNet->getUndoList()->p_end();
             // update frame parent after attribute sucesfully set
             myFrameParent->attributeUpdated();
+            // Refresh parameter editor
+            refreshParametersEditor();
+        } else {
+            // write debug information
+            WRITE_DEBUG("Cancel multiple parameters dialog");
         }
-        // Refresh parameter editor
-        refreshParametersEditor();
     } else {
         // write debug information
-        WRITE_DEBUG("Cancel parameters dialog");
+        WRITE_DEBUG("Open single parameters dialog");
+        if (GNESingleParametersDialog(this).execute()) {
+            // write debug information
+            WRITE_DEBUG("Close single parameters dialog");
+            // set parameters
+            myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
+            // Refresh parameter editor
+            refreshParametersEditor();
+        } else {
+            // write debug information
+            WRITE_DEBUG("Cancel single parameters dialog");
+        }
     }
     return 1;
 }

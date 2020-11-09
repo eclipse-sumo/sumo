@@ -90,14 +90,14 @@ public:
 
     private:
         /// @brief class for  parameters Row
-        class ParameterRow {
+        class MultipleParameterRow {
 
         public:
             /// @brief constructor
-            ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent);
+            MultipleParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent);
 
             /// @brief destructor
-            ~ParameterRow();
+            ~MultipleParameterRow();
 
             /// @brief disable row
             void disableRow();
@@ -112,16 +112,17 @@ public:
             bool isButtonInAddMode() const;
 
             /// @brief copy values of other parameter Row
-            void copyValues(const ParameterRow& other);
+            void copyValues(const MultipleParameterRow& other);
 
             /// @brief TextField for parameter
             FXTextField* keyField;
 
             /// @brief TextField for value
-            FXTextField* valueField;
+            std::vector<FXTextField*> valueFields;
 
             /// @brief Button for add or remove row
             FXButton* button;
+
         private:
             /// @brief frame in which elements of ParameterRow are placed
             FXHorizontalFrame* horizontalFrame;
@@ -133,8 +134,8 @@ public:
         /// @brief vertical frame in which rows are placed
         FXVerticalFrame* myVerticalFrameRow;
 
-        /// @brief vector with the ParameterRows
-        std::vector<ParameterRow*> myParameterRows;
+        /// @brief vector with the MultipleParameterRows
+        std::vector<MultipleParameterRow*> myMultipleParameterRows;
 
         /// @brief pointer to ParameterDialog parent
         GNEMultipleParametersDialog* myParameterDialogParent;
