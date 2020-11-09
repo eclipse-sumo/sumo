@@ -50,6 +50,7 @@
 //#define DEBUG_ANGLES
 //#define DEBUG_NODE_BORDER
 //#define DEBUG_REPLACECONNECTION
+//#define DEBUG_JUNCTIONPRIO
 #define DEBUGID ""
 #define DEBUGCOND (getID() == DEBUGID)
 //#define DEBUGCOND (StringUtils::startsWith(getID(), DEBUGID))
@@ -1929,8 +1930,14 @@ void
 NBEdge::setJunctionPriority(const NBNode* const node, int prio) {
     if (node == myFrom) {
         myFromJunctionPriority = prio;
+#ifdef DEBUG_JUNCTIONPRIO
+        setParameter("fromPrio", toString(prio));
+#endif
     } else {
         myToJunctionPriority = prio;
+#ifdef DEBUG_JUNCTIONPRIO
+        setParameter("toPrio", toString(prio));
+#endif
     }
 }
 

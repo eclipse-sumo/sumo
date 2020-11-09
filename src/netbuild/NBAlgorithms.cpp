@@ -36,6 +36,9 @@
 #include "NBAlgorithms.h"
 
 
+//#define DEBUG_SETPRIORITIES
+#define DEBUGCOND (n.getID() == "C")
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -333,8 +336,8 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     // let's get the list of incoming edges with the highest priority
     std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
     EdgeVector bestIncoming;
-    NBEdge* best = incoming[0];
-    while (incoming.size() > 0 && samePriority(best, incoming[0])) {
+    NBEdge* bestIn = incoming[0];
+    while (incoming.size() > 0 && samePriority(bestIn, incoming[0])) {
         bestIncoming.push_back(*incoming.begin());
         incoming.erase(incoming.begin());
     }
@@ -342,8 +345,8 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     assert(outgoing.size() != 0);
     sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_priority_sorter());
     EdgeVector bestOutgoing;
-    best = outgoing[0];
-    while (outgoing.size() > 0 && samePriority(best, outgoing[0])) { //->getPriority()==best->getPriority()) {
+    NBEdge* bestOut = outgoing[0];
+    while (outgoing.size() > 0 && samePriority(bestOut, outgoing[0])) { //->getPriority()==best->getPriority()) {
         bestOutgoing.push_back(*outgoing.begin());
         outgoing.erase(outgoing.begin());
     }
@@ -368,7 +371,26 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
         std::sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n, true));
         counterOutgoingEdges[*i] = *outgoing.begin();
     }
-    //std::cout << "n=" << n.getID() << " best=" << best->getID() << " bestIncoming=" << toString(bestIncoming) << "\n incoming=" << toString(incoming) << "\n outgoing=" << toString(outgoing) << "\n mainExplicit=" << mainDirectionExplicit << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID() << "\n";
+#ifdef DEBUG_SETPRIORITIES
+    if (DEBUGCOND) {
+        std::map<std::string, std::string> tmp1;
+        for (auto item : counterIncomingEdges) {
+            tmp1[item.first->getID()] = item.second->getID();
+        }
+        std::map<std::string, std::string> tmp2;
+        for (auto item : counterOutgoingEdges) {
+            tmp2[item.first->getID()] = item.second->getID();
+        }
+        std::cout << "n=" << n.getID() << " bestIn=" << bestIn->getID() << " bestOut=" << bestOut->getID()
+            << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID()
+            << " mainExplicit=" << mainDirectionExplicit
+            << "\n  bestIncoming=" << toString(bestIncoming) << " allIncoming=" << toString(incoming)
+            << "\n  bestOutgoing=" << toString(bestOutgoing) << " allOutgoing=" << toString(outgoing)
+            << "\n  counterIncomingEdges=" << toString(tmp1)
+            << "\n  counterOutgoingEdges=" << toString(tmp2)
+            << "\n";
+    }
+#endif
     // ok, let's try
     // 1) there is one best incoming road
     if (bestIncoming.size() == 1) {
