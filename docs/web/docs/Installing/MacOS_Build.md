@@ -103,6 +103,53 @@ The installation of TextTest on macOS is documented [here](../Developer/Tests.md
 ### Code Editor
 Finally, you may also want to use a code editor or integrated development environment. There is a great variety of suitable tools available. If you are unsure which tool to pick, we would suggest to have a look at [Visual Studio Code](https://code.visualstudio.com/) for macOS. The configuration of Visual Studio Code for the CMake setup is documented [here](../Developer/VisualStudioCode.md).
 
+### Python for libsumo on macOS
+There are usually three Python versions available on a mac with brew.
+- Python 2.7 (shipped with macOS) - (`/usr/bin/python`)
+- Python 3.8.2 (shipped with Xcode) - (`/usr/bin/python3`)
+- Python 3.8.6 (installed with Brew) - (`/usr/local/bin/python3.8`)
+
+If you do not configure anything "special" during `cmake`, it will find the Python 2.7 installation and use that version of the Python framework for building libsumo. In your cmake output, you will find something like this:
+```
+-- Found PythonInterp: /usr/bin/python (found version "2.7.16") 
+-- Found Python: /usr/bin/python
+...
+-- Found PythonLibs: /usr/lib/libpython2.7.dylib (found version "2.7.16") 
+```
+You should be able to just use python 2.7 and import libsumo.
+```
+Python 2.7.16 (default, Jun  5 2020, 22:59:21) 
+[GCC 4.2.1 Compatible Apple LLVM 11.0.3 (clang-1103.0.29.20) (-macos10.15-objc- on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import libsumo
+>>>
+```
+
+If you want to use Python **3.x**, we recommend to use the Python version shipped with Brew (e.g. `brew install python@3.8`). In order to use this Python version, you have to tell CMake to use this particular Python interpreter:
+```
+cd $SUMO_HOME
+mkdir -p out/build-python3.8
+cd out/build-python3.8
+cmake -DPYTHON_EXECUTABLE=/usr/local/bin/python3.8 ../..
+```
+In the CMake configuration output, you should see lines like the following:
+```
+-- Found PythonInterp: /usr/local/bin/python3.8 (found version "3.8.6")
+... 
+-- Found PythonLibs: /usr/local/Frameworks/Python.framework/Versions/3.8/lib/libpython3.8.dylib (found version "3.8.6") 
+```
+After building, you should be able to load `libsumo`
+```
+$ python3.8                                                                                                           
+Python 3.8.6 (default, Oct 27 2020, 08:57:44) 
+[Clang 12.0.0 (clang-1200.0.32.21)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import libsumo
+>>> 
+```
+
+If you do not want to use Python 2.7 (from macOS) or Python 3 (from Brew), but instead want to use Python 3.x from Xcode, you will need to change the `CMakeCache.txt` in the build directory manually and point CMake to the direction of the PythonLibs for that particular version. These are located here: `/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/`. 
+
 # The Macports Approach (legacy)
 
 !!! note
