@@ -162,6 +162,9 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
     /**@brief return index of a vertex of shape, or of a new vertex if position is over an shape's edge
      * @param pos position of new/existent vertex
      * @param snapToGrid enable or disable snapToActiveGrid

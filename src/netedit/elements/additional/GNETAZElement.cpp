@@ -129,6 +129,12 @@ GNETAZElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
     return ret;
 }
 
+
+const std::map<std::string, std::string>& 
+GNETAZElement::getACParametersMap() const {
+    return getParametersMap();
+}
+
 // ---------------------------------------------------------------------------
 // GNETAZElement - protected methods
 // ---------------------------------------------------------------------------

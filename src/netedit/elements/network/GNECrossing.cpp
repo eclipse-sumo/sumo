@@ -460,6 +460,12 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
+const std::map<std::string, std::string>& 
+GNECrossing::getACParametersMap() const {
+    return myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->getParametersMap();
+}
+
+
 bool
 GNECrossing::checkEdgeBelong(GNEEdge* edge) const {
     auto crossing = myParentJunction->getNBNode()->getCrossing(myCrossingEdges);

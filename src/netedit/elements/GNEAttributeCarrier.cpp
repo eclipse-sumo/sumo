@@ -347,6 +347,32 @@ GNEAttributeCarrier::lanesConsecutives(const std::vector<GNELane*>& lanes) {
 }
 
 
+std::string 
+GNEAttributeCarrier::getACParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (const auto& parameter : getACParametersMap()) {
+        result += parameter.first + "=" + parameter.second + "|";
+    }
+    // remove the last "|"
+    if (!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+std::vector<std::pair<std::string, std::string> > 
+GNEAttributeCarrier::getParametersVectorStr() const {
+    std::vector<std::pair<std::string, std::string> > result;
+    // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
+    for (const auto& parameter : getACParametersMap()) {
+        result.push_back(std::make_pair(parameter.first, parameter.second));
+    }
+    return result;
+}
+
+
 std::string
 GNEAttributeCarrier::getAlternativeValueForDisabledAttributes(SumoXMLAttr key) const {
     switch (key) {

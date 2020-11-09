@@ -910,6 +910,12 @@ GNELane::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNELane::getACParametersMap() const {
+    return myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParametersMap();
+}
+
+
 void
 GNELane::addPathAdditionalElement(GNEAdditional* additionalElement) {
     // get tag

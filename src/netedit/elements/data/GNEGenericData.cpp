@@ -169,6 +169,12 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
+const std::map<std::string, std::string>& 
+GNEGenericData::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEGenericData::drawFilteredAttribute(const GUIVisualizationSettings& s, const PositionVector& laneShape, const std::string& attribute) const {
     if (getParametersMap().count(attribute) > 0) {

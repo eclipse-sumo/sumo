@@ -1289,6 +1289,12 @@ GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNEJunction::getACParametersMap() const {
+    return myNBNode->getParametersMap();
+}
+
+
 void
 GNEJunction::setResponsible(bool newVal) {
     myAmResponsible = newVal;

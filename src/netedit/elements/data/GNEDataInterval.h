@@ -44,7 +44,7 @@ class GNEGenericData;
  * @class GNEDataInterval
  * @brief An Element which don't belongs to GNENet but has influency in the simulation
  */
-class GNEDataInterval : public GNEHierarchicalElement {
+class GNEDataInterval : public GNEHierarchicalElement, public Parameterised {
 
 public:
     /**@brief Constructor
@@ -165,6 +165,9 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
+
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
     /// @brief all attribute colors

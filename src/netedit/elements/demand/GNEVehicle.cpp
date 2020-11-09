@@ -1332,6 +1332,12 @@ GNEVehicle::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
 }
 
+
+const std::map<std::string, std::string>&
+GNEVehicle::getACParametersMap() const {
+    return getParametersMap();
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================

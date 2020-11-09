@@ -165,6 +165,9 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
     /// @brief set responsibility for deleting internal strctures
     void setResponsible(bool newVal);
 

@@ -503,6 +503,12 @@ GNERoute::getHierarchyName() const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNERoute::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 std::string
 GNERoute::isRouteValid(const std::vector<GNEEdge*>& edges) {
     if (edges.size() == 0) {

@@ -211,6 +211,9 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
     /// @brief add path additional element (used by GNEPathElement)
     void addPathAdditionalElement(GNEAdditional* additionalElement);
 

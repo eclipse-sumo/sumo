@@ -121,7 +121,6 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
-
     /// @}
 
 protected:

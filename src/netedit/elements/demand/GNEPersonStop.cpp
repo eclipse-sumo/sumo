@@ -842,6 +842,12 @@ GNEPersonStop::getHierarchyName() const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNEPersonStop::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 double
 GNEPersonStop::getStartGeometryPositionOverLane() const {
     double fixedPos = 0;

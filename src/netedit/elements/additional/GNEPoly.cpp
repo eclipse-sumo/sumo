@@ -665,6 +665,12 @@ GNEPoly::isAttributeEnabled(SumoXMLAttr /* key */) const {
     }
 }
 
+
+const std::map<std::string, std::string>& 
+GNEPoly::getACParametersMap() const {
+    return getParametersMap();
+}
+
 // ===========================================================================
 // private
 // ===========================================================================

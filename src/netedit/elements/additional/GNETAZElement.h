@@ -213,6 +213,9 @@ public:
     virtual std::string getHierarchyName() const = 0;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
 protected:
     /// @brief boolean to check if TAZElement element is blocked (i.e. cannot be moved with mouse)
     bool myBlockMovement;

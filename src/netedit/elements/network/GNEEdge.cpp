@@ -982,6 +982,12 @@ GNEEdge::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNEEdge::getACParametersMap() const {
+    return myNBEdge->getParametersMap();
+}
+
+
 void
 GNEEdge::setResponsible(bool newVal) {
     myAmResponsible = newVal;

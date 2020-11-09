@@ -271,6 +271,9 @@ public:
     virtual std::string getHierarchyName() const = 0;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
 protected:
     /// @brief Additional Boundary
     Boundary myBoundary;

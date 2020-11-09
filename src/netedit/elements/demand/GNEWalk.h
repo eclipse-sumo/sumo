@@ -247,6 +247,9 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
 protected:
     /// @brief variable for move walks
     DemandElementMove myWalkMove;

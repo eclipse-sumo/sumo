@@ -135,6 +135,17 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
+
+    /// @name Function related with parameters
+    /// @{
+    /// @brief get parameters map
+    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+
+    /// @brief get parameters as string
+    std::string getACParametersStr() const;
+
+    /// @brief get parameters as vector of strings
+    std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
     /// @}
 
     /* @brief method for return an alternative value for disabled attributes. Used only in GNEFrames

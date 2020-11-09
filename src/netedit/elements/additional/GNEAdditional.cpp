@@ -590,6 +590,12 @@ GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
 }
 
 
+const std::map<std::string, std::string>& 
+GNEAdditional::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 bool
 GNEAdditional::checkChildAdditionalRestriction() const {
     // throw exception because this function mus be implemented in child (see GNEE3Detector)

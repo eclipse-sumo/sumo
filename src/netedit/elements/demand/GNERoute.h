@@ -244,6 +244,9 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
     /** @brief check if a route is valid
      * @param[in] edges vector with the route's edges
      * @return an empty string if route is valid, or a string with the problem

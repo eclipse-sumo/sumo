@@ -44,9 +44,9 @@
 
 GNEDataInterval::GNEDataInterval(GNEDataSet* dataSetParent, const double begin, const double end) :
     GNEHierarchicalElement(dataSetParent->getNet(), SUMO_TAG_DATAINTERVAL, {}, {}, {}, {}, {}, {}, {}, {}),
-                       myDataSetParent(dataSetParent),
-                       myBegin(begin),
-myEnd(end) {
+    myDataSetParent(dataSetParent),
+    myBegin(begin),
+    myEnd(end) {
 }
 
 
@@ -291,6 +291,12 @@ GNEDataInterval::getPopUpID() const {
 std::string
 GNEDataInterval::getHierarchyName() const {
     return "interval: " + getAttribute(SUMO_ATTR_BEGIN) + " -> " + getAttribute(SUMO_ATTR_END);
+}
+
+
+const std::map<std::string, std::string>&
+GNEDataInterval::getACParametersMap() const {
+    return getParametersMap();
 }
 
 

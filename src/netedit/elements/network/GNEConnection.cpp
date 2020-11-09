@@ -665,6 +665,12 @@ GNEConnection::isAttributeEnabled(SumoXMLAttr key) const {
     }
 }
 
+
+const std::map<std::string, std::string>& 
+GNEConnection::getACParametersMap() const {
+    return getNBEdgeConnection().getParametersMap();
+}
+
 // ===========================================================================
 // private
 // ===========================================================================
