@@ -957,13 +957,24 @@ MSLink::isExitLinkAfterInternalJunction() const {
 }
 
 
-MSLink*
+const MSLink*
 MSLink::getCorrespondingExitLink() const {
     MSLane* lane = myInternalLane;
-    MSLink* link = nullptr;
+    const MSLink* link = nullptr;
     while (lane != nullptr) {
         link = lane->getLinkCont()[0];
         lane = link->getViaLane();
+    }
+    return link;
+}
+
+
+const MSLink*
+MSLink::getCorrespondingEntryLink() const {
+    const MSLink* link = this;
+    while (link->myLaneBefore->isInternal()) {
+        assert(myLaneBefore->getIncomingLanes().size() == 1);
+        link = link->myLaneBefore->getIncomingLanes().front().viaLink;
     }
     return link;
 }

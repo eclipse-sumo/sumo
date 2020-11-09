@@ -6209,8 +6209,20 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
                 const MSLink* foeLink = foeLane->getIncomingLanes()[0].viaLink;
                 const MSJunctionLogic* logic = link->getJunction()->getLogic();
                 assert(logic != nullptr);
-                const bool response = logic->getResponseFor(link->getIndex()).test(foeLink->getIndex());
-                const bool response2 = logic->getResponseFor(foeLink->getIndex()).test(link->getIndex());
+                // determine who has right of way
+                bool response; // ego response to foe
+                bool response2; // foe response to ego
+                // attempt 1: tlLinkState
+                const MSLink* entry = link->getCorrespondingEntryLink();
+                const MSLink* foeEntry = foeLink->getCorrespondingEntryLink();
+                if (entry->havePriority() != foeEntry->havePriority()) {
+                    response = !entry->havePriority();
+                    response2 = !foeEntry->havePriority();
+                } else {
+                    // fallback if pedestrian crossings are involved
+                    response = logic->getResponseFor(link->getIndex()).test(foeLink->getIndex());
+                    response2 = logic->getResponseFor(foeLink->getIndex()).test(link->getIndex());
+                }
 #ifdef DEBUG_PLAN_MOVE_LEADERINFO
                 if (DEBUG_COND) {
                     std::cout << SIMTIME
@@ -6218,6 +6230,8 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
                               << " foeLink=" << foeLink->getViaLaneOrLane()->getID()
                               << " linkIndex=" << link->getIndex()
                               << " foeLinkIndex=" << foeLink->getIndex()
+                              << " entryState=" << toString(entry->getState())
+                              << " entryState2=" << toString(foeEntry->getState())
                               << " response=" << response
                               << " response2=" << response2
                               << "\n";
