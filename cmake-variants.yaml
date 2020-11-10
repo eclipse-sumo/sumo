@@ -6,10 +6,14 @@ buildType:
       short: Debug
       long: Debug
       buildType: Debug
+      settings:
+        CMAKE_BUILD_TYPE: Debug
     release:
       short: Release
       long: Release
       buildType: Release
+      settings:
+        CMAKE_BUILD_TYPE: Release
 
 useFMI:
   default: 'no'
