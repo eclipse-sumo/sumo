@@ -50,10 +50,16 @@ Simulation::start(const std::vector<std::string>& cmd, int port, int numRetries,
         port = tcpip::Socket::getFreeSocketPort();
     }
     std::ostringstream oss;
+#ifdef WIN32
+    oss << "start ";
+#endif
     for (const std::string& s : cmd) {
         oss << s << " ";
     }
     oss << "--remote-port " << port;
+#ifndef WIN32
+    oss << " &";
+#endif
     if (verbose) {
         std::cout << "Calling " << oss.str() << std::endl;
     }

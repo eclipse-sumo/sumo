@@ -47,7 +47,7 @@ namespace libtraci {
 class Connection {
 public:
     static void connect(const std::string& host, int port, int numRetries, const std::string& label) {
-        myConnections.emplace(label, Connection(host, port, numRetries, label));
+        myConnections[label] = new Connection(host, port, numRetries, label);
     }
 
     static Connection& getActive() {
@@ -59,7 +59,7 @@ public:
     }
 
     static void switchCon(const std::string& label) {
-        myActive = &myConnections.find(label)->second;
+        myActive = myConnections.find(label)->second;
     }
 
     const std::string& getLabel() {
@@ -360,7 +360,7 @@ private:
     std::map<int, libsumo::ContextSubscriptionResults> myContextSubscriptionResults;
 
     static Connection* myActive;
-    static std::map<const std::string, Connection> myConnections;
+    static std::map<const std::string, Connection*> myConnections;
 
 private:
     /// @brief Invalidated assignment operator.
