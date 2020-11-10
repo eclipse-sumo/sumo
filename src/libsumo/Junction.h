@@ -30,13 +30,14 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class NamedRTree;
 class MSJunction;
 class PositionVector;
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class VariableWrapper;
 }
-
+#endif
 
 // ===========================================================================
 // class definitions
@@ -45,26 +46,27 @@ class VariableWrapper;
  * @class Junction
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class Junction {
 public:
-    static TraCIPosition getPosition(const std::string& junctionID, const bool includeZ = false);
-    static TraCIPositionVector getShape(const std::string& junctionID);
+    static libsumo::TraCIPosition getPosition(const std::string& junctionID, bool includeZ = false);
+    static libsumo::TraCIPositionVector getShape(const std::string& junctionID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
-    /** @brief Returns a tree filled with junction instances
-     * @return The rtree of junctions
-     */
-    static NamedRTree* getTree();
-    static void cleanup();
-
+#ifndef LIBTRACI
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
     *  @param shape The container to fill
     */
     static void storeShape(const std::string& id, PositionVector& shape);
+
+        /** @brief Returns a tree filled with junction instances
+         * @return The rtree of junctions
+         */
+    static NamedRTree*getTree();
+    static void cleanup();
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
@@ -77,7 +79,7 @@ private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
     static NamedRTree* myTree;
-
+#endif
 private:
     /// @brief invalidated standard constructor
     Junction() = delete;
