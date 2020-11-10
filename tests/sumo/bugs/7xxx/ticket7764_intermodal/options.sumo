@@ -1,0 +1,4 @@
+{CLEAR} --no-step-log -n net.net.xml
+--route-files=input_routes.rou.xml
+--collision.check-junctions
+--end 1000

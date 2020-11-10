@@ -1,0 +1,6 @@
+
+[Reported by kobo at 10Nov08:19:13]
+search_string:emergency
+search_file:errors
+full_description:invalid right-of-way assumption in MSVehicle::getLeader
+brief_description:see #7764
