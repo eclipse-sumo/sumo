@@ -99,29 +99,29 @@ InductionLoop::getTimeSinceDetection(const std::string& detID) {
 std::vector<libsumo::TraCIVehicleData>
 InductionLoop::getVehicleData(const std::string& detID) {
     std::vector<libsumo::TraCIVehicleData> result;
-    Connection::getActive().createCommand(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::LAST_STEP_VEHICLE_DATA, detID);
+    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::LAST_STEP_VEHICLE_DATA, detID);
     if (Connection::getActive().processGet(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::TYPE_COMPOUND)) {
-        Connection::getActive().myInput.readInt();  // components
+        ret.readInt();  // components
         // number of items
-        Connection::getActive().myInput.readUnsignedByte();
-        const int n = Connection::getActive().myInput.readInt();
+        ret.readUnsignedByte();
+        const int n = ret.readInt();
         for (int i = 0; i < n; ++i) {
             libsumo::TraCIVehicleData vd;
 
-            Connection::getActive().myInput.readUnsignedByte();
-            vd.id = Connection::getActive().myInput.readString();
+            ret.readUnsignedByte();
+            vd.id = ret.readString();
 
-            Connection::getActive().myInput.readUnsignedByte();
-            vd.length = Connection::getActive().myInput.readDouble();
+            ret.readUnsignedByte();
+            vd.length = ret.readDouble();
 
-            Connection::getActive().myInput.readUnsignedByte();
-            vd.entryTime = Connection::getActive().myInput.readDouble();
+            ret.readUnsignedByte();
+            vd.entryTime = ret.readDouble();
 
-            Connection::getActive().myInput.readUnsignedByte();
-            vd.leaveTime = Connection::getActive().myInput.readDouble();
+            ret.readUnsignedByte();
+            vd.leaveTime = ret.readDouble();
 
-            Connection::getActive().myInput.readUnsignedByte();
-            vd.typeID = Connection::getActive().myInput.readString();
+            ret.readUnsignedByte();
+            vd.typeID = ret.readString();
 
             result.push_back(vd);
         }
