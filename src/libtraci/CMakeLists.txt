@@ -21,9 +21,9 @@ set(libtracistatic_STAT_SRCS
 #    Polygon.cpp
     Route.cpp
 #    Calibrator.cpp
-#    BusStop.cpp
-#    ParkingArea.cpp
-#    ChargingStation.cpp
+    BusStop.cpp
+    ParkingArea.cpp
+    ChargingStation.cpp
 #    RouteProbe.cpp
 #    Rerouter.cpp
 #    VariableSpeedSign.cpp
