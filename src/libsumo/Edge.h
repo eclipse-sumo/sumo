@@ -31,11 +31,13 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSEdge;
 class PositionVector;
 namespace libsumo {
 class VariableWrapper;
 }
+#endif
 
 
 // ===========================================================================
@@ -45,59 +47,59 @@ class VariableWrapper;
  * @class Edge
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
-
+namespace LIBSUMO_NAMESPACE {
 class Edge {
 public:
-    static double getAdaptedTraveltime(const std::string& id, double time);
-    static double getEffort(const std::string& id, double time);
-    static double getTraveltime(const std::string& id);
-    static double getWaitingTime(const std::string& id);
-    static const std::vector<std::string> getLastStepPersonIDs(const std::string& id);
-    static const std::vector<std::string> getLastStepVehicleIDs(const std::string& id);
-    static double getCO2Emission(const std::string& id);
-    static double getCOEmission(const std::string& id);
-    static double getHCEmission(const std::string& id);
-    static double getPMxEmission(const std::string& id);
-    static double getNOxEmission(const std::string& id);
-    static double getFuelConsumption(const std::string& id);
-    static double getNoiseEmission(const std::string& id);
-    static double getElectricityConsumption(const std::string& id);
-    static int getLastStepVehicleNumber(const std::string& id);
-    static double getLastStepMeanSpeed(const std::string& id);
-    static double getLastStepOccupancy(const std::string& id);
-    static int getLastStepHaltingNumber(const std::string& id);
-    static double getLastStepLength(const std::string& id);
-    static int getLaneNumber(const std::string& id);
-    static std::string getStreetName(const std::string& id);
+    static double getAdaptedTraveltime(const std::string& edgeID, double time);
+    static double getEffort(const std::string& edgeID, double time);
+    static double getTraveltime(const std::string& edgeID);
+    static double getWaitingTime(const std::string& edgeID);
+    static const std::vector<std::string> getLastStepPersonIDs(const std::string& edgeID);
+    static const std::vector<std::string> getLastStepVehicleIDs(const std::string& edgeID);
+    static double getCO2Emission(const std::string& edgeID);
+    static double getCOEmission(const std::string& edgeID);
+    static double getHCEmission(const std::string& edgeID);
+    static double getPMxEmission(const std::string& edgeID);
+    static double getNOxEmission(const std::string& edgeID);
+    static double getFuelConsumption(const std::string& edgeID);
+    static double getNoiseEmission(const std::string& edgeID);
+    static double getElectricityConsumption(const std::string& edgeID);
+    static int getLastStepVehicleNumber(const std::string& edgeID);
+    static double getLastStepMeanSpeed(const std::string& edgeID);
+    static double getLastStepOccupancy(const std::string& edgeID);
+    static int getLastStepHaltingNumber(const std::string& edgeID);
+    static double getLastStepLength(const std::string& edgeID);
+    static int getLaneNumber(const std::string& edgeID);
+    static std::string getStreetName(const std::string& edgeID);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
-    static void setAllowedVehicleClasses(const std::string& id, std::vector<std::string> vector);
-    static void setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes);
-    static void setAllowedSVCPermissions(const std::string& id, int permissions);
-    static void adaptTraveltime(const std::string& id, double value, double begTime = 0., double endTime = std::numeric_limits<double>::max());
-    static void setEffort(const std::string& id, double value, double begTime = 0., double endTime = std::numeric_limits<double>::max());
-    static void setMaxSpeed(const std::string& id, double value);
+    static void setAllowedVehicleClasses(const std::string& edgeID, std::vector<std::string> vector);
+    static void setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes);
+    static void setAllowedSVCPermissions(const std::string& edgeID, int permissions);
+    static void adaptTraveltime(const std::string& edgeID, double time, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
+    static void setEffort(const std::string& edgeID, double effort, double beginSeconds = 0., double endSeconds = std::numeric_limits<double>::max());
+    static void setMaxSpeed(const std::string& edgeID, double speed);
 
+#ifndef LIBTRACI
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the edge to retrieve
     *  @param shape The container to fill
     */
-    static void storeShape(const std::string& id, PositionVector& shape);
+    static void storeShape(const std::string& edgeID, PositionVector& shape);
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
-    static MSEdge* getEdge(const std::string& id);
+    static MSEdge* getEdge(const std::string& edgeID);
 
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
-
+#endif
 private:
     /// @brief invalidated standard constructor
     Edge() = delete;

@@ -56,8 +56,8 @@ Edge::getIDCount() {
 
 
 double
-Edge::getAdaptedTraveltime(const std::string& id, double time) {
-    const MSEdge* e = getEdge(id);
+Edge::getAdaptedTraveltime(const std::string& edgeID, double time) {
+    const MSEdge* e = getEdge(edgeID);
     double value;
     if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingTravelTime(e, time, value)) {
         return -1.;
@@ -67,8 +67,8 @@ Edge::getAdaptedTraveltime(const std::string& id, double time) {
 
 
 double
-Edge::getEffort(const std::string& id, double time) {
-    const MSEdge* e = getEdge(id);
+Edge::getEffort(const std::string& edgeID, double time) {
+    const MSEdge* e = getEdge(edgeID);
     double value;
     if (!MSNet::getInstance()->getWeightsStorage().retrieveExistingEffort(e, time, value)) {
         return -1.;
@@ -78,31 +78,31 @@ Edge::getEffort(const std::string& id, double time) {
 
 
 double
-Edge::getTraveltime(const std::string& id) {
-    return getEdge(id)->getCurrentTravelTime();
+Edge::getTraveltime(const std::string& edgeID) {
+    return getEdge(edgeID)->getCurrentTravelTime();
 }
 
 
 MSEdge*
-Edge::getEdge(const std::string& id) {
-    MSEdge* e = MSEdge::dictionary(id);
+Edge::getEdge(const std::string& edgeID) {
+    MSEdge* e = MSEdge::dictionary(edgeID);
     if (e == nullptr) {
-        throw TraCIException("Edge '" + id + "' is not known");
+        throw TraCIException("Edge '" + edgeID + "' is not known");
     }
     return e;
 }
 
 
 double
-Edge::getWaitingTime(const std::string& id) {
-    return getEdge(id)->getWaitingSeconds();
+Edge::getWaitingTime(const std::string& edgeID) {
+    return getEdge(edgeID)->getWaitingSeconds();
 }
 
 
 const std::vector<std::string>
-Edge::getLastStepPersonIDs(const std::string& id) {
+Edge::getLastStepPersonIDs(const std::string& edgeID) {
     std::vector<std::string> personIDs;
-    std::vector<MSTransportable*> persons = getEdge(id)->getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
+    std::vector<MSTransportable*> persons = getEdge(edgeID)->getSortedPersons(MSNet::getInstance()->getCurrentTimeStep(), true);
     personIDs.reserve(persons.size());
     for (MSTransportable* p : persons) {
         personIDs.push_back(p->getID());
@@ -112,9 +112,9 @@ Edge::getLastStepPersonIDs(const std::string& id) {
 
 
 const std::vector<std::string>
-Edge::getLastStepVehicleIDs(const std::string& id) {
+Edge::getLastStepVehicleIDs(const std::string& edgeID) {
     std::vector<std::string> vehIDs;
-    for (const SUMOVehicle* veh : getEdge(id)->getVehicles()) {
+    for (const SUMOVehicle* veh : getEdge(edgeID)->getVehicles()) {
         vehIDs.push_back(veh->getID());
     }
     return vehIDs;
@@ -122,9 +122,9 @@ Edge::getLastStepVehicleIDs(const std::string& id) {
 
 
 double
-Edge::getCO2Emission(const std::string& id) {
+Edge::getCO2Emission(const std::string& edgeID) {
     double sum = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
         sum += lane->getCO2Emissions();
     }
     return sum;
@@ -132,9 +132,9 @@ Edge::getCO2Emission(const std::string& id) {
 
 
 double
-Edge::getCOEmission(const std::string& id) {
+Edge::getCOEmission(const std::string& edgeID) {
     double sum = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
         sum += lane->getCOEmissions();
     }
     return sum;
@@ -142,9 +142,9 @@ Edge::getCOEmission(const std::string& id) {
 
 
 double
-Edge::getHCEmission(const std::string& id) {
+Edge::getHCEmission(const std::string& edgeID) {
     double sum = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
         sum += lane->getHCEmissions();
     }
     return sum;
@@ -152,9 +152,9 @@ Edge::getHCEmission(const std::string& id) {
 
 
 double
-Edge::getPMxEmission(const std::string& id) {
+Edge::getPMxEmission(const std::string& edgeID) {
     double sum = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
         sum += lane->getPMxEmissions();
     }
     return sum;
@@ -162,9 +162,9 @@ Edge::getPMxEmission(const std::string& id) {
 
 
 double
-Edge::getNOxEmission(const std::string& id) {
+Edge::getNOxEmission(const std::string& edgeID) {
     double sum = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
         sum += lane->getNOxEmissions();
     }
     return sum;
@@ -172,9 +172,9 @@ Edge::getNOxEmission(const std::string& id) {
 
 
 double
-Edge::getFuelConsumption(const std::string& id) {
+Edge::getFuelConsumption(const std::string& edgeID) {
     double sum = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
         sum += lane->getFuelConsumption();
     }
     return sum;
@@ -182,9 +182,9 @@ Edge::getFuelConsumption(const std::string& id) {
 
 
 double
-Edge::getNoiseEmission(const std::string& id) {
+Edge::getNoiseEmission(const std::string& edgeID) {
     double sum = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
         sum += pow(10., (lane->getHarmonoise_NoiseEmissions() / 10.));
     }
     if (sum != 0) {
@@ -195,9 +195,9 @@ Edge::getNoiseEmission(const std::string& id) {
 
 
 double
-Edge::getElectricityConsumption(const std::string& id) {
+Edge::getElectricityConsumption(const std::string& edgeID) {
     double sum = 0;
-    for (MSLane* lane : getEdge(id)->getLanes()) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
         sum += lane->getElectricityConsumption();
     }
     return sum;
@@ -205,27 +205,27 @@ Edge::getElectricityConsumption(const std::string& id) {
 
 
 int
-Edge::getLastStepVehicleNumber(const std::string& id) {
-    return getEdge(id)->getVehicleNumber();
+Edge::getLastStepVehicleNumber(const std::string& edgeID) {
+    return getEdge(edgeID)->getVehicleNumber();
 }
 
 
 double
-Edge::getLastStepMeanSpeed(const std::string& id) {
-    return getEdge(id)->getMeanSpeed();
+Edge::getLastStepMeanSpeed(const std::string& edgeID) {
+    return getEdge(edgeID)->getMeanSpeed();
 }
 
 
 double
-Edge::getLastStepOccupancy(const std::string& id) {
-    return getEdge(id)->getOccupancy();
+Edge::getLastStepOccupancy(const std::string& edgeID) {
+    return getEdge(edgeID)->getOccupancy();
 }
 
 
 int
-Edge::getLastStepHaltingNumber(const std::string& id) {
+Edge::getLastStepHaltingNumber(const std::string& edgeID) {
     int result = 0;
-    for (const SUMOVehicle* veh : getEdge(id)->getVehicles()) {
+    for (const SUMOVehicle* veh : getEdge(edgeID)->getVehicles()) {
         if (veh->getSpeed() < SUMO_const_haltingSpeed) {
             result++;
         }
@@ -235,10 +235,10 @@ Edge::getLastStepHaltingNumber(const std::string& id) {
 
 
 double
-Edge::getLastStepLength(const std::string& id) {
+Edge::getLastStepLength(const std::string& edgeID) {
     double lengthSum = 0;
     int numVehicles = 0;
-    for (const SUMOVehicle* veh : getEdge(id)->getVehicles()) {
+    for (const SUMOVehicle* veh : getEdge(edgeID)->getVehicles()) {
         numVehicles++;
         lengthSum += dynamic_cast<const MSBaseVehicle*>(veh)->getVehicleType().getLength();
     }
@@ -250,20 +250,20 @@ Edge::getLastStepLength(const std::string& id) {
 
 
 int
-Edge::getLaneNumber(const std::string& id) {
-    return (int)getEdge(id)->getLanes().size();
+Edge::getLaneNumber(const std::string& edgeID) {
+    return (int)getEdge(edgeID)->getLanes().size();
 }
 
 
 std::string
-Edge::getStreetName(const std::string& id) {
-    return getEdge(id)->getStreetName();
+Edge::getStreetName(const std::string& edgeID) {
+    return getEdge(edgeID)->getStreetName();
 }
 
 
 std::string
-Edge::getParameter(const std::string& id, const std::string& paramName) {
-    return getEdge(id)->getParameter(paramName, "");
+Edge::getParameter(const std::string& edgeID, const std::string& param) {
+    return getEdge(edgeID)->getParameter(param, "");
 }
 
 
@@ -271,22 +271,22 @@ LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Edge)
 
 
 void
-Edge::setAllowedVehicleClasses(const std::string& id, std::vector<std::string> classes) {
+Edge::setAllowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
     SVCPermissions permissions = parseVehicleClasses(classes);
-    setAllowedSVCPermissions(id, permissions);
+    setAllowedSVCPermissions(edgeID, permissions);
 }
 
 
 void
-Edge::setDisallowedVehicleClasses(const std::string& id, std::vector<std::string> classes) {
+Edge::setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
     SVCPermissions permissions = invertPermissions(parseVehicleClasses(classes));
-    setAllowedSVCPermissions(id, permissions);
+    setAllowedSVCPermissions(edgeID, permissions);
 }
 
 
 void
-Edge::setAllowedSVCPermissions(const std::string& id, int permissions) {
-    MSEdge* e = getEdge(id);
+Edge::setAllowedSVCPermissions(const std::string& edgeID, int permissions) {
+    MSEdge* e = getEdge(edgeID);
     for (MSLane* lane : e->getLanes()) {
         lane->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
     }
@@ -298,28 +298,28 @@ Edge::setAllowedSVCPermissions(const std::string& id, int permissions) {
 
 
 void
-Edge::adaptTraveltime(const std::string& id, double value, double begTime, double endTime) {
-    MSNet::getInstance()->getWeightsStorage().addTravelTime(getEdge(id), begTime, endTime, value);
+Edge::adaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double endSeconds) {
+    MSNet::getInstance()->getWeightsStorage().addTravelTime(getEdge(edgeID), beginSeconds, endSeconds, time);
 }
 
 
 void
-Edge::setEffort(const std::string& id, double value, double begTime, double endTime) {
-    MSNet::getInstance()->getWeightsStorage().addEffort(getEdge(id), begTime, endTime, value);
+Edge::setEffort(const std::string& edgeID, double effort, double beginSeconds, double endSeconds) {
+    MSNet::getInstance()->getWeightsStorage().addEffort(getEdge(edgeID), beginSeconds, endSeconds, effort);
 }
 
 
 void
-Edge::setMaxSpeed(const std::string& id, double value) {
-    for (MSLane* lane : getEdge(id)->getLanes()) {
-        lane->setMaxSpeed(value);
+Edge::setMaxSpeed(const std::string& edgeID, double speed) {
+    for (MSLane* lane : getEdge(edgeID)->getLanes()) {
+        lane->setMaxSpeed(speed);
     }
 }
 
 
 void
-Edge::setParameter(const std::string& id, const std::string& name, const std::string& value) {
-    getEdge(id)->setParameter(name, value);
+Edge::setParameter(const std::string& edgeID, const std::string& name, const std::string& value) {
+    getEdge(edgeID)->setParameter(name, value);
 }
 
 
@@ -327,8 +327,8 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 
 
 void
-Edge::storeShape(const std::string& id, PositionVector& shape) {
-    const MSEdge* const e = getEdge(id);
+Edge::storeShape(const std::string& edgeID, PositionVector& shape) {
+    const MSEdge* const e = getEdge(edgeID);
     const std::vector<MSLane*>& lanes = e->getLanes();
     shape = lanes.front()->getShape();
     if (lanes.size() > 1) {
