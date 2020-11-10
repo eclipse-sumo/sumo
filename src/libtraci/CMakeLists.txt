@@ -10,7 +10,7 @@ set(libtracistatic_STAT_SRCS
     Connection.cpp
 	Connection.h
 	Domain.h
-#    Edge.cpp
+    Edge.cpp
 #    InductionLoop.cpp
 #    Junction.cpp
 #    Lane.cpp

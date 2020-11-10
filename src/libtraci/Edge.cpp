@@ -49,7 +49,7 @@ Edge::getAdaptedTraveltime(const std::string& edgeID, double time) {
 	tcpip::Storage content;
 	content.writeByte(libsumo::TYPE_DOUBLE);
 	content.writeDouble(time);
-	return getDouble(libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
+	return Dom::getDouble(libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
 }
 
 
@@ -58,134 +58,125 @@ Edge::getEffort(const std::string& edgeID, double time) {
 	tcpip::Storage content;
 	content.writeByte(libsumo::TYPE_DOUBLE);
 	content.writeDouble(time);
-	return getDouble(libsumo::VAR_EDGE_EFFORT, edgeID, &content);
+	return Dom::getDouble(libsumo::VAR_EDGE_EFFORT, edgeID, &content);
 }
 
 
 double
 Edge::getTraveltime(const std::string& edgeID) {
-	return getDouble(libsumo::VAR_CURRENT_TRAVELTIME, edgeID);
+	return Dom::getDouble(libsumo::VAR_CURRENT_TRAVELTIME, edgeID);
 }
 
 
 double
 Edge::getWaitingTime(const std::string& edgeID) {
-	return getDouble(libsumo::VAR_WAITING_TIME, edgeID);
+	return Dom::getDouble(libsumo::VAR_WAITING_TIME, edgeID);
 }
 
 
 const std::vector<std::string>
 Edge::getLastStepPersonIDs(const std::string& edgeID) {
-	return getStringVector(libsumo::LAST_STEP_PERSON_ID_LIST, edgeID);
+	return Dom::getStringVector(libsumo::LAST_STEP_PERSON_ID_LIST, edgeID);
 }
 
 
 const std::vector<std::string>
 Edge::getLastStepVehicleIDs(const std::string& edgeID) {
-	return getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, edgeID);
+	return Dom::getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, edgeID);
 }
 
 
 double
 Edge::getCO2Emission(const std::string& edgeID) {
-	return getDouble(libsumo::VAR_CO2EMISSION, edgeID);
+	return Dom::getDouble(libsumo::VAR_CO2EMISSION, edgeID);
 }
 
 
 double
-Edge::getCOEmission(const std::string& id) {
-	return getDouble(libsumo::VAR_COEMISSION, edgeID);
+Edge::getCOEmission(const std::string& edgeID) {
+	return Dom::getDouble(libsumo::VAR_COEMISSION, edgeID);
 }
 
 
 double
 Edge::getHCEmission(const std::string& edgeID) {
-	return getDouble(libsumo::VAR_HCEMISSION, edgeID);
+	return Dom::getDouble(libsumo::VAR_HCEMISSION, edgeID);
 }
 
 
 double
 Edge::getPMxEmission(const std::string& edgeID) {
-	return getDouble(libsumo::VAR_PMXEMISSION, edgeID);
+	return Dom::getDouble(libsumo::VAR_PMXEMISSION, edgeID);
 }
 
 
 double
 Edge::getNOxEmission(const std::string& edgeID) {
-	return getDouble(libsumo::VAR_NOXEMISSION, edgeID);
+	return Dom::getDouble(libsumo::VAR_NOXEMISSION, edgeID);
 }
 
 
 double
 Edge::getFuelConsumption(const std::string& edgeID) {
-	return getDouble(libsumo::VAR_FUELCONSUMPTION, edgeID);
+	return Dom::getDouble(libsumo::VAR_FUELCONSUMPTION, edgeID);
 }
 
 
 double
 Edge::getNoiseEmission(const std::string& edgeID) {
-	return getDouble(libsumo::VAR_NOISEEMISSION, edgeID);
+	return Dom::getDouble(libsumo::VAR_NOISEEMISSION, edgeID);
 }
 
 
 double
 Edge::getElectricityConsumption(const std::string& edgeID) {
-	return getDouble(libsumo::VAR_ELECTRICITYCONSUMPTION, edgeID);
+	return Dom::getDouble(libsumo::VAR_ELECTRICITYCONSUMPTION, edgeID);
 }
 
 
 int
 Edge::getLastStepVehicleNumber(const std::string& edgeID) {
-	return getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, edgeID);
+	return Dom::getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, edgeID);
 }
 
 
 double
 Edge::getLastStepMeanSpeed(const std::string& edgeID) {
-	return getDouble(libsumo::LAST_STEP_MEAN_SPEED, edgeID);
+	return Dom::getDouble(libsumo::LAST_STEP_MEAN_SPEED, edgeID);
 }
 
 
 double
 Edge::getLastStepOccupancy(const std::string& edgeID) {
-	return getDouble(libsumo::LAST_STEP_OCCUPANCY, edgeID);
+	return Dom::getDouble(libsumo::LAST_STEP_OCCUPANCY, edgeID);
 }
 
 
 int
 Edge::getLastStepHaltingNumber(const std::string& edgeID) {
-	return getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, edgeID);
+	return Dom::getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, edgeID);
 }
 
 
 double
 Edge::getLastStepLength(const std::string& edgeID) {
-	return getDouble(libsumo::LAST_STEP_LENGTH, edgeID);
+	return Dom::getDouble(libsumo::LAST_STEP_LENGTH, edgeID);
 }
 
 
 int
 Edge::getLaneNumber(const std::string& edgeID) {
-	return getInt(libsumo::VAR_LANE_INDEX, edgeID);
+	return Dom::getInt(libsumo::VAR_LANE_INDEX, edgeID);
 }
 
 
 std::string
 Edge::getStreetName(const std::string& edgeID) {
-	return getString(libsumo::VAR_NAME, edgeID);
+	return Dom::getString(libsumo::VAR_NAME, edgeID);
 }
 
 
-std::string
-Edge::getParameter(const std::string& edgeID, const std::string& param) {
-	tcpip::Storage content;
-	content.writeByte(libsumo::TYPE_STRING);
-	content.writeString(param);
-	return Dom::getString(libsumo::VAR_PARAMETER, edgeID, &content);
-}
-
-
-LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Edge)
+LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)
 
 /*
 // TODO
@@ -219,7 +210,7 @@ Edge::setAllowedSVCPermissions(const std::string& edgeID, int permissions) {
 */
 
 void
-Edge::adaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double beginSeconds) {
+Edge::adaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double endSeconds) {
 	tcpip::Storage content;
 	content.writeByte(libsumo::TYPE_COMPOUND);
 	if (endSeconds != std::numeric_limits<double>::max()) {
@@ -234,8 +225,7 @@ Edge::adaptTraveltime(const std::string& edgeID, double time, double beginSecond
 	}
 	content.writeByte(libsumo::TYPE_DOUBLE);
 	content.writeDouble(time);
-	Connection::getActive().createCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
-	Connection::getActive().processSet(libsumo::CMD_SET_EDGE_VARIABLE);
+	Connection::getActive().doCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME, edgeID, &content);
 }
 
 
@@ -255,28 +245,13 @@ Edge::setEffort(const std::string& edgeID, double effort, double beginSeconds, d
 	}
 	content.writeByte(libsumo::TYPE_DOUBLE);
 	content.writeDouble(effort);
-	Connection::getActive().createCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_EDGE_EFFORT, edgeID, &content);
-	Connection::getActive().processSet(libsumo::CMD_SET_EDGE_VARIABLE);
+	Connection::getActive().doCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_EDGE_EFFORT, edgeID, &content);
 }
 
 
 void
-Edge::setMaxSpeed(const std::string& id, double speed) {
-	setDouble(libsumo::VAR_MAXSPEED, edgeID, speed);
-}
-
-
-void
-Edge::setParameter(const std::string& edgeID, const std::string& key, const std::string& value) {
-	tcpip::Storage content;
-	content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-	content.writeInt(2);
-	content.writeUnsignedByte(libsumo::TYPE_STRING);
-	content.writeString(key);
-	content.writeUnsignedByte(libsumo::TYPE_STRING);
-	content.writeString(value);
-	Connection::getActive().createCommand(libsumo::CMD_SET_EDGE_VARIABLE, libsumo::VAR_PARAMETER, edgeID, &content);
-	Connection::getActive().processSet(libsumo::CMD_SET_EDGE_VARIABLE);
+Edge::setMaxSpeed(const std::string& edgeID, double speed) {
+	Dom::setDouble(libsumo::VAR_MAXSPEED, edgeID, speed);
 }
 
 }
