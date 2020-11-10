@@ -164,6 +164,10 @@ public:
     static void setStringVector(int var, const std::string& id, const std::vector<std::string>& value) {
         libtraci::Connection::getActive().setStringVector(SET, var, id, value);
     }
+
+    static void setCol(int var, const std::string& id, const libsumo::TraCIColor value) {
+        libtraci::Connection::getActive().setCol(SET, var, id, value);
+    }
 };
 
 }

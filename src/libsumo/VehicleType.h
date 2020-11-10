@@ -42,7 +42,7 @@ static std::string getShapeClass(const std::string& typeID); \
 static double getMinGap(const std::string& typeID); \
 static double getWidth(const std::string& typeID); \
 static double getHeight(const std::string& typeID); \
-static TraCIColor getColor(const std::string& typeID); \
+static libsumo::TraCIColor getColor(const std::string& typeID); \
 static double getMinGapLat(const std::string& typeID); \
 static double getMaxSpeedLat(const std::string& typeID); \
 static std::string getLateralAlignment(const std::string& typeID); \
@@ -64,7 +64,7 @@ static void setEmergencyDecel(const std::string& typeID, double decel); \
 static void setApparentDecel(const std::string& typeID, double decel); \
 static void setImperfection(const std::string& typeID, double imperfection); \
 static void setTau(const std::string& typeID, double tau); \
-static void setColor(const std::string& typeID, const TraCIColor& c); \
+static void setColor(const std::string& typeID, const libsumo::TraCIColor& c); \
 static void setMinGapLat(const std::string& typeID, double minGapLat); \
 static void setMaxSpeedLat(const std::string& typeID, double speed); \
 static void setLateralAlignment(const std::string& typeID, const std::string& latAlignment); \
@@ -73,10 +73,12 @@ static void setActionStepLength(const std::string& typeID, double actionStepLeng
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSVehicleType;
 namespace libsumo {
 class VariableWrapper;
 }
+#endif
 
 
 // ===========================================================================
@@ -86,7 +88,7 @@ class VariableWrapper;
 * @class VehicleType
 * @brief C++ TraCI client API implementation
 */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class VehicleType {
 public:
     LIBSUMO_VEHICLE_TYPE_GETTER
@@ -94,11 +96,13 @@ public:
 
     LIBSUMO_VEHICLE_TYPE_SETTER
     static void copy(const std::string& origTypeID, const std::string& newTypeID);
-    static MSVehicleType* getVType(std::string id);
 
     static void setSpeedDeviation(const std::string& typeID, double deviation);
 
     LIBSUMO_SUBSCRIPTION_API
+
+#ifndef LIBTRACI
+    static MSVehicleType* getVType(std::string id);
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
@@ -109,6 +113,8 @@ public:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+
+#endif
 
 private:
     /// @brief invalidated standard constructor

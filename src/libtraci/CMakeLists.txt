@@ -31,7 +31,7 @@ set(libtracistatic_STAT_SRCS
 #    OverheadWire.cpp
     Simulation.cpp
 #    TrafficLight.cpp
-#    Vehicle.cpp
+    Vehicle.cpp
 #    VehicleType.cpp
 )
 

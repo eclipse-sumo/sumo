@@ -317,6 +317,16 @@ public:
         doCommand(command, var, id, &content);
     }
 
+    void setCol(int command, int var, const std::string& id, const libsumo::TraCIColor c) {
+        tcpip::Storage content;
+        content.writeUnsignedByte(libsumo::TYPE_COLOR);
+        content.writeUnsignedByte(c.r);
+        content.writeUnsignedByte(c.g);
+        content.writeUnsignedByte(c.b);
+        content.writeUnsignedByte(c.a);
+        doCommand(command, var, id, &content);
+    }
+
     void readVariableSubscription(int cmdId, tcpip::Storage& inMsg);
     void readContextSubscription(int cmdId, tcpip::Storage& inMsg);
     void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscriptionResults& into);
