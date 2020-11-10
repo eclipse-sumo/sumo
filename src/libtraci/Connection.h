@@ -141,7 +141,6 @@ public:
     int check_commandGetResult(tcpip::Storage& inMsg, int command, int expectedType = -1, bool ignoreCommandId = false) const;
 
     bool processGet(int command, int expectedType, bool ignoreCommandId = false);
-    bool processSet(int command);
     /// @}
 
     int getUnsignedByte(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
@@ -289,41 +288,33 @@ public:
         return s;
     }
 
-    tcpip::Storage& doCommand(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
-        createCommand(command, var, id, add);
-        processSet(command);
-        return myInput;
-    }
+    tcpip::Storage& doCommand(int command, int var, const std::string& id, tcpip::Storage* add = nullptr);
 
     void setInt(int command, int var, const std::string& id, int value) {
         tcpip::Storage content;
         content.writeUnsignedByte(libsumo::TYPE_INTEGER);
         content.writeInt(value);
-        createCommand(command, var, id, &content);
-        processSet(command);
+        doCommand(command, var, id, &content);
     }
     void setDouble(int command, int var, const std::string& id, double value) {
         tcpip::Storage content;
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
         content.writeDouble(value);
-        createCommand(command, var, id, &content);
-        processSet(command);
+        doCommand(command, var, id, &content);
     }
 
     void setString(int command, int var, const std::string& id, const std::string& value) {
         tcpip::Storage content;
         content.writeUnsignedByte(libsumo::TYPE_STRING);
         content.writeString(value);
-        createCommand(command, var, id, &content);
-        processSet(command);
+        doCommand(command, var, id, &content);
     }
 
     void setStringVector(int command, int var, const std::string& id, const std::vector<std::string>& value) {
         tcpip::Storage content;
         content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
         content.writeStringList(value);
-        createCommand(command, var, id, &content);
-        processSet(command);
+        doCommand(command, var, id, &content);
     }
 
     void readVariableSubscription(int cmdId, tcpip::Storage& inMsg);

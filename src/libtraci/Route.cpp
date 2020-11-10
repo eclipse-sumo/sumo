@@ -76,8 +76,7 @@ Route::setParameter(const std::string& routeID, const std::string& key, const st
     content.writeString(key);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(value);
-    Connection::getActive().createCommand(libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::VAR_PARAMETER, routeID, &content);
-    Connection::getActive().processSet(libsumo::CMD_SET_ROUTE_VARIABLE);
+    Connection::getActive().doCommand(libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::VAR_PARAMETER, routeID, &content);
 }
 
 

@@ -316,15 +316,15 @@ Connection::processGet(int command, int expectedType, bool ignoreCommandId) {
 }
 
 
-bool
-Connection::processSet(int command) {
+tcpip::Storage&
+Connection::doCommand(int command, int var, const std::string& id, tcpip::Storage* add) {
+    createCommand(command, var, id, add);
     if (mySocket.has_client_connection()) {
         mySocket.sendExact(myOutput);
         myInput.reset();
         check_resultState(myInput, command);
-        return true;
     }
-    return false;
+    return myInput;
 }
 
 
