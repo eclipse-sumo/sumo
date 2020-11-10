@@ -10,6 +10,9 @@ route_basic
 # checks using nested route distribution
 route_nested
 
+# checks using nested route distribution
+route_nested_refId
+
 # checks using nested route distribution twice
 route_nested_repeat
 
