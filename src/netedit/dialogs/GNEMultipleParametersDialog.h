@@ -176,10 +176,10 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(ParametersOptions)
 
     private:
-
         /// @class GNEParameterHandler
         /// @brief load  parameters from a filename
         class GNEParameterHandler : public SUMOSAXHandler {
@@ -246,7 +246,7 @@ protected:
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
     /// @brief pointer to ParametersEditor
-        GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
+    GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
 
     /// @brief pointer to  parameters values
     ParametersValues* myParametersValues;

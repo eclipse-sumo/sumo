@@ -231,7 +231,7 @@ public:
     /// @brief Constructor for parameter editor inspector
     GNESingleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
 
-    /// @brief Constructor
+    /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
     GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet *viewNet);
 
     /// @brief destructor

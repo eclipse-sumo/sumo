@@ -2096,9 +2096,9 @@ GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 // GNEFrameAttributesModuls::ParametersEditorCreator - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::ParametersEditorCreator::ParametersEditorCreator(GNEFrame* inspectorFrameParent) :
-    FXGroupBox(inspectorFrameParent->myContentFrame, "Parameters", GUIDesignGroupBoxFrame),
-    myFrameParent(inspectorFrameParent),
+GNEFrameAttributesModuls::ParametersEditorCreator::ParametersEditorCreator(GNEFrame* frameParent) :
+    FXGroupBox(frameParent->myContentFrame, "Parameters", GUIDesignGroupBoxFrame),
+    myFrameParent(frameParent),
     myAttrType(Parameterised::ParameterisedAttrType::STRING) {
     // create textfield and buttons
     myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
