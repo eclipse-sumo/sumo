@@ -116,6 +116,21 @@ LaneArea::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+std::string
+LaneArea::getParameter(const std::string& detID, const std::string& param) {
+    return getDetector(detID)->getParameter(param, "");
+}
+
+
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(LaneArea)
+
+
+void
+LaneArea::setParameter(const std::string& detID, const std::string& name, const std::string& value) {
+    getDetector(detID)->setParameter(name, value);
+}
+
+
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(LaneArea, LANEAREA)
 
 

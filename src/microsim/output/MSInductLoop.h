@@ -59,7 +59,7 @@ class OutputDevice;
  * @see MSDetectorFileOutput
  */
 class MSInductLoop
-    : public MSMoveReminder, public MSDetectorFileOutput {
+    : public MSMoveReminder, public MSDetectorFileOutput, public Parameterised {
 public:
     /**
      * @brief Constructor.

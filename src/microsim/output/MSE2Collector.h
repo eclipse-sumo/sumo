@@ -76,7 +76,7 @@ class SUMOTrafficObject;
  */
 
 
-class MSE2Collector : public MSMoveReminder, public MSDetectorFileOutput {
+class MSE2Collector : public MSMoveReminder, public MSDetectorFileOutput, public Parameterised {
 public:
     /** @brief A VehicleInfo stores values that are tracked for the individual vehicles on the detector,
      *         e.g., accumulated timeloss. These infos are stored in myVehicles. If a vehicle leaves the detector
