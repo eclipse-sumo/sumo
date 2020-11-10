@@ -26,7 +26,9 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSE2Collector;
+#endif
 
 
 // ===========================================================================
@@ -36,7 +38,7 @@ class MSE2Collector;
  * @class LaneArea
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class LaneArea {
 public:
     static int getJamLengthVehicle(const std::string& detID);
@@ -53,6 +55,7 @@ public:
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
+#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
@@ -63,7 +66,9 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 
+private:
     /// @brief invalidated standard constructor
     LaneArea() = delete;
 

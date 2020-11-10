@@ -11,11 +11,11 @@ set(libtracistatic_STAT_SRCS
 	Connection.h
 	Domain.h
     Edge.cpp
-#    InductionLoop.cpp
+    InductionLoop.cpp
 #    Junction.cpp
 #    Lane.cpp
-#    LaneArea.cpp
-#    MultiEntryExit.cpp
+    LaneArea.cpp
+    MultiEntryExit.cpp
 #    Person.cpp
 #    POI.cpp
 #    Polygon.cpp

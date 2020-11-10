@@ -27,6 +27,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class NamedRTree;
 class MSInductLoop;
 class PositionVector;
@@ -34,6 +35,7 @@ namespace libsumo {
 struct TraCIVehicleData;
 class VariableWrapper;
 }
+#endif
 
 
 // ===========================================================================
@@ -43,7 +45,7 @@ class VariableWrapper;
  * @class InductionLoop
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class InductionLoop {
 public:
     static double getPosition(const std::string& detID);
@@ -59,6 +61,7 @@ public:
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
+#ifndef LIBTRACI
     /** @brief Returns a tree filled with inductive loop instances
      * @return The rtree of inductive loops
      */
@@ -82,6 +85,7 @@ private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
     static NamedRTree* myTree;
+#endif
 
 private:
     /// @brief invalidated standard constructor
