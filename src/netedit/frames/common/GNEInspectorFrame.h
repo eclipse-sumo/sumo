@@ -255,6 +255,56 @@ public:
         GNEEdge* myEdgeTemplate;
     };
 
+    // ===========================================================================
+    // class ParametersEditorInspector
+    // ===========================================================================
+
+    class ParametersEditorInspector : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::ParametersEditorInspector)
+
+    public:
+        /// @brief constructor
+        ParametersEditorInspector(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~ParametersEditorInspector();
+
+        /// @brief show netedit attributes EditorInspector
+        void showParametersEditorInspector();
+
+        /// @brief hide netedit attributes EditorInspector
+        void hideParametersEditorInspector();
+
+        /// @brief refresh netedit attributes
+        void refreshParametersEditorInspector();
+
+        /// @brief get inspector frame parent
+        GNEInspectorFrame* getInspectorFrameParent() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user clicks over add parameter
+        long onCmdEditParameters(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user udpate the parameter text field
+        long onCmdSetParameters(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(ParametersEditorInspector)
+
+    private:
+        /// @brief current GNEInspectorFrame parent
+        GNEInspectorFrame* myInspectorFrameParent;
+
+        /// @brief text field for write parameters
+        FXTextField* myTextFieldParameters;
+
+        /// @brief button for edit parameters using specific dialog
+        FXButton* myButtonEditParameters;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief net net that uses this GNEFrame
@@ -357,7 +407,7 @@ private:
     GEOAttributesEditor* myGEOAttributesEditor;
 
     /// @brief parameters editor inspector
-    GNEFrameAttributesModuls::ParametersEditorInspector* myParametersEditorInspector;
+    ParametersEditorInspector* myParametersEditorInspector;
 
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;
