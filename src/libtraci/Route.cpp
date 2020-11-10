@@ -61,7 +61,7 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(Route, ROUTE)
 
 void
 Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) {
-    Dom::setStringVector(libsumo::CMD_SET_ROUTE_VARIABLE, routeID, edgeIDs);
+    Dom::setStringVector(libsumo::ADD, routeID, edgeIDs);
 }
 }
 

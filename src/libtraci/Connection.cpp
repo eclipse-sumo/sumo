@@ -188,9 +188,23 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
     // object id
     outMsg.writeString(objID);
     // command id
-    outMsg.writeUnsignedByte((int)vars.size());
-    for (int i = 0; i < varNo; ++i) {
-        outMsg.writeUnsignedByte(vars[i]);
+    if (vars.size() == 1 && vars.front() == -1) {
+        if (domID == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE) {
+            // default for vehicles is edge id and lane position
+            outMsg.writeUnsignedByte(2);
+            outMsg.writeUnsignedByte(libsumo::VAR_ROAD_ID);
+            outMsg.writeUnsignedByte(libsumo::VAR_LANEPOSITION);
+        } else {
+            // default for detectors is vehicle number, for all others (and contexts) id list
+            outMsg.writeUnsignedByte(1);
+            const bool isDetector = domID == libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE || domID == libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE || domID == libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE;
+            outMsg.writeUnsignedByte(isDetector ? libsumo::LAST_STEP_VEHICLE_NUMBER : libsumo::TRACI_ID_LIST);
+        }
+    } else {
+        outMsg.writeUnsignedByte((int)vars.size());
+        for (int i = 0; i < varNo; ++i) {
+            outMsg.writeUnsignedByte(vars[i]);
+        }
     }
     // send message
     mySocket.sendExact(outMsg);

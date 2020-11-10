@@ -176,6 +176,7 @@ Edge::getStreetName(const std::string& edgeID) {
 }
 
 
+LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)
 
 /*
