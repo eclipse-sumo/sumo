@@ -20,8 +20,9 @@
 #pragma once
 #include <config.h>
 
+#include <string>
 #include <vector>
-#include <libsumo/TraCIConstants.h>
+#include <libsumo/TraCIDefs.h>
 
 
 // ===========================================================================
@@ -32,7 +33,6 @@ class NamedRTree;
 class MSInductLoop;
 class PositionVector;
 namespace libsumo {
-struct TraCIVehicleData;
 class VariableWrapper;
 }
 #endif
