@@ -44,7 +44,7 @@ GNETAZRelDataFrame::addTAZRelationData(const GNEViewNetHelper::ObjectsUnderCurso
     if (myFirstTAZElement) {
         if (objectsUnderCursor.getTAZElementFront()) {
             // finally create TAZRelationData
-            GNEDataHandler::buildTAZRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myFirstTAZElement, objectsUnderCursor.getTAZElementFront(), myParametersEditor->getParametersMap());
+            GNEDataHandler::buildTAZRelationData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), myFirstTAZElement, objectsUnderCursor.getTAZElementFront(), myParametersEditorCreator->getParametersMap());
             // TAZRelationData created, then return true
             return true;
         } else {

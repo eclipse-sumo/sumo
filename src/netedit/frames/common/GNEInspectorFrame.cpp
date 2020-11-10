@@ -89,7 +89,7 @@ GNEInspectorFrame::GNEInspectorFrame(FXHorizontalFrame* horizontalFrameParent, G
     myGEOAttributesEditor = new GEOAttributesEditor(this);
 
     // create parameters Editor modul
-    myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this);
+    myParametersEditorInspector = new GNEFrameAttributesModuls::ParametersEditorInspector(this);
 
     // Create Netedit Attributes Editor modul
     myNeteditAttributesEditor = new NeteditAttributesEditor(this);
@@ -263,7 +263,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
     myAttributesEditor->hideAttributesEditorModul();
     myNeteditAttributesEditor->hideNeteditAttributesEditor();
     myGEOAttributesEditor->hideGEOAttributesEditor();
-    myParametersEditor->hideParametersEditor();
+    myParametersEditorInspector->hideParametersEditorInspector();
     myTemplateEditor->hideTemplateEditor();
     myHierarchicalElementTree->hideHierarchicalElementTree();
     myOverlappedInspection->hideOverlappedInspection();
@@ -312,7 +312,7 @@ GNEInspectorFrame::inspectMultisection(const std::vector<GNEAttributeCarrier*>& 
         myGEOAttributesEditor->showGEOAttributesEditor();
 
         // show parameters editor
-        myParametersEditor->showParametersEditor();
+        myParametersEditorInspector->showParametersEditorInspector();
 
         // If attributes correspond to an Edge and we aren't in demand mode, show template editor
         myTemplateEditor->showTemplateEditor();
@@ -419,7 +419,7 @@ GNEInspectorFrame::updateFrameAfterUndoRedo() {
     // refresh Attribute Editor
     myAttributesEditor->refreshAttributeEditor(false, false);
     // refresh parametersEditor
-    myParametersEditor->refreshParametersEditor();
+    myParametersEditorInspector->refreshParametersEditorInspector();
     // refresh AC Hierarchy
     myHierarchicalElementTree->refreshHierarchicalElementTree();
 }

@@ -224,8 +224,8 @@ public:
         FXButton* myHelpButton;
     };
 
-    /// @brief Constructor
-    GNEMultipleParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor);
+    /// @brief Constructor (only for ParametersEditorInspector)
+    GNEMultipleParametersDialog(GNEFrameAttributesModuls::ParametersEditorInspector* parametersEditorInspector);
 
     /// @brief destructor
     ~GNEMultipleParametersDialog();
@@ -246,7 +246,7 @@ protected:
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
     /// @brief pointer to ParametersEditor
-    GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
+    GNEFrameAttributesModuls::ParametersEditorInspector* myParametersEditorInspector;
 
     /// @brief pointer to  parameters values
     ParametersValues* myParametersValues;

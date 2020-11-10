@@ -224,8 +224,11 @@ public:
         FXButton* myHelpButton;
     };
 
-    /// @brief Constructor for parameter editor
-    GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor);
+    /// @brief Constructor for parameter editor creator
+    GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditorCreator* ParametersEditorCreator);
+
+    /// @brief Constructor for parameter editor inspector
+    GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditorInspector* ParametersEditorInspector);
 
     /// @brief Constructor
     GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet *viewNet);
@@ -248,8 +251,11 @@ public:
 protected:
     FOX_CONSTRUCTOR(GNESingleParametersDialog)
 
-    /// @brief pointer to ParametersEditor
-    GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
+    /// @brief pointer to ParametersEditorCreator
+    GNEFrameAttributesModuls::ParametersEditorCreator* myParametersEditorCreator;
+
+    /// @brief pointer to ParametersEditorInspector
+    GNEFrameAttributesModuls::ParametersEditorInspector* myParametersEditorInspector;
 
     /// @brief pointer to VTypeAttributeRow
     GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow;

@@ -73,9 +73,15 @@ FXDEFMAP(GNEFrameAttributesModuls::AttributesEditorExtended) AttributesEditorExt
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog)
 };
 
-FXDEFMAP(GNEFrameAttributesModuls::ParametersEditor) ParametersEditorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters)
+FXDEFMAP(GNEFrameAttributesModuls::ParametersEditorCreator) ParametersEditorCreatorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributesModuls::ParametersEditorCreator::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters)
+};
+
+
+FXDEFMAP(GNEFrameAttributesModuls::ParametersEditorInspector) ParametersEditorInspectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_OPEN_PARAMETERS_DIALOG, GNEFrameAttributesModuls::ParametersEditorInspector::onCmdEditParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNEFrameAttributesModuls::ParametersEditorInspector::onCmdSetParameters)
 };
 
 FXDEFMAP(GNEFrameAttributesModuls::DrawingShape) DrawingShapeMap[] = {
@@ -97,7 +103,8 @@ FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorRow,          FXHorizontal
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditor,             FXGroupBox,         AttributesEditorMap,            ARRAYNUMBER(AttributesEditorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorFlow,         FXGroupBox,         AttributesEditorFlowMap,        ARRAYNUMBER(AttributesEditorFlowMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::AttributesEditorExtended,     FXGroupBox,         AttributesEditorExtendedMap,    ARRAYNUMBER(AttributesEditorExtendedMap))
-FXIMPLEMENT(GNEFrameAttributesModuls::ParametersEditor,             FXGroupBox,         ParametersEditorMap,            ARRAYNUMBER(ParametersEditorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::ParametersEditorCreator,      FXGroupBox,         ParametersEditorCreatorMap,     ARRAYNUMBER(ParametersEditorCreatorMap))
+FXIMPLEMENT(GNEFrameAttributesModuls::ParametersEditorInspector,    FXGroupBox,         ParametersEditorInspectorMap,   ARRAYNUMBER(ParametersEditorInspectorMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::DrawingShape,                 FXGroupBox,         DrawingShapeMap,                ARRAYNUMBER(DrawingShapeMap))
 FXIMPLEMENT(GNEFrameAttributesModuls::NeteditAttributes,            FXGroupBox,         NeteditAttributesMap,           ARRAYNUMBER(NeteditAttributesMap))
 
@@ -2093,10 +2100,10 @@ GNEFrameAttributesModuls::AttributesEditorExtended::onCmdOpenDialog(FXObject*, F
 }
 
 // ---------------------------------------------------------------------------
-// GNEFrameAttributesModuls::ParametersEditor - methods
+// GNEFrameAttributesModuls::ParametersEditorCreator - methods
 // ---------------------------------------------------------------------------
 
-GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspectorFrameParent) :
+GNEFrameAttributesModuls::ParametersEditorCreator::ParametersEditorCreator(GNEFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Parameters", GUIDesignGroupBoxFrame),
     myFrameParent(inspectorFrameParent),
     myAttrType(Parameterised::ParameterisedAttrType::STRING) {
@@ -2106,11 +2113,11 @@ GNEFrameAttributesModuls::ParametersEditor::ParametersEditor(GNEFrame* inspector
 }
 
 
-GNEFrameAttributesModuls::ParametersEditor::~ParametersEditor() {}
+GNEFrameAttributesModuls::ParametersEditorCreator::~ParametersEditorCreator() {}
 
 
 void
-GNEFrameAttributesModuls::ParametersEditor::showParametersEditor() {
+GNEFrameAttributesModuls::ParametersEditorCreator::showParametersEditorCreator() {
     if ((myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) && 
          myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasParameters()) {
         if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
@@ -2143,7 +2150,7 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor() {
                     differentsParameters = true;
                 }
             }
-            // set parameters editor
+            // set parameters EditorCreator
             if (differentsParameters) {
                 myParameters.clear();
             } else {
@@ -2167,8 +2174,8 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor() {
                 }
             }
         }
-        // refresh ParametersEditor
-        refreshParametersEditor();
+        // refresh ParametersEditorCreator
+        refreshParametersEditorCreator();
         // show groupbox
         show();
     } else {
@@ -2178,14 +2185,14 @@ GNEFrameAttributesModuls::ParametersEditor::showParametersEditor() {
 
 
 void
-GNEFrameAttributesModuls::ParametersEditor::hideParametersEditor() {
+GNEFrameAttributesModuls::ParametersEditorCreator::hideParametersEditorCreator() {
     // hide groupbox
     hide();
 }
 
 
 void
-GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
+GNEFrameAttributesModuls::ParametersEditorCreator::refreshParametersEditorCreator() {
     GNEAttributeCarrier *frontAC = myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0? myFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
     // update text field depending of AC
     if (frontAC && frontAC->getTagProperty().hasParameters()) {
@@ -2224,13 +2231,13 @@ GNEFrameAttributesModuls::ParametersEditor::refreshParametersEditor() {
 
 
 const std::map<std::string, std::string>&
-GNEFrameAttributesModuls::ParametersEditor::getParametersMap() const {
+GNEFrameAttributesModuls::ParametersEditorCreator::getParametersMap() const {
     return myParameters;
 }
 
 
 std::string
-GNEFrameAttributesModuls::ParametersEditor::getParametersStr() const {
+GNEFrameAttributesModuls::ParametersEditorCreator::getParametersStr() const {
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (const auto& i : myParameters) {
@@ -2245,7 +2252,7 @@ GNEFrameAttributesModuls::ParametersEditor::getParametersStr() const {
 
 
 std::vector<std::pair<std::string, std::string> >
-GNEFrameAttributesModuls::ParametersEditor::getParametersVectorStr() const {
+GNEFrameAttributesModuls::ParametersEditorCreator::getParametersVectorStr() const {
     std::vector<std::pair<std::string, std::string> > result;
     // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
     for (const auto& parameter : myParameters) {
@@ -2256,7 +2263,7 @@ GNEFrameAttributesModuls::ParametersEditor::getParametersVectorStr() const {
 
 
 void
-GNEFrameAttributesModuls::ParametersEditor::setParameters(const std::vector<std::pair<std::string, std::string> >& parameters) {
+GNEFrameAttributesModuls::ParametersEditorCreator::setParameters(const std::vector<std::pair<std::string, std::string> >& parameters) {
     // declare result string
     std::string result;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -2273,19 +2280,276 @@ GNEFrameAttributesModuls::ParametersEditor::setParameters(const std::vector<std:
 
 
 GNEFrame*
-GNEFrameAttributesModuls::ParametersEditor::getFrameParent() const {
+GNEFrameAttributesModuls::ParametersEditorCreator::getFrameParent() const {
     return myFrameParent;
 }
 
 
 Parameterised::ParameterisedAttrType
-GNEFrameAttributesModuls::ParametersEditor::getAttrType() const {
+GNEFrameAttributesModuls::ParametersEditorCreator::getAttrType() const {
     return myAttrType;
 }
 
 
 long
-GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::ParametersEditorCreator::onCmdEditParameters(FXObject*, FXSelector, void*) {
+    // write debug information
+    WRITE_DEBUG("Open single parameters dialog");
+    if (GNESingleParametersDialog(this).execute()) {
+        // write debug information
+        WRITE_DEBUG("Close single parameters dialog");
+        // set parameters
+        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
+        // Refresh parameter EditorCreator
+        refreshParametersEditorCreator();
+    } else {
+        // write debug information
+        WRITE_DEBUG("Cancel single parameters dialog");
+    }
+    return 1;
+}
+
+
+long
+GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters(FXObject*, FXSelector, void*) {
+    // check if current given string is valid
+    if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true, myAttrType)) {
+        // parsed parameters ok, then set text field black and continue
+        myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+        myTextFieldParameters->killFocus();
+        // obtain parameters "key=value"
+        std::vector<std::string> parameters = StringTokenizer(myTextFieldParameters->getText().text(), "|", true).getVector();
+        // clear current existent parameters and set parsed parameters
+        myParameters.clear();
+        // iterate over parameters
+        for (const auto& parameter : parameters) {
+            // obtain key, value
+            std::vector<std::string> keyParam = StringTokenizer(parameter, "=", true).getVector();
+            // save it in myParameters
+            myParameters[keyParam.front()] = keyParam.back();
+        }
+        // overwritte myTextFieldParameters (to remove duplicated parameters
+        myTextFieldParameters->setText(getParametersStr().c_str(), FALSE);
+        // if we're editing parameters of an AttributeCarrier, set it
+        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            // begin undo list
+            myFrameParent->myViewNet->getUndoList()->p_begin("change parameters");
+            // set parameters
+            myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
+            // end undo list
+            myFrameParent->myViewNet->getUndoList()->p_end();
+        } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+            // begin undo list
+            myFrameParent->myViewNet->getUndoList()->p_begin("change multiple parameters");
+            // set parameters in all ACs
+            for (const auto& i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
+                i->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
+            }
+            // end undo list
+            myFrameParent->myViewNet->getUndoList()->p_end();
+            // update frame parent after attribute sucesfully set
+            myFrameParent->attributeUpdated();
+        }
+    } else {
+        myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
+    }
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
+// GNEFrameAttributesModuls::ParametersEditorInspector - methods
+// ---------------------------------------------------------------------------
+
+GNEFrameAttributesModuls::ParametersEditorInspector::ParametersEditorInspector(GNEFrame* inspectorFrameParent) :
+    FXGroupBox(inspectorFrameParent->myContentFrame, "Parameters", GUIDesignGroupBoxFrame),
+    myFrameParent(inspectorFrameParent),
+    myAttrType(Parameterised::ParameterisedAttrType::STRING) {
+    // create textfield and buttons
+    myTextFieldParameters = new FXTextField(this, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myButtonEditParameters = new FXButton(this, "Edit parameters", nullptr, this, MID_GNE_OPEN_PARAMETERS_DIALOG, GUIDesignButton);
+}
+
+
+GNEFrameAttributesModuls::ParametersEditorInspector::~ParametersEditorInspector() {}
+
+
+void
+GNEFrameAttributesModuls::ParametersEditorInspector::showParametersEditorInspector() {
+    if ((myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) && 
+        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasParameters()) {
+        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            // update flag
+            if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasDoubleParameters()) {
+                myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
+            } else {
+                myAttrType = Parameterised::ParameterisedAttrType::STRING;
+            }
+            // obtain string
+            std::string parametersStr = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
+            // clear parameters
+            myParameters.clear();
+            // separate value in a vector of string using | as separator
+            StringTokenizer parameters(parametersStr, "|", true);
+            // iterate over all values
+            while (parameters.hasNext()) {
+                // obtain key and value and save it in myParameters
+                const std::vector<std::string> keyValue = StringTokenizer(parameters.next(), "=", true).getVector();
+                if (keyValue.size() == 2) {
+                    myParameters[keyValue.front()] = keyValue.back();
+                }
+            }
+        } else {
+            // check if parameters are different
+            bool differentsParameters = false;
+            std::string firstParameters = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
+            for (auto i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
+                if (firstParameters != i->getAttribute(GNE_ATTR_PARAMETERS)) {
+                    differentsParameters = true;
+                }
+            }
+            // set parameters EditorInspector
+            if (differentsParameters) {
+                myParameters.clear();
+            } else {
+                // update flag
+                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasDoubleParameters()) {
+                    myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
+                } else {
+                    myAttrType = Parameterised::ParameterisedAttrType::STRING;
+                }
+                // obtain string
+                std::string parametersStr = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
+                // clear parameters
+                myParameters.clear();
+                // separate value in a vector of string using | as separator
+                std::vector<std::string> parameters = StringTokenizer(parametersStr, "|", true).getVector();
+                // iterate over all values
+                for (const auto& i : parameters) {
+                    // obtain key and value and save it in myParameters
+                    std::vector<std::string> keyValue = StringTokenizer(i, "=", true).getVector();
+                    myParameters[keyValue.front()] = keyValue.back();
+                }
+            }
+        }
+        // refresh ParametersEditorInspector
+        refreshParametersEditorInspector();
+        // show groupbox
+        show();
+    } else {
+        hide();
+    }
+}
+
+
+void
+GNEFrameAttributesModuls::ParametersEditorInspector::hideParametersEditorInspector() {
+    // hide groupbox
+    hide();
+}
+
+
+void
+GNEFrameAttributesModuls::ParametersEditorInspector::refreshParametersEditorInspector() {
+    GNEAttributeCarrier *frontAC = myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0? myFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
+    // update text field depending of AC
+    if (frontAC && frontAC->getTagProperty().hasParameters()) {
+        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
+            myTextFieldParameters->setText(frontAC->getAttribute(GNE_ATTR_PARAMETERS).c_str());
+            myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+            // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
+            if (isSupermodeValid(myFrameParent->myViewNet, frontAC)) {
+                myTextFieldParameters->enable();
+                myButtonEditParameters->enable();
+            } else {
+                myTextFieldParameters->disable();
+                myButtonEditParameters->disable();
+            }
+        } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
+            // check if parameters of all inspected ACs are different
+            std::string parameters = frontAC->getAttribute(GNE_ATTR_PARAMETERS);
+            for (const auto &AC : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
+                if (parameters != AC->getAttribute(GNE_ATTR_PARAMETERS)) {
+                    parameters = "different parameters";
+                }
+            }
+            myTextFieldParameters->setText(parameters.c_str());
+            myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
+            // disable myTextFieldParameters if we're in demand mode and inspected AC isn't a demand element (or viceversa)
+            if (isSupermodeValid(myFrameParent->myViewNet, frontAC)) {
+                myTextFieldParameters->enable();
+                myButtonEditParameters->enable();
+            } else {
+                myTextFieldParameters->disable();
+                myButtonEditParameters->disable();
+            }
+        }
+    }
+}
+
+
+const std::map<std::string, std::string>&
+GNEFrameAttributesModuls::ParametersEditorInspector::getParametersMap() const {
+    return myParameters;
+}
+
+
+std::string
+GNEFrameAttributesModuls::ParametersEditorInspector::getParametersStr() const {
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (const auto& i : myParameters) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if (!result.empty()) {
+        result.pop_back();
+    }
+    return result;
+}
+
+
+std::vector<std::pair<std::string, std::string> >
+GNEFrameAttributesModuls::ParametersEditorInspector::getParametersVectorStr() const {
+    std::vector<std::pair<std::string, std::string> > result;
+    // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
+    for (const auto& parameter : myParameters) {
+        result.push_back(std::make_pair(parameter.first, parameter.second));
+    }
+    return result;
+}
+
+
+void
+GNEFrameAttributesModuls::ParametersEditorInspector::setParameters(const std::vector<std::pair<std::string, std::string> >& parameters) {
+    // declare result string
+    std::string result;
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (const auto& i : parameters) {
+        result += i.first + "=" + i.second + "|";
+    }
+    // remove the last "|"
+    if (!result.empty()) {
+        result.pop_back();
+    }
+    // set result in textField (and call onCmdEditParameters)
+    myTextFieldParameters->setText(result.c_str(), TRUE);
+}
+
+
+GNEFrame*
+GNEFrameAttributesModuls::ParametersEditorInspector::getFrameParent() const {
+    return myFrameParent;
+}
+
+
+Parameterised::ParameterisedAttrType
+GNEFrameAttributesModuls::ParametersEditorInspector::getAttrType() const {
+    return myAttrType;
+}
+
+
+long
+GNEFrameAttributesModuls::ParametersEditorInspector::onCmdEditParameters(FXObject*, FXSelector, void*) {
     if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
         // write debug information
         WRITE_DEBUG("Open multiple parameters dialog");
@@ -2300,8 +2564,8 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
             myFrameParent->myViewNet->getUndoList()->p_end();
             // update frame parent after attribute sucesfully set
             myFrameParent->attributeUpdated();
-            // Refresh parameter editor
-            refreshParametersEditor();
+            // Refresh parameter EditorInspector
+            refreshParametersEditorInspector();
         } else {
             // write debug information
             WRITE_DEBUG("Cancel multiple parameters dialog");
@@ -2314,8 +2578,8 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
             WRITE_DEBUG("Close single parameters dialog");
             // set parameters
             myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
-            // Refresh parameter editor
-            refreshParametersEditor();
+            // Refresh parameter EditorInspector
+            refreshParametersEditorInspector();
         } else {
             // write debug information
             WRITE_DEBUG("Cancel single parameters dialog");
@@ -2326,7 +2590,7 @@ GNEFrameAttributesModuls::ParametersEditor::onCmdEditParameters(FXObject*, FXSel
 
 
 long
-GNEFrameAttributesModuls::ParametersEditor::onCmdSetParameters(FXObject*, FXSelector, void*) {
+GNEFrameAttributesModuls::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSelector, void*) {
     // check if current given string is valid
     if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true, myAttrType)) {
         // parsed parameters ok, then set text field black and continue

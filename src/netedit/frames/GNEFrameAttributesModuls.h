@@ -539,28 +539,28 @@ public:
     };
 
     // ===========================================================================
-    // class ParametersEditor
+    // class ParametersEditorCreator
     // ===========================================================================
 
-    class ParametersEditor : private FXGroupBox {
+    class ParametersEditorCreator : private FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::ParametersEditor)
+        FXDECLARE(GNEFrameAttributesModuls::ParametersEditorCreator)
 
     public:
         /// @brief constructor
-        ParametersEditor(GNEFrame* frameParent);
+        ParametersEditorCreator(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~ParametersEditor();
+        ~ParametersEditorCreator();
 
-        /// @brief show netedit attributes editor
-        void showParametersEditor();
+        /// @brief show netedit attributes EditorCreator
+        void showParametersEditorCreator();
 
-        /// @brief hide netedit attributes editor
-        void hideParametersEditor();
+        /// @brief hide netedit attributes EditorCreator
+        void hideParametersEditorCreator();
 
         /// @brief refresh netedit attributes
-        void refreshParametersEditor();
+        void refreshParametersEditorCreator();
 
         /// @brief get parameters as map
         const std::map<std::string, std::string>& getParametersMap() const;
@@ -590,7 +590,79 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(ParametersEditor)
+        FOX_CONSTRUCTOR(ParametersEditorCreator)
+
+    private:
+        /// @brief pointer to frame parent
+        GNEFrame* myFrameParent = nullptr;
+
+        /// @brief flag for parameters type
+        Parameterised::ParameterisedAttrType myAttrType;
+
+        /// @brief pointer to current map of parameters
+        std::map<std::string, std::string> myParameters;
+
+        /// @brief text field for write parameters
+        FXTextField* myTextFieldParameters = nullptr;
+
+        /// @brief button for edit parameters using specific dialog
+        FXButton* myButtonEditParameters = nullptr;
+    };
+
+
+    // ===========================================================================
+    // class ParametersEditorInspector
+    // ===========================================================================
+
+    class ParametersEditorInspector : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEFrameAttributesModuls::ParametersEditorInspector)
+
+    public:
+        /// @brief constructor
+        ParametersEditorInspector(GNEFrame* frameParent);
+
+        /// @brief destructor
+        ~ParametersEditorInspector();
+
+        /// @brief show netedit attributes EditorInspector
+        void showParametersEditorInspector();
+
+        /// @brief hide netedit attributes EditorInspector
+        void hideParametersEditorInspector();
+
+        /// @brief refresh netedit attributes
+        void refreshParametersEditorInspector();
+
+        /// @brief get parameters as map
+        const std::map<std::string, std::string>& getParametersMap() const;
+
+        /// @brief get parameters as string
+        std::string getParametersStr() const;
+
+        /// @brief get parameters as vector of strings
+        std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
+
+        /// @brief set parameters
+        void setParameters(const std::vector<std::pair<std::string, std::string> >& parameters);
+
+        /// @brief pointer to frame parent
+        GNEFrame* getFrameParent() const;
+
+        /// @brief get current parameter type
+        Parameterised::ParameterisedAttrType getAttrType() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user clicks over add parameter
+        long onCmdEditParameters(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user udpate the parameter text field
+        long onCmdSetParameters(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(ParametersEditorInspector)
 
     private:
         /// @brief pointer to frame parent

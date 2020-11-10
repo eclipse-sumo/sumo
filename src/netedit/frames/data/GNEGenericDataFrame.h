@@ -269,8 +269,8 @@ protected:
     /// @brief attribute selector modul
     AttributeSelector* myAttributeSelector;
 
-    /// @brief parameters editor
-    GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
+    /// @brief parameters editor creator
+    GNEFrameAttributesModuls::ParametersEditorCreator* myParametersEditorCreator;
 
     /// @brief edge path creator (used for Walks, rides and trips)
     GNEFrameModuls::PathCreator* myPathCreator;

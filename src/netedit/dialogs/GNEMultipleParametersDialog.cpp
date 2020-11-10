@@ -480,11 +480,11 @@ GNEMultipleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElem
 // GNEMultipleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor) :
-    FXDialogBox(ParametersEditor->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myParametersEditor(ParametersEditor),
-    myEditedParameters(ParametersEditor->getParametersVectorStr()),
-    myCopyOfParameters(ParametersEditor->getParametersVectorStr()) {
+GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEFrameAttributesModuls::ParametersEditorInspector* parametersEditorInspector) :
+    FXDialogBox(parametersEditorInspector->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myParametersEditorInspector(parametersEditorInspector),
+    myEditedParameters(parametersEditorInspector->getParametersVectorStr()),
+    myCopyOfParameters(parametersEditorInspector->getParametersVectorStr()) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // create main frame
@@ -530,7 +530,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
-        } else if ((myParametersEditor->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) && !GNEAttributeCarrier::canParse<double>(parameter.second)) {
+        } else if ((myParametersEditorInspector->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) && !GNEAttributeCarrier::canParse<double>(parameter.second)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
@@ -555,7 +555,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
     }
     // set parameters in Parameters editor parents
-    myParametersEditor->setParameters(myEditedParameters);
+    myParametersEditorInspector->setParameters(myEditedParameters);
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
     return 1;
