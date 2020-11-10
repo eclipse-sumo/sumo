@@ -58,8 +58,8 @@ FXDEFMAP(GNEMultipleParametersDialog::ParametersOptions) ParametersOptionsMap[] 
 
 // Object implementation
 FXIMPLEMENT(GNEMultipleParametersDialog,                    FXDialogBox,   GNEMultipleParametersDialogMap,  ARRAYNUMBER(GNEMultipleParametersDialogMap))
-FXIMPLEMENT(GNEMultipleParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,           ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOptions, FXGroupBox,    ParametersOptionsMap,          ARRAYNUMBER(ParametersOptionsMap))
+FXIMPLEMENT(GNEMultipleParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,             ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOptions, FXGroupBox,    ParametersOptionsMap,            ARRAYNUMBER(ParametersOptionsMap))
 
 // ===========================================================================
 // member method definitions
@@ -480,11 +480,9 @@ GNEMultipleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElem
 // GNEMultipleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEFrameAttributesModuls::ParametersEditorInspector* parametersEditorInspector) :
-    FXDialogBox(parametersEditorInspector->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myParametersEditorInspector(parametersEditorInspector),
-    myEditedParameters(parametersEditorInspector->getParametersVectorStr()),
-    myCopyOfParameters(parametersEditorInspector->getParametersVectorStr()) {
+GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector) :
+    FXDialogBox(parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myParametersEditorInspector(parametersEditorInspector) {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // create main frame
@@ -530,6 +528,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
+        /*
         } else if ((myParametersEditorInspector->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) && !GNEAttributeCarrier::canParse<double>(parameter.second)) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
@@ -538,6 +537,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
             return 1;
+        */
         }
     }
     // now check if there is duplicates parameters
@@ -554,8 +554,10 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             return 1;
         }
     }
+    /*
     // set parameters in Parameters editor parents
     myParametersEditorInspector->setParameters(myEditedParameters);
+    */
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
     return 1;

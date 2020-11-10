@@ -65,7 +65,7 @@ GNEParkingSpace::updateGeometry() {
 
 
 void 
-GNEParkingSpace::updateCenteringBoundary(const bool updateGrid) {
+GNEParkingSpace::updateCenteringBoundary(const bool /*updateGrid*/) {
     // first reset boundary
     myBoundary.reset();
     // add position

@@ -145,6 +145,9 @@ public:
     template<typename T>
     T getACParameters() const;
 
+    /// @brief set parameters (string)
+    void setACParameters(const std::string &parameters, GNEUndoList* undoList);
+
     /// @brief set parameters (string vector)
     void setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList);
 

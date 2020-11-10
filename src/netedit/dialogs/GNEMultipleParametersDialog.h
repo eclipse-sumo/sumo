@@ -22,7 +22,7 @@
 
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netedit/frames/GNEFrameAttributesModuls.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 
 // ===========================================================================
 // class definitions
@@ -176,10 +176,10 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(ParametersOptions)
 
     private:
-
         /// @class GNEParameterHandler
         /// @brief load  parameters from a filename
         class GNEParameterHandler : public SUMOSAXHandler {
@@ -225,7 +225,7 @@ public:
     };
 
     /// @brief Constructor (only for ParametersEditorInspector)
-    GNEMultipleParametersDialog(GNEFrameAttributesModuls::ParametersEditorInspector* parametersEditorInspector);
+    GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
 
     /// @brief destructor
     ~GNEMultipleParametersDialog();
@@ -246,7 +246,7 @@ protected:
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
     /// @brief pointer to ParametersEditor
-    GNEFrameAttributesModuls::ParametersEditorInspector* myParametersEditorInspector;
+    GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
 
     /// @brief pointer to  parameters values
     ParametersValues* myParametersValues;

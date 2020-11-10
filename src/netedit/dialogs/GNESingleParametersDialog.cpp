@@ -479,13 +479,11 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributesModuls::P
 }
 
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditorInspector* parametersEditorInspector) :
-    FXDialogBox(parametersEditorInspector->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+GNESingleParametersDialog::GNESingleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector) :
+    FXDialogBox(parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditorCreator(nullptr),
     myParametersEditorInspector(parametersEditorInspector),
-    VTypeAttributeRow(nullptr),
-    myEditedParameters(parametersEditorInspector->getParametersVectorStr()),
-    myCopyOfParameters(parametersEditorInspector->getParametersVectorStr()) {
+    VTypeAttributeRow(nullptr) {
     // call auxiliar constructor
     constructor();
 }

@@ -374,6 +374,25 @@ GNEAttributeCarrier::getACParameters() const {
 
 
 void
+GNEAttributeCarrier::setACParameters(const std::string& parameters, GNEUndoList* undoList) {
+    // declare map
+    std::map<std::string, std::string> parametersMap;
+    // separate value in a vector of string using | as separator
+    StringTokenizer parametersTokenizer(parameters, "|", true);
+    // iterate over all values
+    while (parametersTokenizer.hasNext()) {
+        // obtain key and value and save it in myParameters
+        const std::vector<std::string> keyValue = StringTokenizer(parametersTokenizer.next(), "=", true).getVector();
+        if (keyValue.size() == 2) {
+            parametersMap[keyValue.front()] = keyValue.back();
+        }
+    }
+    // set setACParameters map
+    setACParameters(parametersMap, undoList);
+}
+
+
+void
 GNEAttributeCarrier::setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList) {
     // declare result string
     std::string paramsStr;
