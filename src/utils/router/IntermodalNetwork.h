@@ -494,7 +494,7 @@ public:
         if (e == nullptr) {
             return nullptr;
         }
-        typename std::map<const E*, _IntermodalEdge*>::const_iterator it = myCarLookup.find(e);
+        auto it = myCarLookup.find(e);
         if (it == myCarLookup.end()) {
             return nullptr;
         }
