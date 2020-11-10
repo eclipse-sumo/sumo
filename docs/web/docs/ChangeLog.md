@@ -18,6 +18,9 @@ permalink: /ChangeLog/
   - Fixed oscillating lane changes in roundabout with more than 2 lanes. Issue #7738
   - Fixe crash when defining stops on internal edges. Issue #7690
   - Fixed crash when using meanData attribute 'trackVehicles=True' in a pedestrian simulation. Issue #7664
+  - Planned vehicle stops are no longer included in edgeData waitingTime output. Issue #7748
+  - Option **--ignore-junction-blocker** is now working again. Issue #7650 (Regression in 1.0.0)
+  - Fixed crash when vehicle with ssm device is teleported. Issue #7753  
   - railway fixes
     - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
     - Fixed train collision due to unsafe rail signal state. Issue #7534
@@ -40,6 +43,9 @@ permalink: /ChangeLog/
   - Fixed unsafe intersection rules for double connection with internal junction. Issue #7622
   - Option **--geometry.remove** now longer causes streets with different names to be joined. Issue #637
   - Loading public transport stops with 'access' via option --ptstop-files and removing the stop edge via options is now working. Issue #7658
+  - Fixed unsafe position of internal junctions on large junctions with multiple turning connections. Issue #7761
+  - Two-lane side roads entering a priority junction now create a left-turn lane instead of a right-turn lane in most cases. Issue #7754
+  - Fixed building of unsafe right-of-way rules at traffic light junctions where the highest priority road makes a turn. Issue #7764
   
 - netedit
   - Visual scaling of selected objects (via selection frame) is now working for junctions (regression in 1.7.0). Issue #7571
@@ -49,12 +55,18 @@ permalink: /ChangeLog/
   - Fixed automatic color calibration when coloring edges 'by permission'. Issue #5852
   - Boolean attributes of vehicle stops are now working. Issue #7666
   - Fixed dotted contour of inspected edges in left-hand networks. Issue #7675 (regression in 1.7.0)
+  - Fixed dotted contour of bidi rail edges in spread mode. Issue #7569
   - Fixed text angle of name attribute for additional network objects. Issue #6516
+  - Flow and stack labels no scale with vehicle exaggeration. Issue #6541
+  - Inspecting tls-controlled crossings now always shows the corresponding tls link index. Issue #7747
+  - Link indices of connections and crossings can now be reset to default using value '-1'. Issue #4540
+  - Fixed invalid warning about unsaved data. Issue #5971
   
 - sumo-gui
   - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
   - Fixed invalid simulation end after reloading. Issue #7582
   - Prevented opening of multiple locator windows for the same object type. Issue #6916
+  - Fixed crash when locating vehiles by name while the simulation is running. Issue #7768
   
 - duarouter
   - Fixed crash on parallel intermodal routing. Issue #7627
@@ -64,7 +76,10 @@ permalink: /ChangeLog/
   - Fixed invalid intermodal plans when walk ends at trainStation and an access element is required to reach the starting edge of the ride. Issue #7654
   
 - TraCI
+  - Fixed crash when using moveToXY in an intermodal network. Issue #7763 (Regression in 1.7.0)
   - arrivalPos is no longer ignored in *traci.vehicle.add*. Issue #7691
+  - Function *traci.vehicle.getStopDelay* now returns correct estimates for [waypoints](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#waypoints). Issue #7752  
+  - The server side socket is now closed earlier to avoid race conditions when starting many simulations. Issue #7750
   
 - Tools
   - osmWebWizard search now works for IE users. Issue #6119
@@ -79,6 +94,7 @@ permalink: /ChangeLog/
   - Added new input elements that can be loaded to influence rail signal operation by providing constraints on train ordering. Issue #7435
   - Train waiting time is now taken into account when resolving conflicts between otherwise equal trains. Issue #7598  
   - edgeData output now includes attribute timeLoss. Issue #1396
+  - Pedestrian simulation will no longer deadlock on narrow sidewalks (< 1.28m) Issue #7746
   
 - netedit
   - Opposite direction lanes can now be edited and selected. Issue #2653
@@ -103,6 +119,8 @@ permalink: /ChangeLog/
 
  TraCI
   - Added new function *vehicle.getStopArrivalDelay* to return the arrivalDelay at a public transport stop that defines the expected 'arrival'. Issue #7629
+  - Added new functions for railway simulationg to investigate why a rail signal is red: *trafficlight.getBlockingVehicles, trafficlight.getRivalVehicles, trafficlight.getPriorityVehicles'. Issue #7019
+  - Function 'simulation.findIntermodalRoute' now supports mode=taxi. Issue #7757
 
 - Tools
   - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
