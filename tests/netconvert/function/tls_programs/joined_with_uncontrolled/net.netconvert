@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:02 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Nov 10 10:28:44 2020 by Eclipse SUMO netconvert Version v1_7_0+0904-86088f8a47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,10 +38,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":15_1_0" index="0" speed="8.86" length="17.18" shape="284.28,207.02 281.89,203.25 278.71,201.14 274.74,200.69 269.98,201.89"/>
     </edge>
     <edge id=":15_2" function="internal">
-        <lane id=":15_2_0" index="0" speed="10.16" length="14.35" shape="287.22,205.74 286.25,197.10 290.15,193.01"/>
-    </edge>
-    <edge id=":15_7" function="internal">
-        <lane id=":15_7_0" index="0" speed="10.16" length="21.18" shape="290.15,193.01 291.13,191.97 299.91,190.18 310.61,191.56"/>
+        <lane id=":15_2_0" index="0" speed="10.16" length="35.53" shape="287.22,205.74 286.25,197.10 291.13,191.97 299.91,190.18 310.61,191.56"/>
     </edge>
     <edge id=":15_3" function="internal">
         <lane id=":15_3_0" index="0" speed="13.89" length="34.59" shape="279.43,175.23 281.63,177.90 287.60,180.98 297.35,184.45 310.87,188.32"/>
@@ -127,14 +124,14 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrryyryyyyy"/>
     </tlLogic>
 
-    <junction id="15" type="traffic_light" x="276.57" y="165.25" incLanes="18_0 18_1 191_0 72[1]_0 72[1]_1" intLanes=":15_0_0 :15_1_0 :15_7_0 :15_3_0 :15_4_0 :15_5_0 :15_5_1" shape="282.82,207.66 288.68,205.10 287.46,199.58 288.92,195.60 292.51,193.07 297.68,191.89 303.85,191.96 310.48,193.18 311.00,186.70 301.97,184.21 294.56,181.94 288.75,179.89 284.56,178.05 281.98,176.43 281.02,175.04 277.84,175.43 277.89,178.90 277.12,182.07 275.54,184.92 273.15,187.47 269.95,189.71 265.94,191.65 271.74,206.36 274.54,205.41 276.96,204.93 279.00,204.91 280.65,205.36 281.92,206.28">
+    <junction id="15" type="traffic_light" x="276.57" y="165.25" incLanes="18_0 18_1 191_0 72[1]_0 72[1]_1" intLanes=":15_0_0 :15_1_0 :15_2_0 :15_3_0 :15_4_0 :15_5_0 :15_5_1" shape="282.82,207.66 288.68,205.10 287.46,199.58 288.92,195.60 292.51,193.07 297.68,191.89 303.85,191.96 310.48,193.18 311.00,186.70 301.97,184.21 294.56,181.94 288.75,179.89 284.56,178.05 281.98,176.43 281.02,175.04 277.84,175.43 277.89,178.90 277.12,182.07 275.54,184.92 273.15,187.47 269.95,189.71 265.94,191.65 271.74,206.36 274.54,205.41 276.96,204.93 279.00,204.91 280.65,205.36 281.92,206.28">
         <request index="0" response="0000000" foes="0010000" cont="0"/>
         <request index="1" response="0000000" foes="0010000" cont="0"/>
-        <request index="2" response="1100000" foes="1100000" cont="1"/>
-        <request index="3" response="1100000" foes="1100000" cont="0"/>
-        <request index="4" response="1100011" foes="1100011" cont="0"/>
-        <request index="5" response="0000000" foes="0011100" cont="0"/>
-        <request index="6" response="0000000" foes="0011100" cont="0"/>
+        <request index="2" response="0000000" foes="1100000" cont="0"/>
+        <request index="3" response="0000000" foes="1100000" cont="0"/>
+        <request index="4" response="0000011" foes="1100011" cont="0"/>
+        <request index="5" response="0011100" foes="0011100" cont="0"/>
+        <request index="6" response="0011100" foes="0011100" cont="0"/>
     </junction>
     <junction id="16" type="dead_end" x="144.57" y="239.63" incLanes="17_0 17_1" intLanes="" shape="144.91,242.76 144.22,236.40"/>
     <junction id="17" type="priority" x="298.82" y="235.75" incLanes="181_0 181_1" intLanes=":17_0_0 :17_0_1" shape="294.83,234.81 300.67,232.19 299.12,229.10 293.26,231.66">
@@ -161,29 +158,26 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="87" type="dead_end" x="463.50" y="262.94" incLanes="" intLanes="" shape="465.94,262.46 462.80,263.08"/>
     <junction id="9" type="dead_end" x="61.63" y="241.06" incLanes="" intLanes="" shape="61.63,241.05 61.08,231.46"/>
 
-    <junction id=":15_7_0" type="internal" x="290.15" y="193.01" incLanes=":15_2_0 72[1]_0 72[1]_1" intLanes=":15_3_0 :15_5_0 :15_5_1"/>
-
     <connection from="171" to="161" fromLane="0" toLane="0" via=":52_0_0" tl="220" linkIndex="7" dir="r" state="o"/>
     <connection from="18" to="17" fromLane="0" toLane="0" via=":15_0_0" tl="220" linkIndex="0" dir="r" state="O"/>
     <connection from="18" to="17" fromLane="0" toLane="1" via=":15_1_0" tl="220" linkIndex="1" dir="r" state="O"/>
-    <connection from="18" to="69" fromLane="1" toLane="1" via=":15_2_0" tl="220" linkIndex="2" dir="l" state="o"/>
+    <connection from="18" to="69" fromLane="1" toLane="1" via=":15_2_0" tl="220" linkIndex="2" dir="l" state="O"/>
     <connection from="181" to="18" fromLane="0" toLane="0" via=":17_0_0" dir="s" state="M"/>
     <connection from="181" to="18" fromLane="1" toLane="1" via=":17_0_1" dir="s" state="M"/>
-    <connection from="191" to="69" fromLane="0" toLane="0" via=":15_3_0" tl="220" linkIndex="3" dir="r" state="o"/>
+    <connection from="191" to="69" fromLane="0" toLane="0" via=":15_3_0" tl="220" linkIndex="3" dir="r" state="O"/>
     <connection from="191" to="17" fromLane="0" toLane="1" via=":15_4_0" tl="220" linkIndex="4" dir="l" state="o"/>
     <connection from="69" to="161" fromLane="0" toLane="0" via=":52_1_0" tl="220" linkIndex="8" dir="s" state="O"/>
     <connection from="69" to="161" fromLane="1" toLane="1" via=":52_1_1" tl="220" linkIndex="9" dir="s" state="O"/>
     <connection from="69" to="161" fromLane="1" toLane="2" via=":52_1_2" tl="220" linkIndex="10" dir="s" state="O"/>
     <connection from="72[0]" to="72[1]" fromLane="1" toLane="0" via=":53_1_0" tl="220" linkIndex="11" dir="s" state="O"/>
     <connection from="72[0]" to="72[1]" fromLane="2" toLane="1" via=":53_1_1" tl="220" linkIndex="12" dir="s" state="O"/>
-    <connection from="72[1]" to="69" fromLane="0" toLane="0" via=":15_5_0" tl="220" linkIndex="5" dir="s" state="O"/>
-    <connection from="72[1]" to="69" fromLane="1" toLane="1" via=":15_5_1" tl="220" linkIndex="6" dir="s" state="O"/>
+    <connection from="72[1]" to="69" fromLane="0" toLane="0" via=":15_5_0" tl="220" linkIndex="5" dir="s" state="o"/>
+    <connection from="72[1]" to="69" fromLane="1" toLane="1" via=":15_5_1" tl="220" linkIndex="6" dir="s" state="o"/>
     <connection from="74" to="72[1]" fromLane="0" toLane="0" uncontrolled="1" via=":53_0_0" dir="r" state="m"/>
 
     <connection from=":15_0" to="17" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":15_1" to="17" fromLane="0" toLane="1" dir="r" state="M"/>
-    <connection from=":15_2" to="69" fromLane="0" toLane="1" via=":15_7_0" dir="l" state="m"/>
-    <connection from=":15_7" to="69" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":15_2" to="69" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":15_3" to="69" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":15_4" to="17" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":15_5" to="69" fromLane="0" toLane="0" dir="s" state="M"/>

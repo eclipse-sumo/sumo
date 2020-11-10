@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:04 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Nov 10 10:28:47 2020 by Eclipse SUMO netconvert Version v1_7_0+0904-86088f8a47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -120,10 +120,10 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <tlLogic id="cluster_301292612_56231397" type="static" programID="0" offset="0">
-        <phase duration="40" state="rrrGGGGrr"/>
-        <phase duration="5"  state="rrryyyyrr"/>
         <phase duration="40" state="GGGrrrrGg"/>
         <phase duration="5"  state="yyyrrrryy"/>
+        <phase duration="40" state="rrrGGGGrr"/>
+        <phase duration="5"  state="rrryyyyrr"/>
     </tlLogic>
     <tlLogic id="joinedS_0" type="static" programID="0" offset="0">
         <phase duration="39" state="GGrrr"/>
@@ -152,11 +152,11 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="000000000" foes="001100000" cont="0"/>
         <request index="1" response="000000000" foes="001100000" cont="0"/>
         <request index="2" response="000000000" foes="001100000" cont="0"/>
-        <request index="3" response="000000000" foes="010000000" cont="0"/>
-        <request index="4" response="000000000" foes="010000000" cont="0"/>
-        <request index="5" response="000000111" foes="110000111" cont="0"/>
-        <request index="6" response="000000111" foes="110000111" cont="0"/>
-        <request index="7" response="001111000" foes="001111000" cont="0"/>
+        <request index="3" response="010000000" foes="010000000" cont="0"/>
+        <request index="4" response="010000000" foes="010000000" cont="0"/>
+        <request index="5" response="010000111" foes="110000111" cont="0"/>
+        <request index="6" response="010000111" foes="110000111" cont="0"/>
+        <request index="7" response="000000000" foes="001111000" cont="0"/>
         <request index="8" response="001100000" foes="001100000" cont="1"/>
     </junction>
     <junction id="gneJ0" type="dead_end" x="48.35" y="0.00" incLanes="27441289.0_0 27441289.0_1" intLanes="" shape="42.15,-1.58 48.35,0.00"/>
@@ -167,13 +167,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="27437972" to="27441189" fromLane="0" toLane="0" via=":cluster_301292612_56231397_0_0" tl="cluster_301292612_56231397" linkIndex="0" dir="s" state="O"/>
     <connection from="27437972" to="27441189" fromLane="1" toLane="1" via=":cluster_301292612_56231397_0_1" tl="cluster_301292612_56231397" linkIndex="1" dir="s" state="O"/>
     <connection from="27437972" to="27441189" fromLane="1" toLane="2" via=":cluster_301292612_56231397_0_2" tl="cluster_301292612_56231397" linkIndex="2" dir="s" state="O"/>
-    <connection from="27441168" to="27445015#0" fromLane="0" toLane="1" via=":cluster_301292612_56231397_7_0" tl="cluster_301292612_56231397" linkIndex="7" dir="s" state="o"/>
+    <connection from="27441168" to="27445015#0" fromLane="0" toLane="1" via=":cluster_301292612_56231397_7_0" tl="cluster_301292612_56231397" linkIndex="7" dir="s" state="O"/>
     <connection from="27441168" to="27441189" fromLane="0" toLane="3" via=":cluster_301292612_56231397_8_0" tl="cluster_301292612_56231397" linkIndex="8" dir="t" state="o"/>
     <connection from="27441189" to="27445000#0" fromLane="0" toLane="0" via=":38919945_0_0" dir="s" state="M"/>
     <connection from="27441189" to="6137245" fromLane="1" toLane="0" via=":38919945_1_0" dir="l" state="M"/>
     <connection from="27441189" to="6137245" fromLane="2" toLane="1" via=":38919945_2_0" dir="l" state="M"/>
-    <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0" via=":cluster_301292612_56231397_3_0" tl="cluster_301292612_56231397" linkIndex="3" dir="r" state="O"/>
-    <connection from="27441289.95" to="27445015#0" fromLane="1" toLane="1" via=":cluster_301292612_56231397_4_0" tl="cluster_301292612_56231397" linkIndex="4" dir="r" state="O"/>
+    <connection from="27441289.95" to="27445015#0" fromLane="0" toLane="0" via=":cluster_301292612_56231397_3_0" tl="cluster_301292612_56231397" linkIndex="3" dir="r" state="o"/>
+    <connection from="27441289.95" to="27445015#0" fromLane="1" toLane="1" via=":cluster_301292612_56231397_4_0" tl="cluster_301292612_56231397" linkIndex="4" dir="r" state="o"/>
     <connection from="27441289.95" to="27441189" fromLane="1" toLane="2" via=":cluster_301292612_56231397_5_0" tl="cluster_301292612_56231397" linkIndex="5" dir="l" state="o"/>
     <connection from="27441289.95" to="27441189" fromLane="1" toLane="3" via=":cluster_301292612_56231397_6_0" tl="cluster_301292612_56231397" linkIndex="6" dir="l" state="o"/>
     <connection from="46039050" to="27441289.0" fromLane="0" toLane="0" via=":59993001_0_0" tl="joinedS_0" linkIndex="0" dir="r" state="o"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:05 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Nov 10 10:28:48 2020 by Eclipse SUMO netconvert Version v1_7_0+0904-86088f8a47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -83,7 +83,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":59993001_2_1" index="1" speed="13.89" length="8.65" shape="38.09,47.47 38.02,45.02 37.26,43.33 36.56,41.66 36.67,39.24"/>
     </edge>
     <edge id=":59993001_4" function="internal">
-        <lane id=":59993001_4_0" index="0" speed="4.63" length="4.30" shape="38.09,47.47 38.45,46.42 39.11,45.76 40.07,45.52 41.32,45.68"/>
+        <lane id=":59993001_4_0" index="0" speed="4.63" length="0.87" shape="38.09,47.47 38.37,46.66"/>
+    </edge>
+    <edge id=":59993001_5" function="internal">
+        <lane id=":59993001_5_0" index="0" speed="4.63" length="3.43" shape="38.37,46.66 38.45,46.42 39.11,45.76 40.07,45.52 41.32,45.68"/>
     </edge>
 
     <edge id="27437972" from="38918157" to="301292612" priority="7" spreadType="center">
@@ -155,18 +158,19 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="00110" foes="00110" cont="0"/>
     </junction>
     <junction id="567607201" type="dead_end" x="92.46" y="68.26" incLanes="27445015#0_0 27445015#0_1" intLanes="" shape="93.80,65.35 91.12,71.17"/>
-    <junction id="59993001" type="traffic_light" x="36.97" y="44.55" incLanes="46039050_0 6137245_0 6137245_1" intLanes=":59993001_0_0 :59993001_1_0 :59993001_2_0 :59993001_2_1 :59993001_4_0" shape="43.16,47.81 43.96,44.71 41.97,44.09 40.39,43.39 39.23,42.59 38.48,41.70 38.15,40.71 38.22,39.64 32.02,38.06 31.04,40.37 30.35,41.14 29.53,41.65 28.58,41.91 27.49,41.92 27.15,45.10 30.62,45.87 31.77,46.48 32.53,47.25 32.91,48.18 32.90,49.26 39.21,50.35 39.91,48.55 40.49,48.01 41.23,47.70 42.12,47.64">
+    <junction id="59993001" type="traffic_light" x="36.97" y="44.55" incLanes="46039050_0 6137245_0 6137245_1" intLanes=":59993001_0_0 :59993001_1_0 :59993001_2_0 :59993001_2_1 :59993001_5_0" shape="43.16,47.81 43.96,44.71 41.97,44.09 40.39,43.39 39.23,42.59 38.48,41.70 38.15,40.71 38.22,39.64 32.02,38.06 31.04,40.37 30.35,41.14 29.53,41.65 28.58,41.91 27.49,41.92 27.15,45.10 30.62,45.87 31.77,46.48 32.53,47.25 32.91,48.18 32.90,49.26 39.21,50.35 39.91,48.55 40.49,48.01 41.23,47.70 42.12,47.64">
         <request index="0" response="00000" foes="01100" cont="0"/>
         <request index="1" response="00000" foes="11100" cont="0"/>
         <request index="2" response="00011" foes="00011" cont="0"/>
         <request index="3" response="00011" foes="00011" cont="0"/>
-        <request index="4" response="00010" foes="00010" cont="0"/>
+        <request index="4" response="00010" foes="00010" cont="1"/>
     </junction>
     <junction id="945141569" type="dead_end" x="0.00" y="51.05" incLanes="27445000#0_0" intLanes="" shape="-0.17,52.64 0.17,49.46"/>
     <junction id="gneJ0" type="dead_end" x="48.35" y="0.00" incLanes="27441289.0_0 27441289.0_1" intLanes="" shape="42.15,-1.58 48.35,0.00"/>
     <junction id="gneJ1" type="dead_end" x="59.75" y="2.19" incLanes="" intLanes="" shape="59.75,2.19 65.86,4.10"/>
 
     <junction id=":301292612_5_0" type="internal" x="44.21" y="53.93" incLanes=":301292612_3_0 27437972_0 27437972_1" intLanes=":301292612_0_0 :301292612_0_1 :301292612_0_2"/>
+    <junction id=":59993001_5_0" type="internal" x="38.37" y="46.66" incLanes=":59993001_4_0 46039050_0" intLanes=":59993001_1_0"/>
 
     <connection from="27437972" to="27441189" fromLane="0" toLane="0" via=":301292612_0_0" tl="joinedS_0" linkIndex="0" dir="s" state="O"/>
     <connection from="27437972" to="27441189" fromLane="1" toLane="1" via=":301292612_0_1" tl="joinedS_0" linkIndex="1" dir="s" state="O"/>
@@ -205,6 +209,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":59993001_1" to="27441168" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":59993001_2" to="27441289.0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":59993001_2" to="27441289.0" fromLane="1" toLane="1" dir="s" state="M"/>
-    <connection from=":59993001_4" to="27441168" fromLane="0" toLane="0" dir="l" state="M"/>
+    <connection from=":59993001_4" to="27441168" fromLane="0" toLane="0" via=":59993001_5_0" dir="l" state="m"/>
+    <connection from=":59993001_5" to="27441168" fromLane="0" toLane="0" dir="l" state="M"/>
 
 </net>

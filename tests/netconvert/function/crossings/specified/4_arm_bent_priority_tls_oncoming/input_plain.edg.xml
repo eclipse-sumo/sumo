@@ -43,56 +43,40 @@
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
         <lane index="2" disallow="pedestrian"/>
-        <param key="fromPrio" value="1"/>
-        <param key="toPrio" value="0"/>
     </edge>
     <edge id="CN" from="C" to="N" priority="1" numLanes="3" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
         <lane index="2" disallow="pedestrian"/>
-        <param key="fromPrio" value="0"/>
-        <param key="toPrio" value="0"/>
     </edge>
     <edge id="CS" from="C" to="S" priority="2" numLanes="3" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
         <lane index="2" disallow="pedestrian"/>
-        <param key="fromPrio" value="1"/>
-        <param key="toPrio" value="0"/>
     </edge>
     <edge id="CW" from="C" to="W" priority="1" numLanes="3" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
         <lane index="2" disallow="pedestrian"/>
-        <param key="fromPrio" value="0"/>
-        <param key="toPrio" value="0"/>
     </edge>
     <edge id="EC" from="E" to="C" priority="2" numLanes="3" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
         <lane index="2" disallow="pedestrian"/>
-        <param key="fromPrio" value="0"/>
-        <param key="toPrio" value="1"/>
     </edge>
     <edge id="NC" from="N" to="C" priority="1" numLanes="3" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
         <lane index="2" disallow="pedestrian"/>
-        <param key="fromPrio" value="0"/>
-        <param key="toPrio" value="0"/>
     </edge>
     <edge id="SC" from="S" to="C" priority="2" numLanes="3" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
         <lane index="2" disallow="pedestrian"/>
-        <param key="fromPrio" value="0"/>
-        <param key="toPrio" value="1"/>
     </edge>
     <edge id="WC" from="W" to="C" priority="1" numLanes="3" speed="13.89">
         <lane index="0" allow="pedestrian" width="2.00"/>
         <lane index="1" disallow="pedestrian"/>
         <lane index="2" disallow="pedestrian"/>
-        <param key="fromPrio" value="0"/>
-        <param key="toPrio" value="0"/>
     </edge>
 </edges>

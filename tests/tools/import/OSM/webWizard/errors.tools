@@ -130,6 +130,13 @@ Warning: 15 total messages of type: No way found for reference '%' in relation '
 Warning: 17 total messages of type: PT line in relation % with no stops ignored. Probably OSM file is incomplete.
 Warning: 22 total messages of type: Platform '%' in relation: '%' is given as polygon, which currently is not supported.
 Warning: 29 total messages of type: The rail crossing '%' does not have any roads.
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector
+Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5727160045', actuated phase 3 has no controlling detector
+Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 28 has no controlling detector
+Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 29 has no controlling detector
+Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 30 has no controlling detector
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 17 has no controlling detector
@@ -146,6 +153,13 @@ Warning: busStop '3918673888' on lane '388702039#10_0' is too short for vehicle 
 Warning: busStop '3869306762' on lane '111251382#2_1' is too short for vehicle '37_bus_147:0'.
 Warning: busStop '2071423352' on lane '295250361_0' is too short for vehicle '62_subway_U6:0'.
 Warning: busStop '3928759794' on lane '388702041#11_0' is too short for vehicle '70_bus_N6:1'.
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 12 has no controlling detector
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 13 has no controlling detector
+Warning: At actuated tlLogic 'GS_25662542', linkIndex 14 has no controlling detector
+Warning: At actuated tlLogic 'cluster_160503146_27411250_5372980361_5727160044_5727160045', actuated phase 3 has no controlling detector
+Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 28 has no controlling detector
+Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 29 has no controlling detector
+Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 30 has no controlling detector
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 17 has no controlling detector
@@ -167,5 +181,4 @@ Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '-148458500#0', time 
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#1_0', gap=-1.00, time=486.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 486.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=486.00.
-Warning: Person 'ped39' aborted waiting for 147:1 at busStop '3869306774'.
 Warning: Person 'ped162' aborted waiting for 147:0 at busStop '3869306762'.
