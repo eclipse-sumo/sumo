@@ -72,6 +72,9 @@ public:
         /// @brief clear all  parameters
         void clearParameters();
 
+        /// @brief get number of parameters
+        int getNumberofParameters() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief on paint function (reimplemented from FXGroupBox)

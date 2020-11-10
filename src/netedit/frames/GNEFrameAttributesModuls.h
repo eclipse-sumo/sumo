@@ -569,7 +569,7 @@ public:
         std::string getParametersStr() const;
 
         /// @brief get parameters as vector of strings
-        std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
+        std::vector<std::pair<std::string, std::string> > getParameters() const;
 
         /// @brief set parameters
         void setParameters(const std::vector<std::pair<std::string, std::string> >& parameters);

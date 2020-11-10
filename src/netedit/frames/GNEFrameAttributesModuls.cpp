@@ -2245,7 +2245,7 @@ GNEFrameAttributesModuls::ParametersEditorCreator::getParametersStr() const {
 
 
 std::vector<std::pair<std::string, std::string> >
-GNEFrameAttributesModuls::ParametersEditorCreator::getParametersVectorStr() const {
+GNEFrameAttributesModuls::ParametersEditorCreator::getParameters() const {
     std::vector<std::pair<std::string, std::string> > result;
     // Generate a vector string using the following structure: "<key1,value1>, <key2, value2>,...
     for (const auto& parameter : myParameters) {

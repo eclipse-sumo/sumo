@@ -55,15 +55,15 @@ public:
         /// @brief FOX-declaration
         FXDECLARE(GNESingleParametersDialog::ParametersValues)
 
+        /// @brief declare class
+        class ParameterRow;
+
     public:
         /// @brief constructor
         ParametersValues(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
         ~ParametersValues();
-
-        /// @brief update values
-        void updateValues();
 
         /// @brief set  parameters
         void setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters);
@@ -73,6 +73,12 @@ public:
 
         /// @brief clear all  parameters
         void clearParameters();
+
+        /// @brief get vector with the ParameterRows
+        const std::vector<ParameterRow*> getParameterRows() const;
+
+        /// @brief check if given key exist already
+        bool keyExist(const std::string &key) const;
 
         /// @name FOX-callbacks
         /// @{
@@ -275,12 +281,6 @@ protected:
 
     /// @brief cancel button
     FXButton* myResetButton;
-
-    /// @brief current edited  parameters
-    std::vector<std::pair<std::string, std::string> > myEditedParameters;
-
-    // @brief copy of current edited  Parameters (used for reset)
-    const std::vector<std::pair<std::string, std::string> > myCopyOfParameters;
 
 private:
     /// @brief auxiliar constructor

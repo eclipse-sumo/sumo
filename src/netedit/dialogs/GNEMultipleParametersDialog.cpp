@@ -131,6 +131,12 @@ GNEMultipleParametersDialog::ParametersValues::clearParameters() {
 }
 
 
+int
+GNEMultipleParametersDialog::ParametersValues::getNumberofParameters() const {
+    return (int)myParameterDialogParent->myEditedParameters.size();
+}
+
+
 long
 GNEMultipleParametersDialog::ParametersValues::onPaint(FXObject* o, FXSelector f, void* p) {
     // size of key label has to be updated in every interation
