@@ -31,7 +31,7 @@
 
 namespace libtraci {
 
-typedef Domain<libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT> Dom;
+typedef Domain<libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE> Dom;
 
 
 // ===========================================================================
@@ -51,8 +51,11 @@ Route::getEdges(const std::string& routeID) {
 
 int
 Route::getIDCount() {
-    return (int)getIDList().size();
+    return Dom::getInt(libsumo::ID_COUNT, "");
 }
+
+
+LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Route, ROUTE)
 
 
 std::string
@@ -62,9 +65,6 @@ Route::getParameter(const std::string& routeID, const std::string& param) {
     content.writeString(param);
     return Dom::getString(libsumo::VAR_PARAMETER, routeID, &content);
 }
-
-
-LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Route)
 
 
 void
@@ -78,6 +78,12 @@ Route::setParameter(const std::string& routeID, const std::string& key, const st
     content.writeString(value);
     Connection::getActive().createCommand(libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::VAR_PARAMETER, routeID, &content);
     Connection::getActive().processSet(libsumo::CMD_SET_ROUTE_VARIABLE);
+}
+
+
+const std::pair<std::string, std::string> \
+Route::getParameterWithKey(const std::string& objectID, const std::string& key) { \
+    return std::make_pair(key, getParameter(objectID, key)); \
 }
 
 

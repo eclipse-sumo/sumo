@@ -33,47 +33,51 @@
 #include <libtraci/Connection.h>
 
 
+#define LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOMAIN) \
+void CLASS::subscribe(const std::string& objectID, const std::vector<int>& varIDs, double begin, double end) { \
+    libtraci::Connection::getActive().subscribeObjectVariable(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, begin, end, varIDs); \
+} \
+\
+void CLASS::unsubscribe(const std::string& objectID) { \
+    subscribe(objectID, std::vector<int>()); \
+} \
+\
+void CLASS::subscribeContext(const std::string& objectID, int domain, double dist, const std::vector<int>& varIDs, double begin, double end) { \
+    libtraci::Connection::getActive().subscribeObjectContext(libsumo::CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objectID, begin, end, domain, dist, varIDs); \
+} \
+\
+void CLASS::unsubscribeContext(const std::string& objectID, int domain, double dist) { \
+    subscribeContext(objectID, domain, dist, std::vector<int>()); \
+} \
+\
+const libsumo::SubscriptionResults CLASS::getAllSubscriptionResults() { \
+    return libtraci::Connection::getActive().getAllSubscriptionResults(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE); \
+} \
+\
+const libsumo::TraCIResults CLASS::getSubscriptionResults(const std::string& objectID) { \
+    return libtraci::Connection::getActive().getAllSubscriptionResults(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE)[objectID]; \
+} \
+\
+const libsumo::ContextSubscriptionResults CLASS::getAllContextSubscriptionResults() { \
+    return libtraci::Connection::getActive().getAllContextSubscriptionResults(libsumo::CMD_SUBSCRIBE_##DOMAIN##_CONTEXT); \
+} \
+\
+const libsumo::SubscriptionResults CLASS::getContextSubscriptionResults(const std::string& objectID) { \
+    return libtraci::Connection::getActive().getAllContextSubscriptionResults(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE)[objectID]; \
+} \
+\
+void CLASS::subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime, double endTime) { \
+    subscribe(objectID, std::vector<int>({libsumo::VAR_PARAMETER_WITH_KEY}), beginTime, endTime); \
+}
+
+
 // ===========================================================================
 // class and type definitions
 // ===========================================================================
 namespace libtraci {
-template<int GET, int SET, int SUBSCRIBE, int CONTEXT>
+template<int GET, int SET>
 class Domain {
 public:
-    static void subscribe(const std::string& objectID, const std::vector<int>& varIDs = std::vector<int>({-1}),
-                          double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE) {
-        libtraci::Connection::getActive().subscribeObjectVariable(SUBSCRIBE, objectID, begin, end, varIDs);
-    }
-
-    static void unsubscribe(const std::string& objectID) {
-        subscribe(objectID, std::vector<int>());
-    }
-
-    static void subscribeContext(const std::string& objectID, int domain, double dist, const std::vector<int>& varIDs = std::vector<int>({-1}),
-                                 double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE) {
-        libtraci::Connection::getActive().subscribeObjectContext(CONTEXT, objectID, begin, end, domain, dist, varIDs);
-    }
-
-    static void unsubscribeContext(const std::string& objectID, int domain, double dist) {
-        subscribeContext(objectID, domain, dist, std::vector<int>());
-    }
-
-    static const libsumo::SubscriptionResults getAllSubscriptionResults() {
-        return libtraci::Connection::getActive().getAllSubscriptionResults(SUBSCRIBE);
-    }
-
-    static const libsumo::TraCIResults getSubscriptionResults(const std::string& objectID) {
-        return libtraci::Connection::getActive().getAllSubscriptionResults(SUBSCRIBE)[objectID];
-    }
-
-    static const libsumo::ContextSubscriptionResults getAllContextSubscriptionResults() {
-        return libtraci::Connection::getActive().getAllContextSubscriptionResults(CONTEXT);
-    }
-
-    static const libsumo::SubscriptionResults getContextSubscriptionResults(const std::string& objectID) {
-        return libtraci::Connection::getActive().getAllContextSubscriptionResults(SUBSCRIBE)[objectID];
-    }
-
     static int getUnsignedByte(int var, const std::string& id, tcpip::Storage* add=nullptr) {
         return libtraci::Connection::getActive().getUnsignedByte(GET, var, id, add);
     }

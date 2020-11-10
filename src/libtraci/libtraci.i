@@ -324,40 +324,6 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     $result = Py_BuildValue("(is)", $1.first, $1.second.c_str());
 };
 
-%extend libsumo::TraCIStage {
-  %pythoncode %{
-    __attr_repr__ = _simulation.Stage.__attr_repr__
-    __repr__ = _simulation.Stage.__repr__
-  %}
-};
-
-%extend libsumo::TraCINextStopData {
-  %pythoncode %{
-    __attr_repr__ = _vehicle.StopData.__attr_repr__
-    __repr__ = _vehicle.StopData.__repr__
-  %}
-};
-
-%extend libsumo::TraCIReservation {
-  %pythoncode %{
-    __attr_repr__ = _person.Reservation.__attr_repr__
-    __repr__ = _person.Reservation.__repr__
-  %}
-};
-
-%extend libsumo::TraCILogic {
-  %pythoncode %{
-    getPhases = _trafficlight.Logic.getPhases
-    __repr__ = _trafficlight.Logic.__repr__
-  %}
-};
-
-%extend libsumo::TraCIPhase {
-  %pythoncode %{
-    __repr__ = _trafficlight.Phase.__repr__
-  %}
-};
-
 %exceptionclass libsumo::TraCIException;
 
 %pythonappend libsumo::Vehicle::getLeader(const std::string&, double) %{
@@ -465,30 +431,6 @@ def wrapAsClassMethod(func, module):
         return func(module, *args, **kwargs)
     return wrapper
 
-exceptions.TraCIException = TraCIException
 simulation.Stage = TraCIStage
-vehicle.StopData = TraCINextStopData
-person.Reservation = TraCIReservation
-trafficlight.Phase = TraCIPhase
-trafficlight.Logic = TraCILogic
-vehicle.addFull = vehicle.add
-vehicle.addLegacy = wrapAsClassMethod(_vehicle.VehicleDomain.addLegacy, vehicle)
-vehicle.couldChangeLane = wrapAsClassMethod(_vehicle.VehicleDomain.couldChangeLane, vehicle)
-vehicle.wantsAndCouldChangeLane = wrapAsClassMethod(_vehicle.VehicleDomain.wantsAndCouldChangeLane, vehicle)
-vehicle.isStopped = wrapAsClassMethod(_vehicle.VehicleDomain.isStopped, vehicle)
-vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
-vehicle.setParkingAreaStop = wrapAsClassMethod(_vehicle.VehicleDomain.setParkingAreaStop, vehicle)
-vehicle.getRightFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getRightFollowers, vehicle)
-vehicle.getRightLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getRightLeaders, vehicle)
-vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollowers, vehicle)
-vehicle.getLeftLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftLeaders, vehicle)
-vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getLaneChangeStatePretty, vehicle)
-vehicle._legacyGetLeader = True
-person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
-_trafficlight.TraCIException = TraCIException
-trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
-addStepListener = wrapAsClassMethod(connection.Connection.addStepListener, sys.modules[__name__])
-removeStepListener = wrapAsClassMethod(connection.Connection.removeStepListener, sys.modules[__name__])
-_manageStepListeners = wrapAsClassMethod(connection.Connection._manageStepListeners, sys.modules[__name__])
 %}
 #endif

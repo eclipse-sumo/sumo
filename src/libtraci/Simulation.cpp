@@ -30,7 +30,7 @@
 
 namespace libtraci {
 
-typedef Domain<libsumo::CMD_GET_SIM_VARIABLE, libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_CONTEXT> Dom;
+typedef Domain<libsumo::CMD_GET_SIM_VARIABLE, libsumo::CMD_SET_SIM_VARIABLE> Dom;
 
 
 // ===========================================================================
