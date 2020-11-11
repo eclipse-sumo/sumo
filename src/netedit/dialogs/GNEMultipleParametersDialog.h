@@ -126,7 +126,7 @@ public:
             FXTextField* keyField;
 
             /// @brief TextField for value
-            FXTextField* valueField;
+            std::vector<FXTextField*> valueFields;
 
             /// @brief Button for add or remove row
             FXButton* button;

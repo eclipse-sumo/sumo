@@ -70,13 +70,17 @@ FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOptions, FXGroupBox,    Param
 // GNEMultipleParametersDialog::ParametersValues - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent) :
+GNEMultipleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
     FXGroupBox(frame, " Parameters", GUIDesignGroupBoxFrameFill),
-    myParameterDialogParent(ParameterDialogParent) {
+    myParameterDialogParent(parameterDialogParent) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThick100);
-    new FXLabel(horizontalFrameLabels, "value", nullptr, GUIDesignLabelCenterThick);
+    for (const auto &AC : parameterDialogParent->myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        new FXLabel(horizontalFrameLabels, AC->getID().c_str(), nullptr, GUIDesignLabelCenterThick);
+    }
+    // add extra label
+    new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelIconThick);
     // create scroll windows
     FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL);
     // create vertical frame for rows
@@ -197,7 +201,10 @@ GNEMultipleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, F
 GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) {
     horizontalFrame = new FXHorizontalFrame(verticalFrameParent, GUIDesignAuxiliarHorizontalFrame);
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create multiple value fields
+    for (int i = 0; i < ParametersValues->myParameterDialogParent->myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().size(); i++) {
+        valueFields.push_back(new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField));
+    }
     button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), ParametersValues, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
     // only create elements if vertical frame was previously created
     if (verticalFrameParent->id()) {
@@ -219,8 +226,10 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::disableRow() {
     // hide all
     keyField->setText("");
     keyField->disable();
-    valueField->setText("");
-    valueField->disable();
+    for (const auto &valueField : valueFields) {
+        valueField->setText("");
+        valueField->disable();
+    }
     button->disable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::REMOVE));
 }
@@ -237,8 +246,10 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::enableRow(const std
     }
     keyField->enable();
     // restore color and enable value field
-    valueField->setText(value.c_str());
-    valueField->enable();
+    for (const auto &valueField : valueFields) {
+        valueField->setText(value.c_str());
+        valueField->enable();
+    }
     // enable button and set icon remove
     button->enable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::REMOVE));
@@ -250,8 +261,10 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
     // clear and disable parameter and value fields
     keyField->setText("");
     keyField->disable();
-    valueField->setText("");
-    valueField->disable();
+    for (const auto &valueField : valueFields) {
+        valueField->setText("");
+        valueField->disable();
+    }
     // enable remove button and set "add" icon and focus
     button->enable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::ADD));
@@ -268,7 +281,9 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::isButtonInAddMode()
 void
 GNEMultipleParametersDialog::ParametersValues::ParameterRow::copyValues(const ParameterRow& other) {
     keyField->setText(other.keyField->getText());
-    valueField->setText(other.valueField->getText());
+    for (int i = 0; i < (int)valueFields.size(); i++) {
+        valueFields.at(i)->setText(other.valueFields.at(i)->getText());
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -341,7 +356,7 @@ GNEMultipleParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, F
                 // write key
                 device.writeAttr(SUMO_ATTR_KEY, row->keyField->getText().text());
                 // write value
-                device.writeAttr(SUMO_ATTR_VALUE, row->valueField->getText().text());
+                device.writeAttr(SUMO_ATTR_VALUE, row->valueFields.front()->getText().text());
                 // close tag
                 device.closeTag();
             }
@@ -370,9 +385,9 @@ GNEMultipleParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, F
     for (const auto &parameterRow : myParameterDialogParent->myParametersValues->getParameterRows()) {
         // check if key is empty
         if (!parameterRow->keyField->getText().empty()) {
-            nonEmptyKeyValues.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
-        } else if (!parameterRow->valueField->getText().empty()) {
-            emptyKeyValues.push_back(parameterRow->valueField->getText().text());
+            nonEmptyKeyValues.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueFields.front()->getText().text()));
+        } else if (!parameterRow->valueFields.front()->getText().empty()) {
+            emptyKeyValues.push_back(parameterRow->valueFields.front()->getText().text());
         }
     }
     // sort non-empty parameters
@@ -520,7 +535,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 return 1;
             }
             // insert in parameters
-            parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
+            parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueFields.front()->getText().text()));
         }
     }
     // sort sortedParameters
