@@ -26,9 +26,9 @@ set(libtracistatic_STAT_SRCS
     ChargingStation.cpp
 #    RouteProbe.cpp
 #    Rerouter.cpp
-#    VariableSpeedSign.cpp
-#    MeanData.cpp
-#    OverheadWire.cpp
+    VariableSpeedSign.cpp
+    MeanData.cpp
+    OverheadWire.cpp
     Simulation.cpp
 #    TrafficLight.cpp
     Vehicle.cpp

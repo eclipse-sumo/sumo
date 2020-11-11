@@ -22,6 +22,7 @@
 
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
+#include <netedit/frames/GNEFrameAttributesModuls.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 
 // ===========================================================================
@@ -53,15 +54,15 @@ public:
         /// @brief FOX-declaration
         FXDECLARE(GNEMultipleParametersDialog::ParametersValues)
 
+        /// @brief declare class
+        class ParameterRow;
+
     public:
         /// @brief constructor
         ParametersValues(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
         ~ParametersValues();
-
-        /// @brief update values
-        void updateValues();
 
         /// @brief set  parameters
         void setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters);
@@ -72,8 +73,11 @@ public:
         /// @brief clear all  parameters
         void clearParameters();
 
-        /// @brief get number of parameters
-        int getNumberofParameters() const;
+        /// @brief get vector with the ParameterRows
+        const std::vector<ParameterRow*> getParameterRows() const;
+
+        /// @brief check if given key exist already
+        bool keyExist(const std::string &key) const;
 
         /// @name FOX-callbacks
         /// @{
@@ -89,18 +93,19 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(ParametersValues)
 
     private:
         /// @brief class for  parameters Row
-        class MultipleParameterRow {
+        class ParameterRow {
 
         public:
             /// @brief constructor
-            MultipleParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent);
+            ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent);
 
             /// @brief destructor
-            ~MultipleParameterRow();
+            ~ParameterRow();
 
             /// @brief disable row
             void disableRow();
@@ -115,7 +120,7 @@ public:
             bool isButtonInAddMode() const;
 
             /// @brief copy values of other parameter Row
-            void copyValues(const MultipleParameterRow& other);
+            void copyValues(const ParameterRow& other);
 
             /// @brief TextField for parameter
             FXTextField* keyField;
@@ -125,7 +130,6 @@ public:
 
             /// @brief Button for add or remove row
             FXButton* button;
-
         private:
             /// @brief frame in which elements of ParameterRow are placed
             FXHorizontalFrame* horizontalFrame;
@@ -137,8 +141,8 @@ public:
         /// @brief vertical frame in which rows are placed
         FXVerticalFrame* myVerticalFrameRow;
 
-        /// @brief vector with the MultipleParameterRows
-        std::vector<MultipleParameterRow*> myMultipleParameterRows;
+        /// @brief vector with the ParameterRows
+        std::vector<ParameterRow*> myParameterRows;
 
         /// @brief pointer to ParameterDialog parent
         GNEMultipleParametersDialog* myParameterDialogParent;
@@ -227,7 +231,7 @@ public:
         FXButton* myHelpButton;
     };
 
-    /// @brief Constructor (only for ParametersEditorInspector)
+    /// @brief Constructor for parameter editor inspector
     GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
 
     /// @brief destructor
@@ -246,9 +250,10 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
-    /// @brief pointer to ParametersEditor
+    /// @brief pointer to ParametersEditorInspector
     GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
 
     /// @brief pointer to  parameters values
@@ -266,13 +271,10 @@ protected:
     /// @brief cancel button
     FXButton* myResetButton;
 
-    /// @brief current edited  parameters
-    std::vector<std::pair<std::string, std::string> > myEditedParameters;
-
-    // @brief copy of current edited  Parameters (used for reset)
-    const std::vector<std::pair<std::string, std::string> > myCopyOfParameters;
-
 private:
+    /// @brief auxiliar constructor
+    void constructor();
+
     /// @brief Invalidated copy constructor.
     GNEMultipleParametersDialog(const GNEMultipleParametersDialog&) = delete;
 

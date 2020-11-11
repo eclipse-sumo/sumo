@@ -1,6 +1,6 @@
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
-// Copyright (C) 2012-2020 German Aerospace Center (DLR) and others.
+// Copyright (C) 2017-2020 German Aerospace Center (DLR) and others.
 // This program and the accompanying materials are made available under the
 // terms of the Eclipse Public License 2.0 which is available at
 // https://www.eclipse.org/legal/epl-2.0/
@@ -11,61 +11,47 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MeanData.h
+/// @file    VariableSpeedSign.cpp
 /// @author  Jakob Erdmann
 /// @date    16.03.2020
 ///
 // C++ TraCI client API implementation
 /****************************************************************************/
-#pragma once
 #include <config.h>
 
-#include <vector>
-#include <libsumo/TraCIDefs.h>
+#define LIBTRACI 1
+#include <libsumo/VariableSpeedSign.h>
+#include "Connection.h"
+#include "Domain.h"
 
 
+namespace libtraci {
+
+typedef Domain<libsumo::CMD_GET_VARIABLESPEEDSIGN_VARIABLE, libsumo::CMD_SET_VARIABLESPEEDSIGN_VARIABLE> Dom;
+
 // ===========================================================================
-// class declarations
+// static member definitions
 // ===========================================================================
-#ifndef LIBTRACI
-class MSMeanData;
-namespace libsumo {
-class VariableWrapper;
+std::vector<std::string>
+VariableSpeedSign::getIDList() {
+    return Dom::getStringVector(libsumo::TRACI_ID_LIST, "");
 }
-#endif
 
+int
+VariableSpeedSign::getIDCount() {
+    return Dom::getInt(libsumo::ID_COUNT, "");
+}
 
-// ===========================================================================
-// class definitions
-// ===========================================================================
-/**
- * @class MeanData
- * @brief C++ TraCI client API implementation
- */
-namespace LIBSUMO_NAMESPACE {
-class MeanData {
-public:
-    //static double getFrequency(const std::string& meanDataID);
+std::vector<std::string>
+VariableSpeedSign::getLanes(const std::string& vssID) {
+    return Dom::getStringVector(libsumo::VAR_LANES, vssID);
+}
 
-    LIBSUMO_ID_PARAMETER_API
-    LIBSUMO_SUBSCRIPTION_API
-
-#ifndef LIBTRACI
-    static std::shared_ptr<VariableWrapper> makeWrapper();
-
-    static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
-
-private:
-    static MSMeanData* getMeanData(const std::string& id);
-
-private:
-    static SubscriptionResults mySubscriptionResults;
-    static ContextSubscriptionResults myContextSubscriptionResults;
-#endif
-
-    /// @brief invalidated standard constructor
-    MeanData() = delete;
-};
+LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(VariableSpeedSign, VARIABLESPEEDSIGN)
+LIBTRACI_PARAMETER_IMPLEMENTATION(VariableSpeedSign, VARIABLESPEEDSIGN)
 
 
 }
+
+
+/****************************************************************************/
