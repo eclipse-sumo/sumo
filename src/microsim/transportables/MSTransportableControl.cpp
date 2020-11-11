@@ -186,6 +186,7 @@ MSTransportableControl::addWaiting(const MSEdge* const edge, MSTransportable* tr
 
 bool
 MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const SUMOVehicleParameter::Stop& stop, SUMOTime& timeToBoardNextPerson, SUMOTime& stopDuration) {
+    UNUSED_PARAMETER(stop);
     bool ret = false;
     if (myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end()) {
         TransportableVector& wait = myWaiting4Vehicle[edge];
@@ -194,8 +195,7 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
             if ((*i)->isWaitingFor(vehicle)
                     && vehicle->allowsBoarding(*i)
                     && timeToBoardNextPerson - DELTA_T <= currentTime
-                    && stop.startPos <= (*i)->getEdgePos()
-                    && (*i)->getEdgePos() <= stop.endPos) {
+                    && vehicle->isStoppedInRange((*i)->getEdgePos(), MSGlobals::gStopTolerance)) {
                 edge->removePerson(*i);
                 vehicle->addTransportable(*i);
                 if (timeToBoardNextPerson >= 0) { // meso does not have boarding times
