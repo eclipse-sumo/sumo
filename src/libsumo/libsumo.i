@@ -348,6 +348,10 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %template(IntVector) std::vector<int>;
 %template() std::map<std::string, std::string>;
 
+// replacing pair instances of standard types, see https://stackoverflow.com/questions/54733078
+%include "std_pair.i"
+%template() std::pair<std::string, std::string>;
+
 // exception handling
 %include "exception.i"
 
