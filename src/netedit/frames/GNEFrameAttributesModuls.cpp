@@ -2111,69 +2111,10 @@ GNEFrameAttributesModuls::ParametersEditorCreator::~ParametersEditorCreator() {}
 
 void
 GNEFrameAttributesModuls::ParametersEditorCreator::showParametersEditorCreator() {
-    if ((myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) && 
-         myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasParameters()) {
-        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            // update flag
-            if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasDoubleParameters()) {
-                myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
-            } else {
-                myAttrType = Parameterised::ParameterisedAttrType::STRING;
-            }
-            // obtain string
-            std::string parametersStr = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
-            // clear parameters
-            myParameters.clear();
-            // separate value in a vector of string using | as separator
-            StringTokenizer parameters(parametersStr, "|", true);
-            // iterate over all values
-            while (parameters.hasNext()) {
-                // obtain key and value and save it in myParameters
-                const std::vector<std::string> keyValue = StringTokenizer(parameters.next(), "=", true).getVector();
-                if (keyValue.size() == 2) {
-                    myParameters[keyValue.front()] = keyValue.back();
-                }
-            }
-        } else {
-            // check if parameters are different
-            bool differentsParameters = false;
-            std::string firstParameters = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
-            for (auto i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                if (firstParameters != i->getAttribute(GNE_ATTR_PARAMETERS)) {
-                    differentsParameters = true;
-                }
-            }
-            // set parameters EditorCreator
-            if (differentsParameters) {
-                myParameters.clear();
-            } else {
-                // update flag
-                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().hasDoubleParameters()) {
-                    myAttrType = Parameterised::ParameterisedAttrType::DOUBLE;
-                } else {
-                    myAttrType = Parameterised::ParameterisedAttrType::STRING;
-                }
-                // obtain string
-                std::string parametersStr = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAttribute(GNE_ATTR_PARAMETERS);
-                // clear parameters
-                myParameters.clear();
-                // separate value in a vector of string using | as separator
-                std::vector<std::string> parameters = StringTokenizer(parametersStr, "|", true).getVector();
-                // iterate over all values
-                for (const auto& i : parameters) {
-                    // obtain key and value and save it in myParameters
-                    std::vector<std::string> keyValue = StringTokenizer(i, "=", true).getVector();
-                    myParameters[keyValue.front()] = keyValue.back();
-                }
-            }
-        }
-        // refresh ParametersEditorCreator
-        refreshParametersEditorCreator();
-        // show groupbox
-        show();
-    } else {
-        hide();
-    }
+    // refresh ParametersEditorCreator
+    refreshParametersEditorCreator();
+    // show groupbox
+    show();
 }
 
 
@@ -2186,40 +2127,8 @@ GNEFrameAttributesModuls::ParametersEditorCreator::hideParametersEditorCreator()
 
 void
 GNEFrameAttributesModuls::ParametersEditorCreator::refreshParametersEditorCreator() {
-    GNEAttributeCarrier *frontAC = myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0? myFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
-    // update text field depending of AC
-    if (frontAC && frontAC->getTagProperty().hasParameters()) {
-        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            myTextFieldParameters->setText(frontAC->getAttribute(GNE_ATTR_PARAMETERS).c_str());
-            myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
-            // disable myTextFieldParameters if Tag correspond to an network element but we're in demand mode (or vice versa), disable all elements
-            if (isSupermodeValid(myFrameParent->myViewNet, frontAC)) {
-                myTextFieldParameters->enable();
-                myButtonEditParameters->enable();
-            } else {
-                myTextFieldParameters->disable();
-                myButtonEditParameters->disable();
-            }
-        } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-            // check if parameters of all inspected ACs are different
-            std::string parameters = frontAC->getAttribute(GNE_ATTR_PARAMETERS);
-            for (const auto &AC : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                if (parameters != AC->getAttribute(GNE_ATTR_PARAMETERS)) {
-                    parameters = "different parameters";
-                }
-            }
-            myTextFieldParameters->setText(parameters.c_str());
-            myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
-            // disable myTextFieldParameters if we're in demand mode and inspected AC isn't a demand element (or viceversa)
-            if (isSupermodeValid(myFrameParent->myViewNet, frontAC)) {
-                myTextFieldParameters->enable();
-                myButtonEditParameters->enable();
-            } else {
-                myTextFieldParameters->disable();
-                myButtonEditParameters->disable();
-            }
-        }
-    }
+    myTextFieldParameters->setText(getParametersStr().c_str());
+    myTextFieldParameters->setTextColor(FXRGB(0, 0, 0));
 }
 
 
@@ -2291,8 +2200,6 @@ GNEFrameAttributesModuls::ParametersEditorCreator::onCmdEditParameters(FXObject*
     if (GNESingleParametersDialog(this).execute()) {
         // write debug information
         WRITE_DEBUG("Close single parameters dialog");
-        // set parameters
-        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
         // Refresh parameter EditorCreator
         refreshParametersEditorCreator();
     } else {
@@ -2305,6 +2212,8 @@ GNEFrameAttributesModuls::ParametersEditorCreator::onCmdEditParameters(FXObject*
 
 long
 GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters(FXObject*, FXSelector, void*) {
+    // clear current existent parameters
+    myParameters.clear();
     // check if current given string is valid
     if (Parameterised::areParametersValid(myTextFieldParameters->getText().text(), true, myAttrType)) {
         // parsed parameters ok, then set text field black and continue
@@ -2312,8 +2221,6 @@ GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters(FXObject*,
         myTextFieldParameters->killFocus();
         // obtain parameters "key=value"
         std::vector<std::string> parameters = StringTokenizer(myTextFieldParameters->getText().text(), "|", true).getVector();
-        // clear current existent parameters and set parsed parameters
-        myParameters.clear();
         // iterate over parameters
         for (const auto& parameter : parameters) {
             // obtain key, value
@@ -2323,26 +2230,6 @@ GNEFrameAttributesModuls::ParametersEditorCreator::onCmdSetParameters(FXObject*,
         }
         // overwritte myTextFieldParameters (to remove duplicated parameters
         myTextFieldParameters->setText(getParametersStr().c_str(), FALSE);
-        // if we're editing parameters of an AttributeCarrier, set it
-        if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            // begin undo list
-            myFrameParent->myViewNet->getUndoList()->p_begin("change parameters");
-            // set parameters
-            myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
-            // end undo list
-            myFrameParent->myViewNet->getUndoList()->p_end();
-        } else if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
-            // begin undo list
-            myFrameParent->myViewNet->getUndoList()->p_begin("change multiple parameters");
-            // set parameters in all ACs
-            for (const auto& i : myFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                i->setAttribute(GNE_ATTR_PARAMETERS, getParametersStr(), myFrameParent->myViewNet->getUndoList());
-            }
-            // end undo list
-            myFrameParent->myViewNet->getUndoList()->p_end();
-            // update frame parent after attribute sucesfully set
-            myFrameParent->attributeUpdated();
-        }
     } else {
         myTextFieldParameters->setTextColor(FXRGB(255, 0, 0));
     }
