@@ -505,30 +505,8 @@ GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEInspectorFrame::Para
     myParametersEditorInspector(parametersEditorInspector) {
     // call auxiliar constructor
     constructor();
-    // declare a map for key-values
-    std::map<std::string, std::vector<std::string> > keyValuesMap;
-    // fill keys
-    for (const auto &AC : parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        for (const auto &keyAttribute : AC->getACParametersMap()) {
-            keyValuesMap[keyAttribute.first].push_back(keyAttribute.second);
-        }
-    }
-    // transform map to string vector
-    std::vector<std::pair<std::string, std::string> > keyValues;
-    for (const auto &keyAttribute : keyValuesMap) {
-        // merge values
-        std::string values;
-        for (const auto & value : keyAttribute.second) {
-            values.append(value + " ");
-        }
-        if (!values.empty()) {
-            values.pop_back();
-        }
-        // update key values
-        keyValues.push_back(std::make_pair(keyAttribute.first, values));
-    }
-    // fill myParametersValues
-    myParametersValues->setParameters(keyValues);
+    // reset
+    onCmdReset(nullptr, 0, nullptr);
 }
 
 
@@ -625,9 +603,14 @@ GNEMultipleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // transform map to string vector
     std::vector<std::pair<std::string, std::string> > keyValues;
     for (const auto &keyAttribute : keyValuesMap) {
+        // remove duplicated values
+        std::set<std::string> valuesNonDuplicated;
+        for (const auto & value : keyAttribute.second) {
+            valuesNonDuplicated.insert(value);
+        }
         // merge values
         std::string values;
-        for (const auto & value : keyAttribute.second) {
+        for (const auto & value : valuesNonDuplicated) {
             values.append(value + " ");
         }
         if (!values.empty()) {
