@@ -123,4 +123,10 @@ stop_teleport_stop
 
 # wait at busStop in a lefthand network
 lefthand_wait
+
+# last edge of the walk differs from first edge of the ride
+atJunction_walk_ride
+
+# last edge of the ride differs from first edge of the walk
+atJunction_ride_walk
 errors
