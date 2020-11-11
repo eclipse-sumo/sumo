@@ -184,8 +184,10 @@ class Connection:
         # result.printDebug()
         result.readLength()
         response = result.read("!B")[0]
-        isVariableSubscription = (response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and
-                                  response <= tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE)
+        isVariableSubscription = ((response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and
+                                   response <= tc.RESPONSE_SUBSCRIBE_BUSSTOP_VARIABLE) or
+                                  (response >= tc.RESPONSE_SUBSCRIBE_PARKINGAREA_VARIABLE and
+                                   response <= tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE))
         objectID = result.readString()
         if not isVariableSubscription:
             domain = result.read("!B")[0]
