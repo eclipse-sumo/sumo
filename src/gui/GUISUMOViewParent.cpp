@@ -186,7 +186,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject* sender, FXSelector, void*) {
         }
         // get the new file name
         FXFileDialog opendialog(this, "Save Snapshot");
-        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
+        opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::CAMERA));
         opendialog.setSelectMode(SELECTFILE_ANY);
 #ifdef HAVE_FFMPEG
         opendialog.setPatternList("All Image and Video Files (*.gif,*.bmp,*.xpm,*.pcx,*.ico,*.rgb,*.xbm,*.tga,*.png,*.jpg,*.jpeg,*.tif,*.tiff,*.ps,*.eps,*.pdf,*.svg,*.tex,*.pgf,*.h264,*.hevc)\n"
