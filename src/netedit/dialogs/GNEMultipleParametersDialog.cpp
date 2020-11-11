@@ -310,11 +310,11 @@ GNEMultipleParametersDialog::ParametersOperations::ParametersOperations(FXVertic
     FXGroupBox(frame, "Operations", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
-    mySortButton =  new FXButton(this, "Sort",  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100);
+    mySortButton = new FXButton(this, "Sort", GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100);
     myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100);
-    myLoadButton =  new FXButton(this, "Load",  GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100);
-    mySaveButton =  new FXButton(this, "Save",  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100);
-    myHelpButton =  new FXButton(this, "Help",  GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100);
+    myLoadButton = new FXButton(this, "Load", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100);
+    mySaveButton = new FXButton(this, "Save", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100);
+    myHelpButton = new FXButton(this, "Help", GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100);
 }
 
 
@@ -472,36 +472,29 @@ GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartE
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // only continue if tag is valid
-    if (tag != SUMO_TAG_NOTHING) {
-        // Call parse and build depending of tag
-        switch (tag) {
-        case SUMO_TAG_PARAM:
-            // Check that format of Parameter is correct
-            if (!attrs.hasAttribute(SUMO_ATTR_KEY)) {
-                WRITE_WARNING("Key of Parameter not defined");
-            } else if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
-                WRITE_WARNING("Value of Parameter not defined");
-            } else {
-                // obtain Key and value
-                std::string key = attrs.getString(SUMO_ATTR_KEY);
-                std::string value = attrs.getString(SUMO_ATTR_VALUE);
-                // check that parsed values are correct
-                if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
-                    if (key.size() == 0) {
-                        WRITE_WARNING("Key of Parameter cannot be empty");
-                    } else {
-                        WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
-                    }
-                } else if (myParametersOperationsParent->myParameterDialogParent->myParametersValues->keyExist(key)) {
-                    WRITE_WARNING("Key '" + key + "' already exist");
+    if (tag == SUMO_TAG_PARAM) {
+        // Check that format of Parameter is correct
+        if (!attrs.hasAttribute(SUMO_ATTR_KEY)) {
+            WRITE_WARNING("Key of Parameter not defined");
+        } else if (!attrs.hasAttribute(SUMO_ATTR_VALUE)) {
+            WRITE_WARNING("Value of Parameter not defined");
+        } else {
+            // obtain Key and value
+            const std::string key = attrs.getString(SUMO_ATTR_KEY);
+            const std::string value = attrs.getString(SUMO_ATTR_VALUE);
+            // check that parsed values are correct
+            if (!SUMOXMLDefinitions::isValidParameterKey(key)) {
+                if (key.size() == 0) {
+                    WRITE_WARNING("Key of Parameter cannot be empty");
                 } else {
-                    // add parameter to vector of myParameterDialogParent
-                    myParametersOperationsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
+                    WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
                 }
+            } else if (myParametersOperationsParent->myParameterDialogParent->myParametersValues->keyExist(key)) {
+                WRITE_WARNING("Key '" + key + "' already exist");
+            } else {
+                // add parameter to vector of myParameterDialogParent
+                myParametersOperationsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
             }
-            break;
-        default:
-            break;
         }
     }
 }
@@ -591,7 +584,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     for (const auto &AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         // continue depending of "apply to all"
         if (myParametersOptions->applyToAllElements()) {
-            AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
+            AC->setACParameters(parameters, false, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
         } else {
             // filter parameters
             std::vector<std::pair<std::string, std::string> > parametersFiltered;
@@ -600,7 +593,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                     parametersFiltered.push_back(parameter);
                 }
             }
-            AC->setACParameters(parametersFiltered, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
+            AC->setACParameters(parametersFiltered, false, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
         }
     }
     // end change

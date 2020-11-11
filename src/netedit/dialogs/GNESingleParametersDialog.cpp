@@ -582,7 +582,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         GNEAttributeCarrier *AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
         // set parameter
         myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("change parameters");
-        AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
+        AC->setACParameters(parameters, true, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
         myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
     } else {
         VTypeAttributeRow->setParameters(parameters);
