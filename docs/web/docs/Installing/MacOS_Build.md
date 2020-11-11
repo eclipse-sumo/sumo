@@ -148,7 +148,23 @@ Type "help", "copyright", "credits" or "license" for more information.
 >>> 
 ```
 
-If you do not want to use Python 2.7 (from macOS) or Python 3 (from Brew), but instead want to use Python 3.x from Xcode, you will need to change the `CMakeCache.txt` in the build directory manually and point CMake to the direction of the PythonLibs for that particular version. These are located here: `/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/`. 
+If you do not want to use Python 2.7 (from macOS) or Python 3 (from Brew), but instead want to use Python 3.x from Xcode, you will need to tell `cmake` where to find the Python installation of the command line tools of Xcode. The following path settings work on macOS Catalina with the command line tools of Xcode 12.1.
+```
+cmake \
+-DPYTHON_EXECUTABLE=/usr/bin/python3 \
+-DPYTHON_INCLUDE_DIR:PATH=/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Headers \
+-DPYTHON_LIBRARY:FILEPATH=/Library/Developer/CommandLineTools/Library/Frameworks/Python3.framework/Versions/Current/lib/libpython3.8.dylib \
+../..
+```
+After the build, you should be able to load libsumo.
+```
+/usr/bin/python3
+Python 3.8.2 (default, Sep 24 2020, 19:37:08) 
+[Clang 12.0.0 (clang-1200.0.32.21)] on darwin
+Type "help", "copyright", "credits" or "license" for more information.
+>>> import libsumo
+>>> 
+```
 
 # The Macports Approach (legacy)
 
