@@ -21,6 +21,7 @@
 #define LIBTRACI 1
 #include <iterator>
 #include <libsumo/Edge.h>
+#include "Connection.h"
 #include "Domain.h"
 
 

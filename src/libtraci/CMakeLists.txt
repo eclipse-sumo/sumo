@@ -13,7 +13,7 @@ set(libtracistatic_STAT_SRCS
     Edge.cpp
     InductionLoop.cpp
 #    Junction.cpp
-#    Lane.cpp
+    Lane.cpp
     LaneArea.cpp
     MultiEntryExit.cpp
 #    Person.cpp

@@ -30,12 +30,13 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSLane;
 class PositionVector;
 namespace libsumo {
 class VariableWrapper;
 }
-
+#endif
 
 // ===========================================================================
 // class definitions
@@ -44,7 +45,7 @@ class VariableWrapper;
  * @class Lane
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class Lane {
 public:
     // Getter
@@ -54,8 +55,8 @@ public:
     static double getMaxSpeed(std::string laneID);
     static std::vector<std::string> getAllowed(std::string laneID);
     static std::vector<std::string> getDisallowed(std::string laneID);
-    static std::vector<TraCIConnection> getLinks(std::string laneID);
-    static TraCIPositionVector getShape(std::string laneID);
+    static std::vector<libsumo::TraCIConnection> getLinks(std::string laneID);
+    static libsumo::TraCIPositionVector getShape(std::string laneID);
     static double getWidth(std::string laneID);
     static double getCO2Emission(std::string laneID);
     static double getCOEmission(std::string laneID);
@@ -86,6 +87,7 @@ public:
     static void setMaxSpeed(std::string laneID, double speed);
     static void setLength(std::string laneID, double length);
 
+#ifndef LIBTRACI
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the lane to retrieve
     *  @param shape The container to fill
@@ -102,7 +104,8 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
-
+#endif
+private:
     /// @brief invalidated standard constructor
     Lane() = delete;
 };
