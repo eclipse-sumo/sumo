@@ -374,7 +374,7 @@ GNEAttributeCarrier::getACParameters() const {
 
 
 void
-GNEAttributeCarrier::setACParameters(const std::string& parameters, GNEUndoList* undoList) {
+GNEAttributeCarrier::setACParameters(const std::string& parameters, const bool agressive, GNEUndoList* undoList) {
     // declare map
     std::map<std::string, std::string> parametersMap;
     // separate value in a vector of string using | as separator
@@ -388,34 +388,44 @@ GNEAttributeCarrier::setACParameters(const std::string& parameters, GNEUndoList*
         }
     }
     // set setACParameters map
-    setACParameters(parametersMap, undoList);
+    setACParameters(parametersMap, agressive, undoList);
 }
 
 
 void
-GNEAttributeCarrier::setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList) {
-    // declare result string
-    std::string paramsStr;
+GNEAttributeCarrier::setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, const bool agressive, GNEUndoList* undoList) {
+    // declare parametersMap
+    std::map<std::string, std::string> parametersMap;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
     for (const auto& parameter : parameters) {
-        paramsStr += parameter.first + "=" + parameter.second + "|";
+        parametersMap[parameter.first] = parameter.second;
     }
-    // remove the last "|"
-    if (!paramsStr.empty()) {
-        paramsStr.pop_back();
-    }
-    // set parameters
-    setAttribute(GNE_ATTR_PARAMETERS, paramsStr, undoList);
+    // set setACParameters map
+    setACParameters(parametersMap, agressive, undoList);
 }
 
 
 void
-GNEAttributeCarrier::setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList) {
+GNEAttributeCarrier::setACParameters(const std::map<std::string, std::string>& parameters, const bool agressive, GNEUndoList* undoList) {
     // declare result string
     std::string paramsStr;
-    // Generate an string using the following structure: "key1=value1|key2=value2|...
-    for (const auto& parameter : parameters) {
-        paramsStr += parameter.first + "=" + parameter.second + "|";
+    // continue depending of flag agressive
+    if (agressive) {
+        // Generate an string using the following structure: "key1=value1|key2=value2|...
+        for (const auto& parameter : parameters) {
+            paramsStr += parameter.first + "=" + parameter.second + "|";
+        }
+    } else {
+        // get parametersMap
+        std::map<std::string, std::string> originalParametersMap = getACParametersMap();
+        // update originalParametersMap with parameters
+        for (const auto& parameter : parameters) {
+            originalParametersMap[parameter.first] = parameter.second;
+        }
+        // Generate an string using the following structure: "key1=value1|key2=value2|...
+        for (const auto& parameter : originalParametersMap) {
+            paramsStr += parameter.first + "=" + parameter.second + "|";
+        }
     }
     // remove the last "|"
     if (!paramsStr.empty()) {
