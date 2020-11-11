@@ -71,14 +71,12 @@ FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOptions, FXGroupBox,    Param
 // ---------------------------------------------------------------------------
 
 GNEMultipleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
-    FXGroupBox(frame, " Parameters", GUIDesignGroupBoxFrameFill),
+    FXGroupBox(frame, "Parameters", GUIDesignGroupBoxFrameFill),
     myParameterDialogParent(parameterDialogParent) {
     // create labels for keys and values
     FXHorizontalFrame* horizontalFrameLabels = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myKeyLabel = new FXLabel(horizontalFrameLabels, "key", nullptr, GUIDesignLabelThick100);
-    for (const auto &AC : parameterDialogParent->myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        new FXLabel(horizontalFrameLabels, AC->getID().c_str(), nullptr, GUIDesignLabelCenterThick);
-    }
+    new FXLabel(horizontalFrameLabels, "value", nullptr, GUIDesignLabelCenterThick);
     // add extra label
     new FXLabel(horizontalFrameLabels, "", nullptr, GUIDesignLabelIconThick);
     // create scroll windows
@@ -201,10 +199,7 @@ GNEMultipleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, F
 GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) {
     horizontalFrame = new FXHorizontalFrame(verticalFrameParent, GUIDesignAuxiliarHorizontalFrame);
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create multiple value fields
-    for (int i = 0; i < ParametersValues->myParameterDialogParent->myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().size(); i++) {
-        valueFields.push_back(new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField));
-    }
+    valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), ParametersValues, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
     // only create elements if vertical frame was previously created
     if (verticalFrameParent->id()) {
@@ -226,10 +221,8 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::disableRow() {
     // hide all
     keyField->setText("");
     keyField->disable();
-    for (const auto &valueField : valueFields) {
-        valueField->setText("");
-        valueField->disable();
-    }
+    valueField->setText("");
+    valueField->disable();
     button->disable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::REMOVE));
 }
@@ -246,10 +239,8 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::enableRow(const std
     }
     keyField->enable();
     // restore color and enable value field
-    for (const auto &valueField : valueFields) {
-        valueField->setText(value.c_str());
-        valueField->enable();
-    }
+    valueField->setText(value.c_str());
+    valueField->enable();
     // enable button and set icon remove
     button->enable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::REMOVE));
@@ -261,10 +252,8 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
     // clear and disable parameter and value fields
     keyField->setText("");
     keyField->disable();
-    for (const auto &valueField : valueFields) {
-        valueField->setText("");
-        valueField->disable();
-    }
+    valueField->setText("");
+    valueField->disable();
     // enable remove button and set "add" icon and focus
     button->enable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::ADD));
@@ -281,9 +270,7 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::isButtonInAddMode()
 void
 GNEMultipleParametersDialog::ParametersValues::ParameterRow::copyValues(const ParameterRow& other) {
     keyField->setText(other.keyField->getText());
-    for (int i = 0; i < (int)valueFields.size(); i++) {
-        valueFields.at(i)->setText(other.valueFields.at(i)->getText());
-    }
+    valueField->setText(other.valueField->getText());
 }
 
 // ---------------------------------------------------------------------------
@@ -356,7 +343,7 @@ GNEMultipleParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, F
                 // write key
                 device.writeAttr(SUMO_ATTR_KEY, row->keyField->getText().text());
                 // write value
-                device.writeAttr(SUMO_ATTR_VALUE, row->valueFields.front()->getText().text());
+                device.writeAttr(SUMO_ATTR_VALUE, row->valueField->getText().text());
                 // close tag
                 device.closeTag();
             }
@@ -385,9 +372,9 @@ GNEMultipleParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, F
     for (const auto &parameterRow : myParameterDialogParent->myParametersValues->getParameterRows()) {
         // check if key is empty
         if (!parameterRow->keyField->getText().empty()) {
-            nonEmptyKeyValues.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueFields.front()->getText().text()));
-        } else if (!parameterRow->valueFields.front()->getText().empty()) {
-            emptyKeyValues.push_back(parameterRow->valueFields.front()->getText().text());
+            nonEmptyKeyValues.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
+        } else if (!parameterRow->valueField->getText().empty()) {
+            emptyKeyValues.push_back(parameterRow->valueField->getText().text());
         }
     }
     // sort non-empty parameters
@@ -499,10 +486,30 @@ GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEInspectorFrame::Para
     myParametersEditorInspector(parametersEditorInspector) {
     // call auxiliar constructor
     constructor();
-    // get AC Front
-    const GNEAttributeCarrier *AC = parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
+    // declare a map for key-values
+    std::map<std::string, std::vector<std::string> > keyValuesMap;
+    // fill keys
+    for (const auto &AC : parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        for (const auto &keyAttribute : AC->getACParametersMap()) {
+            keyValuesMap[keyAttribute.first].push_back(keyAttribute.second);
+        }
+    }
+    // transform map to string vector
+    std::vector<std::pair<std::string, std::string> > keyValues;
+    for (const auto &keyAttribute : keyValuesMap) {
+        // merge values
+        std::string values;
+        for (const auto & value : keyAttribute.second) {
+            values.append(value + " ");
+        }
+        if (!values.empty()) {
+            values.pop_back();
+        }
+        // update key values
+        keyValues.push_back(std::make_pair(keyAttribute.first, values));
+    }
     // fill myParametersValues
-    myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+    myParametersValues->setParameters(keyValues);
 }
 
 
@@ -535,7 +542,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 return 1;
             }
             // insert in parameters
-            parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueFields.front()->getText().text()));
+            parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
         }
     }
     // sort sortedParameters
@@ -552,14 +559,14 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             return 1;
         }
     }
-/* */
-    // get inspected AC
-    GNEAttributeCarrier *AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
-    // set parameter
+    // begin change
     myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("change parameters");
-    AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
+    // iterate over ACs
+    for (const auto &AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
+    }
+    // end change
     myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
-/* */
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
     return 1;
@@ -576,10 +583,30 @@ GNEMultipleParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEMultipleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
-/* */
-    const GNEAttributeCarrier *AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
-    myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
-/* */
+    // declare a map for key-values
+    std::map<std::string, std::vector<std::string> > keyValuesMap;
+    // fill keys
+    for (const auto &AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        for (const auto &keyAttribute : AC->getACParametersMap()) {
+            keyValuesMap[keyAttribute.first].push_back(keyAttribute.second);
+        }
+    }
+    // transform map to string vector
+    std::vector<std::pair<std::string, std::string> > keyValues;
+    for (const auto &keyAttribute : keyValuesMap) {
+        // merge values
+        std::string values;
+        for (const auto & value : keyAttribute.second) {
+            values.append(value + " ");
+        }
+        if (!values.empty()) {
+            values.pop_back();
+        }
+        // update key values
+        keyValues.push_back(std::make_pair(keyAttribute.first, values));
+    }
+    // fill myParametersValues
+    myParametersValues->setParameters(keyValues);
     return 1;
 }
 
