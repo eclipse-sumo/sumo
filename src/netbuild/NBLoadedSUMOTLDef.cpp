@@ -753,7 +753,7 @@ NBLoadedSUMOTLDef::copyIndices(NBTrafficLightDefinition* def) {
 
 bool
 NBLoadedSUMOTLDef::cleanupStates() {
-    const int maxIndex = getMaxIndex();
+    const int maxIndex = getMaxValidIndex();
     std::vector<int> unusedIndices;
     for (int i = 0; i <= maxIndex; i++) {
         if (isUsed(i)) {
