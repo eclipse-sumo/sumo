@@ -87,6 +87,9 @@ public:
         /// @brief event when user change an attribute
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
+        /// @brief event when user toogle checkbox
+        long onCmdToogleCheckBox(FXObject*, FXSelector, void*);
+
         /// @brief event when user press a remove (or add) button
         long onCmdButtonPress(FXObject*, FXSelector, void*);
 
@@ -130,6 +133,10 @@ public:
 
             /// @brief Button for add or remove row
             FXButton* button;
+
+            /// @brief Bheck button for enable/disable modify key
+            FXCheckButton* modifyKey;
+
         private:
             /// @brief frame in which elements of ParameterRow are placed
             FXHorizontalFrame* horizontalFrame;

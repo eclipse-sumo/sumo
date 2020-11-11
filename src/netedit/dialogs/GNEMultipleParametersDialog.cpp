@@ -45,6 +45,7 @@ FXDEFMAP(GNEMultipleParametersDialog) GNEMultipleParametersDialogMap[] = {
 
 FXDEFMAP(GNEMultipleParametersDialog::ParametersValues) ParametersValuesMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,      GNEMultipleParametersDialog::ParametersValues::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_BOOL, GNEMultipleParametersDialog::ParametersValues::onCmdToogleCheckBox),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_REMOVE_ATTRIBUTE,   GNEMultipleParametersDialog::ParametersValues::onCmdButtonPress),
     FXMAPFUNC(SEL_PAINT,    0,                          GNEMultipleParametersDialog::ParametersValues::onPaint),
 };
@@ -173,6 +174,27 @@ GNEMultipleParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, 
 
 
 long
+GNEMultipleParametersDialog::ParametersValues::onCmdToogleCheckBox(FXObject* obj, FXSelector, void*) {
+    // find row to enable/disable
+    for (int i = 0; i < (int)myParameterRows.size(); i++) {
+        if (myParameterRows.at(i)->modifyKey == obj) {
+            // just enable or disable members
+            if (myParameterRows.at(i)->modifyKey->getCheck() == TRUE) {
+                myParameterRows.at(i)->keyField->enable();
+                myParameterRows.at(i)->valueField->enable();
+                myParameterRows.at(i)->button->enable();
+            } else {
+                myParameterRows.at(i)->keyField->disable();
+                myParameterRows.at(i)->valueField->disable();
+                myParameterRows.at(i)->button->disable();
+            }
+        }
+    }
+    return 1;
+}
+
+
+long
 GNEMultipleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, FXSelector, void*) {
     // first check if add button was pressed
     if (myParameterRows.back()->button == obj) {
@@ -201,6 +223,8 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(Parame
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     button = new FXButton(horizontalFrame, "", GUIIconSubSys::getIcon(GUIIcon::REMOVE), ParametersValues, MID_GNE_REMOVE_ATTRIBUTE, GUIDesignButtonIcon);
+    modifyKey = new FXCheckButton(horizontalFrame, "", ParametersValues, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonIcon);
+    modifyKey->setCheck(TRUE);
     // only create elements if vertical frame was previously created
     if (verticalFrameParent->id()) {
         horizontalFrame->create();
@@ -244,6 +268,9 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::enableRow(const std
     // enable button and set icon remove
     button->enable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::REMOVE));
+    // enable checkbox
+    modifyKey->setCheck(TRUE, FALSE);
+    modifyKey->enable();
 }
 
 
@@ -254,6 +281,8 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::toogleAddButton() {
     keyField->disable();
     valueField->setText("");
     valueField->disable();
+    modifyKey->disable();
+    modifyKey->setCheck(FALSE, FALSE);
     // enable remove button and set "add" icon and focus
     button->enable();
     button->setIcon(GUIIconSubSys::getIcon(GUIIcon::ADD));
@@ -501,7 +530,7 @@ GNEMultipleParametersDialog::ParametersOptions::applyToAllElements() const {
 // ---------------------------------------------------------------------------
 
 GNEMultipleParametersDialog::GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector) :
-    FXDialogBox(parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    FXDialogBox(parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(430, 300)),
     myParametersEditorInspector(parametersEditorInspector) {
     // call auxiliar constructor
     constructor();
