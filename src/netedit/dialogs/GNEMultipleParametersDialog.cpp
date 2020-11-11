@@ -277,7 +277,7 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::copyValues(const Pa
 // GNEMultipleParametersDialog::ParametersOperations - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::ParametersOperations::ParametersOperations(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent) :
+GNEMultipleParametersDialog::ParametersOperations::ParametersOperations(FXVerticalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent) :
     FXGroupBox(frame, "Operations", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
@@ -481,13 +481,20 @@ GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartE
 // GNEMultipleParametersDialog::ParametersOptions - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
-    FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100) {
-
+GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXVerticalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
+    FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
+    myParameterDialogParent(parameterDialogParent) {
+    myApplyToAllElements = new FXCheckButton(this, "Apply to all", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButton);
 }
 
 
 GNEMultipleParametersDialog::ParametersOptions::~ParametersOptions() {}
+
+
+bool
+GNEMultipleParametersDialog::ParametersOptions::applyToAllElements() const {
+    return (myApplyToAllElements->getCheck() == TRUE);
+}
 
 // ---------------------------------------------------------------------------
 // GNEMultipleParametersDialog - methods
@@ -575,7 +582,19 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("change parameters");
     // iterate over ACs
     for (const auto &AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
+        // continue depending of "apply to all"
+        if (myParametersOptions->applyToAllElements()) {
+            AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
+        } else {
+            // filter parameters
+            std::vector<std::pair<std::string, std::string> > parametersFiltered;
+            for (const auto &parameter : parameters) {
+                if (AC->getACParametersMap().count(parameter.first) > 0) {
+                    parametersFiltered.push_back(parameter);
+                }
+            }
+            AC->setACParameters(parametersFiltered, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
+        }
     }
     // end change
     myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
@@ -633,10 +652,12 @@ GNEMultipleParametersDialog::constructor() {
     FXHorizontalFrame* horizontalFrameExtras = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // create parameters values
     myParametersValues = new ParametersValues(horizontalFrameExtras, this);
+    // create vertical frame frame
+    FXVerticalFrame* verticalFrameExtras = new FXVerticalFrame(horizontalFrameExtras, GUIDesignAuxiliarVerticalFrame);
     // create parameters operations
-    myParametersOperations = new ParametersOperations(horizontalFrameExtras, this);
+    myParametersOperations = new ParametersOperations(verticalFrameExtras, this);
     // create parameters options
-    myParametersOptions = new ParametersOptions(horizontalFrameExtras, this);
+    myParametersOptions = new ParametersOptions(verticalFrameExtras, this);
     // add separator
     new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // create dialog buttons bot centered

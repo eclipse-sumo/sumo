@@ -158,7 +158,7 @@ public:
 
     public:
         /// @brief constructor
-        ParametersOperations(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+        ParametersOperations(FXVerticalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
         ~ParametersOperations();
@@ -239,17 +239,20 @@ public:
 
     public:
         /// @brief constructor
-        ParametersOptions(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+        ParametersOptions(FXVerticalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
         ~ParametersOptions();
+
+        /// @brief apply changes to all elements
+        bool applyToAllElements() const;
 
     private:
         /// @brief pointer to Shape Frame Parent
         GNEMultipleParametersDialog* myParameterDialogParent;
 
-        /// @brief sort button
-        FXButton* mySortButton;
+        /// @brief apply changes to all elements
+        FXCheckButton* myApplyToAllElements;
     };
 
     /// @brief Constructor for parameter editor inspector
