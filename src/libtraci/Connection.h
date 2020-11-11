@@ -327,8 +327,8 @@ public:
         doCommand(command, var, id, &content);
     }
 
-    void readVariableSubscription(int cmdId, tcpip::Storage& inMsg);
-    void readContextSubscription(int cmdId, tcpip::Storage& inMsg);
+    void readVariableSubscription(int responseID, tcpip::Storage& inMsg);
+    void readContextSubscription(int responseID, tcpip::Storage& inMsg);
     void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscriptionResults& into);
 
 private:

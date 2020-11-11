@@ -93,11 +93,12 @@ Connection::simulationStep(double time) {
     myContextSubscriptionResults.clear();
     int numSubs = inMsg.readInt();
     while (numSubs > 0) {
-        int cmdId = check_commandGetResult(inMsg, 0, -1, true);
-        if (cmdId >= libsumo::RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && cmdId <= libsumo::RESPONSE_SUBSCRIBE_PERSON_VARIABLE) {
-            readVariableSubscription(cmdId, inMsg);
+        const int responseID = check_commandGetResult(inMsg, 0, -1, true);
+        if ((responseID >= libsumo::RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && responseID <= libsumo::RESPONSE_SUBSCRIBE_BUSSTOP_VARIABLE) ||
+            (responseID >= libsumo::RESPONSE_SUBSCRIBE_PARKINGAREA_VARIABLE && responseID <= libsumo::RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE)) {
+            readVariableSubscription(responseID, inMsg);
         } else {
-            readContextSubscription(cmdId + 0x50, inMsg);
+            readContextSubscription(responseID, inMsg);
         }
         numSubs--;
     }
@@ -177,9 +178,9 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
     }
     tcpip::Storage outMsg;
     // command length (domID, objID, beginTime, endTime, length, vars)
-    int varNo = (int) vars.size();
+    const int numVars = (int) vars.size();
     outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + varNo);
+    outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + numVars);
     // command id
     outMsg.writeUnsignedByte(domID);
     // time
@@ -188,7 +189,7 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
     // object id
     outMsg.writeString(objID);
     // command id
-    if (vars.size() == 1 && vars.front() == -1) {
+    if (numVars == 1 && vars.front() == -1) {
         if (domID == libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE) {
             // default for vehicles is edge id and lane position
             outMsg.writeUnsignedByte(2);
@@ -201,8 +202,8 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
             outMsg.writeUnsignedByte(isDetector ? libsumo::LAST_STEP_VEHICLE_NUMBER : libsumo::TRACI_ID_LIST);
         }
     } else {
-        outMsg.writeUnsignedByte((int)vars.size());
-        for (int i = 0; i < varNo; ++i) {
+        outMsg.writeUnsignedByte(numVars);
+        for (int i = 0; i < numVars; ++i) {
             outMsg.writeUnsignedByte(vars[i]);
         }
     }
@@ -211,9 +212,9 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
 
     tcpip::Storage inMsg;
     check_resultState(inMsg, domID);
-    if (vars.size() > 0) {
-        check_commandGetResult(inMsg, domID);
-        readVariableSubscription(domID, inMsg);
+    if (numVars > 0) {
+        const int responseID = check_commandGetResult(inMsg, domID);
+        readVariableSubscription(responseID, inMsg);
     }
 }
 
@@ -411,15 +412,15 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
 
 
 void
-Connection::readVariableSubscription(int cmdId, tcpip::Storage& inMsg) {
+Connection::readVariableSubscription(int responseID, tcpip::Storage& inMsg) {
     const std::string objectID = inMsg.readString();
     const int variableCount = inMsg.readUnsignedByte();
-    readVariables(inMsg, objectID, variableCount, mySubscriptionResults[cmdId]);
+    readVariables(inMsg, objectID, variableCount, mySubscriptionResults[responseID]);
 }
 
 
 void
-Connection::readContextSubscription(int cmdId, tcpip::Storage& inMsg) {
+Connection::readContextSubscription(int responseID, tcpip::Storage& inMsg) {
     const std::string contextID = inMsg.readString();
     inMsg.readUnsignedByte(); // context domain
     const int variableCount = inMsg.readUnsignedByte();
@@ -427,7 +428,7 @@ Connection::readContextSubscription(int cmdId, tcpip::Storage& inMsg) {
 
     while (numObjects > 0) {
         std::string objectID = inMsg.readString();
-        readVariables(inMsg, objectID, variableCount, myContextSubscriptionResults[cmdId][contextID]);
+        readVariables(inMsg, objectID, variableCount, myContextSubscriptionResults[responseID][contextID]);
         numObjects--;
     }
 }
