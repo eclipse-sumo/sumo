@@ -149,19 +149,19 @@ public:
     };
 
     // ===========================================================================
-    // class ParametersOptions
+    // class ParametersOperations
     // ===========================================================================
 
-    class ParametersOptions : protected FXGroupBox {
+    class ParametersOperations : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEMultipleParametersDialog::ParametersOptions)
+        FXDECLARE(GNEMultipleParametersDialog::ParametersOperations)
 
     public:
         /// @brief constructor
-        ParametersOptions(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+        ParametersOperations(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
-        ~ParametersOptions();
+        ~ParametersOperations();
 
         /// @name FOX-callbacks
         /// @{
@@ -184,7 +184,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(ParametersOptions)
+        FOX_CONSTRUCTOR(ParametersOperations)
 
     private:
         /// @class GNEParameterHandler
@@ -192,7 +192,7 @@ public:
         class GNEParameterHandler : public SUMOSAXHandler {
         public:
             /// @brief Constructor
-            GNEParameterHandler(ParametersOptions* ParametersOptionsParent, const std::string& file);
+            GNEParameterHandler(ParametersOperations* ParametersOperationsParent, const std::string& file);
 
             /// @brief Destructor
             ~GNEParameterHandler();
@@ -208,8 +208,8 @@ public:
             void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
         private:
-            /// @brief pointer to ParametersOptions parent
-            ParametersOptions* myParametersOptionsParent;
+            /// @brief pointer to ParametersOperations parent
+            ParametersOperations* myParametersOperationsParent;
         };
 
         /// @brief pointer to Shape Frame Parent
@@ -229,6 +229,27 @@ public:
 
         /// @brief help button
         FXButton* myHelpButton;
+    };
+
+    // ===========================================================================
+    // class ParametersOptions
+    // ===========================================================================
+
+    class ParametersOptions : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        ParametersOptions(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+
+        /// @brief destructor
+        ~ParametersOptions();
+
+    private:
+        /// @brief pointer to Shape Frame Parent
+        GNEMultipleParametersDialog* myParameterDialogParent;
+
+        /// @brief sort button
+        FXButton* mySortButton;
     };
 
     /// @brief Constructor for parameter editor inspector
@@ -256,10 +277,13 @@ protected:
     /// @brief pointer to ParametersEditorInspector
     GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
 
-    /// @brief pointer to  parameters values
+    /// @brief pointer to parameters values
     ParametersValues* myParametersValues;
 
-    /// @brief pointer to  parameters options
+    /// @brief pointer to parameters operations
+    ParametersOperations* myParametersOperations;
+
+    /// @brief pointer to parameters options
     ParametersOptions* myParametersOptions;
 
     /// @brief accept button

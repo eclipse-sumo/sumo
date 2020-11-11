@@ -94,6 +94,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(ParametersValues)
 
     private:
@@ -149,19 +150,19 @@ public:
     };
 
     // ===========================================================================
-    // class ParametersOptions
+    // class ParametersOperations
     // ===========================================================================
 
-    class ParametersOptions : protected FXGroupBox {
+    class ParametersOperations : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNESingleParametersDialog::ParametersOptions)
+        FXDECLARE(GNESingleParametersDialog::ParametersOperations)
 
     public:
         /// @brief constructor
-        ParametersOptions(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent);
+        ParametersOperations(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
-        ~ParametersOptions();
+        ~ParametersOperations();
 
         /// @name FOX-callbacks
         /// @{
@@ -183,16 +184,16 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(ParametersOptions)
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(ParametersOperations)
 
     private:
-
         /// @class GNEParameterHandler
         /// @brief load  parameters from a filename
         class GNEParameterHandler : public SUMOSAXHandler {
         public:
             /// @brief Constructor
-            GNEParameterHandler(ParametersOptions* ParametersOptionsParent, const std::string& file);
+            GNEParameterHandler(ParametersOperations* ParametersOperationsParent, const std::string& file);
 
             /// @brief Destructor
             ~GNEParameterHandler();
@@ -208,8 +209,8 @@ public:
             void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
         private:
-            /// @brief pointer to ParametersOptions parent
-            ParametersOptions* myParametersOptionsParent;
+            /// @brief pointer to ParametersOperations parent
+            ParametersOperations* myParametersOperationsParent;
         };
 
         /// @brief pointer to Shape Frame Parent
@@ -256,6 +257,7 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GNESingleParametersDialog)
 
     /// @brief pointer to ParametersEditorCreator
@@ -267,11 +269,11 @@ protected:
     /// @brief pointer to VTypeAttributeRow
     GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow;
 
-    /// @brief pointer to  parameters values
+    /// @brief pointer to parameters values
     ParametersValues* myParametersValues;
 
-    /// @brief pointer to  parameters options
-    ParametersOptions* myParametersOptions;
+    /// @brief pointer to parameters operations
+    ParametersOperations* myParametersOperations;
 
     /// @brief accept button
     FXButton* myAcceptButton;

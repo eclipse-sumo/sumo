@@ -49,18 +49,18 @@ FXDEFMAP(GNEMultipleParametersDialog::ParametersValues) ParametersValuesMap[] = 
     FXMAPFUNC(SEL_PAINT,    0,                          GNEMultipleParametersDialog::ParametersValues::onPaint),
 };
 
-FXDEFMAP(GNEMultipleParametersDialog::ParametersOptions) ParametersOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_LOAD,    GNEMultipleParametersDialog::ParametersOptions::onCmdLoadParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNEMultipleParametersDialog::ParametersOptions::onCmdSaveParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CLEAR,   GNEMultipleParametersDialog::ParametersOptions::onCmdClearParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SORT,    GNEMultipleParametersDialog::ParametersOptions::onCmdSortParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEMultipleParametersDialog::ParametersOptions::onCmdHelpParameter),
+FXDEFMAP(GNEMultipleParametersDialog::ParametersOperations) ParametersOperationsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_LOAD,    GNEMultipleParametersDialog::ParametersOperations::onCmdLoadParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNEMultipleParametersDialog::ParametersOperations::onCmdSaveParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CLEAR,   GNEMultipleParametersDialog::ParametersOperations::onCmdClearParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SORT,    GNEMultipleParametersDialog::ParametersOperations::onCmdSortParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNEMultipleParametersDialog::ParametersOperations::onCmdHelpParameter),
 };
 
 // Object implementation
 FXIMPLEMENT(GNEMultipleParametersDialog,                    FXDialogBox,   GNEMultipleParametersDialogMap,  ARRAYNUMBER(GNEMultipleParametersDialogMap))
 FXIMPLEMENT(GNEMultipleParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,             ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOptions, FXGroupBox,    ParametersOptionsMap,            ARRAYNUMBER(ParametersOptionsMap))
+FXIMPLEMENT(GNEMultipleParametersDialog::ParametersOperations, FXGroupBox,    ParametersOperationsMap,            ARRAYNUMBER(ParametersOperationsMap))
 
 // ===========================================================================
 // member method definitions
@@ -274,11 +274,11 @@ GNEMultipleParametersDialog::ParametersValues::ParameterRow::copyValues(const Pa
 }
 
 // ---------------------------------------------------------------------------
-// GNEMultipleParametersDialog::ParametersOptions - methods
+// GNEMultipleParametersDialog::ParametersOperations - methods
 // ---------------------------------------------------------------------------
 
-GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent) :
-    FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
+GNEMultipleParametersDialog::ParametersOperations::ParametersOperations(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent) :
+    FXGroupBox(frame, "Operations", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
     mySortButton =  new FXButton(this, "Sort",  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100);
@@ -289,11 +289,11 @@ GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFr
 }
 
 
-GNEMultipleParametersDialog::ParametersOptions::~ParametersOptions() {}
+GNEMultipleParametersDialog::ParametersOperations::~ParametersOperations() {}
 
 
 long
-GNEMultipleParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, FXSelector, void*) {
+GNEMultipleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*, FXSelector, void*) {
     // get the Additional file name
     FXFileDialog opendialog(this, "Open Parameter Template");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
@@ -320,7 +320,7 @@ GNEMultipleParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, F
 
 
 long
-GNEMultipleParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, FXSelector, void*) {
+GNEMultipleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*, FXSelector, void*) {
     // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
         "Select name of the Parameter Template file", ".xml",
@@ -356,7 +356,7 @@ GNEMultipleParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, F
 
 
 long
-GNEMultipleParametersDialog::ParametersOptions::onCmdClearParameters(FXObject*, FXSelector, void*) {
+GNEMultipleParametersDialog::ParametersOperations::onCmdClearParameters(FXObject*, FXSelector, void*) {
     // simply clear parameters from ParametersValues
     myParameterDialogParent->myParametersValues->clearParameters();
     return 1;
@@ -364,7 +364,7 @@ GNEMultipleParametersDialog::ParametersOptions::onCmdClearParameters(FXObject*, 
 
 
 long
-GNEMultipleParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, FXSelector, void*) {
+GNEMultipleParametersDialog::ParametersOperations::onCmdSortParameters(FXObject*, FXSelector, void*) {
     // declare two containers for parameters
     std::vector<std::pair<std::string, std::string> > nonEmptyKeyValues;
     std::vector<std::string> emptyKeyValues;
@@ -392,7 +392,7 @@ GNEMultipleParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, F
 
 
 long
-GNEMultipleParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector, void*) {
+GNEMultipleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* ParameterHelpDialog = new FXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
     ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
@@ -429,17 +429,17 @@ GNEMultipleParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FX
 }
 
 
-GNEMultipleParametersDialog::ParametersOptions::GNEParameterHandler::GNEParameterHandler(ParametersOptions* ParametersOptionsParent, const std::string& file) :
+GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::GNEParameterHandler(ParametersOperations* ParametersOperationsParent, const std::string& file) :
     SUMOSAXHandler(file),
-    myParametersOptionsParent(ParametersOptionsParent) {
+    myParametersOperationsParent(ParametersOperationsParent) {
 }
 
 
-GNEMultipleParametersDialog::ParametersOptions::GNEParameterHandler::~GNEParameterHandler() {}
+GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::~GNEParameterHandler() {}
 
 
 void
-GNEMultipleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // only continue if tag is valid
@@ -463,11 +463,11 @@ GNEMultipleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElem
                     } else {
                         WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
                     }
-                } else if (myParametersOptionsParent->myParameterDialogParent->myParametersValues->keyExist(key)) {
+                } else if (myParametersOperationsParent->myParameterDialogParent->myParametersValues->keyExist(key)) {
                     WRITE_WARNING("Key '" + key + "' already exist");
                 } else {
                     // add parameter to vector of myParameterDialogParent
-                    myParametersOptionsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
+                    myParametersOperationsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
                 }
             }
             break;
@@ -476,6 +476,18 @@ GNEMultipleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElem
         }
     }
 }
+
+// ---------------------------------------------------------------------------
+// GNEMultipleParametersDialog::ParametersOptions - methods
+// ---------------------------------------------------------------------------
+
+GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
+    FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100) {
+
+}
+
+
+GNEMultipleParametersDialog::ParametersOptions::~ParametersOptions() {}
 
 // ---------------------------------------------------------------------------
 // GNEMultipleParametersDialog - methods
@@ -617,12 +629,14 @@ GNEMultipleParametersDialog::constructor() {
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create frame for Parameters and options
-    FXHorizontalFrame* horizontalFrameParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
+    // create frame for Parameters, operations and options
+    FXHorizontalFrame* horizontalFrameExtras = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrameParametersAndOptions, this);
+    myParametersValues = new ParametersValues(horizontalFrameExtras, this);
+    // create parameters operations
+    myParametersOperations = new ParametersOperations(horizontalFrameExtras, this);
     // create parameters options
-    myParametersOptions = new ParametersOptions(horizontalFrameParametersAndOptions, this);
+    myParametersOptions = new ParametersOptions(horizontalFrameExtras, this);
     // add separator
     new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // create dialog buttons bot centered
