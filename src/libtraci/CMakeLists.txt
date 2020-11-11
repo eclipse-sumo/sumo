@@ -32,7 +32,7 @@ set(libtracistatic_STAT_SRCS
     Simulation.cpp
 #    TrafficLight.cpp
     Vehicle.cpp
-#    VehicleType.cpp
+    VehicleType.cpp
 )
 
 add_library(libtracistatic STATIC ${libtracistatic_STAT_SRCS})
