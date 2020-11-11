@@ -27,11 +27,12 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSRouteProbe;
 namespace libsumo {
 class VariableWrapper;
 }
-
+#endif
 
 // ===========================================================================
 // class definitions
@@ -40,7 +41,7 @@ class VariableWrapper;
  * @class RouteProbe
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class RouteProbe {
 public:
     static std::string getEdgeID(const std::string& probeID);
@@ -53,7 +54,7 @@ public:
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
-
+#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
@@ -64,7 +65,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
-
+#endif
     /// @brief invalidated standard constructor
     RouteProbe() = delete;
 };

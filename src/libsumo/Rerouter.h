@@ -27,12 +27,12 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSTriggeredRerouter;
 namespace libsumo {
 class VariableWrapper;
 }
-
-
+#endif
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -40,12 +40,15 @@ class VariableWrapper;
  * @class Rerouter
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+
+
+namespace LIBSUMO_NAMESPACE {
 class Rerouter {
 public:
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
+#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
@@ -56,7 +59,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
-
+#endif
     /// @brief invalidated standard constructor
     Rerouter() = delete;
 };
