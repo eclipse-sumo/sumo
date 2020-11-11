@@ -27,7 +27,7 @@ set(libtracistatic_STAT_SRCS
 #    RouteProbe.cpp
 #    Rerouter.cpp
 #    VariableSpeedSign.cpp
-#    MeanData.cpp
+   MeanData.cpp
 #    OverheadWire.cpp
     Simulation.cpp
 #    TrafficLight.cpp

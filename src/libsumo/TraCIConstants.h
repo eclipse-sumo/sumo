@@ -436,7 +436,7 @@ TRACI_CONST int CMD_GET_MEANDATA_VARIABLE = 0x2a;
 // response: get meandata variable
 TRACI_CONST int RESPONSE_GET_MEANDATA_VARIABLE = 0x3a;
 // command: set meandata variable, not used yet
-//TRACI_CONST int CMD_SET_MEANDATA_VARIABLE = 0x4a;
+TRACI_CONST int CMD_SET_MEANDATA_VARIABLE = 0x4a;
 // command: subscribe meandata variable
 TRACI_CONST int CMD_SUBSCRIBE_MEANDATA_VARIABLE = 0x5a;
 // response: subscribe meandata variable
