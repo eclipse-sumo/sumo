@@ -43,11 +43,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSStageDriving::MSStageDriving(const MSEdge* destination,
+MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
                                MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
                                const std::string& group,
                                const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSStage(destination, toStop, arrivalPos, MSStageType::DRIVING, group),
+    myOrigin(origin),
     myLines(lines.begin(), lines.end()),
     myVehicle(nullptr),
     myVehicleID("NULL"),
@@ -65,7 +66,7 @@ MSStageDriving::MSStageDriving(const MSEdge* destination,
 
 MSStage*
 MSStageDriving::clone() const {
-    return new MSStageDriving(myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
+    return new MSStageDriving(myOrigin, myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
                               myGroup, myIntendedVehicleID, myIntendedDepart);
 }
 
@@ -205,6 +206,11 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         myWaitingEdge = previous->getEdge();
         myStopWaitPos = Position::INVALID;
         myWaitingPos = previous->getEdgePos(now);
+    }
+    if (myOrigin != nullptr && myOrigin != myWaitingEdge) {
+        // transfer at junction
+        myWaitingEdge = myOrigin;
+        myWaitingPos = 0;
     }
     SUMOVehicle* const availableVehicle = myWaitingEdge->getWaitingVehicle(transportable, myWaitingPos);
     const bool triggered = availableVehicle != nullptr &&

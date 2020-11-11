@@ -58,7 +58,7 @@ typedef std::vector<const MSEdge*> ConstMSEdgeVector;
 class MSStageDriving : public MSStage {
 public:
     /// constructor
-    MSStageDriving(const MSEdge* destination, MSStoppingPlace* toStop,
+    MSStageDriving(const MSEdge* origin, const MSEdge* destination, MSStoppingPlace* toStop,
                    const double arrivalPos, const std::vector<std::string>& lines,
                    const std::string& group = "",
                    const std::string& intendedVeh = "", SUMOTime intendedDepart = -1);
@@ -158,6 +158,11 @@ public:
         return myVehicleType;
     }
 
+    /// change origin for parking area rerouting
+    void setOrigin(const MSEdge* origin) {
+        myOrigin = origin;
+    }
+
     /** @brief Saves the current state into the given stream
      */
     void saveState(std::ostringstream& out);
@@ -167,6 +172,9 @@ public:
     void loadState(MSTransportable* transportable, std::istringstream& state);
 
 protected:
+    /// the origin edge
+    const MSEdge* myOrigin;
+
     /// the lines  to choose from
     const std::set<std::string> myLines;
 

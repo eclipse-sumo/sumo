@@ -330,12 +330,13 @@ MSTransportable::rerouteParkingArea(MSStoppingPlace* orig, MSStoppingPlace* repl
         }
         // if the plan contains another ride with the same vehicle from the same
         // parking area, adapt the preceeding walk to end at the replacement
-        // (ride origin is set implicitly from the walk destination)
         for (auto it = myStep + 2; it != myPlan->end(); it++) {
-            const MSStage* const futureStage = *it;
+            MSStage* const futureStage = *it;
             MSStage* const prevStage = *(it - 1);
             if (futureStage->getStageType() == MSStageType::DRIVING) {
-                const MSStageDriving* const ds = static_cast<const MSStageDriving*>(futureStage);
+                MSStageDriving* const ds = static_cast<MSStageDriving*>(futureStage);
+                // ride origin is set implicitly from the walk destination
+                ds->setOrigin(nullptr);
                 if (ds->getLines() == stage->getLines()
                         && prevStage->getDestination() == &orig->getLane().getEdge()) {
                     if (prevStage->getStageType() == MSStageType::TRIP) {

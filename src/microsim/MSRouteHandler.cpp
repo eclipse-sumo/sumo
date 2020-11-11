@@ -230,7 +230,11 @@ MSRouteHandler::myStartElement(int element,
                         throw ProcessError("The from edge '" + fromID + "' within a ride of person '" + pid + "' is not known.");
                     }
                     if (!myActivePlan->empty() && myActivePlan->back()->getDestination() != from) {
-                        if (myActivePlan->back()->getDestinationStop() == nullptr || &myActivePlan->back()->getDestinationStop()->getLane().getEdge() != from) {
+                        const bool stopWithAccess = (myActivePlan->back()->getDestinationStop() != nullptr
+                                && &myActivePlan->back()->getDestinationStop()->getLane().getEdge() == from);
+                        const bool transferAtJunction = (from->getFromJunction() == myActivePlan->back()->getDestination()->getFromJunction()
+                            || from->getFromJunction() == myActivePlan->back()->getDestination()->getToJunction());
+                        if (!(stopWithAccess || transferAtJunction)) {
                             throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id +
                                                "' (edge '" + fromID + "' != edge '" + myActivePlan->back()->getDestination()->getID() + "').");
                         }
@@ -257,7 +261,7 @@ MSRouteHandler::myStartElement(int element,
                 const std::string intendedVeh = attrs.getOpt<std::string>(SUMO_ATTR_INTENDED, nullptr, ok, "");
                 const SUMOTime intendedDepart = attrs.getOptSUMOTimeReporting(SUMO_ATTR_DEPART, nullptr, ok, -1);
                 arrivalPos = SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "person '" + pid + "' riding to edge '" + to->getID() + "'");
-                myActivePlan->push_back(new MSStageDriving(to, bs, arrivalPos, st.getVector(), group, intendedVeh, intendedDepart));
+                myActivePlan->push_back(new MSStageDriving(from, to, bs, arrivalPos, st.getVector(), group, intendedVeh, intendedDepart));
                 break;
             }
             case SUMO_TAG_TRANSPORT:
@@ -286,6 +290,18 @@ MSRouteHandler::myStartElement(int element,
                         if (!myActiveContainerPlan->empty() && myActiveContainerPlan->back()->getDestination() != from) {
                             throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id + "' (" + fromID + "!=" + myActiveContainerPlan->back()->getDestination()->getID() + ").");
                         }
+
+                        if (!myActiveContainerPlan->empty() && myActiveContainerPlan->back()->getDestination() != from) {
+                            const bool stopWithAccess = (myActiveContainerPlan->back()->getDestinationStop() != nullptr
+                                    && &myActiveContainerPlan->back()->getDestinationStop()->getLane().getEdge() == from);
+                            const bool transferAtJunction = (from->getFromJunction() == myActiveContainerPlan->back()->getDestination()->getFromJunction()
+                                    || from->getFromJunction() == myActiveContainerPlan->back()->getDestination()->getToJunction());
+                            if (!(stopWithAccess || transferAtJunction)) {
+                                throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id +
+                                        "' (edge '" + fromID + "' != edge '" + myActiveContainerPlan->back()->getDestination()->getID() + "').");
+                            }
+                        }
+
                         if (myActiveContainerPlan->empty()) {
                             myActiveContainerPlan->push_back(new MSStageWaiting(
                                                                  from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
@@ -299,7 +315,7 @@ MSRouteHandler::myStartElement(int element,
                         throw ProcessError("The to edge '" + toID + "' within a transport of container '" + containerId + "' is not known.");
                     }
                     arrivalPos = SUMOVehicleParameter::interpretEdgePos(arrivalPos, to->getLength(), SUMO_ATTR_ARRIVALPOS, "transport of container '" + containerId + "' to edge '" + to->getID() + "'");
-                    myActiveContainerPlan->push_back(new MSStageDriving(to, cs, arrivalPos, st.getVector()));
+                    myActiveContainerPlan->push_back(new MSStageDriving(from, to, cs, arrivalPos, st.getVector()));
                 } catch (ProcessError&) {
                     deleteActivePlans();
                     throw;

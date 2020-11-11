@@ -526,11 +526,16 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
             if (stage.edges.empty()) {
                 throw TraCIException("The stage should have at least one edge");
             }
-            std::string edgeId = stage.edges.back();
-            MSEdge* edge = MSEdge::dictionary(edgeId);
-            if (!edge) {
-                throw TraCIException("Invalid edge '" + edgeId + "' for person: '" + personID + "'");
+            std::string toId = stage.edges.back();
+            MSEdge* to = MSEdge::dictionary(toId);
+            if (!to) {
+                throw TraCIException("Invalid edge '" + toId + "' for person: '" + personID + "'");
             }
+            //std::string fromId = stage.edges.front();
+            //MSEdge* from = MSEdge::dictionary(fromId);
+            //if (!from) {
+            //    throw TraCIException("Invalid edge '" + fromId + "' for person: '" + personID + "'");
+            //}
             if (stage.line.empty()) {
                 throw TraCIException("Empty lines parameter for person: '" + personID + "'");
             }
@@ -539,10 +544,10 @@ Person::convertTraCIStage(const TraCIStage& stage, const std::string personID) {
                 if (bs != nullptr) {
                     arrivalPos = bs->getEndLanePosition();
                 } else {
-                    arrivalPos = edge->getLength();
+                    arrivalPos = to->getLength();
                 }
             }
-            return new MSStageDriving(edge, bs, arrivalPos, StringTokenizer(stage.line).getVector());
+            return new MSStageDriving(nullptr, to, bs, arrivalPos, StringTokenizer(stage.line).getVector());
         }
 
         case STAGE_WALKING: {
@@ -619,7 +624,7 @@ Person::appendDrivingStage(const std::string& personID, const std::string& toEdg
             throw TraCIException("Invalid stopping place id '" + stopID + "' for person: '" + personID + "'");
         }
     }
-    p->appendStage(new MSStageDriving(edge, bs, edge->getLength() - NUMERICAL_EPS, StringTokenizer(lines).getVector()));
+    p->appendStage(new MSStageDriving(nullptr, edge, bs, edge->getLength() - NUMERICAL_EPS, StringTokenizer(lines).getVector()));
 }
 
 
