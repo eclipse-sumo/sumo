@@ -23,11 +23,11 @@
 #include <libsumo/TraCIConstants.h>
 #include <libsumo/Helper.h>
 #include <libsumo/Rerouter.h>
-
+#include "Domain.h"
 
 namespace libtraci {
 
-typedef Domain<libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE> Dom;
+typedef Domain<libsumo::CMD_GET_REROUTER_VARIABLE, libsumo::CMD_SET_REROUTER_VARIABLE> Dom;
 
 // ===========================================================================
 // static member initializations

@@ -46,17 +46,17 @@ RouteProbe::getIDCount() {
 
 std::string
 RouteProbe::getEdgeID(const std::string& probeID) {
-    return Dom::getStringVector(libsumo::VAR_ROAD_ID, probeID);
+    return Dom::getString(libsumo::VAR_ROAD_ID, probeID);
 }
 
 std::string
 RouteProbe::sampleLastRouteID(const std::string& probeID) {
-    return Dom::getStringVector(libsumo::VAR_SAMPLE_LAST, probeID);
+    return Dom::getString(libsumo::VAR_SAMPLE_LAST, probeID);
 }
 
 std::string
 RouteProbe::sampleCurrentRouteID(const std::string& probeID) {
-    return Dom::getStringVector(libsumo::VAR_SAMPLE_CURRENT, probeID);
+    return Dom::getString(libsumo::VAR_SAMPLE_CURRENT, probeID);
 }
 
 

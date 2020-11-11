@@ -12,7 +12,7 @@ set(libtracistatic_STAT_SRCS
 	Domain.h
     Edge.cpp
     InductionLoop.cpp
-#    Junction.cpp
+    Junction.cpp
     Lane.cpp
     LaneArea.cpp
     MultiEntryExit.cpp
@@ -24,8 +24,8 @@ set(libtracistatic_STAT_SRCS
     BusStop.cpp
     ParkingArea.cpp
     ChargingStation.cpp
-#    RouteProbe.cpp
-#    Rerouter.cpp
+    RouteProbe.cpp
+    Rerouter.cpp
     VariableSpeedSign.cpp
     MeanData.cpp
     OverheadWire.cpp
