@@ -46,8 +46,8 @@ namespace libtraci {
  */
 class Connection {
 public:
-    static void connect(const std::string& host, int port, int numRetries, const std::string& label) {
-        myConnections[label] = new Connection(host, port, numRetries, label);
+    static void connect(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe) {
+        myConnections[label] = new Connection(host, port, numRetries, label, pipe);
     }
 
     static Connection& getActive() {
@@ -346,10 +346,11 @@ private:
      * @param[in] port The port to connect to
      * @exception tcpip::SocketException if the connection fails
      */
-    Connection(const std::string& host, int port, int numRetries, const std::string& label);
+    Connection(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe);
 
 private:
     const std::string myLabel;
+    FILE* const myProcessPipe;
     /// @brief The socket
     tcpip::Socket mySocket;
     /// @brief The reusable output storage

@@ -22,6 +22,7 @@
 /****************************************************************************/
 #include <thread>
 #include <chrono>
+#include <array>
 #include <libsumo/TraCIDefs.h>
 #include "Connection.h"
 
@@ -41,8 +42,8 @@ std::map<const std::string, Connection*> Connection::myConnections;
 /* Disable "decorated name length exceeded, name was truncated" warnings for the whole file. */
 #pragma warning(disable: 4503)
 #endif
-Connection::Connection(const std::string& host, int port, int numRetries, const std::string& label) :
-    myLabel(label), mySocket(host, port) {
+Connection::Connection(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe) :
+    myLabel(label), myProcessPipe(pipe), mySocket(host, port) {
     for (int i = 0; i <= numRetries; i++) {
         try {
             mySocket.connect();
@@ -73,6 +74,26 @@ Connection::close() {
     std::string acknowledgement;
     check_resultState(inMsg, libsumo::CMD_CLOSE, false, &acknowledgement);
     mySocket.close();
+    if (myProcessPipe != nullptr) {
+        std::array<char, 128> buffer;
+        std::stringstream result;
+        while (fgets(buffer.data(), buffer.size(), myProcessPipe) != nullptr) {
+            result << buffer.data();
+        }
+        std::string line;
+        while (std::getline(result, line)) {
+            if (line.compare(0, 6, "Error:") == 0) {
+                std::cerr << line << std::endl;
+            } else {
+                std::cout << line << std::endl;
+            }
+        }
+#ifdef WIN32
+        _pclose(myProcessPipe);
+#else
+        pclose(myProcessPipe);
+#endif
+    }
 }
 
 
