@@ -11,7 +11,7 @@ permalink: /Developer/Main/
 - [Developer/Unit Tests](Unit_Tests.md) - information about how to set up Unit Tests
 - [Developer/GUI Testing](GUI_Testing.md) - information about how to set up "interactive" GUI Tests with PyAutoGUI
 - [Developer/Debugging](Debugging.md) - information about debugging SUMO
-- [Developer/Exploring the structure](ExploringTheStructure.md) - Explore the structure of SUMO with the doxygen documentation
+- [Developer/Exploring the structure](ExploringTheStructure.md) - explore the structure of SUMO with the doxygen documentation
 - [Inline code documentation (doxygen)](http://sumo.dlr.de/daily/doxygen/)
 - [Developer/Used Tools](Used_Tools.md) - tools used for developing SUMO
 - [Developer/Managing Publications](Managing_Publications.md) - how to work with the publications bibtex-file
