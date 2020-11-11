@@ -27,6 +27,9 @@ ride_ignore_line
 # person rides and then stops
 ride_and_stop
 
+# person rides and exits the vehicle with some tolerance
+ride_and_stop_tolerance
+
 # person ride triggers a vehicle scaled with 3
 ride_triggered_scale
 
