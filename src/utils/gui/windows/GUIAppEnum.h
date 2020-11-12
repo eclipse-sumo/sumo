@@ -827,6 +827,13 @@ enum {
 
     /// @}
 
+    /// @name GNECreateEdgeFrame messages
+    /// @{
+    /// @brief selected radio button
+    MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,
+
+    /// @}
+
     /// @name GNETLSEditorFrame messages
     /// @{
 

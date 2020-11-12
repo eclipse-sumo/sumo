@@ -25,12 +25,74 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/div/GUIDesigns.h>
+
+
+// ===========================================================================
+// FOX callback mapping
+// ===========================================================================
+
+FXDEFMAP(GNECreateEdgeFrame::CustomEdgeSelector) CustomEdgeSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton),
+};
+
+// Object implementation
+FXIMPLEMENT(GNECreateEdgeFrame::CustomEdgeSelector,     FXGroupBox,     CustomEdgeSelectorMap,      ARRAYNUMBER(CustomEdgeSelectorMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNECreateEdgeFrame::CustomEdgeSelector - methods
+// ---------------------------------------------------------------------------
+
+GNECreateEdgeFrame::CustomEdgeSelector::CustomEdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
+    FXGroupBox(createEdgeFrameParent->myContentFrame, "Lane Selector", GUIDesignGroupBoxFrame),
+    myCreateEdgeFrameParent(createEdgeFrameParent) {
+    /*
+    // create start and stop buttons
+    myStopSelectingButton = new FXButton(this, "Stop selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
+    myAbortSelectingButton = new FXButton(this, "Abort selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GUIDesignButton);
+    // disable stop and abort functions as init
+    myStopSelectingButton->disable();
+    myAbortSelectingButton->disable();
+    */
+}
+
+
+GNECreateEdgeFrame::CustomEdgeSelector::~CustomEdgeSelector() {}
+
+
+void
+GNECreateEdgeFrame::CustomEdgeSelector::showCustomEdgeSelectorModul() {
+    // show FXGroupBox
+    FXGroupBox::show();
+}
+
+
+void
+GNECreateEdgeFrame::CustomEdgeSelector::hideCustomEdgeSelectorModul() {
+    // hide FXGroupBox
+    FXGroupBox::hide();
+}
+
+bool
+GNECreateEdgeFrame::CustomEdgeSelector::isShown() const {
+    return shown();
+}
+
+long
+GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton(FXObject*, FXSelector, void*) {
+
+    return 0;
+}
+
+// ---------------------------------------------------------------------------
+// GNECreateEdgeFrame - methods
+// ---------------------------------------------------------------------------
 
 GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
     GNEFrame(horizontalFrameParent, viewNet, "Create Edge"),

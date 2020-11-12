@@ -32,6 +32,53 @@
 class GNECreateEdgeFrame : public GNEFrame {
 
 public:
+
+    // ===========================================================================
+    // class CustomEdgeSelector
+    // ===========================================================================
+
+    class CustomEdgeSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNECreateEdgeFrame::CustomEdgeSelector)
+
+    public:
+        /// @brief constructor
+        CustomEdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent);
+
+        /// @brief destructor
+        ~CustomEdgeSelector();
+
+        /// @brief show CustomEdgeSelector modul
+        void showCustomEdgeSelectorModul();
+
+        /// @brief hide CustomEdgeSelector
+        void hideCustomEdgeSelectorModul();
+
+        /// @brief return true if modul is shown
+        bool isShown() const;
+
+        /// @brief get current selected lanes
+        const std::vector<std::pair<GNELane*, double> >& getSelectedLanes() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press a radio button
+        long onCmdRadioButton(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(CustomEdgeSelector)
+
+    private:
+        /// @brief pointer to createEdgeFrameParent
+        GNECreateEdgeFrame* myCreateEdgeFrameParent;
+
+        /// @brief button for stop selecting
+        FXButton* myStopSelectingButton;
+    };
+
     /**@brief Constructor
      * @brief parent FXHorizontalFrame in which this GNEFrame is placed
      * @brief viewNet viewNet that uses this GNEFrame
