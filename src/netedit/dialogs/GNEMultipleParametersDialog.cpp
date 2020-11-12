@@ -162,13 +162,14 @@ GNEMultipleParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, 
         if (myParameterRows.at(i)->keyField == obj) {
             // change color of text field depending if key is valid or empty
             if (myParameterRows.at(i)->keyField->getText().empty() || SUMOXMLDefinitions::isValidParameterKey(myParameterRows.at(i)->keyField->getText().text())) {
-                myParameterRows.at(i)->keyField->setTextColor(FXRGB(0, 0, 0));
+                myParameterRows.at(i)->keyField->setTextColor(FXRGB(0, 0, 255));
                 myParameterRows.at(i)->valueChanged = true;
             } else {
                 myParameterRows.at(i)->keyField->setTextColor(FXRGB(255, 0, 0));
                 myParameterRows.at(i)->keyField->killFocus();
             }
         } else if (myParameterRows.at(i)->valueField == obj) {
+            myParameterRows.at(i)->valueField->setTextColor(FXRGB(0, 0, 255));
             myParameterRows.at(i)->valueChanged = true;
         }
     }
@@ -510,7 +511,8 @@ GNEMultipleParametersDialog::ParametersOperations::GNEParameterHandler::myStartE
 GNEMultipleParametersDialog::ParametersOptions::ParametersOptions(FXVerticalFrame* frame, GNEMultipleParametersDialog* parameterDialogParent) :
     FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(parameterDialogParent) {
-    myApplyToAllElements = new FXCheckButton(this, "Apply to all", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButton);
+    myOnlyForExistentKeys = new FXCheckButton(this, "Only for\nexistent keys", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButtonDoubleHeight);
+    //myApplyToAllElements = new FXCheckButton(this, "Apply to all", this, MID_GNE_SET_ATTRIBUTE_BOOL, GUIDesignCheckButton);
 }
 
 
@@ -518,9 +520,16 @@ GNEMultipleParametersDialog::ParametersOptions::~ParametersOptions() {}
 
 
 bool
+GNEMultipleParametersDialog::ParametersOptions::onlyForExistentKeys() const {
+    return (myOnlyForExistentKeys->getCheck() == TRUE);
+}
+
+/*
+bool
 GNEMultipleParametersDialog::ParametersOptions::applyToAllElements() const {
     return (myApplyToAllElements->getCheck() == TRUE);
 }
+*/
 
 // ---------------------------------------------------------------------------
 // GNEMultipleParametersDialog - methods
@@ -544,7 +553,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // get undo list
     GNEUndoList *undoList = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList();
     // declare vector for parameters in stringvector format
-    std::vector<std::pair<std::string, std::string> > parameters, parametersChanged;
+    std::vector<std::pair<std::string, std::string> > parametersChanged;
     // declare keep keys vector
     std::vector<std::string> keepKeys;
     // check if all edited parameters are valid
@@ -554,7 +563,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
             // insert in keepKeys
             keepKeys.push_back(parameterRow->keyField->getText().text());
             // continue if we're going to modify key
-            if (parameterRow->modifyKey->getCheck() == TRUE) {
+            if (parameterRow->valueChanged) {
                 if (parameterRow->keyField->getText().empty()) {
                     // write warning if netedit is running in testing mode
                     WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
@@ -573,18 +582,15 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                     return 1;
                 }
                 // insert in parameters
-                parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
-                if (parameterRow->valueChanged) {
-                    parametersChanged.push_back(parameters.back());
-                }
+                parametersChanged.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
             }
         }
     }
     // sort sortedParameters
-    std::sort(parameters.begin(), parameters.end());
+    std::sort(parametersChanged.begin(), parametersChanged.end());
     // check if there is duplicated keys
-    for (auto i = parameters.begin(); i != parameters.end(); i++) {
-        if (((i + 1) != parameters.end()) && (i->first) == (i + 1)->first) {
+    for (auto i = parametersChanged.begin(); i != parametersChanged.end(); i++) {
+        if (((i + 1) != parametersChanged.end()) && (i->first) == (i + 1)->first) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
@@ -598,21 +604,13 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     undoList->p_begin("change parameters");
     // iterate over ACs
     for (const auto &AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        // continue depending of "apply to all"
-        if (myParametersOptions->applyToAllElements()) {
-            AC->setACParameters(parameters, undoList);
-        } else {
-            // remove keys
-            AC->removeACParametersKeys(keepKeys, undoList);
-            /*
-            // add new parameters
-            for (const auto &parameter : parameters) {
-                if (AC->getACParametersMap().count(parameter.first) == 0) {
-                    AC->addACParameters(parameter.first, parameter.second, undoList);
-                }
-            }*/
-            // update parameters
-            for (const auto &parameter : parametersChanged) {
+        // remove keys
+        AC->removeACParametersKeys(keepKeys, undoList);
+        // update parameters
+        for (const auto &parameter : parametersChanged) {
+            if (myParametersOptions->onlyForExistentKeys() && (AC->getACParametersMap().count(parameter.first) == 0)) {
+                continue;
+            } else {
                 AC->addACParameters(parameter.first, parameter.second, undoList);
             }
         }

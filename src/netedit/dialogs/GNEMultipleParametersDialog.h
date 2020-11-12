@@ -255,14 +255,22 @@ public:
         ~ParametersOptions();
 
         /// @brief apply changes to all elements
+        bool onlyForExistentKeys() const;
+
+        /*
+        /// @brief apply changes to all elements
         bool applyToAllElements() const;
+        */
 
     private:
         /// @brief pointer to Shape Frame Parent
         GNEMultipleParametersDialog* myParameterDialogParent;
 
+        /// @brief apply changes only for existent keys
+        FXCheckButton* myOnlyForExistentKeys;
+
         /// @brief apply changes to all elements
-        FXCheckButton* myApplyToAllElements;
+        // FXCheckButton* myApplyToAllElements;
     };
 
     /// @brief Constructor for parameter editor inspector
