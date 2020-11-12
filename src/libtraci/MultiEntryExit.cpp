@@ -72,6 +72,7 @@ MultiEntryExit::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+LIBTRACI_PARAMETER_IMPLEMENTATION(MultiEntryExit, MULTIENTRYEXIT)
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(MultiEntryExit, MULTIENTRYEXIT)
 
 

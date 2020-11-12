@@ -34,34 +34,35 @@ namespace libtraci {
 typedef Domain<libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::CMD_SET_JUNCTION_VARIABLE> Dom;
 
 
-    // ===========================================================================
-    // member definitions
-    // ===========================================================================
-    std::vector<std::string>
-        Junction::getIDList() {
-        return Dom::getStringVector(libsumo::TRACI_ID_LIST, "");
-    }
+// ===========================================================================
+// member definitions
+// ===========================================================================
+std::vector<std::string>
+    Junction::getIDList() {
+    return Dom::getStringVector(libsumo::TRACI_ID_LIST, "");
+}
 
 
-    int
-        Junction::getIDCount() {
-        return Dom::getInt(libsumo::ID_COUNT, "");
-    }
+int
+    Junction::getIDCount() {
+    return Dom::getInt(libsumo::ID_COUNT, "");
+}
 
 
-    libsumo::TraCIPosition
-        Junction::getPosition(const std::string& junctionID, bool includeZ) {
-        return Dom::getPos(libsumo::VAR_POSITION, junctionID);
-    }
+libsumo::TraCIPosition
+    Junction::getPosition(const std::string& junctionID, bool includeZ) {
+    return Dom::getPos(libsumo::VAR_POSITION, junctionID);
+}
 
 
-    libsumo::TraCIPositionVector
-        Junction::getShape(const std::string& junctionID) {
-        return Dom::getPolygon(libsumo::VAR_SHAPE, junctionID);
-    }
+libsumo::TraCIPositionVector
+    Junction::getShape(const std::string& junctionID) {
+    return Dom::getPolygon(libsumo::VAR_SHAPE, junctionID);
+}
 
 
-    LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Junction, JUNCTION)
+LIBTRACI_PARAMETER_IMPLEMENTATION(Junction, JUNCTION)
+LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Junction, JUNCTION)
 
 }
 

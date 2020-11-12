@@ -171,6 +171,18 @@ VehicleType::getHeight(const std::string& typeID) {
 }
 
 
+libsumo::TraCIColor
+VehicleType::getColor(const std::string& typeID) {
+    return Dom::getCol(libsumo::VAR_COLOR, typeID);
+}
+
+
+int
+VehicleType::getPersonCapacity(const std::string& typeID) {
+    return Dom::getInt(libsumo::VAR_PERSON_CAPACITY, typeID);
+}
+
+
 void
 VehicleType::setActionStepLength(const std::string& typeID, double actionStepLength, bool resetActionOffset) {
     //if (actionStepLength < 0) {

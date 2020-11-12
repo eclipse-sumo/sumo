@@ -180,36 +180,25 @@ Edge::getStreetName(const std::string& edgeID) {
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Edge, EDGE)
 LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)
 
-/*
-// TODO
+
 void
 Edge::setAllowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-	setStringVector(libsumo::VAR_ALLOWED, edgeID, speed);
-	
-	SVCPermissions permissions = parseVehicleClasses(classes);
-    setAllowedSVCPermissions(edgeID, permissions);
+	// TODO
+	//Dom::setStringVector(libsumo::VAR_ALLOWED, edgeID, classes);
 }
 
-// TODO
+
 void
 Edge::setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-    SVCPermissions permissions = invertPermissions(parseVehicleClasses(classes));
-    setAllowedSVCPermissions(edgeID, permissions);
+	// TODO
 }
 
-// TODO
+
 void
 Edge::setAllowedSVCPermissions(const std::string& edgeID, int permissions) {
-    MSEdge* e = getEdge(edgeID);
-    for (MSLane* lane : e->getLanes()) {
-        lane->setPermissions(permissions, MSLane::CHANGE_PERMISSIONS_PERMANENT);
-    }
-    e->rebuildAllowedLanes();
-    for (MSEdge* const pred : e->getPredecessors()) {
-        pred->rebuildAllowedTargets();
-    }
+	// TODO
 }
-*/
+
 
 void
 Edge::adaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double endSeconds) {

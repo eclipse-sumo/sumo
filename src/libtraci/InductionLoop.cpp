@@ -130,6 +130,7 @@ InductionLoop::getVehicleData(const std::string& detID) {
 }
 
 
+LIBTRACI_PARAMETER_IMPLEMENTATION(InductionLoop, INDUCTIONLOOP)
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(InductionLoop, INDUCTIONLOOP)
 
 

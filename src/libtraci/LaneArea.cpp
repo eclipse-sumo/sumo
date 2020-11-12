@@ -108,6 +108,7 @@ LaneArea::getLastStepHaltingNumber(const std::string& detID) {
 }
 
 
+LIBTRACI_PARAMETER_IMPLEMENTATION(LaneArea, LANEAREA)
 LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(LaneArea, LANEAREA)
 
 
