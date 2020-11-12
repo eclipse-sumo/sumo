@@ -20,4 +20,5 @@ static const char *checkbox_showshapes_xpm[] = {
 " .oooooooo.     ",
 " .ooooooo.      ",
 "  .......       ",
-"                "};
+"                "
+};
