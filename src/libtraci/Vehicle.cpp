@@ -1131,8 +1131,8 @@ Vehicle::remove(const std::string& vehicleID, char reason) {
 
 
 void
-Vehicle::setColor(const std::string& vehicleID, const libsumo::TraCIColor& col) {
-    Dom::setCol(libsumo::VAR_COLOR, vehicleID, col);
+Vehicle::setColor(const std::string& vehicleID, const libsumo::TraCIColor& color) {
+    Dom::setCol(libsumo::VAR_COLOR, vehicleID, color);
 }
 
 

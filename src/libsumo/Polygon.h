@@ -55,7 +55,7 @@ public:
 
     static void setType(const std::string& polygonID, const std::string& setType);
     static void setShape(const std::string& polygonID, const TraCIPositionVector& shape);
-    static void setColor(const std::string& polygonID, const TraCIColor& c);
+    static void setColor(const std::string& polygonID, const TraCIColor& color);
     static void add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill = false, const std::string& polygonType = "", int layer = 0, double lineWidth = 1);
 
     static void addDynamics(const std::string& polygonID, const std::string& trackedID = "", const std::vector<double>& timeSpan = std::vector<double>(), const std::vector<double>& alphaSpan = std::vector<double>(), bool looped = false, bool rotate = true);

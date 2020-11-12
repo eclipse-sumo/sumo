@@ -16,7 +16,7 @@ set(libtracistatic_STAT_SRCS
     Lane.cpp
     LaneArea.cpp
     MultiEntryExit.cpp
-#    Person.cpp
+    Person.cpp
 #    POI.cpp
 #    Polygon.cpp
     Route.cpp

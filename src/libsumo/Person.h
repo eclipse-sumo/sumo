@@ -23,18 +23,21 @@
 #include <vector>
 #include <libsumo/TraCIDefs.h>
 #include <libsumo/VehicleType.h>
-#include <libsumo/TraCIConstants.h>
+#ifndef LIBTRACI
 #include <microsim/transportables/MSTransportable.h>
+#endif
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSPerson;
 class PositionVector;
 namespace libsumo {
 class VariableWrapper;
 }
+#endif
 
 
 // ===========================================================================
@@ -44,12 +47,12 @@ class VariableWrapper;
  * @class Person
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class Person {
 public:
     static double getSpeed(const std::string& personID);
-    static TraCIPosition getPosition(const std::string& personID, const bool includeZ = false);
-    static TraCIPosition getPosition3D(const std::string& personID);
+    static libsumo::TraCIPosition getPosition(const std::string& personID, const bool includeZ = false);
+    static libsumo::TraCIPosition getPosition3D(const std::string& personID);
     static std::string getRoadID(const std::string& personID);
     static std::string getLaneID(const std::string& personID);
     static std::string getTypeID(const std::string& personID);
@@ -57,27 +60,27 @@ public:
     static std::string getNextEdge(const std::string& personID);
     static std::string getVehicle(const std::string& personID);
     static int getRemainingStages(const std::string& personID);
-    static TraCIStage getStage(const std::string& personID, int nextStageIndex = 0);
+    static libsumo::TraCIStage getStage(const std::string& personID, int nextStageIndex = 0);
     static std::vector<std::string> getEdges(const std::string& personID, int nextStageIndex = 0);
     static double getAngle(const std::string& personID);
     static double getSlope(const std::string& personID);
     static double getLanePosition(const std::string& personID);
 
-    static std::vector<TraCIReservation> getTaxiReservations(int onlyNew = false);
+    static std::vector<libsumo::TraCIReservation> getTaxiReservations(int onlyNew = false);
 
     LIBSUMO_ID_PARAMETER_API
     LIBSUMO_VEHICLE_TYPE_GETTER
 
-    static void add(const std::string& personID, const std::string& edgeID, double pos, double depart = DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
-    static void appendStage(const std::string& personID, const TraCIStage& stage);
-    static void replaceStage(const std::string& personID, const int stageIndex, const TraCIStage& stage);
+    static void add(const std::string& personID, const std::string& edgeID, double pos, double depart = libsumo::DEPARTFLAG_NOW, const std::string typeID = "DEFAULT_PEDTYPE");
+    static void appendStage(const std::string& personID, const libsumo::TraCIStage& stage);
+    static void replaceStage(const std::string& personID, const int stageIndex, const libsumo::TraCIStage& stage);
     static void appendWaitingStage(const std::string& personID, double duration, const std::string& description = "waiting", const std::string& stopID = "");
     static void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edgeIDs, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
     static void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");
     static void removeStage(const std::string& personID, int nextStageIndex);
     static void rerouteTraveltime(const std::string& personID);
     static void moveTo(const std::string& personID, const std::string& edgeID, double position);
-    static void moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle = INVALID_DOUBLE_VALUE, const int keepRoute = 1);
+    static void moveToXY(const std::string& personID, const std::string& edgeID, const double x, const double y, double angle = libsumo::INVALID_DOUBLE_VALUE, const int keepRoute = 1);
     static void setSpeed(const std::string& personID, double speed);
     static void setType(const std::string& personID, const std::string& typeID);
 
@@ -85,7 +88,8 @@ public:
 
     LIBSUMO_SUBSCRIPTION_API
 
-    /** @brief Saves the shape of the requested object in the given container
+#ifndef LIBTRACI
+   /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the poi to retrieve
     *  @param shape The container to fill
     */
@@ -102,6 +106,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 
 private:
     /// @brief invalidated standard constructor

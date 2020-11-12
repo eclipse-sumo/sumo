@@ -64,7 +64,7 @@ static void setEmergencyDecel(const std::string& typeID, double decel); \
 static void setApparentDecel(const std::string& typeID, double decel); \
 static void setImperfection(const std::string& typeID, double imperfection); \
 static void setTau(const std::string& typeID, double tau); \
-static void setColor(const std::string& typeID, const libsumo::TraCIColor& c); \
+static void setColor(const std::string& typeID, const libsumo::TraCIColor& color); \
 static void setMinGapLat(const std::string& typeID, double minGapLat); \
 static void setMaxSpeedLat(const std::string& typeID, double speed); \
 static void setLateralAlignment(const std::string& typeID, const std::string& latAlignment); \
