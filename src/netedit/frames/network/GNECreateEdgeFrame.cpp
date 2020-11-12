@@ -50,43 +50,71 @@ FXIMPLEMENT(GNECreateEdgeFrame::CustomEdgeSelector,     FXGroupBox,     CustomEd
 // ---------------------------------------------------------------------------
 
 GNECreateEdgeFrame::CustomEdgeSelector::CustomEdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
-    FXGroupBox(createEdgeFrameParent->myContentFrame, "Lane Selector", GUIDesignGroupBoxFrame),
+    FXGroupBox(createEdgeFrameParent->myContentFrame, "Custom edge selector", GUIDesignGroupBoxFrame),
     myCreateEdgeFrameParent(createEdgeFrameParent) {
-    /*
-    // create start and stop buttons
-    myStopSelectingButton = new FXButton(this, "Stop selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_STOPSELECTION, GUIDesignButton);
-    myAbortSelectingButton = new FXButton(this, "Abort selecting", nullptr, this, MID_GNE_ADDITIONALFRAME_ABORTSELECTION, GUIDesignButton);
-    // disable stop and abort functions as init
-    myStopSelectingButton->disable();
-    myAbortSelectingButton->disable();
-    */
+    // default edge radio button
+    myUseDefaultEdgeRadioButton = new FXRadioButton(this, "Default edge\t\tUse default edge",
+        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    // custom edge radio button
+    myCustomRadioButton = new FXRadioButton(this, "Custom edge\t\tUse a custom edge",
+        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    // add separator
+    myRadioButtonSeparator = new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
+    // edge attributes radio button
+    myEdgeAttributes = new FXRadioButton(this, "Use edge attributes\t\tUse edge attributes",
+        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    // lane attributes radio button
+    myLaneAttributes = new FXRadioButton(this, "Use lane attributes\t\tUse lane attributes",
+        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    // by default, use default edge
+    myUseDefaultEdgeRadioButton->setCheck(TRUE);
+    // hide separator
+    myRadioButtonSeparator->hide();
+    // use edge attributes
+    myEdgeAttributes->setCheck(TRUE);
+    // hide edge/lane attributes
+    myEdgeAttributes->hide();
+    myLaneAttributes->hide();
 }
 
 
 GNECreateEdgeFrame::CustomEdgeSelector::~CustomEdgeSelector() {}
 
 
-void
-GNECreateEdgeFrame::CustomEdgeSelector::showCustomEdgeSelectorModul() {
-    // show FXGroupBox
-    FXGroupBox::show();
-}
-
-
-void
-GNECreateEdgeFrame::CustomEdgeSelector::hideCustomEdgeSelectorModul() {
-    // hide FXGroupBox
-    FXGroupBox::hide();
-}
-
-bool
-GNECreateEdgeFrame::CustomEdgeSelector::isShown() const {
-    return shown();
-}
-
 long
-GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton(FXObject*, FXSelector, void*) {
-
+GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
+    // check what object was pressed
+    if (obj == myUseDefaultEdgeRadioButton) {
+        // update buttons
+        myUseDefaultEdgeRadioButton->setCheck(TRUE, FALSE);
+        myCustomRadioButton->setCheck(FALSE, FALSE);
+        // hide separator
+        myRadioButtonSeparator->hide();
+        // hide edge/lane attributes
+        myEdgeAttributes->hide();
+        myLaneAttributes->hide();
+    } else if (obj == myCustomRadioButton) {
+        // update buttons
+        myUseDefaultEdgeRadioButton->setCheck(FALSE, FALSE);
+        myCustomRadioButton->setCheck(TRUE, FALSE);
+        // show separator
+        myRadioButtonSeparator->show();
+        // show edge/lane attributes
+        myEdgeAttributes->show();
+        myLaneAttributes->show();
+    } else if (obj == myEdgeAttributes) {
+        // update buttons
+        myEdgeAttributes->setCheck(TRUE, FALSE);
+        myLaneAttributes->setCheck(FALSE, FALSE);
+        /* */
+    } else if (obj == myLaneAttributes) {
+        // update buttons
+        myEdgeAttributes->setCheck(FALSE, FALSE);
+        myLaneAttributes->setCheck(TRUE, FALSE);
+        /* */
+    }
+    // recalc
+    recalc();
     return 0;
 }
 
@@ -98,6 +126,8 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Create Edge"),
     myObjectsUnderSnappedCursor(viewNet),
     myCreateEdgeSource(nullptr) {
+    // create custom edge selector
+    myCustomEdgeSelector = new CustomEdgeSelector(this);
     // crate information
     std::ostringstream information;
     // create helpBox

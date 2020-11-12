@@ -48,18 +48,6 @@ public:
         /// @brief destructor
         ~CustomEdgeSelector();
 
-        /// @brief show CustomEdgeSelector modul
-        void showCustomEdgeSelectorModul();
-
-        /// @brief hide CustomEdgeSelector
-        void hideCustomEdgeSelectorModul();
-
-        /// @brief return true if modul is shown
-        bool isShown() const;
-
-        /// @brief get current selected lanes
-        const std::vector<std::pair<GNELane*, double> >& getSelectedLanes() const;
-
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press a radio button
@@ -75,8 +63,20 @@ public:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
 
-        /// @brief button for stop selecting
-        FXButton* myStopSelectingButton;
+        /// @brief use default edge 
+        FXRadioButton* myUseDefaultEdgeRadioButton;
+
+        /// @brief custom radio button
+        FXRadioButton* myCustomRadioButton;
+
+        /// @brief separator
+        FXHorizontalSeparator* myRadioButtonSeparator;
+
+        /// @brief edge attributes
+        FXRadioButton* myEdgeAttributes;
+
+        /// @brief edge attributes
+        FXRadioButton* myLaneAttributes;
     };
 
     /**@brief Constructor
@@ -112,6 +112,9 @@ public:
     void hide();
 
 protected:
+    /// @brief custom edge selector
+    CustomEdgeSelector* myCustomEdgeSelector;
+
     /// @brief objects under snapped cursor
     GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderSnappedCursor;
 
