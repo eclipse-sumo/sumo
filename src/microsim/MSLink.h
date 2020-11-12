@@ -376,6 +376,10 @@ public:
         return myLogic != 0;
     }
 
+    inline bool isTurnaround() const {
+        return myDirection == LinkDirection::TURN || myDirection == LinkDirection::TURN_LEFTHAND;
+    }
+
     /** @brief Returns the length of this link
      *
      * @return The length of this link
