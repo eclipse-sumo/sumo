@@ -57,3 +57,6 @@ linkMinDur
 
 # test detector usage at joined tls
 joined_tls_controlling_detectors
+
+# test detector usage
+controlling_detectors
