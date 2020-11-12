@@ -87,9 +87,6 @@ public:
         /// @brief event when user change an attribute
         long onCmdSetAttribute(FXObject*, FXSelector, void*);
 
-        /// @brief event when user toogle checkbox
-        long onCmdToogleCheckBox(FXObject*, FXSelector, void*);
-
         /// @brief event when user press a remove (or add) button
         long onCmdButtonPress(FXObject*, FXSelector, void*);
 
@@ -133,9 +130,6 @@ public:
 
             /// @brief Button for add or remove row
             FXButton* button;
-
-            /// @brief Bheck button for enable/disable modify key
-            FXCheckButton* modifyKey;
 
             /// @brief flag to check that parameter was changed
             bool valueChanged;
@@ -257,20 +251,12 @@ public:
         /// @brief apply changes to all elements
         bool onlyForExistentKeys() const;
 
-        /*
-        /// @brief apply changes to all elements
-        bool applyToAllElements() const;
-        */
-
     private:
         /// @brief pointer to Shape Frame Parent
         GNEMultipleParametersDialog* myParameterDialogParent;
 
         /// @brief apply changes only for existent keys
         FXCheckButton* myOnlyForExistentKeys;
-
-        /// @brief apply changes to all elements
-        // FXCheckButton* myApplyToAllElements;
     };
 
     /// @brief Constructor for parameter editor inspector
