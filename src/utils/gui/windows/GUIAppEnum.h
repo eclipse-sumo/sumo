@@ -831,6 +831,8 @@ enum {
     /// @{
     /// @brief selected radio button
     MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,
+    /// @brief change num lanes
+    MID_GNE_CREATEEDGEFRAME_NUMLANES,
 
     /// @}
 

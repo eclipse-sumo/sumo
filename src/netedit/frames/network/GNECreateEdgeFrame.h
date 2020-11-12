@@ -48,10 +48,16 @@ public:
         /// @brief destructor
         ~CustomEdgeSelector();
 
+        /// @brief get num lanes
+        int getNumLanes() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press a radio button
         long onCmdRadioButton(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the change the number of lanes in spinner
+        long onCmdChangeNumLanes(FXObject*, FXSelector, void*);
 
         /// @}
 
@@ -77,6 +83,26 @@ public:
 
         /// @brief edge attributes
         FXRadioButton* myLaneAttributes;
+
+        /// @brief numLanes horizontal frame
+        FXHorizontalFrame* myNumLanesHorizontalFrame;
+
+        /// @brief spinner for numLanes
+        FXSpinner* myNumLanesSpinner;
+    };
+
+    // ===========================================================================
+    // class EdgeSelectorLegend
+    // ===========================================================================
+
+    class EdgeSelectorLegend : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        EdgeSelectorLegend(GNECreateEdgeFrame* createEdgeFrameParent);
+
+        /// @brief destructor
+        ~EdgeSelectorLegend();
     };
 
     /**@brief Constructor
@@ -115,6 +141,10 @@ protected:
     /// @brief custom edge selector
     CustomEdgeSelector* myCustomEdgeSelector;
 
+    /// @brief edge selector legend
+    EdgeSelectorLegend* myEdgeSelectorLegend;
+
+private:
     /// @brief objects under snapped cursor
     GNEViewNetHelper::ObjectsUnderCursor myObjectsUnderSnappedCursor;
 

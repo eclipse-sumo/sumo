@@ -35,6 +35,8 @@
 
 FXDEFMAP(GNECreateEdgeFrame::CustomEdgeSelector) CustomEdgeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_NUMLANES,           GNECreateEdgeFrame::CustomEdgeSelector::onCmdChangeNumLanes),
+
 };
 
 // Object implementation
@@ -66,6 +68,13 @@ GNECreateEdgeFrame::CustomEdgeSelector::CustomEdgeSelector(GNECreateEdgeFrame* c
     // lane attributes radio button
     myLaneAttributes = new FXRadioButton(this, "Use lane attributes\t\tUse lane attributes",
         this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    // create numlanes elements
+    myNumLanesHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(myNumLanesHorizontalFrame, toString(SUMO_ATTR_NUMLANES).c_str(), nullptr, GUIDesignLabelAttribute);
+    myNumLanesSpinner = new FXSpinner(myNumLanesHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_CREATEEDGEFRAME_NUMLANES, GUIDesignSpinDialAttribute);
+    myNumLanesSpinner->setRange(1, 100);
+    // hide spinner
+    myNumLanesHorizontalFrame->hide();
     // by default, use default edge
     myUseDefaultEdgeRadioButton->setCheck(TRUE);
     // hide separator
@@ -81,6 +90,16 @@ GNECreateEdgeFrame::CustomEdgeSelector::CustomEdgeSelector(GNECreateEdgeFrame* c
 GNECreateEdgeFrame::CustomEdgeSelector::~CustomEdgeSelector() {}
 
 
+int 
+GNECreateEdgeFrame::CustomEdgeSelector::getNumLanes() const {
+    if (myNumLanesSpinner->shown()) {
+        return myNumLanesSpinner->getValue();
+    } else {
+        return -1;
+    }
+}
+
+
 long
 GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
     // check what object was pressed
@@ -90,6 +109,8 @@ GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton(FXObject* obj, FXSelect
         myCustomRadioButton->setCheck(FALSE, FALSE);
         // hide separator
         myRadioButtonSeparator->hide();
+        // hide spinner
+        myNumLanesHorizontalFrame->hide();
         // hide edge/lane attributes
         myEdgeAttributes->hide();
         myLaneAttributes->hide();
@@ -99,6 +120,8 @@ GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton(FXObject* obj, FXSelect
         myCustomRadioButton->setCheck(TRUE, FALSE);
         // show separator
         myRadioButtonSeparator->show();
+        // show spinner
+        myNumLanesHorizontalFrame->show();
         // show edge/lane attributes
         myEdgeAttributes->show();
         myLaneAttributes->show();
@@ -118,20 +141,21 @@ GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton(FXObject* obj, FXSelect
     return 0;
 }
 
+
+long
+GNECreateEdgeFrame::CustomEdgeSelector::onCmdChangeNumLanes(FXObject*, FXSelector, void*) {
+    //
+    return 0;
+}
+
 // ---------------------------------------------------------------------------
-// GNECreateEdgeFrame - methods
+// GNECreateEdgeFrame::Legend - methods
 // ---------------------------------------------------------------------------
 
-GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
-    GNEFrame(horizontalFrameParent, viewNet, "Create Edge"),
-    myObjectsUnderSnappedCursor(viewNet),
-    myCreateEdgeSource(nullptr) {
-    // create custom edge selector
-    myCustomEdgeSelector = new CustomEdgeSelector(this);
+GNECreateEdgeFrame::EdgeSelectorLegend::EdgeSelectorLegend(GNECreateEdgeFrame* createEdgeFrameParent) :
+    FXGroupBox(createEdgeFrameParent->myContentFrame, "Legend", GUIDesignGroupBoxFrame) {
     // crate information
     std::ostringstream information;
-    // create helpBox
-    FXGroupBox* helpBox = new FXGroupBox(myContentFrame, "Legend", GUIDesignGroupBoxFrame);
     // add label for shift+click
     information
         << "- Control+Click:" << "\n"
@@ -142,7 +166,24 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
         << "\n"
         << "- Alt+Shift+Click:" << "\n"
         << "  Splits edge in one direction";
-    new FXLabel(helpBox, information.str().c_str(), 0, GUIDesignLabelFrameThicked);
+    new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameThicked);
+}
+
+
+GNECreateEdgeFrame::EdgeSelectorLegend::~EdgeSelectorLegend() {}
+
+// ---------------------------------------------------------------------------
+// GNECreateEdgeFrame - methods
+// ---------------------------------------------------------------------------
+
+GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent, GNEViewNet* viewNet) :
+    GNEFrame(horizontalFrameParent, viewNet, "Create Edge"),
+    myObjectsUnderSnappedCursor(viewNet),
+    myCreateEdgeSource(nullptr) {
+    // create custom edge selector
+    myCustomEdgeSelector = new CustomEdgeSelector(this);
+    // create edge selector legend
+    myEdgeSelectorLegend = new EdgeSelectorLegend(this);
 }
 
 
@@ -180,10 +221,19 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                                myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
             // check if edge was sucesfully created
             if (newEdge) {
+                // update parameter
+                if (myCustomEdgeSelector->getNumLanes() > 0) {
+                    newEdge->setAttribute(SUMO_ATTR_NUMLANES, toString(myCustomEdgeSelector->getNumLanes()), myViewNet->getUndoList());
+                }
                 // create another edge, if create opposite edge is enabled
                 if (oppositeEdge) {
-                    myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(),
-                                                    myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
+                    GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, 
+                        myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(),
+                        myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
+                    // update parameter
+                    if (myCustomEdgeSelector->getNumLanes() > 0) {
+                        newOppositeEdge->setAttribute(SUMO_ATTR_NUMLANES, toString(myCustomEdgeSelector->getNumLanes()), myViewNet->getUndoList());
+                    }
                 }
                 // edge created, then unmark as create edge source
                 myCreateEdgeSource->unMarkAsCreateEdgeSource();
