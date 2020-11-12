@@ -163,10 +163,13 @@ GNEMultipleParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, 
             // change color of text field depending if key is valid or empty
             if (myParameterRows.at(i)->keyField->getText().empty() || SUMOXMLDefinitions::isValidParameterKey(myParameterRows.at(i)->keyField->getText().text())) {
                 myParameterRows.at(i)->keyField->setTextColor(FXRGB(0, 0, 0));
+                myParameterRows.at(i)->valueChanged = true;
             } else {
                 myParameterRows.at(i)->keyField->setTextColor(FXRGB(255, 0, 0));
                 myParameterRows.at(i)->keyField->killFocus();
             }
+        } else if (myParameterRows.at(i)->valueField == obj) {
+            myParameterRows.at(i)->valueChanged = true;
         }
     }
     return 1;
@@ -218,7 +221,8 @@ GNEMultipleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, F
 }
 
 
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) {
+GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) : 
+    valueChanged(false) {
     horizontalFrame = new FXHorizontalFrame(verticalFrameParent, GUIDesignAuxiliarHorizontalFrame);
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     valueField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -540,7 +544,7 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // get undo list
     GNEUndoList *undoList = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList();
     // declare vector for parameters in stringvector format
-    std::vector<std::pair<std::string, std::string> > parameters;
+    std::vector<std::pair<std::string, std::string> > parameters, parametersChanged;
     // declare keep keys vector
     std::vector<std::string> keepKeys;
     // check if all edited parameters are valid
@@ -570,6 +574,9 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 }
                 // insert in parameters
                 parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
+                if (parameterRow->valueChanged) {
+                    parametersChanged.push_back(parameters.back());
+                }
             }
         }
     }
@@ -597,11 +604,16 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         } else {
             // remove keys
             AC->removeACParametersKeys(keepKeys, undoList);
+            /*
             // add new parameters
             for (const auto &parameter : parameters) {
                 if (AC->getACParametersMap().count(parameter.first) == 0) {
                     AC->addACParameters(parameter.first, parameter.second, undoList);
                 }
+            }*/
+            // update parameters
+            for (const auto &parameter : parametersChanged) {
+                AC->addACParameters(parameter.first, parameter.second, undoList);
             }
         }
     }

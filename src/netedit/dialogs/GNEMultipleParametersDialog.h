@@ -137,6 +137,9 @@ public:
             /// @brief Bheck button for enable/disable modify key
             FXCheckButton* modifyKey;
 
+            /// @brief flag to check that parameter was changed
+            bool valueChanged;
+
         private:
             /// @brief frame in which elements of ParameterRow are placed
             FXHorizontalFrame* horizontalFrame;
