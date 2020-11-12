@@ -1552,14 +1552,14 @@ NBNodeCont::joinNodeCluster(NodeSet cluster, NBDistrictCont& dc, NBEdgeCont& ec,
         }
     }
     // collect edges
-    EdgeSet allEdges;
+    std::set<NBEdge*, ComparatorIdLess> allEdges;
     for (NBNode* n : cluster) {
         const EdgeVector& edges = n->getEdges();
         allEdges.insert(edges.begin(), edges.end());
     }
     // determine edges with are incoming or fully inside
-    EdgeSet clusterIncoming;
-    EdgeSet inside;
+    std::set<NBEdge*, ComparatorIdLess> clusterIncoming;
+    std::set<NBEdge*, ComparatorIdLess> inside;
     for (NBEdge* e : allEdges) {
         if (cluster.count(e->getToNode()) > 0) {
             if (cluster.count(e->getFromNode()) > 0) {
