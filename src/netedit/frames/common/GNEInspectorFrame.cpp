@@ -1327,7 +1327,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
                 // begin undo list
                 myInspectorFrameParent->myViewNet->getUndoList()->p_begin("change parameters");
                 // set parameters
-                frontAC->setACParameters(myTextFieldParameters->getText().text(), true, myInspectorFrameParent->myViewNet->getUndoList());
+                frontAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 // end undo list
                 myInspectorFrameParent->myViewNet->getUndoList()->p_end();
             } else if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
@@ -1335,7 +1335,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSe
                 myInspectorFrameParent->myViewNet->getUndoList()->p_begin("change multiple parameters");
                 // set parameters in all ACs
                 for (const auto& inspectedAC : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
-                    inspectedAC->setACParameters(myTextFieldParameters->getText().text(), true, myInspectorFrameParent->myViewNet->getUndoList());
+                    inspectedAC->setACParameters(myTextFieldParameters->getText().text(), myInspectorFrameParent->myViewNet->getUndoList());
                 }
                 // end undo list
                 myInspectorFrameParent->myViewNet->getUndoList()->p_end();

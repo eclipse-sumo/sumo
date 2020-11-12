@@ -374,7 +374,7 @@ GNEAttributeCarrier::getACParameters() const {
 
 
 void
-GNEAttributeCarrier::setACParameters(const std::string& parameters, const bool agressive, GNEUndoList* undoList) {
+GNEAttributeCarrier::setACParameters(const std::string& parameters, GNEUndoList* undoList) {
     // declare map
     std::map<std::string, std::string> parametersMap;
     // separate value in a vector of string using | as separator
@@ -388,12 +388,12 @@ GNEAttributeCarrier::setACParameters(const std::string& parameters, const bool a
         }
     }
     // set setACParameters map
-    setACParameters(parametersMap, agressive, undoList);
+    setACParameters(parametersMap, undoList);
 }
 
 
 void
-GNEAttributeCarrier::setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, const bool agressive, GNEUndoList* undoList) {
+GNEAttributeCarrier::setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList) {
     // declare parametersMap
     std::map<std::string, std::string> parametersMap;
     // Generate an string using the following structure: "key1=value1|key2=value2|...
@@ -401,31 +401,17 @@ GNEAttributeCarrier::setACParameters(const std::vector<std::pair<std::string, st
         parametersMap[parameter.first] = parameter.second;
     }
     // set setACParameters map
-    setACParameters(parametersMap, agressive, undoList);
+    setACParameters(parametersMap, undoList);
 }
 
 
 void
-GNEAttributeCarrier::setACParameters(const std::map<std::string, std::string>& parameters, const bool agressive, GNEUndoList* undoList) {
+GNEAttributeCarrier::setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList) {
     // declare result string
     std::string paramsStr;
-    // continue depending of flag agressive
-    if (agressive) {
-        // Generate an string using the following structure: "key1=value1|key2=value2|...
-        for (const auto& parameter : parameters) {
-            paramsStr += parameter.first + "=" + parameter.second + "|";
-        }
-    } else {
-        // get parametersMap
-        std::map<std::string, std::string> originalParametersMap = getACParametersMap();
-        // update originalParametersMap with parameters
-        for (const auto& parameter : parameters) {
-            originalParametersMap[parameter.first] = parameter.second;
-        }
-        // Generate an string using the following structure: "key1=value1|key2=value2|...
-        for (const auto& parameter : originalParametersMap) {
-            paramsStr += parameter.first + "=" + parameter.second + "|";
-        }
+    // Generate an string using the following structure: "key1=value1|key2=value2|...
+    for (const auto& parameter : parameters) {
+        paramsStr += parameter.first + "=" + parameter.second + "|";
     }
     // remove the last "|"
     if (!paramsStr.empty()) {
@@ -433,6 +419,33 @@ GNEAttributeCarrier::setACParameters(const std::map<std::string, std::string>& p
     }
     // set parameters
     setAttribute(GNE_ATTR_PARAMETERS, paramsStr, undoList);
+}
+
+
+void
+GNEAttributeCarrier::addACParameters(const std::string& key, const std::string& attribute, GNEUndoList* undoList) {
+    // get parametersMap
+    std::map<std::string, std::string> parametersMap = getACParametersMap();
+    // add (or update) attribute
+    parametersMap[key] = attribute;
+    // set attribute
+    setACParameters(parametersMap, undoList);
+}
+
+
+void 
+GNEAttributeCarrier::removeACParametersKeys(const std::vector<std::string>& keepKeys, GNEUndoList* undoList) {
+    // declare parametersMap
+    std::map<std::string, std::string> newParametersMap;
+    // iterate over parameters map
+    for (const auto& parameter : getACParametersMap()) {
+        // copy to newParametersMap if key is in keepKeys
+        if (std::find(keepKeys.begin(), keepKeys.end(), parameter.first) != keepKeys.end()) {
+            newParametersMap.insert(parameter);
+        }
+    }
+    // set newParametersMap map
+    setACParameters(newParametersMap, undoList);
 }
 
 

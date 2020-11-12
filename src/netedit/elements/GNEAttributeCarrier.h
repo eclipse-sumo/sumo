@@ -146,13 +146,19 @@ public:
     T getACParameters() const;
 
     /// @brief set parameters (string)
-    void setACParameters(const std::string &parameters, const bool agressive, GNEUndoList* undoList);
+    void setACParameters(const std::string &parameters, GNEUndoList* undoList);
 
     /// @brief set parameters (map)
-    void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters,  const bool agressive, GNEUndoList* undoList);
+    void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList);
 
     /// @brief set parameters (string vector)
-    void setACParameters(const std::map<std::string, std::string>& parameters, const bool agressive, GNEUndoList* undoList);
+    void setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList);
+
+    /// @brief add (or update attribute) key and attribute
+    void addACParameters(const std::string& key, const std::string& attribute, GNEUndoList* undoList);
+
+    /// @brief remove keys
+    void removeACParametersKeys(const std::vector<std::string>& keepKeys, GNEUndoList* undoList);
 
     /// @}
 
