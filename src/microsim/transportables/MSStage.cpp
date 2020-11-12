@@ -315,12 +315,13 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                             } else {
                                 depPos = first->getLength();
                             }
-                        } else if (previous->getEdge() != it->edges.front()) {
-//                            if (previous->getEdge()->getToJunction() == it->edges.front()->getToJunction()) {
-//                                depPos = it->edges.front()->getLength();
-//                            } else {
-                            depPos = 0.;
-//                            }
+                        } else if (previous->getDestination() != it->edges.front()) {
+                            if ((previous->getDestination()->getToJunction() == it->edges.front()->getToJunction())
+                                    || (previous->getDestination()->getFromJunction() == it->edges.front()->getToJunction())) {
+                                depPos = it->edges.front()->getLength();
+                            } else {
+                                depPos = 0.;
+                            }
                         }
                         if (myDestination->isTazConnector()) {
                             // walk the whole length of the last edge
