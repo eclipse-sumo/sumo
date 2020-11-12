@@ -276,6 +276,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 // check2
                 if (usable) {
                     for (MSLink* link : loopLane->getLinkCont()) {
+                        if (link->getDirection() == LinkDirection::TURN || link->getDirection() == LinkDirection::TURN_LEFTHAND) {
+                            continue;
+                        }
                         const MSLane* next = link->getLane();
                         if (laneInductLoopMap.count(next) != 0) {
                             MSInductLoop* nextLoop = laneInductLoopMap[next];
