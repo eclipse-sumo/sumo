@@ -39,13 +39,85 @@ FXDEFMAP(GNECreateEdgeFrame::CustomEdgeSelector) CustomEdgeSelectorMap[] = {
 
 };
 
+FXDEFMAP(GNECreateEdgeFrame::EdgeParameters) EdgeParametersMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNECreateEdgeFrame::EdgeParameters::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNECreateEdgeFrame::EdgeParameters::onCmdOpenAttributeDialog),
+};
+
 // Object implementation
-FXIMPLEMENT(GNECreateEdgeFrame::CustomEdgeSelector,     FXGroupBox,     CustomEdgeSelectorMap,      ARRAYNUMBER(CustomEdgeSelectorMap))
+FXIMPLEMENT(GNECreateEdgeFrame::CustomEdgeSelector,     FXGroupBox,     CustomEdgeSelectorMap,  ARRAYNUMBER(CustomEdgeSelectorMap))
+FXIMPLEMENT(GNECreateEdgeFrame::EdgeParameters,         FXGroupBox,     EdgeParametersMap,      ARRAYNUMBER(EdgeParametersMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNECreateEdgeFrame::EdgeParameters - methods
+// ---------------------------------------------------------------------------
+
+GNECreateEdgeFrame::EdgeParameters::EdgeParameters(GNECreateEdgeFrame* createEdgeFrameParent) :
+    FXGroupBox(createEdgeFrameParent->myContentFrame, "Edge parameters", GUIDesignGroupBoxFrame),
+    myCreateEdgeFrameParent(createEdgeFrameParent) {
+    // declare horizontalFrameAttribute
+    FXHorizontalFrame* horizontalFrameAttribute = nullptr;
+    // create textField for speed
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPEED).c_str(), nullptr, GUIDesignLabelAttribute);
+    mySpeed = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create textField for priority
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_PRIORITY).c_str(), nullptr, GUIDesignLabelAttribute);
+    myPriority = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create textField for numLanes
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_NUMLANES).c_str(), nullptr, GUIDesignLabelAttribute);
+    myNumLanes = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create textField for Type
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_TYPE).c_str(), nullptr, GUIDesignLabelAttribute);
+    myType = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create Button for allow vehicles
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    myAllowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_ALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAllow = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create Button for disallow vehicles
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    myDisallowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_DISALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myDisallow = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create ComboBox for spread type
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPREADTYPE).c_str(), nullptr, GUIDesignLabelAttribute);
+    mySpreadType = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    // create textField for name
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_NAME).c_str(), nullptr, GUIDesignLabelAttribute);
+    myName = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create textField for width
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
+    myWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create textField for distance
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_DISTANCE).c_str(), nullptr, GUIDesignLabelAttribute);
+    myDistance = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+}
+
+
+GNECreateEdgeFrame::EdgeParameters::~EdgeParameters() {}
+
+
+long 
+GNECreateEdgeFrame::EdgeParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+    return 1;
+}
+
+
+long 
+GNECreateEdgeFrame::EdgeParameters::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
+    return 1;
+}
 
 // ---------------------------------------------------------------------------
 // GNECreateEdgeFrame::CustomEdgeSelector - methods
@@ -180,6 +252,8 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Create Edge"),
     myObjectsUnderSnappedCursor(viewNet),
     myCreateEdgeSource(nullptr) {
+    // create edge parameters
+    myEdgeParameters = new EdgeParameters(this);
     // create custom edge selector
     myCustomEdgeSelector = new CustomEdgeSelector(this);
     // create edge selector legend

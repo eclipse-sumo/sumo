@@ -34,6 +34,76 @@ class GNECreateEdgeFrame : public GNEFrame {
 public:
 
     // ===========================================================================
+    // class EdgeParameters
+    // ===========================================================================
+
+    class EdgeParameters : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNECreateEdgeFrame::EdgeParameters)
+
+    public:
+        /// @brief constructor
+        EdgeParameters(GNECreateEdgeFrame* createEdgeFrameParent);
+
+        /// @brief destructor
+        ~EdgeParameters();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user change value
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user open attribute dialog
+        long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(EdgeParameters)
+
+    private:
+        /// @brief pointer to createEdgeFrameParent
+        GNECreateEdgeFrame* myCreateEdgeFrameParent;
+
+        /// @brief textField for speed
+        FXTextField* mySpeed = nullptr;
+
+        /// @brief textField for priority
+        FXTextField* myPriority = nullptr;
+
+        /// @brief textField for numLanes
+        FXTextField* myNumLanes = nullptr;
+
+        /// @brief textField for Type
+        FXTextField* myType = nullptr;
+
+        /// @brief Button for allow vehicles
+        FXButton* myAllowButton = nullptr;
+
+        /// @brief textField for allow vehicles
+        FXTextField* myAllow = nullptr;
+
+        /// @brief Button for disallow vehicles
+        FXButton* myDisallowButton = nullptr;
+
+        /// @brief textField for disallow vehicles
+        FXTextField* myDisallow = nullptr;
+
+        /// @brief ComboBox for spread type
+        FXComboBox* mySpreadType = nullptr;
+
+        /// @brief textField for name
+        FXTextField* myName = nullptr;
+
+        /// @brief textField for width
+        FXTextField* myWidth = nullptr;
+
+        /// @brief textField for distance
+        FXTextField* myDistance = nullptr;
+    };
+
+    // ===========================================================================
     // class CustomEdgeSelector
     // ===========================================================================
 
@@ -138,6 +208,9 @@ public:
     void hide();
 
 protected:
+    /// @brief edge parameters
+    EdgeParameters* myEdgeParameters;
+
     /// @brief custom edge selector
     CustomEdgeSelector* myCustomEdgeSelector;
 
