@@ -109,6 +109,76 @@ public:
     };
 
     // ===========================================================================
+    // class LaneParameters
+    // ===========================================================================
+
+    class LaneParameters : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNECreateEdgeFrame::LaneParameters)
+
+    public:
+        /// @brief constructor
+        LaneParameters(GNECreateEdgeFrame* createEdgeFrameParent);
+
+        /// @brief destructor
+        ~LaneParameters();
+
+        /// @brief set attributes
+        void setAttributes(GNEEdge* edge, GNEUndoList *undoList) const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user change value
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user open attribute dialog
+        long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(LaneParameters)
+
+        /// @brief fill default parameters
+        void fillDefaultParameters();
+
+    private:
+        /// @brief pointer to createEdgeFrameParent
+        GNECreateEdgeFrame* myCreateEdgeFrameParent;
+
+        /// @brief ComboBox for laneIndex
+        FXComboBox* myLaneIndex = nullptr;
+
+        /// @brief textField for speed
+        FXTextField* mySpeed = nullptr;
+
+        /// @brief Button for allow vehicles
+        FXButton* myAllowButton = nullptr;
+
+        /// @brief textField for allow vehicles
+        FXTextField* myAllow = nullptr;
+
+        /// @brief Button for disallow vehicles
+        FXButton* myDisallowButton = nullptr;
+
+        /// @brief textField for disallow vehicles
+        FXTextField* myDisallow = nullptr;
+
+        /// @brief textField for width
+        FXTextField* myWidth = nullptr;
+
+        /// @brief ComboBox for endOffset
+        FXComboBox* myEndOffset = nullptr;
+
+        /// @brief checkBox for acceleration
+        FXCheckButton* myAcceleration = nullptr;
+
+        /// @brief textField for opposite
+        FXTextField* myOpposite = nullptr;
+    };
+
+    // ===========================================================================
     // class CustomEdgeSelector
     // ===========================================================================
 
@@ -215,6 +285,9 @@ public:
 protected:
     /// @brief edge parameters
     EdgeParameters* myEdgeParameters;
+
+    /// @brief lane parameters
+    LaneParameters* myLaneParameters;
 
     /// @brief custom edge selector
     CustomEdgeSelector* myCustomEdgeSelector;
