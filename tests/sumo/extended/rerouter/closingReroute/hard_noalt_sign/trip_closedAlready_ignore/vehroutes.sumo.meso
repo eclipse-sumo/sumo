@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Nov 12 09:52:30 2020 by Eclipse SUMO sumo Version v1_7_0+0971-bb2d76f94a
+<!-- generated on Thu Nov 12 09:53:43 2020 by Eclipse SUMO sumo Version v1_7_0+0971-bb2d76f94a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -16,17 +16,20 @@ SPDX-License-Identifier: EPL-2.0
 
     <output>
         <write-license value="true"/>
-        <tripinfo-output value="tripinfos.xml"/>
-        <stop-output value="stopinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
     </output>
 
+    <time>
+        <begin value="800"/>
+    </time>
+
     <processing>
+        <ignore-route-errors value="true"/>
         <default.speeddev value="0"/>
         <pedestrian.model value="nonInteracting"/>
     </processing>
 
     <report>
-        <verbose value="true"/>
         <xml-validation value="never"/>
         <xml-validation.routes value="never"/>
         <no-step-log value="true"/>
@@ -39,7 +42,9 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="train0" type="DEFAULT_VEHTYPE" edge="1/3to0/3" pos="0.00" parking="0" started="56.51" ended="127.00" delay="7.00" initialPersons="0" loadedPersons="4" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop0"/>
-    <stopinfo id="train0" type="DEFAULT_VEHTYPE" edge="0/4to1/4" pos="0.00" parking="0" started="133.13" ended="187.00" delay="7.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0" busStop="busStop1"/>
-</stops>
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="tripClosedAlready" depart="1000.00" arrival="1029.00">
+        <route edges="beg end2"/>
+    </vehicle>
+
+</routes>
