@@ -35,6 +35,12 @@
 /// @brief text field extended over Frame with thick frame
 #define GUIDesignTextField              (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
 
+/// @brief text field extended over Frame with thick frame (int)
+#define GUIDesignTextFieldInt           (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_INTEGER), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
+/// @brief text field extended over Frame with thick frame (real)
+#define GUIDesignTextFieldReal          (FRAME_THICK | LAYOUT_FILL_X | LAYOUT_FIX_HEIGHT | TEXTFIELD_REAL), 0, 0, 0, GUIDesignHeight, 2, 2, 2, 2
+
 /// @brief text field with thick frame and width 50
 #define GUIDesignTextFielWidth50        (FRAME_THICK | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 50, GUIDesignHeight, 2, 2, 2, 2
 

@@ -32,7 +32,6 @@
 class GNECreateEdgeFrame : public GNEFrame {
 
 public:
-
     // ===========================================================================
     // class EdgeParameters
     // ===========================================================================
@@ -48,6 +47,9 @@ public:
         /// @brief destructor
         ~EdgeParameters();
 
+        /// @brief set attributes
+        void setAttributes(GNEEdge* edge, GNEUndoList *undoList) const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user change value
@@ -61,6 +63,9 @@ public:
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(EdgeParameters)
+
+        /// @brief fill default parameters
+        void fillDefaultParameters();
 
     private:
         /// @brief pointer to createEdgeFrameParent
