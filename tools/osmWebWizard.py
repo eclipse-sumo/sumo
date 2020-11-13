@@ -384,7 +384,8 @@ class Builder(object):
         self.filename("config", ".sumocfg")
         opts = [sumo, "-n", self.files_relative["net"], "--gui-settings-file", self.files_relative["guisettings"],
                 "--duration-log.statistics",
-                "--device.rerouting.adaptation-steps", "180",
+                "--device.rerouting.adaptation-interval", "10",
+                "--device.rerouting.adaptation-steps", "18",
                 "-v", "--no-step-log", "--save-configuration", self.files_relative["config"], "--ignore-route-errors"]
 
         if self.routenames:
