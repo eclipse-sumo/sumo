@@ -936,6 +936,7 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
     double maxLeftAngle = 0; // rad
     double extraWidthLeft = 0; // m
     int laneDelta = 0;
+    int totalWideLanesIn = 0;
     for (NBEdge* in : myNode.getIncomingEdges()) {
         int wideLanesIn = 0;
         for (int i = 0; i < in->getNumLanes(); i++) {
@@ -943,6 +944,7 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
                 wideLanesIn++;
             }
         }
+        totalWideLanesIn += wideLanesIn;
         for (NBEdge* out : myNode.getOutgoingEdges()) {
             if ((in->getPermissions() & out->getPermissions() & SVC_LARGE_TURN) != 0) {
                 if (myNode.getDirection(in, out) == LinkDirection::TURN) {
@@ -965,11 +967,11 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
                         NBContHelper::nextCW(myNode.getEdges(), pIn);
                         while (*pIn != out) {
                             extraWidthLeft += (*pIn)->getTotalWidth();
-//#ifdef DEBUG_RADIUS
-//                            if (DEBUGCOND) {
-//                                std::cout << "   in=" << in->getID() << " out=" << out->getID() << " extra=" << (*pIn)->getID() << " extraWidthLeft=" << extraWidthLeft << "\n";
-//                            }
-//#endif
+#ifdef DEBUG_RADIUS
+                            if (DEBUGCOND) {
+                                std::cout << "   in=" << in->getID() << " out=" << out->getID() << " extra=" << (*pIn)->getID() << " extraWidthLeft=" << extraWidthLeft << "\n";
+                            }
+#endif
                             NBContHelper::nextCW(myNode.getEdges(), pIn);
                         }
                     }
@@ -980,8 +982,28 @@ NBNodeShapeComputer::getDefaultRadius(const OptionsCont& oc) {
                         wideLanesOut++;
                     }
                 }
+#ifdef DEBUG_RADIUS
+                if (DEBUGCOND) {
+                    std::cout << "   in=" << in->getID() << " out=" << out->getID() << " wideLanesIn=" << wideLanesIn << " wideLanesOut=" << wideLanesOut << "\n";
+                }
+#endif
                 laneDelta = MAX2(laneDelta, abs(wideLanesOut - wideLanesIn));
             }
+        }
+    }
+    // special case: on/off-ramp
+    if (myNode.getOutgoingEdges().size() == 1 || myNode.getIncomingEdges().size() == 1) {
+        int totalWideLanesOut = 0;
+        for (NBEdge* out : myNode.getOutgoingEdges()) {
+            for (int i = 0; i < out->getNumLanes(); i++) {
+                if ((out->getPermissions(i) & SVC_LARGE_TURN) != 0) {
+                    totalWideLanesOut++;
+                }
+            }
+        }
+        if (totalWideLanesIn == totalWideLanesOut) {
+            // use total laneDelta instead of individual edge lane delta
+            laneDelta = 0;
         }
     }
     // changing the number of wide-vehicle lanes on a straight segment requires a larger junction to allow for smooth driving
