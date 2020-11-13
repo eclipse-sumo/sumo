@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:03 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Fri Nov 13 10:12:23 2020 by Eclipse SUMO netconvert Version v1_7_0+0995-c2ccb63034
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -39,8 +39,8 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="1000.00,0.00" convBoundary="0.00,0.00,2000.00,100.00" origBoundary="-1000.00,0.00,1000.00,100.00" projParameter="!"/>
 
     <edge id="off" from="2" to="2a" priority="-1" shape="500.00,9.60 200.00,100.00">
-        <lane id="off_0" index="0" speed="30.00" length="320.38" shape="496.65,15.62 201.38,104.60"/>
-        <lane id="off_1" index="1" speed="30.00" length="320.38" shape="495.73,12.56 200.46,101.53"/>
+        <lane id="off_0" index="0" speed="30.00" length="321.45" shape="499.05,14.90 201.38,104.60"/>
+        <lane id="off_1" index="1" speed="30.00" length="321.45" shape="498.12,11.84 200.46,101.53"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
         <lane id="s1_0" index="0" speed="30.00" length="500.00" shape="2000.00,8.00 1500.00,8.00"/>
@@ -58,20 +58,20 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="s3_2" index="2" speed="30.00" length="400.00" shape="1000.00,1.60 604.00,1.60"/>
     </edge>
     <edge id="s3-AddedOffRampEdge" from="s3-AddedOffRampNode" to="2" priority="-1">
-        <lane id="s3-AddedOffRampEdge_0" index="0" speed="30.00" length="100.00" shape="596.00,14.40 504.94,14.40"/>
-        <lane id="s3-AddedOffRampEdge_1" index="1" speed="30.00" length="100.00" shape="596.00,11.20 504.94,11.20"/>
-        <lane id="s3-AddedOffRampEdge_2" index="2" speed="30.00" length="100.00" shape="596.00,8.00 504.94,8.00"/>
-        <lane id="s3-AddedOffRampEdge_3" index="3" speed="30.00" length="100.00" shape="596.00,4.80 504.94,4.80"/>
-        <lane id="s3-AddedOffRampEdge_4" index="4" speed="30.00" length="100.00" shape="596.00,1.60 504.94,1.60"/>
+        <lane id="s3-AddedOffRampEdge_0" index="0" speed="30.00" length="100.00" shape="596.00,14.40 502.44,14.40"/>
+        <lane id="s3-AddedOffRampEdge_1" index="1" speed="30.00" length="100.00" shape="596.00,11.20 502.44,11.20"/>
+        <lane id="s3-AddedOffRampEdge_2" index="2" speed="30.00" length="100.00" shape="596.00,8.00 502.44,8.00"/>
+        <lane id="s3-AddedOffRampEdge_3" index="3" speed="30.00" length="100.00" shape="596.00,4.80 502.44,4.80"/>
+        <lane id="s3-AddedOffRampEdge_4" index="4" speed="30.00" length="100.00" shape="596.00,1.60 502.44,1.60"/>
     </edge>
     <edge id="s4" from="2" to="1" priority="-1">
-        <lane id="s4_0" index="0" speed="30.00" length="500.00" shape="496.00,8.00 0.00,8.00"/>
-        <lane id="s4_1" index="1" speed="30.00" length="500.00" shape="496.00,4.80 0.00,4.80"/>
-        <lane id="s4_2" index="2" speed="30.00" length="500.00" shape="496.00,1.60 0.00,1.60"/>
+        <lane id="s4_0" index="0" speed="30.00" length="500.00" shape="498.50,8.00 0.00,8.00"/>
+        <lane id="s4_1" index="1" speed="30.00" length="500.00" shape="498.50,4.80 0.00,4.80"/>
+        <lane id="s4_2" index="2" speed="30.00" length="500.00" shape="498.50,1.60 0.00,1.60"/>
     </edge>
 
     <junction id="1" type="dead_end" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes="" shape="0.00,9.60 0.00,0.00"/>
-    <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3 s3-AddedOffRampEdge_4" intLanes="" shape="504.94,16.00 504.94,0.00 496.00,0.00 496.00,9.60 495.27,11.03 497.11,17.15 499.95,16.35 500.97,16.15 502.00,16.05 503.25,16.01">
+    <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3 s3-AddedOffRampEdge_4" intLanes="" shape="502.44,16.00 502.44,0.00 498.50,0.00 498.50,9.60 499.07,9.68 499.04,9.78 498.79,9.91 498.33,10.09 497.66,10.30 499.51,16.43 500.57,16.13 500.95,16.06 501.34,16.02 501.81,16.00">
         <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00000" foes="00000"/>
         <request index="2" response="00000" foes="00000"/>

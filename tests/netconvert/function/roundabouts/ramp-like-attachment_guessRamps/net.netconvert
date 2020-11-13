@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Jun 29 23:45:14 2020 by Eclipse SUMO netconvert Version v1_6_0+1029-ac5bd53e07
+<!-- generated on Fri Nov 13 10:12:24 2020 by Eclipse SUMO netconvert Version v1_7_0+0995-c2ccb63034
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -45,10 +45,10 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="-457861.70,-3113414.12" convBoundary="0.00,0.00,1081.10,724.10" origBoundary="-15.485060,28.109214,-15.398371,28.170442" projParameter="+proj=utm +zone=28 +ellps=WGS84 +datum=WGS84 +units=m +no_defs"/>
 
     <edge id="177338975" from="492500988" to="cluster_1907731754_338287766" priority="4" type="highway.residential" spreadType="center" shape="836.31,378.60 826.33,382.19 810.93,471.50 808.18,482.63">
-        <lane id="177338975_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="122.58" shape="832.62,379.93 826.33,382.19 810.93,471.50 806.65,488.80"/>
+        <lane id="177338975_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="124.54" shape="834.97,379.08 826.33,382.19 810.93,471.50 806.65,488.80"/>
     </edge>
     <edge id="177338976" from="cluster_1877878502_1907731767" to="335691182" priority="4" type="highway.residential" spreadType="center" shape="780.45,477.64 797.81,379.68 792.55,374.75 788.10,370.71">
-        <lane id="177338976_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="121.35" shape="779.38,483.68 797.81,379.68 792.62,374.81"/>
+        <lane id="177338976_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="122.62" shape="779.38,483.68 797.81,379.68 792.55,374.75 790.77,373.13"/>
     </edge>
     <edge id="205013609#0" from="335691176" to="2844510655" priority="5" type="highway.unclassified" spreadType="center" shape="797.58,318.01 802.42,311.13 805.05,305.88 807.27,298.63 808.46,295.18 811.25,279.02 814.04,255.16 813.80,245.94">
         <lane id="205013609#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="13.89" length="75.12" shape="804.82,306.34 805.05,305.88 807.27,298.63 808.46,295.18 811.25,279.02 814.04,255.16 813.80,245.94"/>
@@ -66,9 +66,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="30417941#1_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="50.91" shape="810.79,315.81 816.74,314.79 825.86,316.06 832.30,319.17"/>
     </edge>
     <edge id="30417941#2" from="335691178" to="2149919279" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="843.40,324.47 847.79,332.23 849.92,340.89 849.62,349.81 846.90,358.33 841.95,365.80 835.16,371.67">
-        <lane id="30417941#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="852.32,337.25 853.13,340.56 852.80,350.36 849.81,359.73 844.37,367.93 840.59,371.21"/>
-        <lane id="30417941#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="849.42,338.87 849.92,340.89 849.62,349.81 846.90,358.33 841.95,365.80 838.49,368.79"/>
-        <lane id="30417941#2_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="846.53,340.49 846.71,341.22 846.44,349.26 843.99,356.93 839.53,363.67 836.40,366.37"/>
+        <lane id="30417941#2_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="852.32,337.25 853.13,340.56 852.80,350.36 849.81,359.73 844.37,367.93 838.69,372.84"/>
+        <lane id="30417941#2_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="849.42,338.87 849.92,340.89 849.62,349.81 846.90,358.33 841.95,365.80 836.60,370.42"/>
+        <lane id="30417941#2_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="53.49" shape="846.53,340.49 846.71,341.22 846.44,349.26 843.99,356.93 839.53,363.67 834.51,368.00"/>
     </edge>
     <edge id="30417941#3" from="2149919279" to="492500988" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="835.98,373.05 833.79,374.34">
         <lane id="30417941#3_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.22" shape="837.07,377.98 836.89,378.08"/>
@@ -77,15 +77,15 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="30417941#3_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="4.22" shape="832.19,369.71 832.02,369.81"/>
     </edge>
     <edge id="30417941#4" from="492500988" to="335691182" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="832.98,372.96 824.93,376.05 816.36,376.95 807.84,375.61 799.97,372.11 793.28,366.71">
-        <lane id="30417941#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="831.55,376.94 825.68,379.19 816.28,380.18 806.93,378.71 798.29,374.86 794.83,372.07"/>
-        <lane id="30417941#4_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="830.46,373.93 824.93,376.05 816.36,376.95 807.84,375.61 799.97,372.11 796.84,369.58"/>
-        <lane id="30417941#4_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="829.38,370.91 824.18,372.91 816.44,373.72 808.75,372.51 801.65,369.36 798.85,367.10"/>
+        <lane id="30417941#4_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="833.88,376.04 825.68,379.19 816.28,380.18 806.93,378.71 798.29,374.86 792.89,370.51"/>
+        <lane id="30417941#4_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="832.80,373.03 824.93,376.05 816.36,376.95 807.84,375.61 799.97,372.11 794.90,368.02"/>
+        <lane id="30417941#4_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="43.08" shape="831.71,370.02 824.18,372.91 816.44,373.72 808.75,372.51 801.65,369.36 796.91,365.53"/>
     </edge>
     <edge id="30417941#5" from="335691182" to="492500994" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="792.02,367.69 787.91,362.37 784.95,356.36">
-        <lane id="30417941#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="13.96" shape="785.44,367.02 783.82,364.92 782.68,362.62"/>
-        <lane id="30417941#5_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="13.96" shape="787.97,365.06 786.55,363.22 785.55,361.21"/>
-        <lane id="30417941#5_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="13.96" shape="790.50,363.11 789.27,361.52 788.42,359.79"/>
-        <lane id="30417941#5_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="13.96" shape="793.03,361.15 792.00,359.82 791.29,358.38"/>
+        <lane id="30417941#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="14.24" shape="786.97,369.00 783.82,364.92 782.68,362.62"/>
+        <lane id="30417941#5_1" index="1" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="14.24" shape="789.50,367.04 786.55,363.22 785.55,361.21"/>
+        <lane id="30417941#5_2" index="2" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="14.24" shape="792.03,365.09 789.27,361.52 788.42,359.79"/>
+        <lane id="30417941#5_3" index="3" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="14.24" shape="794.56,363.13 792.00,359.82 791.29,358.38"/>
     </edge>
     <edge id="30417941#6" from="492500994" to="335691176" name="Plaza de Belén María" priority="6" type="highway.tertiary" spreadType="center" shape="786.38,355.65 784.34,345.35 785.68,334.95 790.25,325.53 797.58,318.01">
         <lane id="30417941#6_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="41.77" shape="782.38,351.92 781.10,345.46 782.57,334.02 785.33,328.34"/>
@@ -97,7 +97,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="30534383#2_1" index="1" disallow="pedestrian bicycle tram rail_urban rail rail_electric ship" speed="22.22" length="932.58" shape="-1.55,0.41 9.85,43.02 26.14,93.09 39.60,119.10 53.19,138.68 67.20,156.34 83.30,172.80 98.59,186.22 125.11,204.43 158.71,220.16 196.19,232.31 228.69,238.81 536.19,288.88 767.45,326.47 770.32,326.93 782.27,325.00 782.83,324.80"/>
     </edge>
     <edge id="324041278#5" from="324041278#5-AddedOnRampNode" to="2149919279" name="Calle Doctor Juan Domínguez Pérez" priority="6" type="highway.tertiary" spreadType="center" shape="890.73,382.98 882.12,375.54 861.08,367.68 852.59,367.42 838.50,377.31">
-        <lane id="324041278#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="62.15" shape="890.73,382.98 882.12,375.54 861.08,367.68 852.59,367.42 843.26,373.97"/>
+        <lane id="324041278#5_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="63.35" shape="890.73,382.98 882.12,375.54 861.08,367.68 852.59,367.42 841.21,375.41"/>
     </edge>
     <edge id="38922730#0" from="335691178" to="38922730#0-AddedOffRampNode" name="Calle Doctor Juan Domínguez Pérez" priority="6" type="highway.tertiary" spreadType="center" shape="843.40,324.47 867.28,344.57 883.71,358.45 919.24,398.58 958.98,435.32 1019.21,467.64 1052.51,497.13 1068.46,518.39 1076.04,536.52 1081.10,558.92 1079.78,591.19 1075.94,620.93 1065.29,671.37 1060.47,709.68 1063.08,724.10">
         <lane id="38922730#0_0" index="0" disallow="tram rail_urban rail rail_electric ship" speed="22.22" length="509.57" shape="855.59,334.73 867.28,344.57 883.71,358.45 919.24,398.58 958.98,435.32 1019.21,467.64 1052.51,497.13 1068.46,518.39 1076.04,536.52 1081.10,558.92 1079.78,591.19 1075.94,620.93 1065.29,671.37 1060.47,709.68 1063.08,724.10"/>
@@ -105,7 +105,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id="1877878467" type="dead_end" x="0.00" y="0.00" incLanes="" intLanes="" shape="-3.09,0.83 3.09,-0.83"/>
     <junction id="205013618#0-AddedOffRampNode" type="dead_end" x="744.57" y="338.57" incLanes="205013618#0_0 205013618#0_1" intLanes="" shape="744.04,341.73 745.10,335.41"/>
-    <junction id="2149919279" type="priority" x="835.16" y="371.67" incLanes="324041278#5_0 30417941#2_0 30417941#2_1 30417941#2_2" intLanes="" shape="844.18,375.28 842.34,372.66 841.63,372.42 835.35,365.16 828.88,369.80 835.38,380.83">
+    <junction id="2149919279" type="priority" x="835.16" y="371.67" incLanes="324041278#5_0 30417941#2_0 30417941#2_1 30417941#2_2" intLanes="" shape="842.13,376.72 840.29,374.10 839.74,374.06 833.46,366.79 832.62,367.51 832.31,367.75 831.99,367.96 831.58,368.21 831.04,368.54 837.53,379.56">
         <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00100" foes="00100"/>
         <request index="2" response="00000" foes="00010"/>
@@ -132,7 +132,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="000000" foes="000000"/>
         <request index="5" response="000000" foes="000000"/>
     </junction>
-    <junction id="335691182" type="priority" x="793.28" y="366.71" incLanes="177338976_0 30417941#4_0 30417941#4_1 30417941#4_2" intLanes="" shape="791.61,376.06 799.86,365.85 797.58,363.97 796.83,363.26 796.13,362.49 795.34,361.51 794.30,360.17 784.17,368.00 785.61,369.84 786.70,371.18 787.65,372.25 788.65,373.27 789.90,374.46">
+    <junction id="335691182" type="priority" x="793.28" y="366.71" incLanes="177338976_0 30417941#4_0 30417941#4_1 30417941#4_2" intLanes="" shape="789.76,374.38 797.91,364.28 797.06,363.58 796.78,363.31 796.52,363.02 796.22,362.65 795.83,362.15 785.70,369.98 787.07,371.72 787.58,372.31 788.13,372.87 788.82,373.52">
         <request index="0" response="00000" foes="00000"/>
         <request index="1" response="00100" foes="00100"/>
         <request index="2" response="00000" foes="00010"/>
@@ -140,7 +140,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="4" response="00000" foes="00000"/>
     </junction>
     <junction id="38922730#0-AddedOffRampNode" type="dead_end" x="1063.08" y="724.10" incLanes="38922730#0_0" intLanes="" shape="1064.65,723.82 1061.51,724.38"/>
-    <junction id="492500988" type="priority" x="832.98" y="372.96" incLanes="30417941#3_0 30417941#3_1 30417941#3_2 30417941#3_3" intLanes="" shape="840.20,377.99 833.71,366.96 828.84,369.41 833.16,381.43">
+    <junction id="492500988" type="priority" x="832.98" y="372.96" incLanes="30417941#3_0 30417941#3_1 30417941#3_2 30417941#3_3" intLanes="" shape="838.05,379.26 831.55,368.23 831.41,368.34 831.37,368.38 831.32,368.43 831.26,368.47 831.17,368.51 835.52,380.59 836.50,380.19 836.83,380.01 837.14,379.82 837.53,379.58">
         <request index="0" response="0000" foes="0000"/>
         <request index="1" response="0000" foes="0000"/>
         <request index="2" response="0000" foes="0000"/>

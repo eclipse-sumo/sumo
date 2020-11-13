@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:57 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Fri Nov 13 10:12:12 2020 by Eclipse SUMO netconvert Version v1_7_0+0995-c2ccb63034
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -49,36 +49,36 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,92.46,78.21" origBoundary="0.00,0.00,92.46,78.21" projParameter="!"/>
 
     <edge id=":301292612_0" function="internal">
-        <lane id=":301292612_0_0" index="0" speed="13.89" length="11.03" shape="48.49,61.09 45.55,60.22 43.35,60.41 41.08,60.78 37.94,60.46"/>
-        <lane id=":301292612_0_1" index="1" speed="13.89" length="11.03" shape="49.85,58.19 46.74,57.25 44.42,57.39 42.03,57.72 38.71,57.35"/>
+        <lane id=":301292612_0_0" index="0" speed="13.89" length="7.62" shape="46.23,60.02 44.25,59.62 42.78,60.15 41.26,60.79 39.15,60.76"/>
+        <lane id=":301292612_0_1" index="1" speed="13.89" length="7.62" shape="47.59,57.13 45.45,56.65 43.85,57.12 42.21,57.73 39.92,57.65"/>
     </edge>
     <edge id=":301292612_2" function="internal">
-        <lane id=":301292612_2_0" index="0" speed="13.89" length="8.71" shape="46.38,50.87 45.47,52.87 44.01,54.10 42.02,54.56 39.48,54.25"/>
+        <lane id=":301292612_2_0" index="0" speed="13.89" length="6.68" shape="46.05,52.07 45.36,53.57 44.24,54.48 42.68,54.80 40.69,54.55"/>
     </edge>
     <edge id=":301292612_3" function="internal">
-        <lane id=":301292612_3_0" index="0" speed="13.89" length="3.63" shape="43.29,50.04 42.92,50.76 42.29,51.18 41.40,51.31 40.25,51.14"/>
+        <lane id=":301292612_3_0" index="0" speed="13.89" length="1.75" shape="42.96,51.25 42.75,51.61 42.41,51.69 41.98,51.59 41.46,51.44"/>
     </edge>
     <edge id=":38919945_0" function="internal">
-        <lane id=":38919945_0_0" index="0" speed="13.89" length="11.78" shape="37.75,60.41 34.58,58.91 32.70,56.92 30.93,55.09 28.12,54.07"/>
+        <lane id=":38919945_0_0" index="0" speed="13.89" length="12.92" shape="38.96,60.71 35.36,59.10 33.09,57.02 31.04,55.12 28.12,54.07"/>
     </edge>
     <edge id=":38919945_1" function="internal">
-        <lane id=":38919945_1_0" index="0" speed="13.89" length="9.35" shape="39.29,54.20 36.99,53.26 35.50,51.76 34.80,49.72 34.90,47.12"/>
+        <lane id=":38919945_1_0" index="0" speed="13.89" length="10.39" shape="40.50,54.50 37.67,53.43 35.80,51.84 34.87,49.74 34.90,47.12"/>
     </edge>
     <edge id=":38919945_2" function="internal">
-        <lane id=":38919945_2_0" index="0" speed="13.89" length="4.45" shape="40.06,51.09 39.00,50.65 38.31,49.93 37.99,48.94 38.05,47.67"/>
+        <lane id=":38919945_2_0" index="0" speed="13.89" length="5.50" shape="41.27,51.39 39.68,50.82 38.61,50.00 38.07,48.96 38.05,47.67"/>
     </edge>
     <edge id=":56231397_0" function="internal">
         <lane id=":56231397_0_0" index="0" speed="13.89" length="8.22" shape="52.15,42.62 51.79,44.80 52.17,46.66 53.29,48.18 55.16,49.38"/>
     </edge>
     <edge id=":56231397_1" function="internal">
-        <lane id=":56231397_1_0" index="0" speed="13.89" length="10.12" shape="52.15,42.62 50.81,45.19 49.22,46.62 47.65,48.06 46.43,50.67"/>
-        <lane id=":56231397_1_1" index="1" speed="13.89" length="10.12" shape="49.09,41.66 47.75,44.28 46.14,45.73 44.57,47.20 43.34,49.85"/>
+        <lane id=":56231397_1_0" index="0" speed="13.89" length="11.28" shape="52.15,42.62 50.71,45.54 49.05,47.23 47.42,48.92 46.10,51.88"/>
+        <lane id=":56231397_1_1" index="1" speed="13.89" length="11.28" shape="49.09,41.66 47.64,44.62 45.97,46.33 44.34,48.06 43.01,51.05"/>
     </edge>
     <edge id=":56231397_3" function="internal">
         <lane id=":56231397_3_0" index="0" speed="13.89" length="13.99" shape="41.52,45.73 44.59,46.87 47.11,48.39 49.91,50.21 53.82,52.28"/>
     </edge>
     <edge id=":56231397_4" function="internal">
-        <lane id=":56231397_4_0" index="0" speed="13.89" length="5.12" shape="41.52,45.73 42.66,46.25 43.34,47.11 43.57,48.31 43.34,49.85"/>
+        <lane id=":56231397_4_0" index="0" speed="13.89" length="6.20" shape="41.52,45.73 42.64,46.33 43.26,47.41 43.38,48.99 43.01,51.05"/>
     </edge>
     <edge id=":59993001_0" function="internal">
         <lane id=":59993001_0_0" index="0" speed="13.89" length="8.89" shape="27.32,43.51 29.52,43.39 31.30,42.50 32.65,40.86 33.57,38.45"/>
@@ -95,17 +95,17 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
 
     <edge id="27437972" from="38918157" to="301292612" priority="7" spreadType="center">
-        <lane id="27437972_0" index="0" speed="13.89" length="43.69" shape="88.04,79.66 48.49,61.09"/>
-        <lane id="27437972_1" index="1" speed="13.89" length="43.69" shape="89.40,76.76 49.85,58.19"/>
+        <lane id="27437972_0" index="0" speed="13.89" length="46.19" shape="88.04,79.66 46.23,60.02"/>
+        <lane id="27437972_1" index="1" speed="13.89" length="46.19" shape="89.40,76.76 47.59,57.13"/>
     </edge>
     <edge id="27441168" from="59993001" to="56231397" priority="6" spreadType="center">
         <lane id="27441168_0" index="0" speed="13.89" length="0.20" shape="41.32,45.68 41.52,45.73"/>
     </edge>
     <edge id="27441189" from="301292612" to="38919945" priority="6" spreadType="center">
-        <lane id="27441189_0" index="0" speed="13.89" length="0.20" shape="37.94,60.46 37.75,60.41"/>
-        <lane id="27441189_1" index="1" speed="13.89" length="0.20" shape="38.71,57.35 38.52,57.31"/>
-        <lane id="27441189_2" index="2" speed="13.89" length="0.20" shape="39.48,54.25 39.29,54.20"/>
-        <lane id="27441189_3" index="3" speed="13.89" length="0.20" shape="40.25,51.14 40.06,51.09"/>
+        <lane id="27441189_0" index="0" speed="13.89" length="0.20" shape="39.15,60.76 38.96,60.71"/>
+        <lane id="27441189_1" index="1" speed="13.89" length="0.20" shape="39.92,57.65 39.73,57.61"/>
+        <lane id="27441189_2" index="2" speed="13.89" length="0.20" shape="40.69,54.55 40.50,54.50"/>
+        <lane id="27441189_3" index="3" speed="13.89" length="0.20" shape="41.46,51.44 41.27,51.39"/>
     </edge>
     <edge id="27441289.0" from="59993001" to="gneJ0" priority="7">
         <lane id="27441289.0_0" index="0" speed="13.89" length="40.91" shape="33.57,38.45 43.70,-1.19"/>
@@ -119,8 +119,8 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="27445000#0_0" index="0" speed="13.89" length="28.28" shape="28.12,54.07 -0.00,51.05"/>
     </edge>
     <edge id="27445003" from="56231397" to="301292612" priority="7" spreadType="center">
-        <lane id="27445003_0" index="0" speed="13.89" length="0.20" shape="46.43,50.67 46.38,50.87"/>
-        <lane id="27445003_1" index="1" speed="13.89" length="0.20" shape="43.34,49.85 43.29,50.04"/>
+        <lane id="27445003_0" index="0" speed="13.89" length="0.20" shape="46.10,51.88 46.05,52.07"/>
+        <lane id="27445003_1" index="1" speed="13.89" length="0.20" shape="43.01,51.05 42.96,51.25"/>
     </edge>
     <edge id="27445015#0" from="56231397" to="567607201" priority="7" spreadType="center">
         <lane id="27445015#0_0" index="0" speed="13.89" length="41.78" shape="55.16,49.38 93.13,66.81"/>
@@ -145,7 +145,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="4"  state="yyyrryrryyrrr"/>
     </tlLogic>
 
-    <junction id="301292612" type="traffic_light" x="43.13" y="56.80" incLanes="27437972_0 27437972_1 27445003_0 27445003_1" intLanes=":301292612_0_0 :301292612_0_1 :301292612_2_0 :301292612_3_0" shape="47.81,62.54 50.53,56.74 48.90,47.64 42.72,45.98 37.80,48.89 34.72,61.31">
+    <junction id="301292612" type="traffic_light" x="43.13" y="56.80" incLanes="27437972_0 27437972_1 27445003_0 27445003_1" intLanes=":301292612_0_0 :301292612_0_1 :301292612_2_0 :301292612_3_0" shape="45.55,61.47 48.27,55.68 48.25,50.06 42.07,48.40 40.22,49.49 37.15,61.91">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>

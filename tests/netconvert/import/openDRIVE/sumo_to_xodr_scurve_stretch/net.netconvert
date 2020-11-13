@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:58 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Fri Nov 13 10:12:13 2020 by Eclipse SUMO netconvert Version v1_7_0+0995-c2ccb63034
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -57,12 +57,12 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":1_0_2" index="2" speed="30.00" length="8.54" shape="4.00,1.60 -4.00,1.60"/>
     </edge>
     <edge id=":2_0" function="internal">
-        <lane id=":2_0_0" index="0" speed="30.00" length="10.86" shape="511.08,11.20 507.81,11.30 505.54,11.61 503.38,12.19 500.45,13.08"/>
+        <lane id=":2_0_0" index="0" speed="30.00" length="8.40" shape="508.58,11.20 506.11,11.33 504.45,11.70 502.82,12.29 500.45,13.08"/>
     </edge>
     <edge id=":2_1" function="internal">
-        <lane id=":2_1_0" index="0" speed="30.00" length="8.46" shape="511.08,8.00 502.61,8.00"/>
-        <lane id=":2_1_1" index="1" speed="30.00" length="8.46" shape="511.08,4.80 502.61,4.80"/>
-        <lane id=":2_1_2" index="2" speed="30.00" length="8.46" shape="511.08,1.60 502.61,1.60"/>
+        <lane id=":2_1_0" index="0" speed="30.00" length="3.46" shape="508.58,8.00 505.11,8.00"/>
+        <lane id=":2_1_1" index="1" speed="30.00" length="3.46" shape="508.58,4.80 505.11,4.80"/>
+        <lane id=":2_1_2" index="2" speed="30.00" length="3.46" shape="508.58,1.60 505.11,1.60"/>
     </edge>
     <edge id=":3_0" function="internal">
         <lane id=":3_0_0" index="0" speed="30.00" length="0.30" shape="1000.15,8.00 999.85,8.00"/>
@@ -70,12 +70,12 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":3_0_2" index="2" speed="30.00" length="0.30" shape="1000.15,1.60 999.85,1.60"/>
     </edge>
     <edge id=":4_0" function="internal">
-        <lane id=":4_0_0" index="0" speed="30.00" length="10.86" shape="1499.55,13.08 1496.62,12.19 1494.46,11.61 1492.19,11.30 1488.92,11.20"/>
+        <lane id=":4_0_0" index="0" speed="30.00" length="8.40" shape="1499.55,13.08 1497.18,12.29 1495.55,11.70 1493.89,11.33 1491.42,11.20"/>
     </edge>
     <edge id=":4_1" function="internal">
-        <lane id=":4_1_0" index="0" speed="30.00" length="8.46" shape="1497.39,8.00 1488.92,8.00"/>
-        <lane id=":4_1_1" index="1" speed="30.00" length="8.46" shape="1497.39,4.80 1488.92,4.80"/>
-        <lane id=":4_1_2" index="2" speed="30.00" length="8.46" shape="1497.39,1.60 1488.92,1.60"/>
+        <lane id=":4_1_0" index="0" speed="30.00" length="3.46" shape="1494.89,8.00 1491.42,8.00"/>
+        <lane id=":4_1_1" index="1" speed="30.00" length="3.46" shape="1494.89,4.80 1491.42,4.80"/>
+        <lane id=":4_1_2" index="2" speed="30.00" length="3.46" shape="1494.89,1.60 1491.42,1.60"/>
     </edge>
     <edge id=":s2-AddedOnRampNode_0" function="internal">
         <lane id=":s2-AddedOnRampNode_0_0" index="0" speed="30.00" length="8.00" shape="1404.00,8.00 1396.00,8.00"/>
@@ -100,9 +100,9 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="on_0" index="0" speed="30.00" length="312.77" shape="1799.55,101.53 1499.55,13.08"/>
     </edge>
     <edge id="s1" from="5" to="4" priority="-1">
-        <lane id="s1_0" index="0" speed="30.00" length="502.61" shape="2000.00,8.00 1497.39,8.00"/>
-        <lane id="s1_1" index="1" speed="30.00" length="502.61" shape="2000.00,4.80 1497.39,4.80"/>
-        <lane id="s1_2" index="2" speed="30.00" length="502.61" shape="2000.00,1.60 1497.39,1.60"/>
+        <lane id="s1_0" index="0" speed="30.00" length="505.11" shape="2000.00,8.00 1494.89,8.00"/>
+        <lane id="s1_1" index="1" speed="30.00" length="505.11" shape="2000.00,4.80 1494.89,4.80"/>
+        <lane id="s1_2" index="2" speed="30.00" length="505.11" shape="2000.00,1.60 1494.89,1.60"/>
     </edge>
     <edge id="s2" from="s2-AddedOnRampNode" to="3" priority="-1">
         <lane id="s2_0" index="0" speed="30.00" length="395.85" shape="1396.00,8.00 1000.15,8.00"/>
@@ -110,10 +110,10 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="s2_2" index="2" speed="30.00" length="395.85" shape="1396.00,1.60 1000.15,1.60"/>
     </edge>
     <edge id="s2-AddedOnRampEdge" from="4" to="s2-AddedOnRampNode" priority="-1">
-        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="84.92" acceleration="1" shape="1488.92,11.20 1404.00,11.20"/>
-        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="84.92" shape="1488.92,8.00 1404.00,8.00"/>
-        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="84.92" shape="1488.92,4.80 1404.00,4.80"/>
-        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="84.92" shape="1488.92,1.60 1404.00,1.60"/>
+        <lane id="s2-AddedOnRampEdge_0" index="0" speed="30.00" length="87.42" acceleration="1" shape="1491.42,11.20 1404.00,11.20"/>
+        <lane id="s2-AddedOnRampEdge_1" index="1" speed="30.00" length="87.42" shape="1491.42,8.00 1404.00,8.00"/>
+        <lane id="s2-AddedOnRampEdge_2" index="2" speed="30.00" length="87.42" shape="1491.42,4.80 1404.00,4.80"/>
+        <lane id="s2-AddedOnRampEdge_3" index="3" speed="30.00" length="87.42" shape="1491.42,1.60 1404.00,1.60"/>
     </edge>
     <edge id="s3" from="3" to="s3-AddedOffRampNode" priority="-1">
         <lane id="s3_0" index="0" speed="30.00" length="395.85" shape="999.85,8.00 604.00,8.00"/>
@@ -121,15 +121,15 @@ SPDX-License-Identifier: EPL-2.0
         <lane id="s3_2" index="2" speed="30.00" length="395.85" shape="999.85,1.60 604.00,1.60"/>
     </edge>
     <edge id="s3-AddedOffRampEdge" from="s3-AddedOffRampNode" to="2" priority="-1">
-        <lane id="s3-AddedOffRampEdge_0" index="0" speed="30.00" length="84.92" shape="596.00,11.20 511.08,11.20"/>
-        <lane id="s3-AddedOffRampEdge_1" index="1" speed="30.00" length="84.92" shape="596.00,8.00 511.08,8.00"/>
-        <lane id="s3-AddedOffRampEdge_2" index="2" speed="30.00" length="84.92" shape="596.00,4.80 511.08,4.80"/>
-        <lane id="s3-AddedOffRampEdge_3" index="3" speed="30.00" length="84.92" shape="596.00,1.60 511.08,1.60"/>
+        <lane id="s3-AddedOffRampEdge_0" index="0" speed="30.00" length="87.42" shape="596.00,11.20 508.58,11.20"/>
+        <lane id="s3-AddedOffRampEdge_1" index="1" speed="30.00" length="87.42" shape="596.00,8.00 508.58,8.00"/>
+        <lane id="s3-AddedOffRampEdge_2" index="2" speed="30.00" length="87.42" shape="596.00,4.80 508.58,4.80"/>
+        <lane id="s3-AddedOffRampEdge_3" index="3" speed="30.00" length="87.42" shape="596.00,1.60 508.58,1.60"/>
     </edge>
     <edge id="s4" from="2" to="1" priority="-1">
-        <lane id="s4_0" index="0" speed="30.00" length="498.61" shape="502.61,8.00 4.00,8.00"/>
-        <lane id="s4_1" index="1" speed="30.00" length="498.61" shape="502.61,4.80 4.00,4.80"/>
-        <lane id="s4_2" index="2" speed="30.00" length="498.61" shape="502.61,1.60 4.00,1.60"/>
+        <lane id="s4_0" index="0" speed="30.00" length="501.11" shape="505.11,8.00 4.00,8.00"/>
+        <lane id="s4_1" index="1" speed="30.00" length="501.11" shape="505.11,4.80 4.00,4.80"/>
+        <lane id="s4_2" index="2" speed="30.00" length="501.11" shape="505.11,1.60 4.00,1.60"/>
     </edge>
 
     <junction id="1" type="zipper" x="0.00" y="0.00" incLanes="s4_0 s4_1 s4_2" intLanes=":1_0_0 :1_0_1 :1_0_2" shape="4.00,9.60 4.00,0.00 -4.00,0.00 -4.00,6.40">
@@ -137,7 +137,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="100" foes="100" cont="0"/>
         <request index="2" response="010" foes="010" cont="0"/>
     </junction>
-    <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3" intLanes=":2_0_0 :2_1_0 :2_1_1 :2_1_2" shape="511.08,12.80 511.08,0.00 502.61,0.00 502.61,9.60 500.00,11.55 500.90,14.62">
+    <junction id="2" type="priority" x="500.00" y="0.00" incLanes="s3-AddedOffRampEdge_0 s3-AddedOffRampEdge_1 s3-AddedOffRampEdge_2 s3-AddedOffRampEdge_3" intLanes=":2_0_0 :2_1_0 :2_1_1 :2_1_2" shape="508.58,12.80 508.58,0.00 505.11,0.00 505.11,9.60 500.00,11.55 500.90,14.62">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>
@@ -149,7 +149,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
     </junction>
-    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes=":4_0_0 :4_1_0 :4_1_1 :4_1_2" shape="1499.10,14.62 1500.00,11.55 1497.39,9.60 1497.39,0.00 1488.92,0.00 1488.92,12.80">
+    <junction id="4" type="priority" x="1500.00" y="0.00" incLanes="on_0 s1_0 s1_1 s1_2" intLanes=":4_0_0 :4_1_0 :4_1_1 :4_1_2" shape="1499.10,14.62 1500.00,11.55 1494.89,9.60 1494.89,0.00 1491.42,0.00 1491.42,12.80">
         <request index="0" response="0000" foes="0000" cont="0"/>
         <request index="1" response="0000" foes="0000" cont="0"/>
         <request index="2" response="0000" foes="0000" cont="0"/>

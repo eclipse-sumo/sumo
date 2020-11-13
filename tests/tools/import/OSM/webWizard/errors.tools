@@ -139,7 +139,6 @@ Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_182801809
 Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 30 has no controlling detector
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 17 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle '3_bus_TXL:0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle '4_bus_TXL:1'.
@@ -162,7 +161,6 @@ Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_182801809
 Warning: At actuated tlLogic 'cluster_1828018077_1828018093_1828018094_1828018095_1840326399_1840326421_262469034_29123671_29123672_967017877', linkIndex 30 has no controlling detector
 Warning: At actuated tlLogic 'cluster_21432801_2938442114_295705005_3139140896_3178759584_735967920_735967921_735967926_961816249_961816257', actuated phase 5 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 16 has no controlling detector
-Warning: At actuated tlLogic 'joinedS_0', linkIndex 17 has no controlling detector
 Warning: At actuated tlLogic 'joinedS_0', linkIndex 24 has no controlling detector
 Warning: busStop '1827996414' on lane '72157174#1_1' is too short for vehicle 'pt_bus_TXL:0.0'.
 Warning: busStop '1827996417' on lane '24914992#1_1' is too short for vehicle 'pt_bus_TXL:1.0'.
@@ -181,4 +179,6 @@ Warning: Vehicle 'pt_tram_M2:3.0' ends teleporting on edge '-148458500#0', time 
 Warning: Teleporting vehicle 'pt_tram_M2:0.1'; collision with vehicle 'pt_tram_M2:3.0', lane='148458500#1_0', gap=-1.00, time=486.00 stage=move.
 Warning: Vehicle 'pt_tram_M2:0.1' teleports beyond arrival edge '148458500#1', time 486.00.
 Warning: Vehicle 'pt_tram_M2:0.1' skips stop on lane '148458500#1_0' time=486.00.
+Warning: Person 'ped39' aborted waiting for 147:1 at busStop '3869306774'.
 Warning: Person 'ped162' aborted waiting for 147:0 at busStop '3869306762'.
+Warning: Person 'ped158' aborted waiting for 100:0 at busStop '272408975'.
