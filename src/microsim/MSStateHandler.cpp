@@ -137,26 +137,26 @@ MSStateHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             break;
         }
         case SUMO_TAG_RNGSTATE: {
-            if (attrs.hasAttribute(SUMO_ATTR_RNG_DEFAULT)) {
-                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT));
+            if (attrs.hasAttribute(SUMO_ATTR_DEFAULT)) {
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_DEFAULT));
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_ROUTEHANDLER)) {
-                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSRouteHandler::getParsingRNG());
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_ROUTEHANDLER), MSRouteHandler::getParsingRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_INSERTIONCONTROL)) {
-                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSNet::getInstance()->getInsertionControl().getFlowRNG());
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_INSERTIONCONTROL), MSNet::getInstance()->getInsertionControl().getFlowRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DEVICE)) {
-                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSDevice::getEquipmentRNG());
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE), MSDevice::getEquipmentRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DEVICE_BT)) {
-                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSDevice_BTreceiver::getEquipmentRNG());
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE_BT), MSDevice_BTreceiver::getEquipmentRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DRIVERSTATE)) {
-                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), OUProcess::getRNG());
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DRIVERSTATE), OUProcess::getRNG());
             }
             if (attrs.hasAttribute(SUMO_ATTR_RNG_DEVICE_TOC)) {
-                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEFAULT), MSDevice_ToC::getResponseTimeRNG());
+                RandHelper::loadState(attrs.getString(SUMO_ATTR_RNG_DEVICE_TOC), MSDevice_ToC::getResponseTimeRNG());
             }
             break;
         }
@@ -380,7 +380,7 @@ MSStateHandler::closeVehicle() {
 void
 MSStateHandler::saveRNGs(OutputDevice& out) {
     out.openTag(SUMO_TAG_RNGSTATE);
-    out.writeAttr(SUMO_ATTR_RNG_DEFAULT, RandHelper::saveState());
+    out.writeAttr(SUMO_ATTR_DEFAULT, RandHelper::saveState());
     out.writeAttr(SUMO_ATTR_RNG_ROUTEHANDLER, RandHelper::saveState(MSRouteHandler::getParsingRNG()));
     out.writeAttr(SUMO_ATTR_RNG_INSERTIONCONTROL, RandHelper::saveState(MSNet::getInstance()->getInsertionControl().getFlowRNG()));
     out.writeAttr(SUMO_ATTR_RNG_DEVICE, RandHelper::saveState(MSDevice::getEquipmentRNG()));

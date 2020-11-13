@@ -109,12 +109,12 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
             if (microVeh != nullptr) {
                 if (signals) {
-                    of.writeAttr("signals", toString(microVeh->getSignals()));
+                    of.writeAttr(SUMO_ATTR_SIGNALS, toString(microVeh->getSignals()));
                 }
                 if (writeAccel) {
-                    of.writeAttr("acceleration", toString(microVeh->getAcceleration()));
+                    of.writeAttr(SUMO_ATTR_ACCELERATION, toString(microVeh->getAcceleration()));
                     if (MSGlobals::gSublane) {
-                        of.writeAttr("accelerationLat", microVeh->getLaneChangeModel().getAccelerationLat());
+                        of.writeAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat());
                     }
                 }
             }
@@ -131,7 +131,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     distance += veh->getPositionOnLane();
                 }
                 // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
-                of.writeAttr("distance", fabs(distance));
+                of.writeAttr(SUMO_ATTR_DISTANCE, fabs(distance));
             }
             for (const std::string& key : params) {
                 const std::string value = veh->getParameter().getParameter(key);
