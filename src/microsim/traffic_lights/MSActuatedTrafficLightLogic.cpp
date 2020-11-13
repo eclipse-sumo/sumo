@@ -41,7 +41,7 @@
 
 //#define DEBUG_DETECTORS
 //#define DEBUG_PHASE_SELECTION
-#define DEBUG_COND (getID()=="Campestr")
+#define DEBUG_COND (getID()=="C")
 
 // ===========================================================================
 // parameter defaults definitions
@@ -245,7 +245,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                                 || oneLane[i])) // check1c
                    ) {
                     greenLinks.insert(i);
-                    actuatedLinks.insert(i);
+                    if (state[i] == LINKSTATE_TL_GREEN_MAJOR || !turnaround[i]) {
+                        actuatedLinks.insert(i);
+                    }
                 }
 #ifdef DEBUG_DETECTORS
                 if (DEBUG_COND) {
