@@ -19,11 +19,11 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/common/StringTokenizer.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEAllowDisallow.h"
 
@@ -131,16 +131,22 @@ GNEAllowDisallow::onCmdSelectOnlyRoad(FXObject*, FXSelector, void*) {
 long
 GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
     // clear allow and disallow VClasses
-    std::vector<std::string> allowedVehicles;
+    std::vector<std::string> allowedVehicles, disallowedVehicles;
     for (const auto &vClass : myVClassMap) {
         // check if vehicle is alloweddepending of the Icon
         if (vClass.second.first->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
             allowedVehicles.push_back(getVehicleClassNames(vClass.first));
+        } else {
+            disallowedVehicles.push_back(getVehicleClassNames(vClass.first));
         }
     }
     // chek if all vehicles are enabled and set new allowed vehicles
     if (myAC) {
         myAC->setAttribute(SUMO_ATTR_ALLOW, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
+    } else {
+        // update strings
+        *myAllow = joinToString(allowedVehicles, " ");
+        *myDisAllow = joinToString(disallowedVehicles, " ");
     }
     // Stop Modal
     getApp()->stopModal(this, TRUE);
@@ -158,23 +164,29 @@ GNEAllowDisallow::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNEAllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
+    std::string allow;
+    // set allow depending of myAC
     if (myAC) {
-        if (myAC->getAttribute(SUMO_ATTR_ALLOW) == "all") {
-            // iterate over myVClassMap and set all icons as true
-            for (const auto &vClass : myVClassMap) {
+        allow = myAC->getAttribute(SUMO_ATTR_ALLOW);
+    } else {
+        allow = *myAllow;
+    }
+    // continue depending of allow
+    if (allow == "all") {
+        // iterate over myVClassMap and set all icons as true
+        for (const auto &vClass : myVClassMap) {
+            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+        }
+    } else {
+        // declare string vector for saving all vclasses
+        const std::vector<std::string>& allowStringVector = StringTokenizer(allow).getVector();
+        const std::set<std::string> allowSet(allowStringVector.begin(), allowStringVector.end());
+        // iterate over myVClassMap and set icons
+        for (const auto &vClass : myVClassMap) {
+            if (allowSet.count(getVehicleClassNames(vClass.first)) > 0) {
                 vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
-            }
-        } else {
-            // declare string vector for saving all vclasses
-            const std::vector<std::string>& allowStringVector = StringTokenizer(myAC->getAttribute(SUMO_ATTR_ALLOW)).getVector();
-            const std::set<std::string> allowSet(allowStringVector.begin(), allowStringVector.end());
-            // iterate over myVClassMap and set icons
-            for (const auto &vClass : myVClassMap) {
-                if (allowSet.count(getVehicleClassNames(vClass.first)) > 0) {
-                    vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
-                } else {
-                    vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
-                }
+            } else {
+                vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
             }
         }
     }
