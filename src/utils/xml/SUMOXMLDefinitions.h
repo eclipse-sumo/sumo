@@ -505,6 +505,9 @@ enum SumoXMLAttr {
     SUMO_ATTR_ACCELERATION       = 52,
     SUMO_ATTR_ACCELERATION_LAT   = 53,
     SUMO_ATTR_DISTANCE           = 54,
+    SUMO_ATTR_LEADER_ID          = 55,
+    SUMO_ATTR_LEADER_SPEED       = 56,
+    SUMO_ATTR_LEADER_GAP         = 57,
     /// @}
 
     /// @name common attributes

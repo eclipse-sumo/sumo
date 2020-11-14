@@ -341,6 +341,9 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "acceleration",           SUMO_ATTR_ACCELERATION },
     { "accelerationLat",        SUMO_ATTR_ACCELERATION_LAT },
     { "distance",               SUMO_ATTR_DISTANCE },
+    { "leaderID",               SUMO_ATTR_LEADER_ID },
+    { "leaderSpeed",            SUMO_ATTR_LEADER_SPEED },
+    { "leaderGap",              SUMO_ATTR_LEADER_GAP },
 
     // Edge
     { "id",                     SUMO_ATTR_ID },
