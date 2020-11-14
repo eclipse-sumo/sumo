@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_7_0+0764-5bd512f5cd
+Eclipse SUMO sumo Version v1_7_0+1010-974f228feb
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -71,6 +71,8 @@ Output Options:
   --fcd-output.distance                Add kilometrage to the FCD output
                                         (linear referencing)
   --fcd-output.acceleration            Add acceleration to the FCD output
+  --fcd-output.max-leader-distance FLOAT  Add leader vehicle information to the
+                                        FCD output (within the given distance)
   --fcd-output.params STR[]            Add generic parameter values to the FCD
                                         output
   --fcd-output.filter-edges.input-file FILE  Restrict fcd output to the edge

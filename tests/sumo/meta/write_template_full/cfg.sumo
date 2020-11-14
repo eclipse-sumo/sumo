@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov  3 10:07:45 2020 by Eclipse SUMO sumo Version v1_7_0+0764-5bd512f5cd
+<!-- generated on Sat Nov 14 08:53:29 2020 by Eclipse SUMO sumo Version v1_7_0+1010-974f228feb
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -49,6 +49,7 @@
         <fcd-output.signals value="false" type="BOOL" help="Add the vehicle signal state to the FCD output (brake lights etc.)"/>
         <fcd-output.distance value="false" type="BOOL" help="Add kilometrage to the FCD output (linear referencing)"/>
         <fcd-output.acceleration value="false" type="BOOL" help="Add acceleration to the FCD output"/>
+        <fcd-output.max-leader-distance value="-1" type="FLOAT" help="Add leader vehicle information to the FCD output (within the given distance)"/>
         <fcd-output.params value="" type="STR[]" help="Add generic parameter values to the FCD output"/>
         <fcd-output.filter-edges.input-file value="" type="FILE" help="Restrict fcd output to the edge selection from the given input file"/>
         <full-output value="" type="FILE" help="Save a lot of information for each timestep (very redundant)"/>
