@@ -20,7 +20,9 @@ permalink: /ChangeLog/
   - Fixed crash when using meanData attribute 'trackVehicles=True' in a pedestrian simulation. Issue #7664
   - Planned vehicle stops are no longer included in edgeData waitingTime output. Issue #7748
   - Option **--ignore-junction-blocker** is now working again. Issue #7650 (Regression in 1.0.0)
+  - Fixed "jumping" persons when transfering from car to walking at junction. Issue #7778 
   - Fixed crash when vehicle with ssm device is teleported. Issue #7753  
+  - Fixed unsave insertion speed for IDM which was causing emergency braking #7786
   - railway fixes
     - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
     - Fixed train collision due to unsafe rail signal state. Issue #7534
@@ -61,6 +63,7 @@ permalink: /ChangeLog/
   - Inspecting tls-controlled crossings now always shows the corresponding tls link index. Issue #7747
   - Link indices of connections and crossings can now be reset to default using value '-1'. Issue #4540
   - Fixed invalid warning about unsaved data. Issue #5971
+  - Traffic light frame button 'clean states' now properly cleans up last indices #7781
   
 - sumo-gui
   - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
@@ -95,6 +98,9 @@ permalink: /ChangeLog/
   - Train waiting time is now taken into account when resolving conflicts between otherwise equal trains. Issue #7598  
   - edgeData output now includes attribute timeLoss. Issue #1396
   - Pedestrian simulation will no longer deadlock on narrow sidewalks (< 1.28m) Issue #7746
+  - Person journey can now include ransfer from walking-only edge to car-only edge in at junction #7779
+  - Option **--ride.stop-tolerance** now applies to all kinds of stops. #6204
+  - Add **--fcd-output.max-leader-distance** which will add attributes `leaderGap, leaderSpeed, leaderID` to fcd-output whenever a vehicle has a leader within the given distance #7788
   
 - netedit
   - Opposite direction lanes can now be edited and selected. Issue #2653
