@@ -98,7 +98,7 @@ permalink: /ChangeLog/
   - Train waiting time is now taken into account when resolving conflicts between otherwise equal trains. Issue #7598  
   - edgeData output now includes attribute timeLoss. Issue #1396
   - Pedestrian simulation will no longer deadlock on narrow sidewalks (< 1.28m) Issue #7746
-  - Person journey can now include ransfer from walking-only edge to car-only edge in at junction #7779
+  - Person journey can now include transfer from walking-only edge to car-only edge in at junction #7779
   - Option **--ride.stop-tolerance** now applies to all kinds of stops. #6204
   - Add **--fcd-output.max-leader-distance** which will add attributes `leaderGap, leaderSpeed, leaderID` to fcd-output whenever a vehicle has a leader within the given distance #7788
   
