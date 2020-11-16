@@ -118,7 +118,7 @@ public:
      * exists)
      * @param[in] src The starting junction
      * @param[in] dest The ending junction
-     * @param[in] tpl The template edge from which to copy attributes (including lane attrs)
+     * @param[in] edgeTemplate The template edge from which to copy attributes (including lane attrs)
      * @param[in] undoList The undoList in which to mark changes
      * @param[in] suggestedName
      * @param[in] wasSplit Whether the edge was created from a split
@@ -126,7 +126,7 @@ public:
      * @param[in] recomputeConnections Whether connections on the affected junctions must be recomputed
      * @return The newly created edge or 0 if no edge was created
      */
-    GNEEdge* createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* tpl, GNEUndoList* undoList,
+    GNEEdge* createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
                         const std::string& suggestedName = "", bool wasSplit = false, bool allowDuplicateGeom = false,
                         bool recomputeConnections = true);
 

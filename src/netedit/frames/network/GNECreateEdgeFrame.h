@@ -106,6 +106,9 @@ public:
 
         /// @brief textField for distance
         FXTextField* myDistance = nullptr;
+
+        /// @brief map with edge parameters
+        std::map<SumoXMLAttr, std::string> myEdgeAttributes;
     };
 
     // ===========================================================================
@@ -126,6 +129,9 @@ public:
         /// @brief set attributes
         void setAttributes(GNEEdge* edge, GNEUndoList *undoList) const;
 
+        /// @brief update numLanes
+        void updateNumLanes(int numLanes);
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user change value
@@ -141,7 +147,7 @@ public:
         FOX_CONSTRUCTOR(LaneParameters)
 
         /// @brief fill default parameters
-        void fillDefaultParameters();
+        void fillDefaultParameters(int laneIndex);
 
     private:
         /// @brief pointer to createEdgeFrameParent
@@ -176,6 +182,9 @@ public:
 
         /// @brief textField for opposite
         FXTextField* myOpposite = nullptr;
+
+        /// @brief map with lane parameters
+        std::map<int, std::map<SumoXMLAttr, std::string> > myLaneAttributes;
     };
 
     // ===========================================================================
@@ -215,25 +224,25 @@ public:
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
 
         /// @brief use default edge 
-        FXRadioButton* myUseDefaultEdgeRadioButton;
+        FXRadioButton* myUseDefaultEdgeRadioButton = nullptr;
 
         /// @brief custom radio button
-        FXRadioButton* myCustomRadioButton;
+        FXRadioButton* myCustomRadioButton = nullptr;
 
         /// @brief separator
-        FXHorizontalSeparator* myRadioButtonSeparator;
+        FXHorizontalSeparator* myRadioButtonSeparator = nullptr;
 
         /// @brief edge attributes
-        FXRadioButton* myEdgeAttributes;
+        FXRadioButton* myEdgeAttributes = nullptr;
 
         /// @brief edge attributes
-        FXRadioButton* myLaneAttributes;
+        FXRadioButton* myLaneAttributes = nullptr;
 
         /// @brief numLanes horizontal frame
-        FXHorizontalFrame* myNumLanesHorizontalFrame;
+        FXHorizontalFrame* myNumLanesHorizontalFrame = nullptr;
 
         /// @brief spinner for numLanes
-        FXSpinner* myNumLanesSpinner;
+        FXSpinner* myNumLanesSpinner = nullptr;
     };
 
     // ===========================================================================
@@ -284,16 +293,16 @@ public:
 
 protected:
     /// @brief edge parameters
-    EdgeParameters* myEdgeParameters;
+    EdgeParameters* myEdgeParameters = nullptr;
 
     /// @brief lane parameters
-    LaneParameters* myLaneParameters;
+    LaneParameters* myLaneParameters = nullptr;
 
     /// @brief custom edge selector
-    CustomEdgeSelector* myCustomEdgeSelector;
+    CustomEdgeSelector* myCustomEdgeSelector = nullptr;
 
     /// @brief edge selector legend
-    EdgeSelectorLegend* myEdgeSelectorLegend;
+    EdgeSelectorLegend* myEdgeSelectorLegend = nullptr;
 
 private:
     /// @brief objects under snapped cursor

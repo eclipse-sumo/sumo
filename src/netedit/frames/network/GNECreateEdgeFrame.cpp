@@ -143,7 +143,10 @@ GNECreateEdgeFrame::EdgeParameters::setAttributes(GNEEdge* edge, GNEUndoList *un
 
 
 long 
-GNECreateEdgeFrame::EdgeParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNECreateEdgeFrame::EdgeParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+    if (obj == myNumLanes) {
+        myCreateEdgeFrameParent->myLaneParameters->updateNumLanes(GNEAttributeCarrier::parse<int>(myNumLanes->getText().text()));
+    }
     return 1;
 }
 
@@ -165,24 +168,34 @@ GNECreateEdgeFrame::EdgeParameters::onCmdOpenAttributeDialog(FXObject*, FXSelect
 void 
 GNECreateEdgeFrame::EdgeParameters::fillDefaultParameters() {
     // set speed
+    myEdgeAttributes[SUMO_ATTR_SPEED] = "13.89";
     mySpeed->setText("13.89");
     // set priority
+    myEdgeAttributes[SUMO_ATTR_PRIORITY] = "-1";
     myPriority->setText("-1");
     // set numLanes
+    myEdgeAttributes[SUMO_ATTR_NUMLANES] = "1";
     myNumLanes->setText("1");
     // set type
+    myEdgeAttributes[SUMO_ATTR_TYPE] = "";
     myType->setText("");
     // set allow
+    myEdgeAttributes[SUMO_ATTR_ALLOW] = "all";
     myAllow->setText("all");
     // set disallow
+    myEdgeAttributes[SUMO_ATTR_DISALLOW] = "";
     myDisallow->setText("");
     // set spreadType
+    myEdgeAttributes[SUMO_ATTR_SPREADTYPE] = "right";
     mySpreadType->setText("right");
     // set name
+    myEdgeAttributes[SUMO_ATTR_NAME] = "";
     myName->setText("");
     // set width
+    myEdgeAttributes[SUMO_ATTR_WIDTH] = "-1.00";
     myWidth->setText("-1.00");
     // set distance
+    myEdgeAttributes[SUMO_ATTR_DISTANCE] = "0.00";
     myDistance->setText("0.00");
 }
 
@@ -195,23 +208,14 @@ GNECreateEdgeFrame::LaneParameters::LaneParameters(GNECreateEdgeFrame* createEdg
     myCreateEdgeFrameParent(createEdgeFrameParent) {
     // declare horizontalFrameAttribute
     FXHorizontalFrame* horizontalFrameAttribute = nullptr;
-
-    /*
     // create ComboBox for spread type
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPREADTYPE).c_str(), nullptr, GUIDesignLabelAttribute);
-    mySpreadType = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
-    // fill comboBox
-    mySpreadType->insertItem(0, "Right");
-    mySpreadType->insertItem(1, "RoadCenter");
-    mySpreadType->insertItem(2, "Center");
-    */
-
+        new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_NUMLANES).c_str(), nullptr, GUIDesignLabelAttribute);
+    myLaneIndex = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create textField for speed
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
         new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPEED).c_str(), nullptr, GUIDesignLabelAttribute);
     mySpeed = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-
     // create Button for allow vehicles
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
         myAllowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_ALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
@@ -225,7 +229,7 @@ GNECreateEdgeFrame::LaneParameters::LaneParameters(GNECreateEdgeFrame* createEdg
         new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
     myWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // fill default parameters
-    fillDefaultParameters();
+    fillDefaultParameters(0);
 }
 
 
@@ -242,6 +246,18 @@ GNECreateEdgeFrame::LaneParameters::setAttributes(GNEEdge* edge, GNEUndoList *un
     edge->setAttribute(SUMO_ATTR_WIDTH, toString(myWidth->getText().text()), undoList);
 }
 
+
+void 
+GNECreateEdgeFrame::LaneParameters::updateNumLanes(int numLanes) {
+    // First remove extra lanes
+    while (myLaneIndex->getNumItems() > numLanes) {
+        myLaneIndex->removeItem(myLaneIndex->getNumItems() - 1);
+    }
+    // now add lanes
+    while (myLaneIndex->getNumItems() < numLanes) {
+        myLaneIndex->insertItem(myLaneIndex->getNumItems(), toString(myLaneIndex->getNumItems()).c_str());
+    }
+}
 
 long 
 GNECreateEdgeFrame::LaneParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
@@ -264,7 +280,7 @@ GNECreateEdgeFrame::LaneParameters::onCmdOpenAttributeDialog(FXObject*, FXSelect
 
 
 void 
-GNECreateEdgeFrame::LaneParameters::fillDefaultParameters() {
+GNECreateEdgeFrame::LaneParameters::fillDefaultParameters(int laneIndex) {
     // set speed
     mySpeed->setText("13.89");
     // set allow
@@ -446,19 +462,21 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
         // make sure that junctions source and destiny are different
         if (myCreateEdgeSource != junction) {
             // may fail to prevent double edges
-            GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction,
-                               myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
+            GNEEdge* newEdge = myViewNet->getNet()->createEdge(myCreateEdgeSource, junction, nullptr, myViewNet->getUndoList());
             // check if edge was sucesfully created
             if (newEdge) {
                 // set parameters
-                myEdgeParameters->setAttributes(newEdge, myViewNet->getUndoList());
+                if (myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate().empty()) {
+                    myEdgeParameters->setAttributes(newEdge, myViewNet->getUndoList());
+                }
                 // create another edge, if create opposite edge is enabled
                 if (oppositeEdge) {
-                    GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, 
-                        myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(),
+                    GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
                         myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                     // set parameters
-                    myEdgeParameters->setAttributes(newOppositeEdge, myViewNet->getUndoList());
+                    if (myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate().empty()) {
+                        myEdgeParameters->setAttributes(newOppositeEdge, myViewNet->getUndoList());
+                    }
                 }
                 // edge created, then unmark as create edge source
                 myCreateEdgeSource->unMarkAsCreateEdgeSource();

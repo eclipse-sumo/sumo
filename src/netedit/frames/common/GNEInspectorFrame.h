@@ -192,6 +192,21 @@ public:
         FXDECLARE(GNEInspectorFrame::TemplateEditor)
 
     public:
+        /// @brief edgeTemplate
+        struct EdgeTemplate {
+            /// @brief default constructor
+            EdgeTemplate();
+
+            /// @brief constructor
+            EdgeTemplate(GNEEdge* edge);
+
+            /// @brief edge parameters
+            std::map<SumoXMLAttr, std::string> edgeParameters;
+
+            /// @brief lane parameters
+            std::vector<std::map<SumoXMLAttr, std::string> > laneParameters;
+        };
+
         /// @brief constructor
         TemplateEditor(GNEInspectorFrame* inspectorFrameParent);
 
@@ -205,7 +220,7 @@ public:
         void hideTemplateEditor();
 
         /// @brief get the template edge (to copy attributes from)
-        GNEEdge* getEdgeTemplate() const;
+        const std::map<std::string, TemplateEditor::EdgeTemplate> &getEdgeTemplate() const;
 
         /// @brief set template (used by shortcut)
         void setTemplate();
@@ -218,7 +233,6 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-
         /// @brief set current edge as new template
         long onCmdSetTemplate(FXObject*, FXSelector, void*);
 
@@ -230,10 +244,11 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(TemplateEditor)
 
         /// @brief seh the template edge (we assume shared responsibility via reference counting)
-        void setEdgeTemplate(GNEEdge* tpl);
+        void setEdgeTemplate(GNEEdge* edgeTemplate);
 
         /// @brief update buttons
         void updateButtons();
@@ -251,8 +266,8 @@ public:
         /// @brief clear template button
         FXButton* myClearTemplateButton;
 
-        /// @brief pointer to edge template
-        GNEEdge* myEdgeTemplate;
+        /// @brief map with edge template
+        std::map<std::string, TemplateEditor::EdgeTemplate> myEdgeTemplate;
     };
 
     // ===========================================================================

@@ -214,16 +214,11 @@ GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
 
 
 GNEEdge*
-GNENet::createEdge(
-    GNEJunction* src, GNEJunction* dest, GNEEdge* tpl, GNEUndoList* undoList,
-    const std::string& suggestedName,
-    bool wasSplit,
-    bool allowDuplicateGeom,
-    bool recomputeConnections) {
+GNENet::createEdge( GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
+    const std::string& suggestedName, bool wasSplit, bool allowDuplicateGeom, bool recomputeConnections) {
     // prevent duplicate edge (same geometry)
-    const EdgeVector& outgoing = src->getNBNode()->getOutgoingEdges();
-    for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
-        if ((*it)->getToNode() == dest->getNBNode() && (*it)->getGeometry().size() == 2) {
+    for (const auto & outgoingEdge : src->getNBNode()->getOutgoingEdges()) {
+        if (outgoingEdge->getToNode() == dest->getNBNode() && outgoingEdge->getGeometry().size() == 2) {
             if (!allowDuplicateGeom) {
                 return nullptr;
             }
@@ -237,11 +232,10 @@ GNENet::createEdge(
     } else {
         id = myEdgeIDSupplier.getNext();
     }
-
     GNEEdge* edge;
-    if (tpl) {
-        NBEdge* nbeTpl = tpl->getNBEdge();
-        NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(), nbeTpl);
+    if (edgeTemplate) {
+        // create NBEdgeTemplate
+        NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(), edgeTemplate->getNBEdge());
         edge = new GNEEdge(this, nbe, wasSplit);
     } else {
         // default if no template is given
@@ -261,6 +255,11 @@ GNENet::createEdge(
     }
     undoList->p_begin("create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
+    // copy template
+    if (myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate().size() > 0) {
+        edge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate().begin()->second, undoList);
+    }
+    // recompute connection
     if (recomputeConnections) {
         src->setLogicValid(false, undoList);
         dest->setLogicValid(false, undoList);
@@ -1007,12 +1006,11 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     Position center = junction->getPositionInView();
     deleteJunction(junction, undoList);
     // create new edges to connect roundabout junctions (counter-clockwise)
-    GNEEdge* tpl = myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate();
     const double resolution = OptionsCont::getOptions().getFloat("opendrive.curve-resolution") * 3;
     for (int i = 0; i < (int)newJunctions.size(); i++) {
         GNEJunction* from = newJunctions[(i + 1) % newJunctions.size()];
         GNEJunction* to = newJunctions[i];
-        GNEEdge* newEdge = createEdge(from, to, tpl, undoList);
+        GNEEdge* newEdge = createEdge(from, to, nullptr, undoList);
         const double angle1 = center.angleTo2D(from->getPositionInView());
         const double angle2 = center.angleTo2D(to->getPositionInView());
         // insert geometry points every resolution meters
