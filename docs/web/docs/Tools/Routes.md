@@ -312,7 +312,7 @@ By setting option **--probability FLOAT**, stops only receive a delay with the g
 
 # checkStopOrder.py
 
-This tool reads a [public transport schedule for vehicles or trips](Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](Simulation/Railways.md#portion_working) takes place).
+This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
 ```
 <SUMO_HOME>/tools/route/checkStopOrder.py -r <route-file>
 ```
