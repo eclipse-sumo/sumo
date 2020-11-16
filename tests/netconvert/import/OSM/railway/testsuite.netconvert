@@ -25,3 +25,6 @@ railway_bidirectional
 
 # double track with spreadType="right" (no bidi)
 oneway_no
+
+# line with 4 stops on a single way
+single_way
