@@ -254,7 +254,7 @@ GUIApplicationWindow::dependentBuild() {
     myStatusbar = new FXStatusBar(this, GUIDesignStatusBar);
     {
         myGeoFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in NETCONVERT)", nullptr, LAYOUT_CENTER_Y);
+        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, LAYOUT_CENTER_Y);
         myCartesianFrame = new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
         myStatButtons.push_back(new FXButton(myStatusbar, "-", GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE), this, MID_SHOWVEHSTATS));
@@ -837,7 +837,7 @@ long
 GUIApplicationWindow::onCmdOpenConfiguration(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, "Open Simulation Configuration");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList(myConfigPattern.c_str());
     if (gCurrentFolder.length() != 0) {
@@ -857,7 +857,7 @@ long
 GUIApplicationWindow::onCmdOpenNetwork(FXObject*, FXSelector, void*) {
     // get the new file name
     FXFileDialog opendialog(this, "Open Network");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -877,7 +877,7 @@ long
 GUIApplicationWindow::onCmdOpenShapes(FXObject*, FXSelector, void*) {
     // get the shape file name
     FXFileDialog opendialog(this, "Open Shapes");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_SHAPES));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("Additional files (*.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -907,7 +907,7 @@ long
 GUIApplicationWindow::onCmdOpenEdgeData(FXObject*, FXSelector, void*) {
     // get the shape file name
     FXFileDialog opendialog(this, "Open EdgeData");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::EMPTY));
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::OPEN_NET));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("EdgeData files (*.xml)\nAll files (*)");
     if (gCurrentFolder.length() != 0) {
@@ -960,7 +960,7 @@ GUIApplicationWindow::onCmdOpenRecent(FXObject* /* sender */, FXSelector, void* 
 long
 GUIApplicationWindow::onCmdSaveConfig(FXObject*, FXSelector, void*) {
     // get the new file name
-    FXFileDialog opendialog(this, "Save Sumo Configuration");
+    FXFileDialog opendialog(this, "Save SUMO Configuration");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::SAVE));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("Config (*.sumocfg)");
