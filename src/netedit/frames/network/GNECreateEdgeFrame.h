@@ -32,6 +32,50 @@
 class GNECreateEdgeFrame : public GNEFrame {
 
 public:
+
+    // ===========================================================================
+    // class TemplateSelector
+    // ===========================================================================
+
+    class TemplateSelector : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNECreateEdgeFrame::TemplateSelector)
+
+    public:
+        /// @brief constructor
+        TemplateSelector(GNECreateEdgeFrame* createEdgeFrameParent);
+
+        /// @brief destructor
+        ~TemplateSelector();
+
+        /// @brief refresh template selector
+        void refreshTemplateSelector();
+
+        /// @brief check if we have to use selector
+        bool useEdgeTemplate() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user press a radio button
+        long onCmdRadioButton(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(TemplateSelector)
+
+    private:
+        /// @brief pointer to createEdgeFrameParent
+        GNECreateEdgeFrame* myCreateEdgeFrameParent;
+
+        /// @brief use template
+        FXRadioButton* myUseTemplateRadioButton = nullptr;
+
+        /// @brief custom radio button
+        FXRadioButton* myCustomEdgeRadioButton = nullptr;
+    };
+
     // ===========================================================================
     // class EdgeParameters
     // ===========================================================================
@@ -46,6 +90,12 @@ public:
 
         /// @brief destructor
         ~EdgeParameters();
+
+        /// @brief show edge parameters
+        void showEdgeParameters();
+
+        /// @brief hide edge parameters
+        void hideEdgeParameters();
 
         /// @brief set attributes
         void setAttributes(GNEEdge* edge, GNEUndoList *undoList) const;
@@ -126,6 +176,12 @@ public:
         /// @brief destructor
         ~LaneParameters();
 
+        /// @brief show lane parameters
+        void showLaneParameters();
+
+        /// @brief hide lane parameters
+        void hideLaneParameters();
+
         /// @brief set attributes
         void setAttributes(GNEEdge* edge, GNEUndoList *undoList) const;
 
@@ -188,64 +244,6 @@ public:
     };
 
     // ===========================================================================
-    // class CustomEdgeSelector
-    // ===========================================================================
-
-    class CustomEdgeSelector : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNECreateEdgeFrame::CustomEdgeSelector)
-
-    public:
-        /// @brief constructor
-        CustomEdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent);
-
-        /// @brief destructor
-        ~CustomEdgeSelector();
-
-        /// @brief get num lanes
-        int getNumLanes() const;
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user press a radio button
-        long onCmdRadioButton(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the change the number of lanes in spinner
-        long onCmdChangeNumLanes(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(CustomEdgeSelector)
-
-    private:
-        /// @brief pointer to createEdgeFrameParent
-        GNECreateEdgeFrame* myCreateEdgeFrameParent;
-
-        /// @brief use default edge 
-        FXRadioButton* myUseDefaultEdgeRadioButton = nullptr;
-
-        /// @brief custom radio button
-        FXRadioButton* myCustomRadioButton = nullptr;
-
-        /// @brief separator
-        FXHorizontalSeparator* myRadioButtonSeparator = nullptr;
-
-        /// @brief edge attributes
-        FXRadioButton* myEdgeAttributes = nullptr;
-
-        /// @brief edge attributes
-        FXRadioButton* myLaneAttributes = nullptr;
-
-        /// @brief numLanes horizontal frame
-        FXHorizontalFrame* myNumLanesHorizontalFrame = nullptr;
-
-        /// @brief spinner for numLanes
-        FXSpinner* myNumLanesSpinner = nullptr;
-    };
-
-    // ===========================================================================
     // class EdgeSelectorLegend
     // ===========================================================================
 
@@ -285,11 +283,14 @@ public:
     /// @brief update objects under snapped cursor
     void updateObjectsUnderSnappedCursor(const std::vector<GUIGlObject*>& GUIGlObjects);
 
-    /// @brief show prohibition frame
+    /// @brief show create edge frame
     void show();
 
-    /// @brief hide prohibition frame
+    /// @brief hide create edge frame
     void hide();
+
+    /// @brief getcustom edge selector
+    TemplateSelector* getTemplateSelector() const;
 
 protected:
     /// @brief edge parameters
@@ -299,7 +300,7 @@ protected:
     LaneParameters* myLaneParameters = nullptr;
 
     /// @brief custom edge selector
-    CustomEdgeSelector* myCustomEdgeSelector = nullptr;
+    TemplateSelector* myTemplateSelector = nullptr;
 
     /// @brief edge selector legend
     EdgeSelectorLegend* myEdgeSelectorLegend = nullptr;

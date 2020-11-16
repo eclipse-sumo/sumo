@@ -34,10 +34,8 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNECreateEdgeFrame::CustomEdgeSelector) CustomEdgeSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_NUMLANES,           GNECreateEdgeFrame::CustomEdgeSelector::onCmdChangeNumLanes),
-
+FXDEFMAP(GNECreateEdgeFrame::TemplateSelector) TemplateSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::TemplateSelector::onCmdRadioButton),
 };
 
 FXDEFMAP(GNECreateEdgeFrame::EdgeParameters) EdgeParametersMap[] = {
@@ -51,7 +49,7 @@ FXDEFMAP(GNECreateEdgeFrame::LaneParameters) LaneParametersMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECreateEdgeFrame::CustomEdgeSelector,     FXGroupBox,     CustomEdgeSelectorMap,  ARRAYNUMBER(CustomEdgeSelectorMap))
+FXIMPLEMENT(GNECreateEdgeFrame::TemplateSelector,       FXGroupBox,     TemplateSelectorMap,    ARRAYNUMBER(TemplateSelectorMap))
 FXIMPLEMENT(GNECreateEdgeFrame::EdgeParameters,         FXGroupBox,     EdgeParametersMap,      ARRAYNUMBER(EdgeParametersMap))
 FXIMPLEMENT(GNECreateEdgeFrame::LaneParameters,         FXGroupBox,     LaneParametersMap,      ARRAYNUMBER(LaneParametersMap))
 
@@ -59,6 +57,91 @@ FXIMPLEMENT(GNECreateEdgeFrame::LaneParameters,         FXGroupBox,     LanePara
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+// ---------------------------------------------------------------------------
+// GNECreateEdgeFrame::TemplateSelector - methods
+// ---------------------------------------------------------------------------
+
+GNECreateEdgeFrame::TemplateSelector::TemplateSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
+    FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
+    myCreateEdgeFrameParent(createEdgeFrameParent) {
+    // default edge radio button
+    myUseTemplateRadioButton = new FXRadioButton(this, "Use edge template",
+        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    // custom edge radio button
+    myCustomEdgeRadioButton = new FXRadioButton(this, "Create custom edge",
+        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    // by default, create custom edge
+    myCustomEdgeRadioButton->setCheck(TRUE);
+}
+
+
+GNECreateEdgeFrame::TemplateSelector::~TemplateSelector() {}
+
+
+void
+GNECreateEdgeFrame::TemplateSelector::refreshTemplateSelector() {
+    // get template editor
+    GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    // check if there is template
+    if (templateEditor->hasTemplate()) {
+        // enable both buttons
+        myUseTemplateRadioButton->enable();
+        myCustomEdgeRadioButton->enable();
+        // change text in myUseTemplateRadioButton
+        myUseTemplateRadioButton->setText(("Use '" + templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID) + "' template").c_str());
+    } else {
+        // disable use template
+        myUseTemplateRadioButton->disable();
+        myCustomEdgeRadioButton->enable();
+        // enable custom edge radio button
+        myCustomEdgeRadioButton->setCheck(TRUE, FALSE);
+        // change text in myUseTemplateRadioButton
+        myUseTemplateRadioButton->setText("Use edge template");
+    }
+    // show editor parameter
+    if (myCustomEdgeRadioButton->getCheck() == TRUE) {
+        myCreateEdgeFrameParent->myEdgeParameters->showEdgeParameters();
+        myCreateEdgeFrameParent->myLaneParameters->showLaneParameters();
+    } else {
+        myCreateEdgeFrameParent->myEdgeParameters->hideEdgeParameters();
+        myCreateEdgeFrameParent->myLaneParameters->hideLaneParameters();
+    }
+    // recalc
+    recalc();
+}
+
+
+bool 
+GNECreateEdgeFrame::TemplateSelector::useEdgeTemplate() const {
+    if (myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
+        if (myUseTemplateRadioButton->getCheck() == TRUE) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+long
+GNECreateEdgeFrame::TemplateSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
+    // check what object was pressed
+    if (obj == myUseTemplateRadioButton) {
+        // update buttons
+        myUseTemplateRadioButton->setCheck(TRUE, FALSE);
+        myCustomEdgeRadioButton->setCheck(FALSE, FALSE);
+    } else {
+        // update buttons
+        myUseTemplateRadioButton->setCheck(FALSE, FALSE);
+        myCustomEdgeRadioButton->setCheck(TRUE, FALSE);
+    }
+    // refresh template selector
+    refreshTemplateSelector();
+    return 0;
+}
 
 // ---------------------------------------------------------------------------
 // GNECreateEdgeFrame::EdgeParameters - methods
@@ -119,6 +202,18 @@ GNECreateEdgeFrame::EdgeParameters::EdgeParameters(GNECreateEdgeFrame* createEdg
 
 
 GNECreateEdgeFrame::EdgeParameters::~EdgeParameters() {}
+
+
+void
+GNECreateEdgeFrame::EdgeParameters::showEdgeParameters() {
+    show();
+}
+
+
+void 
+GNECreateEdgeFrame::EdgeParameters::hideEdgeParameters() {
+    hide();
+}
 
 
 void 
@@ -210,7 +305,7 @@ GNECreateEdgeFrame::LaneParameters::LaneParameters(GNECreateEdgeFrame* createEdg
     FXHorizontalFrame* horizontalFrameAttribute = nullptr;
     // create ComboBox for spread type
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_NUMLANES).c_str(), nullptr, GUIDesignLabelAttribute);
+        new FXLabel(horizontalFrameAttribute, "Lane index", nullptr, GUIDesignLabelAttribute);
     myLaneIndex = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create textField for speed
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
@@ -235,6 +330,17 @@ GNECreateEdgeFrame::LaneParameters::LaneParameters(GNECreateEdgeFrame* createEdg
 
 GNECreateEdgeFrame::LaneParameters::~LaneParameters() {}
 
+
+void 
+GNECreateEdgeFrame::LaneParameters::showLaneParameters() {
+    show();
+}
+
+
+void
+GNECreateEdgeFrame::LaneParameters::hideLaneParameters() {
+    hide();
+}
 
 void 
 GNECreateEdgeFrame::LaneParameters::setAttributes(GNEEdge* edge, GNEUndoList *undoList) const {
@@ -290,107 +396,6 @@ GNECreateEdgeFrame::LaneParameters::fillDefaultParameters(int laneIndex) {
 }
 
 // ---------------------------------------------------------------------------
-// GNECreateEdgeFrame::CustomEdgeSelector - methods
-// ---------------------------------------------------------------------------
-
-GNECreateEdgeFrame::CustomEdgeSelector::CustomEdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
-    FXGroupBox(createEdgeFrameParent->myContentFrame, "Custom edge selector", GUIDesignGroupBoxFrame),
-    myCreateEdgeFrameParent(createEdgeFrameParent) {
-    // default edge radio button
-    myUseDefaultEdgeRadioButton = new FXRadioButton(this, "Default edge\t\tUse default edge",
-        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
-    // custom edge radio button
-    myCustomRadioButton = new FXRadioButton(this, "Custom edge\t\tUse a custom edge",
-        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
-    // add separator
-    myRadioButtonSeparator = new FXHorizontalSeparator(this, GUIDesignHorizontalSeparator);
-    // edge attributes radio button
-    myEdgeAttributes = new FXRadioButton(this, "Use edge attributes\t\tUse edge attributes",
-        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
-    // lane attributes radio button
-    myLaneAttributes = new FXRadioButton(this, "Use lane attributes\t\tUse lane attributes",
-        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
-    // create numlanes elements
-    myNumLanesHorizontalFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(myNumLanesHorizontalFrame, toString(SUMO_ATTR_NUMLANES).c_str(), nullptr, GUIDesignLabelAttribute);
-    myNumLanesSpinner = new FXSpinner(myNumLanesHorizontalFrame, GUIDesignTextFieldNCol, this, MID_GNE_CREATEEDGEFRAME_NUMLANES, GUIDesignSpinDialAttribute);
-    myNumLanesSpinner->setRange(1, 100);
-    // hide spinner
-    myNumLanesHorizontalFrame->hide();
-    // by default, use default edge
-    myUseDefaultEdgeRadioButton->setCheck(TRUE);
-    // hide separator
-    myRadioButtonSeparator->hide();
-    // use edge attributes
-    myEdgeAttributes->setCheck(TRUE);
-    // hide edge/lane attributes
-    myEdgeAttributes->hide();
-    myLaneAttributes->hide();
-}
-
-
-GNECreateEdgeFrame::CustomEdgeSelector::~CustomEdgeSelector() {}
-
-
-int 
-GNECreateEdgeFrame::CustomEdgeSelector::getNumLanes() const {
-    if (myNumLanesSpinner->shown()) {
-        return myNumLanesSpinner->getValue();
-    } else {
-        return -1;
-    }
-}
-
-
-long
-GNECreateEdgeFrame::CustomEdgeSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
-    // check what object was pressed
-    if (obj == myUseDefaultEdgeRadioButton) {
-        // update buttons
-        myUseDefaultEdgeRadioButton->setCheck(TRUE, FALSE);
-        myCustomRadioButton->setCheck(FALSE, FALSE);
-        // hide separator
-        myRadioButtonSeparator->hide();
-        // hide spinner
-        myNumLanesHorizontalFrame->hide();
-        // hide edge/lane attributes
-        myEdgeAttributes->hide();
-        myLaneAttributes->hide();
-    } else if (obj == myCustomRadioButton) {
-        // update buttons
-        myUseDefaultEdgeRadioButton->setCheck(FALSE, FALSE);
-        myCustomRadioButton->setCheck(TRUE, FALSE);
-        // show separator
-        myRadioButtonSeparator->show();
-        // show spinner
-        myNumLanesHorizontalFrame->show();
-        // show edge/lane attributes
-        myEdgeAttributes->show();
-        myLaneAttributes->show();
-    } else if (obj == myEdgeAttributes) {
-        // update buttons
-        myEdgeAttributes->setCheck(TRUE, FALSE);
-        myLaneAttributes->setCheck(FALSE, FALSE);
-        /* */
-    } else if (obj == myLaneAttributes) {
-        // update buttons
-        myEdgeAttributes->setCheck(FALSE, FALSE);
-        myLaneAttributes->setCheck(TRUE, FALSE);
-        /* */
-    }
-    // recalc
-    recalc();
-    return 0;
-}
-
-
-long
-GNECreateEdgeFrame::CustomEdgeSelector::onCmdChangeNumLanes(FXObject*, FXSelector, void*) {
-    //
-    return 0;
-}
-
-// ---------------------------------------------------------------------------
 // GNECreateEdgeFrame::Legend - methods
 // ---------------------------------------------------------------------------
 
@@ -421,12 +426,12 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     GNEFrame(horizontalFrameParent, viewNet, "Create Edge"),
     myObjectsUnderSnappedCursor(viewNet),
     myCreateEdgeSource(nullptr) {
+    // create custom edge selector
+    myTemplateSelector = new TemplateSelector(this);
     // create edge parameters
     myEdgeParameters = new EdgeParameters(this);
     // create lane parameters
     myLaneParameters = new LaneParameters(this);
-    // create custom edge selector
-    myCustomEdgeSelector = new CustomEdgeSelector(this);
     // create edge selector legend
     myEdgeSelectorLegend = new EdgeSelectorLegend(this);
 }
@@ -466,7 +471,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             // check if edge was sucesfully created
             if (newEdge) {
                 // set parameters
-                if (!myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
+                if (!myTemplateSelector->useEdgeTemplate()) {
                     myEdgeParameters->setAttributes(newEdge, myViewNet->getUndoList());
                 }
                 // create another edge, if create opposite edge is enabled
@@ -474,7 +479,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                     GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
                         myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                     // set parameters
-                    if (!myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
+                    if (!myTemplateSelector->useEdgeTemplate()) {
                         myEdgeParameters->setAttributes(newOppositeEdge, myViewNet->getUndoList());
                     }
                 }
@@ -530,13 +535,23 @@ GNECreateEdgeFrame::updateObjectsUnderSnappedCursor(const std::vector<GUIGlObjec
 
 void
 GNECreateEdgeFrame::show() {
+    // refresh template selector
+    myTemplateSelector->refreshTemplateSelector();
+    // show frame
     GNEFrame::show();
 }
 
 
 void
 GNECreateEdgeFrame::hide() {
+    // hide frame
     GNEFrame::hide();
+}
+
+
+GNECreateEdgeFrame::TemplateSelector* 
+GNECreateEdgeFrame::getTemplateSelector() const {
+    return myTemplateSelector;
 }
 
 /****************************************************************************/

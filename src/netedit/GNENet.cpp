@@ -49,6 +49,7 @@
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_SUMO.h>
 #include <netwrite/NWWriter_XML.h>
@@ -233,6 +234,7 @@ GNENet::createEdge( GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, 
         id = myEdgeIDSupplier.getNext();
     }
     GNEEdge* edge;
+    // check if there is a template edge
     if (edgeTemplate) {
         // create NBEdgeTemplate
         NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(), edgeTemplate->getNBEdge());
@@ -255,8 +257,8 @@ GNENet::createEdge( GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, 
     }
     undoList->p_begin("create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
-    // copy template
-    if (myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
+    // check if we have to use a template
+    if (myViewNet->getViewParent()->getCreateEdgeFrame()->getTemplateSelector()->useEdgeTemplate()) {
         edge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), undoList);
     }
     // recompute connection
