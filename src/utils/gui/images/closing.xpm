@@ -1,5 +1,6 @@
 /* XPM */
 static const char * closing_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "17 17 4 1",
 " 	c None",
 "!	c black",
@@ -21,4 +22,5 @@ static const char * closing_xpm[] = {
 " !!!  !!!!!  !!! ",
 " !!!  !!!!!  !!! ",
 " !!!  !!!!!  !!! ",
-"                 "};
+"                 "
+};

@@ -1,6 +1,6 @@
 /* XPM */
 static const char *colorwheel_xpm[] = {
-/* width height ncolors chars_per_pixel */
+/* columns rows colors chars-per-pixel */
 "16 16 11 1",
 "  c #000000",
 ". c #ff0000",

@@ -1,10 +1,12 @@
 /* XPM */
 static const char *cut_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 15 4 1",
 " 	c None",
 ".	c Black",
 "X	c Red",
 "o	c #00ff4e",
+/* pixels */
 "                ",
 "        .       ",
 "        .       ",
@@ -19,4 +21,5 @@ static const char *cut_xpm[] = {
 ". .o...ooooo.. .",
 ". .oo.ooooooo.. ",
 "o.oooooooooooooo",
-"o.oooooooooooooo"};
+"o.oooooooooooooo"
+};
