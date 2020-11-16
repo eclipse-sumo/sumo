@@ -170,24 +170,8 @@ MSVehicle::State::State(double pos, double speed, double posLat, double backPos)
 /* -------------------------------------------------------------------------
  * methods of MSVehicle::WaitingTimeCollector
  * ----------------------------------------------------------------------- */
-
 MSVehicle::WaitingTimeCollector::WaitingTimeCollector(SUMOTime memory) : myMemorySize(memory) {}
 
-MSVehicle::WaitingTimeCollector::WaitingTimeCollector(const WaitingTimeCollector& wt) : myMemorySize(wt.getMemorySize()), myWaitingIntervals(wt.getWaitingIntervals()) {}
-
-MSVehicle::WaitingTimeCollector&
-MSVehicle::WaitingTimeCollector::operator=(const WaitingTimeCollector& wt) {
-    myMemorySize = wt.getMemorySize();
-    myWaitingIntervals = wt.getWaitingIntervals();
-    return *this;
-}
-
-MSVehicle::WaitingTimeCollector&
-MSVehicle::WaitingTimeCollector::operator=(SUMOTime t) {
-    myWaitingIntervals.clear();
-    passTime(t, true);
-    return *this;
-}
 
 SUMOTime
 MSVehicle::WaitingTimeCollector::cumulatedWaitingTime(SUMOTime memorySpan) const {
@@ -196,25 +180,26 @@ MSVehicle::WaitingTimeCollector::cumulatedWaitingTime(SUMOTime memorySpan) const
         memorySpan = myMemorySize;
     }
     SUMOTime totalWaitingTime = 0;
-    for (waitingIntervalList::const_iterator i = myWaitingIntervals.begin(); i != myWaitingIntervals.end(); i++) {
-        if (i->second >= memorySpan) {
-            if (i->first >= memorySpan) {
+    for (const auto& interval : myWaitingIntervals) {
+        if (interval.second >= memorySpan) {
+            if (interval.first >= memorySpan) {
                 break;
             } else {
-                totalWaitingTime += memorySpan - i->first;
+                totalWaitingTime += memorySpan - interval.first;
             }
         } else {
-            totalWaitingTime += i->second - i->first;
+            totalWaitingTime += interval.second - interval.first;
         }
     }
     return totalWaitingTime;
 }
 
+
 void
 MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting) {
-    waitingIntervalList::iterator i = myWaitingIntervals.begin();
-    waitingIntervalList::iterator end = myWaitingIntervals.end();
-    bool startNewInterval = i == end || (i->first != 0);
+    auto i = myWaitingIntervals.begin();
+    const auto end = myWaitingIntervals.end();
+    const bool startNewInterval = i == end || (i->first != 0);
     while (i != end) {
         i->first += dt;
         if (i->first >= myMemorySize) {
@@ -225,7 +210,7 @@ MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting) {
     }
 
     // remove intervals beyond memorySize
-    waitingIntervalList::iterator::difference_type d = std::distance(i, end);
+    auto d = std::distance(i, end);
     while (d > 0) {
         myWaitingIntervals.pop_back();
         d--;
@@ -242,6 +227,28 @@ MSVehicle::WaitingTimeCollector::passTime(SUMOTime dt, bool waiting) {
 }
 
 
+const std::string
+MSVehicle::WaitingTimeCollector::getState() const {
+    std::ostringstream state;
+    state << myMemorySize << " " << myWaitingIntervals.size();
+    for (const auto& interval : myWaitingIntervals) {
+        state << " " << interval.first << " " << interval.second;
+    }
+    return state.str();
+}
+
+
+void
+MSVehicle::WaitingTimeCollector::setState(const std::string& state) {
+    std::istringstream is(state);
+    int numIntervals;
+    SUMOTime begin, end;
+    is >> myMemorySize >> numIntervals;
+    while (numIntervals-- > 0) {
+        is >> begin >> end;
+        myWaitingIntervals.emplace_back(begin, end);
+    }
+}
 
 
 /* -------------------------------------------------------------------------
@@ -6301,9 +6308,10 @@ MSVehicle::saveState(OutputDevice& out) {
     internals.push_back(toString(isStopped()));
     internals.push_back(toString(myPastStops.size()));
     out.writeAttr(SUMO_ATTR_STATE, internals);
-    out.writeAttr(SUMO_ATTR_POSITION, myState.myPos);
-    out.writeAttr(SUMO_ATTR_SPEED, myState.mySpeed);
+    out.writeAttr(SUMO_ATTR_POSITION, std::vector<double>{ myState.myPos, myState.myBackPos, myState.myLastCoveredDist });
+    out.writeAttr(SUMO_ATTR_SPEED, std::vector<double>{ myState.mySpeed, myState.myPreviousSpeed });
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
+    out.writeAttr(SUMO_ATTR_WAITINGTIME, myWaitingTimeCollector.getState());
     // save past stops
     for (SUMOVehicleParameter::Stop stop : myPastStops) {
         stop.write(out, false);
@@ -6351,9 +6359,12 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
             pastStops--;
         }
     }
-    myState.myPos = attrs.getFloat(SUMO_ATTR_POSITION);
-    myState.mySpeed = attrs.getFloat(SUMO_ATTR_SPEED);
-    myState.myPosLat = attrs.getFloat(SUMO_ATTR_POSITION_LAT);
+    std::istringstream pis(attrs.getString(SUMO_ATTR_POSITION));
+    pis >> myState.myPos >> myState.myBackPos >> myState.myLastCoveredDist;
+    std::istringstream sis(attrs.getString(SUMO_ATTR_SPEED));
+    sis >> myState.mySpeed >> myState.myPreviousSpeed;
+    myAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed);
+    myWaitingTimeCollector.setState(attrs.getString(SUMO_ATTR_WAITINGTIME));
     if (stopped) {
         myStopDist = 0;
     }

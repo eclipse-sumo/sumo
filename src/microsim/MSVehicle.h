@@ -160,25 +160,9 @@ public:
      * @brief Stores the waiting intervals over the previous seconds (memory is to be specified in ms.).
      */
     class WaitingTimeCollector {
-        friend class MSVehicle;
-
-        typedef std::list<std::pair<SUMOTime, SUMOTime> > waitingIntervalList;
-
     public:
         /// Constructor.
         WaitingTimeCollector(SUMOTime memory = MSGlobals::gWaitingTimeMemory);
-
-        /// Copy constructor.
-        WaitingTimeCollector(const WaitingTimeCollector& wt);
-
-        /// Assignment operator.
-        WaitingTimeCollector& operator=(const WaitingTimeCollector& wt);
-
-        /// Operator !=
-        bool operator!=(const WaitingTimeCollector& wt) const;
-
-        /// Assignment operator (in place!)
-        WaitingTimeCollector& operator=(SUMOTime t);
 
         // return the waiting time within the last memory millisecs
         SUMOTime cumulatedWaitingTime(SUMOTime memory = -1) const;
@@ -186,15 +170,9 @@ public:
         // process time passing for dt millisecs
         void passTime(SUMOTime dt, bool waiting);
 
-        // maximal memory time stored
-        SUMOTime getMemorySize() const {
-            return myMemorySize;
-        }
+        const std::string getState() const;
 
-        // maximal memory time stored
-        const waitingIntervalList& getWaitingIntervals() const {
-            return myWaitingIntervals;
-        }
+        void setState(const std::string& state);
 
     private:
         /// the maximal memory to store
@@ -203,7 +181,7 @@ public:
         /// the stored waiting intervals within the last memory milliseconds
         /// If the current (ongoing) waiting interval has begun at time t - dt (where t is the current time)
         /// then waitingIntervalList[0]->first = 0., waitingIntervalList[0]->second = dt
-        waitingIntervalList myWaitingIntervals;
+        std::deque<std::pair<SUMOTime,SUMOTime> > myWaitingIntervals;
 
         /// append an amount of dt millisecs to the stored waiting times
         void appendWaitingTime(SUMOTime dt);
