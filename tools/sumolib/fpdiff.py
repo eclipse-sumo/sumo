@@ -86,3 +86,16 @@ def fpfilter(fromlines, tolines, tolerance, relTolerance=None):
         else:
             out.append(toline)
     return out + tolines[len(fromlines):]
+
+
+def diff(fromlines, tolines, tolerance, relTolerance=None):
+    out = []
+    for fromline, toline in zip(fromlines, tolines):
+        if fromline != toline and not _fpequal(fromline, toline, tolerance, relTolerance):
+            out.append("< " + fromline)
+            out.append("> " + toline)
+    for line in tolines[len(fromlines):]:
+        out.append("> " + line)
+    for line in fromlines[len(tolines):]:
+        out.append("< " + line)
+    return out

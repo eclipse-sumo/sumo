@@ -11,5 +11,5 @@ input_additional.add.xml --route-files input_routes.rou.xml --end 500
 --load-state state.xml
 --stop-output stopinfos2.xml
 --default.speeddev 0
---compare stdout:0
+--compare stdout:0,stopinfos:0
 tests/complex/state/runner.py

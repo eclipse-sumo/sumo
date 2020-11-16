@@ -24,6 +24,17 @@ import sys
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib
 
+
+def compareXML(prefix, compare):
+    if prefix in compare:
+        off = int(compare[prefix])
+        lines = open(prefix + ".xml").readlines()
+        lines = lines[lines.index("-->\n"):]
+        lines2 = open(prefix + "2.xml").readlines()
+        lines2 = lines2[lines2.index("-->\n") + off:]
+        sys.stdout.write("".join(sumolib.fpdiff.diff(lines, lines2, 0.01)))
+
+
 compare = []
 if '--compare' in sys.argv:
     cmpIdx = sys.argv.index('--compare')
@@ -61,3 +72,5 @@ if compare:
     if "stderr" in compare:
         sys.stderr.write(open(saveErr.name).read())
         sys.stderr.write("".join(sumolib.fpdiff.fpfilter(open(saveErr.name).readlines(), open(loadErr.name).readlines()[int(compare["stderr"]):], 0.01)))
+    compareXML("tripinfo", compare)
+    compareXML("stopinfos", compare)

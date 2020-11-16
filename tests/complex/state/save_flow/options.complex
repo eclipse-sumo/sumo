@@ -8,4 +8,5 @@
 --load-state state.xml
 --tripinfo-output tripinfo2.xml
 --default.speeddev 0
+--compare tripinfo:0
 tests/complex/state/runner.py
