@@ -219,8 +219,11 @@ public:
         /// @brief hide template editor
         void hideTemplateEditor();
 
+        /// @brief there is a template
+        bool hasTemplate() const;
+
         /// @brief get the template edge (to copy attributes from)
-        const std::map<std::string, TemplateEditor::EdgeTemplate> &getEdgeTemplate() const;
+        const TemplateEditor::EdgeTemplate &getEdgeTemplate() const;
 
         /// @brief set template (used by shortcut)
         void setTemplate();
@@ -266,8 +269,11 @@ public:
         /// @brief clear template button
         FXButton* myClearTemplateButton;
 
+        /// @brief flag for edge template
+        bool myHasEdgeTemplate;
+
         /// @brief map with edge template
-        std::map<std::string, TemplateEditor::EdgeTemplate> myEdgeTemplate;
+        TemplateEditor::EdgeTemplate myEdgeTemplate;
     };
 
     // ===========================================================================

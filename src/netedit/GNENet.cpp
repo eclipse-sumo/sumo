@@ -256,8 +256,8 @@ GNENet::createEdge( GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, 
     undoList->p_begin("create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
     // copy template
-    if (myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate().size() > 0) {
-        edge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate().begin()->second, undoList);
+    if (myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
+        edge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), undoList);
     }
     // recompute connection
     if (recomputeConnections) {

@@ -466,7 +466,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             // check if edge was sucesfully created
             if (newEdge) {
                 // set parameters
-                if (myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate().empty()) {
+                if (!myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
                     myEdgeParameters->setAttributes(newEdge, myViewNet->getUndoList());
                 }
                 // create another edge, if create opposite edge is enabled
@@ -474,7 +474,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                     GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
                         myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                     // set parameters
-                    if (myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate().empty()) {
+                    if (!myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
                         myEdgeParameters->setAttributes(newOppositeEdge, myViewNet->getUndoList());
                     }
                 }

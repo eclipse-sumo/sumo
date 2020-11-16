@@ -57,7 +57,7 @@ FXDEFMAP(GNEInspectorFrame::GEOAttributesEditor) GEOAttributesEditorMap[] = {
 FXDEFMAP(GNEInspectorFrame::TemplateEditor) TemplateEditorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F1_TEMPLATE_SET,   GNEInspectorFrame::TemplateEditor::onCmdSetTemplate),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F2_TEMPLATE_COPY,  GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
-    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate),
+    FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR, GNEInspectorFrame::TemplateEditor::onCmdClearTemplate),
 };
 
 FXDEFMAP(GNEInspectorFrame::ParametersEditorInspector) ParametersEditorInspectorMap[] = {
@@ -1018,6 +1018,8 @@ GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate() {
 
 
 GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate(GNEEdge* edge) {
+    // copy ID
+    edgeParameters[SUMO_ATTR_ID] = edge->getAttribute(SUMO_ATTR_ID);
     // copy edge-specific attributes
     edgeParameters[SUMO_ATTR_NUMLANES] = edge->getAttribute(SUMO_ATTR_NUMLANES);
     edgeParameters[SUMO_ATTR_TYPE] = edge->getAttribute(SUMO_ATTR_TYPE);
@@ -1044,7 +1046,8 @@ GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate(GNEEdge* edge) {
 
 GNEInspectorFrame::TemplateEditor::TemplateEditor(GNEInspectorFrame* inspectorFrameParent) :
     FXGroupBox(inspectorFrameParent->myContentFrame, "Templates", GUIDesignGroupBoxFrame),
-    myInspectorFrameParent(inspectorFrameParent) {
+    myInspectorFrameParent(inspectorFrameParent),
+    myHasEdgeTemplate(false) {
     // Create set template button
     mySetTemplateButton = new FXButton(this, "Set as Template\t\t", nullptr, this, MID_HOTKEY_SHIFT_F1_TEMPLATE_SET, GUIDesignButton);
     // Create copy template button
@@ -1083,7 +1086,13 @@ GNEInspectorFrame::TemplateEditor::hideTemplateEditor() {
 }
 
 
-const std::map<std::string, GNEInspectorFrame::TemplateEditor::EdgeTemplate> &
+bool 
+GNEInspectorFrame::TemplateEditor::hasTemplate() const {
+    return myHasEdgeTemplate;
+}
+
+
+const GNEInspectorFrame::TemplateEditor::EdgeTemplate&
 GNEInspectorFrame::TemplateEditor::getEdgeTemplate() const {
     return myEdgeTemplate;
 }
@@ -1134,26 +1143,30 @@ GNEInspectorFrame::TemplateEditor::onCmdSetTemplate(FXObject*, FXSelector, void*
 
 long
 GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
-    for (const auto& it : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        // retrieve edge ID (and throw exception if edge doesn't exist)
-        GNEEdge* edge = myInspectorFrameParent->myViewNet->getNet()->retrieveEdge(it->getID());
-        // copy template
+    // first check
+    if (myHasEdgeTemplate){
+        // begin copy template
         myInspectorFrameParent->myViewNet->getUndoList()->p_begin("copy edge template");
-        edge->copyTemplate(myEdgeTemplate.begin()->second, myInspectorFrameParent->myViewNet->getUndoList());
+        // iterate over inspected ACs
+        for (const auto& inspectedAC : myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+            // retrieve edge ID (and throw exception if edge doesn't exist)
+            myInspectorFrameParent->myViewNet->getNet()->retrieveEdge(inspectedAC->getID())->copyTemplate(myEdgeTemplate, myInspectorFrameParent->myViewNet->getUndoList());
+        }
+        // end copy template
         myInspectorFrameParent->myViewNet->getUndoList()->p_end();
         // refresh inspector parent
         myInspectorFrameParent->myAttributesEditor->refreshAttributeEditor(true, true);
+        // update view (to see visual changes)
+        myInspectorFrameParent->myViewNet->updateViewNet();
     }
-    // update view (to see visual changes)
-    myInspectorFrameParent->myViewNet->updateViewNet();
     return 1;
 }
 
 
 long
 GNEInspectorFrame::TemplateEditor::onCmdClearTemplate(FXObject*, FXSelector, void*) {
-    // clear template
-    myEdgeTemplate.clear();
+    // change flag
+    myHasEdgeTemplate = false;
     // update buttons
     updateButtons();
     return 1;
@@ -1162,22 +1175,22 @@ GNEInspectorFrame::TemplateEditor::onCmdClearTemplate(FXObject*, FXSelector, voi
 
 void
 GNEInspectorFrame::TemplateEditor::setEdgeTemplate(GNEEdge* edgeTemplate) {
-    // clear template
-    myEdgeTemplate.clear();
-    // add edge
-    myEdgeTemplate[edgeTemplate->getID()] = GNEInspectorFrame::TemplateEditor::EdgeTemplate(edgeTemplate);
+    // change flag
+    myHasEdgeTemplate = true;
+    // set edge template
+    myEdgeTemplate = GNEInspectorFrame::TemplateEditor::EdgeTemplate(edgeTemplate);
 }
 
 
 void
 GNEInspectorFrame::TemplateEditor::updateButtons() {
     // enable or disable clear buttons depending of myEdgeTemplate
-    if (myEdgeTemplate.size() > 0) {
+    if (myHasEdgeTemplate) {
         // update caption of copy button
         if (myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size() == 1) {
-            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate.begin()->first + "' into edge '" + myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getID() + "'").c_str());
+            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate.edgeParameters.at(SUMO_ATTR_ID) + "' into edge '" + myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().front()->getID() + "'").c_str());
         } else {
-            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate.begin()->first + "' into " + toString(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) + " selected edges").c_str());
+            myCopyTemplateButton->setText(("Copy '" + myEdgeTemplate.edgeParameters.at(SUMO_ATTR_ID) + "' into " + toString(myInspectorFrameParent->myAttributesEditor->getFrameParent()->getViewNet()->getInspectedAttributeCarriers().size()) + " selected edges").c_str());
         }
         // enable set and clear buttons
         myCopyTemplateButton->enable();
