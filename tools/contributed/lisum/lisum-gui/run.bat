@@ -1,1 +1,1 @@
-java -jar target/lisum-gui-1.0-SNAPSHOT.jar
+java -jar target/lisum-gui-1.1.jar
