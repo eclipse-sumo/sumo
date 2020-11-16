@@ -33,8 +33,8 @@ import java.util.logging.Logger;
  * @author @author <a href="mailto:maximiliano.bottazzi@dlr.de">Maximiliano
  * Bottazzi</a>
  */
-public class Lisa implements CityInterface {
-
+public class Lisa implements CityInterface 
+{
     private final LisaCommands lisaCommands;
     private final LisaControlUnits lisaControlUnits = new LisaControlUnits();
     private File lisaDirectory;

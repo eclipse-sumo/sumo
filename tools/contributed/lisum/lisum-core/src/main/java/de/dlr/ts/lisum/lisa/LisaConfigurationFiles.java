@@ -82,7 +82,7 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
                     extractDetectors(x, controlUnit);
                     extractSignalPrograms(x, controlUnit);
                 } catch (SAXException | IOException | MalformedKeyOrNameException | XMLNodeNotFoundException ex) {
-                    ex.printStackTrace(System.out);
+                    ex.printStackTrace(System.err);
                 }
             }
         }
@@ -114,7 +114,7 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
                 sg.index = index;
             }
         } catch (XMLNodeNotFoundException | MalformedKeyOrNameException ex) {
-            ex.printStackTrace(System.out);
+            ex.printStackTrace(System.err);
         }
     }
 
@@ -129,7 +129,7 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
      * @throws IOException
      */
     void extractDetectors(XMLAdmin2 x, ControlUnit controlUnit)
-    throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
+            throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
         if (!x.hasNode("DigEingangListe")) {
             return;
         }
@@ -153,7 +153,7 @@ class LisaConfigurationFiles implements Iterable<LisaConfigurationFiles.ControlU
     }
 
     void extractSignalPrograms(XMLAdmin2 x, ControlUnit controlUnit)
-    throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
+            throws XMLNodeNotFoundException, MalformedKeyOrNameException, SAXException, IOException {
         if (!x.hasNode("SignalprogrammListe")) {
             return;
         }

@@ -81,7 +81,7 @@ class PutMessageResponse {
          * Extracting tx
          */
         String gg = split[1].replaceAll("\\{", "").replaceAll("\\}", "");
-        tx = new Double(gg);
+        tx = Double.valueOf(gg);
 
         /**
          * Extracting istVektor

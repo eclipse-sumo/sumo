@@ -28,7 +28,7 @@ import de.dlr.ts.lisum.interfaces.SignalGroupInterface;
  */
 class LisaSignalGroup implements Comparable<LisaSignalGroup>, SignalGroupInterface {
     private final String name;
-    private int index;
+    private final int index;
     private LightColor color = LightColor.OFF;
 
 

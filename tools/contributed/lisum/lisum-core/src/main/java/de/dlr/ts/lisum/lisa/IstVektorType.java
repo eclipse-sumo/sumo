@@ -73,16 +73,16 @@ class IstVektorType {
 
         String[] split = vector.split(";");
 
-        sammelstoerung = new Integer(split[0]);
-        zeitpunktLetzteAenderung = new Integer(split[1]);
-        betriebsart = new Integer(split[2]);
-        signalProgramm = new Integer(split[3]);
-        knotenEinAus = new Integer(split[4]);
-        sondereingriff = new Integer(split[5]);
-        vaEinAus = new Integer(split[6]);
-        ivEinAus = new Integer(split[7]);
-        oepnvEinAus = new Integer(split[8]);
-        koordinierung = new Integer(split[9]);
+        sammelstoerung = Integer.valueOf(split[0]);
+        zeitpunktLetzteAenderung = Integer.valueOf(split[1]);
+        betriebsart = Integer.valueOf(split[2]);
+        signalProgramm = Integer.valueOf(split[3]);
+        knotenEinAus = Integer.valueOf(split[4]);
+        sondereingriff = Integer.valueOf(split[5]);
+        vaEinAus = Integer.valueOf(split[6]);
+        ivEinAus = Integer.valueOf(split[7]);
+        oepnvEinAus = Integer.valueOf(split[8]);
+        koordinierung = Integer.valueOf(split[9]);
     }
 
     public int getSammelstoerung() {

@@ -169,3 +169,6 @@ lib*.a
 *.aps
 .gdb_history
 
+/tools/contributed/lisum/lisum-core/target/
+/tools/contributed/lisum/lisum-gui/target/
+/tools/contributed/lisum/lisumgui/target/
