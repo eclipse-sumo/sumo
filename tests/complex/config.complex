@@ -9,6 +9,7 @@ copy_test_path:input_nodes.nod.xml
 copy_test_path:input_connections.con.xml
 copy_test_path:input_routes.rou.xml
 copy_test_path:input_routes2.rou.xml
+copy_test_path:net.net.xml
 copy_test_path:input_net.net.xml
 copy_test_path:input_net2.net.xml
 copy_test_path:input_net3.net.xml
@@ -69,6 +70,7 @@ png2:out2.png
 detector:detector.xml
 tocs:tocs.xml
 stops:stops.xml
+stopinfos:stopinfos.xml
 ssm:ssm.xml
 
 [run_dependent_text]
@@ -102,11 +104,14 @@ tripinfo:<!--{[->]}-->
 rawdump:<!--{[->]}-->
 fcd:<!--{[->]}-->
 stops:<!--{[->]}-->
+stopinfos:<!--{[->]}-->
 ssm:<!--{[->]}-->
 lanechanges:<!--{[->]}-->
 state:<!--{[->]}-->
+state2:<!--{[->]}-->
 tls_state:<!--{[->]}-->
 state:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
+state2:<snapshot (.*) version="[^"]*"{REPLACE <snapshot \1 version="<version>"}
 detector:<!--{[->]}-->
 toc:<!--{[->]}-->
 toc2:<!--{[->]}-->

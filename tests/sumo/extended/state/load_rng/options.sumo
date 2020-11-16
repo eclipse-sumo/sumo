@@ -1,3 +1,0 @@
---no-step-log --no-duration-log -v --net-file=net.net.xml
--r=input_routes.rou.xml
---load-state input_state.xml

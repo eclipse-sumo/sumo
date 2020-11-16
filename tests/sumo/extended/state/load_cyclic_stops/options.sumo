@@ -1,4 +1,0 @@
---no-step-log --no-duration-log --net-file=net2.net.xml
---load-state input_state.xml
---stop-output stopinfos.xml
-
