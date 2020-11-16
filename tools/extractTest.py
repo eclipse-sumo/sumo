@@ -90,20 +90,11 @@ def generateTargetName(baseDir, source):
 
 
 def mergedOptions(varOpts, appOpts):
-    voIdx = len(varOpts) - 1
-    aoIdx = len(appOpts) - 1
-    while aoIdx >= 0:
-        while voIdx >= 0 and len(os.path.dirname(varOpts[voIdx])) >= len(os.path.dirname(appOpts[aoIdx])):
-            yield varOpts[voIdx]
-            if len(os.path.dirname(varOpts[voIdx])) == len(os.path.dirname(appOpts[aoIdx])):
-                aoIdx -= 1
-                if aoIdx == -1:
-                    break
-            voIdx -= 1
-        while (aoIdx >= 0 and (voIdx < 0 or (voIdx >= 0 and
-               len(os.path.dirname(varOpts[voIdx])) < len(os.path.dirname(appOpts[aoIdx]))))):
-            yield appOpts[aoIdx]
-            aoIdx -= 1
+    lastDepth = None
+    for opt in sorted(varOpts + appOpts, key=lambda o:o.count(os.sep)):
+        if opt.count(os.sep) != lastDepth:
+            yield opt
+        lastDepth = opt.count(os.sep)
 
 
 def main(options):
