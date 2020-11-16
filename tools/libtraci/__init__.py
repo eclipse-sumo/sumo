@@ -14,12 +14,18 @@
 # @author  Michael Behrisch
 # @date    2020-10-08
 
+from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
+from traci.connection import StepListener  # noqa
 from .libtraci import simulation
 from .libtraci import *  # noqa
 
 
 def isLibsumo():
     return False
+
+
+def isLibtraci():
+    return True
 
 
 hasGUI = simulation.hasGUI

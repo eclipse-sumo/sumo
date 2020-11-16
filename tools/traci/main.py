@@ -175,6 +175,10 @@ def isLibsumo():
     return False
 
 
+def isLibtraci():
+    return False
+
+
 def hasGUI():
     try:
         gui.getIDList()

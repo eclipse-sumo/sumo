@@ -107,6 +107,10 @@ def isLibsumo():
     return True
 
 
+def isLibtraci():
+    return False
+
+
 def hasGUI():
     return False
 
