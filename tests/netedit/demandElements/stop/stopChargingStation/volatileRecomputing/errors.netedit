@@ -9,8 +9,6 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding chargingStation 'chargingStationA' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding chargingStation 'chargingStationB' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStationC' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStationD' in GNEChange_Additional
@@ -19,8 +17,6 @@ Debug: Adding chargingStation 'chargingStationF' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStationG' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStationH' in GNEChange_Additional
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Adding stopChargingStation 'route_0' in GNEChange_DemandElement
 Debug: Adding stopChargingStation 'route_0' in GNEChange_DemandElement
 Debug: Adding stopChargingStation 'route_0' in GNEChange_DemandElement
@@ -36,8 +32,6 @@ Debug: Adding stopChargingStation 'route_1' in GNEChange_DemandElement
 Debug: Adding stopChargingStation 'route_1' in GNEChange_DemandElement
 Debug: Adding stopChargingStation 'route_1' in GNEChange_DemandElement
 Debug: Adding stopChargingStation 'route_1' in GNEChange_DemandElement
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -62,8 +56,6 @@ Debug: Deleting unreferenced stopChargingStation 'route_1'
 Debug: Deleting unreferenced stopChargingStation 'route_1'
 Debug: Deleting unreferenced stopChargingStation 'route_1'
 Debug: Deleting unreferenced route 'route_1'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced stopChargingStation 'route_0'
 Debug: Deleting unreferenced stopChargingStation 'route_0'
 Debug: Deleting unreferenced stopChargingStation 'route_0'
@@ -72,8 +64,6 @@ Debug: Deleting unreferenced stopChargingStation 'route_0'
 Debug: Deleting unreferenced stopChargingStation 'route_0'
 Debug: Deleting unreferenced route 'route_0'
 Debug: Deleting unreferenced chargingStation 'chargingStationH'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced chargingStation 'chargingStationG'
 Debug: Deleting unreferenced chargingStation 'chargingStationF'
 Debug: Deleting unreferenced chargingStation 'chargingStationE'
@@ -125,8 +115,6 @@ Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
 Debug: Deleting unreferenced chargingStation 'chargingStationH'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced chargingStation 'chargingStationG'
 Debug: Deleting unreferenced chargingStation 'chargingStationF'
 Debug: Deleting unreferenced chargingStation 'chargingStationE'

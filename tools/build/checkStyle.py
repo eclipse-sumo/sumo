@@ -338,7 +338,7 @@ for repoRoot in repoRoots:
         oldDir = os.getcwd()
         os.chdir(repoRoot)
         exclude = options.exclude.split(",")
-        for name in subprocess.check_output(["git", "ls-files"]).splitlines():
+        for name in subprocess.check_output(["git", "ls-files"], universal_newlines=True).splitlines():
             ext = os.path.splitext(name)[1]
             if ext in _SOURCE_EXT:
                 proc = propRead.checkFile(name, exclude)

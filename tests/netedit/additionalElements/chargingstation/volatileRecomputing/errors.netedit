@@ -9,8 +9,6 @@ GLDebug: 	Inserted edge:gneE2 into SUMORTree with boundary -10.00,10.00,60.00,44
 GLDebug: 	Inserted edge:gneE4 into SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding chargingStation 'chargingStation_gneE0_0_0' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding chargingStation 'chargingStation_gneE1_0_1' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_gneE2_0_7' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_gneE2_1_6' in GNEChange_Additional
@@ -18,8 +16,6 @@ Debug: Adding chargingStation 'chargingStation_gneE2_2_5' in GNEChange_Additiona
 Debug: Adding chargingStation 'chargingStation_gneE2_3_4' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_gneE2_4_3' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_gneE4_0_2' in GNEChange_Additional
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'
@@ -36,8 +32,6 @@ GLDebug: 	Removed object edge:gneE1 from SUMORTree with boundary -10.00,-10.00,6
 GLDebug: 	Removed object edge:gneE2 from SUMORTree with boundary -10.00,10.00,60.00,44.40
 GLDebug: 	Removed object edge:gneE4 from SUMORTree with boundary -10.00,8.40,60.00,30.00
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE4_0_2'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_4_3'
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_3_4'
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_2_5'
@@ -88,8 +82,6 @@ Debug: Created connection 'fromgneE1_1togneE0_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE2_5togneE4_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE4_0togneE2_5' in retrieveGNEConnection()
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE4_0_2'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_4_3'
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_3_4'
 Debug: Deleting unreferenced chargingStation 'chargingStation_gneE2_2_5'

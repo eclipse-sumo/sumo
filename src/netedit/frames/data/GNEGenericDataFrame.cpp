@@ -552,7 +552,7 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     myDataSetSelector(nullptr),
     myIntervalSelector(nullptr),
     myAttributeSelector(nullptr),
-    myParametersEditor(nullptr),
+    myParametersEditorCreator(nullptr),
     myPathCreator(nullptr),
     myGenericDataTag(tag) {
     // create DataSetSelector
@@ -562,7 +562,7 @@ GNEGenericDataFrame::GNEGenericDataFrame(FXHorizontalFrame* horizontalFrameParen
     // create AttributeSelector modul
     myAttributeSelector = new AttributeSelector(this, tag);
     // create parameter editor modul
-    myParametersEditor = new GNEFrameAttributesModuls::ParametersEditor(this);
+    myParametersEditorCreator = new GNEFrameAttributesModuls::ParametersEditorCreator(this);
     // create PathCreator modul
     if (pathCreator) {
         myPathCreator = new GNEFrameModuls::PathCreator(this);

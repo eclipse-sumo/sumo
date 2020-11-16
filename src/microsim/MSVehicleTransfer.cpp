@@ -79,7 +79,7 @@ MSVehicleTransfer::remove(MSVehicle* veh) {
     for (auto i = vehInfos.begin(); i != vehInfos.end(); ++i) {
         if (i->myVeh == veh) {
             if (i->myParking) {
-                veh->getLane()->removeParking(veh);
+                veh->getMutableLane()->removeParking(veh);
             }
             vehInfos.erase(i);
             break;
@@ -120,10 +120,10 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             const double departPos = pa != nullptr ? pa->getInsertionPosition(*desc.myVeh) : desc.myVeh->getPositionOnLane();
             // handle parking vehicles
             desc.myVeh->setIdling(true);
-            if (desc.myVeh->getLane()->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(),
+            if (desc.myVeh->getMutableLane()->isInsertionSuccess(desc.myVeh, 0, departPos, desc.myVeh->getLateralPositionOnLane(),
                     false, MSMoveReminder::NOTIFICATION_PARKING)) {
                 MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_ENDING_PARKING);
-                desc.myVeh->getLane()->removeParking(desc.myVeh);
+                desc.myVeh->getMutableLane()->removeParking(desc.myVeh);
                 // at this point we are in the lane, blocking traffic & if required we configure the exit manoeuvre
                 if (MSGlobals::gModelParkingManoeuver && desc.myVeh->setExitManoeuvre()) {
                     MSNet::getInstance()->informVehicleStateListener(desc.myVeh, MSNet::VEHICLE_STATE_MANEUVERING);

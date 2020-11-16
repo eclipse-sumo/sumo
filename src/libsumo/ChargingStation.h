@@ -27,10 +27,12 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSChargingStation;
 namespace libsumo {
 class VariableWrapper;
 }
+#endif
 
 
 // ===========================================================================
@@ -40,13 +42,9 @@ class VariableWrapper;
  * @class ChargingStation
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class ChargingStation {
 public:
-
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-
     static std::string getLaneID(const std::string& stopID);
     static double getStartPos(const std::string& stopID);
     static double getEndPos(const std::string& stopID);
@@ -54,13 +52,10 @@ public:
     static int getVehicleCount(const std::string& stopID);
     static std::vector<std::string> getVehicleIDs(const std::string& stopID);
 
-    static std::string getParameter(const std::string& stopID, const std::string& param);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
-
-    static void setParameter(const std::string& stopID, const std::string& key, const std::string& value); // not needed so far
-
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
+#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
@@ -71,6 +66,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 
     /// @brief invalidated standard constructor
     ChargingStation() = delete;

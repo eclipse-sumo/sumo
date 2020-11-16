@@ -226,10 +226,10 @@ Warning: Edge : Lanes were not assigned(!)
 Warning: Could not set 4 of 37 signals.
 Warning: Found sharp turn with radius 4.37 at the end of edge '82[0]'.
 Warning: Found sharp turn with radius 6.53 at the start of edge '82[1]'.
-Warning: TYellow of signal group '10' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '12' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '13' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '7' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '8' was less than the computed one; patched (was:0, is:3)
-Warning: TYellow of signal group '9' was less than the computed one; patched (was:0, is:3)
+Warning: TYellow of signal group '10' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '12' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '13' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '7' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '8' was less than the computed one; patched (was:0, is:3.00)
+Warning: TYellow of signal group '9' was less than the computed one; patched (was:0, is:3.00)
 Warning: During computation of traffic light '454'.

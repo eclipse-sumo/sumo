@@ -15,3 +15,6 @@ mixed
 
 # disable cooperative lanechanging within the roundabout
 no_cooperation
+
+# test unusual lane and connection layout (#7738)
+many_lanes

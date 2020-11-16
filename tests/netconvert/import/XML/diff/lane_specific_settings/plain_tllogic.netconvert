@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 16 13:01:45 2020 by Eclipse SUMO netconvert Version v1_7_0+0099-df44430dc9
+<!-- generated on Tue Nov 10 10:28:26 2020 by Eclipse SUMO netconvert Version v1_7_0+0904-86088f8a47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,10 +33,10 @@ SPDX-License-Identifier: EPL-2.0
 
 <tlLogics version="1.6" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tllogic_file.xsd">
     <tlLogic id="C" type="static" programID="0" offset="0">
-        <phase duration="40" state="GGggGGgGGGrrrr"/>
-        <phase duration="5"  state="yyyyyyyyyyrrrr"/>
         <phase duration="40" state="rrrrrrrGGGGGGG"/>
         <phase duration="5"  state="rrrrrrryyyyyyy"/>
+        <phase duration="40" state="GGggGGgGGGrrrr"/>
+        <phase duration="5"  state="yyyyyyyyyyrrrr"/>
     </tlLogic>
 
     <connection from="EC" to="CN" fromLane="0" toLane="0" tl="C" linkIndex="7"/>

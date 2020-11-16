@@ -43,11 +43,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSStageDriving::MSStageDriving(const MSEdge* destination,
+MSStageDriving::MSStageDriving(const MSEdge* origin, const MSEdge* destination,
                                MSStoppingPlace* toStop, const double arrivalPos, const std::vector<std::string>& lines,
                                const std::string& group,
                                const std::string& intendedVeh, SUMOTime intendedDepart) :
     MSStage(destination, toStop, arrivalPos, MSStageType::DRIVING, group),
+    myOrigin(origin),
     myLines(lines.begin(), lines.end()),
     myVehicle(nullptr),
     myVehicleID("NULL"),
@@ -57,6 +58,7 @@ MSStageDriving::MSStageDriving(const MSEdge* destination,
     myWaitingSince(-1),
     myWaitingEdge(nullptr),
     myStopWaitPos(Position::INVALID),
+    myOriginStop(nullptr),
     myIntendedVehicleID(intendedVeh),
     myIntendedDepart(intendedDepart) {
 }
@@ -64,7 +66,7 @@ MSStageDriving::MSStageDriving(const MSEdge* destination,
 
 MSStage*
 MSStageDriving::clone() const {
-    return new MSStageDriving(myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
+    return new MSStageDriving(myOrigin, myDestination, myDestinationStop, myArrivalPos, std::vector<std::string>(myLines.begin(), myLines.end()),
                               myGroup, myIntendedVehicleID, myIntendedDepart);
 }
 
@@ -174,7 +176,7 @@ MSStageDriving::getStageSummary(const bool isPerson) const {
 
 void
 MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
-    const MSStoppingPlace* start = (previous->getStageType() == MSStageType::TRIP
+    myOriginStop = (previous->getStageType() == MSStageType::TRIP
                                     ? previous->getOriginStop()
                                     : previous->getDestinationStop());
     myWaitingSince = now;
@@ -189,18 +191,26 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
                                (isPerson ? "person" : "container") + " '" + transportable->getID() + "'.");
         }
         setVehicle(startVeh);
+        if (myOriginStop != nullptr) {
+            myOriginStop->removeTransportable(transportable);
+        }
         myVehicle->addTransportable(transportable);
         return;
     }
-    if (start != nullptr) {
+    if (myOriginStop != nullptr) {
         // the arrival stop may have an access point
-        myWaitingEdge = &start->getLane().getEdge();
-        myStopWaitPos = start->getWaitPosition(transportable);
-        myWaitingPos = start->getWaitingPositionOnLane(transportable);
+        myWaitingEdge = &myOriginStop->getLane().getEdge();
+        myStopWaitPos = myOriginStop->getWaitPosition(transportable);
+        myWaitingPos = myOriginStop->getWaitingPositionOnLane(transportable);
     } else {
         myWaitingEdge = previous->getEdge();
         myStopWaitPos = Position::INVALID;
         myWaitingPos = previous->getEdgePos(now);
+    }
+    if (myOrigin != nullptr && myOrigin != myWaitingEdge) {
+        // transfer at junction
+        myWaitingEdge = myOrigin;
+        myWaitingPos = 0;
     }
     SUMOVehicle* const availableVehicle = myWaitingEdge->getWaitingVehicle(transportable, myWaitingPos);
     const bool triggered = availableVehicle != nullptr &&
@@ -208,6 +218,9 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
                             (!isPerson && availableVehicle->getParameter().departProcedure == DEPART_CONTAINER_TRIGGERED));
     if (triggered && !availableVehicle->hasDeparted()) {
         setVehicle(availableVehicle);
+        if (myOriginStop != nullptr) {
+            myOriginStop->removeTransportable(transportable);
+        }
         myVehicle->addTransportable(transportable);
         net->getInsertionControl().add(myVehicle);
         myWaitingEdge->removeWaiting(myVehicle);

@@ -350,7 +350,7 @@ GNECalibratorDialog::updateRouteTable() {
     myRouteList->setVisibleColumns(4);
     myRouteList->setColumnWidth(0, 136);
     myRouteList->setColumnWidth(1, 136);
-    myRouteList->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myRouteList->setColumnWidth(2, GUIDesignHeight);
     myRouteList->setColumnText(0, toString(SUMO_ATTR_ID).c_str());
     myRouteList->setColumnText(1, toString(SUMO_ATTR_EDGES).c_str());
     myRouteList->setColumnText(2, "");
@@ -389,7 +389,7 @@ GNECalibratorDialog::updateFlowTable() {
     myFlowList->setVisibleColumns(3);
     myFlowList->setColumnWidth(0, 136);
     myFlowList->setColumnWidth(1, 136);
-    myFlowList->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myFlowList->setColumnWidth(2, GUIDesignHeight);
     myFlowList->setColumnText(0, toString(SUMO_ATTR_TYPE).c_str());
     myFlowList->setColumnText(1, toString(SUMO_ATTR_VCLASS).c_str());
     myFlowList->setColumnText(2, "");
@@ -428,7 +428,7 @@ GNECalibratorDialog::updateVehicleTypeTable() {
     myVehicleTypeList->setVisibleColumns(4);
     myVehicleTypeList->setColumnWidth(0, 136);
     myVehicleTypeList->setColumnWidth(1, 136);
-    myVehicleTypeList->setColumnWidth(2, GUIDesignTableIconCellWidth);
+    myVehicleTypeList->setColumnWidth(2, GUIDesignHeight);
     myVehicleTypeList->setColumnText(0, toString(SUMO_ATTR_ID).c_str());
     myVehicleTypeList->setColumnText(1, toString(SUMO_ATTR_VCLASS).c_str());
     myVehicleTypeList->setColumnText(2, "");

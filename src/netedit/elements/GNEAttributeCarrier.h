@@ -135,6 +135,31 @@ public:
 
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     virtual std::string getHierarchyName() const = 0;
+
+    /// @name Function related with parameters
+    /// @{
+    /// @brief get parameters map
+    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+
+    /// @brief get parameters
+    template<typename T>
+    T getACParameters() const;
+
+    /// @brief set parameters (string)
+    void setACParameters(const std::string &parameters, GNEUndoList* undoList);
+
+    /// @brief set parameters (map)
+    void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList);
+
+    /// @brief set parameters (string vector)
+    void setACParameters(const std::map<std::string, std::string>& parameters, GNEUndoList* undoList);
+
+    /// @brief add (or update attribute) key and attribute
+    void addACParameters(const std::string& key, const std::string& attribute, GNEUndoList* undoList);
+
+    /// @brief remove keys
+    void removeACParametersKeys(const std::vector<std::string>& keepKeys, GNEUndoList* undoList);
+
     /// @}
 
     /* @brief method for return an alternative value for disabled attributes. Used only in GNEFrames

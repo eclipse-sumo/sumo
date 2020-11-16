@@ -155,6 +155,9 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
 protected:
     /// @brief incoming lane of this connection
     GNELane* myFromLane;

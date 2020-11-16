@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Sep 30 11:17:50 2020 by Eclipse SUMO netconvert Version v1_7_0+0361-087c97c9f0
+<!-- generated on Tue Nov 10 10:28:41 2020 by Eclipse SUMO netconvert Version v1_7_0+0904-86088f8a47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -154,12 +154,12 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="5"  state="rr"/>
     </tlLogic>
     <tlLogic id="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" type="static" programID="0" offset="0">
-        <phase duration="27" state="GGGggrrrrrGGggrrrrr"/>
+        <phase duration="38" state="rrrrrGGGggrrrrGGGgg"/>
+        <phase duration="3"  state="rrrrryyyggrrrryyygg"/>
+        <phase duration="6"  state="rrrrrrrrGGrrrrrrrGG"/>
+        <phase duration="3"  state="rrrrrrrryyrrrrrrryy"/>
+        <phase duration="37" state="GGGggrrrrrGGggrrrrr"/>
         <phase duration="3"  state="yyyyyrrrrryyyyrrrrr"/>
-        <phase duration="27" state="rrrrrGGGGgGrrrrrrrr"/>
-        <phase duration="3"  state="rrrrryyyyyyrrrrrrrr"/>
-        <phase duration="27" state="GrrrrrrrrrrrrrGGGGg"/>
-        <phase duration="3"  state="yrrrrrrrrrrrrryyyyy"/>
     </tlLogic>
     <tlLogic id="cluster_442733_613378773" type="static" programID="0" offset="0">
         <phase duration="82" state="GG"/>
@@ -197,16 +197,16 @@ SPDX-License-Identifier: EPL-2.0
         <request index="5"  response="0000000000000000000" foes="0000000000000000000"/>
         <request index="6"  response="0000000000000000000" foes="1100001100000001111"/>
         <request index="7"  response="0000000000000000000" foes="1100001100000001111"/>
-        <request index="8"  response="0000000000000000000" foes="0011011100000001110"/>
+        <request index="8"  response="0011000000000000000" foes="0011011100000001110"/>
         <request index="9"  response="0011000000000001000" foes="0011000000000001000"/>
-        <request index="10" response="0000000000000000000" foes="0011000000000000000"/>
-        <request index="11" response="0000000000111000000" foes="0111000000111011000"/>
-        <request index="12" response="0000000000111000110" foes="1111000000111000110"/>
+        <request index="10" response="0011000000000000000" foes="0011000000000000000"/>
+        <request index="11" response="0111000000111000000" foes="0111000000111011000"/>
+        <request index="12" response="0111000000111000110" foes="1111000000111000110"/>
         <request index="13" response="0000000000100000110" foes="0000000000100000110"/>
         <request index="14" response="0000000000000000000" foes="0000000000000000110"/>
-        <request index="15" response="0000001110100000000" foes="0000001111100001110"/>
-        <request index="16" response="0000001110100000000" foes="0000001111100001110"/>
-        <request index="17" response="0000001100011000000" foes="0000001100011011110"/>
+        <request index="15" response="0000000000000000000" foes="0000001111100001110"/>
+        <request index="16" response="0000000000000000000" foes="0000001111100001110"/>
+        <request index="17" response="0000000000011000000" foes="0000001100011011110"/>
         <request index="18" response="0000001000011000000" foes="0000001000011000000"/>
     </junction>
     <junction id="cluster_442733_613378773" type="traffic_light" x="187.34" y="225.89" incLanes="48273909_0 48273909_1" intLanes="" shape="193.66,215.56 184.51,221.69 184.41,222.00 183.84,221.78 182.91,221.32 181.62,220.62 179.99,219.67 178.36,222.43 184.95,225.87 189.92,227.48 193.27,227.26 195.02,225.19 195.15,221.29">
@@ -221,9 +221,9 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="22894009" to="48273909" fromLane="0" toLane="0" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="5" dir="r" state="O"/>
     <connection from="22894009" to="145357157#0" fromLane="1" toLane="0" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="6" dir="s" state="O"/>
     <connection from="22894009" to="145357157#0" fromLane="2" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="7" dir="s" state="O"/>
-    <connection from="22894009" to="132405263#0" fromLane="3" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="8" dir="l" state="O"/>
+    <connection from="22894009" to="132405263#0" fromLane="3" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="8" dir="l" state="o"/>
     <connection from="22894009" to="4532170#0" fromLane="3" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="9" dir="t" state="o"/>
-    <connection from="32856652#0" to="4532170#0" fromLane="0" toLane="0" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="10" dir="r" state="O"/>
+    <connection from="32856652#0" to="4532170#0" fromLane="0" toLane="0" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="10" dir="r" state="o"/>
     <connection from="32856652#0" to="48273909" fromLane="0" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="11" dir="s" state="o"/>
     <connection from="32856652#0" to="145357157#0" fromLane="0" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="12" dir="l" state="o"/>
     <connection from="32856652#0" to="132405263#0" fromLane="0" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="13" dir="t" state="o"/>
@@ -235,8 +235,8 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="48274301#0" to="48274301#1" fromLane="2" toLane="2" tl="449799" linkIndex="2" dir="s" state="O"/>
     <connection from="48274301#0" to="48274301#1" fromLane="3" toLane="3" tl="449799" linkIndex="3" dir="s" state="O"/>
     <connection from="48274301#1" to="132405263#0" fromLane="0" toLane="0" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="14" dir="r" state="O"/>
-    <connection from="48274301#1" to="4532170#0" fromLane="1" toLane="0" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="15" dir="s" state="o"/>
-    <connection from="48274301#1" to="4532170#0" fromLane="2" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="16" dir="s" state="o"/>
+    <connection from="48274301#1" to="4532170#0" fromLane="1" toLane="0" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="15" dir="s" state="O"/>
+    <connection from="48274301#1" to="4532170#0" fromLane="2" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="16" dir="s" state="O"/>
     <connection from="48274301#1" to="48273909" fromLane="3" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="17" dir="l" state="o"/>
     <connection from="48274301#1" to="145357157#0" fromLane="3" toLane="1" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="18" dir="t" state="o"/>
     <connection from="8078855#0" to="145357157#0" fromLane="0" toLane="0" tl="cluster_201673130_370118526_392086464_436241843_449770_449778_449797_456826693_456826694_613378775" linkIndex="0" dir="r" state="o"/>

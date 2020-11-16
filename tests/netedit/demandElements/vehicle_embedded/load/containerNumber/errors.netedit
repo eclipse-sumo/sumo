@@ -19,8 +19,6 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_0' is not of type int.
 Error: containerNumber cannot be negative
 Debug: Adding vehicleWithRoute 'vehicle_0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Adding routeEmbedded 'vehicle_0' in GNEChange_DemandElement
 Error: Attribute 'containerNumber' in definition of vehicle 'vehicle_1' is empty.
 Error: containerNumber cannot be negative
@@ -38,8 +36,6 @@ Debug: Adding routeEmbedded 'vehicle_4' in GNEChange_DemandElement
 Debug: Adding vehicleWithRoute 'vehicle_5' in GNEChange_DemandElement
 Debug: Adding routeEmbedded 'vehicle_5' in GNEChange_DemandElement
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\vehicle_embedded\load\containerNumber\input_routes.rou.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing routeEmbedded 'vehicle_5' in GNEChange_DemandElement
@@ -118,8 +114,6 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced routeEmbedded 'vehicle_5'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_5'
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Deleting unreferenced routeEmbedded 'vehicle_4'
 Debug: Deleting unreferenced vehicleWithRoute 'vehicle_4'
 Debug: Deleting unreferenced routeEmbedded 'vehicle_3'

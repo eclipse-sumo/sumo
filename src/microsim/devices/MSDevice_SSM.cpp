@@ -2461,7 +2461,7 @@ MSDevice_SSM::findFoeConflictLane(const MSVehicle* foe, const MSLane* egoConflic
         }
     }
 
-    MSLane* foeLane = foe->getLane();
+    const MSLane* foeLane = foe->getLane();
     std::vector<MSLane*>::const_iterator laneIter = foe->getBestLanesContinuation().begin();
     std::vector<MSLane*>::const_iterator foeBestLanesEnd = foe->getBestLanesContinuation().end();
     assert(foeLane->isInternal() || *laneIter == foeLane);

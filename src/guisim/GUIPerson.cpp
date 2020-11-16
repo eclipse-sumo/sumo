@@ -31,6 +31,7 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/div/GUIBasePersonHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GUILane.h"
 #include "GUIPerson.h"
@@ -189,27 +190,27 @@ GUIPerson::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     if (hasActiveAddVisualisation(&parent, VO_SHOW_ROUTE)) {
-        new FXMenuCommand(ret, "Hide Current Route", nullptr, ret, MID_HIDE_CURRENTROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, "Hide Current Route", nullptr, ret, MID_HIDE_CURRENTROUTE);
     } else {
-        new FXMenuCommand(ret, "Show Current Route", nullptr, ret, MID_SHOW_CURRENTROUTE);
+        GUIDesigns::buildFXMenuCommand(ret, "Show Current Route", nullptr, ret, MID_SHOW_CURRENTROUTE);
     }
     if (hasActiveAddVisualisation(&parent, VO_SHOW_WALKINGAREA_PATH)) {
-        new FXMenuCommand(ret, "Hide Walkingarea Path", nullptr, ret, MID_HIDE_WALKINGAREA_PATH);
+        GUIDesigns::buildFXMenuCommand(ret, "Hide Walkingarea Path", nullptr, ret, MID_HIDE_WALKINGAREA_PATH);
     } else {
-        new FXMenuCommand(ret, "Show Walkingarea Path", nullptr, ret, MID_SHOW_WALKINGAREA_PATH);
+        GUIDesigns::buildFXMenuCommand(ret, "Show Walkingarea Path", nullptr, ret, MID_SHOW_WALKINGAREA_PATH);
     }
     new FXMenuSeparator(ret);
     if (parent.getTrackedID() != getGlID()) {
-        new FXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
     } else {
-        new FXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
     }
-    new FXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
+    GUIDesigns::buildFXMenuCommand(ret, "Remove", nullptr, ret, MID_REMOVE_OBJECT);
     new FXMenuSeparator(ret);
     //
     buildShowParamsPopupEntry(ret);
     buildShowTypeParamsPopupEntry(ret);
-    new FXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
+    GUIDesigns::buildFXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;

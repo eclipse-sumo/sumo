@@ -32,6 +32,7 @@
 #include <microsim/transportables/MSPerson.h>
 #include <microsim/transportables/MSStageDriving.h>
 #include <microsim/MSVehicle.h>
+#include <microsim/MSStoppingPlace.h>
 #include <microsim/transportables/MSPModel_NonInteracting.h>
 #include <microsim/transportables/MSPModel_Striping.h>
 #include <microsim/transportables/MSTransportableControl.h>
@@ -185,6 +186,7 @@ MSTransportableControl::addWaiting(const MSEdge* const edge, MSTransportable* tr
 
 bool
 MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const SUMOVehicleParameter::Stop& stop, SUMOTime& timeToBoardNextPerson, SUMOTime& stopDuration) {
+    UNUSED_PARAMETER(stop);
     bool ret = false;
     if (myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end()) {
         TransportableVector& wait = myWaiting4Vehicle[edge];
@@ -193,8 +195,7 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
             if ((*i)->isWaitingFor(vehicle)
                     && vehicle->allowsBoarding(*i)
                     && timeToBoardNextPerson - DELTA_T <= currentTime
-                    && stop.startPos <= (*i)->getEdgePos()
-                    && (*i)->getEdgePos() <= stop.endPos) {
+                    && vehicle->isStoppedInRange((*i)->getEdgePos(), MSGlobals::gStopTolerance)) {
                 edge->removePerson(*i);
                 vehicle->addTransportable(*i);
                 if (timeToBoardNextPerson >= 0) { // meso does not have boarding times
@@ -208,6 +209,9 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
                 }
 
                 static_cast<MSStageDriving*>((*i)->getCurrentStage())->setVehicle(vehicle);
+                if ((*i)->getCurrentStage()->getOriginStop() != nullptr) {
+                    (*i)->getCurrentStage()->getOriginStop()->removeTransportable(*i);
+                }
                 i = wait.erase(i);
                 myWaitingForVehicleNumber--;
                 ret = true;
@@ -256,6 +260,9 @@ MSTransportableControl::loadAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const
                 }
 
                 static_cast<MSStageDriving*>((*i)->getCurrentStage())->setVehicle(vehicle);
+                if ((*i)->getCurrentStage()->getOriginStop() != nullptr) {
+                    (*i)->getCurrentStage()->getOriginStop()->removeTransportable(*i);
+                }
                 i = waitContainers.erase(i);
                 myWaitingForVehicleNumber--;
                 ret = true;
@@ -385,7 +392,7 @@ MSTransportableControl::saveState(OutputDevice& out) {
     oss << myRunningNumber << " " << myLoadedNumber << " " << myEndedNumber << " " << myWaitingForDepartureNumber << " " << myArrivedNumber << " " << myDiscardedNumber;
     oss << " " << myJammedNumber << " " << myWaitingForVehicleNumber << " " << myWaitingUntilNumber << " " << myHaveNewWaiting;
     out.writeAttr(SUMO_ATTR_STATE, oss.str());
-    for (const auto it : myTransportables) {
+    for (const auto& it : myTransportables) {
         it.second->saveState(out);
     }
 }

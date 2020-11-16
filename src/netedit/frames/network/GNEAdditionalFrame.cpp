@@ -1118,6 +1118,7 @@ GNEAdditionalFrame::tagSelected() {
         if (myAdditionalTagSelector->getCurrentTagProperties().getTag() == SUMO_TAG_E2DETECTOR_MULTILANE) {
             myE2MultilaneLaneSelector->showE2MultilaneLaneSelectorModul();
         } else if (myAdditionalTagSelector->getCurrentTagProperties().hasAttribute(SUMO_ATTR_LANES)) {
+            myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModul();
             // Show SelectorChildLanes or consecutive lane selector if we're adding an additional that own the attribute SUMO_ATTR_LANES
             if (myAdditionalTagSelector->getCurrentTagProperties().isSlave() &&
                     (myAdditionalTagSelector->getCurrentTagProperties().getMasterTags().front() == SUMO_TAG_LANE)) {
@@ -1130,6 +1131,7 @@ GNEAdditionalFrame::tagSelected() {
                 mySelectorParentLanes->hideSelectorParentLanesModul();
             }
         } else {
+            myE2MultilaneLaneSelector->hideE2MultilaneLaneSelectorModul();
             mySelectorChildLanes->hideSelectorChildLanesModul();
             mySelectorParentLanes->hideSelectorParentLanesModul();
         }

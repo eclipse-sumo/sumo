@@ -1,11 +1,7 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e2Detector' in TagSelector
 Debug: Adding e2Detector 'e2Detector_gneE0_0_0' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding e2Detector 'e2Detector_gneE0_0_1' in GNEChange_Additional
 Debug: Adding e2Detector 'e2Detector_gneE0_0_2' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -18,8 +14,6 @@ Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_2'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_1'
 Debug: Deleting unreferenced e2Detector 'e2Detector_gneE0_0_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor

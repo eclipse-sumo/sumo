@@ -1,5 +1,6 @@
 /* XPM */
 static const char *camera_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 6 1",
 " 	c None",
 ".	c Black",
@@ -22,4 +23,5 @@ static const char *camera_xpm[] = {
 ".oX..XXX..XXXXO.",
 ".oOO.....OOOOOO.",
 "................",
-"                "};
+"                "
+};

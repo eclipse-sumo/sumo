@@ -36,6 +36,9 @@
 #include "NBAlgorithms.h"
 
 
+//#define DEBUG_SETPRIORITIES
+#define DEBUGCOND (n.getID() == "C")
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -322,9 +325,15 @@ NBEdgePriorityComputer::computeEdgePriorities(NBNodeCont& nc) {
 
 
 void
-NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
+NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStraight) {
     if (n.myIncomingEdges.size() == 0 || n.myOutgoingEdges.size() == 0) {
         return;
+    }
+    if (forceStraight) {
+        // called a second time, preset all junction's edge priorities to zero
+        for (NBEdge* const edge : n.myAllEdges) {
+            edge->setJunctionPriority(&n, NBEdge::JunctionPriority::MINOR_ROAD);
+        }
     }
     EdgeVector incoming = n.myIncomingEdges;
     EdgeVector outgoing = n.myOutgoingEdges;
@@ -333,8 +342,8 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     // let's get the list of incoming edges with the highest priority
     std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_by_priority_sorter());
     EdgeVector bestIncoming;
-    NBEdge* best = incoming[0];
-    while (incoming.size() > 0 && samePriority(best, incoming[0])) {
+    NBEdge* bestIn = incoming[0];
+    while (incoming.size() > 0 && (forceStraight || samePriority(bestIn, incoming[0]))) {
         bestIncoming.push_back(*incoming.begin());
         incoming.erase(incoming.begin());
     }
@@ -342,8 +351,8 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     assert(outgoing.size() != 0);
     sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_priority_sorter());
     EdgeVector bestOutgoing;
-    best = outgoing[0];
-    while (outgoing.size() > 0 && samePriority(best, outgoing[0])) { //->getPriority()==best->getPriority()) {
+    NBEdge* bestOut = outgoing[0];
+    while (outgoing.size() > 0 && (forceStraight || samePriority(bestOut, outgoing[0]))) { //->getPriority()==best->getPriority()) {
         bestOutgoing.push_back(*outgoing.begin());
         outgoing.erase(outgoing.begin());
     }
@@ -363,12 +372,36 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     incoming = n.myIncomingEdges;
     outgoing = n.myOutgoingEdges;
     for (i = bestIncoming.begin(); i != bestIncoming.end(); ++i) {
-        std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n, true));
+        std::sort(incoming.begin(), incoming.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n, !forceStraight));
         counterIncomingEdges[*i] = *incoming.begin();
-        std::sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n, true));
+        std::sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_opposite_direction_sorter(*i, &n, !forceStraight));
         counterOutgoingEdges[*i] = *outgoing.begin();
     }
-    //std::cout << "n=" << n.getID() << " best=" << best->getID() << " bestIncoming=" << toString(bestIncoming) << "\n incoming=" << toString(incoming) << "\n outgoing=" << toString(outgoing) << "\n mainExplicit=" << mainDirectionExplicit << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID() << "\n";
+#ifdef DEBUG_SETPRIORITIES
+    if (DEBUGCOND) {
+        std::map<std::string, std::string> tmp1;
+        for (auto item : counterIncomingEdges) {
+            tmp1[item.first->getID()] = item.second->getID();
+        }
+        std::map<std::string, std::string> tmp2;
+        for (auto item : counterOutgoingEdges) {
+            tmp2[item.first->getID()] = item.second->getID();
+        }
+        std::cout << "n=" << n.getID() << " bestIn=" << bestIn->getID() << " bestOut=" << bestOut->getID()
+            << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID()
+            << " mainExplicit=" << mainDirectionExplicit
+            << " forceStraight=" << forceStraight
+            << "\n  bestIncoming=" << toString(bestIncoming) << " allIncoming=" << toString(incoming)
+            << "\n  bestOutgoing=" << toString(bestOutgoing) << " allOutgoing=" << toString(outgoing)
+            << "\n  counterIncomingEdges=" << toString(tmp1)
+            << "\n  counterOutgoingEdges=" << toString(tmp2)
+            << "\n";
+    }
+#endif
+    // at a tls junction we must prevent an underlying bent-priority layout
+    // because that would lead to invalid right-of-way rules for an oncoming
+    // tls layout (but not vice versa). See #7764
+    const bool hasTLS = n.isTLControlled();
     // ok, let's try
     // 1) there is one best incoming road
     if (bestIncoming.size() == 1) {
@@ -397,7 +430,18 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
                 s->setJunctionPriority(&n, 1);
             }
         }
-        n.markBentPriority(n.getDirection(best1, bestOut) != LinkDirection::STRAIGHT);
+        const bool isBent = n.getDirection(best1, bestOut) != LinkDirection::STRAIGHT;
+#ifdef DEBUG_SETPRIORITIES
+        if (DEBUGCOND) {
+            std::cout << "  best1=" << best1->getID() << " bestOut=" << bestOut->getID() << " bestOutgoing=" << toString(bestOutgoing) << " mainDirectionExplicit=" << mainDirectionExplicit << " isBent=" << isBent << "\n";
+        }
+#endif
+        if (isBent && hasTLS && !forceStraight) {
+            // redo but force straight computation
+            setPriorityJunctionPriorities(n, true);
+        } else {
+            n.markBentPriority(isBent);
+        }
         return;
     }
 
@@ -433,16 +477,32 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n) {
     }
     bestFirst->setJunctionPriority(&n, 1);
     sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(bestFirst));
+#ifdef DEBUG_SETPRIORITIES
+    if (DEBUGCOND) {
+        std::cout << "  bestFirst=" << bestFirst->getID() << "  bestOutgoingFirst=" << toString(bestOutgoing) << "\n";
+    }
+#endif
     if (bestOutgoing.size() != 0) {
         extractAndMarkFirst(n, bestOutgoing);
     }
     bestSecond->setJunctionPriority(&n, 1);
     sort(bestOutgoing.begin(), bestOutgoing.end(), NBContHelper::edge_similar_direction_sorter(bestSecond));
+#ifdef DEBUG_SETPRIORITIES
+    if (DEBUGCOND) {
+        std::cout << "  bestSecond=" << bestSecond->getID() << "  bestOutgoingSecond=" << toString(bestOutgoing) << "\n";
+    }
+#endif
     if (bestOutgoing.size() != 0) {
         extractAndMarkFirst(n, bestOutgoing);
     }
-    n.markBentPriority(GeomHelper::getMinAngleDiff(bestFirst->getAngleAtNode(&n), bestSecond->getAngleAtNode(&n)) < 135);
-    markBestParallel(n, bestFirst, bestSecond);
+    const bool isBent = GeomHelper::getMinAngleDiff(bestFirst->getAngleAtNode(&n), bestSecond->getAngleAtNode(&n)) < 135;
+    if (isBent && hasTLS && !forceStraight) {
+        // redo but force straight computation
+        setPriorityJunctionPriorities(n, true);
+    } else {
+        n.markBentPriority(isBent);
+        markBestParallel(n, bestFirst, bestSecond);
+    }
 }
 
 

@@ -491,7 +491,10 @@ public:
 
     /// @brief Returns the associated car edge
     _IntermodalEdge* getCarEdge(const E* e) const {
-        typename std::map<const E*, _IntermodalEdge*>::const_iterator it = myCarLookup.find(e);
+        if (e == nullptr) {
+            return nullptr;
+        }
+        auto it = myCarLookup.find(e);
         if (it == myCarLookup.end()) {
             return nullptr;
         }
@@ -863,7 +866,7 @@ private:
     std::map<const N*, _IntermodalEdge*> myWalkingConnectorLookup;
 
     /// @brief retrieve the car edge for the given input edge E
-    std::map<const E*, _IntermodalEdge*> myCarLookup;
+    std::map<const E*, _IntermodalEdge*, ComparatorNumericalIdLess> myCarLookup;
 
     /// @brief retrieve the public transport edges for the given line
     std::map<std::string, std::vector<_PTEdge*> > myPTLines;

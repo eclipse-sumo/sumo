@@ -23,6 +23,7 @@
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <netedit/frames/GNEFrameAttributesModuls.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 
 // ===========================================================================
 // class definitions
@@ -53,15 +54,15 @@ public:
         /// @brief FOX-declaration
         FXDECLARE(GNEMultipleParametersDialog::ParametersValues)
 
+        /// @brief declare class
+        class ParameterRow;
+
     public:
         /// @brief constructor
         ParametersValues(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
         ~ParametersValues();
-
-        /// @brief update values
-        void updateValues();
 
         /// @brief set  parameters
         void setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters);
@@ -71,6 +72,12 @@ public:
 
         /// @brief clear all  parameters
         void clearParameters();
+
+        /// @brief get vector with the ParameterRows
+        const std::vector<ParameterRow*> getParameterRows() const;
+
+        /// @brief check if given key exist already
+        bool keyExist(const std::string &key) const;
 
         /// @name FOX-callbacks
         /// @{
@@ -86,6 +93,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(ParametersValues)
 
     private:
@@ -122,6 +130,10 @@ public:
 
             /// @brief Button for add or remove row
             FXButton* button;
+
+            /// @brief flag to check that parameter was changed
+            bool valueChanged;
+
         private:
             /// @brief frame in which elements of ParameterRow are placed
             FXHorizontalFrame* horizontalFrame;
@@ -141,19 +153,19 @@ public:
     };
 
     // ===========================================================================
-    // class ParametersOptions
+    // class ParametersOperations
     // ===========================================================================
 
-    class ParametersOptions : protected FXGroupBox {
+    class ParametersOperations : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEMultipleParametersDialog::ParametersOptions)
+        FXDECLARE(GNEMultipleParametersDialog::ParametersOperations)
 
     public:
         /// @brief constructor
-        ParametersOptions(FXHorizontalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+        ParametersOperations(FXVerticalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
 
         /// @brief destructor
-        ~ParametersOptions();
+        ~ParametersOperations();
 
         /// @name FOX-callbacks
         /// @{
@@ -175,16 +187,16 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(ParametersOptions)
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(ParametersOperations)
 
     private:
-
         /// @class GNEParameterHandler
         /// @brief load  parameters from a filename
         class GNEParameterHandler : public SUMOSAXHandler {
         public:
             /// @brief Constructor
-            GNEParameterHandler(ParametersOptions* ParametersOptionsParent, const std::string& file);
+            GNEParameterHandler(ParametersOperations* ParametersOperationsParent, const std::string& file);
 
             /// @brief Destructor
             ~GNEParameterHandler();
@@ -200,8 +212,8 @@ public:
             void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
         private:
-            /// @brief pointer to ParametersOptions parent
-            ParametersOptions* myParametersOptionsParent;
+            /// @brief pointer to ParametersOperations parent
+            ParametersOperations* myParametersOperationsParent;
         };
 
         /// @brief pointer to Shape Frame Parent
@@ -223,8 +235,32 @@ public:
         FXButton* myHelpButton;
     };
 
-    /// @brief Constructor
-    GNEMultipleParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor);
+    // ===========================================================================
+    // class ParametersOptions
+    // ===========================================================================
+
+    class ParametersOptions : protected FXGroupBox {
+
+    public:
+        /// @brief constructor
+        ParametersOptions(FXVerticalFrame* frame, GNEMultipleParametersDialog* ParameterDialogParent);
+
+        /// @brief destructor
+        ~ParametersOptions();
+
+        /// @brief apply changes to all elements
+        bool onlyForExistentKeys() const;
+
+    private:
+        /// @brief pointer to Shape Frame Parent
+        GNEMultipleParametersDialog* myParameterDialogParent;
+
+        /// @brief apply changes only for existent keys
+        FXCheckButton* myOnlyForExistentKeys;
+    };
+
+    /// @brief Constructor for parameter editor inspector
+    GNEMultipleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
 
     /// @brief destructor
     ~GNEMultipleParametersDialog();
@@ -242,15 +278,19 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEMultipleParametersDialog)
 
-    /// @brief pointer to ParametersEditor
-    GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
+    /// @brief pointer to ParametersEditorInspector
+    GNEInspectorFrame::ParametersEditorInspector* myParametersEditorInspector;
 
-    /// @brief pointer to  parameters values
+    /// @brief pointer to parameters values
     ParametersValues* myParametersValues;
 
-    /// @brief pointer to  parameters options
+    /// @brief pointer to parameters operations
+    ParametersOperations* myParametersOperations;
+
+    /// @brief pointer to parameters options
     ParametersOptions* myParametersOptions;
 
     /// @brief accept button
@@ -262,13 +302,10 @@ protected:
     /// @brief cancel button
     FXButton* myResetButton;
 
-    /// @brief current edited  parameters
-    std::vector<std::pair<std::string, std::string> > myEditedParameters;
-
-    // @brief copy of current edited  Parameters (used for reset)
-    const std::vector<std::pair<std::string, std::string> > myCopyOfParameters;
-
 private:
+    /// @brief auxiliar constructor
+    void constructor();
+
     /// @brief Invalidated copy constructor.
     GNEMultipleParametersDialog(const GNEMultipleParametersDialog&) = delete;
 

@@ -15,11 +15,26 @@ permalink: /ChangeLog/
   - Fixed failure to create a rescue lane. Issue #7173
   - Fixed crash on parallel intermodal routing. Issue #7627
   - Parallel intermodal routing now respects the option **--routing-algorithm**. Issue #7628
+  - Fixed oscillating lane changes in roundabout with more than 2 lanes. Issue #7738
+  - Fixe crash when defining stops on internal edges. Issue #7690
+  - Fixed crash when using meanData attribute 'trackVehicles=True' in a pedestrian simulation. Issue #7664
+  - Planned vehicle stops are no longer included in edgeData waitingTime output. Issue #7748
+  - Option **--ignore-junction-blocker** is now working again. Issue #7650 (Regression in 1.0.0)
+  - Fixed "jumping" persons when transfering from car to walking at junction. Issue #7778 
+  - Fixed crash when vehicle with ssm device is teleported. Issue #7753  
+  - Fixed unsave insertion speed for IDM which was causing emergency braking #7786
   - railway fixes
     - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
     - Fixed train collision due to unsafe rail signal state. Issue #7534
     - Fixed unsafe train insertion. Issue #7579
-    - Rail signal constraints now work correctly after loading simulation state. Issue #7523
+    - Rail signal constraints now work correctly after loading simulation state. Issue #7523, #7673
+  - taxi fixes
+    - Fixed bug with non-deterministc behavior and aborted rides if person capacity at a busStop was exceeded. Issue #7674, #7662
+    - Intermodal routing no longer returns plans that frequently alternate between taxi and walking. The assumed time penalty when starting a taxi ride is now set to 300s configurable with option **--persontrip.taxi.waiting-time**. Issue #7651
+    - Grouped rides are now serviced in batches when the group size exceeds maximum taxi personCapacity. Issue #7660
+    
+- meso
+  - Fixed handling of cyclical stops. Issue #7500
 
 - netconvert
   - Fixed unsafe traffic light signals when two connections from the same edge target the same lane. Issue #7550
@@ -28,45 +43,90 @@ permalink: /ChangeLog/
   - Fixed invalid right of way for right-turning double-connections at intersections with one incoming road. The rightmost lane now gets priority. Issue #7552
   - Fixed inconsistent OSM-typemap that artificially restricted bicycle driving direction on edge type 'highway.path'. Issue #7615
   - Fixed unsafe intersection rules for double connection with internal junction. Issue #7622
+  - Option **--geometry.remove** now longer causes streets with different names to be joined. Issue #637
+  - Loading public transport stops with 'access' via option --ptstop-files and removing the stop edge via options is now working. Issue #7658
+  - Fixed unsafe position of internal junctions on large junctions with multiple turning connections. Issue #7761
+  - Two-lane side roads entering a priority junction now create a left-turn lane instead of a right-turn lane in most cases. Issue #7754
+  - Fixed building of unsafe right-of-way rules at traffic light junctions where the highest priority road makes a turn. Issue #7764
   
 - netedit
   - Visual scaling of selected objects (via selection frame) is now working for junctions (regression in 1.7.0). Issue #7571
   - Crossings no longer disappear when changing lane count of crossed edges. Issue #7626
+  - Fixed object centering after filtering by substring in object locator. Issue #6361
+  - Fixed very slow operation when loading large edgeData sets. Issue #7604
+  - Fixed automatic color calibration when coloring edges 'by permission'. Issue #5852
+  - Boolean attributes of vehicle stops are now working. Issue #7666
+  - Fixed dotted contour of inspected edges in left-hand networks. Issue #7675 (regression in 1.7.0)
+  - Fixed dotted contour of bidi rail edges in spread mode. Issue #7569
+  - Fixed text angle of name attribute for additional network objects. Issue #6516
+  - Flow and stack labels no scale with vehicle exaggeration. Issue #6541
+  - Inspecting tls-controlled crossings now always shows the corresponding tls link index. Issue #7747
+  - Link indices of connections and crossings can now be reset to default using value '-1'. Issue #4540
+  - Fixed invalid warning about unsaved data. Issue #5971
+  - Traffic light frame button 'clean states' now properly cleans up last indices #7781
   
 - sumo-gui
   - Rail carriages are now drawn next to the track when at a stop with parking=true. Issue #7528
   - Fixed invalid simulation end after reloading. Issue #7582
+  - Prevented opening of multiple locator windows for the same object type. Issue #6916
+  - Fixed crash when locating vehiles by name while the simulation is running. Issue #7768
   
 - duarouter
   - Fixed crash on parallel intermodal routing. Issue #7627
   - Parallel intermodal routing now respects the option **--routing-algorithm**. Issue #7628
   - Fixed NaN value int output when using option **--logit**. Issue #7621
   - Fixed invalid intermodal plans where switching between riding and walking happend on intersection. Issue #7652
+  - Fixed invalid intermodal plans when walk ends at trainStation and an access element is required to reach the starting edge of the ride. Issue #7654
+  
+- TraCI
+  - Fixed crash when using moveToXY in an intermodal network. Issue #7763 (Regression in 1.7.0)
+  - arrivalPos is no longer ignored in *traci.vehicle.add*. Issue #7691
+  - Function *traci.vehicle.getStopDelay* now returns correct estimates for [waypoints](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#waypoints). Issue #7752  
+  - The server side socket is now closed earlier to avoid race conditions when starting many simulations. Issue #7750
   
 - Tools
   - osmWebWizard search now works for IE users. Issue #6119
-  - Tools that support option **--C** for saving their configuration now use proper xml-escaing for their option values. Issue #7633
-  - [routeSampler.py](Tools/Turns.md#routesampler.py) no longer includes routes which do not pass any counting location when using option **--optimize**. This also speeds up execution.
+  - batch files generated by osmWebWizard on linux can now be used on windows. Issue #7667
+  - added osmWebWizard option 
+  - Tools that support option **-C** for saving their configuration now use proper xml-escaping for their option values. Issue #7633
+  - [routeSampler.py](Tools/Turns.md#routesampler.py) no longer includes routes which do not pass any counting location when using option **--optimize**. This also speeds up execution.Issue #6723
 
 ### Enhancements
 - simulation
   - Added vehicle attribute 'departEdge' which can be used to [insert a vehicle beyond the first edge of its route](Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#departedge). Issue #1129
   - Added new input elements that can be loaded to influence rail signal operation by providing constraints on train ordering. Issue #7435
   - Train waiting time is now taken into account when resolving conflicts between otherwise equal trains. Issue #7598  
+  - edgeData output now includes attribute timeLoss. Issue #1396
+  - Pedestrian simulation will no longer deadlock on narrow sidewalks (< 1.28m) Issue #7746
+  - Person journey can now include transfer from walking-only edge to car-only edge in at junction #7779
+  - Option **--ride.stop-tolerance** now applies to all kinds of stops. #6204
+  - Add **--fcd-output.max-leader-distance** which will add attributes `leaderGap, leaderSpeed, leaderID` to fcd-output whenever a vehicle has a leader within the given distance #7788
   
 - netedit
   - Opposite direction lanes can now be edited and selected. Issue #2653
+  - Edges can now be split while in 'create edge mode' by shift-clicking. Issue #6754
+  - [Generic parameters](Simulation/GenericParameters.md) of vTypes can now be edited. Issue #7646
+  - Edge operation 'restore geometry endpoint' can now be applied to edge selections. Issue #7576
   
 - sumo-gui
   - Rail signal now includes internal state (reason for red) in parameter dialog. Issue #7600
   - Added option **--delay** (shortcut **-d**) to set the simulation delay. Issue #6380
+  - Vehicles can now be colored by arrival delay at public transport stops.
   
 - netconvert
   - Added option **--junctions.join-same** which joins junctions with identical coordinates regardless of edge topology. This is useful when merging networks. Issue #7567
   - Added option **--dlr-navteq.keep-length** to make use of explicit edge lengths in the input. Issue #749
   
+- duarouter
+  - Added option **--persontrip.taxi.waiting-time** to model the time penalty invovled when calling a taxi. Issue #7651
+ 
 - od2trips
   - Attributes 'fromTaz' and 'toTaz' are now written for walks and personTrips. Issue #7591
+
+ TraCI
+  - Added new function *vehicle.getStopArrivalDelay* to return the arrivalDelay at a public transport stop that defines the expected 'arrival'. Issue #7629
+  - Added new functions for railway simulationg to investigate why a rail signal is red: *trafficlight.getBlockingVehicles, trafficlight.getRivalVehicles, trafficlight.getPriorityVehicles'. Issue #7019
+  - Function 'simulation.findIntermodalRoute' now supports mode=taxi. Issue #7757
 
 - Tools
   - Added [randomTrips.py](Tools/Trip.md) option **--via-edge-types**. When this option is set to a list of types, edges of this type are not used for departure or arrival unless they are on the fringe. This can be used to prevent departure on the middle of a motorway. Issue #7505
@@ -74,6 +134,7 @@ permalink: /ChangeLog/
   - Added [traceExporter.py](Tools/TraceExporter.md) option **--shift** which allows shifting output coordinates by a fixed amount (i.e. to avoid negative values).
    Added [traceExporter.py](Tools/TraceExporter.md) now supports option **--ipg-output** for generating car-maker tracefiles. Issue #6190
   - [routeSampler.py](Tools/Turns.md#routesampler.py) now supports option **--minimize-vehicles FLOAT** which allows configuring a preference for fewer generated vehicles (where each vehicle passes multiple counting locations). Issue #7635
+  - Added new tool [osmTaxiStop.py]() to import taxi stands from OSM data. Issue #7729
 
 ### Other
 

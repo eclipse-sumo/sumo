@@ -26,6 +26,7 @@
 #include <config.h>
 
 #include <netedit/elements/GNEAttributeCarrier.h>
+#include <utils/common/Parameterised.h>
 
 // ===========================================================================
 // class declarations
@@ -38,7 +39,7 @@ class GNEDataInterval;
 // class definitions
 // ===========================================================================
 
-class GNEDataSet : public GNEAttributeCarrier {
+class GNEDataSet : public GNEAttributeCarrier, public Parameterised {
 
 public:
     /// @bief attribute colors
@@ -188,6 +189,9 @@ public:
     /// @brief get Hierarchy Name (Used in AC Hierarchy)
     std::string getHierarchyName() const;
     /// @}
+
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
     /// @brief dataSet ID

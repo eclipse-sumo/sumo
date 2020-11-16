@@ -37,7 +37,7 @@ Make sure that **Network** is selected.
 ![](../images/neteditNetworkMode.png)
 
 Enter **Edge Mode** by selecting *Edit-\>Edge mode*, using the shortcut `E` or by clicking on the ![](../images/ModeCreateEdge.gif) button.
-In Edge Mode, make sure that ***Chain*** is selected. This will facilitate creating multiple nodes and their connecting edges with fewer clicks.
+In Edge Mode, make sure that ***Chain*** is selected (in newer versions, *Chain* is the following icon: ![](../images/checkbox_chain.png)). This will facilitate creating multiple nodes and their connecting edges with fewer clicks.
 
 ![](../images/neteditChainSelected.png)
 

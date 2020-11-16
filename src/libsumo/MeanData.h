@@ -27,10 +27,12 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSMeanData;
 namespace libsumo {
 class VariableWrapper;
 }
+#endif
 
 
 // ===========================================================================
@@ -40,21 +42,15 @@ class VariableWrapper;
  * @class MeanData
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class MeanData {
 public:
-
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
-    static std::string getParameter(const std::string& meanDataID, const std::string& param);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
-
     //static double getFrequency(const std::string& meanDataID);
 
-    static void setParameter(const std::string& meanDataID, const std::string& key, const std::string& value); // not needed so far
-
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
+#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
@@ -65,6 +61,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 
     /// @brief invalidated standard constructor
     MeanData() = delete;

@@ -3,6 +3,7 @@ jam_trafficlight
 
 # test interaction with default pedestrian attributes
 jam_trafficlight_defaults
+bidirectional_flow_1stripe
 bidirectional_flow_2stripes
 bidirectional_flow_3stripes
 

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:12 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Nov 10 10:28:57 2020 by Eclipse SUMO netconvert Version v1_7_0+0904-86088f8a47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -234,29 +234,29 @@ SPDX-License-Identifier: EPL-2.0
     <junction id="341283983" type="dead_end" x="0.00" y="114.09" incLanes="" intLanes="" shape="0.60,117.23 -0.60,110.95"/>
     <junction id="341283989" type="dead_end" x="1.91" y="123.13" incLanes="26229467#0.58_0 26229467#0.58_1" intLanes="" shape="2.42,126.29 1.40,119.97"/>
     <junction id="cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299" type="traffic_light" x="125.57" y="91.53" incLanes="-388044806_0 -388044806_1 210913010#0_0 210913010#0_1 210913010#0_2 388044807_0 388044807_1 gneE44_0 30804509.0.108_0 30804509.0.108_1" intLanes=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_0_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_1_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_2_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_3_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_23_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_24_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_6_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_7_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_1 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_2 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_25_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_12_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_13_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_14_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_14_1 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_26_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_27_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_18_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_19_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_19_1 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_28_0 :cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_29_0" shape="123.83,108.63 127.75,107.40 132.90,108.37 139.18,116.42 142.55,114.71 143.95,116.91 152.21,113.52 151.81,107.54 155.93,102.08 162.98,99.56 154.07,82.27 141.70,82.40 136.11,78.67 131.07,68.15 119.86,71.12 118.90,78.27 112.87,85.33 114.37,89.13 117.07,88.73" customShape="1">
-        <request index="0"  response="00000000000011100000000" foes="00000110000011100000000" cont="0"/>
-        <request index="1"  response="00000000000011100000000" foes="00000110000011100000000" cont="0"/>
-        <request index="2"  response="00000000000011100000000" foes="00000110000011100000000" cont="0"/>
-        <request index="3"  response="11111000000111100000000" foes="11111110000111100000000" cont="0"/>
-        <request index="4"  response="11110001111111100000000" foes="11110001111111100000000" cont="1"/>
-        <request index="5"  response="11110001111111100000000" foes="11110001111111100000000" cont="1"/>
-        <request index="6"  response="00000000000000000000000" foes="11000001100000000000000" cont="0"/>
-        <request index="7"  response="00000000000000000000000" foes="11000001100000000000000" cont="0"/>
-        <request index="8"  response="00000110000000000110000" foes="11000111100000000111111" cont="0"/>
-        <request index="9"  response="00000110000000000110000" foes="11000111100000000111111" cont="0"/>
-        <request index="10" response="00000110000000000110000" foes="11000111100000000111111" cont="0"/>
-        <request index="11" response="00110110000000000110000" foes="00111111100000000111000" cont="1"/>
-        <request index="12" response="00110000000000000000000" foes="00110000000000000110000" cont="0"/>
-        <request index="13" response="00110000000000000000000" foes="00110000000000000110000" cont="0"/>
-        <request index="14" response="11110000000111111000000" foes="11110000000111111110000" cont="0"/>
-        <request index="15" response="11110000000111111000000" foes="11110000000111111110000" cont="0"/>
-        <request index="16" response="11110000000111100001111" foes="11110000000111100001111" cont="1"/>
-        <request index="17" response="11110000000111100001111" foes="11110000000111100001111" cont="1"/>
-        <request index="18" response="00000000000100000000000" foes="00000000000100000001000" cont="0"/>
-        <request index="19" response="00000110000000000110000" foes="00000111111100000111000" cont="0"/>
-        <request index="20" response="00000110000000000110000" foes="00000111111100000111000" cont="0"/>
-        <request index="21" response="00000110000011111110000" foes="00000111100011111111000" cont="1"/>
-        <request index="22" response="00000110000011111110000" foes="00000111100011111111000" cont="1"/>
+        <request index="0"  response="00000000000000000000000" foes="00000110000011100000000" cont="0"/>
+        <request index="1"  response="00000000000000000000000" foes="00000110000011100000000" cont="0"/>
+        <request index="2"  response="00000000000000000000000" foes="00000110000011100000000" cont="0"/>
+        <request index="3"  response="11000000000100000000000" foes="11111110000111100000000" cont="0"/>
+        <request index="4"  response="11000001111100000000000" foes="11110001111111100000000" cont="1"/>
+        <request index="5"  response="11000001111100000000000" foes="11110001111111100000000" cont="1"/>
+        <request index="6"  response="00000001100000000000000" foes="11000001100000000000000" cont="0"/>
+        <request index="7"  response="00000001100000000000000" foes="11000001100000000000000" cont="0"/>
+        <request index="8"  response="00000111100000000111111" foes="11000111100000000111111" cont="0"/>
+        <request index="9"  response="00000111100000000111111" foes="11000111100000000111111" cont="0"/>
+        <request index="10" response="00000111100000000111111" foes="11000111100000000111111" cont="0"/>
+        <request index="11" response="00111111100000000111000" foes="00111111100000000111000" cont="1"/>
+        <request index="12" response="00000000000000000000000" foes="00110000000000000110000" cont="0"/>
+        <request index="13" response="00000000000000000000000" foes="00110000000000000110000" cont="0"/>
+        <request index="14" response="11000000000100000000000" foes="11110000000111111110000" cont="0"/>
+        <request index="15" response="11000000000100000000000" foes="11110000000111111110000" cont="0"/>
+        <request index="16" response="11000000000100000001111" foes="11110000000111100001111" cont="1"/>
+        <request index="17" response="11000000000100000001111" foes="11110000000111100001111" cont="1"/>
+        <request index="18" response="00000000000100000001000" foes="00000000000100000001000" cont="0"/>
+        <request index="19" response="00000111111000000111000" foes="00000111111100000111000" cont="0"/>
+        <request index="20" response="00000111111000000111000" foes="00000111111100000111000" cont="0"/>
+        <request index="21" response="00000111100011111111000" foes="00000111100011111111000" cont="1"/>
+        <request index="22" response="00000111100011111111000" foes="00000111100011111111000" cont="1"/>
     </junction>
     <junction id="gneJ27" type="priority" x="79.87" y="110.59" incLanes="26229467#0.0_0 26229467#0.0_1 26229467#0.0_2" intLanes=":gneJ27_0_0 :gneJ27_0_1" shape="84.54,114.73 83.10,105.24 75.41,108.07 76.43,114.38">
         <request index="0" response="00" foes="00" cont="0"/>
@@ -283,34 +283,34 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="-255594612" to="-388044806" fromLane="0" toLane="0" via=":2095750613_0_0" dir="s" state="M"/>
     <connection from="-255594612" to="-388044806" fromLane="0" toLane="1" via=":2095750613_0_1" dir="s" state="M"/>
-    <connection from="-388044806" to="26229467#0.0" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_0_0" tl="344" linkIndex="0" dir="r" state="o"/>
-    <connection from="-388044806" to="26229467#0.0" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_1_0" tl="344" linkIndex="1" dir="r" state="o"/>
-    <connection from="-388044806" to="26229467#0.0" fromLane="0" toLane="2" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_2_0" tl="344" linkIndex="2" dir="r" state="o"/>
-    <connection from="-388044806" to="-388044807.6" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_3_0" tl="344" linkIndex="3" dir="s" state="o"/>
+    <connection from="-388044806" to="26229467#0.0" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_0_0" tl="344" linkIndex="0" dir="r" state="O"/>
+    <connection from="-388044806" to="26229467#0.0" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_1_0" tl="344" linkIndex="1" dir="r" state="O"/>
+    <connection from="-388044806" to="26229467#0.0" fromLane="0" toLane="2" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_2_0" tl="344" linkIndex="2" dir="r" state="O"/>
+    <connection from="-388044806" to="-388044807.6" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_3_0" tl="344" linkIndex="3" dir="s" state="O"/>
     <connection from="-388044806" to="26229470#0" fromLane="1" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_4_0" tl="344" linkIndex="4" dir="l" state="o"/>
     <connection from="-388044806" to="26229470#0" fromLane="1" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_5_0" tl="344" linkIndex="5" dir="l" state="o"/>
-    <connection from="210913010#0" to="8151043" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_6_0" tl="344" linkIndex="6" dir="r" state="O"/>
-    <connection from="210913010#0" to="8151043" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_7_0" tl="344" linkIndex="7" dir="r" state="O"/>
-    <connection from="210913010#0" to="26229467#0.0" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_0" tl="344" linkIndex="8" dir="s" state="O"/>
-    <connection from="210913010#0" to="26229467#0.0" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_1" tl="344" linkIndex="9" dir="s" state="O"/>
-    <connection from="210913010#0" to="26229467#0.0" fromLane="1" toLane="2" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_2" tl="344" linkIndex="10" dir="s" state="O"/>
+    <connection from="210913010#0" to="8151043" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_6_0" tl="344" linkIndex="6" dir="r" state="o"/>
+    <connection from="210913010#0" to="8151043" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_7_0" tl="344" linkIndex="7" dir="r" state="o"/>
+    <connection from="210913010#0" to="26229467#0.0" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_0" tl="344" linkIndex="8" dir="s" state="o"/>
+    <connection from="210913010#0" to="26229467#0.0" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_1" tl="344" linkIndex="9" dir="s" state="o"/>
+    <connection from="210913010#0" to="26229467#0.0" fromLane="1" toLane="2" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_8_2" tl="344" linkIndex="10" dir="s" state="o"/>
     <connection from="210913010#0" to="-388044807.6" fromLane="2" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_11_0" tl="344" linkIndex="11" dir="l" state="o"/>
     <connection from="26229467#0.0" to="26229467#0.58" fromLane="1" toLane="0" via=":gneJ27_0_0" dir="s" state="M"/>
     <connection from="26229467#0.0" to="26229467#0.58" fromLane="2" toLane="1" via=":gneJ27_0_1" dir="s" state="M"/>
     <connection from="30804509.0.0" to="30804509.0.66" fromLane="0" toLane="0" via=":gneJ87_0_0" dir="s" state="M"/>
     <connection from="30804509.0.0" to="30804509.0.66" fromLane="0" toLane="1" via=":gneJ87_0_1" dir="s" state="M"/>
     <connection from="30804509.0.0" to="30804509.0.66" fromLane="1" toLane="2" via=":gneJ87_0_2" dir="s" state="M"/>
-    <connection from="30804509.0.108" to="26229470#0" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_19_0" tl="344" linkIndex="19" dir="s" state="O"/>
-    <connection from="30804509.0.108" to="26229470#0" fromLane="1" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_19_1" tl="344" linkIndex="20" dir="s" state="O"/>
+    <connection from="30804509.0.108" to="26229470#0" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_19_0" tl="344" linkIndex="19" dir="s" state="o"/>
+    <connection from="30804509.0.108" to="26229470#0" fromLane="1" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_19_1" tl="344" linkIndex="20" dir="s" state="o"/>
     <connection from="30804509.0.108" to="8151043" fromLane="1" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_21_0" tl="344" linkIndex="21" dir="l" state="o"/>
     <connection from="30804509.0.108" to="8151043" fromLane="1" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_22_0" tl="344" linkIndex="22" dir="l" state="o"/>
     <connection from="30804509.0.66" to="gneE44" fromLane="0" toLane="0" via=":gneJ88_0_0" dir="r" state="M"/>
     <connection from="30804509.0.66" to="30804509.0.108" fromLane="1" toLane="0" via=":gneJ88_1_0" dir="s" state="M"/>
     <connection from="30804509.0.66" to="30804509.0.108" fromLane="2" toLane="1" via=":gneJ88_1_1" dir="s" state="M"/>
-    <connection from="388044807" to="26229470#0" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_12_0" tl="344" linkIndex="12" dir="r" state="o"/>
-    <connection from="388044807" to="26229470#0" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_13_0" tl="344" linkIndex="13" dir="r" state="o"/>
-    <connection from="388044807" to="8151043" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_14_0" tl="344" linkIndex="14" dir="s" state="o"/>
-    <connection from="388044807" to="8151043" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_14_1" tl="344" linkIndex="15" dir="s" state="o"/>
+    <connection from="388044807" to="26229470#0" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_12_0" tl="344" linkIndex="12" dir="r" state="O"/>
+    <connection from="388044807" to="26229470#0" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_13_0" tl="344" linkIndex="13" dir="r" state="O"/>
+    <connection from="388044807" to="8151043" fromLane="0" toLane="0" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_14_0" tl="344" linkIndex="14" dir="s" state="O"/>
+    <connection from="388044807" to="8151043" fromLane="0" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_14_1" tl="344" linkIndex="15" dir="s" state="O"/>
     <connection from="388044807" to="26229467#0.0" fromLane="1" toLane="1" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_16_0" tl="344" linkIndex="16" dir="l" state="o"/>
     <connection from="388044807" to="26229467#0.0" fromLane="1" toLane="2" via=":cluster_2574657962_2574657979_285869327_29812910_29812911_3912609299_17_0" tl="344" linkIndex="17" dir="l" state="o"/>
     <connection from="8151043" to="255594612" fromLane="1" toLane="0" via=":2095750613_2_0" dir="s" state="M"/>

@@ -687,7 +687,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
         if (!v->isOnRoad()) {
             return;
         }
-        MSLane* vehLane = v->getLane();
+        const MSLane* vehLane = v->getLane();
         if (vehLane == nullptr) {
             return;
         }
@@ -762,7 +762,7 @@ Helper::applySubscriptionFilters(const Subscription& s, std::set<std::string>& o
 
             if (s.activeFilters & SUBS_FILTER_TURN) {
                 // Get upcoming junctions and vialanes within downstream distance, where foe links exist or at least the link direction is not straight
-                MSLane* lane = v->getLane();
+                const MSLane* lane = v->getLane();
                 std::vector<const MSLink*> links = lane->getUpcomingLinks(v->getPositionOnLane(), downstreamDist, v->getBestLanesContinuation());
 #ifdef DEBUG_SURROUNDING
                 std::cout << "Applying turn filter for vehicle '" << v->getID() << "'\n Gathering foes ..." << std::endl;
@@ -1120,7 +1120,7 @@ Helper::postProcessRemoteControl() {
 
 bool
 Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveNetwork, const std::string& origID, const double angle,
-                    double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, MSLane* currentLane, double currentLanePos, bool onRoad,
+                    double speed, const ConstMSEdgeVector& currentRoute, const int routePosition, const MSLane* currentLane, double currentLanePos, bool onRoad,
                     SUMOVehicleClass vClass, bool setLateralPos,
                     double& bestDistance, MSLane** lane, double& lanePos, int& routeOffset, ConstMSEdgeVector& edges) {
     // collect edges around the vehicle/person
@@ -1137,6 +1137,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     // compute utility for all candidate edges
     for (const Named* namedEdge : into) {
         const MSEdge* e = dynamic_cast<const MSEdge*>(namedEdge);
+        if ((e->getPermissions() & vClass) != vClass) {
+            continue;
+        }
         const MSEdge* prevEdge = nullptr;
         const MSEdge* nextEdge = nullptr;
         bool onRoute = false;
@@ -1148,9 +1151,9 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             for (int i = routePosition; i < (int)currentRoute.size(); i++) {
                 const MSEdge* cand = currentRoute[i];
                 if (cand->getToJunction() == junction) {
-                    onRoute = true;
                     prevEdge = cand;
                     if (i + 1 < (int)currentRoute.size()) {
+                        onRoute = true;
                         nextEdge = currentRoute[i + 1];
                     }
                     break;
@@ -1170,13 +1173,33 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             }
             if (prevEdge == nullptr) {
                 // use arbitrary predecessor
-                prevEdge = e->getPredecessors().front();
+                if (e->getPredecessors().size() > 0) {
+                    prevEdge = e->getPredecessors().front();
+                } else if (e->getSuccessors().size() > 1) {
+                    for (MSEdge* e2 : e->getSuccessors()) {
+                        if (e2 != nextEdge) {
+                            prevEdge = e2;
+                            break;
+                        }
+                    }
+                }
             }
             if (nextEdge == nullptr) {
-                nextEdge = e->getSuccessors().front();
+                if (e->getSuccessors().size() > 0) {
+                    nextEdge = e->getSuccessors().front();
+                } else if (e->getPredecessors().size() > 1) {
+                    for (MSEdge* e2 : e->getPredecessors()) {
+                        if (e2 != prevEdge) {
+                            nextEdge = e2;
+                            break;
+                        }
+                    }
+                }
             }
 #ifdef DEBUG_MOVEXY_ANGLE
-            std::cout << "walkingarea/crossing:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge) << "\n";
+            std::cout << "walkingarea/crossing:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge)
+                << " pred=" << toString(e->getPredecessors()) << " succ=" << toString(e->getSuccessors())
+                << "\n";
 #endif
         } else if (e->isNormal()) {
             // a normal edge

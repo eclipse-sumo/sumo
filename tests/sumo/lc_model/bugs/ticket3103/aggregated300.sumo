@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Apr 16 17:10:22 2020 by Eclipse SUMO Version v1_5_0+1170-34783558b6
+<!-- generated on Tue Nov  3 15:47:45 2020 by Eclipse SUMO sumo Version v1_7_0+0785-bddc84be5b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -27,6 +27,7 @@ SPDX-License-Identifier: EPL-2.0
     <report>
         <verbose value="true"/>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.statistics value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -37,8 +38,8 @@ SPDX-License-Identifier: EPL-2.0
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="1204.00" id="laneData">
         <edge id="beg2">
-            <lane id="beg2_0" sampledSeconds="81728.56" traveltime="267.28" overlapTraveltime="267.42" density="22.69" laneDensity="22.69" occupancy="11.34" waitingTime="1216.00" speed="11.21" departed="316" arrived="350" entered="0" left="0" laneChangedFrom="337" laneChangedTo="371"/>
-            <lane id="beg2_1" sampledSeconds="109349.93" traveltime="368.75" overlapTraveltime="368.99" density="30.36" laneDensity="30.36" occupancy="15.17" waitingTime="619.00" speed="8.12" departed="298" arrived="264" entered="0" left="0" laneChangedFrom="371" laneChangedTo="337"/>
+            <lane id="beg2_0" sampledSeconds="81728.56" traveltime="267.28" overlapTraveltime="267.42" density="22.69" laneDensity="22.69" occupancy="11.34" waitingTime="216.00" timeLoss="53895.08" speed="11.21" departed="316" arrived="350" entered="0" left="0" laneChangedFrom="337" laneChangedTo="371"/>
+            <lane id="beg2_1" sampledSeconds="109349.93" traveltime="368.75" overlapTraveltime="368.99" density="30.36" laneDensity="30.36" occupancy="15.17" waitingTime="619.00" timeLoss="83932.86" speed="8.12" departed="298" arrived="264" entered="0" left="0" laneChangedFrom="371" laneChangedTo="337"/>
         </edge>
     </interval>
 </meandata>

@@ -44,18 +44,18 @@ class VariableWrapper;
 namespace libsumo {
 class Polygon {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static std::string getType(const std::string& polygonID);
     static TraCIPositionVector getShape(const std::string& polygonID);
     static TraCIColor getColor(const std::string& polygonID);
     static bool getFilled(const std::string& polygonID);
     static double getLineWidth(const std::string& polygonID);
-    static std::string getParameter(const std::string& polygonID, const std::string& key);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
+
+    LIBSUMO_ID_PARAMETER_API
+    LIBSUMO_SUBSCRIPTION_API
+
     static void setType(const std::string& polygonID, const std::string& setType);
     static void setShape(const std::string& polygonID, const TraCIPositionVector& shape);
-    static void setColor(const std::string& polygonID, const TraCIColor& c);
+    static void setColor(const std::string& polygonID, const TraCIColor& color);
     static void add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill = false, const std::string& polygonType = "", int layer = 0, double lineWidth = 1);
 
     static void addDynamics(const std::string& polygonID, const std::string& trackedID = "", const std::vector<double>& timeSpan = std::vector<double>(), const std::vector<double>& alphaSpan = std::vector<double>(), bool looped = false, bool rotate = true);
@@ -63,9 +63,6 @@ public:
 
     static void setFilled(std::string polygonID, bool filled);
     static void setLineWidth(std::string polygonID, double lineWidth);
-    static void setParameter(const std::string& polygonID, const std::string& key, const std::string& value);
-
-    LIBSUMO_SUBSCRIPTION_API
 
     // currently only used as a Helper function by POI and Vehicle, not part of the public API (and the clients)
     static void addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth);

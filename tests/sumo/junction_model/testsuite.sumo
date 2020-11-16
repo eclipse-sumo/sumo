@@ -36,3 +36,6 @@ indirect_left_turn
 opposite_left_turn
 jmSigmaMinor
 roundabout
+
+# test option --ignore-junction-blocker
+ignoreJunctionBlocker

@@ -56,7 +56,7 @@ MSMeanData_Net::MSLaneMeanDataValues::MSLaneMeanDataValues(MSLane* const lane,
         const MSMeanData_Net* parent)
     : MSMeanData::MeanDataValues(lane, length, doAdd, parent),
       nVehDeparted(0), nVehArrived(0), nVehEntered(0), nVehLeft(0),
-      nVehVaporized(0), waitSeconds(0),
+      nVehVaporized(0), waitSeconds(0), timeLoss(0),
       nVehLaneChangeFrom(0), nVehLaneChangeTo(0),
       frontSampleSeconds(0), frontTravelledDistance(0),
       vehLengthSum(0), occupationSum(0),
@@ -80,6 +80,7 @@ MSMeanData_Net::MSLaneMeanDataValues::reset(bool) {
     sampleSeconds = 0.;
     travelledDistance = 0;
     waitSeconds = 0;
+    timeLoss = 0;
     frontSampleSeconds = 0;
     frontTravelledDistance = 0;
     vehLengthSum = 0;
@@ -101,6 +102,7 @@ MSMeanData_Net::MSLaneMeanDataValues::addTo(MSMeanData::MeanDataValues& val) con
     v.sampleSeconds += sampleSeconds;
     v.travelledDistance += travelledDistance;
     v.waitSeconds += waitSeconds;
+    v.timeLoss += timeLoss;
     v.frontSampleSeconds += frontSampleSeconds;
     v.frontTravelledDistance += frontTravelledDistance;
     v.vehLengthSum += vehLengthSum;
@@ -149,8 +151,14 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
         // is taken out in notifyMove(), refs #153
         occupationSum += meanLengthOnLane * TS;
     }
-    if (myParent != nullptr && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
-        waitSeconds += timeOnLane;
+    if (!veh.isStopped()) {
+        if (myParent != nullptr && meanSpeedVehicleOnLane < myParent->myHaltSpeed) {
+            waitSeconds += timeOnLane;
+        }
+        const double vmax = veh.getLane() == nullptr ? veh.getEdge()->getVehicleMaxSpeed(&veh) : veh.getLane()->getVehicleMaxSpeed(&veh);
+        if (vmax > 0) {
+            timeLoss += timeOnLane * (vmax - meanSpeedVehicleOnLane) / vmax;
+        }
     }
     frontSampleSeconds += frontOnLane;
     frontTravelledDistance += travelledDistanceFrontOnLane;
@@ -253,6 +261,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANEDENSITY, laneDensity);
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100);
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_WAITINGTIME, waitSeconds);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TIMELOSS, timeLoss);
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, travelledDistance / sampleSeconds);
         }
         checkWriteAttribute(dev, attributeMask, SUMO_ATTR_DEPARTED, nVehDeparted);
@@ -275,6 +284,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
         if (numVehicles > 0) {
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, sampleSeconds / numVehicles);
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_WAITINGTIME, waitSeconds);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TIMELOSS, timeLoss);
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, travelledDistance / sampleSeconds);
         } else {
             double traveltime = myParent->myMaxTravelTime;
@@ -289,6 +299,7 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANEDENSITY, laneDensity);
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100);
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_WAITINGTIME, waitSeconds);
+            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TIMELOSS, timeLoss);
             checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, travelledDistance / sampleSeconds);
         }
     } else if (defaultTravelTime >= 0.) {

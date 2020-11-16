@@ -79,7 +79,7 @@ NIVisumTL::build(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
         TrafficLightType type = SUMOXMLDefinitions::TrafficLightTypes.get(OptionsCont::getOptions().getString("tls.default-type"));
         NBLoadedTLDef* def = new NBLoadedTLDef(ec, node->getID(), node, myOffset, type);
         tlc.insert(def);
-        def->setCycleDuration((int) myCycleTime);
+        def->setCycleDuration(myCycleTime);
         // signalgroups
         for (std::map<std::string, SignalGroup*>::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++) {
             std::string groupName = (*gi).first;
@@ -94,7 +94,7 @@ NIVisumTL::build(NBEdgeCont& ec, NBTrafficLightLogicCont& tlc) {
                     def->addSignalGroupPhaseBegin(groupName, PH.getStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
                     def->addSignalGroupPhaseBegin(groupName, PH.getEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);
                     yellowTime = MAX2(PH.getYellowTime(), yellowTime);
-                };
+                }
             } else {
                 def->addSignalGroupPhaseBegin(groupName, SG.getStartTime(), NBTrafficLightDefinition::TLCOLOR_GREEN);
                 def->addSignalGroupPhaseBegin(groupName, SG.getEndTime(), NBTrafficLightDefinition::TLCOLOR_RED);

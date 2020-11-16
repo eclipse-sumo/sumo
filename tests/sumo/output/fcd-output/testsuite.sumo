@@ -54,3 +54,6 @@ short_lane
 
 # only write fcd output on some edges
 edge_filter
+
+# output vehicle leader information
+leader

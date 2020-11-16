@@ -1,0 +1,5 @@
+# like 'basic' but repeat the same trains again after 1000s and 2000s
+repeat3
+
+# one train passes the stop and the other train is inserted there
+insertion3

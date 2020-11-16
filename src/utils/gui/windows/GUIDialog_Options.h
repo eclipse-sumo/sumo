@@ -86,6 +86,7 @@ public:
     private:
         /// @brief name
         std::string myName;
+
         /// @brief menu check
         FXMenuCheck* myCheck;
     };

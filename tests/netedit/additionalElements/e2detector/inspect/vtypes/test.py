@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("e2Detector")
 
 # create E2
-netedit.leftClick(referencePosition, 250, 175)
+netedit.leftClick(referencePosition, 250, 160)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, 230, 175)
+netedit.leftClick(referencePosition, 230, 160)
 
 # Change parameter vtypes with a invalid value
 netedit.modifyAttribute(8, "Type%%%%%1 T;;yp$2 Type3", True)

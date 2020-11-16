@@ -1,7 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_0' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Inserting parameter 'KeyA1|valueA1' into additional e2MultilaneDetector.
 Debug: Inserting parameter 'KeyA3|valueA2' into additional e2MultilaneDetector.
 Debug: Inserting parameter 'KeyA2|valueA3' into additional e2MultilaneDetector.
@@ -9,8 +7,6 @@ Debug: Adding e2MultilaneDetector 'e2MultilaneDetector_1' in GNEChange_Additiona
 Debug: Inserting parameter 'KeyB1|valueB1' into additional e2MultilaneDetector.
 Debug: Inserting parameter 'KeyB3|valueB2' into additional e2MultilaneDetector.
 Debug: Inserting parameter 'KeyB2|valueB3' into additional e2MultilaneDetector.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE2_0togneE3_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE3_0togneE4_0' in retrieveGNEConnection()
@@ -86,8 +82,6 @@ Debug: Setting new attribute file 'myOwnOutput.txt' into e2MultilaneDetector 'e2
 Debug: Setting new attribute file 'myOwnOutput.txt' into e2MultilaneDetector 'e2MultilaneDetector_1'
 Debug: Additionals saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_1'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced e2MultilaneDetector 'e2MultilaneDetector_0'
 Debug: Deleting unreferenced edge 'gneE2' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE2_0' in GNEEdge destructor

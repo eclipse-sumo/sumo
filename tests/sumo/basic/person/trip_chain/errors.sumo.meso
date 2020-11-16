@@ -1,1 +1,1 @@
-Warning: Vehicle 'train0' stops on edge '0/4to1/4', time 133.13 without ending the previous stop entered at time -0.00
+Warning: Network contains internal links which are ignored. Vehicles will 'jump' across junctions and thus underestimate route lengths and travel times.

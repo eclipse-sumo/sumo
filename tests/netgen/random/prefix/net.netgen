@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:42 2020 by Eclipse SUMO netgenerate Version v1_5_0+0130-ceb0a01
+<!-- generated on Thu Nov  5 21:19:26 2020 by Eclipse SUMO netgenerate Version v1_7_0+0854-6df8132f4e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -208,13 +208,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":foo_2_1_0" index="0" speed="13.89" length="17.18" shape="598.40,709.98 598.40,692.80"/>
     </edge>
     <edge id=":foo_2_2" function="internal">
-        <lane id=":foo_2_2_0" index="0" speed="8.36" length="7.63" shape="598.40,709.98 599.16,706.12 600.89,702.86"/>
+        <lane id=":foo_2_2_0" index="0" speed="8.36" length="5.73" shape="598.40,709.98 599.16,706.12 600.00,704.54"/>
     </edge>
     <edge id=":foo_2_3" function="internal">
         <lane id=":foo_2_3_0" index="0" speed="3.65" length="2.34" shape="598.40,709.98 599.20,708.78 600.00,708.38"/>
     </edge>
     <edge id=":foo_2_16" function="internal">
-        <lane id=":foo_2_16_0" index="0" speed="8.36" length="7.98" shape="600.89,702.86 601.15,702.37 603.97,699.53 607.20,698.40"/>
+        <lane id=":foo_2_16_0" index="0" speed="8.36" length="9.88" shape="600.00,704.54 601.15,702.37 603.97,699.53 607.20,698.40"/>
     </edge>
     <edge id=":foo_2_17" function="internal">
         <lane id=":foo_2_17_0" index="0" speed="3.65" length="2.34" shape="600.00,708.38 600.80,708.78 601.60,709.98"/>
@@ -238,13 +238,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":foo_2_9_0" index="0" speed="13.89" length="17.18" shape="601.60,692.80 601.60,709.98"/>
     </edge>
     <edge id=":foo_2_10" function="internal">
-        <lane id=":foo_2_10_0" index="0" speed="11.62" length="6.40" shape="601.60,692.80 600.83,696.27 599.52,698.80"/>
+        <lane id=":foo_2_10_0" index="0" speed="11.62" length="5.35" shape="601.60,692.80 600.83,696.27 600.00,697.87"/>
     </edge>
     <edge id=":foo_2_11" function="internal">
         <lane id=":foo_2_11_0" index="0" speed="3.65" length="2.34" shape="601.60,692.80 600.80,694.00 600.00,694.40"/>
     </edge>
     <edge id=":foo_2_18" function="internal">
-        <lane id=":foo_2_18_0" index="0" speed="11.62" length="10.73" shape="599.52,698.80 598.78,700.22 595.89,703.97 592.58,706.87"/>
+        <lane id=":foo_2_18_0" index="0" speed="11.62" length="11.78" shape="600.00,697.87 598.78,700.22 595.89,703.97 592.58,706.87"/>
     </edge>
     <edge id=":foo_2_19" function="internal">
         <lane id=":foo_2_19_0" index="0" speed="3.65" length="2.34" shape="600.00,694.40 599.20,694.00 598.40,692.80"/>
@@ -904,9 +904,9 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":foo_14_9_0" type="internal" x="600.00" y="1305.60" incLanes=":foo_14_2_0 foo_-70_0 foo_15_0" intLanes=":foo_14_3_0 :foo_14_7_0"/>
     <junction id=":foo_14_10_0" type="internal" x="600.00" y="1298.40" incLanes=":foo_14_4_0 foo_-360_0" intLanes=":foo_14_0_0 :foo_14_1_0 :foo_14_7_0 :foo_14_8_0"/>
     <junction id=":foo_14_11_0" type="internal" x="600.00" y="1294.40" incLanes=":foo_14_5_0 foo_-360_0 foo_-70_0" intLanes=":foo_14_1_0 :foo_14_6_0"/>
-    <junction id=":foo_2_16_0" type="internal" x="600.89" y="702.86" incLanes=":foo_2_2_0 foo_-27_0" intLanes=":foo_2_5_0 :foo_2_6_0 :foo_2_7_0 :foo_2_8_0 :foo_2_9_0 :foo_2_13_0 :foo_2_14_0"/>
+    <junction id=":foo_2_16_0" type="internal" x="600.00" y="704.54" incLanes=":foo_2_2_0 foo_-27_0" intLanes=":foo_2_5_0 :foo_2_6_0 :foo_2_7_0 :foo_2_8_0 :foo_2_9_0 :foo_2_13_0 :foo_2_14_0"/>
     <junction id=":foo_2_17_0" type="internal" x="600.00" y="708.38" incLanes=":foo_2_3_0 foo_-27_0 foo_-64_0 foo_113_0" intLanes=":foo_2_4_0 :foo_2_9_0 :foo_2_14_0"/>
-    <junction id=":foo_2_18_0" type="internal" x="599.52" y="698.80" incLanes=":foo_2_10_0 foo_3_0" intLanes=":foo_2_0_0 :foo_2_1_0 :foo_2_5_0 :foo_2_6_0 :foo_2_13_0 :foo_2_14_0 :foo_2_15_0"/>
+    <junction id=":foo_2_18_0" type="internal" x="600.00" y="697.87" incLanes=":foo_2_10_0 foo_3_0" intLanes=":foo_2_0_0 :foo_2_1_0 :foo_2_5_0 :foo_2_6_0 :foo_2_13_0 :foo_2_14_0 :foo_2_15_0"/>
     <junction id=":foo_2_19_0" type="internal" x="600.00" y="694.40" incLanes=":foo_2_11_0 foo_-64_0 foo_113_0 foo_3_0" intLanes=":foo_2_1_0 :foo_2_6_0 :foo_2_12_0"/>
     <junction id=":foo_245_16_0" type="internal" x="300.00" y="302.61" incLanes=":foo_245_2_0 foo_-376_0" intLanes=":foo_245_5_0 :foo_245_6_0 :foo_245_7_0 :foo_245_8_0 :foo_245_9_0 :foo_245_13_0 :foo_245_14_0"/>
     <junction id=":foo_245_17_0" type="internal" x="300.00" y="306.84" incLanes=":foo_245_3_0 foo_-366_0 foo_-376_0 foo_361_0" intLanes=":foo_245_4_0 :foo_245_9_0 :foo_245_14_0"/>

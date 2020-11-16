@@ -702,7 +702,7 @@ NBNode::bezierControlPoints(
 
 
 PositionVector
-NBNode::computeInternalLaneShape(NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError, int shapeFlag) const {
+NBNode::computeInternalLaneShape(const NBEdge* fromE, const NBEdge::Connection& con, int numPoints, NBNode* recordError, int shapeFlag) const {
     if (con.fromLane >= fromE->getNumLanes()) {
         throw ProcessError("Connection '" + con.getDescription(fromE) + "' starts at a non-existant lane.");
     }

@@ -41,10 +41,12 @@
 #include <utils/geom/PositionVector.h>
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUIGlobals.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIDesigns.h>
+
 #include "GUIContainer.h"
 #include "GUINet.h"
 #include "GUIEdge.h"
-#include <utils/gui/globjects/GLIncludes.h>
 
 //#define GUIContainer_DEBUG_DRAW_WALKING_AREA_SHAPE
 
@@ -137,15 +139,15 @@ GUIContainer::getPopUpMenu(GUIMainWindow& app,
     buildSelectionPopupEntry(ret);
     new FXMenuSeparator(ret);
     if (parent.getTrackedID() != getGlID()) {
-        new FXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, "Start Tracking", nullptr, ret, MID_START_TRACK);
     } else {
-        new FXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
+        GUIDesigns::buildFXMenuCommand(ret, "Stop Tracking", nullptr, ret, MID_STOP_TRACK);
     }
     //
 
     buildShowParamsPopupEntry(ret);
     buildShowTypeParamsPopupEntry(ret);
-    new FXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
+    GUIDesigns::buildFXMenuCommand(ret, "Show Plan", GUIIconSubSys::getIcon(GUIIcon::APP_TABLE), ret, MID_SHOWPLAN);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     return ret;

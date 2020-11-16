@@ -34,6 +34,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/gui/tracker/GUIParameterTracker.h>
 #include <utils/gui/div/GUIParameterTableItem.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 
 // ===========================================================================
@@ -177,7 +178,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject* /*sender*/, FXSelector /*s
     ValueSource<double>* doubleSource = i->getdoubleSourceCopy();
     if (doubleSource != nullptr) {
         GUIParam_PopupMenuInterface* p = new GUIParam_PopupMenuInterface(*myApplication, *this, *myObject, i->getName(), doubleSource);
-        new FXMenuCommand(p, "Open in new Tracker", nullptr, p, MID_OPENTRACKER);
+        GUIDesigns::buildFXMenuCommand(p, "Open in new Tracker", nullptr, p, MID_OPENTRACKER);
         // set geometry
         p->setX(static_cast<FXEvent*>(eventData)->root_x);
         p->setY(static_cast<FXEvent*>(eventData)->root_y);

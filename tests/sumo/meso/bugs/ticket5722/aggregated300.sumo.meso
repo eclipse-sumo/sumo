@@ -45,8 +45,8 @@ SPDX-License-Identifier: EPL-2.0
 
 <meandata xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/meandata_file.xsd">
     <interval begin="0.00" end="360.00" id="dump">
-        <edge id="CW" sampledSeconds="6841.37" traveltime="151.29" overlapTraveltime="159.74" density="212.10" laneDensity="106.05" occupancy="53.02" waitingTime="0.00" speed="0.59" departed="46" arrived="0" entered="0" left="23" laneChangedFrom="0" laneChangedTo="0"/>
-        <edge id="WC" sampledSeconds="7602.63" traveltime="335.93" overlapTraveltime="354.68" density="235.70" laneDensity="117.85" occupancy="58.92" waitingTime="0.00" speed="0.27" departed="0" arrived="0" entered="23" left="0" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="CW" sampledSeconds="6841.37" traveltime="151.29" overlapTraveltime="159.74" density="212.10" laneDensity="106.05" occupancy="53.02" waitingTime="0.00" timeLoss="0.00" speed="0.59" departed="46" arrived="0" entered="0" left="23" laneChangedFrom="0" laneChangedTo="0"/>
+        <edge id="WC" sampledSeconds="7602.63" traveltime="335.93" overlapTraveltime="354.68" density="235.70" laneDensity="117.85" occupancy="58.92" waitingTime="0.00" timeLoss="0.00" speed="0.27" departed="0" arrived="0" entered="23" left="0" laneChangedFrom="0" laneChangedTo="0"/>
     </interval>
     <interval begin="360.00" end="720.00" id="dump">
         <edge id="CW" sampledSeconds="8280.00" traveltime="10986.65" overlapTraveltime="11599.75" density="256.70" laneDensity="128.35" occupancy="64.17" waitingTime="8280.00" speed="0.01" departed="0" arrived="0" entered="0" left="0" laneChangedFrom="0" laneChangedTo="0"/>

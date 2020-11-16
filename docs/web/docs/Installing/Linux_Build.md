@@ -217,6 +217,21 @@ $SUMO_HOME points to the right directory (see above) and run
 sudo xargs rm -r $SUMO_HOME
 ```
 
+## (Frequent) Rebuilds
+
+If you did a repository clone you can simply update it by doing `git pull`
+from inside the SUMO_HOME folder. Then change to the buil directory and run
+`make -j $(nproc)` again.
+
+If your underlying system changed (updated libraries) or you experience other
+build problems please try a clean build first by removing the build directory (or at
+least the CMakeCache.txt) and running cmake and make again before reporting a bug.
+
+If you find yourself building very often after minor changes, consider installing
+ccache and run cmake again. It will be picked up automatically and can dramatically
+improve build speed.
+
+
 ## Troubleshooting
 
 ### Problems with the socket subsystem

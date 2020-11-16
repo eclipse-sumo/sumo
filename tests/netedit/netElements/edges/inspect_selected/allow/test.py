@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # recompute
 netedit.rebuildNetwork()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to select mode
 netedit.selectMode()
 
@@ -42,6 +45,9 @@ netedit.leftClick(referencePosition, 250, 110)
 
 # go to inspect mode
 netedit.inspectMode()
+
+# force save additionals
+netedit.forceSaveAdditionals()
 
 # inspect selected edges
 netedit.leftClick(referencePosition, 250, 180)

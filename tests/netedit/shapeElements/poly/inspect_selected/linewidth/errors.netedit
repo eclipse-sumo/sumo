@@ -6,12 +6,8 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -8.00,-2.00,22.00,28.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 12.00,-2.00,42.00,28.00
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Value 'dummyLineWidth' for attribute lineWidth of poly isn't valid
 Debug: Value '-2' for attribute lineWidth of poly isn't valid
 Debug: Setting new attribute lineWidth '2.5' into poly 'poly_0'
@@ -53,8 +49,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poly 'poly_1' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object polygon:poly_1 from SUMORTree with boundary 12.00,-2.00,42.00,28.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poly 'poly_1' in ~GNEChange_Shape()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 GLDebug: 	Removed object polygon:poly_0 from SUMORTree with boundary -8.00,-2.00,22.00,28.00

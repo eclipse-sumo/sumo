@@ -33,6 +33,10 @@ netedit.rebuildNetwork()
 
 # go to inspect mode
 netedit.inspectMode()
+
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # inspect edge
 netedit.leftClick(referencePosition, 250, 180)
 

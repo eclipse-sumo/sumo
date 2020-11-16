@@ -14,8 +14,6 @@ GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,35.20,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 40.00,40.00,110.00,64.80
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_1_0_7' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding busStop 'busStop_2_0_2' in GNEChange_Additional
 Debug: Adding busStop 'busStop_3_0_0' in GNEChange_Additional
 Debug: Adding busStop 'busStop_4_0_5' in GNEChange_Additional
@@ -23,8 +21,6 @@ Debug: Adding busStop 'busStop_5_0_6' in GNEChange_Additional
 Debug: Adding busStop 'busStop_6_1_3' in GNEChange_Additional
 Debug: Adding busStop 'busStop_7_0_1' in GNEChange_Additional
 Debug: Adding busStop 'busStop_8_0_4' in GNEChange_Additional
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -117,8 +113,6 @@ GLDebug: 	Removed object edge:8 from SUMORTree with boundary 40.00,40.00,110.00,
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 30.00,30.00,110.00,64.80
 GLDebug: 	Removed object junction:Center from SUMORTree with boundary 28.00,28.00,52.00,52.00
 GLDebug: 	Inserted junction:Center into SUMORTree with boundary 28.00,28.00,52.00,52.00
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:A from SUMORTree with boundary 38.00,-12.00,62.00,12.00
@@ -317,8 +311,6 @@ GLDebug: 	Inserted edge:6 into SUMORTree with boundary 30.00,30.00,60.00,110.00
 GLDebug: 	Inserted edge:7 into SUMORTree with boundary -10.00,30.00,60.00,60.00
 GLDebug: 	Inserted edge:8 into SUMORTree with boundary 30.00,30.00,110.00,64.80
 Debug: Deleting unreferenced busStop 'busStop_8_0_4'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced busStop 'busStop_7_0_1'
 Debug: Deleting unreferenced busStop 'busStop_6_1_3'
 Debug: Deleting unreferenced busStop 'busStop_5_0_6'

@@ -317,6 +317,9 @@ public:
      */
     virtual bool isAttributeEnabled(SumoXMLAttr key) const = 0;
 
+    /// @brief get parameters map
+    virtual const std::map<std::string, std::string>& getACParametersMap() const = 0;
+
     /// @brief get PopPup ID (Used in AC Hierarchy)
     virtual std::string getPopUpID() const = 0;
 

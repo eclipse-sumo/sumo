@@ -38,8 +38,8 @@ netedit.additionalMode()
 netedit.changeElement("e2MultilaneDetector")
 
 # select lanes
-netedit.leftClick(referencePosition, 190, 255)
-netedit.leftClick(referencePosition, 440, 255)
+netedit.leftClick(referencePosition, 190, 240)
+netedit.leftClick(referencePosition, 440, 240)
 
 # set invalid vehicle types (invalid IDs)
 netedit.changeDefaultValue(7, "%%;$$$ %%$$ type.3")

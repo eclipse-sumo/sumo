@@ -106,7 +106,7 @@ TRACI_CONST int CMD_GET_INDUCTIONLOOP_VARIABLE = 0xa0;
 // response: get induction loop (e1) variable
 TRACI_CONST int RESPONSE_GET_INDUCTIONLOOP_VARIABLE = 0xb0;
 // command: set induction loop (e1) variable, not used yet
-//TRACI_CONST int CMD_GET_INDUCTIONLOOP_VARIABLE = 0xc0;
+TRACI_CONST int CMD_SET_INDUCTIONLOOP_VARIABLE = 0xc0;
 // command: subscribe induction loop (e1) variable
 TRACI_CONST int CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE = 0xd0;
 // response: subscribe induction loop (e1) variable
@@ -121,7 +121,7 @@ TRACI_CONST int CMD_GET_MULTIENTRYEXIT_VARIABLE = 0xa1;
 // response: get multi-entry/multi-exit detector (e3) variable
 TRACI_CONST int RESPONSE_GET_MULTIENTRYEXIT_VARIABLE = 0xb1;
 // command: set multi-entry/multi-exit detector (e3) variable, not used yet
-//TRACI_CONST int CMD_GET_MULTIENTRYEXIT_VARIABLE = 0xc1;
+TRACI_CONST int CMD_SET_MULTIENTRYEXIT_VARIABLE = 0xc1;
 // command: subscribe multi-entry/multi-exit detector (e3) variable
 TRACI_CONST int CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE = 0xd1;
 // response: subscribe multi-entry/multi-exit detector (e3) variable
@@ -301,7 +301,7 @@ TRACI_CONST int CMD_GET_LANEAREA_VARIABLE = 0xad;
 // response: get lane area detector (e2) variable
 TRACI_CONST int RESPONSE_GET_LANEAREA_VARIABLE = 0xbd;
 // command: set lane area detector (e2) variable, not used yet
-//TRACI_CONST int CMD_GET_LANEAREA_VARIABLE = 0xcd;
+TRACI_CONST int CMD_SET_LANEAREA_VARIABLE = 0xcd;
 // command: subscribe lane area detector (e2) variable
 TRACI_CONST int CMD_SUBSCRIBE_LANEAREA_VARIABLE = 0xdd;
 // response: subscribe lane area detector (e2) variable
@@ -436,7 +436,7 @@ TRACI_CONST int CMD_GET_MEANDATA_VARIABLE = 0x2a;
 // response: get meandata variable
 TRACI_CONST int RESPONSE_GET_MEANDATA_VARIABLE = 0x3a;
 // command: set meandata variable, not used yet
-//TRACI_CONST int CMD_SET_MEANDATA_VARIABLE = 0x4a;
+TRACI_CONST int CMD_SET_MEANDATA_VARIABLE = 0x4a;
 // command: subscribe meandata variable
 TRACI_CONST int CMD_SUBSCRIBE_MEANDATA_VARIABLE = 0x5a;
 // response: subscribe meandata variable
@@ -730,8 +730,11 @@ TRACI_CONST int VAR_STOP_SPEED = 0x1d;
 // carFollowModel function getSecureGap (get: vehicle)
 TRACI_CONST int VAR_SECURE_GAP = 0x1e;
 
-// estimated delay for next stop
+// estimated (depart) delay for next stop
 TRACI_CONST int VAR_STOP_DELAY = 0x1f;
+
+// estimated arrival delay for next stop
+TRACI_CONST int VAR_STOP_ARRIVALDELAY = 0x22;
 
 //  begin time(get: calibrator)
 TRACI_CONST int VAR_BEGIN = 0x1c;
@@ -850,7 +853,7 @@ TRACI_CONST int VAR_POSITION3D = 0x39;
 // angle (get: vehicle, poi; set: poi)
 TRACI_CONST int VAR_ANGLE = 0x43;
 
-// angle (get: vehicle types, lanes, lane area detector, set: lanes)
+// length (get: vehicle types, lanes, lane area detector, set: lanes)
 TRACI_CONST int VAR_LENGTH = 0x44;
 
 // color (get: vehicles, vehicle types, polygons, pois)

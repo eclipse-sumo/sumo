@@ -539,28 +539,28 @@ public:
     };
 
     // ===========================================================================
-    // class ParametersEditor
+    // class ParametersEditorCreator
     // ===========================================================================
 
-    class ParametersEditor : private FXGroupBox {
+    class ParametersEditorCreator : private FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNEFrameAttributesModuls::ParametersEditor)
+        FXDECLARE(GNEFrameAttributesModuls::ParametersEditorCreator)
 
     public:
         /// @brief constructor
-        ParametersEditor(GNEFrame* frameParent);
+        ParametersEditorCreator(GNEFrame* frameParent);
 
         /// @brief destructor
-        ~ParametersEditor();
+        ~ParametersEditorCreator();
 
-        /// @brief show netedit attributes editor
-        void showParametersEditor();
+        /// @brief show netedit attributes EditorCreator
+        void showParametersEditorCreator();
 
-        /// @brief hide netedit attributes editor
-        void hideParametersEditor();
+        /// @brief hide netedit attributes EditorCreator
+        void hideParametersEditorCreator();
 
         /// @brief refresh netedit attributes
-        void refreshParametersEditor();
+        void refreshParametersEditorCreator();
 
         /// @brief get parameters as map
         const std::map<std::string, std::string>& getParametersMap() const;
@@ -569,7 +569,7 @@ public:
         std::string getParametersStr() const;
 
         /// @brief get parameters as vector of strings
-        std::vector<std::pair<std::string, std::string> > getParametersVectorStr() const;
+        std::vector<std::pair<std::string, std::string> > getParameters() const;
 
         /// @brief set parameters
         void setParameters(const std::vector<std::pair<std::string, std::string> >& parameters);
@@ -590,7 +590,7 @@ public:
         /// @}
 
     protected:
-        FOX_CONSTRUCTOR(ParametersEditor)
+        FOX_CONSTRUCTOR(ParametersEditorCreator)
 
     private:
         /// @brief pointer to frame parent

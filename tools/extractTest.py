@@ -53,7 +53,7 @@ def get_options(args=None):
     optParser.add_option("-i", "--intelligent-names", dest="names", action="store_true",
                          default=False, help="generate cfg name from directory name")
     optParser.add_option("-v", "--verbose", action="store_true", default=False, help="more information")
-    optParser.add_option("-a", "--application", default="SMART", help="sets the application to be used")
+    optParser.add_option("-a", "--application", help="sets the application to be used")
     optParser.add_option("-s", "--skip-configuration", default=False, action="store_true",
                          help="skips creation of an application config from the options.app file")
     optParser.add_option("-x", "--skip-validation", default=False, action="store_true",
@@ -100,7 +100,8 @@ def mergedOptions(varOpts, appOpts):
                 if aoIdx == -1:
                     break
             voIdx -= 1
-        while aoIdx >= 0 and (voIdx < 0 or (voIdx >= 0 and len(os.path.dirname(varOpts[voIdx])) < len(os.path.dirname(appOpts[aoIdx])))):
+        while (aoIdx >= 0 and (voIdx < 0 or (voIdx >= 0 and
+               len(os.path.dirname(varOpts[voIdx])) < len(os.path.dirname(appOpts[aoIdx]))))):
             yield appOpts[aoIdx]
             aoIdx -= 1
 
@@ -154,6 +155,9 @@ for p in [
         if not configFiles:
             print("Config not found for %s." % source, file=sys.stderr)
             continue
+        if len(glob.glob(os.path.join(source, "testsuite.*"))) > 0:
+            print("Directory %s seems to contain a test suite." % source, file=sys.stderr)
+            continue
         if app == "":
             for v in configFiles.keys():
                 if "." not in v:
@@ -161,9 +165,9 @@ for p in [
                     break
         haveVariant = False
         for variant in set(optionsFiles.keys()) | set(configFiles.keys()):
-            if options.application not in ("ALL", "SMART", variant, variant.split(".")[-1]):
+            if options.application not in (None, "ALL", variant, variant.split(".")[-1]):
                 continue
-            if options.application == "SMART" and len(glob.glob(os.path.join(source, "*" + variant))) == 0:
+            if options.application is None and len(glob.glob(os.path.join(source, "*" + variant))) == 0:
                 if options.verbose:
                     print("ignoring variant %s for '%s'" % (variant, source))
                 continue
@@ -237,24 +241,24 @@ for p in [
                 prefix = os.path.commonprefix((testPath, os.path.abspath(pyBatch.name)))
                 up = os.path.abspath(pyBatch.name)[len(prefix):].count(os.sep) * "../"
                 pyBatch.write('    subprocess.Popen([%s], cwd=join(THIS_DIR, r"%s%s")),\n' %
-                            (', '.join(call), up, testPath[len(prefix):]))
+                              (', '.join(call), up, testPath[len(prefix):]))
             if options.skip_configuration:
                 continue
             oldWorkDir = os.getcwd()
             os.chdir(testPath)
             haveConfig = False
             if app in ["dfrouter", "duarouter", "jtrrouter", "marouter", "netconvert",
-                    "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
+                       "netgen", "netgenerate", "od2trips", "polyconvert", "sumo", "activitygen"]:
                 if app == "netgen":
                     # binary is now called differently but app still has the old name
                     app = "netgenerate"
                 if options.verbose:
                     print("calling %s for testPath '%s' with options '%s'" %
-                        (checkBinary(app), testPath, " ".join(appOptions)))
+                          (checkBinary(app), testPath, " ".join(appOptions)))
                 try:
                     haveConfig = subprocess.call([checkBinary(app)] + appOptions +
-                                                ['--save-configuration', '%s.%scfg' %
-                                                (nameBase, app[:4])]) == 0
+                                                 ['--save-configuration', '%s.%scfg' %
+                                                  (nameBase, app[:4])]) == 0
                 except OSError:
                     print("Executable %s not found, generating shell scripts instead of config." % app, file=sys.stderr)
                 if not haveConfig:
@@ -280,7 +284,7 @@ for p in [
             if not haveConfig:
                 if options.verbose:
                     print("generating shell scripts for testPath '%s' with call '%s'" %
-                        (testPath, " ".join(appOptions)))
+                          (testPath, " ".join(appOptions)))
                 cmd = [o if " " not in o else "'%s'" % o for o in appOptions]
                 open(nameBase + ".sh", "w").write(" ".join(cmd))
                 cmd = [o.replace("$SUMO_HOME", "%SUMO_HOME%") if " " not in o else '"%s"' % o for o in appOptions]

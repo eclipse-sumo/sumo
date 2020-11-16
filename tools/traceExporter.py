@@ -61,14 +61,14 @@ def _getOutputStream(name):
 def _closeOutputStream(strm):
     if strm:
         strm.close()
-  
-          
+
+
 def makeEntries(movables, chosen, options):
     if options.boundary:
         xmin, ymin, xmax, ymax = [float(e)
                                   for e in options.boundary.split(",")]
     result = []
-    negative= False
+    negative = False
     for v in movables:
         if v.id not in chosen:
             chosen[v.id] = random.random() < options.penetration
@@ -76,16 +76,16 @@ def makeEntries(movables, chosen, options):
             v.x, v.y = disturb_gps(float(v.x), float(v.y), options.blur)
             if v.x < 0 or v.y < 0:
                 if options.shift:
-                    v.x= round(v.x+ float(options.shift), 2)
-                    v.y= round(v.y+ float(options.shift), 2)
+                    v.x = round(v.x + float(options.shift), 2)
+                    v.y = round(v.y + float(options.shift), 2)
                 else:
-                    negative= True
+                    negative = True
             if not v.z:
                 v.z = 0
             if not options.boundary or (v.x >= xmin and v.x <= xmax and v.y >= ymin and v.y <= ymax):
                 if v.lane:
                     v.edge = sumolib._laneID2edgeID(v.lane)
-                result.append(v)     
+                result.append(v)
     return result, negative
 
 
@@ -94,7 +94,7 @@ def procFCDStream(fcdstream, options):
     lt = -1  # "last" time step
     lastExported = -1
     chosen = {}
-    hasWarning= False
+    hasWarning = False
     for q in fcdstream:
         pt = lt
         lt = sumolib.miscutils.parseTime(q.time)
@@ -109,15 +109,16 @@ def procFCDStream(fcdstream, options):
         if q.vehicle:
             result, warning = makeEntries(q.vehicle, chosen, options)
             e.vehicle += result
-            hasWarning= hasWarning or warning
+            hasWarning = hasWarning or warning
         if options.persons and q.person:
-            result, warning= makeEntries(q.person, chosen, options)
+            result, warning = makeEntries(q.person, chosen, options)
             e.vehicle += result
-            hasWarning= hasWarning or warning
+            hasWarning = hasWarning or warning
         yield e
     t = lt - pt + lt
     if hasWarning:
-        print("One or more coordinates are negative, some applications might need strictly positive values. To avoid this use option --shift") 
+        print("One or more coordinates are negative, some applications might need strictly positive values. " +
+              "To avoid this use the option --shift.")
     yield FCDTimeEntry(t)
 
 
@@ -224,7 +225,7 @@ output format. Optionally the output can be sampled, filtered and distorted.
                          help="vehicle type to include in fcd file")
     optParser.add_option("--shift", dest="shift",
                          help="shift coordinates to postive values only")
-    #IPG
+    # IPG
     optParser.add_option("--ipg-output", dest="ipg", metavar="FILE",
                          help="Defines the name of the ipg trace file to generate")
 
@@ -334,7 +335,7 @@ output format. Optionally the output can be sampled, filtered and distorted.
         phem.vehicleTypes2flt(o, vtIDm)
         _closeOutputStream(o)
     # ----- PHEM
-    
+
     # ----- IPG
     if options.ipg:
         runMethod(options.fcd, options.ipg, ipg.fcd2ipg, options)

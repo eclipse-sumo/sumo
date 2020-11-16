@@ -183,6 +183,9 @@ public:
     std::string getHierarchyName() const;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
     /// @brief overwrite all values of GNEVehicleType with a SUMOVTypeParameter
     static void overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList);
 

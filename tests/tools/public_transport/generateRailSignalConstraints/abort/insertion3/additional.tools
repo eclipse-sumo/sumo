@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- generated on 2020-11-04 12:51:46.773907 by $Id$ v1_7_0+0803-ba5e837fff
+  options: -n net.net.xml -a input_additional.add.xml -r input_routes.rou.xml -o out.add.xml -v <doubleminus>abort-unordered <doubleminus>debug-stop stop_a
+-->
+<additional xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/additional_file.xsd">
+    <railSignalConstraints id="A">
+        <insertionPredecessor tripId="t0" tl="A" foes="t1"/>
+    </railSignalConstraints>
+</additional>

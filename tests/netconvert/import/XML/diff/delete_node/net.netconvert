@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:51 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Tue Nov 10 10:28:26 2020 by Eclipse SUMO netconvert Version v1_7_0+0904-86088f8a47
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -67,10 +67,16 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":node_C_3_0" index="0" speed="13.50" length="11.40" shape="1.60,-8.32 2.13,-5.95 3.72,-4.21 6.36,-3.09 10.07,-2.60"/>
     </edge>
     <edge id=":node_C_4" function="internal">
-        <lane id=":node_C_4_0" index="0" speed="12.50" length="12.63" shape="1.60,-8.32 1.09,-5.46 -0.42,-3.10 -2.95,-1.26 -6.49,0.08"/>
+        <lane id=":node_C_4_0" index="0" speed="12.50" length="3.81" shape="1.60,-8.32 1.09,-5.46 0.61,-4.70"/>
     </edge>
     <edge id=":node_C_5" function="internal">
-        <lane id=":node_C_5_0" index="0" speed="14.50" length="4.67" shape="1.60,-8.32 0.80,-7.12 0.00,-6.72 -0.80,-7.12 -1.60,-8.32"/>
+        <lane id=":node_C_5_0" index="0" speed="14.50" length="2.05" shape="1.60,-8.32 0.80,-7.12 0.26,-6.85"/>
+    </edge>
+    <edge id=":node_C_7" function="internal">
+        <lane id=":node_C_7_0" index="0" speed="12.50" length="8.82" shape="0.61,-4.70 -0.42,-3.10 -2.95,-1.26 -6.49,0.08"/>
+    </edge>
+    <edge id=":node_C_8" function="internal">
+        <lane id=":node_C_8_0" index="0" speed="14.50" length="2.63" shape="0.26,-6.85 0.00,-6.72 -0.80,-7.12 -1.60,-8.32"/>
     </edge>
     <edge id=":node_D_0" function="internal">
         <lane id=":node_D_0_0" index="0" speed="14.50" length="4.67" shape="-1.60,-10.00 -0.80,-11.20 0.00,-11.60 0.80,-11.20 1.60,-10.00"/>
@@ -103,13 +109,13 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="4"  state="rrryyy"/>
     </tlLogic>
 
-    <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_6_0 :node_C_3_0 :node_C_4_0 :node_C_5_0" shape="9.81,3.40 10.13,-4.20 3.20,-8.32 -3.20,-8.32 -6.91,-1.47 -5.26,4.71">
+    <junction id="node_C" type="traffic_light" x="0.00" y="0.00" incLanes="edge_R2C_0 edge_D2C_0" intLanes=":node_C_0_0 :node_C_1_0 :node_C_6_0 :node_C_3_0 :node_C_7_0 :node_C_8_0" shape="9.81,3.40 10.13,-4.20 3.20,-8.32 -3.20,-8.32 -6.91,-1.47 -5.26,4.71">
         <request index="0" response="000000" foes="000000" cont="0"/>
-        <request index="1" response="010000" foes="110000" cont="0"/>
+        <request index="1" response="000000" foes="110000" cont="0"/>
         <request index="2" response="001000" foes="001000" cont="1"/>
         <request index="3" response="000000" foes="000100" cont="0"/>
-        <request index="4" response="000000" foes="000010" cont="0"/>
-        <request index="5" response="000010" foes="000010" cont="0"/>
+        <request index="4" response="000010" foes="000010" cont="1"/>
+        <request index="5" response="000010" foes="000010" cont="1"/>
     </junction>
     <junction id="node_D" type="priority" x="0.00" y="-10.00" incLanes="edge_C2D_0" intLanes=":node_D_0_0" shape="0.00,-10.00 -3.20,-10.00 0.00,-10.00">
         <request index="0" response="0" foes="0" cont="0"/>
@@ -120,14 +126,16 @@ SPDX-License-Identifier: EPL-2.0
     </junction>
 
     <junction id=":node_C_6_0" type="internal" x="8.19" y="-1.23" incLanes=":node_C_2_0 edge_D2C_0" intLanes=":node_C_3_0"/>
+    <junction id=":node_C_7_0" type="internal" x="0.61" y="-4.70" incLanes=":node_C_4_0 edge_R2C_0" intLanes=":node_C_1_0"/>
+    <junction id=":node_C_8_0" type="internal" x="0.26" y="-6.85" incLanes=":node_C_5_0 edge_R2C_0" intLanes=":node_C_1_0"/>
 
     <connection from="edge_C2D" to="edge_D2C" fromLane="0" toLane="0" via=":node_D_0_0" dir="t" state="M"/>
     <connection from="edge_C2R" to="edge_R2C" fromLane="0" toLane="0" via=":node_R_0_0" dir="t" state="M"/>
     <connection from="edge_D2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_3_0" tl="node_C_reguessed" linkIndex="3" dir="r" state="O"/>
-    <connection from="edge_D2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_4_0" tl="node_C_reguessed" linkIndex="4" dir="l" state="O"/>
+    <connection from="edge_D2C" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_4_0" tl="node_C_reguessed" linkIndex="4" dir="l" state="o"/>
     <connection from="edge_D2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_5_0" tl="node_C_reguessed" linkIndex="5" dir="t" state="o"/>
     <connection from="edge_R2C" to="edge_C2L" fromLane="0" toLane="0" via=":node_C_0_0" tl="node_C_reguessed" linkIndex="0" dir="s" state="O"/>
-    <connection from="edge_R2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_1_0" tl="node_C_reguessed" linkIndex="1" dir="l" state="o"/>
+    <connection from="edge_R2C" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_1_0" tl="node_C_reguessed" linkIndex="1" dir="l" state="O"/>
     <connection from="edge_R2C" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_2_0" tl="node_C_reguessed" linkIndex="2" dir="t" state="o"/>
 
     <connection from=":node_C_0" to="edge_C2L" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -135,8 +143,10 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":node_C_2" to="edge_C2R" fromLane="0" toLane="0" via=":node_C_6_0" dir="t" state="m"/>
     <connection from=":node_C_6" to="edge_C2R" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":node_C_3" to="edge_C2R" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":node_C_4" to="edge_C2L" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":node_C_5" to="edge_C2D" fromLane="0" toLane="0" dir="t" state="M"/>
+    <connection from=":node_C_4" to="edge_C2L" fromLane="0" toLane="1" via=":node_C_7_0" dir="l" state="m"/>
+    <connection from=":node_C_7" to="edge_C2L" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":node_C_5" to="edge_C2D" fromLane="0" toLane="0" via=":node_C_8_0" dir="t" state="m"/>
+    <connection from=":node_C_8" to="edge_C2D" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":node_D_0" to="edge_D2C" fromLane="0" toLane="0" dir="t" state="M"/>
     <connection from=":node_R_0" to="edge_R2C" fromLane="0" toLane="0" dir="t" state="M"/>
 

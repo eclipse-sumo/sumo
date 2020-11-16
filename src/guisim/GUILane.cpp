@@ -51,6 +51,7 @@
 #include "GUIEdge.h"
 #include "GUIVehicle.h"
 #include "GUINet.h"
+#include <utils/gui/div/GUIDesigns.h>
 
 #ifdef HAVE_OSG
 #ifdef _MSC_VER
@@ -834,37 +835,37 @@ GUILane::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildPopupHeader(ret, app);
     buildCenterPopupEntry(ret);
     //
-    new FXMenuCommand(ret, "Copy edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
+    GUIDesigns::buildFXMenuCommand(ret, "Copy edge name to clipboard", nullptr, ret, MID_COPY_EDGE_NAME);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
     //
     buildShowParamsPopupEntry(ret, false);
     const double pos = interpolateGeometryPosToLanePos(myShape.nearest_offset_to_point25D(parent.getPositionInformation()));
     const double height = myShape.positionAtOffset(pos).z();
-    new FXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
+    GUIDesigns::buildFXMenuCommand(ret, ("pos: " + toString(pos) + " height: " + toString(height)).c_str(), nullptr, nullptr, 0);
     new FXMenuSeparator(ret);
     buildPositionCopyEntry(ret, false);
     new FXMenuSeparator(ret);
     if (myAmClosed) {
         if (myPermissionChanges.empty()) {
-            new FXMenuCommand(ret, "Reopen lane", nullptr, &parent, MID_CLOSE_LANE);
-            new FXMenuCommand(ret, "Reopen edge", nullptr, &parent, MID_CLOSE_EDGE);
+            GUIDesigns::buildFXMenuCommand(ret, "Reopen lane", nullptr, &parent, MID_CLOSE_LANE);
+            GUIDesigns::buildFXMenuCommand(ret, "Reopen edge", nullptr, &parent, MID_CLOSE_EDGE);
         } else {
-            new FXMenuCommand(ret, "Reopen lane (override rerouter)", nullptr, &parent, MID_CLOSE_LANE);
-            new FXMenuCommand(ret, "Reopen edge (override rerouter)", nullptr, &parent, MID_CLOSE_EDGE);
+            GUIDesigns::buildFXMenuCommand(ret, "Reopen lane (override rerouter)", nullptr, &parent, MID_CLOSE_LANE);
+            GUIDesigns::buildFXMenuCommand(ret, "Reopen edge (override rerouter)", nullptr, &parent, MID_CLOSE_EDGE);
         }
     } else {
-        new FXMenuCommand(ret, "Close lane", nullptr, &parent, MID_CLOSE_LANE);
-        new FXMenuCommand(ret, "Close edge", nullptr, &parent, MID_CLOSE_EDGE);
+        GUIDesigns::buildFXMenuCommand(ret, "Close lane", nullptr, &parent, MID_CLOSE_LANE);
+        GUIDesigns::buildFXMenuCommand(ret, "Close edge", nullptr, &parent, MID_CLOSE_EDGE);
     }
-    new FXMenuCommand(ret, "Add rerouter", nullptr, &parent, MID_ADD_REROUTER);
+    GUIDesigns::buildFXMenuCommand(ret, "Add rerouter", nullptr, &parent, MID_ADD_REROUTER);
     new FXMenuSeparator(ret);
     // reachability menu
     FXMenuPane* reachableByClass = new FXMenuPane(ret);
     ret->insertMenuPaneChild(reachableByClass);
     new FXMenuCascade(ret, "Select reachable", GUIIconSubSys::getIcon(GUIIcon::FLAG), reachableByClass);
     for (auto i : SumoVehicleClassStrings.getStrings()) {
-        new FXMenuCommand(reachableByClass, i.c_str(), nullptr, &parent, MID_REACHABILITY);
+        GUIDesigns::buildFXMenuCommand(reachableByClass, i.c_str(), nullptr, &parent, MID_REACHABILITY);
     }
     return ret;
 }

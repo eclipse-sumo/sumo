@@ -42,8 +42,11 @@ class GNEAllowDisallow : public FXDialogBox {
     FXDECLARE(GNEAllowDisallow)
 
 public:
-    /// @brief Constructor
+    /// @brief Constructor (for AC)
     GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC);
+
+    /// @brief Constructor (For 
+    GNEAllowDisallow(GNEViewNet* viewNet, std::string *allow, std::string *disallow);
 
     /// @brief destructor
     ~GNEAllowDisallow();
@@ -73,6 +76,7 @@ public:
     /// @}
 
 protected:
+    /// @brief FOX need this
     FOX_CONSTRUCTOR(GNEAllowDisallow)
 
     /// @pointer to viewNet
@@ -80,6 +84,10 @@ protected:
 
     /// @brief edited AC
     GNEAttributeCarrier* myAC;
+
+    std::string *myAllow;
+
+    std::string *myDisAllow;
 
     /// @brief select all VClass
     FXButton* mySelectAllVClassButton;
@@ -103,6 +111,9 @@ protected:
     std::map<SUMOVehicleClass, std::pair<FXButton*, FXLabel*> > myVClassMap;
 
 private:
+    /// @brief constructor
+    void constructor();
+
     /// @brief build VClass
     void buildVClass(FXVerticalFrame* contentsFrame, SUMOVehicleClass vclass, GUIIcon vclassIcon, const std::string& description);
 

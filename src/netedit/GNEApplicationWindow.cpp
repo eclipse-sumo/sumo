@@ -45,6 +45,7 @@
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
@@ -246,8 +247,12 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_SHIFT_F3_TEMPLATE_CLEAR,     GNEApplicationWindow::onCmdClearTemplate),
 
     // Other
-    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                      GNEApplicationWindow::onClipboardRequest),
-    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT, GNEApplicationWindow::onCmdFocusFrame),
+    FXMAPFUNC(SEL_CLIPBOARD_REQUEST,    0,                                                  GNEApplicationWindow::onClipboardRequest),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_T_FORCESAVENETEWORK,          GNEApplicationWindow::onCmdForceSaveNetwork),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_U_FORCESAVEADDITIONALS,       GNEApplicationWindow::onCmdForceSaveAdditionals),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_V_FORCESAVEDEMANDELEMENTS,    GNEApplicationWindow::onCmdForceSaveDemandElements),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,      GNEApplicationWindow::onCmdForceSaveDataElements),
+    FXMAPFUNC(SEL_COMMAND,              MID_HOTKEY_SHIFT_F12_FOCUSUPPERELEMENT,             GNEApplicationWindow::onCmdFocusFrame),
 };
 
 // Object implementation
@@ -319,7 +324,7 @@ GNEApplicationWindow::dependentBuild() {
     {
         myGeoFrame =
             new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
-        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in NETCONVERT)", nullptr, LAYOUT_CENTER_Y);
+        myGeoCoordinate = new FXLabel(myGeoFrame, "N/A\t\tOriginal coordinate (before coordinate transformation in netconvert)", nullptr, LAYOUT_CENTER_Y);
         myCartesianFrame =
             new FXHorizontalFrame(myStatusbar, GUIDesignHorizontalFrameStatusBar);
         myCartesianCoordinate = new FXLabel(myCartesianFrame, "N/A\t\tNetwork coordinate", nullptr, LAYOUT_CENTER_Y);
@@ -940,8 +945,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             // disable validation for additionals
             XMLSubSys::setValidation("auto", "auto", "auto");
         }
-
+        // end undo list
         myUndoList->p_end();
+        // disable save additionals (because additionals were loaded through console)
+        myNet->requireSaveAdditionals(false);
     }
     // check if demand elements has to be loaded at start
     if (oc.isSet("route-files") && !oc.getString("route-files").empty() && myNet) {
@@ -961,8 +968,10 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
             // disable validation for demand elements
             XMLSubSys::setValidation("auto", "auto", "auto");
         }
-
+        // end undo list
         myUndoList->p_end();
+        // disable save demand elements (because demand elements were loaded through console)
+        myNet->requireSaveDemandElements(false);
     }
     // check if data elements has to be loaded at start
     if (oc.isSet("data-files") && !oc.getString("data-files").empty() && myNet) {
@@ -988,6 +997,8 @@ GNEApplicationWindow::handleEvent_NetworkLoaded(GUIEvent* e) {
         }
         // end undolist
         myUndoList->p_end();
+        // disable save data elements (because data elements were loaded through console)
+        myNet->requireSaveDataElements(false);
         // enable update data
         myViewNet->getNet()->enableUpdateData();
         // enable interval bar update
@@ -1032,12 +1043,9 @@ GNEApplicationWindow::handleEvent_Message(GUIEvent* e) {
 
 void
 GNEApplicationWindow::fillMenuBar() {
-    // declare a FXMenuTitle needed to set height in all menu titles
-    FXMenuTitle* menuTitle;
     // build file menu
     myFileMenu = new FXMenuPane(this, LAYOUT_FIX_HEIGHT);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu);
     myFileMenuTLS = new FXMenuPane(this);
     myFileMenuAdditionals = new FXMenuPane(this);
     myFileMenuDemandElements = new FXMenuPane(this);
@@ -1046,20 +1054,19 @@ GNEApplicationWindow::fillMenuBar() {
     // build recent files
     myMenuBarFile.buildRecentFiles(myFileMenu);
     new FXMenuSeparator(myFileMenu);
-    new FXMenuCommand(myFileMenu,
-                      "&Quit\tCtrl+Q\tQuit the Application.",
-                      nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE, 0);
+    GUIDesigns::buildFXMenuCommandShortcut(myFileMenu,
+        "&Quit", "Ctrl+Q", "Quit the Application.",
+        nullptr, this, MID_HOTKEY_CTRL_Q_CLOSE);
     // build edit menu
     myEditMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Edit", nullptr, myEditMenu);
     // build undo/redo command
-    myEditMenuCommands.undoLastChange = new FXMenuCommand(myEditMenu,
-            "&Undo\tCtrl+Z\tUndo the last change.",
-            GUIIconSubSys::getIcon(GUIIcon::UNDO), this, MID_HOTKEY_CTRL_Z_UNDO);
-    myEditMenuCommands.redoLastChange = new FXMenuCommand(myEditMenu,
-            "&Redo\tCtrl+Y\tRedo the last change.",
-            GUIIconSubSys::getIcon(GUIIcon::REDO), this, MID_HOTKEY_CTRL_Y_REDO);
+    myEditMenuCommands.undoLastChange = GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+        "&Undo", "Ctrl+Z", "Undo the last change.",
+        GUIIconSubSys::getIcon(GUIIcon::UNDO), this, MID_HOTKEY_CTRL_Z_UNDO);
+    myEditMenuCommands.redoLastChange = GUIDesigns::buildFXMenuCommandShortcut(myEditMenu,
+        "&Redo", "Ctrl+Y", "Redo the last change.",
+        GUIIconSubSys::getIcon(GUIIcon::REDO), this, MID_HOTKEY_CTRL_Y_REDO);
     // build separator
     new FXMenuSeparator(myEditMenu);
     // build Supermode commands and hide it
@@ -1068,30 +1075,26 @@ GNEApplicationWindow::fillMenuBar() {
     myEditMenuCommands.buildEditMenuCommands(myEditMenu);
     // build processing menu (trigger netbuild computations)
     myProcessingMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Processing", nullptr, myProcessingMenu);
     myProcessingMenuCommands.buildProcessingMenuCommands(myProcessingMenu);
     // build locate menu
     myLocatorMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Locate", nullptr, myLocatorMenu);
     myLocateMenuCommands.buildLocateMenuCommands(myLocatorMenu);
     // build windows menu
     myWindowsMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Windows", nullptr, myWindowsMenu);
     myWindowsMenuCommands.buildWindowsMenuCommands(myWindowsMenu, myStatusbar, myMessageWindow);
     // build help menu
     myHelpMenu = new FXMenuPane(this);
-    menuTitle = new FXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu, LAYOUT_FIX_HEIGHT);
-    menuTitle->setHeight(23);
+    GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&Help", nullptr, myHelpMenu);
     // build help menu commands
-    new FXMenuCommand(myHelpMenu,
-                      "&Online Documentation\tF1\tOpen Online documentation.",
-                      nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
-    new FXMenuCommand(myHelpMenu,
-                      "&About\tF12\tAbout netedit.",
-                      GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
+        "&Online Documentation", "F1", "Open Online documentation.",
+        nullptr, this, MID_HOTKEY_F1_ONLINEDOCUMENTATION);
+    GUIDesigns::buildFXMenuCommandShortcut(myHelpMenu,
+        "&About", "F12", "About netedit.",
+        GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI), this, MID_HOTKEY_F12_ABOUT);
 }
 
 
@@ -1151,7 +1154,6 @@ GNEApplicationWindow::getViewNet() {
 
 GNEApplicationWindowHelper::ToolbarsGrip&
 GNEApplicationWindow::getToolbarsGrip() {
-    myToolbarsGrip.myTopDock = myTopDock;
     return myToolbarsGrip;
 }
 
@@ -1710,6 +1712,49 @@ GNEApplicationWindow::onCmdBackspace(FXObject*, FXSelector, void*) {
     return 1;
 }
 
+long
+GNEApplicationWindow::onCmdForceSaveNetwork(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getNet()->requireSaveNet(true);
+        myViewNet->update();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdForceSaveAdditionals(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getNet()->requireSaveAdditionals(true);
+        update();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdForceSaveDemandElements(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getNet()->requireSaveDemandElements(true);
+        update();
+    }
+    return 1;
+}
+
+
+long 
+GNEApplicationWindow::onCmdForceSaveDataElements(FXObject* /*sender*/, FXSelector /*sel*/, void* /*ptr*/) {
+    // check that view exists
+    if (myViewNet) {
+        myViewNet->getNet()->requireSaveDataElements(true);
+        update();
+    }
+    return 1;
+}
+
 
 long
 GNEApplicationWindow::onCmdFocusFrame(FXObject*, FXSelector, void*) {
@@ -1746,21 +1791,15 @@ GNEApplicationWindow::onCmdToogleGrid(FXObject* obj, FXSelector sel, void* ptr) 
     // check that view exists
     if (myViewNet) {
         // Toogle getMenuCheckShowGrid of GNEViewNet
-        if ((myViewNet->getNetworkViewOptions().menuCheckShowGrid->getCheck() == TRUE) ||
-                (myViewNet->getDemandViewOptions().menuCheckShowGrid->getCheck() == TRUE)) {
-            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setCheck(FALSE);
-            myViewNet->getDemandViewOptions().menuCheckShowGrid->setCheck(FALSE);
+        if (myViewNet->getVisualisationSettings().showGrid) {
             // show extra information for tests
             WRITE_DEBUG("Disabled grid throught Ctrl+g hotkey");
         } else {
-            myViewNet->getNetworkViewOptions().menuCheckShowGrid->setCheck(TRUE);
-            myViewNet->getDemandViewOptions().menuCheckShowGrid->setCheck(TRUE);
             // show extra information for tests
             WRITE_DEBUG("Enabled grid throught Ctrl+g hotkey");
         }
-        // Call manually show grid function
-        myViewNet->onCmdToogleShowGridNetwork(obj, sel, ptr);
-        myViewNet->onCmdToogleShowGridDemand(obj, sel, ptr);
+        // Call manually toogle grid function
+        myViewNet->onCmdToogleShowGrid(obj, sel, ptr);
     }
     return 1;
 }
@@ -1798,7 +1837,7 @@ GNEApplicationWindow::onCmdToogleEditOptions(FXObject* obj, FXSelector sel, void
             return 1;
         }
         // declare a vector in which save visible menu commands
-        std::vector<FXMenuCheck*> visibleMenuCommands;
+        std::vector<MFXCheckableButton*> visibleMenuCommands;
         // get common, network and demand visible menu commands
         myViewNet->getNetworkViewOptions().getVisibleNetworkMenuCommands(visibleMenuCommands);
         myViewNet->getDemandViewOptions().getVisibleDemandMenuCommands(visibleMenuCommands);

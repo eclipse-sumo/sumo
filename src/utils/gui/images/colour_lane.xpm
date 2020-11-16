@@ -1,5 +1,6 @@
 /* XPM */
 static const char * colour_lane_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 8 1",
 " 	c None",
 ".	c Black",
@@ -24,5 +25,6 @@ static const char * colour_lane_xpm[] = {
 "          ..XXX.",
 "           .XXX.",
 "           .XXX.",
-"            ... "};
+"            ... "
+};
 

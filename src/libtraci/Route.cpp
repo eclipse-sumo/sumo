@@ -31,7 +31,7 @@
 
 namespace libtraci {
 
-typedef Domain<libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_VARIABLE, libsumo::CMD_SUBSCRIBE_ROUTE_CONTEXT> Dom;
+typedef Domain<libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE> Dom;
 
 
 // ===========================================================================
@@ -51,39 +51,17 @@ Route::getEdges(const std::string& routeID) {
 
 int
 Route::getIDCount() {
-    return (int)getIDList().size();
+    return Dom::getInt(libsumo::ID_COUNT, "");
 }
 
 
-std::string
-Route::getParameter(const std::string& routeID, const std::string& param) {
-    tcpip::Storage content;
-    content.writeByte(libsumo::TYPE_STRING);
-    content.writeString(param);
-    return Dom::getString(libsumo::VAR_PARAMETER, routeID, &content);
-}
-
-
-LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Route)
-
-
-void
-Route::setParameter(const std::string& routeID, const std::string& key, const std::string& value) {
-    tcpip::Storage content;
-    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
-    content.writeInt(2);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(key);
-    content.writeUnsignedByte(libsumo::TYPE_STRING);
-    content.writeString(value);
-    Connection::getActive().createCommand(libsumo::CMD_SET_ROUTE_VARIABLE, libsumo::VAR_PARAMETER, routeID, &content);
-    Connection::getActive().processSet(libsumo::CMD_SET_ROUTE_VARIABLE);
-}
+LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Route, ROUTE)
+LIBTRACI_PARAMETER_IMPLEMENTATION(Route, ROUTE)
 
 
 void
 Route::add(const std::string& routeID, const std::vector<std::string>& edgeIDs) {
-    Dom::setStringVector(libsumo::CMD_SET_ROUTE_VARIABLE, routeID, edgeIDs);
+    Dom::setStringVector(libsumo::ADD, routeID, edgeIDs);
 }
 }
 

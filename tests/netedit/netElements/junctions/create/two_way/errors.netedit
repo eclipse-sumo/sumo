@@ -1,12 +1,8 @@
 GLDebug: initJunctionsAndEdges function called in GNENet constructor
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Enabled auto opposite edge throught alt + 5
 Debug: Adding junction 'gneJ0' into net
 GLDebug: 	Inserted junction:gneJ0 into SUMORTree with boundary 38.00,78.00,62.00,102.00
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Adding junction 'gneJ1' into net
 GLDebug: 	Inserted junction:gneJ1 into SUMORTree with boundary 58.00,78.00,82.00,102.00
 Debug: Adding edge 'gneE0' from net

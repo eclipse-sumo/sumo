@@ -119,7 +119,7 @@ GUIDialog_Breakpoints::rebuildList() {
     myTable->setTableSize((FXint)myBreakpoints->size() + 1, 1);
     myTable->setColumnText(0, "Time");
     FXHeader* header = myTable->getColumnHeader();
-    header->setHeight(GUIDesignBreakpointTableHeaderHeight);
+    header->setHeight(GUIDesignHeight);
     header->setItemJustify(0, JUSTIFY_CENTER_X);
     // insert into table
     for (int row = 0; row < (int)myBreakpoints->size(); row++) {

@@ -20,13 +20,17 @@
 #pragma once
 #include <config.h>
 
+#include <string>
 #include <vector>
+#include <libsumo/TraCIDefs.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class MSE2Collector;
+#endif
 
 
 // ===========================================================================
@@ -36,11 +40,9 @@ class MSE2Collector;
  * @class LaneArea
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class LaneArea {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static int getJamLengthVehicle(const std::string& detID);
     static double getJamLengthMeters(const std::string& detID);
     static double getLastStepMeanSpeed(const std::string& detID);
@@ -52,8 +54,10 @@ public:
     static int getLastStepVehicleNumber(const std::string& detID);
     static int getLastStepHaltingNumber(const std::string& detID);
 
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
+#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
@@ -64,7 +68,9 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 
+private:
     /// @brief invalidated standard constructor
     LaneArea() = delete;
 

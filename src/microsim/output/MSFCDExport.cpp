@@ -51,6 +51,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     const bool signals = OptionsCont::getOptions().getBool("fcd-output.signals");
     const bool writeAccel = OptionsCont::getOptions().getBool("fcd-output.acceleration");
     const bool writeDistance = OptionsCont::getOptions().getBool("fcd-output.distance");
+    const double maxLeaderDistance = OptionsCont::getOptions().getFloat("fcd-output.max-leader-distance");
     std::vector<std::string> params = OptionsCont::getOptions().getStringVector("fcd-output.params");
     const SUMOTime period = string2time(OptionsCont::getOptions().getString("device.fcd.period"));
     const SUMOTime begin = string2time(OptionsCont::getOptions().getString("begin"));
@@ -109,12 +110,12 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
             of.writeAttr(SUMO_ATTR_SLOPE, veh->getSlope());
             if (microVeh != nullptr) {
                 if (signals) {
-                    of.writeAttr("signals", toString(microVeh->getSignals()));
+                    of.writeAttr(SUMO_ATTR_SIGNALS, toString(microVeh->getSignals()));
                 }
                 if (writeAccel) {
-                    of.writeAttr("acceleration", toString(microVeh->getAcceleration()));
+                    of.writeAttr(SUMO_ATTR_ACCELERATION, toString(microVeh->getAcceleration()));
                     if (MSGlobals::gSublane) {
-                        of.writeAttr("accelerationLat", microVeh->getLaneChangeModel().getAccelerationLat());
+                        of.writeAttr(SUMO_ATTR_ACCELERATION_LAT, microVeh->getLaneChangeModel().getAccelerationLat());
                     }
                 }
             }
@@ -131,7 +132,19 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                     distance += veh->getPositionOnLane();
                 }
                 // if the kilometrage runs counter to the edge direction edge->getDistance() is negative
-                of.writeAttr("distance", fabs(distance));
+                of.writeAttr(SUMO_ATTR_DISTANCE, fabs(distance));
+            }
+            if (maxLeaderDistance >= 0 && microVeh != nullptr) {
+                std::pair<const MSVehicle* const, double> leader = microVeh->getLeader(maxLeaderDistance);
+                if (leader.first != nullptr) {
+                    of.writeAttr(SUMO_ATTR_LEADER_ID, toString(leader.first->getID()));
+                    of.writeAttr(SUMO_ATTR_LEADER_SPEED, toString(leader.first->getSpeed()));
+                    of.writeAttr(SUMO_ATTR_LEADER_GAP, toString(leader.second + microVeh->getVehicleType().getMinGap()));
+                } else {
+                    of.writeAttr(SUMO_ATTR_LEADER_ID, "");
+                    of.writeAttr(SUMO_ATTR_LEADER_SPEED, -1);
+                    of.writeAttr(SUMO_ATTR_LEADER_GAP, -1);
+                }
             }
             for (const std::string& key : params) {
                 const std::string value = veh->getParameter().getParameter(key);

@@ -51,8 +51,8 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="20.00" end="30.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="30.00" end="40.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="40.00" end="50.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="50.00" end="60.00" id="3/1to2/1" sampledSeconds="8.90" density="8.90" laneDensity="8.90" occupancy="2.67" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
-    <interval begin="60.00" end="70.00" id="3/1to2/1" sampledSeconds="1.10" density="1.10" laneDensity="1.10" occupancy="0.33" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="1"/>
+    <interval begin="50.00" end="60.00" id="3/1to2/1" sampledSeconds="8.90" density="8.90" laneDensity="8.90" occupancy="2.67" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
+    <interval begin="60.00" end="70.00" id="3/1to2/1" sampledSeconds="1.10" density="1.10" laneDensity="1.10" occupancy="0.33" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="0" arrived="0" entered="0" left="1"/>
     <interval begin="70.00" end="80.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="80.00" end="90.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="90.00" end="100.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>

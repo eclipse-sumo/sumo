@@ -1,14 +1,10 @@
 /* XPM */
 static const char *correct_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 9 1 ",
-"  c #3EB39D",
-". c #3CB39E",
+"16 16 5 1 ",
 "X c #3DB39E",
 "o c #3DB39F",
 "O c #3EB29E",
-"+ c #3EB39E",
-"@ c #3CB49E",
 "# c #3EB49E",
 "$ c None",
 /* pixels */

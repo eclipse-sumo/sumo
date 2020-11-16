@@ -28,6 +28,7 @@
 #include <utils/gui/div/GUIBaseVehicleHelper.h>
 #include <utils/gui/globjects/GLIncludes.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEVehicle.h"
 #include "GNERouteHandler.h"
@@ -67,8 +68,8 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
     myVehicle->buildCenterPopupEntry(this);
     myVehicle->buildPositionCopyEntry(this, false);
     // buld menu commands for names
-    new FXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    new FXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + myVehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
     // build selection and show parameters menu
     myVehicle->getNet()->getViewNet()->buildSelectionACPopupEntry(this, myVehicle);
@@ -85,12 +86,12 @@ GNEVehicle::GNESingleVehiclePopupMenu::GNESingleVehiclePopupMenu(GNEVehicle* veh
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transform
-        myTransformToVehicle = new FXMenuCommand(transformOperation, "Vehicle", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Vehicle (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlow (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToTrip = new FXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToFlow = new FXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicle = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicle", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicleWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicle (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlow", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlowWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlow (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToTrip = GUIDesigns::buildFXMenuCommand(transformOperation, "Trip", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "Flow", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         // check what menu command has to be disabled
         if (myVehicle->getTagProperty().getTag() == SUMO_TAG_VEHICLE) {
             myTransformToVehicle->disable();
@@ -156,8 +157,8 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
     vehicle->buildCenterPopupEntry(this);
     vehicle->buildPositionCopyEntry(this, false);
     // buld menu commands for names
-    new FXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
-    new FXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " name to clipboard").c_str(), nullptr, this, MID_COPY_NAME);
+    GUIDesigns::buildFXMenuCommand(this, ("Copy " + vehicle->getTagStr() + " typed name to clipboard").c_str(), nullptr, this, MID_COPY_TYPED_NAME);
     new FXMenuSeparator(this);
     // build selection and show parameters menu
     vehicle->getNet()->getViewNet()->buildSelectionACPopupEntry(this, vehicle);
@@ -174,27 +175,27 @@ GNEVehicle::GNESelectedVehiclesPopupMenu::GNESelectedVehiclesPopupMenu(GNEVehicl
         this->insertMenuPaneChild(transformOperation);
         new FXMenuCascade(this, "transform to", nullptr, transformOperation);
         // Create menu comands for all transform
-        myTransformToVehicle = new FXMenuCommand(transformOperation,
-                ("Vehicles (Only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation,
-                ("Vehicles (embedded route, only " + vehicle->getTagStr() + ")").c_str(), vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlow = new FXMenuCommand(transformOperation,
-                ("RouteFlows (Only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation,
-                ("RouteFlows (embedded route, only " + vehicle->getTagStr() + ")").c_str(), routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToTrip = new FXMenuCommand(transformOperation,
-                                              ("Trips (Only " + vehicle->getTagStr() + ")").c_str(), tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformToFlow = new FXMenuCommand(transformOperation,
-                                              ("Flows (Only " + vehicle->getTagStr() + ")").c_str(), flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicle = GUIDesigns::buildFXMenuCommand(transformOperation,
+                "Vehicles (Only " + vehicle->getTagStr() + ")", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToVehicleWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation,
+                "Vehicles (embedded route, only " + vehicle->getTagStr() + ")", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlow = GUIDesigns::buildFXMenuCommand(transformOperation,
+                "RouteFlows (Only " + vehicle->getTagStr() + ")", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToRouteFlowWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation,
+                "RouteFlows (embedded route, only " + vehicle->getTagStr() + ")", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToTrip = GUIDesigns::buildFXMenuCommand(transformOperation,
+                "Trips (Only " + vehicle->getTagStr() + ")", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformToFlow = GUIDesigns::buildFXMenuCommand(transformOperation,
+                "Flows (Only " + vehicle->getTagStr() + ")", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
         // create separator
         new FXMenuSeparator(transformOperation);
         // Create menu comands for all transform all vehicles
-        myTransformAllVehiclesToVehicle = new FXMenuCommand(transformOperation, "Vehicles", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToVehicleWithEmbeddedRoute = new FXMenuCommand(transformOperation, "Vehicles (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToRouteFlow = new FXMenuCommand(transformOperation, "RouteFlows", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToRouteFlowWithEmbeddedRoute = new FXMenuCommand(transformOperation, "RouteFlows (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToTrip = new FXMenuCommand(transformOperation, "Trips", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
-        myTransformAllVehiclesToFlow = new FXMenuCommand(transformOperation, "Flows", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToVehicle = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicles", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToVehicleWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "Vehicles (embedded route)", vehicleIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToRouteFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlows", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToRouteFlowWithEmbeddedRoute = GUIDesigns::buildFXMenuCommand(transformOperation, "RouteFlows (embedded route)", routeFlowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToTrip = GUIDesigns::buildFXMenuCommand(transformOperation, "Trips", tripIcon, this, MID_GNE_VEHICLE_TRANSFORM);
+        myTransformAllVehiclesToFlow = GUIDesigns::buildFXMenuCommand(transformOperation, "Flows", flowIcon, this, MID_GNE_VEHICLE_TRANSFORM);
     }
 }
 
@@ -655,6 +656,9 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
         const double length = getParentDemandElements().at(0)->getAttributeDouble(SUMO_ATTR_LENGTH);
         const double vehicleSizeSquared = (width * width) * (length * length) * (exaggeration * exaggeration);
         // obtain Position an rotation (depending of draw spread vehicles)
+        if (drawSpreadVehicles && mySpreadGeometry.getShape().size() == 0) {
+            return;
+        }
         const Position vehiclePosition = drawSpreadVehicles ? mySpreadGeometry.getShape().front() : myDemandElementGeometry.getShape().front();
         const double vehicleRotation = drawSpreadVehicles ? mySpreadGeometry.getShapeRotations().front() : myDemandElementGeometry.getShapeRotations().front();
         // check that position is valid
@@ -671,7 +675,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(vehiclePosition.x(), vehiclePosition.y(), 0);
                 glRotated(vehicleRotation, 0, 0, -1);
                 // extra translation needed to draw vehicle over edge (to avoid selecting problems)
-                glTranslated(0, (-1) * length, 0);
+                glTranslated(0, (-1) * length * exaggeration, 0);
                 GLHelper::drawBoxLine(Position(0, 1), 0, 2, 1);
                 // Pop last matrix
                 glPopMatrix();
@@ -685,7 +689,7 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 glTranslated(vehiclePosition.x(), vehiclePosition.y(), 0);
                 glRotated(vehicleRotation, 0, 0, -1);
                 // extra translation needed to draw vehicle over edge (to avoid selecting problems)
-                glTranslated(0, (-1) * length, 0);
+                glTranslated(0, (-1) * length * exaggeration, 0);
                 // set lane color
                 setColor(s);
                 double upscaleLength = exaggeration;
@@ -747,11 +751,11 @@ GNEVehicle::drawGL(const GUIVisualizationSettings& s) const {
                 glPopMatrix();
                 // draw stack label
                 if ((myStackedLabelNumber > 0) && !drawSpreadVehicles) {
-                    drawStackLabel(s, vehiclePosition, vehicleRotation, width, length);
+                    drawStackLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
                 // draw flow label
                 if ((myTagProperty.getTag() == SUMO_TAG_FLOW) || (myTagProperty.getTag() == GNE_TAG_FLOW_ROUTE) || (myTagProperty.getTag() == GNE_TAG_FLOW_WITHROUTE)) {
-                    drawFlowLabel(s, vehiclePosition, vehicleRotation, width, length);
+                    drawFlowLabel(vehiclePosition, vehicleRotation, width, length, exaggeration);
                 }
                 // check if dotted contours has to be drawn
                 if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
@@ -1328,6 +1332,12 @@ GNEVehicle::getHierarchyName() const {
     return getTagStr() + ": " + getAttribute(SUMO_ATTR_ID);
 }
 
+
+const std::map<std::string, std::string>&
+GNEVehicle::getACParametersMap() const {
+    return getParametersMap();
+}
+
 // ===========================================================================
 // protected
 // ===========================================================================
@@ -1724,48 +1734,48 @@ GNEVehicle::setEnabledAttribute(const int enabledAttributes) {
 
 
 void
-GNEVehicle::drawStackLabel(const GUIVisualizationSettings& /*s*/, const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
+GNEVehicle::drawStackLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const {
     // declare contour width
-    const double contourWidth = 0.05;
+    const double contourWidth = (0.05 * exaggeration);
     // Push matrix
     glPushMatrix();
     // Traslate to vehicle top
     glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
     glRotated(vehicleRotation, 0, 0, -1);
-    glTranslated((width / 2.0) + 0.35, 0, 0);
+    glTranslated((width * exaggeration * 0.5) + (0.35 * exaggeration), 0, 0);
     // draw external box
     GLHelper::setColor(RGBColor::GREY);
-    GLHelper::drawBoxLine(Position(), Position(), 0, length, 0.3);
+    GLHelper::drawBoxLine(Position(), 0, (length * exaggeration), 0.3 * exaggeration);
     // draw internal box
     glTranslated(0, 0, 0.1);
     GLHelper::setColor(RGBColor(0, 128, 0));
-    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, length - (contourWidth * 2), 0.3 - contourWidth);
+    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
     // draw stack label
-    GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length / -2.0), .1, 0.6, RGBColor::WHITE, 90, 0, -1);
+    GLHelper::drawText("vehicles stacked: " + toString(myStackedLabelNumber), Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::WHITE, 90, 0, -1);
     // pop draw matrix
     glPopMatrix();
 }
 
 
 void
-GNEVehicle::drawFlowLabel(const GUIVisualizationSettings& /*s*/, const Position& vehiclePosition, const double vehicleRotation, const double width, const double length) const {
+GNEVehicle::drawFlowLabel(const Position& vehiclePosition, const double vehicleRotation, const double width, const double length, const double exaggeration) const {
     // declare contour width
-    const double contourWidth = 0.05;
+    const double contourWidth = (0.05 * exaggeration);
     // Push matrix
     glPushMatrix();
     // Traslate to vehicle bot
     glTranslated(vehiclePosition.x(), vehiclePosition.y(), GLO_ROUTE + getType() + 0.1 + GLO_PERSONFLOW);
     glRotated(vehicleRotation, 0, 0, -1);
-    glTranslated(-1 * ((width / 2.0) + 0.35), 0, 0);
+    glTranslated(-1 * ((width * 0.5 * exaggeration) + (0.35 * exaggeration)), 0, 0);
     // draw external box
     GLHelper::setColor(RGBColor::GREY);
-    GLHelper::drawBoxLine(Position(), Position(), 0, length, 0.3);
+    GLHelper::drawBoxLine(Position(), Position(), 0, (length * exaggeration), 0.3 * exaggeration);
     // draw internal box
     glTranslated(0, 0, 0.1);
     GLHelper::setColor(RGBColor::CYAN);
-    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, length - (contourWidth * 2), 0.3 - contourWidth);
+    GLHelper::drawBoxLine(Position(0, -contourWidth), Position(0, -contourWidth), 0, (length * exaggeration) - (contourWidth * 2), (0.3 * exaggeration) - contourWidth);
     // draw stack label
-    GLHelper::drawText("Flow", Position(0, length / -2.0), .1, 0.6, RGBColor::BLACK, 90, 0, -1);
+    GLHelper::drawText("Flow", Position(0, length * exaggeration * -0.5), (.1 * exaggeration), (0.6 * exaggeration), RGBColor::BLACK, 90, 0, -1);
     // pop draw matrix
     glPopMatrix();
 }

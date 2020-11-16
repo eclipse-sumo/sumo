@@ -45,7 +45,7 @@ inserted into the network within a certain time period,
 departure times. Normally, this is done by using a random time within
 the time interval a O/D-matrix cell describes. It still is possible to
 insert a cell's vehicles with an uniform time between their insertion.
-Use the option --spread.uniform to enable this.
+Use the option **--spread.uniform** to enable this.
 
 You can scale the amounts stored in the O/D-matrices using the **--scale** {{DT_FLOAT}} option
 which assumes a float as parameter. All read flows will be multiplied
@@ -269,7 +269,7 @@ normed.
 
 ## Free Range Definitions
 
-The first possibility is to use the option --timeline directly. In this
+The first possibility is to use the option **--timeline** directly. In this
 case, it should be followed by a list of times and probabilities,
 separated by ','. Each time and probability field is made up of two
 values, an integer time being the simulation time in seconds and a
@@ -294,7 +294,7 @@ split the matrix into 24 subparts - this means the number of fields is
 fixed to 24 - allowing to spread an O/D-matrix over a day describing it
 by hours. To use this, give additionally the option
 --timeline.day-in-hours to [od2trips](../../od2trips.md). It the
-assumes the values from the --timeline - option being a list of 24
+assumes the values from the **--timeline** - option being a list of 24
 floats, divided by ',', each describing the probability of inserting a
 vehicle within the according hour.
 
@@ -412,7 +412,7 @@ trip ids.
 - missing connection to an origin AND a destination district: error
 
 <div style="border:1px solid #909090; min-height: 35px;" align="right">
-<span style="float: right; margin-top: -5px;"><a href="http://cordis.europa.eu/fp7/home_en.html"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
+<span style="float: right; margin-top: -5px;"><a href="https://wayback.archive-it.org/12090/20191127213419/https:/ec.europa.eu/research/fp7/index_en.cfm"><img src="../../images/FP7-small.gif" alt="Seventh Framework Programme"></a>
 <a href="https://trimis.ec.europa.eu/project/assessment-methodologies-ict-multimodal-transport-user-behaviour-co2-reduction"><img src="../../images/AMITRAN-small.png" alt="AMITRAN project"></a></span>
 <span style="">This part of SUMO was developed, reworked, or extended within the project 
 <a href="https://trimis.ec.europa.eu/project/assessment-methodologies-ict-multimodal-transport-user-behaviour-co2-reduction">"AMITRAN"</a>, co-funded by the European Commission within the <a href="https://cordis.europa.eu/about/archives">Seventh Framework Programme</a>.</span></div>

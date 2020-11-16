@@ -23,6 +23,7 @@
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/xml/XMLSubSys.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/GNEUndoList.h>
 #include <netedit/frames/GNEFrame.h>
 
 #include "GNESingleParametersDialog.h"
@@ -48,18 +49,18 @@ FXDEFMAP(GNESingleParametersDialog::ParametersValues) ParametersValuesMap[] = {
     FXMAPFUNC(SEL_PAINT,    0,                          GNESingleParametersDialog::ParametersValues::onPaint),
 };
 
-FXDEFMAP(GNESingleParametersDialog::ParametersOptions) ParametersOptionsMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_LOAD,    GNESingleParametersDialog::ParametersOptions::onCmdLoadParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNESingleParametersDialog::ParametersOptions::onCmdSaveParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CLEAR,   GNESingleParametersDialog::ParametersOptions::onCmdClearParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SORT,    GNESingleParametersDialog::ParametersOptions::onCmdSortParameters),
-    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNESingleParametersDialog::ParametersOptions::onCmdHelpParameter),
+FXDEFMAP(GNESingleParametersDialog::ParametersOperations) ParametersOperationsMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_LOAD,    GNESingleParametersDialog::ParametersOperations::onCmdLoadParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SAVE,    GNESingleParametersDialog::ParametersOperations::onCmdSaveParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_CLEAR,   GNESingleParametersDialog::ParametersOperations::onCmdClearParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_BUTTON_SORT,    GNESingleParametersDialog::ParametersOperations::onCmdSortParameters),
+    FXMAPFUNC(SEL_COMMAND,  MID_HELP,               GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter),
 };
 
 // Object implementation
-FXIMPLEMENT(GNESingleParametersDialog,                    FXDialogBox,   GNESingleParametersDialogMap,  ARRAYNUMBER(GNESingleParametersDialogMap))
-FXIMPLEMENT(GNESingleParametersDialog::ParametersValues,  FXGroupBox,    ParametersValuesMap,           ARRAYNUMBER(ParametersValuesMap))
-FXIMPLEMENT(GNESingleParametersDialog::ParametersOptions, FXGroupBox,    ParametersOptionsMap,          ARRAYNUMBER(ParametersOptionsMap))
+FXIMPLEMENT(GNESingleParametersDialog,                          FXDialogBox,    GNESingleParametersDialogMap,   ARRAYNUMBER(GNESingleParametersDialogMap))
+FXIMPLEMENT(GNESingleParametersDialog::ParametersValues,        FXGroupBox,     ParametersValuesMap,            ARRAYNUMBER(ParametersValuesMap))
+FXIMPLEMENT(GNESingleParametersDialog::ParametersOperations,    FXGroupBox,     ParametersOperationsMap,        ARRAYNUMBER(ParametersOperationsMap))
 
 // ===========================================================================
 // member method definitions
@@ -80,8 +81,6 @@ GNESingleParametersDialog::ParametersValues::ParametersValues(FXHorizontalFrame*
     FXScrollWindow* scrollWindow = new FXScrollWindow(this, LAYOUT_FILL);
     // create vertical frame for rows
     myVerticalFrameRow = new FXVerticalFrame(scrollWindow, GUIDesignAuxiliarFrame);
-    // update values
-    updateValues();
 }
 
 
@@ -89,45 +88,57 @@ GNESingleParametersDialog::ParametersValues::~ParametersValues() {}
 
 
 void
-GNESingleParametersDialog::ParametersValues::updateValues() {
-    // first show the correct number of rows
-    while ((myParameterDialogParent->myEditedParameters.size() + 1) < myParameterRows.size()) {
-        delete myParameterRows.back();
-        myParameterRows.pop_back();
-    }
-    while ((myParameterDialogParent->myEditedParameters.size() + 1) > myParameterRows.size()) {
-        myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
-    }
-    // fill rows
-    for (int i = 0; i < (int)myParameterDialogParent->myEditedParameters.size(); i++) {
-        myParameterRows.at(i)->enableRow(myParameterDialogParent->myEditedParameters.at(i).first, myParameterDialogParent->myEditedParameters.at(i).second);
-    }
-    // set last myParameterRows with the add button
-    myParameterRows.back()->toogleAddButton();
-}
-
-
-void
 GNESingleParametersDialog::ParametersValues::setParameters(const std::vector<std::pair<std::string, std::string> >& newParameters) {
-    myParameterDialogParent->myEditedParameters = newParameters;
-    // update values
-    updateValues();
+    // clear rows
+    clearParameters();
+    // iterate over parameteres
+    for (const auto &newParameter : newParameters) {
+        addParameter(newParameter);
+    }
 }
 
 
 void
 GNESingleParametersDialog::ParametersValues::addParameter(std::pair<std::string, std::string> newParameter) {
-    myParameterDialogParent->myEditedParameters.push_back(newParameter);
-    // update values
-    updateValues();
+    // enable last row
+    myParameterRows.back()->enableRow(newParameter.first, newParameter.second);
+    // add row
+    myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
+    // enable add button in the last row
+    myParameterRows.back()->toogleAddButton();
 }
 
 
 void
 GNESingleParametersDialog::ParametersValues::clearParameters() {
-    myParameterDialogParent->myEditedParameters.clear();
-    // update values
-    updateValues();
+    // iterate over all rows
+    for (const auto &parameterRow : myParameterRows) {
+        delete parameterRow;
+    }
+    //clear myParameterRows;
+    myParameterRows.clear();
+    // add row
+    myParameterRows.push_back(new ParameterRow(this, myVerticalFrameRow));
+    // enable add button in the last row
+    myParameterRows.back()->toogleAddButton();
+}
+
+
+const std::vector<GNESingleParametersDialog::ParametersValues::ParameterRow*> 
+GNESingleParametersDialog::ParametersValues::getParameterRows() const {
+    return myParameterRows;
+}
+
+
+bool 
+GNESingleParametersDialog::ParametersValues::keyExist(const std::string &key) const {
+    // just interate over myParameterRows and compare key
+    for (const auto &row : myParameterRows) {
+        if (row->keyField->getText().text() == key) {
+            return true;
+        }
+    }
+    return false;
 }
 
 
@@ -146,18 +157,13 @@ GNESingleParametersDialog::ParametersValues::onCmdSetAttribute(FXObject* obj, FX
     // find what value was changed
     for (int i = 0; i < (int)myParameterRows.size(); i++) {
         if (myParameterRows.at(i)->keyField == obj) {
-            // change key of Parameter
-            myParameterDialogParent->myEditedParameters.at(i).first = myParameterRows.at(i)->keyField->getText().text();
             // change color of text field depending if key is valid or empty
-            if (myParameterDialogParent->myEditedParameters.at(i).first.empty() || SUMOXMLDefinitions::isValidParameterKey(myParameterDialogParent->myEditedParameters.at(i).first)) {
+            if (myParameterRows.at(i)->keyField->getText().empty() || SUMOXMLDefinitions::isValidParameterKey(myParameterRows.at(i)->keyField->getText().text())) {
                 myParameterRows.at(i)->keyField->setTextColor(FXRGB(0, 0, 0));
             } else {
                 myParameterRows.at(i)->keyField->setTextColor(FXRGB(255, 0, 0));
                 myParameterRows.at(i)->keyField->killFocus();
             }
-        } else if (myParameterRows.at(i)->valueField == obj) {
-            // change value of Parameter
-            myParameterDialogParent->myEditedParameters.at(i).second = myParameterRows.at(i)->valueField->getText().text();
         }
     }
     return 1;
@@ -169,18 +175,16 @@ GNESingleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, FXS
     // first check if add button was pressed
     if (myParameterRows.back()->button == obj) {
         // create new parameter
-        myParameterDialogParent->myEditedParameters.push_back(std::make_pair("", ""));
-        // update values and finish
-        updateValues();
+        addParameter(std::make_pair("", ""));
         return 1;
     } else {
         // in other case, button press was a "remove button". Find id and remove the Parameter
         for (int i = 0;  i < (int)myParameterRows.size(); i++) {
-            if (myParameterRows.at(i)->button == obj && i < (int)myParameterDialogParent->myEditedParameters.size()) {
-                // remove parameter
-                myParameterDialogParent->myEditedParameters.erase(myParameterDialogParent->myEditedParameters.begin() + i);
-                // update values and finish
-                updateValues();
+            if (myParameterRows.at(i)->button == obj) {
+                // delete row
+                delete myParameterRows.at(i);
+                // just remove row
+                myParameterRows.erase(myParameterRows.begin() + i);
                 return 1;
             }
         }
@@ -268,26 +272,26 @@ GNESingleParametersDialog::ParametersValues::ParameterRow::copyValues(const Para
 }
 
 // ---------------------------------------------------------------------------
-// GNESingleParametersDialog::ParametersOptions - methods
+// GNESingleParametersDialog::ParametersOperations - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::ParametersOptions::ParametersOptions(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent) :
-    FXGroupBox(frame, "Options", GUIDesignGroupBoxFrame100),
+GNESingleParametersDialog::ParametersOperations::ParametersOperations(FXHorizontalFrame* frame, GNESingleParametersDialog* ParameterDialogParent) :
+    FXGroupBox(frame, "Operations", GUIDesignGroupBoxFrame100),
     myParameterDialogParent(ParameterDialogParent) {
     // create buttons
-    mySortButton =  new FXButton(this, "Sort",  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100x23);
-    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100x23);
-    myLoadButton =  new FXButton(this, "Load",  GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100x23);
-    mySaveButton =  new FXButton(this, "Save",  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100x23);
-    myHelpButton =  new FXButton(this, "Help",  GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100x23);
+    mySortButton =  new FXButton(this, "Sort",  GUIIconSubSys::getIcon(GUIIcon::RELOAD), this, MID_GNE_BUTTON_SORT, GUIDesignButtonRectangular100);
+    myClearButton = new FXButton(this, "Clear", GUIIconSubSys::getIcon(GUIIcon::CLEANJUNCTIONS), this, MID_GNE_BUTTON_CLEAR, GUIDesignButtonRectangular100);
+    myLoadButton =  new FXButton(this, "Load",  GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_BUTTON_LOAD, GUIDesignButtonRectangular100);
+    mySaveButton =  new FXButton(this, "Save",  GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_BUTTON_SAVE, GUIDesignButtonRectangular100);
+    myHelpButton =  new FXButton(this, "Help",  GUIIconSubSys::getIcon(GUIIcon::HELP), this, MID_HELP, GUIDesignButtonRectangular100);
 }
 
 
-GNESingleParametersDialog::ParametersOptions::~ParametersOptions() {}
+GNESingleParametersDialog::ParametersOperations::~ParametersOperations() {}
 
 
 long
-GNESingleParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::ParametersOperations::onCmdLoadParameters(FXObject*, FXSelector, void*) {
     // get the Additional file name
     FXFileDialog opendialog(this, "Open Parameter Template");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
@@ -300,23 +304,21 @@ GNESingleParametersDialog::ParametersOptions::onCmdLoadParameters(FXObject*, FXS
         gCurrentFolder = opendialog.getDirectory();
         std::string file = opendialog.getFilename().text();
         // save current number of parameters
-        int numberOfParametersbeforeLoad = (int)myParameterDialogParent->myEditedParameters.size();
+        const int numberOfParametersbeforeLoad = (int)myParameterDialogParent->myParametersValues->getParameterRows().size();
         // Create additional handler and run parser
         GNEParameterHandler handler(this, file);
         if (!XMLSubSys::runParser(handler, file, false)) {
             WRITE_MESSAGE("Loading of Parameters From " + file + " failed.");
         }
         // show loaded attributes
-        WRITE_MESSAGE("Loaded " + toString((int)myParameterDialogParent->myEditedParameters.size() - numberOfParametersbeforeLoad) + " Parameters.");
-        // update values
-        myParameterDialogParent->myParametersValues->updateValues();
+        WRITE_MESSAGE("Loaded " + toString((int)myParameterDialogParent->myParametersValues->getParameterRows().size() - numberOfParametersbeforeLoad) + " Parameters.");
     }
     return 1;
 }
 
 
 long
-GNESingleParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*, FXSelector, void*) {
     // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
                     "Select name of the Parameter Template file", ".xml",
@@ -326,15 +328,25 @@ GNESingleParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, FXS
         // None parameter file was selected, then stop function
         return 1;
     } else {
+        // open device
         OutputDevice& device = OutputDevice::getDevice(file.text());
+        // write header
         device.writeXMLHeader("Parameter", "parameter_file.xsd");
         // iterate over all parameters and save it in the filename
-        for (auto i = myParameterDialogParent->myEditedParameters.begin(); i != myParameterDialogParent->myEditedParameters.end(); i++) {
-            device.openTag(SUMO_TAG_PARAM);
-            device.writeAttr(SUMO_ATTR_KEY, i->first);
-            device.writeAttr(SUMO_ATTR_VALUE, i->second);
-            device.closeTag();
+        for (const auto &row : myParameterDialogParent->myParametersValues->getParameterRows()) {
+            // write all except last
+            if (row != myParameterDialogParent->myParametersValues->getParameterRows().back()) {
+                // open tag
+                device.openTag(SUMO_TAG_PARAM);
+                // write key
+                device.writeAttr(SUMO_ATTR_KEY, row->keyField->getText().text());
+                // write value
+                device.writeAttr(SUMO_ATTR_VALUE, row->valueField->getText().text());
+                // close tag
+                device.closeTag();
+            }
         }
+        // close device
         device.close();
     }
     return 1;
@@ -342,7 +354,7 @@ GNESingleParametersDialog::ParametersOptions::onCmdSaveParameters(FXObject*, FXS
 
 
 long
-GNESingleParametersDialog::ParametersOptions::onCmdClearParameters(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::ParametersOperations::onCmdClearParameters(FXObject*, FXSelector, void*) {
     // simply clear parameters from ParametersValues
     myParameterDialogParent->myParametersValues->clearParameters();
     return 1;
@@ -350,37 +362,35 @@ GNESingleParametersDialog::ParametersOptions::onCmdClearParameters(FXObject*, FX
 
 
 long
-GNESingleParametersDialog::ParametersOptions::onCmdSortParameters(FXObject*, FXSelector, void*) {
-    std::vector<std::pair<std::string, std::string> > ParametersNoEmpty;
-    std::vector<std::string> valuesEmpty;
+GNESingleParametersDialog::ParametersOperations::onCmdSortParameters(FXObject*, FXSelector, void*) {
+    // declare two containers for parameters
+    std::vector<std::pair<std::string, std::string> > nonEmptyKeyValues;
+    std::vector<std::string> emptyKeyValues;
     // first extract empty values
-    for (auto i = myParameterDialogParent->myEditedParameters.begin(); i != myParameterDialogParent->myEditedParameters.end(); i++) {
-        if (!i->first.empty()) {
-            ParametersNoEmpty.push_back(*i);
-        } else if (i->first.empty() && !i->second.empty()) {
-            valuesEmpty.push_back(i->second);
+    for (const auto &parameterRow : myParameterDialogParent->myParametersValues->getParameterRows()) {
+        // check if key is empty
+        if (!parameterRow->keyField->getText().empty()) {
+            nonEmptyKeyValues.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
+        } else if (!parameterRow->valueField->getText().empty()) {
+            emptyKeyValues.push_back(parameterRow->valueField->getText().text());
         }
     }
-    // now sort non-empty parameters
-    std::sort(ParametersNoEmpty.begin(), ParametersNoEmpty.end());
+    // sort non-empty parameters
+    std::sort(nonEmptyKeyValues.begin(), nonEmptyKeyValues.end());
+    // sort non-empty parameters
+    std::sort(emptyKeyValues.begin(), emptyKeyValues.end());
     // add values without key
-    for (auto i : valuesEmpty) {
-        ParametersNoEmpty.push_back(std::make_pair("", i));
+    for (const auto & emptyKeyValue : emptyKeyValues) {
+        nonEmptyKeyValues.push_back(std::make_pair("", emptyKeyValue));
     }
-    // fill ParametersNoEmpty with empty values
-    while (ParametersNoEmpty.size() < myParameterDialogParent->myEditedParameters.size()) {
-        ParametersNoEmpty.push_back(std::make_pair("", ""));
-    }
-    // finally replace parameters in myParametersValues with ParametersNoEmpty
-    myParameterDialogParent->myParametersValues->setParameters(ParametersNoEmpty);
-    // update values
-    myParameterDialogParent->myParametersValues->updateValues();
+    // finally setparameters in myParametersValues
+    myParameterDialogParent->myParametersValues->setParameters(nonEmptyKeyValues);
     return 1;
 }
 
 
 long
-GNESingleParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSelector, void*) {
+GNESingleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*, FXSelector, void*) {
     // Create dialog box
     FXDialogBox* ParameterHelpDialog = new FXDialogBox(this, " Parameters Help", GUIDesignDialogBox);
     ParameterHelpDialog->setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
@@ -417,17 +427,17 @@ GNESingleParametersDialog::ParametersOptions::onCmdHelpParameter(FXObject*, FXSe
 }
 
 
-GNESingleParametersDialog::ParametersOptions::GNEParameterHandler::GNEParameterHandler(ParametersOptions* ParametersOptionsParent, const std::string& file) :
+GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::GNEParameterHandler(ParametersOperations* ParametersOperationsParent, const std::string& file) :
     SUMOSAXHandler(file),
-    myParametersOptionsParent(ParametersOptionsParent) {
+    myParametersOperationsParent(ParametersOperationsParent) {
 }
 
 
-GNESingleParametersDialog::ParametersOptions::GNEParameterHandler::~GNEParameterHandler() {}
+GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::~GNEParameterHandler() {}
 
 
 void
-GNESingleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
+GNESingleParametersDialog::ParametersOperations::GNEParameterHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     // Obtain tag of element
     SumoXMLTag tag = static_cast<SumoXMLTag>(element);
     // only continue if tag is valid
@@ -451,9 +461,11 @@ GNESingleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElemen
                         } else {
                             WRITE_WARNING("Key '" + key + "' of Parameter contains invalid characters");
                         }
+                    } else if (myParametersOperationsParent->myParameterDialogParent->myParametersValues->keyExist(key)) {
+                        WRITE_WARNING("Key '" + key + "' already exist");
                     } else {
                         // add parameter to vector of myParameterDialogParent
-                        myParametersOptionsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
+                        myParametersOperationsParent->myParameterDialogParent->myParametersValues->addParameter(std::make_pair(key, value));
                     }
                 }
                 break;
@@ -467,26 +479,42 @@ GNESingleParametersDialog::ParametersOptions::GNEParameterHandler::myStartElemen
 // GNESingleParametersDialog - methods
 // ---------------------------------------------------------------------------
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditor* ParametersEditor) :
-    FXDialogBox(ParametersEditor->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myParametersEditor(ParametersEditor),
-    VTypeAttributeRow(nullptr),
-    myEditedParameters(ParametersEditor->getParametersVectorStr()),
-    myCopyOfParameters(ParametersEditor->getParametersVectorStr()) {
+GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributesModuls::ParametersEditorCreator* parametersEditorCreator) :
+    FXDialogBox(parametersEditorCreator->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myParametersEditorCreator(parametersEditorCreator),
+    myParametersEditorInspector(nullptr),
+    VTypeAttributeRow(nullptr) {
+    // call auxiliar constructor for elements
+    constructor();
+    // fill myParametersValues
+    myParametersValues->setParameters(parametersEditorCreator->getParameters());
+}
+
+
+GNESingleParametersDialog::GNESingleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector) :
+    FXDialogBox(parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myParametersEditorCreator(nullptr),
+    myParametersEditorInspector(parametersEditorInspector),
+    VTypeAttributeRow(nullptr) {
     // call auxiliar constructor
     constructor();
+    // get AC Front
+    const GNEAttributeCarrier *AC = parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
+    // fill myParametersValues
+    myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
 }
 
 
 
 GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet *viewNet) :
     FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
-    myParametersEditor(nullptr),
-    VTypeAttributeRow(VTypeAttributeRow),
-    myEditedParameters(VTypeAttributeRow->getParametersVectorStr()),
-    myCopyOfParameters(VTypeAttributeRow->getParametersVectorStr()) {
+    myParametersEditorCreator(nullptr),
+    myParametersEditorInspector(nullptr),
+    VTypeAttributeRow(VTypeAttributeRow) {
     // call auxiliar constructor
     constructor();
+    // fill myEditedParameters
+    myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
 }
 
 
@@ -495,39 +523,48 @@ GNESingleParametersDialog::~GNESingleParametersDialog() {}
 
 long
 GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
+    // declare vector for parameters in stringvector format
+    std::vector<std::pair<std::string, std::string> > parameters;
     // check if all edited parameters are valid
-    for (const auto& parameter : myEditedParameters) {
-        if (parameter.first.empty()) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-            // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-            return 1;
-        } else if (!SUMOXMLDefinitions::isValidParameterKey(parameter.first)) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-            // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-            return 1;
-        } else if (myParametersEditor && (myParametersEditor->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) && !GNEAttributeCarrier::canParse<double>(parameter.second)) {
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
-            // open warning Box
-            FXMessageBox::warning(getApp(), MBOX_OK, "Invalid double Parameter value", "%s", "There are values that cannot be parsed to floats");
-            // write warning if netedit is running in testing mode
-            WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
-            return 1;
+    for (const auto& parameterRow : myParametersValues->getParameterRows()) {
+        // ignore last row
+        if (parameterRow != myParametersValues->getParameterRows().back()) {
+            if (parameterRow->keyField->getText().empty()) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+                // open warning Box
+                FXMessageBox::warning(getApp(), MBOX_OK, "Empty Parameter key", "%s", "Parameters with empty keys aren't allowed");
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+                return 1;
+            } else if (!SUMOXMLDefinitions::isValidParameterKey(parameterRow->keyField->getText().text())) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+                // open warning Box
+                FXMessageBox::warning(getApp(), MBOX_OK, "Invalid Parameter key", "%s", "There are keys with invalid characters");
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+                return 1;
+            } else if (myParametersEditorCreator && 
+                       (myParametersEditorCreator->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) && 
+                       !GNEAttributeCarrier::canParse<double>(parameterRow->valueField->getText().text())) {
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
+                // open warning Box
+                FXMessageBox::warning(getApp(), MBOX_OK, "Invalid double Parameter value", "%s", "There are values that cannot be parsed to floats");
+                // write warning if netedit is running in testing mode
+                WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
+                return 1;
+            }
+            // insert in parameters
+            parameters.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
         }
     }
-    // now check if there is duplicates parameters
-    std::vector<std::pair<std::string, std::string> > sortedParameters = myEditedParameters;
-    std::sort(sortedParameters.begin(), sortedParameters.end());
-    for (auto i = sortedParameters.begin(); i != sortedParameters.end(); i++) {
-        if (((i + 1) != sortedParameters.end()) && (i->first) == (i + 1)->first) {
+    // sort sortedParameters
+    std::sort(parameters.begin(), parameters.end());
+    // check if there is duplicated keys
+    for (auto i = parameters.begin(); i != parameters.end(); i++) {
+        if (((i + 1) != parameters.end()) && (i->first) == (i + 1)->first) {
             // write warning if netedit is running in testing mode
             WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
             // open warning Box
@@ -538,10 +575,17 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         }
     }
     // set parameters in Parameters editor parents
-    if (myParametersEditor) {
-        myParametersEditor->setParameters(myEditedParameters);
+    if (myParametersEditorCreator) {
+        myParametersEditorCreator->setParameters(parameters);
+    } else if (myParametersEditorInspector) {
+        // get inspected AC
+        GNEAttributeCarrier *AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
+        // set parameter
+        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("change parameters");
+        AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
+        myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
     } else {
-        VTypeAttributeRow->setParameters(myEditedParameters);
+        VTypeAttributeRow->setParameters(parameters);
     }
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
@@ -551,8 +595,6 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
 
 long
 GNESingleParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
-    // restore copy of parameters
-    myParametersValues->setParameters(myCopyOfParameters);
     // Stop Modal
     getApp()->stopModal(this, FALSE);
     return 1;
@@ -561,8 +603,15 @@ GNESingleParametersDialog::onCmdCancel(FXObject*, FXSelector, void*) {
 
 long
 GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
-    // simply restore copy of parameters and continue editing
-    myParametersValues->setParameters(myCopyOfParameters);
+    // restore original parameters
+    if (myParametersEditorCreator) {
+        myParametersValues->setParameters(myParametersEditorCreator->getParameters());
+    } else if (myParametersEditorInspector) {
+        const GNEAttributeCarrier *AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
+        myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
+    } else if (VTypeAttributeRow) {
+        myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
+    }
     return 1;
 }
 
@@ -573,12 +622,12 @@ GNESingleParametersDialog::constructor() {
     setIcon(GUIIconSubSys::getIcon(GUIIcon::APP_TABLE));
     // create main frame
     FXVerticalFrame* mainFrame = new FXVerticalFrame(this, GUIDesignAuxiliarFrame);
-    // create frame for Parameters and options
-    FXHorizontalFrame* horizontalFrameParametersAndOptions = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
+    // create frame for Parameters and operations
+    FXHorizontalFrame* horizontalFrameExtras = new FXHorizontalFrame(mainFrame, GUIDesignAuxiliarFrame);
     // create parameters values
-    myParametersValues = new ParametersValues(horizontalFrameParametersAndOptions, this);
-    // create parameters options
-    myParametersOptions = new ParametersOptions(horizontalFrameParametersAndOptions, this);
+    myParametersValues = new ParametersValues(horizontalFrameExtras, this);
+    // create parameters operations
+    myParametersOperations = new ParametersOperations(horizontalFrameExtras, this);
     // add separator
     new FXHorizontalSeparator(mainFrame, GUIDesignHorizontalSeparator);
     // create dialog buttons bot centered

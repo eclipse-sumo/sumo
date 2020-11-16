@@ -38,8 +38,8 @@ netedit.additionalMode()
 netedit.changeElement("e2MultilaneDetector")
 
 # create E2 with default parameters
-netedit.leftClick(referencePosition, 190, 255)
-netedit.leftClick(referencePosition, 440, 255)
+netedit.leftClick(referencePosition, 190, 240)
+netedit.leftClick(referencePosition, 440, 240)
 netedit.typeEnter()
 
 # create second  with default parameters (for ID)
@@ -51,7 +51,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect first E2
-netedit.leftClick(referencePosition, 320, 255)
+netedit.leftClick(referencePosition, 320, 240)
 
 # Change parameter id with a non valid value (Duplicated ID)
 netedit.modifyAttribute(0, "e2MultilaneDetector_1", True)

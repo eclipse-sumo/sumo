@@ -20,15 +20,12 @@ data files read by IPG traces.
 """
 from __future__ import print_function
 from __future__ import absolute_import
-import datetime
-import sumolib.output
-import sumolib.net
 
 
 def fcd2ipg(inpFCD, outSTRM, further):
-    print('# Time tx ty tz rx ry rz\n', file=outSTRM)
+    print('# Time tx ty tz rx ry rz', file=outSTRM)
     for timestep in inpFCD:
         if timestep.vehicle:
             for v in timestep.vehicle:
-                print('%s %s %s %s %s 0 0\n'
+                print('%s %s %s %s %s 0 0'
                       % (timestep.time, v.x, v.y, v.z, v.angle), file=outSTRM)

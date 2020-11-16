@@ -306,4 +306,16 @@ This tool adds a random delay to some or all stops that have a 'duration' value 
 
 The delays are sampled from a [truncated Normal distribution](https://en.wikipedia.org/wiki/Truncated_normal_distribution) with parameters set via options
 **--mean FLOAT, --dev FLOAT, --min FLOAT, --max FLOAT**. In the special case where min=max, a fixed delay is added.
-By setting option **--probability FLOAT**, stops only receive a delay with the given probability.
+By setting option **--probability FLOAT**, stops only receive a delay with the given probability.#
+
+
+
+# checkStopOrder.py
+
+This tool reads a [public transport schedule for vehicles or trips](../Simulation/Public_Transport.md#single_vehicles_and_trips) and checks whether the time spent at the same stop by different vehicles is overlapping. This occurence may be expected for bus lines but typically indicates a data error for a railway schedule (unless [portion working](../Simulation/Railways.md#portion_working) takes place).
+```
+<SUMO_HOME>/tools/route/checkStopOrder.py -r <route-file>
+```
+
+When setting option **--stop-table STOP_ID** a time table for all vehicles that service the given `<busStop>`-id is written to standard output.
+

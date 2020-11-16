@@ -1,7 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding routeProbe 'routeProbe_01' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Inserting parameter 'KeyA1|valueA1' into additional routeProbe.
 Debug: Inserting parameter 'KeyA3|valueA2' into additional routeProbe.
 Debug: Inserting parameter 'KeyA2|valueA3' into additional routeProbe.
@@ -9,8 +7,6 @@ Debug: Adding routeProbe 'routeProbe_02' in GNEChange_Additional
 Debug: Inserting parameter 'KeyB1|valueB1' into additional routeProbe.
 Debug: Inserting parameter 'KeyB3|valueB2' into additional routeProbe.
 Debug: Inserting parameter 'KeyB2|valueB3' into additional routeProbe.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
@@ -63,8 +59,6 @@ Debug: Setting new attribute begin '11.3' into routeProbe 'routeProbe_01'
 Debug: Setting new attribute begin '11.3' into routeProbe 'routeProbe_02'
 Debug: Additionals saved
 Debug: Deleting unreferenced routeProbe 'routeProbe_02'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced routeProbe 'routeProbe_01'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor

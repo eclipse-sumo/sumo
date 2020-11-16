@@ -30,6 +30,7 @@
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEConnection.h"
 #include "GNEInternalLane.h"
@@ -298,7 +299,7 @@ GNEConnection::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     // check if we're in supermode network
     if (myNet->getViewNet()->getEditModes().isCurrentSupermodeNetwork()) {
         // create menu commands
-        FXMenuCommand* mcCustomShape = new FXMenuCommand(ret, "Set custom connection shape", nullptr, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
+        FXMenuCommand* mcCustomShape = GUIDesigns::buildFXMenuCommand(ret, "Set custom connection shape", nullptr, &parent, MID_GNE_CONNECTION_EDIT_SHAPE);
         // check if menu commands has to be disabled
         NetworkEditMode editMode = myNet->getViewNet()->getEditModes().networkEditMode;
         // check if we're in the correct edit mode
@@ -418,10 +419,18 @@ GNEConnection::drawGL(const GUIVisualizationSettings& s) const {
             // check if dotted contour has to be drawn (not useful at high zoom)
             if (s.drawDottedContour() || myNet->getViewNet()->isAttributeCarrierInspected(this)) {
                 // calculate dotted geometry
-                GNEGeometry::DottedGeometry dottedConnectionGeometry(s, myConnectionGeometry.getShape(), false);
+                GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
                 dottedConnectionGeometry.setWidth(0.1);
                 // use drawDottedContourLane to draw it
                 GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::INSPECT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
+            }
+            // check if front contour has to be drawn (not useful at high zoom)
+            if (s.drawDottedContour() || (myNet->getViewNet()->getFrontAttributeCarrier() == this)) {
+                // calculate dotted geometry
+                GNEGeometry::DottedGeometry dottedConnectionGeometry(s, shapeSuperposed, false);
+                dottedConnectionGeometry.setWidth(0.1);
+                // use drawDottedContourLane to draw it
+                GNEGeometry::drawDottedContourLane(GNEGeometry::DottedContourType::FRONT, s, dottedConnectionGeometry, s.connectionSettings.connectionWidth * selectionScale, true, true);
             }
         }
     }
@@ -654,6 +663,12 @@ GNEConnection::isAttributeEnabled(SumoXMLAttr key) const {
         default:
             return true;
     }
+}
+
+
+const std::map<std::string, std::string>& 
+GNEConnection::getACParametersMap() const {
+    return getNBEdgeConnection().getParametersMap();
 }
 
 // ===========================================================================

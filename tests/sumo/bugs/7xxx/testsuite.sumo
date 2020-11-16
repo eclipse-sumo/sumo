@@ -18,3 +18,13 @@ ticket7473
 
 # invalid xsd validation error
 ticket7647
+
+# crash for trip with stop on internal lane
+ticket7690
+
+# emergency braking for left turning vehicle
+ticket7764
+
+# emergency braking for left turning vehicle.
+# Network is taken from tests/netconvert/function/crossings/specified/4_arm_bent_priority_tls_oncoming
+ticket7764_intermodal

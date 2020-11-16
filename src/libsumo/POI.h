@@ -49,8 +49,6 @@ class VariableWrapper;
 namespace libsumo {
 class POI {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static std::string getType(const std::string& poiID);
     static TraCIPosition getPosition(const std::string& poiID, const bool includeZ = false);
     static TraCIColor getColor(const std::string& poiID);
@@ -58,11 +56,12 @@ public:
     static double getHeight(const std::string& poiID);
     static double getAngle(const std::string& poiID);
     static std::string getImageFile(const std::string& poiID);
-    static std::string getParameter(const std::string& poiID, const std::string& key);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
+
+    LIBSUMO_ID_PARAMETER_API
+    LIBSUMO_SUBSCRIPTION_API
 
     static void setType(const std::string& poiID, const std::string& setType);
-    static void setColor(const std::string& poiID, const TraCIColor& c);
+    static void setColor(const std::string& poiID, const TraCIColor& color);
     static void setPosition(const std::string& poiID, double x, double y);
     static void setWidth(const std::string& poiID, double width);
     static void setHeight(const std::string& poiID, double height);
@@ -72,9 +71,6 @@ public:
     static bool remove(const std::string& poiID, int layer = 0);
     static void highlight(const std::string& poiID, const TraCIColor& col = TraCIColor(255, 0, 0, 255), double size = -1, const int alphaMax = -1, const double duration = -1, const int type = 0);
 
-    static void setParameter(const std::string& poiID, const std::string& key, const std::string& value);
-
-    LIBSUMO_SUBSCRIPTION_API
 
     /** @brief Returns a tree filled with PoI instances
      *  @return The rtree of PoIs

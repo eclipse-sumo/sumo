@@ -203,7 +203,7 @@ LineReader::reinit() {
     if (myAvailable >= 3) {
         // check for BOM
         myStrm.read(myBuffer, 3);
-        if (myBuffer[0] == (char)0xef && myBuffer[1] == (char)0xbb && myBuffer[2] == (char)0xbf) {
+        if (myBuffer[0] == '\xef' && myBuffer[1] == '\xbb' && myBuffer[2] == '\xbf') {
             myAvailable -= 3;
         } else {
             myStrm.seekg(0, std::ios::beg);

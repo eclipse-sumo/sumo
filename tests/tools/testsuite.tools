@@ -43,6 +43,4 @@ projects
 sumolib
 public_transport
 
-# test functions for traceExporter
-traceExporter
 misc

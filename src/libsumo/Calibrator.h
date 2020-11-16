@@ -43,9 +43,6 @@ class VariableWrapper;
 namespace libsumo {
 class Calibrator {
 public:
-
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static std::string getEdgeID(const std::string& calibratorID);
     static std::string getLaneID(const std::string& calibratorID);
     static double getVehsPerHour(const std::string& calibratorID);
@@ -59,18 +56,16 @@ public:
     static int getPassed(const std::string& calibratorID);
     static int getInserted(const std::string& calibratorID);
     static int getRemoved(const std::string& calibratorID);
-    static std::string getParameter(const std::string& calibratorID, const std::string& param);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
+
+    LIBSUMO_ID_PARAMETER_API
+    LIBSUMO_SUBSCRIPTION_API
 
     static void setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed, const std::string& typeID,
                         const std::string& routeID,
                         const std::string& departLane = "first",
                         const std::string& departSpeed = "max");
 
-    static void setParameter(const std::string& calibratorID, const std::string& key, const std::string& value); // not needed so far
-
-    LIBSUMO_SUBSCRIPTION_API
-
+#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
@@ -82,6 +77,7 @@ private:
 private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
+#endif
 
     /// @brief invalidated standard constructor
     Calibrator() = delete;

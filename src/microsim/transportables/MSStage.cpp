@@ -315,12 +315,13 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                             } else {
                                 depPos = first->getLength();
                             }
-                        } else if (previous->getEdge() != it->edges.front()) {
-//                            if (previous->getEdge()->getToJunction() == it->edges.front()->getToJunction()) {
-//                                depPos = it->edges.front()->getLength();
-//                            } else {
-                            depPos = 0.;
-//                            }
+                        } else if (previous->getDestination() != it->edges.front()) {
+                            if ((previous->getDestination()->getToJunction() == it->edges.front()->getToJunction())
+                                    || (previous->getDestination()->getFromJunction() == it->edges.front()->getToJunction())) {
+                                depPos = it->edges.front()->getLength();
+                            } else {
+                                depPos = 0.;
+                            }
                         }
                         if (myDestination->isTazConnector()) {
                             // walk the whole length of the last edge
@@ -346,21 +347,21 @@ MSStageTrip::setArrived(MSNet* net, MSTransportable* transportable, SUMOTime now
                                 previous->setArrivalPos(MAX2(0.0, last->getLength() - 10));
                             }
                         }
-                        previous = new MSStageDriving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }), myGroup);
+                        previous = new MSStageDriving(nullptr, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ "taxi" }), myGroup);
                         transportable->appendStage(previous, stageIndex++);
                     } else if (vehicle != nullptr && it->line == vehicle->getID()) {
                         if (bs == nullptr && it + 1 != result.end()) {
                             // we have no defined endpoint and are in the middle of the trip, drive as far as possible
                             localArrivalPos = it->edges.back()->getLength();
                         }
-                        previous = new MSStageDriving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }));
+                        previous = new MSStageDriving(nullptr, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }));
                         transportable->appendStage(previous, stageIndex++);
                         vehicle->replaceRouteEdges(it->edges, -1, 0, "person:" + transportable->getID(), true);
                         vehicle->setArrivalPos(localArrivalPos);
                         vehControl.addVehicle(vehPar->id, vehicle);
                         carUsed = true;
                     } else {
-                        previous = new MSStageDriving(it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), myGroup, it->intended, TIME2STEPS(it->depart));
+                        previous = new MSStageDriving(nullptr, it->edges.back(), bs, localArrivalPos, std::vector<std::string>({ it->line }), myGroup, it->intended, TIME2STEPS(it->depart));
                         transportable->appendStage(previous, stageIndex++);
                     }
                 }

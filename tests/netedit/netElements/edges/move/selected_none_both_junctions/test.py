@@ -32,14 +32,14 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 netedit.selectMode()
 
 # select both junctions
-netedit.leftClick(referencePosition, 75, 220)
-netedit.leftClick(referencePosition, 570, 220)
+netedit.leftClick(referencePosition, 75, 210)
+netedit.leftClick(referencePosition, 570, 210)
 
 # change to move mode
 netedit.moveMode()
 
 # move all
-netedit.moveElement(referencePosition, 325, 220, 325, 90)
+netedit.moveElement(referencePosition, 325, 205, 325, 75)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)

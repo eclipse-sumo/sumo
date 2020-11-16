@@ -272,7 +272,9 @@ HelpersPHEMlight::compute(const SUMOEmissionClass c, const PollutantsInterface::
     PHEMlightdll::CEP* currCep = myCEPs.count(c) == 0 ? 0 : myCEPs.find(c)->second;
     if (currCep != nullptr) {
         const double corrAcc = getModifiedAccel(c, corrSpeed, a, slope);
-        if (currCep->getFuelType() != PHEMlightdll::Constants::strBEV && corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) && corrSpeed > PHEMlightdll::Constants::ZERO_SPEED_ACCURACY) {
+        if (currCep->getFuelType() != PHEMlightdll::Constants::strBEV &&
+            corrAcc < currCep->GetDecelCoast(corrSpeed, corrAcc, slope) &&
+            corrSpeed > PHEMlightdll::Constants::ZERO_SPEED_ACCURACY) {
             // the IDLE_SPEED fix above is now directly in the decel coast calculation.
             return 0;
         }

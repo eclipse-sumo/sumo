@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:42 2020 by Eclipse SUMO netgenerate Version v1_5_0+0130-ceb0a01
+<!-- generated on Thu Nov  5 21:19:26 2020 by Eclipse SUMO netgenerate Version v1_7_0+0854-6df8132f4e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -374,13 +374,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":4_1_0" index="0" speed="13.89" length="17.18" shape="598.40,709.98 598.40,692.80"/>
     </edge>
     <edge id=":4_2" function="internal">
-        <lane id=":4_2_0" index="0" speed="8.36" length="7.63" shape="598.40,709.98 599.16,706.12 600.89,702.86"/>
+        <lane id=":4_2_0" index="0" speed="8.36" length="5.73" shape="598.40,709.98 599.16,706.12 600.00,704.54"/>
     </edge>
     <edge id=":4_3" function="internal">
         <lane id=":4_3_0" index="0" speed="3.65" length="2.34" shape="598.40,709.98 599.20,708.78 600.00,708.38"/>
     </edge>
     <edge id=":4_16" function="internal">
-        <lane id=":4_16_0" index="0" speed="8.36" length="7.98" shape="600.89,702.86 601.15,702.37 603.97,699.53 607.20,698.40"/>
+        <lane id=":4_16_0" index="0" speed="8.36" length="9.88" shape="600.00,704.54 601.15,702.37 603.97,699.53 607.20,698.40"/>
     </edge>
     <edge id=":4_17" function="internal">
         <lane id=":4_17_0" index="0" speed="3.65" length="2.34" shape="600.00,708.38 600.80,708.78 601.60,709.98"/>
@@ -404,13 +404,13 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":4_9_0" index="0" speed="13.89" length="17.18" shape="601.60,692.80 601.60,709.98"/>
     </edge>
     <edge id=":4_10" function="internal">
-        <lane id=":4_10_0" index="0" speed="11.62" length="6.40" shape="601.60,692.80 600.83,696.27 599.52,698.80"/>
+        <lane id=":4_10_0" index="0" speed="11.62" length="5.35" shape="601.60,692.80 600.83,696.27 600.00,697.87"/>
     </edge>
     <edge id=":4_11" function="internal">
         <lane id=":4_11_0" index="0" speed="3.65" length="2.34" shape="601.60,692.80 600.80,694.00 600.00,694.40"/>
     </edge>
     <edge id=":4_18" function="internal">
-        <lane id=":4_18_0" index="0" speed="11.62" length="10.73" shape="599.52,698.80 598.78,700.22 595.89,703.97 592.58,706.87"/>
+        <lane id=":4_18_0" index="0" speed="11.62" length="11.78" shape="600.00,697.87 598.78,700.22 595.89,703.97 592.58,706.87"/>
     </edge>
     <edge id=":4_19" function="internal">
         <lane id=":4_19_0" index="0" speed="3.65" length="2.34" shape="600.00,694.40 599.20,694.00 598.40,692.80"/>
@@ -918,9 +918,9 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":3_9_0" type="internal" x="600.00" y="1305.60" incLanes=":3_2_0 19_0 29_0" intLanes=":3_3_0 :3_7_0"/>
     <junction id=":3_10_0" type="internal" x="600.00" y="1298.40" incLanes=":3_4_0 11_0" intLanes=":3_0_0 :3_1_0 :3_7_0 :3_8_0"/>
     <junction id=":3_11_0" type="internal" x="600.00" y="1294.40" incLanes=":3_5_0 11_0 19_0" intLanes=":3_1_0 :3_6_0"/>
-    <junction id=":4_16_0" type="internal" x="600.89" y="702.86" incLanes=":4_2_0 8_0" intLanes=":4_5_0 :4_6_0 :4_7_0 :4_8_0 :4_9_0 :4_13_0 :4_14_0"/>
+    <junction id=":4_16_0" type="internal" x="600.00" y="704.54" incLanes=":4_2_0 8_0" intLanes=":4_5_0 :4_6_0 :4_7_0 :4_8_0 :4_9_0 :4_13_0 :4_14_0"/>
     <junction id=":4_17_0" type="internal" x="600.00" y="708.38" incLanes=":4_3_0 18_0 28_0 8_0" intLanes=":4_4_0 :4_9_0 :4_14_0"/>
-    <junction id=":4_18_0" type="internal" x="599.52" y="698.80" incLanes=":4_10_0 34_0" intLanes=":4_0_0 :4_1_0 :4_5_0 :4_6_0 :4_13_0 :4_14_0 :4_15_0"/>
+    <junction id=":4_18_0" type="internal" x="600.00" y="697.87" incLanes=":4_10_0 34_0" intLanes=":4_0_0 :4_1_0 :4_5_0 :4_6_0 :4_13_0 :4_14_0 :4_15_0"/>
     <junction id=":4_19_0" type="internal" x="600.00" y="694.40" incLanes=":4_11_0 18_0 28_0 34_0" intLanes=":4_1_0 :4_6_0 :4_12_0"/>
     <junction id=":7_16_0" type="internal" x="300.00" y="302.61" incLanes=":7_2_0 14_0" intLanes=":7_5_0 :7_6_0 :7_7_0 :7_8_0 :7_9_0 :7_13_0 :7_14_0"/>
     <junction id=":7_17_0" type="internal" x="300.00" y="306.84" incLanes=":7_3_0 13_0 14_0 37_0" intLanes=":7_4_0 :7_9_0 :7_14_0"/>

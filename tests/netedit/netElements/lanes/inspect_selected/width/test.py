@@ -31,6 +31,9 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot)
 # recompute
 netedit.rebuildNetwork()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # toogle select lanes
 netedit.changeEditMode('4')
 
@@ -38,16 +41,16 @@ netedit.changeEditMode('4')
 netedit.selectMode()
 
 # select first lane
-netedit.leftClick(referencePosition, 250, 165)
+netedit.leftClick(referencePosition, 250, 155)
 
 # select second lane
-netedit.leftClick(referencePosition, 250, 105)
+netedit.leftClick(referencePosition, 250, 95)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect lane
-netedit.leftClick(referencePosition, 250, 105)
+netedit.leftClick(referencePosition, 250, 95)
 
 # Change parameter 3 with a non valid value (dummy)
 netedit.modifyAttribute(5, "dummyWidth", True)

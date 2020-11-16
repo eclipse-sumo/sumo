@@ -78,6 +78,8 @@ class Connection:
             return None
 
     def _sendExact(self):
+        if self._socket is None:
+            raise FatalTraCIError("Connection already closed.")
         length = struct.pack("!i", len(self._string) + 4)
         # print("python_sendExact: '%s'" % ' '.join(map(lambda x : "%X" % ord(x), self._string)))
         self._socket.send(length + self._string)
@@ -182,8 +184,10 @@ class Connection:
         # result.printDebug()
         result.readLength()
         response = result.read("!B")[0]
-        isVariableSubscription = (response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and
-                                  response <= tc.RESPONSE_SUBSCRIBE_PERSON_VARIABLE)
+        isVariableSubscription = ((response >= tc.RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE and
+                                   response <= tc.RESPONSE_SUBSCRIBE_BUSSTOP_VARIABLE) or
+                                  (response >= tc.RESPONSE_SUBSCRIBE_PARKINGAREA_VARIABLE and
+                                   response <= tc.RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE))
         objectID = result.readString()
         if not isVariableSubscription:
             domain = result.read("!B")[0]
@@ -362,10 +366,10 @@ class Connection:
     def close(self, wait=True):
         for listenerID in list(self._stepListeners.keys()):
             self.removeStepListener(listenerID)
-        if hasattr(self, "_socket"):
+        if self._socket is not None:
             self._sendCmd(tc.CMD_CLOSE, None, None)
             self._socket.close()
-            del self._socket
+            self._socket = None
         if wait and self._process is not None:
             self._process.wait()
 

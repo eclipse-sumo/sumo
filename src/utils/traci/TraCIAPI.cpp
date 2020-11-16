@@ -2466,6 +2466,11 @@ TraCIAPI::VehicleScope::getStopDelay(const std::string& vehicleID) const {
     return getDouble(libsumo::VAR_STOP_DELAY, vehicleID);
 }
 
+double
+TraCIAPI::VehicleScope::getStopArrivalDelay(const std::string& vehicleID) const {
+    return getDouble(libsumo::VAR_STOP_ARRIVALDELAY, vehicleID);
+}
+
 
 double
 TraCIAPI::VehicleScope::getAccel(const std::string& vehicleID) const {

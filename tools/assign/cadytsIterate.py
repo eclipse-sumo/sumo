@@ -132,9 +132,9 @@ def main():
         firstRoute = options.routes.split(",")[0]
         routname = os.path.basename(firstRoute)
         if '_' in routname:
-            output = os.path.join(pyPath,"%s_%03i.cal.xml" % (routname[:routname.rfind('_')], step))
+            output = os.path.join(pyPath, "%s_%03i.cal.xml" % (routname[:routname.rfind('_')], step))
         else:
-            output = os.path.join(pyPath,"%s_%03i.cal.xml" % (routname[:routname.find('.')], step))
+            output = os.path.join(pyPath, "%s_%03i.cal.xml" % (routname[:routname.find('.')], step))
 
         call(calibrator + ["CHOICE", "-choicesetfile",
                            options.routes, "-choicefile", "%s" % output], log)
@@ -165,6 +165,7 @@ def main():
 
     print("calibration ended (duration: %s)" % (datetime.now() - starttime))
     log.close()
+
 
 pyPath = os.path.abspath(os.path.dirname(sys.argv[0]))
 if __name__ == "__main__":

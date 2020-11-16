@@ -250,19 +250,17 @@ NBRequest::setBlocking(NBEdge* from1, NBEdge* to1,
         }
     }
 #ifdef DEBUG_SETBLOCKING
-    if (DEBUGCOND) std::cout << "setBlocking"
-                                 << " 1:" << from1->getID() << "->" << to1->getID()
-                                 << " 2:" << from2->getID() << "->" << to2->getID() << "\n";
+    if (DEBUGCOND) std::cout << "setBlocking type=" << toString(myJunction->getType())
+        << " bentPrio=" << myJunction->isBentPriority()
+            << " 1:" << from1->getID() << "->" << to1->getID()
+            << " 2:" << from2->getID() << "->" << to2->getID() << "\n";
 #endif
     // check the priorities if required by node type
     if (myJunction->getType() != SumoXMLNodeType::RIGHT_BEFORE_LEFT) {
         int from1p = from1->getJunctionPriority(myJunction);
         int from2p = from2->getJunctionPriority(myJunction);
 #ifdef DEBUG_SETBLOCKING
-        if (DEBUGCOND) std::cout << "setBlocking"
-                                     << " 1:" << from1->getID() << "->" << to1->getID()
-                                     << " 2:" << from2->getID() << "->" << to2->getID()
-                                     << " p1=" << from1p << " p2=" << from2p << "\n";
+        if (DEBUGCOND) std::cout << "     p1=" << from1p << " p2=" << from2p << "\n";
 #endif
         // check if one of the connections is higher priorised when incoming into
         //  the junction, the connection road will yield

@@ -28,13 +28,14 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.2
-DELAY_KEY_TAB = 0.1
+DELAY_KEY = 0.4 #0.2
+DELAY_KEY_TAB = 0.3 #0.1
 DELAY_MOVE = 0.1
 DELAY_MOUSE = 0.5
 DELAY_QUESTION = 3
 DELAY_RELOAD = 5
 DELAY_REFERENCE = 30
+DELAY_START_NETEDIT = 3
 DELAY_QUIT_NETEDIT = 5
 DELAY_QUIT_SUMOGUI = 3
 DELAY_UNDOREDO = 1
@@ -123,8 +124,14 @@ def typeTwoKeys(key1, key2):
     """
     # wait before every operation
     time.sleep(DELAY_KEY)
-    # type two keys at the same time
-    pyautogui.hotkey(key1, key2)
+    # press key 1
+    pyautogui.keyDown(key1)
+    # type key 2
+    typeKey(key2)
+    # wait before every operation
+    time.sleep(DELAY_KEY)
+    # leave key 1
+    pyautogui.keyUp(key1)
 
 
 def typeThreeKeys(key1, key2, key3):
@@ -133,8 +140,14 @@ def typeThreeKeys(key1, key2, key3):
     """
     # wait before every operation
     time.sleep(DELAY_KEY)
-    # type two keys at the same time
-    pyautogui.hotkey(key1, key2, key3)
+    # press key 1
+    pyautogui.keyDown(key1)
+    # type key 2 and 3
+    typeTwoKeys(key2, key3)
+    # wait before every operation
+    time.sleep(DELAY_KEY)
+    # leave key 1
+    pyautogui.keyUp(key1)
 
 
 def translateKeys(value, layout="de"):
@@ -378,6 +391,13 @@ def getReferenceMatch(neProcess, waitTime):
         if referencePosition != (304, 168):
             print("TestFunctions: Position of 'reference.png' isn't consistent. Check that interface scaling " +
                   "is 100% (See #3746)")
+        # click over position
+        pyautogui.moveTo(referencePosition)
+        # wait
+        time.sleep(DELAY_MOVE)
+        # click over position (used to center view in window)
+        pyautogui.click(button='left')
+        #return reference position
         return referencePosition
     # reference not found, then kill netedit process
     neProcess.kill()
@@ -683,6 +703,38 @@ def saveNetworkAs(waitTime=2):
     time.sleep(DELAY_RECOMPUTE)
 
 
+def forceSaveNetwork():
+    """
+    @brief force save network
+    """
+    # change network save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 't')
+
+
+def forceSaveAdditionals():
+    """
+    @brief force save additionals
+    """
+    # change additional save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 'u')
+
+
+def forceSaveDemandElements():
+    """
+    @brief force save demand elements
+    """
+    # change demand elements save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 'v')
+
+
+def forceSaveDataElements():
+    """
+    @brief force save data elements
+    """
+    # change data elements save flag using hotkey
+    typeThreeKeys('ctrl', 'shift', 'w')
+
+
 def saveAdditionals(referencePosition, clickOverReference=False):
     """
     @brief save additionals
@@ -715,6 +767,8 @@ def saveDatas(referencePosition, clickOverReference=True):
     if clickOverReference:
         # click over reference (to avoid problem with undo-redo)
         leftClick(referencePosition, 0, 0)
+    # force flag for demand elements saving using hotkey
+    typeTwoKeys('ctrl', 'F4')
     # save datas using hotkey
     typeThreeKeys('ctrl', 'shift', 'b')
 
@@ -1702,8 +1756,8 @@ def selectionApply():
     typeSpace()
     # wait for gl debug
     time.sleep(DELAY_SELECT)
-	
-	
+    
+    
 def selectionClear():
     """
     @brief clear selection

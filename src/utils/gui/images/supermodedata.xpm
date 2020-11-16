@@ -7,7 +7,7 @@ static const char *supermodedata_xpm[] = {
 "X c red",
 "o c #FFD800",
 "O c #0026FF",
-"+ c white",
+"+ c none",
 /* pixels */
 " +++++++++++++++",
 " +++++++++++++++",

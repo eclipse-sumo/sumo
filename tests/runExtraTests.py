@@ -73,8 +73,9 @@ def run(suffix, args, out=sys.stdout, guiTests=False, console=False, chrouter=Tr
     if os.name == "nt" and subprocess.call(['where.exe', 'texttest.exe'], stdout=open(os.devnull, "w")) == 0:
         ttBin = 'texttest.exe'
     try:
-        subprocess.call(['python3', '-V'], stdout=open(os.devnull, "w"), shell=True)
-        apps += ',complex.python3,tools.python3,complex.libsumo.python3'
+        if os.name == "posix":
+            subprocess.call(['python3', '-V'], stdout=open(os.devnull, "w"))
+        apps += ',complex.python3,tools.python3,complex.libsumo.python3,complex.libtraci.python3'
     except Exception:
         pass
     if guiTests:

@@ -38,13 +38,13 @@ netedit.changeEditMode('5')
 netedit.changeEditMode('4')
 
 # create a circular road
-netedit.leftClick(referencePosition, 300, 150)
-netedit.leftClick(referencePosition, 400, 150)
-netedit.leftClick(referencePosition, 400, 250)
-netedit.leftClick(referencePosition, 400, 350)
-netedit.leftClick(referencePosition, 300, 350)
-netedit.leftClick(referencePosition, 200, 350)
-netedit.leftClick(referencePosition, 200, 250)
+netedit.leftClick(referencePosition, 300, 135)
+netedit.leftClick(referencePosition, 400, 135)
+netedit.leftClick(referencePosition, 400, 235)
+netedit.leftClick(referencePosition, 400, 335)
+netedit.leftClick(referencePosition, 300, 335)
+netedit.leftClick(referencePosition, 200, 335)
+netedit.leftClick(referencePosition, 200, 235)
 netedit.cancelEdge()
 
 # go to select mode
@@ -57,13 +57,13 @@ netedit.selectionInvert()
 netedit.inspectMode()
 
 # inspect set of junctions
-netedit.leftClick(referencePosition, 405, 240)
+netedit.leftClick(referencePosition, 405, 225)
 
 # Set all Junctions as traffic lighs
 netedit.modifyAttribute(0, "traffic_light", True)
 
 # inspect set of edges
-netedit.leftClick(referencePosition, 390, 300)
+netedit.leftClick(referencePosition, 390, 285)
 
 # change all speed of edges
 netedit.modifyAttribute(0, "20", False)

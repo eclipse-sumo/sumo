@@ -159,6 +159,8 @@ MSFrame::fillOptions() {
     oc.addDescription("fcd-output.distance", "Output", "Add kilometrage to the FCD output (linear referencing)");
     oc.doRegister("fcd-output.acceleration", new Option_Bool(false));
     oc.addDescription("fcd-output.acceleration", "Output", "Add acceleration to the FCD output");
+    oc.doRegister("fcd-output.max-leader-distance", new Option_Float(-1));
+    oc.addDescription("fcd-output.max-leader-distance", "Output", "Add leader vehicle information to the FCD output (within the given distance)");
     oc.doRegister("fcd-output.params", new Option_StringVector());
     oc.addDescription("fcd-output.params", "Output", "Add generic parameter values to the FCD output");
     oc.doRegister("fcd-output.filter-edges.input-file", new Option_FileName());
@@ -416,6 +418,8 @@ MSFrame::fillOptions() {
     oc.addDescription("pedestrian.striping.jamtime", "Processing", "Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing)");
     oc.doRegister("pedestrian.striping.jamtime.crossing", new Option_String("10", "TIME"));
     oc.addDescription("pedestrian.striping.jamtime.crossing", "Processing", "Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing)");
+    oc.doRegister("pedestrian.striping.jamtime.narrow", new Option_String("1", "TIME"));
+    oc.addDescription("pedestrian.striping.jamtime.narrow", "Processing", "Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model 'striping'");
 
     oc.doRegister("pedestrian.striping.reserve-oncoming", new Option_Float(0.0));
     oc.addDescription("pedestrian.striping.reserve-oncoming", "Processing", "Fraction of stripes to reserve for oncoming pedestrians");

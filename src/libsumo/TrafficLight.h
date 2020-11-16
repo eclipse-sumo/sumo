@@ -51,8 +51,6 @@ namespace libsumo {
 class TrafficLight {
 public:
 
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static std::string getRedYellowGreenState(const std::string& tlsID);
     static std::vector<TraCILogic> getAllProgramLogics(const std::string& tlsID);
     static std::vector<std::string> getControlledJunctions(const std::string& tlsID);
@@ -67,8 +65,10 @@ public:
     static std::vector<std::string> getBlockingVehicles(const std::string& tlsID, int linkIndex);
     static std::vector<std::string> getRivalVehicles(const std::string& tlsID, int linkIndex);
     static std::vector<std::string> getPriorityVehicles(const std::string& tlsID, int linkIndex);
-    static std::string getParameter(const std::string& tlsID, const std::string& paramName);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
+
+    LIBSUMO_ID_PARAMETER_API
+    LIBSUMO_SUBSCRIPTION_API
+
 
     static void setRedYellowGreenState(const std::string& tlsID, const std::string& state);
     static void setPhase(const std::string& tlsID, const int index);
@@ -76,9 +76,6 @@ public:
     static void setProgram(const std::string& tlsID, const std::string& programID);
     static void setPhaseDuration(const std::string& tlsID, const double phaseDuration);
     static void setProgramLogic(const std::string& tlsID, const TraCILogic& logic);
-    static void setParameter(const std::string& tlsID, const std::string& paramName, const std::string& value);
-
-    LIBSUMO_SUBSCRIPTION_API
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 

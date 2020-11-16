@@ -405,11 +405,39 @@ class SimulationDomain(Domain):
                                   (edgeID1, pos1, 0), (edgeID2, pos2, 0), distType)
 
     def findRoute(self, fromEdge, toEdge, vType="", depart=-1., routingMode=0):
+        """findRoute(string, string, string, double, int) -> Stage
+        Computes the fastest route between the given edges for the given vehicle
+        type (defaults to DEFAULT_VEHTYPE)
+        Returns a Stage object that holds the edge list and the travel time
+        When the depart time is not set, the travel times at the current time
+        will be used. The routing mode may be ROUTING_MODE_DEFAULT (loaded or
+        default speeds) and ROUTING_MODE_AGGREGATED (averaged historical speeds)
+        """
         return self._getUniversal(tc.FIND_ROUTE, "", "tsssdi", 5, fromEdge, toEdge, vType, depart, routingMode)
 
     def findIntermodalRoute(self, fromEdge, toEdge, modes="", depart=-1., routingMode=0, speed=-1.,
                             walkFactor=-1., departPos=0., arrivalPos=tc.INVALID_DOUBLE_VALUE, departPosLat=0.,
                             pType="", vType="", destStop=""):
+        """findIntermodalRoute(string, string, string, double, int, double,
+        double, double, double, double, string, string, string) -> Stage
+        Computes the fastest intermoal route between the given edges for the
+        given combination of transport modes (i.e. "car public" may result in
+        driving to the train station and then riding the train).
+        Returns a list of Stage objects that correspond to the sequence of walks
+        and rides to reach the destination.
+        When the depart time is not set, the travel times at the current time will be used.
+        The routing mode may be ROUTING_MODE_DEFAULT (loaded or
+        default speeds) and ROUTING_MODE_AGGREGATED (averaged historical speeds)
+        pType defines the pedestrian type (for walking speed) and defaults to
+        DEFAULT_PEDTYPE.
+        walkFactor is a multiplier for the walking speed to
+        account for delays due to intersections and other traffic when
+        determining the feasibility of using a particular public transport
+        vehicle.
+        vType is an optional vehicle type to use for private car routing.
+        destStop can be used as an alternative to 'toEdge' to define the edge
+        and position of the specified public transport stop as the destination
+        """
         answer = self._getCmd(tc.FIND_INTERMODAL_ROUTE, "", "tsssdidddddsss", 13,
                               fromEdge, toEdge, modes, depart, routingMode, speed, walkFactor,
                               departPos, arrivalPos, departPosLat, pType, vType, destStop)

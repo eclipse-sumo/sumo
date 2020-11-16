@@ -215,7 +215,7 @@ protected:
     static std::pair<MSVehicle*, double> getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, double maxLookAhead = std::numeric_limits<double>::max());
 
     /// @brief return the next lane in conts beyond lane or nullptr
-    static MSLane* getLaneAfter(MSLane* lane, const std::vector<MSLane*>& conts);
+    static MSLane* getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts);
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.

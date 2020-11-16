@@ -28,14 +28,17 @@ import neteditTestFunctions as netedit  # noqa
 # Open netedit
 neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--gui-testing-debug-gl'])
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # change to move mode
 netedit.moveMode()
 
 # move first edge
-netedit.moveElement(referencePosition, 325, 220, 325, 90)
+netedit.moveElement(referencePosition, 325, 205, 325, 75)
 
 # move second edge
-netedit.moveElement(referencePosition, 325, 250, 325, 380)
+netedit.moveElement(referencePosition, 325, 235, 325, 365)
 
 # Check undos and redos
 netedit.undo(referencePosition, 2)
@@ -49,3 +52,4 @@ netedit.saveNetwork(referencePosition)
 
 # quit netedit
 netedit.quit(neteditProcess)
+

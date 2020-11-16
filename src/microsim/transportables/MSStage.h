@@ -82,7 +82,7 @@ public:
     }
 
     /// returns the origin stop (if any). only needed for MSStageTrip
-    virtual const MSStoppingPlace* getOriginStop() const {
+    virtual MSStoppingPlace* getOriginStop() const {
         return nullptr;
     }
 
@@ -268,7 +268,7 @@ public:
 
     const MSEdge* getEdge() const;
 
-    const MSStoppingPlace* getOriginStop() const {
+    MSStoppingPlace* getOriginStop() const {
         return myOriginStop;
     }
 
@@ -328,7 +328,7 @@ private:
     const MSEdge* myOrigin;
 
     /// the origin edge
-    const MSStoppingPlace* myOriginStop;
+    MSStoppingPlace* myOriginStop;
 
     /// the time the trip should take (applies to only walking)
     SUMOTime myDuration;

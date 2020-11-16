@@ -80,6 +80,21 @@ Junction::getJunction(const std::string& id) {
 }
 
 
+std::string
+Junction::getParameter(const std::string& junctionID, const std::string& param) {
+    return getJunction(junctionID)->getParameter(param, "");
+}
+
+
+LIBSUMO_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Junction)
+
+
+void
+Junction::setParameter(const std::string& junctionID, const std::string& name, const std::string& value) {
+    getJunction(junctionID)->setParameter(name, value);
+}
+
+
 LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Junction, JUNCTION)
 
 

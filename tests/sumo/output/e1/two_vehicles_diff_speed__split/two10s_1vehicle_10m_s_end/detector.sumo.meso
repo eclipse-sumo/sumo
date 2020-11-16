@@ -48,9 +48,9 @@ SPDX-License-Identifier: EPL-2.0
     <interval begin="0.00" end="10.00" id="3/1to2/1_t2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="0.00" end="10.00" id="4/1to3/1_t2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
     <interval begin="10.00" end="15.00" id="3/1to2/1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="10.00" end="15.00" id="4/1to3/1" sampledSeconds="5.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
+    <interval begin="10.00" end="15.00" id="4/1to3/1" sampledSeconds="5.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
     <interval begin="10.00" end="15.00" id="3/1to2/1_t1" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="10.00" end="15.00" id="4/1to3/1_t1" sampledSeconds="5.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
+    <interval begin="10.00" end="15.00" id="4/1to3/1_t1" sampledSeconds="5.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
     <interval begin="10.00" end="15.00" id="3/1to2/1_t2" sampledSeconds="0.00" departed="0" arrived="0" entered="0" left="0"/>
-    <interval begin="10.00" end="15.00" id="4/1to3/1_t2" sampledSeconds="5.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
+    <interval begin="10.00" end="15.00" id="4/1to3/1_t2" sampledSeconds="5.00" density="10.00" laneDensity="10.00" occupancy="3.00" waitingTime="0.00" timeLoss="0.00" speed="10.00" departed="0" arrived="0" entered="1" left="0"/>
 </detector>

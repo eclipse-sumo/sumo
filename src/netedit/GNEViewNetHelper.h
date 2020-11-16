@@ -519,7 +519,7 @@ struct GNEViewNetHelper {
         void hideNetworkViewOptionsMenuChecks();
 
         /// @brief get visible network menu commands
-        void getVisibleNetworkMenuCommands(std::vector<FXMenuCheck*>& commands) const;
+        void getVisibleNetworkMenuCommands(std::vector<MFXCheckableButton*>& commands) const;
 
         /// @brief check if vehicles must be drawn spread
         bool drawSpreadVehicles() const;
@@ -536,44 +536,45 @@ struct GNEViewNetHelper {
         /// @brief check if we're editing elevation
         bool editingElevation() const;
 
-        /// @brief menu check to show grid button
-        FXMenuCheck* menuCheckShowGrid;
+        /// @brief checkable button to show grid button
+        MFXCheckableButton* menuCheckShowGrid;
 
-        /// @brief menu check to draw vehicles in begin position or spread in lane
-        FXMenuCheck* menuCheckDrawSpreadVehicles;
+        /// @brief checkable button to draw vehicles in begin position or spread in lane
+        MFXCheckableButton* menuCheckDrawSpreadVehicles;
 
-        /// @brief menu check to show Demand Elements
-        FXMenuCheck* menuCheckShowDemandElements;
+        /// @brief checkable button to show Demand Elements
+        MFXCheckableButton* menuCheckShowDemandElements;
 
-        /// @brief menu check to select only edges
-        FXMenuCheck* menuCheckSelectEdges;
+        /// @brief checkable button to select only edges
+        MFXCheckableButton* menuCheckSelectEdges;
 
-        /// @brief menu check to show connections
-        FXMenuCheck* menuCheckShowConnections;
+        /// @brief checkable button to show connections
+        MFXCheckableButton* menuCheckShowConnections;
 
-        /// @brief menu check to hide connections in connect mode
-        FXMenuCheck* menuCheckHideConnections;
+        /// @brief checkable button to hide connections in connect mode
+        MFXCheckableButton* menuCheckHideConnections;
 
-        /// @brief menu check to extend to edge nodes
-        FXMenuCheck* menuCheckExtendSelection;
+        /// @brief checkable button to extend to edge nodes
+        MFXCheckableButton* menuCheckExtendSelection;
 
-        /// @brief menu check to set change all phases
-        FXMenuCheck* menuCheckChangeAllPhases;
+        /// @brief checkable button to set change all phases
+        MFXCheckableButton* menuCheckChangeAllPhases;
 
-        /// @brief menu check to we should warn about merging junctions
-        FXMenuCheck* menuCheckWarnAboutMerge;
+        /// @brief checkable button to we should warn about merging junctions
+        MFXCheckableButton* menuCheckWarnAboutMerge;
 
-        /// @brief menu check to show connection as buuble in "Move" mode.
-        FXMenuCheck* menuCheckShowJunctionBubble;
+        /// @brief checkable button to show connection as buuble in "Move" mode.
+        MFXCheckableButton* menuCheckShowJunctionBubble;
 
-        /// @brief menu check to apply movement to elevation
-        FXMenuCheck* menuCheckMoveElevation;
+        /// @brief checkable button to apply movement to elevation
+        MFXCheckableButton* menuCheckMoveElevation;
 
-        /// @brief menu check to the endpoint for a created edge should be set as the new source
-        FXMenuCheck* menuCheckChainEdges;
+        /// @brief checkable button to the endpoint for a created edge should be set as the new source
+        MFXCheckableButton* menuCheckChainEdges;
 
-        /// @brief menu check to create auto create opposite edge
-        FXMenuCheck* menuCheckAutoOppositeEdge;
+        /// @brief check checkable to create auto create opposite edge
+        MFXCheckableButton* menuCheckAutoOppositeEdge;
+
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;
@@ -598,7 +599,7 @@ struct GNEViewNetHelper {
         void hideDemandViewOptionsMenuChecks();
 
         /// @brief get visible demand menu commands
-        void getVisibleDemandMenuCommands(std::vector<FXMenuCheck*>& commands) const;
+        void getVisibleDemandMenuCommands(std::vector<MFXCheckableButton*>& commands) const;
 
         /// @brief check if vehicles must be drawn spread
         bool drawSpreadVehicles() const;
@@ -622,22 +623,22 @@ struct GNEViewNetHelper {
         const GNEDemandElement* getLockedPerson() const;
 
         /// @brief menu check to show grid button
-        FXMenuCheck* menuCheckShowGrid;
+        MFXCheckableButton* menuCheckShowGrid;
 
         /// @brief menu check to draw vehicles in begin position or spread in lane
-        FXMenuCheck* menuCheckDrawSpreadVehicles;
+        MFXCheckableButton* menuCheckDrawSpreadVehicles;
 
         /// @brief Hide shapes (Polygons and POIs)
-        FXMenuCheck* menuCheckHideShapes;
+        MFXCheckableButton* menuCheckHideShapes;
 
         /// @brief Hide non inspected demand elements
-        FXMenuCheck* menuCheckHideNonInspectedDemandElements;
+        MFXCheckableButton* menuCheckHideNonInspectedDemandElements;
 
         /// @brief show all person plans
-        FXMenuCheck* menuCheckShowAllPersonPlans;
+        MFXCheckableButton* menuCheckShowAllPersonPlans;
 
         /// @brief Lock Person
-        FXMenuCheck* menuCheckLockPerson;
+        MFXCheckableButton* menuCheckLockPerson;
 
     private:
         /// @brief pointer to net
@@ -666,7 +667,7 @@ struct GNEViewNetHelper {
         void hideDataViewOptionsMenuChecks();
 
         /// @brief get visible demand menu commands
-        void getVisibleDataMenuCommands(std::vector<FXMenuCheck*>& commands) const;
+        void getVisibleDataMenuCommands(std::vector<MFXCheckableButton*>& commands) const;
 
         /// @brief check if additionals has to be drawn
         bool showAdditionals() const;
@@ -678,13 +679,14 @@ struct GNEViewNetHelper {
         bool showDemandElements() const;
 
         /// @brief menu check to show Additionals
-        FXMenuCheck* menuCheckShowAdditionals;
+        MFXCheckableButton* menuCheckShowAdditionals;
 
         /// @brief menu check to show Shapes
-        FXMenuCheck* menuCheckShowShapes;
+        MFXCheckableButton* menuCheckShowShapes;
 
         /// @brief menu check to show Demand Elements
-        FXMenuCheck* menuCheckShowDemandElements;
+        MFXCheckableButton* menuCheckShowDemandElements;
+
     private:
         /// @brief pointer to net
         GNEViewNet* myViewNet;

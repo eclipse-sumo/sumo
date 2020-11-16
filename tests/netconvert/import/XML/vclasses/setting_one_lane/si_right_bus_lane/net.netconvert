@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:49 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Fri Nov  6 10:26:33 2020 by Eclipse SUMO netconvert Version v1_7_0+0862-f21278904b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -56,7 +56,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_4_0" index="0" speed="8.67" length="16.85" shape="513.60,504.80 508.35,505.35 504.60,507.00 502.35,509.75 501.60,513.60"/>
     </edge>
     <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" index="0" speed="12.50" length="27.20" shape="513.60,501.60 486.40,501.60"/>
+        <lane id=":0_5_0" index="0" speed="12.50" length="27.42" shape="513.60,504.80 504.28,504.30 496.74,503.20 490.83,502.10 486.40,501.60"/>
     </edge>
     <edge id=":0_6" function="internal">
         <lane id=":0_6_0" index="0" speed="10.36" length="24.51" shape="513.60,501.60 506.95,500.65 502.20,497.80 499.35,493.05 498.40,486.40"/>
@@ -86,7 +86,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_12_0" index="0" speed="8.67" length="16.85" shape="486.40,495.20 491.65,494.65 495.40,493.00 497.65,490.25 498.40,486.40"/>
     </edge>
     <edge id=":0_13" function="internal">
-        <lane id=":0_13_0" index="0" speed="12.50" length="27.20" shape="486.40,498.40 513.60,498.40"/>
+        <lane id=":0_13_0" index="0" speed="12.50" length="27.42" shape="486.40,495.20 495.72,495.70 503.26,496.80 509.17,497.90 513.60,498.40"/>
     </edge>
     <edge id=":0_14" function="internal">
         <lane id=":0_14_0" index="0" speed="10.36" length="24.51" shape="486.40,498.40 493.05,499.35 497.80,502.20 500.65,506.95 501.60,513.60"/>
@@ -237,7 +237,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="1fi" to="1si" fromLane="1" toLane="2" via=":m1_0_2" dir="s" state="M"/>
     <connection from="1o" to="1fi" fromLane="0" toLane="1" via=":1_0_0" dir="t" state="M"/>
     <connection from="1si" to="3o" fromLane="1" toLane="0" via=":0_12_0" dir="r" state="m"/>
-    <connection from="1si" to="2o" fromLane="2" toLane="0" via=":0_13_0" dir="s" state="m"/>
+    <connection from="1si" to="2o" fromLane="1" toLane="0" via=":0_13_0" dir="s" state="m"/>
     <connection from="1si" to="4o" fromLane="2" toLane="0" via=":0_14_0" dir="l" state="m"/>
     <connection from="1si" to="1o" fromLane="2" toLane="0" via=":0_15_0" dir="t" state="m"/>
     <connection from="2fi" to="2si" fromLane="0" toLane="0" via=":m2_0_0" dir="s" state="M"/>
@@ -245,7 +245,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="2fi" to="2si" fromLane="1" toLane="2" via=":m2_0_2" dir="s" state="M"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_0_0" dir="t" state="M"/>
     <connection from="2si" to="4o" fromLane="1" toLane="0" via=":0_4_0" dir="r" state="m"/>
-    <connection from="2si" to="1o" fromLane="2" toLane="0" via=":0_5_0" dir="s" state="m"/>
+    <connection from="2si" to="1o" fromLane="1" toLane="0" via=":0_5_0" dir="s" state="m"/>
     <connection from="2si" to="3o" fromLane="2" toLane="0" via=":0_6_0" dir="l" state="m"/>
     <connection from="2si" to="2o" fromLane="2" toLane="0" via=":0_7_0" dir="t" state="m"/>
     <connection from="3fi" to="3si" fromLane="0" toLane="0" via=":m3_0_0" dir="s" state="M"/>

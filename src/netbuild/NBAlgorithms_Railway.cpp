@@ -892,8 +892,8 @@ NBRailwayTopologyAnalyzer::addBidiEdgesForStops(NBNetBuilder& nb) {
 
     int added = 0;
     int numDisconnected = 0;
-    std::set<NBEdge*> addBidiStops;
-    std::set<NBEdge*> addBidiEdges;
+    std::set<NBEdge*, ComparatorIdLess> addBidiStops;
+    std::set<NBEdge*, ComparatorIdLess> addBidiEdges;
     std::set<std::pair<NBEdge*, NBEdge*> > visited;
     for (const auto& item : nb.getPTLineCont().getLines()) {
         NBPTLine* line = item.second;

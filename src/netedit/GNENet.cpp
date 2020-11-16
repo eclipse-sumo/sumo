@@ -49,6 +49,7 @@
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netwrite/NWFrame.h>
 #include <netwrite/NWWriter_SUMO.h>
 #include <netwrite/NWWriter_XML.h>
@@ -214,16 +215,11 @@ GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
 
 
 GNEEdge*
-GNENet::createEdge(
-    GNEJunction* src, GNEJunction* dest, GNEEdge* tpl, GNEUndoList* undoList,
-    const std::string& suggestedName,
-    bool wasSplit,
-    bool allowDuplicateGeom,
-    bool recomputeConnections) {
+GNENet::createEdge( GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
+    const std::string& suggestedName, bool wasSplit, bool allowDuplicateGeom, bool recomputeConnections) {
     // prevent duplicate edge (same geometry)
-    const EdgeVector& outgoing = src->getNBNode()->getOutgoingEdges();
-    for (EdgeVector::const_iterator it = outgoing.begin(); it != outgoing.end(); it++) {
-        if ((*it)->getToNode() == dest->getNBNode() && (*it)->getGeometry().size() == 2) {
+    for (const auto & outgoingEdge : src->getNBNode()->getOutgoingEdges()) {
+        if (outgoingEdge->getToNode() == dest->getNBNode() && outgoingEdge->getGeometry().size() == 2) {
             if (!allowDuplicateGeom) {
                 return nullptr;
             }
@@ -237,11 +233,11 @@ GNENet::createEdge(
     } else {
         id = myEdgeIDSupplier.getNext();
     }
-
     GNEEdge* edge;
-    if (tpl) {
-        NBEdge* nbeTpl = tpl->getNBEdge();
-        NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(), nbeTpl);
+    // check if there is a template edge
+    if (edgeTemplate) {
+        // create NBEdgeTemplate
+        NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(), edgeTemplate->getNBEdge());
         edge = new GNEEdge(this, nbe, wasSplit);
     } else {
         // default if no template is given
@@ -261,6 +257,11 @@ GNENet::createEdge(
     }
     undoList->p_begin("create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
+    // check if we have to use a template
+    if (myViewNet->getViewParent()->getCreateEdgeFrame()->getTemplateSelector()->useEdgeTemplate()) {
+        edge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), undoList);
+    }
+    // recompute connection
     if (recomputeConnections) {
         src->setLogicValid(false, undoList);
         dest->setLogicValid(false, undoList);
@@ -1007,12 +1008,11 @@ GNENet::createRoundabout(GNEJunction* junction, GNEUndoList* undoList) {
     Position center = junction->getPositionInView();
     deleteJunction(junction, undoList);
     // create new edges to connect roundabout junctions (counter-clockwise)
-    GNEEdge* tpl = myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate();
     const double resolution = OptionsCont::getOptions().getFloat("opendrive.curve-resolution") * 3;
     for (int i = 0; i < (int)newJunctions.size(); i++) {
         GNEJunction* from = newJunctions[(i + 1) % newJunctions.size()];
         GNEJunction* to = newJunctions[i];
-        GNEEdge* newEdge = createEdge(from, to, tpl, undoList);
+        GNEEdge* newEdge = createEdge(from, to, nullptr, undoList);
         const double angle1 = center.angleTo2D(from->getPositionInView());
         const double angle2 = center.angleTo2D(to->getPositionInView());
         // insert geometry points every resolution meters
@@ -1046,14 +1046,6 @@ GNENet::checkJunctionPosition(const Position& pos) {
 
 void
 GNENet::requireSaveNet(bool value) {
-    if (myNetSaved == true) {
-        WRITE_DEBUG("net has to be saved");
-        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
-        std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        std::string dataSetsSaved = (myDataElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net unsaved, additionals " + additionalsSaved +
-                    ", demand elements " + demandElementsSaved + ", data sets " + dataSetsSaved);
-    }
     myNetSaved = !value;
 }
 
@@ -2330,14 +2322,6 @@ GNENet::getNumberOfAdditionals(SumoXMLTag type) const {
 
 void
 GNENet::requireSaveAdditionals(bool value) {
-    if (myAdditionalsSaved) {
-        WRITE_DEBUG("Additionals has to be saved");
-        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        std::string demandElementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        std::string dataSetSaved = (myDataElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals unsaved, demand elements " +
-                    demandElementsSaved + ", data sets " + dataSetSaved);
-    }
     myAdditionalsSaved = !value;
     if (myViewNet != nullptr) {
         if (myAdditionalsSaved) {
@@ -2451,14 +2435,6 @@ GNENet::getNumberOfDemandElements(SumoXMLTag type) const {
 
 void
 GNENet::requireSaveDemandElements(bool value) {
-    if (myDemandElementsSaved == true) {
-        WRITE_DEBUG("DemandElements has to be saved");
-        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
-        std::string dataSetsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved +
-                    ", demand elements unsaved, data sets " + dataSetsSaved);
-    }
     myDemandElementsSaved = !value;
     if (myViewNet != nullptr) {
         if (myDemandElementsSaved) {
@@ -2630,14 +2606,6 @@ GNENet::getNumberOfDataSets() const {
 
 void
 GNENet::requireSaveDataElements(bool value) {
-    if (myDataElementsSaved == true) {
-        WRITE_DEBUG("DataSets has to be saved");
-        std::string netSaved = (myNetSaved ? "saved" : "unsaved");
-        std::string additionalsSaved = (myAdditionalsSaved ? "saved" : "unsaved");
-        std::string demandEleementsSaved = (myDemandElementsSaved ? "saved" : "unsaved");
-        WRITE_DEBUG("Current saving Status: net " + netSaved + ", additionals " + additionalsSaved +
-                    ", demand elements " + demandEleementsSaved + ", data sets unsaved");
-    }
     myDataElementsSaved = !value;
     if (myViewNet != nullptr) {
         if (myDataElementsSaved) {

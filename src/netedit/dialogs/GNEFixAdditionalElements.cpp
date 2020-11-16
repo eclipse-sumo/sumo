@@ -195,7 +195,7 @@ GNEFixAdditionalElements::AdditionalList::AdditionalList(GNEFixAdditionalElement
     myTable->setTableSize(int(myInvalidSingleLaneAdditionals.size() + myInvalidMultiLaneAdditionals.size()), 3);
     // Configure list
     myTable->setVisibleColumns(4);
-    myTable->setColumnWidth(0, GUIDesignTableIconCellWidth);
+    myTable->setColumnWidth(0, GUIDesignHeight);
     myTable->setColumnWidth(1, 160);
     myTable->setColumnWidth(2, 280);
     myTable->setColumnText(0, "");

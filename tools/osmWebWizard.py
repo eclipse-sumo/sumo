@@ -138,7 +138,7 @@ class Builder(object):
         self.tmp = None
         if local:
             now = data.get("outputDir",
-                    datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
+                           datetime.datetime.now().strftime("%Y-%m-%d-%H-%M-%S"))
             for base in ['', os.path.expanduser('~/Sumo')]:
                 try:
                     self.tmp = os.path.abspath(os.path.join(base, now))
@@ -384,7 +384,8 @@ class Builder(object):
         self.filename("config", ".sumocfg")
         opts = [sumo, "-n", self.files_relative["net"], "--gui-settings-file", self.files_relative["guisettings"],
                 "--duration-log.statistics",
-                "--device.rerouting.adaptation-steps", "180",
+                "--device.rerouting.adaptation-interval", "10",
+                "--device.rerouting.adaptation-steps", "18",
                 "-v", "--no-step-log", "--save-configuration", self.files_relative["config"], "--ignore-route-errors"]
 
         if self.routenames:
@@ -504,7 +505,7 @@ parser.add_argument("--osm-file", default="osm_bbox.osm.xml", dest="osmFile", he
 parser.add_argument("--test-output", default=None, dest="testOutputDir",
                     help="Run with pre-defined options on file 'osm_bbox.osm.xml' and " +
                     "write output to the given directory.")
-parser.add_argument("-o" "--output", default=None, dest="outputDir",
+parser.add_argument("-o", "--output", default=None, dest="outputDir",
                     help="Write output to the given folder rather than creating a name based on the timestamp")
 parser.add_argument("--address", default="", help="Address for the Websocket.")
 parser.add_argument("--port", type=int, default=8010,

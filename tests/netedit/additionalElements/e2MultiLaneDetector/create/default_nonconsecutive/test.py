@@ -38,10 +38,10 @@ netedit.additionalMode()
 netedit.changeElement("e2MultilaneDetector")
 
 # try to create E2 with default parameters but with non consecutive lanes
-netedit.leftClick(referencePosition, 440, 255)
-netedit.leftClick(referencePosition, 440, 225)
-netedit.leftClick(referencePosition, 190, 225)
-netedit.leftClick(referencePosition, 190, 255)
+netedit.leftClick(referencePosition, 440, 240)
+netedit.leftClick(referencePosition, 440, 205)
+netedit.leftClick(referencePosition, 190, 205)
+netedit.leftClick(referencePosition, 190, 240)
 netedit.typeEnter()
 
 # Check undo redo

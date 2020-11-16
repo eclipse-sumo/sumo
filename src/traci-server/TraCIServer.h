@@ -342,9 +342,6 @@ private:
     /// @brief Whether the connection was set to be to close
     static bool myDoCloseConnection;
 
-    /// @brief The server socket
-    tcpip::Socket* myServerSocket;
-
     /// @brief The socket connections to the clients
     /// the first component (index) determines the client's order (lowest index's commands are processed first), @see CMD_SETORDER
     std::map<int, SocketInfo*> mySockets;

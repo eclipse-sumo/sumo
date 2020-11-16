@@ -569,6 +569,9 @@ public:
     /// @brief if this edge is an internal edge, return its first normal predecessor, otherwise the edge itself
     const MSEdge* getNormalBefore() const;
 
+    /// @brief if this edge is an internal edge, return its first normal successor, otherwise the edge itself
+    const MSEdge* getNormalSuccessor() const;
+
     /// @brief Returns whether the vehicle (class) is not allowed on the edge
     inline bool prohibits(const SUMOVehicle* const vehicle) const {
         if (vehicle == nullptr) {

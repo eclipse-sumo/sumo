@@ -155,6 +155,14 @@ enum {
     MID_HOTKEY_CTRL_SHIFT_K_SAVETLS,
     /// @brief save network as
     MID_HOTKEY_CTRL_SHIFT_S_SAVENETWORK_AS,
+    /// @brief Force save network (flag)
+    MID_HOTKEY_CTRL_SHIFT_T_FORCESAVENETEWORK,
+    /// @brief Force save additionals (flag)
+    MID_HOTKEY_CTRL_SHIFT_U_FORCESAVEADDITIONALS,
+    /// @brief Force save demand elements (flag)
+    MID_HOTKEY_CTRL_SHIFT_V_FORCESAVEDEMANDELEMENTS,
+    /// @brief Force save data elements (flag)
+    MID_HOTKEY_CTRL_SHIFT_W_FORCESAVEDATAELEMENTS,
 
     /// @}
 
@@ -816,6 +824,13 @@ enum {
 
     /// @brief go back to the previous element
     MID_GNE_INSPECTORFRAME_GOBACK,
+
+    /// @}
+
+    /// @name GNECreateEdgeFrame messages
+    /// @{
+    /// @brief selected radio button
+    MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,
 
     /// @}
 

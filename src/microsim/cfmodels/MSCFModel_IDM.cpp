@@ -25,6 +25,7 @@
 #include <microsim/MSVehicle.h>
 
 //#define DEBUG_V
+//#define DEBUG_INSERTION_SPEED
 
 // ===========================================================================
 // method definitions
@@ -92,14 +93,29 @@ MSCFModel_IDM::followSpeed(const MSVehicle* const veh, double speed, double gap2
 
 
 double
-MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const /*pred*/) const {
+MSCFModel_IDM::insertionFollowSpeed(const MSVehicle* const v, double speed, double gap2pred, double predSpeed, double predMaxDecel, const MSVehicle* const pred) const {
     // see definition of s in _v()
     double s = MAX2(0., speed * myHeadwayTime + speed * (speed - predSpeed) / myTwoSqrtAccelDecel);
     if (gap2pred >= s) {
         // followSpeed always stays below speed because s*s / (gap2pred * gap2pred) > 0. This would prevent insertion with maximum speed at all distances
         return speed;
     } else {
-        return followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
+        // we cannot call follow speed directly because it assumes that 'speed'
+        // is the current speed rather than the desired insertion speed.
+        // If the safe speed is much lower than the desired speed, the
+        // followSpeed function would still return a new speed that involves
+        // reasonable braking rather than the actual safe speed (and cause
+        // emergency braking in a subsequent step)
+        const double speed2 = followSpeed(v, speed, gap2pred, predSpeed, predMaxDecel);
+        const double speed3 = followSpeed(v, speed2, gap2pred, predSpeed, predMaxDecel);
+        if (speed2 - speed3 < 1) {
+            return speed2;
+        } else {
+#ifdef DEBUG_INSERTION_SPEED
+            std::cout << SIMTIME << " veh=" << v->getID() << " speed=" << speed << " gap2pred=" << gap2pred << " predSpeed=" << predSpeed << " predMaxDecel=" << predMaxDecel << " pred=" << Named::getIDSecure(pred) << " s=" << s << " speed2=" << speed2 << " speed3=" << speed3 << "\n";
+#endif
+            return insertionFollowSpeed(v, speed2, gap2pred, predSpeed, predMaxDecel, pred);
+        }
     }
 }
 

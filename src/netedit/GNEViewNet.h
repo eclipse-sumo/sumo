@@ -275,10 +275,7 @@ public:
     long onCmdToogleChangeAllPhases(FXObject*, FXSelector, void*);
 
     /// @brief toogle show grid
-    long onCmdToogleShowGridNetwork(FXObject*, FXSelector, void*);
-
-    /// @brief toogle show grid
-    long onCmdToogleShowGridDemand(FXObject*, FXSelector, void*);
+    long onCmdToogleShowGrid(FXObject*, FXSelector, void*);
 
     /// @brief toogle draw vehicles in begin position or spread in lane
     long onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector, void*);

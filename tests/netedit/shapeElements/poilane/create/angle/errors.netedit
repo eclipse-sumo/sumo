@@ -1,12 +1,8 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 Debug: Selected item 'poly' in TagSelector
 Debug: Selected item 'poiLane' in TagSelector
 Debug: Invalid input parameter of poiLane: 'angle' doesn't have a valid 'float' format between [0, 360]
 Debug: Adding poiLane 'poi_0' into viewNet
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poiLane 'poi_1' into viewNet
 Debug: Adding poiLane 'poi_2' into viewNet
 Debug: Keys Ctrl+Z (Undo) pressed
@@ -31,8 +27,6 @@ Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing poiLane 'poi_2' from net in ~GNEChange_Shape()
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete poiLane 'poi_2' in ~GNEChange_Shape()
 Debug: Removing poiLane 'poi_1' from net in ~GNEChange_Shape()
 Debug: delete poiLane 'poi_1' in ~GNEChange_Shape()

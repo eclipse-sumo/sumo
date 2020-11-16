@@ -39,3 +39,6 @@ addStops2Routes
 
 # add delay to stops (increase duration)
 addStopDelay
+
+# test tool for validation public transport schedule in route file 
+checkStopOrder

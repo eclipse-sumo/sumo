@@ -30,15 +30,15 @@
 
 namespace libtraci {
 
-typedef Domain<libsumo::CMD_GET_SIM_VARIABLE, libsumo::CMD_SET_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_VARIABLE, libsumo::CMD_SUBSCRIBE_SIM_CONTEXT> Dom;
+typedef Domain<libsumo::CMD_GET_SIM_VARIABLE, libsumo::CMD_SET_SIM_VARIABLE> Dom;
 
 
 // ===========================================================================
 // static member definitions
 // ===========================================================================
 std::pair<int, std::string>
-Simulation::init(int port, int numRetries, const std::string& host, const std::string& label) {
-    Connection::connect(host, port, numRetries, label);
+Simulation::init(int port, int numRetries, const std::string& host, const std::string& label, FILE* const pipe) {
+    Connection::connect(host, port, numRetries, label, pipe);
     switchConnection(label);
     return getVersion();
 }
@@ -53,12 +53,19 @@ Simulation::start(const std::vector<std::string>& cmd, int port, int numRetries,
     for (const std::string& s : cmd) {
         oss << s << " ";
     }
-    oss << "--remote-port " << port;
+    oss << "--remote-port " << port << " 2>&1";
+#ifndef WIN32
+    oss << " &";
+#endif
     if (verbose) {
         std::cout << "Calling " << oss.str() << std::endl;
     }
-    std::system(oss.str().c_str());
-    return init(port, numRetries, "localhost", label);
+#ifdef WIN32
+    FILE* pipe = _popen(oss.str().c_str(), "r");
+#else
+    FILE* pipe = popen(oss.str().c_str(), "r");
+#endif
+    return init(port, numRetries, "localhost", label, pipe);
 }
 
 

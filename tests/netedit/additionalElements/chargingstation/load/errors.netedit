@@ -13,8 +13,6 @@ Debug: Adding chargingStation 'chargingStation_0' in GNEChange_Additional
 GLDebug: 	Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: 	Removed object chargingStation:chargingStation_0 from SUMORTree with boundary -0.10,0.00,1.00,0.10
 GLDebug: 	Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -15.00,-21.60,30.00,18.40
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 GLDebug: 	Removed object chargingStation:chargingStation_0 from SUMORTree with boundary -15.00,-21.60,30.00,18.40
 GLDebug: 	Inserted chargingStation:chargingStation_0 into SUMORTree with boundary -15.00,-21.60,30.00,18.40
 Debug: Adding chargingStation 'chargingStation_3' in GNEChange_Additional
@@ -607,8 +605,6 @@ GLDebug: 	Removed object chargingStation:chargingStation_30 from SUMORTree with 
 GLDebug: 	Inserted chargingStation:chargingStation_30 into SUMORTree with boundary 10.00,-18.40,50.10,21.60
 GLDebug: 	Removed object chargingStation:chargingStation_31 from SUMORTree with boundary 10.00,-18.40,50.10,21.60
 GLDebug: 	Inserted chargingStation:chargingStation_31 into SUMORTree with boundary 10.00,-18.40,50.10,21.60
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, shapes saved
 Debug: Additionals saved
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -22.00,-22.00,22.00,22.00
 GLDebug: 	Removed object junction:gneJ1 from SUMORTree with boundary 28.00,-22.00,72.00,22.00
@@ -688,8 +684,6 @@ GLDebug: 	Inserted chargingStation:chargingStation_31 into SUMORTree with bounda
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -30.00,-30.00,80.00,31.60
 Debug: Deleting unreferenced chargingStation 'chargingStation_31'
 GLDebug: 	Removed object chargingStation:chargingStation_31 from SUMORTree with boundary 10.00,-18.40,50.10,21.60
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, shapes saved
 Debug: Deleting unreferenced chargingStation 'chargingStation_30'
 GLDebug: 	Removed object chargingStation:chargingStation_30 from SUMORTree with boundary 10.00,-18.40,50.10,21.60
 Debug: Deleting unreferenced chargingStation 'chargingStation_29'

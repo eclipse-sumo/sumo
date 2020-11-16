@@ -913,7 +913,7 @@ MSLaneChanger::checkChange(
             // for finding turns it doesn't matter whether we look along the current lane or the target lane
             const std::vector<MSLane*>& bestLaneConts = vehicle->getBestLanesContinuation();
             int view = 1;
-            MSLane* nextLane = vehicle->getLane();
+            const MSLane* nextLane = vehicle->getLane();
             std::vector<MSLink*>::const_iterator link = MSLane::succLinkSec(*vehicle, view, *nextLane, bestLaneConts);
             while (!nextLane->isLinkEnd(link) && seen <= space2change) {
                 if ((*link)->getDirection() == LinkDirection::LEFT || (*link)->getDirection() == LinkDirection::RIGHT
@@ -1015,7 +1015,7 @@ MSLaneChanger::changeOpposite(std::pair<MSVehicle*, double> leader) {
     }
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
-    MSLane* source = vehicle->getLane();
+    MSLane* source = vehicle->getMutableLane();
     if (vehicle->getLaneChangeModel().getModelID() == LCM_SL2015) {
         // we have warned before but people may still try
         return false;
@@ -1455,7 +1455,7 @@ MSLaneChanger::computeOvertakingTime(const MSVehicle* vehicle, const MSVehicle* 
 std::pair<MSVehicle*, double>
 MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double> leader, double maxLookAhead) {
     assert(leader.first != 0);
-    MSLane* source = vehicle->getLane();
+    const MSLane* source = vehicle->getLane();
     // find a leader vehicle with sufficient space ahead for merging back
     const double overtakingSpeed = source->getVehicleMaxSpeed(vehicle); // just a guess
     const double mergeBrakeGap = vehicle->getCarFollowModel().brakeGap(overtakingSpeed);
@@ -1513,7 +1513,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
             } else {
                 // maybe the columnleader is stopped before a junction or takes a different turn.
                 // try to find another columnleader on successive lanes
-                MSLane* next = getLaneAfter(columnLeader.first->getLane(), conts);
+                const MSLane* next = getLaneAfter(columnLeader.first->getLane(), conts);
 #ifdef DEBUG_CHANGE_OPPOSITE
                 if (DEBUG_COND) {
                     std::cout << "   look for another leader on lane " << Named::getIDSecure(next) << "\n";
@@ -1589,7 +1589,7 @@ MSLaneChanger::getColumnleader(MSVehicle* vehicle, std::pair<MSVehicle*, double>
 
 
 MSLane*
-MSLaneChanger::getLaneAfter(MSLane* lane, const std::vector<MSLane*>& conts) {
+MSLaneChanger::getLaneAfter(const MSLane* lane, const std::vector<MSLane*>& conts) {
     for (auto it = conts.begin(); it != conts.end(); ++it) {
         if (*it == lane) {
             if (it + 1 != conts.end()) {

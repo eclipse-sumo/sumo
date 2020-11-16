@@ -305,13 +305,14 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                                            getType()->maxSpeed * trip->getWalkFactor(), veh, trip->getModes(), time, result);
     bool carUsed = false;
     for (std::vector<ROIntermodalRouter::TripItem>::const_iterator it = result.begin(); it != result.end(); ++it) {
-        if (!it->edges.empty()) {
-            if (it->line == "") {
+        const auto& item = *it;
+        if (!item.edges.empty()) {
+            if (item.line == "") {
                 double depPos = trip->getDepartPos(false);
                 double arrPos = trip->getArrivalPos(false);
                 if (trip->getOrigin()->isTazConnector()) {
                     // walk the whole length of the first edge
-                    const ROEdge* first = it->edges.front();
+                    const ROEdge* first = item.edges.front();
                     if (std::find(first->getPredecessors().begin(), first->getPredecessors().end(), trip->getOrigin()) != first->getPredecessors().end()) {
                         depPos = 0;
                     } else {
@@ -320,7 +321,7 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                 }
                 if (trip->getDestination()->isTazConnector()) {
                     // walk the whole length of the last edge
-                    const ROEdge* last = it->edges.back();
+                    const ROEdge* last = item.edges.back();
                     if (std::find(last->getSuccessors().begin(), last->getSuccessors().end(), trip->getDestination()) != last->getSuccessors().end()) {
                         arrPos = last->getLength();
                     } else {
@@ -328,20 +329,20 @@ ROPerson::computeIntermodal(SUMOTime time, const RORouterProvider& provider,
                     }
                 }
                 if (it + 1 == result.end() && trip->getStopDest() == "") {
-                    trip->addTripItem(new Walk(it->edges, it->cost, depPos, arrPos));
+                    trip->addTripItem(new Walk(item.edges, item.cost, depPos, arrPos));
                 } else {
-                    trip->addTripItem(new Walk(it->edges, it->cost, depPos, arrPos, it->destStop));
+                    trip->addTripItem(new Walk(item.edges, item.cost, depPos, arrPos, item.destStop));
                 }
-            } else if (veh != nullptr && it->line == veh->getID()) {
-                trip->addTripItem(new Ride(it->edges.front(), it->edges.back(), veh->getID(), trip->getGroup(), it->cost, trip->getArrivalPos(), it->destStop));
+            } else if (veh != nullptr && item.line == veh->getID()) {
+                trip->addTripItem(new Ride(item.edges.front(), item.edges.back(), veh->getID(), trip->getGroup(), item.cost, item.arrivalPos, item.destStop));
                 if (veh->getVClass() != SVC_TAXI) {
-                    RORoute* route = new RORoute(veh->getID() + "_RouteDef", it->edges);
+                    RORoute* route = new RORoute(veh->getID() + "_RouteDef", item.edges);
                     route->setProbability(1);
                     veh->getRouteDefinition()->addLoadedAlternative(route);
                     carUsed = true;
                 }
             } else {
-                trip->addTripItem(new Ride(nullptr, nullptr, it->line, trip->getGroup(), it->cost, trip->getArrivalPos(), it->destStop, it->intended, TIME2STEPS(it->depart)));
+                trip->addTripItem(new Ride(nullptr, nullptr, item.line, trip->getGroup(), item.cost, item.arrivalPos, item.destStop, item.intended, TIME2STEPS(item.depart)));
             }
         }
     }

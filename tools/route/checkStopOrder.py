@@ -74,7 +74,8 @@ def main(options):
                     if stop.arrival:
                         until = parseTime(stop.arrival) + parseTime(stop.duration)
                     else:
-                        print("Cannot compute 'until' for Vehicle %s because 'arrival' is not defined" % vehicle.id, file=sys.stderr)
+                        print("Cannot compute 'until' for Vehicle %s because 'arrival' is not defined" %
+                              vehicle.id, file=sys.stderr)
                 else:
                     until = parseTime(stop.until)
                 arrival = parseTime(stop.arrival) if stop.arrival else until - parseTime(stop.duration)
@@ -84,7 +85,7 @@ def main(options):
         times.sort()
         for i, (a, u, v, t) in enumerate(times):
             for a2, u2, v2, t2 in times[i + 1:]:
-                if u2 < u:
+                if u2 <= u:
                     print("Vehicle %s (%s, %s) overtakes %s (%s, %s) at stop %s" % (
                         v2, tf(a2), tf(u2), v, tf(a), tf(u), stop), file=sys.stderr)
 

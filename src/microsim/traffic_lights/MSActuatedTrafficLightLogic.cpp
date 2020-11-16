@@ -182,6 +182,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     //            (Under these conditions we assume that the minor link is unimportant and traffic is mostly for the major link)
     //
     //              check1c: when the lane has only one edge, we treat greenMinor as green as there would be no actuation otherwise
+    //              check1d: for turnarounds 1b is sufficient and we do not require 1a
     //
     //  check2: if there are two loops on subsequent lanes (joined tls) and the second one has a red link, the first loop may not be used
 
@@ -201,6 +202,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         }
     }
     std::vector<bool> oneLane(numLinks, false);
+    std::vector<bool> turnaround(numLinks, true);
     for (int i = 0; i < numLinks; i++)  {
         for (MSLane* lane : getLanesAt(i)) {
             // only count motorized vehicle lanes
@@ -212,6 +214,12 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             }
             if (numMotorized == 1) {
                 oneLane[i] = true;
+                break;
+            }
+        }
+        for (MSLink* link : getLinksAt(i)) {
+            if (!link->isTurnaround()) {
+                turnaround[i] = false;
                 break;
             }
         }
@@ -232,24 +240,26 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
             for (int i = 0; i < numLinks; i++)  {
                 if (state[i] == LINKSTATE_TL_GREEN_MAJOR
                         || (state[i] == LINKSTATE_TL_GREEN_MINOR
-                            && ((neverMajor[i]  // check1a
+                            && (((neverMajor[i] || turnaround[i])  // check1a, 1d
                                  && hasMajor(state, getLanesAt(i))) // check1b
                                 || oneLane[i])) // check1c
                    ) {
                     greenLinks.insert(i);
-                    actuatedLinks.insert(i);
+                    if (state[i] == LINKSTATE_TL_GREEN_MAJOR || !turnaround[i]) {
+                        actuatedLinks.insert(i);
+                    }
                 }
 #ifdef DEBUG_DETECTORS
-                //if (DEBUG_COND) {
-                //    std::cout << " phase=" << phaseIndex << " i=" << i << " state=" << state[i] << " green=" << greenLinks.count(i) << " oneLane=" << oneLane[i]
-                //        << " loopLanes=";
-                //    for (MSLane* lane: getLanesAt(i)) {
-                //        if (laneInductLoopMap.count(lane) != 0) {
-                //            std::cout << lane->getID() << " ";
-                //        }
-                //    }
-                //    std::cout << "\n";
-                //}
+                if (DEBUG_COND) {
+                    std::cout << " phase=" << phaseIndex << " i=" << i << " state=" << state[i] << " green=" << greenLinks.count(i) << " oneLane=" << oneLane[i]
+                        << " turn=" << turnaround[i] << " loopLanes=";
+                    for (MSLane* lane: getLanesAt(i)) {
+                        if (laneInductLoopMap.count(lane) != 0) {
+                            std::cout << lane->getID() << " ";
+                        }
+                    }
+                    std::cout << "\n";
+                }
 #endif
                 for (MSLane* lane : getLanesAt(i)) {
                     if (laneInductLoopMap.count(lane) != 0) {
@@ -276,6 +286,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 // check2
                 if (usable) {
                     for (MSLink* link : loopLane->getLinkCont()) {
+                        if (link->isTurnaround()) {
+                            continue;
+                        }
                         const MSLane* next = link->getLane();
                         if (laneInductLoopMap.count(next) != 0) {
                             MSInductLoop* nextLoop = laneInductLoopMap[next];
@@ -296,7 +309,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 if (usable) {
                     loops.insert(item.first);
 #ifdef DEBUG_DETECTORS
-                    //if (DEBUG_COND) std::cout << " phase=" << phaseIndex << " usableLoops=" << item.first->getID() << " links=" << joinToString(item.second, " ") << "\n";
+                    if (DEBUG_COND) std::cout << " phase=" << phaseIndex << " usableLoops=" << item.first->getID() << " links=" << joinToString(item.second, " ") << "\n";
 #endif
                     for (int j : item.second) {
                         linkToLoops[j].insert(item.first);
@@ -311,12 +324,12 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         if (DEBUG_COND) {
             std::cout << " phase=" << phaseIndex << " loops=" << joinNamedToString(loops, " ") << "\n";
         }
-        //if (DEBUG_COND) {
-        //    std::cout << " linkToLoops:\n";
-        //    for (auto item : linkToLoops) {
-        //        std::cout << "   link=" << item.first << " loops=" << joinNamedToString(item.second, " ") << "\n";
-        //    }
-        //}
+        if (DEBUG_COND) {
+            std::cout << " linkToLoops:\n";
+            for (auto item : linkToLoops) {
+                std::cout << "   link=" << item.first << " loops=" << joinNamedToString(item.second, " ") << "\n";
+            }
+        }
 #endif
         std::vector<InductLoopInfo*> loopInfos;
         myInductLoopsForPhase.push_back(loopInfos);
@@ -330,12 +343,12 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
         }
     }
 #ifdef DEBUG_DETECTORS
-    //if (DEBUG_COND) {
-    //    std::cout << "final linkToLoops:\n";
-    //    for (auto item : linkToLoops) {
-    //        std::cout << "   link=" << item.first << " loops=" << joinNamedToString(item.second, " ") << "\n";
-    //    }
-    //}
+    if (DEBUG_COND) {
+        std::cout << "final linkToLoops:\n";
+        for (auto item : linkToLoops) {
+            std::cout << "   link=" << item.first << " loops=" << joinNamedToString(item.second, " ") << "\n";
+        }
+    }
 #endif
     for (int i : actuatedLinks) {
         if (linkToLoops[i].size() == 0 && myLinks[i].size() > 0

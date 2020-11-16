@@ -813,6 +813,11 @@ GNEStop::getHierarchyName() const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNEStop::getACParametersMap() const {
+    return getParametersMap();
+}
+
 double
 GNEStop::getStartGeometryPositionOverLane() const {
     double fixedPos = 0;

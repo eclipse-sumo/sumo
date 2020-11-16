@@ -837,6 +837,12 @@ GNEVehicleType::getHierarchyName() const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNEVehicleType::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEVehicleType::overwriteVType(GNEDemandElement* vType, SUMOVTypeParameter* newVTypeParameter, GNEUndoList* undoList) {
     // open undo list and overwritte all values of default VType

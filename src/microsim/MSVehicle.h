@@ -569,7 +569,15 @@ public:
     /** @brief Returns the lane the vehicle is on
      * @return The vehicle's current lane
      */
-    MSLane* getLane() const {
+    const MSLane* getLane() const {
+        return myLane;
+    }
+
+    /** @brief Returns the lane the vehicle is on
+     * Non const version indicates that something volatile is going on
+     * @return The vehicle's current lane
+     */
+    MSLane* getMutableLane() const {
         return myLane;
     }
 
@@ -703,6 +711,10 @@ public:
     /** @brief Returns the public transport stop delay in seconds
      */
     double getStopDelay() const;
+
+    /** @brief Returns the estimated public transport stop arrival delay in seconds
+     */
+    double getStopArrivalDelay() const;
 
     /** @brief Returns the vehicle's direction in radians
      * @return The vehicle's current angle
@@ -2072,6 +2084,7 @@ protected:
     /// @brief decide whether a red (or yellow light) may be ignore
     bool ignoreRed(const MSLink* link, bool canBrake) const;
 
+    double estimateTimeToNextStop() const;
 
 private:
     /// @brief The per vehicle variables of the car following model

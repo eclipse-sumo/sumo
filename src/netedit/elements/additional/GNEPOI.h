@@ -180,6 +180,9 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
 protected:
     /// @brief Position of POI in GEO coordinates (Only used by POIs that aren't placed over lanes)
     Position myGEOPosition;

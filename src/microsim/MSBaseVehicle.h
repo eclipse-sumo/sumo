@@ -289,11 +289,18 @@ public:
         return getDeparture() - getParameter().depart;
     }
 
-    /** @brief Returns the public transport stop delay in seconds
+    /** @brief Returns the estimated public transport stop (departure) delay in seconds
      */
     virtual double getStopDelay() const {
         /// @todo implement for meso
         return -1;
+    }
+
+    /** @brief Returns the estimated public transport stop arrival delay in seconds
+     */
+    virtual double getStopArrivalDelay() const {
+        /// @todo implement for meso
+        return INVALID_DOUBLE;
     }
 
     /** @brief Returns this vehicle's real departure position

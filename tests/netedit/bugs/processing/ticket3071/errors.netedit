@@ -1,11 +1,7 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e3Detector 'e3Detector_0' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Adding detExit 'e3Detector_0' in GNEChange_Additional
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from-gneE10_1to-gneE9_1' in retrieveGNEConnection()
 Debug: Created connection 'from-gneE10_1to-gneE17_1' in retrieveGNEConnection()
@@ -73,8 +69,6 @@ Debug: Created crossing ':gneJ19_c2' in retrieveGNECrossing()
 Debug: Created crossing ':gneJ19_c3' in retrieveGNECrossing()
 Debug: Key F7 (Join junctions) pressed
 Debug: Adding junction 'gneJ20' into net
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute type 'priority' into junction 'gneJ20'
 Debug: Removing crossing from junction 'gneJ13'
 Debug: Deleting unreferenced crossing in rebuildGNECrossings()
@@ -916,8 +910,6 @@ Debug: Deleting NBNode of 'gneJ19' in GNEJunction destructor
 Debug: Deleting unreferenced detExit 'e3Detector_0'
 Debug: Deleting unreferenced detEntry 'e3Detector_0'
 Debug: Deleting unreferenced e3Detector 'e3Detector_0'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced edge '-gneE10' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane '-gneE10_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE10_1' in GNEEdge destructor

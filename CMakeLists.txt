@@ -219,10 +219,12 @@ if (SUMO_LIBRARIES AND WIN32)
     endif ()
     # set fox
     file(GLOB FOX_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/fox-?.?.??")
+    # set freetype
+    file(GLOB FREETYPE_PATH "${SUMO_LIBRARIES}${LIB_VERSION}/freetype-2.??.?")
     # set eigen (no version in directory name as it is a submodule)
     file(GLOB EIGEN3_PATH "${SUMO_LIBRARIES}/eigen")
     # set all paths in prefix
-    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH}")
+    set(CMAKE_PREFIX_PATH "${CMAKE_PREFIX_PATH};${EIGEN3_PATH};${XERCES_PATH};${ZLIB_PATH};${ZLIB_PATH}/Release;${ZLIB_PATH}/Debug;${ZLIB_PATH}/bin;${ZLIB_PATH}/lib;${PROJ_PATH};${GDAL_PATH};${FOX_PATH};${FREETYPE_PATH}")
     # save in variable SUMO_LIBRARIES_DLL all paths to dll files
     file(GLOB SUMO_LIBRARIES_DLL "${XERCES_PATH}/bin/*.dll"
                                  "${PROJ_PATH}/bin/*.dll"
@@ -299,6 +301,13 @@ if (FOX_FOUND)
     set(HAVE_FOX 1)
     set(ENABLED_FEATURES "${ENABLED_FEATURES} GUI")
 endif (FOX_FOUND)
+
+find_package(Freetype)
+if (FREETYPE_FOUND)
+    include_directories(SYSTEM ${FREETYPE_INCLUDE_DIRS})
+else (FREETYPE_FOUND)
+    message(WARNING "FreeType cannot be found. If you are using SUMO libraries, update SUMO_LIBRARIES folder with git pull. Otherwise, specify manually FreeType include folder and libs.")
+endif (FREETYPE_FOUND)
 
 find_package(X11)
 if (X11_FOUND)
@@ -592,7 +601,7 @@ find_program(PYINSTALLER_FOUND "pyinstaller")
 if (PYINSTALLER_FOUND AND EXISTS ${CMAKE_SOURCE_DIR}/tools/game/runner.spec)
     add_custom_target(game
         COMMAND pyinstaller --noconfirm ${CMAKE_SOURCE_DIR}/tools/game/runner.spec
-		COMMAND ${CMAKE_COMMAND} -E chdir dist/runner ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/sumo-game-${PACKAGE_VERSION}.zip" --format=zip "."
+        COMMAND ${CMAKE_COMMAND} -E chdir dist/runner ${CMAKE_COMMAND} -E tar "cf" "${CMAKE_SOURCE_DIR}/sumo-game-${PACKAGE_VERSION}.zip" --format=zip "."
     )
 endif()
 

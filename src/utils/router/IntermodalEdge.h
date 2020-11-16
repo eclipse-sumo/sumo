@@ -36,12 +36,12 @@
 template<class E, class L, class N, class V>
 class IntermodalEdge : public Named {
 public:
-    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line, const double length = 0.) :
+    IntermodalEdge(const std::string id, int numericalID, const E* edge, const std::string& line, const double length = -1) :
         Named(id),
         myNumericalID(numericalID),
         myEdge(edge),
         myLine(line),
-        myLength(edge == nullptr || length > 0. ? length : edge->getLength()),
+        myLength(edge == nullptr || length >= 0. ? MAX2(0.0, length) : edge->getLength()),
         myEfforts(nullptr) { }
 
     virtual ~IntermodalEdge() {}
@@ -111,16 +111,21 @@ public:
         return false;
     }
 
-    virtual double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
+    virtual inline double getPartialLength(const IntermodalTrip<E, N, V>* const /*trip*/) const {
+        return myLength;
+    }
+
+
+    virtual inline double getTravelTime(const IntermodalTrip<E, N, V>* const /* trip */, double /* time */) const {
         return 0.;
     }
 
-    virtual double getTravelTimeAggregated(const IntermodalTrip<E, N, V>* const trip, double time) const {
+    virtual inline double getTravelTimeAggregated(const IntermodalTrip<E, N, V>* const trip, double time) const {
         return getTravelTime(trip, time);
     }
 
     /// @brief get intended vehicle id and departure time of next public transport ride
-    virtual double getIntended(const double /* time */, std::string& /* intended */) const {
+    virtual inline double getIntended(const double /* time */, std::string& /* intended */) const {
         return 0.;
     }
 
@@ -145,6 +150,7 @@ public:
         return edge == nullptr || !edge->hasEffort() ? 0. : edge->getEffort(trip, time);
     }
 
+    /// @brief required by DijkstraRouter et al for external effort computation
     inline double getLength() const {
         return myLength;
     }

@@ -633,7 +633,7 @@ public:
 
     /** Returns the information whether this lane may be used to continue
         the current route */
-    virtual bool appropriate(const MSVehicle* veh);
+    virtual bool appropriate(const MSVehicle* veh) const;
 
 
     /// returns the container with all links !!!

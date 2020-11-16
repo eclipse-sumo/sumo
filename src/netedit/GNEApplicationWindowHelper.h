@@ -80,15 +80,12 @@ struct GNEApplicationWindowHelper {
         FXMenuBar* modes;
 
         /// @brief The application menu bar for mode options (show connections, select edges...)
-        FXMenuBar* modeOptions;
-
-        /// @brief The application menu bar for mode options (show connections, select edges...)
         FXMenuBar* intervalBar;
 
-        FXDockSite* myTopDock;
     private:
         /// @brief pointer to current GNEApplicationWindow
         GNEApplicationWindow* myGNEApp;
+
         /// @brief menu bar drag (for file, edit, processing...)
         FXToolBarShell* myToolBarShellMenu;
 
@@ -103,9 +100,6 @@ struct GNEApplicationWindowHelper {
 
         /// @brief menu bar drag for modes (select, inspect, delete...)
         FXToolBarShell* myToolBarShellModes;
-
-        /// @brief menu bar drag for mode options (show connections, select edges...)
-        FXToolBarShell* myToolBarShellModeOptions;
 
         /// @brief menu bar drag for interval bar
         FXToolBarShell* myToolBarShellIntervalBar;
@@ -488,14 +482,14 @@ struct GNEApplicationWindowHelper {
     };
 
     /// @brief toogle edit options Network menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)
-    static bool toogleEditOptionsNetwork(GNEViewNet* viewNet, const FXMenuCheck* menuCheck,
+    static bool toogleEditOptionsNetwork(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                          const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 
     /// @brief toogle edit options Demand menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)
-    static bool toogleEditOptionsDemand(GNEViewNet* viewNet, const FXMenuCheck* menuCheck,
+    static bool toogleEditOptionsDemand(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                         const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 
     /// @brief toogle edit options Data menu commands (called in GNEApplicationWindow::onCmdToogleEditOptions)
-    static bool toogleEditOptionsData(GNEViewNet* viewNet, const FXMenuCheck* menuCheck,
+    static bool toogleEditOptionsData(GNEViewNet* viewNet, const MFXCheckableButton* menuCheck,
                                       const int numericalKeyPressed, FXObject* obj, FXSelector sel);
 };

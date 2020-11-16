@@ -877,6 +877,15 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::ORANGE, (double)300);
     scheme.addColor(RGBColor::RED, (double)900);
     vehicleColorer.addScheme(scheme);
+    scheme = GUIColorScheme("by stop arrival delay", RGBColor::BLUE, "", false, 0, COL_SCHEME_DYNAMIC);
+    scheme.addColor(RGBColor::CYAN, (double)10);
+    scheme.addColor(RGBColor::GREEN, (double)60);
+    scheme.addColor(RGBColor::YELLOW, (double)120);
+    scheme.addColor(RGBColor::ORANGE, (double)300);
+    scheme.addColor(RGBColor::RED, (double)900);
+    scheme.addColor(RGBColor::MAGENTA, (double)-10);
+    scheme.setAllowsNegativeValues(true);
+    vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by lateral speed", RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);
     scheme.addColor(RGBColor(255,   0, 0, 255), -3, "-1.5");
     scheme.addColor(RGBColor(255, 255, 0, 255), -1, "-0.5");

@@ -6,16 +6,12 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding parkingArea 'parkingAreaA' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaA into SUMORTree with boundary -1.30,-16.40,25.20,3.60
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding parkingArea 'parkingAreaB' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaB into SUMORTree with boundary 24.80,-16.40,63.20,3.60
 Debug: Adding parkingArea 'parkingAreaC' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaC into SUMORTree with boundary -11.20,-3.60,51.20,16.40
 Debug: Adding parkingArea 'parkingAreaD' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingAreaD into SUMORTree with boundary -1.20,-3.60,25.30,16.40
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute selected 'true' into junction 'gneJ0'
 Debug: Setting new attribute selected 'true' into edge 'gneE1'
 Debug: Setting new attribute selected 'true' into junction 'gneJ1'
@@ -58,8 +54,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Deleting unreferenced parkingArea 'parkingAreaD'
 GLDebug: 	Removed object parkingArea:parkingAreaD from SUMORTree with boundary -1.20,-3.60,25.30,16.40
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced parkingArea 'parkingAreaC'
 GLDebug: 	Removed object parkingArea:parkingAreaC from SUMORTree with boundary -11.20,-3.60,51.20,16.40
 Debug: Deleting unreferenced parkingArea 'parkingAreaB'

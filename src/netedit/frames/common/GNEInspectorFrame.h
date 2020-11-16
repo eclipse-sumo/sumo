@@ -192,6 +192,21 @@ public:
         FXDECLARE(GNEInspectorFrame::TemplateEditor)
 
     public:
+        /// @brief edgeTemplate
+        struct EdgeTemplate {
+            /// @brief default constructor
+            EdgeTemplate();
+
+            /// @brief constructor
+            EdgeTemplate(GNEEdge* edge);
+
+            /// @brief edge parameters
+            std::map<SumoXMLAttr, std::string> edgeParameters;
+
+            /// @brief lane parameters
+            std::vector<std::map<SumoXMLAttr, std::string> > laneParameters;
+        };
+
         /// @brief constructor
         TemplateEditor(GNEInspectorFrame* inspectorFrameParent);
 
@@ -204,8 +219,11 @@ public:
         /// @brief hide template editor
         void hideTemplateEditor();
 
+        /// @brief there is a template
+        bool hasTemplate() const;
+
         /// @brief get the template edge (to copy attributes from)
-        GNEEdge* getEdgeTemplate() const;
+        const TemplateEditor::EdgeTemplate &getEdgeTemplate() const;
 
         /// @brief set template (used by shortcut)
         void setTemplate();
@@ -218,7 +236,6 @@ public:
 
         /// @name FOX-callbacks
         /// @{
-
         /// @brief set current edge as new template
         long onCmdSetTemplate(FXObject*, FXSelector, void*);
 
@@ -230,10 +247,11 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(TemplateEditor)
 
         /// @brief seh the template edge (we assume shared responsibility via reference counting)
-        void setEdgeTemplate(GNEEdge* tpl);
+        void setEdgeTemplate(GNEEdge* edgeTemplate);
 
         /// @brief update buttons
         void updateButtons();
@@ -251,8 +269,61 @@ public:
         /// @brief clear template button
         FXButton* myClearTemplateButton;
 
-        /// @brief pointer to edge template
-        GNEEdge* myEdgeTemplate;
+        /// @brief flag for edge template
+        bool myHasEdgeTemplate;
+
+        /// @brief map with edge template
+        TemplateEditor::EdgeTemplate myEdgeTemplate;
+    };
+
+    // ===========================================================================
+    // class ParametersEditorInspector
+    // ===========================================================================
+
+    class ParametersEditorInspector : private FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNEInspectorFrame::ParametersEditorInspector)
+
+    public:
+        /// @brief constructor
+        ParametersEditorInspector(GNEInspectorFrame* inspectorFrameParent);
+
+        /// @brief destructor
+        ~ParametersEditorInspector();
+
+        /// @brief show netedit attributes EditorInspector
+        void showParametersEditorInspector();
+
+        /// @brief hide netedit attributes EditorInspector
+        void hideParametersEditorInspector();
+
+        /// @brief refresh netedit attributes
+        void refreshParametersEditorInspector();
+
+        /// @brief get inspector frame parent
+        GNEInspectorFrame* getInspectorFrameParent() const;
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when user clicks over add parameter
+        long onCmdEditParameters(FXObject*, FXSelector, void*);
+
+        /// @brief Called when user udpate the parameter text field
+        long onCmdSetParameters(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(ParametersEditorInspector)
+
+    private:
+        /// @brief current GNEInspectorFrame parent
+        GNEInspectorFrame* myInspectorFrameParent;
+
+        /// @brief text field for write parameters
+        FXTextField* myTextFieldParameters;
+
+        /// @brief button for edit parameters using specific dialog
+        FXButton* myButtonEditParameters;
     };
 
     /**@brief Constructor
@@ -356,8 +427,8 @@ private:
     /// @brief GEO Attributes editor
     GEOAttributesEditor* myGEOAttributesEditor;
 
-    /// @brief parameters editor
-    GNEFrameAttributesModuls::ParametersEditor* myParametersEditor;
+    /// @brief parameters editor inspector
+    ParametersEditorInspector* myParametersEditorInspector;
 
     /// @brief Template editor
     TemplateEditor* myTemplateEditor;

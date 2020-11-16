@@ -18,3 +18,6 @@ free_speed
 
 # test insertion of a fast vehicle behind a slow vehicle
 insertion_speed
+
+# test insertion of a fast vehicle behind a slow vehicle
+insertion_speed_step0.2

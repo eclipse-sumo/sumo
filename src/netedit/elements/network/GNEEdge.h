@@ -22,6 +22,7 @@
 #include "GNENetworkElement.h"
 
 #include <netbuild/NBEdge.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/elements/GNECandidateElement.h>
 
 
@@ -165,6 +166,9 @@ public:
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
     /// @brief set responsibility for deleting internal strctures
     void setResponsible(bool newVal);
 
@@ -190,7 +194,7 @@ public:
     void remakeGNEConnections();
 
     /// @brief copy edge attributes from tpl
-    void copyTemplate(GNEEdge* tpl, GNEUndoList* undolist);
+    void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate &edgeTemplate, GNEUndoList* undolist);
 
     /// @brief returns GLIDs of all lanes
     std::set<GUIGlID> getLaneGlIDs() const;

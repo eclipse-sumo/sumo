@@ -155,4 +155,7 @@ missed_bus_reroute
 
 # trip with fromTaz and toTaz
 taz
+
+# last edge of the ride differs from first edge of the walk
+atJunction_ride_walk
 errors

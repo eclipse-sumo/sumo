@@ -48,28 +48,22 @@ namespace LIBSUMO_NAMESPACE {
 class Route {
 public:
 
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static std::vector<std::string> getEdges(const std::string& routeID);
-    static std::string getParameter(const std::string& routeID, const std::string& param);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 
-    static void add(const std::string& routeID, const std::vector<std::string>& edges);
-    static void setParameter(const std::string& routeID, const std::string& param, const std::string& value); // not needed so far
-
-#ifndef LIBTRACI
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
+    static void add(const std::string& routeID, const std::vector<std::string>& edges);
+
+#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
     static const MSRoute* getRoute(const std::string& id);
-#endif
 
 private:
-#ifndef LIBTRACI
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
 #endif

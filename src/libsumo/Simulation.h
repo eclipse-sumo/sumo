@@ -45,7 +45,7 @@ namespace LIBSUMO_NAMESPACE {
 class Simulation {
 public:
 #ifdef LIBTRACI
-    static std::pair<int, std::string> init(int port=8813, int numRetries=10, const std::string& host="localhost", const std::string& label="default");
+    static std::pair<int, std::string> init(int port=8813, int numRetries=10, const std::string& host="localhost", const std::string& label="default", FILE* const pipe=nullptr);
 
     static std::pair<int, std::string> start(const std::vector<std::string>& cmd, int port=-1, int numRetries=10, const std::string& label="default", const bool verbose=false);
 
@@ -142,7 +142,6 @@ public:
             const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
-    LIBSUMO_GET_PARAMETER_WITH_KEY_API
 #endif
 
     static void clearPending(const std::string& routeID = "");
@@ -154,6 +153,8 @@ public:
 #ifndef LIBTRACI
     static void subscribe(const std::vector<int>& varIDs = std::vector<int>(), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE);
     static const libsumo::TraCIResults getSubscriptionResults();
+    static const SubscriptionResults getAllSubscriptionResults();
+    static const ContextSubscriptionResults getAllContextSubscriptionResults();
 
     static std::shared_ptr<VariableWrapper> makeWrapper();
 

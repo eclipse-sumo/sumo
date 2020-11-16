@@ -54,7 +54,7 @@ GNEEdgeDataFrame::addEdgeData(const GNEViewNetHelper::ObjectsUnderCursor& object
             }
         }
         // finally create edgeData
-        GNEDataHandler::buildEdgeData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), myParametersEditor->getParametersMap());
+        GNEDataHandler::buildEdgeData(myViewNet->getNet(), true, myIntervalSelector->getDataInterval(), objectsUnderCursor.getEdgeFront(), myParametersEditorCreator->getParametersMap());
         // edgeData created, then return true
         return true;
     } else {

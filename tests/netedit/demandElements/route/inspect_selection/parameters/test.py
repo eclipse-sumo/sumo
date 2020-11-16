@@ -58,7 +58,7 @@ netedit.leftClick(referencePosition, 274, 388)
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, 280, 417)
+netedit.leftClick(referencePosition, 280, 392)
 # check parameters
 netedit.checkParameters(referencePosition, 3, True)
 

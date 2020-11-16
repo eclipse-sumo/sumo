@@ -78,7 +78,7 @@ public:
     /** @brief Returns the lane the vehicle is on
     * @return The vehicle's current lane
     */
-    MSLane* getLane() const {
+    const MSLane* getLane() const {
         return nullptr;
     }
 
@@ -154,6 +154,12 @@ public:
      * @return whether the vehicle is parking
      */
     bool isParking() const;
+
+    /** @brief registers vehicle with the given link
+     *
+     * @param[in] link the link on which the car shall register its approach
+     */
+    void setApproaching(MSLink* link);
 
     /// @brief Returns the remaining stop duration for a stopped vehicle or 0
     SUMOTime remainingStopDuration() const {

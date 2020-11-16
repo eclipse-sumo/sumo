@@ -1,42 +1,68 @@
 buildType:
   default: debug
-  description: My option
+  description: Switch between debug and release build type
   choices:
     debug:
       short: Debug
-      long: Build with debug info
+      long: Debug
       buildType: Debug
+      settings:
+        CMAKE_BUILD_TYPE: Debug
     release:
       short: Release
-      long: Optimize binaries
+      long: Release
       buildType: Release
+      settings:
+        CMAKE_BUILD_TYPE: Release
 
 useFMI:
   default: 'no'
-  description: My option
+  description: Enable building of FMUs for SUMO
   choices:
     'yes':
       short: FMI
-      long: Enable the use of FMI
+      long: FMI
       settings:
         FMI: 'yes'
     'no':
-      short: 'NoFMI'
-      long: Do not build the FMI library
+      short: 'noFMI'
+      long: 'noFMI'
       settings:
         FMI: 'no'
 
 pythonBindings:
-  default: 'no'
+  default: 'yes'
   description: Enable python Bindings?
   choices:
     'yes':
-      short: Python
-      long: Build python bindings
+      short: Python (def.)
+      long: Python (def.)
       settings:
         ENABLE_PYTHON_BINDINGS: 'yes'
+    'yes-3.8':
+      short: Python (brew 3.8)
+      long: Python (brew 3.8)
+      settings:
+        ENABLE_PYTHON_BINDINGS: 'yes'
+        PYTHON_EXECUTABLE: "/usr/local/bin/python3.8"
     'no':
-      short: 'NoPython'
-      long: Do not build python bindings
+      short: 'noPython'
+      long: noPython
       settings:
         ENABLE_PYTHON_BINDINGS: 'no'
+
+javaBindings:
+  default: 'no'
+  description: Enable Java bindings?
+  choices:
+    'no':
+      short: 'noJava'
+      long: noJava
+      settings:
+        ENABLE_JAVA_BINDINGS: 0
+
+    'yes':
+      short: Java
+      long: Java
+      settings:
+        ENABLE_JAVA_BINDINGS: 'yes'

@@ -11,7 +11,7 @@ on:
 
 jobs:
   build:
-    runs-on: macos-latest
+    runs-on: macos-10.15
     steps:
       
     - name: Cloning SUMO
@@ -31,9 +31,8 @@ jobs:
 
     - name: Installing Google Test
       run: |
-        git clone https://github.com/google/googletest
+        git clone --depth 1 --branch release-1.10.0 https://github.com/google/googletest
         cd googletest
-        git checkout release-1.10.0
         mkdir build
         cd build
         cmake ..
@@ -69,12 +68,14 @@ jobs:
         
     - name: Building FMU Compliance Checker
       run: |
-        git clone https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker
+        # Runs only in Clang11 - minizip fails due to -Werror 
+        sudo xcode-select -s "/Applications/Xcode_11.7.app"
+        git clone --depth 1 https://github.com/modelica-tools/FMUComplianceChecker.git fmuChecker    
         cd fmuChecker
         mkdir build
         cd build
-        cmake ../
-        make install test
+        cmake ../ -Wno-dev
+        cmake --build . --target install -Wno-dev
         
     - name: Checking sumo-fmi2.fmu
       run: |

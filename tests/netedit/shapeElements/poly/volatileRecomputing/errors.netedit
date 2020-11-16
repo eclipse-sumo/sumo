@@ -6,8 +6,6 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding poly 'poly_0' into viewNet
 GLDebug: 	Inserted polygon:poly_0 into SUMORTree with boundary -10.00,0.00,20.00,30.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding poly 'poly_1' into viewNet
 GLDebug: 	Inserted polygon:poly_1 into SUMORTree with boundary 10.00,0.00,40.00,30.00
 Debug: Adding poly 'poly_2' into viewNet
@@ -18,8 +16,6 @@ Debug: Adding poly 'poly_4' into viewNet
 GLDebug: 	Inserted polygon:poly_4 into SUMORTree with boundary 10.00,-30.00,40.00,0.00
 Debug: Adding poly 'poly_5' into viewNet
 GLDebug: 	Inserted polygon:poly_5 into SUMORTree with boundary 30.00,-30.00,60.00,0.00
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Keys Shift + F5 (Compute with volatile options) pressed
 Debug: Opening FXMessageBox 'Volatile Recomputing'
 Debug: Closed FXMessageBox 'Volatile Recomputing' with 'Yes'

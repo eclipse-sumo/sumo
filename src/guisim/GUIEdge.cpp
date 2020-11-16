@@ -43,6 +43,13 @@
 #include <microsim/MSGlobals.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <mesogui/GUIMEVehicleControl.h>
+#include <mesogui/GUIMEVehicle.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#include <mesosim/MEVehicle.h>
+
 #include "GUITriggeredRerouter.h"
 #include "GUIEdge.h"
 #include "GUIVehicle.h"
@@ -50,12 +57,6 @@
 #include "GUILane.h"
 #include "GUIPerson.h"
 #include "GUIContainer.h"
-
-#include <mesogui/GUIMEVehicleControl.h>
-#include <mesogui/GUIMEVehicle.h>
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
-#include <mesosim/MEVehicle.h>
 
 
 GUIEdge::GUIEdge(const std::string& id, int numericalID,
@@ -164,7 +165,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
         buildShowParamsPopupEntry(ret);
     }
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
-    new FXMenuCommand(ret, ("segment: " + toString(segment->getIndex())).c_str(), nullptr, nullptr, 0);
+    GUIDesigns::buildFXMenuCommand(ret, "segment: " + toString(segment->getIndex()), nullptr, nullptr, 0);
     buildPositionCopyEntry(ret, false);
     return ret;
 }

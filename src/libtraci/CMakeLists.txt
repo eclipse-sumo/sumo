@@ -10,29 +10,29 @@ set(libtracistatic_STAT_SRCS
     Connection.cpp
 	Connection.h
 	Domain.h
-#    Edge.cpp
-#    InductionLoop.cpp
-#    Junction.cpp
-#    Lane.cpp
-#    LaneArea.cpp
-#    MultiEntryExit.cpp
-#    Person.cpp
+    Edge.cpp
+    InductionLoop.cpp
+    Junction.cpp
+    Lane.cpp
+    LaneArea.cpp
+    MultiEntryExit.cpp
+    Person.cpp
 #    POI.cpp
 #    Polygon.cpp
     Route.cpp
 #    Calibrator.cpp
-#    BusStop.cpp
-#    ParkingArea.cpp
-#    ChargingStation.cpp
-#    RouteProbe.cpp
-#    Rerouter.cpp
-#    VariableSpeedSign.cpp
-#    MeanData.cpp
-#    OverheadWire.cpp
+    BusStop.cpp
+    ParkingArea.cpp
+    ChargingStation.cpp
+    RouteProbe.cpp
+    Rerouter.cpp
+    VariableSpeedSign.cpp
+    MeanData.cpp
+    OverheadWire.cpp
     Simulation.cpp
 #    TrafficLight.cpp
-#    Vehicle.cpp
-#    VehicleType.cpp
+    Vehicle.cpp
+    VehicleType.cpp
 )
 
 add_library(libtracistatic STATIC ${libtracistatic_STAT_SRCS})
@@ -125,7 +125,7 @@ if(SWIG_FOUND)
                     set_property(TARGET ${SWIG_MODULE_libtraci_REAL_NAME} PROPERTY FOLDER "libtraci")
                     swig_link_libraries(libtraci libtracistatic ${libtcpip} ${PYTHON_LIBRARIES})
                 else()
-                    swig_link_libraries(libtraci -Wl,--whole-archive libtracistatic ${libtcpip} -Wl,--no-whole-archive)
+                    swig_link_libraries(libtraci -Wl,--whole-archive libtracistatic ${commonlibs} -Wl,--no-whole-archive)
                 endif()
                 if (NOT ${SETUPTOOLS_MISSING})
                     install(

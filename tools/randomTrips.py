@@ -134,7 +134,8 @@ def get_options(args=None):
     optParser.add_option("--junction-taz", dest="junctionTaz", action="store_true",
                          default=False, help="Write trips with fromJunction and toJunction")
     optParser.add_option("--via-edge-types", dest="viaEdgeTypes",
-                         help="Set list of edge types that cannot be used for departure or arrival (unless being on the fringe)")
+                         help="Set list of edge types that cannot be used for departure or arrival " +
+                         "(unless being on the fringe)")
     optParser.add_option("--validate", default=False, action="store_true",
                          help="Whether to produce trip output that is already checked for connectivity")
     optParser.add_option("-v", "--verbose", action="store_true",
@@ -265,7 +266,8 @@ def get_prob_fun(options, fringe_bonus, fringe_forbidden, max_length):
                 not options.pedestrians and
                 (options.allow_fringe_min_length is None or edge.getLength() < options.allow_fringe_min_length)):
             return 0  # the wrong kind of fringe
-        if fringe_bonus is not None and options.viaEdgeTypes is not None and not edge.is_fringe() and edge.getType() in options.viaEdgeTypes:
+        if (fringe_bonus is not None and options.viaEdgeTypes is not None and not edge.is_fringe() and
+                edge.getType() in options.viaEdgeTypes):
             return 0  # the wrong type of edge (only allows depart and arrival on the fringe)
         prob = 1
         if options.length:

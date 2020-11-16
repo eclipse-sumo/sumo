@@ -20,20 +20,22 @@
 #pragma once
 #include <config.h>
 
+#include <string>
 #include <vector>
-#include <libsumo/TraCIConstants.h>
+#include <libsumo/TraCIDefs.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class NamedRTree;
 class MSInductLoop;
 class PositionVector;
 namespace libsumo {
-struct TraCIVehicleData;
 class VariableWrapper;
 }
+#endif
 
 
 // ===========================================================================
@@ -43,11 +45,9 @@ class VariableWrapper;
  * @class InductionLoop
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class InductionLoop {
 public:
-    static std::vector<std::string> getIDList();
-    static int getIDCount();
     static double getPosition(const std::string& detID);
     static std::string getLaneID(const std::string& detID);
     static int getLastStepVehicleNumber(const std::string& detID);
@@ -58,8 +58,10 @@ public:
     static double getTimeSinceDetection(const std::string& detID);
     static std::vector<libsumo::TraCIVehicleData> getVehicleData(const std::string& detID);
 
+    LIBSUMO_ID_PARAMETER_API
     LIBSUMO_SUBSCRIPTION_API
 
+#ifndef LIBTRACI
     /** @brief Returns a tree filled with inductive loop instances
      * @return The rtree of inductive loops
      */
@@ -83,6 +85,7 @@ private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
     static NamedRTree* myTree;
+#endif
 
 private:
     /// @brief invalidated standard constructor

@@ -1,7 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding busStop 'busStop_gneE1_0_0' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding laneCalibrator 'calibrator_gneE1_0_0' in GNEChange_Additional
 Debug: Adding calibrator 'calibrator_gneE1_1' in GNEChange_Additional
 Debug: Adding chargingStation 'chargingStation_gneE1_2_0' in GNEChange_Additional
@@ -17,11 +15,7 @@ Debug: Adding rerouterSymbol 'rerouter_0' in GNEChange_Additional
 Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
 Debug: Adding variableSpeedSign 'variableSpeedSign_0' in GNEChange_Additional
 Debug: Adding variableSpeedSignSymbol 'variableSpeedSign_0' in GNEChange_Additional
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute length '25' into edge 'gneE1'
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute length '25' into edge 'gneE0'
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'fromgneE0_2togneE1_2' in retrieveGNEConnection()
@@ -35,8 +29,6 @@ Debug: Setting new attribute endPos '25.00' into chargingStation 'chargingStatio
 Debug: Additionals saved after dialog
 Debug: Deleting unreferenced variableSpeedSignSymbol 'variableSpeedSign_0'
 Debug: Deleting unreferenced variableSpeedSign 'variableSpeedSign_0'
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
 Debug: Deleting unreferenced rerouterSymbol 'rerouter_0'
 Debug: Deleting unreferenced rerouter 'rerouter_0'

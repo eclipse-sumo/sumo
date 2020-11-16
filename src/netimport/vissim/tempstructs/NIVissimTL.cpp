@@ -199,7 +199,7 @@ NIVissimTL::GroupDictType NIVissimTL::NIVissimTLSignalGroup::myDict;
 NIVissimTL::NIVissimTLSignalGroup::NIVissimTLSignalGroup(
     int id,
     const std::string& name,
-    bool isGreenBegin, const std::vector<double>& times,
+    bool isGreenBegin, const std::vector<SUMOTime>& times,
     SUMOTime tredyellow, SUMOTime tyellow)
     : myID(id), myName(name), myTimes(times),
       myFirstIsRed(!isGreenBegin), myTRedYellow(tredyellow),
@@ -274,9 +274,9 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef* tl) const {
     NBTrafficLightDefinition::TLColor color = myFirstIsRed
             ? NBTrafficLightDefinition::TLCOLOR_RED : NBTrafficLightDefinition::TLCOLOR_GREEN;
     std::string id = toString<int>(myID);
-    tl->addSignalGroup(id); // !!! myTimes als SUMOTime
-    for (std::vector<double>::const_iterator i = myTimes.begin(); i != myTimes.end(); i++) {
-        tl->addSignalGroupPhaseBegin(id, (SUMOTime) *i, color);
+    tl->addSignalGroup(id);
+    for (SUMOTime t : myTimes) {
+        tl->addSignalGroupPhaseBegin(id, t, color);
         color = color == NBTrafficLightDefinition::TLCOLOR_RED
                 ? NBTrafficLightDefinition::TLCOLOR_GREEN : NBTrafficLightDefinition::TLCOLOR_RED;
     }
@@ -292,12 +292,6 @@ NIVissimTL::NIVissimTLSignalGroup::addTo(NBLoadedTLDef* tl) const {
 }
 
 
-
-
-
-
-
-
 NIVissimTL::DictType NIVissimTL::myDict;
 
 NIVissimTL::NIVissimTL(int id, const std::string& type,
@@ -310,9 +304,6 @@ NIVissimTL::NIVissimTL(int id, const std::string& type,
 
 
 NIVissimTL::~NIVissimTL() {}
-
-
-
 
 
 bool
@@ -384,7 +375,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont& tlc,
             WRITE_ERROR("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
             continue;
         }
-        def->setCycleDuration((int) tl->myAbsDuration);
+        def->setCycleDuration(tl->myAbsDuration);
         // add each group to the node's container
         SGroupDictType sgs = NIVissimTLSignalGroup::getGroupsFor(tl->getID());
         for (SGroupDictType::const_iterator j = sgs.begin(); j != sgs.end(); j++) {

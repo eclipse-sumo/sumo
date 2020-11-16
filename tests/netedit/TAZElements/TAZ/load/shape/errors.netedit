@@ -6,8 +6,6 @@ GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,1
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding taz 'TAZ_01' into viewNet
 GLDebug: 	Inserted taz:TAZ_01 into SUMORTree with boundary -0.10,-0.10,0.10,0.10
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Error: Shape of a(n) user-supplied shape is broken: the position is neither x,y nor x,y,z.
 Debug: Format of optional list of optional unique positions attribute 'shape' of taz with ID 'TAZ_02' is invalid; List of Positions aren't neither x,y nor x,y,z; Default value will be used.
 Debug: Adding taz 'TAZ_02' into viewNet
@@ -23,8 +21,6 @@ GLDebug: 	Inserted taz:TAZ_06 into SUMORTree with boundary -90.00,0.00,-40.00,40
 Debug: Adding taz 'TAZ_07' into viewNet
 GLDebug: 	Inserted taz:TAZ_07 into SUMORTree with boundary -70.00,10.00,-20.00,60.00
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.03Sep095237.15252\netedit.gui\TAZElements\TAZ\load\shape\input_additionals.add.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -42,8 +38,6 @@ Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
 Debug: Removing taz 'TAZ_07' from net in ~GNEChange_TAZElement()
 GLDebug: 	Removed object taz:TAZ_07 from SUMORTree with boundary -70.00,10.00,-20.00,60.00
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete taz 'TAZ_07' in ~GNEChange_TAZElement()
 Debug: Removing taz 'TAZ_06' from net in ~GNEChange_TAZElement()
 GLDebug: 	Removed object taz:TAZ_06 from SUMORTree with boundary -90.00,0.00,-40.00,40.00

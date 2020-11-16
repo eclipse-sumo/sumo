@@ -31,7 +31,7 @@ template<class E, class L, class N, class V>
 class StopEdge : public IntermodalEdge<E, L, N, V> {
 public:
     StopEdge(const std::string id, int numericalID, const E* edge) :
-        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop") { }
+        IntermodalEdge<E, L, N, V>(id, numericalID, edge, "!stop", 0) { }
 
     bool includeInRoute(bool /* allEdges */) const {
         return true;

@@ -742,6 +742,16 @@ Vehicle::getStopDelay(const std::string& vehicleID) {
     return Helper::getVehicle(vehicleID)->getStopDelay();
 }
 
+double
+Vehicle::getStopArrivalDelay(const std::string& vehicleID) {
+    double result = Helper::getVehicle(vehicleID)->getStopArrivalDelay();
+    if (result == INVALID_DOUBLE) {
+        return INVALID_DOUBLE_VALUE;
+    } else {
+        return result;
+    }
+}
+
 std::vector<std::string>
 Vehicle::getTaxiFleet(int taxiState) {
     std::vector<std::string> result;
@@ -1581,7 +1591,7 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
     Position oldPos = vehicle->getPosition();
     veh->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
     if (veh->getLane() != nullptr) {
-        veh->getLane()->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT);
+        veh->getMutableLane()->removeVehicle(veh, MSMoveReminder::NOTIFICATION_TELEPORT);
     } else {
         veh->setTentativeLaneAndPosition(l, position);
     }
@@ -1665,11 +1675,11 @@ Vehicle::remove(const std::string& vehicleID, char reason) {
     }
     if (veh->hasDeparted()) {
         veh->onRemovalFromNet(n);
-        if (veh->getLane() != nullptr) {
-            veh->getLane()->removeVehicle(dynamic_cast<MSVehicle*>(veh), n);
-        }
         MSVehicle* microVeh = dynamic_cast<MSVehicle*>(veh);
         if (microVeh != nullptr) {
+            if (veh->getLane() != nullptr) {
+                microVeh->getMutableLane()->removeVehicle(dynamic_cast<MSVehicle*>(veh), n);
+            }
             MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         }
     } else {
@@ -2213,6 +2223,8 @@ Vehicle::handleVariable(const std::string& objID, const int variable, VariableWr
             return wrapper->wrapDouble(objID, variable, getLastActionTime(objID));
         case VAR_STOP_DELAY:
             return wrapper->wrapDouble(objID, variable, getStopDelay(objID));
+        case VAR_STOP_ARRIVALDELAY:
+            return wrapper->wrapDouble(objID, variable, getStopArrivalDelay(objID));
         case VAR_LEADER: {
             double dist = 0.;
             // this fallback is needed since the very first call right on subscribing has no parameters set

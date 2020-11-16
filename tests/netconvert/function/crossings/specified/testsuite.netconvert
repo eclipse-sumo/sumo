@@ -118,6 +118,9 @@ sumonet_customshapes_shifted
 # duplicated crossings shall be rejected
 4_arm_duplicate
 
+# underlying priority junction has a turning priority road but tls layout is oncoming.  Related to #7764
+4_arm_bent_priority_tls_oncoming
+
 # a walkingarea should not try to follow the connection shape if there can be no adjacent road connection
 sharp_angle_incompatible_vclass
 

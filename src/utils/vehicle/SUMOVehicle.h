@@ -76,12 +76,6 @@ public:
      */
     virtual double getAngle() const = 0;
 
-    /** @brief Returns the lane the vehicle is on
-    * @return The vehicle's current lane
-    */
-    virtual MSLane* getLane() const = 0;
-
-
     /// Returns the current route
     virtual const MSRoute& getRoute() const = 0;
 

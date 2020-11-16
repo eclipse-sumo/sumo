@@ -41,10 +41,10 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="100.00" id="3/1to2/1" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
-    <interval begin="0.00" end="100.00" id="4/1to3/1" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
-    <interval begin="0.00" end="100.00" id="3/1to2/1_t1" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
-    <interval begin="0.00" end="100.00" id="4/1to3/1_t1" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
-    <interval begin="0.00" end="100.00" id="3/1to2/1_t2" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
-    <interval begin="0.00" end="100.00" id="4/1to3/1_t2" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
+    <interval begin="0.00" end="100.00" id="3/1to2/1" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" timeLoss="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
+    <interval begin="0.00" end="100.00" id="4/1to3/1" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" timeLoss="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
+    <interval begin="0.00" end="100.00" id="3/1to2/1_t1" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" timeLoss="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
+    <interval begin="0.00" end="100.00" id="4/1to3/1_t1" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" timeLoss="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
+    <interval begin="0.00" end="100.00" id="3/1to2/1_t2" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" timeLoss="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
+    <interval begin="0.00" end="100.00" id="4/1to3/1_t2" sampledSeconds="21.11" density="2.11" laneDensity="2.11" occupancy="0.63" waitingTime="0.00" timeLoss="0.00" speed="9.47" departed="0" arrived="0" entered="2" left="2"/>
 </detector>

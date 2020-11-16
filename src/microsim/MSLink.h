@@ -376,6 +376,10 @@ public:
         return myLogic != 0;
     }
 
+    inline bool isTurnaround() const {
+        return myDirection == LinkDirection::TURN || myDirection == LinkDirection::TURN_LEFTHAND;
+    }
+
     /** @brief Returns the length of this link
      *
      * @return The length of this link
@@ -512,7 +516,10 @@ public:
     bool isExitLinkAfterInternalJunction() const;
 
     /// @brief returns the corresponding exit link for entryLinks to a junction.
-    MSLink* getCorrespondingExitLink() const;
+    const MSLink* getCorrespondingExitLink() const;
+
+    /// @brief returns the corresponding entry link for exitLinks to a junction.
+    const MSLink* getCorrespondingEntryLink() const;
 
     /// @brief return whether the fromLane and the toLane of this link are internal lanes
     bool isInternalJunctionLink() const;

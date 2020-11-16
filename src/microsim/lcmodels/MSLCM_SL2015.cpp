@@ -40,7 +40,6 @@
 #define LOOK_FORWARD 10.
 
 #define JAM_FACTOR 1.
-//#define JAM_FACTOR 2. // VARIANT_8 (makes vehicles more focused but also more "selfish")
 
 #define LCA_RIGHT_IMPATIENCE -1.
 #define CUT_IN_LEFT_SPEED_THRESHOLD 27.
@@ -54,11 +53,7 @@
 #define HELP_OVERTAKE  (10.0 / 3.6)
 #define MIN_FALLBEHIND  (7.0 / 3.6)
 
-#define KEEP_RIGHT_HEADWAY 2.0
-
 #define URGENCY 2.0
-
-#define ROUNDABOUT_DIST_BONUS 100.0
 
 #define KEEP_RIGHT_TIME 5.0 // the number of seconds after which a vehicle should move to the right lane
 #define KEEP_RIGHT_ACCEPTANCE 7.0 // calibration factor for determining the desire to keep right
@@ -1023,7 +1018,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     double currentDist = 0;
     double neighDist = 0;
     int currIdx = 0;
-    MSLane* prebLane = myVehicle.getLane();
+    const MSLane* prebLane = myVehicle.getLane();
     if (prebLane->getEdge().isInternal()) {
         // internal edges are not kept inside the bestLanes structure
         prebLane = prebLane->getLinkCont()[0]->getLane();

@@ -17,20 +17,50 @@
 
 from functools import wraps
 import sys
-from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation
-from traci.connection import StepListener 
-from .libsumo import vehicle, simulation
+from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
+from traci.connection import StepListener  # noqa
+from .libsumo import vehicle, simulation, person, trafficlight
+from .libsumo import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException
 from .libsumo import *  # noqa
+
+_DOMAINS = [
+    busstop,  # noqa
+    calibrator,  # noqa
+    chargingstation,  # noqa
+    edge,  # noqa
+    # gui,  # noqa
+    inductionloop,  # noqa
+    junction,  # noqa
+    lanearea,  # noqa
+    lane,  # noqa
+    meandata,  # noqa
+    multientryexit,  # noqa
+    overheadwire,  # noqa
+    parkingarea,  # noqa
+    person,
+    poi,  # noqa
+    polygon,  # noqa
+    rerouter,  # noqa
+    route,  # noqa
+    routeprobe,  # noqa
+    simulation,
+    trafficlight,
+    variablespeedsign,  # noqa
+    vehicle,
+    vehicletype,  # noqa
+]
 
 _stepListeners = {}
 _nextStepListenerID = 0
 
 _traceFile = [None]
 
+
 def wrapAsClassMethod(func, module):
     def wrapper(*args, **kwargs):
         return func(module, *args, **kwargs)
     return wrapper
+
 
 TraCIStage.__attr_repr__ = _simulation.Stage.__attr_repr__
 TraCIStage.__repr__ = _simulation.Stage.__repr__
@@ -77,6 +107,10 @@ def isLibsumo():
     return True
 
 
+def isLibtraci():
+    return False
+
+
 def hasGUI():
     return False
 
@@ -96,8 +130,7 @@ def isLoaded():
 def simulationStep(step=0):
     simulation.step(step)
     result = []
-    for domain in (edge, inductionloop, junction, lane, lanearea, multientryexit,
-                   person, poi, polygon, route, trafficlight, vehicle, vehicletype):
+    for domain in _DOMAINS:
         result += [(k, v) for k, v in domain.getAllSubscriptionResults().items()]
         result += [(k, v) for k, v in domain.getAllContextSubscriptionResults().items()]
     _manageStepListeners(step)
@@ -132,32 +165,7 @@ def _startTracing(traceFile, cmd, traceGetters):
     # simulationStep shows up as simulation.step
     for m in ["close", "load"]:
         setattr(self, m, self._addTracing(getattr(self, m)))
-    for domain in [
-            busstop,  # noqa
-            calibrator,  # noqa
-            chargingstation,  # noqa
-            edge,  # noqa
-            # gui,  # noqa
-            inductionloop,  # noqa
-            junction,  # noqa
-            lanearea,  # noqa
-            lane,  # noqa
-            meandata,  # noqa
-            multientryexit,  # noqa
-            overheadwire,  # noqa
-            parkingarea,  # noqa
-            person,  # noqa
-            poi,  # noqa
-            polygon,  # noqa
-            rerouter,  # noqa
-            route,  # noqa
-            routeprobe,  # noqa
-            simulation,  # noqa
-            trafficlight,  # noqa
-            variablespeedsign,  # noqa
-            vehicle,  # noqa
-            vehicletype,  # noqa
-    ]:
+    for domain in _DOMAINS:
         for attrName in dir(domain):
             if not attrName.startswith("_"):
                 attr = getattr(domain, attrName)

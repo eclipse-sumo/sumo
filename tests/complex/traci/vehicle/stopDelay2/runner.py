@@ -36,7 +36,7 @@ traci.start([sumoBinary,
 
 vehID = "v0"
 traci.simulationStep()
-traci.vehicle.subscribe(vehID, [tc.VAR_STOP_DELAY])
+traci.vehicle.subscribe(vehID, [tc.VAR_STOP_DELAY, tc.VAR_STOP_ARRIVALDELAY])
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()
     print(traci.simulation.getTime(),

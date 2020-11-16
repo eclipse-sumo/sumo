@@ -23,15 +23,6 @@ cp save_actionStepLength/state.sumo.meso load_and_save_actionStepLength/input_me
 cp save_actionStepLength2/state.sumo load_and_save_actionStepLength2/input_state.xml
 cp save_actionStepLength2/state.sumo.meso load_and_save_actionStepLength2/input_meso_state.xml
 
-for f in flow parking parking_busStop stopped cyclic_stops rng routeDistribution; do
-    cp save_$f/state.sumo load_$f/input_state.xml
-    cp save_$f/state.sumo.meso load_$f/input_meso_state.xml
-done
-
-for f in rail_signal on_rail_signal rail_signal_constraint collision_stopped; do
-    cp save_$f/state.sumo load_$f/input_state.xml
-done
-
 sumo -c load_arriving/saveState.sumocfg
 sumo -c load_arriving/saveMesoState.sumocfg
 sumo -c load_shifted/saveState.sumocfg

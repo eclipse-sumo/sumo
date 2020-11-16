@@ -55,7 +55,7 @@ public:
         }
     }
 
-    virtual double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
+    double getPartialLength(const IntermodalTrip<E, N, V>* const trip) const {
         double length = this->getLength();
         if (this->getEdge() == trip->from && !myForward && trip->departPos < myStartPos) {
             length = trip->departPos - (myStartPos - this->getLength());
@@ -71,6 +71,11 @@ public:
         }
         // ensure that 'normal' edges always have a higher weight than connector edges
         length = MAX2(length, NUMERICAL_EPS);
+        return length;
+    }
+
+    double getTravelTime(const IntermodalTrip<E, N, V>* const trip, double time) const {
+        const double length = getPartialLength(trip);
         double tlsDelay = 0;
         // @note pedestrian traffic lights should never have LINKSTATE_TL_REDYELLOW
         if (this->getEdge()->isCrossing() && myLane->getIncomingLinkState() == LINKSTATE_TL_RED) {
@@ -78,7 +83,7 @@ public:
             tlsDelay += MAX2(double(0), TL_RED_PENALTY - (time - STEPS2TIME(trip->departTime)));
         }
 #ifdef IntermodalRouter_DEBUG_EFFORTS
-        std::cout << " effort for " << trip->getID() << " at " << time << " edge=" << edge->getID() << " effort=" << length / trip->speed + tlsDelay << " l=" << length << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";
+        std::cout << " effort for " << trip->getID() << " at " << time << " edge=" << this->getID() << " effort=" << length / trip->speed + tlsDelay << " l=" << length << " fullLength=" << this->getLength() << " s=" << trip->speed << " tlsDelay=" << tlsDelay << "\n";
 #endif
         return length / trip->speed + tlsDelay;
     }

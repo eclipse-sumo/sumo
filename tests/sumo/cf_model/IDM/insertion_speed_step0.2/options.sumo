@@ -1,0 +1,6 @@
+-n net.net.xml
+-r input_routes.rou.xml
+--no-step-log
+--carfollow.model IDM
+-t
+--step-length 0.2

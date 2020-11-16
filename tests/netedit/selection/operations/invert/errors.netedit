@@ -1,7 +1,5 @@
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Adding e1Detector 'detector1' in GNEChange_Additional
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: Adding e1Detector 'detector2' in GNEChange_Additional
 Debug: Adding e1Detector 'detector3' in GNEChange_Additional
 Debug: Adding e1Detector 'detector4' in GNEChange_Additional
@@ -17,8 +15,6 @@ Debug: Adding poi 'POI_2' into viewNet
 Debug: Adding poi 'POI_3' into viewNet
 Debug: Adding poiLane 'POI_4' into viewNet
 Debug: Adding poiLane 'POI_5' into viewNet
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Key F5 (Compute) pressed
 Debug: Created connection 'from5_1to4_1' in retrieveGNEConnection()
 Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
@@ -97,8 +93,6 @@ Debug: Setting new attribute selected 'true' into poiLane 'POI_5'
 Debug: Key DEL (delete) pressed
 Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '6'
 Debug: declaring connections of edge '6' as loaded (It will not be removed)
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals unsaved, demand elements saved, data sets saved
 Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '8'
 Debug: declaring connections of edge '8' as loaded (It will not be removed)
 Debug: Setting new attribute modificationStatusNotForPrinting 'modified' into edge '5'
@@ -912,8 +906,6 @@ Debug: delete poi 'POI_2' in ~GNEChange_Shape()
 Debug: delete poi 'POI_1' in ~GNEChange_Shape()
 Debug: delete poi 'POI_0' in ~GNEChange_Shape()
 Debug: Removing taz 'TAZ' from net in ~GNEChange_TAZElement()
-Debug: Additionals has to be saved
-Debug: Current saving Status: net saved, additionals unsaved, demand elements saved, data sets saved
 Debug: delete taz 'TAZ' in ~GNEChange_TAZElement()
 Debug: Removing poly 'poly_0' from net in ~GNEChange_Shape()
 Debug: delete poly 'poly_0' in ~GNEChange_Shape()

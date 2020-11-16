@@ -18,8 +18,6 @@ GLDebug: 	Inserted edge:gneE9 into SUMORTree with boundary 0.00,30.00,50.00,51.6
 Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Error: A route needs at least one edge.
 Error: Loading of C:\Users\alva_pa\.texttest\tmp\netedit.gui.29Sep153816.12104\netedit.gui\demandElements\routeflow\delete\input_routes.rou.xml failed.
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements saved, data sets saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ4 from SUMORTree with boundary -2.00,8.00,22.00,32.00
 GLDebug: 	Removed object junction:gneJ5 from SUMORTree with boundary 58.00,8.00,82.00,32.00
@@ -69,8 +67,6 @@ Debug: Created connection 'fromgneE8_0togneE9_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_0togneE11_0' in retrieveGNEConnection()
 Debug: Key ENTER pressed
 Debug: Adding route 'route_0' in GNEChange_DemandElement
-Debug: DemandElements has to be saved
-Debug: Current saving Status: net saved, additionals saved, demand elements unsaved, data sets saved
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
 Debug: Selected item 'trip' in TagSelector
 Debug: Selected item 'DEFAULT_VEHTYPE' in DemandElementSelector
@@ -94,8 +90,6 @@ Debug: Removing flowRoute 'flow_0' in GNEChange_DemandElement
 Debug: Removing route 'route_0' in GNEChange_DemandElement
 Debug: Removing connection 'gneE2_0->gneE4_1' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_1' in removeConnection()
-Debug: net has to be saved
-Debug: Current saving Status: net unsaved, additionals saved, demand elements unsaved, data sets saved
 Debug: Removing connection 'gneE2_0->gneE4_0' from edge 'gneE2'
 Debug: Deleting unreferenced connection 'fromgneE2_0togneE4_0' in removeConnection()
 Debug: Removing edge 'gneE2' from net

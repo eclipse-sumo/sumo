@@ -41,9 +41,9 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <detector xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/det_e1meso_file.xsd">
-    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1535.01" density="17.65" laneDensity="17.65" occupancy="5.29" waitingTime="0.00" speed="29.97" departed="0" arrived="476" entered="476" left="0"/>
-    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="2040.73" density="23.46" laneDensity="23.46" occupancy="7.04" waitingTime="0.00" speed="28.70" departed="5" arrived="605" entered="602" left="0"/>
-    <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="1021.08" density="11.74" laneDensity="11.74" occupancy="3.52" waitingTime="0.00" speed="31.71" departed="0" arrived="336" entered="334" left="0"/>
-    <interval begin="2700.00" end="3600.00" id="end2_0" sampledSeconds="1019.56" density="11.72" laneDensity="11.72" occupancy="3.52" waitingTime="0.00" speed="30.87" departed="0" arrived="325" entered="326" left="0"/>
-    <interval begin="3600.00" end="3742.00" id="end2_0" sampledSeconds="178.43" density="13.00" laneDensity="13.00" occupancy="3.90" waitingTime="0.00" speed="31.08" departed="0" arrived="58" entered="57" left="0"/>
+    <interval begin="0.00" end="900.00" id="end2_0" sampledSeconds="1535.01" density="17.65" laneDensity="17.65" occupancy="5.29" waitingTime="0.00" timeLoss="0.00" speed="29.97" departed="0" arrived="476" entered="476" left="0"/>
+    <interval begin="900.00" end="1800.00" id="end2_0" sampledSeconds="2040.73" density="23.46" laneDensity="23.46" occupancy="7.04" waitingTime="0.00" timeLoss="0.00" speed="28.70" departed="5" arrived="605" entered="602" left="0"/>
+    <interval begin="1800.00" end="2700.00" id="end2_0" sampledSeconds="1021.08" density="11.74" laneDensity="11.74" occupancy="3.52" waitingTime="0.00" timeLoss="0.00" speed="31.71" departed="0" arrived="336" entered="334" left="0"/>
+    <interval begin="2700.00" end="3600.00" id="end2_0" sampledSeconds="1019.56" density="11.72" laneDensity="11.72" occupancy="3.52" waitingTime="0.00" timeLoss="0.00" speed="30.87" departed="0" arrived="325" entered="326" left="0"/>
+    <interval begin="3600.00" end="3742.00" id="end2_0" sampledSeconds="178.43" density="13.00" laneDensity="13.00" occupancy="3.90" waitingTime="0.00" timeLoss="0.00" speed="31.08" departed="0" arrived="58" entered="57" left="0"/>
 </detector>

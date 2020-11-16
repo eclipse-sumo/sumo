@@ -19,11 +19,11 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/common/StringTokenizer.h>
-#include <netedit/elements/GNEAttributeCarrier.h>
 #include <netedit/GNEViewNet.h>
+#include <netedit/elements/GNEAttributeCarrier.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 #include "GNEAllowDisallow.h"
 
@@ -53,8 +53,149 @@ FXIMPLEMENT(GNEAllowDisallow, FXDialogBox, GNEAllowDisallowMap, ARRAYNUMBER(GNEA
 GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC) :
     FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
     myViewNet(viewNet),
-    myAC(AC) {
-    assert(AC->getTagProperty().hasAttribute(SUMO_ATTR_ALLOW));
+    myAC(AC),
+    myAllow(nullptr),
+    myDisAllow(nullptr) {
+    // call constructor
+    constructor();
+}
+
+
+GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, std::string *allow, std::string *disallow) :
+    FXDialogBox(viewNet->getApp(), ("Edit " + toString(SUMO_ATTR_ALLOW) + " " + toString(SUMO_ATTR_VCLASS) + "es").c_str(), GUIDesignDialogBox),
+    myViewNet(viewNet),
+    myAC(nullptr),
+    myAllow(allow),
+    myDisAllow(disallow) {
+    // call constructor
+    constructor();
+}
+
+
+GNEAllowDisallow::~GNEAllowDisallow() {
+}
+
+
+long
+GNEAllowDisallow::onCmdValueChanged(FXObject* obj, FXSelector, void*) {
+    FXButton* buttonPressed = dynamic_cast<FXButton*>(obj);
+    // change icon of button
+    for (const auto &vClass : myVClassMap) {
+        if (vClass.second.first == buttonPressed) {
+            if (buttonPressed->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
+                buttonPressed->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+            } else {
+                buttonPressed->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+            }
+            return 1;
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEAllowDisallow::onCmdSelectAll(FXObject*, FXSelector, void*) {
+    // change all icons to accept
+    for (const auto &vClass : myVClassMap) {
+        vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+    }
+    return 1;
+}
+
+
+long
+GNEAllowDisallow::onCmdUnselectAll(FXObject*, FXSelector, void*) {
+    // change all icons to cancel
+    for (const auto &vClass : myVClassMap) {
+        vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+    }
+    return 1;
+}
+
+
+long
+GNEAllowDisallow::onCmdSelectOnlyRoad(FXObject*, FXSelector, void*) {
+    // change all non-road icons to disallow, and allow for the rest
+    for (const auto &vClass : myVClassMap) {
+        if ((vClass.first & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
+            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+        } else {
+            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+        }
+    }
+    return 1;
+}
+
+
+long
+GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
+    // clear allow and disallow VClasses
+    std::vector<std::string> allowedVehicles, disallowedVehicles;
+    for (const auto &vClass : myVClassMap) {
+        // check if vehicle is alloweddepending of the Icon
+        if (vClass.second.first->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
+            allowedVehicles.push_back(getVehicleClassNames(vClass.first));
+        } else {
+            disallowedVehicles.push_back(getVehicleClassNames(vClass.first));
+        }
+    }
+    // chek if all vehicles are enabled and set new allowed vehicles
+    if (myAC) {
+        myAC->setAttribute(SUMO_ATTR_ALLOW, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
+    } else {
+        // update strings
+        *myAllow = joinToString(allowedVehicles, " ");
+        *myDisAllow = joinToString(disallowedVehicles, " ");
+    }
+    // Stop Modal
+    getApp()->stopModal(this, TRUE);
+    return 1;
+}
+
+
+long
+GNEAllowDisallow::onCmdCancel(FXObject*, FXSelector, void*) {
+    // Stop Modal
+    getApp()->stopModal(this, FALSE);
+    return 1;
+}
+
+
+long
+GNEAllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
+    std::string allow;
+    // set allow depending of myAC
+    if (myAC) {
+        allow = myAC->getAttribute(SUMO_ATTR_ALLOW);
+    } else {
+        allow = *myAllow;
+    }
+    // continue depending of allow
+    if (allow == "all") {
+        // iterate over myVClassMap and set all icons as true
+        for (const auto &vClass : myVClassMap) {
+            vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+        }
+    } else {
+        // declare string vector for saving all vclasses
+        const std::vector<std::string>& allowStringVector = StringTokenizer(allow).getVector();
+        const std::set<std::string> allowSet(allowStringVector.begin(), allowStringVector.end());
+        // iterate over myVClassMap and set icons
+        for (const auto &vClass : myVClassMap) {
+            if (allowSet.count(getVehicleClassNames(vClass.first)) > 0) {
+                vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
+            } else {
+                vClass.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
+            }
+        }
+    }
+    return 1;
+}
+
+
+void
+GNEAllowDisallow::constructor() {
     // set vehicle icon for this dialog
     setIcon(GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE));
     // create main frame
@@ -113,112 +254,6 @@ GNEAllowDisallow::GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC)
     new FXHorizontalFrame(buttonsFrame, GUIDesignAuxiliarHorizontalFrame);
     // reset dialog
     onCmdReset(nullptr, 0, nullptr);
-}
-
-
-GNEAllowDisallow::~GNEAllowDisallow() {
-}
-
-
-long
-GNEAllowDisallow::onCmdValueChanged(FXObject* obj, FXSelector, void*) {
-    FXButton* buttonPressed = dynamic_cast<FXButton*>(obj);
-    // change icon of button
-    for (auto i = myVClassMap.begin(); i != myVClassMap.end(); i++) {
-        if (i->second.first == buttonPressed) {
-            if (buttonPressed->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
-                buttonPressed->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
-            } else {
-                buttonPressed->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
-            }
-            return 1;
-        }
-    }
-    return 1;
-}
-
-
-long
-GNEAllowDisallow::onCmdSelectAll(FXObject*, FXSelector, void*) {
-    // change all icons to accept
-    for (auto i : myVClassMap) {
-        i.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
-    }
-    return 1;
-}
-
-
-long
-GNEAllowDisallow::onCmdUnselectAll(FXObject*, FXSelector, void*) {
-    // change all icons to cancel
-    for (auto i : myVClassMap) {
-        i.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
-    }
-    return 1;
-}
-
-
-long
-GNEAllowDisallow::onCmdSelectOnlyRoad(FXObject*, FXSelector, void*) {
-    // change all non-road icons to disallow, and allow for the rest
-    for (auto i : myVClassMap) {
-        if ((i.first & (SVC_PEDESTRIAN | SVC_NON_ROAD)) == 0) {
-            i.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
-        } else {
-            i.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
-        }
-    }
-    return 1;
-}
-
-
-long
-GNEAllowDisallow::onCmdAccept(FXObject*, FXSelector, void*) {
-    // clear allow and disallow VClasses
-    std::vector<std::string> allowedVehicles;
-    for (auto i : myVClassMap) {
-        // check if vehicle is alloweddepending of the Icon
-        if (i.second.first->getIcon() == GUIIconSubSys::getIcon(GUIIcon::ACCEPT)) {
-            allowedVehicles.push_back(getVehicleClassNames(i.first));
-        }
-    }
-    // chek if all vehicles are enabled and set new allowed vehicles
-    myAC->setAttribute(SUMO_ATTR_ALLOW, joinToString(allowedVehicles, " "), myViewNet->getUndoList());
-    // Stop Modal
-    getApp()->stopModal(this, TRUE);
-    return 1;
-}
-
-
-long
-GNEAllowDisallow::onCmdCancel(FXObject*, FXSelector, void*) {
-    // Stop Modal
-    getApp()->stopModal(this, FALSE);
-    return 1;
-}
-
-
-long
-GNEAllowDisallow::onCmdReset(FXObject*, FXSelector, void*) {
-    if (myAC->getAttribute(SUMO_ATTR_ALLOW) == "all") {
-        // iterate over myVClassMap and set all icons as true
-        for (auto i : myVClassMap) {
-            i.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
-        }
-    } else {
-        // declare string vector for saving all vclasses
-        const std::vector<std::string>& allowStringVector = StringTokenizer(myAC->getAttribute(SUMO_ATTR_ALLOW)).getVector();
-        const std::set<std::string> allowSet(allowStringVector.begin(), allowStringVector.end());
-        // iterate over myVClassMap and set icons
-        for (auto i : myVClassMap) {
-            if (allowSet.count(getVehicleClassNames(i.first)) > 0) {
-                i.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::ACCEPT));
-            } else {
-                i.second.first->setIcon(GUIIconSubSys::getIcon(GUIIcon::CANCEL));
-            }
-        }
-    }
-    return 1;
 }
 
 

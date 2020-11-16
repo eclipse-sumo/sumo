@@ -88,7 +88,7 @@ modal that storage place in the network (similar to a [bus stop for
 public transport](../Simulation/Public_Transport.md). Stops for
 containers follow the specification at
 [Specification\#Stops](../Specification.md#stops). However, only
-the attributes *lane*, *duration*, *until* and *startPos* are evaluated.
+the attributes *containerStop*, *lane*, *duration*, *until* and *startPos* are evaluated.
 *startPos* defines the position on the lane where the container is
 supposed to stop. Using these attributes it is possible to model
 activities with a fixed duration as well as those with a fixed end time.

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:51 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Fri Nov  6 10:26:35 2020 by Eclipse SUMO netconvert Version v1_7_0+0862-f21278904b
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -52,7 +52,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_4_0" index="0" speed="7.33" length="11.73" shape="510.40,504.80 506.55,505.15 503.80,506.20 502.15,507.95 501.60,510.40"/>
     </edge>
     <edge id=":0_5" function="internal">
-        <lane id=":0_5_0" index="0" speed="16.00" length="20.80" shape="510.40,501.60 489.60,501.60"/>
+        <lane id=":0_5_0" index="0" speed="16.00" length="21.09" shape="510.40,504.80 503.63,504.30 498.12,503.20 493.55,502.10 489.60,501.60"/>
     </edge>
     <edge id=":0_6" function="internal">
         <lane id=":0_6_0" index="0" speed="9.58" length="20.80" shape="510.40,501.60 505.15,500.74 501.40,498.16 499.15,493.85 498.40,487.83"/>
@@ -82,7 +82,7 @@ SPDX-License-Identifier: EPL-2.0
         <lane id=":0_12_0" index="0" speed="5.84" length="9.13" shape="492.49,491.83 495.08,492.46 496.92,492.01 498.03,490.46 498.40,487.83"/>
     </edge>
     <edge id=":0_13" function="internal">
-        <lane id=":0_13_0" index="0" speed="14.00" length="19.58" shape="491.30,494.80 497.39,496.88 502.36,497.95 506.58,498.34 510.40,498.40"/>
+        <lane id=":0_13_0" index="0" speed="14.00" length="19.18" shape="492.49,491.83 498.32,494.35 502.89,496.44 506.74,497.87 510.40,498.40"/>
     </edge>
     <edge id=":0_14" function="internal">
         <lane id=":0_14_0" index="0" speed="11.07" length="19.96" shape="491.30,494.80 495.81,497.32 499.03,500.76 500.96,505.12 501.60,510.40"/>
@@ -169,12 +169,12 @@ SPDX-License-Identifier: EPL-2.0
     <junction id=":0_19_0" type="internal" x="499.83" y="489.34" incLanes=":0_11_0 1fi_0 2fi_1 4fi_0" intLanes=":0_1_0 :0_6_0 :0_12_0"/>
 
     <connection from="1fi" to="3o" fromLane="0" toLane="0" via=":0_12_0" dir="r" state="m"/>
-    <connection from="1fi" to="2o" fromLane="1" toLane="0" via=":0_13_0" dir="s" state="m"/>
+    <connection from="1fi" to="2o" fromLane="0" toLane="0" via=":0_13_0" dir="s" state="m"/>
     <connection from="1fi" to="4o" fromLane="1" toLane="0" via=":0_14_0" dir="l" state="m"/>
     <connection from="1fi" to="1o" fromLane="1" toLane="0" via=":0_15_0" dir="t" state="m"/>
     <connection from="1o" to="1fi" fromLane="0" toLane="1" via=":1_0_0" dir="t" state="M"/>
     <connection from="2fi" to="4o" fromLane="0" toLane="0" via=":0_4_0" dir="r" state="m"/>
-    <connection from="2fi" to="1o" fromLane="1" toLane="0" via=":0_5_0" dir="s" state="m"/>
+    <connection from="2fi" to="1o" fromLane="0" toLane="0" via=":0_5_0" dir="s" state="m"/>
     <connection from="2fi" to="3o" fromLane="1" toLane="0" via=":0_6_0" dir="l" state="m"/>
     <connection from="2fi" to="2o" fromLane="1" toLane="0" via=":0_7_0" dir="t" state="m"/>
     <connection from="2o" to="2fi" fromLane="0" toLane="1" via=":2_0_0" dir="t" state="M"/>

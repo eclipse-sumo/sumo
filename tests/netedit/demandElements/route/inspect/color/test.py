@@ -45,7 +45,7 @@ netedit.typeEnter()
 netedit.inspectMode()
 
 # inspect route
-netedit.leftClick(referencePosition, 280, 417)
+netedit.leftClick(referencePosition, 280, 392)
 
 # Change parameter color with a non valid value (empty)
 netedit.modifyAttribute(3, "", True)

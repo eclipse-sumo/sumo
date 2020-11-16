@@ -300,9 +300,11 @@ GUIDialog_ChooserAbstract::onCmdLocateByName(FXObject*, FXSelector, void*) {
     for (int i = 0; i < numItems; i++) {
         GUIGlID glID = *static_cast<GUIGlID*>(myList->getItemData(i));
         GUIGlObject* o = GUIGlObjectStorage::gIDStorage.getObjectBlocking(glID);
-        const std::string& name = getObjectName(o);
-        if (name != "") {
-            namesAndIDs.push_back(std::make_pair(name, glID));
+        if (o != 0) {
+            const std::string& name = getObjectName(o);
+            if (name != "") {
+                namesAndIDs.push_back(std::make_pair(name, glID));
+            }
         }
         GUIGlObjectStorage::gIDStorage.unblockObject(glID);
     }

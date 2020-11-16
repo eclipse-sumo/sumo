@@ -100,7 +100,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
     int id, const std::string& name, int lsaid, std::istream& from) {
     //
     bool isGreenBegin;
-    std::vector<double> times;
+    std::vector<SUMOTime> times;
     std::string tag = myRead(from);
     if (tag == "dauergruen") {
         isGreenBegin = true;
@@ -114,10 +114,10 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
         while (tag == "rotende" || tag == "gruenanfang") {
             double point;
             from >> point; // type-checking is missing!
-            times.push_back(point);
+            times.push_back(TIME2STEPS(point));
             from >> tag;
             from >> point; // type-checking is missing!
-            times.push_back(point);
+            times.push_back(TIME2STEPS(point));
             tag = myRead(from);
         }
     }
@@ -128,7 +128,7 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parseFixedTime(
     from >> tyellow;
     NIVissimTL::NIVissimTLSignalGroup* group =
         new NIVissimTL::NIVissimTLSignalGroup(
-        id, name, isGreenBegin, times, (SUMOTime) tredyellow, (SUMOTime) tyellow);
+        id, name, isGreenBegin, times, TIME2STEPS(tredyellow), TIME2STEPS(tyellow));
     if (!NIVissimTL::NIVissimTLSignalGroup::dictionary(lsaid, id, group)) {
         throw 1; // !!!
     }

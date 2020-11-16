@@ -31,11 +31,14 @@ neteditProcess, referencePosition = netedit.setupAndStart(neteditTestRoot, ['--g
 # recompute
 netedit.rebuildNetwork()
 
+# force save additionals
+netedit.forceSaveAdditionals()
+
 # go to inspect mode
 netedit.inspectMode()
 
 # add restricted lane
-netedit.contextualMenuOperation(referencePosition, 250, 160, 10, 2, 2)
+netedit.contextualMenuOperation(referencePosition, 250, 150, 10, 2, 2)
 
 # recompute
 netedit.rebuildNetwork()

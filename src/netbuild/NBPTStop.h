@@ -94,6 +94,10 @@ public:
         return myIsLoose;
     }
 
+    double getEndPos() const {
+        return myEndPos;
+    }
+
     /// @brief mirror coordinates along the x-axis
     void mirrorX();
 

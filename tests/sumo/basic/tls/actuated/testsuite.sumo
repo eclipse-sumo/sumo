@@ -54,3 +54,9 @@ dualring
 
 # network contains a static traffic light, load actuated as additional program (new default) with linkMinDur constraints
 linkMinDur
+
+# test detector usage at joined tls
+joined_tls_controlling_detectors
+
+# test detector usage
+controlling_detectors

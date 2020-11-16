@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Thu Oct  8 13:54:12 2020 by Eclipse SUMO duarouter Version v1_7_0+0553-67b9ac7b87
+<!-- generated on Thu Nov  5 13:01:52 2020 by Eclipse SUMO duarouter Version v1_7_0+0839-93a2d1845e
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -38,7 +38,7 @@ SPDX-License-Identifier: EPL-2.0
     <person id="p0" depart="0.00">
         <walk edges="accessB.36" busStop="stopB_S"/> <!-- B -->
         <walk edges="A0A1 B1A1" busStop="busStopB"/> <!-- B -->
-        <ride from="B1A1" to="A1A0" lines="taxi"/>
+        <ride from="B1A1" to="A1A0" arrivalPos="459.80" lines="taxi"/>
         <walk edges="A1A0 A0B0"/>
     </person>
 </routes>

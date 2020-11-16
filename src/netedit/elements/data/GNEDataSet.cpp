@@ -370,6 +370,12 @@ GNEDataSet::getHierarchyName() const {
 }
 
 
+const std::map<std::string, std::string>& 
+GNEDataSet::getACParametersMap() const {
+    return getParametersMap();
+}
+
+
 void
 GNEDataSet::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {

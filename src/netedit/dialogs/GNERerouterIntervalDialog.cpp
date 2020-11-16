@@ -668,8 +668,8 @@ GNERerouterIntervalDialog::updateClosingLaneReroutesTable() {
     myClosingLaneRerouteTable->setColumnWidth(0, 83);
     myClosingLaneRerouteTable->setColumnWidth(1, 83);
     myClosingLaneRerouteTable->setColumnWidth(2, 82);
-    myClosingLaneRerouteTable->setColumnWidth(3, GUIDesignTableIconCellWidth);
-    myClosingLaneRerouteTable->setColumnWidth(4, GUIDesignTableIconCellWidth);
+    myClosingLaneRerouteTable->setColumnWidth(3, GUIDesignHeight);
+    myClosingLaneRerouteTable->setColumnWidth(4, GUIDesignHeight);
     myClosingLaneRerouteTable->setColumnText(0, toString(SUMO_ATTR_LANE).c_str());
     myClosingLaneRerouteTable->setColumnText(1, toString(SUMO_ATTR_ALLOW).c_str());
     myClosingLaneRerouteTable->setColumnText(2, toString(SUMO_ATTR_DISALLOW).c_str());
@@ -715,8 +715,8 @@ GNERerouterIntervalDialog::updateClosingReroutesTable() {
     myClosingRerouteTable->setColumnWidth(0, 83);
     myClosingRerouteTable->setColumnWidth(1, 83);
     myClosingRerouteTable->setColumnWidth(2, 82);
-    myClosingRerouteTable->setColumnWidth(3, GUIDesignTableIconCellWidth);
-    myClosingRerouteTable->setColumnWidth(4, GUIDesignTableIconCellWidth);
+    myClosingRerouteTable->setColumnWidth(3, GUIDesignHeight);
+    myClosingRerouteTable->setColumnWidth(4, GUIDesignHeight);
     myClosingRerouteTable->setColumnText(0, toString(SUMO_ATTR_EDGE).c_str());
     myClosingRerouteTable->setColumnText(1, toString(SUMO_ATTR_ALLOW).c_str());
     myClosingRerouteTable->setColumnText(2, toString(SUMO_ATTR_DISALLOW).c_str());
@@ -761,8 +761,8 @@ GNERerouterIntervalDialog::updateDestProbReroutesTable() {
     myDestProbRerouteTable->setVisibleColumns(4);
     myDestProbRerouteTable->setColumnWidth(0, 124);
     myDestProbRerouteTable->setColumnWidth(1, 124);
-    myDestProbRerouteTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
-    myDestProbRerouteTable->setColumnWidth(3, GUIDesignTableIconCellWidth);
+    myDestProbRerouteTable->setColumnWidth(2, GUIDesignHeight);
+    myDestProbRerouteTable->setColumnWidth(3, GUIDesignHeight);
     myDestProbRerouteTable->setColumnText(0, toString(SUMO_ATTR_EDGE).c_str());
     myDestProbRerouteTable->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
     myDestProbRerouteTable->setColumnText(2, "");
@@ -803,8 +803,8 @@ GNERerouterIntervalDialog::updateRouteProbReroutesTable() {
     myRouteProbRerouteTable->setVisibleColumns(4);
     myRouteProbRerouteTable->setColumnWidth(0, 124);
     myRouteProbRerouteTable->setColumnWidth(1, 124);
-    myRouteProbRerouteTable->setColumnWidth(2, GUIDesignTableIconCellWidth);
-    myRouteProbRerouteTable->setColumnWidth(3, GUIDesignTableIconCellWidth);
+    myRouteProbRerouteTable->setColumnWidth(2, GUIDesignHeight);
+    myRouteProbRerouteTable->setColumnWidth(3, GUIDesignHeight);
     myRouteProbRerouteTable->setColumnText(0, toString(SUMO_ATTR_ROUTE).c_str());
     myRouteProbRerouteTable->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
     myRouteProbRerouteTable->setColumnText(2, "");
@@ -846,8 +846,8 @@ GNERerouterIntervalDialog::updateParkingAreaReroutesTable() {
     myParkingAreaRerouteTable->setColumnWidth(0, 124);
     myParkingAreaRerouteTable->setColumnWidth(1, 90);
     myParkingAreaRerouteTable->setColumnWidth(2, 35);
-    myParkingAreaRerouteTable->setColumnWidth(3, GUIDesignTableIconCellWidth);
-    myParkingAreaRerouteTable->setColumnWidth(4, GUIDesignTableIconCellWidth);
+    myParkingAreaRerouteTable->setColumnWidth(3, GUIDesignHeight);
+    myParkingAreaRerouteTable->setColumnWidth(4, GUIDesignHeight);
     myParkingAreaRerouteTable->setColumnText(0, toString(SUMO_ATTR_PARKING).c_str());
     myParkingAreaRerouteTable->setColumnText(1, toString(SUMO_ATTR_PROB).c_str());
     myParkingAreaRerouteTable->setColumnText(2, "vis.");

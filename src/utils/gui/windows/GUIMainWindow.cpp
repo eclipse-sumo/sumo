@@ -119,6 +119,12 @@ GUIMainWindow::removeChild(FXMainWindow* child) {
 }
 
 
+FXDockSite* 
+GUIMainWindow::getTopDock() {
+    return myTopDock;
+}
+
+
 std::vector<std::string>
 GUIMainWindow::getViewIDs() const {
     std::vector<std::string> ret;
@@ -143,6 +149,12 @@ GUIMainWindow::getViewByID(const std::string& id) const {
 FXFont*
 GUIMainWindow::getBoldFont() {
     return myBoldFont;
+}
+
+
+const std::vector<GUIGlChildWindow*>& 
+GUIMainWindow::getViews() const {
+    return myGLWindows;
 }
 
 
@@ -174,6 +186,30 @@ GUIMainWindow::getCartesianLabel() {
 FXLabel&
 GUIMainWindow::getGeoLabel() {
     return *myGeoCoordinate;
+}
+
+
+bool 
+GUIMainWindow::isGaming() const {
+    return myAmGaming;
+}
+
+
+bool 
+GUIMainWindow::listInternal() const {
+    return myListInternal;
+}
+
+
+bool 
+GUIMainWindow::listParking() const {
+    return myListParking;
+}
+
+
+bool 
+GUIMainWindow::listTeleporting() const {
+    return myListTeleporting;
 }
 
 

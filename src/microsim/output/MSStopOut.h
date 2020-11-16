@@ -22,7 +22,7 @@
 
 #include <map>
 #include <utils/common/SUMOTime.h>
-#include <microsim/MSVehicle.h>
+#include <utils/vehicle/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -81,8 +81,7 @@ public:
 private:
     struct StopInfo {
 
-        StopInfo(SUMOTime t, int numPersons, int numContainers) :
-            started(t),
+        StopInfo(int numPersons, int numContainers) :
             initialNumPersons(numPersons),
             loadedPersons(0),
             unloadedPersons(0),
@@ -91,18 +90,6 @@ private:
             unloadedContainers(0) {
         }
 
-        // @note: need default constructor or std::map doesn't work
-        StopInfo() :
-            started(-1),
-            initialNumPersons(0),
-            loadedPersons(0),
-            unloadedPersons(0),
-            initialNumContainers(0),
-            loadedContainers(0),
-            unloadedContainers(0) {
-        }
-
-        SUMOTime started;
         int initialNumPersons;
         int loadedPersons;
         int unloadedPersons;
@@ -111,8 +98,7 @@ private:
         int unloadedContainers;
     };
 
-    typedef std::map<const SUMOVehicle*, StopInfo> Stopped;
-    Stopped myStopped;
+    std::map<const SUMOVehicle*, StopInfo> myStopped;
 
     OutputDevice& myDevice;
 

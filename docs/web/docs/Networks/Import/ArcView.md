@@ -104,9 +104,9 @@ behavior on [netconvert](../../netconvert.md).
 
 ## '36_NEW_YORK' from TIGER database
 
-The network is available at the [TIGER2008 ftp server
-(?)](ftp://ftp2.census.gov/geo/tiger/TIGER2008/36_NEW_YORK/36061_New_York_County/).
-**<font color="red">Missing copyright information; please add</font>**.
+The network is available from the [US Census Bureau ftp server](https://www2.census.gov/geo/tiger/TIGER2008/36_NEW_YORK/36061_New_York_County/).
+TIGER data is freely available because U.S. Government publications are
+required to be released into the public domain.
 
 Opening the edges-dbf (*tl_2008_36061_edges.dbf*) of which we hope
 that it contains information about roads shows us, that:

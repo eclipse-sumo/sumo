@@ -43,10 +43,11 @@
 #include <gui/GUIApplicationWindow.h>
 #include <gui/GUITLLogicPhasesTrackerWindow.h>
 #include <gui/GUIGlobals.h>
+#include <utils/gui/globjects/GLIncludes.h>
+#include <utils/gui/div/GUIDesigns.h>
+
 #include "GUITrafficLightLogicWrapper.h"
 #include "GUINet.h"
-#include <utils/gui/globjects/GLIncludes.h>
-
 
 // ===========================================================================
 // FOX callback mapping
@@ -159,31 +160,31 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
         int index = 0;
         for (i = logics.begin(); i != logics.end(); ++i, ++index) {
             if (!vars.isActive(*i)) {
-                new FXMenuCommand(ret, ("Switch to '" + (*i)->getProgramID() + "'").c_str(),
+                GUIDesigns::buildFXMenuCommand(ret, ("Switch to '" + (*i)->getProgramID() + "'").c_str(),
                                   GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, (FXSelector)(MID_SWITCH + index));
             }
         }
         new FXMenuSeparator(ret);
     }
-    new FXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_SWITCH_OFF);
-    new FXMenuCommand(ret, "Track Phases", nullptr, ret, MID_TRACKPHASES);
-    new FXMenuCommand(ret, "Show Phases", nullptr, ret, MID_SHOWPHASES);
+    GUIDesigns::buildFXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, MID_SWITCH_OFF);
+    GUIDesigns::buildFXMenuCommand(ret, "Track Phases", nullptr, ret, MID_TRACKPHASES);
+    GUIDesigns::buildFXMenuCommand(ret, "Show Phases", nullptr, ret, MID_SHOWPHASES);
     MSActuatedTrafficLightLogic* act = dynamic_cast<MSActuatedTrafficLightLogic*>(&myTLLogic);
     if (act != nullptr) {
-        new FXMenuCommand(ret, act->showDetectors() ? "Hide Detectors" : "Show Detectors", nullptr, ret, MID_SHOW_DETECTORS);
+        GUIDesigns::buildFXMenuCommand(ret, act->showDetectors() ? "Hide Detectors" : "Show Detectors", nullptr, ret, MID_SHOW_DETECTORS);
     }
     MSDelayBasedTrafficLightLogic* db = dynamic_cast<MSDelayBasedTrafficLightLogic*>(&myTLLogic);
     if (db != nullptr) {
-        new FXMenuCommand(ret, db->showDetectors() ? "Hide Detectors" : "Show Detectors", nullptr, ret, MID_SHOW_DETECTORS);
+        GUIDesigns::buildFXMenuCommand(ret, db->showDetectors() ? "Hide Detectors" : "Show Detectors", nullptr, ret, MID_SHOW_DETECTORS);
     }
     new FXMenuSeparator(ret);
     MSTrafficLightLogic* tll = getActiveTLLogic();
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret);
-    new FXMenuCommand(ret, ("phase: " + toString(tll->getCurrentPhaseIndex())).c_str(), nullptr, nullptr, 0);
+    GUIDesigns::buildFXMenuCommand(ret, "phase: " + toString(tll->getCurrentPhaseIndex()), nullptr, nullptr, 0);
     const std::string& name =  tll->getCurrentPhaseDef().getName();
     if (name != "") {
-        new FXMenuCommand(ret, ("phase name: " + name).c_str(), nullptr, nullptr, 0);
+        GUIDesigns::buildFXMenuCommand(ret, "phase name: " + name, nullptr, nullptr, 0);
     }
     new FXMenuSeparator(ret);
     buildShowParamsPopupEntry(ret, false);
