@@ -244,6 +244,44 @@ public:
     };
 
     // ===========================================================================
+    // class EdgeTypeFile
+    // ===========================================================================
+
+    class EdgeTypeFile : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNECreateEdgeFrame::EdgeTypeFile)
+
+    public:
+        /// @brief constructor
+        EdgeTypeFile(GNECreateEdgeFrame* TLSEditorParent);
+
+        /// @brief destructor
+        ~EdgeTypeFile();
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief load TLS Program from an additional file
+        long onCmdLoadEdgeProgram(FXObject*, FXSelector, void*);
+
+        /// @brief save TLS Programm to an additional file
+        long onCmdSaveEdgeProgram(FXObject*, FXSelector, void*);
+        /// @}
+
+    protected:
+        FOX_CONSTRUCTOR(EdgeTypeFile)
+
+    private:
+        /// @brief pointer to TLSEditor Parent
+        GNECreateEdgeFrame* myTLSEditorParent;
+
+        /// @brief button for load TLS Programs
+        FXButton* myLoadEdgeProgramButton;
+
+        /// @brief button for save TLS Programs
+        FXButton* mySaveEdgeProgramButton;
+    };
+
+    // ===========================================================================
     // class EdgeSelectorLegend
     // ===========================================================================
 
@@ -301,6 +339,9 @@ protected:
 
     /// @brief custom edge selector
     TemplateSelector* myTemplateSelector = nullptr;
+
+    /// @brief edge type file
+    EdgeTypeFile* myEdgeTypeFile = nullptr;
 
     /// @brief edge selector legend
     EdgeSelectorLegend* myEdgeSelectorLegend = nullptr;

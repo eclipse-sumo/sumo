@@ -48,10 +48,16 @@ FXDEFMAP(GNECreateEdgeFrame::LaneParameters) LaneParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNECreateEdgeFrame::LaneParameters::onCmdOpenAttributeDialog),
 };
 
+FXDEFMAP(GNECreateEdgeFrame::EdgeTypeFile) EdgeTypeFileMap[] = {
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_LOAD_PROGRAM,    GNECreateEdgeFrame::EdgeTypeFile::onCmdLoadEdgeProgram),
+    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SAVE_PROGRAM,    GNECreateEdgeFrame::EdgeTypeFile::onCmdSaveEdgeProgram),
+};
+
 // Object implementation
 FXIMPLEMENT(GNECreateEdgeFrame::TemplateSelector,       FXGroupBox,     TemplateSelectorMap,    ARRAYNUMBER(TemplateSelectorMap))
 FXIMPLEMENT(GNECreateEdgeFrame::EdgeParameters,         FXGroupBox,     EdgeParametersMap,      ARRAYNUMBER(EdgeParametersMap))
 FXIMPLEMENT(GNECreateEdgeFrame::LaneParameters,         FXGroupBox,     LaneParametersMap,      ARRAYNUMBER(LaneParametersMap))
+FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeFile,           FXGroupBox,     EdgeTypeFileMap,        ARRAYNUMBER(EdgeTypeFileMap))
 
 
 // ===========================================================================
@@ -396,6 +402,130 @@ GNECreateEdgeFrame::LaneParameters::fillDefaultParameters(int laneIndex) {
 }
 
 // ---------------------------------------------------------------------------
+// GNECreateEdgeFrame::EdgeTypeFile - methods
+// ---------------------------------------------------------------------------
+
+GNECreateEdgeFrame::EdgeTypeFile::EdgeTypeFile(GNECreateEdgeFrame* TLSEditorParent) :
+    FXGroupBox(TLSEditorParent->myContentFrame, "EdgeType File", GUIDesignGroupBoxFrame),
+    myTLSEditorParent(TLSEditorParent) {
+    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create create tlDef button
+    myLoadEdgeProgramButton = new FXButton(buttonsFrame, "Load\t\tLoad EdgeType from additional file", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
+    // create create tlDef button
+    mySaveEdgeProgramButton = new FXButton(buttonsFrame, "Save\t\tSave EdgeType to additional file", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_TLSFRAME_SAVE_PROGRAM, GUIDesignButton);
+    // show EdgeTypeFile
+    show();
+}
+
+
+GNECreateEdgeFrame::EdgeTypeFile::~EdgeTypeFile() {}
+
+
+long
+GNECreateEdgeFrame::EdgeTypeFile::onCmdLoadEdgeProgram(FXObject*, FXSelector, void*) {
+/*
+    FXFileDialog opendialog(this, "Load TLS Program");
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODETLS));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("*.xml");
+    if (gCurrentFolder.length() != 0) {
+        opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+        // run parser
+        NBTrafficLightLogicCont tmpTLLCont;
+        NIXMLTrafficLightsHandler tllHandler(tmpTLLCont, myTLSEditorParent->myViewNet->getNet()->getEdgeCont(), true);
+        tmpTLLCont.insert(myTLSEditorParent->myEditedDef);
+        XMLSubSys::runParser(tllHandler, opendialog.getFilename().text());
+
+        NBLoadedSUMOTLDef* newDefSameProgram = nullptr;
+        std::set<NBLoadedSUMOTLDef*> newDefsOtherProgram;
+        for (auto item : tmpTLLCont.getPrograms(myTLSEditorParent->myEditedDef->getID())) {
+            if (item.second != myTLSEditorParent->myEditedDef) {
+                NBLoadedSUMOTLDef* sdef = dynamic_cast<NBLoadedSUMOTLDef*>(item.second);
+                if (item.first == myTLSEditorParent->myEditedDef->getProgramID()) {
+                    newDefSameProgram = sdef;
+                } else {
+                    newDefsOtherProgram.insert(sdef);
+                }
+            }
+        }
+        const int newPrograms = (int)newDefsOtherProgram.size();
+        if (newPrograms > 0 || newDefSameProgram != nullptr) {
+            std::vector<NBNode*> nodes = myTLSEditorParent->myEditedDef->getNodes();
+            for (auto newProg : newDefsOtherProgram) {
+                for (auto it_node : nodes) {
+                    GNEJunction* junction = myTLSEditorParent->getViewNet()->getNet()->retrieveJunction(it_node->getID());
+                    myTLSEditorParent->getViewNet()->getUndoList()->add(new GNEChange_TLS(junction, newProg, true), true);
+                }
+            }
+            if (newPrograms > 0) {
+                WRITE_MESSAGE("Loaded " + toString(newPrograms) + " new programs for tlLogic '" + myTLSEditorParent->myEditedDef->getID() + "'");
+            }
+            if (newDefSameProgram != nullptr) {
+                // replace old program when loading the same program ID
+                myTLSEditorParent->myEditedDef = newDefSameProgram;
+                WRITE_MESSAGE("Updated program '" + newDefSameProgram->getProgramID() +  "' for tlLogic '" + myTLSEditorParent->myEditedDef->getID() + "'");
+            }
+        } else {
+            myTLSEditorParent->getViewNet()->setStatusBarText("No programs found for traffic light '" + myTLSEditorParent->myEditedDef->getID() + "'");
+        }
+
+        // clean up temporary container to avoid deletion of defs when it's destruct is called
+        for (NBTrafficLightDefinition* def : tmpTLLCont.getDefinitions()) {
+            tmpTLLCont.removeProgram(def->getID(), def->getProgramID(), false);
+        }
+
+        myTLSEditorParent->myTLSPhases->initPhaseTable();
+        myTLSEditorParent->myTLSModifications->setHaveModifications(true);
+    }
+*/
+    return 0;
+}
+
+
+long
+GNECreateEdgeFrame::EdgeTypeFile::onCmdSaveEdgeProgram(FXObject*, FXSelector, void*) {
+/*
+    FXString file = MFXUtils::getFilename2Write(this,
+        "Save TLS Program as", ".xml",
+        GUIIconSubSys::getIcon(GUIIcon::MODETLS),
+        gCurrentFolder);
+    if (file == "") {
+        return 1;
+    }
+    OutputDevice& device = OutputDevice::getDevice(file.text());
+
+    // save program
+    device.writeXMLHeader("additional", "additional_file.xsd");
+    device.openTag(SUMO_TAG_TLLOGIC);
+    device.writeAttr(SUMO_ATTR_ID, myTLSEditorParent->myEditedDef->getLogic()->getID());
+    device.writeAttr(SUMO_ATTR_TYPE, myTLSEditorParent->myEditedDef->getLogic()->getType());
+    device.writeAttr(SUMO_ATTR_PROGRAMID, myTLSEditorParent->myEditedDef->getLogic()->getProgramID());
+    device.writeAttr(SUMO_ATTR_OFFSET, writeSUMOTime(myTLSEditorParent->myEditedDef->getLogic()->getOffset()));
+    // write the phases
+    const bool varPhaseLength = myTLSEditorParent->myEditedDef->getLogic()->getType() != TrafficLightType::STATIC;
+    const std::vector<NBTrafficLightLogic::PhaseDefinition>& phases = myTLSEditorParent->myEditedDef->getLogic()->getPhases();
+    for (auto j : phases) {
+        device.openTag(SUMO_TAG_PHASE);
+        device.writeAttr(SUMO_ATTR_DURATION, writeSUMOTime(j.duration));
+        device.writeAttr(SUMO_ATTR_STATE, j.state);
+        if (varPhaseLength) {
+            if (j.minDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                device.writeAttr(SUMO_ATTR_MINDURATION, writeSUMOTime(j.minDur));
+            }
+            if (j.maxDur != NBTrafficLightDefinition::UNSPECIFIED_DURATION) {
+                device.writeAttr(SUMO_ATTR_MAXDURATION, writeSUMOTime(j.maxDur));
+            }
+        }
+        device.closeTag();
+    }
+    device.close();
+*/
+    return 1;
+}
+
+// ---------------------------------------------------------------------------
 // GNECreateEdgeFrame::Legend - methods
 // ---------------------------------------------------------------------------
 
@@ -432,6 +562,8 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     myEdgeParameters = new EdgeParameters(this);
     // create lane parameters
     myLaneParameters = new LaneParameters(this);
+    // create edge type file
+    myEdgeTypeFile = new EdgeTypeFile(this);
     // create edge selector legend
     myEdgeSelectorLegend = new EdgeSelectorLegend(this);
 }
