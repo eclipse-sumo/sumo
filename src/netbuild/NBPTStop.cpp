@@ -39,6 +39,8 @@ NBPTStop::NBPTStop(std::string ptStopId, Position position, std::string edgeId, 
     myName(name),
     myParkingLength(parkingLength),
     myPermissions(svcPermissions),
+    myStartPos(0),
+    myEndPos(0),
     myBidiStop(nullptr),
     myIsLoose(origEdgeId == ""),
     myIsMultipleStopPositions(false) {

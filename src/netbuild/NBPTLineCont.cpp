@@ -70,8 +70,13 @@ void NBPTLineCont::process(NBEdgeCont& ec, NBPTStopCont& sc) {
     }
 }
 
-void NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc) {
+void
+NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc) {
     const std::vector<std::string>& waysIds = line->getMyWays();
+    if (waysIds.size() == 1 && line->getStops().size() > 1) {
+        reviseSingleWayStops(line, ec, sc);
+        return;
+    }
     if (waysIds.size() <= 1) {
         WRITE_WARNING("Cannot revise pt stop localization for pt line: " + line->getLineID() + ", which consist of one way only. Ignoring!");
         return;
@@ -149,6 +154,23 @@ void NBPTLineCont::reviseStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCon
     }
 }
 
+
+void NBPTLineCont::reviseSingleWayStops(NBPTLine* line, const NBEdgeCont& ec, NBPTStopCont& sc) {
+    const std::vector<std::string>& waysIds = line->getMyWays();
+    for (NBPTStop* stop : line->getStops()) {
+        //get the corresponding and one of the two adjacent ways
+        stop = findWay(line, stop, ec, sc);
+        auto waysIdsIt = std::find(waysIds.begin(), waysIds.end(), stop->getOrigEdgeId());
+        if (waysIdsIt == waysIds.end()) {
+            // warning already given
+            continue;
+        }
+        myServedPTStops.insert(stop->getID());
+        stop->addLine(line->getRef());
+    }
+
+}
+
 NBPTStop*
 NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPTStopCont& sc) const {
     const std::vector<std::string>& waysIds = line->getMyWays();
@@ -194,7 +216,7 @@ NBPTLineCont::findWay(NBPTLine* line, NBPTStop* stop, const NBEdgeCont& ec, NBPT
             }
         } else {
             WRITE_WARNING("Could not assign stop '" + stop->getID() + "' to pt line '" + line->getLineID()
-                          + "' (closest edge '" + best->getID() + "', distance " + toString(minDist) + "). Ignoring!");
+                          + "' (closest edge '" + Named::getIDSecure(best) + "', distance " + toString(minDist) + "). Ignoring!");
         }
     } else {
         // if the stop is part of an edge, find that edge among the line edges
@@ -315,6 +337,12 @@ void NBPTLineCont::constructRoute(NBPTLine* pTLine, NBEdgeCont& cont) {
             if (it3 != pTLine->getMyWays().begin()) {
                 WRITE_WARNING("Incomplete route for ptline '" + toString(pTLine->getLineID()) +
                               (pTLine->getName() != "" ? "' (" + pTLine->getName() + ")" : ""));
+            } else if (pTLine->getMyWays().size() == 1) {
+                if (currentWayEdges.size() > 0) {
+                    edges.insert(edges.end(), currentWayEdges.begin(), currentWayEdges.end());
+                } else {
+                    edges.insert(edges.end(), currentWayMinusEdges.begin(), currentWayMinusEdges.end());
+                }
             }
             prevWayEdges = currentWayEdges;
             prevWayMinusEdges = currentWayMinusEdges;
@@ -466,6 +494,12 @@ NBPTLineCont::getCost(const NBEdgeCont& ec, SUMOAbstractRouter<NBRouterEdge, NBV
     NBEdge* toEdge = ec.getByID(to->getEdgeId());
     if (fromEdge == nullptr || toEdge == nullptr) {
         return std::numeric_limits<double>::max();
+    } else if (fromEdge == toEdge) {
+        if (from->getEndPos() <= to->getEndPos()) {
+            return to->getEndPos() - from->getEndPos();
+        } else {
+            return std::numeric_limits<double>::max();
+        }
     }
     std::vector<const NBRouterEdge*> route;
     router.compute(fromEdge, toEdge, veh, 0, route);
