@@ -7,9 +7,6 @@ routecheck
 # Tests for <SUMO_DIST>/tools/route_tools/route2alts.py
 route2alts
 
-# Tests for <SUMO_DIST>/tools/findAllRoutes.py
-findAllRoutes
-
 # test generating edge selections from a route file
 route2sel
 
@@ -42,3 +39,6 @@ addStops2Routes
 
 # add delay to stops (increase duration)
 addStopDelay
+
+# test tool for validation public transport schedule in route file 
+checkStopOrder
