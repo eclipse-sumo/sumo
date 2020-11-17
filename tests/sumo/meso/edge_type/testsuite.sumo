@@ -7,3 +7,8 @@ taufjj
 jamThreshold
 minorPenalty
 junctionControl
+
+# base case
+tls_default
+tls_penalty
+tls_flowPenalty
