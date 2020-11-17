@@ -859,8 +859,6 @@ MSFrame::setMSGlobals(OptionsCont& oc) {
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
     MSGlobals::gMesoLimitedJunctionControl = oc.getBool("meso-junction-control.limited");
     MSGlobals::gMesoOvertaking = oc.getBool("meso-overtaking");
-    MSGlobals::gMesoTLSPenalty = oc.getFloat("meso-tls-penalty");
-    MSGlobals::gMesoTLSFlowPenalty = oc.getFloat("meso-tls-flow-penalty");
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gUsingInternalLanes = false;
     }

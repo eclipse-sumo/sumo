@@ -90,12 +90,8 @@ MESegment::MESegment(const std::string& id,
                      const MSEdge& parent, MESegment* next,
                      const double length, const double speed,
                      const int idx,
-                     const SUMOTime tauff, const SUMOTime taufj,
-                     const SUMOTime taujf, const SUMOTime taujj,
-                     const double jamThresh,
                      const bool multiQueue,
-                     const bool junctionControl,
-                     const SUMOTime minorPenalty) :
+                     const MSNet::MesoEdgeType& edgeType):
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
     myTau_length(SCALED_TAU(TIME2STEPS(1)) / MAX2(MESO_MIN_SPEED, speed)),
@@ -127,28 +123,22 @@ MESegment::MESegment(const std::string& id,
         myQueues.push_back(Queue(parent.getPermissions()));
     }
 
-    initSegment(tauff, taufj, taujf, taujj, jamThresh, junctionControl, minorPenalty, parent);
+    initSegment(edgeType, parent);
 }
 
 void
-MESegment::initSegment(
-        const SUMOTime tauff, const SUMOTime taufj,
-        const SUMOTime taujf, const SUMOTime taujj,
-        const double jamThresh,
-        const bool junctionControl,
-        const SUMOTime minorPenalty,
-        const MSEdge& parent) {
+MESegment::initSegment(const MSNet::MesoEdgeType& edgeType, const MSEdge& parent) {
 
     const bool multiQueue = myQueues.size() > 1;
 
     // Eissfeldt p. 90 and 151 ff.
-    myTau_ff = SCALED_TAU(tauff);
-    myTau_fj = SCALED_TAU(taufj);
-    myTau_jf = SCALED_TAU(taujf);
-    myTau_jj = SCALED_TAU(taujj);
+    myTau_ff = SCALED_TAU(edgeType.tauff);
+    myTau_fj = SCALED_TAU(edgeType.taufj);
+    myTau_jf = SCALED_TAU(edgeType.taujf);
+    myTau_jj = SCALED_TAU(edgeType.taujj);
 
-    myJunctionControl = junctionControl && myNextSegment == nullptr;
-    myTLSPenalty = ((MSGlobals::gMesoTLSPenalty > 0 || MSGlobals::gMesoTLSFlowPenalty > 0) &&
+    myJunctionControl = myNextSegment == nullptr && (edgeType.junctionControl || MELoop::isEnteringRoundabout(parent));
+    myTLSPenalty = ((edgeType.tlsPenalty > 0 || edgeType.tlsFlowPenalty > 0) &&
                  // only apply to the last segment of a tls-controlled edge
                  myNextSegment == nullptr && (
                      parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT ||
@@ -156,17 +146,17 @@ MESegment::initSegment(
                      parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED));
 
     // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
-    myCheckMinorPenalty = (minorPenalty > 0 &&
+    myCheckMinorPenalty = (edgeType.minorPenalty > 0 &&
                    myNextSegment == nullptr &&
                    parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT &&
                    parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION &&
                    parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
                    parent.hasMinorLink());
-    myMinorPenalty = minorPenalty;
+    myMinorPenalty = edgeType.minorPenalty;
 
     //std::cout << getID() << " myMinorPenalty=" << myMinorPenalty << " myTLSPenalty=" << myTLSPenalty << " mesoTLSPen=" << MSGlobals::gMesoTLSPenalty << " flowPen=" << MSGlobals::gMesoTLSPenalty << " myJunctionControl=" << myJunctionControl << "\n";
 
-    recomputeJamThreshold(jamThresh);
+    recomputeJamThreshold(edgeType.jamThreshold);
 }
 
 MESegment::MESegment(const std::string& id):

@@ -148,6 +148,9 @@ NLBuilder::build() {
         }
         if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
             myNet.getEdgeControl().setMesoTypes();
+            for (MSTrafficLightLogic* tll : myNet.getTLSControl().getAllLogics()) {
+                tll->initMesoTLSPenalties();
+            }
         }
     }
     if (myOptions.getBool("junction-taz")) {

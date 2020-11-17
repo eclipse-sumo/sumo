@@ -127,21 +127,11 @@ public:
               const MSEdge& parent, MESegment* next,
               const double length, const double speed,
               const int idx,
-              const SUMOTime tauff, const SUMOTime taufj,
-              const SUMOTime taujf, const SUMOTime taujj,
-              const double jamThresh,
               const bool multiQueue,
-              const bool junctionControl,
-              const SUMOTime minorPenalty);
+              const MSNet::MesoEdgeType& edgeTyp);
 
     /// @brief set model parameters (may be updated from additional file after network loading is complete)
-    void initSegment(const SUMOTime tauff, const SUMOTime taufj,
-                     const SUMOTime taujf, const SUMOTime taujj,
-                     const double jamThresh,
-                     const bool junctionControl,
-                     const SUMOTime minorPenalty,
-                     // not set but needed to compute others
-                     const MSEdge& parent);
+    void initSegment(const MSNet::MesoEdgeType& edgeType, const MSEdge& parent);
 
     /// @name Measure collection
     /// @{

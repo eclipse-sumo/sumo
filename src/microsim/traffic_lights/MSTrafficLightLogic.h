@@ -98,6 +98,8 @@ public:
      */
     virtual void init(NLDetectorBuilder& nb);
 
+    /// @brief initialize optional meso penalties
+    void initMesoTLSPenalties();
 
     /// @brief Destructor
     virtual ~MSTrafficLightLogic();
@@ -481,11 +483,6 @@ protected:
 
     /// @brief whether the current program is active
     bool myAmActive;
-
-private:
-    /// @brief initialize optional meso penalties
-    void initMesoTLSPenalties();
-
 
 private:
     /// @brief invalidated copy constructor

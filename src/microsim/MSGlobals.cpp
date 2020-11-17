@@ -48,8 +48,6 @@ bool MSGlobals::gStateLoaded;
 bool MSGlobals::gUseMesoSim;
 bool MSGlobals::gMesoLimitedJunctionControl;
 bool MSGlobals::gMesoOvertaking;
-double MSGlobals::gMesoTLSPenalty;
-double MSGlobals::gMesoTLSFlowPenalty;
 MELoop* MSGlobals::gMesoNet;
 
 bool MSGlobals::gOverheadWireSolver;

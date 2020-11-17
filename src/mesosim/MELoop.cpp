@@ -272,18 +272,10 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
     MESegment* nextSegment = nullptr;
     const bool laneQueue = oc.getBool("meso-lane-queue");
     bool multiQueue = laneQueue || (oc.getBool("meso-multi-queue") && e.getLanes().size() > 1 && e.getNumSuccessors() > 1);
-    bool junctionControl = edgeType.junctionControl || isEnteringRoundabout(e);
     for (int s = numSegments - 1; s >= 0; s--) {
         std::string id = e.getID() + ":" + toString(s);
-        newSegment =
-            new MESegment(id, e, nextSegment, slength,
-                          e.getLanes()[0]->getSpeedLimit(), s,
-                          edgeType.tauff, edgeType.taufj,
-                          edgeType.taujf, edgeType.taujj,
-                          edgeType.jamThreshold, multiQueue, junctionControl,
-                          edgeType.minorPenalty);
+        newSegment = new MESegment(id, e, nextSegment, slength, e.getLanes()[0]->getSpeedLimit(), s, multiQueue, edgeType);
         multiQueue = laneQueue;
-        junctionControl = false;
         nextSegment = newSegment;
     }
     while (e.getNumericalID() >= static_cast<int>(myEdges2FirstSegments.size())) {
@@ -299,9 +291,7 @@ MELoop::updateSegementsForEdge(const MSEdge& e) {
         const MSNet::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(e.getEdgeType());
         MESegment* s = myEdges2FirstSegments[e.getNumericalID()];
         while (s != nullptr) {
-            s->initSegment(edgeType.tauff, edgeType.taufj, edgeType.taujf, edgeType.taujj,
-                    edgeType.jamThreshold, edgeType.junctionControl,
-                    edgeType.minorPenalty, e);
+            s->initSegment(edgeType, e);
             s = s->getNextSegment();
         }
     }

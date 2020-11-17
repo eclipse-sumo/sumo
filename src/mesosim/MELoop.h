@@ -74,6 +74,9 @@ public:
     /** @brief remove the given car and clean up the relevant data structures */
     void vaporizeCar(MEVehicle* v, MSMoveReminder::Notification reason);
 
+    /// @brief whether the given edge is entering a roundabout
+    static bool isEnteringRoundabout(const MSEdge& e);
+
     /** @brief Compute number of segments per edge (best value stay close to the configured segment length) */
     static int numSegmentsFor(const double length, const double slength);
 
@@ -136,9 +139,6 @@ private:
      * @param[in] toSegment The first segment where the vehicle may reenter the network
      */
     void teleportVehicle(MEVehicle* veh, MESegment* const toSegment);
-
-    /// @brief whether the given edge is entering a roundabout
-    static bool isEnteringRoundabout(const MSEdge& e);
 
 private:
     /// @brief leader cars in the segments sorted by exit time
