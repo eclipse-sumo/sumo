@@ -280,7 +280,8 @@ MELoop::buildSegmentsFor(const MSEdge& e, const OptionsCont& oc) {
                           e.getLanes()[0]->getSpeedLimit(), s,
                           edgeType.tauff, edgeType.taufj,
                           edgeType.taujf, edgeType.taujj,
-                          edgeType.jamThreshold, multiQueue, junctionControl);
+                          edgeType.jamThreshold, multiQueue, junctionControl,
+                          edgeType.minorPenalty);
         multiQueue = laneQueue;
         junctionControl = false;
         nextSegment = newSegment;
@@ -299,7 +300,8 @@ MELoop::updateSegementsForEdge(const MSEdge& e) {
         MESegment* s = myEdges2FirstSegments[e.getNumericalID()];
         while (s != nullptr) {
             s->initSegment(edgeType.tauff, edgeType.taufj, edgeType.taujf, edgeType.taujj,
-                    edgeType.jamThreshold, edgeType.junctionControl, e);
+                    edgeType.jamThreshold, edgeType.junctionControl,
+                    edgeType.minorPenalty, e);
             s = s->getNextSegment();
         }
     }

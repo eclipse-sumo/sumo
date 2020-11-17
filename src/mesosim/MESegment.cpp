@@ -94,7 +94,8 @@ MESegment::MESegment(const std::string& id,
                      const SUMOTime taujf, const SUMOTime taujj,
                      const double jamThresh,
                      const bool multiQueue,
-                     const bool junctionControl) :
+                     const bool junctionControl,
+                     const SUMOTime minorPenalty) :
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
     myTau_length(SCALED_TAU(TIME2STEPS(1)) / MAX2(MESO_MIN_SPEED, speed)),
@@ -126,7 +127,7 @@ MESegment::MESegment(const std::string& id,
         myQueues.push_back(Queue(parent.getPermissions()));
     }
 
-    initSegment(tauff, taufj, taujf, taujj, jamThresh, junctionControl, parent);
+    initSegment(tauff, taufj, taujf, taujj, jamThresh, junctionControl, minorPenalty, parent);
 }
 
 void
@@ -135,6 +136,7 @@ MESegment::initSegment(
         const SUMOTime taujf, const SUMOTime taujj,
         const double jamThresh,
         const bool junctionControl,
+        const SUMOTime minorPenalty,
         const MSEdge& parent) {
 
     const bool multiQueue = myQueues.size() > 1;
@@ -153,13 +155,16 @@ MESegment::initSegment(
                      parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION ||
                      parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED));
 
-    myMinorPenalty = (MSGlobals::gMesoMinorPenalty > 0 &&
-                   // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
+    // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
+    myCheckMinorPenalty = (minorPenalty > 0 &&
                    myNextSegment == nullptr &&
                    parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT &&
                    parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION &&
                    parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
                    parent.hasMinorLink());
+    myMinorPenalty = minorPenalty;
+
+    //std::cout << getID() << " myMinorPenalty=" << myMinorPenalty << " myTLSPenalty=" << myTLSPenalty << " mesoTLSPen=" << MSGlobals::gMesoTLSPenalty << " flowPen=" << MSGlobals::gMesoTLSPenalty << " myJunctionControl=" << myJunctionControl << "\n";
 
     recomputeJamThreshold(jamThresh);
 }
@@ -170,7 +175,8 @@ MESegment::MESegment(const std::string& id):
     myNextSegment(nullptr), myLength(0), myIndex(0),
     myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0),
     myTLSPenalty(false),
-    myMinorPenalty(false),
+    myCheckMinorPenalty(false),
+    myMinorPenalty(0),
     myJunctionControl(false),
     myTau_length(1),
     myHeadwayCapacity(0), myCapacity(0), myQueueCapacity(0)
@@ -187,7 +193,7 @@ MESegment::recomputeJamThreshold(double jamThresh) {
     if (jamThresh < 0) {
         // compute based on speed
         double speed = myEdge.getSpeedLimit();
-        if (myTLSPenalty || myMinorPenalty) {
+        if (myTLSPenalty || myCheckMinorPenalty) {
             double travelTime = myLength / MAX2(speed, NUMERICAL_EPS) + getMaxPenaltySeconds();
             speed = myLength / travelTime;
         }
@@ -774,7 +780,7 @@ MESegment::getFlow() const {
 
 SUMOTime
 MESegment::getLinkPenalty(const MEVehicle* veh) const {
-    const MSLink* link = getLink(veh, myTLSPenalty || myMinorPenalty);
+    const MSLink* link = getLink(veh, myTLSPenalty || myCheckMinorPenalty);
     if (link != nullptr) {
         SUMOTime result = 0;
         if (link->isTLSControlled()) {
@@ -784,7 +790,7 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
         if (!link->havePriority() &&
                 // do not apply penalty if limited control is active
                 (!MSGlobals::gMesoLimitedJunctionControl || limitedControlOverride(link))) {
-            result += MSGlobals::gMesoMinorPenalty;
+            result += myMinorPenalty;
         }
         return result;
     } else {
@@ -799,7 +805,7 @@ MESegment::getMaxPenaltySeconds() const {
     for (const MSLane* const l : myEdge.getLanes()) {
         for (const MSLink* const link : l->getLinkCont()) {
             maxPenalty = MAX2(maxPenalty, STEPS2TIME(
-                                  link->getMesoTLSPenalty() + (link->havePriority() ? 0 : MSGlobals::gMesoMinorPenalty)));
+                                  link->getMesoTLSPenalty() + (link->havePriority() ? 0 : myMinorPenalty)));
         }
     }
     return maxPenalty;

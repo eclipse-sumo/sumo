@@ -131,13 +131,15 @@ public:
               const SUMOTime taujf, const SUMOTime taujj,
               const double jamThresh,
               const bool multiQueue,
-              const bool junctionControl);
+              const bool junctionControl,
+              const SUMOTime minorPenalty);
 
     /// @brief set model parameters (may be updated from additional file after network loading is complete)
     void initSegment(const SUMOTime tauff, const SUMOTime taufj,
                      const SUMOTime taujf, const SUMOTime taujj,
                      const double jamThresh,
                      const bool junctionControl,
+                     const SUMOTime minorPenalty,
                      // not set but needed to compute others
                      const MSEdge& parent);
 
@@ -509,8 +511,9 @@ private:
     /// @brief Whether tls penalty is enabled
     bool myTLSPenalty;
 
-    /// @brief Whether minor penalty is enabled
-    bool myMinorPenalty;
+    /// @brief penalty for minor links
+    bool myCheckMinorPenalty; // for legacy compatibility (#7802, 7804)
+    SUMOTime myMinorPenalty;
 
     /// @brief Whether junction control is enabled
     bool myJunctionControl;
