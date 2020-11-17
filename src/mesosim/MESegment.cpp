@@ -126,7 +126,7 @@ MESegment::MESegment(const std::string& id,
         myQueues.push_back(Queue(parent.getPermissions()));
     }
 
-    initSegment(tauff, taufj, taujf, taujj, jamThresh, junctionControl, multiQueue, parent);
+    initSegment(tauff, taufj, taujf, taujj, jamThresh, junctionControl, parent);
 }
 
 void
@@ -135,8 +135,9 @@ MESegment::initSegment(
         const SUMOTime taujf, const SUMOTime taujj,
         const double jamThresh,
         const bool junctionControl,
-        const bool multiQueue,
         const MSEdge& parent) {
+
+    const bool multiQueue = myQueues.size() > 1;
 
     // Eissfeldt p. 90 and 151 ff.
     myTau_ff = SCALED_TAU(tauff);
@@ -144,7 +145,7 @@ MESegment::initSegment(
     myTau_jf = SCALED_TAU(taujf);
     myTau_jj = SCALED_TAU(taujj);
 
-    myJunctionControl = junctionControl;
+    myJunctionControl = junctionControl && myNextSegment == nullptr;
     myTLSPenalty = ((MSGlobals::gMesoTLSPenalty > 0 || MSGlobals::gMesoTLSFlowPenalty > 0) &&
                  // only apply to the last segment of a tls-controlled edge
                  myNextSegment == nullptr && (
@@ -168,9 +169,9 @@ MESegment::MESegment(const std::string& id):
     myEdge(myDummyParent), // arbitrary edge needed to supply the needed reference
     myNextSegment(nullptr), myLength(0), myIndex(0),
     myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0),
-    myJunctionControl(false),
     myTLSPenalty(false),
     myMinorPenalty(false),
+    myJunctionControl(false),
     myTau_length(1),
     myHeadwayCapacity(0), myCapacity(0), myQueueCapacity(0)
 {

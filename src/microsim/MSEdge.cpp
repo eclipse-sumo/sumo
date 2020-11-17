@@ -181,6 +181,15 @@ MSEdge::closeBuilding() {
 
 
 void
+MSEdge::updateMesoType() {
+    assert(gUseMesoSim);
+    if (!myLanes->empty()) {
+        MSGlobals::gMesoNet->updateSegementsForEdge(*this);
+    }
+}
+
+
+void
 MSEdge::buildLaneChanger() {
     if (!myLanes->empty()) {
         const bool allowChanging = allowsLaneChanging();

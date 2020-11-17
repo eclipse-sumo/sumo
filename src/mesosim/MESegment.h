@@ -139,7 +139,6 @@ public:
                      const double jamThresh,
                      const bool junctionControl,
                      // not set but needed to compute others
-                     const bool multiQueue,
                      const MSEdge& parent);
 
     /// @name Measure collection

@@ -146,7 +146,7 @@ NLBuilder::build() {
         if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
             myNet.getEdgeControl().setAdditionalRestrictions();
         }
-        if (myXMLHandler.haveSeenMesoEdgeType()) {
+        if (MSGlobals::gUseMesoSim && myXMLHandler.haveSeenMesoEdgeType()) {
             myNet.getEdgeControl().setMesoTypes();
         }
     }

@@ -735,6 +735,9 @@ public:
      */
     SUMOVehicle* getWaitingVehicle(MSTransportable* transportable, const double position) const;
 
+    /// @brief update meso segment parameters
+    void updateMesoType();
+
     /** @brief Inserts edge into the static dictionary
         Returns true if the key id isn't already in the dictionary. Otherwise
         returns false. */
