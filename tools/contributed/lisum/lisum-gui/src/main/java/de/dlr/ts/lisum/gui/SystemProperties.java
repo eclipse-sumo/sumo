@@ -50,7 +50,7 @@ public class SystemProperties {
     private final int height = 900;
 
     private final String systemName = "LiSuM";
-    private String systemVersion = "1.0";
+    private String systemVersion = "1.1";
     private final Image mainIcon = new Image(getClass().getResourceAsStream("/images/icons/LisaSumoIcon.png"));
 
 
@@ -79,6 +79,10 @@ public class SystemProperties {
         return simulationOpened;
     }
 
+    /**
+     * 
+     * @return 
+     */
     public String getSystemVersion() {
         return systemVersion;
     }
@@ -146,6 +150,9 @@ public class SystemProperties {
         return height;
     }
 
+    /**
+     * 
+     */
     private void loadSystemVersion() {
         File pom = new File("pom.xml");
         if (pom.exists()) {
@@ -163,7 +170,7 @@ public class SystemProperties {
 
         if (res != null) {
             try {
-                byte[] array = IOUtils.toByteArray(res);
+                byte[] array = IOUtils.toByteArray(res);                
                 this.systemVersion = new String(array).trim();
             } catch (IOException ex) {
                 DLRLogger.severe(this, ex);
