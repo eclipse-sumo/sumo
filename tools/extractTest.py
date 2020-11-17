@@ -89,14 +89,6 @@ def generateTargetName(baseDir, source):
     return source[len(os.path.commonprefix([baseDir, source])):].replace(os.sep, '_')
 
 
-def mergedOptions(varOpts, appOpts):
-    lastDepth = None
-    for opt in sorted(varOpts + appOpts, key=lambda o:o.count(os.sep)):
-        if opt.count(os.sep) != lastDepth:
-            yield opt
-        lastDepth = opt.count(os.sep)
-
-
 def main(options):
     targets = []
     if options.file:
@@ -172,7 +164,8 @@ for p in [
             net = None
             skip = False
             appOptions = []
-            for f in mergedOptions(optionsFiles[variant], optionsFiles[app]):
+            optFiles = optionsFiles[app] + ([] if variant == app else optionsFiles[variant])
+            for f in sorted(optFiles, key=lambda o:o.count(os.sep)):
                 for o in shlex.split(open(f).read()):
                     if skip:
                         skip = False
