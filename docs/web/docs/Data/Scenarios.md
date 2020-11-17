@@ -28,6 +28,11 @@ files](http://sourceforge.net/projects/sumo/files/traffic_data/scenarios/Bologna
 - [Main Page](https://github.com/maxime-gueriau/ITSC2020_CAV_impact)
 - Publication: Quantifying the impact of connected and autonomous vehicles on traffic efficiency and safety in mixed traffic" by Maxime Gueriau and Ivana Dusparic, presented at the The 23rd IEEE International Conference on Intelligent Transportation Systems (ITSC 2020)
 
+# Ingolstadt traffic scenario (InTAS)
+
+- [Main Page](https://github.com/silaslobo/InTAS)
+- [Presentation video](https://www.youtube.com/watch?v=UgPeBxXzDHc)
+
 # Luxembourg SUMO Traffic (LuST)
 
 - [Main Page](https://github.com/lcodeca/LuSTScenario)
