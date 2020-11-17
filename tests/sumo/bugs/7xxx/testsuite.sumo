@@ -28,3 +28,9 @@ ticket7764
 # emergency braking for left turning vehicle.
 # Network is taken from tests/netconvert/function/crossings/specified/4_arm_bent_priority_tls_oncoming
 ticket7764_intermodal
+
+# crash when using transport within person
+ticket7801
+
+# crash when using ride within container
+ticket7801b
