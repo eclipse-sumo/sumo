@@ -98,9 +98,9 @@ MESegment::MESegment(const std::string& id,
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
     myTau_length(SCALED_TAU(TIME2STEPS(1)) / MAX2(MESO_MIN_SPEED, speed)),
-    myQueueCapacity(multiQueue ? length : length * parent.getLanes().size()),
     myHeadwayCapacity(length / DEFAULT_VEH_LENGTH_WITH_GAP * parent.getLanes().size())/* Eissfeldt p. 69 */,
     myCapacity(length * parent.getLanes().size()),
+    myQueueCapacity(multiQueue ? length : length * parent.getLanes().size()),
     myNumVehicles(0),
     myLastHeadway(TIME2STEPS(-1)),
     myMeanSpeed(speed),
@@ -167,10 +167,13 @@ MESegment::MESegment(const std::string& id):
     Named(id),
     myEdge(myDummyParent), // arbitrary edge needed to supply the needed reference
     myNextSegment(nullptr), myLength(0), myIndex(0),
-    myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0), myTau_length(1),
-    myHeadwayCapacity(0), myCapacity(0), myQueueCapacity(0), myJunctionControl(false),
+    myTau_ff(0), myTau_fj(0), myTau_jf(0), myTau_jj(0),
+    myJunctionControl(false),
     myTLSPenalty(false),
-    myMinorPenalty(false) {
+    myMinorPenalty(false),
+    myTau_length(1),
+    myHeadwayCapacity(0), myCapacity(0), myQueueCapacity(0)
+{
 }
 
 

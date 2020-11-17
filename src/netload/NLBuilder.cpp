@@ -146,6 +146,9 @@ NLBuilder::build() {
         if (myXMLHandler.haveSeenAdditionalSpeedRestrictions()) {
             myNet.getEdgeControl().setAdditionalRestrictions();
         }
+        if (myXMLHandler.haveSeenMesoEdgeType()) {
+            myNet.getEdgeControl().setMesoTypes();
+        }
     }
     if (myOptions.getBool("junction-taz")) {
         // create a TAZ for every junction

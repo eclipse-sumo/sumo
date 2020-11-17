@@ -57,6 +57,8 @@ enum SumoXMLTag {
     SUMO_TAG_JUNCTION,
     /// @brief begin/end of the description of an edge restriction
     SUMO_TAG_RESTRICTION,
+    /// @brief edge-specific meso settings
+    SUMO_TAG_MESO,
     /// @brief an e1 detector
     SUMO_TAG_E1DETECTOR,
     /// @brief alternative tag for e1 detector
@@ -1235,9 +1237,21 @@ enum SumoXMLAttr {
     SUMO_ATTR_RNG_DEVICE,
     SUMO_ATTR_RNG_DEVICE_BT,
     SUMO_ATTR_RNG_DEVICE_TOC,
-    SUMO_ATTR_RNG_DRIVERSTATE
+    SUMO_ATTR_RNG_DRIVERSTATE,
     // @}
 
+    //@name meso edge type attributes
+    // @{
+    SUMO_ATTR_MESO_TAUFF,
+    SUMO_ATTR_MESO_TAUFJ,
+    SUMO_ATTR_MESO_TAUJF,
+    SUMO_ATTR_MESO_TAUJJ,
+    SUMO_ATTR_MESO_JUNCTION_CONTROL,
+    SUMO_ATTR_MESO_TLS_PENALTY,
+    SUMO_ATTR_MESO_TLS_FLOW_PENALTY,
+    SUMO_ATTR_MESO_MINOR_PENALTY,
+    SUMO_ATTR_MESO_OVERTAKING
+    // @}
 };
 
 /*

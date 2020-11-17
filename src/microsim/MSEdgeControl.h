@@ -193,6 +193,9 @@ public:
     /// @brief apply additional restrictions
     void setAdditionalRestrictions();
 
+    /// @brief update meso edge type parameters
+    void setMesoTypes();
+
 #ifndef THREAD_POOL
 #ifdef HAVE_FOX
     FXWorkerThread::Pool& getThreadPool() {

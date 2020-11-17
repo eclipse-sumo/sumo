@@ -520,15 +520,15 @@ private:
     /// @brief Headway parameter for computing gross time headyway from net time headway, length and edge speed
     double myTau_length;
 
-    /// @brief The number of lanes represented by the queue * the length of the lane
-    double myQueueCapacity;
-
     /// @brief The capacity of the segment in number of cars, used only in time headway calculation
     /// This parameter has only an effect if tau_jf != tau_jj, which is not(!) the case per default
     const double myHeadwayCapacity;
 
     /// @brief The number of lanes represented by the queue * the length of the lane
     const double myCapacity;
+
+    /// @brief The number of lanes represented by the queue * the length of the lane
+    double myQueueCapacity;
 
     /// @brief The space (in m) which needs to be occupied before the segment is considered jammed
     double myJamThreshold;

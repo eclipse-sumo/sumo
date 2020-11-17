@@ -338,6 +338,31 @@ MSNet::getRestrictions(const std::string& id) const {
     return &i->second;
 }
 
+void
+MSNet::addMesoType(const std::string& typeID, const MesoEdgeType& edgeType) {
+    myMesoEdgeTypes[typeID] = edgeType;
+}
+
+const MSNet::MesoEdgeType&
+MSNet::getMesoType(const std::string& typeID) {
+    if (myMesoEdgeTypes.count(typeID) == 0) {
+        // init defaults
+        const OptionsCont& oc = OptionsCont::getOptions();
+        MesoEdgeType edgeType;
+        edgeType.tauff = string2time(oc.getString("meso-tauff"));
+        edgeType.taufj = string2time(oc.getString("meso-taufj"));
+        edgeType.taujf = string2time(oc.getString("meso-taujf"));
+        edgeType.taujj = string2time(oc.getString("meso-taujj"));
+        edgeType.jamThreshold = oc.getFloat("meso-jam-threshold");
+        edgeType.junctionControl = oc.getBool("meso-junction-control");
+        edgeType.tlsPenalty = oc.getFloat("meso-tls-penalty");
+        edgeType.tlsFlowPenalty = oc.getFloat("meso-tls-flow-penalty");
+        edgeType.minorPenalty = string2time(oc.getString("meso-minor-penalty"));
+        edgeType.overtaking = oc.getBool("meso-overtaking");
+        myMesoEdgeTypes[typeID] = edgeType;
+    }
+    return myMesoEdgeTypes[typeID];
+}
 
 MSNet::SimulationState
 MSNet::simulate(SUMOTime start, SUMOTime stop) {

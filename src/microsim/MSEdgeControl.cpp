@@ -360,5 +360,12 @@ MSEdgeControl::setAdditionalRestrictions() {
     }
 }
 
+void
+MSEdgeControl::setMesoTypes() {
+    for (MSEdgeVector::const_iterator i = myEdges.begin(); i != myEdges.end(); ++i) {
+        //XXX
+    }
+}
+
 
 /****************************************************************************/

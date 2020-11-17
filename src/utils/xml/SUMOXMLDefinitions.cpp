@@ -45,6 +45,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "poly",                           SUMO_TAG_POLY },
     { "junction",                       SUMO_TAG_JUNCTION },
     { "restriction",                    SUMO_TAG_RESTRICTION },
+    { "meso",                           SUMO_TAG_MESO },
     { "e1Detector",                     SUMO_TAG_E1DETECTOR },
     { "inductionLoop",                  SUMO_TAG_INDUCTION_LOOP },
     { "e2Detector",                     SUMO_TAG_E2DETECTOR },
@@ -851,6 +852,19 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "device.btreceiver", SUMO_ATTR_RNG_DEVICE_BT },
     { "device.toc",        SUMO_ATTR_RNG_DEVICE_TOC },
     { "driverState",       SUMO_ATTR_RNG_DRIVERSTATE },
+    // @}
+
+    //@name meso edge type attributes
+    // @{
+    { "tauff",             SUMO_ATTR_MESO_TAUFF },
+    { "taufj",             SUMO_ATTR_MESO_TAUFJ },
+    { "taujf",             SUMO_ATTR_MESO_TAUJF },
+    { "taujj",             SUMO_ATTR_MESO_TAUJJ },
+    { "junctionControl",   SUMO_ATTR_MESO_JUNCTION_CONTROL },
+    { "tlsPenalty",        SUMO_ATTR_MESO_TLS_PENALTY },
+    { "tlsFlowPenalty",    SUMO_ATTR_MESO_TLS_FLOW_PENALTY },
+    { "minorPenalty",      SUMO_ATTR_MESO_MINOR_PENALTY },
+    { "overtaking",        SUMO_ATTR_MESO_OVERTAKING },
     // @}
 
     // Other

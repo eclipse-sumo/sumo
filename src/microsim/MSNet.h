@@ -113,6 +113,19 @@ public:
     typedef PedestrianRouter<MSEdge, MSLane, MSJunction, MSVehicle> MSPedestrianRouter;
     typedef IntermodalRouter<MSEdge, MSLane, MSJunction, SUMOVehicle> MSIntermodalRouter;
 
+    /// @brief edge type specific meso parameters
+    struct MesoEdgeType {
+        SUMOTime tauff;
+        SUMOTime taufj;
+        SUMOTime taujf;
+        SUMOTime taujj;
+        double jamThreshold;
+        bool junctionControl;
+        double tlsPenalty;
+        double tlsFlowPenalty;
+        SUMOTime minorPenalty;
+        bool overtaking;
+    };
 
 public:
     /** @brief Returns the pointer to the unique instance of MSNet (singleton).
@@ -217,6 +230,16 @@ public:
      */
     const std::map<SUMOVehicleClass, double>* getRestrictions(const std::string& id) const;
 
+    /** @brief Adds edge type specific meso parameters
+     * @param[in] id The id of the type
+     * @param[in] edgeType The parameter object
+     */
+    void addMesoType(const std::string& typeID, const MesoEdgeType& edgeType); 
+
+    /** @brief Returns edge type specific meso parameters
+     * if no type specific parameters have been loaded, default values are returned
+     */
+    const MesoEdgeType& getMesoType(const std::string& typeID);
 
     /** @brief Clears all dictionaries
      * @todo Try to move all this to the destructor
@@ -816,6 +839,9 @@ protected:
 
     /// @brief The vehicle class specific speed restrictions
     std::map<std::string, std::map<SUMOVehicleClass, double> > myRestrictions;
+
+    /// @brief The edge type specific meso parameters
+    std::map<std::string, MesoEdgeType> myMesoEdgeTypes;
 
     /// @brief Whether the network contains internal links/lanes/edges
     bool myHasInternalLinks;
