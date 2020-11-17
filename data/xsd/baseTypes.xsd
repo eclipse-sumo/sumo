@@ -248,7 +248,14 @@
                 </xsd:restriction>
             </xsd:simpleType>
         </xsd:attribute>
-        <xsd:attribute name="next" type="nonNegativeIntType" use="optional"/>
+        <xsd:attribute name="next" use="optional">
+            <xsd:simpleType>
+                <!-- non-negative int list -->
+                <xsd:restriction base="xsd:string">
+                    <xsd:pattern value="(\d+)( (\d+))*"/>
+                </xsd:restriction>
+            </xsd:simpleType>
+        </xsd:attribute>
         <xsd:attribute name="name" type="xsd:string" use="optional"/>
     </xsd:complexType>
 
