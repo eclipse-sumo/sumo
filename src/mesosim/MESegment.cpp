@@ -153,8 +153,9 @@ MESegment::initSegment(const MSNet::MesoEdgeType& edgeType, const MSEdge& parent
                    parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
                    parent.hasMinorLink());
     myMinorPenalty = edgeType.minorPenalty;
+    myOvertaking = edgeType.overtaking && myCapacity > myLength;
 
-    //std::cout << getID() << " myMinorPenalty=" << myMinorPenalty << " myTLSPenalty=" << myTLSPenalty << " mesoTLSPen=" << MSGlobals::gMesoTLSPenalty << " flowPen=" << MSGlobals::gMesoTLSPenalty << " myJunctionControl=" << myJunctionControl << "\n";
+    //std::cout << getID() << " myMinorPenalty=" << myMinorPenalty << " myTLSPenalty=" << myTLSPenalty << " myJunctionControl=" << myJunctionControl << " myOvertaking=" << myOvertaking << "\n";
 
     recomputeJamThreshold(edgeType.jamThreshold);
 }
@@ -168,6 +169,7 @@ MESegment::MESegment(const std::string& id):
     myCheckMinorPenalty(false),
     myMinorPenalty(0),
     myJunctionControl(false),
+    myOvertaking(false),
     myTau_length(1),
     myHeadwayCapacity(0), myCapacity(0), myQueueCapacity(0)
 {
@@ -534,7 +536,7 @@ MESegment::send(MEVehicle* veh, MESegment* const next, const int nextQIdx, SUMOT
 
 bool
 MESegment::overtake() {
-    return MSGlobals::gMesoOvertaking && myCapacity > myLength && RandHelper::rand() > (getBruttoOccupancy() / myCapacity);
+    return myOvertaking && RandHelper::rand() > (getBruttoOccupancy() / myCapacity);
 }
 
 

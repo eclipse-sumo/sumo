@@ -507,6 +507,9 @@ private:
 
     /// @brief Whether junction control is enabled
     bool myJunctionControl;
+
+    /// @brief Whether overtaking is permitted on this segment
+    bool myOvertaking;
     /// @}
 
     /// @brief Headway parameter for computing gross time headyway from net time headway, length and edge speed
