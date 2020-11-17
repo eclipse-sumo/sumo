@@ -39,6 +39,6 @@ if [ -z "$SUMO_HOME" ]; then
     exit -1
 else
     echo "Starting: $SUMO_HOME/bin/netedit"
-    $SUMO_HOME/bin/netedit
+    $SUMO_HOME/bin/netedit "$@"
 fi
 

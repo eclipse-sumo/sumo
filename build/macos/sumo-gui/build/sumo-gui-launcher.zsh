@@ -41,6 +41,6 @@ if [ -z "$SUMO_HOME" ]; then
     exit -1
 else
     echo "Starting: $SUMO_HOME/bin/sumo-gui"
-    $SUMO_HOME/bin/sumo-gui
+    $SUMO_HOME/bin/sumo-gui "$@" 
 fi
 
