@@ -163,6 +163,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
     buildSelectionPopupEntry(ret);
     if (MSGlobals::gUseMesoSim) {
         buildShowParamsPopupEntry(ret);
+        buildShowTypeParamsPopupEntry(ret);
     }
     MESegment* segment = getSegmentAtPosition(parent.getPositionInformation());
     GUIDesigns::buildFXMenuCommand(ret, "segment: " + toString(segment->getIndex()), nullptr, nullptr, 0);
@@ -199,6 +200,29 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
     ret->mkItem("segment headway [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getLastHeadwaySeconds));
     ret->mkItem("segment entry blocktime [s]", true, new FunctionBinding<MESegment, double>(segment, &MESegment::getEntryBlockTimeSeconds));
 
+    // close building
+    ret->closeBuilding();
+    return ret;
+}
+
+GUIParameterTableWindow*
+GUIEdge::getTypeParameterWindow(GUIMainWindow& app,
+                                   GUISUMOAbstractView&) {
+    GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
+    const MSNet::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
+    // add items
+    ret->mkItem("Type Information:", false, "");
+    ret->mkItem("type [id]", false, getEdgeType());
+    ret->mkItem("tauff", false, STEPS2TIME(edgeType.tauff));
+    ret->mkItem("taufj", false, STEPS2TIME(edgeType.taufj));
+    ret->mkItem("taujf", false, STEPS2TIME(edgeType.taujf));
+    ret->mkItem("taujj", false, STEPS2TIME(edgeType.taujj));
+    ret->mkItem("jam threshold", false, edgeType.jamThreshold);
+    ret->mkItem("junction control", false, edgeType.junctionControl);
+    ret->mkItem("tls penalty", false, edgeType.tlsPenalty);
+    ret->mkItem("tls flow penalty", false, edgeType.tlsFlowPenalty);
+    ret->mkItem("minor penalty", false, STEPS2TIME(edgeType.minorPenalty));
+    ret->mkItem("overtaking", false, edgeType.overtaking);
     // close building
     ret->closeBuilding();
     return ret;

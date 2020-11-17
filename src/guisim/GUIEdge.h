@@ -116,6 +116,13 @@ public:
     virtual GUIParameterTableWindow* getParameterWindow(GUIMainWindow& app,
             GUISUMOAbstractView& parent);
 
+    /** @brief Returns an own type parameter window
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     */
+    GUIParameterTableWindow* getTypeParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
     /** @brief Returns the boundary to which the view shall be centered in order to show the object
      *
