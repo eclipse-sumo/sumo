@@ -97,30 +97,15 @@ MESegment::MESegment(const std::string& id,
                      const bool junctionControl) :
     Named(id), myEdge(parent), myNextSegment(next),
     myLength(length), myIndex(idx),
-    myTau_ff(SCALED_TAU(tauff)), myTau_fj(SCALED_TAU(taufj)), // Eissfeldt p. 90 and 151 ff.
-    myTau_jf(SCALED_TAU(taujf)), myTau_jj(SCALED_TAU(taujj)),
     myTau_length(SCALED_TAU(TIME2STEPS(1)) / MAX2(MESO_MIN_SPEED, speed)),
+    myQueueCapacity(multiQueue ? length : length * parent.getLanes().size()),
     myHeadwayCapacity(length / DEFAULT_VEH_LENGTH_WITH_GAP * parent.getLanes().size())/* Eissfeldt p. 69 */,
     myCapacity(length * parent.getLanes().size()),
-    myQueueCapacity(multiQueue ? length : length * parent.getLanes().size()),
-    myJunctionControl(junctionControl),
-    myTLSPenalty((MSGlobals::gMesoTLSPenalty > 0 || MSGlobals::gMesoTLSFlowPenalty > 0) &&
-                 // only apply to the last segment of a tls-controlled edge
-                 myNextSegment == nullptr && (
-                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT ||
-                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION ||
-                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED)),
-    myMinorPenalty(MSGlobals::gMesoMinorPenalty > 0 &&
-                   // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
-                   myNextSegment == nullptr &&
-                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT &&
-                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION &&
-                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
-                   parent.hasMinorLink()),
     myNumVehicles(0),
     myLastHeadway(TIME2STEPS(-1)),
     myMeanSpeed(speed),
     myLastMeanSpeedUpdate(SUMOTime_MIN) {
+
     if (multiQueue) {
         const std::vector<MSLane*>& lanes = parent.getLanes();
         for (MSLane* const l : lanes) {
@@ -140,9 +125,43 @@ MESegment::MESegment(const std::string& id,
     } else {
         myQueues.push_back(Queue(parent.getPermissions()));
     }
-    recomputeJamThreshold(jamThresh);
+
+    initSegment(tauff, taufj, taujf, taujj, jamThresh, junctionControl, multiQueue, parent);
 }
 
+void
+MESegment::initSegment(
+        const SUMOTime tauff, const SUMOTime taufj,
+        const SUMOTime taujf, const SUMOTime taujj,
+        const double jamThresh,
+        const bool junctionControl,
+        const bool multiQueue,
+        const MSEdge& parent) {
+
+    // Eissfeldt p. 90 and 151 ff.
+    myTau_ff = SCALED_TAU(tauff);
+    myTau_fj = SCALED_TAU(taufj);
+    myTau_jf = SCALED_TAU(taujf);
+    myTau_jj = SCALED_TAU(taujj);
+
+    myJunctionControl = junctionControl;
+    myTLSPenalty = ((MSGlobals::gMesoTLSPenalty > 0 || MSGlobals::gMesoTLSFlowPenalty > 0) &&
+                 // only apply to the last segment of a tls-controlled edge
+                 myNextSegment == nullptr && (
+                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT ||
+                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION ||
+                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED));
+
+    myMinorPenalty = (MSGlobals::gMesoMinorPenalty > 0 &&
+                   // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
+                   myNextSegment == nullptr &&
+                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT &&
+                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION &&
+                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
+                   parent.hasMinorLink());
+
+    recomputeJamThreshold(jamThresh);
+}
 
 MESegment::MESegment(const std::string& id):
     Named(id),

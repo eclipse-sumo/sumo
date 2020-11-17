@@ -133,6 +133,14 @@ public:
               const bool multiQueue,
               const bool junctionControl);
 
+    /// @brief set model parameters (may be updated from additional file after network loading is complete)
+    void initSegment(const SUMOTime tauff, const SUMOTime taufj,
+                     const SUMOTime taujf, const SUMOTime taujj,
+                     const double jamThresh,
+                     const bool junctionControl,
+                     // not set but needed to compute others
+                     const bool multiQueue,
+                     const MSEdge& parent);
 
     /// @name Measure collection
     /// @{
@@ -490,13 +498,30 @@ private:
     /// @brief Running number of the segment in the edge
     const int myIndex;
 
+    /// @name Model constants that may be reset once via additional file
+    /// @{
+
     /// @brief The time headway parameters, see the Eissfeldt thesis
-    const SUMOTime myTau_ff, myTau_fj, myTau_jf, myTau_jj;
-    /// @brief Headway parameter for computing gross time headyway from net time headway, length and edge speed
-    double myTau_length;
+    SUMOTime myTau_ff, myTau_fj, myTau_jf, myTau_jj;
 
     /// @brief slope and axis offset for the jam-jam headway function
     double myA, myB;
+
+    /// @brief Whether tls penalty is enabled
+    bool myTLSPenalty;
+
+    /// @brief Whether minor penalty is enabled
+    bool myMinorPenalty;
+
+    /// @brief Whether junction control is enabled
+    bool myJunctionControl;
+    /// @}
+
+    /// @brief Headway parameter for computing gross time headyway from net time headway, length and edge speed
+    double myTau_length;
+
+    /// @brief The number of lanes represented by the queue * the length of the lane
+    double myQueueCapacity;
 
     /// @brief The capacity of the segment in number of cars, used only in time headway calculation
     /// This parameter has only an effect if tau_jf != tau_jj, which is not(!) the case per default
@@ -504,18 +529,6 @@ private:
 
     /// @brief The number of lanes represented by the queue * the length of the lane
     const double myCapacity;
-
-    /// @brief The number of lanes represented by the queue * the length of the lane
-    const double myQueueCapacity;
-
-    /// @brief Whether junction control is enabled
-    const bool myJunctionControl;
-
-    /// @brief Whether tls penalty is enabled
-    const bool myTLSPenalty;
-
-    /// @brief Whether minor penalty is enabled
-    const bool myMinorPenalty;
 
     /// @brief The space (in m) which needs to be occupied before the segment is considered jammed
     double myJamThreshold;
