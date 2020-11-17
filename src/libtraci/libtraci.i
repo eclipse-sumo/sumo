@@ -418,7 +418,7 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 %include "../libsumo/Route.h"
 %include "../libsumo/Simulation.h"
 %include "../libsumo/TraCIConstants.h"
-// %include "../libsumo/TrafficLight.h"
+%include "../libsumo/TrafficLight.h"
 %include "../libsumo/VehicleType.h"
 %include "../libsumo/Vehicle.h"
 %include "../libsumo/Person.h"

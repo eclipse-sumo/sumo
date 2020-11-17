@@ -30,7 +30,7 @@ set(libtracistatic_STAT_SRCS
     MeanData.cpp
     OverheadWire.cpp
     Simulation.cpp
-#    TrafficLight.cpp
+    TrafficLight.cpp
     Vehicle.cpp
     VehicleType.cpp
 )
