@@ -44,7 +44,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     except traci.exceptions.TraCIException:
         numStops = "-"
     print(traci.simulation.getTime(),
-          traci.vehicle.getSubscriptionResults(vehID),
+          sorted(traci.vehicle.getSubscriptionResults(vehID).items()),
           "numStops=%s" % numStops)
 
 traci.close()
