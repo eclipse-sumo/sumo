@@ -1,7 +1,7 @@
 These application bundles are necessary wrappers for the SUMO binaries in order to have a native feel on macOS. They have been built with macOS Automator. The application launchers have weird paths, e.g. Icons?, so that we had to zip them in order to make the repo checkout possible on Windows. 
 
 To use the launchers:
-   - Just unpack the zip archive to get the bundles and move them to /Applications
+   - Just move the launchers to /Applications
    - Make sure to have SUMO_HOME defined in .zshrc or .profile or .bash_profile
 
 In order to rebuild these bundles, the icon files and the launcher scripts are supplied in the build subfolder. The following steps are necessary to create the bundle:
