@@ -94,7 +94,7 @@ definitions.
 
 | Attribute  | Type     | Range                              | Default | Remark                                            |
 | ---------- | -------- | ---------------------------------- | ------- | ------------------------------------------------- |
-| from       | string   | valid edge ids                     | \-      | id of the start edge                              |
+| from       | string   | valid edge ids                     | \-      | id of the start edge (optional, if it is a subsequent movement) |
 | to         | string   | valid edge ids                     | \-      | id of the destination edge                        |
 | busStop    | string   | valid bus stop ids                 | \-      | id of the destination stop                        |
 | lines      | list     | valid line or vehicle ids or *ANY* | \-      | list of vehicle alternatives to take for the ride |
@@ -139,7 +139,7 @@ They are child elements of plan definitions.
 | ---------- | ---------- | ------------------ | ------- | ------------------------------------------------------------------------------- |
 | route      | string     | valid route id     | \-      | the id of the route to walk                                                     |
 | edges      | list       | valid edge ids     | \-      | id of the edges to walk                                                         |
-| from       | string     | valid edge ids     | \-      | id of the start edge                                                            |
+| from       | string     | valid edge ids     | \-      | id of the start edge  (optional, if it is a subsequent movement)                |
 | to         | string     | valid edge ids     | \-      | id of the destination edge                                                      |
 | busStop    | string     | valid bus stop ids | \-      | id of the destination stop                                                      |
 | duration   | float(s)   | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
