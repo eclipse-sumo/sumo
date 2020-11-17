@@ -71,7 +71,8 @@ represented. Some facts and needs (unsorted):
 </tr>
 <tr class="odd">
 <td><p>C</p></td>
-<td><p>&lt;cfmodel id="#id" model="xxx" param1="..." param2="..." .../&gt;&lt;vtype cfModelId="#id" .../&gt;</p></td>
+<td><p>&lt;cfmodel id="#id" model="xxx" param1="..." param2="..." .../&gt;<br>
+    &lt;vtype cfModelId="#id" .../&gt;</p></td>
 <td><ul>
 <li>(+) straight forward; many combinations possible</li>
 <li>(+) is similar to how every vehicle references its vtype</li>
@@ -88,7 +89,7 @@ represented. Some facts and needs (unsorted):
 </tr>
 <tr class="odd">
 <td><p>E</p></td>
-<td><p>&lt;vtype ...&gt;&lt;cfmodel model="xxx" param1="..." param2="..." .../&gt;</vtype></p></td>
+<td><p>&lt;vtype ...&gt;<br>&lt;cfmodel model="xxx" param1="..." param2="..." .../&gt;</vtype></p></td>
 <td><ul>
 <li>(+) straight forward</li>
 <li>(-) hard to verify - parameter change in dependence to the value of "cfModel"</li>
@@ -97,7 +98,7 @@ represented. Some facts and needs (unsorted):
 </tr>
 <tr class="even">
 <td><p>F</p></td>
-<td><p>&lt;vtype ...&gt;&lt;cfmodel-XXX model="xxx" param1="..." param2="..." .../&gt;</vtype></p></td>
+<td><p>&lt;vtype ...&gt;<br>&lt;cfmodel-XXX model="xxx" param1="..." param2="..." .../&gt;</vtype></p></td>
 <td><ul>
 <li>(+) straight forward</li>
 <li>(-) large number of different elements needed</li>
@@ -110,12 +111,12 @@ represented. Some facts and needs (unsorted):
 ## (currently) Chosen Description
 
 After some talks, the following description of vehicle types was chosen:
-
-    <vtype id="..." ...>
-        <carFollowing-Krauss ...
-        <laneChanging-DK2002 ...
-    </vtype>
-
+```xml
+<vtype id="..." ...>
+    <carFollowing-Krauss ... >
+    <laneChanging-DK2002 ... >
+</vtype>
+```
 `vtype` will contain parameters which can
 neither be counted to the lane-changing nor the car-following model,
 such as the vehicle type's color, the width of the vehicle etc. which
