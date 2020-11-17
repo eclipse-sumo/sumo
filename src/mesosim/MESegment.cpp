@@ -458,6 +458,7 @@ bool
 MESegment::isOpen(const MEVehicle* veh) const {
 #ifdef DEBUG_OPENED
     if (DEBUG_COND || DEBUG_COND2(veh)) {
+        gDebugFlag1 = true;
         std::cout << SIMTIME << " opened seg=" << getID() << " veh=" << Named::getIDSecure(veh)
                   << " tlsPenalty=" << myTLSPenalty;
         const MSLink* link = getLink(veh);
@@ -476,6 +477,7 @@ MESegment::isOpen(const MEVehicle* veh) const {
                       << " tWait=" << veh->getWaitingTime();
         }
         std::cout << "\n";
+        gDebugFlag1 = false;
     }
 #endif
     if (myTLSPenalty) {
