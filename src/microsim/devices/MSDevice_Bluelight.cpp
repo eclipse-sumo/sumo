@@ -130,7 +130,7 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
             continue;
         }
         //Vehicle only from edge should react
-        if (std::find(myUpcomingEdges.begin(), myUpcomingEdges.end(), &veh2->getLane()->getEdge()) != myUpcomingEdges.end()) { //currentEdgeID == veh2->getEdge()->getID()) {
+        if (std::find(myUpcomingEdges.begin(), myUpcomingEdges.end(), &veh2->getLane()->getEdge()) != myUpcomingEdges.end()) { //currentEdgeID == veh2->getEdge()->getID())
             if (veh2->getDevice(typeid(MSDevice_Bluelight)) != nullptr) {
                 // emergency vehicles should not react
                 continue;
@@ -213,6 +213,26 @@ MSDevice_Bluelight::notifyMove(SUMOTrafficObject& veh, double /* oldPos */,
                 }
             }
         }
+    }
+    // ego is at the end of its current lane and cannot continue
+    if (ego.getBestLanesContinuation().size() == 1 && ego.getLane()->getLength() - ego.getPositionOnLane() <= POSITION_EPS
+            // route continues
+            && myUpcomingEdges.size() > 1
+            ) {
+        // move onto the intersection as if there was a connection from the current lane
+        const MSEdge* next = ego.getLane()->getEdge().getInternalFollowingEdge(myUpcomingEdges[1]);
+        if (next == nullptr) {
+            next = myUpcomingEdges[1];
+        }
+        const std::vector<MSLane*>* allowed = next->allowedLanes(ego.getVClass());
+        MSLane* nextLane = allowed != nullptr && allowed->size() > 0 ? allowed->front() : next->getLanes().front();
+        ego.leaveLane(NOTIFICATION_JUNCTION, nextLane);
+        ego.getLaneChangeModel().cleanupShadowLane();
+        ego.getLaneChangeModel().cleanupTargetLane();
+        ego.setTentativeLaneAndPosition(nextLane, 0, 0); // update position
+        ego.enterLaneAtMove(nextLane);
+        // sublane model must adapt state to the new lane
+        ego.getLaneChangeModel().prepareStep();
     }
     return true; // keep the device
 }
