@@ -21,19 +21,9 @@
 
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
-#include <netedit/GNEViewNet.h>
-#include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Attribute.h>
-#include <netedit/changes/GNEChange_Lane.h>
-#include <netedit/elements/additional/GNERouteProbe.h>
-#include <netedit/elements/demand/GNERoute.h>
-#include <netedit/frames/common/GNEDeleteFrame.h>
-#include <utils/gui/div/GLHelper.h>
-#include <utils/gui/globjects/GLIncludes.h>
 #include <utils/options/OptionsCont.h>
 
-#include "GNEConnection.h"
-#include "GNECrossing.h"
 #include "GNEEdgeType.h"
 
 
@@ -41,12 +31,9 @@
 // members methods
 // ===========================================================================
 
-GNEEdgeType::GNEEdgeType(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
-    GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
-    net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())
-    },
-    {}, {}, {}, {}, {}, {}, {}),
-    myNBEdge(nbe) {
+GNEEdgeType::GNEEdgeType(GNENet* net, NBTypeCont::TypeDefinition *type):
+    GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    myType(type) {
 }
 
 
@@ -68,82 +55,32 @@ GNEEdgeType::getPositionInView() const {
 
 
 GNEMoveOperation*
-GNEEdgeType::getMoveOperation(const double shapeOffset) {
-    
+GNEEdgeType::getMoveOperation(const double /*shapeOffset*/) {
+    return nullptr;
 }
 
 
 void 
-GNEEdgeType::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
-    
-}
-
-
-const std::string
-GNEEdgeType::getOptionalName() const {
-    return myNBEdge->getStreetName();
+GNEEdgeType::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 
 GUIGLObjectPopupMenu*
-GNEEdgeType::getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent) {
-    GUIGLObjectPopupMenu* ret = new GUIGLObjectPopupMenu(app, parent, *this);
-    buildPopupHeader(ret, app);
-    buildCenterPopupEntry(ret);
-    buildNameCopyPopupEntry(ret);
-    // build selection and show parameters menu
-    myNet->getViewNet()->buildSelectionACPopupEntry(ret, this);
-    buildShowParamsPopupEntry(ret);
-    // build position copy entry
-    buildPositionCopyEntry(ret, false);
-    return ret;
+GNEEdgeType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*/) {
+    return nullptr;
+}
+
+
+void 
+GNEEdgeType::updateCenteringBoundary(const bool /*updateGrid*/) {
+    // nothing to do
 }
 
 
 void
-GNEEdgeType::drawGL(const GUIVisualizationSettings& s) const {
-
-}
-
-
-NBEdge*
-GNEEdgeType::getNBEdge() const {
-    return myNBEdge;
-}
-
-
-void
-GNEEdgeType::setGeometry(PositionVector geom, bool inner) {
-    // set new geometry
-    const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
-    if (lefthand) {
-        geom.mirrorX();
-        myNBEdge->mirrorX();
-    }
-    myNBEdge->setGeometry(geom, inner);
-    if (lefthand) {
-        myNBEdge->mirrorX();
-    }
-    // update geometry
-    updateGeometry();
-    // invalidate junction source shape
-    getParentJunctions().front()->invalidateShape();
-    // iterate over first parent junction edges and update geometry
-    for (const auto& edge : getParentJunctions().front()->getGNEIncomingEdges()) {
-        edge->updateGeometry();
-    }
-    for (const auto& edge : getParentJunctions().front()->getGNEOutgoingEdges()) {
-        edge->updateGeometry();
-    }
-    // invalidate junction destiny shape
-    getParentJunctions().back()->invalidateShape();
-    // iterate over second parent junction edges and update geometry
-    for (const auto& edge : getParentJunctions().back()->getGNEIncomingEdges()) {
-        edge->updateGeometry();
-    }
-    for (const auto& edge : getParentJunctions().back()->getGNEOutgoingEdges()) {
-        edge->updateGeometry();
-    }
+GNEEdgeType::drawGL(const GUIVisualizationSettings& /*s*/) const {
+    // nothing to draw
 }
 
 
@@ -152,6 +89,7 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
+        /*
         case SUMO_ATTR_FROM:
             return getParentJunctions().front()->getID();
         case SUMO_ATTR_TO:
@@ -213,6 +151,7 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             return toString(isAttributeCarrierSelected());
         case GNE_ATTR_PARAMETERS:
             return myNBEdge->getParametersStr();
+        */
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -337,30 +276,8 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
             return true;
         case SUMO_ATTR_WIDTH:
             return canParse<double>(value) && ((parse<double>(value) >= -1) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
-        case SUMO_ATTR_ENDOFFSET:
-            return canParse<double>(value) && parse<double>(value) >= 0 && parse<double>(value) < myNBEdge->getLoadedLength();
         case SUMO_ATTR_DISTANCE:
             return canParse<double>(value);
-        case GNE_ATTR_SHAPE_START: {
-            if (value.empty()) {
-                return true;
-            } else if (canParse<Position>(value)) {
-                Position shapeStart = parse<Position>(value);
-                return (shapeStart != myNBEdge->getGeometry()[-1]);
-            } else {
-                return false;
-            }
-        }
-        case GNE_ATTR_SHAPE_END: {
-            if (value.empty()) {
-                return true;
-            } else if (canParse<Position>(value)) {
-                Position shapeEnd = parse<Position>(value);
-                return (shapeEnd != myNBEdge->getGeometry()[0]);
-            } else {
-                return false;
-            }
-        }
         case GNE_ATTR_BIDIR:
             return false;
         case GNE_ATTR_SELECTED:
@@ -386,7 +303,7 @@ GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
 
 const std::map<std::string, std::string>& 
 GNEEdgeType::getACParametersMap() const {
-    return myNBEdge->getParametersMap();
+    return getParametersMap();
 }
 
 // ===========================================================================
@@ -406,6 +323,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
 
             // myNBEdge->myPriority = parse<int>(value);
             break;
+        /*
         case SUMO_ATTR_LENGTH:
             myNBEdge->setLoadedLength(parse<double>(value));
             break;
@@ -413,8 +331,6 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             // myNBEdge->myType = value;
             break;
         case SUMO_ATTR_SHAPE:
-            // set new geometry
-            setGeometry(parse<PositionVector>(value), true);
             // update centering boundary and grid
             updateCenteringBoundary(true);
             break;
@@ -449,12 +365,25 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
                 unselectAttributeCarrier();
             }
             break;
+        */
         case GNE_ATTR_PARAMETERS:
-            myNBEdge->setParametersStr(value);
+            setParametersStr(value);
             break;
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+}
+
+
+void
+GNEEdgeType::setMoveShape(const GNEMoveResult& /*moveResult*/) {
+    // nothing to do
+}
+
+
+void
+GNEEdgeType::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
+    // nothing to do
 }
 
 /****************************************************************************/

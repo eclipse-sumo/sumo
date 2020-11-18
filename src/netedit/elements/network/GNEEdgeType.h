@@ -20,38 +20,26 @@
 #pragma once
 #include "GNENetworkElement.h"
 
-#include <netbuild/NBEdge.h>
+#include <netbuild/NBTypeCont.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/elements/GNECandidateElement.h>
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class GNENet;
-class GNEJunction;
-class GNELane;
-class GNEConnection;
-class GNERouteProbe;
-class GNECrossing;
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 
-class GNEEdgeType : public GNENetworkElement {
+class GNEEdgeType : public GNENetworkElement, public Parameterised {
 
 public:
     /**@brief Constructor
      * @param[in] net The net to inform about gui updates
-     * @param[in] nbe The represented edge
-     * @param[in] loaded Whether the edge was loaded from a file
+     * @param[in] type teh typeDefinition
      */
-    GNEEdgeType(GNENet* net, NBEdge* nbe, bool wasSplit = false, bool loaded = false);
+    GNEEdgeType(GNENet* net, NBTypeCont::TypeDefinition *type);
 
     /// @brief Destructor.
     ~GNEEdgeType();
-
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
@@ -73,71 +61,68 @@ public:
     /// @name inherited from GUIGlObject
     /// @{
     /**@brief Returns an own popup-menu
-     *
-     * @param[in] app The application needed to build the popup-menu
-     * @param[in] parent The parent window needed to build the popup-menu
-     * @return The built popup-menu
-     * @see GUIGlObject::getPopUpMenu
-     */
+    *
+    * @param[in] app The application needed to build the popup-menu
+    * @param[in] parent The parent window needed to build the popup-menu
+    * @return The built popup-menu
+    * @see GUIGlObject::getPopUpMenu
+    */
     GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
 
-    /// @brief Returns the street name
-    const std::string getOptionalName() const;
+    /// @brief update centering boundary (implies change in RTREE)
+    void updateCenteringBoundary(const bool updateGrid);
 
     /**@brief Draws the object
-     * @param[in] s The settings for the current view (may influence drawing)
-     * @see GUIGlObject::drawGL
-     */
+    * @param[in] s The settings for the current view (may influence drawing)
+    * @see GUIGlObject::drawGL
+    */
     void drawGL(const GUIVisualizationSettings& s) const;
     /// @}
-
-    /// @brief returns the internal NBEdge
-    NBEdge* getNBEdge() const;
 
     /// @name inherited from GNEAttributeCarrier
     /// @{
     /* @brief method for getting the Attribute of an XML key
-     * @param[in] key The attribute key
-     * @return string with the value associated to key
-     */
+    * @param[in] key The attribute key
+    * @return string with the value associated to key
+    */
     std::string getAttribute(SumoXMLAttr key) const;
 
     /* @brief method for setting the attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
+    * @param[in] key The attribute key
+    * @param[in] value The new value
+    * @param[in] undoList The undoList on which to register changes
+    */
     void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
 
-    /* @brief method for setting the attribute and letting the object perform additional changes
-     * @param[in] key The attribute key
-     * @param[in] value The new value
-     * @param[in] undoList The undoList on which to register changes
-     */
+    /* @brief method for checking if the key and their conrrespond attribute are valids
+    * @param[in] key The attribute key
+    * @param[in] value The value asociated to key key
+    * @return true if the value is valid, false in other case
+    */
     bool isValid(SumoXMLAttr key, const std::string& value);
 
     /* @brief method for check if the value for certain attribute is set
-     * @param[in] key The attribute key
-     */
+    * @param[in] key The attribute key
+    */
     bool isAttributeEnabled(SumoXMLAttr key) const;
     /// @}
 
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
-    /**@brief update edge geometry and inform the lanes
-     * @param[in] geom The new geometry
-     * @param[in] inner Whether geom is only the inner points
-     */
-    void setGeometry(PositionVector geom, bool inner);
-
 protected:
-    /// @brief the underlying NBEdge
-    NBEdge* myNBEdge;
+    /// @brief edge type
+    NBTypeCont::TypeDefinition *myType;
 
 private:
     /// @brief set attribute after validation
     void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief set move shape
+    void setMoveShape(const GNEMoveResult& moveResult);
+
+    /// @brief commit move shape
+    void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList);
 
     /// @brief invalidated copy constructor
     GNEEdgeType(const GNEEdgeType& s) = delete;
