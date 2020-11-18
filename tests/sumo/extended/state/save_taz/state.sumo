@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 16 17:45:25 2020 by Eclipse SUMO sumo Version v1_7_0+1034-a2014495e3
+<!-- generated on Wed Nov 18 11:03:30 2020 by Eclipse SUMO sumo Version v1_7_0+1090-8639b2819f
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -36,7 +36,7 @@ SPDX-License-Identifier: EPL-2.0
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1034-a2014495e3" time="10.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1090-8639b2819f" time="10.00">
     <route id="!flowFromTo" state="1" edges="beg end"/>
     <route id="!flowFromTo.0!var#1" state="0" edges="beg middle end"/>
     <route id="r0" state="1" edges="beg middle end"/>
@@ -46,7 +46,7 @@ SPDX-License-Identifier: EPL-2.0
     <flowState id="flowProb" index="0"/>
     <delay number="3" begin="4" end="0" depart="7.00" time="0.00"/>
     <vType id="t0" sigma="0"/>
-    <vehicle id="flowFromTo.0" type="t0" depart="0.00" route="!flowFromTo.0!var#1" speedFactor="1.00" state="131170 4000 1 5.10 0 2.59 9000 0 0" pos="18.70 13.70 8.80" speed="8.80 6.20" posLat="0.00" waitingTime="100000 0">
+    <vehicle id="flowFromTo.0" type="t0" depart="0.00" route="!flowFromTo.0!var#1" speedFactor="1.00" reroute="1" state="131170 4000 1 5.10 0 2.59 9000 0 0" pos="18.70 13.70 8.80" speed="8.80 6.20" posLat="0.00" waitingTime="100000 0">
         <device id="tripinfo_flowFromTo.0" state="beg_0 0 0 1.9 0 0 0 0 -1"/>
         <device id="routing_flowFromTo.0" state="0"/>
     </vehicle>
