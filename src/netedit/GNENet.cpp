@@ -1110,6 +1110,21 @@ GNENet::retrieveJunction(const std::string& id, bool failHard) const {
 }
 
 
+GNEEdgeType*
+GNENet::retrieveEdgeType(const std::string& id, bool failHard) const {
+    auto i = myAttributeCarriers->getEdgeTypes().find(id);
+    // If edge was found
+    if (i != myAttributeCarriers->getEdgeTypes().end()) {
+        return i->second;
+    } else if (failHard) {
+        // If edge wasn't found, throw exception
+        throw UnknownElement("EdgeType " + id);
+    } else {
+        return nullptr;
+    }
+}
+
+
 GNEEdge*
 GNENet::retrieveEdge(const std::string& id, bool failHard) const {
     auto i = myAttributeCarriers->getEdges().find(id);

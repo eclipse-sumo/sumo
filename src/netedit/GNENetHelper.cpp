@@ -30,6 +30,7 @@
 #include <netedit/elements/data/GNEDataInterval.h>
 #include <netedit/elements/demand/GNEVehicleType.h>
 #include <netedit/elements/network/GNEConnection.h>
+#include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <utils/router/DijkstraRouter.h>
@@ -71,6 +72,13 @@ GNENetHelper::AttributeCarriers::AttributeCarriers(GNENet* net) :
 
 
 GNENetHelper::AttributeCarriers::~AttributeCarriers() {
+    // Drop EdgeTypes
+    for (const auto& edgeType : myEdgeTypes) {
+        edgeType.second->decRef("GNENetHelper::~GNENet");
+        // show extra information for tests
+        WRITE_DEBUG("Deleting unreferenced " + edgeType.second->getTagStr() + " '" + edgeType.second->getID() + "' in AttributeCarriers destructor");
+        delete edgeType.second;
+    }
     // Drop Edges
     for (const auto& edge : myEdges) {
         edge.second->decRef("GNENetHelper::~GNENet");
@@ -184,15 +192,20 @@ GNENetHelper::AttributeCarriers::getJunctions() const {
 
 void
 GNENetHelper::AttributeCarriers::clearJunctions() {
-    /*
-        // removes all junctions of net  (It was already removed from grid)
-        auto copyOfJunctions = myAttributeCarriers->getJunctions();
-        for (auto junction : copyOfJunctions) {
-            myAttributeCarriers->getJunctions().erase(junction.second->getMicrosimID());
-        }
-    */
     myJunctions.clear();
 }
+
+
+const std::map<std::string, GNEEdgeType*>&
+GNENetHelper::AttributeCarriers::getEdgeTypes() const {
+    return myEdgeTypes;
+}
+
+
+void GNENetHelper::AttributeCarriers::clearEdgeTypes() {
+    myEdgeTypes.clear();
+}
+
 
 
 GNEEdge*
@@ -219,13 +232,6 @@ GNENetHelper::AttributeCarriers::getEdges() const {
 
 
 void GNENetHelper::AttributeCarriers::clearEdges() {
-    /*
-        // remove all edges of net (It was already removed from grid)
-        auto copyOfEdges = myAttributeCarriers->getEdges();
-        for (auto edge : copyOfEdges) {
-            myAttributeCarriers->getEdges().erase(edge.second->getMicrosimID());
-        }
-    */
     myEdges.clear();
 }
 
@@ -487,6 +493,51 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const
         myJunctions[AC->getID()] = junction;
         // build crossings
         junction->getNBNode()->buildCrossings();
+        // net has to be saved
+        myNet->requireSaveNet(true);
+    }
+}
+
+
+void
+GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
+    myEdgeTypes[edgeType->getMicrosimID()] = edgeType;
+}
+
+
+void
+GNENetHelper::AttributeCarriers::deleteSingleEdgeType(GNEEdgeType* edgeType) {
+    // remove it from inspected elements and HierarchicalElementTree
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(edgeType);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
+    myEdgeTypes.erase(edgeType->getMicrosimID());
+    /*
+    // extract edgeType of district container
+    myNet->getNetBuilder()->getEdgeTypeCont().extract(myNet->getNetBuilder()->getDistrictCont(), edgeType->getNBEdgeType());
+    */
+
+}
+
+
+void
+GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEAttributeCarrier* AC, const std::string& newID) {
+    if (myEdgeTypes.count(AC->getID()) == 0) {
+        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.edgeType");
+    } else if (myEdgeTypes.count(newID) != 0) {
+        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in myEdgeTypes");
+    } else {
+        // retrieve edgeType
+        GNEEdgeType* edgeType = myEdgeTypes.at(AC->getID());
+        // remove edgeType from container
+        myEdgeTypes.erase(edgeType->getID());
+/*
+        // rename in NetBuilder
+        myNet->getNetBuilder()->getEdgeTypeCont().rename(edgeType->getNBEdgeType(), newID);
+*/
+        // update microsim ID
+        edgeType->setMicrosimID(newID);
+        // add it into myEdgeTypes again
+        myEdgeTypes[AC->getID()] = edgeType;
         // net has to be saved
         myNet->requireSaveNet(true);
     }
