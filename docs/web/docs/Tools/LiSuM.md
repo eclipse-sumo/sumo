@@ -39,13 +39,14 @@ for batch processing called [\#LiSuM-Core](#lisum-core)
 
 The installation of LiSuM is straightforward and it may not present
 major difficulties. It is recommended to have Java SE Runtime Environment
-(version 8 and later) and SUMO (version 1.0.1 and later) installed
+(version 11 and later) and SUMO (version 1.0.1 and later) installed
 before beginning with the installation. In order to install it on a
 Windows machine just download and execute the provided *msi* file and
 follow its instructions. On Ubuntu or other Linux distributions download
 the provided *zip* file and unzip it in any directory of your choice; to
 start LiSuM, seek the *jar* file, open a terminal and execute it using
-the well-known <i>java -jar</i> command.
+the well-known <i>java -jar</i> command. If you want to run LiSuM-Core
+only (do not need the GUI) Java 7 is sufficient.
 
 When LiSuM is started for the first time, the user is prompt to select a
 directory which is going to be used as the workspace directory. The
@@ -230,10 +231,8 @@ the overhead sign.
 ## Compiling LiSuM
 
 If you want to contribute to the source or want to build for another reason
-make sure you have maven and a compatible JDK (8 or above) on your system.
-The cmake configuration step will create a "lisum-core" and a "lisum-gui" target
-(as well as a "lisum" target to build them both). Just run this target either
+make sure you have maven and a compatible JDK (11 or above) on your system.
+The cmake configuration step will create a "lisum" target to build LiSuM-Core
+and LiSuM-GUI. Just run this target either
 using make (in a Linux or macOS like environment) or by running the target from
-your IDE (e.g. Visual Studio on Windows). If you are using JDK8 and want the GUI
-you need to make sure that you have openjfx8 installed, since there is no openjfx
-for JDK8 on maven.
+your IDE (e.g. Visual Studio on Windows).
