@@ -28,12 +28,48 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
+
 #include "NBTypeCont.h"
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+
+NBTypeCont::TypeDefinition::TypeDefinition() :
+    numLanes(1), speed((double) 13.89), priority(-1),
+    permissions(SVC_UNSPECIFIED),
+    oneWay(true), discard(false),
+    width(NBEdge::UNSPECIFIED_WIDTH),
+    widthResolution(0),
+    maxWidth(0),
+    minWidth(0),
+    sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH),
+    bikeLaneWidth(NBEdge::UNSPECIFIED_WIDTH) {
+}
+
+
+NBTypeCont::TypeDefinition::TypeDefinition(int _numLanes, double _speed, int _priority,
+    double _width, SVCPermissions _permissions, bool _oneWay, double _sideWalkWidth, 
+    double _bikeLaneWidth, double _widthResolution, double _maxWidth, double _minWidth) :
+    numLanes(_numLanes), speed(_speed), priority(_priority),
+    permissions(_permissions),
+    oneWay(_oneWay), discard(false),
+    width(_width),
+    widthResolution(_widthResolution),
+    maxWidth(_maxWidth),
+    minWidth(_minWidth),
+    sidewalkWidth(_sideWalkWidth),
+    bikeLaneWidth(_bikeLaneWidth) {
+}
+
+
+NBTypeCont::NBTypeCont() {}
+
+
+NBTypeCont::~NBTypeCont() {}
+
+
 void
 NBTypeCont::setDefaults(int defaultNumLanes,
                         double defaultLaneWidth,
@@ -55,7 +91,6 @@ NBTypeCont::insert(const std::string& id, int numLanes, double maxSpeed, int pri
                    double widthResolution,
                    double maxWidth,
                    double minWidth) {
-
     TypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
     TypesCont::iterator old = myTypes.find(id);
     if (old != myTypes.end()) {
@@ -63,6 +98,24 @@ NBTypeCont::insert(const std::string& id, int numLanes, double maxSpeed, int pri
         newType.attrs.insert(old->second.attrs.begin(), old->second.attrs.end());
     }
     myTypes[id] = newType;
+}
+
+
+int 
+NBTypeCont::size() const {
+    return (int)myTypes.size();
+}
+
+
+NBTypeCont::TypesCont::const_iterator 
+NBTypeCont::begin() const {
+    return myTypes.cbegin();
+}
+
+
+NBTypeCont::TypesCont::const_iterator 
+NBTypeCont::end() const {
+    return myTypes.cend();
 }
 
 
@@ -78,7 +131,7 @@ NBTypeCont::markAsToDiscard(const std::string& id) {
     if (i == myTypes.end()) {
         return false;
     }
-    (*i).second.discard = true;
+    i->second.discard = true;
     return true;
 }
 
@@ -89,7 +142,7 @@ NBTypeCont::markAsSet(const std::string& id, const SumoXMLAttr attr) {
     if (i == myTypes.end()) {
         return false;
     }
-    (*i).second.attrs.insert(attr);
+    i->second.attrs.insert(attr);
     return true;
 }
 
@@ -100,7 +153,7 @@ NBTypeCont::addRestriction(const std::string& id, const SUMOVehicleClass svc, co
     if (i == myTypes.end()) {
         return false;
     }
-    (*i).second.restrictions[svc] = speed;
+    i->second.restrictions[svc] = speed;
     return true;
 }
 
@@ -246,7 +299,7 @@ NBTypeCont::getType(const std::string& name) const {
     if (i == myTypes.end()) {
         return myDefaultType;
     }
-    return (*i).second;
+    return i->second;
 }
 
 

@@ -50,14 +50,72 @@ class OutputDevice;
  *  speeds.
  */
 class NBTypeCont {
-public:
-    /// @brief Constructor
-    NBTypeCont() {}
 
+public:
+    /// @brief type definition
+    struct TypeDefinition {
+        /// @brief Constructor
+        TypeDefinition();
+
+        /// @brief parameter Constructor
+        TypeDefinition(int numLanes, double speed, int priority,
+            double width, SVCPermissions permissions, bool oneWay,
+            double sideWalkWidth, double bikeLaneWidth,
+            double widthResolution, double maxWidth, double minWidth);
+
+        /// @brief The number of lanes of an edge
+        int numLanes;
+
+        /// @brief The maximal velocity on an edge in m/s
+        double speed;
+
+        /// @brief The priority of an edge
+        int priority;
+
+        /// @brief List of vehicle types that are allowed on this edge
+        SVCPermissions permissions;
+
+        /// @brief Whether one-way traffic is mostly common for this type (mostly unused)
+        bool oneWay;
+
+        /// @brief Whether edges of this type shall be discarded
+        bool discard;
+
+        /// @brief The width of lanes of edges of this type [m]
+        double width;
+
+        /// @brief The resolution for interpreting custom (noisy) lane widths of this type [m]
+        double widthResolution;
+
+        /// @brief The maximum width for lanes of this type [m]
+        double maxWidth;
+
+        /// @brief The minimum width for lanes of this type [m]
+        double minWidth;
+
+        /* @brief The width of the sidewalk that should be added as an additional lane
+        * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no sidewalk should be added */
+        double sidewalkWidth;
+
+        /* @brief The width of the bike lane that should be added as an additional lane
+        * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no bike lane should be added */
+        double bikeLaneWidth;
+
+        /// @brief The vehicle class specific speed restrictions
+        std::map<SUMOVehicleClass, double> restrictions;
+
+        /// @brief The attributes which have been set
+        std::set<SumoXMLAttr> attrs;
+    };
+
+    /// @brief A container of types, accessed by the string id
+    typedef std::map<std::string, TypeDefinition> TypesCont;
+
+    /// @brief Constructor
+    NBTypeCont();
 
     /// @brief Destructor
-    ~NBTypeCont() {}
-
+    ~NBTypeCont();
 
     /** @brief Sets the default values
      * @param[in] defaultNumLanes The default number of lanes an edge has
@@ -69,7 +127,6 @@ public:
     void setDefaults(int defaultNumLanes, double defaultLaneWidth,
                      double defaultSpeed, int defaultPriority,
                      SVCPermissions defaultPermissions);
-
 
     /** @brief Adds a type into the list
      * @param[in] id The id of the type
@@ -94,16 +151,18 @@ public:
     /** @brief Returns the number of known types
      * @return The number of known edge types (excluding the default)
      */
-    int size() const {
-        return (int) myTypes.size();
-    }
+    int size() const;
 
+    /// @brief return begin iterator
+    TypesCont::const_iterator begin() const;
+
+    /// @brief return end iterator
+    TypesCont::const_iterator end() const;
 
     /** @brief Returns whether the named type is in the container
      * @return Whether the named type is known
      */
     bool knows(const std::string& type) const;
-
 
     /** @brief Marks a type as to be discarded
      * @param[in] id The id of the type
@@ -143,7 +202,6 @@ public:
      */
     int getNumLanes(const std::string& type) const;
 
-
     /** @brief Returns the maximal velocity for the given type [m/s]
      *
      * If the named type is not known, the default is returned
@@ -151,7 +209,6 @@ public:
      * @return The allowed speed on edges of this type
      */
     double getSpeed(const std::string& type) const;
-
 
     /** @brief Returns the priority for the given type
      *
@@ -161,7 +218,6 @@ public:
      */
     int getPriority(const std::string& type) const;
 
-
     /** @brief Returns whether edges are one-way per default for the given type
      *
      * If the named type is not known, the default is returned
@@ -170,7 +226,6 @@ public:
      * @todo There is no default for one-way!?
      */
     bool getIsOneWay(const std::string& type) const;
-
 
     /** @brief Returns the information whether edges of this type shall be discarded.
      *
@@ -207,14 +262,12 @@ public:
      */
     double getMinWidth(const std::string& type) const;
 
-
     /** @brief Returns whether an attribute of a type was set
      * @param[in] type The id of the type
      * @param[in] attr The id of the attribute
      * @return Whether the attribute was set
      */
     bool wasSet(const std::string& type, const SumoXMLAttr attr) const;
-
 
     /** @brief Returns allowed vehicle classes for the given type
      *
@@ -224,7 +277,6 @@ public:
      */
     SVCPermissions getPermissions(const std::string& type) const;
 
-
     /** @brief Returns the lane width for the given type [m]
      *
      * If the named type is not known, the default is returned
@@ -232,7 +284,6 @@ public:
      * @return The width of lanes of edges of this type
      */
     double getWidth(const std::string& type) const;
-
 
     /** @brief Returns the lane width for a sidewalk to be added [m]
      *
@@ -242,7 +293,6 @@ public:
      */
     double getSidewalkWidth(const std::string& type) const;
 
-
     /** @brief Returns the lane width for a bike lane to be added [m]
      *
      * If the named type is not known, the default is returned
@@ -250,77 +300,10 @@ public:
      * @return The width of lanes of edges of this type
      */
     double getBikeLaneWidth(const std::string& type) const;
+
     /// @}
 
-
-private:
-    struct TypeDefinition {
-        /// @brief Constructor
-        TypeDefinition() :
-            numLanes(1), speed((double) 13.89), priority(-1),
-            permissions(SVC_UNSPECIFIED),
-            oneWay(true), discard(false),
-            width(NBEdge::UNSPECIFIED_WIDTH),
-            widthResolution(0),
-            maxWidth(0),
-            minWidth(0),
-            sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH),
-            bikeLaneWidth(NBEdge::UNSPECIFIED_WIDTH) {
-        }
-
-        /// @brief Constructor
-        TypeDefinition(int _numLanes, double _speed, int _priority,
-                       double _width, SVCPermissions _permissions, bool _oneWay,
-                       double _sideWalkWidth,
-                       double _bikeLaneWidth,
-                       double _widthResolution,
-                       double _maxWidth,
-                       double _minWidth) :
-            numLanes(_numLanes), speed(_speed), priority(_priority),
-            permissions(_permissions),
-            oneWay(_oneWay), discard(false),
-            width(_width),
-            widthResolution(_widthResolution),
-            maxWidth(_maxWidth),
-            minWidth(_minWidth),
-            sidewalkWidth(_sideWalkWidth),
-            bikeLaneWidth(_bikeLaneWidth) {
-        }
-
-        /// @brief The number of lanes of an edge
-        int numLanes;
-        /// @brief The maximal velocity on an edge in m/s
-        double speed;
-        /// @brief The priority of an edge
-        int priority;
-        /// @brief List of vehicle types that are allowed on this edge
-        SVCPermissions permissions;
-        /// @brief Whether one-way traffic is mostly common for this type (mostly unused)
-        bool oneWay;
-        /// @brief Whether edges of this type shall be discarded
-        bool discard;
-        /// @brief The width of lanes of edges of this type [m]
-        double width;
-        /// @brief The resolution for interpreting custom (noisy) lane widths of this type [m]
-        double widthResolution;
-        /// @brief The maximum width for lanes of this type [m]
-        double maxWidth;
-        /// @brief The minimum width for lanes of this type [m]
-        double minWidth;
-        /* @brief The width of the sidewalk that should be added as an additional lane
-         * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no sidewalk should be added */
-        double sidewalkWidth;
-        /* @brief The width of the bike lane that should be added as an additional lane
-         * a value of NBEdge::UNSPECIFIED_WIDTH indicates that no bike lane should be added */
-        double bikeLaneWidth;
-        /// @brief The vehicle class specific speed restrictions
-        std::map<SUMOVehicleClass, double> restrictions;
-        /// @brief The attributes which have been set
-        std::set<SumoXMLAttr> attrs;
-
-    };
-
-
+protected:
     /** @brief Retrieve the name or the default type
      *
      * If no name is given, the default type is returned
@@ -329,24 +312,16 @@ private:
      */
     const TypeDefinition& getType(const std::string& name) const;
 
-
-private:
     /// @brief The default type
     TypeDefinition myDefaultType;
-
-    /// @brief A container of types, accessed by the string id
-    typedef std::map<std::string, TypeDefinition> TypesCont;
 
     /// @brief The container of types
     TypesCont myTypes;
 
-
 private:
-    /** @brief invalid copy constructor */
+    /// @brief invalid copy constructor
     NBTypeCont(const NBTypeCont& s);
 
-    /** @brief invalid assignment operator */
+    /// @brief invalid assignment operator
     NBTypeCont& operator=(const NBTypeCont& s);
-
-
 };
