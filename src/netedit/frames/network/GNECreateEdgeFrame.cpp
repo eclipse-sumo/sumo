@@ -19,35 +19,17 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <netbuild/NBFrame.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/dialogs/GNEAllowDisallow.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netgen/NGFrame.h>
-#include <netgen/NGNet.h>
-#include <netgen/NGRandomNetBuilder.h>
 #include <netimport/NITypeLoader.h>
 #include <netimport/NIXMLTypesHandler.h>
-#include <netimport/NIXMLTypesHandler.h>
-#include <netwrite/NWFrame.h>
-#include <utils/common/MsgHandler.h>
-#include <utils/common/RandHelper.h>
-#include <utils/common/SystemFrame.h>
-#include <utils/common/ToString.h>
-#include <utils/common/UtilExceptions.h>
-#include <utils/distribution/RandomDistributor.h>
-#include <utils/geom/GeoConvHelper.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/iodevices/OutputDevice.h>
-#include <utils/options/Option.h>
-#include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsIO.h>
-#include <utils/xml/XMLSubSys.h>
 
 
 #include "GNECreateEdgeFrame.h"
@@ -58,9 +40,9 @@
 
 FXDEFMAP(GNECreateEdgeFrame::EdgeSelector) EdgeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_NEWEDGETYPE,        GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SAVEEDGETYPE,       GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE,     GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_NEWEDGETYPE,        GNECreateEdgeFrame::EdgeSelector::onCmdNewEdgeType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SAVEEDGETYPE,       GNECreateEdgeFrame::EdgeSelector::onCmdSaveEdgeType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE,     GNECreateEdgeFrame::EdgeSelector::onCmdDeleteEdgeType),
 };
 
 FXDEFMAP(GNECreateEdgeFrame::EdgeParameters) EdgeParametersMap[] = {
