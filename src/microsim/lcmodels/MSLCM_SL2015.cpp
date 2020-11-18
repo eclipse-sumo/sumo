@@ -1420,6 +1420,7 @@ MSLCM_SL2015::_wantsChangeSublane(
     const double leftMax = MAX2(
                                myVehicle.getLane()->getRightSideOnEdge() + myVehicle.getLane()->getWidth(),
                                neighLane.getRightSideOnEdge() + neighLane.getWidth());
+    const double rightMin = MIN2(myVehicle.getLane()->getRightSideOnEdge(), neighLane.getRightSideOnEdge());
     assert(leftMax <= edge.getWidth());
     int sublaneCompact = MAX2(iMin, rightmostOnEdge - 1); // try to compactify to the right by default
 
@@ -1433,8 +1434,15 @@ MSLCM_SL2015::_wantsChangeSublane(
                 << "\n";
 #endif
     const double laneBoundary = laneOffset < 0 ? myVehicle.getLane()->getRightSideOnEdge() : neighLane.getRightSideOnEdge();
-    for (int i = iMin; i < (int)sublaneSides.size(); ++i) {
-        if (sublaneSides[i] + vehWidth < leftMax) {
+    // if there is a neighboring lane we could change to, check sublanes on all lanes of the edge
+    // but restrict maneuver to the currently visible lanes (current, neigh) to ensure safety
+    // This way we can discover a fast lane beyond the immediate neighbor lane
+    const double maxLatDist = leftMax - leftVehSide;
+    const double minLatDist = rightMin - rightVehSide;
+    const int iStart = laneOffset == 0 ? iMin : 0;
+    const double rightEnd = laneOffset == 0 ? leftMax : edge.getWidth();
+    for (int i = iStart; i < (int)sublaneSides.size(); ++i) {
+        if (sublaneSides[i] + vehWidth < rightEnd) {
             // i is the rightmost sublane and the left side of vehicles still fits on the edge,
             // compute min speed of all sublanes covered by the vehicle in this case
             double vMin = myExpectedSublaneSpeeds[i];
@@ -1450,7 +1458,7 @@ MSLCM_SL2015::_wantsChangeSublane(
                 vMin *= (1 - myLaneDiscipline);
             }
             const double relativeGain = (vMin - defaultNextSpeed) / MAX2(vMin, RELGAIN_NORMALIZATION_MIN_SPEED);
-            const double currentLatDist = sublaneSides[i] - rightVehSide;
+            const double currentLatDist = MIN2(MAX2(sublaneSides[i] - rightVehSide, minLatDist), maxLatDist);
             // @note this is biased for changing to the left since we compare the sublanes in ascending order
             if (relativeGain > maxGain) {
                 maxGain = relativeGain;
