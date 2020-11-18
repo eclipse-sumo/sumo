@@ -326,7 +326,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
         WRITE_ERROR("Unknown traffic light type '" + typeS + "' for node '" + currentNode->getID() + "'.");
         return;
     }
-    TrafficLightLayout layout = TrafficLightLayout::INVALID;
+    TrafficLightLayout layout = TrafficLightLayout::DEFAULT;
     if (attrs.hasAttribute(SUMO_ATTR_TLLAYOUT)) {
         std::string layoutS = attrs.get<std::string>(SUMO_ATTR_TLLAYOUT, nullptr, ok);
         if (SUMOXMLDefinitions::TrafficLightLayouts.hasString(layoutS)) {
@@ -349,7 +349,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes& attrs
                     dynamic_cast<NBLoadedSUMOTLDef*>(def)->guessMinMaxDuration();
                 }
             }
-            if (layout != TrafficLightLayout::INVALID && dynamic_cast<NBOwnTLDef*>(def) != nullptr) {
+            if (layout != TrafficLightLayout::DEFAULT && dynamic_cast<NBOwnTLDef*>(def) != nullptr) {
                 dynamic_cast<NBOwnTLDef*>(def)->setLayout(layout);
             }
         }

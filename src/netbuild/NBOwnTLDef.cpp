@@ -55,7 +55,7 @@ NBOwnTLDef::NBOwnTLDef(const std::string& id,
                        TrafficLightType type) :
     NBTrafficLightDefinition(id, junctions, DefaultProgramID, offset, type),
     myHaveSinglePhase(false),
-    myLayout(TrafficLightLayout::INVALID) {
+    myLayout(TrafficLightLayout::DEFAULT) {
 }
 
 
@@ -63,7 +63,7 @@ NBOwnTLDef::NBOwnTLDef(const std::string& id, NBNode* junction, SUMOTime offset,
                        TrafficLightType type) :
     NBTrafficLightDefinition(id, junction, DefaultProgramID, offset, type),
     myHaveSinglePhase(false),
-    myLayout(TrafficLightLayout::INVALID) {
+    myLayout(TrafficLightLayout::DEFAULT) {
 }
 
 
@@ -71,7 +71,7 @@ NBOwnTLDef::NBOwnTLDef(const std::string& id, SUMOTime offset,
                        TrafficLightType type) :
     NBTrafficLightDefinition(id, DefaultProgramID, offset, type),
     myHaveSinglePhase(false),
-    myLayout(TrafficLightLayout::INVALID) {
+    myLayout(TrafficLightLayout::DEFAULT) {
 }
 
 
@@ -315,7 +315,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
     const double minorLeftSpeedThreshold = OptionsCont::getOptions().getFloat("tls.minor-left.max-speed");
     // left-turn phases do not work well for joined tls, so we build incoming instead
-    if (myLayout == TrafficLightLayout::INVALID) {
+    if (myLayout == TrafficLightLayout::DEFAULT) {
         // @note this prevents updating after loading plain-xml into netedit computing tls and then changing the default layout
         myLayout = SUMOXMLDefinitions::TrafficLightLayouts.get(OptionsCont::getOptions().getString("tls.layout"));
     }

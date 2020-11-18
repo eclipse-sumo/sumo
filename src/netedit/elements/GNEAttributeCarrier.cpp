@@ -853,6 +853,15 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty.setDiscreteValues({toString(TrafficLightType::STATIC), toString(TrafficLightType::ACTUATED), toString(TrafficLightType::DELAYBASED)});
         myTagProperties[currentTag].addAttribute(attrProperty);
 
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_TLLAYOUT,
+                                              GNEAttributeProperties::STRING | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+                                              "An optional layout for the traffic light plan");
+        attrProperty.setDiscreteValues({toString(TrafficLightLayout::DEFAULT),
+                toString(TrafficLightLayout::OPPOSITES),
+                toString(TrafficLightLayout::INCOMING),
+                toString(TrafficLightLayout::ALTERNATE_ONEWAY)});
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
         attrProperty = GNEAttributeProperties(SUMO_ATTR_TLID,
             GNEAttributeProperties::STRING | GNEAttributeProperties::DEFAULTVALUESTATIC,
             "An optional id for the traffic light program");

@@ -1438,7 +1438,7 @@ enum class TrafficLightLayout {
     OPPOSITES,
     INCOMING,
     ALTERNATE_ONEWAY,
-    INVALID //< must be the last one
+    DEFAULT //< must be the last one
 };
 
 

@@ -138,6 +138,10 @@ public:
         myLayout = layout;
     }
 
+    TrafficLightLayout getLayout() const {
+        return myLayout;
+    }
+
 protected:
     /// @name Protected methods from NBTrafficLightDefinition-interface
     /// @{

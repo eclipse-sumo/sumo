@@ -316,6 +316,9 @@ public:
         mySubID = programID;
     }
 
+    virtual TrafficLightLayout getLayout() const {
+        return TrafficLightLayout::DEFAULT;
+    }
 
     /** @brief Returns the offset
      * @return Offset

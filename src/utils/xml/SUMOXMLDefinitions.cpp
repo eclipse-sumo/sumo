@@ -996,7 +996,7 @@ StringBijection<TrafficLightLayout>::Entry SUMOXMLDefinitions::trafficLightLayou
     { "opposites",       TrafficLightLayout::OPPOSITES },
     { "incoming",        TrafficLightLayout::INCOMING },
     { "alternateOneWay", TrafficLightLayout::ALTERNATE_ONEWAY },
-    { "<invalid>",       TrafficLightLayout::INVALID } //< must be the last one
+    { "",                TrafficLightLayout::DEFAULT } //< must be the last one
 };
 
 
@@ -1104,7 +1104,7 @@ StringBijection<TrafficLightType> SUMOXMLDefinitions::TrafficLightTypes(
     SUMOXMLDefinitions::trafficLightTypesValues, TrafficLightType::INVALID);
 
 StringBijection<TrafficLightLayout> SUMOXMLDefinitions::TrafficLightLayouts(
-    SUMOXMLDefinitions::trafficLightLayoutValues, TrafficLightLayout::INVALID);
+    SUMOXMLDefinitions::trafficLightLayoutValues, TrafficLightLayout::DEFAULT);
 
 StringBijection<LaneChangeModel> SUMOXMLDefinitions::LaneChangeModels(
     SUMOXMLDefinitions::laneChangeModelValues, LCM_DEFAULT);

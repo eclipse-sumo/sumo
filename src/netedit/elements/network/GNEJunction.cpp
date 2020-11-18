@@ -1046,6 +1046,12 @@ GNEJunction::getAttribute(SumoXMLAttr key) const {
             } else {
                 return "No TLS";
             }
+        case SUMO_ATTR_TLLAYOUT:
+            if (isAttributeEnabled(SUMO_ATTR_TLLAYOUT)) {
+                return toString((*myNBNode->getControllingTLS().begin())->getLayout());
+            } else {
+                return "No TLS";
+            }
         case SUMO_ATTR_TLID:
             if (isAttributeEnabled(SUMO_ATTR_TLID)) {
                 return toString((*myNBNode->getControllingTLS().begin())->getID());
@@ -1164,6 +1170,26 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
             undoList->p_end();
             break;
         }
+        case SUMO_ATTR_TLLAYOUT: {
+            undoList->p_begin("change " + getTagStr() + " tlLayout");
+            const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
+            for (const auto& oldTLS : copyOfTls) {
+                std::vector<NBNode*> copyOfNodes = oldTLS->getNodes();
+                NBOwnTLDef* newTLS = new NBOwnTLDef(oldTLS->getID(), oldTLS->getOffset(), oldTLS->getType());
+                newTLS->setLayout(SUMOXMLDefinitions::TrafficLightLayouts.get(value));
+                newTLS->setProgramID(oldTLS->getProgramID());
+                for (const auto& node : copyOfNodes) {
+                    GNEJunction* oldJunction = myNet->retrieveJunction(node->getID());
+                    undoList->add(new GNEChange_TLS(oldJunction, oldTLS, false), true);
+                }
+                for (const auto& node : copyOfNodes) {
+                    GNEJunction* oldJunction = myNet->retrieveJunction(node->getID());
+                    undoList->add(new GNEChange_TLS(oldJunction, newTLS, true), true);
+                }
+            }
+            undoList->p_end();
+            break;
+        }
         case SUMO_ATTR_TLID: {
             undoList->p_begin("change " + toString(SUMO_TAG_TRAFFIC_LIGHT) + " id");
             const std::set<NBTrafficLightDefinition*> copyOfTls = myNBNode->getControllingTLS();
@@ -1248,6 +1274,8 @@ GNEJunction::isValid(SumoXMLAttr key, const std::string& value) {
             return canParse<double>(value) && (parse<double>(value) >= -1);
         case SUMO_ATTR_TLTYPE:
             return myNBNode->isTLControlled() && SUMOXMLDefinitions::TrafficLightTypes.hasString(value);
+        case SUMO_ATTR_TLLAYOUT:
+            return myNBNode->isTLControlled() && SUMOXMLDefinitions::TrafficLightLayouts.hasString(value);
         case SUMO_ATTR_TLID:
             return myNBNode->isTLControlled() && (value != "");
         case SUMO_ATTR_KEEP_CLEAR:
@@ -1272,6 +1300,7 @@ bool
 GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_TLTYPE:
+        case SUMO_ATTR_TLLAYOUT:
         case SUMO_ATTR_TLID:
             return myNBNode->isTLControlled();
         case SUMO_ATTR_KEEP_CLEAR: {
@@ -1419,6 +1448,9 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
             }
             break;
         }
+        case SUMO_ATTR_TLLAYOUT:
+            // should not be triggered (handled via GNEChange_TLS)
+            break;
         case SUMO_ATTR_RIGHT_OF_WAY:
             myNBNode->setRightOfWay(SUMOXMLDefinitions::RightOfWayValues.get(value));
             break;
