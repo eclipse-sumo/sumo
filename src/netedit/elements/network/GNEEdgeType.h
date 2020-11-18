@@ -1,0 +1,147 @@
+/****************************************************************************/
+// Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
+// Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
+// This program and the accompanying materials are made available under the
+// terms of the Eclipse Public License 2.0 which is available at
+// https://www.eclipse.org/legal/epl-2.0/
+// This Source Code may also be made available under the following Secondary
+// Licenses when the conditions for such availability set forth in the Eclipse
+// Public License 2.0 are satisfied: GNU General Public License, version 2
+// or later which is available at
+// https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
+// SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
+/****************************************************************************/
+/// @file    GNEEdgeType.h
+/// @author  Pablo Alvarez Lopez
+/// @date    Nov 2020
+///
+/// A SUMO edge type file assigns default values for certain attributes to types of roads.
+/****************************************************************************/
+#pragma once
+#include "GNENetworkElement.h"
+
+#include <netbuild/NBEdge.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/elements/GNECandidateElement.h>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class GNENet;
+class GNEJunction;
+class GNELane;
+class GNEConnection;
+class GNERouteProbe;
+class GNECrossing;
+
+// ===========================================================================
+// class definitions
+// ===========================================================================
+
+class GNEEdgeType : public GNENetworkElement {
+
+public:
+    /**@brief Constructor
+     * @param[in] net The net to inform about gui updates
+     * @param[in] nbe The represented edge
+     * @param[in] loaded Whether the edge was loaded from a file
+     */
+    GNEEdgeType(GNENet* net, NBEdge* nbe, bool wasSplit = false, bool loaded = false);
+
+    /// @brief Destructor.
+    ~GNEEdgeType();
+
+    /// @name Functions related with geometry of element
+    /// @{
+    /// @brief update pre-computed geometry information
+    void updateGeometry();
+
+    /// @brief Returns position of hierarchical element in view
+    Position getPositionInView() const;
+    /// @}
+
+    /// @name Functions related with move elements
+    /// @{
+    /// @brief get move operation for the given shapeOffset (can be nullptr)
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
+
+    /// @brief remove geometry point in the clicked position
+    void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList);
+    /// @}
+
+    /// @name inherited from GUIGlObject
+    /// @{
+    /**@brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
+    GUIGLObjectPopupMenu* getPopUpMenu(GUIMainWindow& app, GUISUMOAbstractView& parent);
+
+    /// @brief Returns the street name
+    const std::string getOptionalName() const;
+
+    /**@brief Draws the object
+     * @param[in] s The settings for the current view (may influence drawing)
+     * @see GUIGlObject::drawGL
+     */
+    void drawGL(const GUIVisualizationSettings& s) const;
+    /// @}
+
+    /// @brief returns the internal NBEdge
+    NBEdge* getNBEdge() const;
+
+    /// @name inherited from GNEAttributeCarrier
+    /// @{
+    /* @brief method for getting the Attribute of an XML key
+     * @param[in] key The attribute key
+     * @return string with the value associated to key
+     */
+    std::string getAttribute(SumoXMLAttr key) const;
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    void setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList);
+
+    /* @brief method for setting the attribute and letting the object perform additional changes
+     * @param[in] key The attribute key
+     * @param[in] value The new value
+     * @param[in] undoList The undoList on which to register changes
+     */
+    bool isValid(SumoXMLAttr key, const std::string& value);
+
+    /* @brief method for check if the value for certain attribute is set
+     * @param[in] key The attribute key
+     */
+    bool isAttributeEnabled(SumoXMLAttr key) const;
+    /// @}
+
+    /// @brief get parameters map
+    const std::map<std::string, std::string>& getACParametersMap() const;
+
+    /**@brief update edge geometry and inform the lanes
+     * @param[in] geom The new geometry
+     * @param[in] inner Whether geom is only the inner points
+     */
+    void setGeometry(PositionVector geom, bool inner);
+
+protected:
+    /// @brief the underlying NBEdge
+    NBEdge* myNBEdge;
+
+private:
+    /// @brief set attribute after validation
+    void setAttribute(SumoXMLAttr key, const std::string& value);
+
+    /// @brief invalidated copy constructor
+    GNEEdgeType(const GNEEdgeType& s) = delete;
+
+    /// @brief invalidated assignment operator
+    GNEEdgeType& operator=(const GNEEdgeType& s) = delete;
+};
