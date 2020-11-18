@@ -271,8 +271,8 @@ public:
         FOX_CONSTRUCTOR(EdgeTypeFile)
 
     private:
-        /// @brief pointer to TLSEditor Parent
-        GNECreateEdgeFrame* myTLSEditorParent;
+        /// @brief pointer to create edge frame Parent
+        GNECreateEdgeFrame* myCreateEdgeFrame;
 
         /// @brief button for load TLS Programs
         FXButton* myLoadEdgeProgramButton;
