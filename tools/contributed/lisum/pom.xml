@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>    
+    
+    <groupId>de.dlr.ts</groupId>
+    <artifactId>lisum</artifactId>
+    <version>1.0</version>
+    <packaging>pom</packaging>
+    
+    <modules>
+        <module>lisum-core</module>
+        <module>lisum-gui</module>        
+    </modules>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+    
+    <organization>
+        <name>DLR - German Aerospace Center</name>
+        <url>https://www.dlr.de/ts/</url>
+    </organization>
+    
+    <developers>
+        <developer>
+            <id>max</id>
+            <name>Maximiliano Bottazzi</name>
+            <email>maximiliano.bottazzi@dlr.de</email>
+        </developer>
+    </developers>
+</project>
