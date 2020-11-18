@@ -36,7 +36,28 @@
 // method definitions
 // ===========================================================================
 
-NBTypeCont::TypeDefinition::TypeDefinition() :
+// ---------------------------------------------------------------------------
+// GNELane::LaneTypeDefinition - methods
+// ---------------------------------------------------------------------------
+
+NBTypeCont::LaneTypeDefinition::LaneTypeDefinition() :
+    speed((double) 13.89),
+    permissions(SVC_UNSPECIFIED),
+    width(NBEdge::UNSPECIFIED_WIDTH) {
+}
+
+
+NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(double _speed, double _width, SVCPermissions _permissions) :
+    speed(_speed),
+    permissions(_permissions),
+    width(_width) {
+}
+
+// ---------------------------------------------------------------------------
+// GNELane::LaneDrawingConstants - methods
+// ---------------------------------------------------------------------------
+
+NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
     numLanes(1), speed((double) 13.89), priority(-1),
     permissions(SVC_UNSPECIFIED),
     oneWay(true), discard(false),
@@ -49,7 +70,7 @@ NBTypeCont::TypeDefinition::TypeDefinition() :
 }
 
 
-NBTypeCont::TypeDefinition::TypeDefinition(int _numLanes, double _speed, int _priority,
+NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int _numLanes, double _speed, int _priority,
     double _width, SVCPermissions _permissions, bool _oneWay, double _sideWalkWidth, 
     double _bikeLaneWidth, double _widthResolution, double _maxWidth, double _minWidth) :
     numLanes(_numLanes), speed(_speed), priority(_priority),
@@ -91,7 +112,7 @@ NBTypeCont::insert(const std::string& id, int numLanes, double maxSpeed, int pri
                    double widthResolution,
                    double maxWidth,
                    double minWidth) {
-    TypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
+    EdgeTypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
     TypesCont::iterator old = myTypes.find(id);
     if (old != myTypes.end()) {
         newType.restrictions.insert(old->second.restrictions.begin(), old->second.restrictions.end());
@@ -176,7 +197,7 @@ NBTypeCont::writeTypes(OutputDevice& into) const {
     for (TypesCont::const_iterator i = myTypes.begin(); i != myTypes.end(); ++i) {
         into.openTag(SUMO_TAG_TYPE);
         into.writeAttr(SUMO_ATTR_ID, i->first);
-        const NBTypeCont::TypeDefinition& type = i->second;
+        const NBTypeCont::EdgeTypeDefinition& type = i->second;
         if (type.attrs.count(SUMO_ATTR_PRIORITY) > 0) {
             into.writeAttr(SUMO_ATTR_PRIORITY, type.priority);
         }
@@ -293,7 +314,7 @@ NBTypeCont::getBikeLaneWidth(const std::string& type) const {
 }
 
 
-const NBTypeCont::TypeDefinition&
+const NBTypeCont::EdgeTypeDefinition&
 NBTypeCont::getType(const std::string& name) const {
     TypesCont::const_iterator i = myTypes.find(name);
     if (i == myTypes.end()) {

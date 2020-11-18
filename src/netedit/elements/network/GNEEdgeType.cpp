@@ -31,7 +31,7 @@
 // members methods
 // ===========================================================================
 
-GNEEdgeType::GNEEdgeType(GNENet* net, NBTypeCont::TypeDefinition *type):
+GNEEdgeType::GNEEdgeType(GNENet* net, NBTypeCont::EdgeTypeDefinition *type):
     GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
     myType(type) {
 }

@@ -34,7 +34,7 @@ public:
      * @param[in] net The net to inform about gui updates
      * @param[in] type teh typeDefinition
      */
-    GNEEdgeType(GNENet* net, NBTypeCont::TypeDefinition *type);
+    GNEEdgeType(GNENet* net, NBTypeCont::EdgeTypeDefinition *type);
 
     /// @brief Destructor.
     ~GNEEdgeType();
@@ -109,8 +109,8 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
-    /// @brief edge type
-    NBTypeCont::TypeDefinition *myType;
+    /// @brief edge type definition
+    NBTypeCont::EdgeTypeDefinition *myType;
 
 private:
     /// @brief set attribute after validation

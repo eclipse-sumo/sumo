@@ -52,13 +52,34 @@ class OutputDevice;
 class NBTypeCont {
 
 public:
-    /// @brief type definition
-    struct TypeDefinition {
+    /// @brief laneType definition
+    struct LaneTypeDefinition {
         /// @brief Constructor
-        TypeDefinition();
+        LaneTypeDefinition();
 
         /// @brief parameter Constructor
-        TypeDefinition(int numLanes, double speed, int priority,
+        LaneTypeDefinition(double speed, double width, SVCPermissions permissions);
+
+        /// @brief The maximal velocity on a lane in m/s
+        double speed;
+
+        /// @brief List of vehicle types that are allowed on this lane
+        SVCPermissions permissions;
+
+        /// @brief lane width [m]
+        double width;
+
+        /// @brief The attributes which have been set
+        std::set<SumoXMLAttr> attrs;
+    };
+
+    /// @brief edgeType definition
+    struct EdgeTypeDefinition {
+        /// @brief Constructor
+        EdgeTypeDefinition();
+
+        /// @brief parameter Constructor
+        EdgeTypeDefinition(int numLanes, double speed, int priority,
             double width, SVCPermissions permissions, bool oneWay,
             double sideWalkWidth, double bikeLaneWidth,
             double widthResolution, double maxWidth, double minWidth);
@@ -109,7 +130,7 @@ public:
     };
 
     /// @brief A container of types, accessed by the string id
-    typedef std::map<std::string, TypeDefinition> TypesCont;
+    typedef std::map<std::string, EdgeTypeDefinition> TypesCont;
 
     /// @brief Constructor
     NBTypeCont();
@@ -310,10 +331,10 @@ protected:
      * @param[in] name The name of the type to retrieve
      * @return The named type
      */
-    const TypeDefinition& getType(const std::string& name) const;
+    const EdgeTypeDefinition& getType(const std::string& name) const;
 
     /// @brief The default type
-    TypeDefinition myDefaultType;
+    EdgeTypeDefinition myDefaultType;
 
     /// @brief The container of types
     TypesCont myTypes;
