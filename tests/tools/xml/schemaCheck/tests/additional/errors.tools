@@ -1,5 +1,5 @@
-sumo/basic/tls/errors/add_attribute_next_invalid/input_additional.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_MININCLUSIVE_VALID: Element 'phase', attribute 'next': [facet 'minInclusive'] The value '-12' is less than the minimum value allowed ('0').
-sumo/basic/tls/errors/add_attribute_next_invalid/input_additional.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'phase', attribute 'next': '-12' is not a valid value of the atomic type 'nonNegativeIntType'.
+sumo/basic/tls/errors/add_attribute_next_invalid/input_additional.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'phase', attribute 'next': [facet 'pattern'] The value '-12' is not accepted by the pattern '(\d+)( (\d+))*'.
+sumo/basic/tls/errors/add_attribute_next_invalid/input_additional.add.xml:13:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'phase', attribute 'next': '-12' is not a valid value of the local atomic type.
 sumo/basic/tls/errors/invalid_state/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_PATTERN_VALID: Element 'phase', attribute 'state': [facet 'pattern'] The value '0GggrrrrGGggrrrr' is not accepted by the pattern '[ruyYgGoOs]+'.
 sumo/basic/tls/errors/invalid_state/input_additional.add.xml:3:0:ERROR:SCHEMASV:SCHEMAV_CVC_DATATYPE_VALID_1_2_1: Element 'phase', attribute 'state': '0GggrrrrGGggrrrr' is not a valid value of the local atomic type.
 sumo/meta/xml_validation/input_additional.add.xml:1:0:ERROR:SCHEMASV:SCHEMAV_CVC_COMPLEX_TYPE_3_2_1: Element 'additional', attribute 'blub': The attribute 'blub' is not allowed.
