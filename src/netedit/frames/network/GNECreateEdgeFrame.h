@@ -34,22 +34,22 @@ class GNECreateEdgeFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class TemplateSelector
+    // class EdgeSelector
     // ===========================================================================
 
-    class TemplateSelector : protected FXGroupBox {
+    class EdgeSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNECreateEdgeFrame::TemplateSelector)
+        FXDECLARE(GNECreateEdgeFrame::EdgeSelector)
 
     public:
         /// @brief constructor
-        TemplateSelector(GNECreateEdgeFrame* createEdgeFrameParent);
+        EdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent);
 
         /// @brief destructor
-        ~TemplateSelector();
+        ~EdgeSelector();
 
         /// @brief refresh template selector
-        void refreshTemplateSelector();
+        void refreshEdgeSelector();
 
         /// @brief check if we have to use selector
         bool useEdgeTemplate() const;
@@ -59,11 +59,20 @@ public:
         /// @brief Called when the user press a radio button
         long onCmdRadioButton(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user press button for create a new edge type
+        long onCmdNewEdgeType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press button for save edge type
+        long onCmdSaveEdgeType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press button for delete edge type
+        long onCmdDeleteEdgeType(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(TemplateSelector)
+        FOX_CONSTRUCTOR(EdgeSelector)
 
     private:
         /// @brief pointer to createEdgeFrameParent
@@ -77,6 +86,18 @@ public:
 
         /// @brief ComboBox for edge types
         FXComboBox* myEdgeTypesComboBox = nullptr;
+
+        /// @brief horizontal frame for save/delete edgeType
+        FXHorizontalFrame* myHorizontalFrameSaveDelete;
+
+        /// @brief button for create new edge type
+        FXButton* myNewEdgeTypeButton;
+
+        /// @brief button for save edge type
+        FXButton* mySaveEdgeTypeButton;
+
+        /// @brief button for delete edge type
+        FXButton* myDeleteEdgeTypeButton;
     };
 
     // ===========================================================================
@@ -271,6 +292,7 @@ public:
         /// @}
 
     protected:
+        /// @brief FOX need this
         FOX_CONSTRUCTOR(EdgeTypeFile)
 
     private:
@@ -331,7 +353,7 @@ public:
     void hide();
 
     /// @brief getcustom edge selector
-    TemplateSelector* getTemplateSelector() const;
+    EdgeSelector* getEdgeSelector() const;
 
 protected:
     /// @brief edge parameters
@@ -341,7 +363,7 @@ protected:
     LaneParameters* myLaneParameters = nullptr;
 
     /// @brief custom edge selector
-    TemplateSelector* myTemplateSelector = nullptr;
+    EdgeSelector* myEdgeSelector = nullptr;
 
     /// @brief edge type file
     EdgeTypeFile* myEdgeTypeFile = nullptr;

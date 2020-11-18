@@ -56,8 +56,11 @@
 // FOX callback mapping
 // ===========================================================================
 
-FXDEFMAP(GNECreateEdgeFrame::TemplateSelector) TemplateSelectorMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::TemplateSelector::onCmdRadioButton),
+FXDEFMAP(GNECreateEdgeFrame::EdgeSelector) EdgeSelectorMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_NEWEDGETYPE,        GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SAVEEDGETYPE,       GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE,     GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
 };
 
 FXDEFMAP(GNECreateEdgeFrame::EdgeParameters) EdgeParametersMap[] = {
@@ -76,10 +79,10 @@ FXDEFMAP(GNECreateEdgeFrame::EdgeTypeFile) EdgeTypeFileMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECreateEdgeFrame::TemplateSelector,       FXGroupBox,     TemplateSelectorMap,    ARRAYNUMBER(TemplateSelectorMap))
-FXIMPLEMENT(GNECreateEdgeFrame::EdgeParameters,         FXGroupBox,     EdgeParametersMap,      ARRAYNUMBER(EdgeParametersMap))
-FXIMPLEMENT(GNECreateEdgeFrame::LaneParameters,         FXGroupBox,     LaneParametersMap,      ARRAYNUMBER(LaneParametersMap))
-FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeFile,           FXGroupBox,     EdgeTypeFileMap,        ARRAYNUMBER(EdgeTypeFileMap))
+FXIMPLEMENT(GNECreateEdgeFrame::EdgeSelector,       FXGroupBox,     EdgeSelectorMap,    ARRAYNUMBER(EdgeSelectorMap))
+FXIMPLEMENT(GNECreateEdgeFrame::EdgeParameters,     FXGroupBox,     EdgeParametersMap,  ARRAYNUMBER(EdgeParametersMap))
+FXIMPLEMENT(GNECreateEdgeFrame::LaneParameters,     FXGroupBox,     LaneParametersMap,  ARRAYNUMBER(LaneParametersMap))
+FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeFile,       FXGroupBox,     EdgeTypeFileMap,    ARRAYNUMBER(EdgeTypeFileMap))
 
 
 // ===========================================================================
@@ -87,30 +90,41 @@ FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeFile,           FXGroupBox,     EdgeType
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNECreateEdgeFrame::TemplateSelector - methods
+// GNECreateEdgeFrame::EdgeSelector - methods
 // ---------------------------------------------------------------------------
 
-GNECreateEdgeFrame::TemplateSelector::TemplateSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
+GNECreateEdgeFrame::EdgeSelector::EdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
     FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
     myCreateEdgeFrameParent(createEdgeFrameParent) {
     // default edge radio button
     myCreateDefaultEdge = new FXRadioButton(this, "Create default edge",
         this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // use custom edge radio button
-    myUseCustomEdge = new FXRadioButton(this, "Use custom edge radio button",
+    myUseCustomEdge = new FXRadioButton(this, "Use edgeType/template",
         this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
-    // edge types
+    // edge types combo box
     myEdgeTypesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    // create horizontal frame
+    myHorizontalFrameSaveDelete = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create new edge type button
+    myNewEdgeTypeButton = new FXButton(myHorizontalFrameSaveDelete, 
+        "save\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_CREATEEDGEFRAME_SAVEEDGETYPE, GUIDesignButton);
+    // create save edge type button
+    mySaveEdgeTypeButton = new FXButton(myHorizontalFrameSaveDelete, 
+        "save\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_CREATEEDGEFRAME_SAVEEDGETYPE, GUIDesignButton);
+    // create delete edge type button
+    myDeleteEdgeTypeButton = new FXButton(myHorizontalFrameSaveDelete, 
+        "delete\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE, GUIDesignButton);
     // by default, create custom edge
     myCreateDefaultEdge->setCheck(TRUE);
 }
 
 
-GNECreateEdgeFrame::TemplateSelector::~TemplateSelector() {}
+GNECreateEdgeFrame::EdgeSelector::~EdgeSelector() {}
 
 
 void
-GNECreateEdgeFrame::TemplateSelector::refreshTemplateSelector() {
+GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
     // get template editor
     const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // get 
@@ -138,6 +152,7 @@ GNECreateEdgeFrame::TemplateSelector::refreshTemplateSelector() {
         } else {
             myEdgeTypesComboBox->setNumVisible(10);
         }
+        myHorizontalFrameSaveDelete->show();
     } else {
         // disable use custom edge
         myCreateDefaultEdge->enable();
@@ -146,6 +161,7 @@ GNECreateEdgeFrame::TemplateSelector::refreshTemplateSelector() {
         myEdgeTypesComboBox->disable();
         // enable custom edge radio button
         myCreateDefaultEdge->setCheck(TRUE, FALSE);
+        myHorizontalFrameSaveDelete->hide();
     }
     // show editor parameter
     if (myUseCustomEdge->getCheck() == TRUE) {
@@ -161,7 +177,7 @@ GNECreateEdgeFrame::TemplateSelector::refreshTemplateSelector() {
 
 
 bool 
-GNECreateEdgeFrame::TemplateSelector::useEdgeTemplate() const {
+GNECreateEdgeFrame::EdgeSelector::useEdgeTemplate() const {
     if (myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
         if (myUseCustomEdge->getCheck() == TRUE) {
             return true;
@@ -175,7 +191,7 @@ GNECreateEdgeFrame::TemplateSelector::useEdgeTemplate() const {
 
 
 long
-GNECreateEdgeFrame::TemplateSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
+GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
     // check what object was pressed
     if (obj == myCreateDefaultEdge) {
         // update buttons
@@ -187,7 +203,25 @@ GNECreateEdgeFrame::TemplateSelector::onCmdRadioButton(FXObject* obj, FXSelector
         myUseCustomEdge->setCheck(TRUE, FALSE);
     }
     // refresh template selector
-    refreshTemplateSelector();
+    refreshEdgeSelector();
+    return 0;
+}
+
+
+long
+GNECreateEdgeFrame::EdgeSelector::onCmdNewEdgeType(FXObject*, FXSelector, void*) {
+    return 0;
+}
+
+
+long
+GNECreateEdgeFrame::EdgeSelector::onCmdSaveEdgeType(FXObject*, FXSelector, void*) {
+    return 0;
+}
+
+
+long
+GNECreateEdgeFrame::EdgeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector, void*) {
     return 0;
 }
 
@@ -483,7 +517,7 @@ GNECreateEdgeFrame::EdgeTypeFile::onCmdLoadEdgeProgram(FXObject*, FXSelector, vo
         // write information
         WRITE_MESSAGE("Loaded " + toString(myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().size() - numEdgeTypes) + " edge types");
         // refresh template selector
-        myCreateEdgeFrame->myTemplateSelector->refreshTemplateSelector();
+        myCreateEdgeFrame->myEdgeSelector->refreshEdgeSelector();
     }
     return 0;
 }
@@ -544,7 +578,7 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     myObjectsUnderSnappedCursor(viewNet),
     myCreateEdgeSource(nullptr) {
     // create custom edge selector
-    myTemplateSelector = new TemplateSelector(this);
+    myEdgeSelector = new EdgeSelector(this);
     // create edge parameters
     myEdgeParameters = new EdgeParameters(this);
     // create lane parameters
@@ -590,7 +624,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             // check if edge was sucesfully created
             if (newEdge) {
                 // set parameters
-                if (!myTemplateSelector->useEdgeTemplate()) {
+                if (!myEdgeSelector->useEdgeTemplate()) {
                     myEdgeParameters->setAttributes(newEdge, myViewNet->getUndoList());
                 }
                 // create another edge, if create opposite edge is enabled
@@ -598,7 +632,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                     GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
                         myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                     // set parameters
-                    if (!myTemplateSelector->useEdgeTemplate()) {
+                    if (!myEdgeSelector->useEdgeTemplate()) {
                         myEdgeParameters->setAttributes(newOppositeEdge, myViewNet->getUndoList());
                     }
                 }
@@ -655,7 +689,7 @@ GNECreateEdgeFrame::updateObjectsUnderSnappedCursor(const std::vector<GUIGlObjec
 void
 GNECreateEdgeFrame::show() {
     // refresh template selector
-    myTemplateSelector->refreshTemplateSelector();
+    myEdgeSelector->refreshEdgeSelector();
     // show frame
     GNEFrame::show();
 }
@@ -668,9 +702,9 @@ GNECreateEdgeFrame::hide() {
 }
 
 
-GNECreateEdgeFrame::TemplateSelector* 
-GNECreateEdgeFrame::getTemplateSelector() const {
-    return myTemplateSelector;
+GNECreateEdgeFrame::EdgeSelector* 
+GNECreateEdgeFrame::getEdgeSelector() const {
+    return myEdgeSelector;
 }
 
 /****************************************************************************/
