@@ -15,7 +15,7 @@
 /// @author  Jakob Erdmann
 /// @date    Mar 2011
 ///
-// A network change in which a single junction is created or deleted
+// A network change in which a single edge is created or deleted
 /****************************************************************************/
 #include <config.h>
 
