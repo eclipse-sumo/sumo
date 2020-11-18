@@ -94,13 +94,15 @@ GNECreateEdgeFrame::TemplateSelector::TemplateSelector(GNECreateEdgeFrame* creat
     FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
     myCreateEdgeFrameParent(createEdgeFrameParent) {
     // default edge radio button
-    myUseTemplateRadioButton = new FXRadioButton(this, "Use edge template",
+    myCreateDefaultEdge = new FXRadioButton(this, "Create default edge",
         this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
-    // custom edge radio button
-    myCustomEdgeRadioButton = new FXRadioButton(this, "Create custom edge",
+    // use custom edge radio button
+    myUseCustomEdge = new FXRadioButton(this, "Use custom edge radio button",
         this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    // edge types
+    myEdgeTypesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // by default, create custom edge
-    myCustomEdgeRadioButton->setCheck(TRUE);
+    myCreateDefaultEdge->setCheck(TRUE);
 }
 
 
@@ -110,25 +112,43 @@ GNECreateEdgeFrame::TemplateSelector::~TemplateSelector() {}
 void
 GNECreateEdgeFrame::TemplateSelector::refreshTemplateSelector() {
     // get template editor
-    GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    // get 
+    const auto &typeContainers = myCreateEdgeFrameParent->getViewNet()->getNet()->getNetBuilder()->getTypeCont();
     // check if there is template
-    if (templateEditor->hasTemplate()) {
+    if (templateEditor->hasTemplate() || (typeContainers.size() > 0)) {
         // enable both buttons
-        myUseTemplateRadioButton->enable();
-        myCustomEdgeRadioButton->enable();
-        // change text in myUseTemplateRadioButton
-        myUseTemplateRadioButton->setText(("Use '" + templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID) + "' template").c_str());
+        myCreateDefaultEdge->enable();
+        myUseCustomEdge->enable();
+        // enable combo box
+        myEdgeTypesComboBox->enable();
+        // clear edge types
+        myEdgeTypesComboBox->clearItems();
+        // add template
+        if (templateEditor->hasTemplate()) {
+            myEdgeTypesComboBox->appendItem(("template: " + templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID)).c_str(), nullptr);
+        }
+        // add edge types
+        for (const auto &typeContainer : typeContainers) {
+            myEdgeTypesComboBox->appendItem(typeContainer.first.c_str(), nullptr);
+        }
+        // set num visible antes
+        if (myEdgeTypesComboBox->getNumItems() <= 10) {
+            myEdgeTypesComboBox->setNumVisible(myEdgeTypesComboBox->getNumItems());
+        } else {
+            myEdgeTypesComboBox->setNumVisible(10);
+        }
     } else {
-        // disable use template
-        myUseTemplateRadioButton->disable();
-        myCustomEdgeRadioButton->enable();
+        // disable use custom edge
+        myCreateDefaultEdge->enable();
+        myUseCustomEdge->disable();
+        // disable combo box
+        myEdgeTypesComboBox->disable();
         // enable custom edge radio button
-        myCustomEdgeRadioButton->setCheck(TRUE, FALSE);
-        // change text in myUseTemplateRadioButton
-        myUseTemplateRadioButton->setText("Use edge template");
+        myCreateDefaultEdge->setCheck(TRUE, FALSE);
     }
     // show editor parameter
-    if (myCustomEdgeRadioButton->getCheck() == TRUE) {
+    if (myUseCustomEdge->getCheck() == TRUE) {
         myCreateEdgeFrameParent->myEdgeParameters->showEdgeParameters();
         myCreateEdgeFrameParent->myLaneParameters->showLaneParameters();
     } else {
@@ -143,7 +163,7 @@ GNECreateEdgeFrame::TemplateSelector::refreshTemplateSelector() {
 bool 
 GNECreateEdgeFrame::TemplateSelector::useEdgeTemplate() const {
     if (myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
-        if (myUseTemplateRadioButton->getCheck() == TRUE) {
+        if (myUseCustomEdge->getCheck() == TRUE) {
             return true;
         } else {
             return false;
@@ -157,14 +177,14 @@ GNECreateEdgeFrame::TemplateSelector::useEdgeTemplate() const {
 long
 GNECreateEdgeFrame::TemplateSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
     // check what object was pressed
-    if (obj == myUseTemplateRadioButton) {
+    if (obj == myCreateDefaultEdge) {
         // update buttons
-        myUseTemplateRadioButton->setCheck(TRUE, FALSE);
-        myCustomEdgeRadioButton->setCheck(FALSE, FALSE);
+        myCreateDefaultEdge->setCheck(TRUE, FALSE);
+        myUseCustomEdge->setCheck(FALSE, FALSE);
     } else {
         // update buttons
-        myUseTemplateRadioButton->setCheck(FALSE, FALSE);
-        myCustomEdgeRadioButton->setCheck(TRUE, FALSE);
+        myCreateDefaultEdge->setCheck(FALSE, FALSE);
+        myUseCustomEdge->setCheck(TRUE, FALSE);
     }
     // refresh template selector
     refreshTemplateSelector();
@@ -462,6 +482,8 @@ GNECreateEdgeFrame::EdgeTypeFile::onCmdLoadEdgeProgram(FXObject*, FXSelector, vo
         NITypeLoader::load(handler, {opendialog.getFilename().text()}, "types");
         // write information
         WRITE_MESSAGE("Loaded " + toString(myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().size() - numEdgeTypes) + " edge types");
+        // refresh template selector
+        myCreateEdgeFrame->myTemplateSelector->refreshTemplateSelector();
     }
     return 0;
 }

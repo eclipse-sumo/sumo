@@ -69,11 +69,14 @@ public:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
 
-        /// @brief use template
-        FXRadioButton* myUseTemplateRadioButton = nullptr;
+        /// @brief create default edge
+        FXRadioButton* myCreateDefaultEdge = nullptr;
 
-        /// @brief custom radio button
-        FXRadioButton* myCustomEdgeRadioButton = nullptr;
+        /// @brief use custom edge
+        FXRadioButton* myUseCustomEdge = nullptr;
+
+        /// @brief ComboBox for edge types
+        FXComboBox* myEdgeTypesComboBox = nullptr;
     };
 
     // ===========================================================================
