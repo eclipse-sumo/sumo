@@ -99,7 +99,6 @@ and committing the changes after careful inspection
 > git tag -a v0_13_7 -m "tagging release 0.13.7, refs #563"
 > git push --tags
 ```
-- create new macOS application bundles with the new version number (`build/macos/...`) - can only be done on macOS with platypus installed (see {{Source}}build/macos/README.txt)
 
 ### Release day
 
