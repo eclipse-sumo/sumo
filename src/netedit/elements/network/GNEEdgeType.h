@@ -21,8 +21,6 @@
 #include "GNENetworkElement.h"
 
 #include <netbuild/NBTypeCont.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
-#include <netedit/elements/GNECandidateElement.h>
 
 
 // ===========================================================================

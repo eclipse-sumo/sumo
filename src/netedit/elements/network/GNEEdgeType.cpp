@@ -89,69 +89,32 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
-        /*
-        case SUMO_ATTR_FROM:
-            return getParentJunctions().front()->getID();
-        case SUMO_ATTR_TO:
-            return getParentJunctions().back()->getID();
         case SUMO_ATTR_NUMLANES:
-            return toString(myNBEdge->getNumLanes());
-        case SUMO_ATTR_PRIORITY:
-            return toString(myNBEdge->getPriority());
-        case SUMO_ATTR_LENGTH:
-            return toString(myNBEdge->getFinalLength());
-        case SUMO_ATTR_TYPE:
-            return myNBEdge->getTypeID();
-        case SUMO_ATTR_SHAPE:
-            return toString(myNBEdge->getInnerGeometry());
-        case SUMO_ATTR_SPREADTYPE:
-            return toString(myNBEdge->getLaneSpreadFunction());
-        case SUMO_ATTR_NAME:
-            return myNBEdge->getStreetName();
-        case SUMO_ATTR_ALLOW:
-            return (getVehicleClassNames(myNBEdge->getPermissions()) + (myNBEdge->hasLaneSpecificPermissions() ? " (combined!)" : ""));
-        case SUMO_ATTR_DISALLOW: {
-            return (getVehicleClassNames(invertPermissions(myNBEdge->getPermissions())) + (myNBEdge->hasLaneSpecificPermissions() ? " (combined!)" : ""));
-        }
+            return toString(myType->numLanes);
         case SUMO_ATTR_SPEED:
-            if (myNBEdge->hasLaneSpecificSpeed()) {
-                return "lane specific";
-            } else {
-                return toString(myNBEdge->getSpeed());
-            }
+            return toString(myType->speed);
+        case SUMO_ATTR_ALLOW:
+            return getVehicleClassNames(myType->permissions);
+        case SUMO_ATTR_DISALLOW:
+            return getVehicleClassNames(invertPermissions(myType->permissions));
+        case SUMO_ATTR_PRIORITY:
+            return toString(myType->priority);
+        case SUMO_ATTR_ONEWAY:
+            return toString(myType->oneWay);
+        case SUMO_ATTR_DISCARD:
+            return toString(myType->discard);
         case SUMO_ATTR_WIDTH:
-            if (myNBEdge->hasLaneSpecificWidth()) {
-                return "lane specific";
-            } else {
-                return toString(myNBEdge->getLaneWidth());
-            }
-        case SUMO_ATTR_ENDOFFSET:
-            if (myNBEdge->hasLaneSpecificEndOffset()) {
-                return "lane specific";
-            } else {
-                return toString(myNBEdge->getEndOffset());
-            }
-        case SUMO_ATTR_DISTANCE:
-            return toString(myNBEdge->getDistance());
-        case GNE_ATTR_SHAPE_START:
-            if (myNBEdge->getGeometry().front().distanceSquaredTo2D(getParentJunctions().front()->getNBNode()->getPosition()) < 2) {
-                return "";
-            } else {
-                return toString(myNBEdge->getGeometry().front());
-            }
-        case GNE_ATTR_SHAPE_END:
-            if (myNBEdge->getGeometry().back().distanceSquaredTo2D(getParentJunctions().back()->getNBNode()->getPosition()) < 2) {
-                return "";
-            } else {
-                return toString(myNBEdge->getGeometry().back());
-            }
-        case GNE_ATTR_BIDIR:
-            return toString(myNBEdge->isBidiRail());
-        case GNE_ATTR_SELECTED:
-            return toString(isAttributeCarrierSelected());
+            return toString(myType->width);
+        case SUMO_ATTR_WIDTHRESOLUTION:
+            return toString(myType->widthResolution);
+        case SUMO_ATTR_MAXWIDTH:
+            return toString(myType->maxWidth);
+        case SUMO_ATTR_SIDEWALKWIDTH:
+            return toString(myType->sidewalkWidth);
+        case SUMO_ATTR_BIKELANEWIDTH:
+            return toString(myType->bikeLaneWidth);
         case GNE_ATTR_PARAMETERS:
-            return myNBEdge->getParametersStr();
-        */
+            return getParametersStr();
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -161,60 +124,22 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
 void
 GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
-        case SUMO_ATTR_WIDTH:
-        case SUMO_ATTR_ENDOFFSET:
+        case SUMO_ATTR_ID:
+        case SUMO_ATTR_NUMLANES:
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_ALLOW:
-        case SUMO_ATTR_DISALLOW: {
-        /*
-            undoList->p_begin("change " + getTagStr() + " attribute");
-            const std::string origValue = myLanes.at(0)->getAttribute(key); // will have intermediate value of "lane specific"
-            // lane specific attributes need to be changed via lanes to allow undo
-            for (auto it : myLanes) {
-                it->setAttribute(key, value, undoList);
-            }
-            // ensure that the edge value is also changed. Actually this sets the lane attributes again but it does not matter
-            undoList->p_add(new GNEChange_Attribute(this, key, value, origValue));
-            undoList->p_end();
-        */
-            break;
-        }
-        case SUMO_ATTR_ID:
+        case SUMO_ATTR_DISALLOW:
         case SUMO_ATTR_PRIORITY:
-        case SUMO_ATTR_LENGTH:
-        case SUMO_ATTR_TYPE:
-        case SUMO_ATTR_SPREADTYPE:
-        case SUMO_ATTR_DISTANCE:
-        case GNE_ATTR_MODIFICATION_STATUS:
-        case GNE_ATTR_SHAPE_START:
-        case GNE_ATTR_SHAPE_END:
-        case GNE_ATTR_SELECTED:
+        case SUMO_ATTR_ONEWAY:
+        case SUMO_ATTR_DISCARD:
+        case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_WIDTHRESOLUTION:
+        case SUMO_ATTR_MAXWIDTH:
+        case SUMO_ATTR_SIDEWALKWIDTH:
+        case SUMO_ATTR_BIKELANEWIDTH:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
-        case SUMO_ATTR_NAME:
-            // user cares about street names. Make sure they appear in the output
-            OptionsCont::getOptions().resetWritable();
-            OptionsCont::getOptions().set("output.street-names", "true");
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
-            break;
-        case SUMO_ATTR_NUMLANES:
-        /*
-            if (value != getAttribute(key)) {
-                // set num lanes
-                setNumLanes(parse<int>(value), undoList);
-            }
-            */
-            break;
-        case SUMO_ATTR_SHAPE:
-            // @note: assumes value of inner geometry!
-            // actually the geometry is already updated (incrementally
-            // during mouse movement). We set the restore point to the end
-            // of the last change-set
-            undoList->p_add(new GNEChange_Attribute(this, key, value));
-            break;
-        case GNE_ATTR_BIDIR:
-            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
@@ -225,63 +150,26 @@ bool
 GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdge(value, false) == nullptr);
-        case SUMO_ATTR_FROM: {
-            // check that is a valid ID and is different of ID of junction destiny
-            if (SUMOXMLDefinitions::isValidNetID(value) && (value != getParentJunctions().back()->getID())) {
-                GNEJunction* junctionFrom = myNet->retrieveJunction(value, false);
-                // check that there isn't already another edge with the same From and To Edge
-                if ((junctionFrom != nullptr) && (myNet->retrieveEdge(junctionFrom, getParentJunctions().back(), false) == nullptr)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-        case SUMO_ATTR_TO: {
-            // check that is a valid ID and is different of ID of junction Source
-            if (SUMOXMLDefinitions::isValidNetID(value) && (value != getParentJunctions().front()->getID())) {
-                GNEJunction* junctionTo = myNet->retrieveJunction(value, false);
-                // check that there isn't already another edge with the same From and To Edge
-                if ((junctionTo != nullptr) && (myNet->retrieveEdge(getParentJunctions().front(), junctionTo, false) == nullptr)) {
-                    return true;
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        }
-        case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveEdgeType(value, false) == nullptr);
         case SUMO_ATTR_NUMLANES:
             return canParse<int>(value) && (parse<double>(value) > 0);
-        case SUMO_ATTR_PRIORITY:
-            return canParse<int>(value);
-        case SUMO_ATTR_LENGTH:
-            return canParse<double>(value) && ((parse<double>(value) > 0) || (parse<double>(value) == NBEdge::UNSPECIFIED_LOADED_LENGTH));
+        case SUMO_ATTR_SPEED:
+            return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
             return canParseVehicleClasses(value);
-        case SUMO_ATTR_TYPE:
-            return true;
-        case SUMO_ATTR_SHAPE:
-            // empty shapes are allowed
-            return canParse<PositionVector>(value);
-        case SUMO_ATTR_SPREADTYPE:
-            return SUMOXMLDefinitions::LaneSpreadFunctions.hasString(value);
-        case SUMO_ATTR_NAME:
-            return true;
-        case SUMO_ATTR_WIDTH:
-            return canParse<double>(value) && ((parse<double>(value) >= -1) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
-        case SUMO_ATTR_DISTANCE:
-            return canParse<double>(value);
-        case GNE_ATTR_BIDIR:
-            return false;
-        case GNE_ATTR_SELECTED:
+        case SUMO_ATTR_PRIORITY:
+            return canParse<int>(value);
+        case SUMO_ATTR_ONEWAY:
             return canParse<bool>(value);
+        case SUMO_ATTR_DISCARD:
+            return canParse<bool>(value);
+        case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_WIDTHRESOLUTION:
+        case SUMO_ATTR_MAXWIDTH:
+        case SUMO_ATTR_SIDEWALKWIDTH:
+        case SUMO_ATTR_BIKELANEWIDTH:
+            return canParse<double>(value) && ((parse<double>(value) >= -1) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -291,13 +179,8 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
 
 
 bool
-GNEEdgeType::isAttributeEnabled(SumoXMLAttr key) const {
-    switch (key) {
-        case GNE_ATTR_BIDIR:
-            return false;
-        default:
-            return true;
-    }
+GNEEdgeType::isAttributeEnabled(SumoXMLAttr /*key*/) const {
+    return true;
 }
 
 
@@ -313,59 +196,45 @@ GNEEdgeType::getACParametersMap() const {
 void
 GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-        case SUMO_ATTR_ID:
+    case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_NUMLANES:
-            throw InvalidArgument("GNEEdgeType::setAttribute (private) called for attr SUMO_ATTR_NUMLANES. This should never happen");
-            break;
-        case SUMO_ATTR_PRIORITY:
-
-            // myNBEdge->myPriority = parse<int>(value);
-            break;
-        /*
-        case SUMO_ATTR_LENGTH:
-            myNBEdge->setLoadedLength(parse<double>(value));
-            break;
-        case SUMO_ATTR_TYPE:
-            // myNBEdge->myType = value;
-            break;
-        case SUMO_ATTR_SHAPE:
-            // update centering boundary and grid
-            updateCenteringBoundary(true);
-            break;
-        case SUMO_ATTR_SPREADTYPE:
-            myNBEdge->setLaneSpreadFunction(SUMOXMLDefinitions::LaneSpreadFunctions.get(value));
-            break;
-        case SUMO_ATTR_NAME:
-            myNBEdge->setStreetName(value);
+            myType->numLanes = parse<int>(value);
             break;
         case SUMO_ATTR_SPEED:
-            myNBEdge->setSpeed(-1, parse<double>(value));
-            break;
-        case SUMO_ATTR_WIDTH:
-            myNBEdge->setLaneWidth(-1, parse<double>(value));
-            break;
-        case SUMO_ATTR_ENDOFFSET:
-            myNBEdge->setEndOffset(-1, parse<double>(value));
+            myType->speed = parse<double>(value);
             break;
         case SUMO_ATTR_ALLOW:
-            break;  // no edge value
+            myType->permissions = parseVehicleClasses(value);
+            break;
         case SUMO_ATTR_DISALLOW:
-            break; // no edge value
-        case SUMO_ATTR_DISTANCE:
-            myNBEdge->setDistance(parse<double>(value));
+            myType->permissions = invertPermissions(parseVehicleClasses(value));
             break;
-        case GNE_ATTR_BIDIR:
-            throw InvalidArgument("Attribute of '" + toString(key) + "' cannot be modified");
-        case GNE_ATTR_SELECTED:
-            if (parse<bool>(value)) {
-                selectAttributeCarrier();
-            } else {
-                unselectAttributeCarrier();
-            }
+        case SUMO_ATTR_PRIORITY:
+            myType->priority = parse<int>(value);
             break;
-        */
+        case SUMO_ATTR_ONEWAY:
+            myType->oneWay = parse<bool>(value);
+            break;
+        case SUMO_ATTR_DISCARD:
+            myType->discard = parse<bool>(value);
+            break;
+        case SUMO_ATTR_WIDTH:
+            myType->width = parse<double>(value);
+            break;
+        case SUMO_ATTR_WIDTHRESOLUTION:
+            myType->widthResolution = parse<double>(value);
+            break;
+        case SUMO_ATTR_MAXWIDTH:
+            myType->maxWidth = parse<double>(value);
+            break;
+        case SUMO_ATTR_SIDEWALKWIDTH:
+            myType->sidewalkWidth = parse<double>(value);
+            break;
+        case SUMO_ATTR_BIKELANEWIDTH:
+            myType->bikeLaneWidth = parse<double>(value);
+            break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
             break;
