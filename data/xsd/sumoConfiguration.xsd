@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep  8 13:06:13 2020 by Eclipse SUMO sumo Version v1_6_0+2018-124343ba59
+<!-- generated on Wed Nov 18 10:23:10 2020 by Eclipse SUMO sumo Version v1_7_0+1088-46b7762484
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -74,6 +74,7 @@
             <xsd:element name="fcd-output.signals" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.distance" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.acceleration" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="fcd-output.max-leader-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.params" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="fcd-output.filter-edges.input-file" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="full-output" type="fileOptionType" minOccurs="0"/>
@@ -166,6 +167,7 @@
             <xsd:element name="pedestrian.striping.dawdling" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.jamtime.crossing" type="timeOptionType" minOccurs="0"/>
+            <xsd:element name="pedestrian.striping.jamtime.narrow" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.reserve-oncoming" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.striping.reserve-oncoming.junctions" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="pedestrian.remote.address" type="strOptionType" minOccurs="0"/>
@@ -185,6 +187,8 @@
             <xsd:element name="persontrip.transfer.car-walk" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.transfer.taxi-walk" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="persontrip.transfer.walk-taxi" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.default.group" type="strOptionType" minOccurs="0"/>
+            <xsd:element name="persontrip.taxi.waiting-time" type="timeOptionType" minOccurs="0"/>
             <xsd:element name="railway.max-train-length" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.rerouting.explicit" type="strArrayOptionType" minOccurs="0"/>
@@ -425,6 +429,7 @@
             <xsd:element name="game" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="game.mode" type="strOptionType" minOccurs="0"/>
             <xsd:element name="start" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="delay" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="breakpoints" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="edgedata-files" type="fileOptionType" minOccurs="0"/>
             <xsd:element name="demo" type="boolOptionType" minOccurs="0"/>

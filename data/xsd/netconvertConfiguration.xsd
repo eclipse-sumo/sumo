@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Sep  8 13:06:13 2020 by Eclipse SUMO netconvert Version v1_6_0+2018-124343ba59
+<!-- generated on Wed Nov 18 10:23:10 2020 by Eclipse SUMO netconvert Version v1_7_0+1088-46b7762484
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -261,6 +261,7 @@
             <xsd:element name="junctions.join" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-dist" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="junctions.join-exclude" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="junctions.join-same" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="junctions.corner-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.internal-link-detail" type="intOptionType" minOccurs="0"/>
             <xsd:element name="junctions.scurve-stretch" type="floatOptionType" minOccurs="0"/>
@@ -345,6 +346,7 @@
             <xsd:element name="shapefile.guess-projection" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="shapefile.traditional-axis-mapping" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="dlr-navteq.tolerant-permissions" type="boolOptionType" minOccurs="0"/>
+            <xsd:element name="dlr-navteq.keep-length" type="boolOptionType" minOccurs="0"/>
             <xsd:element name="vissim.join-distance" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="vissim.default-speed" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="vissim.speed-norm" type="floatOptionType" minOccurs="0"/>
