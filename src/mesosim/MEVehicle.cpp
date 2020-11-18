@@ -467,6 +467,10 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
             assert(myEventTime != SUMOTime_MIN);
             MSGlobals::gMesoNet->addLeaderCar(this, nullptr);
         }
+        // see MSBaseVehicle constructor
+        if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
+            calculateArrivalParams();
+        }
     }
     if (myBlockTime != SUMOTime_MAX) {
         myBlockTime -= offset;

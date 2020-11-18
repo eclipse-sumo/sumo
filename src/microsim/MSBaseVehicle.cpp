@@ -758,7 +758,7 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET)) {
         out.writeAttr(SUMO_ATTR_SPEEDFACTOR, myChosenSpeedFactor);
     }
-    if (myParameter->wasSet(VEHPARS_FORCE_REROUTE) && !hasDeparted()) {
+    if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
         out.writeAttr(SUMO_ATTR_REROUTE, true);
     }
     if (!myParameter->wasSet(VEHPARS_LINE_SET) && myParameter->line != "") {

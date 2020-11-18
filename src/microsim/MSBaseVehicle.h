@@ -761,7 +761,6 @@ public:
         return std::make_pair(nullptr, -1);
     }
 
-protected:
     /** @brief (Re-)Calculates the arrival position and lane from the vehicle parameters
      */
     void calculateArrivalParams();

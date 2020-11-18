@@ -6356,6 +6356,10 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
             myStops.pop_front();
             pastStops--;
         }
+        // see MSBaseVehicle constructor
+        if (myParameter->wasSet(VEHPARS_FORCE_REROUTE)) {
+            calculateArrivalParams();
+        }
     }
     std::istringstream pis(attrs.getString(SUMO_ATTR_POSITION));
     pis >> myState.myPos >> myState.myBackPos >> myState.myLastCoveredDist;
