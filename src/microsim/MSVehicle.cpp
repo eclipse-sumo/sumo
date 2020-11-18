@@ -3512,7 +3512,7 @@ MSVehicle::checkReversal(bool& canReverse, double speedThreshold, double seen) c
 
 
 void
-MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, std::string& emergencyReason) {
+MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& emergencyReason) {
     for (std::vector<MSLane*>::reverse_iterator i = myFurtherLanes.rbegin(); i != myFurtherLanes.rend(); ++i) {
         passedLanes.push_back(*i);
     }
@@ -3639,7 +3639,6 @@ MSVehicle::processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, s
                             myLaneChangeModel->endLaneChangeManeuver();
                         }
                     }
-                    moved = true;
                     if (approachedLane->getEdge().isVaporizing()) {
                         leaveLane(MSMoveReminder::NOTIFICATION_VAPORIZED_VAPORIZER);
                         break;
@@ -3784,11 +3783,11 @@ MSVehicle::executeMove() {
 
     // Lanes, which the vehicle touched at some moment of the executed simstep
     std::vector<MSLane*> passedLanes;
-    // Whether the vehicle did move to another lane
-    bool moved = false;
+    // remeber previous lane (myLane is updated in processLaneAdvances)
+    const MSLane* oldLane = myLane;
     // Reason for a possible emergency stop
     std::string emergencyReason = " for unknown reasons";
-    processLaneAdvances(passedLanes, moved, emergencyReason);
+    processLaneAdvances(passedLanes, emergencyReason);
 
     updateTimeLoss(vNext);
     myCollisionImmunity = MAX2((SUMOTime) - 1, myCollisionImmunity - DELTA_T);
@@ -3818,7 +3817,7 @@ MSVehicle::executeMove() {
         myState.myBackPos = updateFurtherLanes(myFurtherLanes, myFurtherLanesPosLat, passedLanes);
         // bestLanes need to be updated before lane changing starts. NOTE: This call is also a presumption for updateDriveItems()
         updateBestLanes();
-        if (moved || oldBackLane != getBackLane()) {
+        if (myLane != oldLane || oldBackLane != getBackLane()) {
             if (myLaneChangeModel->getShadowLane() != nullptr || getLateralOverlap() > POSITION_EPS) {
                 // shadow lane must be updated if the front or back lane changed
                 // either if we already have a shadowLane or if there is lateral overlap
@@ -3867,7 +3866,8 @@ MSVehicle::executeMove() {
         }
     }
     workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
-    return moved;
+    // Return whether the vehicle did move to another lane
+    return myLane != oldLane;
 }
 
 void
@@ -3895,14 +3895,12 @@ MSVehicle::executeFractionalMove(double dist) {
     }
     // minimum execute move:
     std::vector<MSLane*> passedLanes;
-    // Whether the vehicle did move to another lane
-    bool moved = false;
     // Reason for a possible emergency stop
     std::string emergencyReason = " for unknown reasons";
     if (lanes.size() > 1) {
         myLane->removeVehicle(this, MSMoveReminder::NOTIFICATION_JUNCTION, false);
     }
-    processLaneAdvances(passedLanes, moved, emergencyReason);
+    processLaneAdvances(passedLanes, emergencyReason);
     workOnMoveReminders(myState.myPos - myState.myLastCoveredDist, myState.myPos, myState.mySpeed);
     if (lanes.size() > 1) {
         myLane->forceVehicleInsertion(this, getPositionOnLane(), MSMoveReminder::NOTIFICATION_JUNCTION, getLateralPositionOnLane());

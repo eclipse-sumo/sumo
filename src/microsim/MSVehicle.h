@@ -1745,10 +1745,9 @@ protected:
      *         and adapts the given in/out parameters to the appropriate values.
      *
      *  @param[out] passedLanes Lanes, which the vehicle touched at some moment of the executed simstep
-     *  @param[out] moved Whether the vehicle did move to another lane
      *  @param[out] emergencyReason Reason for a possible emergency stop
      */
-    void processLaneAdvances(std::vector<MSLane*>& passedLanes, bool& moved, std::string& emergencyReason);
+    void processLaneAdvances(std::vector<MSLane*>& passedLanes, std::string& emergencyReason);
 
 
     /** @brief Check for speed advices from the traci client and adjust the speed vNext in
