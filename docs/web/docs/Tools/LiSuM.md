@@ -37,16 +37,15 @@ for batch processing called [\#LiSuM-Core](#lisum-core)
 ![LISASumo.MainWindow.PNG](../images/LISASumo.MainWindow.PNG
 "LISASumo.MainWindow.PNG")LiSuM Main window
 
-The installation of LiSuM is straightforward and it may not present
-major difficulties. It is recommended to have Java SE Runtime Environment
-(version 11 and later) and SUMO (version 1.0.1 and later) installed
-before beginning with the installation. In order to install it on a
-Windows machine just download and execute the provided *msi* file and
-follow its instructions. On Ubuntu or other Linux distributions download
-the provided *zip* file and unzip it in any directory of your choice; to
-start LiSuM, seek the *jar* file, open a terminal and execute it using
-the well-known <i>java -jar</i> command. If you want to run LiSuM-Core
-only (do not need the GUI) Java 7 is sufficient.
+The installation of LiSuM is straightforward and it may not present major difficulties. 
+Before compiling and running LiSuM it is recommended to have the following software installed on your computer:
+
+- Java SE Runtime Environment (version 11 and later for lisum-gui and version 7 and later for lisum-core) 
+- SUMO (version 1.0.1 and later) 
+- and [Apache Maven](https://maven.apache.org/). 
+
+In a command or terminal window execute the Maven command install (*mvn install*) in the traas, lisum-core and lisum-gui folders (in that order).
+For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the <i>java -jar</i> command. 
 
 When LiSuM is started for the first time, the user is prompt to select a
 directory which is going to be used as the workspace directory. The
