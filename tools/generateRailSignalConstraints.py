@@ -325,6 +325,7 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
     numIgnoredConflicts = 0
     # signal -> [(tripID, otherSignal, otherTripID, limit, line, otherLine, vehID, otherVehID), ...]
     conflicts = defaultdict(list)
+    ignoredVehicles = set()
     for switch, stopRoutes2 in switchRoutes.items():
         numSwitchConflicts = 0
         numIgnoredSwitchConflicts = 0
@@ -368,7 +369,14 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                                         humanReadableTime(nArrival),
                                         humanReadableTime(parseTime(nStop.until))),
                                     file=sys.stderr)
+                            #ignoredVehicles.insert(pStop.vehID)
+                            ignoredVehicles.add(nStop.vehID)
                         ignore = True
+                        continue
+                    if (options.abortUnordered and nStop.vehID in ignoredVehicles):
+                        # no constraints for inconsistent vehicle to avoid deadlock
+                        numIgnoredConflicts += 1
+                        numIgnoredSwitchConflicts += 1
                         continue
                     if options.skipParking and parseBool(nStop.getAttributeSecure("parking", "false")):
                         print("ignoring stop at %s for parking vehicle %s (%s, %s)" % (
