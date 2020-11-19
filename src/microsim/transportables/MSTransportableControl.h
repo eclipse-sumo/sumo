@@ -74,7 +74,7 @@ public:
 
     /** @brief Returns the named transportable, if existing
      * @param[in] id The id of the transportable
-     * @return The named transportable, if existing, otherwise 0
+     * @return The named transportable, if existing, otherwise nullptr
      */
     MSTransportable* get(const std::string& id) const;
 

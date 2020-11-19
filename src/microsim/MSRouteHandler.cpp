@@ -812,7 +812,8 @@ MSRouteHandler::closePersonFlow() {
 
 void
 MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i) {
-    MSTransportableControl& pc = MSNet::getInstance()->getPersonControl();
+    MSNet* const net = MSNet::getInstance();
+    MSTransportableControl& pc = net->getPersonControl();
     const int quota = MSNet::getInstance()->getVehicleControl().getQuota(-1, pc.getLoadedNumber());
     if (quota == 0) {
         pc.addDiscarded();
@@ -836,7 +837,7 @@ MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::s
         myVehicleParameter->id = (baseID
                                   + (i >= 0 ? "." + toString(i) : "")
                                   + (j > 0 ?  "." + toString(j) : ""));
-        myVehicleParameter->depart = depart += MSNet::getInstance()->getInsertionControl().computeRandomDepartOffset();
+        myVehicleParameter->depart = depart += net->getInsertionControl().computeRandomDepartOffset();
         MSTransportable* person = pc.buildPerson(myVehicleParameter, type, myActivePlan, &myParsingRNG);
         if (!pc.add(person)) {
             ProcessError error("Another person with the id '" + myVehicleParameter->id + "' exists.");
@@ -844,6 +845,8 @@ MSRouteHandler::addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::s
             if (!MSGlobals::gStateLoaded) {
                 throw error;
             }
+        } else if (net->hasContainers() && net->getContainerControl().get(myVehicleParameter->id) != nullptr) {
+            WRITE_WARNINGF("A person has the same id as container '%'. Starting with SUMO 1.9.0 this will be an error.", myVehicleParameter->id);
         }
     }
 }
@@ -871,14 +874,18 @@ MSRouteHandler::closeContainer() {
     if (myActiveContainerPlan->size() == 0) {
         throw ProcessError("Container '" + myVehicleParameter->id + "' has no plan.");
     }
-    MSVehicleType* type = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid);
+    MSNet* const net = MSNet::getInstance();
+    MSVehicleType* type = net->getVehicleControl().getVType(myVehicleParameter->vtypeid);
     if (type == nullptr) {
         throw ProcessError("The type '" + myVehicleParameter->vtypeid + "' for container '" + myVehicleParameter->id + "' is not known.");
     }
-    MSTransportable* container = MSNet::getInstance()->getContainerControl().buildContainer(myVehicleParameter, type, myActiveContainerPlan);
+    MSTransportable* container = net->getContainerControl().buildContainer(myVehicleParameter, type, myActiveContainerPlan);
     // @todo: consider myScale?
     if (myAddVehiclesDirectly || checkLastDepart()) {
-        if (MSNet::getInstance()->getContainerControl().add(container)) {
+        if (net->getContainerControl().add(container)) {
+            if (net->hasPersons() && net->getPersonControl().get(myVehicleParameter->id) != nullptr) {
+                WRITE_WARNINGF("A container has the same id as person '%'. Starting with SUMO 1.9.0 this will be an error.", myVehicleParameter->id);
+            }
             registerLastDepart();
         } else {
             ProcessError error("Another container with the id '" + myVehicleParameter->id + "' exists.");
