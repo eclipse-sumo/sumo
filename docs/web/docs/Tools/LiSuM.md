@@ -41,11 +41,11 @@ The installation of LiSuM is straightforward and it may not present major diffic
 Before compiling and running LiSuM it is recommended to have the following software installed on your computer:
 
 - Java SE Runtime Environment (version 11 and later for lisum-gui and version 7 and later for lisum-core) 
-- SUMO (version 1.0.1 and later) 
-- and [Apache Maven](https://maven.apache.org/). 
+- SUMO (version 1.0.1 or later) 
+- and [Apache Maven](https://maven.apache.org/)
 
-In a command or terminal window execute the Maven command install (*mvn install*) in the traas, lisum-core and lisum-gui folders (in that order).
-For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the <i>java -jar</i> command. 
+In a command or terminal window execute the Maven command install (`mvn install`) in the traas, lisum-core and lisum-gui folders (in that order).
+For starting lisum-core or lisum-gui, seek the *jar* file, open a terminal and execute it using the `java -jar` command. 
 
 When LiSuM is started for the first time, the user is prompt to select a
 directory which is going to be used as the workspace directory. The
