@@ -941,7 +941,6 @@ GNEAttributeCarrier::fillNetworkElements() {
             "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
 
-
         attrProperty = GNEAttributeProperties(SUMO_ATTR_SIDEWALKWIDTH,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
             "Sidewalk width for all lanes of this edge in meters (used for visualization)",
@@ -951,6 +950,39 @@ GNEAttributeCarrier::fillNetworkElements() {
         attrProperty = GNEAttributeProperties(SUMO_ATTR_BIKELANEWIDTH,
             GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
             "Bikelane width for all lanes of this edge in meters (used for visualization)",
+            "-1");
+        myTagProperties[currentTag].addAttribute(attrProperty);
+    }
+    currentTag = GNE_TAG_LANETYPE;
+    {
+        // set values of tag
+        myTagProperties[currentTag] = GNETagProperties(currentTag,
+            GNETagProperties::NETWORKELEMENT,
+            0,
+            GUIIcon::LANETYPE);
+        // set values of attributes
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_SPEED,
+            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC,
+            "The maximum speed allowed on the lane in m/s",
+            toString(oc.getFloat("default.speed")));
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_ALLOW,
+            GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::VCLASSES,
+            "Explicitly allows the given vehicle classes (not given will be not allowed)",
+            "all");
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_DISALLOW,
+            GNEAttributeProperties::VCLASS | GNEAttributeProperties::LIST | GNEAttributeProperties::DISCRETE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::VCLASSES,
+            "Explicitly disallows the given vehicle classes (not given will be allowed)");
+        attrProperty.setDiscreteValues(SumoVehicleClassStrings.getStrings());
+        myTagProperties[currentTag].addAttribute(attrProperty);
+
+        attrProperty = GNEAttributeProperties(SUMO_ATTR_WIDTH,
+            GNEAttributeProperties::FLOAT | GNEAttributeProperties::POSITIVE | GNEAttributeProperties::DEFAULTVALUESTATIC | GNEAttributeProperties::UPDATEGEOMETRY,
+            "Lane width for all lanes of this lane in meters (used for visualization)",
             "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
