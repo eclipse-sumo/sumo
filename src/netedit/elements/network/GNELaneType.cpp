@@ -89,7 +89,7 @@ std::string
 GNELaneType::getAttribute(SumoXMLAttr key) const {
     switch (key) {
         case SUMO_ATTR_ID:
-            return getID();
+            return myEdgeTypeParent->getID() + toString(myEdgeTypeParent->getLaneTypeIndex(this));
         case SUMO_ATTR_SPEED:
             return toString(speed);
         case SUMO_ATTR_ALLOW:
@@ -110,6 +110,7 @@ void
 GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList* undoList) {
     switch (key) {
         case SUMO_ATTR_ID:
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
@@ -127,7 +128,7 @@ bool
 GNELaneType::isValid(SumoXMLAttr key, const std::string& value) {
     switch (key) {
         case SUMO_ATTR_ID:
-            return SUMOXMLDefinitions::isValidNetID(value) && (myNet->retrieveLaneType(value, false) == nullptr);
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
         case SUMO_ATTR_SPEED:
             return canParse<double>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_ALLOW:
@@ -161,9 +162,8 @@ GNELaneType::getACParametersMap() const {
 void
 GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
-            myNet->getAttributeCarriers()->updateID(this, value);
-            break;
+        case SUMO_ATTR_ID:
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
         case SUMO_ATTR_SPEED:
             speed = parse<double>(value);
             break;
