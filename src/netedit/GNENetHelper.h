@@ -124,16 +124,6 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name function for laneTypes
-        /// @{
-        /// @brief map with the ID and pointer to laneTypes of net
-        const std::map<std::string, GNELaneType*>& getLaneTypes() const;
-
-        /// @brief clear laneTypes
-        void clearLaneTypes();
-
-        /// @}
-
         /// @name function for edges
         /// @{
         /// @brief registers an edge with GNENet containers
@@ -277,19 +267,6 @@ struct GNENetHelper {
 
         /// @}
 
-        /// @name Insertion and erasing of GNELaneTypes
-        /// @{
-        /// @brief inserts a single laneType into the net and into the underlying netbuild-container
-        void insertLaneType(GNELaneType* laneType);
-
-        /// @brief deletes laneType
-        void deleteLaneType(GNELaneType* laneType);
-
-        /// @brief update laneType ID in container
-        void updateLaneTypeID(GNEAttributeCarrier* AC, const std::string& newID);
-
-        /// @}
-
         /// @name Insertion and erasing of GNEEdges
         /// @{
         /// @brief inserts a single edge into the net and into the underlying netbuild-container
@@ -412,9 +389,6 @@ struct GNENetHelper {
 
         /// @brief map with the ID and pointer to edgeTypes of net
         std::map<std::string, GNEEdgeType*> myEdgeTypes;
-
-        /// @brief map with the ID and pointer to laneTypes of net
-        std::map<std::string, GNELaneType*> myLaneTypes;
 
         /// @brief map with the ID and pointer to edges of net
         std::map<std::string, GNEEdge*> myEdges;

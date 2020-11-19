@@ -80,13 +80,6 @@ GNENetHelper::AttributeCarriers::~AttributeCarriers() {
         WRITE_DEBUG("Deleting unreferenced " + edgeType.second->getTagStr() + " '" + edgeType.second->getID() + "' in AttributeCarriers destructor");
         delete edgeType.second;
     }
-    // Drop LaneTypes
-    for (const auto& laneType : myLaneTypes) {
-        laneType.second->decRef("GNENetHelper::~GNENet");
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + laneType.second->getTagStr() + " '" + laneType.second->getID() + "' in AttributeCarriers destructor");
-        delete laneType.second;
-    }
     // Drop Edges
     for (const auto& edge : myEdges) {
         edge.second->decRef("GNENetHelper::~GNENet");
@@ -212,17 +205,6 @@ GNENetHelper::AttributeCarriers::getEdgeTypes() const {
 
 void GNENetHelper::AttributeCarriers::clearEdgeTypes() {
     myEdgeTypes.clear();
-}
-
-
-const std::map<std::string, GNELaneType*>&
-GNENetHelper::AttributeCarriers::getLaneTypes() const {
-    return myLaneTypes;
-}
-
-
-void GNENetHelper::AttributeCarriers::clearLaneTypes() {
-    myLaneTypes.clear();
 }
 
 
@@ -555,50 +537,6 @@ GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEAttributeCarrier* AC, const
         edgeType->setMicrosimID(newID);
         // add it into myEdgeTypes again
         myEdgeTypes[AC->getID()] = edgeType;
-        // net has to be saved
-        myNet->requireSaveNet(true);
-    }
-}
-
-
-void
-GNENetHelper::AttributeCarriers::insertLaneType(GNELaneType* laneType) {
-    myLaneTypes[laneType->getMicrosimID()] = laneType;
-}
-
-
-void
-GNENetHelper::AttributeCarriers::deleteLaneType(GNELaneType* laneType) {
-    // remove it from inspected elements and HierarchicalElementTree
-    myNet->getViewNet()->removeFromAttributeCarrierInspected(laneType);
-    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(laneType);
-    myLaneTypes.erase(laneType->getMicrosimID());
-    /*
-    // extract laneType of district container
-    myNet->getNetBuilder()->getLaneTypeCont().extract(myNet->getNetBuilder()->getDistrictCont(), laneType->getNBLaneType());
-    */
-}
-
-
-void
-GNENetHelper::AttributeCarriers::updateLaneTypeID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (myLaneTypes.count(AC->getID()) == 0) {
-        throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.laneType");
-    } else if (myLaneTypes.count(newID) != 0) {
-        throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in myLaneTypes");
-    } else {
-        // retrieve laneType
-        GNELaneType* laneType = myLaneTypes.at(AC->getID());
-        // remove laneType from container
-        myLaneTypes.erase(laneType->getID());
-        /*
-        // rename in NetBuilder
-        myNet->getNetBuilder()->getLaneTypeCont().rename(laneType->getNBLaneType(), newID);
-        */
-        // update microsim ID
-        laneType->setMicrosimID(newID);
-        // add it into myLaneTypes again
-        myLaneTypes[AC->getID()] = laneType;
         // net has to be saved
         myNet->requireSaveNet(true);
     }
