@@ -59,7 +59,7 @@ GNEChange_LaneType::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete laneType from net
-        myLaneType->getNet()->getAttributeCarriers()->deleteSingleLaneType(myLaneType);
+        myLaneType->getNet()->getAttributeCarriers()->deleteLaneType(myLaneType);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
@@ -82,7 +82,7 @@ GNEChange_LaneType::redo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete laneType from net
-        myLaneType->getNet()->getAttributeCarriers()->deleteSingleLaneType(myLaneType);
+        myLaneType->getNet()->getAttributeCarriers()->deleteLaneType(myLaneType);
     }
     // enable save networkElements
     myLaneType->getNet()->requireSaveNet(true);

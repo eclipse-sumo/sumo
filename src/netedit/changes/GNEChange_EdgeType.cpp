@@ -59,7 +59,7 @@ GNEChange_EdgeType::undo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete edgeType from net
-        myEdgeType->getNet()->getAttributeCarriers()->deleteSingleEdgeType(myEdgeType);
+        myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' from " + toString(SUMO_TAG_NET));
@@ -82,7 +82,7 @@ GNEChange_EdgeType::redo() {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' from " + toString(SUMO_TAG_NET));
         // delete edgeType from net
-        myEdgeType->getNet()->getAttributeCarriers()->deleteSingleEdgeType(myEdgeType);
+        myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
     }
     // enable save networkElements
     myEdgeType->getNet()->requireSaveNet(true);

@@ -1125,6 +1125,21 @@ GNENet::retrieveEdgeType(const std::string& id, bool failHard) const {
 }
 
 
+GNELaneType*
+GNENet::retrieveLaneType(const std::string& id, bool failHard) const {
+    auto i = myAttributeCarriers->getLaneTypes().find(id);
+    // If lane was found
+    if (i != myAttributeCarriers->getLaneTypes().end()) {
+        return i->second;
+    } else if (failHard) {
+        // If lane wasn't found, throw exception
+        throw UnknownElement("LaneType " + id);
+    } else {
+        return nullptr;
+    }
+}
+
+
 GNEEdge*
 GNENet::retrieveEdge(const std::string& id, bool failHard) const {
     auto i = myAttributeCarriers->getEdges().find(id);

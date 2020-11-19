@@ -51,9 +51,10 @@ class GNEApplicationWindow;
 class GNEAttributeCarrier;
 class GNEConnection;
 class GNECrossing;
-class GNEEdge;
-class GNEEdgeType;
 class GNEJunction;
+class GNEEdgeType;
+class GNELaneType;
+class GNEEdge;
 class GNELane;
 class GNENetworkElement;
 class GNEPOI;
@@ -77,6 +78,7 @@ struct GNENetHelper {
         friend class GNERouteHandler;
         friend class GNEChange_Junction;
         friend class GNEChange_EdgeType;
+        friend class GNEChange_LaneType;
         friend class GNEChange_Edge;
         friend class GNEChange_Additional;
         friend class GNEChange_Shape;
@@ -119,6 +121,16 @@ struct GNENetHelper {
 
         /// @brief clear edgeTypes
         void clearEdgeTypes();
+
+        /// @}
+
+        /// @name function for laneTypes
+        /// @{
+        /// @brief map with the ID and pointer to laneTypes of net
+        const std::map<std::string, GNELaneType*>& getLaneTypes() const;
+
+        /// @brief clear laneTypes
+        void clearLaneTypes();
 
         /// @}
 
@@ -257,11 +269,24 @@ struct GNENetHelper {
         /// @brief inserts a single edgeType into the net and into the underlying netbuild-container
         void insertEdgeType(GNEEdgeType* edgeType);
 
-        /// @brief deletes a single edgeType
-        void deleteSingleEdgeType(GNEEdgeType* edgeType);
+        /// @brief deletes edgeType
+        void deleteEdgeType(GNEEdgeType* edgeType);
 
         /// @brief update edgeType ID in container
         void updateEdgeTypeID(GNEAttributeCarrier* AC, const std::string& newID);
+
+        /// @}
+
+        /// @name Insertion and erasing of GNELaneTypes
+        /// @{
+        /// @brief inserts a single laneType into the net and into the underlying netbuild-container
+        void insertLaneType(GNELaneType* laneType);
+
+        /// @brief deletes laneType
+        void deleteLaneType(GNELaneType* laneType);
+
+        /// @brief update laneType ID in container
+        void updateLaneTypeID(GNEAttributeCarrier* AC, const std::string& newID);
 
         /// @}
 
@@ -387,6 +412,9 @@ struct GNENetHelper {
 
         /// @brief map with the ID and pointer to edgeTypes of net
         std::map<std::string, GNEEdgeType*> myEdgeTypes;
+
+        /// @brief map with the ID and pointer to laneTypes of net
+        std::map<std::string, GNELaneType*> myLaneTypes;
 
         /// @brief map with the ID and pointer to edges of net
         std::map<std::string, GNEEdge*> myEdges;

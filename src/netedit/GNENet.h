@@ -283,11 +283,18 @@ public:
     GNEJunction* retrieveJunction(const std::string& id, bool failHard = true) const;
 
     /**@brief get edge type by id
-    * @param[in] id The id of the desired edge type
-    * @param[in] failHard Whether attempts to retrieve a nonexisting edge type should result in an exception
-    * @throws UnknownElement
-    */
+     * @param[in] id The id of the desired edge type
+     * @param[in] failHard Whether attempts to retrieve a nonexisting edge type should result in an exception
+     * @throws UnknownElement
+     */
     GNEEdgeType* retrieveEdgeType(const std::string& id, bool failHard = true) const;
+
+    /**@brief get lane type by id
+     * @param[in] id The id of the desired lane type
+     * @param[in] failHard Whether attempts to retrieve a nonexisting lane type should result in an exception
+     * @throws UnknownElement
+     */
+    GNELaneType* retrieveLaneType(const std::string& id, bool failHard = true) const;
 
     /**@brief get edge by id
      * @param[in] id The id of the desired edge
