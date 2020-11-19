@@ -304,6 +304,7 @@ enum class GUIIcon {
     /// @{
     JUNCTION,
     TYPE,
+    LANETYPE,
     EDGE,
     LANE,
     CONNECTION,
