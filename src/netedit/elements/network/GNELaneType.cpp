@@ -25,15 +25,16 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNELaneType.h"
+#include "GNEEdgeType.h"
 
 
 // ===========================================================================
 // members methods
 // ===========================================================================
 
-GNELaneType::GNELaneType(GNENet* net, NBTypeCont::LaneTypeDefinition *type):
-    GNENetworkElement(net, "", GLO_LANE, GNE_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    myLaneType(type) {
+GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent):
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, GNE_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    myEdgeTypeParent(edgeTypeParent) {
 }
 
 
@@ -90,13 +91,13 @@ GNELaneType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_SPEED:
-            return toString(myLaneType->speed);
+            return toString(speed);
         case SUMO_ATTR_ALLOW:
-            return getVehicleClassNames(myLaneType->permissions);
+            return getVehicleClassNames(permissions);
         case SUMO_ATTR_DISALLOW:
-            return getVehicleClassNames(invertPermissions(myLaneType->permissions));
+            return getVehicleClassNames(invertPermissions(permissions));
         case SUMO_ATTR_WIDTH:
-            return toString(myLaneType->width);
+            return toString(width);
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -164,16 +165,16 @@ GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_SPEED:
-            myLaneType->speed = parse<double>(value);
+            speed = parse<double>(value);
             break;
         case SUMO_ATTR_ALLOW:
-            myLaneType->permissions = parseVehicleClasses(value);
+            permissions = parseVehicleClasses(value);
             break;
         case SUMO_ATTR_DISALLOW:
-            myLaneType->permissions = invertPermissions(parseVehicleClasses(value));
+            permissions = invertPermissions(parseVehicleClasses(value));
             break;
         case SUMO_ATTR_WIDTH:
-            myLaneType->width = parse<double>(value);
+            width = parse<double>(value);
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);

@@ -27,17 +27,18 @@
 // class definitions
 // ===========================================================================
 
-class GNELaneType : public GNENetworkElement, public Parameterised {
+class GNELaneType : public GNENetworkElement, public Parameterised, public NBTypeCont::LaneTypeDefinition {
 
 public:
     /**@brief Constructor
-     * @param[in] net The net to inform about gui updates
+     * @param[in] edgeTypeParent GNEEdgeType parent
      * @param[in] type teh typeDefinition
      */
-    GNELaneType(GNENet* net, NBTypeCont::LaneTypeDefinition *type);
+    GNELaneType(GNEEdgeType* edgeTypeParent);
 
     /// @brief Destructor.
     ~GNELaneType();
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
@@ -109,8 +110,8 @@ public:
     const std::map<std::string, std::string>& getACParametersMap() const;
 
 protected:
-    /// @brief lane type definition
-    NBTypeCont::LaneTypeDefinition *myLaneType;
+    /// @brief pointer to EdgeTypeParent
+    GNEEdgeType* myEdgeTypeParent;
 
 private:
     /// @brief set attribute after validation
