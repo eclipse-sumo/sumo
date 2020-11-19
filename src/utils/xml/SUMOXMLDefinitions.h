@@ -214,7 +214,7 @@ enum SumoXMLTag {
     SUMO_TAG_SPLIT,
     /// @brief alternative definition for junction
     SUMO_TAG_NODE,
-    /// @brief type
+    /// @brief type (edge)
     SUMO_TAG_TYPE,
     /// @brief definition of a detector
     SUMO_TAG_DETECTOR_DEFINITION,
@@ -378,6 +378,8 @@ enum SumoXMLTag {
     /// @{
     /// @brief internal lane
     GNE_TAG_INTERNAL_LANE,
+    /// @brief lane type
+    GNE_TAG_LANETYPE,
     /// @brief Rerouter Symbol
     GNE_TAG_REROUTER_SYMBOL,
     /// @brief VSS Symbol

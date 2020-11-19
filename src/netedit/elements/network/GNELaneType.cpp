@@ -32,7 +32,7 @@
 // ===========================================================================
 
 GNELaneType::GNELaneType(GNENet* net, NBTypeCont::LaneTypeDefinition *type):
-    GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    GNENetworkElement(net, "", GLO_LANE, GNE_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
     myLaneType(type) {
 }
 
