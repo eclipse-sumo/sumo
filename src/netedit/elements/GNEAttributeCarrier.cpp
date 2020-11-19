@@ -953,7 +953,7 @@ GNEAttributeCarrier::fillNetworkElements() {
             "-1");
         myTagProperties[currentTag].addAttribute(attrProperty);
     }
-    currentTag = GNE_TAG_LANETYPE;
+    currentTag = SUMO_TAG_LANETYPE;
     {
         // set values of tag
         myTagProperties[currentTag] = GNETagProperties(currentTag,

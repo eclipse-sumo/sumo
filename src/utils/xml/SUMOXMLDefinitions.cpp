@@ -126,6 +126,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "split",                          SUMO_TAG_SPLIT },
     { "node",                           SUMO_TAG_NODE },
     { "type",                           SUMO_TAG_TYPE },
+    { "laneType",                       SUMO_TAG_LANETYPE },
     { "detectorDefinition",             SUMO_TAG_DETECTOR_DEFINITION },
     { "routeDistribution",              SUMO_TAG_ROUTE_DISTRIBUTION },
     { "vTypeDistribution",              SUMO_TAG_VTYPE_DISTRIBUTION },
@@ -238,7 +239,6 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "parameters",                     AGEN_TAG_PARAM },
     // NETEDIT
     { "internalLane",                   GNE_TAG_INTERNAL_LANE },
-    { "laneType",                       GNE_TAG_LANETYPE },
     { "rerouterSymbol",                 GNE_TAG_REROUTER_SYMBOL },
     { "variableSpeedSignSymbol",        GNE_TAG_VSS_SYMBOL },
     { "vehicleWithRoute",               GNE_TAG_VEHICLE_WITHROUTE },

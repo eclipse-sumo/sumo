@@ -33,7 +33,7 @@
 // ===========================================================================
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent):
-    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, GNE_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
+    GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
     myEdgeTypeParent(edgeTypeParent) {
 }
 
