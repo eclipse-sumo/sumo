@@ -1167,7 +1167,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     // crossing from the left or the right (heuristic)
                     fromLeft = foeDistToCrossing > 0.5 * foeLane->getLength();
                 } else if ((contLane && !sameSource && !ignoreIndirectBicycleTurn) || isOpposite) {
-                    gap = -1; // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
+                    gap = -std::numeric_limits<double>::max(); // always break for vehicles which are on a continuation lane or for opposite-direction vehicles
                 } else {
                     if (gDebugFlag1) {
                         std::cout << " distToCrossing=" << distToCrossing << " leader back=" << leaderBack << " backDist=" << leaderBackDist
@@ -1184,7 +1184,7 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     // factor 2 is to give some slack for lane-changing
                     if (gap < leader->getVehicleType().getLength() * 2 && leader->getLaneChangeModel().isStrategicBlocked()) {
                         // do not encroach on leader when it tries to change lanes
-                        gap = -1;
+                        gap = -std::numeric_limits<double>::max();
                     }
                 }
                 // if the foe is already moving off the intersection, we may

@@ -2792,6 +2792,14 @@ MSVehicle::getSafeFollowSpeed(const std::pair<const MSVehicle*, double> leaderIn
                 std::cout << "  breaking for pedestrian distToCrossing=" << distToCrossing << " vStop=" << vStop << "\n";
             }
 #endif
+        } else if (leaderInfo.second == -std::numeric_limits<double>::max()) {
+            // drive up to the crossing point and stop
+#ifdef DEBUG_PLAN_MOVE_LEADERINFO
+            if (DEBUG_COND) {
+                std::cout << "  stop at crossing point for critical leader\n";
+            };
+#endif
+            vsafeLeader = MAX2(vsafeLeader, vStop);
         } else {
             const double leaderBrakeGap = leaderInfo.first->getCarFollowModel().brakeGap(leaderInfo.first->getSpeed(), leaderInfo.first->getCarFollowModel().getMaxDecel(), 0);
             const double leaderDistToCrossing = distToCrossing - leaderInfo.second;
