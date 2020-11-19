@@ -240,6 +240,7 @@ def main(args=None):
 
         # Should we also save the figure to a file / list of files (comma
         # separated)?
+        expandedOutputNames = None
         if options.output:
 
             # If we have a "%s" in the name of the output then replace it with the
@@ -248,14 +249,14 @@ def main(args=None):
             if expandedOutputNames.find('%s') >= 0:
                 expandedOutputNames = expandedOutputNames.replace("%s", str(t))
 
-            # Can be used to print additional text in the figure:
-            #
-            # m, s = divmod(int(t), 60)
-            # h, m = divmod(m, 60)
-            # timeStr = "%02d:%02d:%02d" % (h, m, s)
-            # ax.text(0.2, 0.2, timeStr, bbox={
-            #    'facecolor': 'white', 'pad': 10}, size=16)
-            helpers.closeFigure(fig, ax, options, False, expandedOutputNames)
+        # Can be used to print additional text in the figure:
+        #
+        # m, s = divmod(int(t), 60)
+        # h, m = divmod(m, 60)
+        # timeStr = "%02d:%02d:%02d" % (h, m, s)
+        # ax.text(0.2, 0.2, timeStr, bbox={
+        #    'facecolor': 'white', 'pad': 10}, size=16)
+        helpers.closeFigure(fig, ax, options, False, expandedOutputNames)
 
     return 0
 
