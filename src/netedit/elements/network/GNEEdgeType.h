@@ -110,7 +110,7 @@ public:
 
 protected:
     /// @brief edge type definition
-    NBTypeCont::EdgeTypeDefinition *myType;
+    NBTypeCont::EdgeTypeDefinition *myEdgeType;
 
 private:
     /// @brief set attribute after validation

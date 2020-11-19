@@ -33,7 +33,7 @@
 
 GNEEdgeType::GNEEdgeType(GNENet* net, NBTypeCont::EdgeTypeDefinition *type):
     GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    myType(type) {
+    myEdgeType(type) {
 }
 
 
@@ -90,29 +90,29 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_NUMLANES:
-            return toString(myType->numLanes);
+            return toString(myEdgeType->numLanes);
         case SUMO_ATTR_SPEED:
-            return toString(myType->speed);
+            return toString(myEdgeType->speed);
         case SUMO_ATTR_ALLOW:
-            return getVehicleClassNames(myType->permissions);
+            return getVehicleClassNames(myEdgeType->permissions);
         case SUMO_ATTR_DISALLOW:
-            return getVehicleClassNames(invertPermissions(myType->permissions));
+            return getVehicleClassNames(invertPermissions(myEdgeType->permissions));
         case SUMO_ATTR_PRIORITY:
-            return toString(myType->priority);
+            return toString(myEdgeType->priority);
         case SUMO_ATTR_ONEWAY:
-            return toString(myType->oneWay);
+            return toString(myEdgeType->oneWay);
         case SUMO_ATTR_DISCARD:
-            return toString(myType->discard);
+            return toString(myEdgeType->discard);
         case SUMO_ATTR_WIDTH:
-            return toString(myType->width);
+            return toString(myEdgeType->width);
         case SUMO_ATTR_WIDTHRESOLUTION:
-            return toString(myType->widthResolution);
+            return toString(myEdgeType->widthResolution);
         case SUMO_ATTR_MAXWIDTH:
-            return toString(myType->maxWidth);
+            return toString(myEdgeType->maxWidth);
         case SUMO_ATTR_SIDEWALKWIDTH:
-            return toString(myType->sidewalkWidth);
+            return toString(myEdgeType->sidewalkWidth);
         case SUMO_ATTR_BIKELANEWIDTH:
-            return toString(myType->bikeLaneWidth);
+            return toString(myEdgeType->bikeLaneWidth);
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -200,40 +200,40 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_NUMLANES:
-            myType->numLanes = parse<int>(value);
+            myEdgeType->numLanes = parse<int>(value);
             break;
         case SUMO_ATTR_SPEED:
-            myType->speed = parse<double>(value);
+            myEdgeType->speed = parse<double>(value);
             break;
         case SUMO_ATTR_ALLOW:
-            myType->permissions = parseVehicleClasses(value);
+            myEdgeType->permissions = parseVehicleClasses(value);
             break;
         case SUMO_ATTR_DISALLOW:
-            myType->permissions = invertPermissions(parseVehicleClasses(value));
+            myEdgeType->permissions = invertPermissions(parseVehicleClasses(value));
             break;
         case SUMO_ATTR_PRIORITY:
-            myType->priority = parse<int>(value);
+            myEdgeType->priority = parse<int>(value);
             break;
         case SUMO_ATTR_ONEWAY:
-            myType->oneWay = parse<bool>(value);
+            myEdgeType->oneWay = parse<bool>(value);
             break;
         case SUMO_ATTR_DISCARD:
-            myType->discard = parse<bool>(value);
+            myEdgeType->discard = parse<bool>(value);
             break;
         case SUMO_ATTR_WIDTH:
-            myType->width = parse<double>(value);
+            myEdgeType->width = parse<double>(value);
             break;
         case SUMO_ATTR_WIDTHRESOLUTION:
-            myType->widthResolution = parse<double>(value);
+            myEdgeType->widthResolution = parse<double>(value);
             break;
         case SUMO_ATTR_MAXWIDTH:
-            myType->maxWidth = parse<double>(value);
+            myEdgeType->maxWidth = parse<double>(value);
             break;
         case SUMO_ATTR_SIDEWALKWIDTH:
-            myType->sidewalkWidth = parse<double>(value);
+            myEdgeType->sidewalkWidth = parse<double>(value);
             break;
         case SUMO_ATTR_BIKELANEWIDTH:
-            myType->bikeLaneWidth = parse<double>(value);
+            myEdgeType->bikeLaneWidth = parse<double>(value);
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
