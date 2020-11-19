@@ -24,7 +24,10 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
+#include <netedit/changes/GNEChange_EdgeType.h>
+#include <netedit/changes/GNEChange_LaneType.h>
 #include <netedit/elements/network/GNEEdgeType.h>
+#include <netedit/elements/network/GNELaneType.h>
 #include <netedit/dialogs/GNEAllowDisallow.h>
 #include <netimport/NITypeLoader.h>
 #include <netimport/NIXMLTypesHandler.h>
@@ -40,8 +43,7 @@
 
 FXDEFMAP(GNECreateEdgeFrame::EdgeSelector) EdgeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_NEWEDGETYPE,        GNECreateEdgeFrame::EdgeSelector::onCmdNewEdgeType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SAVEEDGETYPE,       GNECreateEdgeFrame::EdgeSelector::onCmdSaveEdgeType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE,        GNECreateEdgeFrame::EdgeSelector::onCmdAddEdgeType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE,     GNECreateEdgeFrame::EdgeSelector::onCmdDeleteEdgeType),
 };
 
@@ -87,15 +89,12 @@ GNECreateEdgeFrame::EdgeSelector::EdgeSelector(GNECreateEdgeFrame* createEdgeFra
     // edge types combo box
     myEdgeTypesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create horizontal frame
-    myHorizontalFrameSaveDelete = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    FXHorizontalFrame* horizontalFrameNewSaveDelete = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create new edge type button
-    myNewEdgeTypeButton = new FXButton(myHorizontalFrameSaveDelete, 
-        "save\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_CREATEEDGEFRAME_SAVEEDGETYPE, GUIDesignButton);
-    // create save edge type button
-    mySaveEdgeTypeButton = new FXButton(myHorizontalFrameSaveDelete, 
-        "save\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_CREATEEDGEFRAME_SAVEEDGETYPE, GUIDesignButton);
+    myNewEdgeTypeButton = new FXButton(horizontalFrameNewSaveDelete, 
+        "add\t\add edge type", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE, GUIDesignButton);
     // create delete edge type button
-    myDeleteEdgeTypeButton = new FXButton(myHorizontalFrameSaveDelete, 
+    myDeleteEdgeTypeButton = new FXButton(horizontalFrameNewSaveDelete, 
         "delete\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE, GUIDesignButton);
     // by default, create custom edge
     myCreateDefaultEdge->setCheck(TRUE);
@@ -110,9 +109,9 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
     // get template editor
     const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // get 
-    const auto &typeContainers = myCreateEdgeFrameParent->getViewNet()->getNet()->getNetBuilder()->getTypeCont();
+    const auto &edgeTypes = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdgeTypes();
     // check if there is template
-    if (templateEditor->hasTemplate() || (typeContainers.size() > 0)) {
+    if (templateEditor->hasTemplate() || (edgeTypes.size() > 0)) {
         // enable both buttons
         myCreateDefaultEdge->enable();
         myUseCustomEdge->enable();
@@ -125,8 +124,8 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
             myEdgeTypesComboBox->appendItem(("template: " + templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID)).c_str(), nullptr);
         }
         // add edge types
-        for (const auto &typeContainer : typeContainers) {
-            myEdgeTypesComboBox->appendItem(typeContainer.first.c_str(), nullptr);
+        for (const auto &edgeType : edgeTypes) {
+            myEdgeTypesComboBox->appendItem(edgeType.second->getID().c_str(), nullptr);
         }
         // set num visible antes
         if (myEdgeTypesComboBox->getNumItems() <= 10) {
@@ -134,7 +133,6 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
         } else {
             myEdgeTypesComboBox->setNumVisible(10);
         }
-        myHorizontalFrameSaveDelete->show();
     } else {
         // disable use custom edge
         myCreateDefaultEdge->enable();
@@ -143,7 +141,6 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
         myEdgeTypesComboBox->disable();
         // enable custom edge radio button
         myCreateDefaultEdge->setCheck(TRUE, FALSE);
-        myHorizontalFrameSaveDelete->hide();
     }
     // show editor parameter
     if (myUseCustomEdge->getCheck() == TRUE) {
@@ -191,13 +188,16 @@ GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton(FXObject* obj, FXSelector, vo
 
 
 long
-GNECreateEdgeFrame::EdgeSelector::onCmdNewEdgeType(FXObject*, FXSelector, void*) {
-    return 0;
-}
-
-
-long
-GNECreateEdgeFrame::EdgeSelector::onCmdSaveEdgeType(FXObject*, FXSelector, void*) {
+GNECreateEdgeFrame::EdgeSelector::onCmdAddEdgeType(FXObject*, FXSelector, void*) {
+    // create new edge type
+    GNEEdgeType* edgeType = new GNEEdgeType(myCreateEdgeFrameParent->getViewNet()->getNet());
+    // also create a new laneType
+    GNELaneType *laneType = new GNELaneType(edgeType);
+    // add it using undoList
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_begin("create new edge type");
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, true), true);
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_end();
     return 0;
 }
 

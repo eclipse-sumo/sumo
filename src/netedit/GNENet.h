@@ -515,6 +515,9 @@ public:
     /// @brief remove edge id from the list of explicit turnarounds
     void removeExplicitTurnaround(std::string id);
 
+    /// @brief generate edgeType id
+    std::string generateEdgeTypeID() const;
+
     /// @name Functions related to Additional Items
     /// @{
 

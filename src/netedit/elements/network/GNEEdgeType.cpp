@@ -33,18 +33,11 @@
 // ===========================================================================
 
 GNEEdgeType::GNEEdgeType(GNENet* net):
-    GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNENetworkElement(net, net->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
 }
 
 
 GNEEdgeType::~GNEEdgeType() {
-    // Drop LaneTypes
-    for (const auto& laneType : myLaneTypes) {
-        laneType->decRef("GNENetHelper::~GNENet");
-        // show extra information for tests
-        WRITE_DEBUG("Deleting unreferenced " + laneType->getTagStr() + " '" + laneType->getID() + "' in GNEEdgeType destructor");
-        delete laneType;
-    }
 }
 
 

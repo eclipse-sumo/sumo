@@ -59,11 +59,8 @@ public:
         /// @brief Called when the user press a radio button
         long onCmdRadioButton(FXObject*, FXSelector, void*);
 
-        /// @brief Called when the user press button for create a new edge type
-        long onCmdNewEdgeType(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user press button for save edge type
-        long onCmdSaveEdgeType(FXObject*, FXSelector, void*);
+        /// @brief Called when the user press button for add a new edge type
+        long onCmdAddEdgeType(FXObject*, FXSelector, void*);
 
         /// @brief Called when the user press button for delete edge type
         long onCmdDeleteEdgeType(FXObject*, FXSelector, void*);
@@ -87,14 +84,8 @@ public:
         /// @brief ComboBox for edge types
         FXComboBox* myEdgeTypesComboBox = nullptr;
 
-        /// @brief horizontal frame for save/delete edgeType
-        FXHorizontalFrame* myHorizontalFrameSaveDelete;
-
         /// @brief button for create new edge type
         FXButton* myNewEdgeTypeButton;
-
-        /// @brief button for save edge type
-        FXButton* mySaveEdgeTypeButton;
 
         /// @brief button for delete edge type
         FXButton* myDeleteEdgeTypeButton;

@@ -831,10 +831,8 @@ enum {
     /// @{
     /// @brief selected radio button
     MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,
-    /// @brief create new edge type
-    MID_GNE_CREATEEDGEFRAME_NEWEDGETYPE,
-    /// @brief save current edge type
-    MID_GNE_CREATEEDGEFRAME_SAVEEDGETYPE,
+    /// @brief add new edge type
+    MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE,
     /// @brief delete edge type
     MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE,
 

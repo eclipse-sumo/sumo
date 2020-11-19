@@ -20,6 +20,9 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 
 #include "GNEChange_EdgeType.h"
@@ -62,12 +65,14 @@ GNEChange_EdgeType::undo() {
         myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Adding " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' into " + toString(SUMO_TAG_NET));
         // insert edgeType into net
         myEdgeType->getNet()->getAttributeCarriers()->insertEdgeType(myEdgeType);
     }
-    // enable save networkElements
-    myEdgeType->getNet()->requireSaveNet(true);
+    // refresh create edge frame
+    if (myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+    }
 }
 
 
@@ -75,7 +80,7 @@ void
 GNEChange_EdgeType::redo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Adding " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' into " + toString(SUMO_TAG_NET));
         // insert edgeType into net
         myEdgeType->getNet()->getAttributeCarriers()->insertEdgeType(myEdgeType);
     } else {
@@ -84,8 +89,10 @@ GNEChange_EdgeType::redo() {
         // delete edgeType from net
         myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
     }
-    // enable save networkElements
-    myEdgeType->getNet()->requireSaveNet(true);
+    // refresh create edge frame
+    if (myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+    }
 }
 
 

@@ -2290,6 +2290,16 @@ GNENet::removeExplicitTurnaround(std::string id) {
 }
 
 
+std::string 
+GNENet::generateEdgeTypeID() const {
+    int counter = 0;
+    while (myAttributeCarriers->getEdgeTypes().count("edgeType_" + toString(counter)) != 0) {
+        counter++;
+    }
+    return ("edgeType_" + toString(counter));
+}
+
+
 GNEAdditional*
 GNENet::retrieveAdditional(SumoXMLTag type, const std::string& id, bool hardFail) const {
     if ((myAttributeCarriers->getAdditionals().count(type) > 0) && (myAttributeCarriers->getAdditionals().at(type).count(id) != 0)) {
