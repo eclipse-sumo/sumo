@@ -8,7 +8,7 @@ permalink: /Simulation/Pedestrians/
 This page describes simulations of pedestrians in SUMO. Pedestrians are
 [persons that walk](../Specification/Persons.md). To build an
 intermodal simulation scenario with proper interactions between road
-vehicles and pedestrians, additional steps have to be take in comparison
+vehicles and pedestrians, additional steps have to be taken in comparison
 to a plain vehicular simulation. When using multiple modes all edges and
 lanes need to have the [correct permissions to separate the different modes of traffic](../Simulation/VehiclePermissions.md).
 
