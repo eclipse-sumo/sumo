@@ -551,10 +551,6 @@ public:
         return myLane;
     }
 
-    void setLane(MSLane* lane) {
-        myLane = lane;
-    }
-
     /** @brief Returns the lane the vehicle is on
      * Non const version indicates that something volatile is going on
      * @return The vehicle's current lane

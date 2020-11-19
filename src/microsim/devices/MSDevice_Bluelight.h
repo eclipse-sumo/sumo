@@ -151,9 +151,6 @@ private:
     /// @brief reaction distance of other vehicle (i.e. due to different noise levels of the siren)
     double myReactionDist;
 
-    std::string wrongEdgeID = "";
-    MSLane* moveToLane;
-
 
 private:
     /// @brief Invalidated copy constructor.
