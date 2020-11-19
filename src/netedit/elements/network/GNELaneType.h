@@ -39,6 +39,9 @@ public:
     /// @brief Destructor.
     ~GNELaneType();
 
+    /// @brief get edge type parent
+    GNEEdgeType* getEdgeTypeParent() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information

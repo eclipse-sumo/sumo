@@ -63,4 +63,7 @@ private:
      * @note we assume shared responsibility for the pointer (via reference counting)
      */
     GNELaneType* myLaneType;
+
+    /// @brief position in edgeType Parent
+    const int myPosition;
 };

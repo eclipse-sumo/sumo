@@ -20,6 +20,7 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
 
 #include "GNEChange_LaneType.h"
@@ -37,7 +38,8 @@ FXIMPLEMENT_ABSTRACT(GNEChange_LaneType, GNEChange, nullptr, 0)
 /// @brief constructor for creating an laneType
 GNEChange_LaneType::GNEChange_LaneType(GNELaneType* laneType, bool forward):
     GNEChange(laneType, forward),
-    myLaneType(laneType) {
+    myLaneType(laneType),
+    myPosition(laneType->getEdgeTypeParent()->getLaneTypeIndex(laneType)) {
     laneType->incRef("GNEChange_LaneType");
 }
 
@@ -58,20 +60,14 @@ GNEChange_LaneType::undo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
-        // delete laneType from net
-/*
-        myLaneType->getNet()->getAttributeCarriers()->deleteLaneType(myLaneType);
-*/
+        // delete laneType from edgeType parent
+        myLaneType->getEdgeTypeParent()->removeLaneType(myLaneType);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
-        // insert laneType into net
-/*
-        myLaneType->getNet()->getAttributeCarriers()->insertLaneType(myLaneType);
-*/
+        // insert laneType into edgeType parent
+        myLaneType->getEdgeTypeParent()->addLaneType(myLaneType, myPosition);
     }
-    // enable save networkElements
-    myLaneType->getNet()->requireSaveNet(true);
 }
 
 
@@ -80,20 +76,14 @@ GNEChange_LaneType::redo() {
     if (myForward) {
         // show extra information for tests
         WRITE_DEBUG("Adding " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
-        // insert laneType into net
-/*
-        myLaneType->getNet()->getAttributeCarriers()->insertLaneType(myLaneType);
-*/
+        // insert laneType into edgeType parent
+        myLaneType->getEdgeTypeParent()->addLaneType(myLaneType, myPosition);
     } else {
         // show extra information for tests
         WRITE_DEBUG("Removing " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
-        // delete laneType from net
-/*
-        myLaneType->getNet()->getAttributeCarriers()->deleteLaneType(myLaneType);
-*/
+        // delete laneType from edgeType parent
+        myLaneType->getEdgeTypeParent()->removeLaneType(myLaneType);
     }
-    // enable save networkElements
-    myLaneType->getNet()->requireSaveNet(true);
 }
 
 

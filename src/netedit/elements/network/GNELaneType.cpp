@@ -43,6 +43,12 @@ GNELaneType::~GNELaneType() {
 }
 
 
+GNEEdgeType* 
+GNELaneType::getEdgeTypeParent() const {
+    return myEdgeTypeParent;
+}
+
+
 void
 GNELaneType::updateGeometry() {
 }

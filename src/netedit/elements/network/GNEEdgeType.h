@@ -51,7 +51,7 @@ public:
     int getLaneTypeIndex(const GNELaneType* laneType) const;
 
     /// @brief add laneType
-    void addLaneType(GNELaneType* laneType);
+    void addLaneType(GNELaneType* laneType, const int position);
 
     /// @brief remove laneType
     void removeLaneType(GNELaneType* laneType);
