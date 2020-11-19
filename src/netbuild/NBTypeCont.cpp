@@ -67,8 +67,6 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
     minWidth(0),
     sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH),
     bikeLaneWidth(NBEdge::UNSPECIFIED_WIDTH) {
-    // add lane definition
-    myLaneTypeDefinitions.push_back(LaneTypeDefinition());
 }
 
 
@@ -84,38 +82,6 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int _numLanes, double _speed,
     minWidth(_minWidth),
     sidewalkWidth(_sideWalkWidth),
     bikeLaneWidth(_bikeLaneWidth) {
-    // add lane definition
-    myLaneTypeDefinitions.push_back(LaneTypeDefinition());
-}
-
-
-NBTypeCont::LaneTypeDefinition&
-NBTypeCont::EdgeTypeDefinition::getLaneTypeDefinition(const int index) {
-    if ((index < 0) || index >= myLaneTypeDefinitions.size()) {
-        throw ProcessError("invalid index");
-    } else {
-        return myLaneTypeDefinitions.at(index);
-    }
-}
-
-
-void 
-NBTypeCont::EdgeTypeDefinition::addLaneTypeDefinition() {
-    // add a new LaneTypeDefinition
-    myLaneTypeDefinitions.push_back(LaneTypeDefinition());
-}
-
-
-void 
-NBTypeCont::EdgeTypeDefinition::removeLaneTypeDefinition(const int index) {
-    if ((index < 0) || index >= myLaneTypeDefinitions.size()) {
-        throw ProcessError("invalid index");
-    } else if (myLaneTypeDefinitions.size() == 1) {
-        throw ProcessError("last LaneTypeDefinition cannot be removed");
-    } else {
-        // remove LaneTypeDefinition
-        myLaneTypeDefinitions.erase(myLaneTypeDefinitions.begin() + index);
-    }
 }
 
 

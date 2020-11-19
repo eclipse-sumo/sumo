@@ -84,15 +84,6 @@ public:
             double sideWalkWidth, double bikeLaneWidth,
             double widthResolution, double maxWidth, double minWidth);
 
-        /// @brief get laneTypeDefinition
-        LaneTypeDefinition &getLaneTypeDefinition(const int index);
-
-        /// @brief add new LaneTypeDefinition
-        void addLaneTypeDefinition();
-
-        /// @brief remove LaneTypeDefinition
-        void removeLaneTypeDefinition(const int index);
-
         /// @brief The number of lanes of an edge
         int numLanes;
 
@@ -136,10 +127,6 @@ public:
 
         /// @brief The attributes which have been set
         std::set<SumoXMLAttr> attrs;
-
-    private:
-        /// @brief vector with LaneTypeDefinitions
-        std::vector<LaneTypeDefinition> myLaneTypeDefinitions;
     };
 
     /// @brief A container of types, accessed by the string id
