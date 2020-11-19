@@ -47,6 +47,8 @@ A person can also use a taxi by including it as a [personTrip](../Specification/
     </person>
 ```
 
+Whenever a person enters a taxi during the intermodal route search, a time penalty is applied to account for the expected time loss from waiting for the taxi and embarking. The default value is set 300s and can be configure with option **--persontrip.taxi.waiting-time**. This prevents rapid switching between travel modes.
+
 ## Groups of Persons
 Multiple persons can travel together as a group using attribute `group` (if the taxi has sufficient capacity):
 
