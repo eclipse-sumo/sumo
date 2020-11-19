@@ -25,20 +25,64 @@
 #include <utils/options/OptionsCont.h>
 
 #include "GNEEdgeType.h"
+#include "GNELaneType.h"
 
 
 // ===========================================================================
 // members methods
 // ===========================================================================
 
-GNEEdgeType::GNEEdgeType(GNENet* net, NBTypeCont::EdgeTypeDefinition *type):
-    GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    myEdgeType(type) {
+GNEEdgeType::GNEEdgeType(GNENet* net):
+    GNENetworkElement(net, "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
 }
 
 
 GNEEdgeType::~GNEEdgeType() {
+    // Drop LaneTypes
+    for (const auto& laneType : myLaneTypes) {
+        laneType->decRef("GNENetHelper::~GNENet");
+        // show extra information for tests
+        WRITE_DEBUG("Deleting unreferenced " + laneType->getTagStr() + " '" + laneType->getID() + "' in GNEEdgeType destructor");
+        delete laneType;
+    }
+}
 
+
+const std::vector<GNELaneType*>&
+GNEEdgeType::getLaneTypes() const {
+    return myLaneTypes;
+}
+
+
+int 
+GNEEdgeType::getLaneTypeIndex(const GNELaneType* laneType) const {
+    for (int i = 0; i < (int)myLaneTypes.size(); i++) {
+        if (myLaneTypes.at(i) == laneType) {
+            return i;
+        }
+    }
+    throw ProcessError("GNELaneType wasn't inserted");
+}
+
+
+void 
+GNEEdgeType::addLaneType(GNELaneType* laneType) {
+    if (std::find(myLaneTypes.begin(), myLaneTypes.end(), laneType) != myLaneTypes.end()) {
+        throw ProcessError("GNELaneType already inserted");
+    } else {
+        myLaneTypes.push_back(laneType);
+    }
+}
+
+
+void 
+GNEEdgeType::removeLaneType(GNELaneType* laneType) {
+    auto it = std::find(myLaneTypes.begin(), myLaneTypes.end(), laneType);
+    if (it == myLaneTypes.end()) {
+        throw ProcessError("GNELaneType wasn't inserted");
+    } else {
+        myLaneTypes.erase(it);
+    }
 }
 
 
@@ -90,29 +134,29 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_NUMLANES:
-            return toString(myEdgeType->numLanes);
+            return toString(numLanes);
         case SUMO_ATTR_SPEED:
-            return toString(myEdgeType->speed);
+            return toString(speed);
         case SUMO_ATTR_ALLOW:
-            return getVehicleClassNames(myEdgeType->permissions);
+            return getVehicleClassNames(permissions);
         case SUMO_ATTR_DISALLOW:
-            return getVehicleClassNames(invertPermissions(myEdgeType->permissions));
+            return getVehicleClassNames(invertPermissions(permissions));
         case SUMO_ATTR_PRIORITY:
-            return toString(myEdgeType->priority);
+            return toString(priority);
         case SUMO_ATTR_ONEWAY:
-            return toString(myEdgeType->oneWay);
+            return toString(oneWay);
         case SUMO_ATTR_DISCARD:
-            return toString(myEdgeType->discard);
+            return toString(discard);
         case SUMO_ATTR_WIDTH:
-            return toString(myEdgeType->width);
+            return toString(width);
         case SUMO_ATTR_WIDTHRESOLUTION:
-            return toString(myEdgeType->widthResolution);
+            return toString(widthResolution);
         case SUMO_ATTR_MAXWIDTH:
-            return toString(myEdgeType->maxWidth);
+            return toString(maxWidth);
         case SUMO_ATTR_SIDEWALKWIDTH:
-            return toString(myEdgeType->sidewalkWidth);
+            return toString(sidewalkWidth);
         case SUMO_ATTR_BIKELANEWIDTH:
-            return toString(myEdgeType->bikeLaneWidth);
+            return toString(bikeLaneWidth);
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -200,40 +244,40 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_NUMLANES:
-            myEdgeType->numLanes = parse<int>(value);
+            numLanes = parse<int>(value);
             break;
         case SUMO_ATTR_SPEED:
-            myEdgeType->speed = parse<double>(value);
+            speed = parse<double>(value);
             break;
         case SUMO_ATTR_ALLOW:
-            myEdgeType->permissions = parseVehicleClasses(value);
+            permissions = parseVehicleClasses(value);
             break;
         case SUMO_ATTR_DISALLOW:
-            myEdgeType->permissions = invertPermissions(parseVehicleClasses(value));
+            permissions = invertPermissions(parseVehicleClasses(value));
             break;
         case SUMO_ATTR_PRIORITY:
-            myEdgeType->priority = parse<int>(value);
+            priority = parse<int>(value);
             break;
         case SUMO_ATTR_ONEWAY:
-            myEdgeType->oneWay = parse<bool>(value);
+            oneWay = parse<bool>(value);
             break;
         case SUMO_ATTR_DISCARD:
-            myEdgeType->discard = parse<bool>(value);
+            discard = parse<bool>(value);
             break;
         case SUMO_ATTR_WIDTH:
-            myEdgeType->width = parse<double>(value);
+            width = parse<double>(value);
             break;
         case SUMO_ATTR_WIDTHRESOLUTION:
-            myEdgeType->widthResolution = parse<double>(value);
+            widthResolution = parse<double>(value);
             break;
         case SUMO_ATTR_MAXWIDTH:
-            myEdgeType->maxWidth = parse<double>(value);
+            maxWidth = parse<double>(value);
             break;
         case SUMO_ATTR_SIDEWALKWIDTH:
-            myEdgeType->sidewalkWidth = parse<double>(value);
+            sidewalkWidth = parse<double>(value);
             break;
         case SUMO_ATTR_BIKELANEWIDTH:
-            myEdgeType->bikeLaneWidth = parse<double>(value);
+            bikeLaneWidth = parse<double>(value);
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
