@@ -1537,7 +1537,7 @@ NIImporter_OpenStreetMap::RelationHandler::findEdgeRef(long long int wayRef,
         }
     }
     if (found > 1) {
-        WRITE_WARNINGF("Ambigous way reference '%' in restriction relation", prefix);
+        WRITE_WARNINGF("Ambiguous way reference '%' in restriction relation", prefix);
         result = nullptr;
     }
     return result;

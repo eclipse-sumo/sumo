@@ -740,7 +740,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                     for (std::vector<OpenDriveLink>::const_iterator l = e->links.begin(); l != e->links.end(); ++l) {
                         if ((*l).linkType == OPENDRIVE_LT_PREDECESSOR && (*l).elementType == OPENDRIVE_ET_ROAD) {
                             if (fromID != "") {
-                                WRITE_WARNING("Ambigous start of connection.");
+                                WRITE_WARNING("Ambiguous start of connection.");
                             }
                             OpenDriveEdge* e = edges[(*l).elementID];
                             if ((*l).contactPoint == OPENDRIVE_CP_START) {
@@ -757,7 +757,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
                         }
                         if ((*l).linkType == OPENDRIVE_LT_SUCCESSOR && (*l).elementType == OPENDRIVE_ET_ROAD) {
                             if (toID != "") {
-                                WRITE_WARNING("Ambigous end of connection.");
+                                WRITE_WARNING("Ambiguous end of connection.");
                             }
                             OpenDriveEdge* e = edges[(*l).elementID];
                             toID = (*l).contactPoint == OPENDRIVE_CP_START ? e->laneSections[0].sumoID : e->laneSections.back().sumoID;

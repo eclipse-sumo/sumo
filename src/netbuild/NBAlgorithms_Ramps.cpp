@@ -228,7 +228,7 @@ NBRampsComputer::buildOnRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDist
                     curr = nullptr;
                 }
             } else {
-                // ambigous; and, in fact, what should it be? ...stop
+                // ambiguous; and, in fact, what should it be? ...stop
                 curr = nullptr;
             }
         }
@@ -334,7 +334,7 @@ NBRampsComputer::buildOffRamp(NBNode* cur, NBNodeCont& nc, NBEdgeCont& ec, NBDis
                     curr = nullptr;
                 }
             } else {
-                // ambigous; and, in fact, what should it be? ...stop
+                // ambiguous; and, in fact, what should it be? ...stop
                 curr = nullptr;
             }
         }
