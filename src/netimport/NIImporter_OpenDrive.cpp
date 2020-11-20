@@ -394,7 +394,7 @@ NIImporter_OpenDrive::loadNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     // -------------------------
     // edge building
     // -------------------------
-    const double defaultSpeed = tc.getSpeed("");
+    const double defaultSpeed = tc.getEdgeTypeSpeed("");
     const bool saveOrigIDs = OptionsCont::getOptions().getBool("output.original-names");
     // lane-id-map sumoEdge,sumoLaneIndex->odrLaneIndex
     std::map<std::pair<NBEdge*, int>, int> laneIndexMap;
@@ -878,17 +878,17 @@ NIImporter_OpenDrive::setLaneAttributes(const OpenDriveEdge* e, NBEdge::Lane& su
     if (saveOrigIDs) {
         sumoLane.setParameter(SUMO_PARAM_ORIGID, e->id + "_" + toString(odLane.id));
     }
-    sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getSpeed(odLane.type);
-    sumoLane.permissions = tc.getPermissions(odLane.type);
-    sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getWidth(odLane.type);
+    sumoLane.speed = odLane.speed != 0 ? odLane.speed : tc.getEdgeTypeSpeed(odLane.type);
+    sumoLane.permissions = tc.getEdgeTypePermissions(odLane.type);
+    sumoLane.width = myImportWidths && odLane.width != NBEdge::UNSPECIFIED_WIDTH ? odLane.width : tc.getEdgeTypeWidth(odLane.type);
     sumoLane.type = odLane.type;
 
-    const double widthResolution = tc.getWidthResolution(odLane.type);
-    const double maxWidth = tc.getMaxWidth(odLane.type);
+    const double widthResolution = tc.getEdgeTypeWidthResolution(odLane.type);
+    const double maxWidth = tc.getEdgeTypeMaxWidth(odLane.type);
 
     const bool forbiddenNarrow = (sumoLane.width < myMinWidth
                                   && (sumoLane.permissions & SVC_PASSENGER) != 0
-                                  && sumoLane.width < tc.getWidth(odLane.type));
+                                  && sumoLane.width < tc.getEdgeTypeWidth(odLane.type));
 
     if (sumoLane.width >= 0 && widthResolution > 0) {
         sumoLane.width = floor(sumoLane.width / widthResolution + 0.5) * widthResolution;
@@ -1735,7 +1735,7 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneMapping(const NBTypeCont& t
     std::vector<std::string> types;
     const std::vector<OpenDriveLane>& dirLanesR = lanesByDir.find(OPENDRIVE_TAG_RIGHT)->second;
     for (std::vector<OpenDriveLane>::const_reverse_iterator i = dirLanesR.rbegin(); i != dirLanesR.rend(); ++i) {
-        if (myImportAllTypes || (tc.knows((*i).type) && !tc.getShallBeDiscarded((*i).type))) {
+        if (myImportAllTypes || (tc.knows((*i).type) && !tc.getEdgeTypeShallBeDiscarded((*i).type))) {
             laneMap[(*i).id] = sumoLane++;
             types.push_back((*i).type);
             if (types.front() != types.back()) {
@@ -1750,7 +1750,7 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildLaneMapping(const NBTypeCont& t
     types.clear();
     const std::vector<OpenDriveLane>& dirLanesL = lanesByDir.find(OPENDRIVE_TAG_LEFT)->second;
     for (std::vector<OpenDriveLane>::const_iterator i = dirLanesL.begin(); i != dirLanesL.end(); ++i) {
-        if (myImportAllTypes || (tc.knows((*i).type) && !tc.getShallBeDiscarded((*i).type))) {
+        if (myImportAllTypes || (tc.knows((*i).type) && !tc.getEdgeTypeShallBeDiscarded((*i).type))) {
             laneMap[(*i).id] = sumoLane++;
             types.push_back((*i).type);
             if (types.front() != types.back()) {
@@ -1880,7 +1880,7 @@ NIImporter_OpenDrive::OpenDriveLaneSection::buildSpeedChanges(const NBTypeCont& 
                 if (i > 0) {
                     l.speed = newSections[i - 1].lanesByDir[(*k).first][j].speed;
                 } else {
-                    tc.getSpeed(l.type);
+                    tc.getEdgeTypeSpeed(l.type);
                 }
             }
         }
@@ -2523,8 +2523,8 @@ NIImporter_OpenDrive::findWidthSplit(const NBTypeCont& tc, std::vector<OpenDrive
     UNUSED_PARAMETER(section);
     for (std::vector<OpenDriveLane>::iterator k = lanes.begin(); k != lanes.end(); ++k) {
         OpenDriveLane& l = *k;
-        SVCPermissions permissions = tc.getPermissions(l.type) & ~(SVC_PEDESTRIAN | SVC_BICYCLE);
-        if (l.widthData.size() > 0 && tc.knows(l.type) && !tc.getShallBeDiscarded(l.type) && permissions != 0) {
+        SVCPermissions permissions = tc.getEdgeTypePermissions(l.type) & ~(SVC_PEDESTRIAN | SVC_BICYCLE);
+        if (l.widthData.size() > 0 && tc.knows(l.type) && !tc.getEdgeTypeShallBeDiscarded(l.type) && permissions != 0) {
             double sPrev = l.widthData.front().s;
             double wPrev = l.widthData.front().computeAt(sPrev);
             if (gDebugFlag1) std::cout

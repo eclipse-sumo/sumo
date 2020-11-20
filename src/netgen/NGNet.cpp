@@ -256,10 +256,10 @@ NGNet::toNB() const {
         for (NBEdge* e : node->getIncomingEdges()) {
             if (node->getConnectionTo(e->getFromNode()) == nullptr && RandHelper::rand() <= bidiProb) {
                 NBEdge* back = new NBEdge("-" + e->getID(), node, e->getFromNode(),
-                                          "", myNetBuilder.getTypeCont().getSpeed(""),
+                                          "", myNetBuilder.getTypeCont().getEdgeTypeSpeed(""),
                                           e->getNumLanes(),
                                           e->getPriority(),
-                                          myNetBuilder.getTypeCont().getWidth(""), NBEdge::UNSPECIFIED_OFFSET);
+                                          myNetBuilder.getTypeCont().getEdgeTypeWidth(""), NBEdge::UNSPECIFIED_OFFSET);
                 myNetBuilder.getEdgeCont().insert(back);
             }
         }

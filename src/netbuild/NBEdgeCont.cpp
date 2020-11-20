@@ -264,7 +264,7 @@ NBEdgeCont::ignoreFilterMatch(NBEdge* edge) {
             return true;
         }
     }
-    if (myTypeCont.knows(edge->getTypeID()) && myTypeCont.getShallBeDiscarded(edge->getTypeID())) {
+    if (myTypeCont.knows(edge->getTypeID()) && myTypeCont.getEdgeTypeShallBeDiscarded(edge->getTypeID())) {
         return true;
     }
     return false;

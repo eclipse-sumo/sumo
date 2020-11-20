@@ -255,7 +255,7 @@ public:
      * @param[in] edgeType The name of the edgeType to return the lane number for
      * @return The number of lanes an edge of this edgeType has
      */
-    int getNumLanes(const std::string& edgeType) const;
+    int getEdgeTypeNumLanes(const std::string& edgeType) const;
 
     /**@brief Returns the maximal velocity for the given edgeType [m/s]
      *
@@ -263,7 +263,7 @@ public:
      * @param[in] edgeType The name of the edgeType to return the speed for
      * @return The allowed speed on edges of this edgeType
      */
-    double getSpeed(const std::string& edgeType) const;
+    double getEdgeTypeSpeed(const std::string& edgeType) const;
 
     /**@brief Returns the priority for the given edgeType
      *
@@ -271,7 +271,7 @@ public:
      * @param[in] edgeType The name of the edgeType to return the priority for
      * @return The priority of edges of this edgeType
      */
-    int getPriority(const std::string& edgeType) const;
+    int getEdgeTypePriority(const std::string& edgeType) const;
 
     /**@brief Returns whether edges are one-way per default for the given edgeType
      *
@@ -280,7 +280,7 @@ public:
      * @return Whether edges of this edgeType are one-way per default
      * @todo There is no default for one-way!?
      */
-    bool getIsOneWay(const std::string& edgeType) const;
+    bool getEdgeTypeIsOneWay(const std::string& edgeType) const;
 
     /**@brief Returns the information whether edges of this edgeType shall be discarded.
      *
@@ -288,7 +288,7 @@ public:
      * @param[in] edgeType The id of the edgeType
      * @return Whether edges of this edgeType shall be discarded.
      */
-    bool getShallBeDiscarded(const std::string& edgeType) const;
+    bool getEdgeTypeShallBeDiscarded(const std::string& edgeType) const;
 
     /**@brief Returns the resolution for interpreting edge/lane widths of the given
      * edgeType
@@ -297,7 +297,7 @@ public:
      * @param[in] edgeType The name of the edgeType to return the width resolution for
      * @return The width resolution on edges of this edgeType
      */
-    double getWidthResolution(const std::string& edgeType) const;
+    double getEdgeTypeWidthResolution(const std::string& edgeType) const;
 
     /**@brief Returns the maximum edge/lane widths of the given
      * edgeType
@@ -306,7 +306,7 @@ public:
      * @param[in] edgeType The name of the edgeType to return the maximum width for
      * @return The maximum width on edges of this edgeType
      */
-    double getMaxWidth(const std::string& edgeType) const;
+    double getEdgeTypeMaxWidth(const std::string& edgeType) const;
 
     /**@brief Returns the minimum edge/lane widths of the given
      * edgeType
@@ -315,14 +315,14 @@ public:
      * @param[in] edgeType The name of the edgeType to return the maximum width for
      * @return The minimum width on edges of this edgeType
      */
-    double getMinWidth(const std::string& edgeType) const;
+    double getEdgeTypeMinWidth(const std::string& edgeType) const;
 
     /**@brief Returns whether an attribute of a edgeType was set
      * @param[in] edgeType The id of the edgeType
      * @param[in] attr The id of the attribute
      * @return Whether the attribute was set
      */
-    bool wasSet(const std::string& edgeType, const SumoXMLAttr attr) const;
+    bool wasSetEdgeTypeAttribute(const std::string& edgeType, const SumoXMLAttr attr) const;
 
     /**@brief Returns allowed vehicle classes for the given edgeType
      *
@@ -330,7 +330,7 @@ public:
      * @param[in] edgeType The name of the edgeType to return the list of allowed vehicles classes for
      * @return List of vehicles class which may use edges of the given edgeType
      */
-    SVCPermissions getPermissions(const std::string& edgeType) const;
+    SVCPermissions getEdgeTypePermissions(const std::string& edgeType) const;
 
     /**@brief Returns the lane width for the given edgeType [m]
      *
@@ -338,7 +338,7 @@ public:
      * @param[in] edgeType The name of the edgeType to return the width for
      * @return The width of lanes of edges of this edgeType
      */
-    double getWidth(const std::string& edgeType) const;
+    double getEdgeTypeWidth(const std::string& edgeType) const;
 
     /**@brief Returns the lane width for a sidewalk to be added [m]
      *
@@ -346,7 +346,7 @@ public:
      * @param[in] edgeType The name of the edgeType to return the width for
      * @return The width of lanes of edges of this edgeType
      */
-    double getSidewalkWidth(const std::string& edgeType) const;
+    double getEdgeTypeSidewalkWidth(const std::string& edgeType) const;
 
     /**@brief Returns the lane width for a bike lane to be added [m]
      *
@@ -354,7 +354,7 @@ public:
      * @param[in] edgeType The name of the edgeType to return the width for
      * @return The width of lanes of edges of this edgeType
      */
-    double getBikeLaneWidth(const std::string& edgeType) const;
+    double getEdgeTypeBikeLaneWidth(const std::string& edgeType) const;
 
     /// @}
 
@@ -365,7 +365,7 @@ protected:
      * @param[in] name The name of the edgeType to retrieve
      * @return The named edgeType
      */
-    const EdgeTypeDefinition& getType(const std::string& name) const;
+    const EdgeTypeDefinition& getEdgeType(const std::string& name) const;
 
     /// @brief The default edgeType
     EdgeTypeDefinition myDefaultType;

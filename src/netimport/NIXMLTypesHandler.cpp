@@ -59,23 +59,23 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             myCurrentTypeID = attrs.get<std::string>(SUMO_ATTR_ID, nullptr, ok);
             const char* const id = myCurrentTypeID.c_str();
             const std::string defType = myTypeCont.knows(myCurrentTypeID) ? myCurrentTypeID : "";
-            const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id, ok, myTypeCont.getPriority(defType));
-            const int numLanes = attrs.getOpt<int>(SUMO_ATTR_NUMLANES, id, ok, myTypeCont.getNumLanes(defType));
-            const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, myTypeCont.getSpeed(defType));
+            const int priority = attrs.getOpt<int>(SUMO_ATTR_PRIORITY, id, ok, myTypeCont.getEdgeTypePriority(defType));
+            const int numLanes = attrs.getOpt<int>(SUMO_ATTR_NUMLANES, id, ok, myTypeCont.getEdgeTypeNumLanes(defType));
+            const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, id, ok, myTypeCont.getEdgeTypeSpeed(defType));
             const std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, id, ok, "");
             const std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, id, ok, "");
-            const bool oneway = attrs.getOpt<bool>(SUMO_ATTR_ONEWAY, id, ok, myTypeCont.getIsOneWay(defType));
+            const bool oneway = attrs.getOpt<bool>(SUMO_ATTR_ONEWAY, id, ok, myTypeCont.getEdgeTypeIsOneWay(defType));
             const bool discard = attrs.getOpt<bool>(SUMO_ATTR_DISCARD, id, ok, false);
-            const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id, ok, myTypeCont.getWidth(defType));
-            const double maxWidth = attrs.getOpt<double>(SUMO_ATTR_MAXWIDTH, id, ok, myTypeCont.getMaxWidth(defType));
-            const double minWidth = attrs.getOpt<double>(SUMO_ATTR_MINWIDTH, id, ok, myTypeCont.getMinWidth(defType));
-            const double widthResolution = attrs.getOpt<double>(SUMO_ATTR_WIDTHRESOLUTION, id, ok, myTypeCont.getWidthResolution(defType));
-            const double sidewalkWidth = attrs.getOpt<double>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, myTypeCont.getSidewalkWidth(defType));
-            const double bikeLaneWidth = attrs.getOpt<double>(SUMO_ATTR_BIKELANEWIDTH, id, ok, myTypeCont.getBikeLaneWidth(defType));
+            const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, id, ok, myTypeCont.getEdgeTypeWidth(defType));
+            const double maxWidth = attrs.getOpt<double>(SUMO_ATTR_MAXWIDTH, id, ok, myTypeCont.getEdgeTypeMaxWidth(defType));
+            const double minWidth = attrs.getOpt<double>(SUMO_ATTR_MINWIDTH, id, ok, myTypeCont.getEdgeTypeMinWidth(defType));
+            const double widthResolution = attrs.getOpt<double>(SUMO_ATTR_WIDTHRESOLUTION, id, ok, myTypeCont.getEdgeTypeWidthResolution(defType));
+            const double sidewalkWidth = attrs.getOpt<double>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, myTypeCont.getEdgeTypeSidewalkWidth(defType));
+            const double bikeLaneWidth = attrs.getOpt<double>(SUMO_ATTR_BIKELANEWIDTH, id, ok, myTypeCont.getEdgeTypeBikeLaneWidth(defType));
             // continue if parsing parameter was ok
             if (ok) {
                 // build the type
-                SVCPermissions permissions = myTypeCont.getPermissions(defType);
+                SVCPermissions permissions = myTypeCont.getEdgeTypePermissions(defType);
                 if (allowS != "" || disallowS != "") {
                     permissions = parseVehicleClasses(allowS, disallowS);
                 }
@@ -103,14 +103,14 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             // use id of last inserted edge
             const char* const edgeTypeId = myCurrentTypeID.c_str();
             const std::string defType = myTypeCont.knows(myCurrentTypeID) ? myCurrentTypeID : "";
-            const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, edgeTypeId, ok, myTypeCont.getSpeed(edgeTypeId));
+            const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, edgeTypeId, ok, myTypeCont.getEdgeTypeSpeed(edgeTypeId));
             const std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, edgeTypeId, ok, "");
             const std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, edgeTypeId, ok, "");
-            const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, edgeTypeId, ok, myTypeCont.getWidth(defType));
+            const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, edgeTypeId, ok, myTypeCont.getEdgeTypeWidth(defType));
             // continue if parsing parameter was ok
             if (ok) {
                 // build the type
-                SVCPermissions permissions = myTypeCont.getPermissions(defType);
+                SVCPermissions permissions = myTypeCont.getEdgeTypePermissions(defType);
                 if (allowS != "" || disallowS != "") {
                     permissions = parseVehicleClasses(allowS, disallowS);
                 }

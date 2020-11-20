@@ -392,11 +392,11 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
     // otherwise it is not an edge and will be ignored
     bool ok = true;
-    int numLanesForward = tc.getNumLanes(type);
-    int numLanesBackward = tc.getNumLanes(type);
-    double speed = tc.getSpeed(type);
-    bool defaultsToOneWay = tc.getIsOneWay(type);
-    SVCPermissions permissions = tc.getPermissions(type);
+    int numLanesForward = tc.getEdgeTypeNumLanes(type);
+    int numLanesBackward = tc.getEdgeTypeNumLanes(type);
+    double speed = tc.getEdgeTypeSpeed(type);
+    bool defaultsToOneWay = tc.getEdgeTypeIsOneWay(type);
+    SVCPermissions permissions = tc.getEdgeTypePermissions(type);
     if (e->myCurrentIsElectrified && (permissions & SVC_RAIL) != 0) {
         permissions |= (SVC_RAIL_ELECTRIC | SVC_RAIL_FAST);
     }
@@ -406,10 +406,10 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
     if (streetName == e->ref) {
         e->unsetParameter("ref"); // avoid superfluous param for railways
     }
-    double forwardWidth = tc.getWidth(type);
-    double backwardWidth = tc.getWidth(type);
-    const bool addSidewalk = (tc.getSidewalkWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
-    const bool addBikeLane = (tc.getBikeLaneWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
+    double forwardWidth = tc.getEdgeTypeWidth(type);
+    double backwardWidth = tc.getEdgeTypeWidth(type);
+    const bool addSidewalk = (tc.getEdgeTypeSidewalkWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
+    const bool addBikeLane = (tc.getEdgeTypeBikeLaneWidth(type) != NBEdge::UNSPECIFIED_WIDTH);
     // check directions
     bool addForward = true;
     bool addBackward = true;
@@ -469,7 +469,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (!addForward && (cyclewayType & WAY_FORWARD) != 0) {
             addForward = true;
             forwardPermissions = SVC_BICYCLE;
-            forwardWidth = tc.getBikeLaneWidth(type);
+            forwardWidth = tc.getEdgeTypeBikeLaneWidth(type);
             numLanesForward = 1;
             // do not add an additional cycle lane
             cyclewayType = (WayType)(cyclewayType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
@@ -477,7 +477,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (!addBackward && (cyclewayType & WAY_BACKWARD) != 0) {
             addBackward = true;
             backwardPermissions = SVC_BICYCLE;
-            backwardWidth = tc.getBikeLaneWidth(type);
+            backwardWidth = tc.getEdgeTypeBikeLaneWidth(type);
             numLanesBackward = 1;
             // do not add an additional cycle lane
             cyclewayType = (WayType)(cyclewayType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
@@ -489,7 +489,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (!addForward && (sidewalkType & WAY_FORWARD) != 0) {
             addForward = true;
             forwardPermissions = SVC_PEDESTRIAN;
-            forwardWidth = tc.getSidewalkWidth(type);
+            forwardWidth = tc.getEdgeTypeSidewalkWidth(type);
             numLanesForward = 1;
             // do not add an additional sidewalk
             sidewalkType = (WayType)(sidewalkType & ~WAY_FORWARD);  //clang tidy thinks "!WAY_FORWARD" is always false
@@ -497,7 +497,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         if (!addBackward && (sidewalkType & WAY_BACKWARD) != 0) {
             addBackward = true;
             backwardPermissions = SVC_PEDESTRIAN;
-            backwardWidth = tc.getSidewalkWidth(type);
+            backwardWidth = tc.getEdgeTypeSidewalkWidth(type);
             numLanesBackward = 1;
             // do not add an additional cycle lane
             sidewalkType = (WayType)(sidewalkType & ~WAY_BACKWARD); //clang tidy thinks "!WAY_BACKWARD" is always false
@@ -526,7 +526,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
 
         if (addForward) {
             assert(numLanesForward > 0);
-            NBEdge* nbe = new NBEdge(id, from, to, type, speed, numLanesForward, tc.getPriority(type),
+            NBEdge* nbe = new NBEdge(id, from, to, type, speed, numLanesForward, tc.getEdgeTypePriority(type),
                                      forwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape,
                                      StringUtils::escapeXML(streetName), origID, lsf, true);
             nbe->setPermissions(forwardPermissions);
@@ -534,13 +534,13 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->setPermissions(SVC_BUS, 0);
             }
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_FORWARD) != 0)) {
-                nbe->addBikeLane(tc.getBikeLaneWidth(type) * offsetFactor);
+                nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_FORWARD) != 0)) {
-                nbe->addSidewalk(tc.getSidewalkWidth(type) * offsetFactor);
+                nbe->addSidewalk(tc.getEdgeTypeSidewalkWidth(type) * offsetFactor);
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceStart);
@@ -551,7 +551,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
         }
         if (addBackward) {
             assert(numLanesBackward > 0);
-            NBEdge* nbe = new NBEdge(reverseID, to, from, type, speedBackward, numLanesBackward, tc.getPriority(type),
+            NBEdge* nbe = new NBEdge(reverseID, to, from, type, speedBackward, numLanesBackward, tc.getEdgeTypePriority(type),
                                      backwardWidth, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(),
                                      StringUtils::escapeXML(streetName), origID, lsf, true);
             nbe->setPermissions(backwardPermissions);
@@ -559,13 +559,13 @@ NIImporter_OpenStreetMap::insertEdge(Edge* e, int index, NBNode* from, NBNode* t
                 nbe->setPermissions(SVC_BUS, 0);
             }
             if (addBikeLane && (cyclewayType == WAY_UNKNOWN || (cyclewayType & WAY_BACKWARD) != 0)) {
-                nbe->addBikeLane(tc.getBikeLaneWidth(type) * offsetFactor);
+                nbe->addBikeLane(tc.getEdgeTypeBikeLaneWidth(type) * offsetFactor);
             } else if (nbe->getPermissions(0) == SVC_BUS) {
                 // bikes drive on buslanes if no separate cycle lane is available
                 nbe->setPermissions(SVC_BUS | SVC_BICYCLE, 0);
             }
             if (addSidewalk && (sidewalkType == WAY_UNKNOWN || (sidewalkType & WAY_BACKWARD) != 0)) {
-                nbe->addSidewalk(tc.getSidewalkWidth(type) * offsetFactor);
+                nbe->addSidewalk(tc.getEdgeTypeSidewalkWidth(type) * offsetFactor);
             }
             nbe->updateParameters(e->getParametersMap());
             nbe->setDistance(distanceEnd);
@@ -1814,16 +1814,16 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         SVCPermissions permissions = 0;
         bool discard = true;
         for (auto& type2 : types) {
-            if (!tc.getShallBeDiscarded(type2)) {
-                numLanes = MAX2(numLanes, tc.getNumLanes(type2));
-                maxSpeed = MAX2(maxSpeed, tc.getSpeed(type2));
-                prio = MAX2(prio, tc.getPriority(type2));
-                defaultIsOneWay &= tc.getIsOneWay(type2);
+            if (!tc.getEdgeTypeShallBeDiscarded(type2)) {
+                numLanes = MAX2(numLanes, tc.getEdgeTypeNumLanes(type2));
+                maxSpeed = MAX2(maxSpeed, tc.getEdgeTypeSpeed(type2));
+                prio = MAX2(prio, tc.getEdgeTypePriority(type2));
+                defaultIsOneWay &= tc.getEdgeTypeIsOneWay(type2);
                 //std::cout << "merging component " << type2 << " into type " << newType << " allows=" << getVehicleClassNames(tc.getPermissions(type2)) << " oneway=" << defaultIsOneWay << "\n";
-                permissions |= tc.getPermissions(type2);
-                width = MAX2(width, tc.getWidth(type2));
-                sidewalkWidth = MAX2(sidewalkWidth, tc.getSidewalkWidth(type2));
-                bikelaneWidth = MAX2(bikelaneWidth, tc.getBikeLaneWidth(type2));
+                permissions |= tc.getEdgeTypePermissions(type2);
+                width = MAX2(width, tc.getEdgeTypeWidth(type2));
+                sidewalkWidth = MAX2(sidewalkWidth, tc.getEdgeTypeSidewalkWidth(type2));
+                bikelaneWidth = MAX2(bikelaneWidth, tc.getEdgeTypeBikeLaneWidth(type2));
                 discard = false;
             }
         }
@@ -1848,7 +1848,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
         tc.insertEdgeType(newType, numLanes, maxSpeed, prio, permissions, width, defaultIsOneWay,
                   sidewalkWidth, bikelaneWidth, 0, 0, 0);
         for (auto& type3 : types) {
-            if (!tc.getShallBeDiscarded(type3)) {
+            if (!tc.getEdgeTypeShallBeDiscarded(type3)) {
                 tc.copyEdgeTypeRestrictionsAndAttrs(type3, newType);
             }
         }
@@ -1861,7 +1861,7 @@ void
 NIImporter_OpenStreetMap::extendRailwayDistances(Edge* e, NBTypeCont& tc) {
     const std::string id = toString(e->id);
     std::string type = usableType(e->myHighWayType, id, tc);
-    if (type != "" && isRailway(tc.getPermissions(type))) {
+    if (type != "" && isRailway(tc.getEdgeTypePermissions(type))) {
         std::vector<NIOSMNode*> nodes;
         std::vector<double> usablePositions;
         std::vector<int> usableIndex;

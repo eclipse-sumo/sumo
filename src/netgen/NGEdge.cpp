@@ -61,26 +61,26 @@ NGEdge::~NGEdge() {
 
 NBEdge*
 NGEdge::buildNBEdge(NBNetBuilder& nb, const std::string& type) const {
-    int priority = nb.getTypeCont().getPriority(type);
+    int priority = nb.getTypeCont().getEdgeTypePriority(type);
     if (priority > 1 && OptionsCont::getOptions().getBool("rand.random-priority")) {
         priority = RandHelper::rand(priority) + 1;
     }
-    int lanenumber = nb.getTypeCont().getNumLanes(type);
+    int lanenumber = nb.getTypeCont().getEdgeTypeNumLanes(type);
     if (lanenumber > 1 && OptionsCont::getOptions().getBool("rand.random-lanenumber")) {
         lanenumber = RandHelper::rand(lanenumber) + 1;
     }
 
-    SVCPermissions permissions = nb.getTypeCont().getPermissions(type);
+    SVCPermissions permissions = nb.getTypeCont().getEdgeTypePermissions(type);
     LaneSpreadFunction lsf = LaneSpreadFunction::RIGHT;
-    if (isRailway(permissions) &&  nb.getTypeCont().getIsOneWay(type)) {
+    if (isRailway(permissions) &&  nb.getTypeCont().getEdgeTypeIsOneWay(type)) {
         lsf = LaneSpreadFunction::CENTER;
     }
     NBEdge* result = new NBEdge(
         myID,
         nb.getNodeCont().retrieve(myStartNode->getID()), // from
         nb.getNodeCont().retrieve(myEndNode->getID()), // to
-        type, nb.getTypeCont().getSpeed(type), lanenumber,
-        priority, nb.getTypeCont().getWidth(type), NBEdge::UNSPECIFIED_OFFSET,
+        type, nb.getTypeCont().getEdgeTypeSpeed(type), lanenumber,
+        priority, nb.getTypeCont().getEdgeTypeWidth(type), NBEdge::UNSPECIFIED_OFFSET,
         "", lsf);
     result->setPermissions(permissions);
     return result;

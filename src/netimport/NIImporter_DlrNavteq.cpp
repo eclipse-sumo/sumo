@@ -389,10 +389,10 @@ NIImporter_DlrNavteq::EdgesHandler::report(const std::string& result) {
 
     // NavTeq imports can be done with a typemap (if supplied), if not, the old defaults are used
     if (myTypeCont.knows(navTeqTypeId)) {
-        e->setPermissions(myTypeCont.getPermissions(navTeqTypeId));
+        e->setPermissions(myTypeCont.getEdgeTypePermissions(navTeqTypeId));
     } else {
         // add vehicle type information to the edge
-        const SVCPermissions allPermissions = myTypeCont.getPermissions("");
+        const SVCPermissions allPermissions = myTypeCont.getEdgeTypePermissions("");
         const SVCPermissions defaultPermissions = OptionsCont::getOptions().getBool("dlr-navteq.tolerant-permissions") ? allPermissions : 0;
         if (myVersion < 6.0) {
             NINavTeqHelper::addVehicleClasses(*e, getColumn(st, VEHICLE_TYPE), allPermissions, defaultPermissions);

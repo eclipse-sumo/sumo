@@ -212,15 +212,15 @@ NIImporter_ArcView::load() {
         if ((type != "" || myOptions.isSet("shapefile.type-id")) && !myTypeCont.knows(type)) {
             WRITE_WARNINGF("Unknown type '%' for edge '%'", type, id);
         }
-        double width = myTypeCont.getWidth(type);
-        bool oneway = myTypeCont.knows(type) ? myTypeCont.getIsOneWay(type) : false;
+        double width = myTypeCont.getEdgeTypeWidth(type);
+        bool oneway = myTypeCont.knows(type) ? myTypeCont.getEdgeTypeIsOneWay(type) : false;
         double speed = getSpeed(*poFeature, id);
         int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
         if (nolanes <= 0 || speed <= 0) {
             if (myOptions.getBool("shapefile.use-defaults-on-failure")) {
-                nolanes = nolanes <= 0 ? myTypeCont.getNumLanes(type) : nolanes;
-                speed = speed <= 0 ? myTypeCont.getSpeed(type) : speed;
+                nolanes = nolanes <= 0 ? myTypeCont.getEdgeTypeNumLanes(type) : nolanes;
+                speed = speed <= 0 ? myTypeCont.getEdgeTypeSpeed(type) : speed;
             } else {
                 const std::string lanesField = myOptions.isSet("shapefile.laneNumber") ? myOptions.getString("shapefile.laneNumber") : "nolanes";
                 const std::string speedField = myOptions.isSet("shapefile.speed") ? myOptions.getString("shapefile.speed") : "speed";
@@ -325,7 +325,7 @@ NIImporter_ArcView::load() {
             if (myEdgeCont.retrieve(id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
                 NBEdge* edge = new NBEdge(id, from, to, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape, name, origID, spread);
-                edge->setPermissions(myTypeCont.getPermissions(type));
+                edge->setPermissions(myTypeCont.getEdgeTypePermissions(type));
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
@@ -338,7 +338,7 @@ NIImporter_ArcView::load() {
             if (myEdgeCont.retrieve("-" + id) == 0) {
                 LaneSpreadFunction spread = dir == "B" || dir == "FALSE" ? LaneSpreadFunction::RIGHT : LaneSpreadFunction::CENTER;
                 NBEdge* edge = new NBEdge("-" + id, to, from, type, speed, nolanes, priority, width, NBEdge::UNSPECIFIED_OFFSET, shape.reverse(), name, origID, spread);
-                edge->setPermissions(myTypeCont.getPermissions(type));
+                edge->setPermissions(myTypeCont.getEdgeTypePermissions(type));
                 myEdgeCont.insert(edge);
                 checkSpread(edge);
                 addParams(edge, poFeature, params);
@@ -378,7 +378,7 @@ NIImporter_ArcView::getSpeed(OGRFeature& poFeature, const std::string& edgeid) {
         }
     }
     if (myOptions.isSet("shapefile.type-id")) {
-        return myTypeCont.getSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
+        return myTypeCont.getEdgeTypeSpeed(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
@@ -417,7 +417,7 @@ NIImporter_ArcView::getLaneNo(OGRFeature& poFeature, const std::string& edgeid,
         }
     }
     if (myOptions.isSet("shapefile.type-id")) {
-        return (int) myTypeCont.getNumLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
+        return (int) myTypeCont.getEdgeTypeNumLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
@@ -445,7 +445,7 @@ NIImporter_ArcView::getLaneNo(OGRFeature& poFeature, const std::string& edgeid,
 int
 NIImporter_ArcView::getPriority(OGRFeature& poFeature, const std::string& /*edgeid*/) {
     if (myOptions.isSet("shapefile.type-id")) {
-        return myTypeCont.getPriority(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
+        return myTypeCont.getEdgeTypePriority(poFeature.GetFieldAsString((char*)(myOptions.getString("shapefile.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino

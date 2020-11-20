@@ -166,8 +166,8 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     // check deprecated (unused) attributes
     // use default values, first
     myCurrentType = myOptions.getString("default.type");
-    myCurrentPriority = myTypeCont.getPriority(myCurrentType);
-    myCurrentLaneNo = myTypeCont.getNumLanes(myCurrentType);
+    myCurrentPriority = myTypeCont.getEdgeTypePriority(myCurrentType);
+    myCurrentLaneNo = myTypeCont.getEdgeTypeNumLanes(myCurrentType);
     myCurrentEndOffset = NBEdge::UNSPECIFIED_OFFSET;
     if (myCurrentEdge != nullptr) {
         // update existing edge. only update lane-specific settings when explicitly requested
@@ -178,9 +178,9 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         myCurrentType = myCurrentEdge->getTypeID();
     } else {
         // this is a completely new edge. get the type specific defaults
-        myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
-        myPermissions = myTypeCont.getPermissions(myCurrentType);
-        myCurrentWidth = myTypeCont.getWidth(myCurrentType);
+        myCurrentSpeed = myTypeCont.getEdgeTypeSpeed(myCurrentType);
+        myPermissions = myTypeCont.getEdgeTypePermissions(myCurrentType);
+        myCurrentWidth = myTypeCont.getEdgeTypeWidth(myCurrentType);
     }
     myShape = PositionVector();
     myLanesSpread = SUMOXMLDefinitions::LaneSpreadFunctions.get(myOptions.getString("default.spreadtype"));
@@ -199,13 +199,13 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
             WRITE_ERRORF("Type '%' used by edge '%' was not defined (ignore with option --ignore-errors.edge-type).", myCurrentType, myCurrentID);
             return;
         }
-        myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
-        myCurrentPriority = myTypeCont.getPriority(myCurrentType);
-        myCurrentLaneNo = myTypeCont.getNumLanes(myCurrentType);
-        myPermissions = myTypeCont.getPermissions(myCurrentType);
-        myCurrentWidth = myTypeCont.getWidth(myCurrentType);
-        mySidewalkWidth = myTypeCont.getSidewalkWidth(myCurrentType);
-        myBikeLaneWidth = myTypeCont.getBikeLaneWidth(myCurrentType);
+        myCurrentSpeed = myTypeCont.getEdgeTypeSpeed(myCurrentType);
+        myCurrentPriority = myTypeCont.getEdgeTypePriority(myCurrentType);
+        myCurrentLaneNo = myTypeCont.getEdgeTypeNumLanes(myCurrentType);
+        myPermissions = myTypeCont.getEdgeTypePermissions(myCurrentType);
+        myCurrentWidth = myTypeCont.getEdgeTypeWidth(myCurrentType);
+        mySidewalkWidth = myTypeCont.getEdgeTypeSidewalkWidth(myCurrentType);
+        myBikeLaneWidth = myTypeCont.getEdgeTypeBikeLaneWidth(myCurrentType);
     }
     // use values from the edge to overwrite if existing, then
     if (myIsUpdate) {

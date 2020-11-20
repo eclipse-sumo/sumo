@@ -326,86 +326,89 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
 
 
 int
-NBTypeCont::getNumLanes(const std::string& type) const {
-    return getType(type).numLanes;
+NBTypeCont::getEdgeTypeNumLanes(const std::string& type) const {
+    return getEdgeType(type).numLanes;
 }
 
 
 double
-NBTypeCont::getSpeed(const std::string& type) const {
-    return getType(type).speed;
+NBTypeCont::getEdgeTypeSpeed(const std::string& type) const {
+    return getEdgeType(type).speed;
 }
 
 
 int
-NBTypeCont::getPriority(const std::string& type) const {
-    return getType(type).priority;
+NBTypeCont::getEdgeTypePriority(const std::string& type) const {
+    return getEdgeType(type).priority;
 }
 
 
 bool
-NBTypeCont::getIsOneWay(const std::string& type) const {
-    return getType(type).oneWay;
+NBTypeCont::getEdgeTypeIsOneWay(const std::string& type) const {
+    return getEdgeType(type).oneWay;
 }
 
 
 bool
-NBTypeCont::getShallBeDiscarded(const std::string& type) const {
-    return getType(type).discard;
+NBTypeCont::getEdgeTypeShallBeDiscarded(const std::string& type) const {
+    return getEdgeType(type).discard;
 }
 
 double
-NBTypeCont::getWidthResolution(const std::string& type) const {
-    return getType(type).widthResolution;
+NBTypeCont::getEdgeTypeWidthResolution(const std::string& type) const {
+    return getEdgeType(type).widthResolution;
 }
 
 double
-NBTypeCont::getMaxWidth(const std::string& type) const {
-    return getType(type).maxWidth;
+NBTypeCont::getEdgeTypeMaxWidth(const std::string& type) const {
+    return getEdgeType(type).maxWidth;
 }
 
 double
-NBTypeCont::getMinWidth(const std::string& type) const {
-    return getType(type).minWidth;
+NBTypeCont::getEdgeTypeMinWidth(const std::string& type) const {
+    return getEdgeType(type).minWidth;
 }
 
 bool
-NBTypeCont::wasSet(const std::string& type, const SumoXMLAttr attr) const {
-    return getType(type).attrs.count(attr) > 0;
+NBTypeCont::wasSetEdgeTypeAttribute(const std::string& type, const SumoXMLAttr attr) const {
+    return getEdgeType(type).attrs.count(attr) > 0;
 }
 
 
 SVCPermissions
-NBTypeCont::getPermissions(const std::string& type) const {
-    return getType(type).permissions;
+NBTypeCont::getEdgeTypePermissions(const std::string& type) const {
+    return getEdgeType(type).permissions;
 }
 
 
 double
-NBTypeCont::getWidth(const std::string& type) const {
-    return getType(type).width;
+NBTypeCont::getEdgeTypeWidth(const std::string& type) const {
+    return getEdgeType(type).width;
 }
 
 
 double
-NBTypeCont::getSidewalkWidth(const std::string& type) const {
-    return getType(type).sidewalkWidth;
+NBTypeCont::getEdgeTypeSidewalkWidth(const std::string& type) const {
+    return getEdgeType(type).sidewalkWidth;
 }
 
 
 double
-NBTypeCont::getBikeLaneWidth(const std::string& type) const {
-    return getType(type).bikeLaneWidth;
+NBTypeCont::getEdgeTypeBikeLaneWidth(const std::string& type) const {
+    return getEdgeType(type).bikeLaneWidth;
 }
 
 
 const NBTypeCont::EdgeTypeDefinition&
-NBTypeCont::getType(const std::string& name) const {
+NBTypeCont::getEdgeType(const std::string& name) const {
+    // try to find name in edge types
     TypesCont::const_iterator i = myEdgeTypes.find(name);
+    // check if return edge types, or default edge types
     if (i == myEdgeTypes.end()) {
         return myDefaultType;
+    } else {
+        return i->second;
     }
-    return i->second;
 }
 
 /****************************************************************************/
