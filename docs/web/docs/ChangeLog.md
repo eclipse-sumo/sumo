@@ -112,6 +112,7 @@ permalink: /ChangeLog/
   - Model parameters can now be [customized](Simulation/Meso.md#configuration_by_edge_type) for each edge type vial additional file input. Issue #7243
   
 - netedit
+  - Create edge mode now allows selecting from edge types and to inspect/edit edge attributes. Issue #2431
   - Opposite direction lanes can now be edited and selected. Issue #2653
   - Edges can now be split while in 'create edge mode' by shift-clicking. Issue #6754
   - [Generic parameters](Simulation/GenericParameters.md) of vTypes can now be edited. Issue #7646
