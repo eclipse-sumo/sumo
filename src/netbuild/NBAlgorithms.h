@@ -234,6 +234,9 @@ private:
      */
     static void setPriorityJunctionPriorities(NBNode& n, bool forceStraight = false);
 
+    /// @brief score pair of edges for multi-criteria evaluatoin of angle, priority, laneNumber and speed
+    static double getScore(const NBEdge* e1, const NBEdge* e2, int minPrio, int maxPrio, int maxNumLanes, double maxSpeed);
+
     /// @brief set priority for edges that are parallel to the best edges
     static void markBestParallel(const NBNode& n, NBEdge* bestFirst, NBEdge* bestSecond);
 
