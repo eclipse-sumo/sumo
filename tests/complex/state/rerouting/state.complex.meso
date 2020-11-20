@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Dec 31 15:56:21 2019 by Eclipse SUMO Version v1_4_0+0285-1267528511
+<!-- generated on Fri Nov 20 07:16:05 2020 by Eclipse SUMO sumo Version v1_7_0+1147-206f008743
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -30,9 +30,9 @@
 </configuration>
 -->
 
-<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_4_0+0285-1267528511" time="500.00">
+<snapshot xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/state_file.xsd" version="v1_7_0+1147-206f008743" time="500.00">
     <route id="!veh276" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh276!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh276!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh277" state="0" edges="gneE0 gneE3"/>
     <route id="!veh277!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh278" state="0" edges="gneE0 gneE3"/>
@@ -41,14 +41,12 @@
     <route id="!veh279!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh280" state="0" edges="gneE0 gneE3"/>
     <route id="!veh280!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
-    <route id="!veh280!var#2" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh281" state="0" edges="gneE0 gneE3"/>
     <route id="!veh281!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh282" state="0" edges="gneE0 gneE3"/>
     <route id="!veh282!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh283" state="0" edges="gneE0 gneE3"/>
     <route id="!veh283!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
-    <route id="!veh283!var#2" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh284" state="0" edges="gneE0 gneE3"/>
     <route id="!veh284!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh285" state="0" edges="gneE0 gneE3"/>
@@ -56,7 +54,7 @@
     <route id="!veh286" state="0" edges="gneE0 gneE3"/>
     <route id="!veh286!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh287" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh287!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh287!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh288" state="0" edges="gneE0 gneE3"/>
     <route id="!veh288!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh289" state="0" edges="gneE0 gneE3"/>
@@ -78,9 +76,9 @@
     <route id="!veh297" state="0" edges="gneE0 gneE3"/>
     <route id="!veh297!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh298" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh298!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh298!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh299" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh299!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh299!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh300" state="0" edges="gneE0 gneE3"/>
     <route id="!veh300!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh301" state="0" edges="gneE0 gneE3"/>
@@ -88,17 +86,17 @@
     <route id="!veh302" state="0" edges="gneE0 gneE3"/>
     <route id="!veh302!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh303" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh303!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh303!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh304" state="0" edges="gneE0 gneE3"/>
     <route id="!veh304!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh305" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh305!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh305!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh306" state="0" edges="gneE0 gneE3"/>
     <route id="!veh306!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh307" state="0" edges="gneE0 gneE3"/>
     <route id="!veh307!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh308" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh308!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh308!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh309" state="0" edges="gneE0 gneE3"/>
     <route id="!veh309!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh310" state="0" edges="gneE0 gneE3"/>
@@ -118,7 +116,7 @@
     <route id="!veh317" state="0" edges="gneE0 gneE3"/>
     <route id="!veh317!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh318" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh318!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh318!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh319" state="0" edges="gneE0 gneE3"/>
     <route id="!veh319!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh320" state="0" edges="gneE0 gneE3"/>
@@ -144,7 +142,7 @@
     <route id="!veh330" state="0" edges="gneE0 gneE3"/>
     <route id="!veh330!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh331" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh331!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh331!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh332" state="0" edges="gneE0 gneE3"/>
     <route id="!veh332!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh333" state="0" edges="gneE0 gneE3"/>
@@ -160,7 +158,7 @@
     <route id="!veh338" state="0" edges="gneE0 gneE3"/>
     <route id="!veh338!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh339" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh339!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh339!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh340" state="0" edges="gneE0 gneE3"/>
     <route id="!veh340!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh341" state="0" edges="gneE0 gneE3"/>
@@ -170,11 +168,11 @@
     <route id="!veh343" state="0" edges="gneE0 gneE3"/>
     <route id="!veh343!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh344" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh344!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh344!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh345" state="0" edges="gneE0 gneE3"/>
     <route id="!veh345!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh346" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh346!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh346!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh347" state="0" edges="gneE0 gneE3"/>
     <route id="!veh347!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh348" state="0" edges="gneE0 gneE3"/>
@@ -188,7 +186,7 @@
     <route id="!veh352" state="0" edges="gneE0 gneE3"/>
     <route id="!veh352!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh353" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh353!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh353!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh354" state="0" edges="gneE0 gneE3"/>
     <route id="!veh354!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh355" state="0" edges="gneE0 gneE3"/>
@@ -196,9 +194,9 @@
     <route id="!veh356" state="0" edges="gneE0 gneE3"/>
     <route id="!veh356!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh357" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh357!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh357!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh358" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh358!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh358!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh359" state="0" edges="gneE0 gneE3"/>
     <route id="!veh359!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh360" state="0" edges="gneE0 gneE3"/>
@@ -206,7 +204,7 @@
     <route id="!veh361" state="0" edges="gneE0 gneE3"/>
     <route id="!veh361!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh362" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh362!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh362!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh363" state="0" edges="gneE0 gneE3"/>
     <route id="!veh363!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh364" state="0" edges="gneE0 gneE3"/>
@@ -246,7 +244,7 @@
     <route id="!veh381" state="0" edges="gneE0 gneE3"/>
     <route id="!veh381!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh382" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh382!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh382!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh383" state="0" edges="gneE0 gneE3"/>
     <route id="!veh383!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh384" state="0" edges="gneE0 gneE3"/>
@@ -294,9 +292,9 @@
     <route id="!veh405" state="0" edges="gneE0 gneE3"/>
     <route id="!veh405!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh406" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh406!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh406!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh407" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh407!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh407!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh408" state="0" edges="gneE0 gneE3"/>
     <route id="!veh408!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh409" state="0" edges="gneE0 gneE3"/>
@@ -308,7 +306,7 @@
     <route id="!veh412" state="0" edges="gneE0 gneE3"/>
     <route id="!veh412!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh413" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh413!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh413!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh414" state="0" edges="gneE0 gneE3"/>
     <route id="!veh414!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh415" state="0" edges="gneE0 gneE3"/>
@@ -324,11 +322,11 @@
     <route id="!veh420" state="0" edges="gneE0 gneE3"/>
     <route id="!veh420!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh421" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh421!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh421!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh422" state="0" edges="gneE0 gneE3"/>
     <route id="!veh422!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh423" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh423!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh423!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh424" state="0" edges="gneE0 gneE3"/>
     <route id="!veh424!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh425" state="0" edges="gneE0 gneE3"/>
@@ -372,9 +370,9 @@
     <route id="!veh444" state="0" edges="gneE0 gneE3"/>
     <route id="!veh444!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh445" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh445!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh445!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh446" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh446!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
+    <route id="!veh446!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
     <route id="!veh447" state="0" edges="gneE0 gneE3"/>
     <route id="!veh447!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh448" state="0" edges="gneE0 gneE3"/>
@@ -406,7 +404,7 @@
     <route id="!veh461" state="0" edges="gneE0 gneE3"/>
     <route id="!veh461!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh462" state="0" edges="gneE0 gneE3"/>
-    <route id="!veh462!var#1" state="0" edges="gneE0 gneE1 gneE2 gneE3"/>
+    <route id="!veh462!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh463" state="0" edges="gneE0 gneE3"/>
     <route id="!veh463!var#1" state="0" edges="gneE0 gneE4 gneE5 gneE3"/>
     <route id="!veh464" state="0" edges="gneE0 gneE3"/>
@@ -585,65 +583,61 @@
     <route id="!veh602" state="0" edges="gneE0 gneE3"/>
     <route id="!veh603" state="0" edges="gneE0 gneE3"/>
     <route id="!veh604" state="0" edges="gneE0 gneE3"/>
-    <delay number="14" begin="604" end="275" depart="29617.00" time="6878.00"/>
-    <vType id="DEFAULT_BIKETYPE" vClass="bicycle"/>
-    <vType id="DEFAULT_CONTAINERTYPE" vClass="ignoring"/>
-    <vType id="DEFAULT_PEDTYPE" vClass="pedestrian"/>
-    <vType id="DEFAULT_VEHTYPE"/>
+    <delay number="14" begin="604" end="275" depart="29617.00" time="6874.00"/>
     <vType id="default" vClass="passenger" color="red"/>
-    <vehicle id="veh276" type="default" depart="276.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh276!var#1" speedFactor="0.97" state="476000 3 0 0 0 500563 492005 9223372036854775807">
+    <vehicle id="veh276" type="default" depart="276.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh276!var#1" speedFactor="0.97" reroute="1" state="476000 3 0 0 0 500563 492006 9223372036854775807">
         <device id="vehroute_veh276" state="12.36 0.00 1 !NULL 276000 !veh276 device.rerouting"/>
         <device id="routing_veh276" state="0"/>
     </vehicle>
-    <vehicle id="veh277" type="default" depart="277.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh277!var#1" speedFactor="0.87" state="478000 3 0 0 0 503901 495342 9223372036854775807">
+    <vehicle id="veh277" type="default" depart="277.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh277!var#1" speedFactor="0.87" reroute="1" state="478000 3 0 0 0 503901 495342 9223372036854775807">
         <device id="vehroute_veh277" state="12.10 0.00 1 !NULL 278000 !veh277 device.rerouting"/>
         <device id="routing_veh277" state="0"/>
     </vehicle>
-    <vehicle id="veh278" type="default" depart="278.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh278!var#1" speedFactor="1.21" state="479000 3 0 0 0 502232 493674 9223372036854775807">
+    <vehicle id="veh278" type="default" depart="278.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh278!var#1" speedFactor="1.21" reroute="1" state="479000 3 0 0 0 502232 493674 9223372036854775807">
         <device id="vehroute_veh278" state="11.18 0.00 1 !NULL 278000 !veh278 device.rerouting"/>
         <device id="routing_veh278" state="0"/>
     </vehicle>
-    <vehicle id="veh279" type="default" depart="279.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh279!var#1" speedFactor="0.99" state="481000 3 0 0 0 505570 497010 9223372036854775807">
+    <vehicle id="veh279" type="default" depart="279.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh279!var#1" speedFactor="0.99" reroute="1" state="481000 3 0 0 0 505570 497010 9223372036854775807">
         <device id="vehroute_veh279" state="11.62 0.00 1 !NULL 280000 !veh279 device.rerouting"/>
         <device id="routing_veh279" state="0"/>
     </vehicle>
-    <vehicle id="veh280" type="default" depart="280.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh280!var#2" speedFactor="0.97" state="483000 3 0 0 0 507239 498679 9223372036854775807">
-        <device id="vehroute_veh280" state="12.09 0.00 2 !NULL 280000 !veh280 device.rerouting gneE0 483000 !veh280!var#1 device.rerouting"/>
+    <vehicle id="veh280" type="default" depart="280.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh280!var#1" speedFactor="0.97" reroute="1" state="483000 3 0 0 0 507239 498678 9223372036854775807">
+        <device id="vehroute_veh280" state="12.09 0.00 1 !NULL 280000 !veh280 device.rerouting"/>
         <device id="routing_veh280" state="0"/>
     </vehicle>
-    <vehicle id="veh281" type="default" depart="281.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh281!var#1" speedFactor="0.99" state="484000 2 0 0 0 500348 496362 9223372036854775807">
+    <vehicle id="veh281" type="default" depart="281.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh281!var#1" speedFactor="0.99" reroute="1" state="484000 2 0 0 0 499735 496276 9223372036854775807">
         <device id="vehroute_veh281" state="11.17 0.00 1 !NULL 281000 !veh281 device.rerouting"/>
         <device id="routing_veh281" state="0"/>
     </vehicle>
-    <vehicle id="veh282" type="default" depart="282.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh282!var#1" speedFactor="1.08" state="487000 2 0 0 0 501576 498031 9223372036854775807">
+    <vehicle id="veh282" type="default" depart="282.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh282!var#1" speedFactor="1.08" reroute="1" state="487000 2 0 0 0 501404 497945 9223372036854775807">
         <device id="vehroute_veh282" state="13.16 0.00 1 !NULL 284000 !veh282 device.rerouting"/>
         <device id="routing_veh282" state="0"/>
     </vehicle>
-    <vehicle id="veh283" type="default" depart="283.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh283!var#2" speedFactor="0.95" state="488000 1 0 0 0 499786 496155 9223372036854775807">
-        <device id="vehroute_veh283" state="12.08 0.00 2 !NULL 284000 !veh283 device.rerouting gneE0 488000 !veh283!var#1 device.rerouting"/>
+    <vehicle id="veh283" type="default" depart="283.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh283!var#1" speedFactor="0.95" reroute="1" state="488000 1 0 0 0 499786 496155 9223372036854775807">
+        <device id="vehroute_veh283" state="12.08 0.00 1 !NULL 284000 !veh283 device.rerouting"/>
         <device id="routing_veh283" state="0"/>
     </vehicle>
-    <vehicle id="veh284" type="default" depart="284.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh284!var#1" speedFactor="1.02" state="490000 1 0 0 0 501455 497824 9223372036854775807">
+    <vehicle id="veh284" type="default" depart="284.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh284!var#1" speedFactor="1.02" reroute="1" state="490000 1 0 0 0 501196 497824 9223372036854775807">
         <device id="vehroute_veh284" state="12.59 0.00 1 !NULL 284000 !veh284 device.rerouting"/>
         <device id="routing_veh284" state="0"/>
     </vehicle>
-    <vehicle id="veh285" type="default" depart="285.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh285!var#1" speedFactor="0.76" state="492000 0 0 0 0 501358 492000 9223372036854775807">
+    <vehicle id="veh285" type="default" depart="285.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh285!var#1" speedFactor="0.76" reroute="1" state="492000 0 0 0 0 501358 492000 9223372036854775807">
         <device id="vehroute_veh285" state="10.53 0.00 1 !NULL 285000 !veh285 device.rerouting"/>
         <device id="routing_veh285" state="0"/>
     </vehicle>
-    <vehicle id="veh286" type="default" depart="286.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh286!var#1" speedFactor="1.04" state="493000 0 0 0 0 503027 493000 9223372036854775807">
+    <vehicle id="veh286" type="default" depart="286.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh286!var#1" speedFactor="1.04" reroute="1" state="493000 0 0 0 0 503027 493000 9223372036854775807">
         <device id="vehroute_veh286" state="9.82 0.00 1 !NULL 287000 !veh286 device.rerouting"/>
         <device id="routing_veh286" state="0"/>
     </vehicle>
-    <vehicle id="veh287" type="default" depart="287.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh287!var#1" speedFactor="0.98" state="495000 0 0 0 0 504696 495000 9223372036854775807">
+    <vehicle id="veh287" type="default" depart="287.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh287!var#1" speedFactor="0.98" reroute="1" state="495000 0 0 0 0 504696 495000 9223372036854775807">
         <device id="vehroute_veh287" state="10.16 0.00 1 !NULL 287000 !veh287 device.rerouting"/>
         <device id="routing_veh287" state="0"/>
     </vehicle>
-    <vehicle id="veh288" type="default" depart="288.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh288!var#1" speedFactor="0.89" state="497000 0 0 0 0 506365 497000 9223372036854775807">
+    <vehicle id="veh288" type="default" depart="288.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh288!var#1" speedFactor="0.89" reroute="1" state="497000 0 0 0 0 506365 497000 9223372036854775807">
         <device id="vehroute_veh288" state="10.52 0.00 1 !NULL 289000 !veh288 device.rerouting"/>
         <device id="routing_veh288" state="0"/>
     </vehicle>
-    <vehicle id="veh289" type="default" depart="289.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh289!var#1" speedFactor="1.10" state="498000 0 0 0 0 508034 498000 9223372036854775807">
+    <vehicle id="veh289" type="default" depart="289.00" departPos="1.00" arrivalPos="80.00" arrivalSpeed="0.00" route="!veh289!var#1" speedFactor="1.10" reroute="1" state="498000 0 0 0 0 508034 498000 9223372036854775807">
         <device id="vehroute_veh289" state="9.82 0.00 1 !NULL 289000 !veh289 device.rerouting"/>
         <device id="routing_veh289" state="0"/>
     </vehicle>
@@ -1907,22 +1901,22 @@
         <device id="vehroute_veh604" state="-1.00 -1.00 0"/>
         <device id="routing_veh604" state="0"/>
     </vehicle>
-    <segment>
+    <segment id="gneE0:0">
         <vehicles time="499493" value="veh289 veh288 veh287 veh286 veh285"/>
     </segment>
-    <segment>
-        <vehicles time="491753" value=""/>
+    <segment id="gneE1:0">
+        <vehicles time="496362" value="veh283"/>
     </segment>
-    <segment>
-        <vehicles time="497011" value=""/>
+    <segment id="gneE2:0">
+        <vehicles time="500347" value=""/>
     </segment>
-    <segment>
+    <segment id="gneE3:0">
         <vehicles time="498894" value="veh280 veh279 veh277 veh278 veh276"/>
     </segment>
-    <segment>
-        <vehicles time="499700" value="veh284 veh283"/>
+    <segment id="gneE4:0">
+        <vehicles time="499614" value="veh284"/>
     </segment>
-    <segment>
-        <vehicles time="500348" value="veh282 veh281"/>
+    <segment id="gneE5:0">
+        <vehicles time="498679" value="veh282 veh281"/>
     </segment>
 </snapshot>
