@@ -3036,7 +3036,10 @@ MSDevice_SSM::findSurroundingVehicles(const MSVehicle& veh, double range, FoeInf
                         link = lane->getOpposite()->getLinkTo(nextNonInternalLane);
                     }
                 }
-                assert(link != 0 || link->getLength() == 0.);
+                if (link == nullptr) {
+                    // disconnected route
+                    break;
+                }
 
                 // First lane of the connection
                 lane = link->getViaLane();
