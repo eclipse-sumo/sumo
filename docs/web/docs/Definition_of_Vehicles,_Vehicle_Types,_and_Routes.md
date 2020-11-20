@@ -1081,9 +1081,9 @@ is set.
 ## Assignment by global options
 
 Devices can be configured globally for all vehicles in the simulation by
-setting the option **--device.<DEVICENAME\>.probability** (i.e.) --device.fcd.probability 0.25 This will equip
+setting the option **--device.<DEVICENAME\>.probability** (e.g. `--device.fcd.probability 0.25`. This will equip
 about a quarter of the vehicles with an fcd device (each vehicle
-determines this randomly with 25% probability) To make the assignment
+determines this randomly with 25% probability).) To make the assignment
 exact the additional option **--device.<DEVICENAME\>.deterministic** can be set Another option is to pass the
 list of vehicle ids that shall be equipped using the option **--device.<DEVICENAME\>.explicit <ID1,ID2,...IDk\>**.
 
