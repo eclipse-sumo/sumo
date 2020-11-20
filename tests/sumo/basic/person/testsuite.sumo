@@ -91,6 +91,9 @@ persons_triggered
 # person stops for a given duration
 stop_duration
 
+# person stops for a given duration, specified via attribute edge
+stop_edge
+
 # If a vehicle leaves the simulation before delivering all passengers a warning should be triggered
 ride_wrong_destination
 

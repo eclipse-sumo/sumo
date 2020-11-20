@@ -19,6 +19,9 @@ withparams
 # Checks whether stop passing works
 with_stops
 
+# Checks whether stop passing works (stop on edge)
+with_stops_edge
+
 # Tests the import of shared routes
 multiref
 

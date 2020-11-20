@@ -21,3 +21,6 @@ long_rail_at_containerstop
 
 # a bus stopping at a bus stop. the bus is longer than the bus stop
 long_bus_at_busstop
+
+# define stop one edge
+stop_edge

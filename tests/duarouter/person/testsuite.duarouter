@@ -4,6 +4,9 @@ basic
 # use edges instead of from and to
 edges
 
+# define stop on lane and edge
+stop
+
 # use routeID instead of edges
 routeID
 
