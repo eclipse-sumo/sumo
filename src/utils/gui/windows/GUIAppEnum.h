@@ -150,7 +150,7 @@ enum {
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
     /// @brief save Edge Types
-    MID_HOTKEY_CTRL_SHITF_H_SAVEEDGETYPES,
+    MID_HOTKEY_CTRL_SHIFT_H_SAVEEDGETYPES,
     /// @brief save Data Elements
     MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,
     /// @brief Save Demand Elements
@@ -598,6 +598,8 @@ enum {
     MID_GNE_TOOLBARFILE_SAVEADDITIONALS_AS,
     /// @brief save TLS Programs as
     MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,
+    /// @brief save edgeTypes as
+    MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,
     /// @brief save demand elements as
     MID_GNE_TOOLBARFILE_SAVEDEMAND_AS,
     /// @brief save data elements as

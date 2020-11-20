@@ -126,6 +126,8 @@ FXDEFMAP(GNEApplicationWindow) GNEApplicationWindowMap[] = {
     // other
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onCmdSaveTLSProgramsAs),
     FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVETLSPROGRAMS_AS,             GNEApplicationWindow::onUpdNeedsNetwork),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,               GNEApplicationWindow::onCmdSaveEdgeTypesAs),
+    FXMAPFUNC(SEL_UPDATE,   MID_GNE_TOOLBARFILE_SAVEEDGETYPES_AS,               GNEApplicationWindow::onUpdNeedsNetwork),
     FXMAPFUNC(SEL_COMMAND,  MID_HOTKEY_CTRL_W_CLOSESIMULATION,                  GNEApplicationWindow::onCmdClose),
     FXMAPFUNC(SEL_UPDATE,   MID_HOTKEY_CTRL_W_CLOSESIMULATION,                  GNEApplicationWindow::onUpdNeedsNetwork),
 
@@ -274,6 +276,7 @@ GNEApplicationWindow::GNEApplicationWindow(FXApp* a, const std::string& configPa
     myAmLoading(false),
     myFileMenu(nullptr),
     myFileMenuTLS(nullptr),
+    myFileMenuEdgeTypes(nullptr),
     myFileMenuAdditionals(nullptr),
     myFileMenuDemandElements(nullptr),
     myFileMenuDataElements(nullptr),
@@ -364,6 +367,7 @@ GNEApplicationWindow::create() {
     myFileMenu->create();
     myEditMenu->create();
     myFileMenuTLS->create();
+    myFileMenuEdgeTypes->create();
     myFileMenuAdditionals->create();
     myFileMenuDemandElements->create();
     myFileMenuDataElements->create();
@@ -396,6 +400,7 @@ GNEApplicationWindow::~GNEApplicationWindow() {
     // must delete menus to avoid segfault on removing accelerators
     // (http://www.fox-toolkit.net/faq#TOC-What-happens-when-the-application-s)
     delete myFileMenuTLS;
+    delete myFileMenuEdgeTypes;
     delete myFileMenuAdditionals;
     delete myFileMenuDemandElements;
     delete myFileMenuDataElements;
@@ -1061,10 +1066,11 @@ GNEApplicationWindow::fillMenuBar() {
     myFileMenu = new FXMenuPane(this, LAYOUT_FIX_HEIGHT);
     GUIDesigns::buildFXMenuTitle(myToolbarsGrip.menu, "&File", nullptr, myFileMenu);
     myFileMenuTLS = new FXMenuPane(this);
+    myFileMenuEdgeTypes = new FXMenuPane(this);
     myFileMenuAdditionals = new FXMenuPane(this);
     myFileMenuDemandElements = new FXMenuPane(this);
     myFileMenuDataElements = new FXMenuPane(this);
-    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuTLS, myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
+    myFileMenuCommands.buildFileMenuCommands(myFileMenu, myFileMenuTLS, myFileMenuEdgeTypes, myFileMenuAdditionals, myFileMenuDemandElements, myFileMenuDataElements);
     // build recent files
     myMenuBarFile.buildRecentFiles(myFileMenu);
     new FXMenuSeparator(myFileMenu);
@@ -2280,6 +2286,13 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     } else {
         return 1;
     }
+}
+
+
+long
+GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
+    /* */
+    return 0;
 }
 
 

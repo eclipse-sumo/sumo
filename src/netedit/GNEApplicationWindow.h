@@ -157,6 +157,9 @@ public:
     /// @brief called when the command/FXCall save TLSPrograms as is executed
     long onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*);
 
+    /// @brief called when the command/FXCall save edgeTypes as is executed
+    long onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*);
+
     /// @brief called when the command/FXCall save additionals is executed
     long onCmdSaveAdditionals(FXObject*, FXSelector, void*);
 
@@ -378,6 +381,7 @@ protected:
     /// @brief the submenus
     FXMenuPane* myFileMenu,
                 *myFileMenuTLS,
+                *myFileMenuEdgeTypes,
                 *myFileMenuAdditionals,
                 *myFileMenuDemandElements,
                 *myFileMenuDataElements,
