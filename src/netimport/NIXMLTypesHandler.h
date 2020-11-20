@@ -30,7 +30,6 @@
 // ===========================================================================
 class NBTypeCont;
 
-
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -66,10 +65,9 @@ public:
      * @exception ProcessError If something fails (not used herein)
      * @note policy is to throw no exception in order to allow further processing
      */
-    void myStartElement(int element,
-                        const SUMOSAXAttributes& attrs);
-    //@}
+    void myStartElement(int element, const SUMOSAXAttributes& attrs);
 
+    //@}
 
 private:
     /// @brief The type container to fill
@@ -78,13 +76,10 @@ private:
     /// @brief The currently parsed type
     std::string myCurrentTypeID;
 
-
 private:
-    /** @brief invalid copy constructor */
-    NIXMLTypesHandler(const NIXMLTypesHandler& s);
+    /// @brief invalid copy constructor
+    NIXMLTypesHandler(const NIXMLTypesHandler& s) = delete;
 
-    /** @brief invalid assignment operator */
-    NIXMLTypesHandler& operator=(const NIXMLTypesHandler& s);
-
-
+    /// @brief invalid assignment operator
+    NIXMLTypesHandler& operator=(const NIXMLTypesHandler& s) = delete;
 };

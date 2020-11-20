@@ -51,8 +51,7 @@ NIXMLTypesHandler::~NIXMLTypesHandler() {}
 
 
 void
-NIXMLTypesHandler::myStartElement(int element,
-                                  const SUMOSAXAttributes& attrs) {
+NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
     switch (element) {
         case SUMO_TAG_TYPE: {
             bool ok = true;
@@ -73,25 +72,57 @@ NIXMLTypesHandler::myStartElement(int element,
             const double widthResolution = attrs.getOpt<double>(SUMO_ATTR_WIDTHRESOLUTION, id, ok, myTypeCont.getWidthResolution(defType));
             const double sidewalkWidth = attrs.getOpt<double>(SUMO_ATTR_SIDEWALKWIDTH, id, ok, myTypeCont.getSidewalkWidth(defType));
             const double bikeLaneWidth = attrs.getOpt<double>(SUMO_ATTR_BIKELANEWIDTH, id, ok, myTypeCont.getBikeLaneWidth(defType));
-            if (!ok) {
-                return;
+            // continue if parsing parameter was ok
+            if (ok) {
+                // build the type
+                SVCPermissions permissions = myTypeCont.getPermissions(defType);
+                if (allowS != "" || disallowS != "") {
+                    permissions = parseVehicleClasses(allowS, disallowS);
+                }
+                // insert edgeType in container
+                myTypeCont.insertEdgeType(myCurrentTypeID, numLanes, speed, priority, permissions, width, oneway, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
+                // check if mark edgeType as discard
+                if (discard) {
+                    myTypeCont.markEdgeTypeAsToDiscard(myCurrentTypeID);
+                }
+                // mark attributes as set
+                SumoXMLAttr myAttrs[] = {SUMO_ATTR_PRIORITY, SUMO_ATTR_NUMLANES, SUMO_ATTR_SPEED,
+                                         SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_ONEWAY,
+                                         SUMO_ATTR_DISCARD, SUMO_ATTR_WIDTH, SUMO_ATTR_SIDEWALKWIDTH, SUMO_ATTR_BIKELANEWIDTH
+                                        };
+                for (int i = 0; i < 10; i++) {
+                    if (attrs.hasAttribute(myAttrs[i])) {
+                        myTypeCont.markEdgeTypeAsSet(myCurrentTypeID, myAttrs[i]);
+                    }
+                }
             }
-            // build the type
-            SVCPermissions permissions = myTypeCont.getPermissions(defType);
-            if (allowS != "" || disallowS != "") {
-                permissions = parseVehicleClasses(allowS, disallowS);
-            }
-            myTypeCont.insert(myCurrentTypeID, numLanes, speed, priority, permissions, width, oneway, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
-            if (discard) {
-                myTypeCont.markAsToDiscard(myCurrentTypeID);
-            }
-            SumoXMLAttr myAttrs[] = {SUMO_ATTR_PRIORITY, SUMO_ATTR_NUMLANES, SUMO_ATTR_SPEED,
-                                     SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_ONEWAY,
-                                     SUMO_ATTR_DISCARD, SUMO_ATTR_WIDTH, SUMO_ATTR_SIDEWALKWIDTH, SUMO_ATTR_BIKELANEWIDTH
-                                    };
-            for (int i = 0; i < 10; i++) {
-                if (attrs.hasAttribute(myAttrs[i])) {
-                    myTypeCont.markAsSet(myCurrentTypeID, myAttrs[i]);
+            break;
+        }
+        case SUMO_TAG_LANETYPE: {
+            bool ok = true;
+            // use id of last inserted edge
+            const char* const edgeTypeId = myCurrentTypeID.c_str();
+            const std::string defType = myTypeCont.knows(myCurrentTypeID) ? myCurrentTypeID : "";
+            const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, edgeTypeId, ok, myTypeCont.getSpeed(edgeTypeId));
+            const std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, edgeTypeId, ok, "");
+            const std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, edgeTypeId, ok, "");
+            const double width = attrs.getOpt<double>(SUMO_ATTR_WIDTH, edgeTypeId, ok, myTypeCont.getWidth(defType));
+            // continue if parsing parameter was ok
+            if (ok) {
+                // build the type
+                SVCPermissions permissions = myTypeCont.getPermissions(defType);
+                if (allowS != "" || disallowS != "") {
+                    permissions = parseVehicleClasses(allowS, disallowS);
+                }
+
+                // insert laneType in container
+                myTypeCont.insertLaneType(myCurrentTypeID, speed, permissions, width);
+                // mark attributes as set
+                SumoXMLAttr myAttrs[] = {SUMO_ATTR_SPEED, SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_WIDTH};
+                for (int i = 0; i < 10; i++) {
+                    if (attrs.hasAttribute(myAttrs[i])) {
+                        myTypeCont.markLaneTypeAsSet(myCurrentTypeID, myAttrs[i]);
+                    }
                 }
             }
             break;
@@ -101,7 +132,7 @@ NIXMLTypesHandler::myStartElement(int element,
             const SUMOVehicleClass svc = getVehicleClassID(attrs.get<std::string>(SUMO_ATTR_VCLASS, myCurrentTypeID.c_str(), ok));
             const double speed = attrs.get<double>(SUMO_ATTR_SPEED, myCurrentTypeID.c_str(), ok);
             if (ok) {
-                myTypeCont.addRestriction(myCurrentTypeID, svc, speed);
+                myTypeCont.addEdgeTypeRestriction(myCurrentTypeID, svc, speed);
             }
             break;
         }

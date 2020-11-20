@@ -63,8 +63,8 @@ NBNetBuilder::~NBNetBuilder() {}
 void
 NBNetBuilder::applyOptions(OptionsCont& oc) {
     // apply options to type control
-    myTypeCont.setDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.lanewidth"), oc.getFloat("default.speed"),
-                           oc.getInt("default.priority"), parseVehicleClasses("", oc.getString("default.disallow")));
+    myTypeCont.setEdgeTypeDefaults(oc.getInt("default.lanenumber"), oc.getFloat("default.lanewidth"), oc.getFloat("default.speed"),
+                                   oc.getInt("default.priority"), parseVehicleClasses("", oc.getString("default.disallow")));
     // apply options to edge control
     myEdgeCont.applyOptions(oc);
     // apply options to traffic light logics control

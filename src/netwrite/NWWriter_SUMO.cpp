@@ -109,7 +109,7 @@ NWWriter_SUMO::writeNetwork(const OptionsCont& oc, NBNetBuilder& nb) {
     GeoConvHelper::writeLocation(device);
 
     // write edge types and restrictions
-    nb.getTypeCont().writeTypes(device);
+    nb.getTypeCont().writeEdgeTypes(device);
 
     // write inner lanes
     if (!oc.getBool("no-internal-links")) {

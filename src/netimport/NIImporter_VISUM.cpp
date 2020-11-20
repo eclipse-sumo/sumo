@@ -290,11 +290,11 @@ NIImporter_VISUM::parse_Types() {
     const int numLanes = myCapacity2Lanes.get(getNamedFloat("Kap-IV", KEYS.getString(VISUM_CAPACITY)));
     // insert the type
     myNetBuilder.getTypeCont().insertEdgeType(myCurrentID, numLanes, speed / (double) 3.6, priority, permissions, NBEdge::UNSPECIFIED_WIDTH, false, NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_WIDTH, 0, 0, 0);
-    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_NUMLANES);
-    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_SPEED);
-    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_PRIORITY);
-    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_ONEWAY);
-    myNetBuilder.getTypeCont().markAsSet(myCurrentID, SUMO_ATTR_ALLOW);
+    myNetBuilder.getTypeCont().markEdgeTypeAsSet(myCurrentID, SUMO_ATTR_NUMLANES);
+    myNetBuilder.getTypeCont().markEdgeTypeAsSet(myCurrentID, SUMO_ATTR_SPEED);
+    myNetBuilder.getTypeCont().markEdgeTypeAsSet(myCurrentID, SUMO_ATTR_PRIORITY);
+    myNetBuilder.getTypeCont().markEdgeTypeAsSet(myCurrentID, SUMO_ATTR_ONEWAY);
+    myNetBuilder.getTypeCont().markEdgeTypeAsSet(myCurrentID, SUMO_ATTR_ALLOW);
 }
 
 

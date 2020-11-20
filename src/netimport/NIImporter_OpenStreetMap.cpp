@@ -1849,7 +1849,7 @@ NIImporter_OpenStreetMap::usableType(const std::string& type, const std::string&
                   sidewalkWidth, bikelaneWidth, 0, 0, 0);
         for (auto& type3 : types) {
             if (!tc.getShallBeDiscarded(type3)) {
-                tc.copyRestrictionsAndAttrs(type3, newType);
+                tc.copyEdgeTypeRestrictionsAndAttrs(type3, newType);
             }
         }
         myKnownCompoundTypes[type] = newType;

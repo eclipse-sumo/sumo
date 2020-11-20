@@ -95,11 +95,11 @@ NBTypeCont::~NBTypeCont() {}
 
 
 void
-NBTypeCont::setDefaults(int defaultNumLanes,
-                        double defaultLaneWidth,
-                        double defaultSpeed,
-                        int defaultPriority,
-                        SVCPermissions defaultPermissions) {
+NBTypeCont::setEdgeTypeDefaults(int defaultNumLanes,
+                                double defaultLaneWidth,
+                                double defaultSpeed,
+                                int defaultPriority,
+                                SVCPermissions defaultPermissions) {
     myDefaultType.numLanes = defaultNumLanes;
     myDefaultType.width = defaultLaneWidth;
     myDefaultType.speed = defaultSpeed;
@@ -168,7 +168,7 @@ NBTypeCont::knows(const std::string& type) const {
 
 
 bool
-NBTypeCont::markAsToDiscard(const std::string& id) {
+NBTypeCont::markEdgeTypeAsToDiscard(const std::string& id) {
     TypesCont::iterator i = myTypes.find(id);
     if (i == myTypes.end()) {
         return false;
@@ -179,7 +179,7 @@ NBTypeCont::markAsToDiscard(const std::string& id) {
 
 
 bool
-NBTypeCont::markAsSet(const std::string& id, const SumoXMLAttr attr) {
+NBTypeCont::markEdgeTypeAsSet(const std::string& id, const SumoXMLAttr attr) {
     TypesCont::iterator i = myTypes.find(id);
     if (i == myTypes.end()) {
         return false;
@@ -190,7 +190,7 @@ NBTypeCont::markAsSet(const std::string& id, const SumoXMLAttr attr) {
 
 
 bool
-NBTypeCont::addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
+NBTypeCont::addEdgeTypeRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
     TypesCont::iterator i = myTypes.find(id);
     if (i == myTypes.end()) {
         return false;
@@ -201,7 +201,7 @@ NBTypeCont::addRestriction(const std::string& id, const SUMOVehicleClass svc, co
 
 
 bool
-NBTypeCont::copyRestrictionsAndAttrs(const std::string& fromId, const std::string& toId) {
+NBTypeCont::copyEdgeTypeRestrictionsAndAttrs(const std::string& fromId, const std::string& toId) {
     TypesCont::iterator from = myTypes.find(fromId);
     TypesCont::iterator to = myTypes.find(toId);
     if (from == myTypes.end() || to == myTypes.end()) {
@@ -213,8 +213,34 @@ NBTypeCont::copyRestrictionsAndAttrs(const std::string& fromId, const std::strin
 }
 
 
+bool
+NBTypeCont::markLaneTypeAsSet(const std::string& id, const SumoXMLAttr attr) {
+/*
+    TypesCont::iterator i = myTypes.find(id);
+    if (i == myTypes.end()) {
+        return false;
+    }
+    i->second.attrs.insert(attr);
+*/
+    return true;
+}
+
+
+bool
+NBTypeCont::addLaneTypeRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
+/*
+    TypesCont::iterator i = myTypes.find(id);
+    if (i == myTypes.end()) {
+        return false;
+    }
+    i->second.restrictions[svc] = speed;
+*/
+    return true;
+}
+
+
 void
-NBTypeCont::writeTypes(OutputDevice& into) const {
+NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
     for (TypesCont::const_iterator i = myTypes.begin(); i != myTypes.end(); ++i) {
         into.openTag(SUMO_TAG_TYPE);
         into.writeAttr(SUMO_ATTR_ID, i->first);

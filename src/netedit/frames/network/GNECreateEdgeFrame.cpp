@@ -520,7 +520,7 @@ GNECreateEdgeFrame::EdgeTypeFile::onCmdSaveEdgeProgram(FXObject*, FXSelector, vo
     // open tag
     device.openTag(SUMO_TAG_TYPE);
     // write edge types
-    myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().writeTypes(device);
+    myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().writeEdgeTypes(device);
     // close tag
     device.closeTag();
     // close device

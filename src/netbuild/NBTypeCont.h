@@ -19,7 +19,7 @@
 /// @author  Walter Bamberger
 /// @date    Tue, 20 Nov 2001
 ///
-// A storage for available types of edges
+// A storage for available edgeTypes of edges
 /****************************************************************************/
 #pragma once
 #include <config.h>
@@ -41,12 +41,12 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class NBTypeCont
- * @brief A storage for available types of edges
+ * @brief A storage for available edgeTypes of edges
  *
  * NBTypeCont stores properties of edge-types of edges. Additionally, a default
- *  type is stored which is used if no type information is given.
+ *  edgeType is stored which is used if no edgeType information is given.
  *
- * This structure also contains a structure for determining node types using edge
+ * This structure also contains a structure for determining node edgeTypes using edge
  *  speeds.
  */
 class NBTypeCont {
@@ -63,7 +63,7 @@ public:
         /// @brief The maximal velocity on a lane in m/s
         double speed;
 
-        /// @brief List of vehicle types that are allowed on this lane
+        /// @brief List of vehicle edgeTypes that are allowed on this lane
         SVCPermissions permissions;
 
         /// @brief lane width [m]
@@ -93,25 +93,25 @@ public:
         /// @brief The priority of an edge
         int priority;
 
-        /// @brief List of vehicle types that are allowed on this edge
+        /// @brief List of vehicle edgeTypes that are allowed on this edge
         SVCPermissions permissions;
 
-        /// @brief Whether one-way traffic is mostly common for this type (mostly unused)
+        /// @brief Whether one-way traffic is mostly common for this edgeType (mostly unused)
         bool oneWay;
 
-        /// @brief Whether edges of this type shall be discarded
+        /// @brief Whether edges of this edgeType shall be discarded
         bool discard;
 
-        /// @brief The width of lanes of edges of this type [m]
+        /// @brief The width of lanes of edges of this edgeType [m]
         double width;
 
-        /// @brief The resolution for interpreting custom (noisy) lane widths of this type [m]
+        /// @brief The resolution for interpreting custom (noisy) lane widths of this edgeType [m]
         double widthResolution;
 
-        /// @brief The maximum width for lanes of this type [m]
+        /// @brief The maximum width for lanes of this edgeType [m]
         double maxWidth;
 
-        /// @brief The minimum width for lanes of this type [m]
+        /// @brief The minimum width for lanes of this edgeType [m]
         double minWidth;
 
         /* @brief The width of the sidewalk that should be added as an additional lane
@@ -127,9 +127,12 @@ public:
 
         /// @brief The attributes which have been set
         std::set<SumoXMLAttr> attrs;
+
+        /// @brief vector with LaneTypeDefinitions
+        std::vector<LaneTypeDefinition> laneTypeDefinitions;
     };
 
-    /// @brief A container of types, accessed by the string id
+    /// @brief A container of edgeTypes, accessed by the string id
     typedef std::map<std::string, EdgeTypeDefinition> TypesCont;
 
     /// @brief Constructor
@@ -145,19 +148,19 @@ public:
      * @param[in] defaultPriority The default priority of an edge
      * @param[in] defaultPermissions The default permissions of an edge
      */
-    void setDefaults(int defaultNumLanes, double defaultLaneWidth,
-                     double defaultSpeed, int defaultPriority,
-                     SVCPermissions defaultPermissions);
+    void setEdgeTypeDefaults(int defaultNumLanes, double defaultLaneWidth,
+                             double defaultSpeed, int defaultPriority,
+                             SVCPermissions defaultPermissions);
 
-    /**@brief Adds a type into the list
-     * @param[in] id The id of the type
-     * @param[in] numLanes The number of lanes an edge of this type has
-     * @param[in] maxSpeed The speed allowed on an edge of this type
-     * @param[in] prio The priority of an edge of this type
-     * @param[in] permissions The encoding of vehicle classes allowed on an edge of this type
-     * @param[in] width The width of lanes of edgesof this type
-     * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
-     * @return Whether the type could be added (no type with the same id existed)
+    /**@brief Adds a edgeType into the list
+     * @param[in] id The id of the edgeType
+     * @param[in] numLanes The number of lanes an edge of this edgeType has
+     * @param[in] maxSpeed The speed allowed on an edge of this edgeType
+     * @param[in] prio The priority of an edge of this edgeType
+     * @param[in] permissions The encoding of vehicle classes allowed on an edge of this edgeType
+     * @param[in] width The width of lanes of edgesof this edgeType
+     * @param[in] oneWayIsDefault Whether edges of this edgeType are one-way per default
+     * @return Whether the edgeType could be added (no edgeType with the same id existed)
      */
     void insertEdgeType(const std::string& id, int numLanes,
                         double maxSpeed, int prio,
@@ -169,23 +172,23 @@ public:
                         double maxWidth,
                         double minWidth);
 
-    /**@brief Adds a type into the list
-     * @param[in] id The id of the type
-     * @param[in] numLanes The number of lanes an edge of this type has
-     * @param[in] maxSpeed The speed allowed on an edge of this type
-     * @param[in] prio The priority of an edge of this type
-     * @param[in] permissions The encoding of vehicle classes allowed on an edge of this type
-     * @param[in] width The width of lanes of edgesof this type
-     * @param[in] oneWayIsDefault Whether edges of this type are one-way per default
-     * @return Whether the type could be added (no type with the same id existed)
+    /**@brief Adds a edgeType into the list
+     * @param[in] id The id of the edgeType
+     * @param[in] numLanes The number of lanes an edge of this edgeType has
+     * @param[in] maxSpeed The speed allowed on an edge of this edgeType
+     * @param[in] prio The priority of an edge of this edgeType
+     * @param[in] permissions The encoding of vehicle classes allowed on an edge of this edgeType
+     * @param[in] width The width of lanes of edgesof this edgeType
+     * @param[in] oneWayIsDefault Whether edges of this edgeType are one-way per default
+     * @return Whether the edgeType could be added (no edgeType with the same id existed)
      */
     void insertLaneType(const std::string& edgeTypeId,
                         double maxSpeed,
                         SVCPermissions permissions,
                         double width);
 
-    /**@brief Returns the number of known types
-     * @return The number of known edge types (excluding the default)
+    /**@brief Returns the number of known edgeTypes
+     * @return The number of known edge edgeTypes (excluding the default)
      */
     int size() const;
 
@@ -195,163 +198,176 @@ public:
     /// @brief return end iterator
     TypesCont::const_iterator end() const;
 
-    /**@brief Returns whether the named type is in the container
-     * @return Whether the named type is known
+    /**@brief Returns whether the named edgeType is in the container
+     * @return Whether the named edgeType is known
      */
-    bool knows(const std::string& type) const;
+    bool knows(const std::string& edgeType) const;
 
-    /**@brief Marks a type as to be discarded
-     * @param[in] id The id of the type
+    /**@brief Marks a edgeType as to be discarded
+     * @param[in] id The id of the edgeType
      */
-    bool markAsToDiscard(const std::string& id);
+    bool markEdgeTypeAsToDiscard(const std::string& id);
 
-    /**@brief Marks an attribute of a type as set
-     * @param[in] id The id of the type
+    /**@brief Marks an attribute of a edgeType as set
+     * @param[in] id The id of the edgeType
      * @param[in] attr The id of the attribute
      */
-    bool markAsSet(const std::string& id, const SumoXMLAttr attr);
+    bool markEdgeTypeAsSet(const std::string& id, const SumoXMLAttr attr);
 
-    /**@brief Adds a restriction to a type
-     * @param[in] id The id of the type
+    /**@brief Adds a restriction to a edgeType
+     * @param[in] id The id of the edgeType
      * @param[in] svc The vehicle class the restriction refers to
      * @param[in] speed The restricted speed
      */
-    bool addRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed);
+    bool addEdgeTypeRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed);
 
-    /**@brief Copy restrictions to a type
-     * @param[in] fromId The id of the source type
-     * @param[in] toId The id of the destination type
+    /**@brief Copy restrictions to a edgeType
+     * @param[in] fromId The id of the source edgeType
+     * @param[in] toId The id of the destination edgeType
      */
-    bool copyRestrictionsAndAttrs(const std::string& fromId, const std::string& toId);
+    bool copyEdgeTypeRestrictionsAndAttrs(const std::string& fromId, const std::string& toId);
 
-    /// @brief writes all types a s XML
-    void writeTypes(OutputDevice& into) const;
+    /**@brief Marks an attribute of last laneType as set
+    * @param[in] id The id of the edgeType parent
+    * @param[in] attr The id of the attribute
+    */
+    bool markLaneTypeAsSet(const std::string& id, const SumoXMLAttr attr);
+
+    /**@brief Adds a restriction to last laneType
+    * @param[in] id The id of the edgeType parent
+    * @param[in] svc The vehicle class the restriction refers to
+    * @param[in] speed The restricted speed
+    */
+    bool addLaneTypeRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed);
+
+    /// @brief writes all EdgeTypes (and their lanes) as XML
+    void writeEdgeTypes(OutputDevice& into) const;
 
     /// @name Type-dependant Retrieval methods
     /// @{
 
-    /**@brief Returns the number of lanes for the given type
+    /**@brief Returns the number of lanes for the given edgeType
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the lane number for
-     * @return The number of lanes an edge of this type has
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the lane number for
+     * @return The number of lanes an edge of this edgeType has
      */
-    int getNumLanes(const std::string& type) const;
+    int getNumLanes(const std::string& edgeType) const;
 
-    /**@brief Returns the maximal velocity for the given type [m/s]
+    /**@brief Returns the maximal velocity for the given edgeType [m/s]
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the speed for
-     * @return The allowed speed on edges of this type
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the speed for
+     * @return The allowed speed on edges of this edgeType
      */
-    double getSpeed(const std::string& type) const;
+    double getSpeed(const std::string& edgeType) const;
 
-    /**@brief Returns the priority for the given type
+    /**@brief Returns the priority for the given edgeType
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the priority for
-     * @return The priority of edges of this type
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the priority for
+     * @return The priority of edges of this edgeType
      */
-    int getPriority(const std::string& type) const;
+    int getPriority(const std::string& edgeType) const;
 
-    /**@brief Returns whether edges are one-way per default for the given type
+    /**@brief Returns whether edges are one-way per default for the given edgeType
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the one-way information for
-     * @return Whether edges of this type are one-way per default
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the one-way information for
+     * @return Whether edges of this edgeType are one-way per default
      * @todo There is no default for one-way!?
      */
-    bool getIsOneWay(const std::string& type) const;
+    bool getIsOneWay(const std::string& edgeType) const;
 
-    /**@brief Returns the information whether edges of this type shall be discarded.
+    /**@brief Returns the information whether edges of this edgeType shall be discarded.
      *
-     * Returns false if the type is not known.
-     * @param[in] type The id of the type
-     * @return Whether edges of this type shall be discarded.
+     * Returns false if the edgeType is not known.
+     * @param[in] edgeType The id of the edgeType
+     * @return Whether edges of this edgeType shall be discarded.
      */
-    bool getShallBeDiscarded(const std::string& type) const;
+    bool getShallBeDiscarded(const std::string& edgeType) const;
 
     /**@brief Returns the resolution for interpreting edge/lane widths of the given
-     * type
+     * edgeType
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the width resolution for
-     * @return The width resolution on edges of this type
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the width resolution for
+     * @return The width resolution on edges of this edgeType
      */
-    double getWidthResolution(const std::string& type) const;
+    double getWidthResolution(const std::string& edgeType) const;
 
     /**@brief Returns the maximum edge/lane widths of the given
-     * type
+     * edgeType
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the maximum width for
-     * @return The maximum width on edges of this type
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the maximum width for
+     * @return The maximum width on edges of this edgeType
      */
-    double getMaxWidth(const std::string& type) const;
+    double getMaxWidth(const std::string& edgeType) const;
 
     /**@brief Returns the minimum edge/lane widths of the given
-     * type
+     * edgeType
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the maximum width for
-     * @return The minimum width on edges of this type
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the maximum width for
+     * @return The minimum width on edges of this edgeType
      */
-    double getMinWidth(const std::string& type) const;
+    double getMinWidth(const std::string& edgeType) const;
 
-    /**@brief Returns whether an attribute of a type was set
-     * @param[in] type The id of the type
+    /**@brief Returns whether an attribute of a edgeType was set
+     * @param[in] edgeType The id of the edgeType
      * @param[in] attr The id of the attribute
      * @return Whether the attribute was set
      */
-    bool wasSet(const std::string& type, const SumoXMLAttr attr) const;
+    bool wasSet(const std::string& edgeType, const SumoXMLAttr attr) const;
 
-    /**@brief Returns allowed vehicle classes for the given type
+    /**@brief Returns allowed vehicle classes for the given edgeType
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the list of allowed vehicles classes for
-     * @return List of vehicles class which may use edges of the given type
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the list of allowed vehicles classes for
+     * @return List of vehicles class which may use edges of the given edgeType
      */
-    SVCPermissions getPermissions(const std::string& type) const;
+    SVCPermissions getPermissions(const std::string& edgeType) const;
 
-    /**@brief Returns the lane width for the given type [m]
+    /**@brief Returns the lane width for the given edgeType [m]
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the width for
-     * @return The width of lanes of edges of this type
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the width for
+     * @return The width of lanes of edges of this edgeType
      */
-    double getWidth(const std::string& type) const;
+    double getWidth(const std::string& edgeType) const;
 
     /**@brief Returns the lane width for a sidewalk to be added [m]
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the width for
-     * @return The width of lanes of edges of this type
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the width for
+     * @return The width of lanes of edges of this edgeType
      */
-    double getSidewalkWidth(const std::string& type) const;
+    double getSidewalkWidth(const std::string& edgeType) const;
 
     /**@brief Returns the lane width for a bike lane to be added [m]
      *
-     * If the named type is not known, the default is returned
-     * @param[in] type The name of the type to return the width for
-     * @return The width of lanes of edges of this type
+     * If the named edgeType is not known, the default is returned
+     * @param[in] edgeType The name of the edgeType to return the width for
+     * @return The width of lanes of edges of this edgeType
      */
-    double getBikeLaneWidth(const std::string& type) const;
+    double getBikeLaneWidth(const std::string& edgeType) const;
 
     /// @}
 
 protected:
-    /**@brief Retrieve the name or the default type
+    /**@brief Retrieve the name or the default edgeType
      *
-     * If no name is given, the default type is returned
-     * @param[in] name The name of the type to retrieve
-     * @return The named type
+     * If no name is given, the default edgeType is returned
+     * @param[in] name The name of the edgeType to retrieve
+     * @return The named edgeType
      */
     const EdgeTypeDefinition& getType(const std::string& name) const;
 
-    /// @brief The default type
+    /// @brief The default edgeType
     EdgeTypeDefinition myDefaultType;
 
-    /// @brief The container of types
+    /// @brief The container of edgeTypes
     TypesCont myTypes;
 
 private:

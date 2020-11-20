@@ -170,7 +170,7 @@ NWWriter_XML::writeTypes(const OptionsCont& oc, NBTypeCont& tc) {
     std::map<SumoXMLAttr, std::string> attrs;
     attrs[SUMO_ATTR_VERSION] = toString(NETWORK_VERSION, 1);
     device.writeXMLHeader("types", "types_file.xsd", attrs);
-    tc.writeTypes(device);
+    tc.writeEdgeTypes(device);
     device.close();
 }
 
