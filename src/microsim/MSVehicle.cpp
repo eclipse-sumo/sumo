@@ -4593,8 +4593,23 @@ MSVehicle::enterLaneAtInsertion(MSLane* enteredLane, double pos, double speed, d
     if (!myLaneChangeModel->isOpposite()) {
         double leftLength = myType->getLength() - pos;
         MSLane* clane = enteredLane;
+        int routeIndex = getRoutePosition();
         while (leftLength > 0) {
-            clane = clane->getLogicalPredecessorLane();
+            if (routeIndex > 0 && clane->getEdge().isNormal()) {
+                // get predecessor lane that corresponds to prior route
+                routeIndex--;
+                const MSEdge* fromRouteEdge = myRoute->getEdges()[routeIndex];
+                MSLane* target = clane;
+                clane = nullptr;
+                for (auto ili : target->getIncomingLanes()) {
+                    if (ili.lane->getEdge().getNormalBefore() == fromRouteEdge) {
+                        clane = ili.lane;
+                        break;
+                    }
+                }
+            } else {
+                clane = clane->getLogicalPredecessorLane();
+            }
             if (clane == nullptr || clane == myLane || clane == myLane->getBidiLane()
                     || (clane->isInternal() && (
                             clane->getLinkCont()[0]->getDirection() == LinkDirection::TURN
