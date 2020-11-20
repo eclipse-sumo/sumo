@@ -4,6 +4,9 @@ stopOffsets
 # Tests for using types
 types
 
+# Tests for using laneTypes
+lanetypes
+
 # Tests for using types
 node_types
 
