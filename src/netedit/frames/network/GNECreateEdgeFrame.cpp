@@ -57,16 +57,10 @@ FXDEFMAP(GNECreateEdgeFrame::LaneParameters) LaneParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNECreateEdgeFrame::LaneParameters::onCmdOpenAttributeDialog),
 };
 
-FXDEFMAP(GNECreateEdgeFrame::EdgeTypeFile) EdgeTypeFileMap[] = {
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_LOAD_PROGRAM,    GNECreateEdgeFrame::EdgeTypeFile::onCmdLoadEdgeProgram),
-    FXMAPFUNC(SEL_COMMAND,    MID_GNE_TLSFRAME_SAVE_PROGRAM,    GNECreateEdgeFrame::EdgeTypeFile::onCmdSaveEdgeProgram),
-};
-
 // Object implementation
 FXIMPLEMENT(GNECreateEdgeFrame::EdgeSelector,       FXGroupBox,     EdgeSelectorMap,    ARRAYNUMBER(EdgeSelectorMap))
 FXIMPLEMENT(GNECreateEdgeFrame::EdgeParameters,     FXGroupBox,     EdgeParametersMap,  ARRAYNUMBER(EdgeParametersMap))
 FXIMPLEMENT(GNECreateEdgeFrame::LaneParameters,     FXGroupBox,     LaneParametersMap,  ARRAYNUMBER(LaneParametersMap))
-FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeFile,       FXGroupBox,     EdgeTypeFileMap,    ARRAYNUMBER(EdgeTypeFileMap))
 
 
 // ===========================================================================
@@ -460,75 +454,6 @@ GNECreateEdgeFrame::LaneParameters::fillDefaultParameters(int laneIndex) {
 }
 
 // ---------------------------------------------------------------------------
-// GNECreateEdgeFrame::EdgeTypeFile - methods
-// ---------------------------------------------------------------------------
-
-GNECreateEdgeFrame::EdgeTypeFile::EdgeTypeFile(GNECreateEdgeFrame* createEdgeFrame) :
-    FXGroupBox(createEdgeFrame->myContentFrame, "EdgeType File", GUIDesignGroupBoxFrame),
-    myCreateEdgeFrame(createEdgeFrame) {
-    FXHorizontalFrame* buttonsFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    // create create tlDef button
-    myLoadEdgeProgramButton = new FXButton(buttonsFrame, "Load\t\tLoad EdgeType from additional file", GUIIconSubSys::getIcon(GUIIcon::OPEN_CONFIG), this, MID_GNE_TLSFRAME_LOAD_PROGRAM, GUIDesignButton);
-    // create create tlDef button
-    mySaveEdgeProgramButton = new FXButton(buttonsFrame, "Save\t\tSave EdgeType to additional file", GUIIconSubSys::getIcon(GUIIcon::SAVE), this, MID_GNE_TLSFRAME_SAVE_PROGRAM, GUIDesignButton);
-    // show EdgeTypeFile
-    show();
-}
-
-
-GNECreateEdgeFrame::EdgeTypeFile::~EdgeTypeFile() {}
-
-
-long
-GNECreateEdgeFrame::EdgeTypeFile::onCmdLoadEdgeProgram(FXObject*, FXSelector, void*) {
-    // open dialog
-    FXFileDialog opendialog(this, "Load type file");
-    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE));
-    opendialog.setSelectMode(SELECTFILE_EXISTING);
-    opendialog.setPatternList("*.xml");
-    if (gCurrentFolder.length() != 0) {
-        opendialog.setDirectory(gCurrentFolder);
-    }
-    if (opendialog.execute()) {
-        // declare number of edge types
-        const int numEdgeTypes = myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().size();
-        // declare type handler
-        NIXMLTypesHandler* handler = new NIXMLTypesHandler(myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont());
-        // load edge types
-        NITypeLoader::load(handler, {opendialog.getFilename().text()}, "types");
-        // write information
-        WRITE_MESSAGE("Loaded " + toString(myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().size() - numEdgeTypes) + " edge types");
-        // refresh template selector
-        myCreateEdgeFrame->myEdgeSelector->refreshEdgeSelector();
-    }
-    return 0;
-}
-
-
-long
-GNECreateEdgeFrame::EdgeTypeFile::onCmdSaveEdgeProgram(FXObject*, FXSelector, void*) {
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-        "Save edge types Program as", ".xml",
-        GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-        gCurrentFolder);
-    if (file == "") {
-        return 1;
-    }
-    // open device
-    OutputDevice& device = OutputDevice::getDevice(file.text());
-    // open tag
-    device.openTag(SUMO_TAG_TYPE);
-    // write edge types
-    myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().writeEdgeTypes(device);
-    // close tag
-    device.closeTag();
-    // close device
-    device.close();
-    return 1;
-}
-
-// ---------------------------------------------------------------------------
 // GNECreateEdgeFrame::Legend - methods
 // ---------------------------------------------------------------------------
 
@@ -565,8 +490,6 @@ GNECreateEdgeFrame::GNECreateEdgeFrame(FXHorizontalFrame* horizontalFrameParent,
     myEdgeParameters = new EdgeParameters(this);
     // create lane parameters
     myLaneParameters = new LaneParameters(this);
-    // create edge type file
-    myEdgeTypeFile = new EdgeTypeFile(this);
     // create edge selector legend
     myEdgeSelectorLegend = new EdgeSelectorLegend(this);
 }

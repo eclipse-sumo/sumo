@@ -647,7 +647,55 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 long
 GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
     /*
-     *
+    long
+    GNECreateEdgeFrame::EdgeTypeFile::onCmdLoadEdgeProgram(FXObject*, FXSelector, void*) {
+    // open dialog
+    FXFileDialog opendialog(this, "Load type file");
+    opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE));
+    opendialog.setSelectMode(SELECTFILE_EXISTING);
+    opendialog.setPatternList("*.xml");
+    if (gCurrentFolder.length() != 0) {
+    opendialog.setDirectory(gCurrentFolder);
+    }
+    if (opendialog.execute()) {
+    // declare number of edge types
+    const int numEdgeTypes = myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().size();
+    // declare type handler
+    NIXMLTypesHandler* handler = new NIXMLTypesHandler(myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont());
+    // load edge types
+    NITypeLoader::load(handler, {opendialog.getFilename().text()}, "types");
+    // write information
+    WRITE_MESSAGE("Loaded " + toString(myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().size() - numEdgeTypes) + " edge types");
+    // refresh template selector
+    myCreateEdgeFrame->myEdgeSelector->refreshEdgeSelector();
+    }
+    return 0;
+    }
+
+
+
+    long
+    GNECreateEdgeFrame::EdgeTypeFile::onCmdSaveEdgeProgram(FXObject*, FXSelector, void*) {
+    // open dialog
+    FXString file = MFXUtils::getFilename2Write(this,
+    "Save edge types Program as", ".xml",
+    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
+    gCurrentFolder);
+    if (file == "") {
+    return 1;
+    }
+    // open device
+    OutputDevice& device = OutputDevice::getDevice(file.text());
+    // open tag
+    device.openTag(SUMO_TAG_TYPE);
+    // write edge types
+    myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().writeEdgeTypes(device);
+    // close tag
+    device.closeTag();
+    // close device
+    device.close();
+    return 1;
+    }
     */
     return 1;
 }
