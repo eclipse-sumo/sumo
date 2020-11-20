@@ -1,20 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri 20 Nov 2020 01:14:14 PM CET by Eclipse SUMO netedit Version v1_7_0+1171-c814d6384e
+<!-- generated on Fr 20 Nov 2020 14:09:14 CET by Eclipse SUMO netedit Version v1_7_0+1173-a5461ae7bc
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <new value="true"/>
+        <sumo-net-file value="/home/kobo/dlr/sumo/tests/complex/state/rail_furtherLane/net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="/home/kobo/dlr/debug/7828/net.net.xml"/>
-        <output.street-names value="true"/>
+        <output-file value="/home/kobo/dlr/sumo/tests/complex/state/rail_furtherLane/net.net.xml"/>
     </output>
 
     <processing>
+        <geometry.min-radius.fix.railways value="false"/>
+        <geometry.max-grade.fix value="false"/>
         <offset.disable-normalization value="true"/>
+        <lefthand value="false"/>
     </processing>
+
+    <junctions>
+        <no-turnarounds value="true"/>
+        <junctions.corner-detail value="5"/>
+        <junctions.limit-turn-speed value="5.5"/>
+        <rectangular-lane-cut value="false"/>
+    </junctions>
+
+    <pedestrian>
+        <walkingareas value="false"/>
+    </pedestrian>
 
     <report>
         <aggregate-warnings value="5"/>
@@ -25,13 +38,13 @@
 
 <net version="1.6" junctionCornerDetail="5" limitTurnSpeed="5.50" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/net_file.xsd">
 
-    <location netOffset="0.00,0.00" convBoundary="-100.00,-100.00,300.00,0.00" origBoundary="10000000000.00,10000000000.00,-10000000000.00,-10000000000.00" projParameter="!"/>
+    <location netOffset="0.00,0.00" convBoundary="-100.00,-100.00,300.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id=":gneJ1_0" function="internal">
-        <lane id=":gneJ1_0_0" index="0" allow="rail" speed="20.00" length="10.19" shape="92.97,-5.30 95.61,-3.78 97.42,-2.61 99.33,-1.86 102.26,-1.60"/>
+        <lane id=":gneJ1_0_0" index="0" allow="rail" speed="25.00" length="10.19" shape="92.97,-5.30 95.61,-3.78 97.42,-2.61 99.33,-1.86 102.26,-1.60"/>
     </edge>
     <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" allow="rail" speed="15.00" length="10.16" shape="92.10,-1.60 102.26,-1.60"/>
+        <lane id=":gneJ1_1_0" index="0" allow="rail" speed="20.00" length="10.16" shape="92.10,-1.60 102.26,-1.60"/>
     </edge>
 
     <edge id="gneE0" from="gneJ0" to="gneJ1" priority="-1">
@@ -41,7 +54,7 @@
         <lane id="gneE1_0" index="0" allow="rail" speed="20.00" length="214.95" shape="-99.28,-101.43 92.97,-5.30"/>
     </edge>
     <edge id="gneE2" from="gneJ1" to="gneJ3" priority="-1">
-        <lane id="gneE2_0" index="0" allow="rail" speed="20.00" length="197.74" shape="102.26,-1.60 300.00,-1.60"/>
+        <lane id="gneE2_0" index="0" allow="rail" speed="30.00" length="197.74" shape="102.26,-1.60 300.00,-1.60"/>
     </edge>
 
     <junction id="gneJ0" type="dead_end" x="-100.00" y="0.00" incLanes="" intLanes="" shape="-100.00,0.00 -100.00,-3.20"/>
