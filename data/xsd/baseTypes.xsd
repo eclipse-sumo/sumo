@@ -264,10 +264,22 @@
         <xsd:attribute name="value" type="xsd:string" use="required"/>
     </xsd:complexType>
 
+    <xsd:complexType name="laneTypeType">
+        <xsd:choice minOccurs="0" maxOccurs="unbounded">
+            <xsd:element name="restriction" type="restrictionType"/>
+            <xsd:element name="meso" type="mesoType"/>
+        </xsd:choice>
+        <xsd:attribute name="allow" type="xsd:string"/>
+        <xsd:attribute name="disallow" type="xsd:string"/>
+        <xsd:attribute name="speed" type="xsd:float"/>
+        <xsd:attribute name="width" type="xsd:float"/>
+    </xsd:complexType>
+
     <xsd:complexType name="typeType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="restriction" type="restrictionType"/>
             <xsd:element name="meso" type="mesoType"/>
+            <xsd:element name="laneType" type="laneTypeType"/>
         </xsd:choice>
         <xsd:attribute name="id" type="xsd:string" use="required"/>
         <xsd:attribute name="allow" type="xsd:string"/>
