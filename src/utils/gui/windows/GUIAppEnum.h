@@ -81,6 +81,8 @@ enum {
     MID_HOTKEY_CTRL_D_SINGLESIMULATIONSTEP_OPENDEMANDELEMENTS,
     /// @brief Toogle Gaming mode in SUMO and grid in NETEDIT
     MID_HOTKEY_CTRL_G_GAMINGMODE_TOOGLEGRID,
+    /// @brief open edge type files
+    MID_HOTKEY_CTRL_H_OPENEDGETYPES,
     /// @brief Open viewport editor
     MID_HOTKEY_CTRL_I_EDITVIEWPORT,
     /// @brief Fullscreen mode - menu entry
@@ -147,6 +149,8 @@ enum {
 
     /// @brief Save Additional Elements
     MID_HOTKEY_CTRL_SHIFT_A_SAVEADDITIONALS,
+    /// @brief save Edge Types
+    MID_HOTKEY_CTRL_SHITF_H_SAVEEDGETYPES,
     /// @brief save Data Elements
     MID_HOTKEY_CTRL_SHIFT_B_SAVEDATAELEMENTS,
     /// @brief Save Demand Elements
