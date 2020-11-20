@@ -30,7 +30,6 @@ flow
 
 # multique saved and loaded, tests also human readable time
 multique
-
 save_collision_stopped
 save_cyclic_stops
 save_flow
@@ -42,3 +41,6 @@ save_rail_signal_constraint
 save_rng
 save_routeDistribution
 save_stopped
+
+# restore further lanes according to previous route when loading state
+rail_furtherLane
