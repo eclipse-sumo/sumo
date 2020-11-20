@@ -50,6 +50,11 @@ GNEChange_EdgeType::~GNEChange_EdgeType() {
     if (myEdgeType->unreferenced()) {
         // show extra information for tests
         WRITE_DEBUG("Deleting unreferenced " + myEdgeType->getTagStr() + " '" + myEdgeType->getID() + "' GNEChange_EdgeType");
+        // make sure that edgeType isn't in net before removing
+        if (myEdgeType->getNet()->getAttributeCarriers()->edgeTypeExist(myEdgeType)) {
+            // delete edgeType from net
+            myEdgeType->getNet()->getAttributeCarriers()->deleteEdgeType(myEdgeType);
+        }
         // delete edgeType
         delete myEdgeType;
     }

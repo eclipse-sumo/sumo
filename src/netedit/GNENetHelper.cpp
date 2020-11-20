@@ -499,6 +499,12 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const
 }
 
 
+bool 
+GNENetHelper::AttributeCarriers::edgeTypeExist(const GNEEdgeType* edgeType) const {
+    return (myEdgeTypes.count(edgeType->getID()) > 0);
+}
+
+
 void
 GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
     myEdgeTypes[edgeType->getMicrosimID()] = edgeType;

@@ -256,6 +256,9 @@ struct GNENetHelper {
 
         /// @name Insertion and erasing of GNEEdgeTypes
         /// @{
+        /// @brief return true if given edgeType exist
+        bool edgeTypeExist(const GNEEdgeType* edgeType) const;
+
         /// @brief inserts a single edgeType into the net and into the underlying netbuild-container
         void insertEdgeType(GNEEdgeType* edgeType);
 
