@@ -37,7 +37,7 @@
 // ===========================================================================
 
 // ---------------------------------------------------------------------------
-// GNELane::LaneTypeDefinition - methods
+// NBTypeCont::EdgeTypeDefinition - methods
 // ---------------------------------------------------------------------------
 
 NBTypeCont::LaneTypeDefinition::LaneTypeDefinition() :
@@ -54,7 +54,7 @@ NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(double _speed, double _width,
 }
 
 // ---------------------------------------------------------------------------
-// GNELane::LaneDrawingConstants - methods
+// NBTypeCont::EdgeTypeDefinition - methods
 // ---------------------------------------------------------------------------
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
@@ -84,6 +84,9 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int _numLanes, double _speed,
     bikeLaneWidth(_bikeLaneWidth) {
 }
 
+// ---------------------------------------------------------------------------
+// NBTypeCont - methods
+// ---------------------------------------------------------------------------
 
 NBTypeCont::NBTypeCont() {}
 
@@ -106,12 +109,29 @@ NBTypeCont::setDefaults(int defaultNumLanes,
 
 
 void
-NBTypeCont::insert(const std::string& id, int numLanes, double maxSpeed, int prio,
-                   SVCPermissions permissions, double width, bool oneWayIsDefault,
-                   double sidewalkWidth, double bikeLaneWidth,
-                   double widthResolution,
-                   double maxWidth,
-                   double minWidth) {
+NBTypeCont::insertEdgeType(const std::string& id, int numLanes, double maxSpeed, int prio,
+                           SVCPermissions permissions, double width, bool oneWayIsDefault,
+                           double sidewalkWidth, double bikeLaneWidth,
+                           double widthResolution,
+                           double maxWidth,
+                           double minWidth) {
+    // Create edge type definition
+    EdgeTypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
+    // check if edgeType already exist in types
+    TypesCont::iterator old = myTypes.find(id);
+    // if exists, then update restrictions and attributes
+    if (old != myTypes.end()) {
+        newType.restrictions.insert(old->second.restrictions.begin(), old->second.restrictions.end());
+        newType.attrs.insert(old->second.attrs.begin(), old->second.attrs.end());
+    }
+    // insert it in types
+    myTypes[id] = newType;
+}
+
+
+void
+NBTypeCont::insertLaneType(const std::string& id, double maxSpeed, SVCPermissions permissions, double width) {
+/*
     EdgeTypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
     TypesCont::iterator old = myTypes.find(id);
     if (old != myTypes.end()) {
@@ -119,6 +139,7 @@ NBTypeCont::insert(const std::string& id, int numLanes, double maxSpeed, int pri
         newType.attrs.insert(old->second.attrs.begin(), old->second.attrs.end());
     }
     myTypes[id] = newType;
+*/
 }
 
 
@@ -239,7 +260,6 @@ NBTypeCont::writeTypes(OutputDevice& into) const {
 }
 
 
-// ------------ Type-dependant Retrieval methods
 int
 NBTypeCont::getNumLanes(const std::string& type) const {
     return getType(type).numLanes;
@@ -322,6 +342,5 @@ NBTypeCont::getType(const std::string& name) const {
     }
     return i->second;
 }
-
 
 /****************************************************************************/
