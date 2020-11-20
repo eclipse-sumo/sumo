@@ -115,8 +115,11 @@ public:
     /// @brief called when the command/FXCall open additionals is executed
     long onCmdOpenAdditionals(FXObject*, FXSelector, void*);
 
-    /// @brief called when the command/FXCall open additionals is executed
+    /// @brief called when the command/FXCall open TLS programs is executed
     long onCmdOpenTLSPrograms(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall open edgeType is executed
+    long onCmdOpenEdgeTypes(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall open demand is executed
     long onCmdOpenDemandElements(FXObject*, FXSelector, void*);
@@ -147,6 +150,9 @@ public:
 
     /// @brief called when the command/FXCall save TLSPrograms is executed
     long onCmdSaveTLSPrograms(FXObject*, FXSelector, void*);
+
+    /// @brief called when the command/FXCall save edge types is executed
+    long onCmdSaveEdgeTypes(FXObject*, FXSelector, void*);
 
     /// @brief called when the command/FXCall save TLSPrograms as is executed
     long onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*);
