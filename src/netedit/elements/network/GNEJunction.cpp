@@ -1340,7 +1340,7 @@ GNEJunction::drawTLSIcon(const GUIVisualizationSettings& s) const {
             (myNBNode->isTLControlled()) && !myAmTLSSelected && !s.drawForRectangleSelection) {
         glPushMatrix();
         Position pos = myNBNode->getPosition();
-        glTranslated(pos.x(), pos.y(), 0.1);
+        glTranslated(pos.x(), pos.y(), 0.2);
         glColor3d(1, 1, 1);
         const double halfWidth = 32 / s.scale;
         const double halfHeight = 64 / s.scale;
