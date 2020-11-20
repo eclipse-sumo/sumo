@@ -69,7 +69,7 @@ ROVehicle::ROVehicle(const SUMOVehicleParameter& pars,
 
 void
 ROVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, const RONet* net, MsgHandler* errorHandler) {
-    const ROEdge* stopEdge = net->getEdgeForLaneID(stopPar.lane);
+    const ROEdge* stopEdge = net->getEdge(stopPar.edge);
     assert(stopEdge != 0); // was checked when parsing the stop
     if (stopEdge->prohibits(this)) {
         if (errorHandler != nullptr) {

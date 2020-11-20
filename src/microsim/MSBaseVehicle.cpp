@@ -803,15 +803,30 @@ bool
 MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& errorMsg, SUMOTime untilOffset, bool collision,
     MSRouteIterator* searchStart) {
     MSStop stop(stopPar);
-    stop.lane = MSLane::dictionary(stopPar.lane);
-    if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
-        errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
-        return false;
+    if (stopPar.lane == "") {
+        // use rightmost allowed lane
+        MSEdge* e = MSEdge::dictionary(stopPar.edge);
+        for (MSLane* cand : e->getLanes()) {
+            if (cand->allowsVehicleClass(getVClass())) {
+                stop.lane = cand;
+                break;
+            }
+        }
+        if (stop.lane == nullptr) {
+            errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on any lane of edge '" + stopPar.edge + "'.";
+            return false;
+        }
+    } else {
+        stop.lane = MSLane::dictionary(stopPar.lane);
+        if (!stop.lane->allowsVehicleClass(myType->getVehicleClass())) {
+            errorMsg = "Vehicle '" + myParameter->id + "' is not allowed to stop on lane '" + stopPar.lane + "'.";
+            return false;
+        }
     }
     if (MSGlobals::gUseMesoSim) {
         stop.segment = MSGlobals::gMesoNet->getSegmentForEdge(stop.lane->getEdge(), stop.getEndPos(*this));
         if (stop.lane->isInternal()) {
-            errorMsg = "Mesoscopic simulation does not allow stopping on internal lane '" + stopPar.lane + "' for vehicle '" + myParameter->id + "'.";
+            errorMsg = "Mesoscopic simulation does not allow stopping on internal edge '" + stopPar.edge + "' for vehicle '" + myParameter->id + "'.";
             return false;
         }
     }
@@ -849,12 +864,12 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
     const std::string errorMsgStart = stopID == "" ? stopType : stopType + " '" + stopID + "'";
 
     if (stop.pars.startPos < 0 || stop.pars.endPos > stop.lane->getLength()) {
-        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' has an invalid position.";
+        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID() + "' has an invalid position.";
         return false;
     }
     if (stopType != "stop" && stopType != "parkingArea" && myType->getLength() / 2. > stop.pars.endPos - stop.pars.startPos
         && MSNet::getInstance()->warnOnce(stopType + ":" + stopID)) {
-        errorMsg = errorMsgStart + " on lane '" + stopPar.lane + "' is too short for vehicle '" + myParameter->id + "'.";
+        errorMsg = errorMsgStart + " on lane '" + stop.lane->getID() + "' is too short for vehicle '" + myParameter->id + "'.";
     }
     // if stop is on an internal edge the normal edge before the intersection is used
     const MSEdge* stopEdge = stop.lane->getEdge().getNormalBefore();
@@ -909,7 +924,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
             MSRouteIterator next = stop.edge + 1;
             return addStop(stopPar, errorMsg, untilOffset, collision, &next);
         }
-        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is not downstream the current route.";
+        errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID() + "' is not downstream the current route.";
         //std::cout << " could not add stop " << errorMsgStart << " prevStops=" << myStops.size() << " searchStart=" << (*searchStart - myRoute->begin()) << " route=" << toString(myRoute->getEdges())  << "\n";
         return false;
     }
@@ -937,7 +952,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
                 MSRouteIterator next = stop.edge + 1;
                 return addStop(stopPar, errorMsg, untilOffset, collision, &next);
             }
-            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' is before departPos.";
+            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID() + "' is before departPos.";
             return false;
         }
     }
@@ -945,7 +960,7 @@ MSBaseVehicle::addStop(const SUMOVehicleParameter::Stop& stopPar, std::string& e
         std::list<MSStop>::iterator iter2 = iter;
         iter2--;
         if (stop.pars.until >= 0 && iter2->pars.until > stop.pars.until) {
-            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stopPar.lane + "' ends earlier than previous stop.";
+            errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.lane->getID() + "' ends earlier than previous stop.";
         }
     }
     myStops.insert(iter, stop);

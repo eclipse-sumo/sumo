@@ -394,7 +394,7 @@ RORouteHandler::closeRoute(const bool mayBeDisconnected) {
     if (mustReroute) {
         // implicit route from stops
         for (const SUMOVehicleParameter::Stop& stop : myActiveRouteStops) {
-            ROEdge* edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+            ROEdge* edge = myNet.getEdge(stop.edge);
             myActiveRoute.push_back(edge);
         }
     }
@@ -744,7 +744,11 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         return;
     }
     std::string errorSuffix;
-    if (myVehicleParameter != nullptr) {
+    if (myActivePerson != nullptr) {
+        errorSuffix = " in person '" + myVehicleParameter->id + "'.";
+    } else if (myActiveContainerPlan != nullptr) {
+        errorSuffix = " in container '" + myVehicleParameter->id + "'.";
+    } else if (myVehicleParameter != nullptr) {
         errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
     } else {
         errorSuffix = " in route '" + myActiveRouteID + "'.";
@@ -791,13 +795,21 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     } else {
         // no, the lane and the position should be given
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, "");
-        if (!ok || stop.lane == "") {
-            myErrorOutput->inform("A stop must be placed on a bus stop, a container stop, a parking area or a lane" + errorSuffix);
-            return;
-        }
-        edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
-        if (edge == nullptr) {
-            myErrorOutput->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
+        stop.edge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, nullptr, ok, "");
+        if (ok && stop.edge != "") {
+            edge = myNet.getEdge(stop.edge);
+            if (edge == nullptr) {
+                myErrorOutput->inform("The edge '" + stop.edge + "' for a stop is not known" + errorSuffix);
+                return;
+            }
+        } else if (ok && stop.lane != "") {
+            edge = myNet.getEdge(stop.lane.substr(0, stop.lane.rfind('_')));
+            if (edge == nullptr) {
+                myErrorOutput->inform("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
+                return;
+            }
+        } else if (!ok || (stop.lane == "" && stop.edge == "")) {
+            myErrorOutput->inform("A stop must be placed on a bus stop, a container stop, a parking area, an edge or a lane" + errorSuffix);
             return;
         }
         stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, edge->getLength());
@@ -809,6 +821,7 @@ RORouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             return;
         }
     }
+    stop.edge = edge->getID();
     if (myActivePerson != nullptr) {
         myActivePerson->addStop(stop, edge);
     } else if (myVehicleParameter != nullptr) {

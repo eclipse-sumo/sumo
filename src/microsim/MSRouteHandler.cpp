@@ -410,7 +410,7 @@ MSRouteHandler::closeRoute(const bool mayBeDisconnected) {
         if (mustReroute) {
             // implicit route from stops
             for (const SUMOVehicleParameter::Stop& stop : myActiveRouteStops) {
-                myActiveRoute.push_back(&MSLane::dictionary(stop.lane)->getEdge());
+                myActiveRoute.push_back(MSEdge::dictionary(stop.edge));
             }
         }
         if (myActiveRoute.size() == 0) {
@@ -713,7 +713,7 @@ MSRouteHandler::addVehicleStopsToImplicitRoute(const MSRoute* route, bool isPerm
     assert(route->getStops().size() > 0);
     ConstMSEdgeVector edges = route->getEdges();
     for (SUMOVehicleParameter::Stop stop : myVehicleParameter->stops) {
-        MSEdge* stopEdge = &MSLane::dictionary(stop.lane)->getEdge();
+        MSEdge* stopEdge = MSEdge::dictionary(stop.edge);
         if (stop.index == 0) {
             if (edges.front() != stopEdge ||
                     route->getStops().front().endPos < stop.endPos) {
@@ -1113,10 +1113,10 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
     std::string errorSuffix;
     if (myActivePlan != nullptr) {
         errorSuffix = " in person '" + myVehicleParameter->id + "'.";
-    } else if (myVehicleParameter != nullptr) {
-        errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
     } else if (myActiveContainerPlan != nullptr) {
         errorSuffix = " in container '" + myVehicleParameter->id + "'.";
+    } else if (myVehicleParameter != nullptr) {
+        errorSuffix = " in vehicle '" + myVehicleParameter->id + "'.";
     } else {
         errorSuffix = " in route '" + myActiveRouteID + "'.";
     }
@@ -1199,12 +1199,20 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         // no, the lane and the position should be given
         // get the lane
         stop.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, ok, "");
-        if (ok && stop.lane != "") {
+        stop.edge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, nullptr, ok, "");
+        if (ok && stop.edge != "") {
+            edge = MSEdge::dictionary(stop.edge);
+            if (edge == nullptr || (edge->isInternal() && !MSGlobals::gUsingInternalLanes)) {
+                WRITE_ERROR("The edge '" + stop.edge + "' for a stop is not known" + errorSuffix);
+                return;
+            }
+        } else if (ok && stop.lane != "") {
             MSLane* stopLane = MSLane::dictionary(stop.lane);
             if (stopLane == nullptr || (stopLane->isInternal() && !MSGlobals::gUsingInternalLanes)) {
                 WRITE_ERROR("The lane '" + stop.lane + "' for a stop is not known" + errorSuffix);
                 return;
             }
+            edge = &stopLane->getEdge();
         } else {
             if (myActivePlan && !myActivePlan->empty()) {
                 const MSStoppingPlace* bs = myActivePlan->back()->getDestinationStop();
@@ -1220,12 +1228,11 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
                     stop.startPos = MAX2(0., stop.endPos - MIN_STOP_LENGTH);
                 }
             } else {
-                WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea or a lane" + errorSuffix);
+                WRITE_ERROR("A stop must be placed on a busStop, a chargingStation, an overheadWireSegment, a containerStop, a parkingArea, an edge or a lane" + errorSuffix);
                 return;
             }
         }
-        edge = &MSLane::dictionary(stop.lane)->getEdge();
-        stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, MSLane::dictionary(stop.lane)->getLength());
+        stop.endPos = attrs.getOpt<double>(SUMO_ATTR_ENDPOS, nullptr, ok, edge->getLength());
         if (attrs.hasAttribute(SUMO_ATTR_POSITION)) {
             WRITE_WARNING("Deprecated attribute 'pos' in description of stop" + errorSuffix);
             stop.endPos = attrs.getOpt<double>(SUMO_ATTR_POSITION, nullptr, ok, stop.endPos);
@@ -1233,12 +1240,16 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.startPos = attrs.getOpt<double>(SUMO_ATTR_STARTPOS, nullptr, ok, MAX2(0., stop.endPos - MIN_STOP_LENGTH));
         if (!myAmLoadingState) {
             const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, false);
-            if (!ok || (checkStopPos(stop.startPos, stop.endPos, MSLane::dictionary(stop.lane)->getLength(), POSITION_EPS, friendlyPos) != StopPos::STOPPOS_VALID)) {
-                WRITE_ERROR("Invalid start or end position for stop on lane '" + stop.lane + "'" + errorSuffix);
+            if (!ok || (checkStopPos(stop.startPos, stop.endPos, edge->getLength(), POSITION_EPS, friendlyPos) != StopPos::STOPPOS_VALID)) {
+                WRITE_ERROR("Invalid start or end position for stop on "
+                        + (stop.lane != ""
+                            ? ("lane '" + stop.lane)
+                            : ("edge '" + stop.edge)) + "'" + errorSuffix);
                 return;
             }
         }
     }
+    stop.edge = edge->getID();
     if (myActivePlan) {
         if (myActivePlan->empty()) {
             double departPos = toStop == nullptr || myVehicleParameter->wasSet(VEHPARS_DEPARTPOS_SET)
@@ -1263,22 +1274,19 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         if (!myActivePlan->empty()) {
             pos = myActivePlan->back()->getArrivalPos();
         }
-        myActivePlan->push_back(new MSStageWaiting(
-                                    &MSLane::dictionary(stop.lane)->getEdge(), toStop, stop.duration, stop.until, pos, actType, false));
+        myActivePlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, pos, actType, false));
 
     } else if (myActiveContainerPlan) {
         if (myActiveContainerPlan->empty()) {
             double departPos = toStop == nullptr || myVehicleParameter->wasSet(VEHPARS_DEPARTPOS_SET)
                                ? myVehicleParameter->departPos
                                : (toStop->getBeginLanePosition() + toStop->getEndLanePosition()) / 2;
-            myActiveContainerPlan->push_back(new MSStageWaiting(
-                                                 &MSLane::dictionary(stop.lane)->getEdge(), toStop, -1, myVehicleParameter->depart, departPos, "start", true));
-        } else if (myActiveContainerPlan->back()->getDestination() != &MSLane::dictionary(stop.lane)->getEdge()) {
-            throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id + "' (" + MSLane::dictionary(stop.lane)->getEdge().getID() + "!=" + myActiveContainerPlan->back()->getDestination()->getID() + ").");
+            myActiveContainerPlan->push_back(new MSStageWaiting(edge, toStop, -1, myVehicleParameter->depart, departPos, "start", true));
+        } else if (myActiveContainerPlan->back()->getDestination() != edge) {
+            throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id + "' (" + edge->getID() + "!=" + myActiveContainerPlan->back()->getDestination()->getID() + ").");
         }
         std::string actType = attrs.getOpt<std::string>(SUMO_ATTR_ACTTYPE, nullptr, ok, "waiting");
-        myActiveContainerPlan->push_back(new MSStageWaiting(
-                                             &MSLane::dictionary(stop.lane)->getEdge(), toStop, stop.duration, stop.until, stop.startPos, actType, false));
+        myActiveContainerPlan->push_back(new MSStageWaiting(edge, toStop, stop.duration, stop.until, stop.startPos, actType, false));
     } else if (myVehicleParameter != nullptr) {
         myVehicleParameter->stops.push_back(stop);
     } else {
