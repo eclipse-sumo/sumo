@@ -118,59 +118,54 @@ NBTypeCont::insertEdgeType(const std::string& id, int numLanes, double maxSpeed,
     // Create edge type definition
     EdgeTypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
     // check if edgeType already exist in types
-    TypesCont::iterator old = myTypes.find(id);
+    TypesCont::iterator old = myEdgeTypes.find(id);
     // if exists, then update restrictions and attributes
-    if (old != myTypes.end()) {
+    if (old != myEdgeTypes.end()) {
         newType.restrictions.insert(old->second.restrictions.begin(), old->second.restrictions.end());
         newType.attrs.insert(old->second.attrs.begin(), old->second.attrs.end());
     }
     // insert it in types
-    myTypes[id] = newType;
+    myEdgeTypes[id] = newType;
 }
 
 
 void
-NBTypeCont::insertLaneType(const std::string& id, double maxSpeed, SVCPermissions permissions, double width) {
-/*
-    EdgeTypeDefinition newType(numLanes, maxSpeed, prio, width, permissions, oneWayIsDefault, sidewalkWidth, bikeLaneWidth, widthResolution, maxWidth, minWidth);
-    TypesCont::iterator old = myTypes.find(id);
-    if (old != myTypes.end()) {
-        newType.restrictions.insert(old->second.restrictions.begin(), old->second.restrictions.end());
-        newType.attrs.insert(old->second.attrs.begin(), old->second.attrs.end());
-    }
-    myTypes[id] = newType;
-*/
+NBTypeCont::insertLaneType(const std::string& edgeTypeID, double maxSpeed, SVCPermissions permissions, double width) {
+    // create lane
+    LaneTypeDefinition newLane(maxSpeed, width, permissions);
+    // push back in edge
+    myEdgeTypes.at(edgeTypeID).laneTypeDefinitions.push_back(newLane);
 }
 
 
 int 
 NBTypeCont::size() const {
-    return (int)myTypes.size();
+    return (int)myEdgeTypes.size();
 }
 
 
 NBTypeCont::TypesCont::const_iterator 
 NBTypeCont::begin() const {
-    return myTypes.cbegin();
+    return myEdgeTypes.cbegin();
 }
 
 
 NBTypeCont::TypesCont::const_iterator 
 NBTypeCont::end() const {
-    return myTypes.cend();
+    return myEdgeTypes.cend();
 }
 
 
 bool
 NBTypeCont::knows(const std::string& type) const {
-    return myTypes.find(type) != myTypes.end();
+    return myEdgeTypes.find(type) != myEdgeTypes.end();
 }
 
 
 bool
 NBTypeCont::markEdgeTypeAsToDiscard(const std::string& id) {
-    TypesCont::iterator i = myTypes.find(id);
-    if (i == myTypes.end()) {
+    TypesCont::iterator i = myEdgeTypes.find(id);
+    if (i == myEdgeTypes.end()) {
         return false;
     }
     i->second.discard = true;
@@ -180,8 +175,8 @@ NBTypeCont::markEdgeTypeAsToDiscard(const std::string& id) {
 
 bool
 NBTypeCont::markEdgeTypeAsSet(const std::string& id, const SumoXMLAttr attr) {
-    TypesCont::iterator i = myTypes.find(id);
-    if (i == myTypes.end()) {
+    TypesCont::iterator i = myEdgeTypes.find(id);
+    if (i == myEdgeTypes.end()) {
         return false;
     }
     i->second.attrs.insert(attr);
@@ -191,8 +186,8 @@ NBTypeCont::markEdgeTypeAsSet(const std::string& id, const SumoXMLAttr attr) {
 
 bool
 NBTypeCont::addEdgeTypeRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
-    TypesCont::iterator i = myTypes.find(id);
-    if (i == myTypes.end()) {
+    TypesCont::iterator i = myEdgeTypes.find(id);
+    if (i == myEdgeTypes.end()) {
         return false;
     }
     i->second.restrictions[svc] = speed;
@@ -202,9 +197,9 @@ NBTypeCont::addEdgeTypeRestriction(const std::string& id, const SUMOVehicleClass
 
 bool
 NBTypeCont::copyEdgeTypeRestrictionsAndAttrs(const std::string& fromId, const std::string& toId) {
-    TypesCont::iterator from = myTypes.find(fromId);
-    TypesCont::iterator to = myTypes.find(toId);
-    if (from == myTypes.end() || to == myTypes.end()) {
+    TypesCont::iterator from = myEdgeTypes.find(fromId);
+    TypesCont::iterator to = myEdgeTypes.find(toId);
+    if (from == myEdgeTypes.end() || to == myEdgeTypes.end()) {
         return false;
     }
     to->second.restrictions.insert(from->second.restrictions.begin(), from->second.restrictions.end());
@@ -215,72 +210,116 @@ NBTypeCont::copyEdgeTypeRestrictionsAndAttrs(const std::string& fromId, const st
 
 bool
 NBTypeCont::markLaneTypeAsSet(const std::string& id, const SumoXMLAttr attr) {
-/*
-    TypesCont::iterator i = myTypes.find(id);
-    if (i == myTypes.end()) {
+    TypesCont::iterator i = myEdgeTypes.find(id);
+    if (i == myEdgeTypes.end()) {
         return false;
     }
-    i->second.attrs.insert(attr);
-*/
+    i->second.laneTypeDefinitions.back().attrs.insert(attr);
     return true;
 }
 
 
 bool
 NBTypeCont::addLaneTypeRestriction(const std::string& id, const SUMOVehicleClass svc, const double speed) {
-/*
-    TypesCont::iterator i = myTypes.find(id);
-    if (i == myTypes.end()) {
+    TypesCont::iterator i = myEdgeTypes.find(id);
+    if (i == myEdgeTypes.end()) {
         return false;
     }
-    i->second.restrictions[svc] = speed;
-*/
+    i->second.laneTypeDefinitions.back().restrictions[svc] = speed;
     return true;
 }
 
 
 void
 NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
-    for (TypesCont::const_iterator i = myTypes.begin(); i != myTypes.end(); ++i) {
+    // iterate over edge types
+    for (const auto &edgeType : myEdgeTypes) {
+        // open edge type tag
         into.openTag(SUMO_TAG_TYPE);
-        into.writeAttr(SUMO_ATTR_ID, i->first);
-        const NBTypeCont::EdgeTypeDefinition& type = i->second;
-        if (type.attrs.count(SUMO_ATTR_PRIORITY) > 0) {
-            into.writeAttr(SUMO_ATTR_PRIORITY, type.priority);
+        // write ID
+        into.writeAttr(SUMO_ATTR_ID, edgeType.first);
+        // write priority
+        if (edgeType.second.attrs.count(SUMO_ATTR_PRIORITY) > 0) {
+            into.writeAttr(SUMO_ATTR_PRIORITY, edgeType.second.priority);
         }
-        if (type.attrs.count(SUMO_ATTR_NUMLANES) > 0) {
-            into.writeAttr(SUMO_ATTR_NUMLANES, type.numLanes);
+        // write numLanes
+        if (edgeType.second.attrs.count(SUMO_ATTR_NUMLANES) > 0) {
+            into.writeAttr(SUMO_ATTR_NUMLANES, edgeType.second.numLanes);
         }
-        if (type.attrs.count(SUMO_ATTR_SPEED) > 0) {
-            into.writeAttr(SUMO_ATTR_SPEED, type.speed);
+        // write speed
+        if (edgeType.second.attrs.count(SUMO_ATTR_SPEED) > 0) {
+            into.writeAttr(SUMO_ATTR_SPEED, edgeType.second.speed);
         }
-        if (type.attrs.count(SUMO_ATTR_DISALLOW) > 0 || type.attrs.count(SUMO_ATTR_ALLOW) > 0) {
-            writePermissions(into, type.permissions);
+        // write permissions
+        if ((edgeType.second.attrs.count(SUMO_ATTR_DISALLOW) > 0) || (edgeType.second.attrs.count(SUMO_ATTR_ALLOW) > 0)) {
+            writePermissions(into, edgeType.second.permissions);
         }
-        if (type.attrs.count(SUMO_ATTR_ONEWAY) > 0) {
-            into.writeAttr(SUMO_ATTR_ONEWAY, type.oneWay);
+        // write oneWay
+        if (edgeType.second.attrs.count(SUMO_ATTR_ONEWAY) > 0) {
+            into.writeAttr(SUMO_ATTR_ONEWAY, edgeType.second.oneWay);
         }
-        if (type.attrs.count(SUMO_ATTR_DISCARD) > 0) {
-            into.writeAttr(SUMO_ATTR_DISCARD, type.discard);
+        // write discard
+        if (edgeType.second.attrs.count(SUMO_ATTR_DISCARD) > 0) {
+            into.writeAttr(SUMO_ATTR_DISCARD, edgeType.second.discard);
         }
-        if (type.attrs.count(SUMO_ATTR_WIDTH) > 0) {
-            into.writeAttr(SUMO_ATTR_WIDTH, type.width);
+        // write width
+        if (edgeType.second.attrs.count(SUMO_ATTR_WIDTH) > 0) {
+            into.writeAttr(SUMO_ATTR_WIDTH, edgeType.second.width);
         }
-        if (type.attrs.count(SUMO_ATTR_SIDEWALKWIDTH) > 0) {
-            into.writeAttr(SUMO_ATTR_SIDEWALKWIDTH, type.sidewalkWidth);
+        // write sidewalkwidth
+        if (edgeType.second.attrs.count(SUMO_ATTR_SIDEWALKWIDTH) > 0) {
+            into.writeAttr(SUMO_ATTR_SIDEWALKWIDTH, edgeType.second.sidewalkWidth);
         }
-        if (type.attrs.count(SUMO_ATTR_BIKELANEWIDTH) > 0) {
-            into.writeAttr(SUMO_ATTR_BIKELANEWIDTH, type.bikeLaneWidth);
+        // write bikelanewidth
+        if (edgeType.second.attrs.count(SUMO_ATTR_BIKELANEWIDTH) > 0) {
+            into.writeAttr(SUMO_ATTR_BIKELANEWIDTH, edgeType.second.bikeLaneWidth);
         }
-        for (std::map<SUMOVehicleClass, double>::const_iterator j = type.restrictions.begin(); j != type.restrictions.end(); ++j) {
+        // write restrictions
+        for (const auto &restriction : edgeType.second.restrictions) {
+            // open restriction tag
             into.openTag(SUMO_TAG_RESTRICTION);
-            into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(j->first));
-            into.writeAttr(SUMO_ATTR_SPEED, j->second);
+            // write vclass
+            into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(restriction.first));
+            // write speed
+            into.writeAttr(SUMO_ATTR_SPEED, restriction.second);
+            // close restriction tag
             into.closeTag();
         }
+        // iterate over lanes
+        for (const auto &laneType : edgeType.second.laneTypeDefinitions) {
+            // open lane type tag
+            into.openTag(SUMO_TAG_LANETYPE);
+            // write speed
+            if (laneType.attrs.count(SUMO_ATTR_SPEED) > 0) {
+                into.writeAttr(SUMO_ATTR_SPEED, laneType.speed);
+            }
+            // write permissions
+            if (laneType.attrs.count(SUMO_ATTR_DISALLOW) > 0 || laneType.attrs.count(SUMO_ATTR_ALLOW) > 0) {
+                writePermissions(into, laneType.permissions);
+            }
+            // write width
+            if (laneType.attrs.count(SUMO_ATTR_WIDTH) > 0) {
+                into.writeAttr(SUMO_ATTR_WIDTH, laneType.width);
+            }
+            // write restrictions
+            for (const auto &restriction : laneType.restrictions) {
+                // open restriction tag
+                into.openTag(SUMO_TAG_RESTRICTION);
+                // write vclass
+                into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(restriction.first));
+                // write speed
+                into.writeAttr(SUMO_ATTR_SPEED, restriction.second);
+                // close restriction tag
+                into.closeTag();
+            }
+            // close lane type tag
+            into.closeTag();
+        }
+        // close edge type tag
         into.closeTag();
     }
-    if (!myTypes.empty()) {
+    //write endlype
+    if (!myEdgeTypes.empty()) {
         into.lf();
     }
 }
@@ -362,8 +401,8 @@ NBTypeCont::getBikeLaneWidth(const std::string& type) const {
 
 const NBTypeCont::EdgeTypeDefinition&
 NBTypeCont::getType(const std::string& name) const {
-    TypesCont::const_iterator i = myTypes.find(name);
-    if (i == myTypes.end()) {
+    TypesCont::const_iterator i = myEdgeTypes.find(name);
+    if (i == myEdgeTypes.end()) {
         return myDefaultType;
     }
     return i->second;

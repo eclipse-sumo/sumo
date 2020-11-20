@@ -69,6 +69,9 @@ public:
         /// @brief lane width [m]
         double width;
 
+        /// @brief The vehicle class specific speed restrictions
+        std::map<SUMOVehicleClass, double> restrictions;
+
         /// @brief The attributes which have been set
         std::set<SumoXMLAttr> attrs;
     };
@@ -182,7 +185,7 @@ public:
      * @param[in] oneWayIsDefault Whether edges of this edgeType are one-way per default
      * @return Whether the edgeType could be added (no edgeType with the same id existed)
      */
-    void insertLaneType(const std::string& edgeTypeId,
+    void insertLaneType(const std::string& edgeTypeID,
                         double maxSpeed,
                         SVCPermissions permissions,
                         double width);
@@ -368,7 +371,7 @@ protected:
     EdgeTypeDefinition myDefaultType;
 
     /// @brief The container of edgeTypes
-    TypesCont myTypes;
+    TypesCont myEdgeTypes;
 
 private:
     /// @brief invalid copy constructor
