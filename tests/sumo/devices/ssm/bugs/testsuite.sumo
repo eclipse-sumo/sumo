@@ -10,3 +10,6 @@ ticket5839
 
 # assertion triggered for collision on junction
 ticket6416
+
+# crash on disconnected route
+ticket7836
