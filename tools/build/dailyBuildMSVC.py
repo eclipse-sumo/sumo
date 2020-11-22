@@ -193,7 +193,7 @@ for platform in (["x64"] if options.x64only else ["Win32", "x64"]):
         if os.path.exists(os.path.join("src", "libsumo", "_libsumo.vcxproj")):
             subprocess.call(["cmake", "--build", ".", "--target", "_libsumo"],
                             cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
-        subprocess.call(["cmake", "--build", ".", "--target", "lisum-gui"],
+        subprocess.call(["cmake", "--build", ".", "--target", "lisum"],
                         cwd=buildDir, stdout=log, stderr=subprocess.STDOUT)
         plat = platform.lower().replace("x", "win")
         if options.msvc_version != "msvc12":
