@@ -107,7 +107,7 @@ public:
      * @param[in] endTime The end time step of subscriptions
      * @param[in] vars The variables to subscribe
      */
-    void subscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, const std::vector<int>& vars);
+    void subscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime, const std::vector<int>& vars, const libsumo::TraCIResults& params);
 
 
     /** @brief Sends a SubscribeContext request
@@ -120,7 +120,7 @@ public:
      * @param[in] vars The variables to subscribe
      */
     void subscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
-                                            int domain, double range, const std::vector<int>& vars);
+                                            int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params);
     /// @}
 
 

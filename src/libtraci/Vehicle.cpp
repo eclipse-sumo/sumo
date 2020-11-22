@@ -26,6 +26,8 @@
 #include "Connection.h"
 #include "Domain.h"
 
+// TODO remove the following line once the implementation is mature
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
 namespace libtraci {
 

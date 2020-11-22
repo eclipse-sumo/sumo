@@ -23,6 +23,9 @@
 #include "Domain.h"
 #include <libsumo/Person.h>
 
+// TODO remove the following line once the implementation is mature
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 namespace libtraci {
 
 typedef Domain<libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE> Dom;

@@ -193,7 +193,7 @@ Connection::createFilterCommand(int cmdID, int varID, tcpip::Storage* add) const
 
 void
 Connection::subscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime,
-        const std::vector<int>& vars) {
+        const std::vector<int>& vars, const libsumo::TraCIResults& params) {
     if (!mySocket.has_client_connection()) {
         throw tcpip::SocketException("Socket is not initialised");
     }
@@ -242,7 +242,7 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
 
 void
 Connection::subscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
-        int domain, double range, const std::vector<int>& vars) {
+        int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params) {
     if (!mySocket.has_client_connection()) {
         throw tcpip::SocketException("Socket is not initialised");
     }

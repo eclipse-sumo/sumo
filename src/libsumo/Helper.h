@@ -106,7 +106,8 @@ namespace libsumo {
 class Helper {
 public:
     static void subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
-                          const double beginTime, const double endTime, const int contextDomain = 0, const double range = 0.);
+                          const double beginTime, const double endTime, const libsumo::TraCIResults& params,
+                          const int contextDomain = 0, const double range = 0.);
 
     static void addSubscriptionParam(double param);
 

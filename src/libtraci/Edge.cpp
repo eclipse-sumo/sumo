@@ -183,14 +183,13 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(Edge, EDGE)
 
 void
 Edge::setAllowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-	// TODO
-	//Dom::setStringVector(libsumo::VAR_ALLOWED, edgeID, classes);
+	Dom::setStringVector(libsumo::LANE_ALLOWED, edgeID, classes);
 }
 
 
 void
 Edge::setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::string> classes) {
-	// TODO
+	Dom::setStringVector(libsumo::LANE_DISALLOWED, edgeID, classes);
 }
 
 

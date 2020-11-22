@@ -28,6 +28,9 @@
 #include <libsumo/TrafficLight.h>
 #include "Domain.h"
 
+// TODO remove the following line once the implementation is mature
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 namespace libtraci {
 
 typedef Domain<libsumo::CMD_GET_TL_VARIABLE, libsumo::CMD_SET_TL_VARIABLE> Dom;

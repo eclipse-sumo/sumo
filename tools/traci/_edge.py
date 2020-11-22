@@ -210,6 +210,24 @@ class EdgeDomain(Domain):
         else:
             raise TraCIException("Both, begin time and end time must be specified")
 
+    def setAllowed(self, edgeID, allowedClasses):
+        """setAllowed(string, list) -> None
+
+        Sets a list of allowed vehicle classes. Setting an empty list means all vehicles are allowed.
+        """
+        if isinstance(allowedClasses, str):
+            allowedClasses = [allowedClasses]
+        self._setCmd(tc.LANE_ALLOWED, edgeID, "l", allowedClasses)
+
+    def setDisallowed(self, edgeID, disallowedClasses):
+        """setDisallowed(string, list) -> None
+
+        Sets a list of disallowed vehicle classes.
+        """
+        if isinstance(disallowedClasses, str):
+            disallowedClasses = [disallowedClasses]
+        self._setCmd(tc.LANE_DISALLOWED, edgeID, "l", disallowedClasses)
+
     def setMaxSpeed(self, edgeID, speed):
         """setMaxSpeed(string, double) -> None
 

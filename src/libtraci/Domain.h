@@ -34,16 +34,16 @@
 
 
 #define LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(CLASS, DOMAIN) \
-void CLASS::subscribe(const std::string& objectID, const std::vector<int>& varIDs, double begin, double end) { \
-    libtraci::Connection::getActive().subscribeObjectVariable(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, begin, end, varIDs); \
+void CLASS::subscribe(const std::string& objectID, const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) { \
+    libtraci::Connection::getActive().subscribeObjectVariable(libsumo::CMD_SUBSCRIBE_##DOMAIN##_VARIABLE, objectID, begin, end, varIDs, params); \
 } \
 \
 void CLASS::unsubscribe(const std::string& objectID) { \
     subscribe(objectID, std::vector<int>()); \
 } \
 \
-void CLASS::subscribeContext(const std::string& objectID, int domain, double dist, const std::vector<int>& varIDs, double begin, double end) { \
-    libtraci::Connection::getActive().subscribeObjectContext(libsumo::CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objectID, begin, end, domain, dist, varIDs); \
+void CLASS::subscribeContext(const std::string& objectID, int domain, double dist, const std::vector<int>& varIDs, double begin, double end, const libsumo::TraCIResults& params) { \
+    libtraci::Connection::getActive().subscribeObjectContext(libsumo::CMD_SUBSCRIBE_##DOMAIN##_CONTEXT, objectID, begin, end, domain, dist, varIDs, params); \
 } \
 \
 void CLASS::unsubscribeContext(const std::string& objectID, int domain, double dist) { \
@@ -67,7 +67,7 @@ const libsumo::SubscriptionResults CLASS::getContextSubscriptionResults(const st
 } \
 \
 void CLASS::subscribeParameterWithKey(const std::string& objectID, const std::string& key, double beginTime, double endTime) { \
-    subscribe(objectID, std::vector<int>({libsumo::VAR_PARAMETER_WITH_KEY}), beginTime, endTime); \
+    subscribe(objectID, std::vector<int>({libsumo::VAR_PARAMETER_WITH_KEY}), beginTime, endTime, libsumo::TraCIResults {{libsumo::VAR_PARAMETER_WITH_KEY, std::make_shared<libsumo::TraCIString>(key)}}); \
 }
 
 
