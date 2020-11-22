@@ -11,7 +11,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    setup-libsumo.py
+# @file    setup-libtraci.py
 # @author  Benjamin Striner
 # @author  Michael Behrisch
 # @date    2017-01-26
@@ -48,13 +48,13 @@ class BinaryDistribution(Distribution):
 
 
 setup(
-    name='libsumo',
+    name='libtraci',
     version=SUMO_VERSION,
-    url='https://sumo.dlr.de/docs/Libsumo.html',
+    url='https://sumo.dlr.de/docs/TraCI.html',
     author='DLR and contributors',
     author_email='sumo@dlr.de',
     license='EPL-2.0',
-    description="The python version of the libsumo API to communicate with the traffic simulation SUMO",
+    description="The python version of the libtraci API to communicate with the traffic simulation SUMO",
 
     classifiers=[
         'Development Status :: 4 - Beta',
@@ -65,9 +65,9 @@ setup(
     ],
     keywords='traffic simulation traci sumo',
 
-    packages=['libsumo'],
+    packages=['libtraci'],
     package_dir={'': package_dir},
-    package_data={'libsumo': ['*.pyd', '*.so', '*.dylib']},
+    package_data={'libtraci': ['*.pyd', '*.so', '*.dylib']},
     data_files=[("", data_files)],
     install_requires=['traci>='+SUMO_VERSION],
     cmdclass={'install': InstallPlatlib},
