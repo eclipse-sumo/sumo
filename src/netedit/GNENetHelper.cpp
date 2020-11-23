@@ -197,6 +197,16 @@ GNENetHelper::AttributeCarriers::clearJunctions() {
 }
 
 
+GNEEdgeType*
+GNENetHelper::AttributeCarriers::registerEdgeType(GNEEdgeType* edgeType) {
+    // increase reference
+    edgeType->incRef("GNENet::registerEdgeType");
+    // add it in container
+    myEdgeTypes[edgeType->getMicrosimID()] = edgeType;
+    return edgeType;
+}
+
+
 const std::map<std::string, GNEEdgeType*>&
 GNENetHelper::AttributeCarriers::getEdgeTypes() const {
     return myEdgeTypes;

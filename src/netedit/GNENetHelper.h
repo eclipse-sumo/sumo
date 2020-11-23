@@ -103,7 +103,7 @@ struct GNENetHelper {
 
         /// @name function for junctions
         /// @{
-        /// @brief registers a junction with GNENet containers
+        /// @brief registers a junction in GNENet containers
         GNEJunction* registerJunction(GNEJunction* junction);
 
         /// @brief map with the ID and pointer to junctions of net
@@ -116,6 +116,9 @@ struct GNENetHelper {
 
         /// @name function for edgeTypes
         /// @{
+        /// @brief registers a edge in GNENet containers
+        GNEEdgeType* registerEdgeType(GNEEdgeType* edgeType);
+
         /// @brief map with the ID and pointer to edgeTypes of net
         const std::map<std::string, GNEEdgeType*>& getEdgeTypes() const;
 

@@ -48,6 +48,7 @@
 #include <netedit/elements/network/GNEConnection.h>
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEJunction.h>
+#include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netwrite/NWFrame.h>
@@ -3111,6 +3112,11 @@ GNENet::isUpdateDataEnabled() const {
 
 void
 GNENet::initJunctionsAndEdges() {
+    // init edge types
+    NBTypeCont& edgeTypeContainer = myNetBuilder->getTypeCont();
+    for (const auto &edgeType : edgeTypeContainer) {
+        myAttributeCarriers->registerEdgeType(new GNEEdgeType(this, edgeType.second));
+    }
     // init junctions (by default Crossing and walking areas aren't created)
     NBNodeCont& nodeContainer = myNetBuilder->getNodeCont();
     for (auto name_it : nodeContainer.getAllNames()) {
