@@ -75,21 +75,21 @@ GNECreateEdgeFrame::EdgeSelector::EdgeSelector(GNECreateEdgeFrame* createEdgeFra
     FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
     myCreateEdgeFrameParent(createEdgeFrameParent) {
     // default edge radio button
-    myCreateDefaultEdge = new FXRadioButton(this, "Create default edge",
-                                            this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    myCreateDefaultEdge = new FXRadioButton(this, 
+        "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // use custom edge radio button
-    myUseCustomEdge = new FXRadioButton(this, "Use edgeType/template",
-                                        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    myUseCustomEdge = new FXRadioButton(this, 
+        "Use edgeType/template", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // edge types combo box
     myEdgeTypesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameNewSaveDelete = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create new edge type button
     myNewEdgeTypeButton = new FXButton(horizontalFrameNewSaveDelete,
-                                       "add\t\add edge type", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE, GUIDesignButton);
+        "add\t\add edge type", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE, GUIDesignButton);
     // create delete edge type button
     myDeleteEdgeTypeButton = new FXButton(horizontalFrameNewSaveDelete,
-                                          "delete\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE, GUIDesignButton);
+        "delete\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE, GUIDesignButton);
     // by default, create custom edge
     myCreateDefaultEdge->setCheck(TRUE);
 }
@@ -138,11 +138,26 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
     }
     // show editor parameter
     if (myUseCustomEdge->getCheck() == TRUE) {
-        myCreateEdgeFrameParent->myEdgeParameters->showEdgeParameters();
-        myCreateEdgeFrameParent->myLaneParameters->showLaneParameters();
+        // enable parameters
+        myCreateEdgeFrameParent->myEdgeParameters->enableEdgeParameters();
+        myCreateEdgeFrameParent->myLaneParameters->enableLaneParameters();
+        // enable combobox
+        myEdgeTypesComboBox->enable();
+        // enable buttons
+        myNewEdgeTypeButton->enable();
+        myDeleteEdgeTypeButton->enable();
     } else {
-        myCreateEdgeFrameParent->myEdgeParameters->hideEdgeParameters();
-        myCreateEdgeFrameParent->myLaneParameters->hideLaneParameters();
+        // set default values
+        myCreateEdgeFrameParent->myEdgeParameters->setDefaultValues();
+        myCreateEdgeFrameParent->myLaneParameters->setDefaultValues();
+        // disable parameters
+        myCreateEdgeFrameParent->myEdgeParameters->disableEdgeParameters();
+        myCreateEdgeFrameParent->myLaneParameters->disableLaneParameters();
+        // disable comboBox
+        myEdgeTypesComboBox->disable();
+        // disable buttons
+        myNewEdgeTypeButton->disable();
+        myDeleteEdgeTypeButton->disable();
     }
     // recalc
     recalc();
@@ -275,6 +290,65 @@ GNECreateEdgeFrame::EdgeParameters::hideEdgeParameters() {
 
 
 void
+GNECreateEdgeFrame::EdgeParameters::enableEdgeParameters() {
+    mySpeed->enable();
+    myPriority->enable();
+    myNumLanes->enable();
+    myType->enable();
+    myAllowButton->enable();
+    myAllow->enable();
+    myDisallowButton->enable();
+    myDisallow->enable();
+    mySpreadType->enable();
+    myName->enable();
+    myWidth->enable();
+    myDistance->enable();
+}
+
+
+void
+GNECreateEdgeFrame::EdgeParameters::disableEdgeParameters() {
+    mySpeed->disable();
+    myPriority->disable();
+    myNumLanes->disable();
+    myType->disable();
+    myAllowButton->disable();
+    myAllow->disable();
+    myDisallowButton->disable();
+    myDisallow->disable();
+    mySpreadType->disable();
+    myName->disable();
+    myWidth->disable();
+    myDistance->disable();
+}
+
+
+void 
+GNECreateEdgeFrame::EdgeParameters::setDefaultValues() {
+    // set speed
+    mySpeed->setText("13.89");
+    // set priority
+    myPriority->setText("-1");
+    // set numLanes
+    myNumLanes->setText("1");
+    // set type
+    myType->setText("");
+    // set allow
+    myAllow->setText("all");
+    // set disallow
+    myDisallow->setText("");
+    // set spreadType
+    mySpreadType->setText("right");
+    // set name
+    myName->setText("");
+    // set width
+    myWidth->setText("-1.00");
+    // set distance
+    myDistance->setText("0.00");
+}
+
+
+void
 GNECreateEdgeFrame::EdgeParameters::setAttributes(GNEEdge* edge, GNEUndoList* undoList) const {
     // set speed
     edge->setAttribute(SUMO_ATTR_SPEED, toString(mySpeed->getText().text()), undoList);
@@ -395,10 +469,48 @@ GNECreateEdgeFrame::LaneParameters::showLaneParameters() {
 }
 
 
-void
-GNECreateEdgeFrame::LaneParameters::hideLaneParameters() {
+void 
+GNECreateEdgeFrame::LaneParameters::hideLaneParameters(){
     hide();
 }
+
+
+void
+GNECreateEdgeFrame::LaneParameters::enableLaneParameters() {
+    myLaneIndex->enable();
+    mySpeed->enable();
+    myAllowButton->enable();
+    myAllow->enable();
+    myDisallowButton->enable();
+    myDisallow->enable();
+    myWidth->enable();
+}
+
+
+void
+GNECreateEdgeFrame::LaneParameters::disableLaneParameters() {
+    myLaneIndex->disable();
+    mySpeed->disable();
+    myAllowButton->disable();
+    myAllow->disable();
+    myDisallowButton->disable();
+    myDisallow->disable();
+    myWidth->disable();
+}
+
+
+void 
+GNECreateEdgeFrame::LaneParameters::setDefaultValues() {
+    // set default lane
+    myLaneIndex->setText("1");
+    // set default speed
+    mySpeed->setText("13.89");
+    // set default allow
+    myAllow->setText("all");
+    // set default disallow
+    myDisallow->setText("");
+}
+
 
 void
 GNECreateEdgeFrame::LaneParameters::setAttributes(GNEEdge* edge, GNEUndoList* undoList) const {

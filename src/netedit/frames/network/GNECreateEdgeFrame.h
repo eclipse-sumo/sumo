@@ -112,6 +112,15 @@ public:
         /// @brief hide edge parameters
         void hideEdgeParameters();
 
+        /// @brief enable edge parameters
+        void enableEdgeParameters();
+
+        /// @brief disable edge parameters
+        void disableEdgeParameters();
+
+        /// @brief set default values
+        void setDefaultValues();
+
         /// @brief set attributes
         void setAttributes(GNEEdge* edge, GNEUndoList* undoList) const;
 
@@ -196,6 +205,15 @@ public:
 
         /// @brief hide lane parameters
         void hideLaneParameters();
+
+        /// @brief enable lane parameters
+        void enableLaneParameters();
+
+        /// @brief disable lane parameters
+        void disableLaneParameters();
+
+        /// @brief set default values
+        void setDefaultValues();
 
         /// @brief set attributes
         void setAttributes(GNEEdge* edge, GNEUndoList* undoList) const;
