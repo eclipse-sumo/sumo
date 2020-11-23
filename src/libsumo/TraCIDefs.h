@@ -130,6 +130,9 @@ struct TraCIResult {
     virtual std::string getString() {
         return "";
     }
+    virtual const std::vector<unsigned char> toPacket() const {
+        return std::vector<unsigned char>();
+    }
 };
 
 /** @struct TraCIPosition

@@ -38,25 +38,25 @@ typedef Domain<libsumo::CMD_GET_JUNCTION_VARIABLE, libsumo::CMD_SET_JUNCTION_VAR
 // member definitions
 // ===========================================================================
 std::vector<std::string>
-    Junction::getIDList() {
+Junction::getIDList() {
     return Dom::getStringVector(libsumo::TRACI_ID_LIST, "");
 }
 
 
 int
-    Junction::getIDCount() {
+Junction::getIDCount() {
     return Dom::getInt(libsumo::ID_COUNT, "");
 }
 
 
 libsumo::TraCIPosition
-    Junction::getPosition(const std::string& junctionID, bool includeZ) {
-    return Dom::getPos(libsumo::VAR_POSITION, junctionID);
+Junction::getPosition(const std::string& junctionID, bool includeZ) {
+    return Dom::getPos(includeZ ? libsumo::VAR_POSITION3D : libsumo::VAR_POSITION, junctionID);
 }
 
 
 libsumo::TraCIPositionVector
-    Junction::getShape(const std::string& junctionID) {
+Junction::getShape(const std::string& junctionID) {
     return Dom::getPolygon(libsumo::VAR_SHAPE, junctionID);
 }
 

@@ -143,35 +143,35 @@ public:
     bool processGet(int command, int expectedType, bool ignoreCommandId = false);
     /// @}
 
-    int getUnsignedByte(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    int getUnsignedByte(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::TYPE_UBYTE)) {
             return myInput.readUnsignedByte();
         }
         return libsumo::INVALID_INT_VALUE;
     }
-    int getByte(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    int getByte(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::TYPE_BYTE)) {
             return myInput.readByte();
         }
         return libsumo::INVALID_INT_VALUE;
     }
-    int getInt(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    int getInt(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::TYPE_INTEGER)) {
             return myInput.readInt();
         }
         return libsumo::INVALID_INT_VALUE;
     }
-    double getDouble(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    double getDouble(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::TYPE_DOUBLE)) {
             return myInput.readDouble();
         }
         return libsumo::INVALID_DOUBLE_VALUE;
     }
-    libsumo::TraCIPositionVector getPolygon(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    libsumo::TraCIPositionVector getPolygon(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         libsumo::TraCIPositionVector ret;
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::TYPE_POLYGON)) {
@@ -189,7 +189,7 @@ public:
         }
         return ret;
     }
-    libsumo::TraCIPosition getPos(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    libsumo::TraCIPosition getPos(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         libsumo::TraCIPosition p;
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::POSITION_2D)) {
@@ -200,7 +200,7 @@ public:
         return p;
     }
 
-    libsumo::TraCIPosition getPos3D(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    libsumo::TraCIPosition getPos3D(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         libsumo::TraCIPosition p;
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::POSITION_3D)) {
@@ -210,14 +210,14 @@ public:
         }
         return p;
     }
-    std::string getString(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    std::string getString(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::TYPE_STRING)) {
             return myInput.readString();
         }
         return "";
     }
-    std::vector<std::string> getStringVector(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    std::vector<std::string> getStringVector(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         std::vector<std::string> r;
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::TYPE_STRINGLIST)) {
@@ -229,7 +229,7 @@ public:
         return r;
     }
 
-    libsumo::TraCIColor getCol(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    libsumo::TraCIColor getCol(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         libsumo::TraCIColor c;
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::TYPE_COLOR)) {
@@ -241,7 +241,7 @@ public:
         return c;
     }
 
-    libsumo::TraCIStage getTraCIStage(int command, int var, const std::string& id, tcpip::Storage* add = 0) {
+    libsumo::TraCIStage getTraCIStage(int command, int var, const std::string& id, tcpip::Storage* add = nullptr) {
         libsumo::TraCIStage s;
         createCommand(command, var, id, add);
         if (processGet(command, libsumo::TYPE_COMPOUND)) {

@@ -138,7 +138,8 @@ Junction::handleVariable(const std::string& objID, const int variable, VariableW
         case ID_COUNT:
             return wrapper->wrapInt(objID, variable, getIDCount());
         case VAR_POSITION:
-            return wrapper->wrapPosition(objID, variable, getPosition(objID));
+        case VAR_POSITION3D:
+            return wrapper->wrapPosition(objID, variable, getPosition(objID, variable == VAR_POSITION3D));
         default:
             return false;
     }

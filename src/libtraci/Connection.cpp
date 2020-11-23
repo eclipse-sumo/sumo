@@ -226,6 +226,11 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
         outMsg.writeUnsignedByte(numVars);
         for (int i = 0; i < numVars; ++i) {
             outMsg.writeUnsignedByte(vars[i]);
+            const auto& paramEntry = params.find(vars[i]);
+            if (paramEntry != params.end()) {
+                // TODO implement toPacket and adapt the message length above
+                outMsg.writePacket(paramEntry->second->toPacket());
+            }
         }
     }
     // send message
@@ -265,6 +270,11 @@ Connection::subscribeObjectContext(int domID, const std::string& objID, double b
     outMsg.writeUnsignedByte((int)vars.size());
     for (int i = 0; i < varNo; ++i) {
         outMsg.writeUnsignedByte(vars[i]);
+        const auto& paramEntry = params.find(vars[i]);
+        if (paramEntry != params.end()) {
+            // TODO implement toPacket and adapt the message length above
+            outMsg.writePacket(paramEntry->second->toPacket());
+        }
     }
     // send message
     mySocket.sendExact(outMsg);
