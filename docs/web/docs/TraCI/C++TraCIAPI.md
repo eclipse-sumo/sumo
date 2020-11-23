@@ -28,7 +28,7 @@ src/foreign/tcpip/socket.h
 src/foreign/tcpip/socket.cpp
 src/foreign/tcpip/storage.h
 src/foreign/tcpip/storage.cpp
-src/traci-server/TraCIConstants.h
+src/libsumo/TraCIConstants.h
 src/libsumo/TraCIDefs.h
 ```
 
