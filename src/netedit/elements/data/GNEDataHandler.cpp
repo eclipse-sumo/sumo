@@ -45,7 +45,7 @@
 GNEDataLoadDialog::GNEDataLoadDialog(GNEViewNet* viewNet) :
     FXDialogBox(viewNet, "Netedit Parameters Help", GUIDesignDialogBox),
     myViewNet(viewNet),
-    myCounter (0) {
+    myCounter(0) {
     // set decoration
     setDecorations(DECOR_BORDER);
     // create label

@@ -46,18 +46,18 @@ GNEStoppingPlace::GNEStoppingPlace(const std::string& id, GNENet* net, GUIGlObje
                                    GNELane* lane, double startPos, double endPos, int parametersSet, const std::string& name,
                                    bool friendlyPosition, bool blockMovement) :
     GNEAdditional(id, net, type, tag, name, blockMovement,
-        {}, {}, {lane}, {}, {}, {}, {}, {}),
-        myStartPosition(startPos),
-        myEndPosition(endPos),
-        myParametersSet(parametersSet),
-        myFriendlyPosition(friendlyPosition) {
+{}, {}, {lane}, {}, {}, {}, {}, {}),
+myStartPosition(startPos),
+myEndPosition(endPos),
+myParametersSet(parametersSet),
+myFriendlyPosition(friendlyPosition) {
 }
 
 
 GNEStoppingPlace::~GNEStoppingPlace() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEStoppingPlace::getMoveOperation(const double /*shapeOffset*/) {
     // check conditions
     if (myParametersSet == 0) {
@@ -154,7 +154,7 @@ GNEStoppingPlace::fixAdditionalProblem() {
 
 
 
-void 
+void
 GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {
     // remove additional from grid
     if (updateGrid && myTagProperty.isPlacedInRTree()) {
@@ -172,7 +172,7 @@ GNEStoppingPlace::updateCenteringBoundary(const bool updateGrid) {
     // grow
     myBoundary.grow(10);
     // add parking spaces
-    for (const auto &parkingSpace : getChildAdditionals()) {
+    for (const auto& parkingSpace : getChildAdditionals()) {
         if (parkingSpace->getTagProperty().getTag() == SUMO_TAG_PARKING_SPACE) {
             myBoundary.add(parkingSpace->getCenteringBoundary());
         }
@@ -405,7 +405,7 @@ GNEStoppingPlace::drawLines(const GUIVisualizationSettings& s, const std::vector
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate rotation
-        const double rot = (myAdditionalGeometry.getShape().size() <= 1)? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        const double rot = (myAdditionalGeometry.getShape().size() <= 1) ? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         // Iterate over every line
         for (int i = 0; i < (int)lines.size(); ++i) {
             // push a new matrix for every line
@@ -433,7 +433,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
     // calculate middle point
     const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
     // calculate rotation
-    const double rot = (myAdditionalGeometry.getShape().size() <= 1)? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+    const double rot = (myAdditionalGeometry.getShape().size() <= 1) ? 0 : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
     if (s.drawForPositionSelection) {
         // only draw circle depending of distance between sign and mouse cursor
         if (myNet->getViewNet()->getPositionInformation().distanceSquaredTo2D(mySignPos) <= (myCircleWidthSquared + 2)) {
@@ -482,7 +482,7 @@ GNEStoppingPlace::drawSign(const GUIVisualizationSettings& s, const double exagg
 }
 
 
-void 
+void
 GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     myStartPosition = moveResult.shapeToUpdate.front().x();
@@ -492,7 +492,7 @@ GNEStoppingPlace::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNEStoppingPlace::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // only commit geometry moving if at leats start or end positions is defined
     if (myParametersSet > 0) {

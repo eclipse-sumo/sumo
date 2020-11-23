@@ -32,8 +32,9 @@
 // ===========================================================================
 
 GNEDetectorE1Instant::GNEDetectorE1Instant(const std::string& id, GNELane* lane, GNENet* net, double pos, const std::string& filename, const std::string& vehicleTypes, const std::string& name, bool friendlyPos, bool blockMovement) :
-    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, "", filename, vehicleTypes, name, friendlyPos, blockMovement, 
-        {lane}) {
+    GNEDetector(id, net, GLO_E1DETECTOR_INSTANT, SUMO_TAG_INSTANT_INDUCTION_LOOP, pos, "", filename, vehicleTypes, name, friendlyPos, blockMovement, {
+    lane
+}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }

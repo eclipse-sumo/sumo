@@ -37,11 +37,11 @@ GNEDetector::GNEDetector(const std::string& id, GNENet* net, GUIGlObjectType typ
                          double pos, const std::string& freq, const std::string& filename, const std::string& vehicleTypes,
                          const std::string& name, bool friendlyPos, bool blockMovement, const std::vector<GNELane*>& parentLanes) :
     GNEAdditional(id, net, type, tag, name, blockMovement, {}, {}, parentLanes, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myFriendlyPosition(friendlyPos) {
+              myPositionOverLane(pos),
+              myFreq(freq),
+              myFilename(filename),
+              myVehicleTypes(vehicleTypes),
+myFriendlyPosition(friendlyPos) {
 }
 
 
@@ -49,17 +49,17 @@ GNEDetector::GNEDetector(GNEAdditional* additionalParent, GNENet* net, GUIGlObje
                          double pos, const std::string& freq, const std::string& filename, const std::string& name, bool friendlyPos,
                          bool blockMovement, const std::vector<GNELane*>& parentLanes) :
     GNEAdditional(net, type, tag, name, blockMovement, {}, {}, parentLanes, {additionalParent}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myFriendlyPosition(friendlyPos) {
+myPositionOverLane(pos),
+myFreq(freq),
+myFilename(filename),
+myFriendlyPosition(friendlyPos) {
 }
 
 
 GNEDetector::~GNEDetector() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEDetector::getMoveOperation(const double /*shapeOffset*/) {
     // check conditions
     if (myBlockMovement) {
@@ -222,7 +222,7 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position
-        const Position pos = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        const Position pos = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
         // calculate rotation
         double rot = 0;
         if (myAdditionalGeometry.getShapeRotations().size() > 0) {
@@ -248,7 +248,7 @@ GNEDetector::drawDetectorLogo(const GUIVisualizationSettings& s, const double ex
 }
 
 
-void 
+void
 GNEDetector::setMoveShape(const GNEMoveResult& moveResult) {
     // change both position
     myPositionOverLane = moveResult.shapeToUpdate.front().x();
@@ -257,7 +257,7 @@ GNEDetector::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNEDetector::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     // now adjust start position

@@ -42,8 +42,8 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                const Position& pos, bool geo, double layer, double angle, const std::string& imgFile,
                bool relativePath, double width, double height, bool movementBlocked) :
     PointOfInterest(id, type, color, pos, geo, "", 0, 0, layer, angle, imgFile, relativePath, width, height),
-    GNEShape(id, net, GLO_POI,SUMO_TAG_POI, movementBlocked,
-        {}, {}, {}, {}, {}, {}, {}, {}) {
+    GNEShape(id, net, GLO_POI, SUMO_TAG_POI, movementBlocked,
+{}, {}, {}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // set GEO Position
@@ -57,7 +57,7 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
                double width, double height, bool movementBlocked) :
     PointOfInterest(id, type, color, Position(), false, lane->getID(), posOverLane, posLat, layer, angle, imgFile, relativePath, width, height),
     GNEShape(id, net, GLO_POI, SUMO_TAG_POILANE, movementBlocked,
-        {}, {}, {lane}, {}, {}, {}, {}, {}) {
+{}, {}, {lane}, {}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -66,14 +66,14 @@ GNEPOI::GNEPOI(GNENet* net, const std::string& id, const std::string& type, cons
 GNEPOI::~GNEPOI() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEPOI::getMoveOperation(const double /* shapeOffset */) {
     // return move operation for a position
     return new GNEMoveOperation(this, *this);
 }
 
 
-void 
+void
 GNEPOI::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // nothing to remove
 }
@@ -162,7 +162,7 @@ GNEPOI::updateGeometry() {
 }
 
 
-void 
+void
 GNEPOI::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
     if (updateGrid) {
@@ -429,7 +429,7 @@ GNEPOI::isAttributeEnabled(SumoXMLAttr /* key */) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEPOI::getACParametersMap() const {
     return getParametersMap();
 }
@@ -545,14 +545,14 @@ GNEPOI::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEPOI::setMoveShape(const GNEMoveResult& moveResult) {
     // set geometry
     set(moveResult.shapeToUpdate.front());
 }
 
 
-void 
+void
 GNEPOI::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));

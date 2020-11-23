@@ -140,7 +140,9 @@ MSEdgeControl::planMovements(SUMOTime t) {
         } else {
 #ifdef THREAD_POOL
             if (MSGlobals::gNumSimThreads > 1) {
-                results.push_back(myThreadPool.executeAsync([i,t](int) { (*i)->planMovements(t);}, (*i)->getRNGIndex() % MSGlobals::gNumSimThreads));
+                results.push_back(myThreadPool.executeAsync([i, t](int) {
+                    (*i)->planMovements(t);
+                }, (*i)->getRNGIndex() % MSGlobals::gNumSimThreads));
                 ++i;
                 continue;
             }
@@ -158,7 +160,7 @@ MSEdgeControl::planMovements(SUMOTime t) {
         }
     }
 #ifdef THREAD_POOL
-    for(auto& r : results) {
+    for (auto& r : results) {
         r.wait();
     }
 #else
@@ -193,7 +195,9 @@ MSEdgeControl::executeMovements(SUMOTime t) {
 #ifdef THREAD_POOL
     if (MSGlobals::gNumSimThreads > 1) {
         for (MSLane* const lane : myActiveLanes) {
-            myThreadPool.executeAsync([lane,t](int) { lane->executeMovements(t);}, lane->getRNGIndex() % MSGlobals::gNumSimThreads);
+            myThreadPool.executeAsync([lane, t](int) {
+                lane->executeMovements(t);
+            }, lane->getRNGIndex() % MSGlobals::gNumSimThreads);
         }
         myThreadPool.waitAll();
     }

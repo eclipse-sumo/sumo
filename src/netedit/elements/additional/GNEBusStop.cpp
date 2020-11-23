@@ -38,7 +38,7 @@ GNEBusStop::GNEBusStop(const std::string& id, GNELane* lane, GNENet* net, const 
     GNEStoppingPlace(id, net, GLO_BUS_STOP, SUMO_TAG_BUS_STOP, lane, startPos, endPos, parametersSet, name, friendlyPosition, blockMovement),
     myLines(lines),
     myPersonCapacity(personCapacity),
-    myParkingLength(parkingLength) { 
+    myParkingLength(parkingLength) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -346,8 +346,8 @@ GNEBusStop::drawConnectionAccess(const GUIVisualizationSettings& s, const RGBCol
             // get access center
             const Position accessCenter = access->getAdditionalGeometry().getShape().front();
             GLHelper::drawBoxLine(accessCenter,
-                RAD2DEG(busStopCenter.angleTo2D(accessCenter)) - 90,
-                busStopCenter.distanceTo2D(accessCenter), .05);
+                                  RAD2DEG(busStopCenter.angleTo2D(accessCenter)) - 90,
+                                  busStopCenter.distanceTo2D(accessCenter), .05);
         }
         // pop draw matrix
         glPopMatrix();

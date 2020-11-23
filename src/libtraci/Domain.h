@@ -105,47 +105,47 @@ namespace libtraci {
 template<int GET, int SET>
 class Domain {
 public:
-    static int getUnsignedByte(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static int getUnsignedByte(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getUnsignedByte(GET, var, id, add);
     }
 
-    static int getByte(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static int getByte(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getByte(GET, var, id, add);
     }
 
-    static int getInt(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static int getInt(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getInt(GET, var, id, add);
     }
 
-    static double getDouble(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static double getDouble(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getDouble(GET, var, id, add);
     }
 
-    static libsumo::TraCIPositionVector getPolygon(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static libsumo::TraCIPositionVector getPolygon(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getPolygon(GET, var, id, add);
     }
 
-    static libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getPos(GET, var, id, add);
     }
 
-    static libsumo::TraCIPosition getPos3D(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static libsumo::TraCIPosition getPos3D(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getPos3D(GET, var, id, add);
     }
 
-    static std::string getString(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static std::string getString(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getString(GET, var, id, add);
     }
 
-    static std::vector<std::string> getStringVector(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static std::vector<std::string> getStringVector(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getStringVector(GET, var, id, add);
     }
 
-    static libsumo::TraCIColor getCol(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static libsumo::TraCIColor getCol(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getCol(GET, var, id, add);
     }
 
-    static libsumo::TraCIStage getTraCIStage(int var, const std::string& id, tcpip::Storage* add=nullptr) {
+    static libsumo::TraCIStage getTraCIStage(int var, const std::string& id, tcpip::Storage* add = nullptr) {
         return libtraci::Connection::getActive().getTraCIStage(GET, var, id, add);
     }
 

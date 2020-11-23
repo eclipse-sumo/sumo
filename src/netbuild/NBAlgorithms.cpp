@@ -396,14 +396,14 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
             tmp2[item.first->getID()] = item.second->getID();
         }
         std::cout << "n=" << n.getID() << " bestIn=" << bestIn->getID() << " bestOut=" << bestOut->getID()
-            << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID()
-            << " mainExplicit=" << mainDirectionExplicit
-            << " forceStraight=" << forceStraight
-            << "\n  bestIncoming=" << toString(bestIncoming) << " allIncoming=" << toString(incoming)
-            << "\n  bestOutgoing=" << toString(bestOutgoing) << " allOutgoing=" << toString(outgoing)
-            << "\n  counterIncomingEdges=" << toString(tmp1)
-            << "\n  counterOutgoingEdges=" << toString(tmp2)
-            << "\n";
+                  << " counterBest=" << counterIncomingEdges.find(bestIncoming[0])->second->getID()
+                  << " mainExplicit=" << mainDirectionExplicit
+                  << " forceStraight=" << forceStraight
+                  << "\n  bestIncoming=" << toString(bestIncoming) << " allIncoming=" << toString(incoming)
+                  << "\n  bestOutgoing=" << toString(bestOutgoing) << " allOutgoing=" << toString(outgoing)
+                  << "\n  counterIncomingEdges=" << toString(tmp1)
+                  << "\n  counterOutgoingEdges=" << toString(tmp2)
+                  << "\n";
     }
 #endif
     // at a tls junction we must prevent an underlying bent-priority layout

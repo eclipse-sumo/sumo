@@ -73,7 +73,7 @@ GNEAdditional::GNEAdditional(GNENet* net, GUIGlObjectType type, SumoXMLTag tag, 
 GNEAdditional::~GNEAdditional() {}
 
 
-void 
+void
 GNEAdditional::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // currently there isn't additionals with removable geometry points
 }
@@ -239,13 +239,13 @@ GNEAdditional::openAdditionalDialog() {
 }
 
 
-Boundary 
+Boundary
 GNEAdditional::getCenteringBoundary() const {
     return myBoundary;
 }
 
 
-Position 
+Position
 GNEAdditional::getPositionInView() const {
     return myBoundary.getCenter();
 }
@@ -482,9 +482,9 @@ GNEAdditional::drawAdditionalID(const GUIVisualizationSettings& s) const {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position
-        const Position pos = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        const Position pos = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
         // calculate rotation
-        const double rot = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        const double rot = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         // draw additional ID
         if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
             GLHelper::drawText(getMicrosimID(), pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(rot - 90));
@@ -501,9 +501,9 @@ GNEAdditional::drawAdditionalName(const GUIVisualizationSettings& s) const {
         // calculate middle point
         const double middlePoint = (myAdditionalGeometry.getShape().length2D() * 0.5);
         // calculate position
-        const Position pos = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
+        const Position pos = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShape().front() : myAdditionalGeometry.getShape().positionAtOffset2D(middlePoint);
         // calculate rotation
-        const double rot = (myAdditionalGeometry.getShape().size() == 1)? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
+        const double rot = (myAdditionalGeometry.getShape().size() == 1) ? myAdditionalGeometry.getShapeRotations().front() : myAdditionalGeometry.getShape().rotationDegreeAtOffset(middlePoint);
         // draw additional name
         if (myTagProperty.hasAttribute(SUMO_ATTR_LANE)) {
             GLHelper::drawText(myAdditionalName, pos, GLO_MAX - getType(), s.addFullName.scaledSize(s.scale), s.addFullName.color, s.getTextAngle(rot - 90));
@@ -590,7 +590,7 @@ GNEAdditional::disableAttribute(SumoXMLAttr /*key*/, GNEUndoList* /*undoList*/) 
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEAdditional::getACParametersMap() const {
     return getParametersMap();
 }

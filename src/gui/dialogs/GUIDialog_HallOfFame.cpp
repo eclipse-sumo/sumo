@@ -30,7 +30,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_HallOfFame::GUIDialog_HallOfFame (FXWindow* parent) :
+GUIDialog_HallOfFame::GUIDialog_HallOfFame(FXWindow* parent) :
     FXDialogBox(parent, "Conference Hall of Fame", GUIDesignDialogBox) {
     // set dialog icon
     setIcon(GUIIconSubSys::getIcon(GUIIcon::SUMO_MINI));

@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GUIDesigns.h
+/// @file    GUIDesigns.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Nov 2020
 ///
@@ -28,7 +28,7 @@
 FXMenuTitle*
 GUIDesigns::buildFXMenuTitle(FXComposite* p, const std::string& text, FXIcon* icon, FXMenuPane* menuPane) {
     // create menu title
-    FXMenuTitle *menuTitle = new FXMenuTitle(p, text.c_str(), icon, menuPane, LAYOUT_FIX_HEIGHT);
+    FXMenuTitle* menuTitle = new FXMenuTitle(p, text.c_str(), icon, menuPane, LAYOUT_FIX_HEIGHT);
     // setheight (to avoid problems between Windows und Linux)
     menuTitle->setHeight(GUIDesignHeight);
     // return menuTitle

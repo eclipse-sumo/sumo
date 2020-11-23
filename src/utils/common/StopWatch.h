@@ -24,16 +24,16 @@
 #include <chrono>
 #include <numeric>
 
-template<typename TimeT = std::chrono::milliseconds, typename ClockT =
+template < typename TimeT = std::chrono::milliseconds, typename ClockT =
 #if defined(_MSC_VER) && _MSC_VER == 1800
-    std::chrono::system_clock
+           std::chrono::system_clock
 #else
-    std::chrono::steady_clock
+           std::chrono::steady_clock
 #endif
->
+           >
 class StopWatch {
 public:
-    StopWatch(const bool calibrate=false) : myTimingCost(0) {
+    StopWatch(const bool calibrate = false) : myTimingCost(0) {
         if (calibrate) {
             myStart = ClockT::now();
             for (int i = 0; i < 1000; i++) {

@@ -76,20 +76,20 @@ GNECreateEdgeFrame::EdgeSelector::EdgeSelector(GNECreateEdgeFrame* createEdgeFra
     myCreateEdgeFrameParent(createEdgeFrameParent) {
     // default edge radio button
     myCreateDefaultEdge = new FXRadioButton(this, "Create default edge",
-        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+                                            this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // use custom edge radio button
     myUseCustomEdge = new FXRadioButton(this, "Use edgeType/template",
-        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+                                        this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // edge types combo box
     myEdgeTypesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameNewSaveDelete = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create new edge type button
-    myNewEdgeTypeButton = new FXButton(horizontalFrameNewSaveDelete, 
-        "add\t\add edge type", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE, GUIDesignButton);
+    myNewEdgeTypeButton = new FXButton(horizontalFrameNewSaveDelete,
+                                       "add\t\add edge type", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE, GUIDesignButton);
     // create delete edge type button
-    myDeleteEdgeTypeButton = new FXButton(horizontalFrameNewSaveDelete, 
-        "delete\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE, GUIDesignButton);
+    myDeleteEdgeTypeButton = new FXButton(horizontalFrameNewSaveDelete,
+                                          "delete\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE, GUIDesignButton);
     // by default, create custom edge
     myCreateDefaultEdge->setCheck(TRUE);
 }
@@ -102,8 +102,8 @@ void
 GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
     // get template editor
     const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
-    // get 
-    const auto &edgeTypes = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdgeTypes();
+    // get
+    const auto& edgeTypes = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdgeTypes();
     // check if there is template
     if (templateEditor->hasTemplate() || (edgeTypes.size() > 0)) {
         // enable both buttons
@@ -118,7 +118,7 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
             myEdgeTypesComboBox->appendItem(("template: " + templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID)).c_str(), nullptr);
         }
         // add edge types
-        for (const auto &edgeType : edgeTypes) {
+        for (const auto& edgeType : edgeTypes) {
             myEdgeTypesComboBox->appendItem(edgeType.second->getID().c_str(), nullptr);
         }
         // set num visible antes
@@ -149,7 +149,7 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
 }
 
 
-bool 
+bool
 GNECreateEdgeFrame::EdgeSelector::useEdgeTemplate() const {
     if (myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
         if (myUseCustomEdge->getCheck() == TRUE) {
@@ -186,7 +186,7 @@ GNECreateEdgeFrame::EdgeSelector::onCmdAddEdgeType(FXObject*, FXSelector, void*)
     // create new edge type
     GNEEdgeType* edgeType = new GNEEdgeType(myCreateEdgeFrameParent->getViewNet()->getNet());
     // also create a new laneType
-    GNELaneType *laneType = new GNELaneType(edgeType);
+    GNELaneType* laneType = new GNELaneType(edgeType);
     // add it using undoList
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_begin("create new edge type");
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
@@ -268,14 +268,14 @@ GNECreateEdgeFrame::EdgeParameters::showEdgeParameters() {
 }
 
 
-void 
+void
 GNECreateEdgeFrame::EdgeParameters::hideEdgeParameters() {
     hide();
 }
 
 
-void 
-GNECreateEdgeFrame::EdgeParameters::setAttributes(GNEEdge* edge, GNEUndoList *undoList) const {
+void
+GNECreateEdgeFrame::EdgeParameters::setAttributes(GNEEdge* edge, GNEUndoList* undoList) const {
     // set speed
     edge->setAttribute(SUMO_ATTR_SPEED, toString(mySpeed->getText().text()), undoList);
     // set priority
@@ -295,7 +295,7 @@ GNECreateEdgeFrame::EdgeParameters::setAttributes(GNEEdge* edge, GNEUndoList *un
 }
 
 
-long 
+long
 GNECreateEdgeFrame::EdgeParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
     if (obj == myNumLanes) {
         myCreateEdgeFrameParent->myLaneParameters->updateNumLanes(GNEAttributeCarrier::parse<int>(myNumLanes->getText().text()));
@@ -304,7 +304,7 @@ GNECreateEdgeFrame::EdgeParameters::onCmdSetAttribute(FXObject* obj, FXSelector,
 }
 
 
-long 
+long
 GNECreateEdgeFrame::EdgeParameters::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
     // declare strings
     std::string allow = myAllow->getText().text();
@@ -318,7 +318,7 @@ GNECreateEdgeFrame::EdgeParameters::onCmdOpenAttributeDialog(FXObject*, FXSelect
 }
 
 
-void 
+void
 GNECreateEdgeFrame::EdgeParameters::fillDefaultParameters() {
     // set speed
     myEdgeAttributes[SUMO_ATTR_SPEED] = "13.89";
@@ -363,23 +363,23 @@ GNECreateEdgeFrame::LaneParameters::LaneParameters(GNECreateEdgeFrame* createEdg
     FXHorizontalFrame* horizontalFrameAttribute = nullptr;
     // create ComboBox for spread type
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        new FXLabel(horizontalFrameAttribute, "Lane index", nullptr, GUIDesignLabelAttribute);
+    new FXLabel(horizontalFrameAttribute, "Lane index", nullptr, GUIDesignLabelAttribute);
     myLaneIndex = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create textField for speed
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPEED).c_str(), nullptr, GUIDesignLabelAttribute);
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPEED).c_str(), nullptr, GUIDesignLabelAttribute);
     mySpeed = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Button for allow vehicles
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        myAllowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_ALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myAllowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_ALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAllow = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Button for disallow vehicles
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        myDisallowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_DISALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myDisallowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_DISALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myDisallow = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for width
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
     myWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // fill default parameters
     fillDefaultParameters(0);
@@ -389,7 +389,7 @@ GNECreateEdgeFrame::LaneParameters::LaneParameters(GNECreateEdgeFrame* createEdg
 GNECreateEdgeFrame::LaneParameters::~LaneParameters() {}
 
 
-void 
+void
 GNECreateEdgeFrame::LaneParameters::showLaneParameters() {
     show();
 }
@@ -400,8 +400,8 @@ GNECreateEdgeFrame::LaneParameters::hideLaneParameters() {
     hide();
 }
 
-void 
-GNECreateEdgeFrame::LaneParameters::setAttributes(GNEEdge* edge, GNEUndoList *undoList) const {
+void
+GNECreateEdgeFrame::LaneParameters::setAttributes(GNEEdge* edge, GNEUndoList* undoList) const {
     // set speed
     edge->setAttribute(SUMO_ATTR_SPEED, toString(mySpeed->getText().text()), undoList);
     // set allow (no disallow)
@@ -411,7 +411,7 @@ GNECreateEdgeFrame::LaneParameters::setAttributes(GNEEdge* edge, GNEUndoList *un
 }
 
 
-void 
+void
 GNECreateEdgeFrame::LaneParameters::updateNumLanes(int numLanes) {
     // First remove extra lanes
     while (myLaneIndex->getNumItems() > numLanes) {
@@ -423,13 +423,13 @@ GNECreateEdgeFrame::LaneParameters::updateNumLanes(int numLanes) {
     }
 }
 
-long 
+long
 GNECreateEdgeFrame::LaneParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
     return 1;
 }
 
 
-long 
+long
 GNECreateEdgeFrame::LaneParameters::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
     // declare strings
     std::string allow = myAllow->getText().text();
@@ -443,7 +443,7 @@ GNECreateEdgeFrame::LaneParameters::onCmdOpenAttributeDialog(FXObject*, FXSelect
 }
 
 
-void 
+void
 GNECreateEdgeFrame::LaneParameters::fillDefaultParameters(int /* laneIndex */) {
     // set speed
     mySpeed->setText("13.89");
@@ -463,12 +463,12 @@ GNECreateEdgeFrame::EdgeSelectorLegend::EdgeSelectorLegend(GNECreateEdgeFrame* c
     std::ostringstream information;
     // add label for shift+click
     information
-        << "- Control+Click:" << "\n"
-        << "  Move view" << "\n"
-        << "- Shift+Click:" << "\n"
-        << "  Splits edge in both directions" << "\n"
-        << "- Alt+Shift+Click:" << "\n"
-        << "  Splits edge in one direction";
+            << "- Control+Click:" << "\n"
+            << "  Move view" << "\n"
+            << "- Shift+Click:" << "\n"
+            << "  Splits edge in both directions" << "\n"
+            << "- Alt+Shift+Click:" << "\n"
+            << "  Splits edge in one direction";
     // create label
     new FXLabel(this, information.str().c_str(), 0, GUIDesignLabelFrameThicked);
 }
@@ -535,7 +535,7 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                 // create another edge, if create opposite edge is enabled
                 if (oppositeEdge) {
                     GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
-                        myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
+                                               myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                     // set parameters
                     if (!myEdgeSelector->useEdgeTemplate()) {
                         myEdgeParameters->setAttributes(newOppositeEdge, myViewNet->getUndoList());
@@ -607,7 +607,7 @@ GNECreateEdgeFrame::hide() {
 }
 
 
-GNECreateEdgeFrame::EdgeSelector* 
+GNECreateEdgeFrame::EdgeSelector*
 GNECreateEdgeFrame::getEdgeSelector() const {
     return myEdgeSelector;
 }

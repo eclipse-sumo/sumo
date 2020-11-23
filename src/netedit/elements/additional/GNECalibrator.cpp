@@ -35,11 +35,11 @@
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, double pos, SUMOTime frequency,
                              const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_CALIBRATOR, name, false,
-        {}, {edge}, {}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myRouteProbe(routeprobe) {
+{}, {edge}, {}, {}, {}, {}, {}, {}),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myRouteProbe(routeprobe) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -48,11 +48,11 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNEEdge* edge, 
 GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, double pos, SUMOTime frequency,
                              const std::string& name, const std::string& output, const std::string& routeprobe) :
     GNEAdditional(id, net, GLO_CALIBRATOR, SUMO_TAG_LANECALIBRATOR, name, false,
-        {}, {}, {lane}, {}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myFrequency(frequency),
-    myOutput(output),
-    myRouteProbe(routeprobe) {
+{}, {}, {lane}, {}, {}, {}, {}, {}),
+myPositionOverLane(pos),
+myFrequency(frequency),
+myOutput(output),
+myRouteProbe(routeprobe) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -61,7 +61,7 @@ GNECalibrator::GNECalibrator(const std::string& id, GNENet* net, GNELane* lane, 
 GNECalibrator::~GNECalibrator() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNECalibrator::getMoveOperation(const double /*shapeOffset*/) {
     // calibrators cannot be moved
     return nullptr;
@@ -92,7 +92,7 @@ GNECalibrator::updateGeometry() {
 }
 
 
-void 
+void
 GNECalibrator::updateCenteringBoundary(const bool /*updateGrid*/) {
     // first reset boundary
     myBoundary.reset();
@@ -388,7 +388,7 @@ GNECalibrator::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNECalibrator::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }

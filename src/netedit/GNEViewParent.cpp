@@ -444,7 +444,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // fill ACsToLocate with junctions
                     std::vector<GNEJunction*> junctions = viewNet->getNet()->retrieveJunctions();
                     ACsToLocate.reserve(junctions.size());
-                    for (const auto &junction : junctions) {
+                    for (const auto& junction : junctions) {
                         ACsToLocate.push_back(junction);
                     }
                     myACChoosers.ACChooserJunction = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEJUNCTION), "Junction Chooser", ACsToLocate);
@@ -460,7 +460,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // fill ACsToLocate with edges
                     std::vector<GNEEdge*> edges = viewNet->getNet()->retrieveEdges();
                     ACsToLocate.reserve(edges.size());
-                    for (const auto &edge : edges) {
+                    for (const auto& edge : edges) {
                         ACsToLocate.push_back(edge);
                     }
                     myACChoosers.ACChooserEdges = new GNEDialogACChooser(this, GUIIconSubSys::getIcon(GUIIcon::LOCATEEDGE), "Edge Chooser", ACsToLocate);
@@ -580,7 +580,7 @@ GNEViewParent::onCmdLocate(FXObject*, FXSelector sel, void*) {
                     // fill ACsToLocate with junctions that haven TLS
                     std::vector<GNEJunction*> junctions = viewNet->getNet()->retrieveJunctions();
                     ACsToLocate.reserve(junctions.size());
-                    for (const auto &junction : junctions) {
+                    for (const auto& junction : junctions) {
                         if (junction->getNBNode()->getControllingTLS().size() > 0) {
                             ACsToLocate.push_back(junction);
                         }

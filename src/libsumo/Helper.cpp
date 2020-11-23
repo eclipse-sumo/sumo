@@ -1199,8 +1199,8 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
             }
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << "walkingarea/crossing:" << e->getID() << " prev:" << Named::getIDSecure(prevEdge) << " next:" << Named::getIDSecure(nextEdge)
-                << " pred=" << toString(e->getPredecessors()) << " succ=" << toString(e->getSuccessors())
-                << "\n";
+                      << " pred=" << toString(e->getPredecessors()) << " succ=" << toString(e->getSuccessors())
+                      << "\n";
 #endif
         } else if (e->isNormal()) {
             // a normal edge

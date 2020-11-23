@@ -255,7 +255,7 @@ GNEDeleteFrame::removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCurso
 }
 
 
-void 
+void
 GNEDeleteFrame::removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor) {
     // get clicked position
     const Position clickedPosition = myViewNet->getPositionInformation();

@@ -38,9 +38,9 @@
 GNECrossing::GNECrossing(GNEJunction* parentJunction, std::vector<NBEdge*> crossingEdges) :
     GNENetworkElement(parentJunction->getNet(), parentJunction->getNBNode()->getCrossing(crossingEdges)->id,
                       GLO_CROSSING, SUMO_TAG_CROSSING,
-    {}, {}, {}, {}, {}, {}, {}, {}),
-    myParentJunction(parentJunction),
-    myCrossingEdges(crossingEdges) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myParentJunction(parentJunction),
+myCrossingEdges(crossingEdges) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -76,7 +76,7 @@ GNECrossing::getPositionInView() const {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNECrossing::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
@@ -109,7 +109,7 @@ GNECrossing::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
+void
 GNECrossing::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
@@ -460,7 +460,7 @@ GNECrossing::isValid(SumoXMLAttr key, const std::string& value) {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNECrossing::getACParametersMap() const {
     return myParentJunction->getNBNode()->getCrossing(myCrossingEdges)->getParametersMap();
 }
@@ -569,7 +569,7 @@ GNECrossing::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNECrossing::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_CUSTOMSHAPE) + " of " + getTagStr());

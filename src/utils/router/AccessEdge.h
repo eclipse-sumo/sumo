@@ -38,7 +38,7 @@ public:
                SVCPermissions vehicleRestriction = SVC_IGNORING,
                double traveltime = -1) :
         _IntermodalEdge(inEdge->getID() + ":" + outEdge->getID() + (modeRestriction == SVC_TAXI ? ":taxi" : ""),
-                numericalID, outEdge->getEdge(), "!access", length > 0. ? length : NUMERICAL_EPS),
+                        numericalID, outEdge->getEdge(), "!access", length > 0. ? length : NUMERICAL_EPS),
         myTraveltime(traveltime),
         myModeRestrictions(modeRestriction),
         myVehicleRestriction(vehicleRestriction)

@@ -93,7 +93,7 @@ GNEMultipleParametersDialog::ParametersValues::setParameters(const std::vector<s
     // clear rows
     clearParameters();
     // iterate over parameteres
-    for (const auto &newParameter : newParameters) {
+    for (const auto& newParameter : newParameters) {
         addParameter(newParameter);
     }
 }
@@ -113,7 +113,7 @@ GNEMultipleParametersDialog::ParametersValues::addParameter(std::pair<std::strin
 void
 GNEMultipleParametersDialog::ParametersValues::clearParameters() {
     // iterate over all rows
-    for (const auto &parameterRow : myParameterRows) {
+    for (const auto& parameterRow : myParameterRows) {
         delete parameterRow;
     }
     //clear myParameterRows;
@@ -125,16 +125,16 @@ GNEMultipleParametersDialog::ParametersValues::clearParameters() {
 }
 
 
-const std::vector<GNEMultipleParametersDialog::ParametersValues::ParameterRow*> 
+const std::vector<GNEMultipleParametersDialog::ParametersValues::ParameterRow*>
 GNEMultipleParametersDialog::ParametersValues::getParameterRows() const {
     return myParameterRows;
 }
 
 
-bool 
-GNEMultipleParametersDialog::ParametersValues::keyExist(const std::string &key) const {
+bool
+GNEMultipleParametersDialog::ParametersValues::keyExist(const std::string& key) const {
     // just interate over myParameterRows and compare key
-    for (const auto &row : myParameterRows) {
+    for (const auto& row : myParameterRows) {
         if (row->keyField->getText().text() == key) {
             return true;
         }
@@ -199,7 +199,7 @@ GNEMultipleParametersDialog::ParametersValues::onCmdButtonPress(FXObject* obj, F
 }
 
 
-GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) : 
+GNEMultipleParametersDialog::ParametersValues::ParameterRow::ParameterRow(ParametersValues* ParametersValues, FXVerticalFrame* verticalFrameParent) :
     valueChanged(false) {
     horizontalFrame = new FXHorizontalFrame(verticalFrameParent, GUIDesignAuxiliarHorizontalFrame);
     keyField = new FXTextField(horizontalFrame, GUIDesignTextFieldNCol, ParametersValues, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
@@ -327,9 +327,9 @@ long
 GNEMultipleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*, FXSelector, void*) {
     // obtain file to save parameters
     FXString file = MFXUtils::getFilename2Write(this,
-        "Select name of the Parameter Template file", ".xml",
-        GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE),
-        gCurrentFolder);
+                    "Select name of the Parameter Template file", ".xml",
+                    GUIIconSubSys::getIcon(GUIIcon::GREENVEHICLE),
+                    gCurrentFolder);
     if (file == "") {
         // None parameter file was selected, then stop function
         return 1;
@@ -339,7 +339,7 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*
         // write header
         device.writeXMLHeader("Parameter", "parameter_file.xsd");
         // iterate over all parameters and save it in the filename
-        for (const auto &row : myParameterDialogParent->myParametersValues->getParameterRows()) {
+        for (const auto& row : myParameterDialogParent->myParametersValues->getParameterRows()) {
             // write all except last
             if (row != myParameterDialogParent->myParametersValues->getParameterRows().back()) {
                 // open tag
@@ -373,7 +373,7 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdSortParameters(FXObject*
     std::vector<std::pair<std::string, std::string> > nonEmptyKeyValues;
     std::vector<std::string> emptyKeyValues;
     // first extract empty values
-    for (const auto &parameterRow : myParameterDialogParent->myParametersValues->getParameterRows()) {
+    for (const auto& parameterRow : myParameterDialogParent->myParametersValues->getParameterRows()) {
         // check if key is empty
         if (!parameterRow->keyField->getText().empty()) {
             nonEmptyKeyValues.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
@@ -386,7 +386,7 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdSortParameters(FXObject*
     // sort non-empty parameters
     std::sort(emptyKeyValues.begin(), emptyKeyValues.end());
     // add values without key
-    for (const auto & emptyKeyValue : emptyKeyValues) {
+    for (const auto& emptyKeyValue : emptyKeyValues) {
         nonEmptyKeyValues.push_back(std::make_pair("", emptyKeyValue));
     }
     // finally setparameters in myParametersValues
@@ -403,10 +403,10 @@ GNEMultipleParametersDialog::ParametersOperations::onCmdHelpParameter(FXObject*,
     // set help text
     std::ostringstream help;
     help
-        << "- Parameters are defined by a Key and a Value.\n"
-        << "- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n"
-        << " - Duplicated and empty Keys aren't valid.\n"
-        << " - Certain characters aren't allowed (\t\n\r@$%^&/|\\....)\n";
+            << "- Parameters are defined by a Key and a Value.\n"
+            << "- In Netedit can be defined using format key1=parameter1|key2=parameter2|...\n"
+            << " - Duplicated and empty Keys aren't valid.\n"
+            << " - Certain characters aren't allowed (\t\n\r@$%^&/|\\....)\n";
     // Create label with the help text
     new FXLabel(ParameterHelpDialog, help.str().c_str(), nullptr, GUIDesignLabelFrameInformation);
     // Create horizontal separator
@@ -513,7 +513,7 @@ GNEMultipleParametersDialog::~GNEMultipleParametersDialog() {}
 long
 GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // get undo list
-    GNEUndoList *undoList = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList();
+    GNEUndoList* undoList = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList();
     // declare vector for parameters in stringvector format
     std::vector<std::pair<std::string, std::string> > parametersChanged;
     // declare keep keys vector
@@ -565,11 +565,11 @@ GNEMultipleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     // begin change
     undoList->p_begin("change parameters");
     // iterate over ACs
-    for (const auto &AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+    for (const auto& AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
         // remove keys
         AC->removeACParametersKeys(keepKeys, undoList);
         // update parameters
-        for (const auto &parameter : parametersChanged) {
+        for (const auto& parameter : parametersChanged) {
             if (myParametersOptions->onlyForExistentKeys() && (AC->getACParametersMap().count(parameter.first) == 0)) {
                 continue;
             } else {
@@ -598,22 +598,22 @@ GNEMultipleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     // declare a map for key-values
     std::map<std::string, std::vector<std::string> > keyValuesMap;
     // fill keys
-    for (const auto &AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
-        for (const auto &keyAttribute : AC->getACParametersMap()) {
+    for (const auto& AC : myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers()) {
+        for (const auto& keyAttribute : AC->getACParametersMap()) {
             keyValuesMap[keyAttribute.first].push_back(keyAttribute.second);
         }
     }
     // transform map to string vector
     std::vector<std::pair<std::string, std::string> > keyValues;
-    for (const auto &keyAttribute : keyValuesMap) {
+    for (const auto& keyAttribute : keyValuesMap) {
         // remove duplicated values
         std::set<std::string> valuesNonDuplicated;
-        for (const auto & value : keyAttribute.second) {
+        for (const auto& value : keyAttribute.second) {
             valuesNonDuplicated.insert(value);
         }
         // merge values
         std::string values;
-        for (const auto & value : valuesNonDuplicated) {
+        for (const auto& value : valuesNonDuplicated) {
             values.append(value + " ");
         }
         if (!values.empty()) {

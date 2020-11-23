@@ -31,9 +31,9 @@
 
 GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
     GNEAdditional(rerouterDialog->getEditedAdditional()->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-        {}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}),
-    myBegin(0),
-    myEnd(0) {
+{}, {}, {}, {rerouterDialog->getEditedAdditional()}, {}, {}, {}, {}),
+myBegin(0),
+myEnd(0) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // fill reroute interval with default values
@@ -43,9 +43,9 @@ GNERerouterInterval::GNERerouterInterval(GNERerouterDialog* rerouterDialog) :
 
 GNERerouterInterval::GNERerouterInterval(GNEAdditional* rerouterParent, SUMOTime begin, SUMOTime end) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, SUMO_TAG_INTERVAL, "", false,
-        {}, {}, {}, {rerouterParent}, {}, {}, {}, {}),
-    myBegin(begin),
-    myEnd(end) {
+{}, {}, {}, {rerouterParent}, {}, {}, {}, {}),
+myBegin(begin),
+myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -67,7 +67,7 @@ GNERerouterInterval::updateGeometry() {
 }
 
 
-void 
+void
 GNERerouterInterval::updateCenteringBoundary(const bool /*updateGrid*/) {
     // use boundary of parent element
     myBoundary = getParentAdditionals().front()->getCenteringBoundary();

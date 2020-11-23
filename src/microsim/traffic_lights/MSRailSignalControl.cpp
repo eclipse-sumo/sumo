@@ -1,4 +1,3 @@
-
 /****************************************************************************/
 // Eclipse SUMO, Simulation of Urban MObility; see https://eclipse.org/sumo
 // Copyright (C) 2001-2020 German Aerospace Center (DLR) and others.
@@ -12,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    MSRailSignalControlControl.cpp
+/// @file    MSRailSignalControl.cpp
 /// @author  Jakob Erdmann
 /// @date    Sept 2020
 ///
@@ -41,7 +40,7 @@ MSRailSignalControl* MSRailSignalControl::myInstance(nullptr);
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSRailSignalControl::MSRailSignalControl() 
+MSRailSignalControl::MSRailSignalControl()
 {}
 
 MSRailSignalControl&

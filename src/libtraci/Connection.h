@@ -76,7 +76,7 @@ public:
     libsumo::ContextSubscriptionResults& getAllContextSubscriptionResults(const int domain) {
         return myContextSubscriptionResults[domain];
     }
-    
+
     /// @name Command sending methods
     /// @{
 
@@ -120,7 +120,7 @@ public:
      * @param[in] vars The variables to subscribe
      */
     void subscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
-                                            int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params);
+                                int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params);
     /// @}
 
 

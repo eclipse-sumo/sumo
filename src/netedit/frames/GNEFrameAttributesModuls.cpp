@@ -1549,8 +1549,8 @@ GNEFrameAttributesModuls::AttributesEditor::showAttributeEditorModul(bool includ
                     value = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(tagProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered
-                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() || 
-                    myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonStop()) {
+                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() ||
+                        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonStop()) {
                     if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {
@@ -1635,8 +1635,8 @@ GNEFrameAttributesModuls::AttributesEditor::refreshAttributeEditor(bool forceRef
                     value = myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getAlternativeValueForDisabledAttributes(tagProperty.getAttr());
                 }
                 // extra check for Triggered and container Triggered
-                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() || 
-                    myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonStop()) {
+                if (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isStop() ||
+                        myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->getTagProperty().isPersonStop()) {
                     if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_TRIGGERED) == false)) {
                         attributeEnabled = false;
                     } else if ((tagProperty.getAttr() == SUMO_ATTR_EXPECTED_CONTAINERS) && (myFrameParent->getViewNet()->getInspectedAttributeCarriers().front()->isAttributeEnabled(SUMO_ATTR_CONTAINER_TRIGGERED) == false)) {

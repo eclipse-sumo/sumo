@@ -130,7 +130,7 @@ GNETAZElement::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView&) {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNETAZElement::getACParametersMap() const {
     return getParametersMap();
 }

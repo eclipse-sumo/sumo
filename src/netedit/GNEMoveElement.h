@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEMove.h
+/// @file    GNEMoveElement.h
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2020
 ///
@@ -38,36 +38,36 @@ class GNEMoveOperation {
 
 public:
     /// @brief constructor for values with a single position (junctions, E3, ParkingSpaces...)
-    GNEMoveOperation(GNEMoveElement *moveElement,
-        const Position originalPosition);
+    GNEMoveOperation(GNEMoveElement* moveElement,
+                     const Position originalPosition);
 
     /// @brief constructor for entire geometries (Polygon with blocked shapes)
-    GNEMoveOperation(GNEMoveElement *moveElement, 
-        const PositionVector originalShape);
+    GNEMoveOperation(GNEMoveElement* moveElement,
+                     const PositionVector originalShape);
 
     /// @brief constructor for elements with editable shapes (edges, polygons...)
-    GNEMoveOperation(GNEMoveElement *moveElement, 
-        const PositionVector originalShape,
-        const std::vector<int> originalgeometryPoints,
-        const PositionVector shapeToMove,
-        const std::vector<int> geometryPointsToMove);
+    GNEMoveOperation(GNEMoveElement* moveElement,
+                     const PositionVector originalShape,
+                     const std::vector<int> originalgeometryPoints,
+                     const PositionVector shapeToMove,
+                     const std::vector<int> geometryPointsToMove);
 
     /// @brief constructor for elements placed over lanes (StoppingPlaces, detectors...)
-    GNEMoveOperation(GNEMoveElement *moveElement, 
-        const GNELane* lane,
-        const std::vector<double> originalPosOverLanes);
+    GNEMoveOperation(GNEMoveElement* moveElement,
+                     const GNELane* lane,
+                     const std::vector<double> originalPosOverLanes);
 
     /// @brief constructor for edit elements placed over lanes (start/end of StoppingPlaces, detectors...)
-    GNEMoveOperation(GNEMoveElement *moveElement, 
-        const GNELane* lane,
-        const std::vector<double> originalPosOverLanes,
-        const std::vector<int> geometryPointsToMove);
+    GNEMoveOperation(GNEMoveElement* moveElement,
+                     const GNELane* lane,
+                     const std::vector<double> originalPosOverLanes,
+                     const std::vector<int> geometryPointsToMove);
 
     /// @brief destructor
     ~GNEMoveOperation();
 
     /// @brief move element
-    GNEMoveElement *moveElement;
+    GNEMoveElement* moveElement;
 
     /// @brief original shape
     const PositionVector originalShape;
@@ -136,10 +136,10 @@ public:
     virtual void removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) = 0;
 
     /// @brief move element the for given offset (note: offset can be X-Y-0, 0-0-Z or X-Y-Z)
-    static void moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position &offset);
+    static void moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position& offset);
 
     /// @brief commit move element for the given offset
-    static void commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList);
+    static void commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position& offset, GNEUndoList* undoList);
 
 private:
     /// @brief set move shape
@@ -149,7 +149,7 @@ private:
     virtual void commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) = 0;
 
     /// @brief calculate movement over lane
-    static const PositionVector calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const Position &offset);
+    static const PositionVector calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const Position& offset);
 
     /// @brief Invalidated copy constructor.
     GNEMoveElement(const GNEMoveElement&) = delete;

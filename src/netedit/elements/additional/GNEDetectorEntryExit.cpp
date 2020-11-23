@@ -33,8 +33,9 @@
 // ===========================================================================
 
 GNEDetectorEntryExit::GNEDetectorEntryExit(SumoXMLTag entryExitTag, GNENet* net, GNEAdditional* parent, GNELane* lane, double pos, bool friendlyPos, bool blockMovement) :
-    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, "", "", "", friendlyPos, blockMovement, 
-        {lane}) {
+    GNEDetector(parent, net, GLO_DET_ENTRY, entryExitTag, pos, "", "", "", friendlyPos, blockMovement, {
+    lane
+}) {
     // check that this is a Entry/Exit
     if ((entryExitTag != SUMO_TAG_DET_ENTRY) && (entryExitTag != SUMO_TAG_DET_EXIT)) {
         throw InvalidArgument("Invalid E3 Child Tag");
@@ -179,7 +180,7 @@ GNEDetectorEntryExit::drawGL(const GUIVisualizationSettings& s) const {
             }
             //move to logo position
             glTranslated(1.7, 0, 0);
-            // rotate 90º lane
+            // rotate 90 degrees lane
             glRotated(90, 0, 0, 1);
             // draw Entry or Exit text if isn't being drawn for selecting
             if (s.drawForRectangleSelection || s.drawForPositionSelection) {

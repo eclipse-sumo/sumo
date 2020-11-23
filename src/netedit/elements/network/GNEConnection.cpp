@@ -48,12 +48,12 @@ int NUM_POINTS = 5;
 GNEConnection::GNEConnection(GNELane* from, GNELane* to) :
     GNENetworkElement(from->getNet(), "from" + from->getID() + "to" + to->getID(),
                       GLO_CONNECTION, SUMO_TAG_CONNECTION,
-    {}, {}, {}, {}, {}, {}, {}, {}),
-    myFromLane(from),
-    myToLane(to),
-    myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
-    mySpecialColor(nullptr),
-    myShapeDeprecated(true) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myFromLane(from),
+myToLane(to),
+myLinkState(LINKSTATE_TL_OFF_NOSIGNAL),
+mySpecialColor(nullptr),
+myShapeDeprecated(true) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -141,14 +141,14 @@ GNEConnection::getPositionInView() const {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEConnection::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // get connection
-        const auto &connection = getNBEdgeConnection();
+        const auto& connection = getNBEdgeConnection();
         // get original shape
-        const PositionVector originalShape = connection.customShape.size() > 0? connection.customShape : connection.shape;
+        const PositionVector originalShape = connection.customShape.size() > 0 ? connection.customShape : connection.shape;
         // declare shape to move
         PositionVector shapeToMove = originalShape;
         // first check if in the given shapeOffset there is a geometry point
@@ -176,14 +176,14 @@ GNEConnection::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
+void
 GNEConnection::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
         // get connection
-        const auto &connection = getNBEdgeConnection();
+        const auto& connection = getNBEdgeConnection();
         // get original shape
-        PositionVector shape = connection.customShape.size() > 0? connection.customShape : connection.shape;
+        PositionVector shape = connection.customShape.size() > 0 ? connection.customShape : connection.shape;
         // check shape size
         if (shape.size() > 2) {
             // obtain index
@@ -318,7 +318,7 @@ GNEConnection::updateCenteringBoundary(const bool /*updateGrid*/) {
         // we need to use the center of junction parent as boundary if shape is empty
         const Position junctionParentPosition = myFromLane->getParentEdge()->getParentJunctions().back()->getPositionInView();
         myBoundary = Boundary(junctionParentPosition.x() - 0.1, junctionParentPosition.y() - 0.1,
-            junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
+                              junctionParentPosition.x() + 0.1, junctionParentPosition.x() + 0.1);
     } else {
         myBoundary = myConnectionGeometry.getShape().getBoxBoundary();
     }
@@ -666,7 +666,7 @@ GNEConnection::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEConnection::getACParametersMap() const {
     return getNBEdgeConnection().getParametersMap();
 }
@@ -747,7 +747,7 @@ GNEConnection::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEConnection::setMoveShape(const GNEMoveResult& moveResult) {
     // set custom shape
     getNBEdgeConnection().customShape = moveResult.shapeToUpdate;

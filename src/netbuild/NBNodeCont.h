@@ -360,7 +360,7 @@ private:
     /// @brief joins the given node clusters
     void joinNodeClusters(NodeClusters clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc, bool resetConnections = false);
     void joinNodeCluster(NodeSet clusters, NBDistrictCont& dc, NBEdgeCont& ec, NBTrafficLightLogicCont& tlc,
-            NBNode* predefined = nullptr, bool resetConnections = false);
+                         NBNode* predefined = nullptr, bool resetConnections = false);
 
     /// @}
 

@@ -49,15 +49,15 @@
 
 GNEJunction::GNEJunction(GNENet* net, NBNode* nbn, bool loaded) :
     GNENetworkElement(net, nbn->getID(), GLO_JUNCTION, SUMO_TAG_JUNCTION,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myNBNode(nbn),
-    myMaxDrawingSize(1),
-    myAmCreateEdgeSource(false),
-    myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myAmResponsible(false),
-    myHasValidLogic(loaded),
-    myAmTLSSelected(false),
-    myColorForMissingConnections(false) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myNBNode(nbn),
+myMaxDrawingSize(1),
+myAmCreateEdgeSource(false),
+myLogicStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myAmResponsible(false),
+myHasValidLogic(loaded),
+myAmTLSSelected(false),
+myColorForMissingConnections(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -109,7 +109,7 @@ GNEJunction::getPositionInView() const {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEJunction::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
@@ -141,7 +141,7 @@ GNEJunction::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
+void
 GNEJunction::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // edit depending if shape is being edited
     if (isShapeEdited()) {
@@ -1318,7 +1318,7 @@ GNEJunction::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEJunction::getACParametersMap() const {
     return myNBNode->getParametersMap();
 }
@@ -1476,7 +1476,7 @@ GNEJunction::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
     // set new position in NBNode without updating grid
     if (isShapeEdited()) {
@@ -1489,7 +1489,7 @@ GNEJunction::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNEJunction::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // make sure that newShape isn't empty
     if (moveResult.shapeToUpdate.size() > 0) {

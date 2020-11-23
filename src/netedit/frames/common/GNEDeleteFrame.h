@@ -107,7 +107,7 @@ public:
      */
     void removeAttributeCarrier(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor, bool ignoreOptions = false);
 
-    /**@brief remove geometry point 
+    /**@brief remove geometry point
     * @param objectsUnderCursor objects under cursors
     */
     void removeGeometryPoint(const GNEViewNetHelper::ObjectsUnderCursor& objectsUnderCursor);

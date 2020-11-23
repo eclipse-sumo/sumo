@@ -33,17 +33,13 @@ double
 MSStop::getEndPos(const SUMOVehicle& veh) const {
     if (busstop != nullptr) {
         return busstop->getLastFreePos(veh);
-    }
-    else if (containerstop != nullptr) {
+    } else if (containerstop != nullptr) {
         return containerstop->getLastFreePos(veh);
-    }
-    else if (parkingarea != nullptr) {
+    } else if (parkingarea != nullptr) {
         return parkingarea->getLastFreePos(veh);
-    }
-    else if (chargingStation != nullptr) {
+    } else if (chargingStation != nullptr) {
         return chargingStation->getLastFreePos(veh);
-    }
-    else if (overheadWireSegment != nullptr) {
+    } else if (overheadWireSegment != nullptr) {
         return overheadWireSegment->getLastFreePos(veh);
     }
     return pars.endPos;
@@ -54,20 +50,15 @@ std::string
 MSStop::getDescription() const {
     if (parkingarea != nullptr) {
         return "parkingArea:" + parkingarea->getID();
-    }
-    else if (containerstop != nullptr) {
+    } else if (containerstop != nullptr) {
         return "containerStop:" + containerstop->getID();
-    }
-    else if (busstop != nullptr) {
+    } else if (busstop != nullptr) {
         return "busStop:" + busstop->getID();
-    }
-    else if (chargingStation != nullptr) {
+    } else if (chargingStation != nullptr) {
         return "chargingStation:" + chargingStation->getID();
-    }
-    else if (overheadWireSegment != nullptr) {
+    } else if (overheadWireSegment != nullptr) {
         return "overheadWireSegment:" + overheadWireSegment->getID();
-    }
-    else {
+    } else {
         return "lane:" + lane->getID() + " pos:" + toString(pars.endPos);
     }
 }
@@ -78,9 +69,9 @@ MSStop::write(OutputDevice& dev) const {
     SUMOVehicleParameter::Stop tmp = pars;
     tmp.duration = duration;
     if (busstop == nullptr
-        && containerstop == nullptr
-        && parkingarea == nullptr
-        && chargingStation == nullptr) {
+            && containerstop == nullptr
+            && parkingarea == nullptr
+            && chargingStation == nullptr) {
         tmp.parametersSet |= STOP_START_SET | STOP_END_SET;
     }
     tmp.write(dev, false);

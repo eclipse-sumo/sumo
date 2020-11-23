@@ -111,27 +111,27 @@ GUIGlChildWindow::buildNavigationToolBar() {
     // build the view settings
     // recenter view
     new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tRecenter View\tRecenter view to the simulated area.",
-        GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_RECENTERVIEW, GUIDesignButtonToolbar);
+                 "\tRecenter View\tRecenter view to the simulated area.",
+                 GUIIconSubSys::getIcon(GUIIcon::RECENTERVIEW), this, MID_RECENTERVIEW, GUIDesignButtonToolbar);
     // add viewport button
     new FXButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tEdit Viewport\tOpens a menu which lets you edit the viewport. (Ctrl+I)",
-        GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT, GUIDesignButtonToolbar);
+                 "\tEdit Viewport\tOpens a menu which lets you edit the viewport. (Ctrl+I)",
+                 GUIIconSubSys::getIcon(GUIIcon::EDITVIEWPORT), this, MID_HOTKEY_CTRL_I_EDITVIEWPORT, GUIDesignButtonToolbar);
     // toggle button for zooming style
     MFXCheckableButton* zoomBut = new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
-        GUIIconSubSys::getIcon(GUIIcon::ZOOMSTYLE), this, MID_ZOOM_STYLE, GUIDesignMFXCheckableButton);
+            "\tToggles Zooming Style\tToggles whether zooming is based at cursor position or at the center of the view.",
+            GUIIconSubSys::getIcon(GUIIcon::ZOOMSTYLE), this, MID_ZOOM_STYLE, GUIDesignMFXCheckableButton);
     zoomBut->setChecked(getApp()->reg().readIntEntry("gui", "zoomAtCenter", 0) != 1);
     // build the locator popup
     myLocatorPopup = new FXPopup(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar, POPUP_VERTICAL);
     // build locator button
     myLocatorButton = new FXMenuButton(myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tLocate Structures\tLocate structures within the network.",
-        GUIIconSubSys::getIcon(GUIIcon::LOCATE), myLocatorPopup, GUIDesignButtonToolbarLocator);
+                                       "\tLocate Structures\tLocate structures within the network.",
+                                       GUIIconSubSys::getIcon(GUIIcon::LOCATE), myLocatorPopup, GUIDesignButtonToolbarLocator);
     // add toggle button for tool-tips on/off
     new MFXCheckableButton(false, myGripNavigationToolbar ? myGripNavigationToolbar : myStaticNavigationToolBar,
-        "\tToggles Tool Tips\tToggles whether tool tips shall be shown.",
-        GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS, GUIDesignMFXCheckableButton);
+                           "\tToggles Tool Tips\tToggles whether tool tips shall be shown.",
+                           GUIIconSubSys::getIcon(GUIIcon::SHOWTOOLTIPS), this, MID_SHOWTOOLTIPS, GUIDesignMFXCheckableButton);
 }
 
 

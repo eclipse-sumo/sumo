@@ -1650,7 +1650,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
                                         || avoidedIntersectingLeftOriginLane < con.fromLane) {
                                     for (const PositionVector& otherShape : otherShapes) {
                                         const double minDV = firstIntersection(shape, otherShape, width2,
-                                                "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
+                                                                               "Could not compute intersection of conflicting internal lanes at node '" + myTo->getID() + "'");
                                         if (minDV < shape.length() - POSITION_EPS && minDV > POSITION_EPS) { // !!!?
                                             assert(minDV >= 0);
                                             if (crossingPositions.first < 0 || crossingPositions.first > minDV) {
@@ -2896,9 +2896,9 @@ NBEdge::prepareEdgePriorities(const EdgeVector* outgoing, const std::vector<int>
             }
 #endif
         } else if (mainDirections.includes(MainDirections::Direction::RIGHTMOST)
-                && outgoing->size() > 2
-                && availableLanes.size() == 2
-                && (*outgoing)[dist]->getPriority() == (*outgoing)[0]->getPriority()) {
+                   && outgoing->size() > 2
+                   && availableLanes.size() == 2
+                   && (*outgoing)[dist]->getPriority() == (*outgoing)[0]->getPriority()) {
             priorities[0] /= 4;
             priorities.back() /= 2;
 #ifdef DEBUG_CONNECTION_GUESSING
@@ -3265,7 +3265,7 @@ NBEdge::expandableBy(NBEdge* possContinuation, std::string& reason) const {
             return false;
         }
     }
-    // if given identically osm names 
+    // if given identically osm names
     if (!OptionsCont::getOptions().isDefault("output.street-names") && myStreetName != possContinuation->getStreetName()) {
         return false;
     }

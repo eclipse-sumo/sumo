@@ -54,7 +54,7 @@ public:
         const double t = STEPS2TIME(time);
         if (beta > 0) {
             // calculate commonalities
-            for (const R* const pR: alternatives) {
+            for (const R* const pR : alternatives) {
                 double lengthR = 0;
                 const std::vector<const E*>& edgesR = pR->getEdgeVector();
                 for (const E* const edge : edgesR) {
@@ -121,7 +121,7 @@ private:
         if (cvCost > 0) { // all Magic numbers from Lohse book, original says this should be cvCost > 0.04
             return 3.1415926535897932384626433832795 / (sqrt(6.) * cvCost * (min + 1.1)) / 3600.;
         }
-        return 1./3600.;
+        return 1. / 3600.;
     }
 
 

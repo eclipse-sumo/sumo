@@ -749,7 +749,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         }
         if (isRail && !hadRailSignal && MSRailSignal::hasInsertionConstraint(*link, aVehicle)) {
 #ifdef DEBUG_INSERTION
-            if DEBUG_COND2(aVehicle) std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
+            if DEBUG_COND2(aVehicle) {
+                std::cout << " insertion constraint at link " << (*link)->getDescription() << " not cleared \n";
+            }
 #endif
             return false;
         }
@@ -783,7 +785,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
             if (currentLane == this && MSRailSignal::hasOncomingRailTraffic(*link)) {
                 // allow guarding bidirectional tracks at the network border with railSignal
 #ifdef DEBUG_INSERTION
-                if DEBUG_COND2(aVehicle) std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
+                if DEBUG_COND2(aVehicle) {
+                    std::cout << " oncoming rail traffic at link " << (*link)->getDescription() << "\n";
+                }
 #endif
                 return false;
             }
@@ -1037,7 +1041,9 @@ MSLane::isInsertionSuccess(MSVehicle* aVehicle,
         return false;
     }
     // enter
-    incorporateVehicle(aVehicle, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), [&](MSVehicle* const v) {return v->getPositionOnLane() >= pos;}), notification);
+    incorporateVehicle(aVehicle, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), [&](MSVehicle * const v) {
+        return v->getPositionOnLane() >= pos;
+    }), notification);
 #ifdef DEBUG_INSERTION
     if (DEBUG_COND2(aVehicle)) std::cout << SIMTIME
                                              << " isInsertionSuccess lane=" << getID()
@@ -1062,7 +1068,9 @@ MSLane::forceVehicleInsertion(MSVehicle* veh, double pos, MSMoveReminder::Notifi
     veh->updateBestLanes(true, this);
     bool dummy;
     const double speed = veh->hasDeparted() ? veh->getSpeed() : getDepartSpeed(*veh, dummy);
-    incorporateVehicle(veh, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), [&](MSVehicle* const v) {return v->getPositionOnLane() >= pos;}), notification);
+    incorporateVehicle(veh, pos, speed, posLat, find_if(myVehicles.begin(), myVehicles.end(), [&](MSVehicle * const v) {
+        return v->getPositionOnLane() >= pos;
+    }), notification);
 }
 
 

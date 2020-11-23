@@ -42,264 +42,264 @@ typedef Domain<libsumo::CMD_GET_LANE_VARIABLE, libsumo::CMD_SET_LANE_VARIABLE> D
 // ===========================================================================
 std::vector<std::string>
 Lane::getIDList() {
-	return Dom::getStringVector(libsumo::TRACI_ID_LIST, "");
+    return Dom::getStringVector(libsumo::TRACI_ID_LIST, "");
 }
 
 
 int
 Lane::getIDCount() {
-	return Dom::getInt(libsumo::ID_COUNT, "");
+    return Dom::getInt(libsumo::ID_COUNT, "");
 }
 
 
 std::string
 Lane::getEdgeID(std::string laneID) {
-	return Dom::getString(libsumo::LANE_EDGE_ID, laneID);
+    return Dom::getString(libsumo::LANE_EDGE_ID, laneID);
 }
 
 
 double
 Lane::getLength(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_LENGTH, laneID);
+    return Dom::getDouble(libsumo::VAR_LENGTH, laneID);
 }
 
 
 double
 Lane::getMaxSpeed(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_MAXSPEED, laneID);
+    return Dom::getDouble(libsumo::VAR_MAXSPEED, laneID);
 }
 
 
 int
 Lane::getLinkNumber(std::string laneID) {
-	return Dom::getInt(libsumo::LANE_LINK_NUMBER, laneID);
+    return Dom::getInt(libsumo::LANE_LINK_NUMBER, laneID);
 }
 
 
 std::vector<libsumo::TraCIConnection>
 Lane::getLinks(std::string laneID) {
-	std::vector<libsumo::TraCIConnection> ret;
-	tcpip::Storage& sto = Connection::getActive().doCommand(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LANE_LINKS, laneID);
-	if (Connection::getActive().processGet(libsumo::CMD_GET_LANE_VARIABLE, libsumo::TYPE_COMPOUND)) {
-		sto.readUnsignedByte();
-		sto.readInt();
+    std::vector<libsumo::TraCIConnection> ret;
+    tcpip::Storage& sto = Connection::getActive().doCommand(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LANE_LINKS, laneID);
+    if (Connection::getActive().processGet(libsumo::CMD_GET_LANE_VARIABLE, libsumo::TYPE_COMPOUND)) {
+        sto.readUnsignedByte();
+        sto.readInt();
 
-		int linkNo = sto.readInt();
-		for (int i = 0; i < linkNo; ++i) {
+        int linkNo = sto.readInt();
+        for (int i = 0; i < linkNo; ++i) {
 
-			sto.readUnsignedByte();
-			std::string approachedLane = sto.readString();
+            sto.readUnsignedByte();
+            std::string approachedLane = sto.readString();
 
-			sto.readUnsignedByte();
-			std::string approachedLaneInternal = sto.readString();
+            sto.readUnsignedByte();
+            std::string approachedLaneInternal = sto.readString();
 
-			sto.readUnsignedByte();
-			bool hasPrio = sto.readUnsignedByte() != 0;
+            sto.readUnsignedByte();
+            bool hasPrio = sto.readUnsignedByte() != 0;
 
-			sto.readUnsignedByte();
-			bool isOpen = sto.readUnsignedByte() != 0;
+            sto.readUnsignedByte();
+            bool isOpen = sto.readUnsignedByte() != 0;
 
-			sto.readUnsignedByte();
-			bool hasFoe = sto.readUnsignedByte() != 0;
+            sto.readUnsignedByte();
+            bool hasFoe = sto.readUnsignedByte() != 0;
 
-			sto.readUnsignedByte();
-			std::string state = sto.readString();
+            sto.readUnsignedByte();
+            std::string state = sto.readString();
 
-			sto.readUnsignedByte();
-			std::string direction = sto.readString();
+            sto.readUnsignedByte();
+            std::string direction = sto.readString();
 
-			sto.readUnsignedByte();
-			double length = sto.readDouble();
+            sto.readUnsignedByte();
+            double length = sto.readDouble();
 
-			ret.push_back(libsumo::TraCIConnection(approachedLane,
-				hasPrio,
-				isOpen,
-				hasFoe,
-				approachedLaneInternal,
-				state,
-				direction,
-				length));
+            ret.push_back(libsumo::TraCIConnection(approachedLane,
+                                                   hasPrio,
+                                                   isOpen,
+                                                   hasFoe,
+                                                   approachedLaneInternal,
+                                                   state,
+                                                   direction,
+                                                   length));
 
-		}
+        }
 
-	}
-	return ret;
+    }
+    return ret;
 }
 
 
 std::vector<std::string>
 Lane::getAllowed(std::string laneID) {
-	return Dom::getStringVector(libsumo::LANE_ALLOWED, laneID);
+    return Dom::getStringVector(libsumo::LANE_ALLOWED, laneID);
 }
 
 
 std::vector<std::string>
 Lane::getDisallowed(std::string laneID) {
-	return Dom::getStringVector(libsumo::LANE_DISALLOWED, laneID); // negation yields disallowed
+    return Dom::getStringVector(libsumo::LANE_DISALLOWED, laneID); // negation yields disallowed
 }
 
 
 libsumo::TraCIPositionVector
 Lane::getShape(std::string laneID) {
-	return Dom::getPolygon(libsumo::VAR_SHAPE, laneID);
+    return Dom::getPolygon(libsumo::VAR_SHAPE, laneID);
 }
 
 
 double
 Lane::getWidth(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_WIDTH, laneID);
+    return Dom::getDouble(libsumo::VAR_WIDTH, laneID);
 }
 
 
 double
 Lane::getCO2Emission(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_CO2EMISSION, laneID);
+    return Dom::getDouble(libsumo::VAR_CO2EMISSION, laneID);
 }
 
 
 double
 Lane::getCOEmission(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_COEMISSION, laneID);
+    return Dom::getDouble(libsumo::VAR_COEMISSION, laneID);
 }
 
 
 double
 Lane::getHCEmission(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_COEMISSION, laneID);
+    return Dom::getDouble(libsumo::VAR_COEMISSION, laneID);
 }
 
 
 double
 Lane::getPMxEmission(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_PMXEMISSION, laneID);
+    return Dom::getDouble(libsumo::VAR_PMXEMISSION, laneID);
 }
 
 
 double
 Lane::getNOxEmission(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_NOXEMISSION, laneID);
+    return Dom::getDouble(libsumo::VAR_NOXEMISSION, laneID);
 }
 
 double
 Lane::getFuelConsumption(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_FUELCONSUMPTION, laneID);
+    return Dom::getDouble(libsumo::VAR_FUELCONSUMPTION, laneID);
 }
 
 
 double
 Lane::getNoiseEmission(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_NOISEEMISSION, laneID);
+    return Dom::getDouble(libsumo::VAR_NOISEEMISSION, laneID);
 }
 
 
 double
 Lane::getElectricityConsumption(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_ELECTRICITYCONSUMPTION, laneID);
+    return Dom::getDouble(libsumo::VAR_ELECTRICITYCONSUMPTION, laneID);
 }
 
 
 double
 Lane::getLastStepMeanSpeed(std::string laneID) {
-	return Dom::getDouble(libsumo::LAST_STEP_MEAN_SPEED, laneID);
+    return Dom::getDouble(libsumo::LAST_STEP_MEAN_SPEED, laneID);
 }
 
 
 double
 Lane::getLastStepOccupancy(std::string laneID) {
-	return Dom::getDouble(libsumo::LAST_STEP_OCCUPANCY, laneID);
+    return Dom::getDouble(libsumo::LAST_STEP_OCCUPANCY, laneID);
 }
 
 
 double
 Lane::getLastStepLength(std::string laneID) {
-	return Dom::getDouble(libsumo::LAST_STEP_LENGTH, laneID);
+    return Dom::getDouble(libsumo::LAST_STEP_LENGTH, laneID);
 }
 
 
 double
 Lane::getWaitingTime(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_WAITING_TIME, laneID);
+    return Dom::getDouble(libsumo::VAR_WAITING_TIME, laneID);
 }
 
 
 double
 Lane::getTraveltime(std::string laneID) {
-	return Dom::getDouble(libsumo::VAR_CURRENT_TRAVELTIME, laneID);
+    return Dom::getDouble(libsumo::VAR_CURRENT_TRAVELTIME, laneID);
 }
 
 
 int
 Lane::getLastStepVehicleNumber(std::string laneID) {
-	return Dom::getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, laneID);
+    return Dom::getInt(libsumo::LAST_STEP_VEHICLE_NUMBER, laneID);
 }
 
 int
 Lane::getLastStepHaltingNumber(std::string laneID) {
-	return Dom::getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, laneID);
+    return Dom::getInt(libsumo::LAST_STEP_VEHICLE_HALTING_NUMBER, laneID);
 }
 
 
 std::vector<std::string>
 Lane::getLastStepVehicleIDs(std::string laneID) {
-	return Dom::getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, laneID);
+    return Dom::getStringVector(libsumo::LAST_STEP_VEHICLE_ID_LIST, laneID);
 }
 
 
 std::vector<std::string>
 Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
-	std::vector<std::string> r;
-	tcpip::Storage content;
-	content.writeUnsignedByte(libsumo::TYPE_STRING);
-	content.writeString(toLaneID);
-	tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_FOES, laneID, &content);
-	if (Connection::getActive().processGet(libsumo::CMD_GET_LANE_VARIABLE, libsumo::TYPE_STRINGLIST)) {
-		const int size = ret.readInt();
-		for (int i = 0; i < size; ++i) {
-			r.push_back(ret.readString());
-		}
-	}
-	return r;
+    std::vector<std::string> r;
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_STRING);
+    content.writeString(toLaneID);
+    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_FOES, laneID, &content);
+    if (Connection::getActive().processGet(libsumo::CMD_GET_LANE_VARIABLE, libsumo::TYPE_STRINGLIST)) {
+        const int size = ret.readInt();
+        for (int i = 0; i < size; ++i) {
+            r.push_back(ret.readString());
+        }
+    }
+    return r;
 }
 
 // XXX: there seems to be no "Dom::getFoes"
 std::vector<std::string>
 Lane::getInternalFoes(const std::string& laneID) {
-	//tcpip::Storage content;
-	//content.writeUnsignedByte(libsumo::TYPE_STRING);
-	//content.writeString("");
-	//return Dom::getStringVector(libsumo::VAR_FOES, laneID, &content);
-	return getFoes(laneID, "");
-	//return Dom::getFoes(laneID, "");
+    //tcpip::Storage content;
+    //content.writeUnsignedByte(libsumo::TYPE_STRING);
+    //content.writeString("");
+    //return Dom::getStringVector(libsumo::VAR_FOES, laneID, &content);
+    return getFoes(laneID, "");
+    //return Dom::getFoes(laneID, "");
 }
 
 
 void
 Lane::setAllowed(std::string laneID, std::string allowedClass) {
-	Dom::setString(libsumo::LANE_ALLOWED, laneID, allowedClass);
+    Dom::setString(libsumo::LANE_ALLOWED, laneID, allowedClass);
 }
 
 
 void
 Lane::setAllowed(std::string laneID, std::vector<std::string> allowedClasses) {
-	Dom::setStringVector(libsumo::LANE_ALLOWED, laneID, allowedClasses);
+    Dom::setStringVector(libsumo::LANE_ALLOWED, laneID, allowedClasses);
 }
 
 
 void
 Lane::setDisallowed(std::string laneID, std::vector<std::string> disallowedClasses) {
-	Dom::setStringVector(libsumo::LANE_DISALLOWED, laneID, disallowedClasses);
+    Dom::setStringVector(libsumo::LANE_DISALLOWED, laneID, disallowedClasses);
 }
 
 
 void
 Lane::setMaxSpeed(std::string laneID, double speed) {
-	Dom::setDouble(libsumo::VAR_MAXSPEED, laneID, speed);
+    Dom::setDouble(libsumo::VAR_MAXSPEED, laneID, speed);
 }
 
 
 void
 Lane::setLength(std::string laneID, double length) {
-	Dom::setDouble(libsumo::VAR_LENGTH, laneID, length);
+    Dom::setDouble(libsumo::VAR_LENGTH, laneID, length);
 }
 
 

@@ -842,7 +842,7 @@ GNEPersonStop::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEPersonStop::getACParametersMap() const {
     return getParametersMap();
 }

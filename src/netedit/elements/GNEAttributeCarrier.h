@@ -146,7 +146,7 @@ public:
     T getACParameters() const;
 
     /// @brief set parameters (string)
-    void setACParameters(const std::string &parameters, GNEUndoList* undoList);
+    void setACParameters(const std::string& parameters, GNEUndoList* undoList);
 
     /// @brief set parameters (map)
     void setACParameters(const std::vector<std::pair<std::string, std::string> >& parameters, GNEUndoList* undoList);

@@ -139,19 +139,19 @@ MESegment::initSegment(const MSNet::MesoEdgeType& edgeType, const MSEdge& parent
 
     myJunctionControl = myNextSegment == nullptr && (edgeType.junctionControl || MELoop::isEnteringRoundabout(parent));
     myTLSPenalty = ((edgeType.tlsPenalty > 0 || edgeType.tlsFlowPenalty > 0) &&
-                 // only apply to the last segment of a tls-controlled edge
-                 myNextSegment == nullptr && (
-                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT ||
-                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION ||
-                     parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED));
+                    // only apply to the last segment of a tls-controlled edge
+                    myNextSegment == nullptr && (
+                        parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT ||
+                        parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION ||
+                        parent.getToJunction()->getType() == SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED));
 
     // only apply to the last segment of an uncontrolled edge that has at least 1 minor link
     myCheckMinorPenalty = (edgeType.minorPenalty > 0 &&
-                   myNextSegment == nullptr &&
-                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT &&
-                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION &&
-                   parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
-                   parent.hasMinorLink());
+                           myNextSegment == nullptr &&
+                           parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT &&
+                           parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_NOJUNCTION &&
+                           parent.getToJunction()->getType() != SumoXMLNodeType::TRAFFIC_LIGHT_RIGHT_ON_RED &&
+                           parent.hasMinorLink());
     myMinorPenalty = edgeType.minorPenalty;
     myOvertaking = edgeType.overtaking && myCapacity > myLength;
 
@@ -171,8 +171,7 @@ MESegment::MESegment(const std::string& id):
     myJunctionControl(false),
     myOvertaking(false),
     myTau_length(1),
-    myHeadwayCapacity(0), myCapacity(0), myQueueCapacity(0)
-{
+    myHeadwayCapacity(0), myCapacity(0), myQueueCapacity(0) {
 }
 
 

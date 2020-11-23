@@ -1437,8 +1437,8 @@ GNEGeometry::drawDottedContourEdge(const DottedContourType type, const GUIVisual
         // set left hand flag
         const bool lefthand = OptionsCont::getOptions().getBool("lefthand");
         // obtain lanes
-        const GNELane *topLane =  lefthand? edge->getLanes().back() : edge->getLanes().front();
-        const GNELane *botLane = lefthand? edge->getLanes().front() : edge->getLanes().back();
+        const GNELane* topLane =  lefthand ? edge->getLanes().back() : edge->getLanes().front();
+        const GNELane* botLane = lefthand ? edge->getLanes().front() : edge->getLanes().back();
         // obtain a copy of both geometries
         GNEGeometry::DottedGeometry dottedGeometryTop = topLane->getDottedLaneGeometry();
         GNEGeometry::DottedGeometry dottedGeometryBot = botLane->getDottedLaneGeometry();
@@ -1585,7 +1585,7 @@ GNEGeometry::getVertexCircleAroundPosition(const Position& pos, const double wid
 }
 
 
-void 
+void
 GNEGeometry::rotateOverLane(const double rot) {
     // rotate using rotation calculated in PositionVector
     glRotated((rot * -1) + 90, 0, 0, 1);

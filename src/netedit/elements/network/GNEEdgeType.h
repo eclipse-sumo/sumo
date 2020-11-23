@@ -45,7 +45,7 @@ public:
     ~GNEEdgeType();
 
     /// @brief get laneTypes
-    const std::vector<GNELaneType*> &getLaneTypes() const;
+    const std::vector<GNELaneType*>& getLaneTypes() const;
 
     /// @brief get laneType index
     int getLaneTypeIndex(const GNELaneType* laneType) const;

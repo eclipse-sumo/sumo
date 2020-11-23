@@ -207,7 +207,7 @@ GUIEdge::getParameterWindow(GUIMainWindow& app,
 
 GUIParameterTableWindow*
 GUIEdge::getTypeParameterWindow(GUIMainWindow& app,
-                                   GUISUMOAbstractView&) {
+                                GUISUMOAbstractView&) {
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     const MSNet::MesoEdgeType& edgeType = MSNet::getInstance()->getMesoType(getEdgeType());
     // add items

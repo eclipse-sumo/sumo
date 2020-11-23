@@ -39,13 +39,13 @@ GNERerouter::GNERerouter(const std::string& id, GNENet* net, const Position& pos
                          const std::string& name, const std::string& filename, double probability,
                          bool off, SUMOTime timeThreshold, const std::string& vTypes, bool blockMovement) :
     GNEAdditional(id, net, GLO_REROUTER, SUMO_TAG_REROUTER, name, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myPosition(pos),
-    myFilename(filename),
-    myProbability(probability),
-    myOff(off),
-    myTimeThreshold(timeThreshold),
-    myVTypes(vTypes) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myPosition(pos),
+myFilename(filename),
+myProbability(probability),
+myOff(off),
+myTimeThreshold(timeThreshold),
+myVTypes(vTypes) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -55,7 +55,7 @@ GNERerouter::~GNERerouter() {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNERerouter::getMoveOperation(const double /*shapeOffset*/) {
     if (myBlockMovement) {
         // element blocked, then nothing to move
@@ -76,7 +76,7 @@ GNERerouter::updateGeometry() {
 }
 
 
-void 
+void
 GNERerouter::updateCenteringBoundary(const bool updateGrid) {
     // remove additional from grid
     if (updateGrid) {
@@ -376,7 +376,7 @@ GNERerouter::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNERerouter::setMoveShape(const GNEMoveResult& moveResult) {
     // update position
     myPosition = moveResult.shapeToUpdate.front();
@@ -385,7 +385,7 @@ GNERerouter::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNERerouter::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));

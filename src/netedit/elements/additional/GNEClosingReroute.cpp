@@ -32,9 +32,9 @@
 
 GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEEdge* closedEdge, SVCPermissions permissions) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_CALIBRATOR, SUMO_TAG_CLOSING_REROUTE, "", false,
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
-    myClosedEdge(closedEdge),
-    myPermissions(permissions) {
+{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
+myClosedEdge(closedEdge),
+myPermissions(permissions) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -43,8 +43,8 @@ GNEClosingReroute::GNEClosingReroute(GNEAdditional* rerouterIntervalParent, GNEE
 GNEClosingReroute::~GNEClosingReroute() {}
 
 
-GNEMoveOperation* 
-GNEClosingReroute::getMoveOperation(const double /* shapeOffset */  ) {
+GNEMoveOperation*
+GNEClosingReroute::getMoveOperation(const double /* shapeOffset */) {
     // GNEClosingReroutes cannot be moved
     return nullptr;
 }
@@ -57,7 +57,7 @@ GNEClosingReroute::updateGeometry() {
 }
 
 
-void 
+void
 GNEClosingReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
     // use boundary of parent element
     myBoundary = getParentAdditionals().front()->getCenteringBoundary();
@@ -192,13 +192,13 @@ GNEClosingReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEClosingReroute::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
 
-void 
+void
 GNEClosingReroute::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }

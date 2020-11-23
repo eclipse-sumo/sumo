@@ -883,7 +883,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor::YELLOW, (double)120);
     scheme.addColor(RGBColor::ORANGE, (double)300);
     scheme.addColor(RGBColor::RED, (double)900);
-    scheme.addColor(RGBColor::MAGENTA, (double)-10);
+    scheme.addColor(RGBColor::MAGENTA, (double) -10);
     scheme.setAllowsNegativeValues(true);
     vehicleColorer.addScheme(scheme);
     scheme = GUIColorScheme("by lateral speed", RGBColor(179, 179, 179, 255), "0", false, 0, COL_SCHEME_DYNAMIC);

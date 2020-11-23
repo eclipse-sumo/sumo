@@ -2034,7 +2034,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
     assert(lane != 0);
     const MSLane* leaderLane = myLane;
 #ifdef PARALLEL_STOPWATCH
-        myLane->getStopWatch()[0].start();
+    myLane->getStopWatch()[0].start();
 #endif
 #ifdef _MSC_VER
 #pragma warning(push)
@@ -2538,7 +2538,7 @@ MSVehicle::planMoveInternal(const SUMOTime t, MSLeaderInfo ahead, DriveItemVecto
 //#endif
 
 #ifdef PARALLEL_STOPWATCH
-        myLane->getStopWatch()[0].stop();
+    myLane->getStopWatch()[0].stop();
 #endif
 }
 
@@ -5991,8 +5991,7 @@ MSVehicle::handleCollisionStop(MSStop& stop, const bool collision, const double 
                 myState.myPos = MIN2(myState.myPos, stop.pars.endPos);
                 myCachedPosition = Position::INVALID;
             }
-        }
-        else {
+        } else {
             errorMsg = errorMsgStart + " for vehicle '" + myParameter->id + "' on lane '" + stop.pars.lane + "' is too close to brake.";
             return false;
         }
@@ -6329,8 +6328,8 @@ MSVehicle::saveState(OutputDevice& out) {
     internals.push_back(toString(isStopped()));
     internals.push_back(toString(myPastStops.size()));
     out.writeAttr(SUMO_ATTR_STATE, internals);
-    out.writeAttr(SUMO_ATTR_POSITION, std::vector<double>{ myState.myPos, myState.myBackPos, myState.myLastCoveredDist });
-    out.writeAttr(SUMO_ATTR_SPEED, std::vector<double>{ myState.mySpeed, myState.myPreviousSpeed });
+    out.writeAttr(SUMO_ATTR_POSITION, std::vector<double> { myState.myPos, myState.myBackPos, myState.myLastCoveredDist });
+    out.writeAttr(SUMO_ATTR_SPEED, std::vector<double> { myState.mySpeed, myState.myPreviousSpeed });
     out.writeAttr(SUMO_ATTR_POSITION_LAT, myState.myPosLat);
     out.writeAttr(SUMO_ATTR_WAITINGTIME, myWaitingTimeCollector.getState());
     // save past stops
@@ -6637,8 +6636,8 @@ MSVehicle::estimateTimeToNextStop() const {
         // distAccel = (v - c)^2 / (2a)
         // distDecel = (v + vs)*(v - vs) / 2b = (v^2 - vs^2) / (2b)
         // distAccel + distDecel < d
-        const double maxVD = MAX2(c, ((sqrt(MAX2(0.0, pow(2 * c * b, 2) + (4 *((b * ((a*(2 *d * (b + a) + (vs * vs) - (c * c))) - (b * (c * c)))) 
-                                        + pow((a * vs), 2))))) * 0.5) + (c*b)) / (b + a));
+        const double maxVD = MAX2(c, ((sqrt(MAX2(0.0, pow(2 * c * b, 2) + (4 * ((b * ((a * (2 * d * (b + a) + (vs * vs) - (c * c))) - (b * (c * c))))
+                                            + pow((a * vs), 2))))) * 0.5) + (c * b)) / (b + a));
         it = myCurrEdge;
         double v0 = c;
         bool v0Stable = getAcceleration() == 0 && v0 > 0;

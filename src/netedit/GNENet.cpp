@@ -207,7 +207,6 @@ GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
     std::string id = myJunctionIDSupplier.getNext();
     // create new NBNode
     NBNode* nbn = new NBNode(id, pos);
-    // create GNEJunciton
     GNEJunction* junction = new GNEJunction(this, nbn);
     undoList->add(new GNEChange_Junction(junction, true), true);
     return junction;
@@ -215,10 +214,10 @@ GNENet::createJunction(const Position& pos, GNEUndoList* undoList) {
 
 
 GNEEdge*
-GNENet::createEdge( GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
-    const std::string& suggestedName, bool wasSplit, bool allowDuplicateGeom, bool recomputeConnections) {
+GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, GNEUndoList* undoList,
+                   const std::string& suggestedName, bool wasSplit, bool allowDuplicateGeom, bool recomputeConnections) {
     // prevent duplicate edge (same geometry)
-    for (const auto & outgoingEdge : src->getNBNode()->getOutgoingEdges()) {
+    for (const auto& outgoingEdge : src->getNBNode()->getOutgoingEdges()) {
         if (outgoingEdge->getToNode() == dest->getNBNode() && outgoingEdge->getGeometry().size() == 2) {
             if (!allowDuplicateGeom) {
                 return nullptr;
@@ -1237,7 +1236,7 @@ std::vector<GNEEdge*>
 GNENet::retrieveEdges(bool onlySelected) {
     std::vector<GNEEdge*> result;
     // returns edges depending of selection
-    for (const auto &edge : myAttributeCarriers->getEdges()) {
+    for (const auto& edge : myAttributeCarriers->getEdges()) {
         if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
             result.push_back(edge.second);
         }
@@ -1246,11 +1245,11 @@ GNENet::retrieveEdges(bool onlySelected) {
 }
 
 
-std::vector<GNEEdge*> 
+std::vector<GNEEdge*>
 GNENet::retrieve000180AngleEdges(bool onlySelected) const {
     std::vector<GNEEdge*> result;
     // returns edges depending of selection
-    for (const auto &edge : myAttributeCarriers->getEdges()) {
+    for (const auto& edge : myAttributeCarriers->getEdges()) {
         // check selection
         if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
             // get junction positions
@@ -1258,7 +1257,7 @@ GNENet::retrieve000180AngleEdges(bool onlySelected) const {
             const Position secondJunctionPosition = edge.second->getParentJunctions().back()->getPositionInView();
             // calculate angle between both junction positions
             double edgeAngle = RAD2DEG(firstJunctionPosition.angleTo2D(secondJunctionPosition));
-            // adjusto to 360º
+            // adjust to 360 degrees
             while (edgeAngle < 0) {
                 edgeAngle += 360;
             }
@@ -1276,11 +1275,11 @@ GNENet::retrieve000180AngleEdges(bool onlySelected) const {
 }
 
 
-std::vector<GNEEdge*> 
+std::vector<GNEEdge*>
 GNENet::retrieve180360AngleEdges(bool onlySelected) const {
     std::vector<GNEEdge*> result;
     // returns edges depending of selection
-    for (const auto &edge : myAttributeCarriers->getEdges()) {
+    for (const auto& edge : myAttributeCarriers->getEdges()) {
         // check selection
         if (!onlySelected || edge.second->isAttributeCarrierSelected()) {
             // get junction positions
@@ -1288,7 +1287,7 @@ GNENet::retrieve180360AngleEdges(bool onlySelected) const {
             const Position secondJunctionPosition = edge.second->getParentJunctions().back()->getPositionInView();
             // calculate angle between both junction positions
             double edgeAngle = RAD2DEG(firstJunctionPosition.angleTo2D(secondJunctionPosition));
-            // adjusto to 360º
+            // adjust to 360 degrees
             while (edgeAngle < 0) {
                 edgeAngle += 360;
             }
@@ -2290,7 +2289,7 @@ GNENet::removeExplicitTurnaround(std::string id) {
 }
 
 
-std::string 
+std::string
 GNENet::generateEdgeTypeID() const {
     int counter = 0;
     while (myAttributeCarriers->getEdgeTypes().count("edgeType_" + toString(counter)) != 0) {
@@ -3086,8 +3085,8 @@ void
 GNENet::enableUpdateData() {
     myUpdateDataEnabled = true;
     // update data elements
-    for (const auto &dataSet : myAttributeCarriers->getDataSets()) {
-        for (const auto &dataInterval : dataSet.second->getDataIntervalChildren()) {
+    for (const auto& dataSet : myAttributeCarriers->getDataSets()) {
+        for (const auto& dataInterval : dataSet.second->getDataIntervalChildren()) {
             dataInterval.second->updateGenericDataIDs();
             dataInterval.second->updateAttributeColors();
         }

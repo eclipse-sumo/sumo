@@ -39,8 +39,8 @@
 
 GNEVariableSpeedSign::GNEVariableSpeedSign(const std::string& id, GNENet* net, const Position& pos, const std::string& name, bool blockMovement) :
     GNEAdditional(id, net, GLO_VSS, SUMO_TAG_VSS, name, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myPosition(pos) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myPosition(pos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -50,7 +50,7 @@ GNEVariableSpeedSign::~GNEVariableSpeedSign() {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEVariableSpeedSign::getMoveOperation(const double /*shapeOffset*/) {
     if (myBlockMovement) {
         // element blocked, then nothing to move
@@ -71,7 +71,7 @@ GNEVariableSpeedSign::updateGeometry() {
 }
 
 
-void 
+void
 GNEVariableSpeedSign::updateCenteringBoundary(const bool updateGrid) {
     // remove additional from grid
     if (updateGrid) {
@@ -322,7 +322,7 @@ GNEVariableSpeedSign::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEVariableSpeedSign::setMoveShape(const GNEMoveResult& moveResult) {
     // update position
     myPosition = moveResult.shapeToUpdate.front();
@@ -331,7 +331,7 @@ GNEVariableSpeedSign::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNEVariableSpeedSign::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(moveResult.shapeToUpdate.front())));

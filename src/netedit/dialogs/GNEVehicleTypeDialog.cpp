@@ -418,7 +418,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::VTypeAttributeRow(VType
     } else if (rowAttrType == ROWTYPE_COMBOBOX) {
         myComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, VTypeAtributesParent, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxWidth180);
         // fill combo Box with values
-        for (const auto &value : values) {
+        for (const auto& value : values) {
             myComboBox->appendItem(value.c_str());
         }
         // set 10 visible elements as maximum
@@ -534,23 +534,23 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::updateValue() {
         }
     } else if (myAttr == GNE_ATTR_PARAMETERS) {
         // get parameters
-        const std::string &parametersStr = myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr);
+        const std::string& parametersStr = myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr);
         // set text of myTextField using current value of VType
         myTextField->setText(parametersStr.c_str());
         // set text color
         myTextField->setTextColor(FXRGB(0, 0, 0));
-         // clear parameters
-         myParameters.clear();
-         // separate value in a vector of string using | as separator
-         StringTokenizer parameters(parametersStr, "|", true);
-         // iterate over all values
-         while (parameters.hasNext()) {
-             // obtain key and value and save it in myParameters
-             const std::vector<std::string> keyValue = StringTokenizer(parameters.next(), "=", true).getVector();
-             if (keyValue.size() == 2) {
-                 myParameters[keyValue.front()] = keyValue.back();
-             }
-         }
+        // clear parameters
+        myParameters.clear();
+        // separate value in a vector of string using | as separator
+        StringTokenizer parameters(parametersStr, "|", true);
+        // iterate over all values
+        while (parameters.hasNext()) {
+            // obtain key and value and save it in myParameters
+            const std::vector<std::string> keyValue = StringTokenizer(parameters.next(), "=", true).getVector();
+            if (keyValue.size() == 2) {
+                myParameters[keyValue.front()] = keyValue.back();
+            }
+        }
     } else {
         // set text of myTextField using current value of VType
         myTextField->setText(myVTypeAtributesParent->myVehicleTypeDialog->myEditedDemandElement->getAttribute(myAttr).c_str());
@@ -673,7 +673,7 @@ GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::openOSGFileDialog() {
 }
 
 
-std::string 
+std::string
 GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow::getParametersStr() const {
     return myTextField->getText().text();
 }

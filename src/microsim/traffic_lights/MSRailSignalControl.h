@@ -62,7 +62,7 @@ private:
     MSRailSignalControl();
 
     /// @brief compute additioanl deadlock-check requirements for registered driveways
-    void updateDriveways(const MSEdge* used); 
+    void updateDriveways(const MSEdge* used);
 
     /// @brief all rail edges that are part of a known route
     std::set<const MSEdge*> myUsedEdges;

@@ -53,7 +53,7 @@ public:
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);    
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
 
     /// @brief check if Position of Access is fixed
     bool isAccessPositionFixed() const;

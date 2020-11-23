@@ -223,7 +223,7 @@ public:
         bool hasTemplate() const;
 
         /// @brief get the template edge (to copy attributes from)
-        const TemplateEditor::EdgeTemplate &getEdgeTemplate() const;
+        const TemplateEditor::EdgeTemplate& getEdgeTemplate() const;
 
         /// @brief set template (used by shortcut)
         void setTemplate();

@@ -1346,7 +1346,7 @@ NBNode::computeLanes2Lanes() {
                                 if ((currentOutgoing->getPermissions(i2) & SVC_BICYCLE) != 0) {
                                     // possibly a double-connection
                                     const bool allowDouble = (incoming->getPermissions(i) == SVC_BICYCLE
-                                            && (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT));
+                                                              && (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT || dir == LinkDirection::STRAIGHT));
                                     incoming->setConnection(i, currentOutgoing, i2, NBEdge::Lane2LaneInfoType::COMPUTED, allowDouble);
                                     builtConnection = true;
                                     break;
@@ -1879,7 +1879,7 @@ NBNode::mergeConflictYields(const NBEdge* from, int fromLane, int fromLaneFoe, N
 
 bool
 NBNode::mergeConflict(const NBEdge* from, const NBEdge::Connection& con,
-        const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
+                      const NBEdge* prohibitorFrom,  const NBEdge::Connection& prohibitorCon, bool foes) const {
     if (myRequest == nullptr) {
         return false;
     }

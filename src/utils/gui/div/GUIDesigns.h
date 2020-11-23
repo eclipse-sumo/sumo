@@ -67,7 +67,7 @@
 /// @brief little button rectangula used in frames (For example, in "help" buttons)
 #define GUIDesignButtonRectangular      (FRAME_THICK | FRAME_RAISED | ICON_BEFORE_TEXT | JUSTIFY_CENTER_X | JUSTIFY_CENTER_Y | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, 46, GUIDesignHeight, 2, 2, 2, 2
 
-/// @brief button only with icon 
+/// @brief button only with icon
 #define GUIDesignButtonIcon             (FRAME_THICK | FRAME_RAISED | LAYOUT_FIX_WIDTH | LAYOUT_FIX_HEIGHT), 0, 0, GUIDesignHeight, GUIDesignHeight, 2, 2, 2, 2
 
 /// @brief button only with icon
@@ -590,10 +590,10 @@ public:
 
     /// @brief build menu command
     static FXMenuCommand* buildFXMenuCommandShortcut(FXComposite* p, const std::string& text, const std::string& shortcut, const std::string& info, FXIcon* icon, FXObject* tgt, FXSelector sel);
-    
+
     /// @brief build menu command
-    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text,FXIcon* icon, FXObject* tgt, FXSelector sel);
-    
+    static FXMenuCommand* buildFXMenuCommand(FXComposite* p, const std::string& text, FXIcon* icon, FXObject* tgt, FXSelector sel);
+
     /// @brief build menu command (for recent files)
     static FXMenuCommand* buildFXMenuCommandRecentFile(FXComposite* p, const std::string& text, FXObject* tgt, FXSelector sel);
 };

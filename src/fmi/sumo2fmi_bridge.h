@@ -43,7 +43,7 @@ typedef struct {
     double startTime;
     double stopTime;
 
-    char *libsumoCallOptions;
+    char* libsumoCallOptions;
 
     bool logEvents;
     bool logErrors;
@@ -62,6 +62,6 @@ fmi2Status  sumo2fmi_setString(ModelInstance* comp, fmi2ValueReference vr, const
 fmi2Status  sumo2fmi_step(ModelInstance* comp, double tNext);
 
 /* Setting the start values for all parameters */
-void        sumo2fmi_set_startValues(ModelInstance *comp);
+void        sumo2fmi_set_startValues(ModelInstance* comp);
 
 #endif /* SUMO2FMI_BRIDGE_H */

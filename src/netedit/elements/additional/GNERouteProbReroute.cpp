@@ -31,9 +31,9 @@
 
 GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, const std::string& newRouteId, double probability) :
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_ROUTE_PROB_REROUTE, "", false,
-        {}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
-    myNewRouteId(newRouteId),
-    myProbability(probability) {
+{}, {}, {}, {rerouterIntervalParent}, {}, {}, {}, {}),
+myNewRouteId(newRouteId),
+myProbability(probability) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -42,7 +42,7 @@ GNERouteProbReroute::GNERouteProbReroute(GNEAdditional* rerouterIntervalParent, 
 GNERouteProbReroute::~GNERouteProbReroute() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNERouteProbReroute::getMoveOperation(const double /*shapeOffset*/) {
     // GNERouteProbReroutes cannot be moved
     return nullptr;
@@ -55,7 +55,7 @@ GNERouteProbReroute::updateGeometry() {
 }
 
 
-void 
+void
 GNERouteProbReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
     // use boundary of parent element
     myBoundary = getParentAdditionals().front()->getCenteringBoundary();
@@ -182,7 +182,7 @@ GNERouteProbReroute::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNERouteProbReroute::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }

@@ -113,7 +113,7 @@ public:
         void hideEdgeParameters();
 
         /// @brief set attributes
-        void setAttributes(GNEEdge* edge, GNEUndoList *undoList) const;
+        void setAttributes(GNEEdge* edge, GNEUndoList* undoList) const;
 
         /// @name FOX-callbacks
         /// @{
@@ -198,7 +198,7 @@ public:
         void hideLaneParameters();
 
         /// @brief set attributes
-        void setAttributes(GNEEdge* edge, GNEUndoList *undoList) const;
+        void setAttributes(GNEEdge* edge, GNEUndoList* undoList) const;
 
         /// @brief update numLanes
         void updateNumLanes(int numLanes);

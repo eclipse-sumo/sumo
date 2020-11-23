@@ -518,7 +518,7 @@ public:
      * @return Whether the given value is a valid departEdge definition
      */
     static bool parseDepartEdge(const std::string& val, const std::string& element, const std::string& id,
-                                 int& edgeIndex, DepartEdgeDefinition& ded, std::string& error);
+                                int& edgeIndex, DepartEdgeDefinition& ded, std::string& error);
 
     /** @brief Validates a given arrivalLane value
      * @param[in] val The arrivalLane value to parse

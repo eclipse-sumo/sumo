@@ -90,7 +90,7 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                                          SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_ONEWAY,
                                          SUMO_ATTR_DISCARD, SUMO_ATTR_WIDTH, SUMO_ATTR_SIDEWALKWIDTH, SUMO_ATTR_BIKELANEWIDTH
                                         };
-                for (const auto &attr : myAttrs) {
+                for (const auto& attr : myAttrs) {
                     if (attrs.hasAttribute(attr)) {
                         myTypeCont.markEdgeTypeAsSet(myCurrentTypeID, attr);
                     }
@@ -119,7 +119,7 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 myTypeCont.insertLaneType(myCurrentTypeID, speed, permissions, width);
                 // mark attributes as set
                 SumoXMLAttr myAttrs[] = {SUMO_ATTR_SPEED, SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_WIDTH};
-                for (const auto &attr : myAttrs) {
+                for (const auto& attr : myAttrs) {
                     if (attrs.hasAttribute(attr)) {
                         myTypeCont.markLaneTypeAsSet(myCurrentTypeID, attr);
                     }

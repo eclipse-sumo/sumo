@@ -35,10 +35,10 @@
 
 GNEAccess::GNEAccess(GNEAdditional* busStop, GNELane* lane, GNENet* net, double pos, const std::string& length, bool friendlyPos, bool blockMovement) :
     GNEAdditional(net, GLO_ACCESS, SUMO_TAG_ACCESS, "", blockMovement,
-        {}, {}, {lane}, {busStop}, {}, {}, {}, {}),
-    myPositionOverLane(pos),
-    myLength(length),
-    myFriendlyPosition(friendlyPos) {
+{}, {}, {lane}, {busStop}, {}, {}, {}, {}),
+myPositionOverLane(pos),
+myLength(length),
+myFriendlyPosition(friendlyPos) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -48,7 +48,7 @@ GNEAccess::~GNEAccess() {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEAccess::getMoveOperation(const double /*shapeOffset*/) {
     // check conditions
     if (myBlockMovement) {
@@ -79,7 +79,7 @@ GNEAccess::updateGeometry() {
 }
 
 
-void 
+void
 GNEAccess::updateCenteringBoundary(const bool /*updateGrid*/) {
     // now update geometry
     updateGeometry();
@@ -332,7 +332,7 @@ GNEAccess::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNEAccess::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     undoList->p_begin("position of " + getTagStr());
     // now adjust start position

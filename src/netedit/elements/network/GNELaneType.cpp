@@ -34,7 +34,7 @@
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent):
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-    myEdgeTypeParent(edgeTypeParent) {
+myEdgeTypeParent(edgeTypeParent) {
 }
 
 
@@ -43,7 +43,7 @@ GNELaneType::~GNELaneType() {
 }
 
 
-GNEEdgeType* 
+GNEEdgeType*
 GNELaneType::getEdgeTypeParent() const {
     return myEdgeTypeParent;
 }
@@ -67,7 +67,7 @@ GNELaneType::getMoveOperation(const double /*shapeOffset*/) {
 }
 
 
-void 
+void
 GNELaneType::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
@@ -79,7 +79,7 @@ GNELaneType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*
 }
 
 
-void 
+void
 GNELaneType::updateCenteringBoundary(const bool /*updateGrid*/) {
     // nothing to do
 }
@@ -156,7 +156,7 @@ GNELaneType::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNELaneType::getACParametersMap() const {
     return getParametersMap();
 }

@@ -53,14 +53,14 @@ const double GNEEdge::SNAP_RADIUS = SUMO_const_halfLaneWidth;
 GNEEdge::GNEEdge(GNENet* net, NBEdge* nbe, bool wasSplit, bool loaded):
     GNENetworkElement(net, nbe->getID(), GLO_EDGE, SUMO_TAG_EDGE, {
     net->retrieveJunction(nbe->getFromNode()->getID()), net->retrieveJunction(nbe->getToNode()->getID())
-    },
-    {}, {}, {}, {}, {}, {}, {}),
-    myNBEdge(nbe),
-    myLanes(0),
-    myAmResponsible(false),
-    myWasSplit(wasSplit),
-    myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
-    myUpdateGeometry(true) {
+},
+{}, {}, {}, {}, {}, {}, {}),
+myNBEdge(nbe),
+myLanes(0),
+myAmResponsible(false),
+myWasSplit(wasSplit),
+myConnectionStatus(loaded ? FEATURE_LOADED : FEATURE_GUESSED),
+myUpdateGeometry(true) {
     // Create lanes
     int numLanes = myNBEdge->getNumLanes();
     myLanes.reserve(numLanes);
@@ -145,8 +145,8 @@ GNEEdge::getPositionInView() const {
 GNEMoveOperation*
 GNEEdge::getMoveOperation(const double shapeOffset) {
     if (isAttributeCarrierSelected() &&
-        getParentJunctions().front()->isAttributeCarrierSelected() && 
-        getParentJunctions().back()->isAttributeCarrierSelected()) {
+            getParentJunctions().front()->isAttributeCarrierSelected() &&
+            getParentJunctions().back()->isAttributeCarrierSelected()) {
         // declare a vector for saving geometry points to move
         std::vector<int> geometryPointsToMove;
         // if edge is selected, check conditions
@@ -171,7 +171,7 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
             // declare new index
             int newIndex = index;
             // check if we have to create a new index
-            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS*SNAP_RADIUS)) {
+            if (positionAtOffset.distanceSquaredTo2D(shapeToMove[index]) > (SNAP_RADIUS * SNAP_RADIUS)) {
                 newIndex = shapeToMove.insertAtClosest(positionAtOffset, true);
             }
             // check if attribute carrier is selected
@@ -205,7 +205,7 @@ GNEEdge::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
+void
 GNEEdge::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // declare shape to move
     PositionVector shape = myNBEdge->getGeometry();
@@ -447,12 +447,12 @@ GNEEdge::editEndpoint(Position pos, GNEUndoList* undoList) {
                 setAttribute(GNE_ATTR_SHAPE_START, toString(newPos), undoList);
                 getParentJunctions().front()->invalidateShape();
             }
-/*
-            // possibly existing inner point is no longer needed
-            if (myNBEdge->getInnerGeometry().size() > 0 && getEdgeVertexIndex(pos, false) != -1) {
-                deleteEdgeGeometryPoint(pos, false);
-            }
-*/
+            /*
+                        // possibly existing inner point is no longer needed
+                        if (myNBEdge->getInnerGeometry().size() > 0 && getEdgeVertexIndex(pos, false) != -1) {
+                            deleteEdgeGeometryPoint(pos, false);
+                        }
+            */
             undoList->p_end();
         }
     }
@@ -647,7 +647,7 @@ GNEEdge::getGNECrossings() {
 
 
 void
-GNEEdge::copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate &edgeTemplate, GNEUndoList* undoList) {
+GNEEdge::copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edgeTemplate, GNEUndoList* undoList) {
     // copy edge-specific attributes
     setAttribute(SUMO_ATTR_NUMLANES,   edgeTemplate.edgeParameters.at(SUMO_ATTR_NUMLANES), undoList);
     setAttribute(SUMO_ATTR_TYPE,       edgeTemplate.edgeParameters.at(SUMO_ATTR_TYPE), undoList);
@@ -984,7 +984,7 @@ GNEEdge::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEEdge::getACParametersMap() const {
     return myNBEdge->getParametersMap();
 }
@@ -1127,7 +1127,7 @@ GNEEdge::drawEdgeGeometryPoints(const GUIVisualizationSettings& s, const GNELane
             drawBigGeometryPoints = true;
         }
         if ((myNet->getViewNet()->getEditModes().networkEditMode == NetworkEditMode::NETWORK_DELETE) &&
-            (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
+                (myNet->getViewNet()->getViewParent()->getDeleteFrame()->getDeleteOptions()->deleteOnlyGeometryPoints())) {
             drawBigGeometryPoints = true;
         }
         double circleWidth = drawBigGeometryPoints ? SNAP_RADIUS * MIN2((double)1, s.laneWidthExaggeration) : 0.5;
@@ -1391,7 +1391,7 @@ GNEEdge::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEEdge::setMoveShape(const GNEMoveResult& moveResult) {
     // get start and end points
     const Position shapeStart = moveResult.shapeToUpdate.front();
@@ -1413,7 +1413,7 @@ GNEEdge::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNEEdge::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // make sure that newShape isn't empty
     if (moveResult.shapeToUpdate.size() > 0) {

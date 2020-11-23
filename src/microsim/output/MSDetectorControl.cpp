@@ -161,7 +161,9 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
         myLastCalls[key] = begin;
     } else {
         DetectorFileVec& detAndFileVec = it->second;
-        if (find_if(detAndFileVec.begin(), detAndFileVec.end(), [&](const DetectorFilePair& pair) {return pair.first == det; }) == detAndFileVec.end()) {
+        if (find_if(detAndFileVec.begin(), detAndFileVec.end(), [&](const DetectorFilePair & pair) {
+        return pair.first == det;
+    }) == detAndFileVec.end()) {
             detAndFileVec.push_back(std::make_pair(det, device));
         } else {
             // detector already in container. Don't add several times

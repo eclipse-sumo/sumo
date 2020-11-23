@@ -83,9 +83,9 @@ public:
 
         /// @brief parameter Constructor
         EdgeTypeDefinition(int numLanes, double speed, int priority,
-            double width, SVCPermissions permissions, bool oneWay,
-            double sideWalkWidth, double bikeLaneWidth,
-            double widthResolution, double maxWidth, double minWidth);
+                           double width, SVCPermissions permissions, bool oneWay,
+                           double sideWalkWidth, double bikeLaneWidth,
+                           double widthResolution, double maxWidth, double minWidth);
 
         /// @brief The number of lanes of an edge
         int numLanes;

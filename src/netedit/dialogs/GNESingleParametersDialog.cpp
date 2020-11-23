@@ -92,7 +92,7 @@ GNESingleParametersDialog::ParametersValues::setParameters(const std::vector<std
     // clear rows
     clearParameters();
     // iterate over parameteres
-    for (const auto &newParameter : newParameters) {
+    for (const auto& newParameter : newParameters) {
         addParameter(newParameter);
     }
 }
@@ -112,7 +112,7 @@ GNESingleParametersDialog::ParametersValues::addParameter(std::pair<std::string,
 void
 GNESingleParametersDialog::ParametersValues::clearParameters() {
     // iterate over all rows
-    for (const auto &parameterRow : myParameterRows) {
+    for (const auto& parameterRow : myParameterRows) {
         delete parameterRow;
     }
     //clear myParameterRows;
@@ -124,16 +124,16 @@ GNESingleParametersDialog::ParametersValues::clearParameters() {
 }
 
 
-const std::vector<GNESingleParametersDialog::ParametersValues::ParameterRow*> 
+const std::vector<GNESingleParametersDialog::ParametersValues::ParameterRow*>
 GNESingleParametersDialog::ParametersValues::getParameterRows() const {
     return myParameterRows;
 }
 
 
-bool 
-GNESingleParametersDialog::ParametersValues::keyExist(const std::string &key) const {
+bool
+GNESingleParametersDialog::ParametersValues::keyExist(const std::string& key) const {
     // just interate over myParameterRows and compare key
-    for (const auto &row : myParameterRows) {
+    for (const auto& row : myParameterRows) {
         if (row->keyField->getText().text() == key) {
             return true;
         }
@@ -333,7 +333,7 @@ GNESingleParametersDialog::ParametersOperations::onCmdSaveParameters(FXObject*, 
         // write header
         device.writeXMLHeader("Parameter", "parameter_file.xsd");
         // iterate over all parameters and save it in the filename
-        for (const auto &row : myParameterDialogParent->myParametersValues->getParameterRows()) {
+        for (const auto& row : myParameterDialogParent->myParametersValues->getParameterRows()) {
             // write all except last
             if (row != myParameterDialogParent->myParametersValues->getParameterRows().back()) {
                 // open tag
@@ -367,7 +367,7 @@ GNESingleParametersDialog::ParametersOperations::onCmdSortParameters(FXObject*, 
     std::vector<std::pair<std::string, std::string> > nonEmptyKeyValues;
     std::vector<std::string> emptyKeyValues;
     // first extract empty values
-    for (const auto &parameterRow : myParameterDialogParent->myParametersValues->getParameterRows()) {
+    for (const auto& parameterRow : myParameterDialogParent->myParametersValues->getParameterRows()) {
         // check if key is empty
         if (!parameterRow->keyField->getText().empty()) {
             nonEmptyKeyValues.push_back(std::make_pair(parameterRow->keyField->getText().text(), parameterRow->valueField->getText().text()));
@@ -380,7 +380,7 @@ GNESingleParametersDialog::ParametersOperations::onCmdSortParameters(FXObject*, 
     // sort non-empty parameters
     std::sort(emptyKeyValues.begin(), emptyKeyValues.end());
     // add values without key
-    for (const auto & emptyKeyValue : emptyKeyValues) {
+    for (const auto& emptyKeyValue : emptyKeyValues) {
         nonEmptyKeyValues.push_back(std::make_pair("", emptyKeyValue));
     }
     // finally setparameters in myParametersValues
@@ -499,14 +499,14 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEInspectorFrame::Paramete
     // call auxiliar constructor
     constructor();
     // get AC Front
-    const GNEAttributeCarrier *AC = parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
+    const GNEAttributeCarrier* AC = parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
     // fill myParametersValues
     myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
 }
 
 
 
-GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet *viewNet) :
+GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet) :
     FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditorCreator(nullptr),
     myParametersEditorInspector(nullptr),
@@ -545,8 +545,8 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Closed FXMessageBox of type 'warning' with 'OK'");
                 return 1;
-            } else if (myParametersEditorCreator && 
-                       (myParametersEditorCreator->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) && 
+            } else if (myParametersEditorCreator &&
+                       (myParametersEditorCreator->getAttrType() == Parameterised::ParameterisedAttrType::DOUBLE) &&
                        !GNEAttributeCarrier::canParse<double>(parameterRow->valueField->getText().text())) {
                 // write warning if netedit is running in testing mode
                 WRITE_DEBUG("Opening FXMessageBox of type 'warning'");
@@ -579,7 +579,7 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
         myParametersEditorCreator->setParameters(parameters);
     } else if (myParametersEditorInspector) {
         // get inspected AC
-        GNEAttributeCarrier *AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
+        GNEAttributeCarrier* AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
         // set parameter
         myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("change parameters");
         AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
@@ -607,7 +607,7 @@ GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
     if (myParametersEditorCreator) {
         myParametersValues->setParameters(myParametersEditorCreator->getParameters());
     } else if (myParametersEditorInspector) {
-        const GNEAttributeCarrier *AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
+        const GNEAttributeCarrier* AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
         myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
     } else if (VTypeAttributeRow) {
         myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());

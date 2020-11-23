@@ -77,7 +77,7 @@ public:
         const std::vector<ParameterRow*> getParameterRows() const;
 
         /// @brief check if given key exist already
-        bool keyExist(const std::string &key) const;
+        bool keyExist(const std::string& key) const;
 
         /// @name FOX-callbacks
         /// @{

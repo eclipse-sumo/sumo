@@ -181,7 +181,7 @@ public:
         /// the stored waiting intervals within the last memory milliseconds
         /// If the current (ongoing) waiting interval has begun at time t - dt (where t is the current time)
         /// then waitingIntervalList[0]->first = 0., waitingIntervalList[0]->second = dt
-        std::deque<std::pair<SUMOTime,SUMOTime> > myWaitingIntervals;
+        std::deque<std::pair<SUMOTime, SUMOTime> > myWaitingIntervals;
 
         /// append an amount of dt millisecs to the stored waiting times
         void appendWaitingTime(SUMOTime dt);

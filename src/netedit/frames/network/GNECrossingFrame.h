@@ -50,7 +50,7 @@ public:
 
     private:
         /// @brief Text field for junction ID
-        FXTextField* myTextFieldJunctionID; 
+        FXTextField* myTextFieldJunctionID;
     };
 
     // ===========================================================================

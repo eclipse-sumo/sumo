@@ -194,7 +194,7 @@ public:
     void remakeGNEConnections();
 
     /// @brief copy edge attributes from tpl
-    void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate &edgeTemplate, GNEUndoList* undolist);
+    void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edgeTemplate, GNEUndoList* undolist);
 
     /// @brief returns GLIDs of all lanes
     std::set<GUIGlID> getLaneGlIDs() const;

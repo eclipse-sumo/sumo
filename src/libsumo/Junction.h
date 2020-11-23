@@ -62,10 +62,10 @@ public:
     */
     static void storeShape(const std::string& id, PositionVector& shape);
 
-        /** @brief Returns a tree filled with junction instances
-         * @return The rtree of junctions
-         */
-    static NamedRTree*getTree();
+    /** @brief Returns a tree filled with junction instances
+     * @return The rtree of junctions
+     */
+    static NamedRTree* getTree();
     static void cleanup();
 
     static std::shared_ptr<VariableWrapper> makeWrapper();

@@ -61,8 +61,8 @@ public:
      * @param[in] glStorage The storage to retrieve ids from
      */
     GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsParent,
-        FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids,
-        GUIGlObjectStorage& glStorage);
+                              FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids,
+                              GUIGlObjectStorage& glStorage);
 
     /// @brief Destructor
     virtual ~GUIDialog_ChooserAbstract();
@@ -117,7 +117,7 @@ protected:
     virtual void toggleSelection(int listIndex);
 
     /// @brief filter ACs (needed in NETEDIT)
-    virtual void filterACs(const std::vector<GUIGlID> &GLIDs);
+    virtual void filterACs(const std::vector<GUIGlID>& GLIDs);
 
     /// update the list with the given ids
     void refreshList(const std::vector<GUIGlID>& ids);

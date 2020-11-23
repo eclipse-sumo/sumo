@@ -116,7 +116,7 @@ Connection::simulationStep(double time) {
     while (numSubs > 0) {
         const int responseID = check_commandGetResult(inMsg, 0, -1, true);
         if ((responseID >= libsumo::RESPONSE_SUBSCRIBE_INDUCTIONLOOP_VARIABLE && responseID <= libsumo::RESPONSE_SUBSCRIBE_BUSSTOP_VARIABLE) ||
-            (responseID >= libsumo::RESPONSE_SUBSCRIBE_PARKINGAREA_VARIABLE && responseID <= libsumo::RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE)) {
+                (responseID >= libsumo::RESPONSE_SUBSCRIBE_PARKINGAREA_VARIABLE && responseID <= libsumo::RESPONSE_SUBSCRIBE_OVERHEADWIRE_VARIABLE)) {
             readVariableSubscription(responseID, inMsg);
         } else {
             readContextSubscription(responseID, inMsg);
@@ -193,7 +193,7 @@ Connection::createFilterCommand(int cmdID, int varID, tcpip::Storage* add) const
 
 void
 Connection::subscribeObjectVariable(int domID, const std::string& objID, double beginTime, double endTime,
-        const std::vector<int>& vars, const libsumo::TraCIResults& params) {
+                                    const std::vector<int>& vars, const libsumo::TraCIResults& params) {
     if (!mySocket.has_client_connection()) {
         throw tcpip::SocketException("Socket is not initialised");
     }
@@ -247,7 +247,7 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
 
 void
 Connection::subscribeObjectContext(int domID, const std::string& objID, double beginTime, double endTime,
-        int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params) {
+                                   int domain, double range, const std::vector<int>& vars, const libsumo::TraCIResults& params) {
     if (!mySocket.has_client_connection()) {
         throw tcpip::SocketException("Socket is not initialised");
     }

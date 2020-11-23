@@ -1086,7 +1086,7 @@ GNEInspectorFrame::TemplateEditor::hideTemplateEditor() {
 }
 
 
-bool 
+bool
 GNEInspectorFrame::TemplateEditor::hasTemplate() const {
     return myHasEdgeTemplate;
 }
@@ -1144,7 +1144,7 @@ GNEInspectorFrame::TemplateEditor::onCmdSetTemplate(FXObject*, FXSelector, void*
 long
 GNEInspectorFrame::TemplateEditor::onCmdCopyTemplate(FXObject*, FXSelector, void*) {
     // first check
-    if (myHasEdgeTemplate){
+    if (myHasEdgeTemplate) {
         // begin copy template
         myInspectorFrameParent->myViewNet->getUndoList()->p_begin("copy edge template");
         // iterate over inspected ACs
@@ -1222,7 +1222,7 @@ GNEInspectorFrame::ParametersEditorInspector::~ParametersEditorInspector() {}
 
 void
 GNEInspectorFrame::ParametersEditorInspector::showParametersEditorInspector() {
-    // firt check if there is 
+    // firt check if there is
     if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
         // refresh ParametersEditorInspector
         refreshParametersEditorInspector();
@@ -1244,7 +1244,7 @@ GNEInspectorFrame::ParametersEditorInspector::hideParametersEditorInspector() {
 void
 GNEInspectorFrame::ParametersEditorInspector::refreshParametersEditorInspector() {
     // get front AC
-    const GNEAttributeCarrier *frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
+    const GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
     // continue depending of frontAC
     if (frontAC && frontAC->getTagProperty().hasParameters()) {
         // check if we're editing a single or a multiple AC
@@ -1254,7 +1254,7 @@ GNEInspectorFrame::ParametersEditorInspector::refreshParametersEditorInspector()
         } else if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0) {
             // check if parameters of all inspected ACs are different
             std::string parameters = frontAC->getAttribute(GNE_ATTR_PARAMETERS);
-            for (const auto &AC : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
+            for (const auto& AC : myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers()) {
                 if (parameters != AC->getAttribute(GNE_ATTR_PARAMETERS)) {
                     parameters = "different parameters";
                 }
@@ -1285,7 +1285,7 @@ GNEInspectorFrame::ParametersEditorInspector::getInspectorFrameParent() const {
 long
 GNEInspectorFrame::ParametersEditorInspector::onCmdEditParameters(FXObject*, FXSelector, void*) {
     // get front AC
-    const GNEAttributeCarrier *frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
+    const GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
     // continue depending of frontAC
     if (frontAC && frontAC->getTagProperty().hasParameters()) {
         if (myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 1) {
@@ -1326,7 +1326,7 @@ GNEInspectorFrame::ParametersEditorInspector::onCmdEditParameters(FXObject*, FXS
 long
 GNEInspectorFrame::ParametersEditorInspector::onCmdSetParameters(FXObject*, FXSelector, void*) {
     // get front AC
-    GNEAttributeCarrier *frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
+    GNEAttributeCarrier* frontAC = myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().size() > 0 ? myInspectorFrameParent->getViewNet()->getInspectedAttributeCarriers().front() : nullptr;
     // continue depending of frontAC
     if (frontAC && frontAC->getTagProperty().hasParameters()) {
         // declare attribute type

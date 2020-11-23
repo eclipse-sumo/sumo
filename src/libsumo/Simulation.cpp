@@ -132,7 +132,7 @@ Simulation::getSubscriptionResults() {
 
 const SubscriptionResults
 Simulation::getAllSubscriptionResults() {
-        return mySubscriptionResults;
+    return mySubscriptionResults;
 }
 
 
@@ -140,8 +140,8 @@ const ContextSubscriptionResults
 Simulation::getAllContextSubscriptionResults() {
     return myContextSubscriptionResults;
 }
-            
-            
+
+
 std::pair<int, std::string>
 Simulation::getVersion() {
     return std::make_pair(libsumo::TRACI_VERSION, "SUMO " VERSION_STRING);

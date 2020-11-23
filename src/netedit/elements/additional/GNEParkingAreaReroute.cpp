@@ -31,9 +31,9 @@
 
 GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalParent, GNEAdditional* newParkingArea, double probability, bool visible):
     GNEAdditional(rerouterIntervalParent->getNet(), GLO_REROUTER, SUMO_TAG_PARKING_ZONE_REROUTE, "", false,
-        {}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {}),
-    myProbability(probability),
-    myVisible(visible) {
+{}, {}, {}, {rerouterIntervalParent, newParkingArea}, {}, {}, {}, {}),
+myProbability(probability),
+myVisible(visible) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -42,7 +42,7 @@ GNEParkingAreaReroute::GNEParkingAreaReroute(GNEAdditional* rerouterIntervalPare
 GNEParkingAreaReroute::~GNEParkingAreaReroute() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEParkingAreaReroute::getMoveOperation(const double /*shapeOffset*/) {
     // GNEParkingAreaReroutes cannot be moved
     return nullptr;
@@ -55,7 +55,7 @@ GNEParkingAreaReroute::updateGeometry() {
 }
 
 
-void 
+void
 GNEParkingAreaReroute::updateCenteringBoundary(const bool /*updateGrid*/) {
     // use boundary of parent element
     myBoundary = getParentAdditionals().front()->getCenteringBoundary();
@@ -196,7 +196,7 @@ GNEParkingAreaReroute::setMoveShape(const GNEMoveResult& /*moveResult*/) {
 }
 
 
-void 
+void
 GNEParkingAreaReroute::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }

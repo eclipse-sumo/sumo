@@ -161,7 +161,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow& app,
         for (i = logics.begin(); i != logics.end(); ++i, ++index) {
             if (!vars.isActive(*i)) {
                 GUIDesigns::buildFXMenuCommand(ret, ("Switch to '" + (*i)->getProgramID() + "'").c_str(),
-                                  GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, (FXSelector)(MID_SWITCH + index));
+                                               GUIIconSubSys::getIcon(GUIIcon::FLAG_MINUS), ret, (FXSelector)(MID_SWITCH + index));
             }
         }
         new FXMenuSeparator(ret);

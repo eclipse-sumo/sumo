@@ -806,8 +806,8 @@ MSLaneChanger::checkChange(
     }
     if (blocked == 0 && targetLane->hasPedestrians()) {
         PersonDist nextLeader = targetLane->nextBlocking(vehicle->getBackPositionOnLane(),
-                            vehicle->getRightSideOnLane(), vehicle->getRightSideOnLane() + vehicle->getVehicleType().getWidth(),
-                            ceil(vehicle->getSpeed() / vehicle->getCarFollowModel().getMaxDecel()));
+                                vehicle->getRightSideOnLane(), vehicle->getRightSideOnLane() + vehicle->getVehicleType().getWidth(),
+                                ceil(vehicle->getSpeed() / vehicle->getCarFollowModel().getMaxDecel()));
         if (nextLeader.first != 0) {
             const double brakeGap = vehicle->getCarFollowModel().brakeGap(vehicle->getSpeed());
             // returned gap value is relative to backPosition

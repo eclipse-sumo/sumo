@@ -82,12 +82,12 @@ GNELane::LaneDrawingConstants::LaneDrawingConstants() :
 
 GNELane::GNELane(GNEEdge* edge, const int index) :
     GNENetworkElement(edge->getNet(), edge->getNBEdge()->getLaneID(index), GLO_LANE, SUMO_TAG_LANE,
-    {}, {}, {}, {}, {}, {}, {}, {}),
-    myParentEdge(edge),
-    myIndex(index),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myParentEdge(edge),
+myIndex(index),
+mySpecialColor(nullptr),
+mySpecialColorValue(-1),
+myLane2laneConnections(this) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -95,12 +95,12 @@ GNELane::GNELane(GNEEdge* edge, const int index) :
 
 GNELane::GNELane() :
     GNENetworkElement(nullptr, "dummyConstructorGNELane", GLO_LANE, SUMO_TAG_LANE,
-    {}, {}, {}, {}, {}, {}, {}, {}),
-    myParentEdge(nullptr),
-    myIndex(-1),
-    mySpecialColor(nullptr),
-    mySpecialColorValue(-1),
-    myLane2laneConnections(this) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myParentEdge(nullptr),
+myIndex(-1),
+mySpecialColor(nullptr),
+mySpecialColorValue(-1),
+myLane2laneConnections(this) {
 }
 
 
@@ -222,14 +222,14 @@ GNELane::getPositionInView() const {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNELane::getMoveOperation(const double /*shapeOffset*/) {
     // currently Lane shapes cannot be edited
     return nullptr;
 }
 
 
-void 
+void
 GNELane::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // currently unused
 }
@@ -724,7 +724,7 @@ GNELane::updateCenteringBoundary(const bool /*updateGrid*/) {
     if (myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.size() == 0) {
         myBoundary = myParentEdge->getNBEdge()->getLaneStruct(myIndex).shape.getBoxBoundary();
     } else {
-        myBoundary= myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.getBoxBoundary();
+        myBoundary = myParentEdge->getNBEdge()->getLaneStruct(myIndex).customShape.getBoxBoundary();
     }
 }
 
@@ -910,7 +910,7 @@ GNELane::isAttributeEnabled(SumoXMLAttr key) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNELane::getACParametersMap() const {
     return myParentEdge->getNBEdge()->getLaneStruct(myIndex).getParametersMap();
 }
@@ -1088,13 +1088,13 @@ GNELane::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNELane::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // currently unused
 }
 
 
-void 
+void
 GNELane::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // currently unused
 }
@@ -1103,11 +1103,11 @@ GNELane::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*und
 RGBColor
 GNELane::setLaneColor(const GUIVisualizationSettings& s) const {
     // get inspected attribute carriers
-    const auto & inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // declare a RGBColor variable
     RGBColor color;
     // get inspected AC
-    const GNEAttributeCarrier* inspectedAC = inspectedACs.size() > 0? inspectedACs.front() : nullptr;
+    const GNEAttributeCarrier* inspectedAC = inspectedACs.size() > 0 ? inspectedACs.front() : nullptr;
     // we need to draw lanes with a special color if we're inspecting a Trip or Flow and this lane belongs to a via's edge.
     if (inspectedAC && (inspectedAC->isAttributeCarrierSelected() == false) &&
             ((inspectedAC->getTagProperty().getTag() == SUMO_TAG_TRIP) || (inspectedAC->getTagProperty().getTag() == SUMO_TAG_FLOW))) {
@@ -1783,7 +1783,7 @@ GNELane::buildRechableOperations(GUISUMOAbstractView& parent, GUIGLObjectPopupMe
 }
 
 
-void 
+void
 removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // currently unused
 }

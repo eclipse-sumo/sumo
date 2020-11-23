@@ -38,9 +38,9 @@ class SUMOVehicle;
 // ===========================================================================
 // class definitions
 // ===========================================================================
-    /** @class Stop
-     * @brief Definition of vehicle stop (position and duration)
-     */
+/** @class Stop
+ * @brief Definition of vehicle stop (position and duration)
+ */
 class MSStop {
 public:
     MSStop(const SUMOVehicleParameter::Stop& par) : pars(par) {}

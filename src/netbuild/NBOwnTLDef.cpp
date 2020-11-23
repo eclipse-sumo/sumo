@@ -974,10 +974,10 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                             haveForbiddenLeftMover = true;
                         }
                     } else if (fromEdges[i1] == fromEdges[i2]
-                            && fromLanes[i1] != fromLanes[i2]
-                            && toEdges[i1] == toEdges[i2]
-                            && toLanes[i1] == toLanes[i2]
-                            && fromEdges[i1]->getToNode()->mergeConflictYields(fromEdges[i1], fromLanes[i1], fromLanes[i2], toEdges[i1], toLanes[i1])) {
+                               && fromLanes[i1] != fromLanes[i2]
+                               && toEdges[i1] == toEdges[i2]
+                               && toLanes[i1] == toLanes[i2]
+                               && fromEdges[i1]->getToNode()->mergeConflictYields(fromEdges[i1], fromLanes[i1], fromLanes[i2], toEdges[i1], toLanes[i1])) {
                         mergeConflicts[i1] = true;
                         state[i1] = 'g';
                     }

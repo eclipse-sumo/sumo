@@ -47,7 +47,7 @@ GNEEdgeType::getLaneTypes() const {
 }
 
 
-int 
+int
 GNEEdgeType::getLaneTypeIndex(const GNELaneType* laneType) const {
     for (int i = 0; i < (int)myLaneTypes.size(); i++) {
         if (myLaneTypes.at(i) == laneType) {
@@ -58,7 +58,7 @@ GNEEdgeType::getLaneTypeIndex(const GNELaneType* laneType) const {
 }
 
 
-void 
+void
 GNEEdgeType::addLaneType(GNELaneType* laneType, const int position) {
     if (std::find(myLaneTypes.begin(), myLaneTypes.end(), laneType) != myLaneTypes.end()) {
         throw ProcessError("GNELaneType already inserted");
@@ -74,7 +74,7 @@ GNEEdgeType::addLaneType(GNELaneType* laneType, const int position) {
 }
 
 
-void 
+void
 GNEEdgeType::removeLaneType(GNELaneType* laneType) {
     auto it = std::find(myLaneTypes.begin(), myLaneTypes.end(), laneType);
     if (it == myLaneTypes.end()) {
@@ -103,7 +103,7 @@ GNEEdgeType::getMoveOperation(const double /*shapeOffset*/) {
 }
 
 
-void 
+void
 GNEEdgeType::removeGeometryPoint(const Position /*clickedPosition*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }
@@ -115,7 +115,7 @@ GNEEdgeType::getPopUpMenu(GUIMainWindow& /*app*/, GUISUMOAbstractView& /*parent*
 }
 
 
-void 
+void
 GNEEdgeType::updateCenteringBoundary(const bool /*updateGrid*/) {
     // nothing to do
 }
@@ -227,7 +227,7 @@ GNEEdgeType::isAttributeEnabled(SumoXMLAttr /*key*/) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEEdgeType::getACParametersMap() const {
     return getParametersMap();
 }
@@ -239,7 +239,7 @@ GNEEdgeType::getACParametersMap() const {
 void
 GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
     switch (key) {
-    case SUMO_ATTR_ID:
+        case SUMO_ATTR_ID:
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_NUMLANES:

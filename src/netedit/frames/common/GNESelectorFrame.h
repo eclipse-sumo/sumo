@@ -312,7 +312,7 @@ public:
         FXTextField* myMatchString;
 
         /// @brief match string button
-        FXButton *myMatchStringButton;
+        FXButton* myMatchStringButton;
     };
 
     // ===========================================================================

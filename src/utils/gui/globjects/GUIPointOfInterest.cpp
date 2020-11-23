@@ -101,7 +101,7 @@ GUIPointOfInterest::drawGL(const GUIVisualizationSettings& s) const {
 
 
 bool
-GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s, const GUIGlObject *o) {
+GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s, const GUIGlObject* o) {
     // only continue if scale is valid
     if (s.scale * (1.3 / 3.0) *s.poiSize.getExaggeration(s, o) < s.poiSize.minSize) {
         return false;
@@ -111,7 +111,7 @@ GUIPointOfInterest::checkDraw(const GUIVisualizationSettings& s, const GUIGlObje
 
 
 void
-GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject *o, bool disableSelectionColor) {
+GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o, bool disableSelectionColor) {
     const GUIColorer& c = s.poiColorer;
     const int active = c.getActive();
     if (s.netedit && active != 1 && gSelected.isSelected(GLO_POI, o->getGlID()) && disableSelectionColor) {
@@ -128,8 +128,8 @@ GUIPointOfInterest::setColor(const GUIVisualizationSettings& s, const PointOfInt
 
 
 void
-GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject *o, 
-    const bool disableSelectionColor, const double layer) {
+GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointOfInterest* POI, const GUIGlObject* o,
+                                 const bool disableSelectionColor, const double layer) {
     const double exaggeration = s.poiSize.getExaggeration(s, o);
     glPushMatrix();
     setColor(s, POI, o, disableSelectionColor);
@@ -140,8 +140,8 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
         int textureID = GUITexturesHelper::getTextureID(POI->getShapeImgFile());
         if (textureID > 0) {
             GUITexturesHelper::drawTexturedBox(textureID,
-                POI->getWidth() * -0.5 * exaggeration, POI->getHeight() * -0.5 * exaggeration,
-                POI->getWidth() * 0.5 * exaggeration,  POI->getHeight() * 0.5 * exaggeration);
+                                               POI->getWidth() * -0.5 * exaggeration, POI->getHeight() * -0.5 * exaggeration,
+                                               POI->getWidth() * 0.5 * exaggeration,  POI->getHeight() * 0.5 * exaggeration);
         }
     } else {
         // fallback if no image is defined

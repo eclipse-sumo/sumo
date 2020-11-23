@@ -127,17 +127,17 @@ public:
                         double duration = libsumo::INVALID_DOUBLE_VALUE,
                         int flags = libsumo::STOP_DEFAULT,
                         double startPos = libsumo::INVALID_DOUBLE_VALUE,
-                        double until =libsumo::INVALID_DOUBLE_VALUE);
+                        double until = libsumo::INVALID_DOUBLE_VALUE);
 
     static void replaceStop(const std::string& vehicleID,
                             int nextStopIndex,
                             const std::string& edgeID,
                             double pos = 1.,
                             int laneIndex = 0,
-                            double duration =libsumo::INVALID_DOUBLE_VALUE,
+                            double duration = libsumo::INVALID_DOUBLE_VALUE,
                             int flags = libsumo::STOP_DEFAULT,
-                            double startPos =libsumo::INVALID_DOUBLE_VALUE,
-                            double until =libsumo::INVALID_DOUBLE_VALUE);
+                            double startPos = libsumo::INVALID_DOUBLE_VALUE,
+                            double until = libsumo::INVALID_DOUBLE_VALUE);
 
     static void rerouteParkingArea(const std::string& vehicleID,
                                    const std::string& parkingAreaID);
@@ -166,7 +166,7 @@ public:
     static void changeSublane(const std::string& vehicleID, double latDist);
 
     static void slowDown(const std::string& vehicleID, double speed, double duration);
-    static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel =libsumo::INVALID_DOUBLE_VALUE, const std::string& referenceVehID = "");
+    static void openGap(const std::string& vehicleID, double newTimeHeadway, double newSpaceHeadway, double duration, double changeRate, double maxDecel = libsumo::INVALID_DOUBLE_VALUE, const std::string& referenceVehID = "");
     static void deactivateGapControl(const std::string& vehicleID);
     static void requestToC(const std::string& vehID, double leadTime);
     static void setSpeed(const std::string& vehicleID, double speed);
@@ -180,14 +180,14 @@ public:
     static void setRoute(const std::string& vehicleID, const std::vector<std::string>& edgeIDs);
     static void updateBestLanes(const std::string& vehicleID);
     static void setAdaptedTraveltime(const std::string& vehicleID, const std::string& edgeID,
-                                     double time =libsumo::INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
+                                     double time = libsumo::INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
     static void setEffort(const std::string& vehicleID, const std::string& edgeID,
-                          double effort =libsumo::INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
+                          double effort = libsumo::INVALID_DOUBLE_VALUE, double begSeconds = 0, double endSeconds = std::numeric_limits<double>::max());
     static void rerouteTraveltime(const std::string& vehicleID, const bool currentTravelTimes = true);
     static void rerouteEffort(const std::string& vehicleID);
     static void setSignals(const std::string& vehicleID, int signals);
     static void moveTo(const std::string& vehicleID, const std::string& laneID, double position, int reason = libsumo::MOVE_AUTOMATIC);
-    static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle =libsumo::INVALID_DOUBLE_VALUE, const int keepRoute = 1);
+    static void moveToXY(const std::string& vehicleID, const std::string& edgeID, const int laneIndex, const double x, const double y, double angle = libsumo::INVALID_DOUBLE_VALUE, const int keepRoute = 1);
     static void remove(const std::string& vehicleID, char reason = libsumo::REMOVE_VAPORIZED);
     static void setLine(const std::string& vehicleID, const std::string& line);
     static void setVia(const std::string& vehicleID, const std::vector<std::string>& via);
@@ -199,9 +199,9 @@ public:
 
     LIBSUMO_SUBSCRIPTION_API
 
-    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double beginTime =libsumo::INVALID_DOUBLE_VALUE, double endTime =libsumo::INVALID_DOUBLE_VALUE);
+    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE);
 
-    static void addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposite = false, double downstreamDist =libsumo::INVALID_DOUBLE_VALUE, double upstreamDist =libsumo::INVALID_DOUBLE_VALUE);
+    static void addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposite = false, double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double upstreamDist = libsumo::INVALID_DOUBLE_VALUE);
 
     static void addSubscriptionFilterNoOpposite();
 
@@ -209,13 +209,13 @@ public:
 
     static void addSubscriptionFilterUpstreamDistance(double dist);
 
-    static void addSubscriptionFilterCFManeuver(double downstreamDist =libsumo::INVALID_DOUBLE_VALUE, double upstreamDist =libsumo::INVALID_DOUBLE_VALUE);
+    static void addSubscriptionFilterCFManeuver(double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double upstreamDist = libsumo::INVALID_DOUBLE_VALUE);
 
-    static void addSubscriptionFilterLCManeuver(int direction =libsumo::INVALID_INT_VALUE, bool noOpposite = false, double downstreamDist =libsumo::INVALID_DOUBLE_VALUE, double upstreamDist =libsumo::INVALID_DOUBLE_VALUE);
+    static void addSubscriptionFilterLCManeuver(int direction = libsumo::INVALID_INT_VALUE, bool noOpposite = false, double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double upstreamDist = libsumo::INVALID_DOUBLE_VALUE);
 
     static void addSubscriptionFilterLeadFollow(const std::vector<int>& lanes);
 
-    static void addSubscriptionFilterTurn(double downstreamDist =libsumo::INVALID_DOUBLE_VALUE, double upstreamDist =libsumo::INVALID_DOUBLE_VALUE);
+    static void addSubscriptionFilterTurn(double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double upstreamDist = libsumo::INVALID_DOUBLE_VALUE);
 
     static void addSubscriptionFilterVClass(const std::vector<std::string>& vClasses);
 
@@ -223,7 +223,7 @@ public:
 
     static void addSubscriptionFilterFieldOfVision(double openingAngle);
 
-    static void addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist =libsumo::INVALID_DOUBLE_VALUE, double upstreamDist =libsumo::INVALID_DOUBLE_VALUE);
+    static void addSubscriptionFilterLateralDistance(double lateralDist, double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double upstreamDist = libsumo::INVALID_DOUBLE_VALUE);
 
 #ifndef LIBTRACI
     /** @brief Saves the shape of the requested object in the given container

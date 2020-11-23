@@ -29,15 +29,15 @@
 
 void
 libsumo_load(char* callOptions) {
-    
+
     std::cout << "Calling libsumo with the following options:" << std::endl;
     std::cout << "\"" << callOptions << "\"" << std::endl;
 
     // Tokenize the string, because Simulation::load expects a vector
     std::vector<std::string> options;
-    std::stringstream ss(callOptions); 
+    std::stringstream ss(callOptions);
     std::string temp_str;
-    while(std::getline(ss, temp_str, ' ')) {
+    while (std::getline(ss, temp_str, ' ')) {
         options.push_back(temp_str);
     }
 

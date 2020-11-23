@@ -49,13 +49,13 @@ GNEShape::GNEShape(const std::string& id, GNENet* net, GUIGlObjectType type, Sum
 GNEShape::~GNEShape() {}
 
 
-const std::string& 
+const std::string&
 GNEShape::getID() const {
     return getMicrosimID();
 }
 
 
-GUIGlObject* 
+GUIGlObject*
 GNEShape::getGUIGlObject() {
     return this;
 }
@@ -102,13 +102,13 @@ GNEShape::draw(const Position& pos, double layer, double size) const {
 }
 
 
-Position 
+Position
 GNEShape::getPositionInView() const {
     return myBoundary.getCenter();
 }
 
 
-Boundary 
+Boundary
 GNEShape::getCenteringBoundary() const {
     return myBoundary;
 }

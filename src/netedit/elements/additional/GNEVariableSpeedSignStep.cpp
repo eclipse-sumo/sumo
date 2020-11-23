@@ -31,9 +31,9 @@
 
 GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedSignParent, double time, double speed) :
     GNEAdditional(variableSpeedSignParent->getNet(), GLO_VSS, SUMO_TAG_STEP, "", false,
-        {}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
-    myTime(time),
-    mySpeed(speed) {
+{}, {}, {}, {variableSpeedSignParent}, {}, {}, {}, {}),
+myTime(time),
+mySpeed(speed) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -42,7 +42,7 @@ GNEVariableSpeedSignStep::GNEVariableSpeedSignStep(GNEAdditional* variableSpeedS
 GNEVariableSpeedSignStep::~GNEVariableSpeedSignStep() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEVariableSpeedSignStep::getMoveOperation(const double /*shapeOffset*/) {
     // VSS Steps cannot be moved
     return nullptr;
@@ -210,7 +210,7 @@ GNEVariableSpeedSignStep::setMoveShape(const GNEMoveResult& /*moveResult*/) {
 }
 
 
-void 
+void
 GNEVariableSpeedSignStep::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }

@@ -177,8 +177,8 @@ MSStageDriving::getStageSummary(const bool isPerson) const {
 void
 MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now, MSStage* previous) {
     myOriginStop = (previous->getStageType() == MSStageType::TRIP
-                                    ? previous->getOriginStop()
-                                    : previous->getDestinationStop());
+                    ? previous->getOriginStop()
+                    : previous->getDestinationStop());
     myWaitingSince = now;
     const bool isPerson = transportable->isPerson();
     if (transportable->getParameter().departProcedure == DEPART_TRIGGERED

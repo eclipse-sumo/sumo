@@ -341,7 +341,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     if (myVisualizationSettings->showGrid) {
         paintGLGrid();
     }
-    
+
 
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);

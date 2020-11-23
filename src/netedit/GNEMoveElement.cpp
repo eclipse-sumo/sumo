@@ -11,7 +11,7 @@
 // https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 // SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 /****************************************************************************/
-/// @file    GNEMove.cpp
+/// @file    GNEMoveElement.cpp
 /// @author  Pablo Alvarez Lopez
 /// @date    Mar 2020
 ///
@@ -29,17 +29,17 @@
 // GNEMoveOperation method definitions
 // ===========================================================================
 
-GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
-    const Position _originalPosition) :
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
+                                   const Position _originalPosition) :
     moveElement(_moveElement),
     originalShape({_originalPosition}),
-    shapeToMove({_originalPosition}),
-    lane(nullptr) {
+              shapeToMove({_originalPosition}),
+lane(nullptr) {
 }
 
 
-GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
-    const PositionVector _originalShape) :
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
+                                   const PositionVector _originalShape) :
     moveElement(_moveElement),
     originalShape(_originalShape),
     shapeToMove(_originalShape),
@@ -47,11 +47,11 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
 }
 
 
-GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
-    const PositionVector _originalShape,
-    const std::vector<int> _originalgeometryPoints,
-    const PositionVector _shapeToMove,
-    const std::vector<int> _geometryPointsToMove) :
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
+                                   const PositionVector _originalShape,
+                                   const std::vector<int> _originalgeometryPoints,
+                                   const PositionVector _shapeToMove,
+                                   const std::vector<int> _geometryPointsToMove) :
     moveElement(_moveElement),
     originalShape(_originalShape),
     originalGeometryPoints(_originalgeometryPoints),
@@ -61,22 +61,22 @@ GNEMoveOperation::GNEMoveOperation(GNEMoveElement *_moveElement,
 }
 
 
-GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement, 
-    const GNELane* _lane, 
-    const std::vector<double> _originalPosOverLanes) : 
+GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
+                                   const GNELane* _lane,
+                                   const std::vector<double> _originalPosOverLanes) :
     moveElement(_moveElement),
-    lane(_lane), 
+    lane(_lane),
     originalPosOverLanes(_originalPosOverLanes) {
 }
 
 
 GNEMoveOperation::GNEMoveOperation(GNEMoveElement* _moveElement,
-    const GNELane* _lane, 
-    const std::vector<double> _originalPosOverLanes, 
-    const std::vector<int> _geometryPointsToMove) :
+                                   const GNELane* _lane,
+                                   const std::vector<double> _originalPosOverLanes,
+                                   const std::vector<int> _geometryPointsToMove) :
     moveElement(_moveElement),
     geometryPointsToMove(_geometryPointsToMove),
-    lane(_lane), 
+    lane(_lane),
     originalPosOverLanes(_originalPosOverLanes) {
 }
 
@@ -100,8 +100,8 @@ GNEMoveElement::GNEMoveElement() {
 }
 
 
-void 
-GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position &offset) {
+void
+GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position& offset) {
     // declare move result
     GNEMoveResult moveResult;
     // set geometry points to move
@@ -114,7 +114,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
         // set values in moveResult
         moveResult.shapeToUpdate = moveOperation->shapeToMove;
         // move entire shape
-        for (auto &geometryPointIndex : moveResult.shapeToUpdate) {
+        for (auto& geometryPointIndex : moveResult.shapeToUpdate) {
             if (geometryPointIndex != Position::INVALID) {
                 // add offset
                 geometryPointIndex.add(offset);
@@ -128,7 +128,7 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
         // set values in moveResult
         moveResult.shapeToUpdate = moveOperation->shapeToMove;
         // move geometry points
-        for (const auto &geometryPointIndex : moveOperation->geometryPointsToMove) {
+        for (const auto& geometryPointIndex : moveOperation->geometryPointsToMove) {
             if (moveResult.shapeToUpdate[geometryPointIndex] != Position::INVALID) {
                 // add offset
                 moveResult.shapeToUpdate[geometryPointIndex].add(offset);
@@ -144,8 +144,8 @@ GNEMoveElement::moveElement(const GNEViewNet* viewNet, GNEMoveOperation* moveOpe
 }
 
 
-void 
-GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position &offset, GNEUndoList* undoList) {
+void
+GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOperation, const Position& offset, GNEUndoList* undoList) {
     // declare move result
     GNEMoveResult moveResult;
     // check if we're moving over a lane shape, an entire shape or only certain geometry point
@@ -154,7 +154,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
         moveResult.geometryPointsToMove = moveOperation->geometryPointsToMove;
         // restore original position over lanes
         PositionVector originalPosOverLanes;
-        for (const auto &posOverlane : moveOperation->originalPosOverLanes) {
+        for (const auto& posOverlane : moveOperation->originalPosOverLanes) {
             originalPosOverLanes.push_back(Position(posOverlane, 0));
         }
         // set shapeToUpdate with originalPosOverLanes
@@ -177,7 +177,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
         // check if we're moving an entire shape or  only certain geometry point
         if (moveOperation->geometryPointsToMove.empty()) {
             // move entire shape
-            for (auto &geometryPointIndex : moveResult.shapeToUpdate) {
+            for (auto& geometryPointIndex : moveResult.shapeToUpdate) {
                 if (geometryPointIndex != Position::INVALID) {
                     // add offset
                     geometryPointIndex.add(offset);
@@ -189,7 +189,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
             }
         } else {
             // only move certain geometry points
-            for (const auto &geometryPointIndex : moveOperation->geometryPointsToMove) {
+            for (const auto& geometryPointIndex : moveOperation->geometryPointsToMove) {
                 if (moveResult.shapeToUpdate[geometryPointIndex] != Position::INVALID) {
                     // add offset
                     moveResult.shapeToUpdate[geometryPointIndex].add(offset);
@@ -211,7 +211,7 @@ GNEMoveElement::commitMove(const GNEViewNet* viewNet, GNEMoveOperation* moveOper
 
 
 const PositionVector
-GNEMoveElement::calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const Position &offset) {
+GNEMoveElement::calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMoveOperation* moveOperation, const Position& offset) {
     // declare new shape
     PositionVector newShape;
     // calculate lenght between pos over lanes
@@ -251,7 +251,7 @@ GNEMoveElement::calculateMovementOverLane(const GNEViewNet* viewNet, const GNEMo
         }
     }
     // apply posOverLaneOffset to all posOverLanes and generate new shape
-    for (const auto &posOverlane : moveOperation->originalPosOverLanes) {
+    for (const auto& posOverlane : moveOperation->originalPosOverLanes) {
         newShape.push_back(Position(posOverlane - posOverLaneOffset, 0));
     }
     // return newShape

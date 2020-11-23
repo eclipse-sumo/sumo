@@ -115,13 +115,13 @@ public:
     }
 
     /// @brief set color
-    static void setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o, bool disableSelectionColor);
+    static void setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor);
 
     /// @brief check if Polygon can be drawn
-    static bool checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o);
+    static bool checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o);
 
     /// @brief draw inner Polygon (before pushName() )
-    static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o, const PositionVector shape, double layer, bool disableSelectionColor);
+    static void drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, const PositionVector shape, double layer, bool disableSelectionColor);
 
 private:
     /// The mutex used to avoid concurrent updates of the shape
@@ -137,6 +137,6 @@ private:
     void storeTesselation(const bool fill, const PositionVector& shape, double lineWidth) const;
 
     // @brief perform the tesselation / drawing
-    static void performTesselation(const bool fill, const PositionVector &shape, const double lineWidth);
+    static void performTesselation(const bool fill, const PositionVector& shape, const double lineWidth);
 
 };

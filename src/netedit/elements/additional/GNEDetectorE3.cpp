@@ -35,13 +35,13 @@
 GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, Position pos, SUMOTime freq, const std::string& filename,
                              const std::string& vehicleTypes, const std::string& name, SUMOTime timeThreshold, double speedThreshold, bool blockMovement) :
     GNEAdditional(id, net, GLO_E3DETECTOR, SUMO_TAG_E3DETECTOR, name, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    myPosition(pos),
-    myFreq(freq),
-    myFilename(filename),
-    myVehicleTypes(vehicleTypes),
-    myTimeThreshold(timeThreshold),
-    mySpeedThreshold(speedThreshold) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+myPosition(pos),
+myFreq(freq),
+myFilename(filename),
+myVehicleTypes(vehicleTypes),
+myTimeThreshold(timeThreshold),
+mySpeedThreshold(speedThreshold) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -50,7 +50,7 @@ GNEDetectorE3::GNEDetectorE3(const std::string& id, GNENet* net, Position pos, S
 GNEDetectorE3::~GNEDetectorE3() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEDetectorE3::getMoveOperation(const double /*shapeOffset*/) {
     if (myBlockMovement) {
         // element blocked, then nothing to move
@@ -71,7 +71,7 @@ GNEDetectorE3::updateGeometry() {
 }
 
 
-void 
+void
 GNEDetectorE3::updateCenteringBoundary(const bool updateGrid) {
     // remove additional from grid
     if (updateGrid) {
@@ -369,7 +369,7 @@ GNEDetectorE3::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEDetectorE3::setMoveShape(const GNEMoveResult& moveResult) {
     // update position
     myPosition = moveResult.shapeToUpdate.front();

@@ -358,7 +358,7 @@ GNEViewNet::getAttributeCarriersInBoundary(const Boundary& boundary, bool forceS
 }
 
 
-const GNEViewNetHelper::ObjectsUnderCursor& 
+const GNEViewNetHelper::ObjectsUnderCursor&
 GNEViewNet::getObjectsUnderCursor() const {
     return myObjectsUnderCursor;
 }
@@ -403,8 +403,8 @@ GNEViewNet::openObjectDialog() {
         GUIGlObject* GlObject = myObjectsUnderCursor.getGUIGlObjectFront();
         // we need to check if we're inspecting a overlapping element
         if (myViewParent->getInspectorFrame()->getOverlappedInspection()->overlappedInspectionShown() &&
-            myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
-            myInspectedAttributeCarriers.size() > 0) {
+                myViewParent->getInspectorFrame()->getOverlappedInspection()->checkSavedPosition(getPositionInformation()) &&
+                myInspectedAttributeCarriers.size() > 0) {
             GlObject = dynamic_cast<GUIGlObject*>(myInspectedAttributeCarriers.front());
         }
         // if GlObject is null, use net
@@ -609,14 +609,14 @@ GNEViewNet::mergeJunctions(GNEJunction* movedJunction, GNEJunction* targetJuncti
             WRITE_DEBUG("Opening FXMessageBox 'merge junctions'");
             // open question box
             FXuint answer = FXMessageBox::question(this, MBOX_YES_NO,
-                "Confirm Junction Merger", "%s",
-                ("Do you wish to merge junctions '" + movedJunction->getMicrosimID() +
-                    "' and '" + targetJunction->getMicrosimID() + "'?\n" +
-                    "('" + movedJunction->getMicrosimID() +
-                    "' will be eliminated and its roads added to '" +
-                    targetJunction->getMicrosimID() + "')").c_str());
+                                                   "Confirm Junction Merger", "%s",
+                                                   ("Do you wish to merge junctions '" + movedJunction->getMicrosimID() +
+                                                    "' and '" + targetJunction->getMicrosimID() + "'?\n" +
+                                                    "('" + movedJunction->getMicrosimID() +
+                                                    "' will be eliminated and its roads added to '" +
+                                                    targetJunction->getMicrosimID() + "')").c_str());
             if (answer != 1) { //1:yes, 2:no, 4:esc
-                               // write warning if netedit is running in testing mode
+                // write warning if netedit is running in testing mode
                 if (answer == 2) {
                     WRITE_DEBUG("Closed FXMessageBox 'merge junctions' with 'No'");
                 } else if (answer == 4) {
@@ -747,7 +747,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         if (myVisualizationSettings->showGrid) {
             // change show grid
             if (!myNetworkViewOptions.menuCheckShowGrid->amChecked() ||
-                !myDemandViewOptions.menuCheckShowGrid->amChecked()) {
+                    !myDemandViewOptions.menuCheckShowGrid->amChecked()) {
                 // change to true
                 myNetworkViewOptions.menuCheckShowGrid->setChecked(true);
                 myDemandViewOptions.menuCheckShowGrid->setChecked(true);
@@ -762,7 +762,7 @@ GNEViewNet::doPaintGL(int mode, const Boundary& bound) {
         } else {
             // change show grid
             if (myNetworkViewOptions.menuCheckShowGrid->amChecked() ||
-                myDemandViewOptions.menuCheckShowGrid->amChecked()) {
+                    myDemandViewOptions.menuCheckShowGrid->amChecked()) {
                 // change to false
                 myNetworkViewOptions.menuCheckShowGrid->setChecked(false);
                 myDemandViewOptions.menuCheckShowGrid->setChecked(false);
@@ -1236,7 +1236,7 @@ GNEViewNet::setInspectedAttributeCarriers(const std::vector<GNEAttributeCarrier*
 }
 
 
-bool 
+bool
 GNEViewNet::isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const {
     if (myInspectedAttributeCarriers.empty()) {
         return false;
@@ -1252,7 +1252,7 @@ GNEViewNet::isAttributeCarrierInspected(const GNEAttributeCarrier* AC) const {
 }
 
 
-void 
+void
 GNEViewNet::removeFromAttributeCarrierInspected(const GNEAttributeCarrier* AC) {
     // search AC in myInspectedAttributeCarriers
     const auto it = std::find(myInspectedAttributeCarriers.begin(), myInspectedAttributeCarriers.end(), AC);
@@ -1261,13 +1261,13 @@ GNEViewNet::removeFromAttributeCarrierInspected(const GNEAttributeCarrier* AC) {
     }
 
 
-/*************
-* 
-* 
-* Refresh inspector frame
-* 
-* 
-* *************/
+    /*************
+    *
+    *
+    * Refresh inspector frame
+    *
+    *
+    * *************/
 }
 
 
@@ -1297,8 +1297,8 @@ GNEViewNet::drawTranslateFrontAttributeCarrier(const GNEAttributeCarrier* AC, GU
 
 bool
 GNEViewNet::showLockIcon() const {
-    return ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) || 
-            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) || 
+    return ((myEditModes.networkEditMode == NetworkEditMode::NETWORK_MOVE) ||
+            (myEditModes.networkEditMode == NetworkEditMode::NETWORK_INSPECT) ||
             (myEditModes.networkEditMode == NetworkEditMode::NETWORK_ADDITIONAL));
 }
 
@@ -1659,13 +1659,13 @@ GNEViewNet::onCmdResetEdgeEndpoint(FXObject*, FXSelector, void*) {
     GNEEdge* edge = getEdgeAtPopupPosition();
     if (edge != nullptr) {
         // check if edge is selected
-        if (edge->isAttributeCarrierSelected()){
+        if (edge->isAttributeCarrierSelected()) {
             // get all selected edges
             const auto selectedEdges = myNet->retrieveEdges(true);
             // begin operation
             myUndoList->p_begin("reset geometry points");
             // iterate over selected edges
-            for (const auto &selectedEdge : selectedEdges) {
+            for (const auto& selectedEdge : selectedEdges) {
                 // reset both end points
                 selectedEdge->resetBothEndpoint(myUndoList);
             }
@@ -2663,8 +2663,8 @@ GNEViewNet::onCmdToogleShowGrid(FXObject*, FXSelector sel, void*) {
 long
 GNEViewNet::onCmdToogleDrawSpreadVehicles(FXObject*, FXSelector sel, void*) {
     // Toogle menuCheckShowDemandElements
-    if ((myNetworkViewOptions.menuCheckDrawSpreadVehicles->amChecked() == TRUE) || 
-        (myDemandViewOptions.menuCheckDrawSpreadVehicles->amChecked() == TRUE)) {
+    if ((myNetworkViewOptions.menuCheckDrawSpreadVehicles->amChecked() == TRUE) ||
+            (myDemandViewOptions.menuCheckDrawSpreadVehicles->amChecked() == TRUE)) {
         myNetworkViewOptions.menuCheckDrawSpreadVehicles->setChecked(FALSE);
         myDemandViewOptions.menuCheckDrawSpreadVehicles->setChecked(FALSE);
     } else {
@@ -3778,9 +3778,9 @@ void
 GNEViewNet::drawTemporalJunction() const {
     // first check if we're in correct mode
     if (myEditModes.isCurrentSupermodeNetwork() && (myEditModes.networkEditMode == NetworkEditMode::NETWORK_CREATE_EDGE) &&
-        !myMouseButtonKeyPressed.controlKeyPressed() &&
-        !myMouseButtonKeyPressed.shiftKeyPressed() &&
-        !myMouseButtonKeyPressed.altKeyPressed()) {
+            !myMouseButtonKeyPressed.controlKeyPressed() &&
+            !myMouseButtonKeyPressed.shiftKeyPressed() &&
+            !myMouseButtonKeyPressed.altKeyPressed()) {
         // get mouse position
         const Position mousePosition = snapToActiveGrid(getPositionInformation());
         // get buble color
@@ -3917,7 +3917,7 @@ GNEViewNet::processLeftButtonPressNetwork(void* eventData) {
             // check what buttons are pressed
             if (myMouseButtonKeyPressed.shiftKeyPressed()) {
                 // get edge under cursor
-                GNEEdge *edge = myObjectsUnderCursor.getEdgeFront();
+                GNEEdge* edge = myObjectsUnderCursor.getEdgeFront();
                 if (edge) {
                     // obtain reverse edge
                     GNEEdge* reverseEdge = edge->getOppositeEdge();

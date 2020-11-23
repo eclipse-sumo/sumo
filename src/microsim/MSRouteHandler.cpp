@@ -635,9 +635,9 @@ MSRouteHandler::closeVehicle() {
         if ((myVehicleParameter->parametersSet & VEHPARS_FORCE_REROUTE) != 0) {
             WRITE_WARNING("Ignoring attribute '" + toString(SUMO_ATTR_DEPARTEDGE) + "' for vehicle '" + myVehicleParameter->id + "' because the route is computed dynamically.");
         } else if (myVehicleParameter->departEdgeProcedure == DepartEdgeDefinition::GIVEN &&
-                    myVehicleParameter->departEdge >= (int)route->getEdges().size()) {
-                throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has invalid departEdge index "
-                        + toString(myVehicleParameter->departEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
+                   myVehicleParameter->departEdge >= (int)route->getEdges().size()) {
+            throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has invalid departEdge index "
+                               + toString(myVehicleParameter->departEdge) + " for route with " + toString(route->getEdges().size()) + " edges.");
         }
     }
 
@@ -983,7 +983,7 @@ MSRouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         to = &bs->getLane().getEdge();
     }
     double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
-            bs == nullptr ? std::numeric_limits<double>::infinity() : bs->getEndLanePosition());
+                        bs == nullptr ? std::numeric_limits<double>::infinity() : bs->getEndLanePosition());
 
     SUMOVehicle* startVeh = nullptr;
     if (myActivePlan->empty() && myVehicleParameter->departProcedure == DEPART_TRIGGERED) {
@@ -1011,21 +1011,21 @@ MSRouteHandler::addRide(const SUMOSAXAttributes& attrs) {
         }
         if (!myActivePlan->empty() && myActivePlan->back()->getDestination() != from) {
             const bool stopWithAccess = (myActivePlan->back()->getDestinationStop() != nullptr
-                    && &myActivePlan->back()->getDestinationStop()->getLane().getEdge() == from);
+                                         && &myActivePlan->back()->getDestinationStop()->getLane().getEdge() == from);
             const bool transferAtJunction = (from->getFromJunction() == myActivePlan->back()->getDestination()->getFromJunction()
-                    || from->getFromJunction() == myActivePlan->back()->getDestination()->getToJunction());
+                                             || from->getFromJunction() == myActivePlan->back()->getDestination()->getToJunction());
             if (!(stopWithAccess || transferAtJunction)) {
                 throw ProcessError("Disconnected plan for person '" + myVehicleParameter->id +
-                        "' (edge '" + fromID + "' != edge '" + myActivePlan->back()->getDestination()->getID() + "').");
+                                   "' (edge '" + fromID + "' != edge '" + myActivePlan->back()->getDestination()->getID() + "').");
             }
         }
         if (startVeh != nullptr && startVeh->getRoute().getEdges().front() != from) {
             throw ProcessError("Disconnected plan for triggered person '" + pid +
-                    "' (edge '" + fromID + "' != edge '" + startVeh->getRoute().getEdges().front()->getID() + "').");
+                               "' (edge '" + fromID + "' != edge '" + startVeh->getRoute().getEdges().front()->getID() + "').");
         }
         if (myActivePlan->empty()) {
             myActivePlan->push_back(new MSStageWaiting(
-                        from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
+                                        from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
         }
     } else if (myActivePlan->empty()) {
         throw ProcessError("The start edge for person '" + pid + "' is not known.");
@@ -1064,7 +1064,7 @@ MSRouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
             }
         }
         double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, myVehicleParameter->id.c_str(), ok,
-                cs == nullptr ? std::numeric_limits<double>::infinity() : cs->getEndLanePosition());
+                            cs == nullptr ? std::numeric_limits<double>::infinity() : cs->getEndLanePosition());
         if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
             const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, containerId.c_str(), ok);
             from = MSEdge::dictionary(fromID);
@@ -1077,18 +1077,18 @@ MSRouteHandler::addTransport(const SUMOSAXAttributes& attrs) {
 
             if (!myActiveContainerPlan->empty() && myActiveContainerPlan->back()->getDestination() != from) {
                 const bool stopWithAccess = (myActiveContainerPlan->back()->getDestinationStop() != nullptr
-                        && &myActiveContainerPlan->back()->getDestinationStop()->getLane().getEdge() == from);
+                                             && &myActiveContainerPlan->back()->getDestinationStop()->getLane().getEdge() == from);
                 const bool transferAtJunction = (from->getFromJunction() == myActiveContainerPlan->back()->getDestination()->getFromJunction()
-                        || from->getFromJunction() == myActiveContainerPlan->back()->getDestination()->getToJunction());
+                                                 || from->getFromJunction() == myActiveContainerPlan->back()->getDestination()->getToJunction());
                 if (!(stopWithAccess || transferAtJunction)) {
                     throw ProcessError("Disconnected plan for container '" + myVehicleParameter->id +
-                            "' (edge '" + fromID + "' != edge '" + myActiveContainerPlan->back()->getDestination()->getID() + "').");
+                                       "' (edge '" + fromID + "' != edge '" + myActiveContainerPlan->back()->getDestination()->getID() + "').");
                 }
             }
 
             if (myActiveContainerPlan->empty()) {
                 myActiveContainerPlan->push_back(new MSStageWaiting(
-                            from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
+                                                     from, nullptr, -1, myVehicleParameter->depart, myVehicleParameter->departPos, "start", true));
             }
         } else if (myActiveContainerPlan->empty()) {
             throw ProcessError("The start edge within a transport of container '" + containerId + "' is not known.");
@@ -1242,9 +1242,9 @@ MSRouteHandler::addStop(const SUMOSAXAttributes& attrs) {
             const bool friendlyPos = attrs.getOpt<bool>(SUMO_ATTR_FRIENDLY_POS, nullptr, ok, false);
             if (!ok || (checkStopPos(stop.startPos, stop.endPos, edge->getLength(), POSITION_EPS, friendlyPos) != StopPos::STOPPOS_VALID)) {
                 WRITE_ERROR("Invalid start or end position for stop on "
-                        + (stop.lane != ""
-                            ? ("lane '" + stop.lane)
-                            : ("edge '" + stop.edge)) + "'" + errorSuffix);
+                            + (stop.lane != ""
+                               ? ("lane '" + stop.lane)
+                               : ("edge '" + stop.edge)) + "'" + errorSuffix);
                 return;
             }
         }
@@ -1429,8 +1429,8 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
         myVehicleParameter->parametersSet |= VEHPARS_FORCE_REROUTE;
         MSStoppingPlace* fromStop = myActivePlan->empty() ? nullptr : myActivePlan->back()->getDestinationStop();
         myActivePlan->push_back(new MSStageTrip(from, fromStop, to == nullptr ? &stoppingPlace->getLane().getEdge() : to,
-                    stoppingPlace, duration, modeSet, types, speed, walkFactor, group,
-                    departPosLat, attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS), arrivalPos));
+                                                stoppingPlace, duration, modeSet, types, speed, walkFactor, group,
+                                                departPosLat, attrs.hasAttribute(SUMO_ATTR_ARRIVALPOS), arrivalPos));
     }
     myActiveRoute.clear();
 }

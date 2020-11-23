@@ -40,8 +40,8 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
                  const RGBColor& color, double layer, double angle, const std::string& imgFile, bool relativePath, bool movementBlocked, bool shapeBlocked) :
     SUMOPolygon(id, type, color, shape, geo, fill, lineWidth, layer, angle, imgFile, relativePath),
     GNEShape(id, net, GLO_POLYGON, SUMO_TAG_POLY, movementBlocked, {}, {}, {}, {}, {}, {}, {}, {}),
-    myBlockShape(shapeBlocked),
-    mySimplifiedShape(false) {
+         myBlockShape(shapeBlocked),
+mySimplifiedShape(false) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
     // check if imgFile is valid
@@ -61,7 +61,7 @@ GNEPoly::GNEPoly(GNENet* net, const std::string& id, const std::string& type, co
 GNEPoly::~GNEPoly() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEPoly::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is blocked
     if (myBlockMovement) {
@@ -102,7 +102,7 @@ GNEPoly::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
+void
 GNEPoly::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // get original shape
     PositionVector shape = myShape;
@@ -148,7 +148,7 @@ GNEPoly::updateGeometry() {
 }
 
 
-void 
+void
 GNEPoly::updateCenteringBoundary(const bool updateGrid) {
     // Remove object from net
     if (updateGrid) {
@@ -666,7 +666,7 @@ GNEPoly::isAttributeEnabled(SumoXMLAttr /* key */) const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEPoly::getACParametersMap() const {
     return getParametersMap();
 }
@@ -789,7 +789,7 @@ GNEPoly::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEPoly::setMoveShape(const GNEMoveResult& moveResult) {
     // update new shape
     myShape = moveResult.shapeToUpdate;
@@ -798,7 +798,7 @@ GNEPoly::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNEPoly::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());

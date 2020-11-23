@@ -24,12 +24,12 @@
 #include <algorithm>
 #include <thread>
 
-template<typename CONTEXT=int>
+template<typename CONTEXT = int>
 class WorkStealingThreadPool {
 public:
 
     explicit WorkStealingThreadPool(const bool workSteal, const std::vector<CONTEXT>& context)
-    : myQueues{ context.size() }, myTryoutCount(workSteal ? 1 : 0) {
+        : myQueues{ context.size() }, myTryoutCount(workSteal ? 1 : 0) {
         size_t index = 0;
         for (const CONTEXT& c : context) {
             if (workSteal) {
@@ -56,11 +56,11 @@ public:
         if (myTryoutCount > 0) {
             for (size_t n = 0; n != myQueues.size() * myTryoutCount; ++n) {
                 // Here we need not to std::forward just copy task.
-                // Because if the universal reference of task has bound to an r-value reference 
-                // then std::forward will have the same effect as std::move and thus task is not required to contain a valid task. 
+                // Because if the universal reference of task has bound to an r-value reference
+                // then std::forward will have the same effect as std::move and thus task is not required to contain a valid task.
                 // Universal reference must only be std::forward'ed a exactly zero or one times.
                 bool success = false;
-                auto result = myQueues[(index + n) % myQueues.size()].tryPush(task, success); 
+                auto result = myQueues[(index + n) % myQueues.size()].tryPush(task, success);
 
                 if (success) {
                     return std::move(result);

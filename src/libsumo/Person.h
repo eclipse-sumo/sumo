@@ -89,10 +89,10 @@ public:
     LIBSUMO_SUBSCRIPTION_API
 
 #ifndef LIBTRACI
-   /** @brief Saves the shape of the requested object in the given container
-    *  @param id The id of the poi to retrieve
-    *  @param shape The container to fill
-    */
+    /** @brief Saves the shape of the requested object in the given container
+     *  @param id The id of the poi to retrieve
+     *  @param shape The container to fill
+     */
     static void storeShape(const std::string& id, PositionVector& shape);
 
     static std::shared_ptr<VariableWrapper> makeWrapper();

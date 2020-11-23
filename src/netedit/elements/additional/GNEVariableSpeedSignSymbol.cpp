@@ -32,7 +32,7 @@
 
 GNEVariableSpeedSignSymbol::GNEVariableSpeedSignSymbol(GNEAdditional* VSSParent, GNELane* lane) :
     GNEAdditional(VSSParent->getNet(), GLO_VSS, GNE_TAG_VSS_SYMBOL, "", false,
-        {}, {}, {lane}, {VSSParent}, {}, {}, {}, {}) {
+{}, {}, {lane}, {VSSParent}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -63,7 +63,7 @@ GNEVariableSpeedSignSymbol::updateGeometry() {
 }
 
 
-void 
+void
 GNEVariableSpeedSignSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
     // just update geometry
     updateGeometry();
@@ -205,12 +205,12 @@ GNEVariableSpeedSignSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string&
 }
 
 
-void 
+void
 GNEVariableSpeedSignSymbol::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
-void 
+void
 GNEVariableSpeedSignSymbol::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }

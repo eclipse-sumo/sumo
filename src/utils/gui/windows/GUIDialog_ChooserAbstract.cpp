@@ -61,7 +61,7 @@ FXIMPLEMENT(GUIDialog_ChooserAbstract, FXMainWindow, GUIDialog_ChooserAbstractMa
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsParent, 
+GUIDialog_ChooserAbstract::GUIDialog_ChooserAbstract(GUIGlChildWindow* windowsParent,
         FXIcon* icon, const FXString& title, const std::vector<GUIGlID>& ids, GUIGlObjectStorage& /*glStorage*/) :
     FXMainWindow(windowsParent->getApp(), title, icon, nullptr, GUIDesignChooserDialog),
     myWindowsParent(windowsParent),
@@ -104,7 +104,7 @@ GUIDialog_ChooserAbstract::~GUIDialog_ChooserAbstract() {
 }
 
 
-GUIGlObject* 
+GUIGlObject*
 GUIDialog_ChooserAbstract::getObject() const {
     return static_cast<GUIGlObject*>(mySelected);
 }
@@ -326,8 +326,8 @@ GUIDialog_ChooserAbstract::toggleSelection(int listIndex) {
 }
 
 
-void 
-GUIDialog_ChooserAbstract::filterACs(const std::vector<GUIGlID> &/*GLIDs*/) {
+void
+GUIDialog_ChooserAbstract::filterACs(const std::vector<GUIGlID>& /*GLIDs*/) {
     // overrided in GNEDialogACChooser
 }
 

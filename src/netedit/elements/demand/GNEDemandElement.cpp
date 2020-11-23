@@ -456,9 +456,9 @@ void
 GNEDemandElement::drawPersonPlanPartialLane(const GUIVisualizationSettings& s, const GNELane* lane,
         const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected attribute carriers
-    const auto & inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // get inspected person plan
-    const GNEAttributeCarrier* personPlanInspected = (inspectedACs.size() > 0)? inspectedACs.front() : nullptr;
+    const GNEAttributeCarrier* personPlanInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // declare flag to enable or disable draw person plan
     bool drawPersonPlan = false;
@@ -581,9 +581,9 @@ void
 GNEDemandElement::drawPersonPlanPartialJunction(const GUIVisualizationSettings& s, const GNELane* fromLane, const GNELane* toLane,
         const double offsetFront, const double personPlanWidth, const RGBColor& personPlanColor) const {
     // get inspected attribute carriers
-    const auto & inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
+    const auto& inspectedACs = myNet->getViewNet()->getInspectedAttributeCarriers();
     // get inspected person plan
-    const GNEAttributeCarrier* personPlanInspected = (inspectedACs.size() > 0)? inspectedACs.front() : nullptr;
+    const GNEAttributeCarrier* personPlanInspected = (inspectedACs.size() > 0) ? inspectedACs.front() : nullptr;
     const GNEDemandElement* personParent = getParentDemandElements().front();
     // declare flag to enable or disable draw person plan
     bool drawPersonPlan = false;

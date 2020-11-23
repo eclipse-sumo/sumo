@@ -37,10 +37,10 @@
 GNERouteProbe::GNERouteProbe(const std::string& id, GNENet* net, GNEEdge* edge, const std::string& frequency,
                              const std::string& name, const std::string& filename, SUMOTime begin) :
     GNEAdditional(id, net, GLO_ROUTEPROBE, SUMO_TAG_ROUTEPROBE, name, false,
-        {}, {edge}, {}, {}, {}, {}, {}, {}),
-    myFrequency(frequency),
-    myFilename(filename),
-    myBegin(begin) {
+{}, {edge}, {}, {}, {}, {}, {}, {}),
+myFrequency(frequency),
+myFilename(filename),
+myBegin(begin) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -57,7 +57,7 @@ GNERouteProbe::updateGeometry() {
 }
 
 
-void 
+void
 GNERouteProbe::updateCenteringBoundary(const bool /*pdateGrid*/) {
     // update geometry
     updateGeometry();
@@ -74,7 +74,7 @@ GNERouteProbe::splitEdgeGeometry(const double /*splitPosition*/, const GNENetwor
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNERouteProbe::getMoveOperation(const double /*shapeOffset*/) {
     // routeprobes cannot be moved
     return nullptr;
@@ -307,13 +307,13 @@ GNERouteProbe::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNERouteProbe::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
 
-void 
+void
 GNERouteProbe::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }

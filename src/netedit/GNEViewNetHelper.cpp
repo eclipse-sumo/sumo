@@ -897,7 +897,7 @@ GNEViewNetHelper::MouseButtonKeyPressed::mouseLeftButtonPressed() const {
 }
 
 
-bool 
+bool
 GNEViewNetHelper::MouseButtonKeyPressed::mouseRightButtonPressed() const {
     if (myEventInfo) {
         return (myEventInfo->state & RIGHTBUTTONMASK) != 0;
@@ -924,17 +924,17 @@ GNEViewNetHelper::MoveSingleElementValues::beginMoveNetworkElementShape() {
     const GNENetworkElement* editedElement = myViewNet->myEditNetworkElementShapes.getEditedNetworkElement();
     // check what type of AC will be moved
     if (myViewNet->myObjectsUnderCursor.getJunctionFront() && (myViewNet->myObjectsUnderCursor.getJunctionFront() == editedElement)) {
-        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getJunctionFront(), 
-            myViewNet->myObjectsUnderCursor.getJunctionFront()->getNBNode()->getShape(), 
-            myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius);
+        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getJunctionFront(),
+                                           myViewNet->myObjectsUnderCursor.getJunctionFront()->getNBNode()->getShape(),
+                                           myViewNet->getVisualisationSettings().neteditSizeSettings.junctionGeometryPointRadius);
     } else if (myViewNet->myObjectsUnderCursor.getCrossingFront() && (myViewNet->myObjectsUnderCursor.getCrossingFront() == editedElement)) {
-        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getCrossingFront(), 
-            myViewNet->myObjectsUnderCursor.getCrossingFront()->getCrossingShape(), 
-            myViewNet->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
+        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getCrossingFront(),
+                                           myViewNet->myObjectsUnderCursor.getCrossingFront()->getCrossingShape(),
+                                           myViewNet->getVisualisationSettings().neteditSizeSettings.crossingGeometryPointRadius);
     } else if (myViewNet->myObjectsUnderCursor.getConnectionFront() && (myViewNet->myObjectsUnderCursor.getConnectionFront() == editedElement)) {
-        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getConnectionFront(), 
-            myViewNet->myObjectsUnderCursor.getConnectionFront()->getConnectionShape(), 
-            myViewNet->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius);
+        return calculateMoveOperationShape(myViewNet->myObjectsUnderCursor.getConnectionFront(),
+                                           myViewNet->myObjectsUnderCursor.getConnectionFront()->getConnectionShape(),
+                                           myViewNet->getVisualisationSettings().neteditSizeSettings.connectionGeometryPointRadius);
     } else {
         // there isn't moved items, then return false
         return false;
@@ -1081,13 +1081,13 @@ GNEViewNetHelper::MoveSingleElementValues::moveSingleElement(const bool mouseLef
     // check if mouse button is pressed
     if (mouseLeftButtonPressed) {
         // iterate over all operations
-        for (const auto &moveOperation : myMoveOperations) {
+        for (const auto& moveOperation : myMoveOperations) {
             // move elements
             GNEMoveElement::moveElement(myViewNet, moveOperation, offsetMovement);
         }
     } else {
         // iterate over all operations
-        for (const auto &moveOperation : myMoveOperations) {
+        for (const auto& moveOperation : myMoveOperations) {
             // commit move
             GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
             // don't forget delete move operation
@@ -1110,7 +1110,7 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
         myDemandElementToMove = nullptr;
     }
     // finish all move operations
-    for (const auto &moveOperation : myMoveOperations) {
+    for (const auto& moveOperation : myMoveOperations) {
         GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
         // don't forget delete move operation
         delete moveOperation;
@@ -1120,7 +1120,7 @@ GNEViewNetHelper::MoveSingleElementValues::finishMoveSingleElement() {
 }
 
 
-Position 
+Position
 GNEViewNetHelper::MoveSingleElementValues::calculateOffset() const {
     // calculate offsetMovement depending of current mouse position and relative clicked position
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
@@ -1138,8 +1138,8 @@ GNEViewNetHelper::MoveSingleElementValues::calculateOffset() const {
 }
 
 
-bool 
-GNEViewNetHelper::MoveSingleElementValues::calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector &shape, const double radius) {
+bool
+GNEViewNetHelper::MoveSingleElementValues::calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector& shape, const double radius) {
     // calculate junctionShapeOffset
     const double junctionShapeOffset = shape.nearest_offset_to_point2D(myViewNet->getPositionInformation(), false);
     // calculate distance to shape
@@ -1190,7 +1190,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftB
     // check if mouse button is pressed
     if (mouseLeftButtonPressed) {
         // iterate over all operations
-        for (const auto &moveOperation : myMoveOperations) {
+        for (const auto& moveOperation : myMoveOperations) {
             // move elements
             GNEMoveElement::moveElement(myViewNet, moveOperation, offsetMovement);
         }
@@ -1198,7 +1198,7 @@ GNEViewNetHelper::MoveMultipleElementValues::moveSelection(const bool mouseLeftB
         // begin undo list
         myViewNet->getUndoList()->p_begin("moving selection");
         // iterate over all operations
-        for (const auto &moveOperation : myMoveOperations) {
+        for (const auto& moveOperation : myMoveOperations) {
             // commit move
             GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
             // don't forget delete move operation
@@ -1219,7 +1219,7 @@ GNEViewNetHelper::MoveMultipleElementValues::finishMoveSelection() {
     // begin undo list
     myViewNet->getUndoList()->p_begin("moving selection");
     // finish all move operations
-    for (const auto &moveOperation : myMoveOperations) {
+    for (const auto& moveOperation : myMoveOperations) {
         GNEMoveElement::commitMove(myViewNet, moveOperation, offsetMovement, myViewNet->getUndoList());
         // don't forget delete move operation
         delete moveOperation;
@@ -1237,8 +1237,8 @@ GNEViewNetHelper::MoveMultipleElementValues::isMovingSelection() const {
 }
 
 
-Position 
-GNEViewNetHelper::MoveMultipleElementValues::calculateOffset() const{
+Position
+GNEViewNetHelper::MoveMultipleElementValues::calculateOffset() const {
     // calculate offsetMovement depending of current mouse position and relative clicked position
     // @note  #3521: Add checkBox to allow moving elements... has to be implemented and used here
     Position offsetMovement = (myViewNet->getPositionInformation() - myClickedPosition);
@@ -1255,14 +1255,14 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateOffset() const{
 }
 
 
-void 
+void
 GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
     // declare move operation
     GNEMoveOperation* moveOperation = nullptr;
     // first move all selected junctions
     const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
     // iterate over selected junctions
-    for (const auto &junction : selectedJunctions) {
+    for (const auto& junction : selectedJunctions) {
         moveOperation = junction->getMoveOperation(0);
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1271,7 +1271,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
     // now move all selected edges
     const auto selectedEdges = myViewNet->getNet()->retrieveEdges(true);
     // iterate over selected edges
-    for (const auto &edge : selectedEdges) {
+    for (const auto& edge : selectedEdges) {
         moveOperation = edge->getMoveOperation(0);
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1280,14 +1280,14 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateJunctionSelection() {
 }
 
 
-void 
+void
 GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdge* clickedEdge) {
     // declare move operation
     GNEMoveOperation* moveOperation = nullptr;
     // first move all selected junctions
     const auto selectedJunctions = myViewNet->getNet()->retrieveJunctions(true);
     // iterate over selected junctions
-    for (const auto &junction : selectedJunctions) {
+    for (const auto& junction : selectedJunctions) {
         moveOperation = junction->getMoveOperation(0);
         if (moveOperation) {
             myMoveOperations.push_back(moveOperation);
@@ -1301,7 +1301,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
     // get flag for inverse offset
     const bool useInverseOffset = (std::find(selectedEdges000180.begin(), selectedEdges000180.end(), clickedEdge) != selectedEdges000180.end());
     // iterate over edges betwen 0 and 180 degrees
-    for (const auto &edge : selectedEdges000180) {
+    for (const auto& edge : selectedEdges000180) {
         // get move operation depending of useInverseOffset
         if (useInverseOffset) {
             moveOperation = edge->getMoveOperation(shapeOffset);
@@ -1314,7 +1314,7 @@ GNEViewNetHelper::MoveMultipleElementValues::calculateEdgeSelection(const GNEEdg
         }
     }
     // iterate over edges betwen 180 and 360 degrees
-    for (const auto &edge : selectedEdges180360) {
+    for (const auto& edge : selectedEdges180360) {
         // get move operation depending of useInverseOffset
         if (useInverseOffset) {
             moveOperation = edge->getMoveOperation(edge->getNBEdge()->getGeometry().length2D() - shapeOffset);
@@ -1707,18 +1707,18 @@ void
 GNEViewNetHelper::EditModes::buildSuperModeButtons() {
     // create network button
     networkButton = new MFXCheckableButton(false,
-        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Network\t\tSet mode for edit network elements. (F2)",
-        GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignMFXCheckableButtonSupermode);
+                                           myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Network\t\tSet mode for edit network elements. (F2)",
+                                           GUIIconSubSys::getIcon(GUIIcon::SUPERMODENETWORK), myViewNet, MID_HOTKEY_F2_SUPERMODE_NETWORK, GUIDesignMFXCheckableButtonSupermode);
     networkButton->create();
     // create demand button
     demandButton = new MFXCheckableButton(false,
-        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Demand\t\tSet mode for edit traffic demand. (F3)",
-        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignMFXCheckableButtonSupermode);
+                                          myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Demand\t\tSet mode for edit traffic demand. (F3)",
+                                          GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDEMAND), myViewNet, MID_HOTKEY_F3_SUPERMODE_DEMAND, GUIDesignMFXCheckableButtonSupermode);
     demandButton->create();
     // create data button
     dataButton = new MFXCheckableButton(false,
-        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Data\t\tSet mode for edit data demand. (F4)",
-        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignMFXCheckableButtonSupermode);
+                                        myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().superModes, "Data\t\tSet mode for edit data demand. (F4)",
+                                        GUIIconSubSys::getIcon(GUIIcon::SUPERMODEDATA), myViewNet, MID_HOTKEY_F4_SUPERMODE_DATA, GUIDesignMFXCheckableButtonSupermode);
     dataButton->create();
     // recalc menu bar because there is new elements
     myViewNet->getViewParent()->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
@@ -1957,93 +1957,93 @@ void
 GNEViewNetHelper::NetworkViewOptions::buildNetworkViewOptionsMenuChecks() {
     // create menu checks
     menuCheckShowGrid = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButton);
+            ("\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButton);
     menuCheckShowGrid->setChecked(false);
     menuCheckShowGrid->create();
 
     menuCheckDrawSpreadVehicles = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tDraw vehicles spread in lane or in depart position"),
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES, GUIDesignMFXCheckableButton);
+            ("\t\tDraw vehicles spread in lane or in depart position"),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_DRAWSPREADVEHICLES, GUIDesignMFXCheckableButton);
     menuCheckDrawSpreadVehicles->setChecked(false);
     menuCheckDrawSpreadVehicles->create();
 
     menuCheckShowDemandElements = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle show demand elements"),
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS, GUIDesignMFXCheckableButton);
+            ("\t\tToggle show demand elements"),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWDEMANDELEMENTS, GUIDesignMFXCheckableButton);
     menuCheckShowDemandElements->setChecked(false);
     menuCheckShowDemandElements->create();
 
     menuCheckSelectEdges = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle whether clicking should select edges or lanes"),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SELECTEDGES), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES, GUIDesignMFXCheckableButton);
+            ("\t\tToggle whether clicking should select edges or lanes"),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SELECTEDGES),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SELECTEDGES, GUIDesignMFXCheckableButton);
     menuCheckSelectEdges->setChecked(true);
     menuCheckSelectEdges->create();
 
     menuCheckShowConnections = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle show connections over junctions"),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWCONNECTIONS), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS, GUIDesignMFXCheckableButton);
+            ("\t\tToggle show connections over junctions"),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_SHOWCONNECTIONS),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWCONNECTIONS, GUIDesignMFXCheckableButton);
     menuCheckShowConnections->setChecked(myViewNet->getVisualisationSettings().showLane2Lane);
     menuCheckShowConnections->create();
 
     menuCheckHideConnections = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tHide connections"),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS, GUIDesignMFXCheckableButton);
+            ("\t\tHide connections"),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_HIDECONNECTIONS),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_HIDECONNECTIONS, GUIDesignMFXCheckableButton);
     menuCheckHideConnections->setChecked(false);
     menuCheckHideConnections->create();
 
     menuCheckExtendSelection = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle whether selecting multiple edges should automatically select their junctions"),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION, GUIDesignMFXCheckableButton);
+            ("\t\tToggle whether selecting multiple edges should automatically select their junctions"),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_AUTOSELECTJUNCTIONS),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_EXTENDSELECTION, GUIDesignMFXCheckableButton);
     menuCheckExtendSelection->setChecked(false);
     menuCheckExtendSelection->create();
 
     menuCheckChangeAllPhases = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle whether clicking should apply state changes to all phases of the current TLS plan"),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES, GUIDesignMFXCheckableButton);
+            ("\t\tToggle whether clicking should apply state changes to all phases of the current TLS plan"),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_APPLYTOALLPHASES),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_CHANGEALLPHASES, GUIDesignMFXCheckableButton);
     menuCheckChangeAllPhases->setChecked(false);
     menuCheckChangeAllPhases->create();
 
     menuCheckWarnAboutMerge = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tAsk for confirmation before merging junction."),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE, GUIDesignMFXCheckableButton);
+            ("\t\tAsk for confirmation before merging junction."),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ASKFORMERGE),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_ASKFORMERGE, GUIDesignMFXCheckableButton);
     menuCheckWarnAboutMerge->setChecked(true);
     menuCheckWarnAboutMerge->create();
 
     menuCheckShowJunctionBubble = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tShow bubbles over junction's shapes."),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES, GUIDesignMFXCheckableButton);
+            ("\t\tShow bubbles over junction's shapes."),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_BUBBLES),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_SHOWBUBBLES, GUIDesignMFXCheckableButton);
     menuCheckShowJunctionBubble->setChecked(false);
     menuCheckShowJunctionBubble->create();
 
     menuCheckMoveElevation = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tApply mouse movement to elevation instead of x,y position"),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ELEVATION), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION, GUIDesignMFXCheckableButton);
+            ("\t\tApply mouse movement to elevation instead of x,y position"),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_ELEVATION),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_MOVEELEVATION, GUIDesignMFXCheckableButton);
     menuCheckMoveElevation->setChecked(false);
     menuCheckMoveElevation->create();
 
     menuCheckChainEdges = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tCreate consecutive edges with a single click (hit ESC to cancel chain)."),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_CHAIN), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES, GUIDesignMFXCheckableButton);
+            ("\t\tCreate consecutive edges with a single click (hit ESC to cancel chain)."),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_CHAIN),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_CHAINEDGES, GUIDesignMFXCheckableButton);
     menuCheckChainEdges->setChecked(false);
     menuCheckChainEdges->create();
 
     menuCheckAutoOppositeEdge = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tAutomatically create an edge in the opposite direction"),
-        GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_TWOWAY), 
-        myViewNet, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES, GUIDesignMFXCheckableButton);
+            ("\t\tAutomatically create an edge in the opposite direction"),
+            GUIIconSubSys::getIcon(GUIIcon::NETWORKMODE_CHECKBOX_TWOWAY),
+            myViewNet, MID_GNE_NETWORKVIEWOPTIONS_AUTOOPPOSITEEDGES, GUIDesignMFXCheckableButton);
     menuCheckAutoOppositeEdge->setChecked(false);
     menuCheckAutoOppositeEdge->create();
 
@@ -2189,44 +2189,44 @@ void
 GNEViewNetHelper::DemandViewOptions::buildDemandViewOptionsMenuChecks() {
     // create menu checks
     menuCheckShowGrid = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID), 
-        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButton);
+            ("\t\tShow grid and restrict movement to the grid - define grid size in visualization options (Ctrl+G)"),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_GRID),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWGRID, GUIDesignMFXCheckableButton);
     menuCheckShowGrid->setChecked(false);
     menuCheckShowGrid->create();
 
     menuCheckDrawSpreadVehicles = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tDraw vehicles spread in lane or in depart position"),
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE), 
-        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES, GUIDesignMFXCheckableButton);
+            ("\t\tDraw vehicles spread in lane or in depart position"),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SPREADVEHICLE),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_DRAWSPREADVEHICLES, GUIDesignMFXCheckableButton);
     menuCheckDrawSpreadVehicles->setChecked(false);
     menuCheckDrawSpreadVehicles->create();
 
     menuCheckHideShapes = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle show shapes (Polygons and POIs)"),
-        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES), 
-        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES, GUIDesignMFXCheckableButton);
+            ("\t\tToggle show shapes (Polygons and POIs)"),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDESHAPES),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDESHAPES, GUIDesignMFXCheckableButton);
     menuCheckHideShapes->setChecked(false);
     menuCheckHideShapes->create();
 
     menuCheckHideNonInspectedDemandElements = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle show non-inspected demand elements"),
-        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS), 
-        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, GUIDesignMFXCheckableButton);
+            ("\t\tToggle show non-inspected demand elements"),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_HIDENONINSPECTEDDEMANDELEMENTS),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_HIDENONINSPECTED, GUIDesignMFXCheckableButton);
     menuCheckHideNonInspectedDemandElements->setChecked(false);
     menuCheckHideNonInspectedDemandElements->create();
 
     menuCheckShowAllPersonPlans = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tShow all person plans"),
-        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS), 
-        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS, GUIDesignMFXCheckableButton);
+            ("\t\tShow all person plans"),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_SHOWPERSONPLANS),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_SHOWALLPERSONPLANS, GUIDesignMFXCheckableButton);
     menuCheckShowAllPersonPlans->setChecked(false);
     menuCheckShowAllPersonPlans->create();
 
     menuCheckLockPerson = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tLock selected person"),
-        GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON), 
-        myViewNet, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON, GUIDesignMFXCheckableButton);
+            ("\t\tLock selected person"),
+            GUIIconSubSys::getIcon(GUIIcon::DEMANDMODE_CHECKBOX_LOCKPERSON),
+            myViewNet, MID_GNE_DEMANDVIEWOPTIONS_LOCKPERSON, GUIDesignMFXCheckableButton);
     menuCheckLockPerson->setChecked(false);
     menuCheckLockPerson->create();
 
@@ -2369,23 +2369,23 @@ void
 GNEViewNetHelper::DataViewOptions::buildDataViewOptionsMenuChecks() {
     // create menu checks
     menuCheckShowAdditionals = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle show additionals"),
-        GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS),
-        myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS, GUIDesignMFXCheckableButton);
+            ("\t\tToggle show additionals"),
+            GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWADDITIONALS),
+            myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWADDITIONALS, GUIDesignMFXCheckableButton);
     menuCheckShowAdditionals->setChecked(false);
     menuCheckShowAdditionals->create();
 
     menuCheckShowShapes = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle show shapes (Polygons and POIs)"),
-        GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES), 
-        myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES, GUIDesignMFXCheckableButton);
+            ("\t\tToggle show shapes (Polygons and POIs)"),
+            GUIIconSubSys::getIcon(GUIIcon::DATAMODE_CHECKBOX_SHOWSHAPES),
+            myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWSHAPES, GUIDesignMFXCheckableButton);
     menuCheckShowShapes->setChecked(false);
     menuCheckShowShapes->create();
 
     menuCheckShowDemandElements = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        ("\t\tToggle show demand elements"),
-        GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS), 
-        myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS, GUIDesignMFXCheckableButton);
+            ("\t\tToggle show demand elements"),
+            GUIIconSubSys::getIcon(GUIIcon::COMMONMODE_CHECKBOX_SHOWDEMANDELEMENTS),
+            myViewNet, MID_GNE_DATAVIEWOPTIONS_SHOWDEMANDELEMENTS, GUIDesignMFXCheckableButton);
     menuCheckShowDemandElements->setChecked(false);
     menuCheckShowDemandElements->create();
 
@@ -2830,18 +2830,18 @@ void
 GNEViewNetHelper::CommonCheckableButtons::buildCommonCheckableButtons() {
     // inspect button
     inspectButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset inspect mode\tMode for inspect elements and change their attributes. (I)",
-        GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myViewNet, MID_HOTKEY_I_MODES_INSPECT, GUIDesignMFXCheckableButton);
+                                           "\tset inspect mode\tMode for inspect elements and change their attributes. (I)",
+                                           GUIIconSubSys::getIcon(GUIIcon::MODEINSPECT), myViewNet, MID_HOTKEY_I_MODES_INSPECT, GUIDesignMFXCheckableButton);
     inspectButton->create();
     // delete button
     deleteButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset delete mode\tMode for delete elements. (D)",
-        GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myViewNet, MID_HOTKEY_D_MODES_DELETE, GUIDesignMFXCheckableButton);
+                                          "\tset delete mode\tMode for delete elements. (D)",
+                                          GUIIconSubSys::getIcon(GUIIcon::MODEDELETE), myViewNet, MID_HOTKEY_D_MODES_DELETE, GUIDesignMFXCheckableButton);
     deleteButton->create();
     // select button
     selectButton = new MFXCheckableButton(false, myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes,
-        "\tset select mode\tMode for select elements. (S)",
-        GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myViewNet, MID_HOTKEY_S_MODES_SELECT, GUIDesignMFXCheckableButton);
+                                          "\tset select mode\tMode for select elements. (S)",
+                                          GUIIconSubSys::getIcon(GUIIcon::MODESELECT), myViewNet, MID_HOTKEY_S_MODES_SELECT, GUIDesignMFXCheckableButton);
     selectButton->create();
     // always recalc menu bar after creating new elements
     myViewNet->myViewParent->getGNEAppWindows()->getToolbarsGrip().modes->recalc();
@@ -3252,16 +3252,16 @@ GNEViewNetHelper::EditNetworkElementShapes::getEditedNetworkElement() const {
 // ---------------------------------------------------------------------------
 
 void
-GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const GNEGeometry::Geometry &geometry,
-    const double exaggeration, const double offsetx, const double offsety, const bool overlane, const double size) {
+GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier* AC, const GNEGeometry::Geometry& geometry,
+        const double exaggeration, const double offsetx, const double offsety, const bool overlane, const double size) {
     // first check if icon can be drawn
     if (checkDrawing(AC, exaggeration) && (geometry.getShape().size() > 0)) {
         // calculate middle point
         const double middlePoint = (geometry.getShape().length2D() * 0.5);
         // calculate position
-        const Position pos = (geometry.getShape().size() == 1)? geometry.getShape().front() : geometry.getShape().positionAtOffset2D(middlePoint);
+        const Position pos = (geometry.getShape().size() == 1) ? geometry.getShape().front() : geometry.getShape().positionAtOffset2D(middlePoint);
         // calculate rotation
-        double rot = 0; 
+        double rot = 0;
         if ((geometry.getShape().size() == 1) && (geometry.getShapeRotations().size() > 0)) {
             rot = geometry.getShapeRotations().front();
         } else if (geometry.getShape().size() > 1) {
@@ -3295,8 +3295,8 @@ GNEViewNetHelper::LockIcon::drawLockIcon(const GNEAttributeCarrier *AC, const GN
 GNEViewNetHelper::LockIcon::LockIcon() {}
 
 
-bool 
-GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration) {
+bool
+GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier* AC, const double exaggeration) {
     // get visualization settings
     const auto s = AC->getNet()->getViewNet()->getVisualisationSettings();
     // check exaggeration
@@ -3319,8 +3319,8 @@ GNEViewNetHelper::LockIcon::checkDrawing(const GNEAttributeCarrier *AC, const do
 }
 
 
-GUIGlID 
-GNEViewNetHelper::LockIcon::getLockIcon(const GNEAttributeCarrier *AC) {
+GUIGlID
+GNEViewNetHelper::LockIcon::getLockIcon(const GNEAttributeCarrier* AC) {
     // Draw icon depending of the state of additional
     if (AC->drawUsingSelectColor()) {
         if (!AC->getTagProperty().canBlockMovement()) {

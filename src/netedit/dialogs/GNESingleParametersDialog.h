@@ -78,7 +78,7 @@ public:
         const std::vector<ParameterRow*> getParameterRows() const;
 
         /// @brief check if given key exist already
-        bool keyExist(const std::string &key) const;
+        bool keyExist(const std::string& key) const;
 
         /// @name FOX-callbacks
         /// @{
@@ -239,7 +239,7 @@ public:
     GNESingleParametersDialog(GNEInspectorFrame::ParametersEditorInspector* parametersEditorInspector);
 
     /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
-    GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet *viewNet);
+    GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet);
 
     /// @brief destructor
     ~GNESingleParametersDialog();

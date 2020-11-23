@@ -837,7 +837,7 @@ GNEVehicleType::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEVehicleType::getACParametersMap() const {
     return getParametersMap();
 }

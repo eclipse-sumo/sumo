@@ -228,10 +228,10 @@ MSRailSignalConstraint_Predecessor::PassedTracker::clearState() {
 
 void
 MSRailSignalConstraint_Predecessor::PassedTracker::saveState(OutputDevice& out) {
-    const std::string state = toString(myPassed.back() == "" 
-            ? std::vector<std::string>(myPassed.begin(), myPassed.begin() + myLastIndex + 1)
-            // wrapped around
-            : myPassed);
+    const std::string state = toString(myPassed.back() == ""
+                                       ? std::vector<std::string>(myPassed.begin(), myPassed.begin() + myLastIndex + 1)
+                                       // wrapped around
+                                       : myPassed);
     // no need to save state if no vehicles have passed this tracker
     if (state != "") {
         out.openTag(SUMO_TAG_RAILSIGNAL_CONSTRAINT_TRACKER);

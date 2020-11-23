@@ -39,7 +39,7 @@ GNEDialogACChooser::GNEDialogACChooser(GNEViewParent* viewParent, FXIcon* icon, 
     // @note refresh must be called here because the base class constructor cannot
     // call the virtual function getObjectName
     std::vector<GUIGlID> ids;
-    for (const auto &AC : ACs) {
+    for (const auto& AC : ACs) {
         ids.push_back(AC->getGUIGlObject()->getGlID());
     }
     refreshList(ids);
@@ -63,15 +63,15 @@ GNEDialogACChooser::toggleSelection(int listIndex) {
 }
 
 
-void 
-GNEDialogACChooser::filterACs(const std::vector<GUIGlID> &GLIDs) {
+void
+GNEDialogACChooser::filterACs(const std::vector<GUIGlID>& GLIDs) {
     if (GLIDs.empty()) {
         myFilteredACs = myACs;
     } else {
         // clear myFilteredACs
         myFilteredACs.clear();
         // iterate over myACs
-        for (const auto &AC : myACs) {
+        for (const auto& AC : myACs) {
             // search in GLIDs
             if (std::find(GLIDs.begin(), GLIDs.end(), AC->getGUIGlObject()->getGlID()) != GLIDs.end()) {
                 myFilteredACs.push_back(AC);

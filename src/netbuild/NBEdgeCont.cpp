@@ -977,11 +977,10 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
         // compute the speed
         speed += (*i)->getSpeed();
         // build the priority
-        // merged edges should have the same inherited priority 
+        // merged edges should have the same inherited priority
         if (myPriority == (*i)->getPriority()) {
-            priority = myPriority; 
-        }
-        else { 
+            priority = myPriority;
+        } else {
             priority = -1;
             joinEdges = false;
         }
@@ -990,8 +989,8 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont& dc,
         speed /= edges.size();
         // build the new edge
         NBEdge* newEdge = new NBEdge(id, from, to, "", speed, nolanes, priority,
-            NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
-            tpledge->getStreetName(), tpledge->myLaneSpreadFunction);
+                                     NBEdge::UNSPECIFIED_WIDTH, NBEdge::UNSPECIFIED_OFFSET,
+                                     tpledge->getStreetName(), tpledge->myLaneSpreadFunction);
         // copy lane attributes
         int laneIndex = 0;
         for (i = edges.begin(); i != edges.end(); ++i) {

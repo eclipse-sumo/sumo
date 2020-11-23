@@ -813,7 +813,7 @@ GNEStop::getHierarchyName() const {
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEStop::getACParametersMap() const {
     return getParametersMap();
 }

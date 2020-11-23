@@ -499,7 +499,7 @@ GNENetHelper::AttributeCarriers::updateJunctionID(GNEAttributeCarrier* AC, const
 }
 
 
-bool 
+bool
 GNENetHelper::AttributeCarriers::edgeTypeExist(const GNEEdgeType* edgeType) const {
     return (myEdgeTypes.count(edgeType->getID()) > 0);
 }
@@ -535,10 +535,10 @@ GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEAttributeCarrier* AC, const
         GNEEdgeType* edgeType = myEdgeTypes.at(AC->getID());
         // remove edgeType from container
         myEdgeTypes.erase(edgeType->getID());
-/*
-        // rename in NetBuilder
-        myNet->getNetBuilder()->getEdgeTypeCont().rename(edgeType->getNBEdgeType(), newID);
-*/
+        /*
+                // rename in NetBuilder
+                myNet->getNetBuilder()->getEdgeTypeCont().rename(edgeType->getNBEdgeType(), newID);
+        */
         // update microsim ID
         edgeType->setMicrosimID(newID);
         // add it into myEdgeTypes again

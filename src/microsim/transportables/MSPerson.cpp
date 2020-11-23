@@ -292,7 +292,8 @@ MSPerson::MSPersonStage_Walking::moveToNextEdge(MSTransportable* person, SUMOTim
         const MSLane* nextLane = getSidewalk<MSEdge, MSLane>(getEdge());
         if (nextLane != nullptr) {
             for (MSMoveReminder* rem : nextLane->getMoveReminders()) {
-                if (rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_JUNCTION, nextLane)) {;
+                if (rem->notifyEnter(*person, MSMoveReminder::NOTIFICATION_JUNCTION, nextLane)) {
+                    ;
                     myMoveReminders.push_back(rem);
                 }
             }

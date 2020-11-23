@@ -419,7 +419,7 @@ SUMOVehicleParameter::parseDepartSpeed(const std::string& val, const std::string
 
 bool
 SUMOVehicleParameter::parseDepartEdge(const std::string& val, const std::string& element, const std::string& id,
-                                 int& edgeIndex, DepartEdgeDefinition& ded, std::string& error) {
+                                      int& edgeIndex, DepartEdgeDefinition& ded, std::string& error) {
     bool ok = true;
     edgeIndex = -1;
     ded = DepartEdgeDefinition::GIVEN;

@@ -82,7 +82,7 @@ public:
     static void saveState(OutputDevice& out);
 
     /** @brief loads the constraint state from the given attrs */
-    static void loadState(const SUMOSAXAttributes& attrs); 
+    static void loadState(const SUMOSAXAttributes& attrs);
 
     /** @brief Clear all constraint states before quick-loading state */
     static void clearState();

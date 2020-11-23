@@ -234,7 +234,7 @@ public:
      * @param[in] id The id of the type
      * @param[in] edgeType The parameter object
      */
-    void addMesoType(const std::string& typeID, const MesoEdgeType& edgeType); 
+    void addMesoType(const std::string& typeID, const MesoEdgeType& edgeType);
 
     /** @brief Returns edge type specific meso parameters
      * if no type specific parameters have been loaded, default values are returned

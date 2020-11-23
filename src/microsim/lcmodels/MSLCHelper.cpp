@@ -47,13 +47,13 @@ MSLCHelper::getRoundaboutDistBonus(const MSVehicle& veh,
     const bool debugVehicle = veh.getLaneChangeModel().debugVehicle();
     if (debugVehicle) {
         std::cout << SIMTIME << " veh=" << veh.getID() << " getRoundaboutDistBonus bonusParam=" << bonusParam
-            << " curr=" << curr.lane->getID()
-            << " neigh=" << neigh.lane->getID()
-            << " inner=" << inner.lane->getID()
-            << " best=" << best.lane->getID()
-            << "\n   innerCont=" << toString(inner.bestContinuations)
-            << "\n   bestCont=" << toString(best.bestContinuations)
-            << "\n";
+                  << " curr=" << curr.lane->getID()
+                  << " neigh=" << neigh.lane->getID()
+                  << " inner=" << inner.lane->getID()
+                  << " best=" << best.lane->getID()
+                  << "\n   innerCont=" << toString(inner.bestContinuations)
+                  << "\n   bestCont=" << toString(best.bestContinuations)
+                  << "\n";
     }
 #endif
 

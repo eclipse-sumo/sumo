@@ -45,8 +45,8 @@ public:
     /// @brief Constructor (for AC)
     GNEAllowDisallow(GNEViewNet* viewNet, GNEAttributeCarrier* AC);
 
-    /// @brief Constructor (For 
-    GNEAllowDisallow(GNEViewNet* viewNet, std::string *allow, std::string *disallow);
+    /// @brief Constructor (For
+    GNEAllowDisallow(GNEViewNet* viewNet, std::string* allow, std::string* disallow);
 
     /// @brief destructor
     ~GNEAllowDisallow();
@@ -85,9 +85,9 @@ protected:
     /// @brief edited AC
     GNEAttributeCarrier* myAC;
 
-    std::string *myAllow;
+    std::string* myAllow;
 
-    std::string *myDisAllow;
+    std::string* myDisAllow;
 
     /// @brief select all VClass
     FXButton* mySelectAllVClassButton;

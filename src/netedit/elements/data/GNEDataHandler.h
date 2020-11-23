@@ -57,7 +57,7 @@ class GNEDataLoadDialog : protected FXDialogBox {
 
 public:
     /// @brief constructor
-    GNEDataLoadDialog(GNEViewNet *viewNet);
+    GNEDataLoadDialog(GNEViewNet* viewNet);
 
     /// @brief destructor
     ~GNEDataLoadDialog();
@@ -67,7 +67,7 @@ public:
 
 private:
     /// @brief pointer to viewNet
-    GNEViewNet *myViewNet;
+    GNEViewNet* myViewNet;
 
     /// @brief label
     FXLabel* myLabel;

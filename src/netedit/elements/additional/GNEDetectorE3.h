@@ -51,7 +51,7 @@ public:
     /**@brief get move operation for the given shapeOffset
     * @note returned GNEMoveOperation can be nullptr
     */
-    GNEMoveOperation* getMoveOperation(const double shapeOffset);    
+    GNEMoveOperation* getMoveOperation(const double shapeOffset);
 
     /// @name Functions related with geometry of element
     /// @{

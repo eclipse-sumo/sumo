@@ -68,7 +68,9 @@ NBLoadedTLDef::SignalGroup::setYellowTimes(SUMOTime tRedYellow, SUMOTime tYellow
 
 void
 NBLoadedTLDef::SignalGroup::sortPhases() {
-    std::sort(myPhases.begin(), myPhases.end(), [](const PhaseDef& p1, const PhaseDef& p2) { return p1.myTime < p2.myTime; });
+    std::sort(myPhases.begin(), myPhases.end(), [](const PhaseDef & p1, const PhaseDef & p2) {
+        return p1.myTime < p2.myTime;
+    });
 }
 
 

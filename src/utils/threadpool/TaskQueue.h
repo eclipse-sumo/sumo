@@ -26,19 +26,19 @@
 #include <queue>
 
 template <typename C>
-class TaskBase
-{
+class TaskBase {
 public:
     virtual ~TaskBase() = default;
     virtual void exec(const C& context) = 0;
 };
 
 template <typename T, typename C>
-class Task : public TaskBase<C>
-{
+class Task : public TaskBase<C> {
 public:
     Task(T&& t) : task(std::move(t)) {}
-    void exec(const C& context) override { task(context); }
+    void exec(const C& context) override {
+        task(context);
+    }
 
     T task;
 };
@@ -81,7 +81,7 @@ public:
     template <typename TaskT>
     auto push(TaskT&& task) -> std::future<decltype(task(std::declval<C>()))> {
         using PkgTask = std::packaged_task<decltype(task(std::declval<C>()))(C)>;
-        auto job = std::unique_ptr<Task<PkgTask,C>>(new Task<PkgTask,C>(PkgTask(std::forward<TaskT>(task))));
+        auto job = std::unique_ptr<Task<PkgTask, C>>(new Task<PkgTask, C>(PkgTask(std::forward<TaskT>(task))));
         auto future = job->task.get_future();
         {
             LockType lock{ myMutex };
@@ -112,7 +112,7 @@ public:
                 return future;
             }
             using PkgTask = std::packaged_task<decltype(task(std::declval<C>()))(C)>;
-            auto job = std::unique_ptr<Task<PkgTask,C>>(new Task<PkgTask,C>(PkgTask(std::forward<TaskT>(task))));
+            auto job = std::unique_ptr<Task<PkgTask, C>>(new Task<PkgTask, C>(PkgTask(std::forward<TaskT>(task))));
             future = job->task.get_future();
             success = true;
             myQueue.emplace(std::move(job));
@@ -123,8 +123,8 @@ public:
     }
 
 private:
-    TaskQueue(const TaskQueue &) = delete;
-    TaskQueue &operator=(const TaskQueue &) = delete;
+    TaskQueue(const TaskQueue&) = delete;
+    TaskQueue& operator=(const TaskQueue&) = delete;
 
     std::queue<TaskPtrType> myQueue;
     bool myEnabled = true;

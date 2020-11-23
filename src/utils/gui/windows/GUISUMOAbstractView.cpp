@@ -1195,12 +1195,12 @@ GUISUMOAbstractView::makeSnapshot(const std::string& destFile, const int w, cons
             glDisable(GL_BLEND);
             glEnable(GL_DEPTH_TEST);
             // draw decals (if not in grabbing mode)
-            
+
             drawDecals();
             if (myVisualizationSettings->showGrid) {
                 paintGLGrid();
             }
-            
+
             glLineWidth(1);
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             Boundary viewPort = myChanger->getViewport();

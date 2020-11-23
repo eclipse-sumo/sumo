@@ -169,7 +169,7 @@ GNEGenericData::getParameterWindow(GUIMainWindow& app, GUISUMOAbstractView& /* p
 }
 
 
-const std::map<std::string, std::string>& 
+const std::map<std::string, std::string>&
 GNEGenericData::getACParametersMap() const {
     return getParametersMap();
 }

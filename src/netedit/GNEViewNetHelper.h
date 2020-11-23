@@ -852,7 +852,7 @@ struct GNEViewNetHelper {
         Position calculateOffset() const;
 
         /// @brief calculate move operation for shape
-        bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector &shape, const double radius);
+        bool calculateMoveOperationShape(GNEMoveElement* moveElement, const PositionVector& shape, const double radius);
 
     private:
         /// @brief pointer to net
@@ -894,7 +894,7 @@ struct GNEViewNetHelper {
         void calculateJunctionSelection();
 
         /// @brief calculate edge selection
-        void calculateEdgeSelection(const GNEEdge *clickedEdge);
+        void calculateEdgeSelection(const GNEEdge* clickedEdge);
 
     private:
         /// @brief pointer to net
@@ -1224,19 +1224,19 @@ struct GNEViewNetHelper {
     /// @brief struct for pack all variables and functions related with Block Icon
     struct LockIcon {
         /// @brief draw lock icon
-        static void drawLockIcon(const GNEAttributeCarrier *AC, const GNEGeometry::Geometry &geometry,
-            const double exaggeration, const double offsetx, const double offsety, 
-            const bool overlane, const double size = 0.5);
+        static void drawLockIcon(const GNEAttributeCarrier* AC, const GNEGeometry::Geometry& geometry,
+                                 const double exaggeration, const double offsetx, const double offsety,
+                                 const bool overlane, const double size = 0.5);
 
     private:
         /// @brief constructor
         LockIcon();
 
         /// @brief check drawing
-        static bool checkDrawing(const GNEAttributeCarrier *AC, const double exaggeration);
+        static bool checkDrawing(const GNEAttributeCarrier* AC, const double exaggeration);
 
         /// @brief get lock icon
-        static GUIGlID getLockIcon(const GNEAttributeCarrier *AC);
+        static GUIGlID getLockIcon(const GNEAttributeCarrier* AC);
 
         /// @brief Invalidated assignment operator
         LockIcon& operator=(const LockIcon& other) = delete;

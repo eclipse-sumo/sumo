@@ -32,7 +32,7 @@
 
 GNERerouterSymbol::GNERerouterSymbol(GNEAdditional* rerouterParent, GNEEdge* edge) :
     GNEAdditional(rerouterParent->getNet(), GLO_REROUTER, GNE_TAG_REROUTER_SYMBOL, "", false,
-        {}, {edge}, {}, {rerouterParent}, {}, {}, {}, {}) {
+{}, {edge}, {}, {rerouterParent}, {}, {}, {}, {}) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -42,7 +42,7 @@ GNERerouterSymbol::~GNERerouterSymbol() {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNERerouterSymbol::getMoveOperation(const double /*shapeOffset*/) {
     // GNERerouterSymbols cannot be moved
     return nullptr;
@@ -71,7 +71,7 @@ GNERerouterSymbol::updateGeometry() {
 }
 
 
-void 
+void
 GNERerouterSymbol::updateCenteringBoundary(const bool /*updateGrid*/) {
     // just update geometry
     updateGeometry();
@@ -230,7 +230,7 @@ GNERerouterSymbol::setAttribute(SumoXMLAttr /*key*/, const std::string& /*value*
 }
 
 
-void 
+void
 GNERerouterSymbol::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }

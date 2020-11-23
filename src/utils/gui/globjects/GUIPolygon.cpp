@@ -189,7 +189,7 @@ GUIPolygon::setShape(const PositionVector& shape) {
 
 
 void
-GUIPolygon::performTesselation(const bool fill, const PositionVector &shape, const double lineWidth) {
+GUIPolygon::performTesselation(const bool fill, const PositionVector& shape, const double lineWidth) {
     if (fill) {
         // draw the tesselated shape
         double* points = new double[shape.size() * 3];
@@ -237,7 +237,7 @@ GUIPolygon::storeTesselation(const bool fill, const PositionVector& shape, doubl
 
 
 void
-GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o, bool disableSelectionColor) {
+GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o, bool disableSelectionColor) {
     const GUIColorer& c = s.polyColorer;
     const int active = c.getActive();
     if (s.netedit && active != 1 && gSelected.isSelected(GLO_POLYGON, o->getGlID()) && disableSelectionColor) {
@@ -254,7 +254,7 @@ GUIPolygon::setColor(const GUIVisualizationSettings& s, const SUMOPolygon* polyg
 
 
 bool
-GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o) {
+GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o) {
     if (s.polySize.getExaggeration(s, o) == 0) {
         return false;
     }
@@ -276,8 +276,8 @@ GUIPolygon::checkDraw(const GUIVisualizationSettings& s, const SUMOPolygon* poly
 
 
 void
-GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject *o, 
-    const PositionVector shape, double layer, bool disableSelectionColor) {
+GUIPolygon::drawInnerPolygon(const GUIVisualizationSettings& s, const SUMOPolygon* polygon, const GUIGlObject* o,
+                             const PositionVector shape, double layer, bool disableSelectionColor) {
     glPushMatrix();
     glTranslated(0, 0, layer);
     setColor(s, polygon, o, disableSelectionColor);

@@ -393,7 +393,9 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
                 for (MSLane* lane : dw.myBidi) {
                     if (!lane->isEmpty()) {
 #ifdef DEBUG_SIGNALSTATE
-                        if (DEBUG_HELPER(rs)) std::cout << " oncoming vehicle on bidi-lane " << lane->getID() << "\n";;
+                        if (DEBUG_HELPER(rs)) {
+                            std::cout << " oncoming vehicle on bidi-lane " << lane->getID() << "\n";
+                        };
 #endif
                         return true;
                     }
@@ -403,7 +405,9 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
                         MSVehicle* veh = lane->getFirstAnyVehicle();
                         if (std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
 #ifdef DEBUG_SIGNALSTATE
-                            if (DEBUG_HELPER(rs)) std::cout << " oncoming vehicle on flank-lane " << lane->getID() << "\n";;
+                            if (DEBUG_HELPER(rs)) {
+                                std::cout << " oncoming vehicle on flank-lane " << lane->getID() << "\n";
+                            };
 #endif
                             return true;
                         }
@@ -416,7 +420,9 @@ MSRailSignal::hasOncomingRailTraffic(MSLink* link) {
                         if (veh->getSpeed() > 0 && closest.second.arrivalSpeedBraking > 0
                                 && std::find(veh->getCurrentRouteEdge(), veh->getRoute().end(), bidi) != veh->getRoute().end()) {
 #ifdef DEBUG_SIGNALSTATE
-                            if (DEBUG_HELPER(rs)) std::cout << " oncoming vehicle approaching foe link " << foeLink->getDescription() << "\n";
+                            if (DEBUG_HELPER(rs)) {
+                                std::cout << " oncoming vehicle approaching foe link " << foeLink->getDescription() << "\n";
+                            }
 #endif
                             return true;
                         }
@@ -1379,12 +1385,12 @@ MSRailSignal::recheckGreen() {
                             rs->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
 #ifdef DEBUG_RECHECKGREEN
                             std::cout << SIMTIME << " reset to red " << getClickableTLLinkID(item.first)
-                                << " (" << veh.first->getID() << " yields to " << veh2.first->getID() << "\n";
+                                      << " (" << veh.first->getID() << " yields to " << veh2.first->getID() << "\n";
 #endif
 #ifdef DEBUG_SIGNALSTATE
                             if (DEBUG_HELPER(rs)) {
                                 std::cout << SIMTIME << " reset to red " << getClickableTLLinkID(item.first)
-                                    << " (" << veh.first->getID() << " yields to " << veh2.first->getID() << "\n";
+                                          << " (" << veh.first->getID() << " yields to " << veh2.first->getID() << "\n";
                             }
 #endif
                         } else {
@@ -1394,12 +1400,12 @@ MSRailSignal::recheckGreen() {
                             rs2->setTrafficLightSignals(MSNet::getInstance()->getCurrentTimeStep());
 #ifdef DEBUG_RECHECKGREEN
                             std::cout << SIMTIME << " reset to red " << getClickableTLLinkID(item2.first)
-                                << " (" << veh2.first->getID() << " yields to " << veh.first->getID() << "\n";
+                                      << " (" << veh2.first->getID() << " yields to " << veh.first->getID() << "\n";
 #endif
 #ifdef DEBUG_SIGNALSTATE
                             if (DEBUG_HELPER(rs2)) {
-                                    std::cout << SIMTIME << " reset to red " << getClickableTLLinkID(item2.first)
-                                    << " (" << veh2.first->getID() << " yields to " << veh.first->getID() << "\n";
+                                std::cout << SIMTIME << " reset to red " << getClickableTLLinkID(item2.first)
+                                          << " (" << veh2.first->getID() << " yields to " << veh.first->getID() << "\n";
                             }
 #endif
                         }

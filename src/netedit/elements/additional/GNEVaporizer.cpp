@@ -34,9 +34,9 @@
 
 GNEVaporizer::GNEVaporizer(GNENet* net, GNEEdge* edge, SUMOTime begin, SUMOTime end, const std::string& name) :
     GNEAdditional(edge->getID(), net, GLO_VAPORIZER, SUMO_TAG_VAPORIZER, name, false,
-        {}, {edge}, {}, {}, {}, {}, {}, {}),
-    myBegin(begin),
-    myEnd(end) {
+{}, {edge}, {}, {}, {}, {}, {}, {}),
+myBegin(begin),
+myEnd(end) {
     // update centering boundary without updating grid
     updateCenteringBoundary(false);
 }
@@ -46,7 +46,7 @@ GNEVaporizer::~GNEVaporizer() {
 }
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNEVaporizer::getMoveOperation(const double /*shapeOffset*/) {
     // vaporizers cannot be moved
     return nullptr;
@@ -60,7 +60,7 @@ GNEVaporizer::updateGeometry() {
 }
 
 
-void 
+void
 GNEVaporizer::updateCenteringBoundary(const bool /*updateGrid*/) {
     // update geometry
     updateGeometry();
@@ -298,13 +298,13 @@ GNEVaporizer::setAttribute(SumoXMLAttr key, const std::string& value) {
 }
 
 
-void 
+void
 GNEVaporizer::setMoveShape(const GNEMoveResult& /*moveResult*/) {
     // nothing to do
 }
 
 
-void 
+void
 GNEVaporizer::commitMoveShape(const GNEMoveResult& /*moveResult*/, GNEUndoList* /*undoList*/) {
     // nothing to do
 }

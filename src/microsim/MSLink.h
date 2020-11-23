@@ -480,7 +480,7 @@ public:
 
     /// @brief return the internalLaneBefore if it exists and the laneBefore otherwise
     inline const MSLane* getLaneBefore() const {
-        assert (myInternalLaneBefore == nullptr || myLaneBefore == myInternalLaneBefore); // lane before mismatch!
+        assert(myInternalLaneBefore == nullptr || myLaneBefore == myInternalLaneBefore);  // lane before mismatch!
         return myLaneBefore;
     }
 

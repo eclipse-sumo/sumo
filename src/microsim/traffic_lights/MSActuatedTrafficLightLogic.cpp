@@ -252,8 +252,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
 #ifdef DEBUG_DETECTORS
                 if (DEBUG_COND) {
                     std::cout << " phase=" << phaseIndex << " i=" << i << " state=" << state[i] << " green=" << greenLinks.count(i) << " oneLane=" << oneLane[i]
-                        << " turn=" << turnaround[i] << " loopLanes=";
-                    for (MSLane* lane: getLanesAt(i)) {
+                              << " turn=" << turnaround[i] << " loopLanes=";
+                    for (MSLane* lane : getLanesAt(i)) {
                         if (laneInductLoopMap.count(lane) != 0) {
                             std::cout << lane->getID() << " ";
                         }
@@ -309,7 +309,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 if (usable) {
                     loops.insert(item.first);
 #ifdef DEBUG_DETECTORS
-                    if (DEBUG_COND) std::cout << " phase=" << phaseIndex << " usableLoops=" << item.first->getID() << " links=" << joinToString(item.second, " ") << "\n";
+                    if (DEBUG_COND) {
+                        std::cout << " phase=" << phaseIndex << " usableLoops=" << item.first->getID() << " links=" << joinToString(item.second, " ") << "\n";
+                    }
 #endif
                     for (int j : item.second) {
                         linkToLoops[j].insert(item.first);

@@ -71,8 +71,8 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
 
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int _numLanes, double _speed, int _priority,
-    double _width, SVCPermissions _permissions, bool _oneWay, double _sideWalkWidth, 
-    double _bikeLaneWidth, double _widthResolution, double _maxWidth, double _minWidth) :
+        double _width, SVCPermissions _permissions, bool _oneWay, double _sideWalkWidth,
+        double _bikeLaneWidth, double _widthResolution, double _maxWidth, double _minWidth) :
     numLanes(_numLanes), speed(_speed), priority(_priority),
     permissions(_permissions),
     oneWay(_oneWay), discard(false),
@@ -138,19 +138,19 @@ NBTypeCont::insertLaneType(const std::string& edgeTypeID, double maxSpeed, SVCPe
 }
 
 
-int 
+int
 NBTypeCont::size() const {
     return (int)myEdgeTypes.size();
 }
 
 
-NBTypeCont::TypesCont::const_iterator 
+NBTypeCont::TypesCont::const_iterator
 NBTypeCont::begin() const {
     return myEdgeTypes.cbegin();
 }
 
 
-NBTypeCont::TypesCont::const_iterator 
+NBTypeCont::TypesCont::const_iterator
 NBTypeCont::end() const {
     return myEdgeTypes.cend();
 }
@@ -233,7 +233,7 @@ NBTypeCont::addLaneTypeRestriction(const std::string& id, const SUMOVehicleClass
 void
 NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
     // iterate over edge types
-    for (const auto &edgeType : myEdgeTypes) {
+    for (const auto& edgeType : myEdgeTypes) {
         // open edge type tag
         into.openTag(SUMO_TAG_TYPE);
         // write ID
@@ -275,7 +275,7 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
             into.writeAttr(SUMO_ATTR_BIKELANEWIDTH, edgeType.second.bikeLaneWidth);
         }
         // write restrictions
-        for (const auto &restriction : edgeType.second.restrictions) {
+        for (const auto& restriction : edgeType.second.restrictions) {
             // open restriction tag
             into.openTag(SUMO_TAG_RESTRICTION);
             // write vclass
@@ -286,7 +286,7 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
             into.closeTag();
         }
         // iterate over lanes
-        for (const auto &laneType : edgeType.second.laneTypeDefinitions) {
+        for (const auto& laneType : edgeType.second.laneTypeDefinitions) {
             // open lane type tag
             into.openTag(SUMO_TAG_LANETYPE);
             // write speed
@@ -302,7 +302,7 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
                 into.writeAttr(SUMO_ATTR_WIDTH, laneType.width);
             }
             // write restrictions
-            for (const auto &restriction : laneType.restrictions) {
+            for (const auto& restriction : laneType.restrictions) {
                 // open restriction tag
                 into.openTag(SUMO_TAG_RESTRICTION);
                 // write vclass

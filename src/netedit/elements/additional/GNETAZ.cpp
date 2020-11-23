@@ -42,15 +42,15 @@ const double GNETAZ::myHintSizeSquared = 0.64;
 
 GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColor color, bool blockMovement) :
     GNETAZElement(id, net, GLO_TAZ, SUMO_TAG_TAZ, blockMovement,
-        {}, {}, {}, {}, {}, {}, {}, {}),
-    SUMOPolygon(id, "", color, shape, false, false, 1),
-    myBlockShape(false),
-    myMaxWeightSource(0),
-    myMinWeightSource(0),
-    myAverageWeightSource(0),
-    myMaxWeightSink(0),
-    myMinWeightSink(0),
-    myAverageWeightSink(0) {
+{}, {}, {}, {}, {}, {}, {}, {}),
+SUMOPolygon(id, "", color, shape, false, false, 1),
+myBlockShape(false),
+myMaxWeightSource(0),
+myMinWeightSource(0),
+myAverageWeightSource(0),
+myMaxWeightSink(0),
+myMinWeightSink(0),
+myAverageWeightSink(0) {
     // update geometry
     updateGeometry();
 }
@@ -59,7 +59,7 @@ GNETAZ::GNETAZ(const std::string& id, GNENet* net, PositionVector shape, RGBColo
 GNETAZ::~GNETAZ() {}
 
 
-GNEMoveOperation* 
+GNEMoveOperation*
 GNETAZ::getMoveOperation(const double shapeOffset) {
     // edit depending if shape is blocked
     if (myBlockMovement) {
@@ -100,7 +100,7 @@ GNETAZ::getMoveOperation(const double shapeOffset) {
 }
 
 
-void 
+void
 GNETAZ::removeGeometryPoint(const Position clickedPosition, GNEUndoList* undoList) {
     // get original shape
     PositionVector shape = myShape;
@@ -564,7 +564,7 @@ GNETAZ::setMoveShape(const GNEMoveResult& moveResult) {
 }
 
 
-void 
+void
 GNETAZ::commitMoveShape(const GNEMoveResult& moveResult, GNEUndoList* undoList) {
     // commit new shape
     undoList->p_begin("moving " + toString(SUMO_ATTR_SHAPE) + " of " + getTagStr());
