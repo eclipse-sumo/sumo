@@ -41,6 +41,11 @@ public:
      */
     GNEEdgeType(GNENet* net);
 
+    /**@brief Constructor (parameters)
+     * @param[in] net The net to inform about gui updates
+     */
+    GNEEdgeType(GNENet* net, const NBTypeCont::EdgeTypeDefinition &edgeType);
+
     /// @brief Destructor.
     ~GNEEdgeType();
 
