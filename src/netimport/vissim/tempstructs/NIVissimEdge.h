@@ -71,10 +71,6 @@ public:
     /// Adds a connection where this edge is the source
     void addOutgoingConnection(int id);
 
-    /** @brief Returns the node at the given position
-        As this may be ambiguous, a second node not to return may be supplied */
-    NBNode* getNodeAt(const Position& p, NBNode* other = 0);
-
     /** Returns the begin position of the edge */
     Position getBegin2D() const;
 

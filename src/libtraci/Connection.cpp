@@ -77,7 +77,7 @@ Connection::close() {
     if (myProcessPipe != nullptr) {
         std::array<char, 128> buffer;
         std::stringstream result;
-        while (fgets(buffer.data(), buffer.size(), myProcessPipe) != nullptr) {
+        while (fgets(buffer.data(), (int)buffer.size(), myProcessPipe) != nullptr) {
             result << buffer.data();
         }
         std::string line;

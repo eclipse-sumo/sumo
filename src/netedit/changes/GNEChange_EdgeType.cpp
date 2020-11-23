@@ -39,7 +39,7 @@ FXIMPLEMENT_ABSTRACT(GNEChange_EdgeType, GNEChange, nullptr, 0)
 
 /// @brief constructor for creating an edgeType
 GNEChange_EdgeType::GNEChange_EdgeType(GNEEdgeType* edgeType, bool forward):
-    GNEChange(edgeType, forward),
+    GNEChange(edgeType, forward, edgeType->isAttributeCarrierSelected()),
     myEdgeType(edgeType) {
     edgeType->incRef("GNEChange_EdgeType");
 }

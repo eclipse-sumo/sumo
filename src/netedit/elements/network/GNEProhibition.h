@@ -28,3 +28,9 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class GNEProhibition
+ * @brief This object is responsible for drawing ...
+ */
+class GNEProhibition : public GNENetworkElement {
+};

@@ -29,7 +29,11 @@
 #include "Domain.h"
 
 // TODO remove the following line once the implementation is mature
+#ifdef _MSC_VER
+#pragma warning(disable: 4100)
+#else
 #pragma GCC diagnostic ignored "-Wunused-parameter"
+#endif
 
 namespace libtraci {
 

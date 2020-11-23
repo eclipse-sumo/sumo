@@ -63,9 +63,9 @@ GNEEdgeType::addLaneType(GNELaneType* laneType, const int position) {
     if (std::find(myLaneTypes.begin(), myLaneTypes.end(), laneType) != myLaneTypes.end()) {
         throw ProcessError("GNELaneType already inserted");
     } else {
-        if (position < 0 || position > myLaneTypes.size()) {
+        if (position < 0 || position > (int)myLaneTypes.size()) {
             throw ProcessError("invalid position");
-        } else if (position == myLaneTypes.size()) {
+        } else if (position == (int)myLaneTypes.size()) {
             myLaneTypes.push_back(laneType);
         } else {
             myLaneTypes.insert(myLaneTypes.begin() + position, laneType);
