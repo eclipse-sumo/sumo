@@ -1,0 +1,10 @@
+<routes>
+    <vType id="t0" sigma="0"/>
+    <route id="r0" edges="beg middle end"/>
+
+    <flow id="flowNumber" type="t0" route="r0" begin="0" end="40" number="5"/>
+    <flow id="flowFromTo" type="t0" from="beg" to="end" begin="0" end="20" number="2"/>
+    <flow id="flowPeriod" type="t0" route="r0" begin="5" end="55" number="10"/>
+    <flow id="flowProb" type="t0" route="r0" begin="20" end="100" probability="0.1"/>
+
+</routes>

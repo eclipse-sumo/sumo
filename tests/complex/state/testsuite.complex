@@ -30,6 +30,8 @@ flow
 
 # multique saved and loaded, tests also human readable time
 multique
+
+save_accel
 save_collision_stopped
 save_cyclic_stops
 save_flow

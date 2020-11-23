@@ -25,20 +25,12 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
 
-def compareXML(prefix, compare):
-    if prefix in compare:
-        off = int(compare[prefix])
-        lines = open(prefix + ".xml").readlines()
-        lines = lines[lines.index("-->\n"):]
-        lines2 = open(prefix + "2.xml").readlines()
-        lines2 = lines2[lines2.index("-->\n") + off:]
-        sys.stdout.write("".join(sumolib.fpdiff.diff(lines, lines2, 0.01)))
-
-
 compare = []
 if '--compare' in sys.argv:
     cmpIdx = sys.argv.index('--compare')
-    compare = dict(c.split(":") for c in sys.argv[cmpIdx + 1].split(","))
+    for c in sys.argv[cmpIdx + 1].split(","):
+        entry = c.split(":") + [0, 0]
+        compare.append((entry[0], int(entry[1]), int(entry[2])))
     del sys.argv[cmpIdx:cmpIdx + 2]
 idx = sys.argv.index(":")
 saveParams = sys.argv[1:idx]
@@ -66,13 +58,20 @@ subprocess.call([sumoBinary] + loadParams,
 if compare:
     for f in (saveOut, loadOut, saveErr, loadErr):
         f.flush()
-    if "stdout" in compare:
-        sys.stdout.write(open(saveOut.name).read())
-        loadLines = open(loadOut.name).readlines()[int(compare["stdout"]):]
-        sys.stdout.write("".join(sumolib.fpdiff.fpfilter(open(saveOut.name).readlines(), loadLines, 0.01)))
-    if "stderr" in compare:
-        sys.stderr.write(open(saveErr.name).read())
-        loadLines = open(loadErr.name).readlines()[int(compare["stderr"]):]
-        sys.stderr.write("".join(sumolib.fpdiff.fpfilter(open(saveErr.name).readlines(), loadLines, 0.01)))
-    compareXML("tripinfo", compare)
-    compareXML("stopinfos", compare)
+    for fileType, offsetSave, offsetLoad in compare:
+        if fileType == "stdout":
+            sys.stdout.write(open(saveOut.name).read())
+            saveLines = open(saveOut.name).readlines()[offsetSave:]
+            loadLines = open(loadOut.name).readlines()[offsetLoad:]
+            sys.stdout.write("".join(sumolib.fpdiff.diff(saveLines, loadLines, 0.01)))
+        elif fileType == "stderr":
+            sys.stderr.write(open(saveErr.name).read())
+            saveLines = open(saveErr.name).readlines()[offsetSave:]
+            loadLines = open(loadErr.name).readlines()[offsetLoad:]
+            sys.stderr.write("".join(sumolib.fpdiff.diff(saveLines, loadLines, 0.01)))
+        else:
+            saveLines = open(fileType + ".xml").readlines()
+            saveLines = saveLines[saveLines.index("-->\n") + offsetSave:]
+            loadLines = open(fileType + "2.xml").readlines()
+            loadLines = loadLines[loadLines.index("-->\n") + offsetLoad:]
+            sys.stdout.write("".join(sumolib.fpdiff.diff(saveLines, loadLines, 0.01)))
