@@ -29,12 +29,12 @@ class JunctionDomain(Domain):
                         tc.CMD_SUBSCRIBE_JUNCTION_VARIABLE, tc.RESPONSE_SUBSCRIBE_JUNCTION_VARIABLE,
                         tc.CMD_SUBSCRIBE_JUNCTION_CONTEXT, tc.RESPONSE_SUBSCRIBE_JUNCTION_CONTEXT)
 
-    def getPosition(self, junctionID):
-        """getPosition(string) -> (double, double)
+    def getPosition(self, junctionID, includeZ=False):
+        """getPosition(string, bool) -> (double, double) or (double, double, double)
 
         Returns the coordinates of the center of the junction.
         """
-        return self._getUniversal(tc.VAR_POSITION, junctionID)
+        return self._getUniversal(tc.VAR_POSITION3D if includeZ else tc.VAR_POSITION, junctionID)
 
     def getShape(self, junctionID):
         """getShape(string) -> list((double, double))
