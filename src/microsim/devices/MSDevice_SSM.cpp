@@ -2099,8 +2099,10 @@ MSDevice_SSM::classifyEncounter(const FoeInfo* foeInfo, EncounterApproachInfo& e
                     // Both must be already on the junction in a lead / follow situation on a connection
                     // (since they approach via the same link, findSurroundingVehicles() would have determined a
                     // different conflictLane if both are not on the junction)
-                    assert(egoLane == egoConflictLane);
-                    assert(foeLane == foeConflictLane);
+                    if (egoLane != egoConflictLane || foeLane != foeConflictLane) {
+                        WRITE_WARNINGF("Cannot classify SSM encounter between ego vehicle % and foe vehicle % at time %\n", e->ego->getID(), e->foe->getID(), SIMTIME);
+                        return ENCOUNTER_TYPE_NOCONFLICT_AHEAD;
+                    }
                     if (egoLane == foeLane) {
                         // both on the same internal lane
                         if (e->ego->getPositionOnLane() > e->foe->getPositionOnLane()) {
