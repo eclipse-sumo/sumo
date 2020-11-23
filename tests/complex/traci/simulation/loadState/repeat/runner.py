@@ -35,6 +35,7 @@ traci.start([sumolib.checkBinary('sumo'), "-n", "input_net2.net.xml",
 
 for i in range(5):
     traci.simulation.loadState("input_state.xml")
+    print(traci.vehicle.getAcceleration("trip_0"))
     for i in range(10):
         traci.simulationStep()
 
