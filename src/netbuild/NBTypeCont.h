@@ -208,6 +208,12 @@ public:
      */
     void removeEdgeType(const std::string& id);
 
+    /**@brief change edge type ID
+    * @param[in] oldID The old id of the edgeType
+    * @param[in] newID The new id of the edgeType
+    */
+    void updateEdgeTypeID(const std::string& oldId, const std::string& newId);
+
     /// @brief return begin iterator
     TypesCont::const_iterator begin() const;
 

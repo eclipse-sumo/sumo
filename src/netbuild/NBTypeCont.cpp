@@ -140,11 +140,11 @@ NBTypeCont::insertEdgeType(const std::string& id, int numLanes, double maxSpeed,
 void 
 NBTypeCont::insertEdgeType(const std::string& id, EdgeTypeDefinition* edgeType) {
     // check if edgeType already exist in types
-    TypesCont::iterator old = myEdgeTypes.find(id);
+    const auto it = myEdgeTypes.find(id);
     // if exists, then update restrictions and attributes
-    if (old != myEdgeTypes.end()) {
-        edgeType->restrictions.insert(old->second->restrictions.begin(), old->second->restrictions.end());
-        edgeType->attrs.insert(old->second->attrs.begin(), old->second->attrs.end());
+    if (it != myEdgeTypes.end()) {
+        edgeType->restrictions.insert(it->second->restrictions.begin(), it->second->restrictions.end());
+        edgeType->attrs.insert(it->second->attrs.begin(), it->second->attrs.end());
     }
     // insert it in types
     myEdgeTypes[id] = edgeType;
@@ -168,7 +168,32 @@ NBTypeCont::size() const {
 
 void 
 NBTypeCont::removeEdgeType(const std::string& id) {
-    //
+    // check if edgeType already exist in types
+    const auto it = myEdgeTypes.find(id);
+    // if exists, then remove it
+    if (it != myEdgeTypes.end()) {
+        // delete edgetype
+        delete it->second;
+        // remove it from map
+        myEdgeTypes.erase(it);
+    }
+}
+
+
+void 
+NBTypeCont::updateEdgeTypeID(const std::string& oldId, const std::string& newId) {
+    // check if edgeType already exist in types
+    const auto oldIt = myEdgeTypes.find(oldId);
+    const auto newIt = myEdgeTypes.find(newId);
+    // if exists, then remove it
+    if ((oldIt != myEdgeTypes.end()) && (newIt == myEdgeTypes.end())) {
+        // obtain pointer
+        auto edgeType = oldIt->second;
+        // remove it from map
+        myEdgeTypes.erase(oldIt);
+        // add it again
+        myEdgeTypes[newId] = edgeType;
+    }
 }
 
 
