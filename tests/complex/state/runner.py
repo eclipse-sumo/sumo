@@ -25,12 +25,18 @@ sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
 
 
+redirectStdout = False
+redirectStderr = False
 compare = []
 if '--compare' in sys.argv:
     cmpIdx = sys.argv.index('--compare')
     for c in sys.argv[cmpIdx + 1].split(","):
         entry = c.split(":") + [0, 0]
         compare.append((entry[0], int(entry[1]), int(entry[2])))
+        if entry[0] == "stdout":
+            redirectStdout = True
+        if entry[0] == "stderr":
+            redirectStderr = True
     del sys.argv[cmpIdx:cmpIdx + 2]
 idx = sys.argv.index(":")
 saveParams = sys.argv[1:idx]
@@ -47,10 +53,10 @@ loadParams = [p for p in loadParams if 'runner.py' not in p]
 # print("load:", loadParams)
 
 sumoBinary = sumolib.checkBinary("sumo")
-saveOut = open("save.out", "w") if "stdout" in compare else sys.stdout
-loadOut = open("load.out", "w") if "stdout" in compare else sys.stdout
-saveErr = open("save.err", "w") if "stderr" in compare else sys.stderr
-loadErr = open("load.err", "w") if "stderr" in compare else sys.stderr
+saveOut = open("save.out", "w") if redirectStdout else sys.stdout
+loadOut = open("load.out", "w") if redirectStdout else sys.stdout
+saveErr = open("save.err", "w") if redirectStderr else sys.stderr
+loadErr = open("load.err", "w") if redirectStderr else sys.stderr
 subprocess.call([sumoBinary] + saveParams,
                 shell=(os.name == "nt"), stdout=saveOut, stderr=saveErr)
 subprocess.call([sumoBinary] + loadParams,

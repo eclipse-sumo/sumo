@@ -37,6 +37,7 @@ for i in range(5):
     traci.simulation.loadState("input_state.xml")
     print(traci.vehicle.getAcceleration("trip_0"))
     print(traci.vehicle.getDistance("trip_0"))
+    print(traci.vehicle.getAccumulatedWaitingTime("trip_0"))
     for i in range(10):
         traci.simulationStep()
 
