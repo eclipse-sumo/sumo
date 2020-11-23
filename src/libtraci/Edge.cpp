@@ -194,12 +194,6 @@ Edge::setDisallowedVehicleClasses(const std::string& edgeID, std::vector<std::st
 
 
 void
-Edge::setAllowedSVCPermissions(const std::string& edgeID, int permissions) {
-	// TODO
-}
-
-
-void
 Edge::adaptTraveltime(const std::string& edgeID, double time, double beginSeconds, double endSeconds) {
 	tcpip::Storage content;
 	content.writeByte(libsumo::TYPE_COMPOUND);

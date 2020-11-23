@@ -444,7 +444,7 @@ GNECreateEdgeFrame::LaneParameters::onCmdOpenAttributeDialog(FXObject*, FXSelect
 
 
 void 
-GNECreateEdgeFrame::LaneParameters::fillDefaultParameters(int laneIndex) {
+GNECreateEdgeFrame::LaneParameters::fillDefaultParameters(int /* laneIndex */) {
     // set speed
     mySpeed->setText("13.89");
     // set allow

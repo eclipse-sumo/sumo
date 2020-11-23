@@ -135,7 +135,7 @@ Helper::debugPrint(const SUMOTrafficObject* veh) {
 
 void
 Helper::subscribe(const int commandId, const std::string& id, const std::vector<int>& variables,
-                  const double beginTime, const double endTime, const libsumo::TraCIResults& params,
+                  const double beginTime, const double endTime, const libsumo::TraCIResults& /* params */,
                   const int contextDomain, const double range) {
     myLastContextSubscription = nullptr;
     if (variables.empty()) {
