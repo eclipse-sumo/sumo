@@ -531,11 +531,8 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
     // remove from edge types
     myEdgeTypes.erase(edgeType->getMicrosimID());
-    // extract it from 
-    /*
-    // extract edgeType of district container
-    myNet->getNetBuilder()->getEdgeTypeCont().extract(myNet->getNetBuilder()->getDistrictCont(), edgeType->getNBEdgeType());
-    */
+    // extract it from typeCont (but DON'T delete)
+    myNet->getNetBuilder()->getTypeCont().removeEdgeType(edgeType->getMicrosimID());
 }
 
 
@@ -550,10 +547,8 @@ GNENetHelper::AttributeCarriers::updateEdgeTypeID(GNEAttributeCarrier* AC, const
         GNEEdgeType* edgeType = myEdgeTypes.at(AC->getID());
         // remove edgeType from container
         myEdgeTypes.erase(edgeType->getID());
-        /*
-                // rename in NetBuilder
-                myNet->getNetBuilder()->getEdgeTypeCont().rename(edgeType->getNBEdgeType(), newID);
-        */
+        // rename in typeCont
+        myNet->getNetBuilder()->getTypeCont().updateEdgeTypeID(edgeType->getID(), newID);
         // update microsim ID
         edgeType->setMicrosimID(newID);
         // add it into myEdgeTypes again

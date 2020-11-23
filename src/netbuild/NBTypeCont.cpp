@@ -172,8 +172,6 @@ NBTypeCont::removeEdgeType(const std::string& id) {
     const auto it = myEdgeTypes.find(id);
     // if exists, then remove it
     if (it != myEdgeTypes.end()) {
-        // delete edgetype
-        delete it->second;
         // remove it from map
         myEdgeTypes.erase(it);
     }
