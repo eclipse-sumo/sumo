@@ -15,6 +15,7 @@
 # @author  Michael Behrisch
 # @date    2014-08-26
 
+
 def _getNumberAt(l, pos):
     start = pos
     eSeen = False
@@ -49,9 +50,9 @@ def _fpequalAtPos(l1, l2, tolerance, relTolerance, pos):
     try:
         equal = False
         deviation = abs(float(number1) - float(number2))
-        if tolerance != None and deviation <= tolerance:
+        if tolerance is not None and deviation <= tolerance:
             equal = True
-        elif relTolerance != None:
+        elif relTolerance is not None:
             referenceValue = abs(float(number1))
             if referenceValue == 0:
                 equal = (deviation == 0)

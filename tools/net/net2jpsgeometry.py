@@ -40,9 +40,12 @@ def parse_args():
     argParser = sumolib.options.ArgumentParser(usage=USAGE)
     argParser.add_argument("-n", "--net-file", dest="netFile", help="The .net.xml file to convert")
     # see https://sumo.dlr.de/docs/sumo-gui.html#selecting_objects
-    argParser.add_argument("-s", "--selected-objects-file", dest="selectedObjectsFile", help="The txt file including the line-by-line list of objects to select")
-    argParser.add_argument("-o", "--output-file", dest="outFile", help="The JuPedSim dxf output file name")
-    argParser.add_argument("-d", "--debug", action="store_true", default=True, help="Export outer borders and handoff lines to debug file")
+    argParser.add_argument("-s", "--selected-objects-file", dest="selectedObjectsFile",
+                           help="The txt file including the line-by-line list of objects to select")
+    argParser.add_argument("-o", "--output-file", dest="outFile",
+                           help="The JuPedSim dxf output file name")
+    argParser.add_argument("-d", "--debug", action="store_true", default=True,
+                           help="Export outer borders and handoff lines to debug file")
 
     options = argParser.parse_args()
     if not options.netFile or not options.selectedObjectsFile:
@@ -77,7 +80,8 @@ def addLaneToPolygons(lane, polygons):
         return
 
     polyShape = calculateBoundingPolygon(lane.getShape(includeJunctions=False), lane.getWidth())
-    polygon = sumolib.shapes.polygon.Polygon(id=lane.getID(), type=JPS_POLYGON_TYPE_NAME, color=JPS_POLYGON_COLOR, shape=polyShape)
+    polygon = sumolib.shapes.polygon.Polygon(id=lane.getID(), type=JPS_POLYGON_TYPE_NAME,
+                                             color=JPS_POLYGON_COLOR, shape=polyShape)
     if not isDuplicate(polygon, polygons):
         polygons.append(polygon)
     return
@@ -86,7 +90,8 @@ def addLaneToPolygons(lane, polygons):
 def addNodeToPolygons(node, polygons):
     polyShape = node.getShape()
     polyShape.append(polyShape[0])
-    polygon = sumolib.shapes.polygon.Polygon(id=node.getID(), type=JPS_POLYGON_TYPE_NAME, color=JPS_POLYGON_COLOR, shape=polyShape)
+    polygon = sumolib.shapes.polygon.Polygon(id=node.getID(), type=JPS_POLYGON_TYPE_NAME,
+                                             color=JPS_POLYGON_COLOR, shape=polyShape)
     if not isDuplicate(polygon, polygons):
         polygons.append(polygon)
     return

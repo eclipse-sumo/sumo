@@ -83,7 +83,8 @@ def get_options(args=None):
     parser.add_argument("-l", "--limit", type=int, default=0,
                         help="Increases the limit value for tracking passed vehicles by the given amount")
     parser.add_argument("--abort-unordered", dest="abortUnordered", action="store_true", default=False,
-                        help="Abort generation of constraints for a stop once the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
+                        help="Abort generation of constraints for a stop "
+                        "once the ordering of vehicles by 'arrival' differs from the ordering by 'until'")
     parser.add_argument("-p", "--ignore-parking", dest="ignoreParking", action="store_true", default=False,
                         help="Ignore unordered timing if the vehicle which arrives first is parking")
     parser.add_argument("-P", "--skip-parking", dest="skipParking", action="store_true", default=False,
@@ -351,25 +352,26 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                     print(pSignal, nSignal, pStop, nStop)
                 if pSignal != nSignal and pSignal is not None and nSignal is not None:
                     if (ignore or (options.abortUnordered
-                            and pStop.hasAttribute("until")
-                            and nStop.hasAttribute("until")
-                            and (not options.ignoreParking or not
-                                parseBool(pStop.getAttributeSecure("parking", "false")))
-                            and parseTime(pStop.until) > parseTime(nStop.until))):
+                                   and pStop.hasAttribute("until")
+                                   and nStop.hasAttribute("until")
+                                   and (not options.ignoreParking or not
+                                        parseBool(pStop.getAttributeSecure("parking", "false")))
+                                   and parseTime(pStop.until) > parseTime(nStop.until))):
                         numIgnoredConflicts += 1
                         numIgnoredSwitchConflicts += 1
                         # ignore conflict and any that follow
                         if not ignore:
-                            print("Found inconsistent times at stop %s for vehicle %s (%s, %s) and vehicle %s (%s, %s)" % (
-                                        busStop,
-                                        pStop.vehID,
-                                        humanReadableTime(pArrival),
-                                        humanReadableTime(parseTime(pStop.until)),
-                                        nStop.vehID,
-                                        humanReadableTime(nArrival),
-                                        humanReadableTime(parseTime(nStop.until))),
-                                    file=sys.stderr)
-                            #ignoredVehicles.insert(pStop.vehID)
+                            print("Found inconsistent times at stop %s "
+                                  "for vehicle %s (%s, %s) and vehicle %s (%s, %s)" % (
+                                      busStop,
+                                      pStop.vehID,
+                                      humanReadableTime(pArrival),
+                                      humanReadableTime(parseTime(pStop.until)),
+                                      nStop.vehID,
+                                      humanReadableTime(nArrival),
+                                      humanReadableTime(parseTime(nStop.until))),
+                                  file=sys.stderr)
+                            # ignoredVehicles.insert(pStop.vehID)
                             ignoredVehicles.add(nStop.vehID)
                         ignore = True
                         continue
@@ -380,14 +382,14 @@ def findConflicts(options, switchRoutes, mergeSignals, signalTimes):
                         continue
                     if options.skipParking and parseBool(nStop.getAttributeSecure("parking", "false")):
                         print("ignoring stop at %s for parking vehicle %s (%s, %s)" % (
-                            busStop, nStop.vehID, humanReadableTime(nArrival), 
+                            busStop, nStop.vehID, humanReadableTime(nArrival),
                             (humanReadableTime(parseTime(nStop.until)) if nStop.hasAttribute("until") else "-")))
                         numIgnoredConflicts += 1
                         numIgnoredSwitchConflicts += 1
                         continue
                     if options.skipParking and parseBool(pStop.getAttributeSecure("parking", "false")):
                         print("ignoring stop at %s for %s (%s, %s) after parking vehicle %s (%s, %s)" % (
-                            busStop, nStop.vehID, humanReadableTime(nArrival), 
+                            busStop, nStop.vehID, humanReadableTime(nArrival),
                             (humanReadableTime(parseTime(nStop.until)) if nStop.hasAttribute("until") else "-"),
                             pStop.vehID, humanReadableTime(pArrival),
                             (humanReadableTime(parseTime(pStop.until)) if pStop.hasAttribute("until") else "-")))
@@ -501,24 +503,25 @@ def findInsertionConflicts(options, net, stopEdges, stopRoutes, vehicleStopRoute
                                 continue
                         # check for inconsistent ordering
                         if (ignore or (options.abortUnordered
-                                and pStop.hasAttribute("arrival")
-                                and nStop.hasAttribute("arrival")
-                                and (not options.ignoreParking or not
-                                    parseBool(nStop.getAttributeSecure("parking", "false")))
-                                and parseTime(pStop.arrival) > parseTime(nStop.arrival))):
+                                       and pStop.hasAttribute("arrival")
+                                       and nStop.hasAttribute("arrival")
+                                       and (not options.ignoreParking or not
+                                            parseBool(nStop.getAttributeSecure("parking", "false")))
+                                       and parseTime(pStop.arrival) > parseTime(nStop.arrival))):
                             numIgnoredConflicts += 1
                             # ignore conflict and any that follow
                             if not ignore:
                                 # sort output by arrival again
-                                print("Found inconsistent times at stop %s for vehicle %s (%s, %s) and vehicle %s (%s, %s)" % (
-                                    busStop,
-                                    nStop.vehID,
-                                    humanReadableTime(parseTime(nStop.arrival)),
-                                    humanReadableTime(nUntil),
-                                    pStop.vehID,
-                                    humanReadableTime(parseTime(pStop.arrival)),
-                                    humanReadableTime(pUntil)),
-                                    file=sys.stderr)
+                                print("Found inconsistent times at stop %s "
+                                      "for vehicle %s (%s, %s) and vehicle %s (%s, %s)" % (
+                                          busStop,
+                                          nStop.vehID,
+                                          humanReadableTime(parseTime(nStop.arrival)),
+                                          humanReadableTime(nUntil),
+                                          pStop.vehID,
+                                          humanReadableTime(parseTime(pStop.arrival)),
+                                          humanReadableTime(pUntil)),
+                                      file=sys.stderr)
                             ignore = True
                             continue
                         # predecessor tripId after stop is needed

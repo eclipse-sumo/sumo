@@ -165,7 +165,7 @@ for p in [
             skip = False
             appOptions = []
             optFiles = optionsFiles[app] + ([] if variant == app else optionsFiles[variant])
-            for f in sorted(optFiles, key=lambda o:o.count(os.sep)):
+            for f in sorted(optFiles, key=lambda o: o.count(os.sep)):
                 for o in shlex.split(open(f).read()):
                     if skip:
                         skip = False

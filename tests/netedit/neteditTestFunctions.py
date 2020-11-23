@@ -28,8 +28,8 @@ import time
 import pyperclip
 
 # define delay before every operation
-DELAY_KEY = 0.4 #0.2
-DELAY_KEY_TAB = 0.3 #0.1
+DELAY_KEY = 0.4  # 0.2
+DELAY_KEY_TAB = 0.3  # 0.1
 DELAY_MOVE = 0.1
 DELAY_MOUSE = 0.5
 DELAY_QUESTION = 3
@@ -266,7 +266,8 @@ def leftClickAltShift(referencePosition, positionx, positiony):
     # click over position
     pyautogui.click(button='left')
     # show debug
-    print("TestFunctions: Clicked with alt and shift key pressed over position", clickedPosition[0], '-', clickedPosition[1])
+    print("TestFunctions: Clicked with alt and shift key pressed over position",
+          clickedPosition[0], '-', clickedPosition[1])
     # Release alt key
     pyautogui.keyUp('alt')
     # Release shift key
@@ -325,7 +326,7 @@ def Popen(extraParameters, debugInformation):
     if os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml")):
         neteditCall += ['-r',
                         os.path.join(_TEXTTEST_SANDBOX, "input_vtypes.rou.xml,input_routes.rou.xml")]
-                        
+
     elif os.path.exists(os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")):
         neteditCall += ['-r',
                         os.path.join(_TEXTTEST_SANDBOX, "input_routes.rou.xml")]
@@ -397,7 +398,7 @@ def getReferenceMatch(neProcess, waitTime):
         time.sleep(DELAY_MOVE)
         # click over position (used to center view in window)
         pyautogui.click(button='left')
-        #return reference position
+        # return reference position
         return referencePosition
     # reference not found, then kill netedit process
     neProcess.kill()
@@ -1756,8 +1757,8 @@ def selectionApply():
     typeSpace()
     # wait for gl debug
     time.sleep(DELAY_SELECT)
-    
-    
+
+
 def selectionClear():
     """
     @brief clear selection
