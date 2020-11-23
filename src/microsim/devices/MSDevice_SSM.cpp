@@ -472,8 +472,9 @@ MSDevice_SSM::computeGlobalMeasures() {
             leader = myHolderMS->getLeader(leaderSearchDist);
         }
 
+        // negative gap indicates theoretical car-following relationship for paths that cross at an intersection
         if (myComputeSGAP) {
-            if (leader.first == nullptr) {
+            if (leader.first == nullptr || leader.second < 0) {
                 mySGAPspan.push_back(INVALID_DOUBLE);
             } else {
                 double sgap = leader.second + myHolder.getVehicleType().getMinGap();
@@ -485,7 +486,7 @@ MSDevice_SSM::computeGlobalMeasures() {
         }
 
         if (myComputeTGAP) {
-            if (leader.first == nullptr || myHolderMS->getSpeed() == 0.) {
+            if (leader.first == nullptr || myHolderMS->getSpeed() == 0. || leader.second < 0) {
                 myTGAPspan.push_back(INVALID_DOUBLE);
             } else {
                 const double tgap = (leader.second + myHolder.getVehicleType().getMinGap()) / myHolderMS->getSpeed();
