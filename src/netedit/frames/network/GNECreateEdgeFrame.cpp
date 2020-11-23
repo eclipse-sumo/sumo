@@ -45,6 +45,7 @@ FXDEFMAP(GNECreateEdgeFrame::EdgeSelector) EdgeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE,        GNECreateEdgeFrame::EdgeSelector::onCmdAddEdgeType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE,     GNECreateEdgeFrame::EdgeSelector::onCmdDeleteEdgeType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTEDGETYPE,     GNECreateEdgeFrame::EdgeSelector::onCmdSelectEdgeType),
 };
 
 FXDEFMAP(GNECreateEdgeFrame::EdgeParameters) EdgeParametersMap[] = {
@@ -81,7 +82,7 @@ GNECreateEdgeFrame::EdgeSelector::EdgeSelector(GNECreateEdgeFrame* createEdgeFra
     myUseCustomEdge = new FXRadioButton(this, 
         "Use edgeType/template", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
     // edge types combo box
-    myEdgeTypesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    myEdgeTypesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_CREATEEDGEFRAME_SELECTEDGETYPE, GUIDesignComboBoxAttribute);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameNewSaveDelete = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create new edge type button
@@ -102,7 +103,7 @@ void
 GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
     // get template editor
     const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
-    // get
+    // get edge types
     const auto& edgeTypes = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdgeTypes();
     // check if there is template
     if (templateEditor->hasTemplate() || (edgeTypes.size() > 0)) {
@@ -213,6 +214,38 @@ GNECreateEdgeFrame::EdgeSelector::onCmdAddEdgeType(FXObject*, FXSelector, void*)
 
 long
 GNECreateEdgeFrame::EdgeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector, void*) {
+    return 0;
+}
+
+
+long 
+GNECreateEdgeFrame::EdgeSelector::onCmdSelectEdgeType(FXObject*, FXSelector, void*) {
+    // get template editor
+    const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
+    // get edge types
+    const auto& edgeTypes = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdgeTypes();
+    // check if we selected template
+    if (templateEditor->hasTemplate() && myEdgeTypesComboBox->getCurrentItem() == 0) {
+        // set valid color
+        myEdgeTypesComboBox->setTextColor(FXRGB(0, 0, 0));
+        myEdgeTypesComboBox->killFocus();
+        // show parameter fields
+        myCreateEdgeFrameParent->myEdgeParameters->showEdgeParameters();
+        myCreateEdgeFrameParent->myLaneParameters->showLaneParameters();
+    } else if (edgeTypes.count(myEdgeTypesComboBox->getText().text()) > 0) {
+        // set valid color
+        myEdgeTypesComboBox->setTextColor(FXRGB(0, 0, 0));
+        myEdgeTypesComboBox->killFocus();
+        // show parameter fields
+        myCreateEdgeFrameParent->myEdgeParameters->showEdgeParameters();
+        myCreateEdgeFrameParent->myLaneParameters->showLaneParameters();
+    } else {
+        // set invalid color
+        myEdgeTypesComboBox->setTextColor(FXRGB(255, 0, 0));
+        // hide parameter fields
+        myCreateEdgeFrameParent->myEdgeParameters->hideEdgeParameters();
+        myCreateEdgeFrameParent->myLaneParameters->hideLaneParameters();
+    }
     return 0;
 }
 

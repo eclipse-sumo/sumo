@@ -841,6 +841,8 @@ enum {
     MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE,
     /// @brief delete edge type
     MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE,
+    /// @brief select edge type
+    MID_GNE_CREATEEDGEFRAME_SELECTEDGETYPE,
 
     /// @}
 

@@ -65,6 +65,9 @@ public:
         /// @brief Called when the user press button for delete edge type
         long onCmdDeleteEdgeType(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user press select an edgeType in comboBox
+        long onCmdSelectEdgeType(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
