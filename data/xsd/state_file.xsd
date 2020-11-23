@@ -22,6 +22,7 @@
             </xsd:choice>
             <xsd:attribute name="version" type="xsd:string"/>
             <xsd:attribute name="time" type="timeType"/>
+            <xsd:attribute name="type" type="xsd:string"/>
         </xsd:complexType>
     </xsd:element>
 
@@ -102,6 +103,7 @@
         <xsd:attribute name="speed" type="xsd:string"/>
         <xsd:attribute name="speedFactor" type="nonNegativeFloatType"/>
         <xsd:attribute name="waitingTime" type="xsd:string"/>
+        <xsd:attribute name="distance" type="xsd:string" use="required"/>
         <xsd:attribute name="state" type="xsd:string" use="required"/>
     </xsd:complexType>
 

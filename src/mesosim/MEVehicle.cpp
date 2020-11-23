@@ -475,6 +475,8 @@ MEVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     if (myBlockTime != SUMOTime_MAX) {
         myBlockTime -= offset;
     }
+    std::istringstream dis(attrs.getString(SUMO_ATTR_DISTANCE));
+    dis >> myOdometer >> myNumberReroutes;
 }
 
 

@@ -752,6 +752,9 @@ MSBaseVehicle::saveState(OutputDevice& out) {
     myParameter->write(out, OptionsCont::getOptions(), SUMO_TAG_VEHICLE, getVehicleType().getID());
     // params and stops must be written in child classes since they may wish to add additional attributes first
     out.writeAttr(SUMO_ATTR_ROUTE, myRoute->getID());
+    std::ostringstream os;
+    os << myOdometer << " " << myNumberReroutes;
+    out.writeAttr(SUMO_ATTR_DISTANCE, os.str());
     if (!myParameter->wasSet(VEHPARS_SPEEDFACTOR_SET)) {
         out.writeAttr(SUMO_ATTR_SPEEDFACTOR, myChosenSpeedFactor);
     }

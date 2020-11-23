@@ -81,7 +81,7 @@ MSStateHandler::saveState(const std::string& file, SUMOTime step) {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeHeader<MSEdge>(SUMO_TAG_SNAPSHOT);
     out.writeAttr("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance").writeAttr("xsi:noNamespaceSchemaLocation", "http://sumo.dlr.de/xsd/state_file.xsd");
-    out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING).writeAttr(SUMO_ATTR_TIME, time2string(step));
+    out.writeAttr(SUMO_ATTR_VERSION, VERSION_STRING).writeAttr(SUMO_ATTR_TIME, time2string(step)).writeAttr(SUMO_ATTR_TYPE, MSGlobals::gUseMesoSim ? "meso" : "micro");
     if (OptionsCont::getOptions().getBool("save-state.rng")) {
         saveRNGs(out);
     }
@@ -336,7 +336,7 @@ MSStateHandler::myEndElement(int element) {
 
 void
 MSStateHandler::closeVehicle() {
-    assert(myVehicleParameter != 0);
+    assert(myVehicleParameter != nullptr);
     myVehicleParameter->depart -= myOffset;
     // the vehicle was already counted in MSVehicleControl::setState
     MSVehicleControl& vc = MSNet::getInstance()->getVehicleControl();

@@ -6388,6 +6388,8 @@ MSVehicle::loadState(const SUMOSAXAttributes& attrs, const SUMOTime offset) {
     std::istringstream sis(attrs.getString(SUMO_ATTR_SPEED));
     sis >> myState.mySpeed >> myState.myPreviousSpeed;
     myAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed);
+    std::istringstream dis(attrs.getString(SUMO_ATTR_DISTANCE));
+    dis >> myOdometer >> myNumberReroutes;
     myWaitingTimeCollector.setState(attrs.getString(SUMO_ATTR_WAITINGTIME));
     if (stopped) {
         myStopDist = 0;
