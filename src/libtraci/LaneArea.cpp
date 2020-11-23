@@ -56,7 +56,7 @@ LaneArea::getJamLengthVehicle(const std::string& detID) {
 
 double
 LaneArea::getJamLengthMeters(const std::string& detID) {
-    return Dom::getInt(libsumo::JAM_LENGTH_METERS, detID);
+    return Dom::getDouble(libsumo::JAM_LENGTH_METERS, detID);
 }
 
 

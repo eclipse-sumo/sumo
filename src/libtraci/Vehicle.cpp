@@ -80,13 +80,13 @@ Vehicle::getSpeedWithoutTraCI(const std::string& vehicleID) {
 
 libsumo::TraCIPosition
 Vehicle::getPosition(const std::string& vehicleID, const bool includeZ) {
-    return Dom::getPos(libsumo::VAR_POSITION, vehicleID);
+    return includeZ ? getPosition3D(vehicleID) : Dom::getPos(libsumo::VAR_POSITION, vehicleID);
 }
 
 
 libsumo::TraCIPosition
 Vehicle::getPosition3D(const std::string& vehicleID) {
-    return Dom::getPos(libsumo::VAR_POSITION3D, vehicleID);
+    return Dom::getPos3D(libsumo::VAR_POSITION3D, vehicleID);
 }
 
 

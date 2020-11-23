@@ -195,7 +195,6 @@ public:
         if (processGet(command, libsumo::POSITION_2D)) {
             p.x = myInput.readDouble();
             p.y = myInput.readDouble();
-            p.z = 0;
         }
         return p;
     }

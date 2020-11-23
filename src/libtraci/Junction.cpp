@@ -51,7 +51,7 @@ Junction::getIDCount() {
 
 libsumo::TraCIPosition
 Junction::getPosition(const std::string& junctionID, bool includeZ) {
-    return Dom::getPos(includeZ ? libsumo::VAR_POSITION3D : libsumo::VAR_POSITION, junctionID);
+    return includeZ ? Dom::getPos3D(libsumo::VAR_POSITION3D, junctionID) : Dom::getPos(libsumo::VAR_POSITION, junctionID);
 }
 
 

@@ -32,7 +32,7 @@
 
 namespace libtraci {
 
-typedef Domain<libsumo::CMD_GET_ROUTE_VARIABLE, libsumo::CMD_SET_ROUTE_VARIABLE> Dom;
+typedef Domain<libsumo::CMD_GET_PERSON_VARIABLE, libsumo::CMD_SET_PERSON_VARIABLE> Dom;
 
 // ===========================================================================
 // static member definitions
@@ -51,13 +51,13 @@ Person::getIDCount() {
 
 libsumo::TraCIPosition
 Person::getPosition(const std::string& personID, const bool includeZ) {
-    return Dom::getPos(libsumo::VAR_POSITION, personID);
+    return includeZ ? getPosition3D(personID) : Dom::getPos(libsumo::VAR_POSITION, personID);
 }
 
 
 libsumo::TraCIPosition
 Person::getPosition3D(const std::string& personID) {
-    return Dom::getPos(libsumo::VAR_POSITION3D, personID);
+    return Dom::getPos3D(libsumo::VAR_POSITION3D, personID);
 }
 
 
