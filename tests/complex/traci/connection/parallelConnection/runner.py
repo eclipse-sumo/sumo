@@ -20,7 +20,6 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import os
-import subprocess
 import sys
 
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))

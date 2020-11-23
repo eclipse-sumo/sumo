@@ -22,7 +22,7 @@ import os
 import subprocess
 import sys
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
-import sumolib
+import sumolib  # noqa
 
 
 def compareXML(prefix, compare):
@@ -68,9 +68,11 @@ if compare:
         f.flush()
     if "stdout" in compare:
         sys.stdout.write(open(saveOut.name).read())
-        sys.stdout.write("".join(sumolib.fpdiff.fpfilter(open(saveOut.name).readlines(), open(loadOut.name).readlines()[int(compare["stdout"]):], 0.01)))
+        loadLines = open(loadOut.name).readlines()[int(compare["stdout"]):]
+        sys.stdout.write("".join(sumolib.fpdiff.fpfilter(open(saveOut.name).readlines(), loadLines, 0.01)))
     if "stderr" in compare:
         sys.stderr.write(open(saveErr.name).read())
-        sys.stderr.write("".join(sumolib.fpdiff.fpfilter(open(saveErr.name).readlines(), open(loadErr.name).readlines()[int(compare["stderr"]):], 0.01)))
+        loadLines = open(loadErr.name).readlines()[int(compare["stderr"]):]
+        sys.stderr.write("".join(sumolib.fpdiff.fpfilter(open(saveErr.name).readlines(), loadLines, 0.01)))
     compareXML("tripinfo", compare)
     compareXML("stopinfos", compare)

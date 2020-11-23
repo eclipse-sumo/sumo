@@ -14,13 +14,15 @@
 # @file    runner.py
 # @author  Michael Behrisch
 # @date    2020-09-21
+
 from __future__ import print_function
 import sys
 import subprocess
 
 numLanes = int(sys.argv[1]) if len(sys.argv) > 1 else 60
 length = float(sys.argv[2]) if len(sys.argv) > 2 else 1e5
-with open("%s.edg.xml" % numLanes, "w") as edges, open("%s.nod.xml" % numLanes, "w") as nodes, open("%s.rou.xml" % numLanes, "w") as flows:
+with open("%s.edg.xml" % numLanes, "w") as edges, open("%s.nod.xml" % numLanes, "w") as nodes, \
+     open("%s.rou.xml" % numLanes, "w") as flows:
     print("<edges>", file=edges)
     print("<nodes>", file=nodes)
     print("<routes>", file=flows)
@@ -34,7 +36,8 @@ with open("%s.edg.xml" % numLanes, "w") as edges, open("%s.nod.xml" % numLanes, 
     print("</routes>", file=flows)
 subprocess.call(["netconvert", "-o", "%s.net.xml" % numLanes, "-n", nodes.name, "-e", edges.name])
 # generate config
-subprocess.call(["sumo", "-n", "%s.net.xml" % numLanes, "-r", flows.name, "--no-step-log", "-C", "%s.sumocfg" % numLanes])
+subprocess.call(["sumo", "-n", "%s.net.xml" % numLanes, "-r", flows.name, "--no-step-log",
+                 "-C", "%s.sumocfg" % numLanes])
 # run single threaded
 subprocess.call(["sumo", "-c", "%s.sumocfg" % numLanes])
 # run with 2 threads
