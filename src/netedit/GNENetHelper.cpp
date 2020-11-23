@@ -517,7 +517,10 @@ GNENetHelper::AttributeCarriers::edgeTypeExist(const GNEEdgeType* edgeType) cons
 
 void
 GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
+    // insert in myEdgeTypes
     myEdgeTypes[edgeType->getMicrosimID()] = edgeType;
+    // also in typeCont
+    myNet->getNetBuilder()->getTypeCont().insertEdgeType(edgeType->getMicrosimID(), edgeType);
 }
 
 
@@ -526,7 +529,9 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     // remove it from inspected elements and HierarchicalElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(edgeType);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
+    // remove from edge types
     myEdgeTypes.erase(edgeType->getMicrosimID());
+    // extract it from 
     /*
     // extract edgeType of district container
     myNet->getNetBuilder()->getEdgeTypeCont().extract(myNet->getNetBuilder()->getDistrictCont(), edgeType->getNBEdgeType());

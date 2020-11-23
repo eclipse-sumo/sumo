@@ -37,24 +37,24 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
 }
 
 
-GNEEdgeType::GNEEdgeType(GNENet* net, const NBTypeCont::EdgeTypeDefinition &edgeType) :
-    GNENetworkElement(net, net->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType) :
+    GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // copy parameters
-    numLanes = edgeType.numLanes;
-    speed = edgeType.speed;
-    priority = edgeType.priority;
-    permissions = edgeType.permissions;
-    oneWay = edgeType.oneWay;
-    discard = edgeType.discard;
-    width = edgeType.width;
-    widthResolution = edgeType.widthResolution;
-    maxWidth = edgeType.maxWidth;
-    minWidth = edgeType.minWidth;
-    sidewalkWidth = edgeType.sidewalkWidth;
-    bikeLaneWidth = edgeType.bikeLaneWidth;
-    restrictions = edgeType.restrictions;
-    attrs = edgeType.attrs;
-    laneTypeDefinitions = edgeType.laneTypeDefinitions;
+    numLanes = edgeType->numLanes;
+    speed = edgeType->speed;
+    priority = edgeType->priority;
+    permissions = edgeType->permissions;
+    oneWay = edgeType->oneWay;
+    discard = edgeType->discard;
+    width = edgeType->width;
+    widthResolution = edgeType->widthResolution;
+    maxWidth = edgeType->maxWidth;
+    minWidth = edgeType->minWidth;
+    sidewalkWidth = edgeType->sidewalkWidth;
+    bikeLaneWidth = edgeType->bikeLaneWidth;
+    restrictions = edgeType->restrictions;
+    attrs = edgeType->attrs;
+    laneTypeDefinitions = edgeType->laneTypeDefinitions;
 }
 
 

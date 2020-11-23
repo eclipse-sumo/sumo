@@ -287,11 +287,11 @@ GNENet::deleteJunction(GNEJunction* junction, GNEUndoList* undoList) {
     // find all crossings of neightbour junctions that shares an edge of this junction
     std::vector<GNECrossing*> crossingsToRemove;
     std::vector<GNEJunction*> junctionNeighbours = junction->getJunctionNeighbours();
-    for (const auto& junction : junctionNeighbours) {
+    for (const auto& junctionNeighbour : junctionNeighbours) {
         // iterate over crossing of neighbour juntion
-        for (const auto& crossing : junction->getGNECrossings()) {
+        for (const auto& crossing : junctionNeighbour->getGNECrossings()) {
             // if at least one of the edges of junction to remove belongs to a crossing of the neighbour junction, delete it
-            if (crossing->checkEdgeBelong(junction->getChildEdges())) {
+            if (crossing->checkEdgeBelong(junctionNeighbour->getChildEdges())) {
                 crossingsToRemove.push_back(crossing);
             }
         }
@@ -3113,21 +3113,19 @@ GNENet::isUpdateDataEnabled() const {
 void
 GNENet::initJunctionsAndEdges() {
     // init edge types
-    NBTypeCont& edgeTypeContainer = myNetBuilder->getTypeCont();
-    for (const auto &edgeType : edgeTypeContainer) {
-        myAttributeCarriers->registerEdgeType(new GNEEdgeType(this, edgeType.second));
+    for (const auto &edgeType : myNetBuilder->getTypeCont()) {
+        // register edge type
+        myAttributeCarriers->registerEdgeType(new GNEEdgeType(this, edgeType.first, edgeType.second));
     }
     // init junctions (by default Crossing and walking areas aren't created)
-    NBNodeCont& nodeContainer = myNetBuilder->getNodeCont();
-    for (auto name_it : nodeContainer.getAllNames()) {
-        NBNode* nbn = nodeContainer.retrieve(name_it);
-        myAttributeCarriers->registerJunction(new GNEJunction(this, nbn, true));
+    for (const auto &nodeName : myNetBuilder->getNodeCont().getAllNames()) {
+        // create and register junction
+        myAttributeCarriers->registerJunction(new GNEJunction(this, myNetBuilder->getNodeCont().retrieve(nodeName), true));
     }
     // init edges
-    NBEdgeCont& ec = myNetBuilder->getEdgeCont();
-    for (auto name_it : ec.getAllNames()) {
+    for (const auto &edgeName : myNetBuilder->getEdgeCont().getAllNames()) {
         // create edge using NBEdge
-        GNEEdge* edge = new GNEEdge(this, ec.retrieve(name_it), false, true);
+        GNEEdge* edge = new GNEEdge(this, myNetBuilder->getEdgeCont().retrieve(edgeName), false, true);
         // register edge
         myAttributeCarriers->registerEdge(edge);
         // add manually child references due initJunctionsAndEdges doesn't use undo-redo
@@ -3149,7 +3147,7 @@ GNENet::initJunctionsAndEdges() {
         }
     }
     // sort nodes edges so that arrows can be drawn correctly
-    NBNodesEdgesSorter::sortNodesEdges(nodeContainer);
+    NBNodesEdgesSorter::sortNodesEdges(myNetBuilder->getNodeCont());
 }
 
 

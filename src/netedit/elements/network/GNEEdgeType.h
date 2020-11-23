@@ -43,8 +43,10 @@ public:
 
     /**@brief Constructor (parameters)
      * @param[in] net The net to inform about gui updates
+     * @param[in] ID edge type ID
+     * @param[in] edgeType original NBTypeCont::EdgeTypeDefinition
      */
-    GNEEdgeType(GNENet* net, const NBTypeCont::EdgeTypeDefinition &edgeType);
+    GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType);
 
     /// @brief Destructor.
     ~GNEEdgeType();
