@@ -40,6 +40,7 @@
 #include <microsim/transportables/MSPModel.h>
 
 //#define MSLink_DEBUG_CROSSING_POINTS
+//#define MSLink_DEBUG_CROSSING_POINTS_DETAILS
 //#define MSLink_DEBUG_OPENED
 //#define DEBUG_APPROACHING
 //#define DEBUG_ZIPPER
@@ -193,8 +194,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                 }
             } else {
                 std::vector<double> intersections1 = lane->getShape().intersectsAtLengths2D((*it_lane)->getShape());
-#ifdef MSLink_DEBUG_CROSSING_POINTS
-//                std::cout << " intersections1=" << toString(intersections1) << "\n";
+#ifdef MSLink_DEBUG_CROSSING_POINTS_DETAILS
+                std::cout << " intersections1=" << toString(intersections1) << "\n";
 #endif
                 bool haveIntersection = true;
                 if (intersections1.size() == 0) {
@@ -204,8 +205,8 @@ MSLink::setRequestInformation(int index, bool hasFoes, bool isCont,
                     std::sort(intersections1.begin(), intersections1.end());
                 }
                 std::vector<double> intersections2 = (*it_lane)->getShape().intersectsAtLengths2D(lane->getShape());
-#ifdef MSLink_DEBUG_CROSSING_POINTS
-                //std::cout << " intersections2=" << toString(intersections2) << "\n";
+#ifdef MSLink_DEBUG_CROSSING_POINTS_DETAILS
+                std::cout << " intersections2=" << toString(intersections2) << "\n";
 #endif
                 if (intersections2.size() == 0) {
                     intersections2.push_back(0);
