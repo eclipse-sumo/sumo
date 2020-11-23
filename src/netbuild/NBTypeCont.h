@@ -83,9 +83,9 @@ public:
 
         /// @brief parameter Constructor
         EdgeTypeDefinition(int numLanes, double speed, int priority,
-                           double width, SVCPermissions permissions, bool oneWay,
-                           double sideWalkWidth, double bikeLaneWidth,
-                           double widthResolution, double maxWidth, double minWidth);
+            double width, SVCPermissions permissions, bool oneWay,
+            double sideWalkWidth, double bikeLaneWidth,
+            double widthResolution, double maxWidth, double minWidth);
 
         /// @brief The number of lanes of an edge
         int numLanes;
@@ -136,7 +136,7 @@ public:
     };
 
     /// @brief A container of edgeTypes, accessed by the string id
-    typedef std::map<std::string, EdgeTypeDefinition> TypesCont;
+    typedef std::map<std::string, EdgeTypeDefinition*> TypesCont;
 
     /// @brief Constructor
     NBTypeCont();
@@ -177,6 +177,13 @@ public:
 
     /**@brief Adds a edgeType into the list
      * @param[in] id The id of the edgeType
+     * @param[in] edgeType pointer to EdgeTypeDefinition
+     * @return Whether the edgeType could be added (no edgeType with the same id existed)
+     */
+    void insertEdgeType(const std::string& id, EdgeTypeDefinition* edgeType);
+
+    /**@brief Adds a edgeType into the list
+     * @param[in] id The id of the edgeType
      * @param[in] numLanes The number of lanes an edge of this edgeType has
      * @param[in] maxSpeed The speed allowed on an edge of this edgeType
      * @param[in] prio The priority of an edge of this edgeType
@@ -194,6 +201,12 @@ public:
      * @return The number of known edge edgeTypes (excluding the default)
      */
     int size() const;
+
+    /**@brief Remove a edgeType from the list
+     * @param[in] id The id of the edgeType
+     * @return Whether the edgeType could be added (no edgeType with the same id existed)
+     */
+    void removeEdgeType(const std::string& id);
 
     /// @brief return begin iterator
     TypesCont::const_iterator begin() const;
@@ -365,10 +378,10 @@ protected:
      * @param[in] name The name of the edgeType to retrieve
      * @return The named edgeType
      */
-    const EdgeTypeDefinition& getEdgeType(const std::string& name) const;
+    const EdgeTypeDefinition* getEdgeType(const std::string& name) const;
 
     /// @brief The default edgeType
-    EdgeTypeDefinition myDefaultType;
+    EdgeTypeDefinition *myDefaultType;
 
     /// @brief The container of edgeTypes
     TypesCont myEdgeTypes;
