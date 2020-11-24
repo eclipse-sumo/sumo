@@ -37,7 +37,7 @@
 GNEAbout::GNEAbout(FXWindow* parent) :
     FXDialogBox(parent, "About Eclipse SUMO netedit", GUIDesignDialogBox) {
     // set dialog icon
-    setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT));
+    setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
 
     // create frame for main info
     FXHorizontalFrame* mainInfoFrame = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
