@@ -120,3 +120,16 @@ form:
         <taxi customers="5" occupiedDistance="6748.77" occupiedTime="595.00"/>
     </tripinfo>
 ```
+
+## Parameter Retrieval
+The following parameters can be retrieved via `traci.vehicle.getParameter` and written via **--fcd-output.params**.
+It is also possible to color vehicles in [SUMO-GUI 'by param (numerical)'](../sumo-gui.md#vehicle_visualisation_settings) by setting these keys.
+
+- device.taxi.state:
+  - 0: empty
+  - 1: driving to pickup customer
+  - 2: occupied
+  - 3: pickup + occupied (during ride sharing)
+- device.taxi.customers: total number of customers served
+- device.taxi.occupiedDistance: total distance driven in m with customer on board
+- device.taxi.occupiedTime: total time driven in s with customers on board
