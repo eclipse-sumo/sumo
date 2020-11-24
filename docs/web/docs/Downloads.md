@@ -20,6 +20,8 @@ tools, and documentation in HTML format.
 <li>Download 32 bit zip: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win32-{{Version}}.zip">sumo-win32-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win32-{{Version}}.zip","r");?></span></li>
 </ul>
 
+SUMO is available under the [Eclipse Public License v2](https://eclipse.org/legal/epl-v20.html) with GPL v2 or later as a secondary license option. Be aware that the plain version contains only code licensed under EPLv2 or compatible licenses while the "extra" version contains GPL code such as GDAL (for shapefile and GeoTIFF processing), OpenSceneGraph (3D GUI), and FFMPEG (video saving).
+
 ### SUMO-Game
 
 <ul><li>MS Windows binaries: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-game-{{Version}}.zip">sumo-game-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-game-{{Version}}.zip","r");?></span></li></ul>
