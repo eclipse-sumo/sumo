@@ -3398,6 +3398,14 @@ MSDevice_SSM::getOutputFilename(const SUMOVehicle& v, std::string deviceID) {
             issuedParameterWarnFlags |= SSM_WARN_FILE;
         }
     }
+    if (OptionsCont::getOptions().isSet("configuration-file")) {
+        file = FileHelpers::checkForRelativity(file, OptionsCont::getOptions().getString("configuration-file"));
+        try {
+            file = StringUtils::urlDecode(file);
+        } catch (NumberFormatException& e) {
+            WRITE_WARNING(toString(e.what()) + " when trying to decode filename '" + file + "'.");
+        }
+    }
     return file;
 }
 
