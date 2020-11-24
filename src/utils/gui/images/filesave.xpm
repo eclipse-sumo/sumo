@@ -1,10 +1,12 @@
 /* XPM */
 static const char *filesave_xpm[] = {
-"    14    14        4            1",
+/* columns rows colors chars-per-pixel */
+"14 14 4 1",
 ". c #040404",
 "# c #808304",
 "a c #bfc2bf",
 "b c None",
+/* pixels */
 "..............",
 ".#.aaaaaaaa.a.",
 ".#.aaaaaaaa...",

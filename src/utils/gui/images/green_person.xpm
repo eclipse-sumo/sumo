@@ -1,10 +1,12 @@
 /* XPM */
 static const char * green_person_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 4 1",
 " 	c None",
 ".	c Black",
 "X	c Green",
 "o	c #851d1d",
+/* colors */
 "                ",
 "     ..         ",
 "   ..XX..       ",
@@ -13,11 +15,12 @@ static const char * green_person_xpm[] = {
 "   .XXX.        ",
 "    .X..   ..   ",
 "   .XXXX...o.   ",
-"   . XXXXXX.    ",
+"   .XXXXXXX.    ",
 "   .XXX..   .   ",
 "   .XXXXX...X.  ",
 "  .XX...XXXX.   ",
 "  .XX.  .XX.    ",
 "  .XXX.  ..     ",
 "   ...          ",
-"                "};
+"                "
+};

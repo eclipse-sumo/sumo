@@ -1,6 +1,6 @@
 /* XPM */
 static const char *grid_xpm[] = {
-/* width height num_colors chars_per_pixel */
+/* columns rows colors chars-per-pixel */
 "16 16 2 1 ",
 "  c black",
 ". c white",

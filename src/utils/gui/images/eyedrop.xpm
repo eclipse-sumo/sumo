@@ -1,8 +1,8 @@
 /* XPM */
 static const char * eyedrop_xpm[] = {
-"40 24 13 1",
+/* columns rows colors chars-per-pixel */
+"40 24 12 1",
 " 	c None",
-"!	c black",
 "#	c #040205",
 "$	c #F8FD0A",
 "%	c #FCA71C",
@@ -14,6 +14,7 @@ static const char * eyedrop_xpm[] = {
 "+	c #B3AA9D",
 ",	c #D5DAF1",
 "-	c #848284",
+/* pixels */
 "                                        ",
 "                      ##                ",
 "                     #$%#               ",
@@ -37,4 +38,5 @@ static const char * eyedrop_xpm[] = {
 "     #,+-#                  '''''       ",
 "    #-+##                    '''        ",
 "    #-#                       '         ",
-"                                        "};
+"                                        "
+};

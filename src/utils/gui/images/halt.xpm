@@ -1,5 +1,6 @@
 /* XPM */
 static const char * halt_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "15 16 62 1",
 " 	c Black",
 ".	c None",
@@ -63,6 +64,7 @@ static const char * halt_xpm[] = {
 "Z	c #be3500",
 "A	c #b43200",
 "S	c #a82f00",
+/* pixels */
 "       .       ",
 " XoO+@ . #$%&* ",
 " =O+-; . :%>*, ",
@@ -78,4 +80,5 @@ static const char * halt_xpm[] = {
 " nzxmB . svMNV ",
 " zxmCi . vMZAS ",
 "       .       ",
-"..............."};
+"..............."
+};
