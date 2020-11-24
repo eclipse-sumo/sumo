@@ -6239,9 +6239,17 @@ MSVehicle::isLeader(const MSLink* link, const MSVehicle* veh) const {
                 // attempt 1: tlLinkState
                 const MSLink* entry = link->getCorrespondingEntryLink();
                 const MSLink* foeEntry = foeLink->getCorrespondingEntryLink();
-                if (entry->havePriority() != foeEntry->havePriority()) {
+                if (entry->haveRed() || foeEntry->haveRed()) {
+                    // ensure that vehicles which are stuck on the intersection may exit
+                    response = foeEntry->haveRed();
+                    response2 = entry->haveRed();
+                } else if (entry->havePriority() != foeEntry->havePriority()) {
                     response = !entry->havePriority();
                     response2 = !foeEntry->havePriority();
+                } else if (entry->haveYellow() && foeEntry->haveYellow()) {
+                    // let the faster vehicle keep moving
+                    response = veh->getSpeed() >= getSpeed();
+                    response2 = getSpeed() >= veh->getSpeed();
                 } else {
                     // fallback if pedestrian crossings are involved
                     response = logic->getResponseFor(link->getIndex()).test(foeLink->getIndex());

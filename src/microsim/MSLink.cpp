@@ -1051,12 +1051,13 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
             const double leaderBack = leader->getBackPositionOnLane(foeLane);
             const double leaderBackDist = foeDistToCrossing - leaderBack;
             const bool pastTheCrossingPoint = leaderBackDist + foeCrossingWidth < 0;
-            const bool ignoreIndirectBicycleTurn = (pastTheCrossingPoint
-                                                    && leader->getVehicleType().getVehicleClass() == SVC_BICYCLE
-                                                    && foeLane->getIncomingLanes().front().viaLink->getDirection() == LinkDirection::LEFT);
+            const bool foeIsBicycleTurn = (leader->getVehicleType().getVehicleClass() == SVC_BICYCLE
+                    && foeLane->getIncomingLanes().front().viaLink->getDirection() == LinkDirection::LEFT);
+            const bool ignoreIndirectBicycleTurn = pastTheCrossingPoint && foeIsBicycleTurn;
             const bool cannotIgnore = ((contLane && !ignoreIndirectBicycleTurn) || sameTarget || sameSource) && ego != nullptr;
             const bool inTheWay = (((!pastTheCrossingPoint && distToCrossing > 0) || (sameTarget && distToCrossing > leaderBackDist - leader->getLength()))
-                                   && leaderBackDist < leader->getVehicleType().getLength());
+                                   && leaderBackDist < leader->getVehicleType().getLength()
+                                   && (!foeExitLink->isInternalJunctionLink() || foeIsBicycleTurn));
             const bool isOpposite = leader->getLaneChangeModel().isOpposite();
             if (gDebugFlag1) {
                 std::cout << " candidate leader=" << leader->getID()
