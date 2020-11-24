@@ -130,6 +130,7 @@ def check(vehID):
 def checkOffRoad(vehID):
     print(("veh", vehID,
            "speed", traci.vehicle.getSpeed(vehID),
+           "acceleration", traci.vehicle.getAcceleration(vehID),
            "pos", posToString(traci.vehicle.getPosition(vehID)),
            "pos3d", posToString(traci.vehicle.getPosition3D(vehID)),
            "angle", traci.vehicle.getAngle(vehID),
