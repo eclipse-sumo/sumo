@@ -6,10 +6,8 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
-- simulation  
-  - Fixed crash when loading simulation state that includes a routeDistribution along with a route file that includes the same distribution. Issue #7539
-  - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for persontTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560
-  - Fixed invalid active-vehicle count after loading state. Issue #7583
+- simulation      
+  - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for persontTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560  
   - Fixed bug where leader vehicles were ignored during lane-changing when using the sublane mode. Issue #7614
   - Fixed invalid conflict check for vehicles on the same intersection. Issue #7618, #7173, #7825
   - Fixed failure to create a rescue lane. Issue #7173
@@ -23,10 +21,21 @@ permalink: /ChangeLog/
   - Fixed "jumping" persons when transfering from car to walking at junction. Issue #7778 
   - Fixed crash when vehicle with ssm device is teleported. Issue #7753  
   - Fixed unsave insertion speed for IDM which was causing emergency braking #7786
-  - Fixed crash on invalid route input. Issue #7801
-  - Routing device is now properly assigned when loading departed vehicles from a saved state. Issue #7810
+  - Fixed crash on invalid route input. Issue #7801  
   - When using the sublane model, vehicles will now consider the travel speed on lanes beyond their current neighboring lanes for tactical lane changing. Issue #7620
   - Emergency vehicles that are using a rescue lane can now pass an intersection even if the necessary turning lane is blocked. Issue #7619
+  - Fixed invalid negative space and time gap in ssm device output. Issue #7844
+  - Now saving output of ssm device relative to the configuration file by default. Issue #7847
+  - Fixed invalid speed and acceleration for parked vehicle. Issue #7850
+  - state saving/loading fixes
+    - Fixed crash when loading simulation state that includes a routeDistribution along with a route file that includes the same distribution. Issue #7539
+    - Fixed invalid active-vehicle count after loading state. Issue #7583
+    - Routing device is now properly assigned when loading departed vehicles from a saved state. Issue #7810
+    - Lanes of the vehicle rear end are now properly restored after loading state. Issue #7828
+    - Fixed invalid acceleration after loading state. Issue #7701
+    - Fixed invalid odometer value after loading state. Issue #7827
+    - Fixed invalid reroute count after loading state. Issue #7811
+    - Fixed accumulated waitingtime after loading state. Issue #7657
   - railway fixes
     - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
     - Fixed train collision due to unsafe rail signal state. Issue #7534
@@ -107,6 +116,8 @@ permalink: /ChangeLog/
   - Option **--ride.stop-tolerance** now applies to all kinds of stops. #6204
   - Add **--fcd-output.max-leader-distance** which will add attributes `leaderGap, leaderSpeed, leaderID` to fcd-output whenever a vehicle has a leader within the given distance #7788
   - Stop for vehicles and persons can now be specified using attribute 'edge' instead of 'lane'. Vehicles will stop on the rightmost lane that allows their vehicle class (whereas persons ignored the lane index anyway). Issue #5443
+  - Taxi device can now be used to simulate on-demand container transport. Issue #7815
+  - Option **--fcd-output.params** now supports optional output of device parameters and model parameters with the same [prefix codes as TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e). Issue #7851
   
 - meso
   - Model parameters can now be [customized](Simulation/Meso.md#configuration_by_edge_type) for each edge type vial additional file input. Issue #7243
