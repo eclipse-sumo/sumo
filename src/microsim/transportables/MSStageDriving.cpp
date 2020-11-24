@@ -229,12 +229,12 @@ MSStageDriving::proceed(MSNet* net, MSTransportable* transportable, SUMOTime now
         if (isPerson) {
             net->getPersonControl().addWaiting(myWaitingEdge, transportable);
             myWaitingEdge->addPerson(transportable);
-            // check if the ride can be conducted and reserve it
-            MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, getDestination(), getArrivalPos(), myGroup);
         } else {
             net->getContainerControl().addWaiting(myWaitingEdge, transportable);
             myWaitingEdge->addContainer(transportable);
         }
+        // check if the ride can be conducted and reserve it
+        MSDevice_Taxi::addReservation(transportable, getLines(), now, now, myWaitingEdge, myWaitingPos, getDestination(), getArrivalPos(), myGroup);
     }
 }
 

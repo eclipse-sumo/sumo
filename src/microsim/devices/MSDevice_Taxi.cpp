@@ -265,7 +265,13 @@ MSDevice_Taxi::dispatchShared(const std::vector<const Reservation*>& reservation
             }
             if (isPickup) {
                 prepareStop(tmpEdges, stops, lastPos, res->from, res->fromPos, "pickup " + toString(res->persons));
-                stops.back().triggered = true;
+                for (MSTransportable* t : res->persons) {
+                    if (t->isPerson()) {
+                        stops.back().triggered = true;
+                    } else {
+                        stops.back().containerTriggered = true;
+                    }
+                }
                 //stops.back().awaitedPersons.insert(res.person->getID());
             } else {
                 prepareStop(tmpEdges, stops, lastPos, res->to, res->toPos, "dropOff " + toString(res->persons));
@@ -346,7 +352,7 @@ MSDevice_Taxi::allowsBoarding(MSTransportable* t) const {
 bool
 MSDevice_Taxi::notifyMove(SUMOTrafficObject& /*tObject*/, double oldPos,
                           double newPos, double /*newSpeed*/) {
-    if (myHolder.getPersonNumber() > 0) {
+    if (myHolder.getPersonNumber() > 0 || myHolder.getContainerNumber() > 0) {
         myOccupiedDistance += (newPos - oldPos);
         myOccupiedTime += DELTA_T;
     }
@@ -393,7 +399,7 @@ void
 MSDevice_Taxi::customerArrived(const MSTransportable* person) {
     myCustomersServed++;
     myCustomers.erase(person);
-    if (myHolder.getPersonNumber() == 0) {
+    if (myHolder.getPersonNumber() == 0 && myHolder.getContainerNumber() == 0) {
         myState &= ~OCCUPIED;
         MSVehicle* veh = static_cast<MSVehicle*>(&myHolder);
         if (veh->getStops().size() > 1 && (myState & PICKUP) == 0) {
