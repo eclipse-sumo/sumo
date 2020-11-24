@@ -20,6 +20,7 @@ from __future__ import print_function
 
 import os
 import sys
+import io
 import argparse
 sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
 import sumolib  # noqa
@@ -33,7 +34,7 @@ def main(options):
     else:
         net = sumolib.net.readNet(options.net_file)
     count = 0
-    with open(options.output_file, "w") as output:
+    with io.open(options.output_file, "w") as output:
         sumolib.xml.writeHeader(output, root="additional")
         for n in sumolib.xml.parse(options.osm_file, "node"):
             name = None
@@ -63,7 +64,7 @@ def main(options):
                           (options.type, options.type, count, nameAttr, bestLane.getID(), endPos - length, endPos),
                           file=output)
                     count += 1
-        print("</additional>", file=output)
+        print(u"</additional>", file=output)
 
 
 argParser = sumolib.options.ArgumentParser(formatter_class=argparse.ArgumentDefaultsHelpFormatter)

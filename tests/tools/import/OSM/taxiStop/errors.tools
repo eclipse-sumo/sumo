@@ -58,4 +58,3 @@ Warning: 17 total messages of type: Discarding unusable type '%' (first occurenc
 Warning: 7 total messages of type: Found sharp turn with radius % at the start of edge '%'.
 Warning: 15 total messages of type: No way found for reference '%' in relation '%'
 Warning: 29 total messages of type: The rail crossing '%' does not have any roads.
-Warning: Module 'rtree' not available. Using brute-force fallback
