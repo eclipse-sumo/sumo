@@ -354,6 +354,7 @@ GNEApplicationWindow::dependentBuild() {
     setTitle(myTitlePrefix);
     // set Netedit ICON
     setIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT));
+    setMiniIcon(GUIIconSubSys::getIcon(GUIIcon::NETEDIT_MINI));
     // build NETEDIT Accelerators (hotkeys)
     GUIShortcutsSubSys::buildNETEDITAccelerators(this);
 }
