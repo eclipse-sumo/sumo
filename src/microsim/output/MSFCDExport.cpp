@@ -82,6 +82,7 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
     for (MSVehicleControl::constVehIt it = vc.loadedVehBegin(); it != vc.loadedVehEnd(); ++it) {
         const SUMOVehicle* veh = it->second;
         const MSVehicle* microVeh = dynamic_cast<const MSVehicle*>(veh);
+        const MSBaseVehicle* baseVeh = dynamic_cast<const MSBaseVehicle*>(veh);
         if ((veh->isOnRoad() || veh->isParking() || veh->isRemoteControlled())
                 // only filter on normal edges
                 && (!filter || MSDevice_FCD::getEdgeFilter().count(veh->getEdge()) > 0)
@@ -147,7 +148,8 @@ MSFCDExport::write(OutputDevice& of, SUMOTime timestep, bool elevation) {
                 }
             }
             for (const std::string& key : params) {
-                const std::string value = veh->getParameter().getParameter(key);
+                std::string error;
+                const std::string value = baseVeh->getPrefixedParameter(key, error);
                 if (value != "") {
                     of.writeAttr(StringUtils::escapeXML(key), StringUtils::escapeXML(value));
                 }
