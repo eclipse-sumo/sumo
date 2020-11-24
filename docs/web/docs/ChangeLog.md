@@ -9,7 +9,7 @@ permalink: /ChangeLog/
 - simulation      
   - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for persontTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560  
   - Fixed bug where leader vehicles were ignored during lane-changing when using the sublane mode. Issue #7614
-  - Fixed invalid conflict check for vehicles on the same intersection. Issue #7618, #7173, #7825
+  - Fixed invalid conflict check for vehicles on the same intersection. Issue #7618, #7173, #7825, #7840
   - Fixed failure to create a rescue lane. Issue #7173
   - Fixed crash on parallel intermodal routing. Issue #7627
   - Parallel intermodal routing now respects the option **--routing-algorithm**. Issue #7628
