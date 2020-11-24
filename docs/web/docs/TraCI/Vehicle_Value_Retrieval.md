@@ -710,6 +710,10 @@ call](../TraCI/GenericParameters.md#get_parameter).
 - device.driverstate.maximalReactionTime
 - device.driverstate.originalReactionTime
 - device.driverstate.actionStepLength
+- device.taxi.state
+- device.taxi.customers
+- device.taxi.occupiedTime
+- device.taxi.occupiedDistance
 - device.example.customValue1 (return the value of option **--device.example.parameter**)
 - device.example.customValue2 (return the value of vehicle parameter
   *example*)
