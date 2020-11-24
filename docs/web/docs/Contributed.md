@@ -107,7 +107,7 @@ The following extensions are managed and supported by other parties.
     a framework for applying reinforcement learning and custom controllers to SUMO, developed at the University of California, Berkeley
     [[1]](https://github.com/flow-project/flow)
 
-- [Webots](https://www.cyberbotics.com/automobile/sumo-interface.php)
+- [Webots](https://www.cyberbotics.com/doc/automobile/sumo-interface)
 
     coupling with a robot simulator
 
