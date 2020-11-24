@@ -42,7 +42,7 @@ brew install xerces-c fox proj gdal gl2ps
 ```
 Depending on the SUMO features you want to enable during compilation, you may want to additional libraries. Most libraries are available in homebrew and should be recognized with CMake. Here is what you need to prepare some more features such as libsumo and the testing environment:
 ```
-brew install python swig eigen pygobject3 gtk+3
+brew install python swig eigen pygobject3 gtk+3 xdot
 python3 -m pip install texttest
 ```
 
