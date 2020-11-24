@@ -55,7 +55,7 @@
 				<key>ActionBundlePath</key>
 				<string>/System/Library/Automator/Run Shell Script.action</string>
 				<key>ActionName</key>
-				<string>Shell-Skript ausführen</string>
+				<string>Ejecutar el script Shell</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
@@ -102,7 +102,7 @@ if [ -z "$SUMO_HOME" ]; then
     exit -1
 else
     echo "Starting: $SUMO_HOME/bin/sumo-gui"
-    $SUMO_HOME/bin/sumo-gui "$@" 
+    $SUMO_HOME/bin/sumo-gui "$@" &amp;&gt; /dev/null &amp;
 fi
 
 </string>
@@ -130,19 +130,19 @@ fi
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>8DEE9329-42B9-4BEC-AE77-CEB2CC8BBA30</string>
+				<string>CC417790-041C-43D6-B2FF-E52180CA30F8</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
-					<string>Skript</string>
-					<string>Befehl</string>
-					<string>Ausführen</string>
+					<string>Script</string>
+					<string>Comando</string>
+					<string>Ejecutar</string>
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>D526D5AC-91A3-4177-8018-BDD7C47FF203</string>
+				<string>8E00A0C6-9681-4353-AADF-C762A3A5CF8B</string>
 				<key>UUID</key>
-				<string>F8D69D00-0038-47F3-A73D-19646283BB77</string>
+				<string>238CF5CA-F58E-4173-B041-7636886F4D0D</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -220,7 +220,7 @@ fi
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:432.000000</string>
+				<string>529.000000:252.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>

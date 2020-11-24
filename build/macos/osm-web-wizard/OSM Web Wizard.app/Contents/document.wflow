@@ -55,7 +55,7 @@
 				<key>ActionBundlePath</key>
 				<string>/System/Library/Automator/Run Shell Script.action</string>
 				<key>ActionName</key>
-				<string>Shell-Skript ausführen</string>
+				<string>Ejecutar el script Shell</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
@@ -100,7 +100,7 @@ if [ -z "$SUMO_HOME" ]; then
     exit -1
 else
     echo "Starting: python $SUMO_HOME/tools/osmWebWizard.py"
-    python $SUMO_HOME/tools/osmWebWizard.py "$@"
+    python $SUMO_HOME/tools/osmWebWizard.py "$@" &amp;&gt; /dev/null &amp;
 fi
 
 </string>
@@ -128,19 +128,19 @@ fi
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>B5E32ECE-B1F8-47E1-BD84-2DDC81183B4B</string>
+				<string>F6B0B40A-8527-4A93-A1B8-04C48A71C891</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
-					<string>Skript</string>
-					<string>Befehl</string>
-					<string>Ausführen</string>
+					<string>Script</string>
+					<string>Comando</string>
+					<string>Ejecutar</string>
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>4B319477-B705-4BA9-8DAB-618D06BEFD1D</string>
+				<string>0A51D436-2F7F-4683-9AEE-D6337701986C</string>
 				<key>UUID</key>
-				<string>236538E4-05A8-4FA8-89F2-6D4C353200D1</string>
+				<string>266451F3-99CD-4808-B273-5C9113E76F3D</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -218,7 +218,7 @@ fi
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:252.000000</string>
+				<string>529.000000:252.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>

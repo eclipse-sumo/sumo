@@ -55,7 +55,7 @@
 				<key>ActionBundlePath</key>
 				<string>/System/Library/Automator/Run Shell Script.action</string>
 				<key>ActionName</key>
-				<string>Shell-Skript ausführen</string>
+				<string>Ejecutar el script Shell</string>
 				<key>ActionParameters</key>
 				<dict>
 					<key>COMMAND_STRING</key>
@@ -100,7 +100,7 @@ if [ -z "$SUMO_HOME" ]; then
     exit -1
 else
     echo "Starting: $SUMO_HOME/bin/netedit"
-    $SUMO_HOME/bin/netedit "$@"
+    $SUMO_HOME/bin/netedit "$@" &amp;&gt; /dev/null &amp;
 fi
 
 </string>
@@ -128,19 +128,19 @@ fi
 				<key>Class Name</key>
 				<string>RunShellScriptAction</string>
 				<key>InputUUID</key>
-				<string>F9D6F32F-D7A2-44CF-83AD-141C1916F515</string>
+				<string>D5BFCACE-BFB2-4039-ABC0-6EDA91EB28A9</string>
 				<key>Keywords</key>
 				<array>
 					<string>Shell</string>
-					<string>Skript</string>
-					<string>Befehl</string>
-					<string>Ausführen</string>
+					<string>Script</string>
+					<string>Comando</string>
+					<string>Ejecutar</string>
 					<string>Unix</string>
 				</array>
 				<key>OutputUUID</key>
-				<string>937CC6C3-129D-4036-9964-6744B889A6F3</string>
+				<string>F33D3AA2-81FD-4976-8E7F-50270D6615E2</string>
 				<key>UUID</key>
-				<string>3F7662DA-2511-4AFB-9FA5-6F75B7C036B5</string>
+				<string>D331154D-65A5-4E83-BDE0-10F49F025F09</string>
 				<key>UnlocalizedApplications</key>
 				<array>
 					<string>Automator</string>
@@ -218,7 +218,7 @@ fi
 				<key>isViewVisible</key>
 				<true/>
 				<key>location</key>
-				<string>309.000000:252.000000</string>
+				<string>529.000000:252.000000</string>
 				<key>nibPath</key>
 				<string>/System/Library/Automator/Run Shell Script.action/Contents/Resources/Base.lproj/main.nib</string>
 			</dict>
