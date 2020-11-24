@@ -104,7 +104,7 @@ You can easily install all TextTest 4.x and all of its dependencies on a recent 
 1. Make sure to have python 3.x installed:
    `brew install python`
 2. Install all dependencies for TextTest 4.x:
-   `brew install pycairo PyGObject pygobject3 gtk+3 adwaita-icon-theme`
+   `brew install py3cairo pygobject3 gtk+3 adwaita-icon-theme`
 3. Install TextTest via pip:
    `pip3 install texttest`
 
