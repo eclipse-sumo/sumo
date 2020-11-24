@@ -10,7 +10,8 @@ permalink: /Downloads/
 ### MS Windows binaries
 
 Contains the binaries (32 or 64 bit), all dlls needed, the examples,
-tools, and documentation in HTML format.
+tools, and documentation in HTML format. For an explanation of the contents and the
+licensing, especially concerning the "extra" build, see [the notes below](Downloads.md#note_on_licensing)
 
 <ul>
 <li>Download 64 bit installer: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win64-{{Version}}.msi">sumo-win64-{{Version}}.msi </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win64-{{Version}}.msi","r");?></span></li>
@@ -19,8 +20,6 @@ tools, and documentation in HTML format.
 <li>Download 32 bit installer: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win32-{{Version}}.msi">sumo-win32-{{Version}}.msi </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win32-{{Version}}.msi","r");?></span></li>
 <li>Download 32 bit zip: <a class="no-arrow-link" href="https://sumo.dlr.de/releases/{{Version}}/sumo-win32-{{Version}}.zip">sumo-win32-{{Version}}.zip </a><span class="badge badge-pill badge-secondary"><?php getFileSize("sumo-win32-{{Version}}.zip","r");?></span></li>
 </ul>
-
-SUMO is available under the [Eclipse Public License v2](https://eclipse.org/legal/epl-v20.html) with GPL v2 or later as a secondary license option. Be aware that the plain version contains only code licensed under EPLv2 or compatible licenses while the "extra" version contains GPL code such as GDAL (for shapefile and GeoTIFF processing), OpenSceneGraph (3D GUI), and FFMPEG (video saving).
 
 ### SUMO-Game
 
@@ -184,13 +183,15 @@ binary downloads above which already contain the runtime dependencies.
 ## Note on Licensing
 
 SUMO is licensed under the
-[EPL-2.0](https://eclipse.org/legal/epl-v20.html) using only [open
+[EPL-2.0](https://eclipse.org/legal/epl-v20.html) with GPL v2 or later as a secondary license option using only [open
 source libraries](Libraries_Licenses.md).
 
-The standard build only contains code and windows binaries with Eclipse
+The standard Windows build only contains code and Windows binaries with Eclipse
 approved licenses (especially no GPL and LGPL code). If you need
-features like shapefile import or the OpenSceneGraph 3D GUI download the
-"extra" build.
+features like shapefile import, GeoTIFF processing, the OpenSceneGraph 3D GUI, or
+video generation, download the "extra" build.
+
+The Linux packages do not contain external libraries at all.
 
 <?php
 function getFileDate($fname, $type){
