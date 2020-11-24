@@ -103,6 +103,7 @@ MSVehicleTransfer::checkInsertions(SUMOTime time) {
             if (time != desc.myTransferTime) {
                 // avoid calling processNextStop twice in the transfer step
                 desc.myVeh->processNextStop(1);
+                desc.myVeh->updateParkingState();
             }
             if (desc.myVeh->keepStopping(true)) {
                 i++;

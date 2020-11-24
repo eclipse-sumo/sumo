@@ -3977,6 +3977,10 @@ MSVehicle::updateState(double vNext) {
     myCachedPosition = Position::INVALID;
 }
 
+void
+MSVehicle::updateParkingState() {
+    updateState(0);
+}
 
 const MSLane*
 MSVehicle::getBackLane() const {

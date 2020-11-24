@@ -1688,6 +1688,9 @@ public:
     /// @brief whether this vehicle is except from collision checks
     bool ignoreCollision();
 
+    /// @brief update state while parking
+    void updateParkingState();
+
     /// @name state io
     //@{
 
