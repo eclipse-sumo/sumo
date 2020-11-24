@@ -41,6 +41,10 @@ public:
 
     static MSRailSignalControl& getInstance();
 
+    static bool hasInstance() {
+        return myInstance != nullptr;
+    }
+
     static void cleanup();
 
     /** @brief Called if a vehicle changes its state

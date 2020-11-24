@@ -37,6 +37,7 @@
 #include <microsim/devices/MSDevice_BTreceiver.h>
 #include <microsim/devices/MSDevice_ToC.h>
 #include <microsim/transportables/MSTransportableControl.h>
+#include <microsim/traffic_lights/MSRailSignalControl.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
@@ -357,6 +358,10 @@ MSStateHandler::closeVehicle() {
                 routingDevice->notifyEnter(*v, MSMoveReminder::NOTIFICATION_DEPARTED);
             }
             MSNet::getInstance()->getInsertionControl().alreadyDeparted(v);
+            if (MSRailSignalControl::hasInstance()) {
+                // register route for deadlock prevention (vehicleStateChanged would not be called otherwise)
+                MSRailSignalControl::getInstance().vehicleStateChanged(v, MSNet::VEHICLE_STATE_NEWROUTE, "loadState");
+            }
         }
         while (!myDeviceAttrs.empty()) {
             const std::string attrID = myDeviceAttrs.back()->getString(SUMO_ATTR_ID);
