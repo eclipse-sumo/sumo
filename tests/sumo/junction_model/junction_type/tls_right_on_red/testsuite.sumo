@@ -2,3 +2,6 @@ basic
 
 # using linkstate 'g' instead of 's'
 no_stopping
+
+# large intersection with heterogeneous traffic
+stress_test
