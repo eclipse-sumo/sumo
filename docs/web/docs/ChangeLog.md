@@ -10,23 +10,24 @@ permalink: /ChangeLog/
   - Fixed automatic ride sharing for personTrips between the same origin and destination that did not declare a common 'group'. By default, rides are not shared. Automatic ride sharing for persontTrips and rides can be enabled by setting option **--persontrip.default.group STR** to an arbitrary value. Issue #7559, #7560  
   - Fixed bug where leader vehicles were ignored during lane-changing when using the sublane mode. Issue #7614
   - Fixed invalid conflict check for vehicles on the same intersection. Issue #7618, #7173, #7825, #7840
-  - Fixed failure to create a rescue lane. Issue #7173
-  - Fixed crash on parallel intermodal routing. Issue #7627
+  - Fixed failure to create a rescue lane. Issue #7173  
   - Parallel intermodal routing now respects the option **--routing-algorithm**. Issue #7628
-  - Fixed oscillating lane changes in roundabout with more than 2 lanes. Issue #7738
-  - Fixe crash when defining stops on internal edges. Issue #7690
-  - Fixed crash when using meanData attribute 'trackVehicles=True' in a pedestrian simulation. Issue #7664
+  - Fixed oscillating lane changes in roundabout with more than 2 lanes. Issue #7738    
   - Planned vehicle stops are no longer included in edgeData waitingTime output. Issue #7748
   - Option **--ignore-junction-blocker** is now working again. Issue #7650 (Regression in 1.0.0)
-  - Fixed "jumping" persons when transfering from car to walking at junction. Issue #7778 
-  - Fixed crash when vehicle with ssm device is teleported. Issue #7753  
-  - Fixed unsave insertion speed for IDM which was causing emergency braking #7786
-  - Fixed crash on invalid route input. Issue #7801  
+  - Fixed "jumping" persons when transfering from car to walking at junction. Issue #7778   
+  - Fixed unsave insertion speed for IDM which was causing emergency braking #7786  
   - When using the sublane model, vehicles will now consider the travel speed on lanes beyond their current neighboring lanes for tactical lane changing. Issue #7620
   - Emergency vehicles that are using a rescue lane can now pass an intersection even if the necessary turning lane is blocked. Issue #7619
   - Fixed invalid negative space and time gap in ssm device output. Issue #7844
   - Now saving output of ssm device relative to the configuration file by default. Issue #7847
   - Fixed invalid speed and acceleration for parked vehicle. Issue #7850
+  - crashing
+    - Fixed crash on parallel intermodal routing. Issue #7627
+    - Fixe crash when defining stops on internal edges. Issue #7690
+    - Fixed crash when using meanData attribute 'trackVehicles=True' in a pedestrian simulation. Issue #7664
+    - Fixed crash when vehicle with ssm device is teleported. Issue #7753  
+    - Fixed crash on invalid route input. Issue #7801  
   - state saving/loading fixes
     - Fixed crash when loading simulation state that includes a routeDistribution along with a route file that includes the same distribution. Issue #7539
     - Fixed invalid active-vehicle count after loading state. Issue #7583
