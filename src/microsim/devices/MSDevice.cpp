@@ -80,6 +80,7 @@ MSDevice::insertOptions(OptionsCont& oc) {
     MSDevice_ElecHybrid::insertOptions(oc);
     MSDevice_Taxi::insertOptions(oc);
     MSDevice_Tripinfo::insertOptions(oc);
+    MSDevice_Vehroutes::insertOptions(oc);
 
     MSTransportableDevice_Routing::insertOptions(oc);
     MSTransportableDevice_FCD::insertOptions(oc);

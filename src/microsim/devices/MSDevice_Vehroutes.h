@@ -53,6 +53,10 @@ public:
      */
     static void init();
 
+    /** @brief Inserts MSDevice_FCD-options
+     * @param[filled] oc The options container to add the options to
+     */
+    static void insertOptions(OptionsCont& oc);
 
     /** @brief Build devices for the given vehicle, if needed
      *

@@ -80,6 +80,13 @@ MSDevice_Vehroutes::init() {
     }
 }
 
+void
+MSDevice_Vehroutes::insertOptions(OptionsCont& oc) {
+    oc.addOptionSubTopic("Vehroutes Device");
+    insertDefaultAssignmentOptions("vehroute", "Vehroutes Device", oc);
+}
+
+
 
 MSDevice_Vehroutes*
 MSDevice_Vehroutes::buildVehicleDevices(SUMOVehicle& v, std::vector<MSVehicleDevice*>& into, int maxRoutes) {
