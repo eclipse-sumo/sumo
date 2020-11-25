@@ -74,7 +74,8 @@ FXIMPLEMENT(GNECreateEdgeFrame::LaneParameters,     FXGroupBox,     LaneParamete
 
 GNECreateEdgeFrame::EdgeSelector::EdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
     FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
-    myCreateEdgeFrameParent(createEdgeFrameParent) {
+    myCreateEdgeFrameParent(createEdgeFrameParent),
+    mySelectedEdgeType(nullptr) {
     // default edge radio button
     myCreateDefaultEdge = new FXRadioButton(this, 
         "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
@@ -128,6 +129,16 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
         } else {
             myEdgeTypesComboBox->setNumVisible(10);
         }
+        // myEdgeTypesComboBox 
+        if (mySelectedEdgeType) {
+            myEdgeTypesComboBox->setText(mySelectedEdgeType->getID().c_str());
+        } else if (templateEditor->hasTemplate()) {
+            myEdgeTypesComboBox->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID).c_str());
+        } else if (edgeTypes.size() > 0) {
+            myEdgeTypesComboBox->setText(edgeTypes.begin()->first.c_str());
+        } else {
+            myEdgeTypesComboBox->disable();
+        }
     } else {
         // disable use custom edge
         myCreateDefaultEdge->enable();
@@ -179,6 +190,12 @@ GNECreateEdgeFrame::EdgeSelector::useEdgeTemplate() const {
 }
 
 
+GNEEdgeType* 
+GNECreateEdgeFrame::EdgeSelector::getSelectedEdgeType() const {
+    return mySelectedEdgeType;
+}
+
+
 long
 GNECreateEdgeFrame::EdgeSelector::onCmdRadioButton(FXObject* obj, FXSelector, void*) {
     // check what object was pressed
@@ -208,12 +225,33 @@ GNECreateEdgeFrame::EdgeSelector::onCmdAddEdgeType(FXObject*, FXSelector, void*)
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, true), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_end();
+    // update mySelectedEdgeType
+    mySelectedEdgeType = edgeType;
+    // refresh edgeSelector
+    refreshEdgeSelector();
     return 0;
 }
 
 
 long
 GNECreateEdgeFrame::EdgeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector, void*) {
+    // first check number of elements
+    if (myEdgeTypesComboBox->getNumItems() > 1) {
+        // first check if we have to reset mySelectedEdgeType
+        if (mySelectedEdgeType && (mySelectedEdgeType->getID() == myEdgeTypesComboBox->getText().text())) {
+            mySelectedEdgeType = nullptr;
+        }
+        // get edgeType to remove
+        GNEEdgeType* edgeType = myCreateEdgeFrameParent->getViewNet()->getNet()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
+        // remove it using undoList
+        myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_begin("create new edge type");
+        // iterate over all laneType
+        for (const auto &laneType : edgeType->getLaneTypes()) {
+            myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, false), true);
+        }
+        myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
+        myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_end();
+    }
     return 0;
 }
 
@@ -224,6 +262,8 @@ GNECreateEdgeFrame::EdgeSelector::onCmdSelectEdgeType(FXObject*, FXSelector, voi
     const GNEInspectorFrame::TemplateEditor* templateEditor = myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor();
     // get edge types
     const auto& edgeTypes = myCreateEdgeFrameParent->getViewNet()->getNet()->getAttributeCarriers()->getEdgeTypes();
+    // reset mySelectedEdgeType
+    mySelectedEdgeType = nullptr;
     // check if we selected template
     if (templateEditor->hasTemplate() && myEdgeTypesComboBox->getCurrentItem() == 0) {
         // set valid color
@@ -239,6 +279,8 @@ GNECreateEdgeFrame::EdgeSelector::onCmdSelectEdgeType(FXObject*, FXSelector, voi
         // show parameter fields
         myCreateEdgeFrameParent->myEdgeParameters->showEdgeParameters();
         myCreateEdgeFrameParent->myLaneParameters->showLaneParameters();
+        // set mySelectedEdgeType
+        mySelectedEdgeType = myCreateEdgeFrameParent->myViewNet->getNet()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
     } else {
         // set invalid color
         myEdgeTypesComboBox->setTextColor(FXRGB(255, 0, 0));

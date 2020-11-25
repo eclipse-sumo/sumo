@@ -23,6 +23,12 @@
 
 
 // ===========================================================================
+// class declaration
+// ===========================================================================
+
+class GNEEdgeType;
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -54,6 +60,9 @@ public:
         /// @brief check if we have to use selector
         bool useEdgeTemplate() const;
 
+        /// @brief getselected edgeType
+        GNEEdgeType* getSelectedEdgeType() const;
+
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user press a radio button
@@ -77,6 +86,9 @@ public:
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
+
+        /// @brief selected edgeType
+        GNEEdgeType* mySelectedEdgeType;
 
         /// @brief create default edge
         FXRadioButton* myCreateDefaultEdge = nullptr;
