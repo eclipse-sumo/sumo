@@ -104,7 +104,7 @@ GNEParkingArea::drawGL(const GUIVisualizationSettings& s) const {
         // draw detail
         if (s.drawDetail(s.detailSettings.stoppingPlaceDetails, parkingAreaExaggeration)) {
             // draw sign
-            drawSign(s, parkingAreaExaggeration, baseColor, signColor, "H");
+            drawSign(s, parkingAreaExaggeration, baseColor, signColor, "P");
             // draw lock icon
             GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, parkingAreaExaggeration, 0, 0, true);
         }
