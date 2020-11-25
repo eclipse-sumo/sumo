@@ -1,0 +1,37 @@
+ Retrying in 1 seconds
+step 10.0
+prior stages for 'p0' 
+  -2: Stage(type=0, edges=('SC',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=0.0, description=waiting (start))
+  -1: Stage(type=5, edges=('CN',), travelTime=0.001, cost=INVALID, length=INVALID, depart=INVALID, departPos=INVALID, arrivalPos=45.975, description=trip)
+step 20.0
+prior stages for 'p0' 
+  -3: Stage(type=0, edges=('SC',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=0.0, description=waiting (start))
+  -2: Stage(type=5, edges=('CN',), travelTime=0.001, cost=INVALID, length=INVALID, depart=INVALID, departPos=INVALID, arrivalPos=45.975, description=trip)
+  -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=p0_0, edges=('SC', 'CN'), travelTime=15.0, cost=INVALID, length=91.95, depart=0.0, departPos=INVALID, arrivalPos=45.975, description=driving)
+step 30.0
+prior stages for 'p0' 
+  -3: Stage(type=0, edges=('SC',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=0.0, description=waiting (start))
+  -2: Stage(type=5, edges=('CN',), travelTime=0.001, cost=INVALID, length=INVALID, depart=INVALID, departPos=INVALID, arrivalPos=45.975, description=trip)
+  -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=p0_0, edges=('SC', 'CN'), travelTime=15.0, cost=INVALID, length=91.95, depart=0.0, departPos=INVALID, arrivalPos=45.975, description=driving)
+step 40.0
+prior stages for 'p0' 
+  -3: Stage(type=0, edges=('SC',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=0.0, description=waiting (start))
+  -2: Stage(type=5, edges=('CN',), travelTime=0.001, cost=INVALID, length=INVALID, depart=INVALID, departPos=INVALID, arrivalPos=45.975, description=trip)
+  -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=p0_0, edges=('SC', 'CN'), travelTime=15.0, cost=INVALID, length=91.95, depart=0.0, departPos=INVALID, arrivalPos=45.975, description=driving)
+step 50.0
+prior stages for 'p0' 
+  -3: Stage(type=0, edges=('SC',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=0.0, description=waiting (start))
+  -2: Stage(type=5, edges=('CN',), travelTime=0.001, cost=INVALID, length=INVALID, depart=INVALID, departPos=INVALID, arrivalPos=45.975, description=trip)
+  -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=p0_0, edges=('SC', 'CN'), travelTime=15.0, cost=INVALID, length=91.95, depart=0.0, departPos=INVALID, arrivalPos=45.975, description=driving)
+step 60.0
+prior stages for 'p0' 
+  -3: Stage(type=0, edges=('SC',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=0.0, description=waiting (start))
+  -2: Stage(type=5, edges=('CN',), travelTime=0.001, cost=INVALID, length=INVALID, depart=INVALID, departPos=INVALID, arrivalPos=45.975, description=trip)
+  -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=p0_0, edges=('SC', 'CN'), travelTime=15.0, cost=INVALID, length=91.95, depart=0.0, departPos=INVALID, arrivalPos=45.975, description=driving)
+step 70.0
+prior stages for 'p0' 
+  -3: Stage(type=0, edges=('SC',), travelTime=0.001, cost=INVALID, length=0.0, depart=INVALID, departPos=INVALID, arrivalPos=0.0, description=waiting (start))
+  -2: Stage(type=5, edges=('CN',), travelTime=0.001, cost=INVALID, length=INVALID, depart=INVALID, departPos=INVALID, arrivalPos=45.975, description=trip)
+  -1: Stage(type=3, vType=DEFAULT_VEHTYPE, line=p0_0, edges=('SC', 'CN'), travelTime=15.0, cost=INVALID, length=91.95, depart=0.0, departPos=INVALID, arrivalPos=45.975, description=driving)
+step 80.0
+prior stages for 'p0' 

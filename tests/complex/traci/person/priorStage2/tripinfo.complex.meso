@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 25 13:47:20 2020 by Eclipse SUMO sumo Version v1_7_0+1281-ac36950658
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="input_net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <tripinfo-output value="tripinfo.xml"/>
+    </output>
+
+    <processing>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
+
+    <traci_server>
+        <remote-port value="52801"/>
+    </traci_server>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-junction-control value="true"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="p0_0" depart="0.00" departLane="" departPos="0.00" departSpeed="13.03" departDelay="0.00" arrival="15.00" arrivalLane="" arrivalPos="45.98" arrivalSpeed="13.03" duration="15.00" routeLength="137.93" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="0.00" rerouteNo="1" devices="tripinfo_p0_0 person_p0_0" vType="DEFAULT_VEHTYPE" speedFactor="0.94" vaporized=""/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <ride waitingTime="0.00" vehicle="p0_0" depart="0.00" arrival="15.00" arrivalPos="45.98" duration="15.00" routeLength="91.95" timeLoss="0.00"/>
+        <walk depart="15.00" departPos="45.98" arrival="79.00" arrivalPos="45.98" duration="64.00" routeLength="91.95" timeLoss="1.54" maxSpeed="1.47"/>
+    </personinfo>
+</tripinfos>

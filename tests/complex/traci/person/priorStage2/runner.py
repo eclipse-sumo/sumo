@@ -50,7 +50,7 @@ traci.start([sumolib.checkBinary('sumo'),
              "-r", "input_routes.rou.xml",
              "--tripinfo-output", "tripinfo.xml",
              # "--vehroute-output", "vehroutes.xml",
-             "--no-step-log"])
+             "--no-step-log"] + sys.argv[1:])
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()

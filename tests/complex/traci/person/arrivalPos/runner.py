@@ -29,7 +29,8 @@ import traci  # noqa
 import traci.constants as tc  # noqa
 
 
-traci.start([sumolib.checkBinary("sumo"), "-c", "data/OnlyNetQuickstart.sumocfg", "--no-step-log"])
+traci.start([sumolib.checkBinary("sumo"), "-c",
+    "data/OnlyNetQuickstart.sumocfg", "--no-step-log"] + sys.argv[1:])
 
 traci.vehicle.add(vehID="bus_1", typeID="BUS", routeID="", depart=0, departPos=0, departSpeed=0, departLane=1)
 traci.vehicle.setRoute("bus_1", ["L12", "L15", "L5"])

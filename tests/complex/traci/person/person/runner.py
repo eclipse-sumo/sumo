@@ -57,7 +57,8 @@ def print_prior_plan(personID, comment=""):
         print("  %s: %s" % (i, stage))
 
 
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--fcd-output", "fcd.xml"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg", "--fcd-output",
+    "fcd.xml"] + sys.argv[1:])
 # add walking person
 traci.person.add("newPerson", "3si", -10)
 traci.person.appendWalkingStage("newPerson", ["3si", "2si"], -20)
