@@ -8,7 +8,6 @@
       InstallerVersion='300' Compressed='yes' />
 
     <Media Id='1' Cabinet='sumo.cab' EmbedCab='yes' />
-    <Icon Id='webWizardIcon' SourceFile='webWizard.ico' />
 
     <Directory Id='TARGETDIR' Name='SourceDir'>
       <Directory Id='ProgramFilesFolder' Name='PFiles'>
@@ -70,7 +69,7 @@
             <Directory Id='TOOLDIR' Name='tools'>
               <Component Id='OSMWebWizard' Guid='020B4F21-0E79-41C8-A745-28CA9B426126'>
                 <File Id='WebWizPy' Name='osmWebWizard.py' Source='O:\Daten\Sumo\Nightly\..\tools\osmWebWizard.py' KeyPath='yes'>
-                  <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="webWizardIcon" IconIndex="0" Advertise="yes" />
+                  <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="webWiz.ico" IconIndex="0" Advertise="yes" />
                 </File>
               </Component>
             </Directory>
@@ -143,7 +142,7 @@
 
     <Icon Id="sumogui.exe" SourceFile="O:\Daten\Sumo\Nightly\sumo-gui.exe" />
     <Icon Id="netedit.exe" SourceFile="O:\Daten\Sumo\Nightly\netedit.exe" />
-    <Icon Id="webWizard" SourceFile="webWizard.ico" />
+    <Icon Id='webWiz.ico' SourceFile='webWizard.ico' />
     <Property Id="ARPPRODUCTICON" Value="sumogui.exe" />
   </Product>
 </Wix>
