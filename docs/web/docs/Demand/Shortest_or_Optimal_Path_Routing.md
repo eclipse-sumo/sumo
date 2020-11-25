@@ -74,7 +74,7 @@ into an {{AdditionalFile}}.
     By default, [duarouter](../duarouter.md) will write `vType` definitions into the output route file ahead of the first vehicle using that type. By using the option **--vtype-output** these definitions can be put into another file.
     
 ## Incomplete Route Definition
-see [Incomplete Route Definition] (https://sumo.dlr.de/docs/Simulation/Public_Transport.html#incomplete_route_definition)
+see [Incomplete Route Definition](https://sumo.dlr.de/docs/Simulation/Public_Transport.html#incomplete_route_definition)
 
 # Flow Definitions
 
