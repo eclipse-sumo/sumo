@@ -26,11 +26,11 @@ import sumolib  # noqa
 import traci  # noqa
 
 
-cmd = [sumolib.checkBinary(sys.argv[1]),
+cmd = [sumolib.checkBinary('sumo'),
        "-n", "input_net.net.xml",
        "-r", "input_routes.rou.xml",
        "-a", "input_additional.add.xml",
-       "--no-step-log", "-S", "-Q"]
+       "--no-step-log", "-S", "-Q"] + sys.argv[1:]
 
 
 def run():
