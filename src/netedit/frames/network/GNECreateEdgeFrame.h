@@ -60,8 +60,14 @@ public:
         /// @brief check if we have to use selector
         bool useEdgeTemplate() const;
 
+        /// @brief check if we're using default edge
+        bool useDefaultEdge() const;
+
         /// @brief getselected edgeType
         GNEEdgeType* getSelectedEdgeType() const;
+
+        /// @brief update default parameter
+        void updateDefaultParameter(SumoXMLAttr attr, const std::string &value);
 
         /// @name FOX-callbacks
         /// @{
@@ -82,6 +88,9 @@ public:
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(EdgeSelector)
+
+        /// @brief fill default parameters
+        void fillDefaultParameters();
 
     private:
         /// @brief pointer to createEdgeFrameParent
@@ -104,6 +113,9 @@ public:
 
         /// @brief button for delete edge type
         FXButton* myDeleteEdgeTypeButton;
+
+        /// @brief map with edge parameters
+        std::map<SumoXMLAttr, std::string> myEdgeAttributes;
     };
 
     // ===========================================================================
@@ -137,7 +149,7 @@ public:
         void setEdgeType(GNEEdgeType* edgeType);
 
         /// @brief set default values
-        void setDefaultValues();
+        void setDefaultValues(const std::map<SumoXMLAttr, std::string> &edgeAttributes);
 
         /// @brief set template values
         void setTemplateValues();
@@ -158,9 +170,6 @@ public:
     protected:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(EdgeTypeParameters)
-
-        /// @brief fill default parameters
-        void fillDefaultParameters();
 
         /// @brief set attribute for default parameters
         void setAttributeDefaultParameters(FXObject* obj);
@@ -201,9 +210,6 @@ public:
 
         /// @brief textField for Parameters
         FXTextField* myParameters = nullptr;
-
-        /// @brief map with edge parameters
-        std::map<SumoXMLAttr, std::string> myEdgeAttributes;
     };
 
     // ===========================================================================
