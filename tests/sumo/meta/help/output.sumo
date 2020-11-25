@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_7_0+1010-974f228feb
+Eclipse SUMO sumo Version v1_7_0+1268-7ceb9d55a5
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -601,6 +601,14 @@ Tripinfo Device Options:
   --device.tripinfo.explicit STR[]     Assign a 'tripinfo' device to named
                                         vehicles
   --device.tripinfo.deterministic      The 'tripinfo' devices are set
+                                        deterministic using a fraction of 1000
+
+Vehroutes Device Options:
+  --device.vehroute.probability FLOAT  The probability for a vehicle to have a
+                                        'vehroute' device
+  --device.vehroute.explicit STR[]     Assign a 'vehroute' device to named
+                                        vehicles
+  --device.vehroute.deterministic      The 'vehroute' devices are set
                                         deterministic using a fraction of 1000
 
 TraCI Server Options:

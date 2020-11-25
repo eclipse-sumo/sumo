@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Sat Nov 14 08:53:29 2020 by Eclipse SUMO sumo Version v1_7_0+1010-974f228feb
+<!-- generated on Wed Nov 25 10:51:00 2020 by Eclipse SUMO sumo Version v1_7_0+1268-7ceb9d55a5
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
@@ -859,6 +859,18 @@
         <device.tripinfo.deterministic value="false" type="BOOL"/>
 
     </tripinfo_device>
+
+    <vehroutes_device>
+        <!-- The probability for a vehicle to have a &apos;vehroute&apos; device -->
+        <device.vehroute.probability value="-1" type="FLOAT"/>
+
+        <!-- Assign a &apos;vehroute&apos; device to named vehicles -->
+        <device.vehroute.explicit value="" synonymes="device.vehroute.knownveh" type="STR[]"/>
+
+        <!-- The &apos;vehroute&apos; devices are set deterministic using a fraction of 1000 -->
+        <device.vehroute.deterministic value="false" type="BOOL"/>
+
+    </vehroutes_device>
 
     <traci_server>
         <!-- Enables TraCI Server if set -->
