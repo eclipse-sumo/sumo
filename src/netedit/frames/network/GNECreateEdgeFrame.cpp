@@ -326,41 +326,13 @@ GNECreateEdgeFrame::EdgeTypeParameters::EdgeTypeParameters(GNECreateEdgeFrame* c
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
     new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_PRIORITY).c_str(), nullptr, GUIDesignLabelAttribute);
     myPriority = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create ComboBox for oneWay
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_ONEWAY).c_str(), nullptr, GUIDesignLabelAttribute);
-    myOneWay = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
-    myOneWay->insertItem(0, "true");
-    myOneWay->insertItem(1, "false");
-    // create ComboBox for discard
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_DISCARD).c_str(), nullptr, GUIDesignLabelAttribute);
-    myDiscard = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
-    myDiscard->insertItem(0, "true");
-    myDiscard->insertItem(1, "false");
     // create textField for width
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
     new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
     myWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create textField for widthResolution
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTHRESOLUTION).c_str(), nullptr, GUIDesignLabelAttribute);
-    myWidthResolution = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create textField for maxWidth
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_MAXWIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
-    myMaxWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create textField for sideWalkWidth
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SIDEWALKWIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
-    mySideWalkWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create textField for bikeLaneWidth
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_BIKELANEWIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
-    myBikeLaneWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for parameters
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-    new FXLabel(horizontalFrameAttribute, toString(GNE_ATTR_PARAMETERS).c_str(), nullptr, GUIDesignLabelAttribute);
+    new FXLabel(horizontalFrameAttribute, "parameters", nullptr, GUIDesignLabelAttribute);
     myParameters = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // fill default parameters
     fillDefaultParameters();
@@ -392,13 +364,7 @@ GNECreateEdgeFrame::EdgeTypeParameters::enableEdgeTypeParameters() {
     myDisallowButton->enable();
     myDisallow->enable();
     myPriority->enable();
-    myOneWay->enable();
-    myDiscard->enable();
     myWidth->enable();
-    myWidthResolution->enable();
-    myMaxWidth->enable();
-    mySideWalkWidth->enable();
-    myBikeLaneWidth->enable();
     myParameters->enable();
 }
 
@@ -413,13 +379,7 @@ GNECreateEdgeFrame::EdgeTypeParameters::disableEdgeTypeParameters() {
     myDisallowButton->disable();
     myDisallow->disable();
     myPriority->disable();
-    myOneWay->disable();
-    myDiscard->disable();
     myWidth->disable();
-    myWidthResolution->disable();
-    myMaxWidth->disable();
-    mySideWalkWidth->disable();
-    myBikeLaneWidth->disable();
     myParameters->disable();
 }
 
@@ -438,20 +398,8 @@ GNECreateEdgeFrame::EdgeTypeParameters::setEdgeType(GNEEdgeType* edgeType) {
     myDisallow->setText(edgeType->getAttribute(SUMO_ATTR_DISALLOW).c_str(), FALSE);
     // set priority
     myPriority->setText(edgeType->getAttribute(SUMO_ATTR_PRIORITY).c_str(), FALSE);
-    // set oneWay
-    myOneWay->setText(edgeType->getAttribute(SUMO_ATTR_ONEWAY).c_str());
-    // set Discard
-    myDiscard->setText(edgeType->getAttribute(SUMO_ATTR_DISCARD).c_str());
     // set width
     myWidth->setText(edgeType->getAttribute(SUMO_ATTR_WIDTH).c_str(), FALSE);
-    // set width resolution
-    myWidthResolution->setText(edgeType->getAttribute(SUMO_ATTR_WIDTHRESOLUTION).c_str(), FALSE);
-    // set max width
-    myMaxWidth->setText(edgeType->getAttribute(SUMO_ATTR_MAXWIDTH).c_str(), FALSE);
-    // set sidewalk width
-    mySideWalkWidth->setText(edgeType->getAttribute(SUMO_ATTR_SIDEWALKWIDTH).c_str(), FALSE);
-    // set bikelane width
-    myBikeLaneWidth->setText(edgeType->getAttribute(SUMO_ATTR_BIKELANEWIDTH).c_str(), FALSE);
     // set parameters
     myParameters->setText(edgeType->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
 
@@ -472,20 +420,8 @@ GNECreateEdgeFrame::EdgeTypeParameters::setDefaultValues() {
     myDisallow->setText("", FALSE);
     // set priority
     myPriority->setText("-1", FALSE);
-    // set oneWay
-    myOneWay->setText("false");
-    // set discard
-    myDiscard->setText("false");
     // set width
     myWidth->setText("-1.00", FALSE);
-    // set widthResolution
-    myWidthResolution->setText("-1.00", FALSE);
-    // set max width
-    myMaxWidth->setText("-1.00", FALSE);
-    // set sidewalk width
-    mySideWalkWidth->setText("-1.00", FALSE);
-    // set bikelane width
-    myBikeLaneWidth->setText("-1.00", FALSE);
     // set parameters
     myParameters->setText("", FALSE);
 }
@@ -493,19 +429,18 @@ GNECreateEdgeFrame::EdgeTypeParameters::setDefaultValues() {
 
 void
 GNECreateEdgeFrame::EdgeTypeParameters::setCurrentEdgeTypeAttributesInEdge(GNEEdge* edge, GNEUndoList* undoList) const {
-    // set speed
-    edge->setAttribute(SUMO_ATTR_SPEED, toString(mySpeed->getText().text()), undoList);
-    // set priority
-    edge->setAttribute(SUMO_ATTR_PRIORITY, toString(myPriority->getText().text()), undoList);
     // set num lanes
     edge->setAttribute(SUMO_ATTR_NUMLANES, toString(myNumLanes->getText().text()), undoList);
+    // set speed
+    edge->setAttribute(SUMO_ATTR_SPEED, toString(mySpeed->getText().text()), undoList);
     // set allow (no disallow)
     edge->setAttribute(SUMO_ATTR_ALLOW, toString(myAllow->getText().text()), undoList);
+    // set priority
+    edge->setAttribute(SUMO_ATTR_PRIORITY, toString(myPriority->getText().text()), undoList);
     // set witdth
     edge->setAttribute(SUMO_ATTR_WIDTH, toString(myWidth->getText().text()), undoList);
-
-    /* check*/
-
+    // set parameters
+    edge->setAttribute(GNE_ATTR_PARAMETERS, toString(myParameters->getText().text()), undoList);
 }
 
 
@@ -534,25 +469,27 @@ GNECreateEdgeFrame::EdgeTypeParameters::onCmdOpenAttributeDialog(FXObject*, FXSe
 
 void
 GNECreateEdgeFrame::EdgeTypeParameters::fillDefaultParameters() {
-    // set speed
-    myEdgeAttributes[SUMO_ATTR_SPEED] = "13.89";
-    mySpeed->setText("13.89");
-    // set priority
-    myEdgeAttributes[SUMO_ATTR_PRIORITY] = "-1";
-    myPriority->setText("-1");
     // set numLanes
     myEdgeAttributes[SUMO_ATTR_NUMLANES] = "1";
     myNumLanes->setText("1");
+    // set speed
+    myEdgeAttributes[SUMO_ATTR_SPEED] = "13.89";
+    mySpeed->setText("13.89");
     // set allow
     myEdgeAttributes[SUMO_ATTR_ALLOW] = "all";
     myAllow->setText("all");
     // set disallow
     myEdgeAttributes[SUMO_ATTR_DISALLOW] = "";
     myDisallow->setText("");
+    // set priority
+    myEdgeAttributes[SUMO_ATTR_PRIORITY] = "-1";
+    myPriority->setText("-1");
     // set width
     myEdgeAttributes[SUMO_ATTR_WIDTH] = "-1.00";
     myWidth->setText("-1.00");
-
+    // set parameters
+    myEdgeAttributes[GNE_ATTR_PARAMETERS] = "";
+    myWidth->setText("");
 }
 
 // ---------------------------------------------------------------------------

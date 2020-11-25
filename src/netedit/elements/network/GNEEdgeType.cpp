@@ -44,15 +44,7 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::E
     speed = edgeType->speed;
     priority = edgeType->priority;
     permissions = edgeType->permissions;
-    oneWay = edgeType->oneWay;
-    discard = edgeType->discard;
     width = edgeType->width;
-    widthResolution = edgeType->widthResolution;
-    maxWidth = edgeType->maxWidth;
-    minWidth = edgeType->minWidth;
-    sidewalkWidth = edgeType->sidewalkWidth;
-    bikeLaneWidth = edgeType->bikeLaneWidth;
-    restrictions = edgeType->restrictions;
     attrs = edgeType->attrs;
     laneTypeDefinitions = edgeType->laneTypeDefinitions;
 }
@@ -163,20 +155,8 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             return getVehicleClassNames(invertPermissions(permissions));
         case SUMO_ATTR_PRIORITY:
             return toString(priority);
-        case SUMO_ATTR_ONEWAY:
-            return toString(oneWay);
-        case SUMO_ATTR_DISCARD:
-            return toString(discard);
         case SUMO_ATTR_WIDTH:
             return toString(width);
-        case SUMO_ATTR_WIDTHRESOLUTION:
-            return toString(widthResolution);
-        case SUMO_ATTR_MAXWIDTH:
-            return toString(maxWidth);
-        case SUMO_ATTR_SIDEWALKWIDTH:
-            return toString(sidewalkWidth);
-        case SUMO_ATTR_BIKELANEWIDTH:
-            return toString(bikeLaneWidth);
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -193,14 +173,8 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_SPEED:
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
-        case SUMO_ATTR_PRIORITY:
-        case SUMO_ATTR_ONEWAY:
         case SUMO_ATTR_DISCARD:
         case SUMO_ATTR_WIDTH:
-        case SUMO_ATTR_WIDTHRESOLUTION:
-        case SUMO_ATTR_MAXWIDTH:
-        case SUMO_ATTR_SIDEWALKWIDTH:
-        case SUMO_ATTR_BIKELANEWIDTH:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -224,15 +198,7 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
             return canParseVehicleClasses(value);
         case SUMO_ATTR_PRIORITY:
             return canParse<int>(value);
-        case SUMO_ATTR_ONEWAY:
-            return canParse<bool>(value);
-        case SUMO_ATTR_DISCARD:
-            return canParse<bool>(value);
         case SUMO_ATTR_WIDTH:
-        case SUMO_ATTR_WIDTHRESOLUTION:
-        case SUMO_ATTR_MAXWIDTH:
-        case SUMO_ATTR_SIDEWALKWIDTH:
-        case SUMO_ATTR_BIKELANEWIDTH:
             return canParse<double>(value) && ((parse<double>(value) >= -1) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
@@ -275,29 +241,11 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_DISALLOW:
             permissions = invertPermissions(parseVehicleClasses(value));
             break;
-        case SUMO_ATTR_PRIORITY:
-            priority = parse<int>(value);
-            break;
-        case SUMO_ATTR_ONEWAY:
-            oneWay = parse<bool>(value);
-            break;
         case SUMO_ATTR_DISCARD:
             discard = parse<bool>(value);
             break;
         case SUMO_ATTR_WIDTH:
             width = parse<double>(value);
-            break;
-        case SUMO_ATTR_WIDTHRESOLUTION:
-            widthResolution = parse<double>(value);
-            break;
-        case SUMO_ATTR_MAXWIDTH:
-            maxWidth = parse<double>(value);
-            break;
-        case SUMO_ATTR_SIDEWALKWIDTH:
-            sidewalkWidth = parse<double>(value);
-            break;
-        case SUMO_ATTR_BIKELANEWIDTH:
-            bikeLaneWidth = parse<double>(value);
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);

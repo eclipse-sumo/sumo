@@ -187,26 +187,8 @@ public:
         /// @brief textField for priority
         FXTextField* myPriority = nullptr;
 
-        /// @brief CheckBox for OneWay
-        FXComboBox* myOneWay = nullptr;
-
-        /// @brief CheckBox for discard
-        FXComboBox* myDiscard = nullptr;
-
         /// @brief textField for width
         FXTextField* myWidth = nullptr;
-
-        /// @brief textField for widthResolution
-        FXTextField* myWidthResolution = nullptr;
-
-        /// @brief textField for widthResolution
-        FXTextField* myMaxWidth = nullptr;
-
-        /// @brief textField for SideWalkWidth
-        FXTextField* mySideWalkWidth = nullptr;
-
-        /// @brief textField for BikeLaneWidth
-        FXTextField* myBikeLaneWidth = nullptr;
 
         /// @brief textField for Parameters
         FXTextField* myParameters = nullptr;
