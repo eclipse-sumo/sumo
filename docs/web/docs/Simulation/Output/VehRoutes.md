@@ -73,13 +73,13 @@ For proper simulation input the file should be also sorted by departure
 time. This can be accomplished by also setting option **--vehroute-output.sorted**.
 
 ## Output only for selected vehicles or vehicle types
-By default all vehicles will generated vehroute-output. By [assigning a vehroute device](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#devices) to selected vehicles or types, this can be changed.
-
-Example:
-Setting SUMO-option **--device.vehroute.probability false** will disable the device for all vehicles by default.
-The following definition overrides this default end enables the device for busses:
+By default all vehicles will generate vehroute-output. By [assigning a vehroute device](../../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#assignment_by_generic_parameters) to selected vehicles or vehicle types, this can be changed.
+As an example, the following definition enables the device for the vehicle type **t1**:
 ```
-<vType id="bus">
+<vType id="t1">
   <param key="has.vehroute.device" value="true"/>
 </vType>
 ```
+
+Alternatively, you can use the SUMO option **--device.vehroute.probability** to set the probability for a vehicle to generate the vehroute-output.
+For example, setting the option **--device.vehroute.probability 0.25** will equip about a quarter of the vehicles with a vehroute device (each vehicle determines this randomly with 25% probability).
