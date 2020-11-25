@@ -107,37 +107,40 @@ public:
     };
 
     // ===========================================================================
-    // class EdgeParameters
+    // class EdgeTypeParameters
     // ===========================================================================
 
-    class EdgeParameters : protected FXGroupBox {
+    class EdgeTypeParameters : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNECreateEdgeFrame::EdgeParameters)
+        FXDECLARE(GNECreateEdgeFrame::EdgeTypeParameters)
 
     public:
         /// @brief constructor
-        EdgeParameters(GNECreateEdgeFrame* createEdgeFrameParent);
+        EdgeTypeParameters(GNECreateEdgeFrame* createEdgeFrameParent);
 
         /// @brief destructor
-        ~EdgeParameters();
+        ~EdgeTypeParameters();
 
         /// @brief show edge parameters
-        void showEdgeParameters();
+        void showEdgeTypeParameters();
 
         /// @brief hide edge parameters
-        void hideEdgeParameters();
+        void hideEdgeTypeParameters();
 
         /// @brief enable edge parameters
-        void enableEdgeParameters();
+        void enableEdgeTypeParameters();
 
         /// @brief disable edge parameters
-        void disableEdgeParameters();
+        void disableEdgeTypeParameters();
+
+        /// @brief set edgeType
+        void setEdgeType(GNEEdgeType* edgeType);
 
         /// @brief set default values
         void setDefaultValues();
 
-        /// @brief set attributes
-        void setAttributes(GNEEdge* edge, GNEUndoList* undoList) const;
+        /// @brief set current attributes
+        void setCurrentEdgeTypeAttributesInEdge(GNEEdge* edge, GNEUndoList* undoList) const;
 
         /// @name FOX-callbacks
         /// @{
@@ -151,7 +154,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(EdgeParameters)
+        FOX_CONSTRUCTOR(EdgeTypeParameters)
 
         /// @brief fill default parameters
         void fillDefaultParameters();
@@ -160,17 +163,14 @@ public:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
 
-        /// @brief textField for speed
-        FXTextField* mySpeed = nullptr;
-
-        /// @brief textField for priority
-        FXTextField* myPriority = nullptr;
+        /// @brief textField for id
+        FXTextField* myID = nullptr;
 
         /// @brief textField for numLanes
         FXTextField* myNumLanes = nullptr;
 
-        /// @brief textField for Type
-        FXTextField* myType = nullptr;
+        /// @brief textField for speed
+        FXTextField* mySpeed = nullptr;
 
         /// @brief Button for allow vehicles
         FXButton* myAllowButton = nullptr;
@@ -184,48 +184,63 @@ public:
         /// @brief textField for disallow vehicles
         FXTextField* myDisallow = nullptr;
 
-        /// @brief ComboBox for spread type
-        FXComboBox* mySpreadType = nullptr;
+        /// @brief textField for priority
+        FXTextField* myPriority = nullptr;
 
-        /// @brief textField for name
-        FXTextField* myName = nullptr;
+        /// @brief CheckBox for OneWay
+        FXComboBox* myOneWay = nullptr;
+
+        /// @brief CheckBox for discard
+        FXComboBox* myDiscard = nullptr;
 
         /// @brief textField for width
         FXTextField* myWidth = nullptr;
 
-        /// @brief textField for distance
-        FXTextField* myDistance = nullptr;
+        /// @brief textField for widthResolution
+        FXTextField* myWidthResolution = nullptr;
+
+        /// @brief textField for widthResolution
+        FXTextField* myMaxWidth = nullptr;
+
+        /// @brief textField for SideWalkWidth
+        FXTextField* mySideWalkWidth = nullptr;
+
+        /// @brief textField for BikeLaneWidth
+        FXTextField* myBikeLaneWidth = nullptr;
+
+        /// @brief textField for Parameters
+        FXTextField* myParameters = nullptr;
 
         /// @brief map with edge parameters
         std::map<SumoXMLAttr, std::string> myEdgeAttributes;
     };
 
     // ===========================================================================
-    // class LaneParameters
+    // class LaneTypeParameters
     // ===========================================================================
 
-    class LaneParameters : protected FXGroupBox {
+    class LaneTypeParameters : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNECreateEdgeFrame::LaneParameters)
+        FXDECLARE(GNECreateEdgeFrame::LaneTypeParameters)
 
     public:
         /// @brief constructor
-        LaneParameters(GNECreateEdgeFrame* createEdgeFrameParent);
+        LaneTypeParameters(GNECreateEdgeFrame* createEdgeFrameParent);
 
         /// @brief destructor
-        ~LaneParameters();
+        ~LaneTypeParameters();
 
         /// @brief show lane parameters
-        void showLaneParameters();
+        void showLaneTypeParameters();
 
         /// @brief hide lane parameters
-        void hideLaneParameters();
+        void hideLaneTypeParameters();
 
         /// @brief enable lane parameters
-        void enableLaneParameters();
+        void enableLaneTypeParameters();
 
         /// @brief disable lane parameters
-        void disableLaneParameters();
+        void disableLaneTypeParameters();
 
         /// @brief set default values
         void setDefaultValues();
@@ -248,7 +263,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(LaneParameters)
+        FOX_CONSTRUCTOR(LaneTypeParameters)
 
         /// @brief fill default parameters
         void fillDefaultParameters(int laneIndex);
@@ -342,10 +357,10 @@ public:
 
 protected:
     /// @brief edge parameters
-    EdgeParameters* myEdgeParameters = nullptr;
+    EdgeTypeParameters* myEdgeTypeParameters = nullptr;
 
     /// @brief lane parameters
-    LaneParameters* myLaneParameters = nullptr;
+    LaneTypeParameters* myLaneTypeParameters = nullptr;
 
     /// @brief custom edge selector
     EdgeSelector* myEdgeSelector = nullptr;
