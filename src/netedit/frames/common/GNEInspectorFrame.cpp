@@ -1025,7 +1025,10 @@ GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate(GNEEdge* edge) {
     edgeParameters[SUMO_ATTR_TYPE] = edge->getAttribute(SUMO_ATTR_TYPE);
     edgeParameters[SUMO_ATTR_PRIORITY] = edge->getAttribute(SUMO_ATTR_PRIORITY);
     edgeParameters[SUMO_ATTR_SPREADTYPE] = edge->getAttribute(SUMO_ATTR_SPREADTYPE);
+    edgeParameters[GNE_ATTR_PARAMETERS] = edge->getAttribute(GNE_ATTR_PARAMETERS);
     // copy raw values for lane-specific attributes
+    edgeParameters[SUMO_ATTR_ALLOW] = edge->getAttribute(SUMO_ATTR_ALLOW);
+    edgeParameters[SUMO_ATTR_DISALLOW] = edge->getAttribute(SUMO_ATTR_DISALLOW);    // only used in GNECreateEdgeFrame
     edgeParameters[SUMO_ATTR_SPEED] = edge->getAttribute(SUMO_ATTR_SPEED);
     edgeParameters[SUMO_ATTR_WIDTH] = edge->getAttribute(SUMO_ATTR_WIDTH);
     edgeParameters[SUMO_ATTR_ENDOFFSET] = edge->getAttribute(SUMO_ATTR_ENDOFFSET);
@@ -1033,9 +1036,11 @@ GNEInspectorFrame::TemplateEditor::EdgeTemplate::EdgeTemplate(GNEEdge* edge) {
     for (int i = 0; i < (int)edge->getLanes().size(); i++) {
         std::map<SumoXMLAttr, std::string> laneParameter;
         laneParameter[SUMO_ATTR_ALLOW] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_ALLOW);
+        laneParameter[SUMO_ATTR_DISALLOW] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_DISALLOW);   // only used in GNECreateEdgeFrame
         laneParameter[SUMO_ATTR_SPEED] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_SPEED);
         laneParameter[SUMO_ATTR_WIDTH] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_WIDTH);
         laneParameter[SUMO_ATTR_ENDOFFSET] = edge->getLanes().at(i)->getAttribute(SUMO_ATTR_ENDOFFSET);
+        laneParameter[GNE_ATTR_PARAMETERS] = edge->getLanes().at(i)->getAttribute(GNE_ATTR_PARAMETERS);
         laneParameters.push_back(laneParameter);
     }
 }

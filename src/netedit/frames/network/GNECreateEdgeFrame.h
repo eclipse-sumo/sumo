@@ -139,6 +139,9 @@ public:
         /// @brief set default values
         void setDefaultValues();
 
+        /// @brief set template values
+        void setTemplateValues();
+
         /// @brief set current attributes
         void setCurrentEdgeTypeAttributesInEdge(GNEEdge* edge, GNEUndoList* undoList) const;
 
@@ -162,6 +165,9 @@ public:
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
+
+        // @brief label frame for ID/template
+        FXLabel* myLabelID;
 
         /// @brief textField for id
         FXTextField* myID = nullptr;
