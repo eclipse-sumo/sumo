@@ -806,8 +806,9 @@ MSVehicle::Influencer::isRemoteAffected(SUMOTime t) const {
 void
 MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     const bool wasOnRoad = v->isOnRoad();
+    const bool withinLane = myRemoteLane != nullptr && fabs(myRemotePosLat) < 0.5 * (myRemoteLane->getWidth() + v->getVehicleType().getWidth());
     const bool keepLane = v->getLane() == myRemoteLane;
-    if (v->isOnRoad() && !keepLane) {
+    if (v->isOnRoad() && !(keepLane && withinLane)) {
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         v->getMutableLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
     }
@@ -818,7 +819,7 @@ MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     if (myRemoteLane != nullptr && myRemotePos > myRemoteLane->getLength()) {
         myRemotePos = myRemoteLane->getLength();
     }
-    if (myRemoteLane != nullptr && fabs(myRemotePosLat) < 0.5 * (myRemoteLane->getWidth() + v->getVehicleType().getWidth())) {
+    if (myRemoteLane != nullptr && withinLane) {
         if (keepLane) {
             v->myState.myPos = myRemotePos;
             v->myState.myPosLat = myRemotePosLat;
