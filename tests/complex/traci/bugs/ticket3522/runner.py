@@ -30,6 +30,9 @@ ix = sys.argv.index(":")
 saveParams = sys.argv[1:ix]
 loadParams = sys.argv[ix + 1:]
 
+if '--mesosim' in loadParams:
+    saveParams.append('--mesosim')
+
 # SAVE
 
 sumoBinary = os.environ.get("SUMO_BINARY", os.path.join(
