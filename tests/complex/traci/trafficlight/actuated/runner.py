@@ -29,7 +29,7 @@ import traci  # noqa
 import sumolib  # noqa
 
 tlsID = "C"
-traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"])
+traci.start([sumolib.checkBinary('sumo'), "-c", "sumo.sumocfg"] + sys.argv[1:])
 
 
 # default actuated

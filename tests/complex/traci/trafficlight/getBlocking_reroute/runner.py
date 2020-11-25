@@ -34,7 +34,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-r', 'input_routes.rou.xml',
              '-a', 'input_additional.add.xml',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 signalID = "A"
 vehID = "ego"

@@ -32,7 +32,7 @@ traci.start([sumolib.checkBinary('sumo'),
              '-a', 'input_additional2.add.xml',
              '-r', 'input_routes.rou.xml',
              '--no-step-log',
-             ])
+             ] + sys.argv[1:])
 
 print("busstops", traci.busstop.getIDList())
 print("busstop count", traci.busstop.getIDCount())
