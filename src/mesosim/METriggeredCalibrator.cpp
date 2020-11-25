@@ -69,7 +69,8 @@ METriggeredCalibrator::~METriggeredCalibrator() {
         // but avoid to call it again in MSCalibrator
         myCurrentStateInterval = myIntervals.end();
     }
-    mySegment->removeDetector(&myEdgeMeanData);
+    // TODO this is just commented out to work around https://github.com/eclipse/sumo/issues/7861
+    //mySegment->removeDetector(&myEdgeMeanData);
 }
 
 
