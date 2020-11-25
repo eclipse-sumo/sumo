@@ -194,7 +194,7 @@ MSRailSignalConstraint_Predecessor::PassedTracker::notifyEnter(SUMOTrafficObject
 void
 MSRailSignalConstraint_Predecessor::PassedTracker::raiseLimit(int limit) {
     while (limit > (int)myPassed.size()) {
-        myPassed.insert(myPassed.begin() + myLastIndex + 1, "");
+        myPassed.insert(myPassed.begin() + (myLastIndex + 1), "");
     }
 #ifdef DEBUG_PASSED
     if (myLane->getID() == DEBUG_LANE) {
