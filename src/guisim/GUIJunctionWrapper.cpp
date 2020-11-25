@@ -135,7 +135,7 @@ GUIJunctionWrapper::getCenteringBoundary() const {
 
 const std::string
 GUIJunctionWrapper::getOptionalName() const {
-    return myJunction.getParameter("name", "");
+    return myJunction.getName();
 }
 
 void
