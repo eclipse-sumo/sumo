@@ -21,6 +21,7 @@ from __future__ import print_function
 import os
 import sys
 import optparse
+import subprocess
 
 # we need to import python modules from the $SUMO_HOME/tools directory
 if 'SUMO_HOME' in os.environ:
@@ -47,30 +48,20 @@ def run():
     sys.stdout.flush()
 
 
-def get_options():
-    optParser = optparse.OptionParser()
-    optParser.add_option("--nogui", action="store_true",
-                         default=False, help="run the commandline version of sumo")
-    options, args = optParser.parse_args()
-    return options
-
-
 # this is the main entry point of this script
 if __name__ == "__main__":
-    options = get_options()
 
-    # this script has been called from the command line. It will start sumo as a
-    # server, then connect and run
-    if options.nogui:
-        sumoBinary = checkBinary('sumo')
-    else:
-        sumoBinary = checkBinary('sumo-gui')
+    sumoBinary = checkBinary('sumo')
+    # prepare state
+    subprocess.call([sumoBinary, "-c", "sumo.sumocfg"] + sys.argv[1:])
 
-    # this is the normal way of using traci. sumo is started as a
-    # subprocess and then the python script connects and runs
-    traci.start([sumoBinary, "-n", "input_net.net.xml",
-                             "-a", "input_routes.rou.xml",
-                             "--load-state", "input_state.xml",
-                             "--no-step-log",
-                             "--begin", "9"])
+    args = [sumoBinary, "-n", "input_net.net.xml",
+            "-a", "input_routes.rou.xml",
+            "--load-state", "input_state.xml",
+            "--no-step-log",
+            "--begin", "9"]
+
+    args += sys.argv[1:]
+
+    traci.start(args)
     run()

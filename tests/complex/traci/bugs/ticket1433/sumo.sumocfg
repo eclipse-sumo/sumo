@@ -9,5 +9,6 @@
         <save-state.times value="9"/>
         <save-state.files value="input_state.xml"/>
     </output>
+    <no-step-log value="true"/>
 
 </configuration>
