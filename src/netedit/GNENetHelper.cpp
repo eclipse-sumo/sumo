@@ -25,6 +25,7 @@
 #include <netedit/GNEViewNet.h>
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_Shape.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/elements/additional/GNEPOI.h>
 #include <netedit/elements/additional/GNEPoly.h>
 #include <netedit/elements/data/GNEDataInterval.h>
@@ -521,6 +522,10 @@ GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
     myEdgeTypes[edgeType->getMicrosimID()] = edgeType;
     // also in typeCont
     myNet->getNetBuilder()->getTypeCont().insertEdgeType(edgeType->getMicrosimID(), edgeType);
+    // update edge selector
+    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+    }
 }
 
 
@@ -533,6 +538,10 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     myEdgeTypes.erase(edgeType->getMicrosimID());
     // extract it from typeCont (but DON'T delete)
     myNet->getNetBuilder()->getTypeCont().removeEdgeType(edgeType->getMicrosimID());
+    // update edge selector
+    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+    }  
 }
 
 

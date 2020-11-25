@@ -354,10 +354,6 @@ GNECreateEdgeFrame::EdgeTypeParameters::EdgeTypeParameters(GNECreateEdgeFrame* c
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myDisallowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_DISALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myDisallow = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // create textField for priority
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_PRIORITY).c_str(), nullptr, GUIDesignLabelAttribute);
-    myPriority = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for width
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -395,7 +391,6 @@ GNECreateEdgeFrame::EdgeTypeParameters::enableEdgeTypeParameters() {
     myAllow->enable();
     myDisallowButton->enable();
     myDisallow->enable();
-    myPriority->enable();
     myWidth->enable();
     myParameters->enable();
 }
@@ -410,7 +405,6 @@ GNECreateEdgeFrame::EdgeTypeParameters::disableEdgeTypeParameters() {
     myAllow->disable();
     myDisallowButton->disable();
     myDisallow->disable();
-    myPriority->disable();
     myWidth->disable();
     myParameters->disable();
 }
@@ -421,20 +415,25 @@ GNECreateEdgeFrame::EdgeTypeParameters::setEdgeType(GNEEdgeType* edgeType) {
     // set id
     myLabelID->setText("edgeType ID");
     myID->setText(edgeType->getAttribute(SUMO_ATTR_ID).c_str(), FALSE);
+    myID->setTextColor(FXRGB(0, 0, 0));
     // set numLanes
     myNumLanes->setText(edgeType->getAttribute(SUMO_ATTR_NUMLANES).c_str(), FALSE);
+    myNumLanes->setTextColor(FXRGB(0, 0, 0));
     // set speed
     mySpeed->setText(edgeType->getAttribute(SUMO_ATTR_SPEED).c_str(), FALSE);
+    mySpeed->setTextColor(FXRGB(0, 0, 0));
     // set allow
     myAllow->setText(edgeType->getAttribute(SUMO_ATTR_ALLOW).c_str(), FALSE);
+    myAllow->setTextColor(FXRGB(0, 0, 0));
     // set disallow
     myDisallow->setText(edgeType->getAttribute(SUMO_ATTR_DISALLOW).c_str(), FALSE);
-    // set priority
-    myPriority->setText(edgeType->getAttribute(SUMO_ATTR_PRIORITY).c_str(), FALSE);
+    myDisallow->setTextColor(FXRGB(0, 0, 0));
     // set width
     myWidth->setText(edgeType->getAttribute(SUMO_ATTR_WIDTH).c_str(), FALSE);
+    myWidth->setTextColor(FXRGB(0, 0, 0));
     // set parameters
     myParameters->setText(edgeType->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+    myParameters->setTextColor(FXRGB(0, 0, 0));
 }
 
 
@@ -443,20 +442,25 @@ GNECreateEdgeFrame::EdgeTypeParameters::setDefaultValues() {
     // set ID
     myLabelID->setText("edgeType ID");
     myID->setText("", FALSE);
+    myID->setTextColor(FXRGB(0, 0, 0));
     // set numLanes
     myNumLanes->setText("1", FALSE);
+    myNumLanes->setTextColor(FXRGB(0, 0, 0));
     // set speed
     mySpeed->setText("13.89", FALSE);
+    mySpeed->setTextColor(FXRGB(0, 0, 0));
     // set allow
     myAllow->setText("all", FALSE);
+    myAllow->setTextColor(FXRGB(0, 0, 0));
     // set disallow
     myDisallow->setText("", FALSE);
-    // set priority
-    myPriority->setText("-1", FALSE);
+    myDisallow->setTextColor(FXRGB(0, 0, 0));
     // set width
     myWidth->setText("-1.00", FALSE);
+    myWidth->setTextColor(FXRGB(0, 0, 0));
     // set parameters
     myParameters->setText("", FALSE);
+    myParameters->setTextColor(FXRGB(0, 0, 0));
 }
 
 
@@ -477,8 +481,6 @@ GNECreateEdgeFrame::EdgeTypeParameters::setTemplateValues() {
         myAllow->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ALLOW).c_str(), FALSE);
         // set disallow
         myDisallow->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_DISALLOW).c_str(), FALSE);
-        // set priority
-        myPriority->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_PRIORITY).c_str(), FALSE);
         // set width
         myWidth->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_WIDTH).c_str(), FALSE);
         // set parameters
@@ -497,8 +499,6 @@ GNECreateEdgeFrame::EdgeTypeParameters::setCurrentEdgeTypeAttributesInEdge(GNEEd
     edge->setAttribute(SUMO_ATTR_SPEED, toString(mySpeed->getText().text()), undoList);
     // set allow (no disallow)
     edge->setAttribute(SUMO_ATTR_ALLOW, toString(myAllow->getText().text()), undoList);
-    // set priority
-    edge->setAttribute(SUMO_ATTR_PRIORITY, toString(myPriority->getText().text()), undoList);
     // set witdth
     edge->setAttribute(SUMO_ATTR_WIDTH, toString(myWidth->getText().text()), undoList);
     // set parameters
@@ -508,8 +508,11 @@ GNECreateEdgeFrame::EdgeTypeParameters::setCurrentEdgeTypeAttributesInEdge(GNEEd
 
 long
 GNECreateEdgeFrame::EdgeTypeParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
-    if (obj == myNumLanes) {
-        myCreateEdgeFrameParent->myLaneTypeParameters->updateNumLanes(GNEAttributeCarrier::parse<int>(myNumLanes->getText().text()));
+    // check if we're editing an existent edgeType
+    if (myCreateEdgeFrameParent->myEdgeSelector->getSelectedEdgeType()) {
+        setAttributeExistentEdgeType(obj);
+    } else {
+        setAttributeDefaultParameters(obj);
     }
     return 1;
 }
@@ -533,28 +536,148 @@ void
 GNECreateEdgeFrame::EdgeTypeParameters::fillDefaultParameters() {
     myLabelID->setText("edge ID");
     myID->setText("");
+    myID->setTextColor(FXRGB(0, 0, 0));
     myID->disable();
     // set numLanes
     myEdgeAttributes[SUMO_ATTR_NUMLANES] = "1";
     myNumLanes->setText("1");
+    myNumLanes->setTextColor(FXRGB(0, 0, 0));
     // set speed
     myEdgeAttributes[SUMO_ATTR_SPEED] = "13.89";
     mySpeed->setText("13.89");
+    mySpeed->setTextColor(FXRGB(0, 0, 0));
     // set allow
     myEdgeAttributes[SUMO_ATTR_ALLOW] = "all";
     myAllow->setText("all");
+    myAllow->setTextColor(FXRGB(0, 0, 0));
     // set disallow
     myEdgeAttributes[SUMO_ATTR_DISALLOW] = "";
     myDisallow->setText("");
-    // set priority
-    myEdgeAttributes[SUMO_ATTR_PRIORITY] = "-1";
-    myPriority->setText("-1");
+    myDisallow->setTextColor(FXRGB(0, 0, 0));
     // set width
     myEdgeAttributes[SUMO_ATTR_WIDTH] = "-1.00";
     myWidth->setText("-1.00");
+    myWidth->setTextColor(FXRGB(0, 0, 0));
     // set parameters
     myEdgeAttributes[GNE_ATTR_PARAMETERS] = "";
-    myWidth->setText("");
+    myParameters->setText("");
+    myParameters->setTextColor(FXRGB(0, 0, 0));
+}
+
+
+void 
+GNECreateEdgeFrame::EdgeTypeParameters::setAttributeDefaultParameters(FXObject* obj) {
+    // check what attribute was changed
+    if (obj == myID) {
+        //
+    } else if (obj == myNumLanes) {
+        //
+        myCreateEdgeFrameParent->myLaneTypeParameters->updateNumLanes(GNEAttributeCarrier::parse<int>(myNumLanes->getText().text()));
+    } else if (obj == mySpeed) {
+        //
+    } else if (obj == myAllow) {
+        //
+    } else if (obj == myDisallow) {
+        //
+    } else if (obj == myWidth) {
+        //
+    } else if (obj == myParameters) {
+        //
+    }
+}
+
+
+void 
+GNECreateEdgeFrame::EdgeTypeParameters::setAttributeExistentEdgeType(FXObject* obj) {
+    // get undoList
+    GNEUndoList *undoList = myCreateEdgeFrameParent->myViewNet->getUndoList();
+    // get selected edge type
+    GNEEdgeType *edgeType = myCreateEdgeFrameParent->myEdgeSelector->getSelectedEdgeType();
+    // check what attribute was changed
+    if (obj == myID) {
+        // check if is valid
+        if (edgeType->isValid(SUMO_ATTR_ID, myID->getText().text())) {
+            // set attribute
+            edgeType->setAttribute(SUMO_ATTR_ID, myID->getText().text(), undoList);
+            // reset color
+            myID->setTextColor(FXRGB(0, 0, 0));
+            myID->killFocus();
+        } else {
+            myID->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myNumLanes) {
+        // check if is valid
+        if (edgeType->isValid(SUMO_ATTR_NUMLANES, myNumLanes->getText().text())) {
+            // set attribute
+            edgeType->setAttribute(SUMO_ATTR_NUMLANES, myNumLanes->getText().text(), undoList);
+            // reset color
+            myNumLanes->setTextColor(FXRGB(0, 0, 0));
+            myNumLanes->killFocus();
+            // update numLanes in laneTypeParameters
+            myCreateEdgeFrameParent->myLaneTypeParameters->updateNumLanes(GNEAttributeCarrier::parse<int>(myNumLanes->getText().text()));
+        } else {
+            myNumLanes->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == mySpeed) {
+        // check if is valid
+        if (edgeType->isValid(SUMO_ATTR_SPEED, mySpeed->getText().text())) {
+            // set attribute
+            edgeType->setAttribute(SUMO_ATTR_SPEED, mySpeed->getText().text(), undoList);
+            // reset color
+            mySpeed->setTextColor(FXRGB(0, 0, 0));
+            mySpeed->killFocus();
+        } else {
+            mySpeed->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myAllow) {
+        // check if is valid
+        if (edgeType->isValid(SUMO_ATTR_ALLOW, myAllow->getText().text())) {
+            // set attribute
+            edgeType->setAttribute(SUMO_ATTR_ALLOW, myAllow->getText().text(), undoList);
+            // reset color
+            myAllow->setTextColor(FXRGB(0, 0, 0));
+            myAllow->killFocus();
+            // update disallow textField
+            myDisallow->setText(edgeType->getAttribute(SUMO_ATTR_DISALLOW).c_str(), FALSE);
+        } else {
+            myAllow->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myDisallow) {
+        // check if is valid
+        if (edgeType->isValid(SUMO_ATTR_DISALLOW, myDisallow->getText().text())) {
+            // set attribute
+            edgeType->setAttribute(SUMO_ATTR_DISALLOW, myDisallow->getText().text(), undoList);
+            // reset color
+            myDisallow->setTextColor(FXRGB(0, 0, 0));
+            myDisallow->killFocus();
+            // update allow textField
+            myAllow->setText(edgeType->getAttribute(SUMO_ATTR_ALLOW).c_str(), FALSE);
+        } else {
+            myDisallow->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myWidth) {
+        // check if is valid
+        if (edgeType->isValid(SUMO_ATTR_WIDTH, myWidth->getText().text())) {
+            // set attribute
+            edgeType->setAttribute(SUMO_ATTR_WIDTH, myWidth->getText().text(), undoList);
+            // reset color
+            myWidth->setTextColor(FXRGB(0, 0, 0));
+            myWidth->killFocus();
+        } else {
+            myWidth->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myParameters) {
+        // check if is valid
+        if (edgeType->isValid(GNE_ATTR_PARAMETERS, myParameters->getText().text())) {
+            // set attribute
+            edgeType->setAttribute(GNE_ATTR_PARAMETERS, myParameters->getText().text(), undoList);
+            // reset color
+            myParameters->setTextColor(FXRGB(0, 0, 0));
+            myParameters->killFocus();
+        } else {
+            myParameters->setTextColor(FXRGB(255, 0, 0));
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------

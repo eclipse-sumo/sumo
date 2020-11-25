@@ -20,7 +20,10 @@
 #include <config.h>
 
 #include <netedit/GNENet.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/GNEViewParent.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/changes/GNEChange_Attribute.h>
 #include <utils/options/OptionsCont.h>
 
@@ -253,6 +256,10 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
         default:
             throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
+    // update edge selector
+    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+    }  
 }
 
 

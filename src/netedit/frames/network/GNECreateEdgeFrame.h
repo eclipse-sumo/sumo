@@ -148,7 +148,7 @@ public:
         /// @name FOX-callbacks
         /// @{
         /// @brief Called when the user change value
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+        long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
 
         /// @brief Called when the user open attribute dialog
         long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
@@ -161,6 +161,12 @@ public:
 
         /// @brief fill default parameters
         void fillDefaultParameters();
+
+        /// @brief set attribute for default parameters
+        void setAttributeDefaultParameters(FXObject* obj);
+
+        /// @brief set attribute for existent edge type
+        void setAttributeExistentEdgeType(FXObject* obj);
 
     private:
         /// @brief pointer to createEdgeFrameParent
@@ -189,9 +195,6 @@ public:
 
         /// @brief textField for disallow vehicles
         FXTextField* myDisallow = nullptr;
-
-        /// @brief textField for priority
-        FXTextField* myPriority = nullptr;
 
         /// @brief textField for width
         FXTextField* myWidth = nullptr;
