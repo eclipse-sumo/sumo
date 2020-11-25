@@ -78,7 +78,7 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
                 for line in wxsIn:
                     line = line.replace("License.rtf", license)
                     dataDir = os.path.dirname(license)
-                    for data in ["bannrbmp.bmp", "dlgbmp.bmp"]:
+                    for data in ["bannrbmp.bmp", "dlgbmp.bmp", "webWizard.ico"]:
                         line = line.replace(data, os.path.join(dataDir, data))
                     wxsOut.write(line.replace(r"O:\Daten\Sumo\Nightly", os.path.join(sumoRoot, "bin")))
         fragments.append(wxsOut.name)

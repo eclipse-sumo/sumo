@@ -69,7 +69,7 @@
             <Directory Id='TOOLDIR' Name='tools'>
               <Component Id='OSMWebWizard' Guid='020B4F21-0E79-41C8-A745-28CA9B426126'>
                 <File Id='WebWizPy' Name='osmWebWizard.py' Source='O:\Daten\Sumo\Nightly\..\tools\osmWebWizard.py' KeyPath='yes'>
-                  <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="webWizard" IconIndex="0" Advertise="yes" />
+                  <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="webWizard.ico" IconIndex="0" Advertise="yes" />
                 </File>
               </Component>
             </Directory>
