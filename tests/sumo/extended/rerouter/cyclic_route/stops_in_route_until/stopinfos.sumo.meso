@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Feb 19 22:17:35 2020 by Eclipse SUMO Version v1_5_0+0174-0b4d252505
+<!-- generated on Wed Nov 25 16:53:12 2020 by Eclipse SUMO sumo Version v1_7_0+1293-bfeda8c3db
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -31,6 +31,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -43,6 +44,14 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <stops xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/stopinfo_file.xsd">
-    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1fi" pos="0.00" parking="0" started="69.00" ended="69.00" delay="8.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
-    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1si" pos="0.00" parking="0" started="130.00" ended="130.00" delay="9.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1fi" pos="0.00" parking="0" started="1.00" ended="69.00" delay="8.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1si" pos="0.00" parking="0" started="83.37" ended="130.00" delay="9.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1fi" pos="0.00" parking="0" started="182.06" ended="269.00" delay="8.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1si" pos="0.00" parking="0" started="283.37" ended="330.00" delay="9.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1fi" pos="0.00" parking="0" started="382.06" ended="469.00" delay="8.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1si" pos="0.00" parking="0" started="483.37" ended="530.00" delay="9.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1fi" pos="0.00" parking="0" started="582.06" ended="669.00" delay="8.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1si" pos="0.00" parking="0" started="683.37" ended="730.00" delay="9.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1fi" pos="0.00" parking="0" started="782.06" ended="869.00" delay="8.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
+    <stopinfo id="veh0" type="DEFAULT_VEHTYPE" edge="1si" pos="0.00" parking="0" started="883.37" ended="930.00" delay="9.00" initialPersons="0" loadedPersons="0" unloadedPersons="0" initialContainers="0" loadedContainers="0" unloadedContainers="0"/>
 </stops>
