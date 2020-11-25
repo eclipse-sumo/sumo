@@ -255,6 +255,11 @@ GUITrafficLightLogicWrapper::getCenteringBoundary() const {
     return ret;
 }
 
+const std::string
+GUITrafficLightLogicWrapper::getOptionalName() const {
+    return myTLLogic.getParameter("name", "");
+}
+
 
 void
 GUITrafficLightLogicWrapper::switchTLSLogic(int to) {
