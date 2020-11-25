@@ -807,7 +807,7 @@ void
 MSVehicle::Influencer::postProcessRemoteControl(MSVehicle* v) {
     const bool wasOnRoad = v->isOnRoad();
     const bool withinLane = myRemoteLane != nullptr && fabs(myRemotePosLat) < 0.5 * (myRemoteLane->getWidth() + v->getVehicleType().getWidth());
-    const bool keepLane = v->getLane() == myRemoteLane;
+    const bool keepLane = wasOnRoad && v->getLane() == myRemoteLane;
     if (v->isOnRoad() && !(keepLane && withinLane)) {
         v->onRemovalFromNet(MSMoveReminder::NOTIFICATION_TELEPORT);
         v->getMutableLane()->removeVehicle(v, MSMoveReminder::NOTIFICATION_TELEPORT);
