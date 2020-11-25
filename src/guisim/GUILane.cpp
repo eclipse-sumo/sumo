@@ -670,7 +670,7 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
                 // make sure link rules are drawn so tls can be selected via right-click
                 if (s.showLinkRules && (drawDetails || s.drawForRectangleSelection)
                         && !isWalkingArea
-                        && (!myEdge->isInternal() || getLinkCont()[0]->isInternalJunctionLink())) {
+                        && (!myEdge->isInternal() || (getLinkCont().size() > 0 && getLinkCont()[0]->isInternalJunctionLink()))) {
                     drawLinkRules(s, *net);
                 }
                 if ((drawDetails || junctionExaggeration > 1) && s.showLane2Lane) {
