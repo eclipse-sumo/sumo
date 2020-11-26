@@ -153,7 +153,6 @@ MEVehicle::moveRoutePointer() {
 }
 
 
-
 bool
 MEVehicle::hasArrived() const {
     // mySegment may be 0 due to teleporting or arrival
@@ -163,19 +162,16 @@ MEVehicle::hasArrived() const {
                || getPositionOnLane() > myArrivalPos - POSITION_EPS);
 }
 
+
 bool
 MEVehicle::isOnRoad() const {
     return getSegment() != nullptr;
 }
 
+
 bool
 MEVehicle::isIdling() const {
     return false;
-}
-
-bool
-MEVehicle::isParking() const {
-    return false; // parking attribute of a stop is not yet evaluated /implemented
 }
 
 
@@ -210,18 +206,6 @@ MEVehicle::replaceRoute(const MSRoute* newRoute, const std::string& info,  bool 
         return true;
     }
     return false;
-}
-
-
-bool
-MEVehicle::isStoppedTriggered() const {
-    return false;
-}
-
-
-bool
-MEVehicle::isStoppedInRange(const double /* pos */, const double /* tolerance */) const {
-    return isStopped();
 }
 
 

@@ -787,6 +787,29 @@ MSBaseVehicle::isStopped() const {
 }
 
 
+bool
+MSBaseVehicle::isParking() const {
+    return isStopped() && myStops.begin()->pars.parking && (
+        myStops.begin()->parkingarea == nullptr || !myStops.begin()->parkingarea->parkOnRoad());
+}
+
+
+bool
+MSBaseVehicle::isStoppedTriggered() const {
+    return isStopped() && (myStops.begin()->triggered || myStops.begin()->containerTriggered || myStops.begin()->joinTriggered);
+}
+
+
+bool
+MSBaseVehicle::isStoppedInRange(const double pos, const double tolerance) const {
+    if (isStopped()) {
+        const MSStop& stop = myStops.front();
+        return stop.pars.startPos - tolerance <= pos && stop.pars.endPos + tolerance >= pos;
+    }
+    return false;
+}
+
+
 double
 MSBaseVehicle::basePos(const MSEdge* edge) const {
     double result = MIN2(getVehicleType().getLength() + POSITION_EPS, edge->getLength());
