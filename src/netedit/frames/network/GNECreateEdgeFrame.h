@@ -90,7 +90,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(EdgeSelector)
+        FOX_CONSTRUCTOR(EdgeSelector);
 
         /// @brief fill comboBox
         void fillComboBox();
@@ -122,6 +122,85 @@ public:
 
         /// @brief default edge type
         GNEEdgeType* myDefaultEdgeType;
+    };
+
+    // ===========================================================================
+    // class LaneTypeParameters
+    // ===========================================================================
+
+    class LaneTypeParameters : protected FXGroupBox {
+        /// @brief FOX-declaration
+        FXDECLARE(GNECreateEdgeFrame::LaneTypeParameters)
+
+    public:
+        /// @brief constructor
+        LaneTypeParameters(GNECreateEdgeFrame* createEdgeFrameParent);
+
+        /// @brief destructor
+        ~LaneTypeParameters();
+
+        /// @brief show lane parameters
+        void showLaneTypeParameters();
+
+        /// @brief hide lane parameters
+        void hideLaneTypeParameters();
+
+        /// @brief enable lane parameters
+        void enableLaneTypeParameters();
+
+        /// @brief disable lane parameters
+        void disableLaneTypeParameters();
+
+        /// @brief set default values
+        void setDefaultValues();
+
+        /// @brief set attributes
+        void setAttributes(GNEEdge* edge, GNEUndoList* undoList) const;
+
+        /// @brief update numLanes
+        void updateNumLanes(int numLanes);
+
+        /// @name FOX-callbacks
+        /// @{
+        /// @brief Called when the user change value
+        long onCmdSetAttribute(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user open attribute dialog
+        long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+
+        /// @}
+
+    protected:
+        /// @brief FOX need this
+        FOX_CONSTRUCTOR(LaneTypeParameters);
+
+        /// @brief fill default parameters
+        void fillDefaultParameters(int laneIndex);
+
+    private:
+        /// @brief pointer to createEdgeFrameParent
+        GNECreateEdgeFrame* myCreateEdgeFrameParent;
+
+        /// @brief ComboBox for laneIndex
+        FXComboBox* myLaneIndex = nullptr;
+
+        /// @brief textField for speed
+        FXTextField* mySpeed = nullptr;
+
+        /// @brief Button for allow vehicles
+        FXButton* myAllowButton = nullptr;
+
+        /// @brief textField for allow vehicles
+        FXTextField* myAllow = nullptr;
+
+        /// @brief Button for disallow vehicles
+        FXButton* myDisallowButton = nullptr;
+
+        /// @brief textField for disallow vehicles
+        FXTextField* myDisallow = nullptr;
+
+        /// @brief textField for width
+        FXTextField* myWidth = nullptr;
     };
 
     // ===========================================================================
@@ -213,97 +292,9 @@ public:
 
         /// @brief textField for Parameters
         FXTextField* myParameters = nullptr;
-    };
 
-    // ===========================================================================
-    // class LaneTypeParameters
-    // ===========================================================================
-
-    class LaneTypeParameters : protected FXGroupBox {
-        /// @brief FOX-declaration
-        FXDECLARE(GNECreateEdgeFrame::LaneTypeParameters)
-
-    public:
-        /// @brief constructor
-        LaneTypeParameters(GNECreateEdgeFrame* createEdgeFrameParent);
-
-        /// @brief destructor
-        ~LaneTypeParameters();
-
-        /// @brief show lane parameters
-        void showLaneTypeParameters();
-
-        /// @brief hide lane parameters
-        void hideLaneTypeParameters();
-
-        /// @brief enable lane parameters
-        void enableLaneTypeParameters();
-
-        /// @brief disable lane parameters
-        void disableLaneTypeParameters();
-
-        /// @brief set default values
-        void setDefaultValues();
-
-        /// @brief set attributes
-        void setAttributes(GNEEdge* edge, GNEUndoList* undoList) const;
-
-        /// @brief update numLanes
-        void updateNumLanes(int numLanes);
-
-        /// @name FOX-callbacks
-        /// @{
-        /// @brief Called when the user change value
-        long onCmdSetAttribute(FXObject*, FXSelector, void*);
-
-        /// @brief Called when the user open attribute dialog
-        long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
-
-        /// @}
-
-    protected:
-        /// @brief FOX need this
-        FOX_CONSTRUCTOR(LaneTypeParameters)
-
-        /// @brief fill default parameters
-        void fillDefaultParameters(int laneIndex);
-
-    private:
-        /// @brief pointer to createEdgeFrameParent
-        GNECreateEdgeFrame* myCreateEdgeFrameParent;
-
-        /// @brief ComboBox for laneIndex
-        FXComboBox* myLaneIndex = nullptr;
-
-        /// @brief textField for speed
-        FXTextField* mySpeed = nullptr;
-
-        /// @brief Button for allow vehicles
-        FXButton* myAllowButton = nullptr;
-
-        /// @brief textField for allow vehicles
-        FXTextField* myAllow = nullptr;
-
-        /// @brief Button for disallow vehicles
-        FXButton* myDisallowButton = nullptr;
-
-        /// @brief textField for disallow vehicles
-        FXTextField* myDisallow = nullptr;
-
-        /// @brief textField for width
-        FXTextField* myWidth = nullptr;
-
-        /// @brief ComboBox for endOffset
-        FXComboBox* myEndOffset = nullptr;
-
-        /// @brief checkBox for acceleration
-        FXCheckButton* myAcceleration = nullptr;
-
-        /// @brief textField for opposite
-        FXTextField* myOpposite = nullptr;
-
-        /// @brief map with lane parameters
-        std::map<int, std::map<SumoXMLAttr, std::string> > myLaneAttributes;
+        /// @brief lane parameters
+        LaneTypeParameters* myLaneTypeParameters = nullptr;
     };
 
     // ===========================================================================
@@ -358,9 +349,6 @@ public:
 protected:
     /// @brief edge parameters
     EdgeTypeParameters* myEdgeTypeParameters = nullptr;
-
-    /// @brief lane parameters
-    LaneTypeParameters* myLaneTypeParameters = nullptr;
 
     /// @brief custom edge selector
     EdgeSelector* myEdgeSelector = nullptr;
