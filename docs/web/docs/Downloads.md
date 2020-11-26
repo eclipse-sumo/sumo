@@ -90,7 +90,7 @@ repositories include a nightly build as well (called sumo_nightly).
 
 Ubuntu, Debian and Arch users please see the community repositories above.
 
-## macOS binaries
+## macOS
 
 You can read the Homebrew-based installation guide [here](Installing.md#macos) or follow the Build instructions [here](Installing/MacOS_Build.md).
 
@@ -101,6 +101,17 @@ from source with minimal requirements (fox, proj, xerces-c). If you need
 optional libraries, you can specify these on the brew command line and
 brew will compile SUMO from source. For details, see the [Formula's
 README](https://github.com/DLR-TS/homebrew-sumo/blob/master/README.md).
+
+### Application launchers
+
+In order to have a more native feel on macOS, we provide some application launchers (icons / shortcuts). These launchers ***work with all versions of SUMO and do not need to be updated***.
+
+- [Download SUMO launchers](https://sumo.dlr.de/daily/SUMO_launchers.dmg)
+
+These launchers allow you to select **sumo-gui** as the default application to open `.sumocfg` files on macOS, and even add **sumo-gui**, **netedit** and the **OSM Web Wizard** to the dock.
+
+!!! caution "Important notice"
+    In order to use the launchers, make sure you have installed SUMO beforehand (any version) and have set the [SUMO_HOME](Basics/Basic_Computer_Skills.md#sumo_home) environment variable.
 
 ## SUMO - Alternative download and older releases
 
