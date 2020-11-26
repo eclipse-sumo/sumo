@@ -40,37 +40,37 @@ class GNECreateEdgeFrame : public GNEFrame {
 public:
 
     // ===========================================================================
-    // class EdgeSelector
+    // class EdgeTypeSelector
     // ===========================================================================
 
-    class EdgeSelector : protected FXGroupBox {
+    class EdgeTypeSelector : protected FXGroupBox {
         /// @brief FOX-declaration
-        FXDECLARE(GNECreateEdgeFrame::EdgeSelector)
+        FXDECLARE(GNECreateEdgeFrame::EdgeTypeSelector)
 
     public:
         /// @brief constructor
-        EdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent);
+        EdgeTypeSelector(GNECreateEdgeFrame* createEdgeFrameParent);
 
         /// @brief destructor
-        ~EdgeSelector();
+        ~EdgeTypeSelector();
 
-        /// @brief refresh template selector
-        void refreshEdgeSelector();
+        /// @brief refresh edge type selector
+        void refreshEdgeTypeSelector();
 
-        /// @brief check if we have to use selector
+        /// @brief check if we have to use edge template
         bool useEdgeTemplate() const;
 
-        /// @brief check if we're using default edge
-        bool useDefaultEdge() const;
+        /// @brief check if we're using default edge type
+        bool useDefaultEdgeType() const;
 
         /// @brief get default edgeType
         GNEEdgeType* getDefaultEdgeType() const;
 
-        /// @brief get selected edgeType
-        GNEEdgeType* getSelectedEdgeType() const;
+        /// @brief get edgeType selected
+        GNEEdgeType* getEdgeTypeSelected() const;
 
-        /// @brief clear selected edgeType
-        void clearSelectedEdgeType();
+        /// @brief clear edgeType selected
+        void clearEdgeTypeSelected();
 
         /// @name FOX-callbacks
         /// @{
@@ -83,6 +83,9 @@ public:
         /// @brief Called when the user press button for delete edge type
         long onCmdDeleteEdgeType(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user press button for reset edge type
+        long onCmdResetEdgeType(FXObject*, FXSelector, void*);
+
         /// @brief Called when the user press select an edgeType in comboBox
         long onCmdSelectEdgeType(FXObject*, FXSelector, void*);
 
@@ -90,7 +93,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(EdgeSelector);
+        FOX_CONSTRUCTOR(EdgeTypeSelector);
 
         /// @brief fill comboBox
         void fillComboBox();
@@ -103,22 +106,25 @@ public:
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
 
         /// @brief selected edgeType
-        GNEEdgeType* mySelectedEdgeType;
+        GNEEdgeType* myEdgeTypeSelected;
 
         /// @brief create default edge
-        FXRadioButton* myCreateDefaultEdge = nullptr;
+        FXRadioButton* myUseDefaultEdgeType = nullptr;
 
-        /// @brief use custom edge
-        FXRadioButton* myUseCustomEdge = nullptr;
+        /// @brief create custom edge
+        FXRadioButton* myUseCustomEdgeType = nullptr;
 
         /// @brief ComboBox for edge types
         FXComboBox* myEdgeTypesComboBox = nullptr;
 
         /// @brief button for create new edge type
-        FXButton* myNewEdgeTypeButton = nullptr;
+        FXButton* myAddEdgeTypeButton = nullptr;
 
         /// @brief button for delete edge type
         FXButton* myDeleteEdgeTypeButton = nullptr;
+
+        /// @brief button for reset edge type
+        FXButton* myResetEdgeTypeButton = nullptr;
 
         /// @brief default edge type
         GNEEdgeType* myDefaultEdgeType;
@@ -248,7 +254,7 @@ public:
 
     protected:
         /// @brief FOX need this
-        FOX_CONSTRUCTOR(EdgeTypeParameters)
+        FOX_CONSTRUCTOR(EdgeTypeParameters);
 
         /// @brief set attribute for default parameters
         void setAttributeDefaultParameters(FXObject* obj);
@@ -298,17 +304,17 @@ public:
     };
 
     // ===========================================================================
-    // class EdgeSelectorLegend
+    // class EdgeTypeSelectorLegend
     // ===========================================================================
 
-    class EdgeSelectorLegend : protected FXGroupBox {
+    class EdgeTypeSelectorLegend : protected FXGroupBox {
 
     public:
         /// @brief constructor
-        EdgeSelectorLegend(GNECreateEdgeFrame* createEdgeFrameParent);
+        EdgeTypeSelectorLegend(GNECreateEdgeFrame* createEdgeFrameParent);
 
         /// @brief destructor
-        ~EdgeSelectorLegend();
+        ~EdgeTypeSelectorLegend();
     };
 
     /**@brief Constructor
@@ -344,17 +350,17 @@ public:
     void hide();
 
     /// @brief getcustom edge selector
-    EdgeSelector* getEdgeSelector() const;
+    EdgeTypeSelector* getEdgeTypeSelector() const;
 
 protected:
     /// @brief edge parameters
     EdgeTypeParameters* myEdgeTypeParameters = nullptr;
 
     /// @brief custom edge selector
-    EdgeSelector* myEdgeSelector = nullptr;
+    EdgeTypeSelector* myEdgeTypeSelector = nullptr;
 
     /// @brief edge selector legend
-    EdgeSelectorLegend* myEdgeSelectorLegend = nullptr;
+    EdgeTypeSelectorLegend* myEdgeTypeSelectorLegend = nullptr;
 
 private:
     /// @brief objects under snapped cursor

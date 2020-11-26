@@ -76,7 +76,7 @@ GNEChange_EdgeType::undo() {
     }
     // refresh create edge frame
     if (myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
-        myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+        myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
 }
 
@@ -96,7 +96,7 @@ GNEChange_EdgeType::redo() {
     }
     // refresh create edge frame
     if (myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
-        myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+        myEdgeType->getNet()->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
 }
 

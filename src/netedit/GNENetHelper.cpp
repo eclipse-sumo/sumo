@@ -526,7 +526,7 @@ GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
     myNet->getNetBuilder()->getTypeCont().insertEdgeType(edgeType->getMicrosimID(), edgeType);
     // update edge selector
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
 }
 
@@ -537,9 +537,9 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     myNet->getViewNet()->removeFromAttributeCarrierInspected(edgeType);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
     // check if this is the selected edge type in edgeSelector
-    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->getSelectedEdgeType() == edgeType) {
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->clearSelectedEdgeType();
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->getEdgeTypeSelected() == edgeType) {
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->clearEdgeTypeSelected();
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     // remove from edge types
     myEdgeTypes.erase(edgeType->getMicrosimID());
@@ -547,7 +547,7 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     myNet->getNetBuilder()->getTypeCont().removeEdgeType(edgeType->getMicrosimID());
     // update edge selector
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
-        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }  
 }
 
