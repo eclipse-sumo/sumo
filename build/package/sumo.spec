@@ -50,10 +50,12 @@ BuildRequires:  pkgconfig(xerces-c)
 BuildRequires:  fdupes
 BuildRequires:  pkgconfig(gdal)
 BuildRequires:  pkgconfig(proj)
+BuildRequires:  gl2ps-devel
 %if 0%{?fedora_version} || 0%{?centos_version} || 0%{?rhel_version} || 0%{?scientificlinux_version}
 BuildRequires:  libGLU-devel
 BuildRequires:  libjpeg-devel
 BuildRequires:  libpng-devel
+BuildRequires:  proj-devel
 BuildRequires:  pkgconfig(libtiff-4)
 BuildRequires:  pkgconfig(xcursor)
 BuildRequires:  pkgconfig(xext)
@@ -165,6 +167,7 @@ cd cmake-build
 %license LICENSE
 %endif
 %{_libdir}/libsumocpp.so
+%{_libdir}/libtracicpp.so
 
 %files -n python3-libsumo
 %if 0%{?suse_version} < 1500
@@ -175,5 +178,6 @@ cd cmake-build
 %{python3_sitelib}/sumolib*/
 %{python3_sitelib}/traci*/
 %{python3_sitearch}/libsumo*/
+%{python3_sitearch}/libtraci*/
 
 %changelog
