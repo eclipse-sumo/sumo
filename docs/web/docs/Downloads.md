@@ -106,7 +106,9 @@ README](https://github.com/DLR-TS/homebrew-sumo/blob/master/README.md).
 
 In order to have a more native feel on macOS, we provide some application launchers (icons / shortcuts). These launchers ***work with all versions of SUMO and do not need to be updated***.
 
-- [Download SUMO launchers](https://sumo.dlr.de/daily/SUMO_launchers.dmg)
+<ul>
+<li><a class="no-arrow-link" href="https://sumo.dlr.de/daily/SUMO_launchers.dmg">Download SUMO launchers </a><span class="badge badge-pill badge-secondary"><?php getFileSize("SUMO_launchers.dmg","d");?></span></li>
+</ul>
 
 These launchers allow you to select **sumo-gui** as the default application to open `.sumocfg` files on macOS, and even add **sumo-gui**, **netedit** and the **OSM Web Wizard** to the dock.
 
