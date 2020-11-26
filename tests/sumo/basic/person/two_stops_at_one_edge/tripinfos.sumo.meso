@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 20 11:56:35 2020 by Eclipse SUMO sumo Version v1_7_0+1166-554a675755
+<!-- generated on Thu Nov 26 14:03:50 2020 by Eclipse SUMO sumo Version v1_7_0+1315-1a43f45f4c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -47,10 +47,7 @@ SPDX-License-Identifier: EPL-2.0
         <ride waitingTime="18.00" vehicle="bus.0" depart="38.00" arrival="115.00" arrivalPos="503.09" duration="77.00" routeLength="902.47" timeLoss="0.00"/>
     </personinfo>
     <personinfo id="p2" depart="20.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="18.00" vehicle="bus.0" depart="38.00" arrival="115.00" arrivalPos="503.09" duration="77.00" routeLength="902.47" timeLoss="0.00"/>
-    </personinfo>
-    <personinfo id="p3" depart="20.00" type="DEFAULT_PEDTYPE">
-        <ride waitingTime="18.00" vehicle="bus.0" depart="38.00" arrival="115.00" arrivalPos="503.09" duration="77.00" routeLength="902.47" timeLoss="0.00"/>
+        <ride waitingTime="55.00" vehicle="bus.0" depart="75.00" arrival="115.00" arrivalPos="503.09" duration="40.00" routeLength="702.47" timeLoss="0.00"/>
     </personinfo>
     <tripinfo id="bus.0" depart="0.00" departLane="" departPos="0.00" departSpeed="2.98" departDelay="0.00" arrival="115.00" arrivalLane="" arrivalPos="503.09" arrivalSpeed="13.90" duration="115.00" routeLength="1003.09" waitingTime="0.00" waitingCount="0" stopTime="60.00" timeLoss="60.00" rerouteNo="0" devices="tripinfo_bus.0 fcd_bus.0 person_bus.0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
 </tripinfos>

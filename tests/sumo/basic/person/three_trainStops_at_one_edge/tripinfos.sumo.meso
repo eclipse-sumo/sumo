@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Dec 18 09:31:17 2019 by Eclipse SUMO Version v1_4_0+0167-fcd7e0e
+<!-- generated on Thu Nov 26 14:03:50 2020 by Eclipse SUMO sumo Version v1_7_0+1315-1a43f45f4c
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -9,7 +9,7 @@ SPDX-License-Identifier: EPL-2.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
-        <net-file value="net2.net.xml"/>
+        <net-file value="net.net.xml"/>
         <route-files value="input_routes.rou.xml"/>
         <additional-files value="input_additional.add.xml"/>
     </input>
@@ -26,6 +26,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <report>
         <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
         <duration-log.disable value="true"/>
         <no-step-log value="true"/>
     </report>
@@ -38,9 +39,11 @@ SPDX-License-Identifier: EPL-2.0
 -->
 
 <tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
-    <tripinfo id="trip_0" depart="0.00" departLane="" departPos="0.00" departSpeed="13.89" departDelay="0.00" arrival="52.00" arrivalLane="" arrivalPos="200.00" arrivalSpeed="13.89" duration="52.00" routeLength="400.00" waitingTime="0.00" waitingCount="0" stopTime="22.80" timeLoss="22.80" rerouteNo="1" devices="tripinfo_trip_0 routing_trip_0" vType="train" speedFactor="1.00" vaporized=""/>
-    <personinfo id="person_0" depart="0.00" type="DEFAULT_PEDTYPE">
-        <stop duration="6.00" arrival="6.00" arrivalPos="101.10" actType="waiting"/>
-        <ride waitingTime="47.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="200.00" duration="-1" routeLength="-1.00"/>
+    <tripinfo id="v0" depart="0.00" departLane="" departPos="0.00" departSpeed="1.49" departDelay="0.00" arrival="96.00" arrivalLane="" arrivalPos="500.00" arrivalSpeed="13.89" duration="96.00" routeLength="500.00" waitingTime="0.00" waitingCount="0" stopTime="60.00" timeLoss="60.00" rerouteNo="0" devices="tripinfo_v0 person_v0" vType="train" speedFactor="1.00" vaporized=""/>
+    <personinfo id="p0" depart="0.00" type="DEFAULT_PEDTYPE">
+        <walk depart="0.00" departPos="0.00" arrival="35.00" arrivalPos="48.40" duration="35.00" routeLength="48.40" timeLoss="0.15" maxSpeed="1.39"/>
+        <access stop="B" duration="18.00" routeLength="25.05"/>
+        <ride waitingTime="22.00" vehicle="v0" depart="75.00" arrival="96.00" arrivalPos="400.00" duration="21.00" routeLength="400.00" timeLoss="0.00"/>
+        <walk depart="96.00" departPos="44.50" arrival="100.00" arrivalPos="50.00" duration="4.00" routeLength="5.50" timeLoss="0.04" maxSpeed="1.39"/>
     </personinfo>
 </tripinfos>
