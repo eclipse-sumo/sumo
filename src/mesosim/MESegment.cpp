@@ -183,12 +183,7 @@ MESegment::recomputeJamThreshold(double jamThresh) {
     }
     if (jamThresh < 0) {
         // compute based on speed
-        double speed = myEdge.getSpeedLimit();
-        if (myTLSPenalty || myCheckMinorPenalty) {
-            double travelTime = myLength / MAX2(speed, NUMERICAL_EPS) + getMaxPenaltySeconds();
-            speed = myLength / travelTime;
-        }
-        myJamThreshold = jamThresholdForSpeed(speed, jamThresh);
+        myJamThreshold = jamThresholdForSpeed(myEdge.getSpeedLimit(), jamThresh);
     } else {
         // compute based on specified percentage
         myJamThreshold = jamThresh * myCapacity;
@@ -789,19 +784,6 @@ MESegment::getLinkPenalty(const MEVehicle* veh) const {
     } else {
         return 0;
     }
-}
-
-
-double
-MESegment::getMaxPenaltySeconds() const {
-    double maxPenalty = 0;
-    for (const MSLane* const l : myEdge.getLanes()) {
-        for (const MSLink* const link : l->getLinkCont()) {
-            maxPenalty = MAX2(maxPenalty, STEPS2TIME(
-                                  link->getMesoTLSPenalty() + (link->havePriority() ? 0 : myMinorPenalty)));
-        }
-    }
-    return maxPenalty;
 }
 
 

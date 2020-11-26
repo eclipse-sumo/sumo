@@ -468,9 +468,6 @@ private:
     /// @brief whether the given link may be passed because the option meso-junction-control.limited is set
     bool limitedControlOverride(const MSLink* link) const;
 
-    /// @brief return the maximum tls penalty for all links from this edge
-    double getMaxPenaltySeconds() const;
-
     /// @brief convert net time gap (leader back to follower front) to gross time gap (leader front to follower front)
     inline SUMOTime tauWithVehLength(SUMOTime tau, double lengthWithGap) const {
         return tau + (SUMOTime)(lengthWithGap * myTau_length);
