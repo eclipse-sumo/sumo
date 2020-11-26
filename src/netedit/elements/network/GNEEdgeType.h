@@ -36,6 +36,9 @@ class GNELaneType;
 class GNEEdgeType : public GNENetworkElement, public Parameterised, public NBTypeCont::EdgeTypeDefinition {
 
 public:
+    /// @brief GNECreateEdgeFrame need access to setAttribute
+    friend class GNECreateEdgeFrame;
+
     /**@brief Constructor
      * @param[in] net The net to inform about gui updates
      */

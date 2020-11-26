@@ -35,6 +35,7 @@ class GNELane;
 class GNEConnection;
 class GNERouteProbe;
 class GNECrossing;
+class GNEEdgeType;
 
 // ===========================================================================
 // class definitions
@@ -193,8 +194,11 @@ public:
     /// @brief remake connections
     void remakeGNEConnections();
 
-    /// @brief copy edge attributes from tpl
-    void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edgeTemplate, GNEUndoList* undolist);
+    /// @brief copy edge attributes from edgetemplate
+    void copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edgeTemplate, GNEUndoList* undoList);
+
+    /// @brief copy edge attributes from edgeType
+    void copyEdgeType(const GNEEdgeType *edgeType, GNEUndoList* undoList);
 
     /// @brief returns GLIDs of all lanes
     std::set<GUIGlID> getLaneGlIDs() const;

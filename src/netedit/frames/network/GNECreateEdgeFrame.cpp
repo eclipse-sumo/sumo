@@ -75,7 +75,8 @@ FXIMPLEMENT(GNECreateEdgeFrame::LaneTypeParameters,     FXGroupBox,     LaneType
 GNECreateEdgeFrame::EdgeSelector::EdgeSelector(GNECreateEdgeFrame* createEdgeFrameParent) :
     FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
     myCreateEdgeFrameParent(createEdgeFrameParent),
-    mySelectedEdgeType(nullptr) {
+    mySelectedEdgeType(nullptr),
+    myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent->getViewNet()->getNet())) {
     // default edge radio button
     myCreateDefaultEdge = new FXRadioButton(this, 
         "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
@@ -94,12 +95,12 @@ GNECreateEdgeFrame::EdgeSelector::EdgeSelector(GNECreateEdgeFrame* createEdgeFra
         "delete\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE, GUIDesignButton);
     // by default, create custom edge
     myCreateDefaultEdge->setCheck(TRUE);
-    // fill default parameters
-    fillDefaultParameters();
 }
 
 
-GNECreateEdgeFrame::EdgeSelector::~EdgeSelector() {}
+GNECreateEdgeFrame::EdgeSelector::~EdgeSelector() {
+    delete myDefaultEdgeType;
+}
 
 
 void
@@ -197,7 +198,7 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
         myNewEdgeTypeButton->disable();
         myDeleteEdgeTypeButton->disable();
         // set default parameters
-        myCreateEdgeFrameParent->myEdgeTypeParameters->setDefaultValues(myEdgeAttributes);
+        myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(myDefaultEdgeType);
     }
     // recalc
     recalc();
@@ -225,6 +226,12 @@ GNECreateEdgeFrame::EdgeSelector::useDefaultEdge() const {
 
 
 GNEEdgeType* 
+GNECreateEdgeFrame::EdgeSelector::getDefaultEdgeType() const {
+    return myDefaultEdgeType;
+}
+
+
+GNEEdgeType* 
 GNECreateEdgeFrame::EdgeSelector::getSelectedEdgeType() const {
     return mySelectedEdgeType;
 }
@@ -233,12 +240,6 @@ GNECreateEdgeFrame::EdgeSelector::getSelectedEdgeType() const {
 void 
 GNECreateEdgeFrame::EdgeSelector::clearSelectedEdgeType() {
     mySelectedEdgeType = nullptr;
-}
-
-
-void 
-GNECreateEdgeFrame::EdgeSelector::updateDefaultParameter(SumoXMLAttr attr, const std::string &value) {
-    myEdgeAttributes.at(attr) = value;
 }
 
 
@@ -350,17 +351,17 @@ GNECreateEdgeFrame::EdgeSelector::onCmdSelectEdgeType(FXObject*, FXSelector, voi
 void
 GNECreateEdgeFrame::EdgeSelector::fillDefaultParameters() {
     // set numLanes
-    myEdgeAttributes[SUMO_ATTR_NUMLANES] = "1";
+    myDefaultEdgeType->setAttribute(SUMO_ATTR_NUMLANES, "1");
     // set speed
-    myEdgeAttributes[SUMO_ATTR_SPEED] = "13.89";
+    myDefaultEdgeType->setAttribute(SUMO_ATTR_SPEED, "13.89");
     // set allow
-    myEdgeAttributes[SUMO_ATTR_ALLOW] = "all";
+    myDefaultEdgeType->setAttribute(SUMO_ATTR_ALLOW, "all");
     // set disallow
-    myEdgeAttributes[SUMO_ATTR_DISALLOW] = "";
+    myDefaultEdgeType->setAttribute(SUMO_ATTR_DISALLOW, "");
     // set width
-    myEdgeAttributes[SUMO_ATTR_WIDTH] = "-1.00";
+    myDefaultEdgeType->setAttribute(SUMO_ATTR_WIDTH, "-1.00");
     // set parameters
-    myEdgeAttributes[GNE_ATTR_PARAMETERS] = "";
+    myDefaultEdgeType->setAttribute(GNE_ATTR_PARAMETERS, "");
 }
 
 // ---------------------------------------------------------------------------
@@ -473,34 +474,6 @@ GNECreateEdgeFrame::EdgeTypeParameters::setEdgeType(GNEEdgeType* edgeType) {
 }
 
 
-void 
-GNECreateEdgeFrame::EdgeTypeParameters::setDefaultValues(const std::map<SumoXMLAttr, std::string> &edgeAttributes) {
-    // set ID
-    myLabelID->setText("edge ID");
-    myID->setText("", FALSE);
-    myID->setTextColor(FXRGB(0, 0, 0));
-    myID->disable();
-    // set numLanes
-    myNumLanes->setText(edgeAttributes.at(SUMO_ATTR_NUMLANES).c_str(), FALSE);
-    myNumLanes->setTextColor(FXRGB(0, 0, 0));
-    // set speed
-    mySpeed->setText(edgeAttributes.at(SUMO_ATTR_SPEED).c_str(), FALSE);
-    mySpeed->setTextColor(FXRGB(0, 0, 0));
-    // set allow
-    myAllow->setText(edgeAttributes.at(SUMO_ATTR_ALLOW).c_str(), FALSE);
-    myAllow->setTextColor(FXRGB(0, 0, 0));
-    // set disallow
-    myDisallow->setText(edgeAttributes.at(SUMO_ATTR_DISALLOW).c_str(), FALSE);
-    myDisallow->setTextColor(FXRGB(0, 0, 0));
-    // set width
-    myWidth->setText(edgeAttributes.at(SUMO_ATTR_WIDTH).c_str(), FALSE);
-    myWidth->setTextColor(FXRGB(0, 0, 0));
-    // set parameters
-    myParameters->setText(edgeAttributes.at(GNE_ATTR_PARAMETERS).c_str(), FALSE);
-    myParameters->setTextColor(FXRGB(0, 0, 0));
-}
-
-
 void
 GNECreateEdgeFrame::EdgeTypeParameters::setTemplateValues() {
     // get template editor
@@ -525,21 +498,6 @@ GNECreateEdgeFrame::EdgeTypeParameters::setTemplateValues() {
     } else {
         throw ProcessError("no template");
     }
-}
-
-
-void
-GNECreateEdgeFrame::EdgeTypeParameters::setCurrentEdgeTypeAttributesInEdge(GNEEdge* edge, GNEUndoList* undoList) const {
-    // set num lanes
-    edge->setAttribute(SUMO_ATTR_NUMLANES, toString(myNumLanes->getText().text()), undoList);
-    // set speed
-    edge->setAttribute(SUMO_ATTR_SPEED, toString(mySpeed->getText().text()), undoList);
-    // set allow (no disallow)
-    edge->setAttribute(SUMO_ATTR_ALLOW, toString(myAllow->getText().text()), undoList);
-    // set witdth
-    edge->setAttribute(SUMO_ATTR_WIDTH, toString(myWidth->getText().text()), undoList);
-    // set parameters
-    edge->setAttribute(GNE_ATTR_PARAMETERS, toString(myParameters->getText().text()), undoList);
 }
 
 
@@ -571,32 +529,93 @@ GNECreateEdgeFrame::EdgeTypeParameters::onCmdOpenAttributeDialog(FXObject*, FXSe
 
 void 
 GNECreateEdgeFrame::EdgeTypeParameters::setAttributeDefaultParameters(FXObject* obj) {
+    // get default edge type
+    GNEEdgeType *defaultEdgeType = myCreateEdgeFrameParent->myEdgeSelector->getDefaultEdgeType();
     // check what attribute was changed
     if (obj == myID) {
-        //
-        myCreateEdgeFrameParent->myEdgeSelector->updateDefaultParameter(SUMO_ATTR_ID, myID->getText().text());
+        // check if is valid
+        if (defaultEdgeType->isValid(SUMO_ATTR_ID, myID->getText().text())) {
+            // set attribute (Without undoList)
+            defaultEdgeType->setAttribute(SUMO_ATTR_ID, myID->getText().text());
+            // reset color
+            myID->setTextColor(FXRGB(0, 0, 0));
+            myID->killFocus();
+        } else {
+            myID->setTextColor(FXRGB(255, 0, 0));
+        }
     } else if (obj == myNumLanes) {
-        //
-        myCreateEdgeFrameParent->myEdgeSelector->updateDefaultParameter(SUMO_ATTR_NUMLANES, myNumLanes->getText().text());
-        myCreateEdgeFrameParent->myLaneTypeParameters->updateNumLanes(GNEAttributeCarrier::parse<int>(myNumLanes->getText().text()));
+        // check if is valid
+        if (defaultEdgeType->isValid(SUMO_ATTR_NUMLANES, myNumLanes->getText().text())) {
+            // set attribute (Without undoList)
+            defaultEdgeType->setAttribute(SUMO_ATTR_NUMLANES, myNumLanes->getText().text());
+            // reset color
+            myNumLanes->setTextColor(FXRGB(0, 0, 0));
+            myNumLanes->killFocus();
+            // update numLanes in laneTypeParameters
+            myCreateEdgeFrameParent->myLaneTypeParameters->updateNumLanes(GNEAttributeCarrier::parse<int>(myNumLanes->getText().text()));
+        } else {
+            myNumLanes->setTextColor(FXRGB(255, 0, 0));
+        }
     } else if (obj == mySpeed) {
-        //
-        myCreateEdgeFrameParent->myEdgeSelector->updateDefaultParameter(SUMO_ATTR_SPEED, mySpeed->getText().text());
+        // check if is valid
+        if (defaultEdgeType->isValid(SUMO_ATTR_SPEED, mySpeed->getText().text())) {
+            // set attribute (Without undoList)
+            defaultEdgeType->setAttribute(SUMO_ATTR_SPEED, mySpeed->getText().text());
+            // reset color
+            mySpeed->setTextColor(FXRGB(0, 0, 0));
+            mySpeed->killFocus();
+        } else {
+            mySpeed->setTextColor(FXRGB(255, 0, 0));
+        }
     } else if (obj == myAllow) {
-        //
-        myCreateEdgeFrameParent->myEdgeSelector->updateDefaultParameter(SUMO_ATTR_ALLOW, myAllow->getText().text());
+        // check if is valid
+        if (defaultEdgeType->isValid(SUMO_ATTR_ALLOW, myAllow->getText().text())) {
+            // set attribute (Without undoList)
+            defaultEdgeType->setAttribute(SUMO_ATTR_ALLOW, myAllow->getText().text());
+            // reset color
+            myAllow->setTextColor(FXRGB(0, 0, 0));
+            myAllow->killFocus();
+            // update disallow textField
+            myDisallow->setText(defaultEdgeType->getAttribute(SUMO_ATTR_DISALLOW).c_str(), FALSE);
+        } else {
+            myAllow->setTextColor(FXRGB(255, 0, 0));
+        }
     } else if (obj == myDisallow) {
-        //
-        myCreateEdgeFrameParent->myEdgeSelector->updateDefaultParameter(SUMO_ATTR_DISALLOW, myDisallow->getText().text());
+        // check if is valid
+        if (defaultEdgeType->isValid(SUMO_ATTR_DISALLOW, myDisallow->getText().text())) {
+            // set attribute (Without undoList)
+            defaultEdgeType->setAttribute(SUMO_ATTR_DISALLOW, myDisallow->getText().text());
+            // reset color
+            myDisallow->setTextColor(FXRGB(0, 0, 0));
+            myDisallow->killFocus();
+            // update allow textField
+            myAllow->setText(defaultEdgeType->getAttribute(SUMO_ATTR_ALLOW).c_str(), FALSE);
+        } else {
+            myDisallow->setTextColor(FXRGB(255, 0, 0));
+        }
     } else if (obj == myWidth) {
-        //
-        myCreateEdgeFrameParent->myEdgeSelector->updateDefaultParameter(SUMO_ATTR_WIDTH, myWidth->getText().text());
+        // check if is valid
+        if (defaultEdgeType->isValid(SUMO_ATTR_WIDTH, myWidth->getText().text())) {
+            // set attribute (Without undoList)
+            defaultEdgeType->setAttribute(SUMO_ATTR_WIDTH, myWidth->getText().text());
+            // reset color
+            myWidth->setTextColor(FXRGB(0, 0, 0));
+            myWidth->killFocus();
+        } else {
+            myWidth->setTextColor(FXRGB(255, 0, 0));
+        }
     } else if (obj == myParameters) {
-        //
-        myCreateEdgeFrameParent->myEdgeSelector->updateDefaultParameter(GNE_ATTR_PARAMETERS, myParameters->getText().text());
+        // check if is valid
+        if (defaultEdgeType->isValid(GNE_ATTR_PARAMETERS, myParameters->getText().text())) {
+            // set attribute (Without undoList)
+            defaultEdgeType->setAttribute(GNE_ATTR_PARAMETERS, myParameters->getText().text());
+            // reset color
+            myParameters->setTextColor(FXRGB(0, 0, 0));
+            myParameters->killFocus();
+        } else {
+            myParameters->setTextColor(FXRGB(255, 0, 0));
+        }
     }
-    // refresh Edge Selector
-    myCreateEdgeFrameParent->myEdgeSelector->refreshEdgeSelector();
 }
 
 
@@ -909,7 +928,11 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             if (newEdge) {
                 // set parameters
                 if (!myEdgeSelector->useEdgeTemplate()) {
-                    myEdgeTypeParameters->setCurrentEdgeTypeAttributesInEdge(newEdge, myViewNet->getUndoList());
+                    if (myEdgeSelector->useDefaultEdge()) { 
+                        newEdge->copyEdgeType(myEdgeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
+                    } else {
+                        newEdge->copyEdgeType(myEdgeSelector->getSelectedEdgeType(), myViewNet->getUndoList());
+                    }
                 }
                 // create another edge, if create opposite edge is enabled
                 if (oppositeEdge) {
@@ -917,7 +940,11 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
                                                myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                     // set parameters
                     if (!myEdgeSelector->useEdgeTemplate()) {
-                        myEdgeTypeParameters->setCurrentEdgeTypeAttributesInEdge(newOppositeEdge, myViewNet->getUndoList());
+                        if (myEdgeSelector->useDefaultEdge()) { 
+                            newOppositeEdge->copyEdgeType(myEdgeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
+                        } else {
+                            newOppositeEdge->copyEdgeType(myEdgeSelector->getSelectedEdgeType(), myViewNet->getUndoList());
+                        }
                     }
                 }
                 // edge created, then unmark as create edge source

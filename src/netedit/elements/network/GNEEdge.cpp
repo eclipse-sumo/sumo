@@ -36,6 +36,7 @@
 #include "GNEConnection.h"
 #include "GNECrossing.h"
 #include "GNEEdge.h"
+#include "GNEEdgeType.h"
 
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUGCOND(obj) (true)
@@ -670,6 +671,21 @@ GNEEdge::copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edg
         myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_WIDTH), undoList);
         myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET,   edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_ENDOFFSET), undoList);
     }
+}
+
+
+void 
+GNEEdge::copyEdgeType(const GNEEdgeType *edgeType, GNEUndoList* undoList) {
+    // set num lanes
+    setAttribute(SUMO_ATTR_NUMLANES, edgeType->getAttribute(SUMO_ATTR_NUMLANES), undoList);
+    // set speed
+    setAttribute(SUMO_ATTR_SPEED, edgeType->getAttribute(SUMO_ATTR_SPEED), undoList);
+    // set allow (no disallow)
+    setAttribute(SUMO_ATTR_ALLOW, edgeType->getAttribute(SUMO_ATTR_ALLOW), undoList);
+    // set witdth
+    setAttribute(SUMO_ATTR_WIDTH, edgeType->getAttribute(SUMO_ATTR_WIDTH), undoList);
+    // set parameters
+    setAttribute(GNE_ATTR_PARAMETERS, edgeType->getAttribute(GNE_ATTR_PARAMETERS), undoList);
 }
 
 

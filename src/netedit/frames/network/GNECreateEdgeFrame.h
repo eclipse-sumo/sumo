@@ -63,14 +63,14 @@ public:
         /// @brief check if we're using default edge
         bool useDefaultEdge() const;
 
+        /// @brief get default edgeType
+        GNEEdgeType* getDefaultEdgeType() const;
+
         /// @brief get selected edgeType
         GNEEdgeType* getSelectedEdgeType() const;
 
         /// @brief clear selected edgeType
         void clearSelectedEdgeType();
-
-        /// @brief update default parameter
-        void updateDefaultParameter(SumoXMLAttr attr, const std::string &value);
 
         /// @name FOX-callbacks
         /// @{
@@ -112,13 +112,13 @@ public:
         FXComboBox* myEdgeTypesComboBox = nullptr;
 
         /// @brief button for create new edge type
-        FXButton* myNewEdgeTypeButton;
+        FXButton* myNewEdgeTypeButton = nullptr;
 
         /// @brief button for delete edge type
-        FXButton* myDeleteEdgeTypeButton;
+        FXButton* myDeleteEdgeTypeButton = nullptr;
 
-        /// @brief map with edge parameters
-        std::map<SumoXMLAttr, std::string> myEdgeAttributes;
+        /// @brief default edge type
+        GNEEdgeType* myDefaultEdgeType;
     };
 
     // ===========================================================================
@@ -151,14 +151,8 @@ public:
         /// @brief set edgeType
         void setEdgeType(GNEEdgeType* edgeType);
 
-        /// @brief set default values
-        void setDefaultValues(const std::map<SumoXMLAttr, std::string> &edgeAttributes);
-
         /// @brief set template values
         void setTemplateValues();
-
-        /// @brief set current attributes
-        void setCurrentEdgeTypeAttributesInEdge(GNEEdge* edge, GNEUndoList* undoList) const;
 
         /// @name FOX-callbacks
         /// @{
