@@ -134,6 +134,8 @@ GNENetHelper::AttributeCarriers::updateID(GNEAttributeCarrier* AC, const std::st
         updateJunctionID(AC, newID);
     } else if (AC->getTagProperty().getTag() == SUMO_TAG_EDGE) {
         updateEdgeID(AC, newID);
+    } else if (AC->getTagProperty().getTag() == SUMO_TAG_TYPE) {
+        updateEdgeTypeID(AC, newID);
     } else if (AC->getTagProperty().isAdditionalElement()) {
         updateAdditionalID(AC, newID);
     } else if (AC->getTagProperty().isShape()) {
@@ -534,6 +536,11 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     // remove it from inspected elements and HierarchicalElementTree
     myNet->getViewNet()->removeFromAttributeCarrierInspected(edgeType);
     myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(edgeType);
+    // check if this is the selected edge type in edgeSelector
+    if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->getSelectedEdgeType() == edgeType) {
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->clearSelectedEdgeType();
+        myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->refreshEdgeSelector();
+    }
     // remove from edge types
     myEdgeTypes.erase(edgeType->getMicrosimID());
     // extract it from typeCont (but DON'T delete)

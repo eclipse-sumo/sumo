@@ -63,8 +63,11 @@ public:
         /// @brief check if we're using default edge
         bool useDefaultEdge() const;
 
-        /// @brief getselected edgeType
+        /// @brief get selected edgeType
         GNEEdgeType* getSelectedEdgeType() const;
+
+        /// @brief clear selected edgeType
+        void clearSelectedEdgeType();
 
         /// @brief update default parameter
         void updateDefaultParameter(SumoXMLAttr attr, const std::string &value);

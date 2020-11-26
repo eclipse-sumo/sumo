@@ -231,6 +231,12 @@ GNECreateEdgeFrame::EdgeSelector::getSelectedEdgeType() const {
 
 
 void 
+GNECreateEdgeFrame::EdgeSelector::clearSelectedEdgeType() {
+    mySelectedEdgeType = nullptr;
+}
+
+
+void 
 GNECreateEdgeFrame::EdgeSelector::updateDefaultParameter(SumoXMLAttr attr, const std::string &value) {
     myEdgeAttributes.at(attr) = value;
 }
