@@ -92,6 +92,9 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(EdgeSelector)
 
+        /// @brief fill comboBox
+        void fillComboBox();
+
         /// @brief fill default parameters
         void fillDefaultParameters();
 
