@@ -225,7 +225,6 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
             }
         }
     }
-
     std::string id;
     if (suggestedName != "" && !retrieveEdge(suggestedName, false)) {
         id = suggestedName;
@@ -243,24 +242,23 @@ GNENet::createEdge(GNEJunction* src, GNEJunction* dest, GNEEdge* edgeTemplate, G
         // default if no template is given
         const OptionsCont& oc = OptionsCont::getOptions();
         double defaultSpeed = oc.getFloat("default.speed");
-        std::string defaultType = oc.getString("default.type");
-        int defaultNrLanes = oc.getInt("default.lanenumber");
-        int defaultPriority = oc.getInt("default.priority");
-        double defaultWidth = NBEdge::UNSPECIFIED_WIDTH;
-        double defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
+        const std::string defaultType = oc.getString("default.type");
+        const int defaultNrLanes = oc.getInt("default.lanenumber");
+        const int defaultPriority = oc.getInt("default.priority");
+        const double defaultWidth = NBEdge::UNSPECIFIED_WIDTH;
+        const double defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
+        // build NBEdge
         NBEdge* nbe = new NBEdge(id, src->getNBNode(), dest->getNBNode(),
                                  defaultType, defaultSpeed,
                                  defaultNrLanes, defaultPriority,
                                  defaultWidth,
                                  defaultOffset);
+        // create edge
         edge = new GNEEdge(this, nbe, wasSplit);
     }
+    // add edge usin undo list
     undoList->p_begin("create " + toString(SUMO_TAG_EDGE));
     undoList->add(new GNEChange_Edge(edge, true), true);
-    // check if we have to use a template
-    if (myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeSelector()->useEdgeTemplate()) {
-        edge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), undoList);
-    }
     // recompute connection
     if (recomputeConnections) {
         src->setLogicValid(false, undoList);

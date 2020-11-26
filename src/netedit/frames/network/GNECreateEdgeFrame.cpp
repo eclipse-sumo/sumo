@@ -134,8 +134,16 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
         }
         // myEdgeTypesComboBox 
         if (mySelectedEdgeType) {
-            // update comboBox item
-            myEdgeTypesComboBox->setText(mySelectedEdgeType->getID().c_str());
+            // declare index
+            int index = 0;
+            // search index of current selectedEdgeType
+            for (int i = 0; i < myEdgeTypesComboBox->getNumItems(); i++) {
+                if (mySelectedEdgeType->getID() == myEdgeTypesComboBox->getItem(i).text()) {
+                    index = i;
+                }
+            }
+            // set current item
+            myEdgeTypesComboBox->setCurrentItem(index);
             // show parameter fields
             myCreateEdgeFrameParent->myEdgeTypeParameters->showEdgeTypeParameters();
             myCreateEdgeFrameParent->myLaneTypeParameters->showLaneTypeParameters();
@@ -145,8 +153,8 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
             // update edge parameters
             myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(mySelectedEdgeType);
         } else if (templateEditor->hasTemplate()) {
-            // update comboBox item
-            myEdgeTypesComboBox->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID).c_str());
+            // set current item
+            myEdgeTypesComboBox->setCurrentItem(0);
             // show parameter fields
             myCreateEdgeFrameParent->myEdgeTypeParameters->showEdgeTypeParameters();
             myCreateEdgeFrameParent->myLaneTypeParameters->showLaneTypeParameters();
@@ -156,8 +164,8 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
             // update edge parameters (using template
             myCreateEdgeFrameParent->myEdgeTypeParameters->setTemplateValues();
         } else if (edgeTypes.size() > 0) {
-            // update comboBox item
-            myEdgeTypesComboBox->setText(edgeTypes.begin()->first.c_str());
+            // set current item
+            myEdgeTypesComboBox->setCurrentItem(0);
             // set mySelectedEdgeType
             mySelectedEdgeType = edgeTypes.begin()->second;
             // show parameter fields
@@ -208,7 +216,7 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
 bool
 GNECreateEdgeFrame::EdgeSelector::useEdgeTemplate() const {
     if (myCreateEdgeFrameParent->getViewNet()->getViewParent()->getInspectorFrame()->getTemplateEditor()->hasTemplate()) {
-        if (myUseCustomEdge->getCheck() == TRUE) {
+        if ((myUseCustomEdge->getCheck() == TRUE) && (myEdgeTypesComboBox->getCurrentItem() == 0)){
             return true;
         } else {
             return false;
@@ -849,6 +857,15 @@ GNECreateEdgeFrame::LaneTypeParameters::fillDefaultParameters(int /* laneIndex *
     myAllow->setText("all");
     // set disallow
     myDisallow->setText("");
+    /*
+    const OptionsCont& oc = OptionsCont::getOptions();
+    double defaultSpeed = oc.getFloat("default.speed");
+    std::string defaultType = oc.getString("default.type");
+    int defaultNrLanes = oc.getInt("default.lanenumber");
+    int defaultPriority = oc.getInt("default.priority");
+    double defaultWidth = NBEdge::UNSPECIFIED_WIDTH;
+    double defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
+    */
 }
 
 // ---------------------------------------------------------------------------
@@ -927,24 +944,24 @@ GNECreateEdgeFrame::processClick(const Position& clickedPosition, const GNEViewN
             // check if edge was sucesfully created
             if (newEdge) {
                 // set parameters
-                if (!myEdgeSelector->useEdgeTemplate()) {
-                    if (myEdgeSelector->useDefaultEdge()) { 
-                        newEdge->copyEdgeType(myEdgeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
-                    } else {
-                        newEdge->copyEdgeType(myEdgeSelector->getSelectedEdgeType(), myViewNet->getUndoList());
-                    }
+                if (myEdgeSelector->useEdgeTemplate()) {
+                    newEdge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
+                } else if (myEdgeSelector->useDefaultEdge()) { 
+                    newEdge->copyEdgeType(myEdgeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
+                } else {
+                    newEdge->copyEdgeType(myEdgeSelector->getSelectedEdgeType(), myViewNet->getUndoList());
                 }
                 // create another edge, if create opposite edge is enabled
                 if (oppositeEdge) {
                     GNEEdge* newOppositeEdge = myViewNet->getNet()->createEdge(junction, myCreateEdgeSource, nullptr,
                                                myViewNet->getUndoList(), "-" + newEdge->getNBEdge()->getID());
                     // set parameters
-                    if (!myEdgeSelector->useEdgeTemplate()) {
-                        if (myEdgeSelector->useDefaultEdge()) { 
-                            newOppositeEdge->copyEdgeType(myEdgeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
-                        } else {
-                            newOppositeEdge->copyEdgeType(myEdgeSelector->getSelectedEdgeType(), myViewNet->getUndoList());
-                        }
+                    if (myEdgeSelector->useEdgeTemplate()) {
+                        newOppositeEdge->copyTemplate(myViewNet->getViewParent()->getInspectorFrame()->getTemplateEditor()->getEdgeTemplate(), myViewNet->getUndoList());
+                    } else if (myEdgeSelector->useDefaultEdge()) { 
+                        newOppositeEdge->copyEdgeType(myEdgeSelector->getDefaultEdgeType(), myViewNet->getUndoList());
+                    } else {
+                        newOppositeEdge->copyEdgeType(myEdgeSelector->getSelectedEdgeType(), myViewNet->getUndoList());
                     }
                 }
                 // edge created, then unmark as create edge source
