@@ -5,11 +5,7 @@ permalink: /Tools/
 
 Tools can be found in the SUMO-distribution under {{SUMO}}/tools. Most of
 them are tiny - they were written for a certain purpose and worked well
-under certain input, but may be not verified for other cases. Please
-note that we are currently restructuring the tools, see
-<https://github.com/eclipse/sumo/issues/1425>. Most of the tools will be
-moved directly into the {{SUMO}}/tools dir, while obsolete scripts will
-move to {{SUMO}}/tools/purgatory.
+under certain input, but may be not verified for other cases.
 
 The tools are divided into the following topics:
 
