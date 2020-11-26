@@ -26,13 +26,14 @@
 #include <netedit/GNEViewParent.h>
 #include <netedit/changes/GNEChange_EdgeType.h>
 #include <netedit/changes/GNEChange_LaneType.h>
+#include <netedit/dialogs/GNEAllowDisallow.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
-#include <netedit/dialogs/GNEAllowDisallow.h>
 #include <netimport/NITypeLoader.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/options/OptionsCont.h>
 
 
 #include "GNECreateEdgeFrame.h"
@@ -45,7 +46,7 @@ FXDEFMAP(GNECreateEdgeFrame::EdgeTypeSelector) EdgeTypeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON,  GNECreateEdgeFrame::EdgeTypeSelector::onCmdRadioButton),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE,        GNECreateEdgeFrame::EdgeTypeSelector::onCmdAddEdgeType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE,     GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_RESETEDGETYPE,      GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_RESETEDGETYPE,      GNECreateEdgeFrame::EdgeTypeSelector::onCmdResetEdgeType),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTEDGETYPE,     GNECreateEdgeFrame::EdgeTypeSelector::onCmdSelectEdgeType),
 };
 
@@ -60,7 +61,7 @@ FXDEFMAP(GNECreateEdgeFrame::LaneTypeParameters) LaneTypeParametersMap[] = {
 };
 
 // Object implementation
-FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeSelector,           FXGroupBox,     EdgeTypeSelectorMap,        ARRAYNUMBER(EdgeTypeSelectorMap))
+FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeSelector,       FXGroupBox,     EdgeTypeSelectorMap,    ARRAYNUMBER(EdgeTypeSelectorMap))
 FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeParameters,     FXGroupBox,     EdgeTypeParametersMap,  ARRAYNUMBER(EdgeTypeParametersMap))
 FXIMPLEMENT(GNECreateEdgeFrame::LaneTypeParameters,     FXGroupBox,     LaneTypeParametersMap,  ARRAYNUMBER(LaneTypeParametersMap))
 
@@ -287,32 +288,38 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
 
 long
 GNECreateEdgeFrame::EdgeTypeSelector::onCmdResetEdgeType(FXObject*, FXSelector, void*) {
-/*
-    // first check if we have to reset myEdgeTypeSelected
-    if (myEdgeTypeSelected && (myEdgeTypeSelected->getID() == myEdgeTypesComboBox->getText().text())) {
-        myEdgeTypeSelected = nullptr;
+    // get options
+    const OptionsCont& oc = OptionsCont::getOptions();
+    // get undoList
+    GNEUndoList *undoList = myCreateEdgeFrameParent->getViewNet()->getUndoList();
+    // check if we're editing an existent edgeType
+    if (useDefaultEdgeType()) {
+        // reset speed
+        myDefaultEdgeType->setAttribute(SUMO_ATTR_SPEED, toString(oc.getFloat("default.speed")));
+        // reset numLanes
+        myDefaultEdgeType->setAttribute(SUMO_ATTR_NUMLANES, toString(oc.getInt("default.lanenumber")));
+        // reset disallow (and allow)
+        myDefaultEdgeType->setAttribute(SUMO_ATTR_DISALLOW, oc.getString("default.disallow"));
+        // reset width
+        myDefaultEdgeType->setAttribute(SUMO_ATTR_WIDTH, toString(NBEdge::UNSPECIFIED_WIDTH));
+        // reset parameters
+        myDefaultEdgeType->setAttribute(GNE_ATTR_PARAMETERS, "");
+    } else if (myEdgeTypeSelected) {
+        // begin undoList
+        undoList->p_begin("reset edgeType '" + myDefaultEdgeType->getID() + "'");
+        // reset speed
+        myEdgeTypeSelected->setAttribute(SUMO_ATTR_SPEED, toString(oc.getFloat("default.speed")), undoList);
+        // reset numLanes
+        myEdgeTypeSelected->setAttribute(SUMO_ATTR_NUMLANES, toString(oc.getInt("default.lanenumber")), undoList);
+        // reset disallow (and allow)
+        myEdgeTypeSelected->setAttribute(SUMO_ATTR_DISALLOW, oc.getString("default.disallow"));
+        // reset width
+        myEdgeTypeSelected->setAttribute(SUMO_ATTR_WIDTH, toString(NBEdge::UNSPECIFIED_WIDTH), undoList);
+        // reset parameters
+        myEdgeTypeSelected->setAttribute(GNE_ATTR_PARAMETERS, "", undoList);
+        // end undoList
+        undoList->p_end();
     }
-    // get edgeType to remove
-    GNEEdgeType* edgeType = myCreateEdgeFrameParent->getViewNet()->getNet()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
-    // remove it using undoList
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_begin("create new edge type");
-    // iterate over all laneType
-    for (const auto &laneType : edgeType->getLaneTypes()) {
-        myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, false), true);
-    }
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_end();
- */
-
- /*
-     const OptionsCont& oc = OptionsCont::getOptions();
-     double defaultSpeed = oc.getFloat("default.speed");
-     std::string defaultType = oc.getString("default.type");
-     int defaultNrLanes = oc.getInt("default.lanenumber");
-     int defaultPriority = oc.getInt("default.priority");
-     double defaultWidth = NBEdge::UNSPECIFIED_WIDTH;
-     double defaultOffset = NBEdge::UNSPECIFIED_OFFSET;
- */
     // refresh EdgeTypeSelector
     refreshEdgeTypeSelector();
     return 0;

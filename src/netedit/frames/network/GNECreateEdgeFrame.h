@@ -108,6 +108,9 @@ public:
         /// @brief selected edgeType
         GNEEdgeType* myEdgeTypeSelected;
 
+        /// @brief default edge type
+        GNEEdgeType* myDefaultEdgeType;
+
         /// @brief create default edge
         FXRadioButton* myUseDefaultEdgeType = nullptr;
 
@@ -125,9 +128,6 @@ public:
 
         /// @brief button for reset edge type
         FXButton* myResetEdgeTypeButton = nullptr;
-
-        /// @brief default edge type
-        GNEEdgeType* myDefaultEdgeType;
     };
 
     // ===========================================================================
