@@ -149,7 +149,7 @@ public:
         void disableEdgeTypeParameters();
 
         /// @brief set edgeType
-        void setEdgeType(GNEEdgeType* edgeType);
+        void setEdgeType(GNEEdgeType* edgeType, bool showID);
 
         /// @brief set template values
         void setTemplateValues();
@@ -177,6 +177,9 @@ public:
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
+
+        /// @brief horizontal frame for ID
+        FXHorizontalFrame* myHorizontalFrameID;
 
         // @brief label frame for ID/template
         FXLabel* myLabelID;

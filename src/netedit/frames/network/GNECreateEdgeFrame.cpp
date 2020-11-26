@@ -151,7 +151,7 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
             myCreateEdgeFrameParent->myEdgeTypeParameters->enableEdgeTypeParameters();
             myCreateEdgeFrameParent->myLaneTypeParameters->enableLaneTypeParameters();
             // update edge parameters
-            myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(mySelectedEdgeType);
+            myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(mySelectedEdgeType, true);
         } else if (templateEditor->hasTemplate()) {
             // set current item
             myEdgeTypesComboBox->setCurrentItem(0);
@@ -175,7 +175,7 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
             myCreateEdgeFrameParent->myEdgeTypeParameters->enableEdgeTypeParameters();
             myCreateEdgeFrameParent->myLaneTypeParameters->enableLaneTypeParameters();
             // update edge parameters
-            myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(mySelectedEdgeType);
+            myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(mySelectedEdgeType, true);
         } else {
             // disable comboBox (nothing to select)
             myEdgeTypesComboBox->disable();
@@ -205,8 +205,11 @@ GNECreateEdgeFrame::EdgeSelector::refreshEdgeSelector() {
         // disable buttons
         myNewEdgeTypeButton->disable();
         myDeleteEdgeTypeButton->disable();
+        // show parameter fields
+        myCreateEdgeFrameParent->myEdgeTypeParameters->showEdgeTypeParameters();
+        myCreateEdgeFrameParent->myLaneTypeParameters->showLaneTypeParameters();
         // set default parameters
-        myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(myDefaultEdgeType);
+        myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(myDefaultEdgeType, false);
     }
     // recalc
     recalc();
@@ -345,7 +348,7 @@ GNECreateEdgeFrame::EdgeSelector::onCmdSelectEdgeType(FXObject*, FXSelector, voi
         // set mySelectedEdgeType
         mySelectedEdgeType = myCreateEdgeFrameParent->myViewNet->getNet()->retrieveEdgeType(myEdgeTypesComboBox->getText().text());
         // set edgeType in myEdgeTypeParameters
-        myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(mySelectedEdgeType);
+        myCreateEdgeFrameParent->myEdgeTypeParameters->setEdgeType(mySelectedEdgeType, true);
     } else {
         // set invalid color
         myEdgeTypesComboBox->setTextColor(FXRGB(255, 0, 0));
@@ -382,9 +385,9 @@ GNECreateEdgeFrame::EdgeTypeParameters::EdgeTypeParameters(GNECreateEdgeFrame* c
     // declare horizontalFrameAttribute
     FXHorizontalFrame* horizontalFrameAttribute = nullptr;
     // create textField for ID
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    myLabelID = new FXLabel(horizontalFrameAttribute, "edgeType id", nullptr, GUIDesignLabelAttribute);
-    myID = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    myHorizontalFrameID = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myLabelID = new FXLabel(myHorizontalFrameID, "edgeType id", nullptr, GUIDesignLabelAttribute);
+    myID = new FXTextField(myHorizontalFrameID, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for speed
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPEED).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -456,11 +459,16 @@ GNECreateEdgeFrame::EdgeTypeParameters::disableEdgeTypeParameters() {
 
 
 void 
-GNECreateEdgeFrame::EdgeTypeParameters::setEdgeType(GNEEdgeType* edgeType) {
+GNECreateEdgeFrame::EdgeTypeParameters::setEdgeType(GNEEdgeType* edgeType, bool showID) {
     // set id
-    myLabelID->setText("edgeType ID");
-    myID->setText(edgeType->getAttribute(SUMO_ATTR_ID).c_str(), FALSE);
-    myID->setTextColor(FXRGB(0, 0, 0));
+    if (showID) {
+        myHorizontalFrameID->show();
+        myLabelID->setText("edgeType ID");
+        myID->setText(edgeType->getAttribute(SUMO_ATTR_ID).c_str(), FALSE);
+        myID->setTextColor(FXRGB(0, 0, 0));
+    } else {
+        myHorizontalFrameID->hide();
+    }
     // set numLanes
     myNumLanes->setText(edgeType->getAttribute(SUMO_ATTR_NUMLANES).c_str(), FALSE);
     myNumLanes->setTextColor(FXRGB(0, 0, 0));
@@ -479,6 +487,8 @@ GNECreateEdgeFrame::EdgeTypeParameters::setEdgeType(GNEEdgeType* edgeType) {
     // set parameters
     myParameters->setText(edgeType->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
     myParameters->setTextColor(FXRGB(0, 0, 0));
+    // recalc frame
+    recalc();
 }
 
 
@@ -491,6 +501,7 @@ GNECreateEdgeFrame::EdgeTypeParameters::setTemplateValues() {
         // set ID
         myLabelID->setText("template ID");
         myID->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_ID).c_str(), FALSE);
+        myHorizontalFrameID->show();
         // set numLanes
         myNumLanes->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_NUMLANES).c_str(), FALSE);
         // set speed
@@ -503,6 +514,8 @@ GNECreateEdgeFrame::EdgeTypeParameters::setTemplateValues() {
         myWidth->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_WIDTH).c_str(), FALSE);
         // set parameters
         myParameters->setText(templateEditor->getEdgeTemplate().edgeParameters.at(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+        // recalc frame
+        recalc();
     } else {
         throw ProcessError("no template");
     }
