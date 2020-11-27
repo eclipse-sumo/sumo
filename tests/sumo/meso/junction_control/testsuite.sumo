@@ -37,3 +37,6 @@ priority
 
 # the basic net without tls
 priority_no_control
+
+# do not apply minorPenalty on top of tlsPenalty
+tlsPenalty_minorPenalty

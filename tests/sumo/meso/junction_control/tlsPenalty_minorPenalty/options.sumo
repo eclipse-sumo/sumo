@@ -1,0 +1,2 @@
+--meso-junction-control --no-step-log -t --net-file=net.net.xml
+--routes=input_routes.rou.xml --meso-tls-penalty 1 --meso-minor-penalty 5
