@@ -174,6 +174,12 @@ public:
         /// @brief Called when the user open attribute dialog
         long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
 
+        /// @brief Called when the user press button for delete lane type
+        long onCmdDeleteLaneType(FXObject*, FXSelector, void*);
+
+        /// @brief Called when the user press button for reset lane type
+        long onCmdResetLaneType(FXObject*, FXSelector, void*);
+
         /// @}
 
     protected:
@@ -186,6 +192,12 @@ public:
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
+
+        /// @brief button for delete lane type
+        FXButton* myDeleteLaneTypeButton = nullptr;
+
+        /// @brief button for reset lane type
+        FXButton* myResetLaneTypeButton = nullptr;
 
         /// @brief ComboBox for laneIndex
         FXComboBox* myLaneIndex = nullptr;

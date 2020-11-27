@@ -845,6 +845,10 @@ enum {
     MID_GNE_CREATEEDGEFRAME_RESETEDGETYPE,
     /// @brief select edge type
     MID_GNE_CREATEEDGEFRAME_SELECTEDGETYPE,
+    /// @brief delete lane type
+    MID_GNE_CREATEEDGEFRAME_DELETELANETYPE,
+    /// @brief reset lane type
+    MID_GNE_CREATEEDGEFRAME_RESETLANETYPE,
 
     /// @}
 

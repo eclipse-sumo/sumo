@@ -52,8 +52,10 @@ FXDEFMAP(GNECreateEdgeFrame::EdgeTypeSelector) EdgeTypeSelectorMap[] = {
 };
 
 FXDEFMAP(GNECreateEdgeFrame::LaneTypeParameters) LaneTypeParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNECreateEdgeFrame::LaneTypeParameters::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNECreateEdgeFrame::LaneTypeParameters::onCmdOpenAttributeDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,                      GNECreateEdgeFrame::LaneTypeParameters::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,               GNECreateEdgeFrame::LaneTypeParameters::onCmdOpenAttributeDialog),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_DELETELANETYPE,     GNECreateEdgeFrame::LaneTypeParameters::onCmdDeleteLaneType),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_RESETLANETYPE,      GNECreateEdgeFrame::LaneTypeParameters::onCmdResetLaneType),
 };
 
 FXDEFMAP(GNECreateEdgeFrame::EdgeTypeParameters) EdgeTypeParametersMap[] = {
@@ -428,6 +430,14 @@ GNECreateEdgeFrame::LaneTypeParameters::LaneTypeParameters(GNECreateEdgeFrame* c
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrameAttribute, "Lane index", nullptr, GUIDesignLabelAttribute);
     myLaneIndex = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
+    // create horizontalFrameAttribute for buttons
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    // create delete edge type button
+    myDeleteLaneTypeButton = new FXButton(horizontalFrameAttribute,
+        "delete\t\tdelete lane type", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_CREATEEDGEFRAME_DELETELANETYPE, GUIDesignButton);
+    // create reset edge type button
+    myResetLaneTypeButton = new FXButton(horizontalFrameAttribute,
+        "reset\t\treset lane type", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_CREATEEDGEFRAME_RESETLANETYPE, GUIDesignButton);
     // create textField for speed
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPEED).c_str(), nullptr, GUIDesignLabelAttribute);
@@ -585,6 +595,20 @@ GNECreateEdgeFrame::LaneTypeParameters::onCmdOpenAttributeDialog(FXObject* obj, 
         }
 */
     }
+    return 1;
+}
+
+
+long 
+GNECreateEdgeFrame::LaneTypeParameters::onCmdDeleteLaneType(FXObject*, FXSelector, void*) {
+    /* */
+    return 1;
+}
+
+
+long 
+GNECreateEdgeFrame::LaneTypeParameters::onCmdResetLaneType(FXObject*, FXSelector, void*) {
+    /* */
     return 1;
 }
 
