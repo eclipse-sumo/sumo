@@ -19,12 +19,15 @@
 /****************************************************************************/
 #include <config.h>
 
-#include <utils/gui/windows/GUIAppEnum.h>
-#include <utils/gui/div/GUIDesigns.h>
-#include <utils/xml/XMLSubSys.h>
-#include <netedit/GNEViewNet.h>
+#include <netedit/GNENet.h>
 #include <netedit/GNEUndoList.h>
+#include <netedit/GNEViewNet.h>
+#include <netedit/elements/network/GNEEdgeType.h>
+#include <netedit/elements/network/GNELaneType.h>
 #include <netedit/frames/GNEFrame.h>
+#include <utils/gui/div/GUIDesigns.h>
+#include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/xml/XMLSubSys.h>
 
 #include "GNESingleParametersDialog.h"
 
@@ -483,7 +486,8 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEFrameAttributesModuls::P
     FXDialogBox(parametersEditorCreator->getFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditorCreator(parametersEditorCreator),
     myParametersEditorInspector(nullptr),
-    VTypeAttributeRow(nullptr) {
+    VTypeAttributeRow(nullptr),
+    myAttributeCarrier(nullptr) {
     // call auxiliar constructor for elements
     constructor();
     // fill myParametersValues
@@ -495,7 +499,8 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEInspectorFrame::Paramete
     FXDialogBox(parametersEditorInspector->getInspectorFrameParent()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditorCreator(nullptr),
     myParametersEditorInspector(parametersEditorInspector),
-    VTypeAttributeRow(nullptr) {
+    VTypeAttributeRow(nullptr),
+    myAttributeCarrier(nullptr) {
     // call auxiliar constructor
     constructor();
     // get AC Front
@@ -510,11 +515,25 @@ GNESingleParametersDialog::GNESingleParametersDialog(GNEVehicleTypeDialog::VType
     FXDialogBox(viewNet->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
     myParametersEditorCreator(nullptr),
     myParametersEditorInspector(nullptr),
-    VTypeAttributeRow(VTypeAttributeRow) {
+    VTypeAttributeRow(VTypeAttributeRow),
+    myAttributeCarrier(nullptr) {
     // call auxiliar constructor
     constructor();
     // fill myEditedParameters
     myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
+}
+
+
+GNESingleParametersDialog::GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier) :
+    FXDialogBox(attributeCarrier->getNet()->getViewNet()->getApp(), "Edit parameters", GUIDesignDialogBoxExplicitStretchable(400, 300)),
+    myParametersEditorCreator(nullptr),
+    myParametersEditorInspector(nullptr),
+    VTypeAttributeRow(nullptr),
+    myAttributeCarrier(attributeCarrier) {
+    // call auxiliar constructor
+    constructor();
+    // fill myEditedParameters
+    myParametersValues->setParameters(myAttributeCarrier->getACParameters<std::vector<std::pair<std::string, std::string> > >());
 }
 
 
@@ -576,16 +595,23 @@ GNESingleParametersDialog::onCmdAccept(FXObject*, FXSelector, void*) {
     }
     // set parameters in Parameters editor parents
     if (myParametersEditorCreator) {
+        // set parameter in editor creator
         myParametersEditorCreator->setParameters(parameters);
     } else if (myParametersEditorInspector) {
         // get inspected AC
         GNEAttributeCarrier* AC = myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getInspectedAttributeCarriers().front();
-        // set parameter
+        // set parameter in AC using undoList
         myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_begin("change parameters");
         AC->setACParameters(parameters, myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList());
         myParametersEditorInspector->getInspectorFrameParent()->getViewNet()->getUndoList()->p_end();
-    } else {
+    } else if (VTypeAttributeRow) {
+        // set parameter in VTypeAttributeRow
         VTypeAttributeRow->setParameters(parameters);
+    } else if (myAttributeCarrier) {
+        // set parameter in AC using undoList
+        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->p_begin("change parameters");
+        myAttributeCarrier->setACParameters(parameters, myAttributeCarrier->getNet()->getViewNet()->getUndoList());
+        myAttributeCarrier->getNet()->getViewNet()->getUndoList()->p_end();
     }
     // all ok, then close dialog
     getApp()->stopModal(this, TRUE);
@@ -611,6 +637,8 @@ GNESingleParametersDialog::onCmdReset(FXObject*, FXSelector, void*) {
         myParametersValues->setParameters(AC->getACParameters<std::vector<std::pair<std::string, std::string> > >());
     } else if (VTypeAttributeRow) {
         myParametersValues->setParameters(VTypeAttributeRow->getParametersVectorStr());
+    } else {
+        myParametersValues->setParameters(myAttributeCarrier->getACParameters<std::vector<std::pair<std::string, std::string> > >());
     }
     return 1;
 }

@@ -27,6 +27,7 @@
 #include <netedit/changes/GNEChange_EdgeType.h>
 #include <netedit/changes/GNEChange_LaneType.h>
 #include <netedit/dialogs/GNEAllowDisallow.h>
+#include <netedit/dialogs/GNESingleParametersDialog.h>
 #include <netedit/elements/network/GNEEdgeType.h>
 #include <netedit/elements/network/GNELaneType.h>
 #include <netimport/NITypeLoader.h>
@@ -50,20 +51,20 @@ FXDEFMAP(GNECreateEdgeFrame::EdgeTypeSelector) EdgeTypeSelectorMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_CREATEEDGEFRAME_SELECTEDGETYPE,     GNECreateEdgeFrame::EdgeTypeSelector::onCmdSelectEdgeType),
 };
 
-FXDEFMAP(GNECreateEdgeFrame::EdgeTypeParameters) EdgeTypeParametersMap[] = {
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNECreateEdgeFrame::EdgeTypeParameters::onCmdSetAttribute),
-    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNECreateEdgeFrame::EdgeTypeParameters::onCmdOpenAttributeDialog),
-};
-
 FXDEFMAP(GNECreateEdgeFrame::LaneTypeParameters) LaneTypeParametersMap[] = {
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNECreateEdgeFrame::LaneTypeParameters::onCmdSetAttribute),
     FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNECreateEdgeFrame::LaneTypeParameters::onCmdOpenAttributeDialog),
 };
 
+FXDEFMAP(GNECreateEdgeFrame::EdgeTypeParameters) EdgeTypeParametersMap[] = {
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE,          GNECreateEdgeFrame::EdgeTypeParameters::onCmdSetAttribute),
+    FXMAPFUNC(SEL_COMMAND,  MID_GNE_SET_ATTRIBUTE_DIALOG,   GNECreateEdgeFrame::EdgeTypeParameters::onCmdOpenAttributeDialog),
+};
+
 // Object implementation
 FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeSelector,       FXGroupBox,     EdgeTypeSelectorMap,    ARRAYNUMBER(EdgeTypeSelectorMap))
-FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeParameters,     FXGroupBox,     EdgeTypeParametersMap,  ARRAYNUMBER(EdgeTypeParametersMap))
 FXIMPLEMENT(GNECreateEdgeFrame::LaneTypeParameters,     FXGroupBox,     LaneTypeParametersMap,  ARRAYNUMBER(LaneTypeParametersMap))
+FXIMPLEMENT(GNECreateEdgeFrame::EdgeTypeParameters,     FXGroupBox,     EdgeTypeParametersMap,  ARRAYNUMBER(EdgeTypeParametersMap))
 
 
 // ===========================================================================
@@ -424,25 +425,29 @@ GNECreateEdgeFrame::LaneTypeParameters::LaneTypeParameters(GNECreateEdgeFrame* c
     // declare horizontalFrameAttribute
     FXHorizontalFrame* horizontalFrameAttribute = nullptr;
     // create ComboBox for spread type
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        new FXLabel(horizontalFrameAttribute, "Lane index", nullptr, GUIDesignLabelAttribute);
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrameAttribute, "Lane index", nullptr, GUIDesignLabelAttribute);
     myLaneIndex = new FXComboBox(horizontalFrameAttribute, GUIDesignComboBoxNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignComboBoxAttribute);
     // create textField for speed
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPEED).c_str(), nullptr, GUIDesignLabelAttribute);
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_SPEED).c_str(), nullptr, GUIDesignLabelAttribute);
     mySpeed = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Button for allow vehicles
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        myAllowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_ALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myAllowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_ALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myAllow = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create Button for disallow vehicles
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        myDisallowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_DISALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myDisallowButton = new FXButton(horizontalFrameAttribute, toString(SUMO_ATTR_DISALLOW).c_str(), nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myDisallow = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for width
-    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame),
-        new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
     myWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create textField for parameters
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    myParametersButton = new FXButton(horizontalFrameAttribute, "parameters", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
+    myParameters = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // fill default parameters
     fillDefaultParameters(0);
 }
@@ -532,15 +537,54 @@ GNECreateEdgeFrame::LaneTypeParameters::onCmdSetAttribute(FXObject*, FXSelector,
 
 
 long
-GNECreateEdgeFrame::LaneTypeParameters::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
-    // declare strings
-    std::string allow = myAllow->getText().text();
-    std::string disallow = myDisallow->getText().text();
-    // open dialog
-    GNEAllowDisallow(myCreateEdgeFrameParent->getViewNet(), &allow, &disallow).execute();
-    // update allow/disallow
-    myAllow->setText(allow.c_str(), FALSE);
-    myDisallow->setText(disallow.c_str(), FALSE);
+GNECreateEdgeFrame::LaneTypeParameters::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
+    if (obj == myParametersButton) {
+/*
+        // write debug information
+        WRITE_DEBUG("Open parameters dialog");
+        // check if use default edge
+        if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+            // edit parameters using dialog
+            if (GNESingleParametersDialog(myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()).execute()) {
+                // write debug information
+                WRITE_DEBUG("Close parameters dialog");
+                // update myParameters text field
+                myParameters->setText(myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+            } else {
+                // write debug information
+                WRITE_DEBUG("Cancel parameters dialog");
+            }
+        } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
+            // edit parameters using dialog
+            if (GNESingleParametersDialog(myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()).execute()) {
+                // write debug information
+                WRITE_DEBUG("Close parameters dialog");
+                // update myParameters text field
+                myParameters->setText(myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+            } else {
+                // write debug information
+                WRITE_DEBUG("Cancel parameters dialog");
+            }
+        }
+*/
+    } else {
+        // declare strings
+        std::string allow = myAllow->getText().text();
+        std::string disallow = myDisallow->getText().text();
+        // open dialog
+        GNEAllowDisallow(myCreateEdgeFrameParent->getViewNet(), &allow, &disallow).execute();
+        // update allow/disallow
+        myAllow->setText(allow.c_str(), FALSE);
+        myDisallow->setText(disallow.c_str(), FALSE);
+/*
+        // set attribute
+        if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+            myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+        } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
+            myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+        }
+*/
+    }
     return 1;
 }
 
@@ -590,7 +634,7 @@ GNECreateEdgeFrame::EdgeTypeParameters::EdgeTypeParameters(GNECreateEdgeFrame* c
     myWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for parameters
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
-    new FXLabel(horizontalFrameAttribute, "parameters", nullptr, GUIDesignLabelAttribute);
+    myParametersButton = new FXButton(horizontalFrameAttribute, "parameters", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myParameters = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create lane parameters
     myLaneTypeParameters = new LaneTypeParameters(createEdgeFrameParent);
@@ -729,15 +773,50 @@ GNECreateEdgeFrame::EdgeTypeParameters::onCmdSetAttribute(FXObject* obj, FXSelec
 
 
 long
-GNECreateEdgeFrame::EdgeTypeParameters::onCmdOpenAttributeDialog(FXObject*, FXSelector, void*) {
-    // declare strings
-    std::string allow = myAllow->getText().text();
-    std::string disallow = myDisallow->getText().text();
-    // open dialog
-    GNEAllowDisallow(myCreateEdgeFrameParent->getViewNet(), &allow, &disallow).execute();
-    // update allow/disallow
-    myAllow->setText(allow.c_str(), FALSE);
-    myDisallow->setText(disallow.c_str(), FALSE);
+GNECreateEdgeFrame::EdgeTypeParameters::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
+    if (obj == myParametersButton) {
+        // write debug information
+        WRITE_DEBUG("Open parameters dialog");
+        // check if use default edge
+        if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+            // edit parameters using dialog
+            if (GNESingleParametersDialog(myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()).execute()) {
+                // write debug information
+                WRITE_DEBUG("Close parameters dialog");
+                // update myParameters text field
+                myParameters->setText(myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+            } else {
+                // write debug information
+                WRITE_DEBUG("Cancel parameters dialog");
+            }
+        } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
+            // edit parameters using dialog
+            if (GNESingleParametersDialog(myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()).execute()) {
+                // write debug information
+                WRITE_DEBUG("Close parameters dialog");
+                // update myParameters text field
+                myParameters->setText(myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+            } else {
+                // write debug information
+                WRITE_DEBUG("Cancel parameters dialog");
+            }
+        }
+    } else {
+        // declare strings
+        std::string allow = myAllow->getText().text();
+        std::string disallow = myDisallow->getText().text();
+        // open allow/disallow
+        GNEAllowDisallow(myCreateEdgeFrameParent->getViewNet(), &allow, &disallow).execute();
+        // update allow/disallow
+        myAllow->setText(allow.c_str(), FALSE);
+        myDisallow->setText(disallow.c_str(), FALSE);
+        // set attribute
+        if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+            myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+        } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
+            myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+        }
+    }
     return 1;
 }
 

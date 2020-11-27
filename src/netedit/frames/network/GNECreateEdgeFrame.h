@@ -207,6 +207,15 @@ public:
 
         /// @brief textField for width
         FXTextField* myWidth = nullptr;
+
+        /// @brief Button for edit generic parameters
+        FXButton* myParametersButton = nullptr;
+
+        /// @brief textField for Parameters
+        FXTextField* myParameters = nullptr;
+
+        /// @brief lane parameters
+        LaneTypeParameters* myLaneTypeParameters = nullptr;
     };
 
     // ===========================================================================
@@ -248,7 +257,7 @@ public:
         long onCmdSetAttribute(FXObject* obj, FXSelector, void*);
 
         /// @brief Called when the user open attribute dialog
-        long onCmdOpenAttributeDialog(FXObject*, FXSelector, void*);
+        long onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*);
 
         /// @}
 
@@ -295,6 +304,9 @@ public:
 
         /// @brief textField for width
         FXTextField* myWidth = nullptr;
+
+        /// @brief Button for edit generic parameters
+        FXButton* myParametersButton = nullptr;
 
         /// @brief textField for Parameters
         FXTextField* myParameters = nullptr;

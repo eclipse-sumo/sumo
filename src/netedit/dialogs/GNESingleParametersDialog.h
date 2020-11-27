@@ -241,6 +241,9 @@ public:
     /// @brief Constructor for Vehicle Type Row (Vehicle Type Dialog)
     GNESingleParametersDialog(GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow, GNEViewNet* viewNet);
 
+    /// @brief Constructor for attribute carriers (used in GNECreateEdgeFrame)
+    GNESingleParametersDialog(GNEAttributeCarrier* attributeCarrier);
+
     /// @brief destructor
     ~GNESingleParametersDialog();
 
@@ -268,6 +271,9 @@ protected:
 
     /// @brief pointer to VTypeAttributeRow
     GNEVehicleTypeDialog::VTypeAtributes::VTypeAttributeRow* VTypeAttributeRow;
+
+    /// @brief pointer to GNEAttributeCarrier
+    GNEAttributeCarrier* myAttributeCarrier;
 
     /// @brief pointer to parameters values
     ParametersValues* myParametersValues;
