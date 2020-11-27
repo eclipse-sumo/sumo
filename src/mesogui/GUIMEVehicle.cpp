@@ -262,5 +262,25 @@ GUIMEVehicle::selectBlockingFoes() const {
     // @todo possibly we could compute something reasonable here
 }
 
+Boundary
+GUIMEVehicle::getCenteringBoundary() const {
+    // getPosition returns the start of the first laneso we do not use it here
+    getEdge()->lock();
+    const MSLane* const lane = getEdge()->getLanes()[getQueIndex()];
+    double offset = 0;
+    if (getSegment() != nullptr) {
+        offset = getSegment()->getLength();
+        auto queue = getSegment()->getQueue(getQueIndex());
+        for (int i = queue.size() - 1; i >= 0 && queue[i] != this; i--) {
+            offset -= queue[i]->getVehicleType().getLengthWithGap();
+        }
+    }
+    getEdge()->unlock();
+    Position pos = lane->geometryPositionAtOffset(getPositionOnLane() + offset);
+    Boundary b;
+    b.add(pos);
+    b.grow(getVehicleType().getLength());
+    return b;
+}
 
 /****************************************************************************/

@@ -74,6 +74,13 @@ public:
         return MEVehicle::getPosition(offset);
     }
 
+    /** @brief Returns the boundary to which the view shall be centered in order to show the object
+     *
+     * @return The boundary the object is within
+     * @see GUIGlObject::getCenteringBoundary
+     */
+    virtual Boundary getCenteringBoundary() const;
+
     /** @brief Return current angle
     *
     * @note implementation of abstract method does not work otherwise

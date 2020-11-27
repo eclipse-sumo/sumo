@@ -169,7 +169,7 @@ public:
      * @return The boundary the object is within
      * @see GUIGlObject::getCenteringBoundary
      */
-    Boundary getCenteringBoundary() const;
+    virtual Boundary getCenteringBoundary() const;
 
     /// @brief Returns the value for generic parameter 'name' or ''
     const std::string getOptionalName() const;
