@@ -299,8 +299,10 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdResetEdgeType(FXObject*, FXSelector, 
     if (useDefaultEdgeType()) {
         // reset speed
         myDefaultEdgeType->setAttribute(SUMO_ATTR_SPEED, toString(oc.getFloat("default.speed")));
-        // reset numLanes
-        myDefaultEdgeType->setAttribute(SUMO_ATTR_NUMLANES, toString(oc.getInt("default.lanenumber")));
+        // reset lanes
+        while (myDefaultEdgeType->getLaneTypes().size() > 1) {
+            myDefaultEdgeType->removeLaneType(myDefaultEdgeType->getLaneTypes().back());
+        }
         // reset disallow (and allow)
         myDefaultEdgeType->setAttribute(SUMO_ATTR_DISALLOW, oc.getString("default.disallow"));
         // reset width
@@ -310,10 +312,12 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdResetEdgeType(FXObject*, FXSelector, 
     } else if (myEdgeTypeSelected) {
         // begin undoList
         undoList->p_begin("reset edgeType '" + myDefaultEdgeType->getID() + "'");
+        // reset lanes
+        while (myEdgeTypeSelected->getLaneTypes().size() > 1) {
+            myEdgeTypeSelected->removeLaneType((int)myEdgeTypeSelected->getLaneTypes().size() - 1, undoList);
+        }
         // reset speed
         myEdgeTypeSelected->setAttribute(SUMO_ATTR_SPEED, toString(oc.getFloat("default.speed")), undoList);
-        // reset numLanes
-        myEdgeTypeSelected->setAttribute(SUMO_ATTR_NUMLANES, toString(oc.getInt("default.lanenumber")), undoList);
         // reset disallow (and allow)
         myEdgeTypeSelected->setAttribute(SUMO_ATTR_DISALLOW, oc.getString("default.disallow"));
         // reset width
@@ -889,8 +893,6 @@ GNECreateEdgeFrame::EdgeTypeParameters::setAttributeDefaultParameters(FXObject* 
     } else if (obj == myNumLanes) {
         // check if is valid
         if (defaultEdgeType->isValid(SUMO_ATTR_NUMLANES, myNumLanes->getText().text())) {
-            // set attribute (Without undoList)
-            defaultEdgeType->setAttribute(SUMO_ATTR_NUMLANES, myNumLanes->getText().text());
             // reset color
             myNumLanes->setTextColor(FXRGB(0, 0, 0));
             myNumLanes->killFocus();
@@ -983,8 +985,6 @@ GNECreateEdgeFrame::EdgeTypeParameters::setAttributeExistentEdgeType(FXObject* o
     } else if (obj == myNumLanes) {
         // check if is valid
         if (edgeType->isValid(SUMO_ATTR_NUMLANES, myNumLanes->getText().text())) {
-            // set attribute
-            edgeType->setAttribute(SUMO_ATTR_NUMLANES, myNumLanes->getText().text(), undoList);
             // reset color
             myNumLanes->setTextColor(FXRGB(0, 0, 0));
             myNumLanes->killFocus();
