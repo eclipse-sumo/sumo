@@ -157,7 +157,7 @@ MSMeanData_Net::MSLaneMeanDataValues::notifyMoveInternal(
         }
         const double vmax = veh.getLane() == nullptr ? veh.getEdge()->getVehicleMaxSpeed(&veh) : veh.getLane()->getVehicleMaxSpeed(&veh);
         if (vmax > 0) {
-            timeLoss += timeOnLane * (vmax - meanSpeedVehicleOnLane) / vmax;
+            timeLoss += timeOnLane * MAX2(0.0, vmax - meanSpeedVehicleOnLane) / vmax;
         }
     }
     frontSampleSeconds += frontOnLane;
