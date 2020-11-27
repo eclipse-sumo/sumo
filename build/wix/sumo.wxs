@@ -21,7 +21,7 @@
             <Directory Id='BINDIR' Name='bin'>
               <Component Id='MainExecutables' Guid='BD1FC8EE-2B15-11E1-BA48-028037EC0200'>
                 <File Id='sumoGuiEXE' Name='sumo-gui.exe' Source='O:\Daten\Sumo\Nightly\sumo-gui.exe' KeyPath='yes'>
-                  <Shortcut Id="startmenuSumoGui" Directory="ProgramMenuDir" Name="SumoGui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
+                  <Shortcut Id="startmenuSumoGui" Directory="ProgramMenuDir" Name="sumo-gui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
                 </File>
     <!-- Section copied from http://stackoverflow.com/questions/2772452/how-to-associate-application-with-existing-file-types-using-wix-installer -->
     <!-- Capabilities keys for Vista/7 "Set Program Access and Defaults" -->
@@ -54,13 +54,13 @@
               </Component>
               <Component Id='NetEditExecutable' Guid='210F26F3-6040-4A1F-8513-4C75AB016B8B'>
                 <File Id='neteditEXE' Name='netedit.exe' Source='O:\Daten\Sumo\Nightly\netedit.exe' KeyPath='yes'>
-                  <Shortcut Id="startmenuNetEdit" Directory="ProgramMenuDir" Name="NetEdit" WorkingDirectory='INSTALLDIR' Icon="netedit.exe" IconIndex="0" Advertise="yes" />
+                  <Shortcut Id="startmenuNetEdit" Directory="ProgramMenuDir" Name="netedit" WorkingDirectory='INSTALLDIR' Icon="netedit.exe" IconIndex="0" Advertise="yes" />
                 </File>
               </Component>
 
               <Component Id='EnvironmentBatch' Guid='0F045CF0-2B14-11E1-9943-028037EC0200'>
                 <File Id='EnvBat' Name='start-command-line.bat' Source='O:\Daten\Sumo\Nightly\start-command-line.bat' KeyPath='yes'>
-                  <Shortcut Id="startmenuBat" Directory="ProgramMenuDir" Name="SUMO Command Line" Advertise="yes" />
+                  <Shortcut Id="startmenuBat" Directory="ProgramMenuDir" Name="sumo (Command Line)" Advertise="yes" />
                 </File>
               </Component>
             </Directory>
@@ -69,7 +69,7 @@
             <Directory Id='TOOLDIR' Name='tools'>
               <Component Id='OSMWebWizard' Guid='020B4F21-0E79-41C8-A745-28CA9B426126'>
                 <File Id='WebWizPy' Name='osmWebWizard.py' Source='O:\Daten\Sumo\Nightly\..\tools\osmWebWizard.py' KeyPath='yes'>
-                  <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="webWiz.py" IconIndex="0" Advertise="yes" />
+                  <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="webwiz.exe" IconIndex="0" Advertise="yes" />
                 </File>
               </Component>
             </Directory>
@@ -142,7 +142,7 @@
 
     <Icon Id="sumogui.exe" SourceFile="O:\Daten\Sumo\Nightly\sumo-gui.exe" />
     <Icon Id="netedit.exe" SourceFile="O:\Daten\Sumo\Nightly\netedit.exe" />
-    <Icon Id="webWiz.py" SourceFile="webWizard.ico" />
+    <Icon Id="webwiz.exe" SourceFile="webWizard.ico" />
     <Property Id="ARPPRODUCTICON" Value="sumogui.exe" />
   </Product>
 </Wix>
