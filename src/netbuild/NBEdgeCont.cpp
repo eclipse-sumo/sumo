@@ -831,13 +831,32 @@ NBEdgeCont::recheckLanes() {
         edge->recheckLanes();
         // check opposites
         if (edge->getNumLanes() > 0) {
+            int leftmostLane = edge->getNumLanes() - 1;
+            // check oppositeID stored in other lanes
+            for (int i = 0; i < leftmostLane; i++) {
+                const std::string& oppositeID = edge->getLanes()[i].oppositeID;
+                NBEdge* oppEdge = retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
+                if (oppositeID != "" && oppositeID != "-") {
+                    if (edge->getLanes().back().oppositeID == "" && oppEdge != nullptr) {
+                        edge->getLaneStruct(leftmostLane).oppositeID = oppositeID;
+                        WRITE_WARNING("Moving opposite lane '" + oppositeID + "' from invalid lane '" + edge->getLaneID(i) + "' to lane " + toString(leftmostLane) + ".");
+                    } else {
+                        WRITE_WARNING("Removing opposite lane '" + oppositeID + "' for invalid lane '" + edge->getLaneID(i) + "'.");
+                    }
+                    edge->getLaneStruct(i).oppositeID = "";
+                }
+            }
             const std::string& oppositeID = edge->getLanes().back().oppositeID;
             if (oppositeID != "" && oppositeID != "-") {
                 NBEdge* oppEdge = retrieve(oppositeID.substr(0, oppositeID.rfind("_")));
-                if (oppEdge == nullptr || oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
-                    WRITE_WARNING("Removing " + std::string(oppEdge == nullptr ? "unknown" : "invalid") + " opposite lane '" + oppositeID + "' for edge '" + edge->getID() + "'.");
-                    edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
+                if (oppEdge == nullptr) {
+                    WRITE_WARNING("Removing unknown opposite lane '" + oppositeID + "' for edge '" + edge->getID() + "'.");
+                    edge->getLaneStruct(leftmostLane).oppositeID = "";
                     continue;
+                } else if (oppEdge->getLaneID(oppEdge->getNumLanes() - 1) != oppositeID) {
+                    const std::string oppEdgeLeftmost = oppEdge->getLaneID(oppEdge->getNumLanes() - 1);
+                    WRITE_WARNING("Adapting invalid opposite lane '" + oppositeID + "' for edge '" + edge->getID() + "' to '" + oppEdgeLeftmost + "'");
+                    edge->getLaneStruct(leftmostLane).oppositeID = oppEdgeLeftmost;
                 }
                 if (fabs(oppEdge->getLoadedLength() - edge->getLoadedLength()) > NUMERICAL_EPS) {
                     if (fixOppositeLengths) {
@@ -856,14 +875,6 @@ NBEdgeCont::recheckLanes() {
                 if (oppEdge->getFromNode() != edge->getToNode() || oppEdge->getToNode() != edge->getFromNode()) {
                     WRITE_ERROR("Opposite lane '" + oppositeID + "' does not connect the same nodes as edge '" + edge->getID() + "'!");
                     edge->getLaneStruct(edge->getNumLanes() - 1).oppositeID = "";
-                }
-            }
-            // check oppositeID stored in other lanes
-            for (int i = 0; i < (int)edge->getNumLanes() - 1; i++) {
-                const std::string& oppositeID = edge->getLanes()[i].oppositeID;
-                if (oppositeID != "" && oppositeID != "-") {
-                    WRITE_WARNING("Removing opposite lane '" + oppositeID + "' for invalid lane '" + edge->getLaneID(i) + "'.");
-                    edge->getLaneStruct(i).oppositeID = "";
                 }
             }
         }
