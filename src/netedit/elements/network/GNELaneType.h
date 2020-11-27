@@ -32,9 +32,14 @@ class GNELaneType : public GNENetworkElement, public Parameterised, public NBTyp
 public:
     /**@brief Constructor
      * @param[in] edgeTypeParent GNEEdgeType parent
-     * @param[in] type teh typeDefinition
      */
     GNELaneType(GNEEdgeType* edgeTypeParent);
+
+    /**@brief Constructor
+    * @param[in] edgeTypeParent GNEEdgeType parent
+    * @param[in] laneType laneType Definition
+    */
+    GNELaneType(GNEEdgeType* edgeTypeParent, const NBTypeCont::LaneTypeDefinition& laneType);
 
     /// @brief Destructor.
     ~GNELaneType();

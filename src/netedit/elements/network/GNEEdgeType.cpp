@@ -38,13 +38,18 @@
 
 GNEEdgeType::GNEEdgeType(GNENet* net) :
     GNENetworkElement(net, net->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    // create laneType 
+    myLaneTypes.push_back(new GNELaneType(this));
 }
 
 
 GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType) :
     GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    // create  laneTypes
+    for (const auto &laneType : edgeType->laneTypeDefinitions) {
+        myLaneTypes.push_back(new GNELaneType(this, laneType));
+    }
     // copy parameters
-    numLanes = edgeType->numLanes;
     speed = edgeType->speed;
     priority = edgeType->priority;
     permissions = edgeType->permissions;
@@ -55,6 +60,10 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::E
 
 
 GNEEdgeType::~GNEEdgeType() {
+    // delete laneTypes
+    for (const auto &laneType : myLaneTypes) {
+        delete laneType;
+    }
 }
 
 
@@ -188,7 +197,7 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_NUMLANES:
-            return toString(numLanes);
+            return toString(myLaneTypes.size());
         case SUMO_ATTR_SPEED:
             return toString(speed);
         case SUMO_ATTR_ALLOW:
@@ -272,7 +281,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             myNet->getAttributeCarriers()->updateID(this, value);
             break;
         case SUMO_ATTR_NUMLANES:
-            numLanes = parse<int>(value);
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
             break;
         case SUMO_ATTR_SPEED:
             speed = parse<double>(value);
