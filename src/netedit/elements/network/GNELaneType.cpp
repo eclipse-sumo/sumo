@@ -34,12 +34,11 @@
 
 GNELaneType::GNELaneType(GNEEdgeType* edgeTypeParent):
     GNENetworkElement(edgeTypeParent->getNet(), "", GLO_LANE, SUMO_TAG_LANETYPE, {}, {}, {}, {}, {}, {}, {}, {}),
-myEdgeTypeParent(edgeTypeParent) {
+    myEdgeTypeParent(edgeTypeParent) {
 }
 
 
 GNELaneType::~GNELaneType() {
-
 }
 
 
@@ -49,8 +48,22 @@ GNELaneType::getEdgeTypeParent() const {
 }
 
 
+void 
+GNELaneType::copyLaneType(GNELaneType* originalLaneType, GNEUndoList* undoList) {
+    // copy speed
+    setAttribute(SUMO_ATTR_SPEED, originalLaneType->getAttribute(SUMO_ATTR_SPEED), undoList);
+    // copy allow (and disallow)
+    setAttribute(SUMO_ATTR_ALLOW, originalLaneType->getAttribute(SUMO_ATTR_ALLOW), undoList);
+    // copy width
+    setAttribute(SUMO_ATTR_WIDTH, originalLaneType->getAttribute(SUMO_ATTR_WIDTH), undoList);
+    // copy parameters
+    setAttribute(GNE_ATTR_PARAMETERS, originalLaneType->getAttribute(GNE_ATTR_PARAMETERS), undoList);
+}
+
+
 void
 GNELaneType::updateGeometry() {
+    // nothing to do
 }
 
 

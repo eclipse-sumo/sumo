@@ -63,8 +63,14 @@ public:
     /// @brief add laneType
     void addLaneType(GNELaneType* laneType, const int position);
 
+    /// @brief add laneType (in back and undoList)
+    void addLaneType(GNEUndoList* undoList);
+
     /// @brief remove laneType
     void removeLaneType(GNELaneType* laneType);
+
+    /// @brief remove laneType (using index and undoList)
+    void removeLaneType(const int index, GNEUndoList* undoList);
 
     /// @name Functions related with geometry of element
     /// @{

@@ -25,6 +25,7 @@
 #include <netedit/GNEUndoList.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/changes/GNEChange_Attribute.h>
+#include <netedit/changes/GNEChange_LaneType.h>
 #include <utils/options/OptionsCont.h>
 
 #include "GNEEdgeType.h"
@@ -90,6 +91,26 @@ GNEEdgeType::addLaneType(GNELaneType* laneType, const int position) {
 }
 
 
+void 
+GNEEdgeType::addLaneType(GNEUndoList* undoList) {
+    // get options
+    const OptionsCont& oc = OptionsCont::getOptions();
+    // create new laneType
+    GNELaneType* laneType = new GNELaneType(this);
+    // begin undoList
+    undoList->p_begin("add laneType");
+    // add lane
+    undoList->add(new GNEChange_LaneType(myLaneTypes.back(), false), true);
+    // set default parameters
+    laneType->setAttribute(SUMO_ATTR_SPEED, toString(oc.getFloat("default.speed")), undoList);
+    laneType->setAttribute(SUMO_ATTR_DISALLOW, oc.getString("default.disallow"), undoList);
+    laneType->setAttribute(SUMO_ATTR_WIDTH, toString(NBEdge::UNSPECIFIED_WIDTH), undoList);
+    laneType->setAttribute(GNE_ATTR_PARAMETERS, "", undoList);
+    // end undoList
+    undoList->p_end();
+}
+
+
 void
 GNEEdgeType::removeLaneType(GNELaneType* laneType) {
     auto it = std::find(myLaneTypes.begin(), myLaneTypes.end(), laneType);
@@ -97,6 +118,24 @@ GNEEdgeType::removeLaneType(GNELaneType* laneType) {
         throw ProcessError("GNELaneType wasn't inserted");
     } else {
         myLaneTypes.erase(it);
+    }
+}
+
+
+void 
+GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
+    // first check if index is correct
+    if ((myLaneTypes.size() > 1) && (index < myLaneTypes.size())) {
+        // begin undoList
+        undoList->p_begin("remove laneType");
+        // copy laneType values
+        for (int i = index; i < ((int)myLaneTypes.size() - 1); i++) {
+            myLaneTypes.at(i)->copyLaneType(myLaneTypes.at(i+1), undoList);
+        }
+        // remove last lane
+        undoList->add(new GNEChange_LaneType(myLaneTypes.back(), false), true);
+        // end undoList
+        undoList->p_end();
     }
 }
 

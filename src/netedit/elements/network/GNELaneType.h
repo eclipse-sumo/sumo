@@ -42,6 +42,9 @@ public:
     /// @brief get edge type parent
     GNEEdgeType* getEdgeTypeParent() const;
 
+    /// @brief copy values of given laneType in current laneType
+    void copyLaneType(GNELaneType* originalLaneType, GNEUndoList* undoList);
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief update pre-computed geometry information
