@@ -87,9 +87,6 @@ public:
             double sideWalkWidth, double bikeLaneWidth,
             double widthResolution, double maxWidth, double minWidth);
 
-        /// @brief The number of lanes of an edge
-        int numLanes;
-
         /// @brief The maximal velocity on an edge in m/s
         double speed;
 

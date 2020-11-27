@@ -58,7 +58,7 @@ NBTypeCont::LaneTypeDefinition::LaneTypeDefinition(double _speed, double _width,
 // ---------------------------------------------------------------------------
 
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
-    numLanes(1), speed((double) 13.89), priority(-1),
+    speed((double) 13.89), priority(-1),
     permissions(SVC_UNSPECIFIED),
     oneWay(true), discard(false),
     width(NBEdge::UNSPECIFIED_WIDTH),
@@ -67,13 +67,15 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
     minWidth(0),
     sidewalkWidth(NBEdge::UNSPECIFIED_WIDTH),
     bikeLaneWidth(NBEdge::UNSPECIFIED_WIDTH) {
+    // set laneTypes
+    laneTypeDefinitions.resize(1);
 }
 
 
-NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int _numLanes, double _speed, int _priority,
+NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int numLanes, double _speed, int _priority,
     double _width, SVCPermissions _permissions, bool _oneWay, double _sideWalkWidth, 
     double _bikeLaneWidth, double _widthResolution, double _maxWidth, double _minWidth) :
-    numLanes(_numLanes), speed(_speed), priority(_priority),
+    speed(_speed), priority(_priority),
     permissions(_permissions),
     oneWay(_oneWay), discard(false),
     width(_width),
@@ -82,6 +84,8 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int _numLanes, double _speed,
     minWidth(_minWidth),
     sidewalkWidth(_sideWalkWidth),
     bikeLaneWidth(_bikeLaneWidth) {
+    // set laneTypes
+    laneTypeDefinitions.resize(numLanes);
 }
 
 // ---------------------------------------------------------------------------
@@ -108,7 +112,8 @@ NBTypeCont::setEdgeTypeDefaults(int defaultNumLanes,
                                 double defaultSpeed,
                                 int defaultPriority,
                                 SVCPermissions defaultPermissions) {
-    myDefaultType->numLanes = defaultNumLanes;
+    myDefaultType->laneTypeDefinitions.clear();
+    myDefaultType->laneTypeDefinitions.resize(defaultNumLanes);
     myDefaultType->width = defaultLaneWidth;
     myDefaultType->speed = defaultSpeed;
     myDefaultType->priority = defaultPriority;
@@ -295,7 +300,7 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
         }
         // write numLanes
         if (edgeType.second->attrs.count(SUMO_ATTR_NUMLANES) > 0) {
-            into.writeAttr(SUMO_ATTR_NUMLANES, edgeType.second->numLanes);
+            into.writeAttr(SUMO_ATTR_NUMLANES, (int)edgeType.second->laneTypeDefinitions.size());
         }
         // write speed
         if (edgeType.second->attrs.count(SUMO_ATTR_SPEED) > 0) {
@@ -378,7 +383,7 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
 
 int
 NBTypeCont::getEdgeTypeNumLanes(const std::string& type) const {
-    return getEdgeType(type)->numLanes;
+    return (int)getEdgeType(type)->laneTypeDefinitions.size();
 }
 
 
