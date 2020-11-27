@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 27 13:41:55 2020 by Eclipse SUMO netconvert Version v1_7_0+1341-52dd9ba202
-This data file and the accompanying materials
-are made available under the terms of the Eclipse Public License v2.0
-which accompanies this distribution, and is available at
-http://www.eclipse.org/legal/epl-v20.html
-SPDX-License-Identifier: EPL-2.0
+<!-- generated on Thu 04 Jun 2020 08:02:05 AM CEST by Eclipse SUMO netedit Version v1_6_0+0521-bad558c3e9
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="input_net.net.xml"/>
+        <sumo-net-file value="net.net.xml"/>
     </input>
 
     <output>
-        <write-license value="true"/>
         <output-file value="net.net.xml"/>
     </output>
 
@@ -37,7 +31,6 @@ SPDX-License-Identifier: EPL-2.0
     </pedestrian>
 
     <report>
-        <xml-validation value="never"/>
         <aggregate-warnings value="5"/>
     </report>
 
@@ -49,11 +42,15 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="0.00,0.00" convBoundary="0.00,0.00,2000.00,0.00" origBoundary="-10000000000.00,-10000000000.00,10000000000.00,10000000000.00" projParameter="!"/>
 
     <edge id="EW" from="E" to="W" priority="1">
-        <lane id="EW_0" index="0" speed="13.89" length="2000.00" shape="2000.00,4.80 0.00,4.80"/>
+        <lane id="EW_0" index="0" speed="13.89" length="2000.00" shape="2000.00,4.80 0.00,4.80">
+            <neigh lane="WE_0"/>
+        </lane>
         <lane id="EW_1" index="1" speed="13.89" length="2000.00" shape="2000.00,1.60 0.00,1.60"/>
     </edge>
     <edge id="WE" from="W" to="E" priority="1">
-        <lane id="WE_0" index="0" speed="13.89" length="2000.00" shape="0.00,-4.80 2000.00,-4.80"/>
+        <lane id="WE_0" index="0" speed="13.89" length="2000.00" shape="0.00,-4.80 2000.00,-4.80">
+            <neigh lane="EW_0"/>
+        </lane>
         <lane id="WE_1" index="1" speed="13.89" length="2000.00" shape="0.00,-1.60 2000.00,-1.60"/>
     </edge>
 
