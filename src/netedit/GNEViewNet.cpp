@@ -1258,16 +1258,8 @@ GNEViewNet::removeFromAttributeCarrierInspected(const GNEAttributeCarrier* AC) {
     const auto it = std::find(myInspectedAttributeCarriers.begin(), myInspectedAttributeCarriers.end(), AC);
     if (it != myInspectedAttributeCarriers.end()) {
         myInspectedAttributeCarriers.erase(it);
+        myViewParent->getInspectorFrame()->inspectMultisection(myInspectedAttributeCarriers);
     }
-
-
-    /*************
-    *
-    *
-    * Refresh inspector frame
-    *
-    *
-    * *************/
 }
 
 

@@ -1566,6 +1566,9 @@ GNEEdge::removeLane(GNELane* lane, bool recomputeConnections) {
     if (lane->isAttributeCarrierSelected()) {
         lane->unselectAttributeCarrier();
     }
+    // before removing, check that lane isn't being inspected
+    myNet->getViewNet()->removeFromAttributeCarrierInspected(lane);
+    myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(lane);
     // Delete lane of edge's container
     // unless the connections are fully recomputed, existing indices must be shifted
     myNBEdge->deleteLane(lane->getIndex(), recomputeConnections, !recomputeConnections);
