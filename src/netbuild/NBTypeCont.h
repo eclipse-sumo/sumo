@@ -188,21 +188,19 @@ public:
      */
     void insertEdgeType(const std::string& id, const EdgeTypeDefinition* edgeType);
 
-    /**@brief Adds a edgeType into the list
-     * @param[in] id The id of the edgeType
-     * @param[in] numLanes The number of lanes an edge of this edgeType has
-     * @param[in] maxSpeed The speed allowed on an edge of this edgeType
-     * @param[in] prio The priority of an edge of this edgeType
-     * @param[in] permissions The encoding of vehicle classes allowed on an edge of this edgeType
-     * @param[in] width The width of lanes of edgesof this edgeType
-     * @param[in] oneWayIsDefault Whether edges of this edgeType are one-way per default
-     * @return Whether the edgeType could be added (no edgeType with the same id existed)
+    /**@brief Adds a laneType into the list
+     * @param[in] maxSpeed The speed allowed on an lane of this edgeType
+     * @param[in] prio The priority of an lane of this edgeType
+     * @param[in] permissions The encoding of vehicle classes allowed on an lane of this edgeType
+     * @param[in] width The width of lane of this edgeType
+     * @param[in] attrs enabled attributes
      */
     void insertLaneType(const std::string& edgeTypeID,
                         int index,
                         double maxSpeed,
                         SVCPermissions permissions,
-                        double width);
+                        double width,
+                        const std::set<SumoXMLAttr> &attrs);
 
     /**@brief Returns the number of known edgeTypes
      * @return The number of known edge edgeTypes (excluding the default)

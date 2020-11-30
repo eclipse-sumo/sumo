@@ -36,9 +36,10 @@ class GNEChange_LaneType : public GNEChange {
 public:
     /**@brief Constructor for creating/deleting an laneType
      * @param[in] laneType The laneType to be created/deleted
+     * @param[in] position lane position
      * @param[in] forward Whether to create/delete (true/false)
      */
-    GNEChange_LaneType(GNELaneType* laneType, bool forward);
+    GNEChange_LaneType(GNELaneType* laneType, const int position, bool forward);
 
     /// @brief Destructor
     ~GNEChange_LaneType();

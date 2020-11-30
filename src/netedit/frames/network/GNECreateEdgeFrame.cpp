@@ -257,7 +257,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdAddEdgeType(FXObject*, FXSelector, vo
     // add it using undoList
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_begin("create new edge type");
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
-    myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, true), true);
+    myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, 0, true), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_end();
     // update myEdgeTypeSelected
     myEdgeTypeSelected = edgeType;
@@ -278,8 +278,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::onCmdDeleteEdgeType(FXObject*, FXSelector,
     // remove it using undoList
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_begin("create new edge type");
     // iterate over all laneType
-    for (const auto &laneType : edgeType->getLaneTypes()) {
-        myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(laneType, false), true);
+    for (int i = 0; i < (int)edgeType->getLaneTypes().size(); i++) {
+        myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_LaneType(edgeType->getLaneTypes().at(i), i, false), true);
     }
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->add(new GNEChange_EdgeType(edgeType, false), true);
     myCreateEdgeFrameParent->getViewNet()->getUndoList()->p_end();
@@ -584,12 +584,12 @@ GNECreateEdgeFrame::LaneTypeParameters::updateNumLanes(int numLanes) {
             // check if we have to add new lanes
             while (numLanes > edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size()) {
                 // add it in the last position
-                edgeTypeSelector->getDefaultEdgeType()->addLaneType(myCreateEdgeFrameParent->getViewNet()->getUndoList());
+                edgeTypeSelector->getEdgeTypeSelected()->addLaneType(myCreateEdgeFrameParent->getViewNet()->getUndoList());
             }
             // check if we have to remove new lanes
             while (numLanes < edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size()) {
                 // remove it from the last position
-                edgeTypeSelector->getEdgeTypeSelected()->removeLaneType((int)edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size() - 1, myCreateEdgeFrameParent->getViewNet()->getUndoList());
+                edgeTypeSelector->getEdgeTypeSelected()->removeLaneType((int)edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size() - 1, myCreateEdgeFrameParent->getViewNet()->getUndoList());
             }
 
         }

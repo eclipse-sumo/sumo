@@ -685,7 +685,7 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
                 // also create a new laneType
                 GNELaneType* laneType = new GNELaneType(edgeType, auxLaneType);
                 // add it using undoList
-                myViewNet->getUndoList()->add(new GNEChange_LaneType(laneType, true), true);
+                myViewNet->getUndoList()->add(new GNEChange_LaneType(laneType, (int)edgeType->getLaneTypes().size(), true), true);
             }
         }
         // end undo list

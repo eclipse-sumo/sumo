@@ -117,6 +117,9 @@ GNELaneType::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 std::string
 GNELaneType::getAttribute(SumoXMLAttr key) const {
+    if (attrs.count(key) == 0) {
+        return "";
+    }
     switch (key) {
         case SUMO_ATTR_ID:
             return myEdgeTypeParent->getID() + toString(myEdgeTypeParent->getLaneTypeIndex(this));
@@ -191,26 +194,31 @@ GNELaneType::getACParametersMap() const {
 
 void
 GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
-    switch (key) {
-        case SUMO_ATTR_ID:
-            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
-        case SUMO_ATTR_SPEED:
-            speed = parse<double>(value);
-            break;
-        case SUMO_ATTR_ALLOW:
-            permissions = parseVehicleClasses(value);
-            break;
-        case SUMO_ATTR_DISALLOW:
-            permissions = invertPermissions(parseVehicleClasses(value));
-            break;
-        case SUMO_ATTR_WIDTH:
-            width = parse<double>(value);
-            break;
-        case GNE_ATTR_PARAMETERS:
-            setParametersStr(value);
-            break;
-        default:
-            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+    if (value.empty()) {
+        attrs.erase(key);
+    } else {
+        attrs.insert(key);
+        switch (key) {
+            case SUMO_ATTR_ID:
+                throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
+            case SUMO_ATTR_SPEED:
+                speed = parse<double>(value);
+                break;
+            case SUMO_ATTR_ALLOW:
+                permissions = parseVehicleClasses(value);
+                break;
+            case SUMO_ATTR_DISALLOW:
+                permissions = invertPermissions(parseVehicleClasses(value));
+                break;
+            case SUMO_ATTR_WIDTH:
+                width = parse<double>(value);
+                break;
+            case GNE_ATTR_PARAMETERS:
+                setParametersStr(value);
+                break;
+            default:
+                throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
+        }
     }
 }
 

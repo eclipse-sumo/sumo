@@ -36,10 +36,10 @@ FXIMPLEMENT_ABSTRACT(GNEChange_LaneType, GNEChange, nullptr, 0)
 
 
 /// @brief constructor for creating an laneType
-GNEChange_LaneType::GNEChange_LaneType(GNELaneType* laneType, bool forward):
+GNEChange_LaneType::GNEChange_LaneType(GNELaneType* laneType, const int position, bool forward):
     GNEChange(laneType, forward, laneType->isAttributeCarrierSelected()),
     myLaneType(laneType),
-    myPosition(laneType->getEdgeTypeParent()->getLaneTypeIndex(laneType)) {
+    myPosition(position) {
     laneType->incRef("GNEChange_LaneType");
 }
 

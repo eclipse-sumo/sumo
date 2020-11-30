@@ -109,7 +109,7 @@ GNEEdgeType::addLaneType(GNEUndoList* undoList) {
     // begin undoList
     undoList->p_begin("add laneType");
     // add lane
-    undoList->add(new GNEChange_LaneType(myLaneTypes.back(), false), true);
+    undoList->add(new GNEChange_LaneType(laneType, (int)myLaneTypes.size(), true), true);
     // set default parameters
     laneType->setAttribute(SUMO_ATTR_SPEED, toString(oc.getFloat("default.speed")), undoList);
     laneType->setAttribute(SUMO_ATTR_DISALLOW, oc.getString("default.disallow"), undoList);
@@ -142,7 +142,7 @@ GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
             myLaneTypes.at(i)->copyLaneType(myLaneTypes.at(i+1), undoList);
         }
         // remove last lane
-        undoList->add(new GNEChange_LaneType(myLaneTypes.back(), false), true);
+        undoList->add(new GNEChange_LaneType(myLaneTypes.back(), ((int)myLaneTypes.size() - 1), false), true);
         // end undoList
         undoList->p_end();
     }

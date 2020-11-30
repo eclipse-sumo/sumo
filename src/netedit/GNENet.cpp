@@ -49,6 +49,7 @@
 #include <netedit/elements/network/GNECrossing.h>
 #include <netedit/elements/network/GNEJunction.h>
 #include <netedit/elements/network/GNEEdgeType.h>
+#include <netedit/elements/network/GNELaneType.h>
 #include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netwrite/NWFrame.h>
@@ -3070,6 +3071,13 @@ GNENet::saveEdgeTypes(const std::string& filename) {
     // now update typeContainer with edgeTypes
     for (const auto &edgeType : myAttributeCarriers->getEdgeTypes()) {
         myNetBuilder->getTypeCont().insertEdgeType(edgeType.first, edgeType.second);
+        for (int i = 0; i < (int)edgeType.second->getLaneTypes().size(); i++) {
+            myNetBuilder->getTypeCont().insertLaneType(edgeType.first, i,
+                edgeType.second->getLaneTypes().at(i)->speed,
+                edgeType.second->getLaneTypes().at(i)->permissions,
+                edgeType.second->getLaneTypes().at(i)->width,
+                edgeType.second->getLaneTypes().at(i)->attrs);
+        }
     }
     // open device
     OutputDevice& device = OutputDevice::getDevice(filename);

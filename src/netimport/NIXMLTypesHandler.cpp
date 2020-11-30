@@ -121,7 +121,7 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 }
 
                 // insert laneType in container
-                myTypeCont.insertLaneType(myCurrentTypeID, index, speed, permissions, width);
+                myTypeCont.insertLaneType(myCurrentTypeID, index, speed, permissions, width, {});
                 // mark attributes as set
                 SumoXMLAttr myAttrs[] = {SUMO_ATTR_SPEED, SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_WIDTH};
                 for (const auto& attr : myAttrs) {

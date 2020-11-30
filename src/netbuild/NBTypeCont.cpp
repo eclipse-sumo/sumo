@@ -207,12 +207,15 @@ NBTypeCont::insertEdgeType(const std::string& id, const EdgeTypeDefinition* edge
 
 
 void
-NBTypeCont::insertLaneType(const std::string& edgeTypeID, int index, double maxSpeed, SVCPermissions permissions, double width) {
+NBTypeCont::insertLaneType(const std::string& edgeTypeID, int index, double maxSpeed, SVCPermissions permissions, 
+    double width, const std::set<SumoXMLAttr> &attrs) {
     EdgeTypeDefinition* et = myEdgeTypes.at(edgeTypeID);
-    while ((int)et->laneTypeDefinitions.size() < index) {
+    while ((int)et->laneTypeDefinitions.size() <= index) {
         et->laneTypeDefinitions.push_back(LaneTypeDefinition(et->speed, et->width, et->permissions)); 
     }
     et->laneTypeDefinitions[index] = LaneTypeDefinition(maxSpeed, width, permissions);
+    // update attributes
+    et->laneTypeDefinitions[index].attrs = attrs;
 }
 
 

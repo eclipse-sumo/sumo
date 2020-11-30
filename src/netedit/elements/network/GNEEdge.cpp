@@ -689,10 +689,18 @@ GNEEdge::copyEdgeType(const GNEEdgeType *edgeType, GNEUndoList* undoList) {
     setAttribute(GNE_ATTR_PARAMETERS, edgeType->getAttribute(GNE_ATTR_PARAMETERS), undoList);
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        myLanes[i]->setAttribute(SUMO_ATTR_SPEED,       edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_SPEED),      undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,       edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_ALLOW),      undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,       edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_WIDTH),      undoList);
-        myLanes[i]->setAttribute(GNE_ATTR_PARAMETERS,   edgeType->getLaneTypes().at(i)->getAttribute(GNE_ATTR_PARAMETERS),  undoList);
+        if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_SPEED).size() > 0) {
+            myLanes[i]->setAttribute(SUMO_ATTR_SPEED,       edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_SPEED),      undoList);
+        }
+        if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_ALLOW).size() > 0) {
+            myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,       edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_ALLOW),      undoList);
+        }
+        if (edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_WIDTH).size() > 0) {
+            myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,       edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_WIDTH),      undoList);
+        }
+        if (edgeType->getLaneTypes().at(i)->getAttribute(GNE_ATTR_PARAMETERS).size() > 0) {
+            myLanes[i]->setAttribute(GNE_ATTR_PARAMETERS,   edgeType->getLaneTypes().at(i)->getAttribute(GNE_ATTR_PARAMETERS),  undoList);
+        }
     }
 }
 
