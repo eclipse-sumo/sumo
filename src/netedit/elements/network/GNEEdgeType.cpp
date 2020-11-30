@@ -110,7 +110,7 @@ GNEEdgeType::addLaneType(GNELaneType* laneType, const int position) {
         } else if (position == (int)myLaneTypes.size()) {
             myLaneTypes.push_back(laneType);
         } else {
-            myLaneTypes.insert(myLaneTypes.begin() + position, laneType);
+            myLaneTypes[position] = laneType;
         }
     }
 }
