@@ -480,20 +480,26 @@ ODMatrix::readV(LineReader& lr, double scale,
     const int numDistricts = StringUtils::toInt(StringUtils::prune(line));
     // parse district names (normally ints)
     std::vector<std::string> names;
-    while ((int)names.size() != numDistricts) {
+    while ((int)names.size() != numDistricts && lr.hasMore()) {
         line = getNextNonCommentLine(lr);
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
         while (st2.hasNext()) {
             names.push_back(st2.next());
         }
     }
+    if (!lr.hasMore()) {
+        throw ProcessError("Missing line with " + toString(numDistricts) + " district names.");
+    }
 
     // parse the cells
     for (std::vector<std::string>::iterator si = names.begin(); si != names.end(); ++si) {
         std::vector<std::string>::iterator di = names.begin();
-        //
         do {
-            line = getNextNonCommentLine(lr);
+            try {
+                line = getNextNonCommentLine(lr);
+            } catch (ProcessError&) {
+                throw ProcessError("Missing line for district " + (*si) + ".");
+            }
             if (line.length() == 0) {
                 continue;
             }
