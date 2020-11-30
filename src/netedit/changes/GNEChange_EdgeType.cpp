@@ -104,9 +104,9 @@ GNEChange_EdgeType::redo() {
 FXString
 GNEChange_EdgeType::undoName() const {
     if (myForward) {
-        return "Undo create edge type";
+        return "Undo create edgeType";
     } else {
-        return "Undo delete edge type";
+        return "Undo delete edgeType";
     }
 }
 
@@ -114,8 +114,8 @@ GNEChange_EdgeType::undoName() const {
 FXString
 GNEChange_EdgeType::redoName() const {
     if (myForward) {
-        return "Redo create edge type";
+        return "Redo create laneType";
     } else {
-        return "Redo delete edge type";
+        return "Redo delete laneType";
     }
 }

@@ -65,12 +65,12 @@ void
 GNEChange_LaneType::undo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Removing " + myLaneType->getTagStr() + " from " + toString(SUMO_TAG_NET));
         // delete laneType from edgeType parent
         myLaneType->getEdgeTypeParent()->removeLaneType(myLaneType);
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Adding " + myLaneType->getTagStr() + " into " + toString(SUMO_TAG_NET));
         // insert laneType into edgeType parent
         myLaneType->getEdgeTypeParent()->addLaneType(myLaneType, myPosition);
     }
@@ -81,12 +81,12 @@ void
 GNEChange_LaneType::redo() {
     if (myForward) {
         // show extra information for tests
-        WRITE_DEBUG("Adding " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Adding " + myLaneType->getTagStr() + " into " + toString(SUMO_TAG_NET));
         // insert laneType into edgeType parent
         myLaneType->getEdgeTypeParent()->addLaneType(myLaneType, myPosition);
     } else {
         // show extra information for tests
-        WRITE_DEBUG("Removing " + myLaneType->getTagStr() + " '" + myLaneType->getID() + "' from " + toString(SUMO_TAG_NET));
+        WRITE_DEBUG("Removing " + myLaneType->getTagStr() + " from " + toString(SUMO_TAG_NET));
         // delete laneType from edgeType parent
         myLaneType->getEdgeTypeParent()->removeLaneType(myLaneType);
     }
@@ -96,9 +96,9 @@ GNEChange_LaneType::redo() {
 FXString
 GNEChange_LaneType::undoName() const {
     if (myForward) {
-        return "Undo create lane type";
+        return "Undo create laneType";
     } else {
-        return "Undo delete lane type";
+        return "Undo delete laneType";
     }
 }
 
@@ -106,8 +106,8 @@ GNEChange_LaneType::undoName() const {
 FXString
 GNEChange_LaneType::redoName() const {
     if (myForward) {
-        return "Redo create lane type";
+        return "Redo create laneType";
     } else {
-        return "Redo delete lane type";
+        return "Redo delete laneType";
     }
 }
