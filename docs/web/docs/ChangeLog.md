@@ -130,6 +130,7 @@ permalink: /ChangeLog/
   
 - meso
   - Model parameters can now be [customized](Simulation/Meso.md#configuration_by_edge_type) for each edge type vial additional file input. Issue #7243
+  - Stop handling is now similar to microsimulation, pedestrians walk to the correct location and are picked up there, stopinfo is written
   
 - netedit
   - Create edge mode now allows selecting from edge types and to inspect/edit edge attributes. Issue #2431
