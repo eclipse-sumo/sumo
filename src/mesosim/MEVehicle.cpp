@@ -222,6 +222,10 @@ MEVehicle::checkStop(SUMOTime time) {
             time = stop.pars.until;
         }
         stop.reached = true;
+        stop.pars.actualArrival = myLastEntryTime;
+        if (MSStopOut::active()) {
+            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
+        }
     }
     return time;
 }
@@ -257,10 +261,6 @@ MEVehicle::processStop() {
             break;
         }
         lastPos = stop.pars.endPos;
-        stop.pars.actualArrival = myLastEntryTime;
-        if (MSStopOut::active()) {
-            MSStopOut::getInstance()->stopStarted(this, getPersonNumber(), getContainerNumber(), myLastEntryTime);
-        }
         MSNet* const net = MSNet::getInstance();
         SUMOTime dummy = -1; // boarding- and loading-time are not considered
         if (net->hasPersons()) {
