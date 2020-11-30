@@ -3065,7 +3065,22 @@ GNENet::getNumberOfTLSPrograms() const {
 
 void 
 GNENet::saveEdgeTypes(const std::string& filename) {
-    /* */
+    // first clear typeContainer
+    myNetBuilder->getTypeCont().clearTypes();
+    // now update typeContainer with edgeTypes
+    for (const auto &edgeType : myAttributeCarriers->getEdgeTypes()) {
+        myNetBuilder->getTypeCont().insertEdgeType(edgeType.first, edgeType.second);
+    }
+    // open device
+    OutputDevice& device = OutputDevice::getDevice(filename);
+    // open tag
+    device.openTag(SUMO_TAG_TYPE);
+    // write edge types
+    myNetBuilder->getTypeCont().writeEdgeTypes(device);
+    // close tag
+    device.closeTag();
+    // close device
+    device.close();
 }
 
 

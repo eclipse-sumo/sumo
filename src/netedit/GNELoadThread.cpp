@@ -248,8 +248,8 @@ GNELoadThread::fillOptions(OptionsCont& oc) {
     oc.doRegister("TLSPrograms-output", new Option_String());
     oc.addDescription("TLSPrograms-output", "Netedit", "file in which TLS Programs must be saved");
 
-    oc.doRegister("edgeType-output", new Option_String());
-    oc.addDescription("edgeType-output", "Netedit", "file in which edgeTypes must be saved");
+    oc.doRegister("edgeTypes-output", new Option_String());
+    oc.addDescription("edgeTypes-output", "Netedit", "file in which edgeTypes must be saved");
 
     oc.doRegister("disable-laneIcons", new Option_Bool(false));
     oc.addDescription("disable-laneIcons", "Visualisation", "Disable icons of special lanes");

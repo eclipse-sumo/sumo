@@ -78,14 +78,21 @@ public:
 
     /// @brief edgeType definition
     struct EdgeTypeDefinition {
+
         /// @brief Constructor
         EdgeTypeDefinition();
+
+        /// @brief copy constructor
+        EdgeTypeDefinition(const EdgeTypeDefinition* edgeType);
 
         /// @brief parameter Constructor
         EdgeTypeDefinition(int numLanes, double speed, int priority,
             double width, SVCPermissions permissions, bool oneWay,
             double sideWalkWidth, double bikeLaneWidth,
             double widthResolution, double maxWidth, double minWidth);
+
+        /// @brief whether any lane attributes deviate from the edge attributes
+        bool needsLaneType() const;
 
         /// @brief The maximal velocity on an edge in m/s
         double speed;
@@ -130,9 +137,6 @@ public:
 
         /// @brief vector with LaneTypeDefinitions
         std::vector<LaneTypeDefinition> laneTypeDefinitions;
-
-        /// @brief whether any lane attributes deviate from the edge attributes
-        bool needsLaneType() const;
     };
 
     /// @brief A container of edgeTypes, accessed by the string id
@@ -143,6 +147,9 @@ public:
 
     /// @brief Destructor
     ~NBTypeCont();
+
+    /// @brief clear types
+    void clearTypes();
 
     /**@brief Sets the default values
      * @param[in] defaultNumLanes The default number of lanes an edge has
@@ -177,10 +184,9 @@ public:
 
     /**@brief Adds a edgeType into the list
      * @param[in] id The id of the edgeType
-     * @param[in] edgeType pointer to EdgeTypeDefinition
-     * @return Whether the edgeType could be added (no edgeType with the same id existed)
+     * @param[in] edgeType pointer to EdgeTypeDefinition (for copying parameters)
      */
-    void insertEdgeType(const std::string& id, EdgeTypeDefinition* edgeType);
+    void insertEdgeType(const std::string& id, const EdgeTypeDefinition* edgeType);
 
     /**@brief Adds a edgeType into the list
      * @param[in] id The id of the edgeType

@@ -522,8 +522,6 @@ void
 GNENetHelper::AttributeCarriers::insertEdgeType(GNEEdgeType* edgeType) {
     // insert in myEdgeTypes
     myEdgeTypes[edgeType->getMicrosimID()] = edgeType;
-    // also in typeCont
-    myNet->getNetBuilder()->getTypeCont().insertEdgeType(edgeType->getMicrosimID(), edgeType);
     // update edge selector
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
@@ -543,8 +541,6 @@ GNENetHelper::AttributeCarriers::deleteEdgeType(GNEEdgeType* edgeType) {
     }
     // remove from edge types
     myEdgeTypes.erase(edgeType->getMicrosimID());
-    // extract it from typeCont (but DON'T delete)
-    myNet->getNetBuilder()->getTypeCont().removeEdgeType(edgeType->getMicrosimID());
     // update edge selector
     if (myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->shown()) {
         myNet->getViewNet()->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();

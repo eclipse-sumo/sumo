@@ -72,6 +72,22 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition() :
 }
 
 
+NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(const EdgeTypeDefinition* edgeType) :
+    speed(edgeType->speed), priority(edgeType->priority),
+    permissions(edgeType->permissions),
+    oneWay(edgeType->oneWay), discard(edgeType->discard),
+    width(edgeType->width),
+    widthResolution(edgeType->widthResolution),
+    maxWidth(edgeType->maxWidth),
+    minWidth(edgeType->minWidth),
+    sidewalkWidth(edgeType->sidewalkWidth),
+    bikeLaneWidth(edgeType->bikeLaneWidth),
+    restrictions(edgeType->restrictions),
+    attrs(edgeType->attrs),
+    laneTypeDefinitions(edgeType->laneTypeDefinitions){
+}
+
+
 NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int numLanes, double _speed, int _priority,
     double _width, SVCPermissions _permissions, bool _oneWay, double _sideWalkWidth, 
     double _bikeLaneWidth, double _widthResolution, double _maxWidth, double _minWidth) :
@@ -87,6 +103,7 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int numLanes, double _speed, 
     // set laneTypes
     laneTypeDefinitions.resize(numLanes);
 }
+
 
 bool
 NBTypeCont::EdgeTypeDefinition::needsLaneType() const {
@@ -107,6 +124,7 @@ NBTypeCont::EdgeTypeDefinition::needsLaneType() const {
     }
     return false; 
 }
+
 // ---------------------------------------------------------------------------
 // NBTypeCont - methods
 // ---------------------------------------------------------------------------
@@ -122,6 +140,17 @@ NBTypeCont::~NBTypeCont() {
     }
     // delete default type
     delete myDefaultType;
+}
+
+
+void 
+NBTypeCont::clearTypes() {
+    // remove edge types
+    for (const auto &edgeType : myEdgeTypes) {
+        delete edgeType.second;
+    }
+    // clear edge types
+    myEdgeTypes.clear();
 }
 
 
@@ -162,16 +191,18 @@ NBTypeCont::insertEdgeType(const std::string& id, int numLanes, double maxSpeed,
 
 
 void 
-NBTypeCont::insertEdgeType(const std::string& id, EdgeTypeDefinition* edgeType) {
+NBTypeCont::insertEdgeType(const std::string& id, const EdgeTypeDefinition* edgeType) {
+    // Create edge type definition
+    EdgeTypeDefinition *newType = new EdgeTypeDefinition(edgeType);
     // check if edgeType already exist in types
-    const auto it = myEdgeTypes.find(id);
+    TypesCont::iterator old = myEdgeTypes.find(id);
     // if exists, then update restrictions and attributes
-    if (it != myEdgeTypes.end()) {
-        edgeType->restrictions.insert(it->second->restrictions.begin(), it->second->restrictions.end());
-        edgeType->attrs.insert(it->second->attrs.begin(), it->second->attrs.end());
+    if (old != myEdgeTypes.end()) {
+        newType->restrictions.insert(old->second->restrictions.begin(), old->second->restrictions.end());
+        newType->attrs.insert(old->second->attrs.begin(), old->second->attrs.end());
     }
     // insert it in types
-    myEdgeTypes[id] = edgeType;
+    myEdgeTypes[id] = newType;
 }
 
 

@@ -20,6 +20,8 @@
 #include <netbuild/NBFrame.h>
 #include <netbuild/NBNetBuilder.h>
 #include <netedit/dialogs/GNEAbout.h>
+#include <netedit/elements/network/GNEEdgeType.h>
+#include <netedit/elements/network/GNELaneType.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
@@ -27,6 +29,8 @@
 #include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
+#include <netedit/changes/GNEChange_EdgeType.h>
+#include <netedit/changes/GNEChange_LaneType.h>
 #include <netimport/NIFrame.h>
 #include <netimport/NIXMLTypesHandler.h>
 #include <netimport/NITypeLoader.h>
@@ -660,14 +664,32 @@ GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
         opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        // declare number of edge types
-        const int numEdgeTypes = myViewNet->getNet()->getNetBuilder()->getTypeCont().size();
+        // declare type container
+        NBTypeCont typeContainerAux;
         // declare type handler
-        NIXMLTypesHandler* handler = new NIXMLTypesHandler(myViewNet->getNet()->getNetBuilder()->getTypeCont());
+        NIXMLTypesHandler* handler = new NIXMLTypesHandler(typeContainerAux);
         // load edge types
         NITypeLoader::load(handler, {opendialog.getFilename().text()}, "types");
         // write information
-        WRITE_MESSAGE("Loaded " + toString(myViewNet->getNet()->getNetBuilder()->getTypeCont().size() - numEdgeTypes) + " edge types");
+        WRITE_MESSAGE("Loaded " + toString(typeContainerAux.size()) + " edge types");
+        // now create GNETypes based on typeContainerAux
+        myViewNet->getUndoList()->p_begin("load edgeTypes");
+        // iterate over typeContainerAux
+        for (const auto &auxEdgeType : typeContainerAux) {
+            // create new edge type
+            GNEEdgeType* edgeType = new GNEEdgeType(myNet, auxEdgeType.first, auxEdgeType.second);
+            // add it using undoList
+            myViewNet->getUndoList()->add(new GNEChange_EdgeType(edgeType, true), true);
+            // iterate over lanes auxType
+            for (const auto &auxLaneType : auxEdgeType.second->laneTypeDefinitions) {
+                // also create a new laneType
+                GNELaneType* laneType = new GNELaneType(edgeType, auxLaneType);
+                // add it using undoList
+                myViewNet->getUndoList()->add(new GNEChange_LaneType(laneType, true), true);
+            }
+        }
+        // end undo list
+        myViewNet->getUndoList()->p_end();
         // refresh edge type selector
         myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
