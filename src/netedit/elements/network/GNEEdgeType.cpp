@@ -150,7 +150,7 @@ GNEEdgeType::removeLaneType(GNELaneType* laneType) {
 void 
 GNEEdgeType::removeLaneType(const int index, GNEUndoList* undoList) {
     // first check if index is correct
-    if ((myLaneTypes.size() > 1) && (index < myLaneTypes.size())) {
+    if ((myLaneTypes.size() > 1) && (index < (int)myLaneTypes.size())) {
         // begin undoList
         undoList->p_begin("remove laneType");
         // copy laneType values
