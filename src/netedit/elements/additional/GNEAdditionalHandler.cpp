@@ -2502,7 +2502,6 @@ GNEAdditionalHandler::parseAndBuildPoly(const SUMOSAXAttributes& attrs) {
 void
 GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
     bool abort = false;
-    const SumoXMLTag POITag = attrs.hasAttribute(SUMO_ATTR_LANE) ? SUMO_TAG_POILANE : SUMO_TAG_POI;
     // parse attributes of POIs
     std::string POIID = GNEAttributeCarrier::parseAttributeFromXML<std::string>(attrs, "", SUMO_TAG_POI, SUMO_ATTR_ID, abort);
     // POIs can be defined using a X,Y position,...
@@ -2570,7 +2569,7 @@ GNEAdditionalHandler::parseAndBuildPOI(const SUMOSAXAttributes& attrs) {
             WRITE_WARNING("POI with ID '" + POIID + "' already exists.");
         } else {
             // commit shape element insertion
-            myLastInsertedElement->commitShapeInsertion(myNet->getAttributeCarriers()->getShapes().at(POITag).at(POIID));
+            myLastInsertedElement->commitShapeInsertion(myNet->getAttributeCarriers()->getShapes().at(SUMO_TAG_POI).at(POIID));
         }
     }
 }
