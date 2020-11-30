@@ -26,4 +26,13 @@ vm_false22
 vm_factor_false
 
 # non-square matrix (V-Format)
-vm_not_square
+vm_line_missing
+
+# non-square matrix (V-Format)
+vm_column_missing
+
+# non-square matrix (V-Format)
+vm_extra_line
+
+# non-square matrix (V-Format)
+vm_extra_column
