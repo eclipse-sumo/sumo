@@ -850,6 +850,10 @@ GNECreateEdgeFrame::EdgeTypeParameters::EdgeTypeParameters(GNECreateEdgeFrame* c
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_WIDTH).c_str(), nullptr, GUIDesignLabelAttribute);
     myWidth = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
+    // create textField for priority
+    horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
+    new FXLabel(horizontalFrameAttribute, toString(SUMO_ATTR_PRIORITY).c_str(), nullptr, GUIDesignLabelAttribute);
+    myPriority = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
     // create textField for parameters
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myParametersButton = new FXButton(horizontalFrameAttribute, "parameters", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
@@ -891,6 +895,7 @@ GNECreateEdgeFrame::EdgeTypeParameters::enableEdgeTypeParameters() {
     myDisallowButton->enable();
     myDisallow->enable();
     myWidth->enable();
+    myPriority->enable();
     myParameters->enable();
     // enable lane parameters
     myLaneTypeParameters->enableLaneTypeParameters();
@@ -908,6 +913,7 @@ GNECreateEdgeFrame::EdgeTypeParameters::disableEdgeTypeParameters() {
     myDisallowButton->disable();
     myDisallow->disable();
     myWidth->disable();
+    myPriority->disable();
     myParameters->disable();
     // disable lane parameters
     myLaneTypeParameters->disableLaneTypeParameters();
@@ -940,6 +946,9 @@ GNECreateEdgeFrame::EdgeTypeParameters::setEdgeType(GNEEdgeType* edgeType, bool 
     // set width
     myWidth->setText(edgeType->getAttribute(SUMO_ATTR_WIDTH).c_str(), FALSE);
     myWidth->setTextColor(FXRGB(0, 0, 0));
+    // set width
+    myPriority->setText(edgeType->getAttribute(SUMO_ATTR_PRIORITY).c_str(), FALSE);
+    myPriority->setTextColor(FXRGB(0, 0, 0));
     // set parameters
     myParameters->setText(edgeType->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
     myParameters->setTextColor(FXRGB(0, 0, 0));
@@ -970,6 +979,8 @@ GNECreateEdgeFrame::EdgeTypeParameters::setTemplateValues() {
         myDisallow->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_DISALLOW).c_str(), FALSE);
         // set width
         myWidth->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_WIDTH).c_str(), FALSE);
+        // set priority
+        myPriority->setText(templateEditor->getEdgeTemplate().edgeParameters.at(SUMO_ATTR_PRIORITY).c_str(), FALSE);
         // set parameters
         myParameters->setText(templateEditor->getEdgeTemplate().edgeParameters.at(GNE_ATTR_PARAMETERS).c_str(), FALSE);
         // recalc frame
@@ -1116,6 +1127,17 @@ GNECreateEdgeFrame::EdgeTypeParameters::setAttributeDefaultParameters(FXObject* 
         } else {
             myWidth->setTextColor(FXRGB(255, 0, 0));
         }
+    } else if (obj == myPriority) {
+        // check if is valid
+        if (defaultEdgeType->isValid(SUMO_ATTR_PRIORITY, myPriority->getText().text())) {
+            // set attribute (Without undoList)
+            defaultEdgeType->setAttribute(SUMO_ATTR_PRIORITY, myPriority->getText().text());
+            // reset color
+            myPriority->setTextColor(FXRGB(0, 0, 0));
+            myPriority->killFocus();
+        } else {
+            myPriority->setTextColor(FXRGB(255, 0, 0));
+        }
     } else if (obj == myParameters) {
         // check if is valid
         if (defaultEdgeType->isValid(GNE_ATTR_PARAMETERS, myParameters->getText().text())) {
@@ -1207,6 +1229,17 @@ GNECreateEdgeFrame::EdgeTypeParameters::setAttributeExistentEdgeType(FXObject* o
             myWidth->killFocus();
         } else {
             myWidth->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myPriority) {
+        // check if is valid
+        if (edgeType->isValid(SUMO_ATTR_PRIORITY, myPriority->getText().text())) {
+            // set attribute (Without undoList)
+            edgeType->setAttribute(SUMO_ATTR_PRIORITY, myPriority->getText().text());
+            // reset color
+            myPriority->setTextColor(FXRGB(0, 0, 0));
+            myPriority->killFocus();
+        } else {
+            myPriority->setTextColor(FXRGB(255, 0, 0));
         }
     } else if (obj == myParameters) {
         // check if is valid

@@ -685,8 +685,10 @@ GNEEdge::copyEdgeType(const GNEEdgeType *edgeType, GNEUndoList* undoList) {
     setAttribute(SUMO_ATTR_SPEED, edgeType->getAttribute(SUMO_ATTR_SPEED), undoList);
     // set allow (no disallow)
     setAttribute(SUMO_ATTR_ALLOW, edgeType->getAttribute(SUMO_ATTR_ALLOW), undoList);
-    // set witdth
+    // set width
     setAttribute(SUMO_ATTR_WIDTH, edgeType->getAttribute(SUMO_ATTR_WIDTH), undoList);
+    // set priority
+    setAttribute(SUMO_ATTR_PRIORITY, edgeType->getAttribute(SUMO_ATTR_PRIORITY), undoList);
     // set parameters
     setAttribute(GNE_ATTR_PARAMETERS, edgeType->getAttribute(GNE_ATTR_PARAMETERS), undoList);
     // copy lane attributes as well

@@ -240,6 +240,12 @@ GNEEdgeType::getAttribute(SumoXMLAttr key) const {
             } else {
                 return toString(width);
             }
+        case SUMO_ATTR_PRIORITY:
+            if (attrs.count(key) == 0) {
+                return toString(-1);
+            } else {
+                return toString(priority);
+            }
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -258,6 +264,7 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value, GNEUndoList
         case SUMO_ATTR_DISALLOW:
         case SUMO_ATTR_DISCARD:
         case SUMO_ATTR_WIDTH:
+        case SUMO_ATTR_PRIORITY:
         case GNE_ATTR_PARAMETERS:
             undoList->p_add(new GNEChange_Attribute(this, key, value));
             break;
@@ -293,6 +300,8 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
             } else {
                 return canParse<double>(value);
             }
+        case SUMO_ATTR_PRIORITY:
+            return canParse<int>(value);
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -363,6 +372,14 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             } else {
                 attrs.insert(key);
                 width = parse<double>(value);
+            }
+            break;
+        case SUMO_ATTR_PRIORITY:
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                priority = parse<int>(value);
             }
             break;
         case GNE_ATTR_PARAMETERS:

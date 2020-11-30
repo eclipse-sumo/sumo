@@ -320,6 +320,9 @@ public:
         /// @brief textField for width
         FXTextField* myWidth = nullptr;
 
+        /// @brief textField for priority
+        FXTextField* myPriority = nullptr;
+
         /// @brief Button for edit generic parameters
         FXButton* myParametersButton = nullptr;
 
