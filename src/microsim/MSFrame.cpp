@@ -602,7 +602,7 @@ MSFrame::fillOptions() {
 
     // gui testing
     oc.doRegister("gui-testing", new Option_Bool(false));
-    oc.addDescription("gui-testing", "GUI Only", "Enable ovelay for screen recognition");
+    oc.addDescription("gui-testing", "GUI Only", "Enable overlay for screen recognition");
 
     // gui testing - debug
     oc.doRegister("gui-testing-debug", new Option_Bool(false));

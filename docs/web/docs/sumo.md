@@ -95,6 +95,7 @@ configuration:
 | **--fcd-output.signals** {{DT_BOOL}} | Add the vehicle signal state to the FCD output (brake lights etc.); *default:* **false** |
 | **--fcd-output.distance** {{DT_BOOL}} | Add kilometrage to the FCD output (linear referencing); *default:* **false** |
 | **--fcd-output.acceleration** {{DT_BOOL}} | Add acceleration to the FCD output; *default:* **false** |
+| **--fcd-output.max-leader-distance** {{DT_FLOAT}} | Add leader vehicle information to the FCD output (within the given distance); *default:* **-1** |
 | **--fcd-output.params** {{DT_STR[]}} | Add generic parameter values to the FCD output |
 | **--fcd-output.filter-edges.input-file** {{DT_FILE}} | Restrict fcd output to the edge selection from the given input file |
 | **--full-output** {{DT_FILE}} | Save a lot of information for each timestep (very redundant) |
@@ -187,6 +188,7 @@ configuration:
 | **--pedestrian.striping.dawdling** {{DT_FLOAT}} | Factor for random slow-downs [0,1] for use with model 'striping'; *default:* **0.2** |
 | **--pedestrian.striping.jamtime** {{DT_TIME}} | Time in seconds after which pedestrians start squeezing through a jam when using model 'striping' (non-positive values disable squeezing); *default:* **300** |
 | **--pedestrian.striping.jamtime.crossing** {{DT_TIME}} | Time in seconds after which pedestrians start squeezing through a jam while on a pedestrian crossing when using model 'striping' (non-positive values disable squeezing); *default:* **10** |
+| **--pedestrian.striping.jamtime.narrow** {{DT_TIME}} | Time in seconds after which pedestrians start squeezing through a jam while on a narrow lane when using model 'striping'; *default:* **1** |
 | **--pedestrian.striping.reserve-oncoming** {{DT_FLOAT}} | Fraction of stripes to reserve for oncoming pedestrians; *default:* **0** |
 | **--pedestrian.striping.reserve-oncoming.junctions** {{DT_FLOAT}} | Fraction of stripes to reserve for oncoming pedestrians on crossings and walkingareas; *default:* **0.34** |
 | **--pedestrian.remote.address** {{DT_STR}} | The address (host:port) of the external simulation; *default:* **localhost:9000** |
@@ -206,6 +208,8 @@ configuration:
 | **--persontrip.transfer.car-walk** {{DT_STR[]}} | Where are mode changes from car to walking allowed (possible values: 'parkingAreas', 'ptStops', 'allJunctions' and combinations); *default:* **parkingAreas** |
 | **--persontrip.transfer.taxi-walk** {{DT_STR[]}} | Where taxis can drop off customers ('allJunctions, 'ptStops') |
 | **--persontrip.transfer.walk-taxi** {{DT_STR[]}} | Where taxis can pick up customers ('allJunctions, 'ptStops') |
+| **--persontrip.default.group** {{DT_STR}} | When set, trips between the same origin and destination will share a taxi by default |
+| **--persontrip.taxi.waiting-time** {{DT_TIME}} | Estimated time for taxi pickup; *default:* **300** |
 | **--railway.max-train-length** {{DT_FLOAT}} | Use FLOAT as a maximum train length when initializing the railway router; *default:* **5000** |
 | **--device.rerouting.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'rerouting' device; *default:* **-1** |
 | **--device.rerouting.explicit** {{DT_STR[]}} | Assign a 'rerouting' device to named vehicles |
@@ -384,11 +388,11 @@ configuration:
 | **--device.taxi.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'taxi' device; *default:* **-1** |
 | **--device.taxi.explicit** {{DT_STR[]}} | Assign a 'taxi' device to named vehicles |
 | **--device.taxi.deterministic** {{DT_BOOL}} | The 'taxi' devices are set deterministic using a fraction of 1000; *default:* **false** |
-| **--device.taxi.dispatch-algorithm** {{DT_STR}} | The dispatch algorithm ['greedy','greedyClosest','greedyShared','routeExtension','traci']; *default:* **greedy** |
+| **--device.taxi.dispatch-algorithm** {{DT_STR}} | The dispatch algorithm [greedy|greedyClosest|greedyShared|routeExtension|traci]; *default:* **greedy** |
 | **--device.taxi.dispatch-algorithm.output** {{DT_STR}} | Write information from the dispatch algorithm to FILE |
 | **--device.taxi.dispatch-algorithm.params** {{DT_STR}} | Load dispatch algorithm parameters in format KEY1:VALUE1[,KEY2:VALUE] |
 | **--device.taxi.dispatch-period** {{DT_TIME}} | The period between successive calls to the dispatcher; *default:* **60** |
-| **--device.taxi.idle-algorithm** {{DT_STR}} | The behavior of idle taxis ['stop','randomCircling']; *default:* **stop** |
+| **--device.taxi.idle-algorithm** {{DT_STR}} | The behavior of idle taxis [stop|randomCircling]; *default:* **stop** |
 | **--device.taxi.idle-algorithm.output** {{DT_STR}} | Write information from the idling algorithm to FILE |
 
 ### Tripinfo Device
@@ -397,6 +401,13 @@ configuration:
 | **--device.tripinfo.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'tripinfo' device; *default:* **-1** |
 | **--device.tripinfo.explicit** {{DT_STR[]}} | Assign a 'tripinfo' device to named vehicles |
 | **--device.tripinfo.deterministic** {{DT_BOOL}} | The 'tripinfo' devices are set deterministic using a fraction of 1000; *default:* **false** |
+
+### Vehroutes Device
+| Option | Description |
+|--------|-------------|
+| **--device.vehroute.probability** {{DT_FLOAT}} | The probability for a vehicle to have a 'vehroute' device; *default:* **-1** |
+| **--device.vehroute.explicit** {{DT_STR[]}} | Assign a 'vehroute' device to named vehicles |
+| **--device.vehroute.deterministic** {{DT_BOOL}} | The 'vehroute' devices are set deterministic using a fraction of 1000; *default:* **false** |
 
 ### Traci Server
 | Option | Description |
@@ -442,6 +453,7 @@ configuration:
 | **-G** {{DT_BOOL}}<br> **--game** {{DT_BOOL}} | Start the GUI in gaming mode; *default:* **false** |
 | **--game.mode** {{DT_STR}} | Select the game type ('tls', 'drt'); *default:* **tls** |
 | **-S** {{DT_BOOL}}<br> **--start** {{DT_BOOL}} | Start the simulation after loading; *default:* **false** |
+| **-d** {{DT_FLOAT}}<br> **--delay** {{DT_FLOAT}} | Use FLOAT in ms as delay between simulation steps; *default:* **0** |
 | **-B** {{DT_STR[]}}<br> **--breakpoints** {{DT_STR[]}} | Use TIME[] as times when the simulation should halt |
 | **--edgedata-files** {{DT_FILE}} | Load edge/lane weights for visualization from FILE |
 | **-D** {{DT_BOOL}}<br> **--demo** {{DT_BOOL}} | Restart the simulation after ending (demo mode); *default:* **false** |
@@ -451,7 +463,7 @@ configuration:
 | **--window-pos** {{DT_STR[]}} | Create initial window at the given x,y position |
 | **--tracker-interval** {{DT_FLOAT}} | The aggregation period for value tracker windows; *default:* **1** |
 | **--osg-view** {{DT_BOOL}} | Start with an OpenSceneGraph view instead of the regular 2D view; *default:* **false** |
-| **--gui-testing** {{DT_BOOL}} | Enable ovelay for screen recognition; *default:* **false** |
+| **--gui-testing** {{DT_BOOL}} | Enable overlay for screen recognition; *default:* **false** |
 | **--gui-testing-debug** {{DT_BOOL}} | Enable output messages during GUI-Testing; *default:* **false** |
 | **--gui-testing.setting-output** {{DT_FILE}} | Save gui settings in the given settings output file |
 

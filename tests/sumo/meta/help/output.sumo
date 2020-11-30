@@ -1,4 +1,4 @@
-Eclipse SUMO sumo Version v1_7_0+1268-7ceb9d55a5
+Eclipse SUMO sumo Version v1_7_0+1385-c75ca7897d
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 A microscopic, multi-modal traffic simulation.
 
@@ -691,7 +691,9 @@ GUI Only Options:
                                         position
   --tracker-interval FLOAT             The aggregation period for value tracker
                                         windows
-  --gui-testing                        Enable ovelay for screen recognition
+  --osg-view                           Start with an OpenSceneGraph view
+                                        instead of the regular 2D view
+  --gui-testing                        Enable overlay for screen recognition
   --gui-testing-debug                  Enable output messages during
                                         GUI-Testing
   --gui-testing.setting-output FILE    Save gui settings in the given settings

@@ -377,6 +377,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--junctions.join** {{DT_BOOL}} | Joins junctions that are close to each other (recommended for OSM import); *default:* **false** |
 | **--junctions.join-dist** {{DT_FLOAT}} | Determines the maximal distance for joining junctions (defaults to 10); *default:* **10** |
 | **--junctions.join-exclude** {{DT_STR[]}} | Interprets STR[] as list of junctions to exclude from joining |
+| **--junctions.join-same** {{DT_BOOL}} | Joins junctions that have the same coordinates even if not connected; *default:* **false** |
 | **--junctions.corner-detail** {{DT_INT}} | Generate INT intermediate points to smooth out intersection corners; *default:* **5** |
 | **--junctions.internal-link-detail** {{DT_INT}} | Generate INT intermediate points to smooth out lanes within the intersection; *default:* **5** |
 | **--junctions.scurve-stretch** {{DT_FLOAT}} | Generate longer intersections to allow for smooth s-curves when the number of lanes changes; *default:* **0** |
@@ -461,6 +462,7 @@ Files](Basics/Using_the_Command_Line_Applications.md#configuration_files).
 | **--shapefile.guess-projection** {{DT_BOOL}} | Guess the proper projection; *default:* **false** |
 | **--shapefile.traditional-axis-mapping** {{DT_BOOL}} | Use traditional axis order (lon, lat); *default:* **false** |
 | **--dlr-navteq.tolerant-permissions** {{DT_BOOL}} | Allow more vehicle classes by default; *default:* **false** |
+| **--dlr-navteq.keep-length** {{DT_BOOL}} | The edge lengths given in the DLR Navteq-file will be kept; *default:* **false** |
 | **--vissim.join-distance** {{DT_FLOAT}} | Structure join offset; *default:* **5** |
 | **--vissim.default-speed** {{DT_FLOAT}} | Use FLOAT as default speed; *default:* **50** |
 | **--vissim.speed-norm** {{DT_FLOAT}} | Factor for edge velocity; *default:* **1** |
