@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Fri Nov 20 12:02:52 2020 by Eclipse SUMO netconvert Version v1_7_0+1164-5199dac408
+<!-- generated on Mon Nov 30 09:35:57 2020 by Eclipse SUMO netconvert Version v1_7_0+1351-8ecdf9e25a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -32,19 +32,19 @@ SPDX-License-Identifier: EPL-2.0
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
     <type id="a" priority="3" numLanes="3" speed="13.89">
-        <laneType speed="10.00" width="3.00"/>
-        <laneType speed="20.00" width="4.50"/>
-        <laneType speed="30.00" width="6.00"/>
+        <laneType index="0"/>
+        <laneType index="1"/>
+        <laneType index="2" speed="30.00" width="6.00"/>
     </type>
     <type id="b" priority="2" numLanes="2" speed="11.11">
-        <laneType speed="15.00"/>
-        <laneType width="2.00"/>
+        <laneType index="0"/>
+        <laneType index="1" width="2.00"/>
     </type>
     <type id="c" priority="1" numLanes="1" speed="11.11" allow="bicycle">
-        <laneType speed="25.00" allow="bus"/>
+        <laneType index="0" speed="25.00" allow="bus"/>
     </type>
     <type id="d" priority="1" numLanes="1" speed="2.90" allow="pedestrian">
-        <laneType speed="35.00" disallow="pedestrian"/>
+        <laneType index="0" speed="35.00" disallow="pedestrian"/>
     </type>
 
     <edge id=":0_0" function="internal">

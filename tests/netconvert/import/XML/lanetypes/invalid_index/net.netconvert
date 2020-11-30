@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 30 09:35:57 2020 by Eclipse SUMO netconvert Version v1_7_0+1351-8ecdf9e25a
+<!-- generated on Mon Nov 30 09:44:18 2020 by Eclipse SUMO netconvert Version v1_7_0+1351-8ecdf9e25a
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -41,11 +41,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <location netOffset="500.00,500.00" convBoundary="0.00,0.00,1000.00,1000.00" origBoundary="-500.00,-500.00,500.00,500.00" projParameter="!"/>
 
-    <type id="a" priority="3" numLanes="3" speed="13.89">
-        <laneType index="0"/>
-        <laneType index="1"/>
-        <laneType index="2" speed="30.00" width="6.00"/>
-    </type>
+    <type id="a" priority="3" numLanes="3" speed="13.89"/>
     <type id="b" priority="2" numLanes="2" speed="11.11">
         <laneType index="0"/>
         <laneType index="1" width="2.00"/>
