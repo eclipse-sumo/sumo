@@ -353,7 +353,7 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
             into.writeAttr(SUMO_ATTR_PRIORITY, edgeType.second->priority);
         }
         // write numLanes
-        if (edgeType.second->attrs.count(SUMO_ATTR_NUMLANES) > 0) {
+        if (edgeType.second->attrs.count(SUMO_ATTR_NUMLANES) > 0 || edgeType.second->laneTypeDefinitions.size() > 1) {
             into.writeAttr(SUMO_ATTR_NUMLANES, edgeType.second->laneTypeDefinitions.size());
         }
         // write speed
