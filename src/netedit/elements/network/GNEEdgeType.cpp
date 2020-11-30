@@ -57,8 +57,8 @@ GNEEdgeType::GNEEdgeType(GNENet* net) :
 GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::EdgeTypeDefinition *edgeType) :
     GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create  laneTypes
-    for (const auto &laneType : edgeType->laneTypeDefinitions) {
-        GNELaneType* laneType = new GNELaneType(this);
+    for (const auto &laneTypeDef : edgeType->laneTypeDefinitions) {
+        GNELaneType* laneType = new GNELaneType(this, laneTypeDef);
         laneType->incRef("GNEEdgeType::GNEEdgeType(parameters)");
         myLaneTypes.push_back(laneType);
     }
