@@ -43,7 +43,8 @@ def get_version(padZero=True):
 
 
 def get_pep440_version():
-    v = get_version(padZero=False)[1:-11].replace("_", ".").replace("+", ".post")
+    v = get_version(padZero=False).replace("_", ".").replace("+", ".post")
+    v = v[1:v.rfind("-")]
     vs = v.split(".")
     if len(vs) == 4 and vs[3] == "post0":
         return v[:-6]
