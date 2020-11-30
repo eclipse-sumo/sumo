@@ -205,6 +205,9 @@ MSRailSignalConstraint_Predecessor::PassedTracker::raiseLimit(int limit) {
 
 bool
 MSRailSignalConstraint_Predecessor::PassedTracker::hasPassed(const std::string& tripId, int limit) const {
+    if (myLastIndex < 0) {
+        return false;
+    }
     int i = myLastIndex;
     while (limit > 0) {
         if (myPassed[i] == tripId) {
