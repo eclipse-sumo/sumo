@@ -3,6 +3,9 @@ title: Installing/Linux Build Libraries
 permalink: /Installing/Linux_Build_Libraries/
 ---
 
+!!! note
+    The documentation here is probably outdated and refers to old library versions!
+
 This document contains instructions for two basic ways of installing
 tools and libraries.
 
