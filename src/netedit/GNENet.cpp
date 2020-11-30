@@ -1059,6 +1059,19 @@ void
 GNENet::save(OptionsCont& oc) {
     // compute without volatile options and update network
     computeAndUpdate(oc, false);
+    // clear typeContainer
+    myNetBuilder->getTypeCont().clearTypes();
+    // now update typeContainer with edgeTypes
+    for (const auto &edgeType : myAttributeCarriers->getEdgeTypes()) {
+        myNetBuilder->getTypeCont().insertEdgeType(edgeType.first, edgeType.second);
+        for (int i = 0; i < (int)edgeType.second->getLaneTypes().size(); i++) {
+            myNetBuilder->getTypeCont().insertLaneType(edgeType.first, i,
+                edgeType.second->getLaneTypes().at(i)->speed,
+                edgeType.second->getLaneTypes().at(i)->permissions,
+                edgeType.second->getLaneTypes().at(i)->width,
+                edgeType.second->getLaneTypes().at(i)->attrs);
+        }
+    }
     // write network
     NWFrame::writeNetwork(oc, *myNetBuilder);
     myNetSaved = true;

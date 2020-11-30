@@ -74,6 +74,8 @@ GNEChange_LaneType::undo() {
         // insert laneType into edgeType parent
         myLaneType->getEdgeTypeParent()->addLaneType(myLaneType, myPosition);
     }
+    // enable save networkElements
+    myLaneType->getNet()->requireSaveNet(true);
 }
 
 
@@ -90,6 +92,8 @@ GNEChange_LaneType::redo() {
         // delete laneType from edgeType parent
         myLaneType->getEdgeTypeParent()->removeLaneType(myLaneType);
     }
+    // enable save networkElements
+    myLaneType->getNet()->requireSaveNet(true);
 }
 
 
