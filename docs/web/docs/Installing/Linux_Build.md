@@ -17,7 +17,7 @@ To be able to run SUMO on Linux, just follow these steps:
 For ubuntu this boils down to
 
 ```
- sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev swig
+ sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev
  git clone --recursive https://github.com/eclipse/sumo
  export SUMO_HOME="$PWD/sumo"
  mkdir sumo/build/cmake-build && cd sumo/build/cmake-build
@@ -39,13 +39,23 @@ alternatives below.
   network import from shapefile (arcgis). This requires the GDAL
   library. To compile you will need the devel versions of all packages.
   For openSUSE this means installing libxerces-c-devel, libproj-devel,
-  libgdal-devel, and fox16-devel. There are some [platform specific
+  libgdal-devel, and fox16-devel. For ubuntu the call is:
+  `sudo apt-get install cmake python g++ libxerces-c-dev libfox-1.6-dev libgdal-dev libproj-dev libgl2ps-dev`.
+  There are some outdated [platform specific
   and manual build instructions for the
   libraries](../Installing/Linux_Build_Libraries.md)
-- Optionally you may want to add ffmpeg-devel (for video output),
-  libOpenSceneGraph-devel (for the experimental 3D GUI) and
-  python-devel and swig (for running TraCI pythons scripts without a socket
-  connection)
+- Optionally you may want to add
+ - ffmpeg-devel (for video output),
+ - libOpenSceneGraph-devel (for the experimental 3D GUI),
+ - python-devel and swig (for running TraCI pythons scripts without a socket connection),
+ - libeigen3 (for the overheadwire model)
+ - gtest (for unit testing)
+ - texttest (for the acceptance tests)
+  The package names above are for openSUSE, for ubuntu the call to get all optional libraries and tools is:
+  ```
+  sudo apt-get install libavformat-dev libswscale-dev libopenscenegraph-dev python3-dev swig libgtest-dev libeigen3-dev python3-pip python3-setuptools default-jdk
+  sudo pip3 install texttest
+  ```
 
 ## Getting the source code
 
