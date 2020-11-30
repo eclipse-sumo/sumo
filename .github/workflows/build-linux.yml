@@ -11,6 +11,8 @@ on:
   pull_request:    # run on pull requests
     paths-ignore:  # but ignore everything in the docs subfolder 
       - 'docs/**'
+  schedule:
+    - cron:  '5 1 * * *'
 
 jobs:
   ###########################
@@ -149,6 +151,7 @@ jobs:
         mv ./*-wheels/* dist
 
     - name: Publish to Test PyPI
+      if: github.event_name == 'schedule'
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.TEST_PYPI_TOKEN }}
