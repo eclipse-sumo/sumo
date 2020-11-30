@@ -677,6 +677,8 @@ GNEEdge::copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edg
 
 void 
 GNEEdge::copyEdgeType(const GNEEdgeType *edgeType, GNEUndoList* undoList) {
+    // set type (only for info)
+    setAttribute(SUMO_ATTR_TYPE, edgeType->getAttribute(SUMO_ATTR_ID), undoList);
     // set num lanes
     setAttribute(SUMO_ATTR_NUMLANES, edgeType->getAttribute(SUMO_ATTR_NUMLANES), undoList);
     // set speed

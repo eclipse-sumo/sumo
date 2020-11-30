@@ -81,7 +81,7 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     FXGroupBox(createEdgeFrameParent->myContentFrame, "Template selector", GUIDesignGroupBoxFrame),
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myEdgeTypeSelected(nullptr),
-    myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent->getViewNet()->getNet())) {
+    myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent)) {
     // default edge radio button
     myUseDefaultEdgeType = new FXRadioButton(this, 
         "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);

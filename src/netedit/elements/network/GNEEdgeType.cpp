@@ -36,10 +36,21 @@
 // members methods
 // ===========================================================================
 
+GNEEdgeType::GNEEdgeType(GNECreateEdgeFrame *createEdgeFrame) :
+    GNENetworkElement(createEdgeFrame->getViewNet()->getNet(), "", GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
+    // create laneType
+    GNELaneType* laneType = new GNELaneType(this);
+    laneType->incRef("GNEEdgeType::GNEEdgeType(Default)");
+    myLaneTypes.push_back(laneType);
+}
+
+
 GNEEdgeType::GNEEdgeType(GNENet* net) :
     GNENetworkElement(net, net->generateEdgeTypeID(), GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
-    // create laneType 
-    myLaneTypes.push_back(new GNELaneType(this));
+    // create laneType
+    GNELaneType* laneType = new GNELaneType(this);
+    laneType->incRef("GNEEdgeType::GNEEdgeType");
+    myLaneTypes.push_back(laneType);
 }
 
 
@@ -47,7 +58,9 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::E
     GNENetworkElement(net, ID, GLO_EDGE, SUMO_TAG_TYPE, {}, {}, {}, {}, {}, {}, {}, {}) {
     // create  laneTypes
     for (const auto &laneType : edgeType->laneTypeDefinitions) {
-        myLaneTypes.push_back(new GNELaneType(this, laneType));
+        GNELaneType* laneType = new GNELaneType(this);
+        laneType->incRef("GNEEdgeType::GNEEdgeType(parameters)");
+        myLaneTypes.push_back(laneType);
     }
     // copy parameters
     speed = edgeType->speed;
@@ -62,7 +75,10 @@ GNEEdgeType::GNEEdgeType(GNENet* net, const std::string &ID, const NBTypeCont::E
 GNEEdgeType::~GNEEdgeType() {
     // delete laneTypes
     for (const auto &laneType : myLaneTypes) {
-        delete laneType;
+        laneType->decRef("GNEEdgeType::~GNEEdgeType");
+        if (laneType->unreferenced()) {
+            delete laneType;
+        }
     }
 }
 
