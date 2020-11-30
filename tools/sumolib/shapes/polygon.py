@@ -57,7 +57,10 @@ class Polygon:
         if self.type is not None:
             ret += ' type="%s"' % self.type
         if self.color is not None:
-            ret += ' color="%s"' % self.color.toXML()
+            if isinstance(self.color, color.RGBAColor):
+                ret += ' color="%s"' % self.color.toXML()
+            else:
+                ret += ' color="%s"' % self.color
         if self.layer is not None:
             ret += ' layer="%s"' % self.layer
         if self.fill is not None:
