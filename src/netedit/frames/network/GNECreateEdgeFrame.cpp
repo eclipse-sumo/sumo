@@ -462,12 +462,55 @@ GNECreateEdgeFrame::LaneTypeParameters::LaneTypeParameters(GNECreateEdgeFrame* c
     horizontalFrameAttribute = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     myParametersButton = new FXButton(horizontalFrameAttribute, "parameters", nullptr, this, MID_GNE_SET_ATTRIBUTE_DIALOG, GUIDesignButtonAttribute);
     myParameters = new FXTextField(horizontalFrameAttribute, GUIDesignTextFieldNCol, this, MID_GNE_SET_ATTRIBUTE, GUIDesignTextField);
-    // fill default parameters
-    fillDefaultParameters(0);
 }
 
 
 GNECreateEdgeFrame::LaneTypeParameters::~LaneTypeParameters() {}
+
+
+void
+GNECreateEdgeFrame::LaneTypeParameters::refreshLaneTypeParameters() {
+    // save previous laneIndex
+    const int previousLaneIndex = (myLaneIndex->getNumItems() > 0)? myLaneIndex->getCurrentItem() : 0;
+    // first get GNEEdgeType
+    GNEEdgeType *edgeType = nullptr;
+    if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+        edgeType = myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType();
+    } else {
+        edgeType = myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected();
+    }
+    // check edge type
+    if (edgeType) {
+        // clear and refill myLaneIndex
+        myLaneIndex->clearItems();
+        for (int i = 0; i < edgeType->getLaneTypes().size(); i++) {
+            myLaneIndex->appendItem(toString(i).c_str());
+        }
+        // set visible items
+        myLaneIndex->setNumVisible(myLaneIndex->getNumItems());
+        // continue checking number of lanes
+        if (previousLaneIndex < edgeType->getLaneTypes().size()) {
+            myLaneIndex->setCurrentItem(previousLaneIndex);
+        } else {
+            myLaneIndex->setCurrentItem(0);
+        }
+        // set speed
+        mySpeed->setText(edgeType->getLaneTypes().at(myLaneIndex->getCurrentItem())->getAttribute(SUMO_ATTR_SPEED).c_str(), FALSE);
+        mySpeed->setTextColor(FXRGB(0, 0, 0));
+        // set allow
+        myAllow->setText(edgeType->getLaneTypes().at(myLaneIndex->getCurrentItem())->getAttribute(SUMO_ATTR_ALLOW).c_str(), FALSE);
+        myAllow->setTextColor(FXRGB(0, 0, 0));
+        // set disallow
+        myDisallow->setText(edgeType->getLaneTypes().at(myLaneIndex->getCurrentItem())->getAttribute(SUMO_ATTR_DISALLOW).c_str(), FALSE);
+        myDisallow->setTextColor(FXRGB(0, 0, 0));
+        // set width
+        myWidth->setText(edgeType->getLaneTypes().at(myLaneIndex->getCurrentItem())->getAttribute(SUMO_ATTR_WIDTH).c_str(), FALSE);
+        myWidth->setTextColor(FXRGB(0, 0, 0));
+        // set parameters
+        myParameters->setText(edgeType->getLaneTypes().at(myLaneIndex->getCurrentItem())->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+        myParameters->setTextColor(FXRGB(0, 0, 0));
+    }
+}
 
 
 void
@@ -506,19 +549,6 @@ GNECreateEdgeFrame::LaneTypeParameters::disableLaneTypeParameters() {
 }
 
 
-void 
-GNECreateEdgeFrame::LaneTypeParameters::setDefaultValues() {
-    // set default lane
-    myLaneIndex->setText("1");
-    // set default speed
-    mySpeed->setText("13.89");
-    // set default allow
-    myAllow->setText("all");
-    // set default disallow
-    myDisallow->setText("");
-}
-
-
 void
 GNECreateEdgeFrame::LaneTypeParameters::setAttributes(GNEEdge* edge, GNEUndoList* undoList) const {
     // set speed
@@ -550,27 +580,35 @@ GNECreateEdgeFrame::LaneTypeParameters::updateNumLanes(int numLanes) {
                 // remove it from the last position
                 edgeTypeSelector->getDefaultEdgeType()->removeLaneType(edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().back());
             }
-        } else if (myCreateEdgeFrameParent->getEdgeTypeSelector()->useEdgeTemplate()) {
-
+        } else if (myCreateEdgeFrameParent->getEdgeTypeSelector()->getEdgeTypeSelected()) {
             // check if we have to add new lanes
-            while (numLanes > edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size()) {
+            while (numLanes > edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size()) {
                 // add it in the last position
                 edgeTypeSelector->getDefaultEdgeType()->addLaneType(myCreateEdgeFrameParent->getViewNet()->getUndoList());
             }
             // check if we have to remove new lanes
-            while (numLanes < edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size()) {
+            while (numLanes < edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size()) {
                 // remove it from the last position
-                edgeTypeSelector->getDefaultEdgeType()->removeLaneType((int)edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size() - 1, myCreateEdgeFrameParent->getViewNet()->getUndoList());
+                edgeTypeSelector->getEdgeTypeSelected()->removeLaneType((int)edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size() - 1, myCreateEdgeFrameParent->getViewNet()->getUndoList());
             }
 
         }
-        // set num of visible items
-        myLaneIndex->setNumVisible(myLaneIndex->getNumItems());
+        // refresh
+        refreshLaneTypeParameters();
     }
 }
 
+
 long
-GNECreateEdgeFrame::LaneTypeParameters::onCmdSetAttribute(FXObject*, FXSelector, void*) {
+GNECreateEdgeFrame::LaneTypeParameters::onCmdSetAttribute(FXObject* obj, FXSelector, void*) {
+    if (obj == myLaneIndex) {
+        // refresh
+        refreshLaneTypeParameters();
+    } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+        setAttributeDefaultParameters(obj);
+    } else {
+        setAttributeExistentLaneType(obj);
+    }
     return 1;
 }
 
@@ -578,51 +616,51 @@ GNECreateEdgeFrame::LaneTypeParameters::onCmdSetAttribute(FXObject*, FXSelector,
 long
 GNECreateEdgeFrame::LaneTypeParameters::onCmdOpenAttributeDialog(FXObject* obj, FXSelector, void*) {
     if (obj == myParametersButton) {
-/*
         // write debug information
         WRITE_DEBUG("Open parameters dialog");
         // check if use default edge
         if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
+            // get lane type
+            GNELaneType* laneType = myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->getLaneTypes().at(myLaneIndex->getCurrentItem());
             // edit parameters using dialog
-            if (GNESingleParametersDialog(myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()).execute()) {
+            if (GNESingleParametersDialog(laneType).execute()) {
                 // write debug information
                 WRITE_DEBUG("Close parameters dialog");
                 // update myParameters text field
-                myParameters->setText(myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+                myParameters->setText(laneType->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
             } else {
                 // write debug information
                 WRITE_DEBUG("Cancel parameters dialog");
             }
         } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
+            // get lane type
+            GNELaneType* laneType = myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().at(myLaneIndex->getCurrentItem());
             // edit parameters using dialog
-            if (GNESingleParametersDialog(myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()).execute()) {
+            if (GNESingleParametersDialog(laneType).execute()) {
                 // write debug information
                 WRITE_DEBUG("Close parameters dialog");
                 // update myParameters text field
-                myParameters->setText(myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
+                myParameters->setText(laneType->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
             } else {
                 // write debug information
                 WRITE_DEBUG("Cancel parameters dialog");
             }
         }
-*/
     } else {
         // declare strings
         std::string allow = myAllow->getText().text();
         std::string disallow = myDisallow->getText().text();
-        // open dialog
+        // open allow/disallow
         GNEAllowDisallow(myCreateEdgeFrameParent->getViewNet(), &allow, &disallow).execute();
         // update allow/disallow
         myAllow->setText(allow.c_str(), FALSE);
         myDisallow->setText(disallow.c_str(), FALSE);
-/*
         // set attribute
         if (myCreateEdgeFrameParent->myEdgeTypeSelector->useDefaultEdgeType()) {
-            myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+            myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->getLaneTypes().at(myLaneIndex->getCurrentItem())->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
         } else if (myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()) {
-            myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
+            myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().at(myLaneIndex->getCurrentItem())->setAttribute(SUMO_ATTR_ALLOW, allow.c_str());
         }
-*/
     }
     return 1;
 }
@@ -642,14 +680,141 @@ GNECreateEdgeFrame::LaneTypeParameters::onCmdResetLaneType(FXObject*, FXSelector
 }
 
 
-void
-GNECreateEdgeFrame::LaneTypeParameters::fillDefaultParameters(int /* laneIndex */) {
-    // set speed
-    mySpeed->setText("13.89");
-    // set allow
-    myAllow->setText("all");
-    // set disallow
-    myDisallow->setText("");
+void 
+GNECreateEdgeFrame::LaneTypeParameters::setAttributeDefaultParameters(FXObject* obj) {
+    // get default edge type
+    GNELaneType *defaultLaneType = myCreateEdgeFrameParent->myEdgeTypeSelector->getDefaultEdgeType()->getLaneTypes().at(myLaneIndex->getCurrentItem());
+    // check what attribute was changed
+    if (obj == mySpeed) {
+        // check if is valid
+        if (defaultLaneType->isValid(SUMO_ATTR_SPEED, mySpeed->getText().text())) {
+            // set attribute (Without undoList)
+            defaultLaneType->setAttribute(SUMO_ATTR_SPEED, mySpeed->getText().text());
+            // reset color
+            mySpeed->setTextColor(FXRGB(0, 0, 0));
+            mySpeed->killFocus();
+        } else {
+            mySpeed->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myAllow) {
+        // check if is valid
+        if (defaultLaneType->isValid(SUMO_ATTR_ALLOW, myAllow->getText().text())) {
+            // set attribute (Without undoList)
+            defaultLaneType->setAttribute(SUMO_ATTR_ALLOW, myAllow->getText().text());
+            // reset color
+            myAllow->setTextColor(FXRGB(0, 0, 0));
+            myAllow->killFocus();
+            // update disallow textField
+            myDisallow->setText(defaultLaneType->getAttribute(SUMO_ATTR_DISALLOW).c_str(), FALSE);
+        } else {
+            myAllow->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myDisallow) {
+        // check if is valid
+        if (defaultLaneType->isValid(SUMO_ATTR_DISALLOW, myDisallow->getText().text())) {
+            // set attribute (Without undoList)
+            defaultLaneType->setAttribute(SUMO_ATTR_DISALLOW, myDisallow->getText().text());
+            // reset color
+            myDisallow->setTextColor(FXRGB(0, 0, 0));
+            myDisallow->killFocus();
+            // update allow textField
+            myAllow->setText(defaultLaneType->getAttribute(SUMO_ATTR_ALLOW).c_str(), FALSE);
+        } else {
+            myDisallow->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myWidth) {
+        // check if is valid
+        if (defaultLaneType->isValid(SUMO_ATTR_WIDTH, myWidth->getText().text())) {
+            // set attribute (Without undoList)
+            defaultLaneType->setAttribute(SUMO_ATTR_WIDTH, myWidth->getText().text());
+            // reset color
+            myWidth->setTextColor(FXRGB(0, 0, 0));
+            myWidth->killFocus();
+        } else {
+            myWidth->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myParameters) {
+        // check if is valid
+        if (defaultLaneType->isValid(GNE_ATTR_PARAMETERS, myParameters->getText().text())) {
+            // set attribute (Without undoList)
+            defaultLaneType->setAttribute(GNE_ATTR_PARAMETERS, myParameters->getText().text());
+            // reset color
+            myParameters->setTextColor(FXRGB(0, 0, 0));
+            myParameters->killFocus();
+        } else {
+            myParameters->setTextColor(FXRGB(255, 0, 0));
+        }
+    }
+}
+
+
+void 
+GNECreateEdgeFrame::LaneTypeParameters::setAttributeExistentLaneType(FXObject* obj) {
+    // get undoList
+    GNEUndoList *undoList = myCreateEdgeFrameParent->myViewNet->getUndoList();
+    // get selected lane type
+    GNELaneType *laneType = myCreateEdgeFrameParent->myEdgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().at(myLaneIndex->getCurrentItem());
+    // check what attribute was changed
+    if (obj == mySpeed) {
+        // check if is valid
+        if (laneType->isValid(SUMO_ATTR_SPEED, mySpeed->getText().text())) {
+            // set attribute
+            laneType->setAttribute(SUMO_ATTR_SPEED, mySpeed->getText().text(), undoList);
+            // reset color
+            mySpeed->setTextColor(FXRGB(0, 0, 0));
+            mySpeed->killFocus();
+        } else {
+            mySpeed->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myAllow) {
+        // check if is valid
+        if (laneType->isValid(SUMO_ATTR_ALLOW, myAllow->getText().text())) {
+            // set attribute
+            laneType->setAttribute(SUMO_ATTR_ALLOW, myAllow->getText().text(), undoList);
+            // reset color
+            myAllow->setTextColor(FXRGB(0, 0, 0));
+            myAllow->killFocus();
+            // update disallow textField
+            myDisallow->setText(laneType->getAttribute(SUMO_ATTR_DISALLOW).c_str(), FALSE);
+        } else {
+            myAllow->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myDisallow) {
+        // check if is valid
+        if (laneType->isValid(SUMO_ATTR_DISALLOW, myDisallow->getText().text())) {
+            // set attribute
+            laneType->setAttribute(SUMO_ATTR_DISALLOW, myDisallow->getText().text(), undoList);
+            // reset color
+            myDisallow->setTextColor(FXRGB(0, 0, 0));
+            myDisallow->killFocus();
+            // update allow textField
+            myAllow->setText(laneType->getAttribute(SUMO_ATTR_ALLOW).c_str(), FALSE);
+        } else {
+            myDisallow->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myWidth) {
+        // check if is valid
+        if (laneType->isValid(SUMO_ATTR_WIDTH, myWidth->getText().text())) {
+            // set attribute
+            laneType->setAttribute(SUMO_ATTR_WIDTH, myWidth->getText().text(), undoList);
+            // reset color
+            myWidth->setTextColor(FXRGB(0, 0, 0));
+            myWidth->killFocus();
+        } else {
+            myWidth->setTextColor(FXRGB(255, 0, 0));
+        }
+    } else if (obj == myParameters) {
+        // check if is valid
+        if (laneType->isValid(GNE_ATTR_PARAMETERS, myParameters->getText().text())) {
+            // set attribute
+            laneType->setAttribute(GNE_ATTR_PARAMETERS, myParameters->getText().text(), undoList);
+            // reset color
+            myParameters->setTextColor(FXRGB(0, 0, 0));
+            myParameters->killFocus();
+        } else {
+            myParameters->setTextColor(FXRGB(255, 0, 0));
+        }
+    }
 }
 
 // ---------------------------------------------------------------------------
@@ -778,6 +943,8 @@ GNECreateEdgeFrame::EdgeTypeParameters::setEdgeType(GNEEdgeType* edgeType, bool 
     // set parameters
     myParameters->setText(edgeType->getAttribute(GNE_ATTR_PARAMETERS).c_str(), FALSE);
     myParameters->setTextColor(FXRGB(0, 0, 0));
+    // now update lane parameters
+    myLaneTypeParameters->refreshLaneTypeParameters();
     // recalc frame
     recalc();
 }

@@ -37,6 +37,7 @@
 #include "GNECrossing.h"
 #include "GNEEdge.h"
 #include "GNEEdgeType.h"
+#include "GNELaneType.h"
 
 //#define DEBUG_SMOOTH_GEOM
 //#define DEBUGCOND(obj) (true)
@@ -666,10 +667,10 @@ GNEEdge::copyTemplate(const GNEInspectorFrame::TemplateEditor::EdgeTemplate& edg
     }
     // copy lane attributes as well
     for (int i = 0; i < (int)myLanes.size(); i++) {
-        myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_ALLOW), undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_SPEED,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_SPEED), undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_WIDTH), undoList);
-        myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET,   edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_ENDOFFSET), undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_ALLOW),      undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_SPEED,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_SPEED),      undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,       edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_WIDTH),      undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_ENDOFFSET,   edgeTemplate.laneParameters.at(i).at(SUMO_ATTR_ENDOFFSET),  undoList);
     }
 }
 
@@ -686,6 +687,13 @@ GNEEdge::copyEdgeType(const GNEEdgeType *edgeType, GNEUndoList* undoList) {
     setAttribute(SUMO_ATTR_WIDTH, edgeType->getAttribute(SUMO_ATTR_WIDTH), undoList);
     // set parameters
     setAttribute(GNE_ATTR_PARAMETERS, edgeType->getAttribute(GNE_ATTR_PARAMETERS), undoList);
+    // copy lane attributes as well
+    for (int i = 0; i < (int)myLanes.size(); i++) {
+        myLanes[i]->setAttribute(SUMO_ATTR_SPEED,       edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_SPEED),      undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_ALLOW,       edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_ALLOW),      undoList);
+        myLanes[i]->setAttribute(SUMO_ATTR_WIDTH,       edgeType->getLaneTypes().at(i)->getAttribute(SUMO_ATTR_WIDTH),      undoList);
+        myLanes[i]->setAttribute(GNE_ATTR_PARAMETERS,   edgeType->getLaneTypes().at(i)->getAttribute(GNE_ATTR_PARAMETERS),  undoList);
+    }
 }
 
 

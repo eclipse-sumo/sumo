@@ -30,6 +30,9 @@
 class GNELaneType : public GNENetworkElement, public Parameterised, public NBTypeCont::LaneTypeDefinition {
 
 public:
+    /// @brief GNECreateEdgeFrame need access to setAttribute
+    friend class GNECreateEdgeFrame;
+
     /**@brief Constructor
      * @param[in] edgeTypeParent GNEEdgeType parent
      */

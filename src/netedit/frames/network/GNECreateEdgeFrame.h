@@ -145,6 +145,9 @@ public:
         /// @brief destructor
         ~LaneTypeParameters();
 
+        /// @brief refresh lane paramters
+        void refreshLaneTypeParameters();
+
         /// @brief show lane parameters
         void showLaneTypeParameters();
 
@@ -156,9 +159,6 @@ public:
 
         /// @brief disable lane parameters
         void disableLaneTypeParameters();
-
-        /// @brief set default values
-        void setDefaultValues();
 
         /// @brief set attributes
         void setAttributes(GNEEdge* edge, GNEUndoList* undoList) const;
@@ -186,8 +186,11 @@ public:
         /// @brief FOX need this
         FOX_CONSTRUCTOR(LaneTypeParameters);
 
-        /// @brief fill default parameters
-        void fillDefaultParameters(int laneIndex);
+        /// @brief set attribute for default parameters
+        void setAttributeDefaultParameters(FXObject* obj);
+
+        /// @brief set attribute for existent lane type
+        void setAttributeExistentLaneType(FXObject* obj);
 
     private:
         /// @brief pointer to createEdgeFrameParent
