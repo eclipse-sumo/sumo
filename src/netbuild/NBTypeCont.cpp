@@ -319,12 +319,12 @@ NBTypeCont::copyEdgeTypeRestrictionsAndAttrs(const std::string& fromId, const st
 
 
 bool
-NBTypeCont::markLaneTypeAsSet(const std::string& id, const SumoXMLAttr attr) {
+NBTypeCont::markLaneTypeAsSet(const std::string& id, int index, const SumoXMLAttr attr) {
     TypesCont::iterator i = myEdgeTypes.find(id);
     if (i == myEdgeTypes.end()) {
         return false;
     }
-    i->second->laneTypeDefinitions.back().attrs.insert(attr);
+    i->second->laneTypeDefinitions[index].attrs.insert(attr);
     return true;
 }
 
@@ -354,7 +354,7 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
         }
         // write numLanes
         if (edgeType.second->attrs.count(SUMO_ATTR_NUMLANES) > 0) {
-            into.writeAttr(SUMO_ATTR_NUMLANES, (int)edgeType.second->laneTypeDefinitions.size());
+            into.writeAttr(SUMO_ATTR_NUMLANES, edgeType.second->laneTypeDefinitions.size());
         }
         // write speed
         if (edgeType.second->attrs.count(SUMO_ATTR_SPEED) > 0) {

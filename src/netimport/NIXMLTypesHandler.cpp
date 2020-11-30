@@ -126,7 +126,7 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 SumoXMLAttr myAttrs[] = {SUMO_ATTR_SPEED, SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_WIDTH};
                 for (const auto& attr : myAttrs) {
                     if (attrs.hasAttribute(attr)) {
-                        myTypeCont.markLaneTypeAsSet(myCurrentTypeID, attr);
+                        myTypeCont.markLaneTypeAsSet(myCurrentTypeID, index, attr);
                     }
                 }
             }

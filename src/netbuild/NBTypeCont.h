@@ -258,7 +258,7 @@ public:
     * @param[in] id The id of the edgeType parent
     * @param[in] attr The id of the attribute
     */
-    bool markLaneTypeAsSet(const std::string& id, const SumoXMLAttr attr);
+    bool markLaneTypeAsSet(const std::string& id, int index, const SumoXMLAttr attr);
 
     /**@brief Adds a restriction to last laneType
     * @param[in] id The id of the edgeType parent
