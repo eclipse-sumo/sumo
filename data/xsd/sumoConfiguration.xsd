@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Wed Nov 18 10:23:10 2020 by Eclipse SUMO sumo Version v1_7_0+1088-46b7762484
+<!-- generated on Mon Nov 30 17:51:09 2020 by Eclipse SUMO sumo Version v1_7_0+1385-c75ca7897d
 -->
 
 <xsd:schema elementFormDefault="qualified" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
@@ -28,6 +28,7 @@
             <xsd:element name="elechybrid_device" type="elechybrid_deviceTopicType" minOccurs="0"/>
             <xsd:element name="taxi_device" type="taxi_deviceTopicType" minOccurs="0"/>
             <xsd:element name="tripinfo_device" type="tripinfo_deviceTopicType" minOccurs="0"/>
+            <xsd:element name="vehroutes_device" type="vehroutes_deviceTopicType" minOccurs="0"/>
             <xsd:element name="traci_server" type="traci_serverTopicType" minOccurs="0"/>
             <xsd:element name="mesoscopic" type="mesoscopicTopicType" minOccurs="0"/>
             <xsd:element name="random_number" type="random_numberTopicType" minOccurs="0"/>
@@ -383,6 +384,14 @@
             <xsd:element name="device.tripinfo.probability" type="floatOptionType" minOccurs="0"/>
             <xsd:element name="device.tripinfo.explicit" type="strArrayOptionType" minOccurs="0"/>
             <xsd:element name="device.tripinfo.deterministic" type="boolOptionType" minOccurs="0"/>
+        </xsd:all>
+    </xsd:complexType>
+
+    <xsd:complexType name="vehroutes_deviceTopicType">
+        <xsd:all>
+            <xsd:element name="device.vehroute.probability" type="floatOptionType" minOccurs="0"/>
+            <xsd:element name="device.vehroute.explicit" type="strArrayOptionType" minOccurs="0"/>
+            <xsd:element name="device.vehroute.deterministic" type="boolOptionType" minOccurs="0"/>
         </xsd:all>
     </xsd:complexType>
 
