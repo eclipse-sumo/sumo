@@ -21,7 +21,8 @@ permalink: /ChangeLog/
   - Emergency vehicles that are using a rescue lane can now pass an intersection even if the necessary turning lane is blocked. Issue #7619
   - Fixed invalid negative space and time gap in ssm device output. Issue #7844
   - Now saving output of ssm device relative to the configuration file by default. Issue #7847
-  - Fixed invalid speed and acceleration for parked vehicle. Issue #7850 
+  - Fixed invalid speed and acceleration for parked vehicle. Issue #7850
+  - Fixed negative timeLoss in edgeData output. Issue #7805
   - crashing
     - Fixed crash on parallel intermodal routing. Issue #7627
     - Fixe crash when defining stops on internal edges. Issue #7690
@@ -51,6 +52,11 @@ permalink: /ChangeLog/
 - meso
   - Fixed bug in queue selection which could severely reduce flow at tls controlled intersection with turn lanes. Issue #7794 (regression in 1.7.0)
   - Fixed handling of cyclical stops. Issue #7500
+  - Fixed bug where persons would enter a stopped vehicle at the wrong stop. Issue #7866
+  - Option **--meso-minor-penalty** is no longer applied on top of **--meso-tls-penalty**. Issue #7802
+  - Fixed delayed insertion on on traffic light edge when option **--meso-tls-penalty** is used. Issue #7875
+  - Passengers that leave a vehicle are now counted in **--stop-output**. Issue #7865
+
 
 - netconvert
   - Fixed unsafe traffic light signals when two connections from the same edge target the same lane. Issue #7550
@@ -120,15 +126,10 @@ permalink: /ChangeLog/
   - Add **--fcd-output.max-leader-distance** which will add attributes `leaderGap, leaderSpeed, leaderID` to fcd-output whenever a vehicle has a leader within the given distance #7788
   - Stop for vehicles and persons can now be specified using attribute 'edge' instead of 'lane'. Vehicles will stop on the rightmost lane that allows their vehicle class (whereas persons ignored the lane index anyway). Issue #5443
   - Taxi device can now be used to simulate on-demand container transport. Issue #7815
-  - Option **--fcd-output.params** now supports optional output of device parameters and model parameters with the same [prefix codes as TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e). Issue #7851
-  - Fixed negative timeLoss in edgeData output. Issue #7805
+  - Option **--fcd-output.params** now supports optional output of device parameters and model parameters with the same [prefix codes as TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e). Issue #7851  
   
 - meso
   - Model parameters can now be [customized](Simulation/Meso.md#configuration_by_edge_type) for each edge type vial additional file input. Issue #7243
-  - Fixed bug where persons would enter a stopped vehicle at the wrong stop. Issue #7866
-  - Option **--meso-minor-penalt** is no longer applied on top of **--meso-tls-penalty**. Issue #7802
-  - Fixed delayed insertion on on traffic light edge when option **--meso-tls-penalty** is used. Issue #7875
-  - Passengers that leave a vehicle are now counted in **--stop-output**. Issue #7865
   
 - netedit
   - Create edge mode now allows selecting from edge types and to inspect/edit edge attributes. Issue #2431
