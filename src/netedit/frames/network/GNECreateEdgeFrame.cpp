@@ -483,13 +483,13 @@ GNECreateEdgeFrame::LaneTypeParameters::refreshLaneTypeParameters() {
     if (edgeType) {
         // clear and refill myLaneIndex
         myLaneIndex->clearItems();
-        for (int i = 0; i < edgeType->getLaneTypes().size(); i++) {
+        for (int i = 0; i < (int)edgeType->getLaneTypes().size(); i++) {
             myLaneIndex->appendItem(toString(i).c_str());
         }
         // set visible items
         myLaneIndex->setNumVisible(myLaneIndex->getNumItems());
         // continue checking number of lanes
-        if (previousLaneIndex < edgeType->getLaneTypes().size()) {
+        if (previousLaneIndex < (int)edgeType->getLaneTypes().size()) {
             myLaneIndex->setCurrentItem(previousLaneIndex);
         } else {
             myLaneIndex->setCurrentItem(0);
@@ -569,25 +569,25 @@ GNECreateEdgeFrame::LaneTypeParameters::updateNumLanes(int numLanes) {
         // change numLanes depending of edited edgeType
         if (edgeTypeSelector->useDefaultEdgeType()) {
             // check if we have to add new lanes
-            while (numLanes > edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size()) {
+            while (numLanes > (int)edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size()) {
                 // create new GNELaneType
                 GNELaneType* laneType = new GNELaneType(edgeTypeSelector->getDefaultEdgeType());
                 // add it in the last position
                 edgeTypeSelector->getDefaultEdgeType()->addLaneType(laneType, (int)edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size());
             }
             // check if we have to remove new lanes
-            while (numLanes < edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size()) {
+            while (numLanes < (int)edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().size()) {
                 // remove it from the last position
                 edgeTypeSelector->getDefaultEdgeType()->removeLaneType(edgeTypeSelector->getDefaultEdgeType()->getLaneTypes().back());
             }
         } else if (myCreateEdgeFrameParent->getEdgeTypeSelector()->getEdgeTypeSelected()) {
             // check if we have to add new lanes
-            while (numLanes > edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size()) {
+            while (numLanes > (int)edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size()) {
                 // add it in the last position
                 edgeTypeSelector->getEdgeTypeSelected()->addLaneType(myCreateEdgeFrameParent->getViewNet()->getUndoList());
             }
             // check if we have to remove new lanes
-            while (numLanes < edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size()) {
+            while (numLanes < (int)edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size()) {
                 // remove it from the last position
                 edgeTypeSelector->getEdgeTypeSelected()->removeLaneType((int)edgeTypeSelector->getEdgeTypeSelected()->getLaneTypes().size() - 1, myCreateEdgeFrameParent->getViewNet()->getUndoList());
             }
