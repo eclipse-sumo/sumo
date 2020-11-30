@@ -267,7 +267,6 @@
     <xsd:complexType name="laneTypeType">
         <xsd:choice minOccurs="0" maxOccurs="unbounded">
             <xsd:element name="restriction" type="restrictionType"/>
-            <xsd:element name="meso" type="mesoType"/>
         </xsd:choice>
         <xsd:attribute name="allow" type="xsd:string"/>
         <xsd:attribute name="disallow" type="xsd:string"/>
