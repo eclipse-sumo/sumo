@@ -121,9 +121,14 @@ permalink: /ChangeLog/
   - Stop for vehicles and persons can now be specified using attribute 'edge' instead of 'lane'. Vehicles will stop on the rightmost lane that allows their vehicle class (whereas persons ignored the lane index anyway). Issue #5443
   - Taxi device can now be used to simulate on-demand container transport. Issue #7815
   - Option **--fcd-output.params** now supports optional output of device parameters and model parameters with the same [prefix codes as TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e). Issue #7851
+  - Fixed negative timeLoss in edgeData output. Issue #7805
   
 - meso
   - Model parameters can now be [customized](Simulation/Meso.md#configuration_by_edge_type) for each edge type vial additional file input. Issue #7243
+  - Fixed bug where persons would enter a stopped vehicle at the wrong stop. Issue #7866
+  - Option **--meso-minor-penalt** is no longer applied on top of **--meso-tls-penalty**. Issue #7802
+  - Fixed delayed insertion on on traffic light edge when option **--meso-tls-penalty** is used. Issue #7875
+  - Passengers that leave a vehicle are now counted in **--stop-output**. Issue #7865
   
 - netedit
   - Create edge mode now allows selecting from edge types and to inspect/edit edge attributes. Issue #2431
@@ -132,11 +137,13 @@ permalink: /ChangeLog/
   - [Generic parameters](Simulation/GenericParameters.md) of vTypes can now be edited. Issue #7646
   - Edge operation 'restore geometry endpoint' can now be applied to edge selections. Issue #7576
   - Junction attribute 'tlLayout' can now be edited. Issue #7812
+  - Edit mode specific options are now buttons instead of checkboxes to better find on the screen. Issue #6498
   
 - sumo-gui
   - Rail signal now includes internal state (reason for red) in parameter dialog. Issue #7600
   - Added option **--delay** (shortcut **-d**) to set the simulation delay. Issue #6380
-  - Vehicles can now be colored by arrival delay at public transport stops.
+  - Vehicles can now be colored by arrival delay at public transport stops
+  - Centering on a vehicle in meso is now accurate. Issue #7871
   
 - netconvert
   - Added option **--junctions.join-same** which joins junctions with identical coordinates regardless of edge topology. This is useful when merging networks. Issue #7567
