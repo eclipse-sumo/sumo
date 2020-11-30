@@ -117,20 +117,33 @@ GNELaneType::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 std::string
 GNELaneType::getAttribute(SumoXMLAttr key) const {
-    if (attrs.count(key) == 0) {
-        return "";
-    }
     switch (key) {
         case SUMO_ATTR_ID:
             return myEdgeTypeParent->getID() + toString(myEdgeTypeParent->getLaneTypeIndex(this));
         case SUMO_ATTR_SPEED:
-            return toString(speed);
+            if (attrs.count(key) == 0) {
+                return "";
+            } else {
+                return toString(speed);
+            }
         case SUMO_ATTR_ALLOW:
-            return getVehicleClassNames(permissions);
+            if (attrs.count(SUMO_ATTR_DISALLOW) == 0) {
+                return "";
+            } else {
+                return getVehicleClassNames(permissions);
+            }
         case SUMO_ATTR_DISALLOW:
-            return getVehicleClassNames(invertPermissions(permissions));
+            if (attrs.count(SUMO_ATTR_DISALLOW) == 0) {
+                return "";
+            } else {
+                return getVehicleClassNames(invertPermissions(permissions));
+            }
         case SUMO_ATTR_WIDTH:
-            return toString(width);
+            if (attrs.count(key) == 0) {
+                return "";
+            } else {
+                return toString(width);
+            }
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -194,31 +207,46 @@ GNELaneType::getACParametersMap() const {
 
 void
 GNELaneType::setAttribute(SumoXMLAttr key, const std::string& value) {
-    if (value.empty()) {
-        attrs.erase(key);
-    } else {
-        attrs.insert(key);
-        switch (key) {
-            case SUMO_ATTR_ID:
-                throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
-            case SUMO_ATTR_SPEED:
+    switch (key) {
+        case SUMO_ATTR_ID:
+            throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
+        case SUMO_ATTR_SPEED:
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
                 speed = parse<double>(value);
-                break;
-            case SUMO_ATTR_ALLOW:
+            }
+            break;
+        case SUMO_ATTR_ALLOW:
+            if (value.empty()) {
+                attrs.erase(SUMO_ATTR_DISALLOW);
+            } else {
+                attrs.insert(SUMO_ATTR_DISALLOW);
                 permissions = parseVehicleClasses(value);
-                break;
-            case SUMO_ATTR_DISALLOW:
+            }
+            break;
+        case SUMO_ATTR_DISALLOW:
+            if (value.empty()) {
+                attrs.erase(SUMO_ATTR_DISALLOW);
+            } else {
+                attrs.insert(SUMO_ATTR_DISALLOW);
                 permissions = invertPermissions(parseVehicleClasses(value));
-                break;
-            case SUMO_ATTR_WIDTH:
+            }
+            break;
+        case SUMO_ATTR_WIDTH:
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
                 width = parse<double>(value);
-                break;
-            case GNE_ATTR_PARAMETERS:
-                setParametersStr(value);
-                break;
-            default:
-                throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
-        }
+            }
+            break;
+        case GNE_ATTR_PARAMETERS:
+            setParametersStr(value);
+            break;
+        default:
+            throw InvalidArgument(getTagStr() + " doesn't have an attribute of type '" + toString(key) + "'");
     }
 }
 

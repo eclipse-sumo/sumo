@@ -193,21 +193,37 @@ GNEEdgeType::drawGL(const GUIVisualizationSettings& /*s*/) const {
 
 std::string
 GNEEdgeType::getAttribute(SumoXMLAttr key) const {
+    // get options
+    const OptionsCont& oc = OptionsCont::getOptions();
     switch (key) {
         case SUMO_ATTR_ID:
             return getID();
         case SUMO_ATTR_NUMLANES:
             return toString(myLaneTypes.size());
         case SUMO_ATTR_SPEED:
-            return toString(speed);
+            if (attrs.count(key) == 0) {
+                return toString(oc.getFloat("default.speed"));
+            } else {
+                return toString(speed);
+            }
         case SUMO_ATTR_ALLOW:
-            return getVehicleClassNames(permissions);
+            if (attrs.count(SUMO_ATTR_DISALLOW) == 0) {
+                return "all";
+            } else {
+                return getVehicleClassNames(permissions);
+            }
         case SUMO_ATTR_DISALLOW:
-            return getVehicleClassNames(invertPermissions(permissions));
-        case SUMO_ATTR_PRIORITY:
-            return toString(priority);
+            if (attrs.count(SUMO_ATTR_DISALLOW) == 0) {
+                return "";
+            } else {
+                return getVehicleClassNames(invertPermissions(permissions));
+            }
         case SUMO_ATTR_WIDTH:
-            return toString(width);
+            if (attrs.count(key) == 0) {
+                return toString(NBEdge::UNSPECIFIED_WIDTH);
+            } else {
+                return toString(width);
+            }
         case GNE_ATTR_PARAMETERS:
             return getParametersStr();
         default:
@@ -243,14 +259,24 @@ GNEEdgeType::isValid(SumoXMLAttr key, const std::string& value) {
         case SUMO_ATTR_NUMLANES:
             return canParse<int>(value) && (parse<double>(value) > 0);
         case SUMO_ATTR_SPEED:
-            return canParse<double>(value) && (parse<double>(value) > 0);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParse<double>(value) && (parse<double>(value) > 0);
+            }
         case SUMO_ATTR_ALLOW:
         case SUMO_ATTR_DISALLOW:
-            return canParseVehicleClasses(value);
-        case SUMO_ATTR_PRIORITY:
-            return canParse<int>(value);
+            if (value.empty()) {
+                return true;
+            } else {
+                return canParseVehicleClasses(value);
+            }
         case SUMO_ATTR_WIDTH:
-            return canParse<double>(value) && ((parse<double>(value) >= -1) || (parse<double>(value) == NBEdge::UNSPECIFIED_WIDTH));
+            if (value.empty() || (value == "-1")) {
+                return true;
+            } else {
+                return canParse<double>(value);
+            }
         case GNE_ATTR_PARAMETERS:
             return Parameterised::areParametersValid(value);
         default:
@@ -284,19 +310,44 @@ GNEEdgeType::setAttribute(SumoXMLAttr key, const std::string& value) {
             throw InvalidArgument("Modifying attribute '" + toString(key) + "' of " + getTagStr() + " isn't allowed");
             break;
         case SUMO_ATTR_SPEED:
-            speed = parse<double>(value);
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                speed = parse<double>(value);
+            }
             break;
         case SUMO_ATTR_ALLOW:
-            permissions = parseVehicleClasses(value);
+            if (value.empty()) {
+                attrs.erase(SUMO_ATTR_DISALLOW);
+            } else {
+                attrs.insert(SUMO_ATTR_DISALLOW);
+                permissions = parseVehicleClasses(value);
+            }
             break;
         case SUMO_ATTR_DISALLOW:
-            permissions = invertPermissions(parseVehicleClasses(value));
+            if (value.empty()) {
+                attrs.erase(SUMO_ATTR_DISALLOW);
+            } else {
+                attrs.insert(SUMO_ATTR_DISALLOW);
+                permissions = invertPermissions(parseVehicleClasses(value));
+            }
             break;
         case SUMO_ATTR_DISCARD:
-            discard = parse<bool>(value);
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                discard = parse<bool>(value);
+            }
             break;
         case SUMO_ATTR_WIDTH:
-            width = parse<double>(value);
+            if (value.empty()) {
+                attrs.erase(key);
+            } else {
+                attrs.insert(key);
+                width = parse<double>(value);
+            }
             break;
         case GNE_ATTR_PARAMETERS:
             setParametersStr(value);
