@@ -3062,6 +3062,13 @@ GNENet::getNumberOfTLSPrograms() const {
     return -1;
 }
 
+
+void 
+GNENet::saveEdgeTypes(const std::string& filename) {
+    /* */
+}
+
+
 void
 GNENet::enableUpdateGeometry() {
     myUpdateGeometryEnabled = true;

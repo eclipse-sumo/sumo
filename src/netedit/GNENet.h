@@ -705,6 +705,16 @@ public:
 
     /// @brief get number of TLS Programs
     int getNumberOfTLSPrograms() const;
+
+    /// @}
+
+    /// @name Functions related to TLS Programs
+    /// @{
+    /**@brief save edgeTypes elements of the network
+    * @param[in] filename name of the file in wich save edgeTypes
+    */
+    void saveEdgeTypes(const std::string& filename);
+
     /// @}
 
     /// @name Functions related to Enable or disable update geometry of elements after insertio

@@ -18,20 +18,24 @@
 // Functions from main window of NETEDIT
 /****************************************************************************/
 #include <netbuild/NBFrame.h>
+#include <netbuild/NBNetBuilder.h>
+#include <netedit/dialogs/GNEAbout.h>
 #include <netedit/elements/additional/GNEAdditionalHandler.h>
 #include <netedit/elements/data/GNEDataHandler.h>
 #include <netedit/elements/demand/GNERouteHandler.h>
-#include <netedit/dialogs/GNEAbout.h>
+#include <netedit/frames/common/GNEInspectorFrame.h>
+#include <netedit/frames/network/GNECreateEdgeFrame.h>
 #include <netedit/frames/network/GNETAZFrame.h>
 #include <netedit/frames/network/GNETLSEditorFrame.h>
-#include <netedit/frames/common/GNEInspectorFrame.h>
 #include <netimport/NIFrame.h>
+#include <netimport/NIXMLTypesHandler.h>
+#include <netimport/NITypeLoader.h>
 #include <netwrite/NWFrame.h>
 #include <utils/common/SystemFrame.h>
 #include <utils/foxtools/FXLinkLabel.h>
 #include <utils/gui/cursors/GUICursorSubSys.h>
-#include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
 #include <utils/gui/div/GLHelper.h>
+#include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDesigns.h>
 #include <utils/gui/div/GUIDialog_GLChosenEditor.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
@@ -40,12 +44,12 @@
 #include <utils/gui/images/GUITextureSubSys.h>
 #include <utils/gui/settings/GUICompleteSchemeStorage.h>
 #include <utils/gui/settings/GUISettingsHandler.h>
+#include <utils/gui/shortcuts/GUIShortcutsSubSys.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIDialog_Options.h>
 #include <utils/gui/windows/GUIPerspectiveChanger.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/gui/div/GUIDesigns.h>
 
 #include "GNEApplicationWindow.h"
 #include "GNEEvent_NetworkLoaded.h"
@@ -647,58 +651,27 @@ GNEApplicationWindow::onCmdOpenTLSPrograms(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdOpenEdgeTypes(FXObject*, FXSelector, void*) {
-    /*
-    long
-    GNECreateEdgeFrame::EdgeTypeFile::onCmdLoadEdgeProgram(FXObject*, FXSelector, void*) {
     // open dialog
-    FXFileDialog opendialog(this, "Load type file");
+    FXFileDialog opendialog(this, "Load edgeType file");
     opendialog.setIcon(GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length() != 0) {
-    opendialog.setDirectory(gCurrentFolder);
+        opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-    // declare number of edge types
-    const int numEdgeTypes = myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().size();
-    // declare type handler
-    NIXMLTypesHandler* handler = new NIXMLTypesHandler(myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont());
-    // load edge types
-    NITypeLoader::load(handler, {opendialog.getFilename().text()}, "types");
-    // write information
-    WRITE_MESSAGE("Loaded " + toString(myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().size() - numEdgeTypes) + " edge types");
-    // refresh template selector
-    myCreateEdgeFrame->myEdgeSelector->refreshEdgeSelector();
+        // declare number of edge types
+        const int numEdgeTypes = myViewNet->getNet()->getNetBuilder()->getTypeCont().size();
+        // declare type handler
+        NIXMLTypesHandler* handler = new NIXMLTypesHandler(myViewNet->getNet()->getNetBuilder()->getTypeCont());
+        // load edge types
+        NITypeLoader::load(handler, {opendialog.getFilename().text()}, "types");
+        // write information
+        WRITE_MESSAGE("Loaded " + toString(myViewNet->getNet()->getNetBuilder()->getTypeCont().size() - numEdgeTypes) + " edge types");
+        // refresh edge type selector
+        myViewNet->getViewParent()->getCreateEdgeFrame()->getEdgeTypeSelector()->refreshEdgeTypeSelector();
     }
     return 0;
-    }
-
-
-
-    long
-    GNECreateEdgeFrame::EdgeTypeFile::onCmdSaveEdgeProgram(FXObject*, FXSelector, void*) {
-    // open dialog
-    FXString file = MFXUtils::getFilename2Write(this,
-    "Save edge types Program as", ".xml",
-    GUIIconSubSys::getIcon(GUIIcon::MODETLS),
-    gCurrentFolder);
-    if (file == "") {
-    return 1;
-    }
-    // open device
-    OutputDevice& device = OutputDevice::getDevice(file.text());
-    // open tag
-    device.openTag(SUMO_TAG_TYPE);
-    // write edge types
-    myCreateEdgeFrame->getViewNet()->getNet()->getNetBuilder()->getTypeCont().writeEdgeTypes(device);
-    // close tag
-    device.closeTag();
-    // close device
-    device.close();
-    return 1;
-    }
-    */
-    return 1;
 }
 
 
@@ -2312,8 +2285,48 @@ GNEApplicationWindow::onCmdSaveTLSPrograms(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveEdgeTypes(FXObject*, FXSelector, void*) {
-    /* */
-    return 0;
+    // obtain option container
+    OptionsCont& oc = OptionsCont::getOptions();
+    // check if save additional menu is enabled
+    if (myFileMenuCommands.saveEdgeTypes->isEnabled()) {
+        // Check if edgeType file was already set at start of netedit or with a previous save
+        if (oc.getString("edgeTypes-output").empty()) {
+            FXString file = MFXUtils::getFilename2Write(this,
+                "Select name of the edgeType file", ".xml",
+                GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
+                gCurrentFolder);
+            // add xml extension
+            std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+            // check tat file is valid
+            if (file == "") {
+                // None edgeType Programs file was selected, then stop function
+                return 0;
+            } else {
+                // change value of "edgeTypes-output"
+                oc.resetWritable();
+                oc.set("edgeTypes-output", fileWithExtension);
+            }
+        }
+        // Start saving edgeTypes
+        getApp()->beginWaitCursor();
+        try {
+            myNet->saveEdgeTypes(oc.getString("edgeTypes-output"));
+            myMessageWindow->appendMsg(EVENT_MESSAGE_OCCURRED, "EdgeType saved in " + oc.getString("edgeTypes-output") + ".\n");
+            myFileMenuCommands.saveEdgeTypes->disable();
+        } catch (IOError& e) {
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Opening FXMessageBox 'error saving edgeTypes'");
+            // open error message box
+            FXMessageBox::error(this, MBOX_OK, "Saving edgeTypes failed!", "%s", e.what());
+            // write warning if netedit is running in testing mode
+            WRITE_DEBUG("Closed FXMessageBox 'error saving edgeTypes' with 'OK'");
+        }
+        myMessageWindow->addSeparator();
+        getApp()->endWaitCursor();
+        return 1;
+    } else {
+        return 0;
+    }
 }
 
 
@@ -2321,7 +2334,7 @@ long
 GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     // Open window to select TLS Programs file
     FXString file = MFXUtils::getFilename2Write(this,
-                    "Select name of the TLS Progarm file", ".xml",
+                    "Select name of the TLS Program file", ".xml",
                     GUIIconSubSys::getIcon(GUIIcon::MODETLS),
                     gCurrentFolder);
     // add xml extension
@@ -2340,8 +2353,22 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
 
 long
 GNEApplicationWindow::onCmdSaveEdgeTypesAs(FXObject*, FXSelector, void*) {
-    /* */
-    return 0;
+    // Open window to select edgeType file
+    FXString file = MFXUtils::getFilename2Write(this,
+        "Select name of the edgeType file", ".xml",
+        GUIIconSubSys::getIcon(GUIIcon::MODECREATEEDGE),
+        gCurrentFolder);
+    // add xml extension
+    std::string fileWithExtension = FileHelpers::addExtension(file.text(), ".xml");
+    // check tat file is valid
+    if (fileWithExtension != "") {
+        // change value of "edgeTypes-files"
+        OptionsCont::getOptions().set("edgeTypes-output", fileWithExtension);
+        // save edgeTypes
+        return onCmdSaveEdgeTypes(nullptr, 0, nullptr);
+    } else {
+        return 1;
+    }
 }
 
 
