@@ -2964,7 +2964,7 @@ GNENet::generateShapeID(SumoXMLTag tag) const {
         }
         return (toString(tag) + "_" + toString(counter));
     } else {
-        while (myAttributeCarriers->getShapes().at(tag).count(toString(SUMO_TAG_POI) + "_" + toString(counter)) != 0) {
+        while (myAttributeCarriers->getShapes().at(SUMO_TAG_POI).count(toString(SUMO_TAG_POI) + "_" + toString(counter)) != 0) {
             counter++;
         }
         return (toString(SUMO_TAG_POI) + "_" + toString(counter));

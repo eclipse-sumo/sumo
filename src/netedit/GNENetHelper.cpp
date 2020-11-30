@@ -276,10 +276,8 @@ bool
 GNENetHelper::AttributeCarriers::addPOI(const std::string& id, const std::string& type, const RGBColor& color, const Position& pos, bool geo,
                                         const std::string& lane, double posOverLane, double posLat, double layer, double angle,
                                         const std::string& imgFile, bool relativePath, double width, double height, bool /*ignorePruning*/) {
-    // get POITag (Depending of attribute lane)
-    const SumoXMLTag POITag = lane.empty() ? SUMO_TAG_POI : SUMO_TAG_POILANE;
     // check if ID is duplicated
-    if (myShapes.at(POITag).count(id) == 0) {
+    if (myShapes.at(SUMO_TAG_POI).count(id) == 0) {
         // create POI or POILane depending of parameter lane
         if (lane.empty()) {
             // create POI
@@ -712,10 +710,11 @@ GNENetHelper::AttributeCarriers::updateAdditionalID(GNEAttributeCarrier* AC, con
 
 bool
 GNENetHelper::AttributeCarriers::shapeExist(const GNEShape* shape) const {
+    // get tag (due POIs)
+    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == SUMO_TAG_POILANE)? SUMO_TAG_POI : shape->getTagProperty().getTag();
     // first check that shape pointer is valid
     if (shape) {
-        return myShapes.at(shape->getTagProperty().getTag()).find(shape->getID()) !=
-               myShapes.at(shape->getTagProperty().getTag()).end();
+        return myShapes.at(shapeTag).find(shape->getID()) != myShapes.at(shapeTag).end();
     } else {
         throw ProcessError("Invalid shape pointer");
     }
@@ -724,9 +723,11 @@ GNENetHelper::AttributeCarriers::shapeExist(const GNEShape* shape) const {
 
 void
 GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
+    // get tag (due POIs)
+    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == SUMO_TAG_POILANE)? SUMO_TAG_POI : shape->getTagProperty().getTag();
     // Check if shape element exists before insertion
     if (!shapeExist(shape)) {
-        myShapes.at(shape->getTagProperty().getTag()).insert(std::make_pair(shape->getID(), shape));
+        myShapes.at(shapeTag).insert(std::make_pair(shape->getID(), shape));
         // add element in grid
         myNet->addGLObjectIntoGrid(shape);
         // update geometry after insertion of shapes if myUpdateGeometryEnabled is enabled
@@ -743,14 +744,16 @@ GNENetHelper::AttributeCarriers::insertShape(GNEShape* shape) {
 
 void
 GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
+    // get tag (due POIs)
+    SumoXMLTag shapeTag = (shape->getTagProperty().getTag() == SUMO_TAG_POILANE)? SUMO_TAG_POI : shape->getTagProperty().getTag();
     // first check that shape pointer is valid
     if (shapeExist(shape)) {
         // remove it from inspected elements and HierarchicalElementTree
         myNet->getViewNet()->removeFromAttributeCarrierInspected(shape);
         myNet->getViewNet()->getViewParent()->getInspectorFrame()->getHierarchicalElementTree()->removeCurrentEditedAttributeCarrier(shape);
         // obtain demand element and erase it from container
-        auto it = myShapes.at(shape->getTagProperty().getTag()).find(shape->getID());
-        myShapes.at(shape->getTagProperty().getTag()).erase(it);
+        auto it = myShapes.at(shapeTag).find(shape->getID());
+        myShapes.at(shapeTag).erase(it);
         // remove element from grid
         myNet->removeGLObjectFromGrid(shape);
         // shapes has to be saved
@@ -763,19 +766,22 @@ GNENetHelper::AttributeCarriers::deleteShape(GNEShape* shape) {
 
 void
 GNENetHelper::AttributeCarriers::updateShapeID(GNEAttributeCarrier* AC, const std::string& newID) {
-    if (myShapes.at(AC->getTagProperty().getTag()).count(AC->getID()) == 0) {
+    // get tag (due POIs)
+    SumoXMLTag shapeTag = (AC->getTagProperty().getTag() == SUMO_TAG_POILANE)? SUMO_TAG_POI : AC->getTagProperty().getTag();
+    // continue
+    if (myShapes.at(shapeTag).count(AC->getID()) == 0) {
         throw ProcessError(AC->getTagStr() + " with ID='" + AC->getID() + "' doesn't exist in AttributeCarriers.shapes");
-    } else if (myShapes.at(AC->getTagProperty().getTag()).count(newID) != 0) {
+    } else if (myShapes.at(shapeTag).count(newID) != 0) {
         throw ProcessError("There is another " + AC->getTagStr() + " with new ID='" + newID + "' in AttributeCarriers.shapes");
     } else {
         // retrieve shape
-        GNEShape* shape = myShapes.at(AC->getTagProperty().getTag()).at(AC->getID());
+        GNEShape* shape = myShapes.at(shapeTag).at(AC->getID());
         // remove shape from container
-        myShapes.at(shape->getTagProperty().getTag()).erase(shape->getID());
+        myShapes.at(shapeTag).erase(shape->getID());
         // set new ID in shape
         shape->getGUIGlObject()->setMicrosimID(newID);
         // insert shape again in container
-        myShapes.at(shape->getTagProperty().getTag()).insert(std::make_pair(shape->getID(), shape));
+        myShapes.at(shapeTag).insert(std::make_pair(shape->getID(), shape));
         // shapes has to be saved
         myNet->requireSaveAdditionals(true);
     }
