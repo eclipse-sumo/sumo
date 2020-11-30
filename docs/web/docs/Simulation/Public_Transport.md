@@ -201,6 +201,14 @@ In contrast to a period flow (which also repeats a given stop sequence), this si
 
 !!! caution
     When using attribute `repeat`, the last edge of the route must be connected to the first edge of the route in order to have a valid route definition.
+    
+## Further Schedule Attributes
+The following [stop attributes](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops) are relevant for public transport schedules:
+
+- arrival: Defines expected arrival at the public transport stop. When set this causes arrivalDelay to be computed and written in [stop-output](Output/StopOutput.md). It also enables results for the function `traci.vehicle.getStopArrivalDelay`.
+- extension: The maximum time by which a public transport stop may be extended due to boarding passengers
+- line: A new line attribute to be set on the vehicle when reaching the stop. This is currently ignored by the intermodal router!
+- tripId: Updates the tripId parameter of the vehicle when reaching the stop. This parameter has no impact on simulation behavior but may be useful to reflect real-world bookkeeping on the vehicle status over the course of an operating day
 
 # Stopping without defining a bus stop
 
@@ -213,9 +221,6 @@ This means you can either use a bus stop or a lane position to define
 where a vehicle has to stop. For a complete list of attributes for the
 `stop` element of a vehicle see
 [Definition_of_Vehicles,_Vehicle_Types,_and_Routes\#Stops](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#stops).
-
-# Transport Schedules
-To define a schedule where buses 
 
 # Passengers
 
