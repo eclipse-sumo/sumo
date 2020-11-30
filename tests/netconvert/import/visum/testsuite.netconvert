@@ -18,3 +18,6 @@ messstreckeV2-discard.tls
 
 # Whether importing speed definitions with km/h appendix works
 messstreckeV2_kmhspeed
+
+# Messstrecke by JR/v3
+messstreckeV3
