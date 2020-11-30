@@ -98,9 +98,9 @@ class DistrictEdgeComputer:
             if len(filtered) == 0:
                 print("District '" + district.id + "' has no edges!")
             else:
+                color = ' color="%s"' % district.color if district.color is not None else ''
                 if options.weighted:
                     if options.shapeinfo:
-                        color = ' color="%s"' % district.color if district.color is not None else ''
                         fd.write('    <taz id="%s" shape="%s"%s>\n' %
                                  (district.id, district.getShapeString(), color))
                     else:
@@ -114,8 +114,8 @@ class DistrictEdgeComputer:
                     fd.write("    </taz>\n")
                 else:
                     if options.shapeinfo:
-                        fd.write('    <taz id="%s" shape="%s" edges="%s"/>\n' %
-                                 (district.id, district.getShapeString(), " ".join([e.getID() for e in filtered])))
+                        fd.write('    <taz id="%s" shape="%s"%s edges="%s"/>\n' %
+                                 (district.id, district.getShapeString(), color, " ".join([e.getID() for e in filtered])))
                     else:
                         currentId = district.id
                         if options.merge_param is not None:
@@ -126,8 +126,8 @@ class DistrictEdgeComputer:
                             if lastId == currentId:
                                 lastEdges.update(filtered)
                             else:
-                                fd.write('    <taz id="%s" edges="%s"/>\n' %
-                                         (lastId, " ".join(sorted([e.getID() for e in lastEdges]))))
+                                fd.write('    <taz id="%s"%s edges="%s"/>\n' %
+                                         (lastId, color, " ".join(sorted([e.getID() for e in lastEdges]))))
                                 lastId = None
                         if lastId is None:
                             lastId = currentId
