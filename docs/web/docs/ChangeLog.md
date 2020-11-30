@@ -23,6 +23,7 @@ permalink: /ChangeLog/
   - Now saving output of ssm device relative to the configuration file by default. Issue #7847
   - Fixed invalid speed and acceleration for parked vehicle. Issue #7850
   - Fixed negative timeLoss in edgeData output. Issue #7805
+  - battery model now works correctly with subeconds and handles additional power intake better. Issue #7695
   - crashing
     - Fixed crash on parallel intermodal routing. Issue #7627
     - Fixe crash when defining stops on internal edges. Issue #7690
@@ -47,7 +48,7 @@ permalink: /ChangeLog/
   - taxi fixes
     - Fixed bug with non-deterministc behavior and aborted rides if person capacity at a busStop was exceeded. Issue #7674, #7662
     - Intermodal routing no longer returns plans that frequently alternate between taxi and walking. The assumed time penalty when starting a taxi ride is now set to 300s configurable with option **--persontrip.taxi.waiting-time**. Issue #7651
-    - Grouped rides are now serviced in batches when the group size exceeds maximum taxi personCapacity. Issue #7660
+    - Grouped rides are now serviced in batches when the group size exceeds maximum taxi personCapacity. Issue #7660  
     
 - meso
   - Fixed bug in queue selection which could severely reduce flow at tls controlled intersection with turn lanes. Issue #7794 (regression in 1.7.0)
@@ -157,7 +158,7 @@ permalink: /ChangeLog/
 - od2trips
   - Attributes 'fromTaz' and 'toTaz' are now written for walks and personTrips. Issue #7591
 
- TraCI
+- TraCI
   - Added new function *vehicle.getStopArrivalDelay* to return the arrivalDelay at a public transport stop that defines the expected 'arrival'. Issue #7629
   - Added new functions for railway simulationg to investigate why a rail signal is red: *trafficlight.getBlockingVehicles, trafficlight.getRivalVehicles, trafficlight.getPriorityVehicles'. Issue #7019
   - Function 'simulation.findIntermodalRoute' now supports mode=taxi. Issue #7757
@@ -175,6 +176,7 @@ permalink: /ChangeLog/
 ### Other
 - changed default for **--device.rerouting.adaptation-interval** from 1 to 10 to increase performance. The value of **--adaptation-steps** was reduced from 180 to 18 so that the time over which speeds are averaged remains at 180s (with fewer samples). Issue #7640
 - [macOS launchers](Downloads.md#application_launchers) added for **sumo-gui**, **netedit** and the **osmWebWizard**. This allows to set **sumo-gui** as the default application to open `.sumocfg` files (to open a simulation by just double clicking a file) on macOS.
+- extractTest.py now extracts tests for all variants (sumo, meso) which have specific outputs and got a lot better picking up all options
 
 
 ## Version 1.7.0 (09.09.2020)
