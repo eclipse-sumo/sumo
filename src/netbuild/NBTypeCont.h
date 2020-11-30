@@ -130,6 +130,9 @@ public:
 
         /// @brief vector with LaneTypeDefinitions
         std::vector<LaneTypeDefinition> laneTypeDefinitions;
+
+        /// @brief whether any lane attributes deviate from the edge attributes
+        bool needsLaneType() const;
     };
 
     /// @brief A container of edgeTypes, accessed by the string id
@@ -190,6 +193,7 @@ public:
      * @return Whether the edgeType could be added (no edgeType with the same id existed)
      */
     void insertLaneType(const std::string& edgeTypeID,
+                        int index,
                         double maxSpeed,
                         SVCPermissions permissions,
                         double width);

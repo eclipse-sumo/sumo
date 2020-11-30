@@ -41,7 +41,7 @@
 // ---------------------------------------------------------------------------
 
 NBTypeCont::LaneTypeDefinition::LaneTypeDefinition() :
-    speed((double) 13.89),
+    speed(NBEdge::UNSPECIFIED_SPEED),
     permissions(SVC_UNSPECIFIED),
     width(NBEdge::UNSPECIFIED_WIDTH) {
 }
@@ -88,6 +88,25 @@ NBTypeCont::EdgeTypeDefinition::EdgeTypeDefinition(int numLanes, double _speed, 
     laneTypeDefinitions.resize(numLanes);
 }
 
+bool
+NBTypeCont::EdgeTypeDefinition::needsLaneType() const {
+    for (const LaneTypeDefinition& laneType : laneTypeDefinitions) {
+        if (laneType.attrs.count(SUMO_ATTR_SPEED) > 0 && laneType.speed != NBEdge::UNSPECIFIED_SPEED && laneType.speed != speed) {
+            return true;
+        }
+        if ((laneType.attrs.count(SUMO_ATTR_DISALLOW) > 0 || laneType.attrs.count(SUMO_ATTR_ALLOW) > 0)
+                && laneType.permissions != permissions) {
+            return true;
+        }
+        if (laneType.attrs.count(SUMO_ATTR_WIDTH) > 0 && laneType.width != width && laneType.width != NBEdge::UNSPECIFIED_WIDTH) {
+            return true;
+        }
+        if (laneType.restrictions.size() > 0) {
+            return true;
+        }
+    }
+    return false; 
+}
 // ---------------------------------------------------------------------------
 // NBTypeCont - methods
 // ---------------------------------------------------------------------------
@@ -157,11 +176,12 @@ NBTypeCont::insertEdgeType(const std::string& id, EdgeTypeDefinition* edgeType) 
 
 
 void
-NBTypeCont::insertLaneType(const std::string& edgeTypeID, double maxSpeed, SVCPermissions permissions, double width) {
-    // create lane
-    LaneTypeDefinition newLane(maxSpeed, width, permissions);
-    // push back in edge
-    myEdgeTypes.at(edgeTypeID)->laneTypeDefinitions.push_back(newLane);
+NBTypeCont::insertLaneType(const std::string& edgeTypeID, int index, double maxSpeed, SVCPermissions permissions, double width) {
+    EdgeTypeDefinition* et = myEdgeTypes.at(edgeTypeID);
+    while ((int)et->laneTypeDefinitions.size() < index) {
+        et->laneTypeDefinitions.push_back(LaneTypeDefinition(et->speed, et->width, et->permissions)); 
+    }
+    et->laneTypeDefinitions[index] = LaneTypeDefinition(maxSpeed, width, permissions);
 }
 
 
@@ -342,34 +362,40 @@ NBTypeCont::writeEdgeTypes(OutputDevice& into) const {
             into.closeTag();
         }
         // iterate over lanes
-        for (const auto &laneType : edgeType.second->laneTypeDefinitions) {
-            // open lane type tag
-            into.openTag(SUMO_TAG_LANETYPE);
-            // write speed
-            if (laneType.attrs.count(SUMO_ATTR_SPEED) > 0) {
-                into.writeAttr(SUMO_ATTR_SPEED, laneType.speed);
-            }
-            // write permissions
-            if (laneType.attrs.count(SUMO_ATTR_DISALLOW) > 0 || laneType.attrs.count(SUMO_ATTR_ALLOW) > 0) {
-                writePermissions(into, laneType.permissions);
-            }
-            // write width
-            if (laneType.attrs.count(SUMO_ATTR_WIDTH) > 0) {
-                into.writeAttr(SUMO_ATTR_WIDTH, laneType.width);
-            }
-            // write restrictions
-            for (const auto &restriction : laneType.restrictions) {
-                // open restriction tag
-                into.openTag(SUMO_TAG_RESTRICTION);
-                // write vclass
-                into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(restriction.first));
+        if (edgeType.second->needsLaneType()) {
+            int index = 0;
+            for (const auto &laneType : edgeType.second->laneTypeDefinitions) {
+                // open lane type taG
+                into.openTag(SUMO_TAG_LANETYPE);
+                into.writeAttr(SUMO_ATTR_INDEX, index++);
                 // write speed
-                into.writeAttr(SUMO_ATTR_SPEED, restriction.second);
-                // close restriction tag
+                if (laneType.attrs.count(SUMO_ATTR_SPEED) > 0 && laneType.speed != NBEdge::UNSPECIFIED_SPEED
+                        && laneType.speed != edgeType.second->speed) {
+                    into.writeAttr(SUMO_ATTR_SPEED, laneType.speed);
+                }
+                // write permissions
+                if (laneType.attrs.count(SUMO_ATTR_DISALLOW) > 0 || laneType.attrs.count(SUMO_ATTR_ALLOW) > 0) {
+                    writePermissions(into, laneType.permissions);
+                }
+                // write width
+                if (laneType.attrs.count(SUMO_ATTR_WIDTH) > 0 && laneType.width != edgeType.second->width 
+                        && laneType.width != NBEdge::UNSPECIFIED_WIDTH) {
+                    into.writeAttr(SUMO_ATTR_WIDTH, laneType.width);
+                }
+                // write restrictions
+                for (const auto &restriction : laneType.restrictions) {
+                    // open restriction tag
+                    into.openTag(SUMO_TAG_RESTRICTION);
+                    // write vclass
+                    into.writeAttr(SUMO_ATTR_VCLASS, getVehicleClassNames(restriction.first));
+                    // write speed
+                    into.writeAttr(SUMO_ATTR_SPEED, restriction.second);
+                    // close restriction tag
+                    into.closeTag();
+                }
+                // close lane type tag
                 into.closeTag();
             }
-            // close lane type tag
-            into.closeTag();
         }
         // close edge type tag
         into.closeTag();

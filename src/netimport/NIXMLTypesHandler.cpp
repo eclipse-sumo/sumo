@@ -102,7 +102,12 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             bool ok = true;
             // use id of last inserted edge
             const char* const edgeTypeId = myCurrentTypeID.c_str();
+            const int index = attrs.get<int>(SUMO_ATTR_INDEX, edgeTypeId, ok);
             const std::string defType = myTypeCont.knows(myCurrentTypeID) ? myCurrentTypeID : "";
+            if (index >= myTypeCont.getEdgeTypeNumLanes(defType)) {
+                WRITE_ERROR("Invalid lane index " + toString(index) + " for edge type '" + defType + "' with " + toString(myTypeCont.getEdgeTypeNumLanes(defType)) + " lanes");
+                ok = false;
+            }
             const double speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, edgeTypeId, ok, myTypeCont.getEdgeTypeSpeed(edgeTypeId));
             const std::string allowS = attrs.getOpt<std::string>(SUMO_ATTR_ALLOW, edgeTypeId, ok, "");
             const std::string disallowS = attrs.getOpt<std::string>(SUMO_ATTR_DISALLOW, edgeTypeId, ok, "");
@@ -116,7 +121,7 @@ NIXMLTypesHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
                 }
 
                 // insert laneType in container
-                myTypeCont.insertLaneType(myCurrentTypeID, speed, permissions, width);
+                myTypeCont.insertLaneType(myCurrentTypeID, index, speed, permissions, width);
                 // mark attributes as set
                 SumoXMLAttr myAttrs[] = {SUMO_ATTR_SPEED, SUMO_ATTR_ALLOW, SUMO_ATTR_DISALLOW, SUMO_ATTR_WIDTH};
                 for (const auto& attr : myAttrs) {
