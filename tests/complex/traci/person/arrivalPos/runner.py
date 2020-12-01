@@ -12,7 +12,7 @@
 # https://www.gnu.org/licenses/old-licenses/gpl-2.0-standalone.html
 # SPDX-License-Identifier: EPL-2.0 OR GPL-2.0-or-later
 
-# @file    main.py
+# @file    runner.py
 # @author  Michael Behrisch
 # @date    2020-10-15
 
@@ -30,7 +30,7 @@ import traci.constants as tc  # noqa
 
 
 traci.start([sumolib.checkBinary("sumo"), "-c",
-    "data/OnlyNetQuickstart.sumocfg", "--no-step-log"] + sys.argv[1:])
+             "data/OnlyNetQuickstart.sumocfg", "--no-step-log"] + sys.argv[1:])
 
 traci.vehicle.add(vehID="bus_1", typeID="BUS", routeID="", depart=0, departPos=0, departSpeed=0, departLane=1)
 traci.vehicle.setRoute("bus_1", ["L12", "L15", "L5"])

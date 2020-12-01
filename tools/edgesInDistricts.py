@@ -115,7 +115,8 @@ class DistrictEdgeComputer:
                 else:
                     if options.shapeinfo:
                         fd.write('    <taz id="%s" shape="%s"%s edges="%s"/>\n' %
-                                 (district.id, district.getShapeString(), color, " ".join([e.getID() for e in filtered])))
+                                 (district.id, district.getShapeString(), color,
+                                  " ".join([e.getID() for e in filtered])))
                     else:
                         currentId = district.id
                         if options.merge_param is not None:
