@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Tue Dec  1 08:29:53 2020 by Eclipse SUMO sumo Version 1.8.0
+-->
+
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
 
     <input>
@@ -9,6 +14,9 @@
         <save-state.times value="9"/>
         <save-state.files value="input_state.xml"/>
     </output>
-    <no-step-log value="true"/>
+
+    <report>
+        <no-step-log value="true"/>
+    </report>
 
 </configuration>
