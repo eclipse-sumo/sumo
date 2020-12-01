@@ -695,12 +695,12 @@ GUILane::drawGL(const GUIVisualizationSettings& s) const {
         const MSLane::VehCont& vehicles = getVehiclesSecure();
         for (MSLane::VehCont::const_iterator v = vehicles.begin(); v != vehicles.end(); ++v) {
             if ((*v)->getLane() == this) {
-                static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+                static_cast<const GUIVehicle*>(*v)->drawGL(s);
             } // else: this is the shadow during a continuous lane change
         }
         // draw parking vehicles
         for (std::set<const MSVehicle*>::const_iterator v = myParkingVehicles.begin(); v != myParkingVehicles.end(); ++v) {
-            static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+            static_cast<const GUIVehicle*>(*v)->drawGL(s);
         }
         // allow lane simulation
         releaseVehicles();

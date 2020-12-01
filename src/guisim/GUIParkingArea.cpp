@@ -194,7 +194,7 @@ GUIParkingArea::drawGL(const GUIVisualizationSettings& s) const {
     // draw parking vehicles (their lane might not be within drawing range. if it is, they are drawn twice)
     myLane.getVehiclesSecure();
     for (std::set<const MSVehicle*>::const_iterator v = myLane.getParkingVehicles().begin(); v != myLane.getParkingVehicles().end(); ++v) {
-        static_cast<const GUIVehicle* const>(*v)->drawGL(s);
+        static_cast<const GUIVehicle*>(*v)->drawGL(s);
     }
     myLane.releaseVehicles();
 

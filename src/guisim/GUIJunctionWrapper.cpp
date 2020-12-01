@@ -249,6 +249,9 @@ GUIJunctionWrapper::getColorValue(const GUIVisualizationSettings& /* s */, int a
                     return 11;
                 case SumoXMLNodeType::RAIL_CROSSING:
                     return 12;
+                default:
+                    assert(false);
+                    return 0;
             }
         case 3:
             return myJunction.getPosition().z();
