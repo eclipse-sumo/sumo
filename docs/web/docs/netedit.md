@@ -941,8 +941,6 @@ Person plans can be extended using the PersonPlan frame. Once the Person plan fr
 
 ## Data specific modes
 
-Los edgeData son elementos asociados a uno  varios edges, usandos para multiples propositos (especialmente Demand). Tienen su propio modo, seleccionable a través del boton superior o pulsando F4.
-
 EdgeData are elements associated with one or several edges, used for multiple purposes (especially Demand). They have their own mode, selectable through the top button or by pressing F4.
 
 ![](images/DataMode1.png)Data mode overview
@@ -965,8 +963,13 @@ EdgeData are created over a single edge.
 
 ### Edge rel data mode
 
-Edge rel data
+EdgeRelDatas are created over two consecutive edges
 
+![](images/DataMode7.png)Click over first edge
+
+![](images/DataMode8.png)Click over second consecutive edge creates edge rel data
+
+![](images/DataMode9.png)Inspecting an edge rel data
 
 # netedit elements
 
