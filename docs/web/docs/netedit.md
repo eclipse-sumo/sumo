@@ -963,13 +963,13 @@ EdgeData are created over a single edge.
 
 ### Edge rel data mode
 
-EdgeRelDatas are created over two consecutive edges
+EdgeRelDatas are created over two edges
 
 ![](images/DataMode7.png)Click over first edge
 
-![](images/DataMode8.png)Click over second consecutive edge creates edge rel data
+![](images/DataMode8.png)Click over second edge to create path
 
-![](images/DataMode9.png)Inspecting an edge rel data
+![](images/DataMode9.png)Press enter to create edge rel data
 
 # netedit elements
 
