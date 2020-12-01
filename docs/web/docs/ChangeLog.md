@@ -124,7 +124,7 @@ permalink: /ChangeLog/
   - Pedestrian simulation will no longer deadlock on narrow sidewalks (< 1.28m) Issue #7746
   - Person journey can now include transfer from walking-only edge to car-only edge at junction #7779
   - Option **--ride.stop-tolerance** now applies to all kinds of stops. #6204
-  - Add **--fcd-output.max-leader-distance** which will add attributes `leaderGap, leaderSpeed, leaderID` to fcd-output whenever a vehicle has a leader within the given distance #7788
+  - Added option **--fcd-output.max-leader-distance** which will add attributes `leaderGap, leaderSpeed, leaderID` to fcd-output whenever a vehicle has a leader within the given distance #7788
   - Stop for vehicles and persons can now be specified using attribute 'edge' instead of 'lane'. Vehicles will stop on the rightmost lane that allows their vehicle class (whereas persons ignored the lane index anyway). Issue #5443
   - Taxi device can now be used to simulate on-demand container transport. Issue #7815
   - Option **--fcd-output.params** now supports optional output of device parameters and model parameters with the same [prefix codes as TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e). Issue #7851  
