@@ -84,11 +84,6 @@ by rear-end collisions
 time. Collision beyond the intersection due to this are always
 detected but collisions on the intersection are only registered when
 setting the option **--collision.check-junctions**.
-- [Double
-connections](../Networks/PlainXML.md#multiple_connections_from_the_same_edge_to_the_same_target_lane)
-from a traffic-light-controlled edge: If two lanes from the same
-edge with the same target lane get the green light at the same time,
-collisions are likely
 - If all [Double
 connections](../Networks/PlainXML.md#multiple_connections_from_the_same_edge_to_the_same_target_lane)
 at an edge are configured with `pass="true"`
