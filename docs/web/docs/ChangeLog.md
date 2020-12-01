@@ -160,7 +160,7 @@ permalink: /ChangeLog/
 
 - TraCI
   - Added new function *vehicle.getStopArrivalDelay* to return the arrivalDelay at a public transport stop that defines the expected 'arrival'. Issue #7629
-  - Added new functions for railway simulationg to investigate why a rail signal is red: *trafficlight.getBlockingVehicles, trafficlight.getRivalVehicles, trafficlight.getPriorityVehicles'. Issue #7019
+  - Added new functions for railway simulation to investigate why a rail signal is red: *trafficlight.getBlockingVehicles, trafficlight.getRivalVehicles, trafficlight.getPriorityVehicles'. Issue #7019
   - Function 'simulation.findIntermodalRoute' now supports mode=taxi. Issue #7757
   - Functon vehicle.moveToXY' now only maps onto lanes compatible with the vClass of the vehicle. To ignore permissions, bit2 of the keepRoute flag can be set. Issue #5383
 
