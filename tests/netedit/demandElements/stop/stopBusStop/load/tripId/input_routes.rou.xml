@@ -39,13 +39,13 @@
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
     <route edges="gneE0 gneE1" color="yellow" id="route_0">
 	
-        <stop busStop="busStop" containerTriggered="1" expectedContainer=""/>
+        <stop busStop="busStop" tripId=""/>
 		
-		<stop busStop="busStop" containerTriggered="1" expectedContainer=";;;;"/>
+		<stop busStop="busStop" tripId=";;;;"/>
 		
-		<stop busStop="busStop" containerTriggered="1" expectedContainer="ID1"/>
+		<stop busStop="busStop" tripId="ID1"/>
 		
-		<stop busStop="busStop" containerTriggered="1" expectedContainer="ID1 ID2"/>
+		<stop busStop="busStop" tripId="ID1 ID2"/>
 		
     </route>
 </routes>
