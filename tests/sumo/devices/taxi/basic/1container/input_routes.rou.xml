@@ -7,10 +7,10 @@
     </vType>
 
     <trip id="trip_0" type="taxi" depart="0.00">
-        <stop lane="A0B0_1" triggered="person"/>
+        <stop lane="A0B0_1" triggered="container"/>
     </trip>
     <trip id="trip_1" type="taxi" depart="0.00">
-        <stop lane="A2B2_1" triggered="person"/>
+        <stop lane="A2B2_1" triggered="container"/>
     </trip>
 
     <container id="c0" depart="0.00">
