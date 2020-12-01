@@ -83,7 +83,7 @@ permalink: /ChangeLog/
   - Fixed dotted contour of inspected edges in left-hand networks. Issue #7675 (regression in 1.7.0)
   - Fixed dotted contour of bidi rail edges in spread mode. Issue #7569
   - Fixed text angle of name attribute for additional network objects. Issue #6516
-  - Flow and stack labels no scale with vehicle exaggeration. Issue #6541
+  - Flow and stack labels now scale with vehicle exaggeration. Issue #6541
   - Inspecting tls-controlled crossings now always shows the corresponding tls link index. Issue #7747
   - Link indices of connections and crossings can now be reset to default using value '-1'. Issue #4540
   - Fixed invalid warning about unsaved data. Issue #5971
