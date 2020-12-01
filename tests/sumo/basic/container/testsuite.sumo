@@ -37,6 +37,9 @@ stop_duration
 # car triggered by containers
 triggered
 
+# car triggered by containers using deprecated attribute containerTriggered
+triggered_oldStyle
+
 # car triggered by containers
 triggeredParking
 
