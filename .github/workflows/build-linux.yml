@@ -85,7 +85,7 @@ jobs:
       with:
         name: Linux-${{ matrix.compiler }}-${{ matrix.build_type }}
         path: sumo/bin
-        
+
     - name: Building FMU Compliance Checker
       if: matrix.build_type == 'full'
       run: |
@@ -95,7 +95,7 @@ jobs:
         cd build
         cmake ..
         make install test
-        
+
     - name: Checking sumo-fmi2.fmu
       if: matrix.build_type == 'full'
       run: |
@@ -119,10 +119,12 @@ jobs:
     steps:
     - name: Cloning SUMO
       uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
     - name: Fetching SUMO tags
       run: |
-        git fetch --prune --unshallow
+        git fetch --tags --force
 
     - name: Building Python wheels
       uses: docker://quay.io/pypa/manylinux2014_x86_64
