@@ -345,7 +345,7 @@ public:
             // if attribute is optional and has a default value, obtain it. In other case, abort.
             if (attrProperties.isOptional()) {
                 parsedAttribute = attrProperties.getDefaultValue();
-            } else {
+            } else if (!tagProperties.isVehicle()) {
                 WRITE_WARNING("Essential " + attrProperties.getDescription() + " attribute '" + toString(attribute) + "' of " +
                               warningMessage +  " is missing; " + tagProperties.getTagStr() + " cannot be created");
                 // abort parsing (and creation) of element
