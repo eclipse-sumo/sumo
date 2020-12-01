@@ -26,6 +26,7 @@
       <xsd:attribute name="laneDensity" use="optional" type="nonNegativeFloatType"/>
       <xsd:attribute name="occupancy" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="waitingTime" use="optional" type="nonNegativeFloatType"/>
+      <xsd:attribute name="timeLoss" use="optional" type="xsd:float"/>
       <xsd:attribute name="speed" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="vaporized" use="optional" type="xsd:integer"/>
     </xsd:complexType>
@@ -45,9 +46,9 @@
       <xsd:attribute name="density" use="optional" type="nonNegativeFloatType"/>
       <xsd:attribute name="occupancy" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="waitingTime" use="optional" type="nonNegativeFloatType"/>
+      <xsd:attribute name="timeLoss" use="optional" type="xsd:float"/>
       <xsd:attribute name="speed" use="optional" type="xsd:decimal"/>
       <xsd:attribute name="vaporized" use="optional" type="xsd:integer"/>
     </xsd:complexType>
   </xsd:element>
 </xsd:schema>
-
