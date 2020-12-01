@@ -140,7 +140,7 @@ permalink: /ChangeLog/
   - [Generic parameters](Simulation/GenericParameters.md) of vTypes can now be edited. Issue #7646
   - Edge operation 'restore geometry endpoint' can now be applied to edge selections. Issue #7576
   - Junction attribute 'tlLayout' can now be edited. Issue #7812
-  - Edit mode specific options are now buttons instead of checkboxes to better find on the screen. Issue #6498
+  - Edit mode specific options are now buttons instead of checkboxes to better fit on the screen. Issue #6498
   
 - sumo-gui
   - Rail signal now includes internal state (reason for red) in parameter dialog. Issue #7600
