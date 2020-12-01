@@ -1,2 +1,8 @@
 # customer exists early and leave taxi in invalid state
 ticket7257
+
+# customer enters early and taxi exits before first dispatch
+ticket7893
+
+# customer enters early and taxi exits before first dispatch
+ticket7893_container
