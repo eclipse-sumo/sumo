@@ -278,3 +278,13 @@ The `<globalMeasures>` element has the following structure:
 | minTGAP  | time      | float          | Time at which the minimal time headway was recorded.                      |
 |          | value     | float          | Minimal recorded value for the time headway.                              |
 |          | position  | 2D-coordinate  | Position of the ego vehicle, where the minimal time headway was recorded. |
+
+
+## TraCI
+The following values can be retrieved for equipped vehicles if they have enabled the corresponding measures:
+
+- traci.vehicle.getParameter(vehID, "device.ssm.minTTC")
+- traci.vehicle.getParameter(vehID, "device.ssm.minPET")
+- traci.vehicle.getParameter(vehID, "device.ssm.maxDRAC")
+
+The values correspond to the current min/max for all currently active encounters.
