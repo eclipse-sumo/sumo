@@ -86,6 +86,14 @@ for route in sumolib.output.parse_fast("myRoutes.rou.xml", 'route', ['edges
     # do something with the vector of edge ids
 ```
 
+## parse vehicles and their route edges in a route file
+
+```
+for vehicle in sumolib.output.parse("myRoutes.rou.xml", "vehicle"):
+    route = vehicle.route[0] # access the first (and only) child element with name 'route'
+    edges = route.edges.split()
+```
+
 ## parse all edges in a edge data (meanData) file
 
 ```
