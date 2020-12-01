@@ -3,7 +3,7 @@ title: ChangeLog
 permalink: /ChangeLog/
 ---
 
-## Version 1.8.0 (01.12.2020)
+## Version 1.8.0 (02.12.2020)
 
 ### Bugfixes
 - simulation      

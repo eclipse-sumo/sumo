@@ -58,7 +58,7 @@ markdown_extensions:
 
 extra:
     Version: 1.8.0
-    ReleaseDate: 01.12.2020
+    ReleaseDate: 02.12.2020
 
     AdditionalFile: '[*additional-file*](/docs/sumo.html#format_of_additional_files)'
     AdditionalFiles: '[*additional-files*](/docs/sumo.html#format_of_additional_files)'
