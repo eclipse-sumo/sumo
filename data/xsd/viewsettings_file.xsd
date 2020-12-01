@@ -15,7 +15,7 @@
             </xsd:choice>
         </xsd:complexType>
     </xsd:element>
-	
+
     <xsd:complexType name="breakpointType">
         <xsd:attribute name="time" type="xsd:float" use="required"/>
     </xsd:complexType>
