@@ -3,11 +3,11 @@ title: Developer/Implementation Notes/Simulation Loop
 permalink: /Developer/Implementation_Notes/Simulation_Loop/
 ---
 
-# Basic
+# Main Vehicle Update Loop
 
 sumo and sumo-gui call both the method `MSNet::simulationStep`. 
 This sketch describes the further communication of this method 
-with the other elements of the simulation.
+with the other elements of the simulation and the update cycle for the vehicles.
 
 ```plantuml
 @startuml
