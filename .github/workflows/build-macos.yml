@@ -18,11 +18,12 @@ jobs:
       uses: actions/checkout@v2
       with:
         path: sumo
+        fetch-depth: 0
 
     - name: Fetching SUMO tags
       run: |
         cd sumo
-        git fetch --prune --unshallow
+        git fetch --tags --force
 
     - name: Preparing Build System
       run: |
