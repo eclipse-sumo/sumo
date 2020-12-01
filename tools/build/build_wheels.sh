@@ -7,7 +7,7 @@ mkdir -p $HOME/.ccache
 echo "hash_dir = false" >> $HOME/.ccache/ccache.conf
 echo "base_dir = /github/workspace/_skbuild/linux-x86_64-3.8" >> $HOME/.ccache/ccache.conf
 /opt/python/cp38-cp38/bin/python tools/build/setup-sumo.py --cmake-executable cmake3 -j 8 bdist_wheel
-mv dist/sumo-* `echo dist/sumo-* | sed 's/cp38-cp38/py2.py3-none/'`
+mv dist/eclipse-sumo-* `echo dist/eclipse-sumo-* | sed 's/cp38-cp38/py2.py3-none/'`
 auditwheel repair dist/sumo*.whl
 for py in /opt/python/*; do
     rm dist/*.whl
@@ -16,5 +16,7 @@ for py in /opt/python/*; do
     echo "base_dir = /github/workspace/_skbuild/linux-x86_64-3.${pminor}" >> $HOME/.ccache/ccache.conf
     $py/bin/python tools/build/setup-sumo.py --cmake-executable cmake3 -j 8 bdist_wheel
     $py/bin/python tools/build/setup-libsumo.py bdist_wheel
+    $py/bin/python tools/build/setup-libtraci.py bdist_wheel
     auditwheel repair dist/libsumo*.whl
+    auditwheel repair dist/libtraci*.whl
 done

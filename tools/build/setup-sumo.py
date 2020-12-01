@@ -20,7 +20,7 @@ import version
 
 SUMO_VERSION = version.get_pep440_version()
 setup(
-    name='sumo',
+    name='eclipse-sumo',
     version=SUMO_VERSION,
     url='https://sumo.dlr.de/',
     download_url='https://sumo.dlr.de/download',
