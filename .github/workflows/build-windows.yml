@@ -196,7 +196,7 @@ jobs:
         ls -lR
         mkdir dist
         mv ./*-wheels/* dist
-        mv dist/eclipse-sumo-*cp38* `echo dist/eclipse-sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
+        mv dist/eclipse_sumo-*cp38* `echo dist/eclipse_sumo-*cp38* | sed 's/cp38-cp38/py2.py3-none/'`
 
     - name: Publish to Test PyPI
       if: github.event_name == 'schedule'
