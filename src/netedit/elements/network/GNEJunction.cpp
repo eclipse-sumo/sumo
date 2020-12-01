@@ -1553,6 +1553,9 @@ GNEJunction::getColorValue(const GUIVisualizationSettings& /* s */, int activeSc
                     return 11;
                 case SumoXMLNodeType::RAIL_CROSSING:
                     return 12;
+                default:
+                    assert(false);
+                    return 0;
             }
         case 3:
             return myNBNode->getPosition().z();
