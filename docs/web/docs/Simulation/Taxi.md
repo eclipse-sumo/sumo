@@ -19,13 +19,9 @@ For instance, a single vehicle can configured as taxi as in the following minima
 
 ```
     <vehicle id="v0" route="route0" depart="0" line="taxi">
-        <param key="has.taxi.device" value="true"/>
-        <stop lane="C0D0_1" triggered="person"/>
+        <param key="has.taxi.device" value="true"/>  
     </vehicle>
 ```
-
-Note, that the stop definition is used to keep the taxi waiting in the
-simulation until the first dispatch is received.
 
 # Taxi requests
 
