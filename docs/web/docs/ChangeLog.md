@@ -39,6 +39,7 @@ permalink: /ChangeLog/
     - Fixed invalid odometer value after loading state. Issue #7827
     - Fixed invalid reroute count after loading state. Issue #7811
     - Fixed accumulated waitingtime after loading state. Issue #7657
+    - Fixed invalid randomness when loading state saved with option **--save-state.rng**. Issue #7731
   - railway fixes
     - Fixed unwanted influence by stopped trains on insertion and rail signal operation. Issue #7527, #7529 (regression in 1.7.0)
     - Fixed train collision due to unsafe rail signal state. Issue #7534
