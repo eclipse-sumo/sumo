@@ -1184,11 +1184,9 @@ attributes have the same meaning as for [E1 induction
 loops](Simulation/Output/Induction_Loops_Detectors_(E1).md),
 including automatic ID and position at a certain lane. As a real
 detector has a certain length, "length" must be supplied as a further
-parameter. It may be a negative number which let the detector be
-extended, upstream to the given start position. The optional parameter
-"cont" lets the detector continue over the current lane onto this lane's
-predecessors when the detector's length plus his position is larger than
-the place available on the lane.
+parameter. When placed in netedit, the detector will be extended by the given length in the upstream direction.
+
+When selecting 'e2MultiLaneDetector', two or more sequential lanes must selected on which to place the detector.
 
 ![](images/GNEE2.png)Detector E2
 
