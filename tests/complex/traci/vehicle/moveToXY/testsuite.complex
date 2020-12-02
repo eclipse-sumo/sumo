@@ -30,3 +30,6 @@ waitingTime
 
 # tests mapping with length/geometry mismatch
 customLength_keepRoute2
+
+# test retrieving the original speed
+speedWithoutTraCI
