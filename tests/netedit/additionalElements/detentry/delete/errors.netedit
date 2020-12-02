@@ -20,15 +20,15 @@ Debug: Current Viewport values: 25.00, 0.00, 25.00. Zoom = '296.00'
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'e3Detector' in TagSelector
 Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_3 into SUMORTree with boundary 7.00,-3.00,27.00,17.00
+GLDebug: 	Inserted e3Detector:e3Detector_3 into SUMORTree with boundary 7.00,-4.00,27.00,16.00
 Debug: Adding e3Detector 'e3Detector_5' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_5 into SUMORTree with boundary 11.00,-3.00,31.00,17.00
+GLDebug: 	Inserted e3Detector:e3Detector_5 into SUMORTree with boundary 11.00,-4.00,31.00,16.00
 Debug: Selected item 'detEntry' in TagSelector
 Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
 Debug: Adding detEntry 'e3Detector_4' in GNEChange_Additional
 Debug: Removing detEntry 'e3Detector_3' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
-GLDebug: 	Removed object e3Detector:e3Detector_3 from SUMORTree with boundary 7.00,-3.00,27.00,17.00
+GLDebug: 	Removed object e3Detector:e3Detector_3 from SUMORTree with boundary 7.00,-4.00,27.00,16.00
 Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Removing detExit 'e3Detector_0' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_0' in GNEChange_Additional
@@ -88,7 +88,7 @@ Debug: Adding detEntry 'e3Detector_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Adding e3Detector 'e3Detector_3' in GNEChange_Additional
-GLDebug: 	Inserted e3Detector:e3Detector_3 into SUMORTree with boundary 7.00,-3.00,27.00,17.00
+GLDebug: 	Inserted e3Detector:e3Detector_3 into SUMORTree with boundary 7.00,-4.00,27.00,16.00
 Debug: Adding detEntry 'e3Detector_3' in GNEChange_Additional
 Debug: Opened FXMessageBox Problem deleting edge 'gneE0'
 Debug: Closed FXMessageBox Problem deleting edge 'gneE0'
@@ -96,7 +96,7 @@ Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing detEntry 'e3Detector_3' in GNEChange_Additional
 Debug: Removing e3Detector 'e3Detector_3' in GNEChange_Additional
-GLDebug: 	Removed object e3Detector:e3Detector_3 from SUMORTree with boundary 7.00,-3.00,27.00,17.00
+GLDebug: 	Removed object e3Detector:e3Detector_3 from SUMORTree with boundary 7.00,-4.00,27.00,16.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Removing detEntry 'e3Detector_0' in GNEChange_Additional
@@ -146,7 +146,7 @@ Debug: Deleting unreferenced lane 'gneE1_0' in GNEEdge destructor
 Debug: Deleting unreferenced detEntry 'e3Detector_4'
 Debug: Deleting unreferenced detEntry 'e3Detector_3'
 Debug: Deleting unreferenced e3Detector 'e3Detector_5'
-GLDebug: 	Removed object e3Detector:e3Detector_5 from SUMORTree with boundary 11.00,-3.00,31.00,17.00
+GLDebug: 	Removed object e3Detector:e3Detector_5 from SUMORTree with boundary 11.00,-4.00,31.00,16.00
 Debug: Deleting unreferenced e3Detector 'e3Detector_3'
 Debug: Deleting unreferenced detExit 'e3Detector_4'
 Debug: Deleting unreferenced detEntry 'e3Detector_4'

@@ -888,7 +888,6 @@ Debug: Created connection 'fromgneE9_1togneE14_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1to-gneE13_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE18_1' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE9_1togneE10_1' in retrieveGNEConnection()
-Debug: Additionals saved
 Debug: Deleting unreferenced edge '-gneE19' in GNEChange_Attribute
 Debug: Deleting unreferenced lane '-gneE19_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '-gneE19_1' in GNEEdge destructor

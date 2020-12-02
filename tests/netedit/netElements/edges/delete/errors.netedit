@@ -124,6 +124,7 @@ Debug: Created connection 'from5_0to2_0' in retrieveGNEConnection()
 Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from6_0to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from6_1to1_1' in retrieveGNEConnection()
+Debug: Created connection 'from7_1to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_2to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_3to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from7_3to2_1' in retrieveGNEConnection()
@@ -137,6 +138,7 @@ Debug: invalidating (removing) connections of edge '4' due it were guessed
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into junction 'Center'
 Debug: Setting previous attribute modificationStatusNotForPrinting 'guessed' into edge '7'
 Debug: invalidating (removing) connections of edge '7' due it were guessed
+Debug: Deleting unreferenced connection 'from7_1to1_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from7_2to1_0' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from7_3to1_1' in clearGNEConnections()
 Debug: Deleting unreferenced connection 'from7_3to2_1' in clearGNEConnections()
@@ -328,6 +330,7 @@ Debug: Created connection 'from5_0to2_0' in retrieveGNEConnection()
 Debug: Created connection 'from5_1to2_1' in retrieveGNEConnection()
 Debug: Created connection 'from6_0to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from6_1to1_1' in retrieveGNEConnection()
+Debug: Created connection 'from7_1to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_2to1_0' in retrieveGNEConnection()
 Debug: Created connection 'from7_3to1_1' in retrieveGNEConnection()
 Debug: Created connection 'from7_3to2_1' in retrieveGNEConnection()
@@ -376,6 +379,7 @@ Debug: Deleting unreferenced lane '7_0' in GNEEdge destructor
 Debug: Deleting unreferenced lane '7_1' in GNEEdge destructor
 Debug: Deleting unreferenced lane '7_2' in GNEEdge destructor
 Debug: Deleting unreferenced lane '7_3' in GNEEdge destructor
+Debug: Deleting unreferenced connection 'from7_1to1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_2to1_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_3to1_1' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'from7_3to2_1' in GNEEdge destructor

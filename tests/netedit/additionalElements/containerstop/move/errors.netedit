@@ -2,29 +2,33 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'containerStop' in TagSelector
 Debug: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
+Debug: Setting new attribute startPos '0.00' into containerStop 'containerStop_gneE0_0_0'
+Debug: Setting new attribute endPos '10.00' into containerStop 'containerStop_gneE0_0_0'
+Debug: Setting new attribute startPos '25.00' into containerStop 'containerStop_gneE0_0_0'
+Debug: Setting new attribute endPos '35.00' into containerStop 'containerStop_gneE0_0_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute endPos '10.00' into containerStop 'containerStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '0.00' into containerStop 'containerStop_gneE0_0_0'
+Debug: Keys Ctrl+Z (Undo) pressed
+Debug: Calling GNEUndoList::undo()
+Debug: Setting previous attribute endPos '22.00' into containerStop 'containerStop_gneE0_0_0'
+Debug: Setting previous attribute startPos '12.00' into containerStop 'containerStop_gneE0_0_0'
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
-Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding containerStop 'containerStop_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute startPos '0.00' into containerStop 'containerStop_gneE0_0_0'
+Debug: Setting new attribute endPos '10.00' into containerStop 'containerStop_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Keys Ctrl+Y (Redo) pressed
-Debug: Keys Ctrl+Y (Redo) pressed
+Debug: Calling GNEUndoList::redo()
+Debug: Setting new attribute startPos '25.00' into containerStop 'containerStop_gneE0_0_0'
+Debug: Setting new attribute endPos '35.00' into containerStop 'containerStop_gneE0_0_0'
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Additionals saved
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()

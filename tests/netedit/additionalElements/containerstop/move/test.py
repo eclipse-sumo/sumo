@@ -38,38 +38,20 @@ netedit.changeElement("containerStop")
 netedit.changeDefaultValue(7, "reference center")
 
 # create containerStop in mode "reference center"
-netedit.leftClick(referencePosition, 250, 255)
+netedit.leftClick(referencePosition, 250, 235)
 
 # change to move mode
 netedit.moveMode()
 
 # move containerStop to left
-netedit.moveElement(referencePosition, 150, 275, 50, 275)
+netedit.moveElement(referencePosition, 250, 255, 100, 255)
 
 # move back
-netedit.moveElement(referencePosition, 50, 275, 150, 275)
-
-# move containerStop to right
-netedit.moveElement(referencePosition, 150, 275, 250, 275)
-
-# move back
-netedit.moveElement(referencePosition, 250, 275, 150, 275)
-
-# move containerStop to left overpassing lane
-netedit.moveElement(referencePosition, 150, 275, -100, 275)
-
-# move back
-netedit.moveElement(referencePosition, -90, 275, 150, 275)
-
-# move containerStop to right overpassing lane
-netedit.moveElement(referencePosition, 150, 275, 550, 275)
-
-# move back to another different position of initial
-netedit.moveElement(referencePosition, 500, 275, 300, 275)
+netedit.moveElement(referencePosition, 100, 255, 350, 255)
 
 # Check undos and redos
-netedit.undo(referencePosition, 10)
-netedit.redo(referencePosition, 10)
+netedit.undo(referencePosition, 4)
+netedit.redo(referencePosition, 4)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

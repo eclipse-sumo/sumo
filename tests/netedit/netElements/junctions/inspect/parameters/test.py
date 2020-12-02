@@ -38,7 +38,7 @@ netedit.forceSaveAdditionals()
 netedit.leftClick(referencePosition, 325, 250)
 
 # check parameters
-netedit.checkParameters(referencePosition, 16, False)
+netedit.checkParameters(referencePosition, 18, False)
 
 # save additionals
 netedit.saveAdditionals(referencePosition)

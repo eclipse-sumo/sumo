@@ -10,21 +10,29 @@ Debug: Format of optional positive optional float attribute 'length' of parkingA
 Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
 GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 1.80,-16.40,38.20,3.60
 Debug: Selected item 'space' in TagSelector
+GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 1.80,-16.40,38.20,3.60
+GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 1.80,-16.40,38.20,3.60
 Debug: Adding space 'parkingArea_gneE0_0_0' in GNEChange_Additional
+GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 1.80,-16.40,38.20,3.60
+GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 1.80,-16.40,38.20,3.60
+GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 1.80,-16.40,38.20,3.60
+GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 0.00,-16.40,38.20,30.00
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing space 'parkingArea_gneE0_0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
 Debug: Removing parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
-GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 1.80,-16.40,38.20,3.60
+GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 0.00,-16.40,38.20,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding parkingArea 'parkingArea_gneE0_0_0' in GNEChange_Additional
-GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 1.80,-16.40,38.20,3.60
+GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 0.00,-16.40,38.20,30.00
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
 Debug: Adding space 'parkingArea_gneE0_0_0' in GNEChange_Additional
+GLDebug: 	Removed object parkingArea:parkingArea_gneE0_0_0 from SUMORTree with boundary 0.00,-16.40,38.20,30.00
+GLDebug: 	Inserted parkingArea:parkingArea_gneE0_0_0 into SUMORTree with boundary 1.80,-16.40,38.20,3.60
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00

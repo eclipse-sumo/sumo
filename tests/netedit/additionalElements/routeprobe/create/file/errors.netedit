@@ -7,13 +7,13 @@ Debug: Selected item 'DEFAULT_PEDTYPE' in DemandElementSelector
 Debug: Selected item 'busStop' in TagSelector
 Debug: Selected item 'routeProbe' in TagSelector
 Debug: Invalid input parameter of routeProbe: input contains invalid characters for a filename
-Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Debug: Adding routeProbe 'routeProbe_gneE0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Z (Undo) pressed
 Debug: Calling GNEUndoList::undo()
-Debug: Removing routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Debug: Removing routeProbe 'routeProbe_gneE0_0' in GNEChange_Additional
 Debug: Keys Ctrl+Y (Redo) pressed
 Debug: Calling GNEUndoList::redo()
-Debug: Adding routeProbe 'routeProbe_gneE1_0' in GNEChange_Additional
+Debug: Adding routeProbe 'routeProbe_gneE0_0' in GNEChange_Additional
 Debug: Additionals saved
 GLDebug: Removing junctions during recomputing
 GLDebug: 	Removed object junction:gneJ0 from SUMORTree with boundary -12.00,-12.00,12.00,12.00
@@ -29,7 +29,7 @@ GLDebug: 	Inserted edge:gneE0 into SUMORTree with boundary -10.00,-11.60,60.00,1
 GLDebug: 	Inserted edge:gneE1 into SUMORTree with boundary -10.00,-10.00,60.00,11.60
 Debug: Created connection 'fromgneE0_0togneE1_0' in retrieveGNEConnection()
 Debug: Created connection 'fromgneE1_0togneE0_0' in retrieveGNEConnection()
-Debug: Deleting unreferenced routeProbe 'routeProbe_gneE1_0'
+Debug: Deleting unreferenced routeProbe 'routeProbe_gneE0_0'
 Debug: Deleting unreferenced edge 'gneE0' in AttributeCarriers destructor
 Debug: Deleting unreferenced lane 'gneE0_0' in GNEEdge destructor
 Debug: Deleting unreferenced connection 'fromgneE0_0togneE1_0' in GNEEdge destructor

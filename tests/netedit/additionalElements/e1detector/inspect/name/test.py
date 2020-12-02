@@ -35,13 +35,13 @@ netedit.additionalMode()
 netedit.changeElement("e1Detector")
 
 # create E1 1
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 155)
 
 # go to inspect mode
 netedit.inspectMode()
 
 # inspect first E1
-netedit.leftClick(referencePosition, 250, 170)
+netedit.leftClick(referencePosition, 250, 155)
 
 # Change parameter name with an non valid value
 netedit.modifyAttribute(4, "%%%;:..&&%$%$", True)

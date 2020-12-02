@@ -41,7 +41,7 @@ netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 netedit.leftClick(referencePosition, 220, 200)
 
 # delete node
-netedit.leftClick(referencePosition, 536, 236)
+netedit.leftClick(referencePosition, 526, 236)
 
 # rebuild network
 netedit.rebuildNetwork()

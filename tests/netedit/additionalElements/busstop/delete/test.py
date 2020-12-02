@@ -35,7 +35,7 @@ netedit.additionalMode()
 netedit.changeElement("busStop")
 
 # create busStop in mode "reference left"
-netedit.leftClick(referencePosition, 250, 260)
+netedit.leftClick(referencePosition, 250, 240)
 
 # Change to delete
 netedit.deleteMode()
@@ -44,13 +44,13 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # delete created busStop
-netedit.leftClick(referencePosition, 260, 270)
+netedit.leftClick(referencePosition, 260, 250)
 
 # delete first loaded busStop
-netedit.leftClick(referencePosition, 450, 270)
+netedit.leftClick(referencePosition, 450, 250)
 
 # delete lane with the second loaded busStop
-netedit.leftClick(referencePosition, 200, 220)
+netedit.leftClick(referencePosition, 200, 200)
 
 # Check undo
 netedit.undo(referencePosition, 3)
@@ -62,7 +62,7 @@ netedit.deleteMode()
 netedit.changeAutomaticallyDeleteAdditionals(referencePosition)
 
 # try to delete lane with the second loaded busStop (doesn't allowed)
-netedit.leftClick(referencePosition, 200, 220)
+netedit.leftClick(referencePosition, 200, 200)
 
 # wait warning
 netedit.waitDeleteWarning()

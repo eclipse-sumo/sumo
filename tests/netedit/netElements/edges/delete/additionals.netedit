@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on 19.08.2020 10:39:31 by Eclipse SUMO netedit Version v1_6_0+1660-ed095fdb90
+<!-- generated on 02.12.2020 10:19:19 by Eclipse SUMO netedit Version 1.8.0
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netconvertConfiguration.xsd">
 
     <input>
-        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\input_net.net.xml"/>
+        <sumo-net-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\input_net.net.xml"/>
     </input>
 
     <output>
-        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\net.net.xml"/>
+        <output-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\net.net.xml"/>
     </output>
 
     <processing>
@@ -31,27 +31,27 @@
     </pedestrian>
 
     <netedit>
-        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\additionals.xml"/>
-        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\additionals.xml"/>
-        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\routes.xml"/>
-        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\routes.xml"/>
-        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\datas.xml"/>
-        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\datas.xml"/>
+        <additional-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\additionals.xml"/>
+        <additionals-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\additionals.xml"/>
+        <route-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\routes.xml"/>
+        <demandelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\routes.xml"/>
+        <data-files value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\datas.xml"/>
+        <dataelements-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\datas.xml"/>
     </netedit>
 
     <visualisation>
-        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\gui-settings.xml"/>
+        <gui-settings-file value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\gui-settings.xml"/>
         <window-size value="700,500"/>
         <window-pos value="50,50"/>
         <gui-testing value="true"/>
         <gui-testing-debug value="true"/>
-        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\guisettingsoutput.xml"/>
+        <gui-testing.setting-output value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\guisettingsoutput.xml"/>
     </visualisation>
 
     <report>
         <no-warnings value="true"/>
         <aggregate-warnings value="5"/>
-        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.19Aug103849.7532\netedit.gui\netElements\edges\delete\log.txt"/>
+        <error-log value="C:\Users\alva_pa\.texttest\tmp\netedit.gui.1_from_02Dez101738.17620\netedit.gui\netElements\edges\delete\log.txt"/>
     </report>
 
 </configuration>
