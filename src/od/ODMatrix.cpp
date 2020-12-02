@@ -347,7 +347,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                     }
                 }
                 dev.openTag(SUMO_TAG_WALK);
-                dev.writeAttr(SUMO_ATTR_FROM, c->origin).writeAttr(SUMO_ATTR_TO, c->destination);
+                dev.writeAttr(SUMO_ATTR_FROM_TAZ, c->origin).writeAttr(SUMO_ATTR_TO_TAZ, c->destination);
                 dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
                 dev.closeTag();
                 dev.closeTag();
@@ -367,7 +367,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                     }
                 }
                 dev.openTag(SUMO_TAG_PERSONTRIP);
-                dev.writeAttr(SUMO_ATTR_FROM, c->origin).writeAttr(SUMO_ATTR_TO, c->destination);
+                dev.writeAttr(SUMO_ATTR_FROM_TAZ, c->origin).writeAttr(SUMO_ATTR_TO_TAZ, c->destination);
                 dev.writeAttr(SUMO_ATTR_ARRIVALPOS, "random");
                 if (modes != "") {
                     dev.writeAttr(SUMO_ATTR_MODES, modes);
