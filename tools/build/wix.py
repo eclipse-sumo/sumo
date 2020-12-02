@@ -27,7 +27,7 @@ import shutil
 
 import version
 
-SUMO_VERSION = version.get_pep440_version()
+SUMO_VERSION = version.get_pep440_version().replace("post", "")
 INPUT_DEFAULT = r"S:\daily\sumo-win64-git.zip"
 OUTPUT_DEFAULT = "sumo.msi"
 WIX_DEFAULT = "%sbin" % os.environ.get(
@@ -78,15 +78,10 @@ def buildMSI(sourceZip=INPUT_DEFAULT, outFile=OUTPUT_DEFAULT,
     for wxs in glob.glob(wxsPattern):
         with open(os.path.join(tmpDir, os.path.basename(wxs)), "w") as wxsOut:
             dataDir = os.path.dirname(license)
-            replacements = {
-                "version": SUMO_VERSION,
-                "license": license,
-                "bindir": os.path.join(sumoRoot, "bin"),
-                "banner": os.path.join(dataDir, "bannrbmp.bmp"),
-                "dialogbg": os.path.join(dataDir, "dlgbmp.bmp"),
-                "webwizico": os.path.join(dataDir, "webWizard.ico"),
-            }
-            wxsOut.write(open(wxs).read().format(replacements))
+            wxsOut.write(open(wxs).read().format(version=SUMO_VERSION, license=license, bindir=os.path.join(sumoRoot, "bin"),
+                                                 banner=os.path.join(dataDir, "bannrbmp.bmp"),
+                                                 dialogbg=os.path.join(dataDir, "dlgbmp.bmp"),
+                                                 webwizico=os.path.join(dataDir, "webWizard.ico")))
         fragments.append(wxsOut.name)
     subprocess.call([os.path.join(wixBin, "candle.exe"),
                      "-o", tmpDir + "\\"] + fragments,
