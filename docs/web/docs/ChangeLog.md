@@ -6,6 +6,9 @@ permalink: /ChangeLog/
 ## Git Master
 
 ### Bugfixes
+- od2trips
+  - Fixed invalid begin and end times when writting personFlows. Issue #7885
+  
 - TraCI
   - Function 'vehicle.getSpeedWithoutTraCI' now returns original model speeds after calling moveToXY. Issue #7190
   
