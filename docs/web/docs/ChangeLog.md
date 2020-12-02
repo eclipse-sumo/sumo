@@ -130,7 +130,7 @@ permalink: /ChangeLog/
   - Option **--fcd-output.params** now supports optional output of device parameters and model parameters with the same [prefix codes as TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e). Issue #7851  
   
 - meso
-  - Model parameters can now be [customized](Simulation/Meso.md#configuration_by_edge_type) for each edge type vial additional file input. Issue #7243
+  - Model parameters can now be [customized](Simulation/Meso.md#configuration_by_edge_type) for each edge type via additional file input. Issue #7243
   - Stop handling is now similar to microsimulation, pedestrians walk to the correct location and are picked up there, stopinfo is written
   
 - netedit
