@@ -4,7 +4,11 @@ permalink: /ChangeLog/
 ---
 
 ## Git Master
+
 ### Bugfixes
+- TraCI
+  - Function 'vehicle.getSpeedWithoutTraCI' now returns original model speeds after calling moveToXY. Issue #7190
+  
 ### Enhancements
 ### Other
 
