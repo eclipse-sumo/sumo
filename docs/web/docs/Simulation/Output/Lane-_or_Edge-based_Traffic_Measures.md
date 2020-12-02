@@ -20,16 +20,20 @@ possibilities to constraint the outputs are given.
 
 ### Meandata Definition
 
-An edge-based state dump is defined within an {{AdditionalFile}} as following:
+An edge-based state dump is defined within an {{AdditionalFile}} added to the sumo config as following:
 
-```
-<edgeData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/>
+```xml
+<additional>
+    <edgeData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>" .../>
+</additional>
 ```
 
 For a lane based dump simply write:
 
-```
-<laneData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>"/>
+```xml
+<additional>
+    <laneData id="<MEASUREMENT_ID>" file="<OUTPUT_FILE>" .../>
+</additional>
 ```
 
 For additional attributes see the table below.
