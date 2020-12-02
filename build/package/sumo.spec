@@ -116,7 +116,7 @@ make %{?_smp_mflags} man
 cd cmake-build
 %make_install
 cd ..
-rm -rf %{buildroot}%{_datadir}/sumo/tools/libsumo 
+rm -rf %{buildroot}%{_datadir}/sumo/tools/libsumo %{buildroot}%{_datadir}/sumo/tools/libtraci
 ln -s %{_datadir}/sumo/tools/assign/duaIterate.py %{buildroot}%{_bindir}/duaIterate.py
 ln -s %{_datadir}/sumo/tools/osmWebWizard.py %{buildroot}%{_bindir}/osmWebWizard.py
 ln -s %{_datadir}/sumo/tools/randomTrips.py %{buildroot}%{_bindir}/randomTrips.py
