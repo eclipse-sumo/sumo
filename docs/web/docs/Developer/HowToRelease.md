@@ -79,7 +79,7 @@ All scenarios should be fixed by now.
 
 - patch the version information
   - in src/config.h.cmake, also disable the HAVE_VERSION_H macro
-  - in CMakeLists.txt and build/wix/sumo.wxs
+  - in CMakeLists.txt
   - commit the changes
 - recheck whether submodules changed by doing `git submodule update --remote`
 and committing the changes after careful inspection
@@ -121,8 +121,7 @@ If everything is fine:
 - make new sumo.dlr.de-release
   - copy the folder from S:\Sumo\Releases to the releases dir `scp -r /media/S/Releases/x.y.z delphi@ts-sim-front-ba.intra.dlr.de:docs/releases`
 - make new sourceforge-release
-  - make a new release within the sumo package (named "version
-    x.y.z")
+  - make a new release within the sumo package (named "version x.y.z")
   - add files to the release
   - change default download attributes
   - update files at the [opensuse build
@@ -131,8 +130,7 @@ If everything is fine:
 <https://askubuntu.com/questions/642632/how-to-bump-the-version-of-a-package-available-in-another-users-ppa>)
   - this assumes you have the devscripts package as well as all sumo dependencies installed
   - if you try this on Windows Linux Subsystem you will also need to do `sudo update-alternatives --set fakeroot /usr/bin/fakeroot-tcp`
-  - download the source release and rename it to `sumo_{{Version}}+dfsg1.orig.tar.gz`
-  - unzip the source release
+  - unzip the special source release `sumo_{{Version}}+dfsg1.orig.tar.gz`
   - copy the debian dir one level up
   - modify the changelog, using `dch` (enter an email address which has write access to the ppa and a valid gpg key)
   - run `dpkg-buildpackage -S` in the sumo dir and `dput -f ppa:sumo/stable sumo_{{Version}}+dfsg1_source.changes` one level up
