@@ -117,7 +117,7 @@ These launchers allow you to select **sumo-gui** as the default application to o
 
 ## Python packages
 
-Starting with SUMO 1.8.0 the installation is also possible from the [Python packaging index](https://pypi.org/project/eclipse-sumo/). You can install either the applications: `pip install eclipse-sumo` or only traci, libsumo or sumolib, e.g. `pip install libsumo`. This should work for Windows and all Linux versions which are more recent than 2014 but currently not for MacOS. The applications are available for Python 2 and Python 3, libsumo only for Python 3.5 and above.
+Starting with SUMO 1.8.0 the installation is also possible from the [Python packaging index](https://pypi.org/project/eclipse-sumo/). You can install either the applications: `pip install eclipse-sumo` or only traci, libsumo or sumolib, e.g. `pip install libsumo`. This should work for Windows and all Linux versions which are more recent than 2014 but currently not for macOS. The applications are available for Python 2 and Python 3, libsumo only for Python 3.5 and above.
 
 ## SUMO - Alternative download and older releases
 
