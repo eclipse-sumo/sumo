@@ -1,9 +1,9 @@
 <?xml version='1.0' encoding='windows-1252'?>
 <Wix xmlns='http://schemas.microsoft.com/wix/2006/wi'>
   <Product Name='SUMO' Id='A63B306E-2B15-11E1-88C8-028037EC0200' UpgradeCode='A764BC4F-2B15-11E1-9E7E-028037EC0200'
-    Language='1033' Codepage='1252' Version='1.8.0' Manufacturer='Eclipse'>
+    Language='1033' Codepage='1252' Version='{version}' Manufacturer='Eclipse'>
 
-    <Package Id='*' Description="SUMO 1.8.0 Installer"
+    <Package Id='*' Description="SUMO {version} Installer"
       Comments='Simulation of Urban Mobility' Manufacturer='[Manufacturer]'
       InstallerVersion='300' Compressed='yes' />
 
@@ -20,7 +20,7 @@
             </Component>
             <Directory Id='BINDIR' Name='bin'>
               <Component Id='MainExecutables' Guid='BD1FC8EE-2B15-11E1-BA48-028037EC0200'>
-                <File Id='sumoGuiEXE' Name='sumo-gui.exe' Source='O:\Daten\Sumo\Nightly\sumo-gui.exe' KeyPath='yes'>
+                <File Id='sumoGuiEXE' Name='sumo-gui.exe' Source='{bindir}\sumo-gui.exe' KeyPath='yes'>
                   <Shortcut Id="startmenuSumoGui" Directory="ProgramMenuDir" Name="sumo-gui" WorkingDirectory='INSTALLDIR' Icon="sumogui.exe" IconIndex="0" Advertise="yes" />
                 </File>
     <!-- Section copied from http://stackoverflow.com/questions/2772452/how-to-associate-application-with-existing-file-types-using-wix-installer -->
@@ -53,13 +53,13 @@
     <!-- End of copy -->
               </Component>
               <Component Id='NetEditExecutable' Guid='210F26F3-6040-4A1F-8513-4C75AB016B8B'>
-                <File Id='neteditEXE' Name='netedit.exe' Source='O:\Daten\Sumo\Nightly\netedit.exe' KeyPath='yes'>
+                <File Id='neteditEXE' Name='netedit.exe' Source='{bindir}\netedit.exe' KeyPath='yes'>
                   <Shortcut Id="startmenuNetEdit" Directory="ProgramMenuDir" Name="netedit" WorkingDirectory='INSTALLDIR' Icon="netedit.exe" IconIndex="0" Advertise="yes" />
                 </File>
               </Component>
 
               <Component Id='EnvironmentBatch' Guid='0F045CF0-2B14-11E1-9943-028037EC0200'>
-                <File Id='EnvBat' Name='start-command-line.bat' Source='O:\Daten\Sumo\Nightly\start-command-line.bat' KeyPath='yes'>
+                <File Id='EnvBat' Name='start-command-line.bat' Source='{bindir}\start-command-line.bat' KeyPath='yes'>
                   <Shortcut Id="startmenuBat" Directory="ProgramMenuDir" Name="sumo (Command Line)" Advertise="yes" />
                 </File>
               </Component>
@@ -68,7 +68,7 @@
             <Directory Id='DOCDIR' Name='doc' />
             <Directory Id='TOOLDIR' Name='tools'>
               <Component Id='OSMWebWizard' Guid='020B4F21-0E79-41C8-A745-28CA9B426126'>
-                <File Id='WebWizPy' Name='osmWebWizard.py' Source='O:\Daten\Sumo\Nightly\..\tools\osmWebWizard.py' KeyPath='yes'>
+                <File Id='WebWizPy' Name='osmWebWizard.py' Source='{bindir}\..\tools\osmWebWizard.py' KeyPath='yes'>
                   <Shortcut Id="startWebWizPy" Directory="ProgramMenuDir" Name="OSM Web Wizard" Icon="webwiz.exe" IconIndex="0" Advertise="yes" />
                 </File>
               </Component>
@@ -132,17 +132,17 @@
       </Feature>
     </Feature>
 
-    <WixVariable Id="WixUILicenseRtf" Value="License.rtf" />
-	<WixVariable Id="WixUIBannerBmp" Value="bannrbmp.bmp" />
-	<WixVariable Id="WixUIDialogBmp" Value="dlgbmp.bmp" />
+    <WixVariable Id="WixUILicenseRtf" Value="{license}" />
+    <WixVariable Id="WixUIBannerBmp" Value="{banner}" />
+    <WixVariable Id="WixUIDialogBmp" Value="{dialogbg}" />
 
-	<Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
-	<Property Id="MODIFYENV" Value="1" />
+    <Property Id="WIXUI_INSTALLDIR" Value="INSTALLDIR" />
+    <Property Id="MODIFYENV" Value="1" />
     <UIRef Id="SUMOWixUI_InstallDir" />
 
-    <Icon Id="sumogui.exe" SourceFile="O:\Daten\Sumo\Nightly\sumo-gui.exe" />
-    <Icon Id="netedit.exe" SourceFile="O:\Daten\Sumo\Nightly\netedit.exe" />
-    <Icon Id="webwiz.exe" SourceFile="webWizard.ico" />
+    <Icon Id="sumogui.exe" SourceFile="{bindir}\sumo-gui.exe" />
+    <Icon Id="netedit.exe" SourceFile="{bindir}\netedit.exe" />
+    <Icon Id="webwiz.exe" SourceFile="{webwizico}" />
     <Property Id="ARPPRODUCTICON" Value="sumogui.exe" />
   </Product>
 </Wix>
