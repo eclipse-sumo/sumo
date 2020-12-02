@@ -333,7 +333,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
             //Person flows
             if (pedestrians) {
                 dev.openTag(SUMO_TAG_PERSONFLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
-                dev.writeAttr(SUMO_ATTR_BEGIN, c->begin).writeAttr(SUMO_ATTR_END, c->end);
+                dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
                 if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
@@ -353,7 +353,7 @@ ODMatrix::writeFlows(const SUMOTime begin, const SUMOTime end,
                 dev.closeTag();
             } else if (persontrips) {
                 dev.openTag(SUMO_TAG_PERSONFLOW).writeAttr(SUMO_ATTR_ID, prefix + toString(flowName++));
-                dev.writeAttr(SUMO_ATTR_BEGIN, c->begin).writeAttr(SUMO_ATTR_END, c->end);
+                dev.writeAttr(SUMO_ATTR_BEGIN, time2string(c->begin)).writeAttr(SUMO_ATTR_END, time2string(c->end));
                 if (!asProbability) {
                     dev.writeAttr(SUMO_ATTR_NUMBER, int(c->vehicleNumber));
                 } else {
