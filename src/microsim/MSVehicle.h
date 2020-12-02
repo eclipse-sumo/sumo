@@ -1534,6 +1534,9 @@ public:
          */
         double getOriginalSpeed() const;
 
+        /** @brief Stores the originally longitudinal speed **/
+        void  setOriginalSpeed(double speed);
+
         void setRemoteControlled(Position xyPos, MSLane* l, double pos, double posLat, double angle, int edgeOffset, const ConstMSEdgeVector& route, SUMOTime t);
 
         SUMOTime getLastAccessTimeStep() const {

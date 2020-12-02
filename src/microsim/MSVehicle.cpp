@@ -472,9 +472,6 @@ MSVehicle::Influencer::getLaneTimeLineEnd() {
 
 double
 MSVehicle::Influencer::influenceSpeed(SUMOTime currentTime, double speed, double vSafe, double vMin, double vMax) {
-    // keep original speed
-    myOriginalSpeed = speed;
-
     // remove leading commands which are no longer valid
     while (mySpeedTimeLine.size() == 1 || (mySpeedTimeLine.size() > 1 && currentTime > mySpeedTimeLine[1].first)) {
         mySpeedTimeLine.erase(mySpeedTimeLine.begin());
@@ -651,7 +648,12 @@ MSVehicle::Influencer::gapControlSpeed(SUMOTime currentTime, const SUMOVehicle* 
 
 double
 MSVehicle::Influencer::getOriginalSpeed() const {
-    return mySpeedTimeLine.empty() ? -1 : myOriginalSpeed;
+    return myOriginalSpeed;
+}
+
+void
+MSVehicle::Influencer::setOriginalSpeed(double speed) {
+    myOriginalSpeed = speed;
 }
 
 
@@ -3089,6 +3091,7 @@ MSVehicle::processLinkApproaches(double& vSafe, double& vSafeMin, double& vSafeM
 double
 MSVehicle::processTraCISpeedControl(double vSafe, double vNext) {
     if (myInfluencer != nullptr) {
+        myInfluencer->setOriginalSpeed(vNext);
 #ifdef DEBUG_TRACI
         if DEBUG_COND2(this) {
             std::cout << SIMTIME << " MSVehicle::processTraCISpeedControl() for vehicle '" << getID() << "'"
@@ -6082,7 +6085,7 @@ MSVehicle::getBaseInfluencer() const {
 
 double
 MSVehicle::getSpeedWithoutTraciInfluence() const {
-    if (myInfluencer != nullptr && myInfluencer->getOriginalSpeed() != -1) {
+    if (myInfluencer != nullptr) {
         return myInfluencer->getOriginalSpeed();
     }
     return myState.mySpeed;
