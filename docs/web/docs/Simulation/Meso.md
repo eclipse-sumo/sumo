@@ -137,7 +137,7 @@ randomized process depending on vehicle speeds and density.
 There are 3 basic options for modelling junction control
 
 1. **--meso-junction-control false** (the default): No junction control takes place. This should only be
-    used for motorway scenarios.
+    used for motorway scenarios or in combination with the penalty options below
 
 2. **--meso-junction-control true**: junctions are modeled as in the [simplified microsim model](../Simulation/Intersections.md#internal_links) (**--no-internal-links true**).
 
