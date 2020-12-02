@@ -235,16 +235,16 @@ MSTransportableControl::boardAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, cons
 
 bool
 MSTransportableControl::loadAnyWaiting(MSEdge* edge, SUMOVehicle* vehicle, const SUMOVehicleParameter::Stop& stop, SUMOTime& timeToLoadNextContainer, SUMOTime& stopDuration) {
+    UNUSED_PARAMETER(stop);
     bool ret = false;
     if (myWaiting4Vehicle.find(edge) != myWaiting4Vehicle.end()) {
         SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
         TransportableVector& waitContainers = myWaiting4Vehicle[edge];
         for (TransportableVector::iterator i = waitContainers.begin(); i != waitContainers.end();) {
             if ((*i)->isWaitingFor(vehicle)
-                    && vehicle->getVehicleType().getContainerCapacity() > vehicle->getContainerNumber()
+                    && vehicle->allowsBoarding(*i)
                     && timeToLoadNextContainer - DELTA_T <= currentTime
-                    && stop.startPos <= (*i)->getEdgePos()
-                    && (*i)->getEdgePos() <= stop.endPos) {
+                    && vehicle->isStoppedInRange((*i)->getEdgePos(), MSGlobals::gStopTolerance)) {
                 edge->removeContainer(*i);
                 vehicle->addTransportable(*i);
                 if (timeToLoadNextContainer >= 0) { // meso does not have loading times

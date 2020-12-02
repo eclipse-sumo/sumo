@@ -1,7 +1,0 @@
-
-[Reported by kobo at 01Dec16:06:13]
-search_string:Teleporting
-search_file:errors
-ignore_other_errors:1
-full_description:invalid taxi route
-brief_description:see #7893

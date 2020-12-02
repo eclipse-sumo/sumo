@@ -529,7 +529,9 @@ MSBaseVehicle::getOdometer() const {
 
 bool
 MSBaseVehicle::allowsBoarding(MSTransportable* t) const {
-    if (getPersonNumber() >= getVehicleType().getPersonCapacity()) {
+    if (t->isPerson() && getPersonNumber() >= getVehicleType().getPersonCapacity()) {
+        return false;
+    } else if (!t->isPerson() && getContainerNumber() >= getVehicleType().getContainerCapacity()) {
         return false;
     }
     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
