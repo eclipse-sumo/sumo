@@ -2007,10 +2007,10 @@ GNERouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
 }
 
 
-void
-GNERouteHandler::addRide(const SUMOSAXAttributes& attrs) {
-    // add person ride
-    myPersonValues.addPersonValue(myNet, SUMO_TAG_RIDE, attrs);
+void GNERouteHandler::addRideOrTransport(const SUMOSAXAttributes& attrs, bool isRide) {
+	if (isRide) {
+		myPersonValues.addPersonValue(myNet, SUMO_TAG_RIDE, attrs);
+	}
 }
 
 
@@ -2022,12 +2022,6 @@ GNERouteHandler::addPerson(const SUMOSAXAttributes& /*attrs*/) {
 
 void
 GNERouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
-    // currently unused
-}
-
-
-void
-GNERouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
     // currently unused
 }
 

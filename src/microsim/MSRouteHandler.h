@@ -152,13 +152,10 @@ protected:
     /// @brief Processing of a container
     void addContainer(const SUMOSAXAttributes& attrs);
 
-    /// @brief Processing of a ride
-    void addRide(const SUMOSAXAttributes& attrs);
+	/// @brief Processing of a ride or transport
+	void addRideOrTransport(const SUMOSAXAttributes& attrs, bool isRide);
 
-    /// @brief Processing of a transport
-    void addTransport(const SUMOSAXAttributes& attrs);
-
-    /// @brief Processing of a tranship
+	/// @brief Processing of a tranship
     void addTranship(const SUMOSAXAttributes& attrs);
 
     ///@ brief parse depart- and arrival positions of a walk

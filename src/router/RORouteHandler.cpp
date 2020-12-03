@@ -847,12 +847,7 @@ RORouteHandler::addContainer(const SUMOSAXAttributes& /*attrs*/) {
 
 
 void
-RORouteHandler::addRide(const SUMOSAXAttributes& /*attrs*/) {
-}
-
-
-void
-RORouteHandler::addTransport(const SUMOSAXAttributes& /*attrs*/) {
+RORouteHandler::addRideOrTransport(const SUMOSAXAttributes& /*attrs*/, bool /*isRide*/) {
 }
 
 

@@ -185,12 +185,14 @@ SUMORouteHandler::myStartElement(int element, const SUMOSAXAttributes& attrs) {
             myEndDefault = attrs.getSUMOTimeReporting(SUMO_ATTR_END, nullptr, ok);
             break;
         }
-        case SUMO_TAG_RIDE:
-            addRide(attrs);
-            break;
-        case SUMO_TAG_TRANSPORT:
-            addTransport(attrs);
-            break;
+		case SUMO_TAG_RIDE:
+			//addRide(attrs);
+			addRideOrTransport(attrs, true);
+			break;
+		case SUMO_TAG_TRANSPORT:
+			//addTransport(attrs);
+			addRideOrTransport(attrs, false);
+			break;
         case SUMO_TAG_TRANSHIP:
             addTranship(attrs);
             break;

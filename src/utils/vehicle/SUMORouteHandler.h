@@ -176,11 +176,8 @@ protected:
     /// @brief Processing of a container
     virtual void addContainer(const SUMOSAXAttributes& attrs) = 0;
 
-    /// @brief Processing of a ride
-    virtual void addRide(const SUMOSAXAttributes& attrs) = 0;
-
-    /// @brief Processing of a transport
-    virtual void addTransport(const SUMOSAXAttributes& attrs) = 0;
+	/// @brief Processing of a ride or transport
+	virtual void addRideOrTransport(const SUMOSAXAttributes& attrs, bool isRide) = 0;
 
     /// @brief Processing of a tranship
     virtual void addTranship(const SUMOSAXAttributes& attrs) = 0;
