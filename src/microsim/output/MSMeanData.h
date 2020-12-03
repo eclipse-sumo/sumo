@@ -157,14 +157,6 @@ public:
             return travelledDistance;
         }
 
-        /// @brief write attribute if it passed the attribute mask check
-        template <class T>
-        static void checkWriteAttribute(OutputDevice& dev, long long int attributeMask, const SumoXMLAttr attr, const T& val) {
-            if (attributeMask == 0 || attributeMask & ((long long int)1 << attr)) {
-                dev.writeAttr(attr, val);
-            }
-        }
-
     protected:
         /// @brief The meandata parent
         const MSMeanData* const myParent;

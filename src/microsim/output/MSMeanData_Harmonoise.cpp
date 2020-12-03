@@ -87,16 +87,16 @@ void
 MSMeanData_Harmonoise::MSLaneMeanDataValues::write(OutputDevice& dev, long long int attributeMask, const SUMOTime period,
         const double /*numLanes*/, const double defaultTravelTime, const int /*numVehicles*/) const {
     const double noise = meanNTemp != 0 ? (double)(10. * log10(meanNTemp * TS / STEPS2TIME(period))) : (double) 0.;
-    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_NOISE, noise);
+    dev.writeOptionalAttr(SUMO_ATTR_NOISE, noise, attributeMask);
     if (sampleSeconds > myParent->myMinSamples) {
         double traveltime = myParent->myMaxTravelTime;
         if (travelledDistance > 0.f) {
             traveltime = MIN2(traveltime, myLaneLength * sampleSeconds / travelledDistance);
         }
-        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, traveltime);
+        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, traveltime, attributeMask);
     } else if (defaultTravelTime >= 0.) {
         // @todo default value for noise
-        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, defaultTravelTime);
+        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, defaultTravelTime, attributeMask);
     }
     dev.closeTag();
 }

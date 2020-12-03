@@ -25,6 +25,7 @@
 
 #include <string>
 #include <map>
+#include <cassert>
 #include <utils/common/ToString.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "PlainXMLFormatter.h"
@@ -241,6 +242,22 @@ public:
         return *this;
     }
 
+    /** @brief writes a named attribute unless filtered
+     *
+     * @param[in] attr The attribute (name)
+     * @param[in] val The attribute value
+     * @param[in] attributeMask The filter that specifies whether the attribute shall be written
+     * @return The OutputDevice for further processing
+     */
+    template <typename T>
+    OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
+        assert(attributeMask <= 63);
+        if (attributeMask == 0 || attributeMask & ((long long int)1 << attr)) {
+            PlainXMLFormatter::writeAttr(getOStream(), attr, val);
+        }
+        return *this;
+    }
+
 
     /** @brief writes an arbitrary attribute
      *
@@ -253,7 +270,6 @@ public:
         PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         return *this;
     }
-
 
     /** @brief writes a string attribute only if it is not the empty string and not the string "default"
      *

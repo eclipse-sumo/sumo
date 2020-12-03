@@ -257,19 +257,19 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
 
     if (myParent == nullptr) {
         if (sampleSeconds > 0) {
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_DENSITY, density);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANEDENSITY, laneDensity);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_WAITINGTIME, waitSeconds);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TIMELOSS, timeLoss);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, travelledDistance / sampleSeconds);
+            dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
         }
-        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_DEPARTED, nVehDeparted);
-        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ARRIVED, nVehArrived);
-        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ENTERED, nVehEntered);
-        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LEFT, nVehLeft);
+        dev.writeOptionalAttr(SUMO_ATTR_DEPARTED, nVehDeparted, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_ARRIVED, nVehArrived, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_ENTERED, nVehEntered, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_LEFT, nVehLeft, attributeMask);
         if (nVehVaporized > 0) {
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_VAPORIZED, nVehVaporized);
+            dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask);
         }
         dev.closeTag();
         return;
@@ -282,38 +282,38 @@ MSMeanData_Net::MSLaneMeanDataValues::write(OutputDevice& dev, long long int att
             overlapTraveltime = MIN2(overlapTraveltime, (myLaneLength + vehLengthSum / sampleSeconds) * sampleSeconds / travelledDistance);
         }
         if (numVehicles > 0) {
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, sampleSeconds / numVehicles);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_WAITINGTIME, waitSeconds);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TIMELOSS, timeLoss);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, travelledDistance / sampleSeconds);
+            dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, sampleSeconds / numVehicles, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
         } else {
             double traveltime = myParent->myMaxTravelTime;
             if (frontTravelledDistance > NUMERICAL_EPS) {
                 traveltime = MIN2(traveltime, myLaneLength * frontSampleSeconds / frontTravelledDistance);
-                checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, traveltime);
+                dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, traveltime, attributeMask);
             } else if (defaultTravelTime >= 0.) {
-                checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, defaultTravelTime);
+                dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, defaultTravelTime, attributeMask);
             }
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_OVERLAPTRAVELTIME, overlapTraveltime);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_DENSITY, density);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANEDENSITY, laneDensity);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_WAITINGTIME, waitSeconds);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TIMELOSS, timeLoss);
-            checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, travelledDistance / sampleSeconds);
+            dev.writeOptionalAttr(SUMO_ATTR_OVERLAPTRAVELTIME, overlapTraveltime, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_DENSITY, density, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_LANEDENSITY, laneDensity, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_OCCUPANCY, occupationSum / STEPS2TIME(period) / myLaneLength / numLanes * (double) 100, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_WAITINGTIME, waitSeconds, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_TIMELOSS, timeLoss, attributeMask);
+            dev.writeOptionalAttr(SUMO_ATTR_SPEED, travelledDistance / sampleSeconds, attributeMask);
         }
     } else if (defaultTravelTime >= 0.) {
-        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_TRAVELTIME, defaultTravelTime);
-        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_SPEED, myLaneLength / defaultTravelTime);
+        dev.writeOptionalAttr(SUMO_ATTR_TRAVELTIME, defaultTravelTime, attributeMask);
+        dev.writeOptionalAttr(SUMO_ATTR_SPEED, myLaneLength / defaultTravelTime, attributeMask);
     }
-    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_DEPARTED, nVehDeparted);
-    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ARRIVED, nVehArrived);
-    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_ENTERED, nVehEntered);
-    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LEFT, nVehLeft);
-    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANECHANGEDFROM, nVehLaneChangeFrom);
-    checkWriteAttribute(dev, attributeMask, SUMO_ATTR_LANECHANGEDTO, nVehLaneChangeTo);
+    dev.writeOptionalAttr(SUMO_ATTR_DEPARTED, nVehDeparted, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_ARRIVED, nVehArrived, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_ENTERED, nVehEntered, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_LEFT, nVehLeft, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_LANECHANGEDFROM, nVehLaneChangeFrom, attributeMask);
+    dev.writeOptionalAttr(SUMO_ATTR_LANECHANGEDTO, nVehLaneChangeTo, attributeMask);
     if (nVehVaporized > 0) {
-        checkWriteAttribute(dev, attributeMask, SUMO_ATTR_VAPORIZED, nVehVaporized);
+        dev.writeOptionalAttr(SUMO_ATTR_VAPORIZED, nVehVaporized, attributeMask);
     }
     dev.closeTag();
 }

@@ -592,7 +592,7 @@ MSMeanData::writePrefix(OutputDevice& dev, const MeanDataValues& values, const S
     if (myDumpEmpty || !values.isEmpty()) {
         dev.openTag(tag);
         dev.writeAttr(SUMO_ATTR_ID, id);
-        MeanDataValues::checkWriteAttribute(dev, myWrittenAttributes, SUMO_ATTR_SAMPLEDSECONDS, values.getSamples());
+        dev.writeOptionalAttr(SUMO_ATTR_SAMPLEDSECONDS, values.getSamples(), myWrittenAttributes);
         return true;
     }
     return false;
