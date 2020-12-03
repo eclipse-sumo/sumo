@@ -157,6 +157,8 @@
     <xsd:element name="access">
         <xsd:complexType>
             <xsd:attribute name="stop" type="xsd:string"/>
+            <xsd:attribute name="depart" use="required" type="nonNegativeFloatType"/>
+            <xsd:attribute name="arrival" use="required" type="timeTypeWithErrorValue"/>
             <xsd:attribute name="duration" type="nonNegativeFloatType"/>
             <xsd:attribute name="routeLength" type="nonNegativeFloatType"/>
         </xsd:complexType>
