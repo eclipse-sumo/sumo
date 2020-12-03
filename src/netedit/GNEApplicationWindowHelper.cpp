@@ -517,7 +517,7 @@ GNEApplicationWindowHelper::EditMenuCommands::DataMenuCommands::buildDataMenuCom
                   "EdgeRelation Mode\tR\tCreate edgeRelation elements.",
                   GUIIconSubSys::getIcon(GUIIcon::MODEEDGERELDATA), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_R_MODES_CROSSING_ROUTE_EDGERELDATA);
     TAZRelData = GUIDesigns::buildFXMenuCommand(editMenu,
-                 "TAZRelation Mode\tR\tCreate TAZRelation elements.",
+                 "TAZRelation Mode\tZ\tCreate TAZRelation elements.",
                  GUIIconSubSys::getIcon(GUIIcon::MODETAZRELDATA), myEditMenuCommandsParent->myGNEApp, MID_HOTKEY_Z_MODES_TAZ_TAZREL);
     // build separator
     myHorizontalSeparator = new FXMenuSeparator(editMenu);
