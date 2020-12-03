@@ -78,4 +78,7 @@ abort_impossible_transport
 
 # container with a single transport
 transport
+
+# specify the persons that may enter
+permitted
 errors
