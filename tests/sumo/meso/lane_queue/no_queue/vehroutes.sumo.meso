@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Wed Nov 18 17:19:23 2020 by Eclipse SUMO sumo Version v1_7_0+1060-9469240594
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+    <mesoscopic>
+        <mesosim value="true"/>
+        <meso-multi-queue value="false"/>
+    </mesoscopic>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vehicle id="l.0" depart="0.00" arrival="128.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="l.1" depart="1.00" arrival="129.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="l.2" depart="2.00" arrival="130.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="l.3" depart="3.00" arrival="132.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="l.4" depart="4.00" arrival="133.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="l.5" depart="5.00" arrival="135.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="m.0" depart="5.00" arrival="135.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="l.6" depart="6.00" arrival="137.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="m.1" depart="6.00" arrival="137.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="l.7" depart="7.00" arrival="139.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="m.2" depart="8.00" arrival="139.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="l.8" depart="9.00" arrival="141.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="m.3" depart="10.00" arrival="141.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="l.9" depart="11.00" arrival="143.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="m.4" depart="11.00" arrival="143.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="l.10" depart="12.00" arrival="145.00">
+        <route edges="beg beg2left left left2end end rend"/>
+    </vehicle>
+
+    <vehicle id="m.5" depart="13.00" arrival="145.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="m.6" depart="13.00" arrival="147.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="m.7" depart="14.00" arrival="149.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="m.8" depart="15.00" arrival="150.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="m.9" depart="16.00" arrival="152.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+    <vehicle id="m.10" depart="17.00" arrival="154.00">
+        <route edges="beg middle end rend"/>
+    </vehicle>
+
+</routes>

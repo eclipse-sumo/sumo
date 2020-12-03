@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+   <vType id="DEFAULT_VEHTYPE" sigma="0"/>
+   <flow id="l" begin="0" period="1" number="11">
+      <route edges="beg beg2left left left2end end rend"/>
+   </flow>
+   <flow id="m" begin="5" period="1" number="11">
+      <route edges="beg middle end rend"/>
+   </flow>
+</routes>
