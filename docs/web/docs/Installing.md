@@ -93,7 +93,10 @@ echo $SUMO_HOME
 ```
 After the installation you need to log out/in in order to let X11 start automatically, when calling a gui-based application like ```sumo-gui```. (Alternatively, you may start X11 manually by pressing *cmd-space* and entering ```XQuartz```).
 
-SUMO provides native **macOS application bundles** for its graphical applications, so they can be added to the macOS dock or moved to the `Applications` folder. The brew installation will copy these bundles to `Applications` as part of the installation process. 
+Additionally, SUMO provides native **macOS application bundles** for its graphical applications, so they can be added to the macOS dock. There is a separate brew cask that will copy these bundles to the `Applications` folder:
+```
+brew cask install sumo-gui
+```
 
 In case this process fails, it can also be manually achieved by copying these application bundles from `$SUMO_HOME/build/osx/sumo-gui`, `$SUMO_HOME/build/osx/netedit` and `$SUMO_HOME/build/osx/osm-web-wizard` to the `/Applications` folder. 
 
