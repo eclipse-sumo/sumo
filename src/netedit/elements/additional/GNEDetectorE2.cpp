@@ -191,66 +191,12 @@ GNEDetectorE2::fixAdditionalProblem() {
     }
 }
 
-/*
-void
-GNEDetectorE2::mov eGeometry(const Position& offset) {
-    // Calculate new position using old position
-    Position newPosition = myMove.originalViewPosition;
-    newPosition.add(offset);
-    // filtern position using snap to active grid
-    newPosition = myNet->getViewNet()->snapToActiveGrid(newPosition);
-    double offsetLane = getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(newPosition, false) - getParentLanes().front()->getLaneShape().nearest_offset_to_point2D(myMove.originalViewPosition, false);
-    // move geometry depending of number of lanes
-    if (getParentLanes().size() == 1) {
-        // calculate new position over lane
-        double newPositionOverLane = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
-        // obtain lane length
-        double laneLength = getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() * getLane()->getLengthGeometryFactor();
-        if (newPositionOverLane < 0) {
-            myPositionOverLane = 0;
-        } else if (newPositionOverLane + myLength > laneLength) {
-            myPositionOverLane = laneLength - myLength;
-        } else {
-            myPositionOverLane = newPositionOverLane;
-        }
-    } else {
-        // calculate new start and end positions
-        double newStartPosition = parse<double>(myMove.firstOriginalLanePosition) + offsetLane;
-        double newEndPosition = parse<double>(myMove.secondOriginalPosition) + offsetLane;
-        // change start and end position of E2 detector ONLY if both extremes aren't overpassed
-        if ((newStartPosition >= 0) && (newStartPosition <= getParentLanes().front()->getLaneShapeLength()) &&
-                (newEndPosition >= 0) && (newEndPosition <= getParentLanes().back()->getLaneShapeLength())) {
-            myPositionOverLane = newStartPosition;
-            myEndPositionOverLane = newEndPosition;
-        }
-    }
-    // Update geometry
-    updateGeometry();
-}
-
-
-void
-GNEDetectorE2::commitGeometryMoving(GNEUndoList* undoList) {
-    // commit geometry moving depending of number of lanes
-    if (getParentLanes().size() == 1) {
-        // commit new position allowing undo/redo
-        undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), myMove.firstOriginalLanePosition));
-        undoList->p_end();
-    } else {
-        undoList->p_begin("position of " + getTagStr());
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_POSITION, toString(myPositionOverLane), myMove.firstOriginalLanePosition));
-        undoList->p_add(new GNEChange_Attribute(this, SUMO_ATTR_ENDPOS, toString(myEndPositionOverLane), myMove.secondOriginalPosition));
-        undoList->p_end();
-    }
-}
-*/
 
 void
 GNEDetectorE2::updateGeometry() {
     // declare variables for start and end positions
     double startPosFixed = myPositionOverLane;
-    double endPosFixed = myEndPositionOverLane;
+    double endPosFixed = myPositionOverLane + myLength;
     // adjust start and end pos
     if (startPosFixed < 0) {
         startPosFixed += myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength();
@@ -261,8 +207,8 @@ GNEDetectorE2::updateGeometry() {
     // set start position
     if (myPositionOverLane < 0) {
         startPosFixed = 0;
-    } else if (myPositionOverLane > getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength()) {
-        startPosFixed = getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength();
+    } else if (myPositionOverLane > (getParentLanes().front()->getParentEdge()->getNBEdge()->getFinalLength() - myLength)) {
+        startPosFixed = (getParentLanes().back()->getParentEdge()->getNBEdge()->getFinalLength() - myLength);
     }
     // set end position
     if ((myPositionOverLane + myLength) < 0) {
@@ -324,7 +270,7 @@ GNEDetectorE2::drawGL(const GUIVisualizationSettings& s) const {
             // draw E2 Logo
             drawDetectorLogo(s, E2Exaggeration, "E2", textColor);
             // draw lock icon
-            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E2Exaggeration, 1, 0, true);
+            GNEViewNetHelper::LockIcon::drawLockIcon(this, myAdditionalGeometry, E2Exaggeration, -1, 0, true);
         }
         // pop layer matrix
         glPopMatrix();
