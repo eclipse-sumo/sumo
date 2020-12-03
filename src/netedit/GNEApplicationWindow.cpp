@@ -818,6 +818,7 @@ GNEApplicationWindow::onCmdReload(FXObject*, FXSelector, void*) {
             mySupermodeCommands.hideSupermodeCommands();
             myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
             myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+            myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
         } else {
             // abort reloading (because "cancel button" was pressed)
             return 1;
@@ -840,6 +841,7 @@ GNEApplicationWindow::onCmdClose(FXObject*, FXSelector, void*) {
         mySupermodeCommands.hideSupermodeCommands();
         myEditMenuCommands.networkMenuCommands.hideNetworkMenuCommands();
         myEditMenuCommands.demandMenuCommands.hideDemandMenuCommands();
+        myEditMenuCommands.dataMenuCommands.hideDataMenuCommands();
     }
     return 1;
 }
