@@ -1,5 +1,6 @@
 /* XPM */
 static const char * new_window_3d_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 84 2",
 "Qt c None",
 ".9 c #020202",
@@ -85,6 +86,7 @@ static const char * new_window_3d_xpm[] = {
 ".a c #ffcb0a",
 ".b c #ffff0a",
 ".j c #ffffff",
+/* pixels */
 "QtQtQtQtQtQtQtQtQtQtQtQtQtQtQtQt",
 "QtQtQtQtQtQtQtQtQtQtQtQtQtQtQt.#",
 "QtQtQtQtQtQtQtQtQtQt.aQt.#Qt.aQt",
@@ -100,4 +102,5 @@ static const char * new_window_3d_xpm[] = {
 ".g.0.D.E.V.D.E.R.D.E.R.D.E.4QtQt",
 ".h.5.6.D.D.E.R.7.D.D.D.E.8.9QtQt",
 "#..5###a#b#c#d#e#f#f#g.8.8.9QtQt",
-"#h#i#j#k#l#m#n.H#o#p#q#r.9.9QtQt"};
+"#h#i#j#k#l#m#n.H#o#p#q#r.9.9QtQt"
+};

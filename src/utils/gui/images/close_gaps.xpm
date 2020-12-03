@@ -6,6 +6,7 @@ static const char * close_gaps_xpm[] = {
 "!	c black",
 "#	c #BA0000",
 "$	c #FF2424",
+/* pixels */
 "                 ",
 " !!!!       !!!! ",
 " !!!!       !!!! ",

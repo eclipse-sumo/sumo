@@ -1,5 +1,6 @@
 /* XPM */
 static const char *no_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 7 1",
 " 	c None",
 ".	c #ffefef",
@@ -8,6 +9,7 @@ static const char *no_xpm[] = {
 "O	c #ff7b5a",
 "+	c #ff3100",
 "@	c #ff9c84",
+/* pixels */
 "            ... ",
 ".XX.       XoO. ",
 ".OoO.     .O+O  ",
@@ -23,4 +25,5 @@ static const char *no_xpm[] = {
 " .OoX      Xo+X ",
 "  XX        X@. ",
 "                ",
-"                "};
+"                "
+};

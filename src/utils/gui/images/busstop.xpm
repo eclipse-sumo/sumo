@@ -1,7 +1,7 @@
 /* XPM */
 static const char *busstop_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 37 1 ",
+"16 16 37 1",
 "  c #57AE2F",
 ". c #59AF2E",
 "X c #5BAF2E",

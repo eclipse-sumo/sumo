@@ -6,6 +6,7 @@ static const char * closing_xpm[] = {
 "!	c black",
 "#	c #D90000",
 "$	c #7C0000",
+/* pixels */
 "                 ",
 " !!!  !!!!!  !!! ",
 " !!!  !!!!!  !!! ",

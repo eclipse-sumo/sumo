@@ -1,7 +1,7 @@
 /* XPM */
 static const char *modeedgedata_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 7 1 ",
+"16 16 7 1",
 "  c black",
 ". c #7F0000",
 "X c #007F0E",

@@ -13,6 +13,7 @@ static const char *colorwheel_xpm[] = {
 "* c #00ffd9",
 "= c #ffee00",
 "- c None",
+/* pixels */
 "-----      -----",
 "---  ......  ---",
 "-- ++......@@ --",

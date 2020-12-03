@@ -1,5 +1,6 @@
 /* XPM */
 static const char *modeprohibition_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 31 1",
 " 	c None",
 ".	c #FF0000",
@@ -32,6 +33,7 @@ static const char *modeprohibition_xpm[] = {
 "|	c #FFCDCD",
 "1	c #FF3939",
 "2	c #FF3838",
+/* pixels */
 "                ",
 ".+@@@@@@@@@@@@+.",
 " +#$$$$$$$$$$%+ ",
@@ -47,4 +49,5 @@ static const char *modeprohibition_xpm[] = {
 "       ..       ",
 "       @@       ",
 "                ",
-"                "};
+"                "
+};

@@ -1,5 +1,6 @@
 /* XPM */
 static const char * paintbrush5x_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "17 17 43 1",
 " 	c None",
 "!	c black",
@@ -44,6 +45,7 @@ static const char * paintbrush5x_xpm[] = {
 "J	c #FFFFFA",
 "K	c #020100",
 "L	c #020200",
+/* pixels */
 "                 ",
 "        #$%&     ",
 "        '()'     ",
@@ -60,4 +62,5 @@ static const char * paintbrush5x_xpm[] = {
 " CD:EF@  !!!!!  !",
 " G:9HI      ! !! ",
 "'JKK*    !  ! !! ",
-"''L       !! !  !"};
+"''L       !! !  !"
+};

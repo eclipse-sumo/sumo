@@ -1,6 +1,7 @@
 /* XPM */
 static const char *newnet_xpm[] = {
-"16 16 5 1 ",
+/* columns rows colors chars-per-pixel */
+"16 16 5 1",
 "  c black",
 "4 c #5AA02C",
 "v c #D7F4D7",

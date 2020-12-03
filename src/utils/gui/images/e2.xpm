@@ -1,7 +1,7 @@
 /* XPM */
 static const char *e2_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 9 2 ",
+"16 16 9 2",
 "   c black",
 ".  c #101010",
 "X  c #202020",

@@ -1,7 +1,7 @@
 /* XPM */
 static const char *containerstop_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 28 1 ",
+"16 16 28 1",
 "  c #5159AB",
 "X c #5258AB",
 "o c #5358AB",

@@ -1,7 +1,7 @@
 /* XPM */
 static const char *computejunctions_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 52 1 ",
+"16 16 52 1",
 "  c #D79300",
 ". c #DB9401",
 "X c #DF9C00",

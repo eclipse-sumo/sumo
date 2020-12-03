@@ -1,7 +1,8 @@
 /* XPM */
 static const char *e3_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 37 2 ",
+"16 16 38 2",
+"   c #464646",
 ".  c gray33",
 "X  c #585858",
 "o  c #5B5B5B",

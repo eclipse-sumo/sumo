@@ -1,9 +1,11 @@
 /* XPM */
 static const char *locate_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 3 1",
 " 	c None",
 ".	c Black",
 "X	c Red",
+/* pixels */
 "                ",
 "        ....    ",
 "       ......   ",
@@ -15,8 +17,9 @@ static const char *locate_xpm[] = {
 " .XXXXXX ..     ",
 ".XXXXXXX ..     ",
 ".XXXXXXX ..     ",
-".XXXXXX.        ",
+".XXXXXXX        ",
 " .XXXXXX ..     ",
 " .XXXXXX ..     ",
 "  .XXX..        ",
-"   ...  ...     "};
+"   ...  ...     "
+};

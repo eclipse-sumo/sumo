@@ -12,6 +12,7 @@ static const char * colour_vehicle_xpm[] = {
 "#	c #50b6ff",
 "$	c #88ff13",
 "%	c #1d9136",
+/* pixels */
 "                ",
 "                ",
 "                ",

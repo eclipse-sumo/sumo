@@ -1,7 +1,7 @@
 /* XPM */
 static const char *checkbox_autoselectjunctions_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 12 1 ",
+"16 16 12 1",
 "  c black",
 ". c #880707",
 "X c #890707",

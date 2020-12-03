@@ -1,11 +1,13 @@
 /* XPM */
-static const char *reload_xpm[]={
+static const char *reload_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "15 16 5 1",
 "# c #000000",
 "c c #bf7e00",
 ". c None",
 "b c #efc001",
 "a c #fff665",
+/* pixels */
 ".........##....",
 "......####a#...",
 "....##aaaabb#..",
@@ -21,4 +23,5 @@ static const char *reload_xpm[]={
 ".#bbbb####abc#.",
 ".#bb#baaaabc#..",
 ".###.#ccccc#...",
-".....######...."};
+".....######...."
+};

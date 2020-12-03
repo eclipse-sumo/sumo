@@ -1,7 +1,7 @@
 /* XPM */
 static const char *calibrator_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 47 2 ",
+"16 16 47 2",
 "s  c #F1C100",
 "f  c #DBAF00",
 "g  c #E7B900",

@@ -1,7 +1,7 @@
 /* XPM */
 static const char *crossing_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 101 2 ",
+"16 16 101 2",
 "   c gray1",
 ".  c gray2",
 "X  c #090909",

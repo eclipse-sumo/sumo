@@ -1,7 +1,7 @@
 /* XPM */
 static const char *checkbox_chain_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 8 1 ",
+"16 16 8 1",
 "  c black",
 ". c #640000",
 "X c #650000",

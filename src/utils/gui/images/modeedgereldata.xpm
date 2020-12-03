@@ -1,23 +1,13 @@
 /* XPM */
 static const char *modeedgereldata_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 16 1 ",
+"16 16 6 1",
 "  c black",
 ". c #007F0E",
 "X c #0026FF",
 "o c red",
 "O c #FFD800",
 "+ c white",
-"@ c black",
-"# c black",
-"$ c black",
-"% c black",
-"& c black",
-"* c black",
-"= c black",
-"- c black",
-"; c black",
-": c black",
 /* pixels */
 "          .     ",
 "         ...    ",

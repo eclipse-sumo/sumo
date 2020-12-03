@@ -1,7 +1,7 @@
 /* XPM */
 static const char *hall_of_fame_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"85 28 8 1 ",
+"85 28 8 1",
 "  c #FFCB00",
 ". c #FFCC00",
 "o c #DDCD86",

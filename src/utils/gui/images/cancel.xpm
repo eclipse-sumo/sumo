@@ -1,7 +1,7 @@
 /* XPM */
 static const char *cancel_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 9 1 ",
+"16 16 9 1",
 "  c #D75A4A",
 ". c #D75B4B",
 "X c #D85A4B",

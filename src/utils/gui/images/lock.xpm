@@ -1,7 +1,7 @@
 /* XPM */
 static const char *lock_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"48 48 169 2 ",
+"48 48 169 2",
 "   c None",
 ".  c #7E4F01",
 "X  c #6E5B39",

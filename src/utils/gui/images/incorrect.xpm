@@ -1,7 +1,7 @@
 /* XPM */
 static const char *incorrect_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 5 1 ",
+"16 16 5 1",
 ". c #E1574C",
 "o c #E3574C",
 "@ c #E3574D",

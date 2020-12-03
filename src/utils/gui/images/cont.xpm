@@ -13,6 +13,7 @@ static const char * cont_xpm[] = {
 "$	c #5fc800",
 "%	c #5bc000",
 "&	c #56b600",
+/* pixels */
 "  ..           ",
 "   ...         ",
 "    .X.        ",

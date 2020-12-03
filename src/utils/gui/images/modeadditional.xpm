@@ -1,7 +1,7 @@
 /* XPM */
 static const char *modeadditional_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 9 1 ",
+"16 16 9 1",
 "  c #4CAA32",
 ". c #65B02A",
 "X c #6AB129",

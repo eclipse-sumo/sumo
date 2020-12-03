@@ -31,6 +31,7 @@ static const char *play_xpm[]={
 "b c #9fff1b",
 "a c #a3ff23",
 ". c None",
+/* pixels */
 "..##...........",
 "..#a##.........",
 "..#bcd#........",

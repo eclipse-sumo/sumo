@@ -1,7 +1,7 @@
 /* XPM */
 static const char *checkbox_bubbles_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 11 1 ",
+"16 16 11 1",
 "  c #880707",
 ". c #890707",
 "X c #890808",

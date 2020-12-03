@@ -1,10 +1,12 @@
 /* XPM */
 static const char * locate_vehicle_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 4 1",
 " 	c None",
 ".	c Black",
 "X	c Red",
 "o	c #851d1d",
+/* pixels */
 "           ...  ",
 "          .   . ",
 "              . ",
@@ -20,4 +22,5 @@ static const char * locate_vehicle_xpm[] = {
 ".XXXXXXXXXXXXXX.",
 ".XXXXXXXXXXXXXX.",
 "...XX......XX.. ",
-"   ..      ..   "};
+"   ..      ..   "
+};

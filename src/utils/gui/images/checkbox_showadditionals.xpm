@@ -1,7 +1,7 @@
 /* XPM */
 static const char *checkbox_showadditionals_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 2 1 ",
+"16 16 2 1",
 "  c #CC0000",
 "$ c None",
 /* pixels */

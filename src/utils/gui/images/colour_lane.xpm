@@ -10,6 +10,7 @@ static const char * colour_lane_xpm[] = {
 "+	c #ff1313",
 "@	c #ffe94d",
 "#	c #29de00",
+/* pixels */
 " ...            ",
 ".XXX.           ",
 ".XXX.           ",

@@ -1,5 +1,6 @@
 /* XPM */
 static const char * new_window_xpm[] = {
+/* columns rows colors chars-per-pixel */
 "16 16 96 2",
 "  	c None",
 ". 	c #ff8514",
@@ -97,6 +98,7 @@ static const char * new_window_xpm[] = {
 "..	c #0e0e0e",
 "X.	c Gray3",
 "o.	c Gray1",
+/* pixels */
 "                                ",
 "                              . ",
 "                    X   .   X   ",
@@ -112,4 +114,5 @@ static const char * new_window_xpm[] = {
 "$ K k z D x v B b F P Y T R     ",
 "% E W D x v B b F P Q ! ~ ^     ",
 "/ E ( ) _ ` n ' G G T ~ ~ ^     ",
-"] i [ p { } | s  ...X.o.^ ^     "};
+"] i [ p { } | s  ...X.o.^ ^     "
+};

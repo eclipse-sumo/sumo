@@ -1,7 +1,7 @@
 /* XPM */
 static const char *chargingstation_xpm[] = {
 /* columns rows colors chars-per-pixel */
-"16 16 41 1 ",
+"16 16 41 1",
 "  c #FFEB00",
 ". c #FEEB01",
 "o c #FDEB03",
