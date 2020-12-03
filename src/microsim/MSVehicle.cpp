@@ -6085,7 +6085,8 @@ MSVehicle::getBaseInfluencer() const {
 
 double
 MSVehicle::getSpeedWithoutTraciInfluence() const {
-    if (myInfluencer != nullptr) {
+    if (myInfluencer != nullptr && myInfluencer->getOriginalSpeed() >= 0) {
+        // influencer original speed is -1 on initialization
         return myInfluencer->getOriginalSpeed();
     }
     return myState.mySpeed;
