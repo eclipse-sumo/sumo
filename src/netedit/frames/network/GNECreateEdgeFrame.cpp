@@ -82,25 +82,33 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
     myCreateEdgeFrameParent(createEdgeFrameParent),
     myEdgeTypeSelected(nullptr),
     myDefaultEdgeType(new GNEEdgeType(createEdgeFrameParent)) {
+
+    fnt = new FXFont(createEdgeFrameParent->myContentFrame->getApp(), "Arial", 10);
     // default edge radio button
     myUseDefaultEdgeType = new FXRadioButton(this, 
         "Create default edge", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    myUseDefaultEdgeType->setFont(fnt);
     // use custom edge radio button
     myUseCustomEdgeType = new FXRadioButton(this, 
         "Use edgeType/template", this, MID_GNE_CREATEEDGEFRAME_SELECTRADIOBUTTON, GUIDesignRadioButton);
+    myUseCustomEdgeType->setFont(fnt);
     // edge types combo box
     myEdgeTypesComboBox = new FXComboBox(this, GUIDesignComboBoxNCol, this, MID_GNE_CREATEEDGEFRAME_SELECTEDGETYPE, GUIDesignComboBoxAttribute);
+    myEdgeTypesComboBox->setFont(fnt);
     // create horizontal frame
     FXHorizontalFrame* horizontalFrameButtons = new FXHorizontalFrame(this, GUIDesignAuxiliarHorizontalFrame);
     // create new edge type button
     myAddEdgeTypeButton = new FXButton(horizontalFrameButtons,
         "add\t\add edge type", GUIIconSubSys::getIcon(GUIIcon::ADD), this, MID_GNE_CREATEEDGEFRAME_ADDEDGETYPE, GUIDesignButton);
+    myAddEdgeTypeButton->setFont(fnt);
     // create delete edge type button
     myDeleteEdgeTypeButton = new FXButton(horizontalFrameButtons,
         "delete\t\tdelete edge type", GUIIconSubSys::getIcon(GUIIcon::REMOVE), this, MID_GNE_CREATEEDGEFRAME_DELETEEDGETYPE, GUIDesignButton);
+    myDeleteEdgeTypeButton->setFont(fnt);
     // create reset edge type button
     myResetEdgeTypeButton = new FXButton(horizontalFrameButtons,
         "reset\t\treset edge type", GUIIconSubSys::getIcon(GUIIcon::RESET), this, MID_GNE_CREATEEDGEFRAME_RESETEDGETYPE, GUIDesignButton);
+    myResetEdgeTypeButton->setFont(fnt);
     // by default, create custom edge
     myUseDefaultEdgeType->setCheck(TRUE);
 }
@@ -108,6 +116,8 @@ GNECreateEdgeFrame::EdgeTypeSelector::EdgeTypeSelector(GNECreateEdgeFrame* creat
 
 GNECreateEdgeFrame::EdgeTypeSelector::~EdgeTypeSelector() {
     delete myDefaultEdgeType;
+
+    delete fnt;
 }
 
 

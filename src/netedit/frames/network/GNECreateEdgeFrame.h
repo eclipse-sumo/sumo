@@ -101,6 +101,8 @@ public:
         /// @brief fill default parameters
         void fillDefaultParameters();
 
+        FXFont *fnt = nullptr;
+
     private:
         /// @brief pointer to createEdgeFrameParent
         GNECreateEdgeFrame* myCreateEdgeFrameParent;
