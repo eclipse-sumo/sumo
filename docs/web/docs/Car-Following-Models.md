@@ -34,6 +34,8 @@ it may be useful to maintain a higher action step length in order to
 model reaction times and also in order to reduce computational demand
 and thus speed up the simulation.
 
+The action step length works similar to a reaction time (vehicle will not react immediately to changes in their environment) but it also differs from a "true" reaction time because whenever a vehicle has it's action step it reacts to the state in the previous simulation step rather than to the state that was seen in their previous action step. Thus the Perception-Reaction loop is less frequent but still as fast as the simulation step length.
+
 ### tau
 
 This parameter is intended to model a drivers desired time headway (in
