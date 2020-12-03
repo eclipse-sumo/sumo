@@ -132,4 +132,7 @@ atJunction_walk_ride
 
 # last edge of the ride differs from first edge of the walk
 atJunction_ride_walk
+
+# specify the persons that may enter
+permitted
 errors

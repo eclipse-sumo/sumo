@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on Thu Dec  3 09:24:52 2020 by Eclipse SUMO sumo Version v1_8_0+0074-09259a35cf
+This data file and the accompanying materials
+are made available under the terms of the Eclipse Public License v2.0
+which accompanies this distribution, and is available at
+http://www.eclipse.org/legal/epl-v20.html
+SPDX-License-Identifier: EPL-2.0
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="net2.net.xml"/>
+        <route-files value="input_routes.rou.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="tripinfos.xml"/>
+        <vehroute-output value="vehroutes.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <duration-log.disable value="true"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <person id="p1" depart="0.00" departPos="55.00" arrival="99.00">
+        <ride from="CN" to="CS" arrivalPos="50.00" lines="v1"/>
+    </person>
+
+    <person id="p2" depart="0.00" departPos="55.00" arrival="189.00">
+        <ride from="CN" to="CS" arrivalPos="50.00" lines="v1"/>
+    </person>
+
+    <vehicle id="v1" depart="0.00" departPos="0.00" arrival="309.00">
+        <route edges="SC CN NC CS SC CN NC CS SC CN NC CS SC CN NC CS"/>
+        <stop edge="CN" endPos="50.00" duration="10.00" permitted="p1"/>
+        <stop edge="CS" endPos="50.00" duration="10.00"/>
+        <stop edge="CN" endPos="50.00" duration="10.00"/>
+        <stop edge="CS" endPos="50.00" duration="10.00"/>
+    </vehicle>
+
+</routes>
