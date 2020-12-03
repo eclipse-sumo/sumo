@@ -6410,6 +6410,14 @@ MSVehicle::getDriverState() const {
 }
 
 
+void
+MSVehicle::setPreviousSpeed(double prevspeed) {
+    myState.mySpeed = MAX2(0., prevspeed);
+    // also retcon acceleration
+    myAcceleration = SPEED2ACCEL(myState.mySpeed - myState.myPreviousSpeed);
+}
+
+
 double
 MSVehicle::getCurrentApparentDecel() const {
     //return MAX2(-myAcceleration, getCarFollowModel().getApparentDecel());

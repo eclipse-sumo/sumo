@@ -471,9 +471,7 @@ public:
     /** @brief Sets the influenced previous speed
      * @param[in] A double value with the speed that overwrites the previous speed
      */
-    void setPreviousSpeed(double prevspeed) {
-        myState.mySpeed = MAX2(0., prevspeed);
-    }
+    void setPreviousSpeed(double prevspeed);
 
 
     /** @brief Returns the vehicle's acceleration in m/s
