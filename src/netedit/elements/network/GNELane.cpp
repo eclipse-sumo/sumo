@@ -113,6 +113,12 @@ GNELane::getParentEdge() const {
 }
 
 
+bool 
+GNELane::allowPedestrians() const {
+    return (myParentEdge->getNBEdge()->getPermissions(myIndex) & SVC_PEDESTRIAN) > 0;
+}
+
+
 const PositionVector&
 GNELane::getLaneShape() const {
     return myParentEdge->getNBEdge()->getLaneShape(myIndex);

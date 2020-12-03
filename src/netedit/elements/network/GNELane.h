@@ -87,6 +87,9 @@ public:
     /// @brief get arent edge
     GNEEdge* getParentEdge() const;
 
+    /// @brief check if current lane allow pedestrians
+    bool allowPedestrians() const;
+
     /// @name Functions related with geometry of element
     /// @{
     /// @brief get elements shape
