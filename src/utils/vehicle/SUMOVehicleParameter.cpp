@@ -208,6 +208,9 @@ SUMOVehicleParameter::Stop::write(OutputDevice& dev, bool close) const {
     if ((parametersSet & STOP_EXPECTED_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_EXPECTED, awaitedPersons);
     }
+    if ((parametersSet & STOP_PERMITTED_SET) != 0) {
+        dev.writeAttr(SUMO_ATTR_PERMITTED, permitted);
+    }
     if ((parametersSet & STOP_EXPECTED_CONTAINERS_SET) != 0) {
         dev.writeAttr(SUMO_ATTR_EXPECTED_CONTAINERS, awaitedContainers);
     }

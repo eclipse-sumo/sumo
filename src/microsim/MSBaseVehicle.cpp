@@ -534,6 +534,10 @@ MSBaseVehicle::allowsBoarding(MSTransportable* t) const {
     } else if (!t->isPerson() && getContainerNumber() >= getVehicleType().getContainerCapacity()) {
         return false;
     }
+    if (isStopped() && myStops.begin()->pars.permitted.size() > 0
+            && myStops.begin()->pars.permitted.count(t->getID()) == 0) {
+        return false;
+    }
     MSDevice_Taxi* taxiDevice = static_cast<MSDevice_Taxi*>(getDevice(typeid(MSDevice_Taxi)));
     if (taxiDevice != nullptr) {
         return taxiDevice->allowsBoarding(t);

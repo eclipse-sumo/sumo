@@ -741,6 +741,7 @@
         <xsd:attribute name="triggered" type="xsd:string"/>
         <xsd:attribute name="containerTriggered" type="boolType"/>
         <xsd:attribute name="expected" type="xsd:string"/>
+        <xsd:attribute name="permitted" type="xsd:string"/>
         <xsd:attribute name="expectedContainers" type="xsd:string"/>
         <xsd:attribute name="actType" type="xsd:string"/>
         <xsd:attribute name="tripId" type="xsd:string"/>

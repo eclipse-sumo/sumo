@@ -683,6 +683,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "containerTriggered",     SUMO_ATTR_CONTAINER_TRIGGERED },
     { "parking",                SUMO_ATTR_PARKING },
     { "expected",               SUMO_ATTR_EXPECTED },
+    { "permitted",              SUMO_ATTR_PERMITTED },
     { "expectedContainers",     SUMO_ATTR_EXPECTED_CONTAINERS },
     { "index",                  SUMO_ATTR_INDEX },
 

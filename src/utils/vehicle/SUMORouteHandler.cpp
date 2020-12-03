@@ -395,6 +395,9 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
     if (attrs.hasAttribute(SUMO_ATTR_EXPECTED)) {
         stop.parametersSet |= STOP_EXPECTED_SET;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_PERMITTED)) {
+        stop.parametersSet |= STOP_PERMITTED_SET;
+    }
     if (attrs.hasAttribute(SUMO_ATTR_EXPECTED_CONTAINERS)) {
         stop.parametersSet |= STOP_EXPECTED_CONTAINERS_SET;
     }
@@ -474,6 +477,10 @@ SUMORouteHandler::parseStop(SUMOVehicleParameter::Stop& stop, const SUMOSAXAttri
             stop.parking = true;
         }
     }
+
+    // permitted transportables
+    const std::vector<std::string>& permitted = attrs.getOptStringVector(SUMO_ATTR_PERMITTED, nullptr, ok);
+    stop.permitted.insert(permitted.begin(), permitted.end());
 
     // expected containers
     const std::vector<std::string>& expectedContainers = attrs.getOptStringVector(SUMO_ATTR_EXPECTED_CONTAINERS, nullptr, ok);
