@@ -17,7 +17,7 @@ sequence of [transport](../Specification/Containers.md#transports),
 [stop](../Specification/Containers.md#stops) elements as described
 below. Each container must have at least one stage in its plan.
 
-```
+```xml
 <container id="foo" depart="0">
     <tranship edges="a b"/>
     <transport ../>
@@ -48,13 +48,21 @@ Transports define the start and end point of a movement with a single
 mode of transport (e.g. a truck, train or a ship). They are child
 elements of plan definitions.
 
-| Attribute | Type   | Range                     | Default | Remark                                                 |
-| --------- | ------ | ------------------------- | ------- | ------------------------------------------------------ |
-| from      | string | valid edge ids            | \-      | id of the start edge                                   |
-| to        | string | valid edge ids            | \-      | id of the destination edge                             |
-| lines     | list   | valid line or vehicle ids | \-      | list of vehicle alternatives to take for the transport |
+| Attribute     | Type   | Range                     | Default | Remark                                                 |
+| ------------- | ------ | ------------------------- | ------- | ------------------------------------------------------ |
+| from          | string | valid edge ids            | \-      | id of the start edge                                   |
+| to            | string | valid edge ids            | \-      | id of the destination edge                             |
+| containerStop | string | valid container stop ids  | \-      | id of the destination stop                             |
+| lines         | list   | valid line or vehicle ids | \-      | list of vehicle alternatives to take for the transport |
+| arrivalPos    |float(m)|                           | \-1     | arrival position on the destination edge               |
 
-the route to take is defined by the vehicle.
+The route to take is defined by the vehicle.
+
+A given container stop may serve as a replacement for a destination edge and
+arrival position. If an arrival position is given nevertheless it has to
+be inside the range of the stop.
+
+A transport of a container works similar to a [ride](../Specification/Persons.md#rides) of a person.
 
 ## Tranships
 
@@ -133,7 +141,7 @@ train station, gets transported by a train, gets unloaded and transhiped
 to a place, where it's stored (stopped) for some time and finally gets
 transported again.
 
-```
+```xml
 <routes>
     <container id="container0" depart="0">
         <tranship from="2/3to1/3" to="1/3to0/3" departPos="80" arrivalPos="55"/>
