@@ -1287,7 +1287,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
                 // ambiguous mapping. Don't trust this
                 dist2 = FAR_AWAY;
             }
-            const double angleDiff = (angle == INVALID_DOUBLE_VALUE ? 0 : GeomHelper::getMinAngleDiff(angle, langle));
+            const double angleDiff = (angle == INVALID_DOUBLE_VALUE || l->getEdge().isWalkingArea() ? 0 : GeomHelper::getMinAngleDiff(angle, langle));
 #ifdef DEBUG_MOVEXY_ANGLE
             std::cout << std::setprecision(gPrecision)
                       << " candLane=" << l->getID() << " lAngle=" << langle << " lLength=" << l->getLength()
