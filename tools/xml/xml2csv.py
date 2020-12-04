@@ -144,14 +144,15 @@ class CSVWriter(NestingHandler):
         self.outfiles = {}
         self.rootDepth = 1 if options.split else 0
         for root in sorted(attrFinder.depthTags):
-            if not options.output:
-                if isinstance(options.source, str):
-                    options.output = os.path.splitext(options.source)[0]
-                else:
-                    options.output = options.source.name
-            if len(attrFinder.depthTags) == 1:
+            if options.output:
                 if not options.output.isdigit() and not options.output.endswith(".csv"):
                     options.output += ".csv"
+            else:
+                if isinstance(options.source, str):
+                    options.output = os.path.splitext(options.source)[0] + ".csv"
+                else:
+                    options.output = options.source.name + ".csv"
+            if len(attrFinder.depthTags) == 1:
                 self.outfiles[root] = getOutStream(options.output)
             else:
                 outfilename = options.output + "%s.csv" % root
