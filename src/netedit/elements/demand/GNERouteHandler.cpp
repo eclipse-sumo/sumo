@@ -472,6 +472,7 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
     // declare pointers to parent elements
     GNEAdditional* stoppingPlace = nullptr;
     GNELane* lane = nullptr;
+    GNEEdge* edge = nullptr;
     // GNEEdge* edge = nullptr;
     SumoXMLTag stopTagType = SUMO_TAG_NOTHING;
     bool validParentDemandElement = true;
@@ -514,15 +515,15 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
         lane = net->retrieveLane(stopParameters.lane, false);
         stopTagType = SUMO_TAG_STOP_LANE;
     } else if (stopParameters.edge.size() > 0) {
-        // edge = net->retrieveEdge(stopParameters.lane, false);
+        edge = net->retrieveEdge(stopParameters.edge, false);
         stopTagType = GNE_TAG_PERSONSTOP_EDGE;
     }
     // first check that parent is valid
     if (validParentDemandElement) {
         // check if values are correct
-        if (stoppingPlace && lane) {
-            WRITE_ERROR("A stop must be defined either over a stoppingPlace or over a lane");
-        } else if (!stoppingPlace && !lane) {
+        if (stoppingPlace && lane && edge) {
+            WRITE_ERROR("A stop must be defined either over a stoppingPlace or over a lane or over a edge");
+        } else if (!stoppingPlace && !lane && !edge) {
             WRITE_ERROR("A stop requires a stoppingPlace or a lane");
         } else if (stoppingPlace) {
             // create stop using stopParameters and stoppingPlace
@@ -537,6 +538,20 @@ GNERouteHandler::buildStop(GNENet* net, bool undoDemandElements, const SUMOVehic
                 stoppingPlace->addChildElement(stop);
                 stopParent->addChildElement(stop);
                 stop->incRef("buildStoppingPlaceStop");
+            }
+        } else if (edge) {
+            // create stop using stopParameters and edge
+            GNEDemandElement* stop = new GNEPersonStop(net, stopParent, edge, stopParameters);
+            // add it depending of undoDemandElements
+            if (undoDemandElements) {
+                net->getViewNet()->getUndoList()->p_begin("add " + stop->getTagStr());
+                net->getViewNet()->getUndoList()->add(new GNEChange_DemandElement(stop, true), true);
+                net->getViewNet()->getUndoList()->p_end();
+            } else {
+                net->getAttributeCarriers()->insertDemandElement(stop);
+                edge->addChildElement(stop);
+                stopParent->addChildElement(stop);
+                stop->incRef("buildEdgeStop");
             }
         } else {
             // create stop using stopParameters and lane
@@ -2049,9 +2064,27 @@ GNERouteHandler::addStop(const SUMOSAXAttributes& attrs) {
         stop.parkingArea = pa;
         // set tag
         stop.tag = SUMO_TAG_STOP_PARKINGAREA;
+    } else if (!attrs.getOpt<std::string>(SUMO_ATTR_EDGE, nullptr, myAbort, "").empty()) {
+        // special case for persons
+        if ((myVehicleParameter != nullptr) && !((myVehicleParameter->tag == SUMO_TAG_PERSON) || (myVehicleParameter->tag == SUMO_TAG_PERSONFLOW))) {
+            WRITE_ERROR("Only persons support stops over edges");
+            return;
+        }
+        // check if edge is valid
+        if (myAbort && stop.stopParameters.edge != "") {
+            if (stop.lane == nullptr) {
+                WRITE_ERROR("The edge '" + stop.stopParameters.edge + "' for a stop is not known" + errorSuffix);
+                return;
+            }
+        }
+        // save edge
+        stop.stopParameters.edge = attrs.getOpt<std::string>(SUMO_ATTR_EDGE, nullptr, myAbort, "");
+        stop.edgeStop = myNet->retrieveEdge(stop.stopParameters.edge, false);
+        // set tag
+        stop.tag = GNE_TAG_PERSONSTOP_BUSSTOP;
     } else {
         // no, the lane and the position should be given
-        // get the lane
+        // get the lane and edge
         stop.stopParameters.lane = attrs.getOpt<std::string>(SUMO_ATTR_LANE, nullptr, myAbort, "");
         stop.lane = myNet->retrieveLane(stop.stopParameters.lane, false);
         // check if lane is valid
