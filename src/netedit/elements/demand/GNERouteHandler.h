@@ -129,6 +129,7 @@ public:
 
     /// @brief build stop
     static void buildStop(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter::Stop& stopParameters, GNEDemandElement* stopParent);
+
     /// @}
 
     /// @name build person
@@ -138,6 +139,7 @@ public:
 
     /// @brief build person flow
     static void buildPersonFlow(GNENet* net, bool undoDemandElements, const SUMOVehicleParameter& personFlowParameters);
+
     /// @}
 
     /// @name build personPlan
