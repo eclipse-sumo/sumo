@@ -75,6 +75,7 @@ copy_test_path:config.txt
 copy_test_path:input_sel.txt
 copy_test_path:matsim_plans.xml
 copy_test_path:input_data.xml
+copy_test_path_merge:data
 
 [collate_file]
 detectors:e1.add.xml
