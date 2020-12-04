@@ -196,15 +196,12 @@ public:
     /// @brief get parameters map
     const std::map<std::string, std::string>& getACParametersMap() const;
 
-    /// @brief get start position over lane that is applicable to the shape
-    double getStartGeometryPositionOverLane() const;
-
-    /// @brief get end position over lane that is applicable to the shape
-    double getEndGeometryPositionOverLane() const;
-
 protected:
     /// @brief variable demand element move
     DemandElementMove myStopMove;
+
+    /// @brief get first valid lane
+    const GNELane *getFirstAllowedLane() const;
 
 private:
     /// @brief method for setting the attribute and nothing else

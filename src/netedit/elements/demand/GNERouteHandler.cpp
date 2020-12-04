@@ -786,6 +786,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_PERSONSTOP_EDGE: {
             // check if ride busStop->busStop can be created
             if (fromEdge) {
+                stopParameters.edge = fromEdge->getID();
                 buildPersonStop(viewNet->getNet(), true, personParent, fromEdge, nullptr, stopParameters);
                 return true;
             } else {
@@ -796,6 +797,7 @@ GNERouteHandler::buildPersonPlan(SumoXMLTag tag, GNEDemandElement* personParent,
         case GNE_TAG_PERSONSTOP_BUSSTOP: {
             // check if ride busStop->busStop can be created
             if (fromBusStop) {
+                stopParameters.busstop = fromBusStop->getID();
                 buildPersonStop(viewNet->getNet(), true, personParent, nullptr, fromBusStop, stopParameters);
                 return true;
             } else {
