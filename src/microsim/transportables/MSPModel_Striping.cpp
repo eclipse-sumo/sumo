@@ -1942,6 +1942,15 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
     assert(p == myPerson);
     assert(pm != nullptr);
     const double oldAngle = GeomHelper::naviDegree(getAngle(*myStage, t));
+    // person already walking in this step. undo this to obtain the previous position
+    const double oldX = myRelX - SPEED2DIST(mySpeed * myDir);
+    const double tmp = myRelX;
+    myRelX = oldX;
+    Position oldPos = getPosition(*myStage, t);
+    myRelX = tmp;
+    //if (oldPos == Position::INVALID) {
+    //    oldPos = pos
+    //}
     myAngle = GeomHelper::fromNaviDegree(angle);
 #ifdef DEBUG_MOVETOXY
     std::cout << SIMTIME << " ped=" << p->getID()
@@ -2041,9 +2050,16 @@ MSPModel_Striping::PState::moveToXY(MSPerson* p, Position pos, MSLane* lane, dou
         std::cout << " newRelPos=" << Position(myRelX, myRelY) << " edge=" << myPerson->getEdge()->getID() << " newPos=" << myPerson->getPosition()
                   << " oldAngle=" << oldAngle << " angleDiff=" << angleDiff << " newDir=" << myDir << "\n";
 #endif
+        if (oldLane == myLane) {
+            mySpeed = DIST2SPEED(fabs(oldX - myRelX));
+        } else {
+            //std::cout << SIMTIME << " oldX=" << oldX << " oldSpeed=" << mySpeed << " oldPos=" << oldPos << " pos=" << pos << " dist=" << oldPos.distanceTo2D(pos) << " oldLane=" << Named::getIDSecure(oldLane) << " lane=" << lane->getID() << "\n";
+            mySpeed = DIST2SPEED(oldPos.distanceTo2D(pos));
+        }
     } else {
         // map outside the network
         myRemoteXYPos = pos;
+        mySpeed = DIST2SPEED(oldPos.distanceTo2D(pos));
     }
 
 }
