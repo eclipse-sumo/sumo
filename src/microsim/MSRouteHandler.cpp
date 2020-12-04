@@ -1461,6 +1461,9 @@ MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
 		else if (myActiveContainerPlan->empty()) {
 			throw ProcessError("The start edge for container '" + cid + "' is not known.");
 		}
+		else {
+			myActiveRoute.push_back(myActiveContainerPlan->back()->getDestination());
+		}
 		const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, cid.c_str(), ok);
 		to = MSEdge::dictionary(toID);
 		if (to == nullptr) {

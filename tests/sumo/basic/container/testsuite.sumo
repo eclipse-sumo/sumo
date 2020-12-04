@@ -67,8 +67,11 @@ loading_duration_extension
 # a truck will stop at two containerstop that are located at the same edge and a container is waiting at the second container stop. the container has to get loaded onto the truck when the truck stops at the second container stop and not before.
 two_containerstops_at_one_edge
 
-# test whether a chain of walks rides and stops works
+# test whether a chain of tranships, transports and stops works
 trip_chain
+
+# test whether a chain of tranships, transports and stops works without 'from' statement
+trip_chain_no_from
 
 # container with a transfer from one edge to the next one
 transfer
