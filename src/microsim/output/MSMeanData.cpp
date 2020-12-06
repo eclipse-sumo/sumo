@@ -652,6 +652,7 @@ MSMeanData::detectorUpdate(const SUMOTime step) {
     }
 }
 
+
 long long int
 MSMeanData::initWrittenAttributes(const std::string writeAttributes, const std::string& id) {
     long long int result = 0;
@@ -666,5 +667,6 @@ MSMeanData::initWrittenAttributes(const std::string writeAttributes, const std::
     }
     return result;
 }
+
 
 /****************************************************************************/

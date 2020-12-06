@@ -251,7 +251,7 @@ public:
      */
     template <typename T>
     OutputDevice& writeOptionalAttr(const SumoXMLAttr attr, const T& val, long long int attributeMask) {
-        assert(attributeMask <= 63);
+        assert((int)attr <= 63);
         if (attributeMask == 0 || attributeMask & ((long long int)1 << attr)) {
             PlainXMLFormatter::writeAttr(getOStream(), attr, val);
         }
