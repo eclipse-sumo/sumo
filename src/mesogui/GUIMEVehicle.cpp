@@ -271,7 +271,7 @@ GUIMEVehicle::getCenteringBoundary() const {
     if (getSegment() != nullptr) {
         offset = getSegment()->getLength();
         auto queue = getSegment()->getQueue(getQueIndex());
-        for (int i = queue.size() - 1; i >= 0 && queue[i] != this; i--) {
+        for (int i = (int)queue.size() - 1; i >= 0 && queue[i] != this; i--) {
             offset -= queue[i]->getVehicleType().getLengthWithGap();
         }
     }
