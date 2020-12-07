@@ -1,4 +1,4 @@
-Eclipse SUMO netgenerate Version v1_6_0+2016-faf1994207
+Eclipse SUMO netgenerate Version v1_8_0+0130-b7261cccf9
  Copyright (C) 2001-2020 German Aerospace Center (DLR) and others; https://sumo.dlr.de
 Synthetic network generator for the microscopic, multi-modal traffic simulation
  SUMO.
@@ -246,6 +246,9 @@ TLS Building Options:
                                         directions or grouping all movements for
                                         one incoming edge ['opposites',
                                         'incoming']
+  --tls.no-mixed                       Avoid phases with green and red signals
+                                        for different connectionss from the same
+                                        lane
   --tls.min-dur INT                    Default minimum phase duration for
                                         traffic lights with variable phase
                                         length

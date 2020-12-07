@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Sep  7 13:28:03 2020 by Eclipse SUMO netgenerate Version v1_6_0+2015-336b3d6f93
+<!-- generated on Mon Dec  7 15:06:56 2020 by Eclipse SUMO netgenerate Version v1_8_0+0130-b7261cccf9
 -->
 
 <configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/netgenerateConfiguration.xsd">
@@ -383,6 +383,9 @@
 
         <!-- Set phase layout four grouping opposite directions or grouping all movements for one incoming edge [&apos;opposites&apos;, &apos;incoming&apos;] -->
         <tls.layout value="opposites" type="STR"/>
+
+        <!-- Avoid phases with green and red signals for different connectionss from the same lane -->
+        <tls.no-mixed value="false" type="BOOL"/>
 
         <!-- Default minimum phase duration for traffic lights with variable phase length -->
         <tls.min-dur value="5" type="INT"/>
