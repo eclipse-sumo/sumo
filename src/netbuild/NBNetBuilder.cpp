@@ -416,12 +416,21 @@ NBNetBuilder::compute(OptionsCont& oc, const std::set<std::string>& explicitTurn
         WRITE_MESSAGE("Guessed " + toString(crossings) + " pedestrian crossings.");
     }
     if (!myNetworkHaveCrossings) {
+        bool haveValidCrossings = false;
         // recheck whether we had crossings in the input
         for (std::map<std::string, NBNode*>::const_iterator i = myNodeCont.begin(); i != myNodeCont.end(); ++i) {
-            if (i->second->getCrossingsIncludingInvalid().size() > 0) {
+            if (i->second->getCrossings().size() > 0) {
                 myNetworkHaveCrossings = true;
+                haveValidCrossings = true;
                 break;
+            } else if (i->second->getCrossingsIncludingInvalid().size() > 0) {
+                myNetworkHaveCrossings = true;
             }
+        }
+        if (myNetworkHaveCrossings && !haveValidCrossings) {
+            // initial crossings removed or invalidated, keep walkingareas
+            oc.resetWritable();
+            oc.set("walkingareas", "true");
         }
     }
 
