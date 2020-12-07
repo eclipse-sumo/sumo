@@ -331,6 +331,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     const SUMOTime greenTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.green.time"));
     SUMOTime allRedTime = TIME2STEPS(OptionsCont::getOptions().getInt("tls.allred.time"));
     const double minorLeftSpeedThreshold = OptionsCont::getOptions().getFloat("tls.minor-left.max-speed");
+    const bool noMixed = OptionsCont::getOptions().getBool("tls.no-mixed");
     // left-turn phases do not work well for joined tls, so we build incoming instead
     if (myLayout == TrafficLightLayout::DEFAULT) {
         // @note this prevents updating after loading plain-xml into netedit computing tls and then changing the default layout
@@ -573,6 +574,27 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
             }
             state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
             state = correctConflicting(state, fromEdges, toEdges, isTurnaround, fromLanes, toLanes, hadGreenMajor, haveForbiddenLeftMover, rightTurnConflicts, mergeConflicts);
+            bool buildMixedGreenPhase = false;
+            std::vector<bool> mixedGreen(pos, false);
+            const std::string oldState = state;
+            if (noMixed) {
+                state = correctMixed(state, fromEdges, fromLanes, buildMixedGreenPhase, mixedGreen);
+            }
+            if (state != oldState) {
+                for (int i1 = 0; i1 < pos; ++i1) {
+                    if (mixedGreen[i1]) {
+                        // patch previous yellow and allred phase
+                        int yellowIndex = logic->getPhases().size() - 1;
+                        if (allRedTime > 0) {
+                            logic->setPhaseState(yellowIndex--, i1, LINKSTATE_TL_RED);
+                        }
+                        if (brakingTime > 0) {
+                            logic->setPhaseState(yellowIndex, i1, LINKSTATE_TL_YELLOW_MINOR);
+                        }
+                    }
+                }
+                state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
+            }
 
             // add step
             logic->addStep(leftTurnTime, state, minDur, maxDur);
@@ -590,6 +612,44 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 // add optional all-red state
                 buildAllRedState(allRedTime, logic, state);
             }
+
+            if (buildMixedGreenPhase) {
+                // build mixed green
+                // @todo if there is no left green phase we might want to build two
+                // mixed-green phases but then we should consider avoid a common
+                // opposite phase for this direction
+
+                for (int i1 = 0; i1 < pos; ++i1) {
+                    if (state[i1] == 'Y' || state[i1] == 'y') {
+                        state[i1] = 'r';
+                        continue;
+                    }
+                    if (mixedGreen[i1]) {
+                        state[i1] = 'G';
+                    }
+                }
+                state = allowCompatible(state, fromEdges, toEdges, fromLanes, toLanes);
+                state = correctConflicting(state, fromEdges, toEdges, isTurnaround, fromLanes, toLanes, hadGreenMajor, haveForbiddenLeftMover, rightTurnConflicts, mergeConflicts);
+
+                // add step
+                logic->addStep(leftTurnTime, state, minDur, maxDur);
+
+                // build mixed yellow
+                if (brakingTime > 0) {
+                    for (int i1 = 0; i1 < pos; ++i1) {
+                        if (state[i1] != 'G' && state[i1] != 'g') {
+                            continue;
+                        }
+                        state[i1] = 'y';
+                    }
+                    // add step
+                    logic->addStep(brakingTime, state);
+                    // add optional all-red state
+                    buildAllRedState(allRedTime, logic, state);
+                }
+
+            }
+
         }
     }
     // fix pedestrian crossings that did not get the green light yet
@@ -1025,6 +1085,29 @@ NBOwnTLDef::correctConflicting(std::string state, const EdgeVector& fromEdges, c
                                  forbids(fromEdges[i1], toEdges[i1], fromEdges[i2], toEdges[i2], true))) {
                             myRightOnRedConflicts.insert(std::make_pair(i1, i2));
                         }
+                    }
+                }
+            }
+        }
+    }
+    return state;
+}
+
+
+std::string
+NBOwnTLDef::correctMixed(std::string state, const EdgeVector& fromEdges,
+                               const std::vector<int>& fromLanes,
+                               bool& buildMixedGreenPhase, std::vector<bool>& mixedGreen) {
+    for (int i1 = 0; i1 < (int)fromEdges.size(); ++i1) {
+        if ((state[i1] == 'G' || state[i1] == 'g')) {
+            for (int i2 = 0; i2 < (int)fromEdges.size(); ++i2) {
+                if (i1 != i2 && fromEdges[i1] == fromEdges[i2] && fromLanes[i1] == fromLanes[i2]
+                        && state[i2] != 'G' && state[i2] != 'g') {
+                    state[i1] = state[i2];
+                    //std::cout << " mixedGreen i1=" << i1 << " i2=" << i2 << "\n";
+                    mixedGreen[i1] = true;
+                    if (fromEdges[i1]->getNumLanesThatAllow(SVC_PASSENGER) > 1) {
+                        buildMixedGreenPhase = true;
                     }
                 }
             }

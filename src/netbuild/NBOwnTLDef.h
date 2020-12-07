@@ -266,6 +266,11 @@ protected:
                                    std::vector<bool>& rightTurnConflicts,
                                    std::vector<bool>& mergeConflicts);
 
+    /// @brief prevent green and red from the same lane
+    std::string correctMixed(std::string state, const EdgeVector& fromEdges,
+                             const std::vector<int>& fromLanes,
+                             bool& buildMixedGreenPhase, std::vector<bool>& mixedGreen);
+
     /// @brief fix states in regard to custom crossing indices
     void checkCustomCrossingIndices(NBTrafficLightLogic* logic) const;
 

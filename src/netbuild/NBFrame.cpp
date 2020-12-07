@@ -526,6 +526,9 @@ NBFrame::fillOptions(bool forNetgen) {
     oc.doRegister("tls.layout", new Option_String("opposites"));
     oc.addDescription("tls.layout", "TLS Building", "Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']");
 
+    oc.doRegister("tls.no-mixed", new Option_Bool(false));
+    oc.addDescription("tls.no-mixed", "TLS Building", "Avoid phases with green and red signals for different connectionss from the same lane");
+
     oc.doRegister("tls.min-dur", new Option_Integer(5));
     oc.addDescription("tls.min-dur", "TLS Building", "Default minimum phase duration for traffic lights with variable phase length");
 
