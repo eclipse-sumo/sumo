@@ -168,8 +168,8 @@ NBNodeTypeComputer::computeNodeTypes(NBNodeCont& nc, NBTrafficLightLogicCont& tl
     validateRailCrossings(nc, tlc);
     const OptionsCont& oc = OptionsCont::getOptions();
     const double rightBeforeLeftSpeed = oc.getFloat("junctions.right-before-left.speed-threshold");
-    for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-        NBNode* const n = (*i).second;
+    for (const auto& nodeIt : nc) {
+        NBNode* const n = nodeIt.second;
         // the type may already be set from the data
         if (n->myType != SumoXMLNodeType::UNKNOWN && n->myType != SumoXMLNodeType::DEAD_END) {
             n->myTypeWasGuessed = false;
@@ -359,8 +359,8 @@ NBEdgePriorityComputer::setPriorityJunctionPriorities(NBNode& n, bool forceStrai
     assert(outgoing.size() != 0);
     sort(outgoing.begin(), outgoing.end(), NBContHelper::edge_by_priority_sorter());
     EdgeVector bestOutgoing;
-    NBEdge* bestOut = outgoing[0];
-    while (outgoing.size() > 0 && (forceStraight || samePriority(bestOut, outgoing[0]))) { //->getPriority()==best->getPriority())
+    const NBEdge* const firstOut = outgoing[0];
+    while (outgoing.size() > 0 && (forceStraight || samePriority(firstOut, outgoing[0]))) { //->getPriority()==best->getPriority())
         bestOutgoing.push_back(*outgoing.begin());
         outgoing.erase(outgoing.begin());
     }

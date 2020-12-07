@@ -262,6 +262,7 @@ GUIMEVehicle::selectBlockingFoes() const {
     // @todo possibly we could compute something reasonable here
 }
 
+
 Boundary
 GUIMEVehicle::getCenteringBoundary() const {
     // getPosition returns the start of the first laneso we do not use it here
@@ -270,7 +271,7 @@ GUIMEVehicle::getCenteringBoundary() const {
     double offset = 0;
     if (getSegment() != nullptr) {
         offset = getSegment()->getLength();
-        auto queue = getSegment()->getQueue(getQueIndex());
+        const std::vector<MEVehicle*>& queue = getSegment()->getQueue(getQueIndex());
         for (int i = (int)queue.size() - 1; i >= 0 && queue[i] != this; i--) {
             offset -= queue[i]->getVehicleType().getLengthWithGap();
         }
@@ -282,5 +283,6 @@ GUIMEVehicle::getCenteringBoundary() const {
     b.grow(getVehicleType().getLength());
     return b;
 }
+
 
 /****************************************************************************/

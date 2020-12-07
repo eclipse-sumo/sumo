@@ -56,7 +56,9 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
     const double rampLength = oc.getFloat("ramps.ramp-length");
     const double minWeaveLength = oc.getFloat("ramps.min-weave-length");
     const bool dontSplit = oc.getBool("ramps.no-split");
+    NBNodeCont& nc = nb.getNodeCont();
     NBEdgeCont& ec = nb.getEdgeCont();
+    NBDistrictCont& dc = nb.getDistrictCont();
     std::set<NBEdge*> incremented;
     // collect join exclusions
     std::set<std::string> noramps;
@@ -79,18 +81,15 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
 
     // check whether on-off ramps shall be guessed
     if (guessAndAdd || oc.getBool("ramps.guess-acceleration-lanes")) {
-        NBNodeCont& nc = nb.getNodeCont();
-        NBEdgeCont& ec = nb.getEdgeCont();
-        NBDistrictCont& dc = nb.getDistrictCont();
-        for (auto it = ec.begin(); it != ec.end(); ++it) {
-            it->second->markOffRamp(false);
+        for (const auto& it : ec) {
+            it.second->markOffRamp(false);
         }
 
         // if an edge is part of two ramps, ordering is important
         std::set<NBNode*, ComparatorIdLess> potOnRamps;
         std::set<NBNode*, ComparatorIdLess> potOffRamps;
-        for (std::map<std::string, NBNode*>::const_iterator i = nc.begin(); i != nc.end(); ++i) {
-            NBNode* cur = (*i).second;
+        for (const auto& i : nc) {
+            NBNode* cur = i.second;
             if (mayNeedOnRamp(cur, minHighwaySpeed, maxRampSpeed, noramps, minWeaveLength)) {
                 potOnRamps.insert(cur);
             }
@@ -108,9 +107,6 @@ NBRampsComputer::computeRamps(NBNetBuilder& nb, OptionsCont& oc, bool mayAddOrRe
     // check whether on-off ramps are specified
     if (oc.isSet("ramps.set") && mayAddOrRemove) {
         std::vector<std::string> edges = oc.getStringVector("ramps.set");
-        NBNodeCont& nc = nb.getNodeCont();
-        NBEdgeCont& ec = nb.getEdgeCont();
-        NBDistrictCont& dc = nb.getDistrictCont();
         std::set<NBNode*, ComparatorIdLess> potOnRamps;
         for (std::vector<std::string>::iterator i = edges.begin(); i != edges.end(); ++i) {
             NBEdge* e = ec.retrieve(*i);
