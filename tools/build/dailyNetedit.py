@@ -31,6 +31,8 @@ import os
 import glob
 import subprocess
 import sys
+import logging
+import logging.handlers
 
 import status
 
@@ -40,16 +42,7 @@ import sumolib  # noqa
 BINARIES = ("netedit",)
 
 
-def killall(debugSuffix):
-    bins = set([name + debugSuffix + ".exe" for name in BINARIES])
-    for taskline in subprocess.check_output(["tasklist", "/nh"]).splitlines():
-        task = taskline.split()
-        if task and task[0] in bins:
-            subprocess.call(["taskkill", "/f", "/im", task[0]])
-            bins.remove(task[0])
-
-
-def runTests(options, env, gitrev, log, debugSuffix=""):
+def runTests(options, env, gitrev, debugSuffix=""):
     prefix = env["FILEPREFIX"] + debugSuffix
     env["SUMO_BATCH_RESULT"] = os.path.join(options.rootDir, prefix + "batch_result")
     env["SUMO_REPORT"] = os.path.join(options.remoteDir, prefix + "report")
@@ -57,20 +50,19 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
     env["TEXTTEST_HOME"] = os.path.join(options.rootDir, options.testsDir)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
-    killall(debugSuffix)
+    status.killall(debugSuffix, BINARIES)
     for name in BINARIES:
         binary = os.path.join(options.rootDir, options.binDir, name + debugSuffix + ".exe")
         if os.path.exists(binary):
             env[name.upper() + "_BINARY"] = binary
-    ttBin = "texttestc.py"
+    ttBin = "texttest"
     today = datetime.date.today()
     tasks = sorted(glob.glob(os.path.join(env["TEXTTEST_HOME"], "netedit", "testsuite.netedit.daily.*")))
     taskID = os.path.basename(tasks[today.toordinal() % len(tasks)])[10:]
     cmd = [ttBin, "-b", prefix, "-a", taskID, "-name", "%sr%s" % (today.strftime("%d%b%y"), gitrev)]
-    subprocess.call(cmd, env=env, stdout=log, stderr=subprocess.STDOUT, shell=True)
-    subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
-                    stdout=log, stderr=subprocess.STDOUT, shell=True)
-    killall(debugSuffix)
+    for call in (cmd, [ttBin, "-b", env["FILEPREFIX"], "-coll"]):
+        status.log_subprocess_output(subprocess.Popen(call, env=env, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, shell=True))
+    status.killall(debugSuffix, BINARIES)
 
 
 optParser = optparse.OptionParser()
@@ -99,6 +91,9 @@ env["FILEPREFIX"] = msvcVersion + options.suffix + platform
 prefix = os.path.join(options.remoteDir, env["FILEPREFIX"])
 testLog = prefix + "NeteditTest.log"
 gitrev = sumolib.version.gitDescribe()
-with open(testLog, 'a') as log:
-    status.printLog("Running tests.", log)
-    runTests(options, env, gitrev, log)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
+handler = logging.handlers.TimedRotatingFileHandler(testLog, when="d", interval=1, backupCount=5)
+logger.addHandler(handler)
+logger.info(u"%s: %s" % (datetime.datetime.now(), "Running tests."))
+runTests(options, env, gitrev)

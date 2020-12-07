@@ -61,15 +61,6 @@ def repositoryUpdate(options, log):
     return gitrev
 
 
-def killall(debugSuffix):
-    bins = set([name + debugSuffix + ".exe" for name in BINARIES])
-    for taskline in subprocess.check_output(["tasklist", "/nh"]).splitlines():
-        task = taskline.split()
-        if task and task[0] in bins:
-            subprocess.call(["taskkill", "/f", "/im", task[0]])
-            bins.remove(task[0])
-
-
 def runTests(options, env, gitrev, log, debugSuffix=""):
     if not options.tests:
         return
@@ -83,7 +74,7 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
     shutil.rmtree(env["TEXTTEST_TMP"], True)
     if not os.path.exists(env["SUMO_REPORT"]):
         os.makedirs(env["SUMO_REPORT"])
-    killall(debugSuffix)
+    status.killall(debugSuffix, BINARIES)
     for name in BINARIES:
         binary = os.path.join(options.rootDir, options.binDir, name + debugSuffix + ".exe")
         if name == "sumo-gui":
@@ -104,7 +95,7 @@ def runTests(options, env, gitrev, log, debugSuffix=""):
                         stdout=log, stderr=subprocess.STDOUT, shell=True)
     subprocess.call([ttBin, "-b", env["FILEPREFIX"], "-coll"], env=env,
                     stdout=log, stderr=subprocess.STDOUT, shell=True)
-    killall(debugSuffix)
+    status.killall(debugSuffix, BINARIES)
 
 
 def generateCMake(generator, platform, log, checkOptionalLibs, python):

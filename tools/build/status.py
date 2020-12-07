@@ -20,11 +20,29 @@ from __future__ import absolute_import
 from __future__ import print_function
 
 import sys
+import subprocess
 import smtplib
 import re
 import io
 from os.path import basename, commonprefix
 from datetime import datetime
+import logging
+
+
+def killall(debugSuffix, binaries):
+    bins = set([name + debugSuffix + ".exe" for name in binaries])
+    for taskline in subprocess.check_output(["tasklist", "/nh"]).splitlines():
+        task = taskline.split()
+        if task and task[0] in bins:
+            subprocess.call(["taskkill", "/f", "/im", task[0]])
+            bins.remove(task[0])
+
+
+def log_subprocess_output(process):
+    with process.stdout:
+        for line in process.stdout:
+            logging.info(line)
+    process.wait()
 
 
 def printLog(msg, log):
