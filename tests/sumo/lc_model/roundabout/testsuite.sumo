@@ -16,5 +16,17 @@ mixed
 # disable cooperative lanechanging within the roundabout
 no_cooperation
 
+# roundabout with tls
+tls
+
+# roundabout with tls
+tls_no_cooperation
+
+# roundabout with tls and only two phases
+tls_2phase
+
+# roundabout with tls
+tls_actuated
+
 # test unusual lane and connection layout (#7738)
 many_lanes

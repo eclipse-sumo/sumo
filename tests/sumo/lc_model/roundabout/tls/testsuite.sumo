@@ -1,0 +1,8 @@
+# vehicle may use both lanes of the roundabout
+low_traffic
+
+# vehicles should use both lanes of the roundabout
+medium_traffic
+
+# vehicles should not get stuck on the inside lane
+high_traffic
