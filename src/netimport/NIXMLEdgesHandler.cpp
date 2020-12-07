@@ -297,6 +297,7 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
         return;
     }
     // check whether a previously defined edge shall be overwritten
+    const bool applyLaneType = myCurrentEdge == nullptr;
     if (myCurrentEdge != nullptr) {
         myCurrentEdge->reinit(myFromNode, myToNode, myCurrentType, myCurrentSpeed,
                               myCurrentLaneNo, myCurrentPriority, myShape,
@@ -319,6 +320,28 @@ NIXMLEdgesHandler::addEdge(const SUMOSAXAttributes& attrs) {
     myCurrentEdge->setLoadedLength(myLength);
     if (myPermissions != SVC_UNSPECIFIED) {
         myCurrentEdge->setPermissions(myPermissions);
+    }
+    // apply laneType if given
+    if (applyLaneType && myCurrentType != "" && myTypeCont.knows(myCurrentType)) {
+        const NBTypeCont::EdgeTypeDefinition* eType = myTypeCont.getEdgeType(myCurrentType);
+        if (eType->needsLaneType()) {
+            int lane = 0;
+            for (const NBTypeCont::LaneTypeDefinition& laneType : eType->laneTypeDefinitions) {
+                if (lane >= myCurrentLaneNo) {
+                    break;
+                }
+                if (laneType.attrs.count(SUMO_ATTR_SPEED) > 0) {
+                    myCurrentEdge->setSpeed(lane, laneType.speed);
+                }
+                if (laneType.attrs.count(SUMO_ATTR_DISALLOW) > 0 || laneType.attrs.count(SUMO_ATTR_ALLOW) > 0) {
+                    myCurrentEdge->setPermissions(laneType.permissions, lane);
+                }
+                if (laneType.attrs.count(SUMO_ATTR_WIDTH) > 0) {
+                    myCurrentEdge->setLaneWidth(lane, laneType.width);
+                }
+                lane++;
+            }
+        }
     }
     // try to get the kilometrage/mileage
     myCurrentEdge->setDistance(attrs.getOpt<double>(SUMO_ATTR_DISTANCE, myCurrentID.c_str(), ok, myCurrentEdge->getDistance()));

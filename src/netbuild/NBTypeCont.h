@@ -230,6 +230,15 @@ public:
      */
     bool knows(const std::string& edgeType) const;
 
+    /**@brief Retrieve the name or the default edgeType
+     *
+     * If no name is given, the default edgeType is returned
+     * @param[in] name The name of the edgeType to retrieve
+     * @return The named edgeType
+     */
+    const EdgeTypeDefinition* getEdgeType(const std::string& name) const;
+
+
     /**@brief Marks a edgeType as to be discarded
      * @param[in] id The id of the edgeType
      */
@@ -383,14 +392,6 @@ public:
     /// @}
 
 protected:
-    /**@brief Retrieve the name or the default edgeType
-     *
-     * If no name is given, the default edgeType is returned
-     * @param[in] name The name of the edgeType to retrieve
-     * @return The named edgeType
-     */
-    const EdgeTypeDefinition* getEdgeType(const std::string& name) const;
-
     /// @brief The default edgeType
     EdgeTypeDefinition *myDefaultType;
 
