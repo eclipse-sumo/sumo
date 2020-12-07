@@ -175,6 +175,14 @@
         <phase duration="3"  state="rrGGGGrryyyyrrGGGGrrrryy"/>
         <phase duration="15" state="rrGGGGGGrrrrrrGGGGGGGGrr" minDur="5" maxDur="50"/>
         <phase duration="3"  state="rryyyyyyrrrrrrGGGGGGGGrr"/>
+        <param key="RSE_0" value="NO_DETECTOR"/>
+        <param key="RSE_1" value="NO_DETECTOR"/>
+        <param key="REN_0" value="NO_DETECTOR"/>
+        <param key="REN_1" value="NO_DETECTOR"/>
+        <param key="RNW_0" value="NO_DETECTOR"/>
+        <param key="RNW_1" value="NO_DETECTOR"/>
+        <param key="RWS_0" value="NO_DETECTOR"/>
+        <param key="RWS_1" value="NO_DETECTOR"/>
     </tlLogic>
 
     <junction id="E" type="priority" x="600.00" y="300.00" incLanes="CE_0 CE_1" intLanes=":E_0_0" shape="600.00,300.00 600.00,293.60 600.00,300.00">
