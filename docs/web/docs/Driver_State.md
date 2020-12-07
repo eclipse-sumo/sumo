@@ -22,7 +22,8 @@ models](Developer/How_To/Car-Following_Model.md), the
 [implementation in the standard
 model](https://github.com/eclipse/sumo/blob/master/src/microsim/cfmodels/MSCFModel_Krauss.cpp)
 can be adopted (see `MSCFModel_Krauss::stopSpeed()` and
-`MSCFModel_Krauss::followSpeed()`).
+`MSCFModel_Krauss::followSpeed()`). Currently (SUMO 1.8.0)
+it is only implemented for the standard Krauss and IDM.
 
 ## Equipping a Vehicle with a Driver State
 
