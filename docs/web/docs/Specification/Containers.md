@@ -76,15 +76,18 @@ are child elements of plan definitions.
 | edges      | list       | valid edge ids | \-      | id of the edges to tranship             |
 | from       | string     | valid edge ids | \-      | id of the start edge                    |
 | to         | string     | valid edge ids | \-      | id of the destination edge              |
-| speed      | float(m/s) | \>0            | \-      |                                         |
+| containerStop | string  | valid containerStop ids | \- | id of the destination container stop|
+| speed      | float(m/s) | \>0            | 5km/h   | speed of the container for this tranship in m/s |
 | departPos  | float(m)   |                | 0       | initial position on the starting edge   |
-| arrivalPos | float(m)   |                | \-1     | arrival position o the destination edge |
+| arrivalPos | float(m)   | [0,toEdge.length] | toEdge.length  | arrival position on the destination edge|
 
 You can define either a list of "edges" to travel or a "from" and a "to"
 edge. In the former case, only the first and the last edge will be
-considered. The container will move straight from the first edge to last
+considered. Instead of a "to" edge a container stop can be defined.
+If there is a move entry bevore, the "from" edge can be left.
+The container will move straight from the first edge to last
 edge. In the latter case, the container will from straight from the edge
-"from" to the edge "to".
+"from" to the edge "to" or the container stop "containerStop".
 
 ## Stops
 
