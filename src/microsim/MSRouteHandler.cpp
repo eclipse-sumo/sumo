@@ -1334,7 +1334,6 @@ MSRouteHandler::addPersonTrip(const SUMOSAXAttributes& attrs) {
 
 void
 MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
-    // parse walks from->to as person trips
     if (attrs.hasAttribute(SUMO_ATTR_EDGES) || attrs.hasAttribute(SUMO_ATTR_ROUTE)) {
         try {
             myActiveRoute.clear();
@@ -1388,7 +1387,7 @@ MSRouteHandler::addWalk(const SUMOSAXAttributes& attrs) {
             deleteActivePlans();
             throw;
         }
-    } else {
+    } else { // parse walks from->to as person trips
         addPersonTrip(attrs);
     }
 }
@@ -1409,68 +1408,89 @@ MSRouteHandler::addTranship(const SUMOSAXAttributes& attrs) {
 	myActiveRoute.clear();
 	const std::string cid = myVehicleParameter->id;
 	bool ok = true;
-	MSEdge* from = nullptr;
+	const MSEdge* from = nullptr;
 	MSEdge* to = nullptr;
-	double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, cid.c_str(), ok, 0);
-	double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, cid.c_str(), ok, -NUMERICAL_EPS);
-	double speed = DEFAULT_CONTAINER_TRANSHIP_SPEED;
+	MSStoppingPlace* cs = nullptr;
+	
+	double speed;
 	const MSVehicleType* vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid);
-	// need to check for explicitly set speed since we might have // DEFAULT_VEHTYPE
-	if (vtype != nullptr && vtype->wasSet(VTYPEPARS_MAXSPEED_SET)) {
+	if (attrs.hasAttribute(SUMO_ATTR_SPEED)) { // speed is explicitly set
+		speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, -1);
+		if (!ok) {
+			throw ProcessError("Could not read tranship speed for container '" + cid + "'.");
+		}
+	}
+	else if (vtype != nullptr && vtype->wasSet(VTYPEPARS_MAXSPEED_SET)) { // speed is set by vtype
 		speed = vtype->getMaxSpeed();
 	}
-	speed = attrs.getOpt<double>(SUMO_ATTR_SPEED, nullptr, ok, speed);
+	else { // default speed value
+		speed = DEFAULT_CONTAINER_TRANSHIP_SPEED;
+	}
 	if (speed <= 0) {
-		throw ProcessError("Non-positive tranship speed for container  '" + cid + "'.");
+		throw ProcessError("Non-positive tranship speed for container '" + cid + "'.");
 	}
-	std::string csID = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
-	MSStoppingPlace* cs = nullptr;
-	if (csID != "") {
-		cs = MSNet::getInstance()->getStoppingPlace(csID, SUMO_TAG_CONTAINER_STOP);
-		if (cs == nullptr) {
-			throw ProcessError("Unknown container stop '" + csID + "' for container '" + cid + "'.");
-		}
-		arrivalPos = cs->getEndLanePosition();
+	// values from preceding stage:
+	const MSEdge* preEdge = nullptr;
+	double prePos = 0;
+	if (!myActiveContainerPlan->empty()) {
+		preEdge = myActiveContainerPlan->back()->getDestination();
+		prePos = myActiveContainerPlan->back()->getArrivalPos();
 	}
+	// set depart position as given attribute value, arrival position of preceding stage or default (=0)
+	double departPos = attrs.getOpt<double>(SUMO_ATTR_DEPARTPOS, cid.c_str(), ok, prePos);
+	
 	if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
 		MSEdge::parseEdgesList(attrs.get<std::string>(SUMO_ATTR_EDGES, cid.c_str(), ok), myActiveRoute, myActiveRouteID);
-		if (myActiveRoute.empty()) {
-			throw ProcessError("No edges to tranship container '" + cid + "'.");
-		}
-		if (myActiveContainerPlan->empty()) {
-			myActiveContainerPlan->push_back(new MSStageWaiting(
-				myActiveRoute.front(), nullptr, -1, myVehicleParameter->depart, departPos, "start", true));
-		}
 	}
 	else {
+		// set 'from':
 		if (attrs.hasAttribute(SUMO_ATTR_FROM)) {
 			const std::string fromID = attrs.get<std::string>(SUMO_ATTR_FROM, cid.c_str(), ok);
 			from = MSEdge::dictionary(fromID);
 			if (from == nullptr) {
 				throw ProcessError("The from edge '" + fromID + "' within a tranship of container '" + cid + "' is not known.");
 			}
-			myActiveRoute.push_back(from);
-			if (!myActiveContainerPlan->empty() && myActiveContainerPlan->back()->getDestination() != myActiveRoute.front()) {
-				throw ProcessError("Disconnected plan for container '" + cid + "' (" + myActiveRoute.front()->getID() + "!=" + myActiveContainerPlan->back()->getDestination()->getID() + ").");
-			}
-			if (myActiveContainerPlan->empty()) {
-				myActiveContainerPlan->push_back(new MSStageWaiting(
-					myActiveRoute.front(), nullptr, -1, myVehicleParameter->depart, departPos, "start", true));
+			if (preEdge != nullptr && preEdge != from) {
+				throw ProcessError("Disconnected plan for container '" + cid + "' (" + from->getID() + "!=" + preEdge->getID() + ").");
 			}
 		}
-		else if (myActiveContainerPlan->empty()) {
+		else if (preEdge == nullptr) {
 			throw ProcessError("The start edge for container '" + cid + "' is not known.");
 		}
 		else {
-			myActiveRoute.push_back(myActiveContainerPlan->back()->getDestination());
+			from = preEdge;
 		}
-		const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, cid.c_str(), ok);
-		to = MSEdge::dictionary(toID);
-		if (to == nullptr) {
-			throw ProcessError("The to edge '" + toID + "' within a tranship of container '" + cid + "' is not known.");
+		// set 'to':
+		if (attrs.hasAttribute(SUMO_ATTR_CONTAINER_STOP)) {
+			std::string csID = attrs.getOpt<std::string>(SUMO_ATTR_CONTAINER_STOP, nullptr, ok, "");
+			cs = MSNet::getInstance()->getStoppingPlace(csID, SUMO_TAG_CONTAINER_STOP);
+			if (cs == nullptr) {
+				throw ProcessError("Unknown container stop '" + csID + "' for container '" + cid + "'.");
+			}
+			to = &cs->getLane().getEdge();
 		}
+		else if (attrs.hasAttribute(SUMO_ATTR_TO)) {
+			const std::string toID = attrs.get<std::string>(SUMO_ATTR_TO, cid.c_str(), ok);
+			to = MSEdge::dictionary(toID);
+			if (to == nullptr) {
+				throw ProcessError("The to edge '" + toID + "' within a tranship of container '" + cid + "' is not known.");
+			}
+		}
+		else {
+			throw ProcessError("Inconsistent tranship for container '" + cid + "', only one option is allowed: 'edges', 'to', 'containerStop'");
+		}
+		myActiveRoute.push_back(from);
 		myActiveRoute.push_back(to);
 	}
+	if (myActiveRoute.empty()) {
+		throw ProcessError("No edges to tranship container '" + cid + "'.");
+	}
+	if (preEdge == nullptr) { // additional 'stop' to start the container plan
+		myActiveContainerPlan->push_back(new MSStageWaiting(
+			myActiveRoute.front(), nullptr, -1, myVehicleParameter->depart, departPos, "start", true));
+	}
+	double arrivalPos = attrs.getOpt<double>(SUMO_ATTR_ARRIVALPOS, cid.c_str(), ok,
+		cs == nullptr ? myActiveRoute.back()->getLength() : cs->getEndLanePosition());
 	myActiveContainerPlan->push_back(new MSStageTranship(myActiveRoute, cs, speed, departPos, arrivalPos));
 	myActiveRoute.clear();
 }
