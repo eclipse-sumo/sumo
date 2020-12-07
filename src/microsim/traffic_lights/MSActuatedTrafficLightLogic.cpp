@@ -54,6 +54,7 @@
 
 #define DEFAULT_LENGTH_WITH_GAP 7.5
 
+#define NO_DETECTOR "NO_DETECTOR"
 
 // ===========================================================================
 // method definitions
@@ -152,6 +153,8 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
                 std::string id = "TLS" + myID + "_" + myProgramID + "_InductLoopOn_" + lane->getID();
                 loop = static_cast<MSInductLoop*>(nb.createInductLoop(id, placementLane, ilpos, myVehicleTypes, myShowDetectors));
                 MSNet::getInstance()->getDetectorControl().add(SUMO_TAG_INDUCTION_LOOP, loop, myFile, myFreq);
+            } else if (customID == NO_DETECTOR) {
+                continue;
             } else {
                 loop = dynamic_cast<MSInductLoop*>(MSNet::getInstance()->getDetectorControl().getTypedDetectors(SUMO_TAG_INDUCTION_LOOP).get(customID));
                 if (loop == nullptr) {
@@ -355,7 +358,9 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder& nb) {
     for (int i : actuatedLinks) {
         if (linkToLoops[i].size() == 0 && myLinks[i].size() > 0
                 && (myLinks[i].front()->getLaneBefore()->getPermissions() & motorized) != 0) {
-            WRITE_WARNINGF("At actuated tlLogic '%', linkIndex % has no controlling detector", getID(), toString(i));
+            if (getParameter(myLinks[i].front()->getLaneBefore()->getID()) != NO_DETECTOR) {
+                WRITE_WARNINGF("At actuated tlLogic '%', linkIndex % has no controlling detector", getID(), toString(i));
+            }
         }
     }
     // parse maximum green times for each link (optional)
