@@ -139,7 +139,8 @@ permalink: /ChangeLog/
   - Added option **--fcd-output.max-leader-distance** which will add attributes `leaderGap, leaderSpeed, leaderID` to fcd-output whenever a vehicle has a leader within the given distance #7788
   - Stop for vehicles and persons can now be specified using attribute 'edge' instead of 'lane'. Vehicles will stop on the rightmost lane that allows their vehicle class (whereas persons ignored the lane index anyway). Issue #5443
   - Taxi device can now be used to simulate on-demand container transport. Issue #7815
-  - Option **--fcd-output.params** now supports optional output of device parameters and model parameters with the same [prefix codes as TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e). Issue #7851  
+  - Option **--fcd-output.params** now supports optional output of device parameters and model parameters with the same [prefix codes as TraCI](TraCI/Vehicle_Value_Retrieval.md#device_and_lanechangemodel_parameter_retrieval_0x7e). Issue #7851
+  - Option **--fcd-output.params caccVehicleMode** now outputs the vehicle mode of CACC vehicles, which can be one of `CC`, `ACC`, `CACC`, `CACC_GAP_CL` (gap-closing), `CACC_GAP`, `CACC_CA` (collision avoidance). Issue #6700
   
 - meso
   - Model parameters can now be [customized](Simulation/Meso.md#configuration_by_edge_type) for each edge type via additional file input. Issue #7243
