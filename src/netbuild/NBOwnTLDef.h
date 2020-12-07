@@ -281,6 +281,9 @@ protected:
     /// @brief compute time to clear all vehicles from within an alternateOneWay layout
     SUMOTime computeEscapeTime(const std::string& state, const EdgeVector& fromEdges, const EdgeVector& toEdges) const;
 
+    /// @brief check whether there is a straight connection from this edge
+    bool hasStraightConnection(const NBEdge* fromEdge);
+
     /** @class edge_by_incoming_priority_sorter
      * @brief Sorts edges by their priority within the node they end at
      */

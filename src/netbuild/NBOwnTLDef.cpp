@@ -232,6 +232,17 @@ NBOwnTLDef::getBestPair(EdgeVector& incoming) {
     return ret;
 }
 
+bool
+NBOwnTLDef::hasStraightConnection(const NBEdge* fromEdge) {
+    for (const NBEdge::Connection& c : fromEdge->getConnections()) {
+        LinkDirection dir = fromEdge->getToNode()->getDirection(fromEdge, c.toEdge);
+        if (dir == LinkDirection::STRAIGHT) {
+            return true;
+        }
+    }
+    return false;
+}
+
 NBTrafficLightLogic*
 NBOwnTLDef::myCompute(int brakingTimeSeconds) {
     return computeLogicAndConts(brakingTimeSeconds);
@@ -256,8 +267,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
     int noLinksAll = 0;
     for (NBEdge* const fromEdge : incoming) {
         const int numLanes = fromEdge->getNumLanes();
+        const bool edgeHasStraight = hasStraightConnection(fromEdge);
         for (int i2 = 0; i2 < numLanes; i2++) {
             bool hasLeft = false;
+            bool hasPartLeft = false;
             bool hasStraight = false;
             bool hasRight = false;
             bool hasTurnaround = false;
@@ -279,8 +292,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     hasStraight = true;
                 } else if (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT) {
                     hasRight = true;
-                } else if (dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT) {
+                } else if (dir == LinkDirection::LEFT) {
                     hasLeft = true;
+                } else if (dir == LinkDirection::PARTLEFT) {
+                    hasPartLeft = true;
                 } else if (dir == LinkDirection::TURN) {
                     hasTurnaround = true;
                 }
@@ -291,8 +306,10 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                     continue;
                 }
                 hasTurnLane.push_back(
-                    (hasLeft && !hasStraight && !hasRight)
-                    || (!hasLeft && !hasTurnaround && hasRight));
+                    (hasLeft && !hasPartLeft && !hasStraight && !hasRight)
+                    || (hasPartLeft && !hasLeft && !hasStraight && !hasRight)
+                    || (hasPartLeft && hasLeft && edgeHasStraight && !hasRight)
+                    || (!hasLeft && !hasPartLeft && !hasTurnaround && hasRight));
             }
             //std::cout << " from=" << fromEdge->getID() << "_" << i2 << " hasTurnLane=" << hasTurnLane.back() << " s=" << hasStraight << " l=" << hasLeft << " r=" << hasRight << " t=" << hasTurnaround << "\n";
         }
