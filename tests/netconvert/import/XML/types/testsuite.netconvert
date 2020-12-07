@@ -1,3 +1,6 @@
+# Tests for using laneTypes
+laneTypes
+
 # Simple cross using types for edge definition (verbose). 
 # The additional --remove-edges.by-vclass should remove 
 # one edge during net conversion.
