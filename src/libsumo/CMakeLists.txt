@@ -92,8 +92,13 @@ if(SWIG_FOUND)
                 set_source_files_properties(${swig_generated_file_fullname} PROPERTIES COMPILE_FLAGS "-Wno-strict-aliasing")
                 swig_link_libraries(libsumojni -Wl,--whole-archive libsumostatic ${sumolibs} -Wl,--no-whole-archive)
             endif()
-            FILE(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/classes")
             ADD_CUSTOM_COMMAND(TARGET libsumojni POST_BUILD
+				COMMAND ${CMAKE_COMMAND} -E make_directory java/META-INF
+				COMMAND ${CMAKE_COMMAND} -E make_directory classes/META-INF
+				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md java/META-INF
+				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE java/META-INF
+				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/NOTICE.md classes/META-INF
+				COMMAND ${CMAKE_COMMAND} -E copy ${CMAKE_SOURCE_DIR}/LICENSE classes/META-INF
                 COMMAND "${Java_JAVAC_EXECUTABLE}" -d classes java/*.java
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libsumojni.jar -C classes .
                 COMMAND "${Java_JAR_EXECUTABLE}" -cfM ${CMAKE_SOURCE_DIR}/bin/libsumojni_src.jar -C java .
