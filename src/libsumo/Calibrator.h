@@ -28,10 +28,11 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 namespace libsumo {
 class VariableWrapper;
 }
-
+#endif
 
 // ===========================================================================
 // class definitions
@@ -40,7 +41,8 @@ class VariableWrapper;
  * @class Calibrator
  * @brief C++ TraCI client API implementation
  */
-namespace libsumo {
+
+namespace LIBSUMO_NAMESPACE {
 class Calibrator {
 public:
     static std::string getEdgeID(const std::string& calibratorID);
@@ -82,6 +84,5 @@ private:
     /// @brief invalidated standard constructor
     Calibrator() = delete;
 };
-
 
 }

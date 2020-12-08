@@ -20,7 +20,7 @@ set(libtracistatic_STAT_SRCS
 #    POI.cpp
 #    Polygon.cpp
     Route.cpp
-#    Calibrator.cpp
+    Calibrator.cpp
     BusStop.cpp
     ParkingArea.cpp
     ChargingStation.cpp
