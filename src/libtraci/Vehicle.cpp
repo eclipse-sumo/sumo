@@ -278,7 +278,7 @@ Vehicle::getEffort(const std::string& vehicleID, double time, const std::string&
     content.writeDouble(time);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(edgeID);
-    return Dom::getDouble(libsumo::VAR_EDGE_EFFORT, edgeID, &content);
+    return Dom::getDouble(libsumo::VAR_EDGE_EFFORT, vehicleID, &content);
 }
 
 
@@ -290,7 +290,7 @@ Vehicle::isRouteValid(const std::string& vehicleID) {
 
 std::vector<std::string>
 Vehicle::getRoute(const std::string& vehicleID) {
-    return Dom::getStringVector(libsumo::VAR_ROUTE, vehicleID);
+    return Dom::getStringVector(libsumo::VAR_EDGES, vehicleID);
 }
 
 
@@ -451,16 +451,29 @@ Vehicle::getDistance(const std::string& vehicleID) {
 
 
 double
-Vehicle::getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int /* laneIndex */) {
-    /// XXX
-    return libsumo::INVALID_DOUBLE_VALUE;
+Vehicle::getDrivingDistance(const std::string& vehicleID, const std::string& edgeID, double position, int laneIndex) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeUnsignedByte(libsumo::POSITION_ROADMAP);
+    content.writeString(edgeID);
+    content.writeDouble(position);
+    content.writeUnsignedByte(laneIndex);
+    content.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
+    return Dom::getDouble(libsumo::DISTANCE_REQUEST, vehicleID, &content);
 }
 
 
 double
 Vehicle::getDrivingDistance2D(const std::string& vehicleID, double x, double y) {
-    /// XXX
-    return libsumo::INVALID_DOUBLE_VALUE;
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(2);
+    content.writeUnsignedByte(libsumo::POSITION_2D);
+    content.writeDouble(x);
+    content.writeDouble(y);
+    content.writeUnsignedByte(libsumo::REQUEST_DRIVINGDIST);
+    return Dom::getDouble(libsumo::DISTANCE_REQUEST, vehicleID, &content);
 }
 
 
@@ -509,19 +522,18 @@ Vehicle::getVia(const std::string& vehicleID) {
 
 std::pair<int, int>
 Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
-    // XXX
-    //tcpip::Storage content;
-    //content.writeByte(libsumo::TYPE_INTEGER);
-    //content.writeInt(direction);
-    //Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::CMD_CHANGELANE, vehicleID, &content);
-    //if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
-    //    ret.readInt(); // components
-    //    ret.readUnsignedByte();
-    //    const int stateWithoutTraCI = ret.readInt();
-    //    ret.readUnsignedByte();
-    //    const int state = ret.readInt();
-    //    return std::make_pair(stateWithoutTraCI, state);
-    //}
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_INTEGER);
+    content.writeInt(direction);
+    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::CMD_CHANGELANE, vehicleID, &content);
+    if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
+        ret.readInt(); // components
+        ret.readUnsignedByte();
+        const int stateWithoutTraCI = ret.readInt();
+        ret.readUnsignedByte();
+        const int state = ret.readInt();
+        return std::make_pair(stateWithoutTraCI, state);
+    }
     return std::make_pair(libsumo::INVALID_INT_VALUE, libsumo::INVALID_INT_VALUE);
 }
 
@@ -529,7 +541,20 @@ Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
 std::vector<std::pair<std::string, double> >
 Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
     std::vector<std::pair<std::string, double> > neighs;
-    // XXX
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_INTEGER);
+    content.writeInt(mode);
+    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_NEIGHBORS, vehicleID, &content);
+    if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
+        const int items = ret.readInt(); // components
+        for (int i = 0; i < items; i++) {
+            ret.readUnsignedByte();
+            const std::string neighID = ret.readString();
+            ret.readUnsignedByte();
+            const double gap = ret.readDouble();
+            neighs.push_back(std::make_pair(neighID, gap));
+        }
+    }
     return neighs;
 }
 
@@ -1002,7 +1027,8 @@ Vehicle::setRoute(const std::string& vehicleID, const std::vector<std::string>& 
 
 void
 Vehicle::updateBestLanes(const std::string& vehicleID) {
-    // XXX
+    tcpip::Storage content;
+    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_UPDATE_BESTLANES, vehicleID, &content);
 }
 
 
