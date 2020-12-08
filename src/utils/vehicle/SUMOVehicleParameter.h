@@ -224,11 +224,15 @@ enum class DepartEdgeDefinition {
  */
 enum class ArrivalLaneDefinition {
     /// @brief No information given; use default
-    DEFAULT,
-    /// @brief The arrival lane is given
-    GIVEN,
+    DEFAULT = 0,
     /// @brief The current lane shall be used
-    CURRENT
+    CURRENT = 1,
+    /// @brief The arrival lane is given
+    GIVEN = 2,
+    /// @brief The lane is chosen randomly
+    RANDOM = 3,
+    /// @brief The rightmost lane the vehicle may use
+    FIRST_ALLOWED = 4
 };
 
 

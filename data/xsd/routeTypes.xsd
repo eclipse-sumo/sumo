@@ -636,6 +636,8 @@
             <xsd:simpleType>
                 <xsd:restriction base="xsd:string">
                     <xsd:enumeration value="current"/>
+                    <xsd:enumeration value="first"/>
+                    <xsd:enumeration value="random"/>
                 </xsd:restriction>
             </xsd:simpleType> 
         </xsd:union>

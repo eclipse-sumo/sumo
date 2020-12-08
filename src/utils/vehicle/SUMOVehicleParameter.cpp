@@ -457,6 +457,10 @@ SUMOVehicleParameter::parseArrivalLane(const std::string& val, const std::string
     ald = ArrivalLaneDefinition::GIVEN;
     if (val == "current") {
         ald = ArrivalLaneDefinition::CURRENT;
+    } else if (val == "random") {
+        ald = ArrivalLaneDefinition::RANDOM;
+    } else if (val == "first") {
+        ald = ArrivalLaneDefinition::FIRST_ALLOWED;
     } else {
         try {
             lane = StringUtils::toInt(val);
@@ -813,6 +817,12 @@ SUMOVehicleParameter::getArrivalLane() const {
             break;
         case ArrivalLaneDefinition::CURRENT:
             val = "current";
+            break;
+        case ArrivalLaneDefinition::RANDOM:
+            val = "random";
+            break;
+        case ArrivalLaneDefinition::FIRST_ALLOWED:
+            val = "first";
             break;
         case ArrivalLaneDefinition::DEFAULT:
         default:
