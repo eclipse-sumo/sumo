@@ -109,56 +109,21 @@ Calibrator::getRemoved(const std::string& calibratorID) {
     return Dom::getInt(libsumo::VAR_REMOVED, "");
 }
 
-//LIBTRACI_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Calibrator, CALIBRATOR)
 LIBTRACI_PARAMETER_IMPLEMENTATION(Calibrator, CALIBRATOR)
 
+void
+Calibrator::setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed, const std::string& typeID,
+    const std::string& routeID,
+    const std::string& departLane,
+    const std::string& departSpeed) {
+    tcpip::Storage content;
+    // TODO
+    Dom::set(libsumo::CMD_SET_FLOW, calibratorID, &content);
+}
 
-//void
-//Calibrator::setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed, const std::string& typeID,
-//                    const std::string& routeID,
-//                    const std::string& departLane,
-//                    const std::string& departSpeed) {
-//
-//    Dom::setString(libsumo::CMD_SET_FLOW, calibratorID, );
-//    std::string error;
-//    SUMOVehicleParameter vehicleParams;
-//    vehicleParams.vtypeid = typeID;
-//    vehicleParams.routeid = routeID;
-//    MSVehicleType* t = MSNet::getInstance()->getVehicleControl().getVType(typeID);
-//    if (t == nullptr) {
-//        throw libsumo::TraCIException("Vehicle type '" + typeID + "' is not known");
-//    }
-//    if (!SUMOVehicleParameter::parseDepartLane(departLane, "calibrator", calibratorID, vehicleParams.departLane, vehicleParams.departLaneProcedure, error)) {
-//        throw libsumo::TraCIException(error);
-//    }
-//    if (!SUMOVehicleParameter::parseDepartSpeed(departSpeed, "calibrator", calibratorID, vehicleParams.departSpeed, vehicleParams.departSpeedProcedure, error)) {
-//        throw libsumo::TraCIException::TraCIException(error);
-//    }
-//    getCalibrator(calibratorID)->setFlow(TIME2STEPS(begin), TIME2STEPS(end), vehsPerHour, speed, vehicleParams);
-//}
-//
-//
-//LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Calibrator, CALIBRATOR)
-//
-//
-//MSCalibrator*
-//Calibrator::getCalibrator(const std::string& id) {
-//    const auto& dict = MSCalibrator::getInstances();
-//    auto it = dict.find(id);
-//    if (it == dict.end()) {
-//        throw libsumo::TraCIException::TraCIException("Calibrator '" + id + "' is not known");
-//    }
-//    return it->second;
-//}
-//
-//MSCalibrator::AspiredState
-//Calibrator::getCalibratorState(const MSCalibrator* c) {
-//    try {
-//        return c->getCurrentStateInterval();
-//    }
-//    catch (ProcessError& e) {
-//        throw libsumo::TraCIException::TraCIException(e.what());
-//    }
+LIBTRACI_SUBSCRIPTION_IMPLEMENTATION(Calibrator, CALIBRATOR)
+
+
 }
 
 

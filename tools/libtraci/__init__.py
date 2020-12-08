@@ -52,6 +52,7 @@ TraCILogic.__repr__ = _trafficlight.Logic.__repr__
 
 TraCIPhase.__repr__ = _trafficlight.Phase.__repr__
 
+exceptions.TraCIException = TraCIException
 simulation.Stage = TraCIStage
 vehicle.StopData = TraCINextStopData
 person.Reservation = TraCIReservation
@@ -74,6 +75,8 @@ _trafficlight.TraCIException = TraCIException
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
 addStepListener = wrapAsClassMethod(connection.Connection.addStepListener, sys.modules[__name__])
 removeStepListener = wrapAsClassMethod(connection.Connection.removeStepListener, sys.modules[__name__])
+_manageStepListeners = wrapAsClassMethod(connection.Connection._manageStepListeners, sys.modules[__name__])
+
 
 def isLibsumo():
     return False
