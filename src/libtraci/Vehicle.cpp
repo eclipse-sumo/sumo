@@ -375,7 +375,10 @@ Vehicle::getNextStops(const std::string& vehicleID) {
 std::vector<libsumo::TraCINextStopData>
 Vehicle::getStops(const std::string& vehicleID, int limit) {
     std::vector<libsumo::TraCINextStopData> result;
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS2, vehicleID);
+    tcpip::Storage content;
+    content.writeByte(libsumo::TYPE_INTEGER);
+    content.writeInt(limit);
+    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS2, vehicleID, &content);
     if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
         ret.readInt(); // components
         // number of items
