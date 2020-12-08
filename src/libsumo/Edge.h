@@ -82,9 +82,6 @@ public:
     static void setMaxSpeed(const std::string& edgeID, double speed);
 
 #ifndef LIBTRACI
-    // TODO check who needs this function, it is not in the python client
-    static void setAllowedSVCPermissions(const std::string& edgeID, int permissions);
-
     /** @brief Saves the shape of the requested object in the given container
     *  @param id The id of the edge to retrieve
     *  @param shape The container to fill
@@ -96,6 +93,8 @@ public:
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
 
 private:
+    static void setAllowedSVCPermissions(const std::string& edgeID, int permissions);
+
     static MSEdge* getEdge(const std::string& edgeID);
 
 private:

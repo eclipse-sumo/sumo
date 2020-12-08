@@ -149,25 +149,48 @@ public:
         return libtraci::Connection::getActive().getTraCIStage(GET, var, id, add);
     }
 
+    static void set(int var, const std::string& id, tcpip::Storage* add) {
+        libtraci::Connection::getActive().doCommand(SET, var, id, add);
+    }
+
     static void setInt(int var, const std::string& id, int value) {
-        libtraci::Connection::getActive().setInt(SET, var, id, value);
+        tcpip::Storage content;
+        content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+        content.writeInt(value);
+        set(var, id, &content);
     }
 
     static void setDouble(int var, const std::string& id, double value) {
-        libtraci::Connection::getActive().setDouble(SET, var, id, value);
+        tcpip::Storage content;
+        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+        content.writeDouble(value);
+        set(var, id, &content);
     }
 
     static void setString(int var, const std::string& id, const std::string& value) {
-        libtraci::Connection::getActive().setString(SET, var, id, value);
+        tcpip::Storage content;
+        content.writeUnsignedByte(libsumo::TYPE_STRING);
+        content.writeString(value);
+        set(var, id, &content);
     }
 
     static void setStringVector(int var, const std::string& id, const std::vector<std::string>& value) {
-        libtraci::Connection::getActive().setStringVector(SET, var, id, value);
+        tcpip::Storage content;
+        content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+        content.writeStringList(value);
+        set(var, id, &content);
     }
 
     static void setCol(int var, const std::string& id, const libsumo::TraCIColor value) {
-        libtraci::Connection::getActive().setCol(SET, var, id, value);
+        tcpip::Storage content;
+        content.writeUnsignedByte(libsumo::TYPE_COLOR);
+        content.writeUnsignedByte(value.r);
+        content.writeUnsignedByte(value.g);
+        content.writeUnsignedByte(value.b);
+        content.writeUnsignedByte(value.a);
+        set(var, id, &content);
     }
+
 };
 
 }

@@ -289,43 +289,6 @@ public:
 
     tcpip::Storage& doCommand(int command, int var, const std::string& id, tcpip::Storage* add = nullptr);
 
-    void setInt(int command, int var, const std::string& id, int value) {
-        tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_INTEGER);
-        content.writeInt(value);
-        doCommand(command, var, id, &content);
-    }
-    void setDouble(int command, int var, const std::string& id, double value) {
-        tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
-        content.writeDouble(value);
-        doCommand(command, var, id, &content);
-    }
-
-    void setString(int command, int var, const std::string& id, const std::string& value) {
-        tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_STRING);
-        content.writeString(value);
-        doCommand(command, var, id, &content);
-    }
-
-    void setStringVector(int command, int var, const std::string& id, const std::vector<std::string>& value) {
-        tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
-        content.writeStringList(value);
-        doCommand(command, var, id, &content);
-    }
-
-    void setCol(int command, int var, const std::string& id, const libsumo::TraCIColor c) {
-        tcpip::Storage content;
-        content.writeUnsignedByte(libsumo::TYPE_COLOR);
-        content.writeUnsignedByte(c.r);
-        content.writeUnsignedByte(c.g);
-        content.writeUnsignedByte(c.b);
-        content.writeUnsignedByte(c.a);
-        doCommand(command, var, id, &content);
-    }
-
     void readVariableSubscription(int responseID, tcpip::Storage& inMsg);
     void readContextSubscription(int responseID, tcpip::Storage& inMsg);
     void readVariables(tcpip::Storage& inMsg, const std::string& objectID, int variableCount, libsumo::SubscriptionResults& into);

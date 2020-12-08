@@ -326,7 +326,7 @@ TraCIServerAPI_Person::processSet(TraCIServer& server, tcpip::Storage& inputStor
             case libsumo::REMOVE_STAGE: {
                 int nextStageIndex = 0;
                 if (!server.readTypeCheckingInt(inputStorage, nextStageIndex)) {
-                    return server.writeErrorStatusCmd(libsumo::CMD_GET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
+                    return server.writeErrorStatusCmd(libsumo::CMD_SET_PERSON_VARIABLE, "The message must contain the stage index.", outputStorage);
                 }
                 libsumo::Person::removeStage(id, nextStageIndex);
             }

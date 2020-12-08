@@ -771,7 +771,7 @@ Vehicle::setStop(const std::string& vehicleID,
     content.writeDouble(startPos);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(until);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_STOP, vehicleID, &content);
+    Dom::set(libsumo::CMD_STOP, vehicleID, &content);
 }
 
 
@@ -804,7 +804,7 @@ Vehicle::replaceStop(const std::string& vehicleID,
     content.writeDouble(until);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeDouble(nextStopIndex);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_REPLACE_STOP, vehicleID, &content);
+    Dom::set(libsumo::CMD_REPLACE_STOP, vehicleID, &content);
 }
 
 
@@ -818,7 +818,7 @@ Vehicle::resume(const std::string& vehicleID) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt(0);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_RESUME, vehicleID, &content);
+    Dom::set(libsumo::CMD_RESUME, vehicleID, &content);
 }
 
 
@@ -837,7 +837,7 @@ Vehicle::changeLane(const std::string& vehicleID, int laneIndex, double duration
     content.writeInt(laneIndex);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(duration);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_CHANGELANE, vehicleID, &content);
+    Dom::set(libsumo::CMD_CHANGELANE, vehicleID, &content);
 }
 
 void
@@ -851,7 +851,7 @@ Vehicle::changeLaneRelative(const std::string& vehicleID, int indexOffset, doubl
     content.writeDouble(duration);
     content.writeUnsignedByte(libsumo::TYPE_BYTE);
     content.writeDouble(1);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_CHANGELANE, vehicleID, &content);
+    Dom::set(libsumo::CMD_CHANGELANE, vehicleID, &content);
 }
 
 
@@ -912,7 +912,7 @@ Vehicle::add(const std::string& vehicleID,
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(personNumber);
 
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::ADD_FULL, vehicleID, &content);
+    Dom::set(libsumo::ADD_FULL, vehicleID, &content);
 }
 
 
@@ -934,7 +934,7 @@ Vehicle::moveToXY(const std::string& vehicleID, const std::string& edgeID, const
     content.writeDouble(angle);
     content.writeUnsignedByte(libsumo::TYPE_BYTE);
     content.writeByte(keepRoute);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::MOVE_TO_XY, vehicleID, &content);
+    Dom::set(libsumo::MOVE_TO_XY, vehicleID, &content);
 }
 
 void
@@ -946,7 +946,7 @@ Vehicle::slowDown(const std::string& vehicleID, double speed, double duration) {
     content.writeDouble(speed);
     content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(duration);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_SLOWDOWN, vehicleID, &content);
+    Dom::set(libsumo::CMD_SLOWDOWN, vehicleID, &content);
 }
 
 void
@@ -966,7 +966,7 @@ Vehicle::openGap(const std::string& vehicleID, double newTimeHeadway, double new
     content.writeDouble(maxDecel);
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(referenceVehID);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_OPENGAP, vehicleID, &content);
+    Dom::set(libsumo::CMD_OPENGAP, vehicleID, &content);
 }
 
 void
@@ -1031,7 +1031,7 @@ Vehicle::setRoute(const std::string& vehicleID, const std::vector<std::string>& 
 void
 Vehicle::updateBestLanes(const std::string& vehicleID) {
     tcpip::Storage content;
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_UPDATE_BESTLANES, vehicleID, &content);
+    Dom::set(libsumo::VAR_UPDATE_BESTLANES, vehicleID, &content);
 }
 
 
@@ -1065,7 +1065,7 @@ Vehicle::setAdaptedTraveltime(const std::string& vehicleID, const std::string& e
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
         content.writeDouble(time);
     }
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_EDGE_TRAVELTIME, vehicleID, &content);
+    Dom::set(libsumo::VAR_EDGE_TRAVELTIME, vehicleID, &content);
 }
 
 
@@ -1099,7 +1099,7 @@ Vehicle::setEffort(const std::string& vehicleID, const std::string& edgeID,
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
         content.writeDouble(effort);
     }
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_EDGE_EFFORT, vehicleID, &content);
+    Dom::set(libsumo::VAR_EDGE_EFFORT, vehicleID, &content);
 }
 
 
@@ -1109,7 +1109,7 @@ Vehicle::rerouteTraveltime(const std::string& vehicleID, const bool currentTrave
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt(0);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_REROUTE_TRAVELTIME, vehicleID, &content);
+    Dom::set(libsumo::CMD_REROUTE_TRAVELTIME, vehicleID, &content);
 }
 
 
@@ -1118,7 +1118,7 @@ Vehicle::rerouteEffort(const std::string& vehicleID) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
     content.writeInt(0);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::CMD_REROUTE_EFFORT, vehicleID, &content);
+    Dom::set(libsumo::CMD_REROUTE_EFFORT, vehicleID, &content);
 }
 
 
@@ -1139,7 +1139,7 @@ Vehicle::moveTo(const std::string& vehicleID, const std::string& laneID, double 
     content.writeDouble(position);
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(reason);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_MOVE_TO, vehicleID, &content);
+    Dom::set(libsumo::VAR_MOVE_TO, vehicleID, &content);
 }
 
 
@@ -1161,7 +1161,7 @@ Vehicle::remove(const std::string& vehicleID, char reason) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_BYTE);
     content.writeUnsignedByte(reason);
-    Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::REMOVE, vehicleID, &content);
+    Dom::set(libsumo::REMOVE, vehicleID, &content);
 }
 
 
@@ -1311,7 +1311,7 @@ Vehicle::highlight(const std::string& vehicleID, const libsumo::TraCIColor& col,
         content.writeDouble(size);
         content.writeUnsignedByte(libsumo::TYPE_BYTE);
         content.writeByte(type);
-        Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_HIGHLIGHT, vehicleID, &content);
+        Dom::set(libsumo::VAR_HIGHLIGHT, vehicleID, &content);
     } else {
         //self._setCmd(tc.VAR_HIGHLIGHT, vehID, "tcd", 2, color, size)
         content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
@@ -1323,7 +1323,7 @@ Vehicle::highlight(const std::string& vehicleID, const libsumo::TraCIColor& col,
         content.writeUnsignedByte(col.a);
         content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
         content.writeDouble(size);
-        Connection::getActive().doCommand(libsumo::CMD_SET_VEHICLE_VARIABLE, libsumo::VAR_HIGHLIGHT, vehicleID, &content);
+        Dom::set(libsumo::VAR_HIGHLIGHT, vehicleID, &content);
     }
 }
 

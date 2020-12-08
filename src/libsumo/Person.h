@@ -31,7 +31,11 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-#ifndef LIBTRACI
+#ifdef LIBTRACI
+namespace tcpip {
+class Storage;
+}
+#else
 class MSPerson;
 class PositionVector;
 namespace libsumo {
@@ -75,7 +79,7 @@ public:
     static void appendStage(const std::string& personID, const libsumo::TraCIStage& stage);
     static void replaceStage(const std::string& personID, const int stageIndex, const libsumo::TraCIStage& stage);
     static void appendWaitingStage(const std::string& personID, double duration, const std::string& description = "waiting", const std::string& stopID = "");
-    static void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edgeIDs, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
+    static void appendWalkingStage(const std::string& personID, const std::vector<std::string>& edges, double arrivalPos, double duration = -1, double speed = -1, const std::string& stopID = "");
     static void appendDrivingStage(const std::string& personID, const std::string& toEdge, const std::string& lines, const std::string& stopID = "");
     static void removeStage(const std::string& personID, int nextStageIndex);
     static void rerouteTraveltime(const std::string& personID);
@@ -88,7 +92,9 @@ public:
 
     LIBSUMO_SUBSCRIPTION_API
 
-#ifndef LIBTRACI
+#ifdef LIBTRACI
+    static void writeStage(const libsumo::TraCIStage& stage, tcpip::Storage& content);
+#else
     /** @brief Saves the shape of the requested object in the given container
      *  @param id The id of the poi to retrieve
      *  @param shape The container to fill

@@ -101,7 +101,10 @@ Simulation::setOrder(int order) {
 
 void
 Simulation::load(const std::vector<std::string>& args) {
-    Connection::getActive().setStringVector(libsumo::CMD_LOAD, -1, "", args);
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+    content.writeStringList(args);
+    Connection::getActive().doCommand(libsumo::CMD_LOAD, -1, "", &content);
 }
 
 
