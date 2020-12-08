@@ -21,12 +21,6 @@ from .libtraci import vehicle, simulation, person, trafficlight
 from .libtraci import *  # noqa
 from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException
 
-
-def wrapAsClassMethod(func, module):
-    def wrapper(*args, **kwargs):
-        return func(module, *args, **kwargs)
-    return wrapper
-
 hasGUI = simulation.hasGUI
 init = simulation.init
 load = simulation.load
@@ -35,6 +29,25 @@ simulationStep = simulation.step
 getVersion = simulation.getVersion
 close = simulation.close
 start = simulation.start
+
+def wrapAsClassMethod(func, module):
+    def wrapper(*args, **kwargs):
+        return func(module, *args, **kwargs)
+    return wrapper
+
+TraCIStage.__attr_repr__ = _simulation.Stage.__attr_repr__
+TraCIStage.__repr__ = _simulation.Stage.__repr__
+
+TraCINextStopData.__attr_repr__ = _vehicle.StopData.__attr_repr__
+TraCINextStopData.__repr__ = _vehicle.StopData.__repr__
+
+TraCIReservation.__attr_repr__ = _person.Reservation.__attr_repr__
+TraCIReservation.__repr__ = _person.Reservation.__repr__
+
+TraCILogic.getPhases = _trafficlight.Logic.getPhases
+TraCILogic.__repr__ = _trafficlight.Logic.__repr__
+
+TraCIPhase.__repr__ = _trafficlight.Phase.__repr__
 
 simulation.Stage = TraCIStage
 vehicle.StopData = TraCINextStopData
@@ -53,7 +66,6 @@ vehicle.getRightLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getRightLeade
 vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollowers, vehicle)
 vehicle.getLeftLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftLeaders, vehicle)
 vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getLaneChangeStatePretty, vehicle)
-vehicle._legacyGetLeader = True
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
 _trafficlight.TraCIException = TraCIException
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
@@ -67,3 +79,6 @@ def isLibsumo():
 def isLibtraci():
     return True
 
+vehicle._legacyGetLeader = True
+def setLegacyGetLeader(enabled):
+    _vehicle._legacyGetLeader = enabled
