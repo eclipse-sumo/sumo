@@ -82,7 +82,7 @@ Connection::close() {
         }
         std::string line;
         while (std::getline(result, line)) {
-            if (line.compare(0, 6, "Error:") == 0) {
+            if (line.compare(0, 6, "Error:") == 0 || line.compare(0, 8, "Warning:") == 0) {
                 std::cerr << line << std::endl;
             } else {
                 std::cout << line << std::endl;
