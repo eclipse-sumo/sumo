@@ -109,18 +109,9 @@ Calibrator::getRemoved(const std::string& calibratorID) {
     return Dom::getInt(libsumo::VAR_REMOVED, "");
 }
 
-std::string
-Calibrator::getParameter(const std::string& calibratorID, const std::string& param) {
-    return Dom::getString(libsumo::VAR_PARAMETER, "");
-}
-
 //LIBTRACI_GET_PARAMETER_WITH_KEY_IMPLEMENTATION(Calibrator, CALIBRATOR)
 LIBTRACI_PARAMETER_IMPLEMENTATION(Calibrator, CALIBRATOR)
 
-void
-Calibrator::setParameter(const std::string& calibratorID, const std::string& key, const std::string& value) {
-    Dom::setString(libsumo::VAR_PARAMETER, calibratorID, key);
-}
 
 //void
 //Calibrator::setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed, const std::string& typeID,
@@ -168,7 +159,7 @@ Calibrator::setParameter(const std::string& calibratorID, const std::string& key
 //    catch (ProcessError& e) {
 //        throw libsumo::TraCIException::TraCIException(e.what());
 //    }
-//}
+}
 
 
 /****************************************************************************/
