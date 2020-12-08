@@ -41,7 +41,7 @@ print("width", traci.lane.getWidth(laneID))
 print("allowed", traci.lane.getAllowed(laneID))
 print("disallowed", traci.lane.getDisallowed(laneID))
 print("linkNum", traci.lane.getLinkNumber(laneID))
-if traci.isLibsumo():
+if traci.isLibsumo() or traci.isLibtraci():
     print("links", [l[:4] for l in traci.lane.getLinks(laneID)])
     print("linksExtended", traci.lane.getLinks(laneID))
 else:
