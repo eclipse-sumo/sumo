@@ -14,19 +14,18 @@
 # @author  Michael Behrisch
 # @date    2020-10-08
 
+from functools import wraps
 from traci import connection, constants, exceptions, _vehicle, _person, _trafficlight, _simulation  # noqa
 from traci.connection import StepListener  # noqa
-from .libtraci import simulation
+from .libtraci import vehicle, simulation, person, trafficlight
 from .libtraci import *  # noqa
+from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException
 
 
-def isLibsumo():
-    return False
-
-
-def isLibtraci():
-    return True
-
+def wrapAsClassMethod(func, module):
+    def wrapper(*args, **kwargs):
+        return func(module, *args, **kwargs)
+    return wrapper
 
 hasGUI = simulation.hasGUI
 init = simulation.init
@@ -36,3 +35,35 @@ simulationStep = simulation.step
 getVersion = simulation.getVersion
 close = simulation.close
 start = simulation.start
+
+simulation.Stage = TraCIStage
+vehicle.StopData = TraCINextStopData
+person.Reservation = TraCIReservation
+trafficlight.Phase = TraCIPhase
+trafficlight.Logic = TraCILogic
+vehicle.addFull = vehicle.add
+vehicle.addLegacy = wrapAsClassMethod(_vehicle.VehicleDomain.addLegacy, vehicle)
+vehicle.couldChangeLane = wrapAsClassMethod(_vehicle.VehicleDomain.couldChangeLane, vehicle)
+vehicle.wantsAndCouldChangeLane = wrapAsClassMethod(_vehicle.VehicleDomain.wantsAndCouldChangeLane, vehicle)
+vehicle.isStopped = wrapAsClassMethod(_vehicle.VehicleDomain.isStopped, vehicle)
+vehicle.setBusStop = wrapAsClassMethod(_vehicle.VehicleDomain.setBusStop, vehicle)
+vehicle.setParkingAreaStop = wrapAsClassMethod(_vehicle.VehicleDomain.setParkingAreaStop, vehicle)
+vehicle.getRightFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getRightFollowers, vehicle)
+vehicle.getRightLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getRightLeaders, vehicle)
+vehicle.getLeftFollowers = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftFollowers, vehicle)
+vehicle.getLeftLeaders = wrapAsClassMethod(_vehicle.VehicleDomain.getLeftLeaders, vehicle)
+vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getLaneChangeStatePretty, vehicle)
+vehicle._legacyGetLeader = True
+person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
+_trafficlight.TraCIException = TraCIException
+trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
+#addStepListener = wrapAsClassMethod(connection.Connection.addStepListener, sys.modules[__name__])
+#removeStepListener = wrapAsClassMethod(connection.Connection.removeStepListener, sys.modules[__name__])
+
+def isLibsumo():
+    return False
+
+
+def isLibtraci():
+    return True
+
