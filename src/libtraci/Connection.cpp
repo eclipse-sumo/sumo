@@ -308,7 +308,7 @@ Connection::check_resultState(tcpip::Storage& inMsg, int command, bool ignoreCom
     }
     switch (resultType) {
         case libsumo::RTYPE_ERR:
-            throw libsumo::TraCIException(".. Answered with error to command (" + toString(command) + "), [description: " + msg + "]");
+            throw libsumo::TraCIException(msg);
         case libsumo::RTYPE_NOTIMPLEMENTED:
             throw libsumo::TraCIException(".. Sent command is not implemented (" + toString(command) + "), [description: " + msg + "]");
         case libsumo::RTYPE_OK:
