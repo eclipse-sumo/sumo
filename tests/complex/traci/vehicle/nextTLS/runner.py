@@ -42,6 +42,8 @@ while traci.simulation.getMinExpectedNumber() > 0:
         if traci.isLibsumo():
             print(e, file=sys.stderr)
             print(traci.simulation.getTime(), e)
+        if traci.isLibtraci():
+            print(traci.simulation.getTime(), e)
         else:
             print(traci.simulation.getTime(), "Error:", e)
 
