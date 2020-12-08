@@ -317,7 +317,7 @@ public:
     static void drawCrossTies(const PositionVector& geom,
                               const std::vector<double>& rots,
                               const std::vector<double>& lengths,
-                              double length, double spacing, double halfWidth, bool drawForRectangleSelection);
+                              double length, double spacing, double halfWidth, bool drawForSelection);
 
     /// @brief draw vertex numbers for the given shape (in a random color)
     static void debugVertices(const PositionVector& shape, double size, double layer = 256);

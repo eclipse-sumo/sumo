@@ -325,7 +325,7 @@ GUIViewTraffic::getPOIParamKeys() const {
 int
 GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     // (uncomment the next line to check select mode)
-    //myVisualizationSettings->drawForRectangleSelection = true;
+    //myVisualizationSettings->drawForPositionSelection = true;
     // init view settings
     glRenderMode(mode);
     glMatrixMode(GL_MODELVIEW);
@@ -347,7 +347,7 @@ GUIViewTraffic::doPaintGL(int mode, const Boundary& bound) {
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     const float minB[2] = { (float)bound.xmin(), (float)bound.ymin() };
     const float maxB[2] = { (float)bound.xmax(), (float)bound.ymax() };
-    myVisualizationSettings->scale = myVisualizationSettings->drawForRectangleSelection ? myVisualizationSettings->scale : m2p(SUMO_const_laneWidth);
+    myVisualizationSettings->scale = myVisualizationSettings->drawForPositionSelection ? myVisualizationSettings->scale : m2p(SUMO_const_laneWidth);
     glEnable(GL_POLYGON_OFFSET_FILL);
     glEnable(GL_POLYGON_OFFSET_LINE);
     int hits2 = myGrid->Search(minB, maxB, *myVisualizationSettings);

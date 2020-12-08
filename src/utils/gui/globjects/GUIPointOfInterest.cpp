@@ -145,7 +145,7 @@ GUIPointOfInterest::drawInnerPOI(const GUIVisualizationSettings& s, const PointO
         }
     } else {
         // fallback if no image is defined
-        if (s.drawForRectangleSelection) {
+        if (s.drawForPositionSelection) {
             GLHelper::drawFilledCircle((double) 1.3 * exaggeration, 8);
         } else {
             // draw filled circle saving vertices
