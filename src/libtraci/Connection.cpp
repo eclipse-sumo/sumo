@@ -219,7 +219,11 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
         } else {
             // default for detectors is vehicle number, for all others (and contexts) id list
             outMsg.writeUnsignedByte(1);
-            const bool isDetector = domID == libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE || domID == libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE || domID == libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE;
+            const bool isDetector = domID == libsumo::CMD_SUBSCRIBE_INDUCTIONLOOP_VARIABLE
+				|| domID == libsumo::CMD_SUBSCRIBE_LANEAREA_VARIABLE
+				|| domID == libsumo::CMD_SUBSCRIBE_MULTIENTRYEXIT_VARIABLE
+				|| domID == libsumo::CMD_SUBSCRIBE_LANE_VARIABLE
+				|| domID == libsumo::CMD_SUBSCRIBE_EDGE_VARIABLE;
             outMsg.writeUnsignedByte(isDetector ? libsumo::LAST_STEP_VEHICLE_NUMBER : libsumo::TRACI_ID_LIST);
         }
     } else {

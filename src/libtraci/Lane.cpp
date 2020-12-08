@@ -165,7 +165,7 @@ Lane::getCOEmission(std::string laneID) {
 
 double
 Lane::getHCEmission(std::string laneID) {
-    return Dom::getDouble(libsumo::VAR_COEMISSION, laneID);
+    return Dom::getDouble(libsumo::VAR_HCEMISSION, laneID);
 }
 
 
