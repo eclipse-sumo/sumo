@@ -20,6 +20,7 @@ from traci.connection import StepListener  # noqa
 from .libtraci import vehicle, simulation, person, trafficlight
 from .libtraci import *  # noqa
 from .libtraci import TraCIStage, TraCINextStopData, TraCIReservation, TraCILogic, TraCIPhase, TraCIException
+import sys
 
 hasGUI = simulation.hasGUI
 init = simulation.init
@@ -29,6 +30,8 @@ simulationStep = simulation.step
 getVersion = simulation.getVersion
 close = simulation.close
 start = simulation.start
+_stepListeners = {}
+_nextStepListenerID = 0
 
 def wrapAsClassMethod(func, module):
     def wrapper(*args, **kwargs):
@@ -69,8 +72,8 @@ vehicle.getLaneChangeStatePretty = wrapAsClassMethod(_vehicle.VehicleDomain.getL
 person.removeStages = wrapAsClassMethod(_person.PersonDomain.removeStages, person)
 _trafficlight.TraCIException = TraCIException
 trafficlight.setLinkState = wrapAsClassMethod(_trafficlight.TrafficLightDomain.setLinkState, trafficlight)
-#addStepListener = wrapAsClassMethod(connection.Connection.addStepListener, sys.modules[__name__])
-#removeStepListener = wrapAsClassMethod(connection.Connection.removeStepListener, sys.modules[__name__])
+addStepListener = wrapAsClassMethod(connection.Connection.addStepListener, sys.modules[__name__])
+removeStepListener = wrapAsClassMethod(connection.Connection.removeStepListener, sys.modules[__name__])
 
 def isLibsumo():
     return False
