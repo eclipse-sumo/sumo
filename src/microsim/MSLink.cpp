@@ -544,6 +544,11 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                         }
 #endif
                         if (collectFoes == nullptr) {
+#ifdef MSLink_DEBUG_OPENED
+                            if (gDebugFlag1) {
+                                std::cout << " link=" << getViaLaneOrLane()->getID() << " blocked by sublaneFoe2=" << foe->getID() << " foeLink=" << foeLink->getViaLaneOrLane()->getID() << " posLat=" << posLat << "\n";
+                            }
+#endif
                             return false;
                         } else {
                             collectFoes->push_back(it.first);
@@ -640,7 +645,7 @@ MSLink::blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation
 #ifdef MSLink_DEBUG_OPENED
     if (gDebugFlag1) {
         std::stringstream stream; // to reduce output interleaving from different threads
-        stream << "    foe link=" << getViaLaneOrLane()->getID()
+        stream << "    link=" << getDescription()
                << " foeVeh=" << veh->getID()
                << " req=" << avi.willPass
                << " aT=" << avi.arrivalTime
