@@ -102,7 +102,8 @@ public:
                                       const double _arrivalSpeedBraking,
                                       const SUMOTime _waitingTime,
                                       const double _dist,
-                                      const double _speed
+                                      const double _speed,
+                                      const double _latOffset
                                      ) :
             arrivalTime(_arrivalTime), leavingTime(_leavingTime),
             arrivalSpeed(_arrivalSpeed), leaveSpeed(_leaveSpeed),
@@ -111,7 +112,9 @@ public:
             arrivalSpeedBraking(_arrivalSpeedBraking),
             waitingTime(_waitingTime),
             dist(_dist),
-            speed(_speed) {
+            speed(_speed),
+            latOffset(_latOffset)
+        {
         }
 
         /// @brief The time the vehicle's front arrives at the link
@@ -134,6 +137,8 @@ public:
         const double dist;
         /// @brief The current speed
         const double speed;
+        /// @brief The lateral offset from the center of the entering lane
+        const double latOffset;
 
     private:
         /// invalidated assignment operator
@@ -195,7 +200,7 @@ public:
     void setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime,
                         const double arrivalSpeed, const double leaveSpeed, const bool setRequest,
                         const SUMOTime arrivalTimeBraking, const double arrivalSpeedBraking,
-                        const SUMOTime waitingTime, double dist);
+                        const SUMOTime waitingTime, double dist, double latOffset);
 
     /** @brief Sets the information about an approaching vehicle */
     void setApproaching(const SUMOVehicle* approaching, ApproachingVehicleInformation ai);

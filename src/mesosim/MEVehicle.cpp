@@ -184,7 +184,7 @@ MEVehicle::setApproaching(MSLink* link) {
                              speed, speed, true,
                              getEventTime(), speed, getWaitingTime(),
                              // @note: dist is not used by meso (getZipperSpeed is never called)
-                             getSegment()->getLength());
+                             getSegment()->getLength(), 0);
     }
 }
 

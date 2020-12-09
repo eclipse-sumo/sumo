@@ -390,7 +390,7 @@ MSLink::contIntersect(const MSLane* lane, const MSLane* foe) {
 
 void
 MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTime, const double arrivalSpeed, const double leaveSpeed,
-                       const bool setRequest, const SUMOTime arrivalTimeBraking, const double arrivalSpeedBraking, const SUMOTime waitingTime, double dist) {
+                       const bool setRequest, const SUMOTime arrivalTimeBraking, const double arrivalSpeedBraking, const SUMOTime waitingTime, double dist, double latOffset) {
     const SUMOTime leaveTime = getLeaveTime(arrivalTime, arrivalSpeed, leaveSpeed, approaching->getVehicleType().getLength());
 #ifdef DEBUG_APPROACHING
     if (DEBUG_COND2(approaching)) {
@@ -402,7 +402,7 @@ MSLink::setApproaching(const SUMOVehicle* approaching, const SUMOTime arrivalTim
 #endif
     myApproachingVehicles.emplace(approaching,
                                   ApproachingVehicleInformation(arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, setRequest,
-                                          arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist, approaching->getSpeed()));
+                                          arrivalTimeBraking, arrivalSpeedBraking, waitingTime, dist, approaching->getSpeed(), latOffset));
 }
 
 
@@ -461,7 +461,7 @@ MSLink::getApproaching(const SUMOVehicle* veh) const {
     if (i != myApproachingVehicles.end()) {
         return i->second;
     } else {
-        return ApproachingVehicleInformation(-1000, -1000, 0, 0, false, -1000, 0, 0, 0, 0);
+        return ApproachingVehicleInformation(-1000, -1000, 0, 0, false, -1000, 0, 0, 0, 0, 0);
     }
 }
 
@@ -496,8 +496,8 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                 const SUMOVehicle* foe = it.first;
                 if (
                     // there only is a conflict if the paths cross
-                    ((posLat < foe->getLateralPositionOnLane() && myLane->getIndex() > foeLink->myLane->getIndex())
-                     || (posLat > foe->getLateralPositionOnLane() && myLane->getIndex() < foeLink->myLane->getIndex()))
+                    ((posLat < foe->getLateralPositionOnLane() + it.second.latOffset && myLane->getIndex() > foeLink->myLane->getIndex())
+                     || (posLat > foe->getLateralPositionOnLane() + it.second.latOffset && myLane->getIndex() < foeLink->myLane->getIndex()))
                     // the vehicle that arrives later must yield
                     && (arrivalTime > it.second.arrivalTime
                         // if both vehicles arrive at the same time, the one
@@ -533,9 +533,9 @@ MSLink::opened(SUMOTime arrivalTime, double arrivalSpeed, double leaveSpeed, dou
                 const SUMOVehicle* foe = it.first;
                 // there only is a conflict if the paths cross
                 if (((myDirection == LinkDirection::RIGHT || myDirection == LinkDirection::PARTRIGHT)
-                        && (posLat * lhSign > foe->getLateralPositionOnLane() * lhSign))
+                        && (posLat * lhSign > (foe->getLateralPositionOnLane() + it.second.latOffset) * lhSign))
                         || ((myDirection == LinkDirection::LEFT || myDirection == LinkDirection::PARTLEFT)
-                            && (posLat * lhSign < foe->getLateralPositionOnLane() * lhSign))) {
+                            && (posLat * lhSign < (foe->getLateralPositionOnLane() + it.second.latOffset) * lhSign))) {
                     if (blockedByFoe(foe, it.second, arrivalTime, leaveTime, arrivalSpeed, leaveSpeed, false,
                                      impatience, decel, waitingTime, ego)) {
 #ifdef MSLink_DEBUG_OPENED

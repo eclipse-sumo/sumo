@@ -172,6 +172,7 @@
         <xsd:attribute name="arrivalSpeedBraking" type="xsd:float" use="required"/>
         <xsd:attribute name="waitingTime" type="xsd:int" use="required"/>
         <xsd:attribute name="distance" type="xsd:float" use="required"/>
+        <xsd:attribute name="posLat" type="xsd:float" use="optional"/>
     </xsd:complexType>
 
     <xsd:complexType name="segmentStateType">
