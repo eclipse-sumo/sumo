@@ -1102,8 +1102,12 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     && !leader->willStop()) {
                 continue;
             }
+            // check whether foe is blocked and might need to change before leaving the junction
+            const bool foeStrategicBlocked = (leader->getLaneChangeModel().isStrategicBlocked() &&
+                leader->getCarFollowModel().brakeGap(leader->getSpeed()) <= foeLane->getLength() - leaderBack);
+
             if (MSGlobals::gSublane && ego != nullptr && (sameSource || sameTarget)
-                    && !leader->getLaneChangeModel().isStrategicBlocked()) {
+                    && (!foeStrategicBlocked)) {
                 // ignore vehicles if not in conflict sublane-wise
                 const double posLat = ego->getLateralPositionOnLane();
                 const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
