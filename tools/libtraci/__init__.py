@@ -26,7 +26,6 @@ hasGUI = simulation.hasGUI
 init = simulation.init
 load = simulation.load
 isLoaded = simulation.isLoaded
-simulationStep = simulation.step
 getVersion = simulation.getVersion
 close = simulation.close
 start = simulation.start
@@ -88,3 +87,8 @@ def isLibtraci():
 vehicle._legacyGetLeader = True
 def setLegacyGetLeader(enabled):
     _vehicle._legacyGetLeader = enabled
+
+def simulationStep(step=0):
+    result = simulation.step(step)
+    _manageStepListeners(step)
+    return result
