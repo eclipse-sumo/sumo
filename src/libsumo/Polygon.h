@@ -29,6 +29,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
+#ifndef LIBTRACI
 class NamedRTree;
 class SUMOPolygon;
 class SUMOTrafficObject;
@@ -36,17 +37,18 @@ class NamedRTree;
 namespace libsumo {
 class VariableWrapper;
 }
+#endif
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-namespace libsumo {
+namespace LIBSUMO_NAMESPACE {
 class Polygon {
 public:
     static std::string getType(const std::string& polygonID);
-    static TraCIPositionVector getShape(const std::string& polygonID);
-    static TraCIColor getColor(const std::string& polygonID);
+    static libsumo::TraCIPositionVector getShape(const std::string& polygonID);
+    static libsumo::TraCIColor getColor(const std::string& polygonID);
     static bool getFilled(const std::string& polygonID);
     static double getLineWidth(const std::string& polygonID);
 
@@ -54,9 +56,9 @@ public:
     LIBSUMO_SUBSCRIPTION_API
 
     static void setType(const std::string& polygonID, const std::string& setType);
-    static void setShape(const std::string& polygonID, const TraCIPositionVector& shape);
-    static void setColor(const std::string& polygonID, const TraCIColor& color);
-    static void add(const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill = false, const std::string& polygonType = "", int layer = 0, double lineWidth = 1);
+    static void setShape(const std::string& polygonID, const libsumo::TraCIPositionVector& shape);
+    static void setColor(const std::string& polygonID, const libsumo::TraCIColor& color);
+    static void add(const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& color, bool fill = false, const std::string& polygonType = "", int layer = 0, double lineWidth = 1);
 
     static void addDynamics(const std::string& polygonID, const std::string& trackedID = "", const std::vector<double>& timeSpan = std::vector<double>(), const std::vector<double>& alphaSpan = std::vector<double>(), bool looped = false, bool rotate = true);
     static void remove(const std::string& polygonID, int layer = 0);
@@ -65,8 +67,9 @@ public:
     static void setLineWidth(std::string polygonID, double lineWidth);
 
     // currently only used as a Helper function by POI and Vehicle, not part of the public API (and the clients)
-    static void addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const TraCIPositionVector& shape, const TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth);
+    static void addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth);
 
+#ifndef LIBTRACI
     /** @brief Returns a tree filled with polygon instances
      * @return The rtree of polygons
      */
@@ -97,6 +100,7 @@ private:
     static SubscriptionResults mySubscriptionResults;
     static ContextSubscriptionResults myContextSubscriptionResults;
     static NamedRTree* myTree;
+#endif
 
     /// @brief invalidated standard constructor
     Polygon() = delete;
