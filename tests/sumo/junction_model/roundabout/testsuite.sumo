@@ -1,3 +1,6 @@
 # vehicles that have not yet committed to entering the roundabout should not prevent other vehicles from entering the roundabout. See #1847
 no_requests_from_outside
 small
+
+# a vehicle that is blocked from continuing in the roundabout should give way to entering vehicles that could otherwise continue
+blocked_on_junction
