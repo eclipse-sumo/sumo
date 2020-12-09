@@ -359,7 +359,18 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
     try {
         $action
     } catch (libsumo::TraCIException &e) {
-        const std::string s = std::string("Error: ") + e.what();
+        const std::string s = e.what();
+        std::string printError;
+        if (std::getenv("TRACI_PRINT_ERROR") != nullptr) {
+            printError = std::getenv("TRACI_PRINT_ERROR");
+        }
+#ifdef LIBTRACI
+        if (printError == "all" || printError == "client") {
+#else
+        if (printError == "all" || printError == "libsumo") {
+#endif
+            std::cerr << "Error: " << s << std::endl;
+        }
 #ifdef SWIGPYTHON
         PyErr_SetObject(SWIG_Python_ExceptionType(SWIGTYPE_p_libsumo__TraCIException), PyUnicode_FromString(s.c_str()));
         SWIG_fail;
