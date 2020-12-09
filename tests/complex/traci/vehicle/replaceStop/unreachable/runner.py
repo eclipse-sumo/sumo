@@ -48,9 +48,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
     if traci.simulation.getTime() == 5:
         try:
             traci.vehicle.replaceStop(vehID, 2, "busStop_C2D2", flags=tc.STOP_BUS_STOP, duration=30)
-        except traci.TraCIException as e:
-            if traci.isLibsumo():
-                print(e, file=sys.stderr)
+        except traci.TraCIException:
             break
     traci.simulationStep()
 traci.close()

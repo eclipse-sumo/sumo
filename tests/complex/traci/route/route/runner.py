@@ -48,9 +48,8 @@ traci.route.add("h2", ["1o"])
 traci.route.add("withTaz", ["taz12-source", "taz34-sink"])
 try:
     traci.route.add("empty", [])
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
+    pass
 print("routes", traci.route.getIDList())
 print("edges", traci.route.getEdges("h2"))
 print("edges", traci.route.getEdges("withTaz"))

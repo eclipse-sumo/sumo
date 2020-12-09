@@ -39,12 +39,6 @@ while traci.simulation.getMinExpectedNumber() > 0:
     try:
         print(traci.simulation.getTime(), traci.vehicle.getNextTLS(vehID))
     except traci.TraCIException as e:
-        if traci.isLibsumo():
-            print(e, file=sys.stderr)
-            print(traci.simulation.getTime(), e)
-        if traci.isLibtraci():
-            print(traci.simulation.getTime(), e)
-        else:
-            print(traci.simulation.getTime(), "Error:", e)
+        print(traci.simulation.getTime(), "Error:", e)
 
 traci.close()

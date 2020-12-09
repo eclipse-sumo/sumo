@@ -43,7 +43,6 @@ while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulation.getTime(),
             traci.vehicle.getDistance(vehID),
             traci.vehicle.getRoadID(vehID))
-    except traci.TraCIException as e:
-        if traci.isLibsumo():
-            print(e, file=sys.stderr)
+    except traci.TraCIException:
+        pass
 traci.close()

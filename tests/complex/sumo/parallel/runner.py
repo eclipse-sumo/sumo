@@ -16,8 +16,11 @@
 # @date    2020-09-21
 
 from __future__ import print_function
+import os
 import sys
 import subprocess
+sys.path.append(os.path.join(os.environ["SUMO_HOME"], "tools"))
+import sumolib  # noqa
 
 numLanes = int(sys.argv[1]) if len(sys.argv) > 1 else 60
 length = float(sys.argv[2]) if len(sys.argv) > 2 else 1e5
@@ -34,11 +37,11 @@ with open("%s.edg.xml" % numLanes, "w") as edges, open("%s.nod.xml" % numLanes, 
     print("</edges>", file=edges)
     print("</nodes>", file=nodes)
     print("</routes>", file=flows)
-subprocess.call(["netconvert", "-o", "%s.net.xml" % numLanes, "-n", nodes.name, "-e", edges.name])
+subprocess.call([sumolib.checkBinary("netconvert"), "-o", "%s.net.xml" % numLanes, "-n", nodes.name, "-e", edges.name])
 # generate config
-subprocess.call(["sumo", "-n", "%s.net.xml" % numLanes, "-r", flows.name, "--no-step-log",
+subprocess.call([sumolib.checkBinary("sumo"), "-n", "%s.net.xml" % numLanes, "-r", flows.name, "--no-step-log",
                  "-C", "%s.sumocfg" % numLanes])
 # run single threaded
-subprocess.call(["sumo", "-c", "%s.sumocfg" % numLanes])
+subprocess.call([sumolib.checkBinary("sumo"), "-c", "%s.sumocfg" % numLanes])
 # run with 2 threads
-subprocess.call(["sumo", "-c", "%s.sumocfg" % numLanes, "--threads", "2"])
+subprocess.call([sumolib.checkBinary("sumo"), "-c", "%s.sumocfg" % numLanes, "--threads", "2"])

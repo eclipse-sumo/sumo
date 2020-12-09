@@ -45,8 +45,6 @@ while traci.simulation.getMinExpectedNumber() > 0:
             t, followerAutoDist, followerLowDist))
     except traci.TraCIException as e:
         # ego left the simulation
-        if traci.isLibsumo():
-            print(e, file=sys.stderr)
         break
     traci.simulationStep()
 

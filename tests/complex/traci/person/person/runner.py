@@ -48,9 +48,7 @@ def print_prior_plan(personID, comment=""):
         try:
             stages.append((i, traci.person.getStage(personID, i)))
             i -= 1
-        except traci.TraCIException as e:
-            if traci.isLibsumo():
-                print(e, file=sys.stderr)
+        except traci.TraCIException:
             break
     stages.reverse()
     for i, stage in stages:
@@ -127,9 +125,7 @@ for i in range(3):
 check(personID)
 try:
     check("bla")
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
     print("recovering from exception after asking for unknown person")
 print("step", step())
 
@@ -190,15 +186,11 @@ print(traci.person.getNextEdge(personID))
 # retrieve invalid stages
 try:
     print(traci.person.getStage(personID, 3))
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
     print("recovering from exception after asking for invalid stage index")
 try:
     print(traci.person.getStage(personID, -2))
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
     print("recovering from exception after asking for invalid stage index")
 
 # changing walk edges in the middle of a walk

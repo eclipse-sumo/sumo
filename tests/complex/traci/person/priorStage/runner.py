@@ -36,9 +36,7 @@ def print_prior_plan(personID, comment=""):
         try:
             stages.append((i, traci.person.getStage(personID, i)))
             i -= 1
-        except traci.TraCIException as e:
-            if traci.isLibsumo():
-                print(e, file=sys.stderr)
+        except traci.TraCIException:
             break
     stages.reverse()
     for i, stage in stages:

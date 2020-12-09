@@ -213,10 +213,7 @@ print("set traveltime (default range)", traci.vehicle.getAdaptedTraveltime(vehID
 print("set effort (default range)", traci.vehicle.getEffort(vehID, 0, "1o"))
 try:
     check("bla")
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
-        sys.stderr.flush()
+except traci.TraCIException:
     print("recovering from exception after asking for unknown vehicle")
 traci.vehicle.addLegacy("1", "horizontal")
 traci.vehicle.setStop("1", "2fi", pos=50.0, laneIndex=0, duration=1, flags=1)
@@ -269,15 +266,12 @@ for i in range(6):
 traci.vehicle.remove("1")
 try:
     traci.vehicle.addLegacy("anotherOne", "horizontal", pos=-1)
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
+    pass
 try:
     check("anotherOne")
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
-        sys.stderr.flush()
+except traci.TraCIException:
+    pass
 traci.vehicle.moveTo(vehID, "1o_0", 40)
 print("step", step())
 print(traci.vehicle.getSubscriptionResults(vehID))
@@ -467,15 +461,11 @@ traci.vehicle.setEmissionClass(electricVeh, "Energy/unknown")
 
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.foo.bar"))
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
     print("recovering from exception after asking for unknown device")
 try:
     print(traci.vehicle.getParameter(electricVeh, "device.battery.foobar"))
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
     print("recovering from exception after asking for unknown device parameter")
 
 traci.vehicle.subscribe(electricVeh, [tc.VAR_POSITION, tc.VAR_POSITION3D])

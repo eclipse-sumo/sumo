@@ -41,7 +41,9 @@ print("edge", traci.routeprobe.getEdgeID(probeID))
 while traci.simulation.getMinExpectedNumber() > 0:
     try:
         lastRouteID = traci.routeprobe.sampleLastRouteID(probeID)
-    except traci.TraCIException:
+    except traci.TraCIException as e:
+        if traci.isLibsumo():
+            print(e, file=sys.stderr)
         lastRouteID = None
     try:
         curRouteID = traci.routeprobe.sampleCurrentRouteID(probeID)

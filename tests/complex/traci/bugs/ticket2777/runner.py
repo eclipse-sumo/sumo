@@ -39,10 +39,8 @@ def check(vehID, steps=1):
                 traci.vehicle.getLaneID(vehID),
                 traci.vehicle.getLanePosition(vehID),
                 traci.vehicle.getSpeed(vehID)))
-        except traci.TraCIException as e:
-            if traci.isLibsumo():
-                print(e, file=sys.stderr)
-                sys.stderr.flush()
+        except traci.TraCIException:
+            pass
     if steps > 1:
         print()
 
@@ -54,10 +52,8 @@ check(vehID)
 try:
     print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
     traci.vehicle.setStop(vehID, "beg", pos=1.0, laneIndex=0, duration=5)
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
-        sys.stderr.flush()
+except traci.TraCIException:
+    pass
 check(vehID, 10)
 
 traci.simulationStep(21)
@@ -66,10 +62,8 @@ check(vehID)
 try:
     print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
     traci.vehicle.setStop(vehID, "end", pos=1.0, laneIndex=0, duration=5)
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
-        sys.stderr.flush()
+except traci.TraCIException:
+    pass
 check(vehID, 10)
 
 traci.simulationStep(41)
@@ -78,9 +72,8 @@ check(vehID)
 try:
     print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
     traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5)
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
+    pass
 check(vehID, 10)
 
 traci.simulationStep(61)
@@ -89,9 +82,8 @@ check(vehID)
 try:
     print("%s setStop for %s" % (traci.simulation.getTime(), vehID))
     traci.vehicle.setStop(vehID, "middle", pos=1.0, laneIndex=0, duration=5)
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
+    pass
 check(vehID, 10)
 
 traci.close()

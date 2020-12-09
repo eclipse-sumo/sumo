@@ -39,9 +39,8 @@ traci.polygon.add(
 try:
     traci.polygon.add(
         "invalidShape", ((1, 1), (float('nan'), 42), (1, 10), (10, 10)), (1, 2, 3, 4), True, "test")
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
+    pass
 
 print("polygons", traci.polygon.getIDList())
 print("polygon count", traci.polygon.getIDCount())

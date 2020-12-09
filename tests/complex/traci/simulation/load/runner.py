@@ -35,10 +35,8 @@ traci.simulationStep()
 # cause an error and catch it
 try:
     traci.vehicle.setRoute("horiz", "dummy")
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
-        sys.stderr.flush()
+except traci.TraCIException:
+    pass
 
 traci.load(["sumo.sumocfg"])
 traci.simulationStep()

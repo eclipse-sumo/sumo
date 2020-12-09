@@ -37,11 +37,8 @@ traci.start([sumoBinary,
 vehID = "v0"
 try:
     traci.vehicle.add(vehID, "r0", departLane="1", departSpeed="14")
-except traci.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.TraCIException:
     print("caught exception")
-    pass
 
 while traci.simulation.getMinExpectedNumber() > 0:
     traci.simulationStep()

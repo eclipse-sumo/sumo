@@ -59,56 +59,38 @@ for step in range(3, 6):
 print("# (1) Adding underspecified dynamics...")
 try:
     traci.polygon.addDynamics(polygonID)
-except traci.exceptions.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.exceptions.TraCIException:
     print("Caught TraCIException")
-    pass
 
 print("# (2) Adding malformed dynamics 1 ...")
 try:
     traci.polygon.addDynamics(polygonID, "", [0, 1, 2, 4, 3])
-except traci.exceptions.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.exceptions.TraCIException:
     print("Caught TraCIException")
-    pass
 
 print("# (3) Adding malformed dynamics 2 ...")
 try:
     traci.polygon.addDynamics(polygonID, "", [1, 2, 3, 4], [200, 20, 2, 1])
-except traci.exceptions.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.exceptions.TraCIException:
     print("Caught TraCIException")
-    pass
 
 print("# (4) Adding malformed dynamics 3 ...")
 try:
     traci.polygon.addDynamics(polygonID, "", [0, 1, 2, 3], [200, 20, 2])
-except traci.exceptions.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.exceptions.TraCIException:
     print("Caught TraCIException")
-    pass
 
 print("# (5) Adding malformed dynamics 4 ...")
 try:
     traci.polygon.addDynamics(polygonID, "", [0], [200])
-except traci.exceptions.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.exceptions.TraCIException:
     print("Caught TraCIException")
-    pass
 
 print("# (6) Adding malformed dynamics 5 ...")
 try:
     traci.polygon.addDynamics(polygonID, "horiz", [], [], True)
-except traci.exceptions.TraCIException as e:
-    if traci.isLibsumo():
-        print(e, file=sys.stderr)
+except traci.exceptions.TraCIException:
     print("Caught TraCIException")
-    pass
 
 examine(polygonID)
 

@@ -58,8 +58,7 @@ while traci.simulation.getMinExpectedNumber() > 0:
             traci.simulation.getDistanceRoad(currEdge, currLanePos, ":C_10", 13.8),
             traci.simulation.getDistanceRoad(currEdge, currLanePos, "CN", 90)
         ))
-    except traci.TraCIException as e:
-        if traci.isLibsumo():
-            print(e, file=sys.stderr)
+    except traci.TraCIException:
+        pass
 
 traci.close()
