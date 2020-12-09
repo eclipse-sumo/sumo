@@ -1134,7 +1134,7 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
     shape.push_back(pos);
     collectObjectsInRange(libsumo::CMD_GET_EDGE_VARIABLE, shape, maxRouteDistance, into);
     double maxDist = 0;
-    std::map<MSLane*, LaneUtility> lane2utility;
+    std::map<MSLane*, LaneUtility, ComparatorNumericalIdLess> lane2utility;
     // compute utility for all candidate edges
     for (const Named* namedEdge : into) {
         const MSEdge* e = dynamic_cast<const MSEdge*>(namedEdge);
@@ -1380,13 +1380,11 @@ Helper::moveToXYMap(const Position& pos, double maxRouteDistance, bool mayLeaveN
 
 bool
 Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass vClass, double& bestDistance, MSLane** lane) {
-    if (edge == nullptr) {
+    if (edge == nullptr || bestDistance < POSITION_EPS) {
         return false;
     }
-    const std::vector<MSLane*>& lanes = edge->getLanes();
     bool newBest = false;
-    for (std::vector<MSLane*>::const_iterator k = lanes.begin(); k != lanes.end() && bestDistance > POSITION_EPS; ++k) {
-        MSLane* candidateLane = *k;
+    for (MSLane* const candidateLane : edge->getLanes()) {
         if (!candidateLane->allowsVehicleClass(vClass)) {
             continue;
         }
@@ -1398,7 +1396,7 @@ Helper::findCloserLane(const MSEdge* edge, const Position& pos, SUMOVehicleClass
 #ifdef DEBUG_MOVEXY
         std::cout << "   b at lane " << candidateLane->getID() << " dist:" << dist << " best:" << bestDistance << std::endl;
 #endif
-        if (dist < bestDistance) {
+        if (dist < bestDistance || (dist == bestDistance && candidateLane->getNumericalID() < (*lane)->getNumericalID())) {
             // is the new distance the best one? keep then...
             bestDistance = dist;
             *lane = candidateLane;
