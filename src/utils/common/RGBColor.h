@@ -97,6 +97,12 @@ public:
      */
     RGBColor changedBrightness(int change, int toChange = 3) const;
 
+    /** @brief Returns a new color with altered brightness
+     * @param[in] factor The multiplicative change applied to all color channels (within bounds)
+     * @return The new color
+     */
+    RGBColor multiply(double factor) const;
+
     /// @brief obtain inverted of current RGBColor
     RGBColor invertedColor() const;
 

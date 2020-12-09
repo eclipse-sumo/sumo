@@ -787,7 +787,11 @@ GUIBaseVehicle::removeActiveAddVisualisation(GUISUMOAbstractView* const parent, 
 
 void
 GUIBaseVehicle::drawRoute(const GUIVisualizationSettings& s, int routeNo, double darken, bool future, bool noLoop) const {
-    RGBColor darker = setColor(s).changedBrightness((int)(darken * -255));
+    RGBColor vehColor = setColor(s);
+    RGBColor darker = vehColor.changedBrightness((int)(darken * -255));
+    if (darker == RGBColor::BLACK) {
+        darker = vehColor.multiply(1 - darken);
+    }
     GLHelper::setColor(darker);
     if (routeNo == 0) {
         drawRouteHelper(s, myVehicle.getRoute(), future, noLoop, darker);

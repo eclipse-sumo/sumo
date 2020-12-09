@@ -163,6 +163,14 @@ RGBColor::changedBrightness(int change, int toChange) const {
     }
 }
 
+RGBColor
+RGBColor::multiply(double factor) const {
+    const unsigned char red = (unsigned char)floor(MIN2(MAX2(myRed * factor, 0.0), 255.0) + 0.5);
+    const unsigned char blue = (unsigned char)floor(MIN2(MAX2(myBlue * factor, 0.0), 255.0) + 0.5);
+    const unsigned char green = (unsigned char)floor(MIN2(MAX2(myGreen * factor, 0.0), 255.0) + 0.5);
+    return RGBColor(red, green, blue, myAlpha);
+}
+
 
 RGBColor
 RGBColor::parseColor(std::string coldef) {
