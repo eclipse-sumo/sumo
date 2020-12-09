@@ -78,16 +78,19 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(Polygon, POLYGON)
 
 void
 Polygon::setType(const std::string& polygonID, const std::string& setType) {
+    Dom::setString(libsumo::VAR_TYPE, polygonID, setType);
 }
 
 
 void
 Polygon::setShape(const std::string& polygonID, const libsumo::TraCIPositionVector& shape) {
+    // return Dom::setPolygon(libsumo::VAR_SHAPE, polygonID);
 }
 
 
 void
 Polygon::setColor(const std::string& polygonID, const libsumo::TraCIColor& c) {
+    Dom::setCol(libsumo::VAR_COLOR, polygonID, c);
 }
 
 
@@ -113,11 +116,13 @@ Polygon::remove(const std::string& polygonID, int /* layer */) {
 
 void
 Polygon::setFilled(std::string polygonID, bool filled) {
+    //Dom::setByte(libsumo::VAR_FILL, polygonID, filled);
 }
 
 
 void
 Polygon::setLineWidth(std::string polygonID, double lineWidth) {
+    Dom::setDouble(libsumo::VAR_WIDTH, polygonID, lineWidth);
 }
 
 

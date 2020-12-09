@@ -94,36 +94,43 @@ LIBTRACI_PARAMETER_IMPLEMENTATION(POI, POI)
 
 void
 POI::setType(const std::string& poiID, const std::string& type) {
+    Dom::setString(libsumo::VAR_TYPE, poiID, type);
 }
 
 
 void
 POI::setPosition(const std::string& poiID, double x, double y) {
+    //Dom::setPos(libsumo::VAR_POSITION, poiID, );
 }
 
 
 void
 POI::setColor(const std::string& poiID, const libsumo::TraCIColor& c) {
+    Dom::setCol(libsumo::VAR_COLOR, poiID, c);
 }
 
 
 void
 POI::setWidth(const std::string& poiID, double width) {
+    Dom::setDouble(libsumo::VAR_WIDTH, poiID, width);
 }
 
 
 void
 POI::setHeight(const std::string& poiID, double height) {
+    Dom::setDouble(libsumo::VAR_HEIGHT, poiID, height);
 }
 
 
 void
 POI::setAngle(const std::string& poiID, double angle) {
+    Dom::setDouble(libsumo::VAR_ANGLE, poiID, angle);
 }
 
 
 void
 POI::setImageFile(const std::string& poiID, const std::string& imageFile) {
+    Dom::setString(libsumo::VAR_IMAGEFILE, poiID, imageFile);
 }
 
 
