@@ -30,3 +30,6 @@ large_junction_short_edge
 
 # the combination of a small junction followed by a tls junction should not trigger hard braking.
 small_junction_before_tls
+
+# internal lanes inside a roundabout should count as available space (there is no cross traffic)
+roundabout
