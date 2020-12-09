@@ -45,47 +45,47 @@ Calibrator::getIDCount() {
 
 std::string
 Calibrator::getEdgeID(const std::string& calibratorID) {
-    return Dom::getString(libsumo::LANE_EDGE_ID, "");
+    return Dom::getString(libsumo::LANE_EDGE_ID, calibratorID);
 }
 
 std::string
 Calibrator::getLaneID(const std::string& calibratorID) {
-    return Dom::getString(libsumo::VAR_LANE_ID, "");
+    return Dom::getString(libsumo::VAR_LANE_ID, calibratorID);
 }
 
 double
 Calibrator::getVehsPerHour(const std::string& calibratorID) {
-    return Dom::getDouble(libsumo::VAR_VEHSPERHOUR, "");
+    return Dom::getDouble(libsumo::VAR_VEHSPERHOUR, calibratorID);
 }
 
 double
 Calibrator::getSpeed(const std::string& calibratorID) {
-    return Dom::getDouble(libsumo::VAR_SPEED, "");
+    return Dom::getDouble(libsumo::VAR_SPEED, calibratorID);
 }
 
 std::string
 Calibrator::getTypeID(const std::string& calibratorID) {
-    return Dom::getString(libsumo::VAR_TYPE, "");
+    return Dom::getString(libsumo::VAR_TYPE, calibratorID);
 }
 
 double
 Calibrator::getBegin(const std::string& calibratorID) {
-    return Dom::getDouble(libsumo::VAR_BEGIN, "");
+    return Dom::getDouble(libsumo::VAR_BEGIN, calibratorID);
 }
 
 double
 Calibrator::getEnd(const std::string& calibratorID) {
-    return Dom::getDouble(libsumo::VAR_END, "");
+    return Dom::getDouble(libsumo::VAR_END, calibratorID);
 }
 
 std::string
 Calibrator::getRouteID(const std::string& calibratorID) {
-    return Dom::getString(libsumo::VAR_ROUTE_ID, "");
+    return Dom::getString(libsumo::VAR_ROUTE_ID, calibratorID);
 }
 
 std::string
 Calibrator::getRouteProbeID(const std::string& calibratorID) {
-    return Dom::getString(libsumo::VAR_ROUTE_PROBE, "");
+    return Dom::getString(libsumo::VAR_ROUTE_PROBE, calibratorID);
 }
 
 std::vector<std::string>
@@ -96,17 +96,17 @@ Calibrator::getVTypes(const std::string& calibratorID) {
 
 int
 Calibrator::getPassed(const std::string& calibratorID) {
-    return Dom::getInt(libsumo::VAR_PASSED, "");
+    return Dom::getInt(libsumo::VAR_PASSED, calibratorID);
 }
 
 int
 Calibrator::getInserted(const std::string& calibratorID) {
-    return Dom::getInt(libsumo::VAR_INSERTED, "");
+    return Dom::getInt(libsumo::VAR_INSERTED, calibratorID);
 }
 
 int
 Calibrator::getRemoved(const std::string& calibratorID) {
-    return Dom::getInt(libsumo::VAR_REMOVED, "");
+    return Dom::getInt(libsumo::VAR_REMOVED, calibratorID);
 }
 
 LIBTRACI_PARAMETER_IMPLEMENTATION(Calibrator, CALIBRATOR)
