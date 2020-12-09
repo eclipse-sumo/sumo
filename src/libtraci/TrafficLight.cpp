@@ -115,22 +115,34 @@ TrafficLight::getNextSwitch(const std::string& tlsID) {
 
 int
 TrafficLight::getServedPersonCount(const std::string& tlsID, int index) {
-    return Dom::getInt(libsumo::VAR_PERSON_NUMBER, tlsID); // TODO, index);
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(index);
+    return Dom::getInt(libsumo::VAR_PERSON_NUMBER, tlsID, &content);
 }
 
 std::vector<std::string>
 TrafficLight::getBlockingVehicles(const std::string& tlsID, int linkIndex) {
-    return Dom::getStringVector(libsumo::TL_BLOCKING_VEHICLES, tlsID); // TODO linkIndex);
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(linkIndex);
+    return Dom::getStringVector(libsumo::TL_BLOCKING_VEHICLES, tlsID, &content);
 }
 
 std::vector<std::string>
 TrafficLight::getRivalVehicles(const std::string& tlsID, int linkIndex) {
-    return Dom::getStringVector(libsumo::TL_RIVAL_VEHICLES, tlsID); // TODO linkIndex);
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(linkIndex);
+    return Dom::getStringVector(libsumo::TL_RIVAL_VEHICLES, tlsID, &content);
 }
 
 std::vector<std::string>
 TrafficLight::getPriorityVehicles(const std::string& tlsID, int linkIndex) {
-    return Dom::getStringVector(libsumo::TL_PRIORITY_VEHICLES, tlsID); // TODO linkIndex);
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(linkIndex);
+    return Dom::getStringVector(libsumo::TL_PRIORITY_VEHICLES, tlsID, &content);
 }
 
 LIBTRACI_PARAMETER_IMPLEMENTATION(TrafficLight, TL)
