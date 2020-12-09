@@ -1102,7 +1102,9 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     && !leader->willStop()) {
                 continue;
             }
-            if (MSGlobals::gSublane && ego != nullptr && (sameSource || sameTarget)) {
+            if (MSGlobals::gSublane && ego != nullptr && (sameSource || sameTarget)
+                    && !leader->getLaneChangeModel().isStrategicBlocked()) {
+                // ignore vehicles if not in conflict sublane-wise
                 const double posLat = ego->getLateralPositionOnLane();
                 const double posLatLeader = leader->getLateralPositionOnLane() + leader->getLatOffset(foeLane);
                 const double latGap = (fabs(posLat - posLatLeader)
