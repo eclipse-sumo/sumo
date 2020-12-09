@@ -173,7 +173,7 @@ the offsets given).
 | **--default.junctions.radius** {{DT_FLOAT}} | The default turning radius of intersections; *default:* **4** |
 | **--default.connection-length** {{DT_FLOAT}} | The default length when overriding connection lengths; *default:* **-1** |
 | **--default.right-of-way** {{DT_STR}} | The default algorithm for computing right of way rules ('default', 'edgePriority'); *default:* **default** |
-| **-j** {{DT_STR}}<br> **--default-junction-type** {{DT_STR}} | [traffic_light|priority|right_before_left|traffic_light_right_on_red|priority_stop|allway_stop|...] Determines junction type (see wiki/Networks/PlainXML#Node_types) |
+| **-j** {{DT_STR}}<br> **--default-junction-type** {{DT_STR}} | [traffic_light,priority,right_before_left,traffic_light_right_on_red,priority_stop,allway_stop,...] Determines junction type (see wiki/Networks/PlainXML#Node_types) |
 
 ### Tls Building
 
@@ -204,6 +204,7 @@ the offsets given).
 | **--tls.quarter-offset** {{DT_STR[]}} | TLSs in STR[] will be shifted by quarter-phase |
 | **--tls.default-type** {{DT_STR}} | TLSs with unspecified type will use STR as their algorithm; *default:* **static** |
 | **--tls.layout** {{DT_STR}} | Set phase layout four grouping opposite directions or grouping all movements for one incoming edge ['opposites', 'incoming']; *default:* **opposites** |
+| **--tls.no-mixed** {{DT_BOOL}} | Avoid phases with green and red signals for different connectionss from the same lane; *default:* **false** |
 | **--tls.min-dur** {{DT_INT}} | Default minimum phase duration for traffic lights with variable phase length; *default:* **5** |
 | **--tls.max-dur** {{DT_INT}} | Default maximum phase duration for traffic lights with variable phase length; *default:* **50** |
 | **--tls.group-signals** {{DT_BOOL}} | Assign the same tls link index to connections that share the same states; *default:* **false** |

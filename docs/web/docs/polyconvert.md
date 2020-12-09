@@ -84,7 +84,7 @@ distinct shape file.
 | **--shapefile.type-columns** {{DT_STR[]}} | Defines which columns form the type id (comma separated list) |
 | **--shapefile.use-running-id** {{DT_BOOL}} | A running number will be used as id; *default:* **false** |
 | **--shapefile.add-param** {{DT_BOOL}} | Extract all additional columns as params; *default:* **false** |
-| **--shapefile.fill** {{DT_STR}} | [auto|true|false]. Forces the 'fill' status to the given value. Default 'auto' tries to determine it from the data type |
+| **--shapefile.fill** {{DT_STR}} | [auto,true,false]. Forces the 'fill' status to the given value. Default 'auto' tries to determine it from the data type |
 | **--type-file** {{DT_FILE}} | Reads types from FILE |
 
 ### Output

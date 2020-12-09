@@ -68,7 +68,7 @@ class ConfigReader(handler.ContentHandler):
             if a != "":
                 print('**-%s** {{DT_%s}}<br>' % (a, attrs['type']), end=' ', file=self._file)
             print('**--%s** {{DT_%s}}' % (name, attrs['type']), end=' ', file=self._file)
-            helpStr = attrs['help']
+            helpStr = attrs['help'].replace('|', ',')
             if attrs['value']:
                 if helpStr:
                     helpStr += "; "
