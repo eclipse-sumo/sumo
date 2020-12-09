@@ -124,17 +124,19 @@ Person::getNextEdge(const std::string& personID) {
 
 std::vector<std::string>
 Person::getEdges(const std::string& personID, int nextStageIndex) {
-    std::vector<std::string> edgeIDs;
-    // TODO
-    return edgeIDs;
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(nextStageIndex);
+    return Dom::getStringVector(libsumo::VAR_EDGES, personID, &content);
 }
 
 
 libsumo::TraCIStage
 Person::getStage(const std::string& personID, int nextStageIndex) {
-    libsumo::TraCIStage result;
-    // TODO
-    return result;
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(nextStageIndex);
+    return Dom::getTraCIStage(libsumo::VAR_STAGE, personID, &content);
 }
 
 

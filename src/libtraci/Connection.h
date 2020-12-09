@@ -26,6 +26,7 @@
 #include <string>
 #include <sstream>
 #include <iomanip>
+#include <thread>
 #include <foreign/tcpip/socket.h>
 #include <libsumo/Subscription.h>
 
@@ -303,6 +304,8 @@ private:
         return oss.str();
     }
 
+    void readOutput();
+
     /** @brief Constructor, connects to the specified SUMO server
      * @param[in] host The name of the host to connect to
      * @param[in] port The port to connect to
@@ -313,6 +316,7 @@ private:
 private:
     const std::string myLabel;
     FILE* const myProcessPipe;
+    std::thread* myProcessReader;
     /// @brief The socket
     tcpip::Socket mySocket;
     /// @brief The reusable output storage

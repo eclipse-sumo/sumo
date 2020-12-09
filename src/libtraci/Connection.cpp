@@ -43,7 +43,7 @@ std::map<const std::string, Connection*> Connection::myConnections;
 #pragma warning(disable: 4503)
 #endif
 Connection::Connection(const std::string& host, int port, int numRetries, const std::string& label, FILE* const pipe) :
-    myLabel(label), myProcessPipe(pipe), mySocket(host, port) {
+    myLabel(label), myProcessPipe(pipe), myProcessReader(nullptr), mySocket(host, port) {
     for (int i = 0; i <= numRetries; i++) {
         try {
             mySocket.connect();
@@ -53,6 +53,27 @@ Connection::Connection(const std::string& host, int port, int numRetries, const 
                 throw;
             }
             std::this_thread::sleep_for(std::chrono::seconds(1));
+        }
+    }
+    if (pipe != nullptr) {
+        myProcessReader = new std::thread(&Connection::readOutput, this);
+    }
+}
+
+
+void
+Connection::readOutput() {
+    std::array<char, 128> buffer;
+    while (fgets(buffer.data(), (int)buffer.size(), myProcessPipe) != nullptr) {
+        std::stringstream result;
+        result << buffer.data();
+        std::string line;
+        while (std::getline(result, line)) {
+            if (line.compare(0, 6, "Error:") == 0 || line.compare(0, 8, "Warning:") == 0) {
+                std::cerr << line << std::endl;
+            } else {
+                std::cout << line << std::endl;
+            }
         }
     }
 }
@@ -74,20 +95,9 @@ Connection::close() {
     std::string acknowledgement;
     check_resultState(inMsg, libsumo::CMD_CLOSE, false, &acknowledgement);
     mySocket.close();
-    if (myProcessPipe != nullptr) {
-        std::array<char, 128> buffer;
-        std::stringstream result;
-        while (fgets(buffer.data(), (int)buffer.size(), myProcessPipe) != nullptr) {
-            result << buffer.data();
-        }
-        std::string line;
-        while (std::getline(result, line)) {
-            if (line.compare(0, 6, "Error:") == 0 || line.compare(0, 8, "Warning:") == 0) {
-                std::cerr << line << std::endl;
-            } else {
-                std::cout << line << std::endl;
-            }
-        }
+    if (myProcessReader != nullptr) {
+        myProcessReader->join();
+        delete myProcessReader;
 #ifdef WIN32
         _pclose(myProcessPipe);
 #else
@@ -200,8 +210,6 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
     tcpip::Storage outMsg;
     // command length (domID, objID, beginTime, endTime, length, vars)
     const int numVars = (int) vars.size();
-    outMsg.writeUnsignedByte(0);
-    outMsg.writeInt(5 + 1 + 8 + 8 + 4 + (int) objID.length() + 1 + numVars);
     // command id
     outMsg.writeUnsignedByte(domID);
     // time
@@ -237,8 +245,12 @@ Connection::subscribeObjectVariable(int domID, const std::string& objID, double 
             }
         }
     }
+    tcpip::Storage complete;
+    complete.writeUnsignedByte(0);
+    complete.writeInt(5 + (int)outMsg.size());
+    complete.writeStorage(outMsg);
     // send message
-    mySocket.sendExact(outMsg);
+    mySocket.sendExact(complete);
 
     tcpip::Storage inMsg;
     check_resultState(inMsg, domID);
