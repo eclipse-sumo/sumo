@@ -1096,8 +1096,6 @@ MSLink::getLeaderInfo(const MSVehicle* ego, double dist, std::vector<const MSPer
                     && leader->isFrontOnLane(foeLane)
                     && !isOpposite
                     && !inTheWay
-                    // do not ignore vehicles that have already entered the roundabout (they might block the way to the exit)
-                    && !myLane->getEdge().isRoundabout()
                     // willPass is false if the vehicle is already on the stopping edge
                     && !leader->willStop()) {
                 continue;
