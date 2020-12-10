@@ -127,11 +127,16 @@ jobs:
         cmake --build build_msvc --config Release
         python tools\build\setup-libsumo.py bdist_wheel --plat-name win_amd64
 
-    - name: Building TraaS, examples and tests
+    - name: Building TraaS
       if: matrix.build-type != 'wheel'
       run: |
         cd sumo/build_msvc
         cmake --build . --config Release --target traas
+
+    - name: Examples and tests
+      if: matrix.build-type != 'wheel'
+      run: |
+        cd sumo/build_msvc
         cmake --build . --config Release --target examples
         ctest --verbose
 
