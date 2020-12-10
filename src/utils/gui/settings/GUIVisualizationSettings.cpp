@@ -958,6 +958,7 @@ GUIVisualizationSettings::initSumoGuiDefaults() {
     scheme.addColor(RGBColor(0, 102, 204, 255), 1, "selected");
     containerColorer.addScheme(scheme);
     containerColorer.addScheme(GUIColorScheme("by angle", RGBColor::YELLOW, "", true));
+    containerColorer.addScheme(GUIColorScheme("random", RGBColor::YELLOW, "", true));
 
     /// add junction coloring schemes
     scheme = GUIColorScheme("uniform", RGBColor::BLACK, "", true);

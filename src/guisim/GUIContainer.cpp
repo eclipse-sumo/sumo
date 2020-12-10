@@ -332,9 +332,15 @@ GUIContainer::setFunctionalColor(int activeScheme) const {
             }
             return false;
         }
-        case 8: {
+        case 8: { // color by angle
             double hue = GeomHelper::naviDegree(getAngle());
             GLHelper::setColor(RGBColor::fromHSV(hue, 1., 1.));
+            return true;
+        }
+        case 9: { // color randomly (by pointer)
+            const double hue = (double)((long long int)this % 360); // [0-360]
+            const double sat = (((long long int)this / 360) % 67) / 100.0 + 0.33; // [0.33-1]
+            GLHelper::setColor(RGBColor::fromHSV(hue, sat, 1.));
             return true;
         }
         default:
