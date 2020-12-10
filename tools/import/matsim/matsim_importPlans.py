@@ -41,13 +41,13 @@ def get_options(args=None):
                          help="define the route file (mandatory)")
     optParser.add_option("-o", "--out-file", dest="outfile",
                          help="Output file (mandatory)")
-    optParser.add_option("--vehicles-only", dest="carsOnly", action="store_true",
+    optParser.add_option("--vehicles-only", action="store_true",
                          default=False, help="Import only vehicles instead of persons")
     optParser.add_option("--default-start", dest="defaultStart", default="0:0:0",
                          help="default start time for the first activity")
     optParser.add_option("--default-end", dest="defaultEnd", default="24:0:0",
                          help="default end time for the last activity")
-    optParser.add_option("-v", "--verbose", dest="verbose", action="store_true",
+    optParser.add_option("-v", "--verbose", action="store_true",
                          default=False, help="tell me what you are doing")
 
     (options, args) = optParser.parse_args(args=args)
@@ -60,14 +60,15 @@ def get_options(args=None):
 
 
 def writeLeg(outf, options, idveh, leg, startLink, endLink):
-    depart = leg.dep_time if options.carsOnly else "triggered"
-    if leg.route is None or leg.route[0].distance == "NaN":
-        outf.write('   <trip id="%s" depart="%s" from="%s" to="%s"/>\n'
-                   % (idveh, depart, startLink, endLink))
-    else:
-        outf.write('   <vehicle id="%s" depart="%s" >\n' % (idveh, depart))
+    depart = leg.dep_time if options.vehicles_only else "triggered"
+    mode = ' type="%s"' % leg.mode if leg.mode in ("car", "bicycle") else ""
+    if leg.route is None or leg.route[0].distance == "NaN" or leg.mode == "bicycle":
+        outf.write('    <trip id="%s" depart="%s" from="%s" to="%s"%s/>\n'
+                   % (idveh, depart, startLink, endLink, mode))
+    elif not leg.mode.endswith("_walk"):
+        outf.write('    <vehicle id="%s" depart="%s"%s>\n' % (idveh, depart, mode))
         outf.write('        <route edges="%s"/>\n' % (leg.route[0].getText()))
-        outf.write('   </vehicle>\n')
+        outf.write('    </vehicle>\n')
 
 
 def main(options):
@@ -110,29 +111,36 @@ def main(options):
                 vehIndex = vehIndex+1
         untillist.append(lastAct.end_time if lastAct.end_time else options.defaultEnd)
         # write person
-        if not options.carsOnly:
+        if not options.vehicles_only:
             vehIndex = 0
-            outf.write('   <person id="%s" depart="%s">\n' % (person.id, depart))
+            outf.write('    <person id="%s" depart="%s">\n' % (person.id, depart))
             if attributes is not None:
                 for attr in attributes.attribute:
-                    outf.write('       <param key="%s" value="%s"/>\n' % (attr.attr_name, attr.getText()))
+                    outf.write('        <param key="%s" value="%s"/>\n' % (attr.attr_name, attr.getText()))
 
             lastLeg = None
             for item in plan.getChildList():
                 if "act" in item.name:  # act or activity
                     if lastLeg is not None:
-                        outf.write('       <ride lines="%s" to="%s"  />\n' % (vehicleslist[vehIndex], item.link))
+                        if lastLeg.mode == "non_network_walk":
+                            pass
+                            # outf.write('        <transship to="%s"/>\n' % item.link)
+                        elif lastLeg.mode == "transit_walk":
+                            outf.write('        <walk to="%s"/>\n' % item.link)
+                        else:
+                            outf.write('        <ride lines="%s" to="%s"/>\n' % (vehicleslist[vehIndex], item.link))
                         vehIndex = vehIndex+1
-                    outf.write('       <stop lane="%s_0" until="%s" actType="%s" />\n' %
+                    outf.write('        <stop lane="%s_0" until="%s" actType="%s"/>\n' %
                                (item.link, untillist[vehIndex], item.type))
                 if item.name == "leg":
                     lastLeg = item
-            outf.write('   </person>\n')
+            outf.write('    </person>\n')
         persons.append((sumolib.miscutils.parseTime(depart), outf.getvalue()))
 
     persons.sort()
     with open(options.outfile, 'w') as outf:
-        sumolib.writeXMLHeader(outf, "$Id: matsim_importPlans.py v1_3_1+0713-63b241ac79 michael.behrisch@dlr.de 2019-10-20 15:41:56 +0200 $", "routes")  # noqa
+        sumolib.writeXMLHeader(outf, root="routes")
+        outf.write('    <vType id="car" vClass="passenger"/>\n    <vType id="bicycle" vClass="bicycle"/>\n\n')
         for depart, xml in persons:
             outf.write(xml)
         outf.write('</routes>\n')
