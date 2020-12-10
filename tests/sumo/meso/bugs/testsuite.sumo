@@ -5,6 +5,7 @@ ticket747
 # teleporting across a calibrator which no longer exists 
 # when the teleport ends should not crash the simulation
 ticket1017
+ticket1475
 ticket1502
 ticket1502b
 
