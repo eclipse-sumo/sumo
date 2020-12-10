@@ -4081,10 +4081,23 @@ MSVehicle::getBackPositionOnLane(const MSLane* lane) const {
         } else {
             return myState.myPos - myType->getLength();
         }
-    } else if ((myFurtherLanes.size() > 0 && lane == myFurtherLanes.back())
-               || (myLaneChangeModel->getShadowFurtherLanes().size() > 0 && lane == myLaneChangeModel->getShadowFurtherLanes().back())
-               || (myLaneChangeModel->getFurtherTargetLanes().size() > 0 && lane == myLaneChangeModel->getFurtherTargetLanes().back())) {
+    } else if (myFurtherLanes.size() > 0 && lane == myFurtherLanes.back()) {
         return myState.myBackPos;
+    } else if ((myLaneChangeModel->getShadowFurtherLanes().size() > 0 && lane == myLaneChangeModel->getShadowFurtherLanes().back())
+            || (myLaneChangeModel->getFurtherTargetLanes().size() > 0 && lane == myLaneChangeModel->getFurtherTargetLanes().back())) {
+        assert(myFurtherLanes.size() > 0);
+        if (lane->getLength() == myFurtherLanes.back()->getLength()) {
+            return myState.myBackPos;
+        } else {
+            // interpolate
+            //if (DEBUG_COND) {
+            //if (myFurtherLanes.back()->getLength() != lane->getLength()) {
+            //    std::cout << SIMTIME << " veh=" << getID() << " lane=" << lane->getID() << " further=" << myFurtherLanes.back()->getID()
+            //        << " len=" << lane->getLength() << " fLen=" << myFurtherLanes.back()->getLength()
+            //        << " backPos=" << myState.myBackPos << " result=" << myState.myBackPos / myFurtherLanes.back()->getLength() * lane->getLength() << "\n";
+            //}
+            return myState.myBackPos / myFurtherLanes.back()->getLength() * lane->getLength();
+        }
     } else {
         //if (DEBUG_COND) std::cout << SIMTIME << " veh=" << getID() << " myFurtherLanes=" << toString(myFurtherLanes) << "\n";
         double leftLength = myType->getLength() - myState.myPos;
@@ -4550,6 +4563,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane) {
             }
 #endif
             leftLength -= (lane)->setPartialOccupation(this);
+            myState.myBackPos = -leftLength;
         } else {
             // keep the old values, but ensure there is no shadow
             if (myLaneChangeModel->isChangingLanes()) {

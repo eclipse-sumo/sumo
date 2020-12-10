@@ -100,12 +100,21 @@ MSLaneChanger::MSLaneChanger(const std::vector<MSLane*>* lanes, bool allowChangi
         myChanger.push_back(ChangeElem(*lane));
         myChanger.back().mayChangeRight = lane != lanes->begin();
         myChanger.back().mayChangeLeft = (lane + 1) != lanes->end();
-        // avoid changing on internal sibling lane
         if ((*lane)->isInternal()) {
+            // avoid changing on internal sibling lane
             if (myChanger.back().mayChangeRight && (*lane)->getLogicalPredecessorLane() == (*(lane - 1))->getLogicalPredecessorLane()) {
                 myChanger.back().mayChangeRight = false;
             }
             if (myChanger.back().mayChangeLeft && (*lane)->getLogicalPredecessorLane() == (*(lane + 1))->getLogicalPredecessorLane()) {
+                myChanger.back().mayChangeLeft = false;
+            }
+            // avoid changing if lanes have different lengths
+            if (myChanger.back().mayChangeRight && (*lane)->getLength() != (*(lane - 1))->getLength()) {
+                //std::cout << " cannot change right from lane=" << (*lane)->getID() << " len=" << (*lane)->getLength() << " to=" << (*(lane - 1))->getID() << " len2=" << (*(lane - 1))->getLength() << "\n";
+                myChanger.back().mayChangeRight = false;
+            }
+            if (myChanger.back().mayChangeLeft && (*lane)->getLength() != (*(lane + 1))->getLength()) {
+                //std::cout << " cannot change left from lane=" << (*lane)->getID() << " len=" << (*lane)->getLength() << " to=" << (*(lane + 1))->getID() << " len2=" << (*(lane + 1))->getLength() << "\n";
                 myChanger.back().mayChangeLeft = false;
             }
         }
