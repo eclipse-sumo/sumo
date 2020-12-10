@@ -210,6 +210,7 @@ StringBijection<int>::Entry SUMOXMLDefinitions::tags[] = {
     { "container",                      SUMO_TAG_CONTAINER },
     { "transport",                      SUMO_TAG_TRANSPORT },
     { "tranship",                       SUMO_TAG_TRANSHIP },
+	{ "containerFlow",					SUMO_TAG_CONTAINERFLOW },
     //Trajectories
     { "trajectories",                   SUMO_TAG_TRAJECTORIES },
     { "timestep",                       SUMO_TAG_TIMESTEP },
@@ -669,6 +670,8 @@ StringBijection<int>::Entry SUMOXMLDefinitions::attrs[] = {
     { "controlledInner",        SUMO_ATTR_CONTROLLED_INNER },
     { "vehsPerHour",            SUMO_ATTR_VEHSPERHOUR },
     { "personsPerHour",         SUMO_ATTR_PERSONSPERHOUR },
+	{ "containersPerHour",		SUMO_ATTR_CONTAINERSPERHOUR },
+	{ "perHour",				SUMO_ATTR_PERHOUR },
     { "output",                 SUMO_ATTR_OUTPUT },
     { "height",                 SUMO_ATTR_HEIGHT },
     { "guiShape",               SUMO_ATTR_GUISHAPE },

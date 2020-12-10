@@ -1931,6 +1931,12 @@ GNERouteHandler::closeContainer() {
 
 
 void
+GNERouteHandler::closeContainerFlow() {
+	// currently unused
+}
+
+
+void
 GNERouteHandler::closeFlow() {
     // first check if we're closing a flow with embebbed routes and stops
     if (myLoadedVehicleWithEmbebbedRoute) {

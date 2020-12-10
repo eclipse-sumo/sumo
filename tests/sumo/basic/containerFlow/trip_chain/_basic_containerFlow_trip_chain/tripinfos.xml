@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- generated on 10.12.2020 14:46:11 by Eclipse SUMO GUI Version v1_8_0+0100-9052e56b94
+<configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/sumoConfiguration.xsd">
+
+    <input>
+        <net-file value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\net.net.xml"/>
+        <route-files value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\input_routes.rou.xml"/>
+        <additional-files value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\input_additional.add.xml"/>
+    </input>
+
+    <output>
+        <write-license value="true"/>
+        <tripinfo-output value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\tripinfos.xml"/>
+        <stop-output value="D:\Projekte\SUMO-Entwicklung\sumo\tests\sumo\basic\containerFlow\trip_chain\_basic_containerFlow_trip_chain\stopinfos.xml"/>
+    </output>
+
+    <processing>
+        <default.speeddev value="0"/>
+        <pedestrian.model value="nonInteracting"/>
+    </processing>
+
+    <report>
+        <verbose value="true"/>
+        <xml-validation value="never"/>
+        <xml-validation.routes value="never"/>
+        <no-step-log value="true"/>
+    </report>
+
+</configuration>
+-->
+
+<tripinfos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/tripinfo_file.xsd">
+    <tripinfo id="train0" depart="50.00" departLane="1/4to1/3_0" departPos="5.10" departSpeed="0.00" departDelay="0.00" arrival="508.00" arrivalLane="1/4to1/3_0" arrivalPos="90.50" arrivalSpeed="13.90" duration="458.00" routeLength="467.98" waitingTime="0.00" waitingCount="0" stopTime="412.00" timeLoss="11.70" rerouteNo="0" devices="tripinfo_train0 container_train0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <containerinfo id="container.0" depart="0.00" type="DEFAULT_CONTAINERTYPE">
+        <tranship depart="0.00" departPos="0.00" arrival="111.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
+        <transport waitingTime="357.00" vehicle="train0" depart="468.00" arrival="487.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
+        <tranship depart="487.00" departPos="60.00" arrival="549.00" arrivalPos="45.00" duration="62.00" routeLength="86.11" maxSpeed="1.39"/>
+        <stop duration="20.00" arrival="569.00" arrivalPos="40.00" actType="singing"/>
+        <transport waitingTime="0.00" vehicle="car0" depart="569.00" arrival="589.00" arrivalPos="92.00" duration="20.00" routeLength="242.00" timeLoss="2.19"/>
+    </containerinfo>
+    <tripinfo id="car0" depart="569.00" departLane="1/4to2/4_0" departPos="50.00" departSpeed="0.00" departDelay="0.00" arrival="589.00" arrivalLane="3/4to4/4_0" arrivalPos="92.00" arrivalSpeed="13.90" duration="20.00" routeLength="242.00" waitingTime="0.00" waitingCount="0" stopTime="0.00" timeLoss="2.19" rerouteNo="0" devices="tripinfo_car0 container_car0" vType="DEFAULT_VEHTYPE" speedFactor="1.00" vaporized=""/>
+    <containerinfo id="container.1" depart="0.25" type="DEFAULT_CONTAINERTYPE">
+        <tranship depart="1.00" departPos="0.00" arrival="112.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
+        <transport waitingTime="356.00" vehicle="train0" depart="468.00" arrival="487.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
+        <tranship depart="487.00" departPos="60.00" arrival="549.00" arrivalPos="45.00" duration="62.00" routeLength="86.11" maxSpeed="1.39"/>
+        <stop duration="20.00" arrival="569.00" arrivalPos="40.00" actType="singing"/>
+        <transport waitingTime="21.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="92.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </containerinfo>
+    <containerinfo id="container.2" depart="0.50" type="DEFAULT_CONTAINERTYPE">
+        <tranship depart="1.00" departPos="0.00" arrival="112.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
+        <transport waitingTime="356.00" vehicle="train0" depart="468.00" arrival="487.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
+        <tranship depart="487.00" departPos="60.00" arrival="549.00" arrivalPos="45.00" duration="62.00" routeLength="86.11" maxSpeed="1.39"/>
+        <stop duration="20.00" arrival="569.00" arrivalPos="40.00" actType="singing"/>
+        <transport waitingTime="21.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="92.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </containerinfo>
+    <containerinfo id="container.3" depart="0.75" type="DEFAULT_CONTAINERTYPE">
+        <tranship depart="1.00" departPos="0.00" arrival="112.00" arrivalPos="55.00" duration="111.00" routeLength="154.17" maxSpeed="1.39"/>
+        <transport waitingTime="356.00" vehicle="train0" depart="468.00" arrival="487.00" arrivalPos="60.00" duration="19.00" routeLength="190.08" timeLoss="5.33"/>
+        <tranship depart="487.00" departPos="60.00" arrival="549.00" arrivalPos="45.00" duration="62.00" routeLength="86.11" maxSpeed="1.39"/>
+        <stop duration="20.00" arrival="569.00" arrivalPos="40.00" actType="singing"/>
+        <transport waitingTime="21.00" vehicle="NULL" depart="-1" arrival="-1" arrivalPos="92.00" duration="-1" routeLength="-1.00" timeLoss="-1"/>
+    </containerinfo>
+</tripinfos>

@@ -23,7 +23,7 @@
 #include <config.h>
 
 #include <string>
-#include <map>
+#include <map>addcontainerflo
 #include <vector>
 #include <iostream>
 #include <utils/iodevices/OutputDevice.h>
@@ -678,6 +678,10 @@ RORouteHandler::closeContainer() {
     delete myActiveContainerPlan;
     myActiveContainerPlan = nullptr;
     myActiveContainerPlanSize = 0;
+}
+
+void RORouteHandler::closeContainerFlow() {
+	// @todo: currently not used
 }
 
 

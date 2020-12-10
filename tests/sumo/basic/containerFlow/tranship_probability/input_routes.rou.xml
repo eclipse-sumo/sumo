@@ -1,0 +1,9 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="DEFAULT_CONTAINERTYPE" speedDev="0"/>
+    <containerFlow id="c1" begin="0" end="10" probability="0.2">
+        <tranship edges="beg end"/>
+    </containerFlow>
+    <containerFlow id="c2" begin="0" end="10" probability="0.5">
+        <tranship edges="beg end"/>
+    </containerFlow>
+</routes>

@@ -25,4 +25,7 @@ person
 # Tests related to personFlow 
 personFlow
 container
+
+# Tests related to containerFlow 
+containerFlow
 stops

@@ -136,6 +136,9 @@ protected:
     /// @brief Ends the processing of a container
     void closeContainer();
 
+	/// @brief Ends the processing of a containerFlow
+	void closeContainerFlow();
+
     /// @brief Ends the processing of a flow
     void closeFlow();
 

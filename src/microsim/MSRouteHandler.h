@@ -131,6 +131,9 @@ protected:
     /// @brief Ends the processing of a container
     void closeContainer();
 
+	/// @brief Ends the processing of a containerFlow
+	void closeContainerFlow();
+
     /// @brief Ends the processing of a flow
     void closeFlow();
 
@@ -203,8 +206,11 @@ private:
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
     void deleteActivePlans();
 
+	/// @brief ends the flow of a transportable (person or container)
+	void closeTransportableFlow(bool isPerson);
+
     /// @brief delete already created MSTransportablePlans if error occurs before handing over responsibility to a MSTransportable.
-    void addFlowPerson(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i);
+    void addFlowTransportable(SUMOTime depart, MSVehicleType* type, const std::string& baseID, int i, bool isPerson);
 
     /// @brief determine the default group for rides and trips
     static std::string getDefaultGroup(const std::string& personID);

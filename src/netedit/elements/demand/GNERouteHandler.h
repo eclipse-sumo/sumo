@@ -243,7 +243,10 @@ protected:
     /// @brief Ends the processing of a container
     void closeContainer();
 
-    /// @brief Ends the processing of a routeFlow
+	/// @brief Ends the processing of a containerFlow
+	void closeContainerFlow();
+	
+	/// @brief Ends the processing of a routeFlow
     void closeFlow();
 
     /// @brief Ends the processing of a trip
