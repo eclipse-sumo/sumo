@@ -22,6 +22,7 @@ from __future__ import absolute_import
 from __future__ import print_function
 import os
 import sys
+import random
 from optparse import OptionParser
 SUMO_HOME = os.environ.get('SUMO_HOME',
                            os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', '..'))
@@ -57,6 +58,7 @@ def getOptions():
                          help="saturation for taz (float from [0,1] or 'random')")
     optParser.add_option("-b", "--brightness", default=1,
                          help="brightness for taz (float from [0,1] or 'random')")
+    optParser.add_option("--seed", type="int", default=42, help="random seed")
     (options, args) = optParser.parse_args()
     if not options.netfile or not options.output:
         optParser.print_help()
@@ -67,6 +69,7 @@ def getOptions():
 
 if __name__ == "__main__":
     options = getOptions()
+    random.seed(options.seed)
     if options.verbose:
         print("Reading net")
     net = sumolib.net.readNet(options.netfile)
