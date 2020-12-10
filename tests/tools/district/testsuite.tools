@@ -10,3 +10,6 @@ generateBidiDistricts
 
 # tests for filtering districts based on permissions
 filterDistricts
+
+# tests for generating a grid of districts for any network
+gridDistricts
