@@ -1,0 +1,4 @@
+<routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
+    <vType id="idmm" carFollowModel="IDMM"/>
+    <trip id="ego" depart="0" from="SC" to="CN"/>
+</routes>
