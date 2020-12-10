@@ -204,13 +204,17 @@ SUMOVehicleParserHelper::parseFlowAttributes(SumoXMLTag tag, const SUMOSAXAttrib
         }
         if (ok && ret->repetitionEnd < ret->depart) {
             delete ret;
-            return handleError(hardFail, abortCreation, toString(tag) + " '" + id + "' ends before its begin time.");
+            std::string flow = toString(tag);
+            flow[0] = (char)::toupper((char)flow[0]);
+            return handleError(hardFail, abortCreation, flow + " '" + id + "' ends before its begin time.");
         }
         if (hasNumber) {
             ret->repetitionNumber = attrs.get<int>(SUMO_ATTR_NUMBER, id.c_str(), ok);
             ret->parametersSet |= VEHPARS_NUMBER_SET;
             if (ret->repetitionNumber == 0) {
-                WRITE_WARNING(toString(tag) + " '" + id + "' has 0 vehicles; will skip it.");
+                std::string flow = toString(tag);
+                flow[0] = (char)::toupper((char)flow[0]);
+                WRITE_WARNING(flow + " '" + id + "' has no instances; will skip it.");
             } else {
                 if (ok && ret->repetitionNumber < 0) {
                     delete ret;
