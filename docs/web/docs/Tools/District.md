@@ -79,3 +79,12 @@ The second definition would allow departure from either edge *123*' or
 *-123* **due to the way the taz *123* ** is defined. This can prevent
 unwanted turn-arounds and the beginning and end of generated trips and
 thus simplifies trips created from mapping of geo-coordinates.
+
+
+## gridDistricts.py
+
+Generates a grid of districts (TAZ) with a given width (in m) for a given network file. 
+
+```
+<SUMO_HOME>/tools/district/gridDistricts.py -n myNet.net.xml -o out.add.xml -w 300
+```
