@@ -490,7 +490,7 @@ public:
      * @param[in] type The new vehicle type
      * @see MSBaseVehicle::myType
      */
-    void replaceVehicleType(MSVehicleType* type);
+    virtual void replaceVehicleType(MSVehicleType* type);
 
 
     /** @brief Replaces the current vehicle type with a new one used by this vehicle only

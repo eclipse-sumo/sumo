@@ -1678,6 +1678,12 @@ public:
     /// @brief update state while parking
     void updateParkingState();
 
+    /** @brief Replaces the current vehicle type by the one given
+     * @param[in] type The new vehicle type
+     * @see MSBaseVehicle::replaceVehicleType
+     */
+    void replaceVehicleType(MSVehicleType* type);
+
     /// @name state io
     //@{
 

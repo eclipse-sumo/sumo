@@ -962,6 +962,7 @@ MSVehicle::~MSVehicle() {
         MSNet::getInstance()->getVehicleControl().removeVType(myType);
     }
     delete myInfluencer;
+    delete myCFVariables;
 }
 
 
@@ -3963,6 +3964,15 @@ void
 MSVehicle::updateParkingState() {
     updateState(0);
 }
+
+
+void
+MSVehicle::replaceVehicleType(MSVehicleType* type) {
+    MSBaseVehicle::replaceVehicleType(type);
+    delete myCFVariables;
+    myCFVariables = type->getCarFollowModel().createVehicleVariables();
+}
+
 
 const MSLane*
 MSVehicle::getBackLane() const {
