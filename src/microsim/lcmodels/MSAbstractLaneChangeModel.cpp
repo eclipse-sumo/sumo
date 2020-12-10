@@ -524,7 +524,7 @@ MSAbstractLaneChangeModel::initLastLaneChangeOffset(int dir) {
 
 void
 MSAbstractLaneChangeModel::updateShadowLane() {
-    if (!haveLateralDynamics()) {
+    if (!MSGlobals::gSublane) {
         // assume each vehicle drives at the center of its lane and act as if it fits
         return;
     }

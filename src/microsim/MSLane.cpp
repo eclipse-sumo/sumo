@@ -1399,7 +1399,7 @@ MSLane::detectCollisions(SUMOTime timestep, const std::string& stage) {
     if (myVehicles.size() == 0) {
         return;
     }
-    if (!MSAbstractLaneChangeModel::haveLateralDynamics()) {
+    if (!MSGlobals::gSublane) {
         // no sublanes
         VehCont::reverse_iterator lastVeh = myVehicles.rend() - 1;
         for (VehCont::reverse_iterator pred = myVehicles.rbegin(); pred != lastVeh; ++pred) {
@@ -1611,7 +1611,7 @@ MSLane::detectCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
 #endif
     if (gap < -NUMERICAL_EPS) {
         double latGap = 0;
-        if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
+        if (MSGlobals::gSublane) {
             latGap = (fabs(victim->getCenterOnEdge(this) - collider->getCenterOnEdge(this))
                       - 0.5 * fabs(victim->getVehicleType().getWidth() + collider->getVehicleType().getWidth()));
             if (latGap + NUMERICAL_EPS > 0) {
@@ -1737,7 +1737,7 @@ MSLane::handleCollisionBetween(SUMOTime timestep, const std::string& stage, MSVe
     WRITE_WARNING(prefix
                   + "', lane='" + getID()
                   + "', gap=" + toString(gap)
-                  + (MSAbstractLaneChangeModel::haveLateralDynamics() ? "', latGap=" + toString(latGap) : "")
+                  + (MSGlobals::gSublane ? "', latGap=" + toString(latGap) : "")
                   + ", time=" + time2string(MSNet::getInstance()->getCurrentTimeStep())
                   + " stage=" + stage + ".");
 #ifdef DEBUG_COLLISIONS

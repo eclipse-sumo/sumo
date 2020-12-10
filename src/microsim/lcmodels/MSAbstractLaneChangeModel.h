@@ -136,11 +136,6 @@ public:
      */
     static MSAbstractLaneChangeModel* build(LaneChangeModel lcm, MSVehicle& vehicle);
 
-    /// @brief whether any kind of lateral dynamics is active
-    inline static bool haveLateralDynamics() {
-        return MSGlobals::gLateralResolution > 0 || MSGlobals::gLaneChangeDuration > 0;
-    }
-
     /** @brief Returns the model's ID;
      * @return The model's ID
      */

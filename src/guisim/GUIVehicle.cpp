@@ -103,7 +103,7 @@ GUIVehicle::getParameterWindow(GUIMainWindow& app,
     GUIParameterTableWindow* ret = new GUIParameterTableWindow(app, *this);
     // add items
     ret->mkItem("lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getLaneID));
-    if (MSAbstractLaneChangeModel::haveLateralDynamics()) {
+    if (MSGlobals::gSublane) {
         ret->mkItem("shadow lane [id]", true, new FunctionBindingString<GUIVehicle>(this, &GUIVehicle::getShadowLaneID));
     }
     if (MSGlobals::gLateralResolution > 0) {
