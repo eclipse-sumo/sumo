@@ -10,3 +10,5 @@
 # Reading and writing the network
 0_3_0_equil_roundtrip
 
+# The network from the "equil" example from MATSIM 0.3.0
+0_3_0_equil_halflanes
