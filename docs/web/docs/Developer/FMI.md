@@ -24,7 +24,7 @@ node "testlibsumofmi2.exe" {
 
 node "libsumofmi2.dll" {
    [libsumocpp2c.cpp] as libsumocpp2c
-   [fmi2main.c] as fmi2main
+   [sumo2fmi_bridge.c] as sumo2fmi_bridge
    [fmi2Functions.c] as fmi2Functions
 }
 
@@ -32,11 +32,8 @@ node "libsumocpp.dll" {
    [SUMO]
 }
 
-
-[testlibsumofmi2] --> [fmi2main]
-[testlibsumofmi2] --> [fmi2Functions]
-[fmi2Functions] --> [libsumocpp2c]
-[fmi2main] --> [libsumocpp2c]
+[fmi2Functions] --> [sumo2fmi_bridge]
+[sumo2fmi_bridge] --> [libsumocpp2c]
 [libsumocpp2c]  --> [SUMO]
 
 note left of testlibsumofmi2.exe 
@@ -52,7 +49,15 @@ end note
 
 note left of [fmi2Functions]
  Implementation of 
- FMI2 functions,
+ required FMI2 functions,
+ C file
+end note
+
+note right of [sumo2fmi_bridge]
+ Logic to build the bridge
+ between the FMI2 functions
+ and functions in lubsumocpp;
+ should be independent of FMI,
  C file
 end note
 
