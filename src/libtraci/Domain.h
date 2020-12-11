@@ -209,16 +209,16 @@ public:
         return ret;
     }
 
-    static libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add = nullptr) {
-        tcpip::Storage& result = get(var, id, add, libsumo::POSITION_2D);
+    static libsumo::TraCIPosition getPos(int var, const std::string& id, tcpip::Storage* add = nullptr, const bool isGeo=false) {
+        tcpip::Storage& result = get(var, id, add, isGeo ? libsumo::POSITION_LON_LAT : libsumo::POSITION_2D);
         libsumo::TraCIPosition p;
         p.x = result.readDouble();
         p.y = result.readDouble();
         return p;
     }
 
-    static libsumo::TraCIPosition getPos3D(int var, const std::string& id, tcpip::Storage* add = nullptr) {
-        tcpip::Storage& result = get(var, id, add, libsumo::POSITION_3D);
+    static libsumo::TraCIPosition getPos3D(int var, const std::string& id, tcpip::Storage* add = nullptr, const bool isGeo = false) {
+        tcpip::Storage& result = get(var, id, add, isGeo ? libsumo::POSITION_LON_LAT_ALT : libsumo::POSITION_3D);
         libsumo::TraCIPosition p;
         p.x = result.readDouble();
         p.y = result.readDouble();

@@ -117,7 +117,6 @@ public:
 
     static int getMinExpectedNumber();
 
-#ifndef LIBTRACI
 // the following functions are not implemented in libtraci, yet
 
     static libsumo::TraCIPosition convert2D(const std::string& edgeID, double pos, int laneIndex = 0, bool toGeo = false);
@@ -142,7 +141,6 @@ public:
             const std::string& pType = "", const std::string& vType = "", const std::string& destStop = "");
 
     static std::string getParameter(const std::string& objectID, const std::string& key);
-#endif
 
     static void clearPending(const std::string& routeID = "");
     static void saveState(const std::string& fileName);
@@ -150,12 +148,12 @@ public:
     static double loadState(const std::string& fileName);
     static void writeMessage(const std::string& msg);
 
-#ifndef LIBTRACI
-    static void subscribe(const std::vector<int>& varIDs = std::vector<int>(), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE);
+    static void subscribe(const std::vector<int>& varIDs = std::vector<int>(), double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE, const libsumo::TraCIResults& params = libsumo::TraCIResults());
     static const libsumo::TraCIResults getSubscriptionResults();
-    static const SubscriptionResults getAllSubscriptionResults();
-    static const ContextSubscriptionResults getAllContextSubscriptionResults();
+    static const libsumo::SubscriptionResults getAllSubscriptionResults();
+    static const libsumo::ContextSubscriptionResults getAllContextSubscriptionResults();
 
+#ifndef LIBTRACI
     static std::shared_ptr<VariableWrapper> makeWrapper();
 
     static bool handleVariable(const std::string& objID, const int variable, VariableWrapper* wrapper);
