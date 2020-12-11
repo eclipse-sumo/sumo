@@ -95,8 +95,23 @@ Person::getTaxiReservations(int onlyNew) {
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_INTEGER);
     content.writeInt(onlyNew);
+    tcpip::Storage ret = Dom::get(libsumo::VAR_TAXI_RESERVATIONS, "", &content);
     std::vector<libsumo::TraCIReservation> result;
-    // TODO
+    int numReservations = ret.readInt();
+    while (numReservations-- > 0) {
+        libsumo::TraCIReservation r;
+        Dom::readCompound(ret, 9);
+        r.id = Dom::readTypedString(ret);
+        r.persons = Dom::readTypedStringList(ret);
+        r.group = Dom::readTypedString(ret);
+        r.fromEdge = Dom::readTypedString(ret);
+        r.toEdge = Dom::readTypedString(ret);
+        r.departPos = Dom::readTypedDouble(ret);
+        r.arrivalPos = Dom::readTypedDouble(ret);
+        r.depart = Dom::readTypedDouble(ret);
+        r.reservationTime = Dom::readTypedDouble(ret);
+        result.emplace_back(r);
+    }
     return result;
 }
 

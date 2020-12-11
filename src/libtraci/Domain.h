@@ -266,7 +266,7 @@ public:
         s.vType = readTypedString(result);
         s.line = readTypedString(result);
         s.destStop = readTypedString(result);
-        s.edges = result.readStringList();
+        s.edges = readTypedStringList(result);
         s.travelTime = readTypedDouble(result);
         s.cost = readTypedDouble(result);
         s.length = readTypedDouble(result);

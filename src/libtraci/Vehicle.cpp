@@ -536,7 +536,6 @@ Vehicle::getStopArrivalDelay(const std::string& vehicleID) {
 std::vector<std::string>
 Vehicle::getTaxiFleet(int taxiState) {
     tcpip::Storage content;
-    Dom::writeCompound(content, 1);
     Dom::writeTypedInt(content, taxiState);
     return Dom::getStringVector(libsumo::VAR_TAXI_FLEET, "", &content);
 }
