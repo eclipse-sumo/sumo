@@ -132,7 +132,7 @@ public:
 
     static int readCompound(tcpip::Storage& ret, int expectedSize = -1) {
         const int type = ret.readUnsignedByte();
-        assert(type == libsumo::TYPE_STRINGLIST);
+        assert(type == libsumo::TYPE_COMPOUND);
         const int size = ret.readInt();
         assert(expectedSize == -1 || size == expectedSize);
         return size;

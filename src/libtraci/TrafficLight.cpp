@@ -69,6 +69,7 @@ TrafficLight::getAllProgramLogics(const std::string& tlsID) {
         Dom::readCompound(ret, 5);
         libsumo::TraCILogic logic;
         logic.programID = Dom::readTypedString(ret);
+        logic.type = Dom::readTypedInt(ret);
         logic.currentPhaseIndex = Dom::readTypedInt(ret);
         int numPhases = Dom::readCompound(ret);
         while (numPhases-- > 0) {
@@ -84,13 +85,13 @@ TrafficLight::getAllProgramLogics(const std::string& tlsID) {
             }
             phase->name = Dom::readTypedString(ret);
             logic.phases.emplace_back(phase);
-            int numParams = Dom::readCompound(ret);
-            while (numParams-- > 0) {
-                const std::vector<std::string> key_value = Dom::readTypedStringList(ret);
-                logic.subParameter[key_value[0]] = key_value[1];
-            }
-            result.emplace_back(logic);
         }
+        int numParams = Dom::readCompound(ret);
+        while (numParams-- > 0) {
+            const std::vector<std::string> key_value = Dom::readTypedStringList(ret);
+            logic.subParameter[key_value[0]] = key_value[1];
+        }
+        result.emplace_back(logic);
     }
     return result;
 }
@@ -112,13 +113,14 @@ std::vector<std::vector<libsumo::TraCILink> >
 TrafficLight::getControlledLinks(const std::string& tlsID) {
     tcpip::Storage& ret = Dom::get(libsumo::TL_CONTROLLED_LINKS, tlsID);
     std::vector< std::vector<libsumo::TraCILink> > result;
-    int numSignals = ret.readInt();
+    ret.readInt();
+    int numSignals = Dom::readTypedInt(ret);
     while (numSignals-- > 0) {
         std::vector<libsumo::TraCILink> controlledLinks;
-        int numLinks = Dom::readCompound(ret);
+        int numLinks = Dom::readTypedInt(ret);
         while (numLinks-- > 0) {
             std::vector<std::string> link = Dom::readTypedStringList(ret);
-            controlledLinks.emplace_back(link[0], link[1], link[2]);
+            controlledLinks.emplace_back(link[0], link[2], link[1]);
         }
         result.emplace_back(controlledLinks);
     }
@@ -221,7 +223,29 @@ TrafficLight::setPhaseDuration(const std::string& tlsID, const double phaseDurat
 
 void
 TrafficLight::setProgramLogic(const std::string& tlsID, const libsumo::TraCILogic& logic) {
-//    Dom::setDouble(libsumo::TL_COMPLETE_PROGRAM_RYG, tlsID, logic);  todo
+    tcpip::Storage content;
+    Dom::writeCompound(content, 5);
+    Dom::writeTypedString(content, logic.programID);
+    Dom::writeTypedInt(content, logic.type);
+    Dom::writeTypedInt(content, logic.currentPhaseIndex);
+    Dom::writeCompound(content, (int)logic.phases.size());
+    for (const libsumo::TraCIPhase* const phase : logic.phases) {
+        Dom::writeCompound(content, 6);
+        Dom::writeTypedDouble(content, phase->duration);
+        Dom::writeTypedString(content, phase->state);
+        Dom::writeTypedDouble(content, phase->minDur);
+        Dom::writeTypedDouble(content, phase->maxDur);
+        Dom::writeCompound(content, (int)phase->next.size());
+        for (int n : phase->next) {
+            Dom::writeTypedInt(content, n);
+        }
+        Dom::writeTypedString(content, phase->name);
+    }
+    Dom::writeCompound(content, (int)logic.subParameter.size());
+    for (const auto& key_value : logic.subParameter) {
+        Dom::writeTypedStringList(content, std::vector<std::string>{key_value.first, key_value.second});
+    }
+    Dom::set(libsumo::TL_COMPLETE_PROGRAM_RYG, tlsID, &content);
 }
 
 
