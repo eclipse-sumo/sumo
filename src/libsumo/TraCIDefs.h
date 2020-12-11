@@ -113,12 +113,24 @@ CLASS::getParameterWithKey(const std::string& objectID, const std::string& key) 
 // ===========================================================================
 namespace libsumo {
 /**
-* @class TraCIException
-*/
+ * @class TraCIException
+ * @brief An error which allows to continue
+ */
 class TraCIException : public std::runtime_error {
 public:
     /** constructor */
     TraCIException(std::string what)
+        : std::runtime_error(what) {}
+};
+
+/**
+ * @class FatalTraCIError
+ * @brief An error which is not recoverable
+ */
+class FatalTraCIError : public std::runtime_error {
+public:
+    /** constructor */
+    FatalTraCIError(std::string what)
         : std::runtime_error(what) {}
 };
 
@@ -136,8 +148,8 @@ struct TraCIResult {
 };
 
 /** @struct TraCIPosition
-    * @brief A 3D-position
-    */
+ * @brief A 3D-position
+ */
 struct TraCIPosition : TraCIResult {
     std::string getString() {
         std::ostringstream os;
@@ -148,8 +160,8 @@ struct TraCIPosition : TraCIResult {
 };
 
 /** @struct TraCIRoadPosition
-    * @brief An edgeId, position and laneIndex
-    */
+ * @brief An edgeId, position and laneIndex
+ */
 struct TraCIRoadPosition : TraCIResult {
     std::string getString() {
         std::ostringstream os;
@@ -162,8 +174,8 @@ struct TraCIRoadPosition : TraCIResult {
 };
 
 /** @struct TraCIColor
-    * @brief A color
-    */
+ * @brief A color
+ */
 struct TraCIColor : TraCIResult {
     TraCIColor() : r(0), g(0), b(0), a(255) {}
     TraCIColor(int r, int g, int b, int a = 255) : r(r), g(g), b(b), a(a) {}
@@ -191,8 +203,8 @@ struct TraCILeaderDistance : TraCIResult {
 
 
 /** @struct TraCIPositionVector
-    * @brief A list of positions
-    */
+ * @brief A list of positions
+ */
 typedef std::vector<TraCIPosition> TraCIPositionVector;
 
 

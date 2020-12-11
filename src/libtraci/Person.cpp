@@ -92,6 +92,9 @@ Person::getLanePosition(const std::string& personID) {
 
 std::vector<libsumo::TraCIReservation>
 Person::getTaxiReservations(int onlyNew) {
+    tcpip::Storage content;
+    content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+    content.writeInt(onlyNew);
     std::vector<libsumo::TraCIReservation> result;
     // TODO
     return result;

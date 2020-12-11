@@ -23,15 +23,7 @@
 
 #define LIBTRACI 1
 #include <libsumo/Vehicle.h>
-#include "Connection.h"
 #include "Domain.h"
-
-// TODO remove the following line once the implementation is mature
-#ifdef _MSC_VER
-#pragma warning(disable: 4100)
-#else
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-#endif
 
 namespace libtraci {
 
@@ -213,16 +205,13 @@ Vehicle::getLeader(const std::string& vehicleID, double dist) {
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(dist);
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_LEADER, vehicleID, &content);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
-        ret.readInt(); // components
-        ret.readUnsignedByte();
-        const std::string leaderID = ret.readString();
-        ret.readUnsignedByte();
-        const double gap = ret.readDouble();
-        return std::make_pair(leaderID, gap);
-    }
-    return std::make_pair("", libsumo::INVALID_DOUBLE_VALUE);
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_LEADER, vehicleID, &content);
+    ret.readInt(); // components
+    ret.readUnsignedByte();
+    const std::string leaderID = ret.readString();
+    ret.readUnsignedByte();
+    const double gap = ret.readDouble();
+    return std::make_pair(leaderID, gap);
 }
 
 
@@ -231,16 +220,13 @@ Vehicle::getFollower(const std::string& vehicleID, double dist) {
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_DOUBLE);
     content.writeDouble(dist);
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_FOLLOWER, vehicleID, &content);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
-        ret.readInt(); // components
-        ret.readUnsignedByte();
-        const std::string leaderID = ret.readString();
-        ret.readUnsignedByte();
-        const double gap = ret.readDouble();
-        return std::make_pair(leaderID, gap);
-    }
-    return std::make_pair("", libsumo::INVALID_DOUBLE_VALUE);
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_FOLLOWER, vehicleID, &content);
+    ret.readInt(); // components
+    ret.readUnsignedByte();
+    const std::string leaderID = ret.readString();
+    ret.readUnsignedByte();
+    const double gap = ret.readDouble();
+    return std::make_pair(leaderID, gap);
 }
 
 
@@ -303,36 +289,34 @@ Vehicle::getSignals(const std::string& vehicleID) {
 std::vector<libsumo::TraCIBestLanesData>
 Vehicle::getBestLanes(const std::string& vehicleID) {
     std::vector<libsumo::TraCIBestLanesData> result;
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_BEST_LANES, vehicleID);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
-        ret.readInt();
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_BEST_LANES, vehicleID);
+    ret.readInt();
+    ret.readUnsignedByte();
+
+    const int n = ret.readInt(); // number of following edge information
+    for (int i = 0; i < n; ++i) {
+        libsumo::TraCIBestLanesData info;
         ret.readUnsignedByte();
+        info.laneID = ret.readString();
 
-        const int n = ret.readInt(); // number of following edge information
-        for (int i = 0; i < n; ++i) {
-            libsumo::TraCIBestLanesData info;
-            ret.readUnsignedByte();
-            info.laneID = ret.readString();
+        ret.readUnsignedByte();
+        info.length = ret.readDouble();
 
-            ret.readUnsignedByte();
-            info.length = ret.readDouble();
+        ret.readUnsignedByte();
+        info.occupation = ret.readDouble();
 
-            ret.readUnsignedByte();
-            info.occupation = ret.readDouble();
+        ret.readUnsignedByte();
+        info.bestLaneOffset = ret.readByte();
 
-            ret.readUnsignedByte();
-            info.bestLaneOffset = ret.readByte();
+        ret.readUnsignedByte();
+        info.allowsContinuation = (ret.readUnsignedByte() == 1);
 
-            ret.readUnsignedByte();
-            info.allowsContinuation = (ret.readUnsignedByte() == 1);
-
-            ret.readUnsignedByte();
-            const int m = ret.readInt();
-            for (int i = 0; i < m; ++i) {
-                info.continuationLanes.push_back(ret.readString());
-            }
-            result.push_back(info);
+        ret.readUnsignedByte();
+        const int m = ret.readInt();
+        for (int i = 0; i < m; ++i) {
+            info.continuationLanes.push_back(ret.readString());
         }
+        result.push_back(info);
     }
     return result;
 }
@@ -341,28 +325,26 @@ Vehicle::getBestLanes(const std::string& vehicleID) {
 std::vector<libsumo::TraCINextTLSData>
 Vehicle::getNextTLS(const std::string& vehicleID) {
     std::vector<libsumo::TraCINextTLSData> result;
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_NEXT_TLS, vehicleID);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
-        ret.readInt(); // components
-        // number of items
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_TLS, vehicleID);
+    ret.readInt(); // components
+    // number of items
+    ret.readUnsignedByte();
+    const int n = ret.readInt();
+    for (int i = 0; i < n; ++i) {
+        libsumo::TraCINextTLSData d;
         ret.readUnsignedByte();
-        const int n = ret.readInt();
-        for (int i = 0; i < n; ++i) {
-            libsumo::TraCINextTLSData d;
-            ret.readUnsignedByte();
-            d.id = ret.readString();
+        d.id = ret.readString();
 
-            ret.readUnsignedByte();
-            d.tlIndex = ret.readInt();
+        ret.readUnsignedByte();
+        d.tlIndex = ret.readInt();
 
-            ret.readUnsignedByte();
-            d.dist = ret.readDouble();
+        ret.readUnsignedByte();
+        d.dist = ret.readDouble();
 
-            ret.readUnsignedByte();
-            d.state = (char)ret.readByte();
+        ret.readUnsignedByte();
+        d.state = (char)ret.readByte();
 
-            result.push_back(d);
-        }
+        result.push_back(d);
     }
     return result;
 }
@@ -378,64 +360,62 @@ Vehicle::getStops(const std::string& vehicleID, int limit) {
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_INTEGER);
     content.writeInt(limit);
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_NEXT_STOPS2, vehicleID, &content);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
-        ret.readInt(); // components
-        // number of items
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_NEXT_STOPS2, vehicleID, &content);
+    ret.readInt(); // components
+    // number of items
+    ret.readUnsignedByte();
+    const int n = ret.readInt();
+    for (int i = 0; i < n; ++i) {
+        libsumo::TraCINextStopData s;
         ret.readUnsignedByte();
-        const int n = ret.readInt();
-        for (int i = 0; i < n; ++i) {
-            libsumo::TraCINextStopData s;
-            ret.readUnsignedByte();
-            s.lane = ret.readString();
+        s.lane = ret.readString();
 
-            ret.readUnsignedByte();
-            s.endPos = ret.readDouble();
+        ret.readUnsignedByte();
+        s.endPos = ret.readDouble();
 
-            ret.readUnsignedByte();
-            s.stoppingPlaceID = ret.readString();
+        ret.readUnsignedByte();
+        s.stoppingPlaceID = ret.readString();
 
-            ret.readUnsignedByte();
-            s.stopFlags = ret.readInt();
+        ret.readUnsignedByte();
+        s.stopFlags = ret.readInt();
 
-            ret.readUnsignedByte();
-            s.duration = ret.readDouble();
+        ret.readUnsignedByte();
+        s.duration = ret.readDouble();
 
-            ret.readUnsignedByte();
-            s.until = ret.readDouble();
+        ret.readUnsignedByte();
+        s.until = ret.readDouble();
 
-            ret.readUnsignedByte();
-            s.startPos = ret.readDouble();
+        ret.readUnsignedByte();
+        s.startPos = ret.readDouble();
 
-            ret.readUnsignedByte();
-            s.intendedArrival = ret.readDouble();
+        ret.readUnsignedByte();
+        s.intendedArrival = ret.readDouble();
 
-            ret.readUnsignedByte();
-            s.arrival = ret.readDouble();
+        ret.readUnsignedByte();
+        s.arrival = ret.readDouble();
 
-            ret.readUnsignedByte();
-            s.depart = ret.readDouble();
+        ret.readUnsignedByte();
+        s.depart = ret.readDouble();
 
-            ret.readUnsignedByte();
-            s.split = ret.readString();
+        ret.readUnsignedByte();
+        s.split = ret.readString();
 
-            ret.readUnsignedByte();
-            s.join = ret.readString();
+        ret.readUnsignedByte();
+        s.join = ret.readString();
 
-            ret.readUnsignedByte();
-            s.actType = ret.readString();
+        ret.readUnsignedByte();
+        s.actType = ret.readString();
 
-            ret.readUnsignedByte();
-            s.tripId = ret.readString();
+        ret.readUnsignedByte();
+        s.tripId = ret.readString();
 
-            ret.readUnsignedByte();
-            s.line = ret.readString();
+        ret.readUnsignedByte();
+        s.line = ret.readString();
 
-            ret.readUnsignedByte();
-            s.speed = ret.readDouble();
+        ret.readUnsignedByte();
+        s.speed = ret.readDouble();
 
-            result.push_back(s);
-        }
+        result.push_back(s);
     }
     return result;
 }
@@ -528,16 +508,13 @@ Vehicle::getLaneChangeState(const std::string& vehicleID, int direction) {
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_INTEGER);
     content.writeInt(direction);
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::CMD_CHANGELANE, vehicleID, &content);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
-        ret.readInt(); // components
-        ret.readUnsignedByte();
-        const int stateWithoutTraCI = ret.readInt();
-        ret.readUnsignedByte();
-        const int state = ret.readInt();
-        return std::make_pair(stateWithoutTraCI, state);
-    }
-    return std::make_pair(libsumo::INVALID_INT_VALUE, libsumo::INVALID_INT_VALUE);
+    tcpip::Storage& ret = Dom::get(libsumo::CMD_CHANGELANE, vehicleID, &content);
+    ret.readInt(); // components
+    ret.readUnsignedByte();
+    const int stateWithoutTraCI = ret.readInt();
+    ret.readUnsignedByte();
+    const int state = ret.readInt();
+    return std::make_pair(stateWithoutTraCI, state);
 }
 
 
@@ -547,16 +524,14 @@ Vehicle::getNeighbors(const std::string& vehicleID, const int mode) {
     tcpip::Storage content;
     content.writeByte(libsumo::TYPE_INTEGER);
     content.writeInt(mode);
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::VAR_NEIGHBORS, vehicleID, &content);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_VEHICLE_VARIABLE, libsumo::TYPE_COMPOUND)) {
-        const int items = ret.readInt(); // components
-        for (int i = 0; i < items; i++) {
-            ret.readUnsignedByte();
-            const std::string neighID = ret.readString();
-            ret.readUnsignedByte();
-            const double gap = ret.readDouble();
-            neighs.push_back(std::make_pair(neighID, gap));
-        }
+    tcpip::Storage& ret = Dom::get(libsumo::VAR_NEIGHBORS, vehicleID, &content);
+    const int items = ret.readInt(); // components
+    for (int i = 0; i < items; i++) {
+        ret.readUnsignedByte();
+        const std::string neighID = ret.readString();
+        ret.readUnsignedByte();
+        const double gap = ret.readDouble();
+        neighs.push_back(std::make_pair(neighID, gap));
     }
     return neighs;
 }

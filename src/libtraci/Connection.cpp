@@ -63,7 +63,7 @@ Connection::Connection(const std::string& host, int port, int numRetries, const 
 
 void
 Connection::readOutput() {
-    std::array<char, 128> buffer;
+    std::array<char, 256> buffer;
     while (fgets(buffer.data(), (int)buffer.size(), myProcessPipe) != nullptr) {
         std::stringstream result;
         result << buffer.data();
@@ -365,27 +365,15 @@ Connection::check_commandGetResult(tcpip::Storage& inMsg, int command, int expec
 }
 
 
-bool
-Connection::processGet(int command, int expectedType, bool ignoreCommandId) {
-    if (mySocket.has_client_connection()) {
-        mySocket.sendExact(myOutput);
-        myInput.reset();
-        check_resultState(myInput, command, ignoreCommandId);
-        check_commandGetResult(myInput, command, expectedType, ignoreCommandId);
-        return true;
-    }
-    return false;
-}
-
-
 tcpip::Storage&
 Connection::doCommand(int command, int var, const std::string& id, tcpip::Storage* add) {
-    createCommand(command, var, id, add);
-    if (mySocket.has_client_connection()) {
-        mySocket.sendExact(myOutput);
-        myInput.reset();
-        check_resultState(myInput, command);
+    if (!mySocket.has_client_connection()) {
+        throw libsumo::FatalTraCIError("Not connected.");
     }
+    createCommand(command, var, id, add);
+    mySocket.sendExact(myOutput);
+    myInput.reset();
+    check_resultState(myInput, command);
     return myInput;
 }
 

@@ -27,7 +27,6 @@
 #define LIBTRACI 1
 #include <libsumo/Lane.h>
 #include <libsumo/TraCIConstants.h>
-#include "Connection.h"
 #include "Domain.h"
 
 
@@ -79,48 +78,45 @@ Lane::getLinkNumber(std::string laneID) {
 std::vector<libsumo::TraCIConnection>
 Lane::getLinks(std::string laneID) {
     std::vector<libsumo::TraCIConnection> ret;
-    tcpip::Storage& sto = Connection::getActive().doCommand(libsumo::CMD_GET_LANE_VARIABLE, libsumo::LANE_LINKS, laneID);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_LANE_VARIABLE, libsumo::TYPE_COMPOUND)) {
+    tcpip::Storage& sto = Dom::get(libsumo::LANE_LINKS, laneID);
+    sto.readUnsignedByte();
+    sto.readInt();
+
+    int linkNo = sto.readInt();
+    for (int i = 0; i < linkNo; ++i) {
+
         sto.readUnsignedByte();
-        sto.readInt();
+        std::string approachedLane = sto.readString();
 
-        int linkNo = sto.readInt();
-        for (int i = 0; i < linkNo; ++i) {
+        sto.readUnsignedByte();
+        std::string approachedLaneInternal = sto.readString();
 
-            sto.readUnsignedByte();
-            std::string approachedLane = sto.readString();
+        sto.readUnsignedByte();
+        bool hasPrio = sto.readUnsignedByte() != 0;
 
-            sto.readUnsignedByte();
-            std::string approachedLaneInternal = sto.readString();
+        sto.readUnsignedByte();
+        bool isOpen = sto.readUnsignedByte() != 0;
 
-            sto.readUnsignedByte();
-            bool hasPrio = sto.readUnsignedByte() != 0;
+        sto.readUnsignedByte();
+        bool hasFoe = sto.readUnsignedByte() != 0;
 
-            sto.readUnsignedByte();
-            bool isOpen = sto.readUnsignedByte() != 0;
+        sto.readUnsignedByte();
+        std::string state = sto.readString();
 
-            sto.readUnsignedByte();
-            bool hasFoe = sto.readUnsignedByte() != 0;
+        sto.readUnsignedByte();
+        std::string direction = sto.readString();
 
-            sto.readUnsignedByte();
-            std::string state = sto.readString();
+        sto.readUnsignedByte();
+        double length = sto.readDouble();
 
-            sto.readUnsignedByte();
-            std::string direction = sto.readString();
-
-            sto.readUnsignedByte();
-            double length = sto.readDouble();
-
-            ret.push_back(libsumo::TraCIConnection(approachedLane,
-                                                   hasPrio,
-                                                   isOpen,
-                                                   hasFoe,
-                                                   approachedLaneInternal,
-                                                   state,
-                                                   direction,
-                                                   length));
-
-        }
+        ret.push_back(libsumo::TraCIConnection(approachedLane,
+                                                hasPrio,
+                                                isOpen,
+                                                hasFoe,
+                                                approachedLaneInternal,
+                                                state,
+                                                direction,
+                                                length));
 
     }
     return ret;
@@ -247,18 +243,10 @@ Lane::getLastStepVehicleIDs(std::string laneID) {
 
 std::vector<std::string>
 Lane::getFoes(const std::string& laneID, const std::string& toLaneID) {
-    std::vector<std::string> r;
     tcpip::Storage content;
     content.writeUnsignedByte(libsumo::TYPE_STRING);
     content.writeString(toLaneID);
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_LANE_VARIABLE, libsumo::VAR_FOES, laneID, &content);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_LANE_VARIABLE, libsumo::TYPE_STRINGLIST)) {
-        const int size = ret.readInt();
-        for (int i = 0; i < size; ++i) {
-            r.push_back(ret.readString());
-        }
-    }
-    return r;
+    return Dom::getStringVector(libsumo::VAR_FOES, laneID, &content);
 }
 
 // XXX: there seems to be no "Dom::getFoes"

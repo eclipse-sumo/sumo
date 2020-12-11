@@ -24,7 +24,6 @@
 
 #define LIBTRACI 1
 #include <libsumo/InductionLoop.h>
-#include "Connection.h"
 #include "Domain.h"
 
 
@@ -99,32 +98,30 @@ InductionLoop::getTimeSinceDetection(const std::string& detID) {
 std::vector<libsumo::TraCIVehicleData>
 InductionLoop::getVehicleData(const std::string& detID) {
     std::vector<libsumo::TraCIVehicleData> result;
-    tcpip::Storage& ret = Connection::getActive().doCommand(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::LAST_STEP_VEHICLE_DATA, detID);
-    if (Connection::getActive().processGet(libsumo::CMD_GET_INDUCTIONLOOP_VARIABLE, libsumo::TYPE_COMPOUND)) {
-        ret.readInt();  // components
-        // number of items
+    tcpip::Storage& ret = Dom::get(libsumo::LAST_STEP_VEHICLE_DATA, detID);
+    ret.readInt();  // components
+    // number of items
+    ret.readUnsignedByte();
+    const int n = ret.readInt();
+    for (int i = 0; i < n; ++i) {
+        libsumo::TraCIVehicleData vd;
+
         ret.readUnsignedByte();
-        const int n = ret.readInt();
-        for (int i = 0; i < n; ++i) {
-            libsumo::TraCIVehicleData vd;
+        vd.id = ret.readString();
 
-            ret.readUnsignedByte();
-            vd.id = ret.readString();
+        ret.readUnsignedByte();
+        vd.length = ret.readDouble();
 
-            ret.readUnsignedByte();
-            vd.length = ret.readDouble();
+        ret.readUnsignedByte();
+        vd.entryTime = ret.readDouble();
 
-            ret.readUnsignedByte();
-            vd.entryTime = ret.readDouble();
+        ret.readUnsignedByte();
+        vd.leaveTime = ret.readDouble();
 
-            ret.readUnsignedByte();
-            vd.leaveTime = ret.readDouble();
+        ret.readUnsignedByte();
+        vd.typeID = ret.readString();
 
-            ret.readUnsignedByte();
-            vd.typeID = ret.readString();
-
-            result.push_back(vd);
-        }
+        result.push_back(vd);
     }
     return result;
 }
