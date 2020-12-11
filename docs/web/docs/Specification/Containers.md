@@ -181,7 +181,7 @@ known:
 | --------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
 | begin           | float (sec)    | first container departure time                                                                       |
 | end             | float (sec)    | end of departure interval (if undefined, defaults to 24 hours)                                       |
-| containersPerHour* _or_ perHour* | float (\#/h) | number of containers per hour, equally spaced                                         |
+| containersPerHour\* _or_ perHour\* | float (\#/h) | number of containers per hour, equally spaced                                         |
 | period*         | float (sec)    | insert equally spaced containers at that period                                                      |
 | probability*    | float (\[0,1\])| probability for emitting a container each second, see also [Simulation/Randomness](../Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
 | number*         | int (\#)       | total number of containers, equally spaced                                                           |
