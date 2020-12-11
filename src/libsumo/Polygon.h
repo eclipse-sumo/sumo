@@ -66,10 +66,10 @@ public:
     static void setFilled(std::string polygonID, bool filled);
     static void setLineWidth(std::string polygonID, double lineWidth);
 
+#ifndef LIBTRACI
     // currently only used as a Helper function by POI and Vehicle, not part of the public API (and the clients)
     static void addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth);
 
-#ifndef LIBTRACI
     /** @brief Returns a tree filled with polygon instances
      * @return The rtree of polygons
      */

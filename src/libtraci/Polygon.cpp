@@ -57,7 +57,7 @@ Polygon::getShape(const std::string& polygonID) {
 
 bool
 Polygon::getFilled(const std::string& polygonID) {
-    return Dom::getByte(libsumo::VAR_FILL, polygonID);
+    return Dom::getInt(libsumo::VAR_FILL, polygonID);
 }
 
 
@@ -84,7 +84,9 @@ Polygon::setType(const std::string& polygonID, const std::string& setType) {
 
 void
 Polygon::setShape(const std::string& polygonID, const libsumo::TraCIPositionVector& shape) {
-    // return Dom::setPolygon(libsumo::VAR_SHAPE, polygonID);
+    tcpip::Storage content;
+    Dom::writePolygon(content, shape);
+    return Dom::set(libsumo::VAR_SHAPE, polygonID, &content);
 }
 
 
@@ -96,27 +98,55 @@ Polygon::setColor(const std::string& polygonID, const libsumo::TraCIColor& c) {
 
 void
 Polygon::add(const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth) {
-}
-
-
-void
-Polygon::addHighlightPolygon(const std::string& objectID, const int type, const std::string& polygonID, const libsumo::TraCIPositionVector& shape, const libsumo::TraCIColor& color, bool fill, const std::string& polygonType, int layer, double lineWidth) {
+    tcpip::Storage content;
+    Dom::writeCompound(content, 6);
+    Dom::writeTypedString(content, polygonType);
+    content.writeUnsignedByte(libsumo::TYPE_COLOR);
+    content.writeUnsignedByte(color.r);
+    content.writeUnsignedByte(color.g);
+    content.writeUnsignedByte(color.b);
+    content.writeUnsignedByte(color.a);
+    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
+    content.writeUnsignedByte(fill);
+    Dom::writeTypedInt(content, layer);
+    Dom::writePolygon(content, shape);
+    Dom::writeTypedDouble(content, lineWidth);
+    Dom::set(libsumo::ADD, polygonID, &content);
 }
 
 
 void
 Polygon::addDynamics(const std::string& polygonID, const std::string& trackedID, const std::vector<double>& timeSpan, const std::vector<double>& alphaSpan, bool looped, bool rotate) {
+    tcpip::Storage content;
+    Dom::writeCompound(content, 5);
+    Dom::writeTypedString(content, trackedID);
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
+    content.writeInt((int)timeSpan.size());
+    for (const double d : timeSpan) {
+        content.writeDouble(d);
+    }
+    content.writeUnsignedByte(libsumo::TYPE_DOUBLELIST);
+    content.writeInt((int)alphaSpan.size());
+    for (const double d : alphaSpan) {
+        content.writeDouble(d);
+    }
+    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
+    content.writeUnsignedByte(looped);
+    content.writeUnsignedByte(libsumo::TYPE_UBYTE);
+    content.writeUnsignedByte(rotate);
+    Dom::set(libsumo::VAR_ADD_DYNAMICS, polygonID, &content);
 }
 
 
 void
-Polygon::remove(const std::string& polygonID, int /* layer */) {
+Polygon::remove(const std::string& polygonID, int layer) {
+    Dom::setInt(libsumo::REMOVE, polygonID, layer);
 }
 
 
 void
 Polygon::setFilled(std::string polygonID, bool filled) {
-    //Dom::setByte(libsumo::VAR_FILL, polygonID, filled);
+    Dom::setInt(libsumo::VAR_FILL, polygonID, filled);
 }
 
 

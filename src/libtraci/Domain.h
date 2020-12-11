@@ -169,6 +169,20 @@ public:
         content.writeInt(size);
     }
 
+    static void writePolygon(tcpip::Storage& content, const libsumo::TraCIPositionVector& shape) {
+        content.writeUnsignedByte(libsumo::TYPE_POLYGON);
+        if (shape.size() <= 255) {
+            content.writeUnsignedByte((int)shape.size());
+        } else {
+            content.writeUnsignedByte(0);
+            content.writeInt((int)shape.size());
+        }
+        for (const libsumo::TraCIPosition& pos : shape) {
+            content.writeDouble(pos.x);
+            content.writeDouble(pos.y);
+        }
+    }
+
 
     static tcpip::Storage& get(int var, const std::string& id, tcpip::Storage* add = nullptr, int expectedType = libsumo::TYPE_COMPOUND) {
         tcpip::Storage& result = libtraci::Connection::getActive().doCommand(GET, var, id, add);
