@@ -3177,8 +3177,7 @@ MSVehicle::updateDriveItems() {
 #ifdef DEBUG_ACTIONSTEPS
     if (DEBUG_COND) {
         std::cout << SIMTIME << " updateDriveItems(), veh='" << getID() << "' (lane: '" << getLane()->getID() << "')\nCurrent drive items:" << std::endl;
-        DriveItemVector::iterator i;
-        for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+        for (const auto& dpi : myLFLinkLanes) {
             std::cout
                     << " vPass=" << dpi.myVLinkPass
                     << " vWait=" << dpi.myVLinkWait
@@ -3320,8 +3319,7 @@ MSVehicle::updateDriveItems() {
 #ifdef DEBUG_ACTIONSTEPS
     if (DEBUG_COND) {
         std::cout << "Updated drive items:" << std::endl;
-        DriveItemVector::iterator i;
-        for (i = myLFLinkLanes.begin(); i != myLFLinkLanes.end(); ++i) {
+        for (const auto& dpi : myLFLinkLanes) {
             std::cout
                     << " vPass=" << dpi.myVLinkPass
                     << " vWait=" << dpi.myVLinkWait
