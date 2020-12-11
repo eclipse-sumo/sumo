@@ -55,7 +55,7 @@ known:
 | --------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
 | begin           | float(s)       | first person departure time                                                                          |
 | end             | float(s)       | end of departure interval (if undefined, defaults to 24 hours)                                       |
-| personsPerHour* _or_ perHour* | float(\#/h) | number of persons per hour, equally spaced                                                |
+| personsPerHour* _or_ perHour\* | float(\#/h) | number of persons per hour, equally spaced                                                |
 | period*         | float(s)       | insert equally spaced persons at that period                                                         |
 | probability*    | float(\[0,1\]) | probability for emitting a person each second, see also [Simulation/Randomness](../Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
 | number*         | int(\#)        | total number of persons, equally spaced                                                              |
