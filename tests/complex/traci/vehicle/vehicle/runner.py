@@ -188,7 +188,7 @@ traci.vehicle.setLine(vehID, "S46")
 traci.vehicle.setVia(vehID, ["3o", "4o"])
 traci.vehicle.setAdaptedTraveltime(vehID, "1o", 55, 0, 1000)
 traci.vehicle.setEffort(vehID, "1o", 54, 0, 1000)
-if not traci.isLibsumo():
+if not traci.isLibsumo() and not traci.isLibtraci():
     # legacy API
     traci.vehicle.setAdaptedTraveltime(vehID, 0, 1000, "1o", 55)
     traci.vehicle.setEffort(vehID, 0, 1000, "1o", 54)
