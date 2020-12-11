@@ -168,6 +168,46 @@ transported again.
 </routes>
 ```
 
+# Repeated containers (containerFlows)
+
+To define multiple containers with the same plan, the element `<containerFlow>` can be used.
+It uses the same parameters and child elements as [`<container>`](#containers) except for the
+departure time. The ids of the created containers are
+"containerFlowId.runningNumber" and they are distributed either equally or
+randomly in the given interval. The following additional parameters are
+known:
+
+| Attribute Name  | Value Type     | Description                                                                                          |
+| --------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
+| begin           | float (sec)    | first container departure time                                                                       |
+| end             | float (sec)    | end of departure interval (if undefined, defaults to 24 hours)                                       |
+| containersPerHour* _or_ perHour* | float (\#/h) | number of containers per hour, equally spaced                                         |
+| period*         | float (sec)    | insert equally spaced containers at that period                                                      |
+| probability*    | float (\[0,1\])| probability for emitting a container each second, see also [Simulation/Randomness](../Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
+| number*         | int (\#)       | total number of containers, equally spaced                                                           |
+
+\*: Only one of these attributes is allowed.
+
+See also [personFlows](../Specification/Persons.md#repeated_persons_personflows)
+
+## Examples
+
+```xml
+   <containerFlow id="c" begin="0" end="10" period="2">
+       <tranship from="beg" to="end"/>
+   </containerFlow>
+```
+
+```xml
+   <containerFlow id="container" begin="0" end="1" number="4" departPos="80">
+       <tranship from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
+       <transport containerStop="cs_train0" lines="train0"/>
+       <tranship to="1/4to2/4" arrivalPos="45"/>
+       <stop lane="1/4to2/4_0" duration="20" startPos="40" actType="waiting"/>
+       <transport to="3/4to4/4" lines="truck0"/>
+   </containerFlow>
+```
+
 # Planned features
 
 The following features are not yet implemented.
@@ -184,12 +224,6 @@ of stages (transports, tranships and
 | Attribute   | Type  | Range | Default | Remark                                                                                                                                                             |
 | ----------- | ----- | ----- | ------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | probability | float | ≥0    | 1       | this is only evaluated if a container has multiple plans, the probability values of all plans do not have to add to 1, they are scaled accordingly before choosing |
-
-## ContainerFlow
-
-A containerFlow has the same role as a flow. It allows to specify a
-sequence of containers with the same plan (or distribution of plans)
-with a single input element.
 
 ## Intermodal Routing
 
