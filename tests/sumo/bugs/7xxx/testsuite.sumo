@@ -34,3 +34,6 @@ ticket7801
 
 # crash when using ride within container
 ticket7801b
+
+# emergency braking
+ticket7959
