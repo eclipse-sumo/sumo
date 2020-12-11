@@ -130,12 +130,43 @@ public:
         return ret.readStringList();
     }
 
-    static int readCompound(tcpip::Storage& ret, int expectedSize=-1) {
+    static int readCompound(tcpip::Storage& ret, int expectedSize = -1) {
         const int type = ret.readUnsignedByte();
         assert(type == libsumo::TYPE_STRINGLIST);
         const int size = ret.readInt();
         assert(expectedSize == -1 || size == expectedSize);
         return size;
+    }
+
+
+    static void writeTypedByte(tcpip::Storage& content, int value) {
+        content.writeUnsignedByte(libsumo::TYPE_BYTE);
+        content.writeByte(value);
+    }
+
+    static void writeTypedInt(tcpip::Storage& content, int value) {
+        content.writeUnsignedByte(libsumo::TYPE_INTEGER);
+        content.writeInt(value);
+    }
+
+    static void writeTypedDouble(tcpip::Storage& content, double value) {
+        content.writeUnsignedByte(libsumo::TYPE_DOUBLE);
+        content.writeDouble(value);
+    }
+
+    static void writeTypedString(tcpip::Storage& content, const std::string& value) {
+        content.writeUnsignedByte(libsumo::TYPE_STRING);
+        content.writeString(value);
+    }
+
+    static void writeTypedStringList(tcpip::Storage& content, const std::vector<std::string>& value) {
+        content.writeUnsignedByte(libsumo::TYPE_STRINGLIST);
+        content.writeStringList(value);
+    }
+
+    static void writeCompound(tcpip::Storage& content, int size) {
+        content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+        content.writeInt(size);
     }
 
 
