@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Tue Nov 10 10:28:44 2020 by Eclipse SUMO netconvert Version v1_7_0+0904-86088f8a47
+<!-- generated on Thu Dec 10 19:27:56 2020 by Eclipse SUMO netconvert Version v1_8_0+0201-c545111d09
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -33,9 +33,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <edge id=":15_0" function="internal">
         <lane id=":15_0_0" index="0" speed="8.27" length="14.82" shape="284.28,207.02 282.44,204.54 279.64,203.35 275.88,203.46 271.16,204.87"/>
-    </edge>
-    <edge id=":15_1" function="internal">
-        <lane id=":15_1_0" index="0" speed="8.86" length="17.18" shape="284.28,207.02 281.89,203.25 278.71,201.14 274.74,200.69 269.98,201.89"/>
+        <lane id=":15_0_1" index="1" speed="8.86" length="17.18" shape="284.28,207.02 281.89,203.25 278.71,201.14 274.74,200.69 269.98,201.89"/>
     </edge>
     <edge id=":15_2" function="internal">
         <lane id=":15_2_0" index="0" speed="10.16" length="35.53" shape="287.22,205.74 286.25,197.10 291.13,191.97 299.91,190.18 310.61,191.56"/>
@@ -124,7 +122,7 @@ SPDX-License-Identifier: EPL-2.0
         <phase duration="3"  state="rrrrryyryyyyy"/>
     </tlLogic>
 
-    <junction id="15" type="traffic_light" x="276.57" y="165.25" incLanes="18_0 18_1 191_0 72[1]_0 72[1]_1" intLanes=":15_0_0 :15_1_0 :15_2_0 :15_3_0 :15_4_0 :15_5_0 :15_5_1" shape="282.82,207.66 288.68,205.10 287.46,199.58 288.92,195.60 292.51,193.07 297.68,191.89 303.85,191.96 310.48,193.18 311.00,186.70 301.97,184.21 294.56,181.94 288.75,179.89 284.56,178.05 281.98,176.43 281.02,175.04 277.84,175.43 277.89,178.90 277.12,182.07 275.54,184.92 273.15,187.47 269.95,189.71 265.94,191.65 271.74,206.36 274.54,205.41 276.96,204.93 279.00,204.91 280.65,205.36 281.92,206.28">
+    <junction id="15" type="traffic_light" x="276.57" y="165.25" incLanes="18_0 18_1 191_0 72[1]_0 72[1]_1" intLanes=":15_0_0 :15_0_1 :15_2_0 :15_3_0 :15_4_0 :15_5_0 :15_5_1" shape="282.82,207.66 288.68,205.10 287.46,199.58 288.92,195.60 292.51,193.07 297.68,191.89 303.85,191.96 310.48,193.18 311.00,186.70 301.97,184.21 294.56,181.94 288.75,179.89 284.56,178.05 281.98,176.43 281.02,175.04 277.84,175.43 277.89,178.90 277.12,182.07 275.54,184.92 273.15,187.47 269.95,189.71 265.94,191.65 271.74,206.36 274.54,205.41 276.96,204.93 279.00,204.91 280.65,205.36 281.92,206.28">
         <request index="0" response="0000000" foes="0010000" cont="0"/>
         <request index="1" response="0000000" foes="0010000" cont="0"/>
         <request index="2" response="0000000" foes="1100000" cont="0"/>
@@ -160,7 +158,7 @@ SPDX-License-Identifier: EPL-2.0
 
     <connection from="171" to="161" fromLane="0" toLane="0" via=":52_0_0" tl="220" linkIndex="7" dir="r" state="o"/>
     <connection from="18" to="17" fromLane="0" toLane="0" via=":15_0_0" tl="220" linkIndex="0" dir="r" state="O"/>
-    <connection from="18" to="17" fromLane="0" toLane="1" via=":15_1_0" tl="220" linkIndex="1" dir="r" state="O"/>
+    <connection from="18" to="17" fromLane="0" toLane="1" via=":15_0_1" tl="220" linkIndex="1" dir="r" state="O"/>
     <connection from="18" to="69" fromLane="1" toLane="1" via=":15_2_0" tl="220" linkIndex="2" dir="l" state="O"/>
     <connection from="181" to="18" fromLane="0" toLane="0" via=":17_0_0" dir="s" state="M"/>
     <connection from="181" to="18" fromLane="1" toLane="1" via=":17_0_1" dir="s" state="M"/>
@@ -176,7 +174,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="74" to="72[1]" fromLane="0" toLane="0" uncontrolled="1" via=":53_0_0" dir="r" state="m"/>
 
     <connection from=":15_0" to="17" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":15_1" to="17" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":15_0" to="17" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from=":15_2" to="69" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":15_3" to="69" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":15_4" to="17" fromLane="0" toLane="1" dir="l" state="M"/>

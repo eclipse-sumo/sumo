@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:31:02 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Thu Dec 10 19:27:56 2020 by Eclipse SUMO netconvert Version v1_8_0+0201-c545111d09
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -70,9 +70,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":27978467_1" function="internal">
         <lane id=":27978467_1_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="23.66" shape="205.41,374.43 208.33,368.67 211.48,364.43 215.14,360.50 219.56,355.66"/>
-    </edge>
-    <edge id=":27978467_2" function="internal">
-        <lane id=":27978467_2_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="22.67" shape="208.37,375.66 211.20,370.03 214.18,366.09 217.65,362.45 221.99,357.75"/>
+        <lane id=":27978467_1_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="22.67" shape="208.37,375.66 211.20,370.03 214.18,366.09 217.65,362.45 221.99,357.75"/>
     </edge>
     <edge id=":27989672_0" function="internal">
         <lane id=":27989672_0_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="10.40" shape="261.72,287.55 263.99,285.52 265.66,284.11 267.15,282.56 268.88,280.08"/>
@@ -146,9 +144,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":A391_AS_Weststadt_13" function="internal">
         <lane id=":A391_AS_Weststadt_13_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="40.29" shape="241.08,344.21 255.27,340.79 269.05,341.66 280.13,345.95"/>
-    </edge>
-    <edge id=":A391_AS_Weststadt_14" function="internal">
-        <lane id=":A391_AS_Weststadt_14_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="38.00" shape="241.63,347.42 255.18,344.13 268.31,344.91 278.49,348.80"/>
+        <lane id=":A391_AS_Weststadt_13_1" index="1" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="13.89" length="38.00" shape="241.63,347.42 255.18,344.13 268.31,344.91 278.49,348.80"/>
     </edge>
     <edge id=":A391_AS_Weststadt_15" function="internal">
         <lane id=":A391_AS_Weststadt_15_0" index="0" allow="private emergency authority army vip passenger hov taxi bus coach delivery truck trailer motorcycle evehicle custom1 custom2" speed="11.79" length="45.52" shape="241.63,347.42 250.03,349.69 260.31,358.47 268.73,369.49 271.57,378.48"/>
@@ -440,7 +436,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="100" foes="100" cont="0"/>
         <request index="2" response="000" foes="011" cont="0"/>
     </junction>
-    <junction id="27978467" type="priority" x="208.62" y="370.88" incLanes="273049372_0 273049372_1" intLanes=":27978467_0_0 :27978467_1_0 :27978467_2_0" shape="223.20,358.79 218.35,354.62 217.25,353.95 214.29,352.75 203.94,373.82 209.85,376.27 211.80,372.03 213.59,369.08 215.42,366.85 217.50,364.77 220.02,362.28">
+    <junction id="27978467" type="priority" x="208.62" y="370.88" incLanes="273049372_0 273049372_1" intLanes=":27978467_0_0 :27978467_1_0 :27978467_1_1" shape="223.20,358.79 218.35,354.62 217.25,353.95 214.29,352.75 203.94,373.82 209.85,376.27 211.80,372.03 213.59,369.08 215.42,366.85 217.50,364.77 220.02,362.28">
         <request index="0" response="000" foes="000" cont="0"/>
         <request index="1" response="000" foes="000" cont="0"/>
         <request index="2" response="000" foes="000" cont="0"/>
@@ -491,12 +487,12 @@ SPDX-License-Identifier: EPL-2.0
 
     <junction id=":A391_AS_Weststadt_21_0" type="internal" x="251.82" y="337.87" incLanes=":A391_AS_Weststadt_3_0 24271244#0_0" intLanes=":A391_AS_Weststadt_0_0 :A391_AS_Weststadt_6_0 :A391_AS_Weststadt_6_1 :A391_AS_Weststadt_8_0 :A391_AS_Weststadt_9_0 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_11_0 :A391_AS_Weststadt_12_0 :A391_AS_Weststadt_13_0 :A391_AS_Weststadt_17_0 :A391_AS_Weststadt_17_1 :A391_AS_Weststadt_19_0"/>
     <junction id=":A391_AS_Weststadt_22_0" type="internal" x="260.95" y="315.26" incLanes=":A391_AS_Weststadt_4_0 24271244#0_0" intLanes=":A391_AS_Weststadt_5_0 :A391_AS_Weststadt_12_0 :A391_AS_Weststadt_19_0"/>
-    <junction id=":A391_AS_Weststadt_23_0" type="internal" x="258.08" y="328.78" incLanes=":A391_AS_Weststadt_8_0 32905536_0 32905536_1 :A391_AS_Weststadt_19_0" intLanes=":A391_AS_Weststadt_27_0 :A391_AS_Weststadt_0_0 :A391_AS_Weststadt_2_0 :A391_AS_Weststadt_3_0 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_12_0 :A391_AS_Weststadt_13_0 :A391_AS_Weststadt_14_0 :A391_AS_Weststadt_15_0 :A391_AS_Weststadt_16_0 :A391_AS_Weststadt_17_0 :A391_AS_Weststadt_17_1 :A391_AS_Weststadt_19_0"/>
+    <junction id=":A391_AS_Weststadt_23_0" type="internal" x="258.08" y="328.78" incLanes=":A391_AS_Weststadt_8_0 32905536_0 32905536_1 :A391_AS_Weststadt_19_0" intLanes=":A391_AS_Weststadt_27_0 :A391_AS_Weststadt_0_0 :A391_AS_Weststadt_2_0 :A391_AS_Weststadt_3_0 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_12_0 :A391_AS_Weststadt_13_0 :A391_AS_Weststadt_13_1 :A391_AS_Weststadt_15_0 :A391_AS_Weststadt_16_0 :A391_AS_Weststadt_17_0 :A391_AS_Weststadt_17_1 :A391_AS_Weststadt_19_0"/>
     <junction id=":A391_AS_Weststadt_24_0" type="internal" x="241.76" y="329.31" incLanes=":A391_AS_Weststadt_9_0 24271242#0_0 24271244#0_0 27571138#1_0 309123999#6_0 32905536_0 32905536_1" intLanes=":A391_AS_Weststadt_0_0 :A391_AS_Weststadt_3_0 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_11_0 :A391_AS_Weststadt_17_0 :A391_AS_Weststadt_17_1"/>
     <junction id=":A391_AS_Weststadt_25_0" type="internal" x="280.13" y="345.95" incLanes=":A391_AS_Weststadt_13_0 24271242#0_0" intLanes=":A391_AS_Weststadt_0_0 :A391_AS_Weststadt_1_0 :A391_AS_Weststadt_2_0 :A391_AS_Weststadt_3_0 :A391_AS_Weststadt_6_0 :A391_AS_Weststadt_6_1 :A391_AS_Weststadt_8_0 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_17_0 :A391_AS_Weststadt_17_1 :A391_AS_Weststadt_19_0 :A391_AS_Weststadt_20_0"/>
-    <junction id=":A391_AS_Weststadt_26_0" type="internal" x="278.49" y="348.80" incLanes=":A391_AS_Weststadt_14_0 24271242#0_0" intLanes=":A391_AS_Weststadt_0_0 :A391_AS_Weststadt_1_0 :A391_AS_Weststadt_2_0 :A391_AS_Weststadt_6_0 :A391_AS_Weststadt_6_1 :A391_AS_Weststadt_8_0 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_17_0 :A391_AS_Weststadt_17_1 :A391_AS_Weststadt_19_0 :A391_AS_Weststadt_20_0"/>
-    <junction id=":A391_AS_Weststadt_27_0" type="internal" x="273.95" y="362.15" incLanes=":A391_AS_Weststadt_19_0 325528576_0 325528576_1" intLanes=":A391_AS_Weststadt_0_0 :A391_AS_Weststadt_2_0 :A391_AS_Weststadt_3_0 :A391_AS_Weststadt_4_0 :A391_AS_Weststadt_5_0 :A391_AS_Weststadt_6_0 :A391_AS_Weststadt_6_1 :A391_AS_Weststadt_8_0 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_12_0 :A391_AS_Weststadt_13_0 :A391_AS_Weststadt_14_0"/>
-    <junction id=":A391_AS_Weststadt_28_0" type="internal" x="290.62" y="358.28" incLanes=":A391_AS_Weststadt_20_0 24271242#0_0 24271244#0_0 24271244#0_1 27571138#1_0 309123999#6_0 325528576_0 325528576_1" intLanes=":A391_AS_Weststadt_0_0 :A391_AS_Weststadt_1_0 :A391_AS_Weststadt_6_0 :A391_AS_Weststadt_6_1 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_13_0 :A391_AS_Weststadt_14_0"/>
+    <junction id=":A391_AS_Weststadt_26_0" type="internal" x="278.49" y="348.80" incLanes=":A391_AS_Weststadt_13_1 24271242#0_0" intLanes=":A391_AS_Weststadt_0_0 :A391_AS_Weststadt_1_0 :A391_AS_Weststadt_2_0 :A391_AS_Weststadt_6_0 :A391_AS_Weststadt_6_1 :A391_AS_Weststadt_8_0 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_17_0 :A391_AS_Weststadt_17_1 :A391_AS_Weststadt_19_0 :A391_AS_Weststadt_20_0"/>
+    <junction id=":A391_AS_Weststadt_27_0" type="internal" x="273.95" y="362.15" incLanes=":A391_AS_Weststadt_19_0 325528576_0 325528576_1" intLanes=":A391_AS_Weststadt_0_0 :A391_AS_Weststadt_2_0 :A391_AS_Weststadt_3_0 :A391_AS_Weststadt_4_0 :A391_AS_Weststadt_5_0 :A391_AS_Weststadt_6_0 :A391_AS_Weststadt_6_1 :A391_AS_Weststadt_8_0 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_12_0 :A391_AS_Weststadt_13_0 :A391_AS_Weststadt_13_1"/>
+    <junction id=":A391_AS_Weststadt_28_0" type="internal" x="290.62" y="358.28" incLanes=":A391_AS_Weststadt_20_0 24271242#0_0 24271244#0_0 24271244#0_1 27571138#1_0 309123999#6_0 325528576_0 325528576_1" intLanes=":A391_AS_Weststadt_0_0 :A391_AS_Weststadt_1_0 :A391_AS_Weststadt_6_0 :A391_AS_Weststadt_6_1 :A391_AS_Weststadt_10_0 :A391_AS_Weststadt_13_0 :A391_AS_Weststadt_13_1"/>
 
     <connection from="24271242#0" to="32755914" fromLane="0" toLane="0" via=":A391_AS_Weststadt_1_0" tl="joinedS_12" linkIndex="9" dir="r" state="o"/>
     <connection from="24271242#0" to="24271247#0" fromLane="0" toLane="0" via=":A391_AS_Weststadt_2_0" tl="joinedS_12" linkIndex="10" dir="R" state="o"/>
@@ -506,13 +502,13 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="24271244#0" to="325528578" fromLane="0" toLane="0" via=":A391_AS_Weststadt_11_0" tl="joinedS_12" linkIndex="19" dir="r" state="o"/>
     <connection from="24271244#0" to="4526773#0" fromLane="0" toLane="0" via=":A391_AS_Weststadt_12_0" tl="joinedS_12" linkIndex="20" dir="R" state="o"/>
     <connection from="24271244#0" to="32755914" fromLane="0" toLane="0" via=":A391_AS_Weststadt_13_0" tl="joinedS_12" linkIndex="21" dir="L" state="o"/>
-    <connection from="24271244#0" to="32755914" fromLane="1" toLane="1" via=":A391_AS_Weststadt_14_0" tl="joinedS_12" linkIndex="22" dir="L" state="o"/>
+    <connection from="24271244#0" to="32755914" fromLane="1" toLane="1" via=":A391_AS_Weststadt_13_1" tl="joinedS_12" linkIndex="22" dir="L" state="o"/>
     <connection from="24271244#0" to="24271247#0" fromLane="1" toLane="0" via=":A391_AS_Weststadt_15_0" tl="joinedS_12" linkIndex="23" dir="l" state="o"/>
     <connection from="24271246#0" to="32905474" fromLane="0" toLane="0" via=":262797998_0_0" tl="GS_262797998" linkIndex="0" dir="s" state="O"/>
     <connection from="24271247#0" to="32905474" fromLane="0" toLane="0" via=":262797998_1_0" tl="GS_262797998" linkIndex="1" dir="s" state="o"/>
     <connection from="273049372" to="325528584#0" fromLane="0" toLane="0" via=":27978467_0_0" dir="s" state="M"/>
     <connection from="273049372" to="24271244#0" fromLane="0" toLane="0" via=":27978467_1_0" dir="L" state="M"/>
-    <connection from="273049372" to="24271244#0" fromLane="1" toLane="1" via=":27978467_2_0" dir="L" state="M"/>
+    <connection from="273049372" to="24271244#0" fromLane="1" toLane="1" via=":27978467_1_1" dir="L" state="M"/>
     <connection from="273049374" to="310964897#0" fromLane="0" toLane="0" via=":28449350_0_0" dir="s" state="M"/>
     <connection from="273049374" to="310964897#0" fromLane="1" toLane="1" via=":28449350_0_1" dir="s" state="M"/>
     <connection from="273049374" to="24271242#0" fromLane="1" toLane="0" via=":28449350_2_0" dir="L" state="M"/>
@@ -564,7 +560,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":27978463_2" to="23620034#0" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":27978467_0" to="325528584#0" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":27978467_1" to="24271244#0" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from=":27978467_2" to="24271244#0" fromLane="0" toLane="1" dir="L" state="M"/>
+    <connection from=":27978467_1" to="24271244#0" fromLane="1" toLane="1" dir="L" state="M"/>
     <connection from=":27989672_0" to="4526773#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":27989672_1" to="4526773#2" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":28089476_0" to="32755484#0" fromLane="0" toLane="0" dir="s" state="M"/>
@@ -593,7 +589,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":A391_AS_Weststadt_12" to="4526773#0" fromLane="0" toLane="0" dir="R" state="M"/>
     <connection from=":A391_AS_Weststadt_13" to="32755914" fromLane="0" toLane="0" via=":A391_AS_Weststadt_25_0" dir="L" state="m"/>
     <connection from=":A391_AS_Weststadt_25" to="32755914" fromLane="0" toLane="0" dir="L" state="M"/>
-    <connection from=":A391_AS_Weststadt_14" to="32755914" fromLane="0" toLane="1" via=":A391_AS_Weststadt_26_0" dir="L" state="m"/>
+    <connection from=":A391_AS_Weststadt_13" to="32755914" fromLane="1" toLane="1" via=":A391_AS_Weststadt_26_0" dir="L" state="m"/>
     <connection from=":A391_AS_Weststadt_26" to="32755914" fromLane="0" toLane="1" dir="L" state="M"/>
     <connection from=":A391_AS_Weststadt_15" to="24271247#0" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":A391_AS_Weststadt_16" to="24271247#0" fromLane="0" toLane="0" dir="r" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:49 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Thu Dec 10 19:27:12 2020 by Eclipse SUMO netconvert Version v1_8_0+0201-c545111d09
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -64,9 +64,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":gneJ1_0" function="internal">
         <lane id=":gneJ1_0_0" index="0" speed="13.89" length="10.14" shape="82.65,37.69 82.71,35.22 83.63,33.14 85.41,31.44 88.04,30.13"/>
-    </edge>
-    <edge id=":gneJ1_1" function="internal">
-        <lane id=":gneJ1_1_0" index="0" speed="13.89" length="5.76" shape="85.82,37.25 85.88,35.96 86.46,34.84 87.55,33.90 89.14,33.13"/>
+        <lane id=":gneJ1_0_1" index="1" speed="13.89" length="5.76" shape="85.82,37.25 85.88,35.96 86.46,34.84 87.55,33.90 89.14,33.13"/>
     </edge>
     <edge id=":gneJ1_2" function="internal">
         <lane id=":gneJ1_2_0" index="0" speed="13.89" length="9.47" shape="79.26,30.70 81.91,30.84 83.75,30.99 85.55,30.86 88.04,30.13"/>
@@ -122,7 +120,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
     <junction id="gneJ0" type="dead_end" x="-11.14" y="34.95" incLanes="" intLanes="" shape="-11.14,34.95 -11.10,28.55"/>
-    <junction id="gneJ1" type="traffic_light" x="87.20" y="35.55" incLanes="beg2_0 beg2_1 beg.end_0 beg.end_1" intLanes=":gneJ1_0_0 :gneJ1_1_0 :gneJ1_2_0 :gneJ1_2_1" shape="81.06,37.90 87.40,37.04 89.69,34.63 87.49,28.63 79.27,29.10 79.24,35.50">
+    <junction id="gneJ1" type="traffic_light" x="87.20" y="35.55" incLanes="beg2_0 beg2_1 beg.end_0 beg.end_1" intLanes=":gneJ1_0_0 :gneJ1_0_1 :gneJ1_2_0 :gneJ1_2_1" shape="81.06,37.90 87.40,37.04 89.69,34.63 87.49,28.63 79.27,29.10 79.24,35.50">
         <request index="0" response="1100" foes="1100" cont="0"/>
         <request index="1" response="1100" foes="1100" cont="0"/>
         <request index="2" response="0000" foes="0011" cont="0"/>
@@ -137,7 +135,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="beg.end" to="end.begin" fromLane="0" toLane="0" via=":gneJ1_2_0" tl="gneJ1" linkIndex="2" dir="s" state="O"/>
     <connection from="beg.end" to="end.begin" fromLane="1" toLane="1" via=":gneJ1_2_1" tl="gneJ1" linkIndex="3" dir="s" state="O"/>
     <connection from="beg2" to="end.begin" fromLane="0" toLane="0" via=":gneJ1_0_0" tl="gneJ1" linkIndex="0" dir="l" state="o"/>
-    <connection from="beg2" to="end.begin" fromLane="1" toLane="1" via=":gneJ1_1_0" tl="gneJ1" linkIndex="1" dir="l" state="o"/>
+    <connection from="beg2" to="end.begin" fromLane="1" toLane="1" via=":gneJ1_0_1" tl="gneJ1" linkIndex="1" dir="l" state="o"/>
     <connection from="end" to="end.end" fromLane="0" toLane="0" via=":end.60_0_0" dir="s" state="M"/>
     <connection from="end" to="end.end" fromLane="0" toLane="1" via=":end.60_0_1" dir="s" state="M"/>
     <connection from="end.begin" to="end" fromLane="1" toLane="0" via=":end.30_0_0" dir="s" state="M"/>
@@ -149,7 +147,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":end.60_0" to="end.end" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":end.60_0" to="end.end" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":gneJ1_0" to="end.begin" fromLane="0" toLane="0" dir="l" state="M"/>
-    <connection from=":gneJ1_1" to="end.begin" fromLane="0" toLane="1" dir="l" state="M"/>
+    <connection from=":gneJ1_0" to="end.begin" fromLane="1" toLane="1" dir="l" state="M"/>
     <connection from=":gneJ1_2" to="end.begin" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":gneJ1_2" to="end.begin" fromLane="1" toLane="1" dir="s" state="M"/>
 

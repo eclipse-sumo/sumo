@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Nov 30 17:34:31 2020 by Eclipse SUMO netconvert Version v1_7_0+1382-cc261d2afb
+<!-- generated on Thu Dec 10 19:27:26 2020 by Eclipse SUMO netconvert Version v1_8_0+0201-c545111d09
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -305,9 +305,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":5_1" function="internal">
         <lane id=":5_1_0" index="0" allow="pedestrian passenger" speed="8.74" length="17.28" shape="1056.45,500.90 1056.36,494.35 1057.11,489.62 1058.69,486.72 1061.10,485.65"/>
-    </edge>
-    <edge id=":5_2" function="internal">
-        <lane id=":5_2_0" index="0" allow="pedestrian passenger" speed="8.00" length="14.34" shape="1056.45,500.90 1056.45,495.74 1057.26,492.01 1058.87,489.71 1061.27,488.85"/>
+        <lane id=":5_1_1" index="1" allow="pedestrian passenger" speed="8.00" length="14.34" shape="1056.45,500.90 1056.45,495.74 1057.26,492.01 1058.87,489.71 1061.27,488.85"/>
     </edge>
     <edge id=":5_3" function="internal">
         <lane id=":5_3_0" index="0" allow="pedestrian passenger" speed="19.44" length="13.92" shape="1061.62,495.24 1047.61,495.51"/>
@@ -729,7 +727,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="6" response="00000000" foes="00000010" cont="0"/>
         <request index="7" response="00011100" foes="00011110" cont="1"/>
     </junction>
-    <junction id="5" type="priority" x="1057.37" y="490.66" incLanes="17_0 17_1 -5_0 -5_1 -32_0 -32_1 -32_2" intLanes=":5_0_0 :5_1_0 :5_2_0 :5_3_0 :5_3_1 :5_5_0 :5_5_1 :5_5_2" shape="1051.66,501.22 1058.04,500.80 1058.34,498.69 1058.83,497.93 1059.56,497.37 1060.52,497.00 1061.70,496.83 1060.84,480.86 1047.55,481.11 1047.62,497.11 1049.74,497.56 1050.51,498.13 1051.09,498.93 1051.47,499.96">
+    <junction id="5" type="priority" x="1057.37" y="490.66" incLanes="17_0 17_1 -5_0 -5_1 -32_0 -32_1 -32_2" intLanes=":5_0_0 :5_1_0 :5_1_1 :5_3_0 :5_3_1 :5_5_0 :5_5_1 :5_5_2" shape="1051.66,501.22 1058.04,500.80 1058.34,498.69 1058.83,497.93 1059.56,497.37 1060.52,497.00 1061.70,496.83 1060.84,480.86 1047.55,481.11 1047.62,497.11 1049.74,497.56 1050.51,498.13 1051.09,498.93 1051.47,499.96">
         <request index="0" response="00011000" foes="00011000" cont="0"/>
         <request index="1" response="11111000" foes="11111000" cont="0"/>
         <request index="2" response="11111000" foes="11111000" cont="0"/>
@@ -848,7 +846,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="16" to="15" fromLane="0" toLane="0" via=":16_3_0" dir="l" state="m"/>
     <connection from="17" to="32" fromLane="0" toLane="0" via=":5_0_0" dir="r" state="m"/>
     <connection from="17" to="5" fromLane="1" toLane="1" via=":5_1_0" dir="l" state="m"/>
-    <connection from="17" to="5" fromLane="1" toLane="2" via=":5_2_0" dir="l" state="m"/>
+    <connection from="17" to="5" fromLane="1" toLane="2" via=":5_1_1" dir="l" state="m"/>
     <connection from="18" to="15" fromLane="0" toLane="0" via=":16_1_0" dir="r" state="M"/>
     <connection from="18" to="-16" fromLane="1" toLane="0" via=":16_2_0" dir="s" state="M"/>
     <connection from="21" to="-22" fromLane="0" toLane="0" via=":22_0_0" dir="s" state="M"/>
@@ -962,7 +960,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":4_8" to="13" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":5_0" to="32" fromLane="0" toLane="0" dir="r" state="M"/>
     <connection from=":5_1" to="5" fromLane="0" toLane="1" dir="l" state="M"/>
-    <connection from=":5_2" to="5" fromLane="0" toLane="2" dir="l" state="M"/>
+    <connection from=":5_1" to="5" fromLane="1" toLane="2" dir="l" state="M"/>
     <connection from=":5_3" to="32" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":5_3" to="32" fromLane="1" toLane="1" dir="s" state="M"/>
     <connection from=":5_5" to="5" fromLane="0" toLane="0" dir="s" state="M"/>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- generated on Mon Feb 17 15:30:54 2020 by Eclipse SUMO netconvert Version v1_5_0+0130-ceb0a01
+<!-- generated on Thu Dec 10 19:27:26 2020 by Eclipse SUMO netconvert Version v1_8_0+0201-c545111d09
 This data file and the accompanying materials
 are made available under the terms of the Eclipse Public License v2.0
 which accompanies this distribution, and is available at
@@ -286,9 +286,7 @@ SPDX-License-Identifier: EPL-2.0
     </edge>
     <edge id=":3_11" function="internal">
         <lane id=":3_11_0" index="0" allow="pedestrian passenger" speed="6.81" length="10.64" shape="890.17,557.29 889.89,553.94 888.87,551.60 887.11,550.27 884.61,549.95"/>
-    </edge>
-    <edge id=":3_12" function="internal">
-        <lane id=":3_12_0" index="0" allow="pedestrian passenger" speed="8.24" length="16.11" shape="893.37,557.37 892.90,552.51 891.26,549.12 888.43,547.20 884.41,546.76"/>
+        <lane id=":3_11_1" index="1" allow="pedestrian passenger" speed="8.24" length="16.11" shape="893.37,557.37 892.90,552.51 891.26,549.12 888.43,547.20 884.41,546.76"/>
     </edge>
     <edge id=":3_13" function="internal">
         <lane id=":3_13_0" index="0" allow="pedestrian passenger" speed="13.89" length="24.04" shape="893.37,557.37 894.00,549.29 895.11,542.84 896.13,537.70 896.52,533.56"/>
@@ -649,7 +647,7 @@ SPDX-License-Identifier: EPL-2.0
         <request index="0" response="00" foes="00" cont="0"/>
         <request index="1" response="00" foes="00" cont="0"/>
     </junction>
-    <junction id="3" type="priority" x="898.47" y="544.26" incLanes="-24_0 -24_1 -24_2 -27_0 -21_0 -21_1 -26_0 -26_1 -26_2" intLanes=":3_0_0 :3_1_0 :3_1_1 :3_15_0 :3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0 :3_8_1 :3_16_0 :3_11_0 :3_12_0 :3_13_0 :3_14_0" shape="907.55,552.72 905.41,536.87 903.19,536.72 902.41,536.27 901.83,535.57 901.47,534.61 901.32,533.41 894.92,533.61 893.76,536.17 892.24,537.13 890.09,537.88 887.31,538.43 883.91,538.77 884.71,551.55 886.92,552.07 887.67,552.85 888.20,553.97 888.50,555.44 888.57,557.26 901.37,557.55 902.09,555.23 902.96,554.34 904.16,553.63 905.69,553.09">
+    <junction id="3" type="priority" x="898.47" y="544.26" incLanes="-24_0 -24_1 -24_2 -27_0 -21_0 -21_1 -26_0 -26_1 -26_2" intLanes=":3_0_0 :3_1_0 :3_1_1 :3_15_0 :3_4_0 :3_5_0 :3_6_0 :3_7_0 :3_8_0 :3_8_1 :3_16_0 :3_11_0 :3_11_1 :3_13_0 :3_14_0" shape="907.55,552.72 905.41,536.87 903.19,536.72 902.41,536.27 901.83,535.57 901.47,534.61 901.32,533.41 894.92,533.61 893.76,536.17 892.24,537.13 890.09,537.88 887.31,538.43 883.91,538.77 884.71,551.55 886.92,552.07 887.67,552.85 888.20,553.97 888.50,555.44 888.57,557.26 901.37,557.55 902.09,555.23 902.96,554.34 904.16,553.63 905.69,553.09">
         <request index="0"  response="000000000000000" foes="000010000100000" cont="0"/>
         <request index="1"  response="000000000000000" foes="111110001100000" cont="0"/>
         <request index="2"  response="000000000000000" foes="111110001100000" cont="0"/>
@@ -760,7 +758,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from="-24" to="27" fromLane="2" toLane="0" via=":3_3_0" dir="l" state="m"/>
     <connection from="-25" to="25" fromLane="0" toLane="0" via=":12_0_0" dir="t" state="M"/>
     <connection from="-26" to="21" fromLane="0" toLane="0" via=":3_11_0" dir="r" state="m"/>
-    <connection from="-26" to="21" fromLane="1" toLane="1" via=":3_12_0" dir="r" state="m"/>
+    <connection from="-26" to="21" fromLane="1" toLane="1" via=":3_11_1" dir="r" state="m"/>
     <connection from="-26" to="27" fromLane="1" toLane="0" via=":3_13_0" dir="s" state="m"/>
     <connection from="-26" to="24" fromLane="2" toLane="1" via=":3_14_0" dir="l" state="m"/>
     <connection from="-27" to="24" fromLane="0" toLane="0" via=":3_4_0" dir="r" state="m"/>
@@ -886,7 +884,7 @@ SPDX-License-Identifier: EPL-2.0
     <connection from=":3_10" to="26" fromLane="0" toLane="0" via=":3_16_0" dir="l" state="m"/>
     <connection from=":3_16" to="26" fromLane="0" toLane="0" dir="l" state="M"/>
     <connection from=":3_11" to="21" fromLane="0" toLane="0" dir="r" state="M"/>
-    <connection from=":3_12" to="21" fromLane="0" toLane="1" dir="r" state="M"/>
+    <connection from=":3_11" to="21" fromLane="1" toLane="1" dir="r" state="M"/>
     <connection from=":3_13" to="27" fromLane="0" toLane="0" dir="s" state="M"/>
     <connection from=":3_14" to="24" fromLane="0" toLane="1" dir="l" state="M"/>
     <connection from=":4_0" to="13" fromLane="0" toLane="0" dir="r" state="M"/>
