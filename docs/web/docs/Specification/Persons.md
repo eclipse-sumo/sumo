@@ -46,7 +46,7 @@ Attributes such as `width`, `length`, `imgFile` and `color` are always used for 
 
 To define multiple persons with the same plan, the element `<personFlow>` can be used.
 It uses the same parameters and child elements as `<person>` except for the
-departure time. The id of the created persons is
+departure time. The ids of the created persons are
 "personFlowId.runningNumber" and they are distributed either equally or
 randomly in the given interval. The following additional parameters are
 known:
