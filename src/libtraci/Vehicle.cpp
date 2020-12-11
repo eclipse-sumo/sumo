@@ -274,7 +274,7 @@ Vehicle::getRoute(const std::string& vehicleID) {
 
 int
 Vehicle::getSignals(const std::string& vehicleID) {
-    return Dom::getInt(libsumo::VAR_SIGNALS, vehicleID) != 0;
+    return Dom::getInt(libsumo::VAR_SIGNALS, vehicleID);
 }
 
 
