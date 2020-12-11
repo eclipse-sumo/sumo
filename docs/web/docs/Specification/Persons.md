@@ -15,7 +15,7 @@ connected sequence of [ride](../Specification/Persons.md#rides),
 [stop](../Specification/Persons.md#stops) elements as described
 below. Each person must have at least one stage in its plan.
 
-```
+```xml
 <person id="foo" depart="0">
     <walk edges="a b c"/>
     <ride from="c" to="d" lines="busline1"/>
@@ -51,24 +51,26 @@ departure time. The id of the created persons is
 randomly in the given interval. The following additional parameters are
 known:
 
-| Attribute Name | Value Type     | Description                                                                                          |
-| -------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
-| begin          | float(s)       | first person departure time                                                                          |
-| end            | float(s)       | end of departure interval (if undefined, defaults to 24 hours)                                       |
-| personsPerHour | float(\#/h)    | number of persons per hour, equally spaced (not together with period or probability)                 |
-| period         | float(s)       | insert equally spaced persons at that period (not together with personsPerHour or probability)       |
-| probability    | float(\[0,1\]) | probability for emitting a person each second (not together with personsPerHour or period), see also [Simulation/Randomness](../Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
-| number         | int(\#)        | total number of persons, equally spaced                                                              |
+| Attribute Name  | Value Type     | Description                                                                                          |
+| --------------- | -------------- | ---------------------------------------------------------------------------------------------------- |
+| begin           | float(s)       | first person departure time                                                                          |
+| end             | float(s)       | end of departure interval (if undefined, defaults to 24 hours)                                       |
+| personsPerHour* _or_ perHour* | float(\#/h) | number of persons per hour, equally spaced                                                |
+| period*         | float(s)       | insert equally spaced persons at that period                                                         |
+| probability*    | float(\[0,1\]) | probability for emitting a person each second, see also [Simulation/Randomness](../Simulation/Randomness.md#flows_with_a_random_number_of_vehicles) |
+| number*         | int(\#)        | total number of persons, equally spaced                                                              |
+
+\*: Only one of these attributes is allowed.
 
 ## Examples
 
-```
+```xml
    <personFlow id="p" begin="0" end="10" period="2">
        <walk from="beg" to="end"/>
    </personFlow>
 ```
 
-```
+```xml
    <personFlow id="person" begin="0" end="1" number="4" departPos="80">
        <walk from="2/3to1/3" to="1/3to0/3" arrivalPos="55"/>
        <ride from="1/3to0/3" to="0/4to1/4" lines="train0"/>
@@ -142,9 +144,9 @@ They are child elements of plan definitions.
 | from       | string     | valid edge ids     | \-      | id of the start edge  (optional, if it is a subsequent movement)                |
 | to         | string     | valid edge ids     | \-      | id of the destination edge                                                      |
 | busStop    | string     | valid bus stop ids | \-      | id of the destination stop                                                      |
-| duration   | float(s)   | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
-| speed      | float(m/s) | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
-| departPos  | float(m)   |                    | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
+| _duration_ | float(s)   | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
+| _speed_    | float(m/s) | \>0                | \-      | (deprecated, determined by the person type and the pedestrian dynamics)         |
+| _departPos_| float(m)   |                    | 0       | initial position on the starting edge (deprecated, determined by the departPos of the person or the arrival pos of the previous step) |
 | arrivalPos | float(m)   |                    | \-1     | arrival position on the destination edge                                        |
 
 You can define either a `route`-id, or a list of `edges` to travel or a `from` and a `to` edge.
@@ -207,7 +209,7 @@ vehicles](../Definition_of_Vehicles,_Vehicle_Types,_and_Routes.md#s_vehicles_dep
 
 ## Stopping
 
-The person stops for the maximum of *currentTime+duration* and *until*.
+The person stops for the maximum of `currentTime` + `duration` and `until`.
 
 # Router input
 The following definitions can be processed with [duarouter](../duarouter.md) and [sumo](../sumo.md).
@@ -249,7 +251,7 @@ The following is an example for a person who walks to a train station,
 rides the train, alights and walks for a bit, then stops for an activity
 and finally gets into a car and drives away.
 
-```
+```xml
 <routes>
     <person id="person0" depart="0">
         <walk from="2/3to1/3" to="1/3to0/3" departPos="80" arrivalPos="55"/>
@@ -278,7 +280,7 @@ and you can use bus stops as destinations. For trains the busStops
 should have access lanes. The movement of person0 in the example above
 could also be written as
 
-```
+```xml
 <person id="person0" depart="0">
     <walk from="2/3to1/3" busStop="busStop0" departPos="80" arrivalPos="55"/>
     <ride busStop="busStop1" lines="train0"/>
