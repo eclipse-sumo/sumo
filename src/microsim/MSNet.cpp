@@ -464,6 +464,14 @@ MSNet::generateStatistics(SUMOTime start) {
                 msg << " Jammed: " << myPersonControl->getJammedNumber() << "\n";
             }
         }
+		if (myContainerControl != nullptr && myContainerControl->getLoadedNumber() > 0) {
+			msg << "Containers: " << "\n"
+				<< " Inserted: " << myContainerControl->getLoadedNumber() << "\n"
+				<< " Running: " << myContainerControl->getRunningNumber() << "\n";
+			if (myContainerControl->getJammedNumber() > 0) {
+				msg << " Jammed: " << myContainerControl->getJammedNumber() << "\n";
+			}
+		}
     }
     if (OptionsCont::getOptions().getBool("duration-log.statistics")) {
         msg << MSDevice_Tripinfo::printStatistics();
