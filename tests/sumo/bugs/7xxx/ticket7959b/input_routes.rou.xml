@@ -42,9 +42,9 @@
 -->
 
 <routes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://sumo.dlr.de/xsd/routes_file.xsd">
-    <vType id="bus" vClass="bus" speedDev="0"/>
+    <vType id="bus" vClass="bus"/>
+    <trip id="vehicle_0" type="bus" depart="0.00" from="WC" to="CS" departSpeed="max"/>
     <person id="person_0" depart="0.00">
         <personTrip from="CE" to="WC"/>
     </person>
-    <trip id="vehicle_0" type="bus" depart="1.00" from="WC" to="CS" departSpeed="max"/>
 </routes>
