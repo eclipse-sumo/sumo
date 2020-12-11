@@ -45,7 +45,7 @@ Calibrator::getIDCount() {
 
 std::string
 Calibrator::getEdgeID(const std::string& calibratorID) {
-    return Dom::getString(libsumo::LANE_EDGE_ID, calibratorID);
+    return Dom::getString(libsumo::VAR_ROAD_ID, calibratorID);
 }
 
 std::string
@@ -112,12 +112,27 @@ Calibrator::getRemoved(const std::string& calibratorID) {
 LIBTRACI_PARAMETER_IMPLEMENTATION(Calibrator, CALIBRATOR)
 
 void
-Calibrator::setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed, const std::string& typeID,
-    const std::string& routeID,
-    const std::string& departLane,
-    const std::string& departSpeed) {
+Calibrator::setFlow(const std::string& calibratorID, double begin, double end, double vehsPerHour, double speed,
+                    const std::string& typeID, const std::string& routeID, const std::string& departLane, const std::string& departSpeed) {
     tcpip::Storage content;
-    // TODO
+    content.writeUnsignedByte(libsumo::TYPE_COMPOUND);
+    content.writeInt(8);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(begin);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(end);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(vehsPerHour);
+    content.writeByte(libsumo::TYPE_DOUBLE);
+    content.writeDouble(speed);
+    content.writeByte(libsumo::TYPE_STRING);
+    content.writeString(typeID);
+    content.writeByte(libsumo::TYPE_STRING);
+    content.writeString(routeID);
+    content.writeByte(libsumo::TYPE_STRING);
+    content.writeString(departLane);
+    content.writeByte(libsumo::TYPE_STRING);
+    content.writeString(departSpeed);
     Dom::set(libsumo::CMD_SET_FLOW, calibratorID, &content);
 }
 

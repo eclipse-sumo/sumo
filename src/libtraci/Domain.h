@@ -22,6 +22,7 @@
 /****************************************************************************/
 #pragma once
 // we do not include config.h here, since we should be independent of a special sumo build
+#include <cassert>
 #include <vector>
 #include <limits>
 #include <map>
@@ -105,6 +106,39 @@ namespace libtraci {
 template<int GET, int SET>
 class Domain {
 public:
+    static int readTypedInt(tcpip::Storage& ret) {
+        const int type = ret.readUnsignedByte();
+        assert(type == libsumo::TYPE_INTEGER);
+        return ret.readInt();
+    }
+
+    static double readTypedDouble(tcpip::Storage& ret) {
+        const int type = ret.readUnsignedByte();
+        assert(type == libsumo::TYPE_DOUBLE);
+        return ret.readDouble();
+    }
+
+    static std::string readTypedString(tcpip::Storage& ret) {
+        const int type = ret.readUnsignedByte();
+        assert(type == libsumo::TYPE_STRING);
+        return ret.readString();
+    }
+
+    static std::vector<std::string> readTypedStringList(tcpip::Storage& ret) {
+        const int type = ret.readUnsignedByte();
+        assert(type == libsumo::TYPE_STRINGLIST);
+        return ret.readStringList();
+    }
+
+    static int readCompound(tcpip::Storage& ret, int expectedSize=-1) {
+        const int type = ret.readUnsignedByte();
+        assert(type == libsumo::TYPE_STRINGLIST);
+        const int size = ret.readInt();
+        assert(expectedSize == -1 || size == expectedSize);
+        return size;
+    }
+
+
     static tcpip::Storage& get(int var, const std::string& id, tcpip::Storage* add = nullptr, int expectedType = libsumo::TYPE_COMPOUND) {
         tcpip::Storage& result = libtraci::Connection::getActive().doCommand(GET, var, id, add);
         libtraci::Connection::getActive().check_commandGetResult(result, GET, expectedType);
@@ -183,44 +217,19 @@ public:
         tcpip::Storage& result = get(var, id, add);
         libsumo::TraCIStage s;
         result.readInt(); // components
-        result.readUnsignedByte();
-        s.type = result.readInt();
-
-        result.readUnsignedByte();
-        s.vType = result.readString();
-
-        result.readUnsignedByte();
-        s.line = result.readString();
-
-        result.readUnsignedByte();
-        s.destStop = result.readString();
-
-        result.readUnsignedByte();
+        s.type = readTypedInt(result);
+        s.vType = readTypedString(result);
+        s.line = readTypedString(result);
+        s.destStop = readTypedString(result);
         s.edges = result.readStringList();
-
-        result.readUnsignedByte();
-        s.travelTime = result.readDouble();
-
-        result.readUnsignedByte();
-        s.cost = result.readDouble();
-
-        result.readUnsignedByte();
-        s.length = result.readDouble();
-
-        result.readUnsignedByte();
-        s.intended = result.readString();
-
-        result.readUnsignedByte();
-        s.depart = result.readDouble();
-
-        result.readUnsignedByte();
-        s.departPos = result.readDouble();
-
-        result.readUnsignedByte();
-        s.arrivalPos = result.readDouble();
-
-        result.readUnsignedByte();
-        s.description = result.readString();
+        s.travelTime = readTypedDouble(result);
+        s.cost = readTypedDouble(result);
+        s.length = readTypedDouble(result);
+        s.intended = readTypedString(result);
+        s.depart = readTypedDouble(result);
+        s.departPos = readTypedDouble(result);
+        s.arrivalPos = readTypedDouble(result);
+        s.description = readTypedString(result);
         return s;
     }
 
