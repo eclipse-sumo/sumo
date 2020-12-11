@@ -1594,7 +1594,7 @@ private:
     void restoreRestrictedLane(SUMOVehicleClass vclass, std::vector<NBEdge::Lane> oldLanes, PositionVector oldGeometry, std::vector<NBEdge::Connection> oldConnections);
 
     /// @brief assign length to all lanes of an internal edge
-    void assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum);
+    void assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum, bool averageLength);
 
 private:
     /** @brief The building step

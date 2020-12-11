@@ -1571,6 +1571,7 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
     int numLanes = 0; // number of lanes that share the same edge
     double lengthSum = 0; // total shape length of all lanes that share the same edge
     int avoidedIntersectingLeftOriginLane = std::numeric_limits<int>::max();
+    bool averageLength = true;
     for (std::vector<Connection>::iterator i = myConnections.begin(); i != myConnections.end(); ++i) {
         Connection& con = *i;
         con.haveVia = false; // reset first since this may be called multiple times
@@ -1580,18 +1581,18 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
         LinkDirection dir = n.getDirection(this, con.toEdge);
         const bool isRightTurn = (dir == LinkDirection::RIGHT || dir == LinkDirection::PARTRIGHT);
         const bool isTurn = (isRightTurn || dir == LinkDirection::LEFT || dir == LinkDirection::PARTLEFT);
-
         // put turning internal lanes on separate edges
-        if (con.toEdge != toEdge || (isTurn && !joinTurns)) {
+        if (con.toEdge != toEdge) {
             // skip indices to keep some correspondence between edge ids and link indices:
             // internalEdgeIndex + internalLaneIndex = linkIndex
             edgeIndex = linkIndex;
             toEdge = (*i).toEdge;
             internalLaneIndex = 0;
-            assignInternalLaneLength(i, numLanes, lengthSum);
+            assignInternalLaneLength(i, numLanes, lengthSum, averageLength);
             numLanes = 0;
             lengthSum = 0;
         }
+        averageLength = !isTurn || joinTurns; // legacy behavior
         SVCPermissions conPermissions = getPermissions(con.fromLane) & con.toEdge->getPermissions(con.toLane);
         int shapeFlag = (conPermissions & ~SVC_PEDESTRIAN) != 0 ? 0 : NBNode::SCURVE_IGNORE;
         PositionVector shape = n.computeInternalLaneShape(this, con, numPoints, myTo, shapeFlag);
@@ -1837,12 +1838,12 @@ NBEdge::buildInnerEdges(const NBNode& n, int noInternalNoSplits, int& linkIndex,
             lengthSum += con.shape.length();
         }
     }
-    assignInternalLaneLength(myConnections.end(), numLanes, lengthSum);
+    assignInternalLaneLength(myConnections.end(), numLanes, lengthSum, averageLength);
 }
 
 
 void
-NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum) {
+NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLanes, double lengthSum, bool averageLength) {
     // assign average length to all lanes of the same internal edge
     // @note the actual length should be used once sumo supports lanes of
     // varying length within the same edge
@@ -1851,7 +1852,11 @@ NBEdge::assignInternalLaneLength(std::vector<Connection>::iterator i, int numLan
         //std::cout << " con=" << (*(i - prevIndex)).getDescription(this) << " numLanes=" << numLanes << " avgLength=" << lengthSum / numLanes << "\n";
         Connection& c = (*(i - prevIndex));
         const double minLength = c.customLength != UNSPECIFIED_LOADED_LENGTH ? pow(10, -gPrecision) : POSITION_EPS;
-        c.length = MAX2(minLength, lengthSum / numLanes);
+        if (averageLength) {
+            c.length = MAX2(minLength, lengthSum / numLanes);
+        } else {
+            c.length = MAX2(minLength, c.shape.length());
+        }
         if (c.haveVia) {
             c.viaLength = c.viaShape.length();
             if (c.customLength != UNSPECIFIED_LOADED_LENGTH) {
