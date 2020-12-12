@@ -543,6 +543,7 @@ GNETLSEditorFrame::onCmdPhaseCreate(FXObject*, FXSelector, void*) {
     myEditedDef->getLogic()->addStep(duration, state, std::vector<int>(), "", newIndex);
     myTLSPhases->getPhaseTable()->setCurrentItem(newIndex, 0);
     myTLSPhases->initPhaseTable(newIndex);
+    myTLSPhases->updateCycleDuration();
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
 }
@@ -554,6 +555,7 @@ GNETLSEditorFrame::onCmdPhaseDelete(FXObject*, FXSelector, void*) {
     const int newRow = MAX2((int)0, (int)myTLSPhases->getPhaseTable()->getCurrentRow() - 1);
     myEditedDef->getLogic()->deletePhase(myTLSPhases->getPhaseTable()->getCurrentRow());
     myTLSPhases->initPhaseTable(newRow);
+    myTLSPhases->updateCycleDuration();
     myTLSPhases->getPhaseTable()->setFocus();
     return 1;
 }
