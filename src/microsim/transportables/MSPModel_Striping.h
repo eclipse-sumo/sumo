@@ -372,13 +372,14 @@ protected:
 
     class PStateVehicle : public PState {
     public:
-        PStateVehicle(const MSVehicle* veh, const MSLane* walkingarea, double relX, double relY);
+        PStateVehicle(const MSVehicle* veh, const MSLane* walkingarea, double relX, double relY, double xWidth);
         const std::string& getID() const;
         double getMinX(const bool includeMinGap = true) const;
         double getMaxX(const bool includeMinGap = true) const;
         double getWidth() const;
     private:
         const MSVehicle* myVehicle;
+        const double myXWidth;
     };
 
 
@@ -494,7 +495,7 @@ private:
 
     static bool usingInternalLanesStatic();
 
-    static bool addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double lateral_offset,
+    static bool addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double xWidth, double lateral_offset,
                               double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds);
 
 private:

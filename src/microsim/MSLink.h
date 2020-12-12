@@ -587,6 +587,9 @@ private:
     /// @brief check for persons on walkingarea in the path of ego vehicle
     void checkWalkingAreaFoe(const MSVehicle* ego, const MSLane* foeLane, std::vector<const MSPerson*>* collectBlockers, LinkLeaders& result) const;
 
+    /// @brief whether the given person is in front of the car
+    bool isInFront(const MSVehicle* ego, const PositionVector& egoPath, const MSPerson* p) const;
+
     bool blockedByFoe(const SUMOVehicle* veh, const ApproachingVehicleInformation& avi,
                       SUMOTime arrivalTime, SUMOTime leaveTime, double arrivalSpeed, double leaveSpeed,
                       bool sameTargetLane, double impatience, double decel, SUMOTime waitingTime,

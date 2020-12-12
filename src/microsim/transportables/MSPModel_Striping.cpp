@@ -893,7 +893,7 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                     paths.insert(p->myWalkingAreaPath);
                     if DEBUGCOND(*p) {
                         debugPath = p->myWalkingAreaPath;
-                        std::cout << SIMTIME << " debugging WalkingAreaPath from=" << debugPath->from->getID() << " to=" << debugPath->to->getID() << "\n";
+                        std::cout << SIMTIME << " debugging WalkingAreaPath from=" << debugPath->from->getID() << " to=" << debugPath->to->getID() << " minY=" << minY << " maxY=" << maxY << " latOffset=" << lateral_offset << "\n";
                     }
                 }
             }
@@ -957,17 +957,54 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
                     for (const MSLane* foeLane : itFoe->second) {
                         for (auto itVeh = foeLane->anyVehiclesBegin(); itVeh != foeLane->anyVehiclesEnd(); ++itVeh) {
                             const MSVehicle* veh = *itVeh;
-                            const Position relPos = path->shape.transformToVectorCoordinates(veh->getPosition());
-                            const Position relPos2 = path->shape.transformToVectorCoordinates(veh->getBackPosition());
-                            //std::cout << " pos=" << veh->getPosition() << " back=" << veh->getBackPosition() << " relPos=" << relPos << " relPos2=" << relPos2 << " shape=" << path->shape << "\n";
-                            if (addVehicleFoe(veh, lane, relPos, lateral_offset, minY, maxY, toDelete, transformedPeds)
-                                    && addVehicleFoe(veh, lane, relPos2, lateral_offset, minY, maxY, toDelete, transformedPeds)) {
+                            Position relPos = path->shape.transformToVectorCoordinates(veh->getPosition());
+                            Position relPos2 = path->shape.transformToVectorCoordinates(veh->getBackPosition());
+
+                            const double centerX = (relPos.x() + relPos2.x()) / 2;
+                            const double shapeAngle = path->shape.rotationAtOffset(centerX);
+                            // 0 means car is at 90 degree angle
+                            double angleDiff = fabs(GeomHelper::angleDiff(veh->getAngle(), shapeAngle + M_PI / 2));
+                            if (angleDiff > M_PI / 2) {
+                                angleDiff = M_PI - angleDiff;
+                            }
+                            double xWidth; // extend of car in x direction (= carWidth at 90 degrees)
+                            const double b = tan(angleDiff) * veh->getVehicleType().getWidth();
+                            if (b <= veh->getVehicleType().getLength()) {
+                                const double a = veh->getVehicleType().getWidth();
+                                xWidth = sqrt(a*a + b*b);
+                            } else {
+                                // XXX actually xWidth shrints towards car length while angleDiff approachess 90
+                                xWidth = veh->getVehicleType().getLength();
+                            }
+                            // distort y to account for angleDiff
+                            const double correctY = sin(angleDiff) * veh->getVehicleType().getWidth() / 2; // + 0.5 * SAFETY_GAP;
+                            relPos.setx(centerX);
+                            relPos2.setx(centerX);
+                            if (relPos.y() < relPos2.y()) {
+                                relPos.sety(relPos.y() - correctY);
+                                relPos2.sety(relPos2.y() + correctY);
+                            } else {
+                                relPos.sety(relPos.y() + correctY);
+                                relPos2.sety(relPos2.y() - correctY);
+                            }
+                            const bool addFront = addVehicleFoe(veh, lane, relPos, xWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
+                            const bool addBack = addVehicleFoe(veh, lane, relPos2, xWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
+                            if (path == debugPath) {
+                                std::cout << "  veh=" << veh->getID()
+                                    << " pos=" << veh->getPosition() << " back=" << veh->getBackPosition()
+                                    << " vehAngle=" << RAD2DEG(veh->getAngle())
+                                    << " shapeAngle=" << RAD2DEG(shapeAngle)
+                                    << " angleDiff=" << RAD2DEG(angleDiff) << " xWidth=" << xWidth
+                                    << " correctY=" << correctY
+                                    << " vecCoord=" << relPos << " vecCoordBack=" << relPos2 << "\n";
+                            }
+                            if (addFront && addBack) {
                                 // add in-between positions
                                 const double length = veh->getVehicleType().getLength();
                                 for (double dist = stripeWidth; dist < length; dist += stripeWidth) {
                                     const double relDist = dist / length;
                                     Position between = (relPos * relDist) + (relPos2 * (1 - relDist));
-                                    addVehicleFoe(veh, lane, between, lateral_offset, minY, maxY, toDelete, transformedPeds);
+                                    addVehicleFoe(veh, lane, between, xWidth, lateral_offset, minY, maxY, toDelete, transformedPeds);
                                 }
                             }
                         }
@@ -989,12 +1026,12 @@ MSPModel_Striping::moveInDirection(SUMOTime currentTime, std::set<MSPerson*>& ch
 
 
 bool
-MSPModel_Striping::addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double lateral_offset,
+MSPModel_Striping::addVehicleFoe(const MSVehicle* veh, const MSLane* walkingarea, const Position& relPos, double xWidth, double lateral_offset,
                                  double minY, double maxY, Pedestrians& toDelete, Pedestrians& transformedPeds) {
     if (relPos != Position::INVALID) {
         const double newY = relPos.y() + lateral_offset;
         if (newY >= minY && newY <= maxY) {
-            PState* tp = new PStateVehicle(veh, walkingarea, relPos.x(), newY);
+            PState* tp = new PStateVehicle(veh, walkingarea, relPos.x(), newY, xWidth);
             //std::cout << SIMTIME << " addVehicleFoe=" << veh->getID() << " rx=" << relPos.x() << " ry=" << newY << " s=" << tp->stripe() << " o=" << tp->otherStripe() << "\n";
             toDelete.push_back(tp);
             transformedPeds.push_back(tp);
@@ -1707,9 +1744,6 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
         const double walkDist = MAX2(0., distance[i]); // disregard special distance flags
         const double lookAhead = obs[i].speed * myDir >= 0 ? LOOKAHEAD_SAMEDIR : LOOKAHEAD_ONCOMING;
         const double expectedDist = MIN2(vMax * LOOKAHEAD_SAMEDIR, walkDist + obs[i].speed * myDir * lookAhead);
-        if (DEBUGCOND(*this)) {
-            std::cout << " util=" << utility[i] << " exp=" << expectedDist << " dist=" << distance[i] << "\n";
-        }
         if (expectedDist >= 0) {
             utility[i] += expectedDist;
         } else {
@@ -1838,10 +1872,29 @@ MSPModel_Striping::PState::walk(const Obstacles& obs, SUMOTime currentTime) {
                   << " vMax=" << myStage->getMaxSpeed(myPerson)
                   << " wTime=" << myStage->getWaitingTime(currentTime)
                   << " jammed=" << myAmJammed
-                  << "\n   distance=" << toString(distance)
-                  << "\n   utility=" << toString(utility)
                   << "\n";
-        DEBUG_PRINT(obs);
+        if (DEBUGCOND(*this)) {
+            for (int i = 0; i < stripes; ++i) {
+                const Obstacle& o = obs[i];
+                std::cout << " util=" << utility[i] << " dist=" << distance[i] << " o=" << o.description;
+                if (o.description != "") {
+                    std::cout << " xF=" << o.xFwd << " xB=" << o.xBack << " v=" << o.speed;
+                }
+                if (i == current) {
+                    std::cout << " current";
+                }
+                if (i == other && i != current) {
+                    std::cout << " other";
+                }
+                if (i == chosen) {
+                    std::cout << " chosen";
+                }
+                if (i == next) {
+                    std::cout << " next";
+                }
+                std::cout << "\n";
+            }
+        }
     }
     myRelX += SPEED2DIST(xSpeed * myDir);
     myRelY += SPEED2DIST(ySpeed);
@@ -2174,8 +2227,8 @@ MSPModel_Striping::PState::isRemoteControlled() const {
 // MSPModel_Striping::PStateVehicle method definitions
 // ===========================================================================
 
-MSPModel_Striping::PStateVehicle::PStateVehicle(const MSVehicle* veh, const MSLane* walkingarea, double relX, double relY):
-    myVehicle(veh) {
+MSPModel_Striping::PStateVehicle::PStateVehicle(const MSVehicle* veh, const MSLane* walkingarea, double relX, double relY, double xWidth):
+    myVehicle(veh), myXWidth(xWidth) {
     myLane = walkingarea; // to ensure correct limits when calling otherStripe()
     myRelX = relX;
     myRelY = relY;
@@ -2188,17 +2241,17 @@ MSPModel_Striping::PStateVehicle::getID() const {
 
 double
 MSPModel_Striping::PStateVehicle::getWidth() const {
-    return myVehicle->getVehicleType().getWidth();
+    return myXWidth;
 }
 
 double
 MSPModel_Striping::PStateVehicle::getMinX(const bool /*includeMinGap*/) const {
-    return myRelX - myVehicle->getVehicleType().getWidth() / 2 - SAFETY_GAP ;
+    return myRelX - myXWidth / 2 - SAFETY_GAP ;
 }
 
 double
 MSPModel_Striping::PStateVehicle::getMaxX(const bool /*includeMinGap*/) const {
-    return myRelX + myVehicle->getVehicleType().getWidth() / 2 + SAFETY_GAP;
+    return myRelX + myXWidth / 2 + SAFETY_GAP;
 }
 
 // ===========================================================================
