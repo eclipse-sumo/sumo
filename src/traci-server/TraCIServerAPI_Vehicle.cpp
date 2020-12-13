@@ -707,11 +707,9 @@ TraCIServerAPI_Vehicle::processSet(TraCIServer& server, tcpip::Storage& inputSto
                     if (changeRate <= 0) {
                         return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The value for the change rate must be positive for the openGap command", outputStorage);
                     }
-                    if (maxDecel <= 0) {
-                        if (maxDecel != -1) {
-                            return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The value for the maximal braking rate must be positive for the openGap command", outputStorage);
-                        } // else if == -1: don't limit cf model's suggested brake rate, see libsumo::Vehicle::openGap
-                    }
+                    if (maxDecel <= 0 && maxDecel != -1 && maxDecel != libsumo::INVALID_DOUBLE_VALUE) {
+                        return server.writeErrorStatusCmd(libsumo::CMD_SET_VEHICLE_VARIABLE, "The value for the maximal braking rate must be positive for the openGap command", outputStorage);
+                    } // else if <= 0: don't limit cf model's suggested brake rate, see libsumo::Vehicle::openGap
                     std::string refVehID = "";
                     if (nParameter == 6) {
                         if (!server.readTypeCheckingString(inputStorage, refVehID)) {

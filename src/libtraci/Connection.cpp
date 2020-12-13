@@ -431,6 +431,18 @@ Connection::readVariables(tcpip::Storage& inMsg, const std::string& objectID, in
                     into[objectID][variableID] = sl;
                 }
                 break;
+                case libsumo::TYPE_COMPOUND: {
+                    int n = inMsg.readInt();
+                    if (n == 2) {
+                        auto r = std::make_shared <libsumo::TraCIRoadPosition>();
+                        inMsg.readUnsignedByte();
+                        r->edgeID = inMsg.readString();
+                        inMsg.readUnsignedByte();
+                        r->pos = inMsg.readDouble();
+                        into[objectID][variableID] = r;
+                    }
+                }
+                break;
 
                 // TODO Other data types
 

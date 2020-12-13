@@ -1969,8 +1969,8 @@ LIBSUMO_SUBSCRIPTION_IMPLEMENTATION(Vehicle, VEHICLE)
 
 
 void
-Vehicle::subscribeLeader(const std::string& vehicleID, double dist, double beginTime, double endTime) {
-    Vehicle::subscribe(vehicleID, std::vector<int>({libsumo::VAR_LEADER}), beginTime, endTime);
+Vehicle::subscribeLeader(const std::string& vehicleID, double dist, double begin, double end) {
+    Vehicle::subscribe(vehicleID, std::vector<int>({libsumo::VAR_LEADER}), begin, end);
     Helper::addSubscriptionParam(dist);
 }
 

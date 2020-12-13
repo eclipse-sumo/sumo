@@ -1145,12 +1145,15 @@ Vehicle::dispatchTaxi(const std::string& vehicleID,  const std::vector<std::stri
 
 
 void
-Vehicle::subscribeLeader(const std::string& vehicleID, double dist, double beginTime, double endTime) {
+Vehicle::subscribeLeader(const std::string& vehicleID, double dist, double begin, double end) {
+    subscribe(vehicleID, std::vector<int>({ libsumo::VAR_LEADER }), begin, end,
+              libsumo::TraCIResults({ {libsumo::VAR_LEADER, std::make_shared<libsumo::TraCIDouble>(dist)} }));
 }
 
 
 void
 Vehicle::addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposite, double downstreamDist, double upstreamDist) {
+    libtraci::Connection::getActive().createFilterCommand(libsumo::CMD_SUBSCRIBE_VEHICLE_VARIABLE, libsumo::FILTER_TYPE_LANES);
 }
 
 

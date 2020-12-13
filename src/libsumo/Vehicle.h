@@ -199,7 +199,7 @@ public:
 
     LIBSUMO_SUBSCRIPTION_API
 
-    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double beginTime = libsumo::INVALID_DOUBLE_VALUE, double endTime = libsumo::INVALID_DOUBLE_VALUE);
+    static void subscribeLeader(const std::string& vehicleID, double dist = 0., double begin = libsumo::INVALID_DOUBLE_VALUE, double end = libsumo::INVALID_DOUBLE_VALUE);
 
     static void addSubscriptionFilterLanes(const std::vector<int>& lanes, bool noOpposite = false, double downstreamDist = libsumo::INVALID_DOUBLE_VALUE, double upstreamDist = libsumo::INVALID_DOUBLE_VALUE);
 

@@ -324,6 +324,16 @@ static PyObject* parseSubscriptionMap(const std::map<int, std::shared_ptr<libsum
 
 %exceptionclass libsumo::TraCIException;
 
+%pythonprepend libsumo::Vehicle::add(const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
+                                     const std::string&, const std::string&, const std::string&, const std::string&, const std::string&,
+                                     const std::string&, const std::string&, const std::string&, int, int) %{
+    for i, a in enumerate(args[:13]):
+        args[i] = str(a)
+    for key, val in kwargs.items():
+        if key not in ("personCapacity", "personNumber"):
+            kwargs[key] = str(val)
+%}
+
 %pythonappend libsumo::Vehicle::getLeader(const std::string&, double) %{
     if val[0] == "" and vehicle._legacyGetLeader:
         return None

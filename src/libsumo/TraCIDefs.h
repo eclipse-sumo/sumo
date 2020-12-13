@@ -228,6 +228,12 @@ struct TraCIDouble : TraCIResult {
         os << value;
         return os.str();
     }
+    const std::vector<unsigned char> toPacket() const {
+        std::vector<unsigned char> dest(sizeof(value) + 1);
+        dest[0] = (unsigned char)libsumo::TYPE_DOUBLE;
+        std::memcpy(dest.data() + 1, &value, sizeof(value));
+        return dest;
+    }
     double value;
 };
 
