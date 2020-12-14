@@ -16,6 +16,9 @@ approachInformation
 # test dynamics on internal lanes
 internalLanes
 
+# test stopping position at internal junction
+internalJunction
+
 # tests for ignoring keepClear rules
 ignoreKeepClear
 driveAfterRedTime
