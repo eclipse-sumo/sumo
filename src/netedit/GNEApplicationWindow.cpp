@@ -2366,6 +2366,7 @@ GNEApplicationWindow::onCmdSaveTLSProgramsAs(FXObject*, FXSelector, void*) {
     // check tat file is valid
     if (fileWithExtension != "") {
         // change value of "TLSPrograms-files"
+        OptionsCont::getOptions().resetWritable();
         OptionsCont::getOptions().set("TLSPrograms-output", fileWithExtension);
         // save TLS Programs
         return onCmdSaveTLSPrograms(nullptr, 0, nullptr);
