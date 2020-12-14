@@ -584,7 +584,7 @@ NBOwnTLDef::computeLogicAndConts(int brakingTimeSeconds, bool onlyConts) {
                 for (int i1 = 0; i1 < pos; ++i1) {
                     if (mixedGreen[i1]) {
                         // patch previous yellow and allred phase
-                        int yellowIndex = logic->getPhases().size() - 1;
+                        int yellowIndex = (int)logic->getPhases().size() - 1;
                         if (allRedTime > 0) {
                             logic->setPhaseState(yellowIndex--, i1, LINKSTATE_TL_RED);
                         }
