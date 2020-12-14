@@ -30,6 +30,7 @@
 #include <stdexcept>
 #include <sstream>
 #include <memory>
+#include <cstring>
 
 
 // ===========================================================================
